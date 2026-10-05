@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-def render(root, output):
+def render(root, output, single_panel_bottom=.18, sparse_short_axes=False):
     import numpy as np
     import matplotlib
     matplotlib.use('Agg')
@@ -48,12 +48,17 @@ def render(root, output):
                 ax.set_xlim(lo[0] - pad[0], hi[0] + pad[0]); ax.set_ylim(lo[1] - pad[1], hi[1] + pad[1]); ax.set_zlim(lo[2] - pad[2], hi[2] + pad[2]); ax.set_box_aspect(extent)
                 ax.view_init(elev=20, azim=azimuth); ax.locator_params(nbins=3); ax.tick_params(labelsize=6)
                 ax.set_xlabel('Source X mm', fontsize=8); ax.set_ylabel('Source Y mm', fontsize=8); ax.set_zlabel('Source Z mm', fontsize=8)
+                if sparse_short_axes:
+                    for axis,short in enumerate(extent.max()/extent>8):
+                        if short:[ax.set_xticks,ax.set_yticks,ax.set_zticks][axis]([])
+                    ax.set_xlabel('\nSource X mm',fontsize=8)
+                    ax.set_zlabel('Source Z mm',fontsize=8,labelpad=30)
                 count = len(r['exact_position_analysis_topology']['components'])
                 ax.set_title(r['id']+f' | {len(f)} original triangles\n{count} components',fontsize=9)
                 panels.append({'element_id': r['id'], 'original_triangle_count': len(f), 'exact_position_components': count,
                     'source_bounds_mm': [lo.tolist(), hi.tolist()], 'source_positions_or_faces_changed': False})
             fig.suptitle(group['source_target_label']+' | version-manifest 4.3\nEvery original triangle; panel scales differ; no repair, fusion, registration or clinical approval', fontsize=11)
-            fig.subplots_adjust(left=.05, right=.95, bottom=.18 if rows==1 else .14, top=.73 if rows==1 else .85, hspace=.38, wspace=.18)
+            fig.subplots_adjust(left=.05, right=.95, bottom=single_panel_bottom if rows==1 else .14, top=.73 if rows==1 else .85, hspace=.38, wspace=.18)
             fig.text(.5, .015, 'BodyParts3D © 2008 DBCLS | CC BY-SA 2.1 Japan | adaptation: review lighting and original-source views', ha='center', fontsize=9)
             file = output / (group['source_fma']+'-original-source-azimuth' + str(azimuth) + '.png')
             fig.savefig(file, dpi=110); plt.close(fig)

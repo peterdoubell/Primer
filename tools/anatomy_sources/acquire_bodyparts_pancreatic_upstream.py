@@ -30,7 +30,7 @@ class Rows(HTMLParser):
         if tag=='tr' and self.row:self.rows.append(self.row)
 
 
-def select(manifest,html,targets=None):
+def select(manifest,html,targets=None,allow_mirrored_source_ids=False):
     targets=TARGETS if targets is None else targets
     if not targets:raise ValueError('No source targets selected')
     if '# Data Version\t4.3' not in manifest or '# Objects set\t4.3' not in manifest:
@@ -40,7 +40,8 @@ def select(manifest,html,targets=None):
         fields=line.split('\t')
         if len(fields)==3 and fields[0] in groups:
             ids=fields[2].split('+')
-            if any(not re.fullmatch(r'FJ[0-9]+',v) for v in ids):raise ValueError('Unsupported source element ID')
+            pattern=r'FJ[0-9]+M?' if allow_mirrored_source_ids else r'FJ[0-9]+'
+            if any(not re.fullmatch(pattern,v) for v in ids):raise ValueError('Unsupported source element ID')
             groups[fields[0]].update(ids)
     if any(not ids for ids in groups.values()):raise ValueError('Requested anatomy is absent from version manifest')
     parser=Rows();parser.feed(html)
@@ -67,9 +68,9 @@ def alternative_representations(html, selected):
     return result
 
 
-def acquire(root,targets=None,filename='pancreatic-source-4.3'):
+def acquire(root,targets=None,filename='pancreatic-source-4.3',allow_mirrored_source_ids=False):
     targets=TARGETS if targets is None else targets
-    groups,mapping=select((root/'FMA2Obj-4.3.txt').read_text(),(root/'obj2FMA-4.3.html').read_text(),targets)
+    groups,mapping=select((root/'FMA2Obj-4.3.txt').read_text(),(root/'obj2FMA-4.3.html').read_text(),targets,allow_mirrored_source_ids)
     partof_mapping=alternative_representations((root/'obj2FMA-partof-4.3.html').read_text(),mapping)
     jar=http.cookiejar.CookieJar();opener=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
     headers={'User-Agent':'Mozilla/5.0','Referer':'https://lifesciencedb.jp/bp3d/?lng=en'}
@@ -87,7 +88,8 @@ def acquire(root,targets=None,filename='pancreatic-source-4.3'):
     with zipfile.ZipFile(path) as archive:
         if archive.testzip() is not None:raise ValueError('Original archive CRC failed')
         for entry in archive.infolist():
-            match=re.match(r'(FJ[0-9]+)_(BP[0-9]+)_(FMA[0-9]+)_',Path(entry.filename).name)
+            pattern=r'(FJ[0-9]+M?)_(BP[0-9]+)_(FMA[0-9]+)_' if allow_mirrored_source_ids else r'(FJ[0-9]+)_(BP[0-9]+)_(FMA[0-9]+)_'
+            match=re.match(pattern,Path(entry.filename).name)
             if not match or match[1] not in mapping:unselected.append(entry.filename);continue
             fid,bp,fma=match.groups()
             candidates=[r for r in [mapping[fid]]+partof_mapping[fid] if r['representation_id']==bp and r['source_fma']==fma]
@@ -104,6 +106,7 @@ def acquire(root,targets=None,filename='pancreatic-source-4.3'):
                 raise ValueError('Original OBJ header identity differs')
             (objects/(fid+'.obj')).write_bytes(raw)
             records.append({**candidates[0], 'requested_is_a_representation_id':mapping[fid]['representation_id'],
+                            **({'mirrored_source_id':fid.endswith('M')} if allow_mirrored_source_ids else {}),
                             'returned_representation_matches_is_a':bp==mapping[fid]['representation_id'],
                             'returned_representation_matches_partof':any(bp==r['representation_id'] and fma==r['source_fma'] for r in partof_mapping[fid]),
                             'original_obj_header':header,'member':entry.filename,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
