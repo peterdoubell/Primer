@@ -26,11 +26,14 @@ def cell_faces(mask,spacing):
     return np.concatenate(rows),np.asarray(axes),np.concatenate(voxels),np.asarray(exterior)
 
 
-def closest_faces(points,centers,axes,spacing):
+def closest_faces(points,centers,axes,spacing,prepared=None):
     import numpy as np
     from scipy.spatial import cKDTree
-    tree=cKDTree(centers);half=np.tile(spacing*.5,(len(centers),1));half[np.arange(len(centers)),axes]=0
-    radius=float(np.linalg.norm(half,axis=1).max());_,initial=tree.query(points)
+    if prepared is None:
+        tree=cKDTree(centers);half=np.tile(spacing*.5,(len(centers),1));half[np.arange(len(centers)),axes]=0
+        radius=float(np.linalg.norm(half,axis=1).max())
+    else:tree,half,radius=prepared
+    _,initial=tree.query(points)
     upper=np.linalg.norm(np.maximum(np.abs(points-centers[initial])-half[initial],0),axis=1)
     all_ids=tree.query_ball_point(points,upper+radius+1e-10)
     rows=[]
