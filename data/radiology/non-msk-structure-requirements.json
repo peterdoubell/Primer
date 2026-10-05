@@ -82103,9 +82103,16 @@
           "url": "https://doi.org/10.1016/j.jacr.2025.02.018",
           "reviewed_at": "2026-10-05",
           "review_status": "primary_abstract_reviewed_narrative_fetch_blocked"
+        },
+        {
+          "title": "TCIA ExACT public consensus form: anatomy only, historical staging held",
+          "url": "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf",
+          "reviewed_at": "2026-10-05",
+          "review_status": "source_subregion_fields_and_conflicting_N_M_choices_reviewed",
+          "sha256": "7b0c3d5f8b7c2fc1ea3c431f64cfde979d8eedf09e24274b10de0ce79faee10e"
         }
       ],
-      "source_contract_sha256": "283092562e4bbef8f40fda0a09c1ddcea5f87461d95cf96d415fb7941caf51af",
+      "source_contract_sha256": "c38e3511cc73520ee3e6700077b6d627edf874124b8ae240d5e30fa61b500711",
       "reporting_checklist": [
         {
           "label": "Primary",
@@ -84395,6 +84402,1406 @@
             "purpose": "measurement_validation"
           },
           "requires_site_instantiation": true
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_internal_iliac_anterior",
+          "name": "Left Anterior internal-iliac nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_internal_iliac_anterior.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 4,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_lateral_sacral",
+          "name": "Left Lateral-sacral nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_lateral_sacral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 4,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_presacral",
+          "name": "Left Presacral nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_presacral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 4,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_external_iliac_lateral",
+          "name": "Left Lateral external-iliac nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_lateral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 8,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_external_iliac_medial",
+          "name": "Left Medial external-iliac nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_external_iliac_medial.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 8,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_common_iliac_lateral",
+          "name": "Left Lateral common-iliac nodal region when covered",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_lateral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 10,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_common_iliac_medial",
+          "name": "Left Medial common-iliac nodal region when covered",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_medial.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 10,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral",
+          "name": "Left Posterolateral common-iliac/lumbosacral-fossa region when covered",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_common_iliac_posterolateral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 10,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_inguinal_superficial",
+          "name": "Left Superficial inguinal nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_superficial.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 6,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_left_inguinal_deep",
+          "name": "Left Deep inguinal nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_left_inguinal_deep.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 6,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_internal_iliac_anterior",
+          "name": "Right Anterior internal-iliac nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_internal_iliac_anterior.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 4,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_lateral_sacral",
+          "name": "Right Lateral-sacral nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_lateral_sacral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 4,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_presacral",
+          "name": "Right Presacral nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_presacral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 4,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_external_iliac_lateral",
+          "name": "Right Lateral external-iliac nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_lateral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 8,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_external_iliac_medial",
+          "name": "Right Medial external-iliac nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_external_iliac_medial.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 8,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_common_iliac_lateral",
+          "name": "Right Lateral common-iliac nodal region when covered",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_lateral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 10,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_common_iliac_medial",
+          "name": "Right Medial common-iliac nodal region when covered",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_medial.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 10,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral",
+          "name": "Right Posterolateral common-iliac/lumbosacral-fossa region when covered",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_common_iliac_posterolateral.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 10,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_inguinal_superficial",
+          "name": "Right Superficial inguinal nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_superficial.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 6,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
+        },
+        {
+          "id": "anal_cancer.node_subregion_right_inguinal_deep",
+          "name": "Right Deep inguinal nodal region",
+          "tissue_class": "explicit_source_nodal_subregion_requires_anatomical_review",
+          "required_parts": [
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.nodal_bed_extent",
+              "name": "Source-resolved nodal-bed extent"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.named_vessel_interface",
+              "name": "Source-resolved named-vessel interface"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.each_actual_node",
+              "name": "Each actual node boundary"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.short_axis",
+              "name": "Short-axis measurement"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.shape",
+              "name": "Shape"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.border",
+              "name": "Border"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.internal_signal",
+              "name": "Internal signal"
+            },
+            {
+              "id": "anal_cancer.node_subregion_right_inguinal_deep.unresolved_subregion_or_field",
+              "name": "Unresolved subregion or field extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate every actual node and resolved bed/vessel interface in this source-specific subregion. Parent station names, a schematic locator, normal examples or the opposite side cannot supply complete node geometry. Preserve field limits and overlap with other named compartments; do not double-count a node or inherit historical N/M categories. Subregion boundaries and arterial correspondences need independent anatomical review.",
+          "requirement_basis": "effective_node_reporting_with_public_ExACT_anatomical_detail",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Nodes",
+              "detail": "Review mesorectal, internal iliac/obturator, external iliac and inguinal stations; describe nonregional nodes separately."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Extent",
+              "detail": "Assess cranial extension and the limits of MRI for distant staging."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://www.cancerimagingarchive.net/wp-content/uploads/Anal-Cancer-Staging-Consensus-Form.pdf"
+          ],
+          "source_document_page": 6,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "requires_site_instantiation": true,
+          "clinical_validation_status": "draft_requires_independent_nodal_anatomy_and_staging_review"
         }
       ],
       "expansion_rules": [
@@ -84408,7 +85815,11 @@
         "NCI PDQ presents AJCC8 tables; source-specific anal-margin/histology wording needs specialist reconciliation, not automatic inheritance of anal-canal staging.",
         "Dentate line is not assumed directly visible on MRI.",
         "No universal MRI node size rule is introduced; station, morphology and uncertainty remain explicit.",
-        "ACR narrative and complete SAR paper were not retrievable through web tool; abstract/search extracts are not claimed as full guideline review."
+        "ACR narrative and complete SAR paper were not retrievable through web tool; abstract/search extracts are not claimed as full guideline review.",
+        "The public ExACT form has historical N2/N3 and M2 options; these are not adopted as current TNM categories. Named edition and clinical review remain mandatory.",
+        "ExACT MRI/clinical datasets are currently unavailable under NIH controlled-access terms. Public form rights do not grant MRI or patient-data access.",
+        "The form combines superficial/deep inguinal fields and puts obturator in a posteromedial external-iliac field. Preserve the explicit subregions and unresolved grouping overlap without relabelling every source as anatomically equivalent.",
+        "The historical form uses an anterior sacral vessel label; actual presacral arterial terminology and correspondences remain unreconciled rather than inferred from its locator diagram."
       ],
       "functional_evidence_requirements": [
         "Greatest size requires complete acquired multiplanar boundaries and measurement calibration.",

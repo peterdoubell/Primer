@@ -21,7 +21,7 @@ def test_effective_report_layers_stations_and_conditional_sites_are_bound():
     validate_reporting_snapshots(data,{item['investigation_id']:ref['reporting']})
     assert item['source_contract_sha256']==digest({k:ref.get(k) for k in ('reporting','report_templates','walkthrough','reading')})
     leaves={r['id']:r for r in requirements_for(item)}
-    assert len(leaves)==215
+    assert len(leaves)==375
     for suffix in ['primary.complete_boundary','primary.greatest_dimension','anal_canal.dentate_line_limit',
                    'intersphincteric_plane.outer_interface','external_sphincter.lower_extent',
                    'right_puborectalis.covered_extent','left_levator_ani.covered_extent',
@@ -36,8 +36,8 @@ def test_effective_report_layers_stations_and_conditional_sites_are_bound():
         'investigation_ids':[item['investigation_id']],
         'structure_ids':['anal_cancer.primary','anal_cancer.external_sphincter']}]},
         expected_catalog_ids={item['investigation_id']})
-    assert result['representation_requirements']==645
-    assert result['counts']=={'verified':0,'unverified':0,'missing':645}
+    assert result['representation_requirements']==1125
+    assert result['counts']=={'verified':0,'unverified':0,'missing':1125}
 
 
 def test_source_context_cannot_borrow_normal_anatomy_side_or_systemic_coverage():
