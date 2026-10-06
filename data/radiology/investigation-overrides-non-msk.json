@@ -5909,8 +5909,8 @@
   "ra.thoracic-aorta-measurement": {
     "reporting": {
       "protocol": [
-        "Confirm aortic root or proximal ascending dilatation on ECG-gated cardiac CT angiography with slices of 1 mm or less; cardiac MRI is preferred in young patients and for long-term follow-up.",
-        "Measure the same levels with the same standardised method at every study; TTE follow-up is reasonable only when it agrees with CT and dilatation is moderate."
+        "Record the actual modality, coverage, ECG synchronisation, cardiac phase, reconstruction thickness and motion limitations; use appropriately synchronised cross-sectional imaging for root/proximal ascending measurements.",
+        "Measure named levels perpendicular to the local aortic axis. State the edge and root-axis conventions, preserve asymmetric dimensions and use comparable acquisition/planes for follow-up. Modality choice and follow-up require current clinical/local guidance."
       ],
       "checklist": [
         {
@@ -5941,30 +5941,30 @@
       "measurements": [
         {
           "name": "Aortic annulus",
-          "method": "Measure one slice below the lowest insertion points (nadirs) of all three cusps, seen together in one plane: the annular or hinge plane.",
-          "pitfall": "The last slice where the leaflets are still visible usually lies above the annular plane."
+          "method": "Identify the virtual basal/hinge plane from the actual cusp attachment nadirs in multiplanar imaging; measure the annular contour and orthogonal dimensions in the stated phase. Record variant anatomy and unresolved nadirs.",
+          "pitfall": "A fixed one-slice offset or the last visible leaflet is not a reproducible basal-plane definition; slice thickness, phase and cusp/valve morphology matter."
         },
         {
           "name": "Sinus of Valsalva",
-          "method": "At maximal sinus bulging, measure sinus-to-sinus between all three sinus pairs and report their average or the largest, naming the method.",
-          "pitfall": "Sinus-to-commissure is smaller and can underestimate the root; the three methods give different values."
+          "method": "Record the maximum sinus-to-sinus root diameter on the appropriate short-axis plane, with named edge convention and cardiac phase. Report multiple dimensions for an asymmetric root; retain any legacy average or alternative axis separately for comparison.",
+          "pitfall": "Sinus-to-commissure, mid/maximum sinus-to-sinus and averages are not interchangeable; an average must not silently replace the maximum root diameter."
         },
         {
           "name": "Thoracic aortic diameter",
-          "method": "Use a double-oblique plane perpendicular to the aortic long axis at each standard level.",
+          "method": "Use a plane perpendicular to the local aortic axis at every named level. For CT/MRI root and ascending assessment, record inner-edge measurements with ECG synchronisation; report outer-edge dimensions for abnormal thickened wall segments, retaining the actual convention.",
           "pitfall": "Axial slices cut the curved aorta obliquely and give elliptical, overestimated diameters."
         },
         {
           "name": "Interval change",
           "method": "Compare the same level on the prior study using the same modality and method; give the change in millimetres and the interval.",
-          "pitfall": "A 2 mm difference can move a patient into another follow-up or surgical category, so a change of method can mimic growth."
+          "pitfall": "Small differences can reflect acquisition, phase, edge or plane variability; record comparability and uncertainty before assigning growth or applying clinical thresholds."
         }
       ],
       "classification": null,
       "pitfalls": [
-        "Axial diameters of the oblique ascending aorta and arch overestimate the true cross-section; report double-oblique measurements.",
-        "Sinus-to-commissure, mid sinus-to-sinus and maximum sinus-to-sinus methods are not interchangeable between studies.",
-        "TTE measures leading edge to leading edge in end-diastole and cannot reliably include the posterior wall, so small discrepancies with CT are expected."
+        "Raw axial sections may obliquely sample a curved aorta; retain orthogonal plane/centreline and selected level.",
+        "Edge conventions, cardiac phase and root-axis/summary method are not interchangeable; preserve maximal and asymmetric dimensions.",
+        "TTE leading-edge and CT/MRI inner/outer-edge methods have different conventions; document the actual method and patient/reference framework rather than treating all values as equivalent."
       ],
       "impression_prompts": [
         "What is the maximal diameter, at which level and by which method?",
@@ -5977,11 +5977,11 @@
       "template_sections": [
         {
           "heading": "MEASUREMENT METHOD",
-          "body": "[ECG-gated CT angiography / cardiac MRI / non-gated CT]; slice thickness __ mm; double-oblique planes perpendicular to the centreline; sinus method [mid sinus-to-sinus / maximum sinus-to-sinus / sinus-to-commissure], [average / largest] reported."
+          "body": "Actual modality/coverage [ ]; ECG synchronisation [ ]; cardiac phase [ ]; reconstruction thickness [ ] mm; orthogonal plane/centreline method [ ]; edge convention [inner / outer / leading edge, by level]; root method [maximum sinus-to-sinus with asymmetric dimensions / other named comparison method]; quality/limits [ ]."
         },
         {
           "heading": "AORTIC ROOT",
-          "body": "Annulus __ × __ mm on the hinge plane; sinuses of Valsalva __ mm; sinotubular junction __ mm."
+          "body": "Annular basal-plane landmarks/phase [ ]; annular orthogonal dimensions [ ] × [ ] mm; maximum sinus-to-sinus [ ] mm, other asymmetric dimensions [ ]; separately named comparison average/axis if used [ ]; sinotubular junction [ ] mm; unresolved boundaries [ ]."
         },
         {
           "heading": "ASCENDING AORTA",
@@ -5997,13 +5997,17 @@
         },
         {
           "heading": "INTERVAL CHANGE",
-          "body": "Prior study [date, modality, method]; change at [level] __ mm over __ months; [measured the same way / method differs]."
+          "body": "Prior study [date, modality, phase, edge/axis/plane method]; comparable named level [ ]; current/prior dimensions [ ]/[ ] mm; interval [ ]; change [ ] mm with measurement/method limitations [ ]; unresolved comparison [ ]."
         }
       ],
       "sources": [
         {
           "title": "Thoracic Aorta - How to Measure",
           "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements"
+        },
+        {
+          "title": "ACC/AHA 2022 aortic disease measurement recommendations",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/"
         }
       ],
       "reviewed_at": "2026-09-25"

@@ -34,7 +34,8 @@
       "ra.abdominal-wall-hernias",
       "ra.mri-anal-cancer",
       "ra.aortic-aneurysm-rupture",
-      "ra.ct-acute-aortic-syndrome"
+      "ra.ct-acute-aortic-syndrome",
+      "ra.thoracic-aorta-measurement"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -97071,6 +97072,2956 @@
         "Calibrated sizes require original source, orthogonal planes and named measurement convention.",
         "Malperfusion, valve dysfunction and haemodynamic consequences require actual imaging plus appropriate clinical/functional evidence.",
         "Suspected acute aortic syndrome, rupture or branch malperfusion requires immediate communication; unverified normal presets do not replace assessment."
+      ],
+      "clinical_validation_status": "draft_requires_cardiovascular_radiologist_and_aortic_team_review"
+    },
+    {
+      "investigation_id": "ra.thoracic-aorta-measurement",
+      "module_id": "rad.5.aorta",
+      "title": "CT thoracic aorta measurement",
+      "scope_status": "expanded_draft_requires_independent_anatomical_and_clinical_review",
+      "modality_scope": [
+        "CT",
+        "MRI",
+        "Ultrasound"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant aorta measurement",
+          "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+          "reviewed_at": "2026-10-06",
+          "review_status": "effective_scope_reviewed"
+        },
+        {
+          "title": "ACC/AHA 2022 measurement recommendations",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+          "reviewed_at": "2026-10-06",
+          "review_status": "primary_recommendation_text_reviewed"
+        },
+        {
+          "title": "CT/MRI thoracic aorta review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+          "reviewed_at": "2026-10-06",
+          "review_status": "original_XML_and_captions_reviewed"
+        },
+        {
+          "title": "Valve-sparing root imaging source",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/",
+          "reviewed_at": "2026-10-06",
+          "review_status": "primary_basal_ring_and_variant_extract_reviewed"
+        }
+      ],
+      "source_contract_sha256": "9a5dfad13f25b5b7c136046ab6d20a5ea5abdc39cd9a244ebb096748239c2e31",
+      "reporting_checklist": [
+        {
+          "label": "Measurement method",
+          "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+        },
+        {
+          "label": "Aortic root",
+          "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+        },
+        {
+          "label": "Ascending aorta",
+          "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+        },
+        {
+          "label": "Aortic arch",
+          "detail": "Measure the proximal and mid arch on double-oblique planes."
+        },
+        {
+          "label": "Descending and abdominal aorta",
+          "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+        },
+        {
+          "label": "Interval change",
+          "detail": "Compare each level with the prior study measured the same way and state the change in millimetres."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "MEASUREMENT METHOD",
+          "body": "Actual modality/coverage [ ]; ECG synchronisation [ ]; cardiac phase [ ]; reconstruction thickness [ ] mm; orthogonal plane/centreline method [ ]; edge convention [inner / outer / leading edge, by level]; root method [maximum sinus-to-sinus with asymmetric dimensions / other named comparison method]; quality/limits [ ]."
+        },
+        {
+          "heading": "AORTIC ROOT",
+          "body": "Annular basal-plane landmarks/phase [ ]; annular orthogonal dimensions [ ] \u00d7 [ ] mm; maximum sinus-to-sinus [ ] mm, other asymmetric dimensions [ ]; separately named comparison average/axis if used [ ]; sinotubular junction [ ] mm; unresolved boundaries [ ]."
+        },
+        {
+          "heading": "ASCENDING AORTA",
+          "body": "Maximal ascending aortic diameter __ mm at [level]; elongation [none / present, centreline length __ mm]."
+        },
+        {
+          "heading": "AORTIC ARCH",
+          "body": "Proximal arch __ mm; mid arch __ mm."
+        },
+        {
+          "heading": "DESCENDING AND ABDOMINAL AORTA",
+          "body": "Proximal descending aorta __ mm; distal descending aorta __ mm; abdominal aorta __ mm."
+        },
+        {
+          "heading": "INTERVAL CHANGE",
+          "body": "Prior study [date, modality, phase, edge/axis/plane method]; comparable named level [ ]; current/prior dimensions [ ]/[ ] mm; interval [ ]; change [ ] mm with measurement/method limitations [ ]; unresolved comparison [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "aortic_measurement.annulus",
+          "name": "Virtual basal annular ring",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.annulus.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.annulus.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.annulus.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.annulus.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.annulus.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.annulus.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.annulus.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.annulus.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.annulus.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.annulus.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.annulus.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.sinotubular_junction",
+          "name": "Sinotubular junction",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.sinotubular_junction.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.sinotubular_junction.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.proximal_ascending",
+          "name": "Proximal ascending aorta",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.proximal_ascending.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.proximal_ascending.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.maximal_ascending",
+          "name": "Actual maximal ascending level",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.maximal_ascending.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.maximal_ascending.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.distal_ascending",
+          "name": "Distal ascending/arch transition",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.distal_ascending.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.distal_ascending.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.proximal_arch",
+          "name": "Proximal arch",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.proximal_arch.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.proximal_arch.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.mid_arch",
+          "name": "Mid arch",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.mid_arch.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.mid_arch.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.distal_arch",
+          "name": "Distal arch",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.distal_arch.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.distal_arch.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.isthmus",
+          "name": "Isthmus",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.isthmus.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.isthmus.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.isthmus.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.isthmus.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.isthmus.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.isthmus.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.isthmus.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.isthmus.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.isthmus.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.isthmus.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.isthmus.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.proximal_descending",
+          "name": "Proximal descending aorta",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.proximal_descending.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.proximal_descending.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.distal_descending",
+          "name": "Distal descending aorta",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.distal_descending.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.distal_descending.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.diaphragmatic_level",
+          "name": "Diaphragmatic aorta if measured",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.diaphragmatic_level.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.diaphragmatic_level.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.abdominal_protocol_levels",
+          "name": "Each actual abdominal protocol level",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.source_resolved_outer_contour",
+              "name": "Source resolved outer contour"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.source_resolved_inner_contour",
+              "name": "Source resolved inner contour"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.proximal_distal_extent",
+              "name": "Proximal distal extent"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.orthogonal_plane",
+              "name": "Orthogonal plane"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.named_measurement_landmark",
+              "name": "Named measurement landmark"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.maximum_diameter_and_axis",
+              "name": "Maximum diameter and axis"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.perpendicular_minor_diameter_if_relevant",
+              "name": "Perpendicular minor diameter if relevant"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.wall_abnormality_and_edge_convention",
+              "name": "Wall abnormality and edge convention"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.phase_calibration_and_unresolved_boundary",
+              "name": "Phase calibration and unresolved boundary"
+            },
+            {
+              "id": "aortic_measurement.abdominal_protocol_levels.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.right_sinus",
+          "name": "Right coronary sinus",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.right_sinus.complete_covered_sinus_wall",
+              "name": "Complete covered sinus wall"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.cusp_attachment_nadir_if_resolved",
+              "name": "Cusp attachment nadir if resolved"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.commissural_boundaries",
+              "name": "Commissural boundaries"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.maximum_bulge_plane",
+              "name": "Maximum bulge plane"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.each_sinus_to_sinus_pair",
+              "name": "Each sinus to sinus pair"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.each_sinus_to_commissure_axis",
+              "name": "Each sinus to commissure axis"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.root_asymmetry_and_orthogonal_dimensions",
+              "name": "Root asymmetry and orthogonal dimensions"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.coronary_or_adjacent_structure_relation",
+              "name": "Coronary or adjacent structure relation"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.edge_phase_and_comparison_method",
+              "name": "Edge phase and comparison method"
+            },
+            {
+              "id": "aortic_measurement.right_sinus.unresolved_cusp_or_sinus_identity",
+              "name": "Unresolved cusp or sinus identity"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.left_sinus",
+          "name": "Left coronary sinus",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.left_sinus.complete_covered_sinus_wall",
+              "name": "Complete covered sinus wall"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.cusp_attachment_nadir_if_resolved",
+              "name": "Cusp attachment nadir if resolved"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.commissural_boundaries",
+              "name": "Commissural boundaries"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.maximum_bulge_plane",
+              "name": "Maximum bulge plane"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.each_sinus_to_sinus_pair",
+              "name": "Each sinus to sinus pair"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.each_sinus_to_commissure_axis",
+              "name": "Each sinus to commissure axis"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.root_asymmetry_and_orthogonal_dimensions",
+              "name": "Root asymmetry and orthogonal dimensions"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.coronary_or_adjacent_structure_relation",
+              "name": "Coronary or adjacent structure relation"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.edge_phase_and_comparison_method",
+              "name": "Edge phase and comparison method"
+            },
+            {
+              "id": "aortic_measurement.left_sinus.unresolved_cusp_or_sinus_identity",
+              "name": "Unresolved cusp or sinus identity"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.noncoronary_sinus",
+          "name": "Non-coronary sinus",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.noncoronary_sinus.complete_covered_sinus_wall",
+              "name": "Complete covered sinus wall"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.cusp_attachment_nadir_if_resolved",
+              "name": "Cusp attachment nadir if resolved"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.commissural_boundaries",
+              "name": "Commissural boundaries"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.maximum_bulge_plane",
+              "name": "Maximum bulge plane"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.each_sinus_to_sinus_pair",
+              "name": "Each sinus to sinus pair"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.each_sinus_to_commissure_axis",
+              "name": "Each sinus to commissure axis"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.root_asymmetry_and_orthogonal_dimensions",
+              "name": "Root asymmetry and orthogonal dimensions"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.coronary_or_adjacent_structure_relation",
+              "name": "Coronary or adjacent structure relation"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.edge_phase_and_comparison_method",
+              "name": "Edge phase and comparison method"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_sinus.unresolved_cusp_or_sinus_identity",
+              "name": "Unresolved cusp or sinus identity"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.right_cusp",
+          "name": "Right coronary cusp",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.right_cusp.actual_cusp_morphology",
+              "name": "Actual cusp morphology"
+            },
+            {
+              "id": "aortic_measurement.right_cusp.attachment_hinge_course",
+              "name": "Attachment hinge course"
+            },
+            {
+              "id": "aortic_measurement.right_cusp.source_resolved_nadir",
+              "name": "Source resolved nadir"
+            },
+            {
+              "id": "aortic_measurement.right_cusp.commissural_attachments",
+              "name": "Commissural attachments"
+            },
+            {
+              "id": "aortic_measurement.right_cusp.free_margin_if_resolved",
+              "name": "Free margin if resolved"
+            },
+            {
+              "id": "aortic_measurement.right_cusp.phase_motion_and_visibility_limit",
+              "name": "Phase motion and visibility limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.left_cusp",
+          "name": "Left coronary cusp",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.left_cusp.actual_cusp_morphology",
+              "name": "Actual cusp morphology"
+            },
+            {
+              "id": "aortic_measurement.left_cusp.attachment_hinge_course",
+              "name": "Attachment hinge course"
+            },
+            {
+              "id": "aortic_measurement.left_cusp.source_resolved_nadir",
+              "name": "Source resolved nadir"
+            },
+            {
+              "id": "aortic_measurement.left_cusp.commissural_attachments",
+              "name": "Commissural attachments"
+            },
+            {
+              "id": "aortic_measurement.left_cusp.free_margin_if_resolved",
+              "name": "Free margin if resolved"
+            },
+            {
+              "id": "aortic_measurement.left_cusp.phase_motion_and_visibility_limit",
+              "name": "Phase motion and visibility limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.noncoronary_cusp",
+          "name": "Non-coronary cusp",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.noncoronary_cusp.actual_cusp_morphology",
+              "name": "Actual cusp morphology"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_cusp.attachment_hinge_course",
+              "name": "Attachment hinge course"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_cusp.source_resolved_nadir",
+              "name": "Source resolved nadir"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_cusp.commissural_attachments",
+              "name": "Commissural attachments"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_cusp.free_margin_if_resolved",
+              "name": "Free margin if resolved"
+            },
+            {
+              "id": "aortic_measurement.noncoronary_cusp.phase_motion_and_visibility_limit",
+              "name": "Phase motion and visibility limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.right_left_commissure",
+          "name": "Right/left commissural interface",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.right_left_commissure.source_resolved_commissure",
+              "name": "Source resolved commissure"
+            },
+            {
+              "id": "aortic_measurement.right_left_commissure.cusp_and_sinus_identity",
+              "name": "Cusp and sinus identity"
+            },
+            {
+              "id": "aortic_measurement.right_left_commissure.interleaflet_triangle_if_resolved",
+              "name": "Interleaflet triangle if resolved"
+            },
+            {
+              "id": "aortic_measurement.right_left_commissure.sinotubular_relation",
+              "name": "Sinotubular relation"
+            },
+            {
+              "id": "aortic_measurement.right_left_commissure.measurement_axis_endpoint",
+              "name": "Measurement axis endpoint"
+            },
+            {
+              "id": "aortic_measurement.right_left_commissure.uncertainty_or_variant",
+              "name": "Uncertainty or variant"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.right_noncoronary_commissure",
+          "name": "Right/non-coronary commissural interface",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.right_noncoronary_commissure.source_resolved_commissure",
+              "name": "Source resolved commissure"
+            },
+            {
+              "id": "aortic_measurement.right_noncoronary_commissure.cusp_and_sinus_identity",
+              "name": "Cusp and sinus identity"
+            },
+            {
+              "id": "aortic_measurement.right_noncoronary_commissure.interleaflet_triangle_if_resolved",
+              "name": "Interleaflet triangle if resolved"
+            },
+            {
+              "id": "aortic_measurement.right_noncoronary_commissure.sinotubular_relation",
+              "name": "Sinotubular relation"
+            },
+            {
+              "id": "aortic_measurement.right_noncoronary_commissure.measurement_axis_endpoint",
+              "name": "Measurement axis endpoint"
+            },
+            {
+              "id": "aortic_measurement.right_noncoronary_commissure.uncertainty_or_variant",
+              "name": "Uncertainty or variant"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.left_noncoronary_commissure",
+          "name": "Left/non-coronary commissural interface",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.left_noncoronary_commissure.source_resolved_commissure",
+              "name": "Source resolved commissure"
+            },
+            {
+              "id": "aortic_measurement.left_noncoronary_commissure.cusp_and_sinus_identity",
+              "name": "Cusp and sinus identity"
+            },
+            {
+              "id": "aortic_measurement.left_noncoronary_commissure.interleaflet_triangle_if_resolved",
+              "name": "Interleaflet triangle if resolved"
+            },
+            {
+              "id": "aortic_measurement.left_noncoronary_commissure.sinotubular_relation",
+              "name": "Sinotubular relation"
+            },
+            {
+              "id": "aortic_measurement.left_noncoronary_commissure.measurement_axis_endpoint",
+              "name": "Measurement axis endpoint"
+            },
+            {
+              "id": "aortic_measurement.left_noncoronary_commissure.uncertainty_or_variant",
+              "name": "Uncertainty or variant"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.basal_plane",
+          "name": "Landmark-defined virtual basal plane",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.basal_plane.each_actual_attachment_nadir",
+              "name": "Each actual attachment nadir"
+            },
+            {
+              "id": "aortic_measurement.basal_plane.fitted_or_reformatted_plane_method",
+              "name": "Fitted or reformatted plane method"
+            },
+            {
+              "id": "aortic_measurement.basal_plane.orthogonal_major_minor_axes",
+              "name": "Orthogonal major minor axes"
+            },
+            {
+              "id": "aortic_measurement.basal_plane.contour_area_if_measured",
+              "name": "Contour area if measured"
+            },
+            {
+              "id": "aortic_measurement.basal_plane.perimeter_if_measured",
+              "name": "Perimeter if measured"
+            },
+            {
+              "id": "aortic_measurement.basal_plane.geometric_and_phase_limits",
+              "name": "Geometric and phase limits"
+            },
+            {
+              "id": "aortic_measurement.basal_plane.not_assumed_fixed_slice_offset",
+              "name": "Not assumed fixed slice offset"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.root_maximum",
+          "name": "Maximum and asymmetric root dimensions",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.root_maximum.actual_maximum_sinus_to_sinus_axis",
+              "name": "Actual maximum sinus to sinus axis"
+            },
+            {
+              "id": "aortic_measurement.root_maximum.each_additional_asymmetric_dimension",
+              "name": "Each additional asymmetric dimension"
+            },
+            {
+              "id": "aortic_measurement.root_maximum.named_edge_convention",
+              "name": "Named edge convention"
+            },
+            {
+              "id": "aortic_measurement.root_maximum.cardiac_phase",
+              "name": "Cardiac phase"
+            },
+            {
+              "id": "aortic_measurement.root_maximum.exact_plane",
+              "name": "Exact plane"
+            },
+            {
+              "id": "aortic_measurement.root_maximum.source_endpoint_coordinates_if_available",
+              "name": "Source endpoint coordinates if available"
+            },
+            {
+              "id": "aortic_measurement.root_maximum.separately_named_legacy_average_or_axis",
+              "name": "Separately named legacy average or axis"
+            },
+            {
+              "id": "aortic_measurement.root_maximum.unresolved_maximum",
+              "name": "Unresolved maximum"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.lvot",
+          "name": "Covered left ventricular outflow tract and root transition",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.lvot.covered_wall_and_lumen",
+              "name": "Covered wall and lumen"
+            },
+            {
+              "id": "aortic_measurement.lvot.basal_plane_relation",
+              "name": "Basal plane relation"
+            },
+            {
+              "id": "aortic_measurement.lvot.muscular_fibrous_interfaces_if_resolved",
+              "name": "Muscular fibrous interfaces if resolved"
+            },
+            {
+              "id": "aortic_measurement.lvot.source_long_axis_plane",
+              "name": "Source long axis plane"
+            },
+            {
+              "id": "aortic_measurement.lvot.phase_motion_and_uncovered_extent",
+              "name": "Phase motion and uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.root_support",
+          "name": "Covered root support and adjoining interfaces",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.root_support.aortic_mitral_continuity_if_resolved",
+              "name": "Aortic mitral continuity if resolved"
+            },
+            {
+              "id": "aortic_measurement.root_support.membranous_septal_interface_if_resolved",
+              "name": "Membranous septal interface if resolved"
+            },
+            {
+              "id": "aortic_measurement.root_support.ventricular_septal_interface_if_resolved",
+              "name": "Ventricular septal interface if resolved"
+            },
+            {
+              "id": "aortic_measurement.root_support.left_atrial_relation",
+              "name": "Left atrial relation"
+            },
+            {
+              "id": "aortic_measurement.root_support.each_actual_support_or_boundary_limit",
+              "name": "Each actual support or boundary limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.right_coronary_ostium",
+          "name": "Right coronary origin",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.right_coronary_ostium.actual_ostial_position",
+              "name": "Actual ostial position"
+            },
+            {
+              "id": "aortic_measurement.right_coronary_ostium.sinus_identity",
+              "name": "Sinus identity"
+            },
+            {
+              "id": "aortic_measurement.right_coronary_ostium.annulus_sinotubular_relation",
+              "name": "Annulus sinotubular relation"
+            },
+            {
+              "id": "aortic_measurement.right_coronary_ostium.covered_proximal_course",
+              "name": "Covered proximal course"
+            },
+            {
+              "id": "aortic_measurement.right_coronary_ostium.measurement_landmark_relation",
+              "name": "Measurement landmark relation"
+            },
+            {
+              "id": "aortic_measurement.right_coronary_ostium.source_coverage_and_visibility_limit",
+              "name": "Source coverage and visibility limit"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.left_coronary_ostium",
+          "name": "Left coronary origin",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.left_coronary_ostium.actual_ostial_position",
+              "name": "Actual ostial position"
+            },
+            {
+              "id": "aortic_measurement.left_coronary_ostium.sinus_identity",
+              "name": "Sinus identity"
+            },
+            {
+              "id": "aortic_measurement.left_coronary_ostium.annulus_sinotubular_relation",
+              "name": "Annulus sinotubular relation"
+            },
+            {
+              "id": "aortic_measurement.left_coronary_ostium.covered_proximal_course",
+              "name": "Covered proximal course"
+            },
+            {
+              "id": "aortic_measurement.left_coronary_ostium.measurement_landmark_relation",
+              "name": "Measurement landmark relation"
+            },
+            {
+              "id": "aortic_measurement.left_coronary_ostium.source_coverage_and_visibility_limit",
+              "name": "Source coverage and visibility limit"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.brachiocephalic_origin",
+          "name": "Brachiocephalic origin",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.brachiocephalic_origin.source_origin",
+              "name": "Source origin"
+            },
+            {
+              "id": "aortic_measurement.brachiocephalic_origin.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "aortic_measurement.brachiocephalic_origin.arch_level_reference",
+              "name": "Arch level reference"
+            },
+            {
+              "id": "aortic_measurement.brachiocephalic_origin.local_axis_relation",
+              "name": "Local axis relation"
+            },
+            {
+              "id": "aortic_measurement.brachiocephalic_origin.actual_variant_or_common_trunk",
+              "name": "Actual variant or common trunk"
+            },
+            {
+              "id": "aortic_measurement.brachiocephalic_origin.uncovered_extent",
+              "name": "Uncovered extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.left_carotid_origin",
+          "name": "Left carotid origin",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.left_carotid_origin.source_origin",
+              "name": "Source origin"
+            },
+            {
+              "id": "aortic_measurement.left_carotid_origin.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "aortic_measurement.left_carotid_origin.arch_level_reference",
+              "name": "Arch level reference"
+            },
+            {
+              "id": "aortic_measurement.left_carotid_origin.local_axis_relation",
+              "name": "Local axis relation"
+            },
+            {
+              "id": "aortic_measurement.left_carotid_origin.actual_variant_or_common_trunk",
+              "name": "Actual variant or common trunk"
+            },
+            {
+              "id": "aortic_measurement.left_carotid_origin.uncovered_extent",
+              "name": "Uncovered extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.left_subclavian_origin",
+          "name": "Left subclavian origin",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.left_subclavian_origin.source_origin",
+              "name": "Source origin"
+            },
+            {
+              "id": "aortic_measurement.left_subclavian_origin.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "aortic_measurement.left_subclavian_origin.arch_level_reference",
+              "name": "Arch level reference"
+            },
+            {
+              "id": "aortic_measurement.left_subclavian_origin.local_axis_relation",
+              "name": "Local axis relation"
+            },
+            {
+              "id": "aortic_measurement.left_subclavian_origin.actual_variant_or_common_trunk",
+              "name": "Actual variant or common trunk"
+            },
+            {
+              "id": "aortic_measurement.left_subclavian_origin.uncovered_extent",
+              "name": "Uncovered extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.valve_root_variants",
+          "name": "Each actual bicuspid/other root variant",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.valve_root_variants.actual_cusp_number_or_fusion",
+              "name": "Actual cusp number or fusion"
+            },
+            {
+              "id": "aortic_measurement.valve_root_variants.raphe_if_present",
+              "name": "Raphe if present"
+            },
+            {
+              "id": "aortic_measurement.valve_root_variants.actual_attachment_nadirs",
+              "name": "Actual attachment nadirs"
+            },
+            {
+              "id": "aortic_measurement.valve_root_variants.sinus_and_commissural_correspondence",
+              "name": "Sinus and commissural correspondence"
+            },
+            {
+              "id": "aortic_measurement.valve_root_variants.root_asymmetry",
+              "name": "Root asymmetry"
+            },
+            {
+              "id": "aortic_measurement.valve_root_variants.alternate_plane_method",
+              "name": "Alternate plane method"
+            },
+            {
+              "id": "aortic_measurement.valve_root_variants.unresolved_variant_or_function",
+              "name": "Unresolved variant or function"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.arch_variants",
+          "name": "Each actual arch/course variant",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.arch_variants.arch_side_and_course",
+              "name": "Arch side and course"
+            },
+            {
+              "id": "aortic_measurement.arch_variants.each_branch_origin_variant",
+              "name": "Each branch origin variant"
+            },
+            {
+              "id": "aortic_measurement.arch_variants.local_axis_or_centreline",
+              "name": "Local axis or centreline"
+            },
+            {
+              "id": "aortic_measurement.arch_variants.each_affected_measurement_level",
+              "name": "Each affected measurement level"
+            },
+            {
+              "id": "aortic_measurement.arch_variants.named_comparison_landmark",
+              "name": "Named comparison landmark"
+            },
+            {
+              "id": "aortic_measurement.arch_variants.uncovered_or_unresolved_extent",
+              "name": "Uncovered or unresolved extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.ascending_length",
+          "name": "Actual ascending length/elongation method",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.ascending_length.proximal_reference_endpoint",
+              "name": "Proximal reference endpoint"
+            },
+            {
+              "id": "aortic_measurement.ascending_length.distal_reference_endpoint",
+              "name": "Distal reference endpoint"
+            },
+            {
+              "id": "aortic_measurement.ascending_length.complete_covered_centreline",
+              "name": "Complete covered centreline"
+            },
+            {
+              "id": "aortic_measurement.ascending_length.centreline_length_method",
+              "name": "Centreline length method"
+            },
+            {
+              "id": "aortic_measurement.ascending_length.curvature_and_tortuosity",
+              "name": "Curvature and tortuosity"
+            },
+            {
+              "id": "aortic_measurement.ascending_length.plane_and_source_limits",
+              "name": "Plane and source limits"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.wall_conditions",
+          "name": "Each actual abnormal measured wall region",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.wall_conditions.source_wall_boundary",
+              "name": "Source wall boundary"
+            },
+            {
+              "id": "aortic_measurement.wall_conditions.each_atherosclerotic_or_calcified_region",
+              "name": "Each atherosclerotic or calcified region"
+            },
+            {
+              "id": "aortic_measurement.wall_conditions.each_thickened_or_thrombotic_region",
+              "name": "Each thickened or thrombotic region"
+            },
+            {
+              "id": "aortic_measurement.wall_conditions.longitudinal_circumferential_extent",
+              "name": "Longitudinal circumferential extent"
+            },
+            {
+              "id": "aortic_measurement.wall_conditions.inner_outer_edge_choice",
+              "name": "Inner outer edge choice"
+            },
+            {
+              "id": "aortic_measurement.wall_conditions.source_calibration_and_unresolved_interface",
+              "name": "Source calibration and unresolved interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.repair_if_present",
+          "name": "Actual prior root/aortic repair if present",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.repair_if_present.operative_history_and_date",
+              "name": "Operative history and date"
+            },
+            {
+              "id": "aortic_measurement.repair_if_present.every_actual_graft_or_prosthesis",
+              "name": "Every actual graft or prosthesis"
+            },
+            {
+              "id": "aortic_measurement.repair_if_present.source_native_to_graft_interface",
+              "name": "Source native to graft interface"
+            },
+            {
+              "id": "aortic_measurement.repair_if_present.each_anastomosis_or_seal",
+              "name": "Each anastomosis or seal"
+            },
+            {
+              "id": "aortic_measurement.repair_if_present.every_reimplanted_branch_or_coronary",
+              "name": "Every reimplanted branch or coronary"
+            },
+            {
+              "id": "aortic_measurement.repair_if_present.actual_measured_lumen_and_outer_contour",
+              "name": "Actual measured lumen and outer contour"
+            },
+            {
+              "id": "aortic_measurement.repair_if_present.device_artefact_and_uncovered_extent",
+              "name": "Device artefact and uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            },
+            {
+              "checklist_index": 5,
+              "label": "Interval change",
+              "detail": "Compare each level with the prior study measured the same way and state the change in millimetres."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.comparison",
+          "name": "Each actual level/timepoint comparison",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.comparison.current_and_prior_source_identity",
+              "name": "Current and prior source identity"
+            },
+            {
+              "id": "aortic_measurement.comparison.dates_and_interval",
+              "name": "Dates and interval"
+            },
+            {
+              "id": "aortic_measurement.comparison.identical_named_level",
+              "name": "Identical named level"
+            },
+            {
+              "id": "aortic_measurement.comparison.source_phase_and_gating",
+              "name": "Source phase and gating"
+            },
+            {
+              "id": "aortic_measurement.comparison.source_edge_and_axis_conventions",
+              "name": "Source edge and axis conventions"
+            },
+            {
+              "id": "aortic_measurement.comparison.comparable_plane_or_remeasurement",
+              "name": "Comparable plane or remeasurement"
+            },
+            {
+              "id": "aortic_measurement.comparison.current_and_prior_dimensions",
+              "name": "Current and prior dimensions"
+            },
+            {
+              "id": "aortic_measurement.comparison.numerical_difference",
+              "name": "Numerical difference"
+            },
+            {
+              "id": "aortic_measurement.comparison.method_related_uncertainty",
+              "name": "Method related uncertainty"
+            },
+            {
+              "id": "aortic_measurement.comparison.unresolved_or_unavailable_comparison",
+              "name": "Unresolved or unavailable comparison"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 5,
+              "label": "Interval change",
+              "detail": "Compare each level with the prior study measured the same way and state the change in millimetres."
+            }
+          ],
+          "walkthrough_step_indices": [
+            5
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.reference_context",
+          "name": "Actual reference/indexing and clinical interpretation",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.reference_context.age_sex_and_body_size_if_available",
+              "name": "Age sex and body size if available"
+            },
+            {
+              "id": "aortic_measurement.reference_context.named_reference_population_or_guideline",
+              "name": "Named reference population or guideline"
+            },
+            {
+              "id": "aortic_measurement.reference_context.indexing_formula_if_used",
+              "name": "Indexing formula if used"
+            },
+            {
+              "id": "aortic_measurement.reference_context.source_height_weight_or_bsa",
+              "name": "Source height weight or bsa"
+            },
+            {
+              "id": "aortic_measurement.reference_context.index_units_and_measurement_method",
+              "name": "Index units and measurement method"
+            },
+            {
+              "id": "aortic_measurement.reference_context.applicable_variant_or_disease_context",
+              "name": "Applicable variant or disease context"
+            },
+            {
+              "id": "aortic_measurement.reference_context.uncertainty_and_clinical_threshold_source",
+              "name": "Uncertainty and clinical threshold source"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            },
+            {
+              "checklist_index": 5,
+              "label": "Interval change",
+              "detail": "Compare each level with the prior study measured the same way and state the change in millimetres."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "aortic_measurement.acquisition",
+          "name": "Actual acquisition and measurement controls",
+          "tissue_class": "aortic_measurement_structure_or_control",
+          "required_parts": [
+            {
+              "id": "aortic_measurement.acquisition.actual_modality",
+              "name": "Actual modality"
+            },
+            {
+              "id": "aortic_measurement.acquisition.actual_cranial_caudal_coverage",
+              "name": "Actual cranial caudal coverage"
+            },
+            {
+              "id": "aortic_measurement.acquisition.ecg_synchronisation",
+              "name": "Ecg synchronisation"
+            },
+            {
+              "id": "aortic_measurement.acquisition.cardiac_phase",
+              "name": "Cardiac phase"
+            },
+            {
+              "id": "aortic_measurement.acquisition.contrast_or_sequence",
+              "name": "Contrast or sequence"
+            },
+            {
+              "id": "aortic_measurement.acquisition.reconstruction_thickness_and_increment",
+              "name": "Reconstruction thickness and increment"
+            },
+            {
+              "id": "aortic_measurement.acquisition.original_voxel_units_and_calibration",
+              "name": "Original voxel units and calibration"
+            },
+            {
+              "id": "aortic_measurement.acquisition.original_source_series_and_planes",
+              "name": "Original source series and planes"
+            },
+            {
+              "id": "aortic_measurement.acquisition.motion_or_metal_artefact",
+              "name": "Motion or metal artefact"
+            },
+            {
+              "id": "aortic_measurement.acquisition.plane_centreline_reconstruction_method",
+              "name": "Plane centreline reconstruction method"
+            },
+            {
+              "id": "aortic_measurement.acquisition.edge_and_summary_convention",
+              "name": "Edge and summary convention"
+            },
+            {
+              "id": "aortic_measurement.acquisition.unavailable_source_measurements_and_limits",
+              "name": "Unavailable source measurements and limits"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT",
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate each actual measured level, anatomy/variant and source plane. Preserve actual patient, modality, phase, edge convention, calibration, coverage and uncertainty; unmeasured regions are not normal.",
+          "requirement_basis": "effective_thoracic_aorta_measurement_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Measurement method",
+              "detail": "State the modality, ECG gating, double-oblique technique and sinus method so the next study can repeat them."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Aortic root",
+              "detail": "Measure the annulus, sinuses of Valsalva and sinotubular junction at their defined levels."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Ascending aorta",
+              "detail": "Measure the maximal ascending diameter perpendicular to the centreline and note elongation."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Aortic arch",
+              "detail": "Measure the proximal and mid arch on double-oblique planes."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Descending and abdominal aorta",
+              "detail": "Measure the proximal and distal descending aorta and the abdominal aorta at the protocol levels."
+            },
+            {
+              "checklist_index": 5,
+              "label": "Interval change",
+              "detail": "Compare each level with the prior study measured the same way and state the change in millimetres."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/aorta-dilatation-measurements",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9860464/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC3874367/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC10405341/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        }
+      ],
+      "expansion_rules": [
+        "Instantiate every actual level, axis, contour, variant and comparison timepoint; children are a known floor.",
+        "Each leaf requires independently reviewed image, schematic and model evidence; numerical calibration alone does not approve boundary or diagnostic interpretation.",
+        "Preserve modality-specific edge/phase conventions and actual coverage; an average does not replace maximum/asymmetric dimensions."
+      ],
+      "source_scope_issues": [
+        "Virtual basal ring is landmark-defined; it is not a universal one-slice-below plane and variants must be identified.",
+        "Maximum sinus-to-sinus and asymmetric root dimensions remain distinct from historical averaged/alternative-axis values.",
+        "Inner/outer/leading-edge and phase conventions are not interchangeable; abnormal wall boundaries and modality need explicit source.",
+        "No fixed small millimetre change or generic sex-only threshold is adopted as a universal surveillance/surgical rule.",
+        "The 2024 proximal-aorta review is CC BY-NC; its images are not commercial-cleared or packaged from that grant.",
+        "Clinical/variant/guideline and complete independent anatomical review remain outstanding."
+      ],
+      "functional_evidence_requirements": [
+        "Dimensions require actual source calibration, defined landmarks/planes and recorded phase/edge convention.",
+        "Normality, true growth and clinical thresholds require valid reference context and comparable sources, not default text or a generic model.",
+        "Valve function and operative suitability cannot be inferred from static contours or instructional figures."
       ],
       "clinical_validation_status": "draft_requires_cardiovascular_radiologist_and_aortic_team_review"
     }
