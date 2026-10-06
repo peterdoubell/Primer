@@ -575,6 +575,7 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
         '/app/anatomy/msk-mri-knee/example.bin.gz',
         '/app/anatomy/liu-lumbosacral-sub03/cord-open-envelope.bin.gz',
         '/app/anatomy/verse521/verse521-t1.bin.gz',
+        '/app/anatomy/hvsmr2-pat7/hvsmr2-pat7-label7.bin.gz',
         '/app/anatomy/verse521/ct-reference.html',
         '/app/reference-media/prenatal-development/prenatal-development.gif',
         '/app/reference-media/prenatal-development/day-005.webp',

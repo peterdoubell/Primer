@@ -224,13 +224,16 @@
             "VENTRICULAR FUNCTION"
           ],
           "look": "Short-axis cine from base to apex; contour end diastole and end systole; compare with sex- and age-specific references.",
-          "normal": "Normal biventricular size and systolic function: LVEDVi __ mL/m², LVEF __%; RVEDVi __ mL/m², RVEF __%.",
+          "normal": {},
           "findings": [
             "Dilated left ventricle (LVEDVi __ mL/m²) with reduced ejection fraction (__%).",
             "Right ventricular dilatation with reduced RVEF __%."
           ],
           "images": [
-            "cardiac-mri-image-1"
+            "cardiac-mri-image-1",
+            "open-cmr-source-pmc7066763-fig1",
+            "open-cmr-source-pmc7066763-fig2",
+            "open-cmr-source-pmc7066763-fig8"
           ],
           "measurements": [
             "Ventricular volumes and EF"
@@ -238,7 +241,8 @@
           "landmark": "ventricles",
           "parts": [
             "FJ2428"
-          ]
+          ],
+          "tip": "Quantify actual temporal/source contours with complete coverage; document ED/ES and basal/apical/papillary/trabecular conventions plus reference/indexing context. Do not infer EF or normality from a still/model."
         },
         {
           "label": "Wall thickness and regional motion",
@@ -246,20 +250,28 @@
           "sections": [
             "MORPHOLOGY AND MOTION"
           ],
-          "look": "Short-axis and long-axis cines; 17-segment model for motion.",
-          "normal": "Normal wall thickness and myocardial mass; no regional wall-motion abnormality.",
+          "look": "Inspect obtained short/long-axis cines with actual named segment/region and apical coverage; state the model/convention and any region where motion/thickening cannot be assessed.",
+          "normal": {},
           "findings": [
             "Asymmetric septal hypertrophy with maximal wall thickness __ mm at [basal anteroseptum].",
             "Akinesia of the [anterior] wall in the [LAD] territory.",
             "Apical ballooning with basal hyperkinesia (takotsubo pattern)."
           ],
           "images": [
-            "cardiac-mri-image-1"
+            "cardiac-mri-image-1",
+            "open-cmr-source-pmc7066763-fig1",
+            "open-cmr-source-pmc7066763-fig2",
+            "open-cmr-source-pmc11084160-fig1",
+            "open-cmr-source-pmc11084160-fig2",
+            "open-cmr-source-pmc11084160-fig3",
+            "open-cmr-source-pmc11084160-fig4",
+            "open-cmr-source-pmc11084160-fig5"
           ],
           "landmark": "septum",
           "parts": [
             "FJ2428"
-          ]
+          ],
+          "tip": "Locate actual maximal thickness and distinguish endocardial/trabecular/papillary boundaries from compact myocardium; phase and source sampling limit thin regions."
         },
         {
           "label": "Oedema and mapping",
@@ -268,13 +280,20 @@
             "OEDEMA AND MAPPING"
           ],
           "look": "T2-weighted and mapping sequences with the local reference range and field strength.",
-          "normal": "No myocardial oedema; native T1 and T2 within the local reference range.",
+          "normal": {},
           "findings": [
             "Regional oedema in the [ ] segments with raised T2 (__ ms).",
             "Diffusely raised native T1 (__ ms) and ECV (__%)."
           ],
           "images": [
-            "cardiac-mri-image-2"
+            "cardiac-mri-image-2",
+            "open-cmr-source-pmc7066763-fig6",
+            "open-cmr-source-pmc7066763-fig7",
+            "open-cmr-source-pmc11084160-fig1",
+            "open-cmr-source-pmc11084160-fig2",
+            "open-cmr-source-pmc11084160-fig3",
+            "open-cmr-source-pmc11084160-fig4",
+            "open-cmr-source-pmc11084160-fig5"
           ],
           "measurements": [
             "Mapping"
@@ -283,7 +302,7 @@
           "parts": [
             "FJ2428"
           ],
-          "tip": "Mapping values depend on scanner and sequence; always quote the local reference range."
+          "tip": "Mapping and ECV require actual sequence/field strength, raw-source/ROI quality and comparable references. ECV identifies its haematocrit/date or explicitly named alternative method; colour pictures are not calibrated measurements."
         },
         {
           "label": "Late gadolinium enhancement",
@@ -292,7 +311,7 @@
             "LATE ENHANCEMENT"
           ],
           "look": "Short- and long-axis LGE in matching planes; check the myocardium is correctly nulled.",
-          "normal": "No late gadolinium enhancement.",
+          "normal": {},
           "findings": [
             "Subendocardial / transmural LGE in the [LAD] territory, __% transmural (ischaemic pattern).",
             "Midwall LGE in the septum (non-ischaemic pattern).",
@@ -300,7 +319,12 @@
             "Patchy LGE at the RV insertion points in hypertrophied segments (HCM pattern)."
           ],
           "images": [
-            "cardiac-mri-image-3"
+            "cardiac-mri-image-3",
+            "open-cmr-source-pmc7066763-fig4",
+            "open-cmr-source-pmc11084160-fig1",
+            "open-cmr-source-pmc11084160-fig2",
+            "open-cmr-source-pmc11084160-fig3",
+            "open-cmr-source-pmc11084160-fig4"
           ],
           "landmark": "ventricles",
           "parts": [
@@ -309,7 +333,7 @@
             "FMA3895",
             "FJ2723"
           ],
-          "tip": "Ischaemic scar always involves the subendocardium; midwall or subepicardial LGE indicates a non-ischaemic cause."
+          "tip": "Coronary-pattern subendocardial LGE supports an ischaemic differential, but global subendocardial, midwall/epicardial, mixed or artefactual patterns do not uniquely establish cause. Absent LGE does not exclude all cardiomyopathy; record nulling, quality and actual coverage."
         },
         {
           "label": "Atria, valves, thrombus and pericardium",
@@ -318,7 +342,7 @@
             "OTHER CARDIAC FINDINGS"
           ],
           "look": "Long-axis cines and early post-contrast images for thrombus.",
-          "normal": "Atria normal; no valvular abnormality; no thrombus; pericardium normal.",
+          "normal": {},
           "findings": [
             "Left ventricular apical thrombus __ mm (non-enhancing on early post-contrast images).",
             "Pericardial effusion __ mm.",
@@ -330,9 +354,25 @@
             "FJ2438",
             "FJ2428"
           ],
-          "tip": "An apical thrombus after anterior infarction is best seen as a non-enhancing filling defect on early post-contrast images."
+          "tip": "Assess actual tissue/contrast/temporal source for suspected thrombus and valve/pericardial effects. No single filling defect, jet or effusion proves functional severity or tamponade.",
+          "images": [
+            "open-cmr-source-pmc7066763-fig8",
+            "open-cmr-source-pmc7066763-fig9",
+            "open-cmr-source-pmc11084160-fig2"
+          ]
         }
-      ]
+      ],
+      "model": {
+        "family": "heart",
+        "reporting_aim": "Orient cardiac axes while reviewing actual acquired cine and tissue sources. This generic heart model does not supply patient-specific ventricular/myocardial contours, all segment/layer boundaries, papillary/chordal interfaces, scar/oedema/maps, motion or measured haemodynamics; those require source-specific evidence."
+      },
+      "start": {
+        "images": [
+          "open-cmr-source-pmc7066763-fig1",
+          "open-cmr-source-pmc7066763-fig4"
+        ],
+        "module_illustrations": false
+      }
     },
     "ra.ct-acute-aortic-syndrome": {
       "steps": [
@@ -568,7 +608,7 @@
     "ra.vascular-anomalies": {
       "model": {
         "family": "aorta",
-        "reporting_aim": "Relate the arch side, branching order and any aberrant vessel to the trachea and oesophagus."
+        "reporting_aim": "Orient the arch region while inspecting actual source images for every anomalous vessel, airway and oesophageal relation. This generic aorta model does not contain the actual anomaly, pulmonary/systemic venous tree, ductal/ligamentous ring or complete airway anatomy."
       },
       "steps": [
         {
@@ -578,7 +618,7 @@
             "AORTIC ARCH"
           ],
           "look": "Axial images above the arch for the four-artery sign; volume rendering of the arch and branches.",
-          "normal": "Left aortic arch with normal branching; no coarctation.",
+          "normal": {},
           "findings": [
             "Right aortic arch with aberrant left subclavian artery arising from a Kommerell diverticulum (__ mm).",
             "Left arch with aberrant right subclavian artery passing behind the oesophagus.",
@@ -586,13 +626,21 @@
             "Coarctation distal to the left subclavian artery, minimum diameter __ mm, with collaterals."
           ],
           "images": [
-            "congenital-ct-image-1"
+            "congenital-ct-image-1",
+            "open-vascular-ring-pmc4141344-fig2",
+            "open-vascular-ring-pmc4141344-fig3",
+            "open-vascular-ring-pmc4141344-fig4",
+            "open-vascular-ring-pmc4141344-fig5",
+            "open-vascular-ring-pmc4141344-fig6",
+            "open-vascular-ring-pmc4141344-fig7",
+            "open-vascular-ring-pmc4141344-fig8",
+            "open-vascular-ring-pmc4141344-fig9"
           ],
           "measurements": [
             "Vessel calibre"
           ],
           "landmark": "arch",
-          "tip": "A right arch with an aberrant left subclavian artery can form a complete ring through the ligamentum arteriosum."
+          "tip": "Describe each patent or inferred atretic component and ductal/ligamentous attachment. The four-artery sign and flat volume rendering do not independently prove all ring components or the actual anomaly geometry."
         },
         {
           "label": "Airway and oesophagus",
@@ -601,18 +649,24 @@
             "AIRWAY AND OESOPHAGUS"
           ],
           "look": "Minimum-intensity projections of the trachea; oesophagus behind the arch.",
-          "normal": "No tracheal or oesophageal compression.",
+          "normal": {},
           "findings": [
             "Tracheal narrowing to __ mm at the level of the [double arch / innominate artery].",
             "Posterior oesophageal impression by the aberrant subclavian artery."
           ],
           "images": [
-            "congenital-ct-image-3"
+            "congenital-ct-image-3",
+            "open-vascular-ring-pmc4141344-fig2",
+            "open-vascular-ring-pmc4141344-fig3",
+            "open-vascular-ring-pmc4141344-fig5",
+            "open-vascular-ring-pmc4141344-fig10",
+            "open-vascular-ring-pmc4141344-fig11"
           ],
           "measurements": [
             "Airway narrowing"
           ],
-          "landmark": "arch"
+          "landmark": "arch",
+          "tip": "Record respiratory phase and actual level/length of narrowing. Static narrowing alone does not diagnose dynamic tracheobronchomalacia; cartilage and bronchial anomalies require source-resolved assessment."
         },
         {
           "label": "Pulmonary arteries",
@@ -621,13 +675,18 @@
             "PULMONARY ARTERIES"
           ],
           "look": "Axial and coronal images of the main and branch pulmonary arteries.",
-          "normal": "Normal pulmonary arteries; no ductus arteriosus.",
+          "normal": {},
           "findings": [
             "Left pulmonary artery arises from the right pulmonary artery and passes between the trachea and oesophagus (pulmonary sling).",
             "Unilateral pulmonary artery [agenesis / hypoplasia].",
             "Patent ductus arteriosus."
           ],
-          "landmark": "branches"
+          "landmark": "branches",
+          "tip": "Distinguish proximal pulmonary artery interruption from absence of lung and bronchus; trace distal arteries and systemic collateral supply. Ductal patency/flow needs adequate acquisition and appropriate functional evidence.",
+          "images": [
+            "open-vascular-ring-pmc4141344-fig6",
+            "open-vascular-ring-pmc4141344-fig11"
+          ]
         },
         {
           "label": "Pulmonary veins",
@@ -635,17 +694,22 @@
           "sections": [
             "PULMONARY VEINS"
           ],
-          "look": "Follow each vein from the hilum; delayed images if a vein is poorly opacified.",
-          "normal": "Four pulmonary veins draining normally to the left atrium.",
+          "look": "Trace each actual lobar/segmental venous channel, common/accessory trunks, dual drainage and the complete collector route to its atrial or systemic endpoint. Record opacification and coverage limits.",
+          "normal": {},
           "findings": [
             "Partial anomalous return of the right upper-lobe vein to the superior vena cava (often with a sinus venosus defect).",
             "Scimitar vein draining the right lung to the IVC.",
             "Left upper-lobe vein draining via a vertical vein to the brachiocephalic vein."
           ],
           "images": [
-            "congenital-ct-image-2"
+            "congenital-ct-image-2",
+            "open-vascular-venous-pmc7561662-fig4",
+            "open-vascular-venous-pmc7561662-fig17",
+            "open-vascular-venous-pmc7561662-fig18",
+            "open-vascular-venous-pmc3038141-fig1"
           ],
-          "landmark": "root"
+          "landmark": "root",
+          "tip": "Do not assume four separate pulmonary veins. Morphology and right-heart enlargement do not quantify shunt flow or determine haemodynamic significance. Single-phase contrast density does not independently quantify flow direction or Qp/Qs; report the actual functional source."
         },
         {
           "label": "Systemic veins",
@@ -653,17 +717,35 @@
           "sections": [
             "SYSTEMIC VEINS"
           ],
-          "look": "Left of the aortic arch for a left SVC; the azygos arch and retrocrural region.",
-          "normal": "Normal right superior vena cava and IVC.",
+          "look": "Follow each SVC and bridging vein to its actual endpoint, assess the coronary sinus/septum and trace covered IVC/hepatic and azygos/hemiazygos connections.",
+          "normal": {},
           "findings": [
             "Persistent left superior vena cava draining into a dilated coronary sinus.",
             "Azygos continuation of the IVC with an enlarged azygos arch.",
             "Prominent left superior intercostal vein (aortic nipple)."
           ],
           "landmark": "branches",
-          "tip": "A persistent left superior vena cava drains into the coronary sinus, which is then dilated."
+          "tip": "A left SVC usually drains through the coronary sinus to the right atrium, but left-atrial drainage occurs. Do not infer its endpoint from a single left mediastinal vessel or coronary-sinus enlargement. Trace vertical/levoatriocardinal, pericardiophrenic and postoperative mimics to their actual endpoints; single-phase density is not a calibrated flow measurement.",
+          "images": [
+            "open-vascular-venous-pmc7561662-fig2",
+            "open-vascular-venous-pmc7561662-fig3",
+            "open-vascular-venous-pmc7561662-fig4",
+            "open-vascular-venous-pmc7561662-fig13",
+            "open-vascular-venous-pmc7561662-fig18",
+            "open-vascular-venous-pmc7561662-fig20",
+            "open-vascular-venous-pmc7561662-fig21",
+            "open-vascular-venous-pmc7561662-fig22",
+            "open-vascular-venous-pmc7561662-fig23"
+          ]
         }
-      ]
+      ],
+      "start": {
+        "images": [
+          "open-vascular-ring-pmc4141344-fig1",
+          "open-vascular-ring-pmc4141344-fig11"
+        ],
+        "module_illustrations": false
+      }
     },
     "ra.cardiovascular-devices": {
       "steps": [
@@ -674,7 +756,7 @@
             "DEVICE IDENTIFICATION"
           ],
           "look": "Whole radiograph or CT: generator, leads, valves, closure devices, stents, pumps and catheters.",
-          "normal": "No cardiovascular device.",
+          "normal": {},
           "findings": [
             "Dual-chamber pacemaker with right atrial and right ventricular leads.",
             "Cardiac resynchronisation device with a coronary sinus lead.",
@@ -682,14 +764,44 @@
             "[Mechanical / bioprosthetic] valve in the [aortic / mitral] position."
           ],
           "images": [
-            "ra-cardiovascular-devices-source-1"
+            "open-cardiovascular-device-pmc6837806-fig1",
+            "open-cardiovascular-device-pmc6837806-fig2",
+            "open-cardiovascular-device-pmc6837806-fig3",
+            "open-cardiovascular-device-pmc6837806-fig5",
+            "open-cardiovascular-device-pmc6837806-fig6",
+            "open-cardiovascular-device-pmc6837806-fig7",
+            "open-cardiovascular-device-pmc6837806-fig11",
+            "open-cardiovascular-device-pmc6837806-fig12",
+            "open-cardiovascular-device-pmc6837806-fig14",
+            "open-cardiovascular-device-pmc6837806-fig15",
+            "open-cardiovascular-device-pmc6837806-fig16",
+            "open-cardiovascular-device-pmc6837806-fig17",
+            "open-cardiovascular-device-pmc6837806-fig18",
+            "open-cardiovascular-device-pmc6837806-fig19",
+            "open-cardiovascular-device-pmc6837806-fig20",
+            "open-cardiac-support-pmc10350447-fig1",
+            "open-cardiac-support-pmc10350447-fig5",
+            "open-cardiac-support-pmc10350447-fig10",
+            "open-cardiac-support-pmc10350447-fig11",
+            "open-cardiac-support-pmc10350447-fig12",
+            "open-implanted-support-pmc6837777-fig2",
+            "open-implanted-support-pmc6837777-fig3",
+            "open-implanted-support-pmc6837777-fig4",
+            "open-implanted-support-pmc6837777-fig5",
+            "open-implanted-support-pmc6837777-fig6",
+            "open-implanted-support-pmc6837777-fig7",
+            "open-implanted-support-pmc6837777-fig8",
+            "open-implanted-support-pmc6837777-fig9",
+            "open-implanted-support-pmc6837777-fig10",
+            "open-implanted-support-pmc6837777-fig11"
           ],
           "landmark": "ventricles",
           "parts": [
             "FJ2428",
             "FJ2439",
             "FJ2438"
-          ]
+          ],
+          "tip": "Count and identify every actual component, including abandoned/retained hardware; verify model and intended configuration from records rather than generator shape alone."
         },
         {
           "label": "Course",
@@ -698,7 +810,7 @@
             "COURSE"
           ],
           "look": "Follow each lead from the generator to the tip on frontal and lateral views.",
-          "normal": "Leads follow a normal course without kink or discontinuity.",
+          "normal": {},
           "findings": [
             "Lead fracture at the [clavicle–first rib crossing].",
             "Twisted leads with generator rotation (Twiddler syndrome).",
@@ -708,6 +820,32 @@
           "parts": [
             "FJ2439",
             "FJ2428"
+          ],
+          "tip": "Follow every component and connection, including nonstandard routes; bending/slack is device-specific and not automatically fracture or malfunction. Identify actual ECMO drainage and return routes and documented circuit type; cannula projection alone does not establish VV/VA configuration, return-jet alignment or recirculation.",
+          "images": [
+            "open-cardiovascular-device-pmc6837806-fig2",
+            "open-cardiovascular-device-pmc6837806-fig3",
+            "open-cardiovascular-device-pmc6837806-fig4",
+            "open-cardiovascular-device-pmc6837806-fig8",
+            "open-cardiovascular-device-pmc6837806-fig9",
+            "open-cardiovascular-device-pmc6837806-fig10",
+            "open-cardiovascular-device-pmc6837806-fig11",
+            "open-cardiovascular-device-pmc6837806-fig18",
+            "open-cardiac-support-pmc10350447-fig2",
+            "open-cardiac-support-pmc10350447-fig4",
+            "open-cardiac-support-pmc10350447-fig5",
+            "open-cardiac-support-pmc10350447-fig10",
+            "open-cardiac-support-pmc10350447-fig11",
+            "open-cardiac-support-pmc10350447-fig12",
+            "open-implanted-support-pmc6837777-fig2",
+            "open-implanted-support-pmc6837777-fig3",
+            "open-implanted-support-pmc6837777-fig4",
+            "open-implanted-support-pmc6837777-fig5",
+            "open-implanted-support-pmc6837777-fig6",
+            "open-implanted-support-pmc6837777-fig7",
+            "open-implanted-support-pmc6837777-fig9",
+            "open-implanted-support-pmc6837777-fig10",
+            "open-implanted-support-pmc6837777-fig11"
           ]
         },
         {
@@ -716,22 +854,52 @@
           "sections": [
             "TIP OR LANDING POSITION"
           ],
-          "look": "Right atrial appendage and right ventricular apex or septum; valve position relative to the annulus; IABP tip below the arch.",
-          "normal": "Leads and devices in expected positions.",
+          "look": "Use the intended device-specific site: actual atrial, ventricular, conduction-system, coronary sinus/epicardial, valve/closure/stent interface or pump/catheter route. Review balloon markers and covered branch-vessel relationships.",
+          "normal": {},
           "findings": [
             "Right ventricular lead tip projects beyond the cardiac contour, raising concern for perforation.",
-            "Intra-aortic balloon tip __ cm below the aortic arch.",
+            "Balloon-pump proximal/distal markers and covered balloon/access course: [ ]; named arch/branch-vessel relationships and device-specific position uncertainty: [ ].",
             "Coronary sinus lead in a [lateral] cardiac vein."
           ],
           "images": [
-            "ra-cardiovascular-devices-source-2"
+            "open-cardiovascular-device-pmc6837806-fig2",
+            "open-cardiovascular-device-pmc6837806-fig4",
+            "open-cardiovascular-device-pmc6837806-fig8",
+            "open-cardiovascular-device-pmc6837806-fig11",
+            "open-cardiovascular-device-pmc6837806-fig14",
+            "open-cardiovascular-device-pmc6837806-fig15",
+            "open-cardiovascular-device-pmc6837806-fig16",
+            "open-cardiovascular-device-pmc6837806-fig17",
+            "open-cardiovascular-device-pmc6837806-fig18",
+            "open-cardiovascular-device-pmc6837806-fig19",
+            "open-cardiovascular-device-pmc6837806-fig20",
+            "open-cardiovascular-device-pmc6837806-fig22",
+            "open-cardiac-support-pmc10350447-fig2",
+            "open-cardiac-support-pmc10350447-fig4",
+            "open-cardiac-support-pmc10350447-fig5",
+            "open-cardiac-support-pmc10350447-fig6",
+            "open-cardiac-support-pmc10350447-fig7",
+            "open-cardiac-support-pmc10350447-fig9",
+            "open-cardiac-support-pmc10350447-fig10",
+            "open-cardiac-support-pmc10350447-fig11",
+            "open-cardiac-support-pmc10350447-fig12",
+            "open-implanted-support-pmc6837777-fig1",
+            "open-implanted-support-pmc6837777-fig2",
+            "open-implanted-support-pmc6837777-fig3",
+            "open-implanted-support-pmc6837777-fig4",
+            "open-implanted-support-pmc6837777-fig5",
+            "open-implanted-support-pmc6837777-fig6",
+            "open-implanted-support-pmc6837777-fig7",
+            "open-implanted-support-pmc6837777-fig9",
+            "open-implanted-support-pmc6837777-fig10"
           ],
           "landmark": "ventricles",
           "parts": [
             "FJ2428",
             "FJ2439",
             "FJ2438"
-          ]
+          ],
+          "tip": "Distinguish LV-assist inflow from arterial outflow; left- and right-sided temporary pump positions differ. A projected tip or a generic arch distance does not validate complete 3D position or safety. For a dual-lumen RA-PA system, distinguish drainage and return lumens/ports using the actual model/source. ProtekDuo manufacturer describes proximal RA drainage and distal main-PA return; the source Figure 12 RV-outlet wording is not adopted as a normal target."
         },
         {
           "label": "Local complications",
@@ -740,7 +908,7 @@
             "LOCAL COMPLICATIONS"
           ],
           "look": "Pericardium and pleura; generator pocket.",
-          "normal": "No pneumothorax, pericardial effusion or pocket collection.",
+          "normal": {},
           "findings": [
             "New pericardial effusion after lead placement.",
             "Pneumothorax after device insertion.",
@@ -751,6 +919,23 @@
             "FJ2428",
             "FJ2439",
             "FJ2438"
+          ],
+          "tip": "State actual modality/coverage limits. A radiograph alone cannot exclude subtle perforation, pocket infection, effusion or physiological tamponade.",
+          "images": [
+            "open-cardiovascular-device-pmc6837806-fig4",
+            "open-cardiovascular-device-pmc6837806-fig8",
+            "open-cardiovascular-device-pmc6837806-fig9",
+            "open-cardiovascular-device-pmc6837806-fig10",
+            "open-cardiovascular-device-pmc6837806-fig22",
+            "open-cardiac-support-pmc10350447-fig3",
+            "open-cardiac-support-pmc10350447-fig4",
+            "open-cardiac-support-pmc10350447-fig6",
+            "open-cardiac-support-pmc10350447-fig7",
+            "open-cardiac-support-pmc10350447-fig8",
+            "open-cardiac-support-pmc10350447-fig9",
+            "open-cardiac-support-pmc10350447-fig12",
+            "open-implanted-support-pmc6837777-fig8",
+            "open-implanted-support-pmc6837777-fig11"
           ]
         },
         {
@@ -760,7 +945,7 @@
             "COMPARISON AND FUNCTIONAL LIMITS"
           ],
           "look": "Prior radiographs and CT.",
-          "normal": "Device positions unchanged since [date]. Imaging does not assess device function.",
+          "normal": {},
           "findings": [
             "Lead retraction since [date].",
             "Device migration of __ mm."
@@ -771,9 +956,27 @@
             "FJ2439",
             "FJ2438"
           ],
-          "tip": "A normal position does not prove normal electrical or haemodynamic function."
+          "tip": "Compare actual component identity, projection, phase and source calibration. Functional performance requires appropriate interrogation/clinical imaging. Generator appearance alone does not clear MRI; specialist complete-system assessment is separate. Distinguish documented decommissioning/intentional driveline division from unplanned discontinuity. Historical HVAD recognition is not current new-implant suitability; full device-team/advisory review is separate.",
+          "images": [
+            "open-implanted-support-pmc6837777-fig7",
+            "open-implanted-support-pmc6837777-fig8",
+            "open-implanted-support-pmc6837777-fig9",
+            "open-implanted-support-pmc6837777-fig11"
+          ]
         }
-      ]
+      ],
+      "model": {
+        "family": "heart",
+        "reporting_aim": "Orient the cardiac region while reviewing actual device images. This generic heart model does not contain implanted generators, leads/coils, valves/repairs, occluders, stents, pumps, cannulae, catheters or their patient-specific interfaces; device geometry and function require source-specific evidence."
+      },
+      "start": {
+        "images": [
+          "open-cardiovascular-device-pmc6837806-fig1",
+          "open-cardiovascular-device-pmc6837806-fig11",
+          "open-cardiac-support-pmc10350447-fig1"
+        ],
+        "module_illustrations": false
+      }
     },
     "ra.cardiac-masses": {
       "steps": [
@@ -784,20 +987,58 @@
             "LOCATION AND ATTACHMENT"
           ],
           "look": "Cine images to show attachment; multiplanar CT.",
-          "normal": "No intracardiac mass.",
+          "normal": {},
           "findings": [
             "Left atrial mass attached to the interatrial septum at the fossa ovalis (myxoma pattern).",
             "Left atrial appendage filling defect.",
             "Mass arising from the [ ] valve leaflet."
           ],
           "images": [
-            "cardiac-masses-devices-image-1"
+            "open-cardiac-mimic-pmc10818366-fig1",
+            "open-cardiac-mimic-pmc10818366-fig2",
+            "open-cardiac-mimic-pmc10818366-fig3",
+            "open-cardiac-mimic-pmc10818366-fig4",
+            "open-cardiac-mimic-pmc10818366-fig5",
+            "open-cardiac-mimic-pmc10818366-fig6",
+            "open-cardiac-mimic-pmc10818366-fig7",
+            "open-cardiac-mimic-pmc10818366-fig8",
+            "open-cardiac-mimic-pmc10818366-fig9",
+            "open-cardiac-mimic-pmc10818366-fig10",
+            "open-cardiac-mimic-pmc10818366-fig11",
+            "open-cardiac-mimic-pmc10818366-fig12",
+            "open-cardiac-mimic-pmc10818366-fig13",
+            "open-cardiac-mimic-pmc10818366-fig14",
+            "open-cardiac-mimic-pmc10818366-fig15",
+            "open-cardiac-mimic-pmc10818366-fig16",
+            "open-cardiac-mimic-pmc10818366-fig17",
+            "open-cardiac-mimic-pmc10818366-fig18",
+            "open-cardiac-mimic-pmc10818366-fig19",
+            "open-cardiac-mimic-pmc10818366-fig20",
+            "open-cardiac-mimic-pmc10818366-fig21",
+            "open-cardiac-mimic-pmc10818366-fig22",
+            "open-cardiac-mimic-pmc10818366-fig23",
+            "open-cardiac-mimic-pmc10818366-fig24",
+            "open-cardiac-mimic-pmc10818366-fig25",
+            "open-cardiac-mimic-pmc10818366-fig26",
+            "open-cardiac-mimic-pmc10818366-fig27",
+            "open-cardiac-mimic-pmc10818366-fig28",
+            "open-cardiac-mimic-pmc10818366-fig29",
+            "open-cardiac-mimic-pmc10818366-fig30",
+            "open-cardiac-mimic-pmc10818366-fig31",
+            "open-cardiac-mimic-pmc10818366-fig32",
+            "open-cardiac-mimic-pmc10818366-fig33",
+            "open-cardiac-mimic-pmc10818366-fig34",
+            "open-cardiac-mimic-pmc10818366-fig35",
+            "open-cardiac-mimic-pmc10818366-fig36",
+            "open-cardiac-mimic-pmc10818366-fig37",
+            "open-cardiac-mimic-pmc10818366-fig38"
           ],
           "landmark": "atria",
           "parts": [
             "FJ2438",
             "FJ2439"
-          ]
+          ],
+          "tip": "Trace actual attachment and nearby ridges, remnants, valves and vessels. Typical location is a differential clue, not automatic histology; no normality is inferred from an uncovered interface."
         },
         {
           "label": "Morphology",
@@ -816,6 +1057,31 @@
           "landmark": "atria",
           "parts": [
             "FJ2438"
+          ],
+          "normal": {},
+          "tip": "Report actual measurement plane/phase. Mobility and valve prolapse require the obtained cine/echo temporal study; a still image or generic model cannot establish them.",
+          "images": [
+            "open-cardiac-mimic-pmc10818366-fig2",
+            "open-cardiac-mimic-pmc10818366-fig4",
+            "open-cardiac-mimic-pmc10818366-fig7",
+            "open-cardiac-mimic-pmc10818366-fig8",
+            "open-cardiac-mimic-pmc10818366-fig9",
+            "open-cardiac-mimic-pmc10818366-fig13",
+            "open-cardiac-mimic-pmc10818366-fig14",
+            "open-cardiac-mimic-pmc10818366-fig15",
+            "open-cardiac-mimic-pmc10818366-fig19",
+            "open-cardiac-mimic-pmc10818366-fig20",
+            "open-cardiac-mimic-pmc10818366-fig21",
+            "open-cardiac-mimic-pmc10818366-fig22",
+            "open-cardiac-mimic-pmc10818366-fig23",
+            "open-cardiac-mimic-pmc10818366-fig24",
+            "open-cardiac-mimic-pmc10818366-fig25",
+            "open-cardiac-mimic-pmc10818366-fig27",
+            "open-cardiac-mimic-pmc10818366-fig29",
+            "open-cardiac-mimic-pmc10818366-fig30",
+            "open-cardiac-mimic-pmc10818366-fig35",
+            "open-cardiac-mimic-pmc10818366-fig36",
+            "open-cardiac-mimic-pmc10818366-fig37"
           ]
         },
         {
@@ -834,6 +1100,33 @@
           "parts": [
             "FJ2439",
             "FJ2438"
+          ],
+          "normal": {},
+          "tip": "Use actual CT/MRI sequence and reference tissues. T1/T2, fat/calcification or uptake patterns overlap; clinical/operative/pathology evidence may be required.",
+          "images": [
+            "open-cardiac-mimic-pmc10818366-fig4",
+            "open-cardiac-mimic-pmc10818366-fig5",
+            "open-cardiac-mimic-pmc10818366-fig6",
+            "open-cardiac-mimic-pmc10818366-fig8",
+            "open-cardiac-mimic-pmc10818366-fig12",
+            "open-cardiac-mimic-pmc10818366-fig13",
+            "open-cardiac-mimic-pmc10818366-fig14",
+            "open-cardiac-mimic-pmc10818366-fig16",
+            "open-cardiac-mimic-pmc10818366-fig17",
+            "open-cardiac-mimic-pmc10818366-fig18",
+            "open-cardiac-mimic-pmc10818366-fig19",
+            "open-cardiac-mimic-pmc10818366-fig22",
+            "open-cardiac-mimic-pmc10818366-fig23",
+            "open-cardiac-mimic-pmc10818366-fig25",
+            "open-cardiac-mimic-pmc10818366-fig26",
+            "open-cardiac-mimic-pmc10818366-fig27",
+            "open-cardiac-mimic-pmc10818366-fig28",
+            "open-cardiac-mimic-pmc10818366-fig29",
+            "open-cardiac-mimic-pmc10818366-fig31",
+            "open-cardiac-mimic-pmc10818366-fig32",
+            "open-cardiac-mimic-pmc10818366-fig33",
+            "open-cardiac-mimic-pmc10818366-fig34",
+            "open-cardiac-mimic-pmc10818366-fig35"
           ]
         },
         {
@@ -844,18 +1137,36 @@
           ],
           "look": "First-pass perfusion and late gadolinium enhancement; long-inversion-time images for thrombus.",
           "findings": [
-            "No enhancement on any phase, compatible with thrombus.",
+            "No enhancement on the obtained adequately assessed acquisitions: [ ]. Differential confidence and unresolved organised/mixed lesion components: [ ].",
             "Heterogeneous enhancement.",
-            "Early appendage filling defect resolving on delayed images (mixing, not thrombus)."
+            "Early appendage filling defect [resolves / persists / remains uncertain] on the actual delayed acquisition; timing, quality and diagnostic confidence: [ ]."
           ],
           "images": [
-            "cardiac-masses-devices-image-2"
+            "open-cardiac-mimic-pmc10818366-fig2",
+            "open-cardiac-mimic-pmc10818366-fig4",
+            "open-cardiac-mimic-pmc10818366-fig6",
+            "open-cardiac-mimic-pmc10818366-fig8",
+            "open-cardiac-mimic-pmc10818366-fig13",
+            "open-cardiac-mimic-pmc10818366-fig15",
+            "open-cardiac-mimic-pmc10818366-fig17",
+            "open-cardiac-mimic-pmc10818366-fig18",
+            "open-cardiac-mimic-pmc10818366-fig20",
+            "open-cardiac-mimic-pmc10818366-fig22",
+            "open-cardiac-mimic-pmc10818366-fig26",
+            "open-cardiac-mimic-pmc10818366-fig28",
+            "open-cardiac-mimic-pmc10818366-fig29",
+            "open-cardiac-mimic-pmc10818366-fig31",
+            "open-cardiac-mimic-pmc10818366-fig32",
+            "open-cardiac-mimic-pmc10818366-fig34",
+            "open-cardiac-mimic-pmc10818366-fig35",
+            "open-cardiac-mimic-pmc10818366-fig38"
           ],
           "landmark": "atria",
           "parts": [
             "FJ2438"
           ],
-          "tip": "Thrombus does not enhance; a delayed-phase image resolves most appendage mixing artefacts."
+          "tip": "Thrombus usually does not enhance, but organised chronic thrombus may rarely enhance peripherally. Assess actual acquired contrast timing/sequence quality and mixed components; one phase does not establish thrombus or mixing.",
+          "normal": {}
         },
         {
           "label": "Effects and spread",
@@ -864,14 +1175,33 @@
             "EFFECTS AND SPREAD"
           ],
           "look": "Inflow and outflow on cine; pericardium, mediastinum and lungs.",
-          "normal": "No obstruction, invasion or extracardiac disease.",
+          "normal": {},
           "findings": [
             "Obstruction of mitral inflow.",
             "Invasion of the myocardium and pericardium (malignant features).",
             "Pulmonary or pleural deposits."
           ],
           "images": [
-            "cardiac-masses-devices-image-3"
+            "open-cardiac-mimic-pmc10818366-fig9",
+            "open-cardiac-mimic-pmc10818366-fig10",
+            "open-cardiac-mimic-pmc10818366-fig11",
+            "open-cardiac-mimic-pmc10818366-fig14",
+            "open-cardiac-mimic-pmc10818366-fig15",
+            "open-cardiac-mimic-pmc10818366-fig16",
+            "open-cardiac-mimic-pmc10818366-fig17",
+            "open-cardiac-mimic-pmc10818366-fig20",
+            "open-cardiac-mimic-pmc10818366-fig23",
+            "open-cardiac-mimic-pmc10818366-fig24",
+            "open-cardiac-mimic-pmc10818366-fig28",
+            "open-cardiac-mimic-pmc10818366-fig30",
+            "open-cardiac-mimic-pmc10818366-fig31",
+            "open-cardiac-mimic-pmc10818366-fig32",
+            "open-cardiac-mimic-pmc10818366-fig33",
+            "open-cardiac-mimic-pmc10818366-fig34",
+            "open-cardiac-mimic-pmc10818366-fig35",
+            "open-cardiac-mimic-pmc10818366-fig36",
+            "open-cardiac-mimic-pmc10818366-fig37",
+            "open-cardiac-mimic-pmc10818366-fig38"
           ],
           "landmark": "ventricles",
           "parts": [
@@ -879,9 +1209,21 @@
             "FJ2439",
             "FJ2438"
           ],
-          "tip": "Metastases are far more common than primary malignant cardiac tumours."
+          "tip": "Document actual covered spread and suspicious interfaces; static appearances do not prove histology, haemodynamic obstruction or tamponade. Correlate appropriate clinical/function/staging evidence."
         }
-      ]
+      ],
+      "model": {
+        "family": "heart",
+        "reporting_aim": "Orient the cardiac region while reviewing actual lesion images. This generic heart model does not contain the actual mass, pseudomass, stalk/base, thin valvular/chordal interface, invasion, thrombus or pericardial/extracardiac disease; complete lesion geometry and function require source-specific evidence."
+      },
+      "start": {
+        "images": [
+          "open-cardiac-mimic-pmc10818366-fig2",
+          "open-cardiac-mimic-pmc10818366-fig7",
+          "open-cardiac-mimic-pmc10818366-fig20"
+        ],
+        "module_illustrations": false
+      }
     },
     "ra.mra-peripheral-vessels": {
       "steps": [

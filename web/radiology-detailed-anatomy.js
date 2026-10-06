@@ -9,12 +9,14 @@
     "openknee-oks003": "/app/anatomy/openknee-oks003/",
     "cervical-bones": "/app/anatomy/msk-cervical/",
     "massp2-subcortex": "/app/anatomy/massp2-subcortex/",
+    "hvsmr2-pat7": "/app/anatomy/hvsmr2-pat7/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
   const RANGES = {
     cervical: [150, 157],
     "brain-subcortex": [-25, 35],
+    "cardiac-venous-source": [-69.42072296142578, 86.83314514160156],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],

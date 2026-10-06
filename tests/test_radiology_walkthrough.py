@@ -24,6 +24,9 @@ CORRECTED = {
     'ra.paediatric-solid-abdominal-masses': 'abdomen', 'ra.paediatric-renal-tumours': 'renal',
     'ra.paediatric-ultrasound-values': 'abdomen', 'ra.recist': 'abdomen',
     'ra.aortic-aneurysm-rupture': 'aorta',
+    'ra.cardiovascular-devices': 'heart',
+    'ra.cardiac-masses': 'heart',
+    'ra.mri-cardiomyopathy': 'heart',
 }
 
 
