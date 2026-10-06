@@ -1,0 +1,37 @@
+{
+  "source_repository": "https://github.com/ABI-Software/capclient",
+  "commit": "a4a8fa5a4200a5c6da372d42f6e2961bef14f1d3",
+  "files": [
+    {
+      "path": "src/io/modelfile.cpp",
+      "sha256": "601e1503ae87fc7e0605c3d51d09b3d5674709efaa55897b1c3fb7f112025d11",
+      "url": "https://github.com/ABI-Software/capclient/blob/a4a8fa5a4200a5c6da372d42f6e2961bef14f1d3/src/io/modelfile.cpp"
+    },
+    {
+      "path": "src/model/heart.cpp",
+      "sha256": "f408e807ae59f00e2c093d1f60b81df8ec1a689062a9e8e2191bb4370eb2aef7",
+      "url": "https://github.com/ABI-Software/capclient/blob/a4a8fa5a4200a5c6da372d42f6e2961bef14f1d3/src/model/heart.cpp"
+    },
+    {
+      "path": "src/capclient.cpp",
+      "sha256": "cb803e9174ddcf25ad8c7adc928c6cdf67487f654df17862d4980d7c9d4c9d1d",
+      "url": "https://github.com/ABI-Software/capclient/blob/a4a8fa5a4200a5c6da372d42f6e2961bef14f1d3/src/capclient.cpp"
+    }
+  ],
+  "observed_source_behaviour": {
+    "xml_matrix": "GetTransformationMatrix assigns the serialized 16 entries into gtMatrix indices in listed order.",
+    "projection": "SetLocalToGlobalTransformation transposes gtMatrix column-major values for the Cmgui row-major projection field.",
+    "coordinates": "Source prolate field is converted by Cmgui coordinate_transformation, then projected to coordinates_patient_rc.",
+    "surface_faces": "Original renderer selects xi3_0 for its epicardial graphic and xi3_1 for its endocardial graphic.",
+    "model_load": "Original reader loads exelem and all exnode files, sets XML focal length and transformation; it does not treat node positions as a polygon mesh."
+  },
+  "source_code_executed_or_independently_compared": false,
+  "revision_proven_identical_to_2012_conversion": false,
+  "native_DICOM_registration_or_clinical_geometry_validated": false,
+  "remaining_geometry_checks": [
+    "Original finite-element basis and angular decreasing-in-xi1 handling must be evaluated; connectivity/node derivatives are not a triangulated surface.",
+    "Compare prolate conversion and projection against independent Zinc/Cmgui output and native image planes.",
+    "Establish manual-contour index/pixel convention and phase correspondence from original provenance before using contours to approve anatomy.",
+    "Check basal/apical topology and both surfaces without adding caps, smoothing or merging source structures."
+  ]
+}
