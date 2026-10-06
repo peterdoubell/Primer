@@ -90,13 +90,12 @@
   "case_specific_annotator_or_independent_reader_verified": false,
   "dataset_metadata_license": "CC BY 4.0",
   "dataset_description_inherits_upstream_collection_terms": true,
-  "tcia_current_and_historical_image_rows_allow_cc_by_4_and_3": true,
   "exact_underlying_tcia_case_version_linkage_verified": false,
-  "commercial_runtime_rights_clearance_status": "pending_exact_source_case_and_version_attribution_linkage",
+  "commercial_runtime_rights_clearance_status": "verified_current_source_ct_cc_by_3_0_and_mask_cc_by_4_0_with_attribution",
   "original_voxels_changed": false,
   "highest_resolution_acquired_master_verified": false,
   "ct_hu_or_bolus_timing_verified": false,
-  "physical_space_units_independently_verified": false,
+  "physical_space_units_independently_verified": true,
   "source_labels_separate_every_reportable_structure": false,
   "derived_surface": {
     "method": "skimage_marching_cubes_binary_level_0_5_full_resolution_no_padding",
@@ -133,8 +132,24 @@
     "One binary aorta label does not separately delineate lumen, thrombus, wall, calcium, every vessel branch, rupture compartment, fistula or repair anatomy.",
     "Publication describes thresholding, noise filtering, manual correction and morphological closing; it explicitly warns that low-resolution cases omit branches.",
     "The original segment tag says inprogress; published benchmark ground-truth naming is not independent completed clinical anatomical review.",
-    "Cardiac/contrast phase, CT HU calibration and acquired-master geometry are not independently recovered from these derivative NRRD headers.",
     "Only selected ZIP members were retrieved; member CRC and consistent ETag are verified, but the entire archive publisher MD5 is not.",
-    "Upstream version-specific rights/attribution and exact original case linkage remain unresolved; no blanket commercial clearance from the Figshare badge."
-  ]
+    "Current original DICOM series, mm/HU calibration and reuse grants are fully matched; historical AVT export release, bolus timing and acquired-master status remain unverified.",
+    "The AVT publication cites RIDER Lung CT; the exact R6 pixels match RIDER Lung PET-CT. Original citation is retained with explicit case-specific correction."
+  ],
+  "verified_original_dicom_linkage": {
+    "evidence_path": "docs/avt-r6-dicom-linkage-review/complete-dicom-linkage-review.json",
+    "evidence_sha256": "20f42e7a93bbaba0ea66f2843c0ccd71d8d9f65cb4c769f8171b040621c8e2e8",
+    "source_doi": "10.7937/k9/tcia.2015.ofip7tvm",
+    "SeriesInstanceUID": "1.3.6.1.4.1.9328.50.17.321375527633491919048584720362415649934",
+    "verified_pixel_count": 278921216
+  },
+  "ct_hu_calibration_verified": true,
+  "ct_bolus_timing_verified": false,
+  "exact_underlying_series_linkage_verified": true,
+  "original_avt_export_tcia_release_version_verified": false,
+  "upstream_source_collection": "RIDER Lung PET-CT",
+  "upstream_source_doi": "10.7937/k9/tcia.2015.ofip7tvm",
+  "upstream_source_license": "CC BY 3.0",
+  "previously_considered_rider_lung_ct_license_rows_allow_cc_by_4_and_3": true,
+  "matched_upstream_collection_image_row_license": "CC BY 3.0"
 }

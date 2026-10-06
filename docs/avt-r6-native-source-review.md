@@ -1,5 +1,7 @@
 # Original AVT R6 CT/mask and full-resolution source-mask geometry
 
+**Source update, 6 October 2026:** [Complete original-DICOM comparison](avt-r6-dicom-linkage-review.md) now identifies every R6 pixel in RIDER Lung PET-CT, verifies original mm/HU calibration and resolves this specific pair's upstream CC BY 3.0 attribution. The original unresolved findings below describe the initial review; these source/calibration claims are superseded by the linked complete evidence. Historical export release, mask anatomy, bolus timing and clinical approval remain unresolved.
+
 Reviewed 6 October 2026. Following the ten external-surface review, this packet obtains a source with a delivered aortic-tree mask, rather than borrowing branches from another patient or inventing structures in an external envelope. It improves the available CT/label evidence while leaving clinical fidelity unapproved.
 
 The [AVT dataset](https://figshare.com/articles/dataset/Aortic_Vessel_Tree_AVT_CTA_Datasets_and_Segmentations/14806362) and [primary publication](https://pmc.ncbi.nlm.nih.gov/articles/PMC8760499/), DOI 10.1016/j.dib.2022.107801, identify the aneurysm case as `Rider/R6 (AAA)/`. That is a source directory label, not an independently confirmed diagnosis. The publication describes semi-automatic thresholding, manual corrections and morphological processing; some cases omit branches, and no case-specific independent clinical reader is identified for R6.

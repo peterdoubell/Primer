@@ -36,11 +36,14 @@ def test_source_grid_and_annotation_status_do_not_imply_finished_anatomical_revi
     assert p['source_segment_status_tag']=='Segmentation.Status:inprogress'
     for key in ['grid_correspondence_is_independent_anatomical_validation','source_segment_status_is_independent_finished_review',
                 'case_specific_annotator_or_independent_reader_verified','ct_hu_or_bolus_timing_verified',
-                'physical_space_units_independently_verified','highest_resolution_acquired_master_verified',
+                'highest_resolution_acquired_master_verified',
                 'source_labels_separate_every_reportable_structure','clinical_approval','runtime_promoted','structure_coverage_granted']:
         assert p[key] is False
     assert not p['exact_underlying_tcia_case_version_linkage_verified']
-    assert p['commercial_runtime_rights_clearance_status'].startswith('pending_')
+    assert p['commercial_runtime_rights_clearance_status'].startswith('verified_current_source_')
+    assert p['physical_space_units_independently_verified'] and p['ct_hu_calibration_verified'] and p['exact_underlying_series_linkage_verified']
+    evidence=p['verified_original_dicom_linkage']
+    assert sha((ROOT/evidence['evidence_path']).read_bytes())==evidence['evidence_sha256']
     assert p['dataset_description_inherits_upstream_collection_terms']
 
 

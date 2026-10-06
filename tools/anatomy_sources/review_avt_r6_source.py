@@ -88,6 +88,30 @@ def review(root):
             'Cardiac/contrast phase, CT HU calibration and acquired-master geometry are not independently recovered from these derivative NRRD headers.',
             'Only selected ZIP members were retrieved; member CRC and consistent ETag are verified, but the entire archive publisher MD5 is not.',
             'Upstream version-specific rights/attribution and exact original case linkage remain unresolved; no blanket commercial clearance from the Figshare badge.']}
+    linkage=ROOT/'docs/avt-r6-dicom-linkage-review/complete-dicom-linkage-review.json'
+    if linkage.exists():
+        evidence=json.loads(linkage.read_text())
+        if (evidence['original_ct_sha256']!=CT_SHA or evidence['original_mask_sha256']!=MASK_SHA
+                or not evidence['all_source_slices_and_pixels_match'] or evidence['verified_original_pixel_count']!=ct.size
+                or {r['voxel_k'] for r in evidence['records']}!=set(range(ct.shape[0]))
+                or len(evidence['records'])!=ct.shape[0]):raise ValueError('DICOM linkage evidence does not cover this complete source')
+        summary['verified_original_dicom_linkage']={'evidence_path':str(linkage.relative_to(ROOT)),
+            'evidence_sha256':sha(linkage.read_bytes()),'source_doi':evidence['source_doi'],
+            'SeriesInstanceUID':evidence['source_series']['SeriesInstanceUID'],'verified_pixel_count':evidence['verified_original_pixel_count']}
+        summary['physical_space_units_independently_verified']=True
+        summary['ct_hu_calibration_verified']=True
+        summary['ct_bolus_timing_verified']=False
+        summary['exact_underlying_series_linkage_verified']=True
+        summary['original_avt_export_tcia_release_version_verified']=False
+        summary['commercial_runtime_rights_clearance_status']='verified_current_source_ct_cc_by_3_0_and_mask_cc_by_4_0_with_attribution'
+        summary['upstream_source_collection']='RIDER Lung PET-CT'
+        summary['upstream_source_doi']=evidence['source_doi']
+        summary['upstream_source_license']='CC BY 3.0'
+        summary['previously_considered_rider_lung_ct_license_rows_allow_cc_by_4_and_3']=summary.pop('tcia_current_and_historical_image_rows_allow_cc_by_4_and_3')
+        summary['matched_upstream_collection_image_row_license']='CC BY 3.0'
+        summary['limits']=[s for s in summary['limits'] if not s.startswith('Cardiac/contrast phase, CT HU') and not s.startswith('Upstream version-specific rights/')]
+        summary['limits']+=['Current original DICOM series, mm/HU calibration and reuse grants are fully matched; historical AVT export release, bolus timing and acquired-master status remain unverified.',
+            'The AVT publication cites RIDER Lung CT; the exact R6 pixels match RIDER Lung PET-CT. Original citation is retained with explicit case-specific correction.']
     (OUTPUT/'native-source-review.json').write_text(json.dumps(summary,indent=2)+'\n')
     print('Verified R6 CT/mask;',int(counts[1]),'label voxels;',len(ras),'source-mask isosurface positions;',len(faces),'triangles; clinical approval pending.')
 
