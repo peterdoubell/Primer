@@ -3312,82 +3312,99 @@
   },
   "ra.ct-cardiovascular-pearls": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-06",
       "protocol": [
-        "Assess cardiovascular structures visible on the chest CT and explicitly state nongated or contrast-phase limitations."
+        "State actual CT indication, obtained coverage, contrast route/phase or unenhanced acquisition, ECG gating if any, reconstructed planes/resolution, source calibration, respiratory/cardiac motion and prior surgery/device context.",
+        "Review every covered cardiac/great-vessel compartment on original source and appropriate reformats/windows. Routine chest CT does not automatically supply diagnostic coronary, valve, temporal function, perfusion or tissue-characterisation data; unassessed/unresolved structures remain explicit."
       ],
       "checklist": [
         {
           "label": "Chambers",
-          "detail": "Review chamber size and gross structural abnormalities."
+          "detail": "Review all covered chamber/appendage boundaries, septa and structural connections with actual phase/coverage limits; separate filling defect from mixing or unresolved lumen."
         },
         {
           "label": "Myocardium",
-          "detail": "Assess visible myocardial thickness, fat and calcification."
+          "detail": "Describe each source-resolved myocardial site, wall, thickness/morphology, fat, calcium or attenuation difference with its acquisition/phase and differential."
         },
         {
           "label": "Coronaries And Valves",
-          "detail": "Report visible calcification and gross abnormalities within technique limits."
+          "detail": "Assess actual coronary course/calcification and each source-resolved valve/annulus within technique limits; distinguish calcium location/burden from diagnostic stenosis or valve function."
         },
         {
           "label": "Great Vessels",
-          "detail": "Inspect imaged aorta, pulmonary arteries and major veins."
+          "detail": "Trace every covered aortic/pulmonary/venous channel, branch origin, course and endpoint, including actual variants and directly seen versus inferred connections."
         },
         {
           "label": "Pericardium",
-          "detail": "Assess pericardial fluid, thickening and calcification."
+          "detail": "Review all covered pericardial compartments/recesses and adjacent fat, fluid, thickening, calcium, cysts or masses with full source extent and uncertainty."
         }
       ],
       "measurements": [
         {
           "name": "Visible vessel diameter",
-          "method": "Measure perpendicular to the vessel axis at a named level.",
-          "pitfall": "Motion and nongated acquisition limit cardiac-root measurements."
+          "method": "Measure each actual source-resolved vessel perpendicular to its local axis at a named level, with stated edge convention, units, phase and calibration; retain non-diagnostic boundaries.",
+          "pitfall": "Motion, obliquity and nongated/contrast-phase limits affect root/vascular measurements; diameter does not independently measure pressure or shunt/function."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Routine nongated chest CT is not a diagnostic coronary angiogram and should not receive CAD-RADS stenosis grading."
+        "Go-with-the-flow is an anatomical search mnemonic, not a measurement of flow, shunt direction or haemodynamics. Early contrast mixing can mimic LAA or chamber thrombus; report actual evidence and uncertainty rather than diagnose from one filling defect.",
+        "Unknown cardiac phase and oblique nongated planes can overestimate wall thickness. Fat, calcium or focal low attenuation support contextual differentials, not automatic infarct timing, viability, scar volume or cardiomyopathy aetiology.",
+        "For adequately covered nongated CT, a whole-patient visual CAC burden may be none/mild/moderate/severe with method/limits. That is not CAD-RADS stenosis grading or an uncalibrated Agatston score. Valve calcium alone does not independently establish haemodynamic valve severity.",
+        "No universal vessel size or artery-to-aorta ratio proves pulmonary hypertension, shunt flow or acute/chronic disease. Trace actual number, origin and venous drainage; left SVC drainage and pulmonary vein number are not universal normal configurations.",
+        "Fluid, thickening or calcification does not independently establish tamponade, constrictive physiology, infection or histology. Static images and generic geometry do not supply physiological measurements."
       ],
       "impression_prompts": [
-        "Cardiovascular abnormalities encountered on routine chest CT.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "Describe actual source-supported cardiovascular findings by site/extent and appropriate differential.",
+        "Separate anatomical/attenuation findings from functional, haemodynamic or diagnostic conclusions requiring further source evidence.",
+        "State contrast/gating/motion/coverage limits and comparison; contextual clinical assessment is not an automatic investigation or procedure mandate."
       ],
-      "escalation": [],
+      "escalation": [
+        "Promptly communicate source-suspected acute cardiovascular abnormalities such as acute aortic pathology, embolic disease or rupture/haemorrhage with actual technique and uncertainty; management depends on the clinical team."
+      ],
       "template_sections": [
         {
           "heading": "CHAMBERS",
-          "body": "Chambers: [ ]. Septal/structural finding: [ ]."
+          "body": "Actual covered RA/RV/LA/LV and appendage boundaries [ ]; size/shape and source method/phase [ ]; septal or membrane/connection variant [ ]; filling defect/mass/mixing source and differential [ ]; unassessed regions and unavailable flow/function [ ]."
         },
         {
           "heading": "MYOCARDIUM",
-          "body": "Myocardial finding: [ ]. Distribution: [ ]."
+          "body": "Each actual covered chamber/region/layer interface [ ]; source-resolved thickness/morphology with phase/axis [ ]; fat/calcium/attenuation findings and extent [ ]; focal thinning, aneurysm or other component [ ]; prior/clinical context and differential [ ]; unavailable temporal/perfusion/viability/tissue data [ ]."
         },
         {
           "heading": "CORONARIES AND VALVES",
-          "body": "Coronary calcification: [ ]. Aortic/mitral valve findings: [ ]."
+          "body": "Covered coronary origins/courses and actual anomaly/aneurysm/fistula if resolved [ ]; whole-patient visual CAC burden/method/limits [ ]; named distribution [ ]; no unsupported coronary stenosis/Agatston classification [ ]; aortic leaflet/root/wall versus mitral annular and other calcification sites [ ]; each covered valve/prosthesis morphology and source limits [ ]; valve functional data if separately obtained [ ]."
         },
         {
           "heading": "GREAT VESSELS",
-          "body": "Aorta: [ ]. Pulmonary arteries: [ ]. Major veins: [ ]."
+          "body": "Each covered aortic segment/branch, pulmonary artery and systemic/pulmonary venous channel [ ]; actual origin/course/drainage/attachment and variant [ ]; directly seen versus inferred or unassessed extent [ ]; local axis/edge-defined measurements and source phase [ ]; actual thromboembolic/wall/repair findings and confidence [ ]; unavailable pressure/shunt/perfusion evidence [ ]."
         },
         {
           "heading": "PERICARDIUM",
-          "body": "Effusion: [ ]. Thickening/calcification: [ ]. Other cardiac finding: [ ]."
+          "body": "Covered layers/compartments/recesses and adjacent epicardial fat [ ]; actual fluid/thickening/calcium distribution and source-resolved boundaries [ ]; cyst/mass or other component and interfaces [ ]; prior/source comparison and differential [ ]; clinical/functional confirmation of tamponade/constriction or other effect if available [ ]; unresolved or uncovered extent [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 Cardiovascular Pearls on Chest CT...",
+          "title": "RA cardiovascular pearls",
           "url": "https://radiologyassistant.nl/cardiovascular/pearls/cardiovascular-pearls-on-chest-ct"
         },
         {
-          "title": "Radiology Assistant \u2014 Cardiovascular Pearls on Chest CT.",
+          "title": "RA chest cardiovascular pearls",
           "url": "https://radiologyassistant.nl/chest/pearls/cardiovascular-pearls-on-chest-ct-2"
+        },
+        {
+          "title": "Incidental cardiac disease CT pictorial review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6365314/"
+        },
+        {
+          "title": "BSCI/BSCCT/BSTI nongated calcification consensus",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7774698/"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.ct-covid": {
     "reporting": {

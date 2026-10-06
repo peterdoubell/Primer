@@ -28,6 +28,7 @@ CORRECTED = {
     'ra.cardiac-masses': 'heart',
     'ra.mri-cardiomyopathy': 'heart',
     'ra.mra-peripheral-vessels': 'aorta',
+    'ra.ct-cardiovascular-pearls': 'heart',
 }
 
 
