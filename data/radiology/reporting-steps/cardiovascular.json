@@ -1229,42 +1229,44 @@
       "steps": [
         {
           "label": "Inflow",
-          "detail": "Assess the aorta and iliac arteries.",
+          "detail": "Trace the actually covered aortic and iliac inflow, each side and branch configuration; identify unassessed proximal segments.",
           "sections": [
             "INFLOW"
           ],
-          "look": "First station MIP and source images of the abdominal aorta and iliac arteries.",
-          "normal": "Aorta and iliac arteries patent without significant stenosis.",
+          "look": "Original arterial source images plus multiple MIP/reformatted views of covered aorta, bifurcation, common/external/internal iliacs and proximal inflow; check station overlap and origin variants.",
+          "normal": {},
           "findings": [
-            "Stenosis of the [left common iliac] artery, [ ]%.",
-            "Occlusion of the [right external iliac] artery."
+            "Source-supported [ ] lesion in the [side, named inflow artery] from [ ] to [ ]; measurement convention and confidence [ ].",
+            "[ ] proximal segment is unassessed because [ ]; no normal patency claim is made."
           ],
           "images": [
             "peripheral-vascular-image-1"
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "An unopacified or uncovered artery is not automatically absent or occluded. Record variant origins and the source evidence for lumen continuity."
         },
         {
           "label": "Femoropopliteal segments",
-          "detail": "Map stenoses and occlusions by named segment and side.",
+          "detail": "Map every covered common/deep/superficial femoral and popliteal segment, lesion and variant by side and actual anatomical endpoints.",
           "sections": [
             "SEGMENTAL DISEASE"
           ],
-          "look": "Common femoral, superficial femoral, profunda and popliteal arteries on both sides.",
-          "normal": "Femoral and popliteal arteries patent on both sides.",
+          "look": "Each side: common femoral and bifurcation, profunda and relevant branches, superficial femoral course/adductor canal and complete covered popliteal segment. Trace actual high origins and branch variants.",
+          "normal": {},
           "findings": [
             "Occlusion of the [right] superficial femoral artery from [ ] to [ ].",
             "Multiple stenoses of the [left] popliteal artery."
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "Branch names describe actual observed anatomy; hypoplasia, high origin, trifurcation, dominant peroneal supply and postoperative anatomy must be traced rather than substituted with a normal tree."
         },
         {
           "label": "Lesion length and calibre",
-          "detail": "Describe lesion length, stenosis severity and aneurysm.",
+          "detail": "Describe each lesion and its native-source minimum lumen, reference, length, morphology and uncertainty; distinguish signal loss from confirmed occlusion.",
           "sections": [
             "LESION MORPHOLOGY"
           ],
-          "look": "Source images and curved reformats; measure along the vessel.",
+          "look": "Native source and orthogonal/curved planes with stated calibration. Record each lesion start/end and reference location; do not infer wall composition, calcium, haemodynamic significance or device lumen from a bright-blood projection alone.",
           "findings": [
             "Focal stenosis __ mm long.",
             "Occlusion __ cm long.",
@@ -1274,43 +1276,51 @@
             "Lesion length"
           ],
           "landmark": "iliacs",
-          "tip": "MIP images can hide overlapping lesions or exaggerate stenosis; confirm on source images.",
+          "tip": "Stenosis percentage requires a stated measurement/reference convention and adequate native source. MIP overlap, subtraction and flow or metal artefacts can mimic or exaggerate disease; missing lumen evidence remains uncertain.",
           "images": [
             "peripheral-vascular-image-2"
-          ]
+          ],
+          "normal": {}
         },
         {
           "label": "Runoff and collaterals",
-          "detail": "Identify distal runoff and collateral reconstitution.",
+          "detail": "Trace each actual tibial/peroneal artery to its resolved distal endpoint and each pedal/plantar connection, collateral and reconstitution; do not assume three patent channels.",
           "sections": [
             "RUNOFF AND COLLATERALS"
           ],
-          "look": "Anterior tibial, posterior tibial and peroneal arteries and the pedal arch.",
-          "normal": "Three-vessel runoff to the foot bilaterally.",
+          "look": "Trace anterior tibial, tibioperoneal trunk if present, posterior tibial and peroneal courses; then dorsalis pedis, medial/lateral plantar, actual plantar/dorsal arch and relevant distal branches. State every covered endpoint and unassessed foot extent.",
+          "normal": {},
           "findings": [
-            "[Two]-vessel runoff on the [right] via the [ ].",
-            "Reconstitution of the popliteal artery via collaterals."
+            "[Side] actual traced runoff: [named vessels and resolved endpoints]; unassessed distal segments [ ].",
+            "Collateral reconstitution of [ ] at [ ], with source-supported distal continuity to [ ]; flow/function evidence [available / unavailable].",
+            "Variant [high origin / trifurcation / hypoplastic channel / dominant peroneal / other actual configuration]: [ ]."
           ],
           "images": [
             "peripheral-vascular-image-3"
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "Tibial channel count does not establish uninterrupted supply to the foot, a complete pedal arch, wound perfusion or tissue viability. Morphological continuity does not by itself establish flow direction, pressure or clinical effect."
         },
         {
           "label": "Technical limitations",
-          "detail": "Identify venous contamination, bolus timing problems, motion and metal artefacts.",
+          "detail": "State per-station acquisition, coverage, source quality, contrast/flow timing, venous overlap and artefact; distinguish a non-diagnostic segment from disease.",
           "sections": [
             "TECHNICAL LIMITATIONS"
           ],
-          "look": "Lower-leg station for venous overlap; stents for susceptibility artefact.",
-          "normal": "Diagnostic arterial opacification throughout; no significant artefact.",
+          "look": "Inspect acquired precontrast masks and arterial source/station overlap where present; check bolus timing, slow/in-plane/turbulent flow, subtraction misregistration, motion, venous contamination and metal signal loss. Record the effect on each named segment.",
+          "normal": {},
           "findings": [
             "Venous contamination in the calf limits runoff assessment.",
             "Stent artefact in the [ ] prevents lumen assessment."
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "Historical scanner/coil, injection, compression-cuff and pixel-count advice is not a universal current protocol or safety clearance. Suspected acute limb ischaemia requires urgent clinical assessment; do not delay care to obtain a routine MRA."
         }
-      ]
+      ],
+      "model": {
+        "family": "aorta",
+        "reporting_aim": "Partial aortic orientation only. This companion does not supply patient-specific iliac/femoral/tibial/pedal branches, collateral or graft geometry, stenosis/occlusion, arterial wall or measured flow. Actual vessel identity, runoff, variants, lesions and tissue/clinical effects require the obtained source examination."
+      }
     },
     "ra.ct-cardiovascular-pearls": {
       "steps": [
