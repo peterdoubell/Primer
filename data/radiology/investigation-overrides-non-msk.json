@@ -3495,78 +3495,91 @@
   },
   "ra.hrct-cystic-lung": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-06",
       "protocol": [
-        "Review thin-section inspiratory CT and distinguish true cysts from cavities, emphysema and dilated airways."
+        "Record actual thin-section CT acquisition, coverage, source voxel/reconstruction/window, inspiratory level, motion and available comparison. Expiration/contrast or other tests are separate only if performed.",
+        "Trace source cyst-like lesions and all covered regional interfaces. Teaching diagnoses, typical distributions and representative stills are not the current patient observations or complete native anatomy."
       ],
       "checklist": [
         {
-          "label": "Cyst Morphology",
-          "detail": "Describe wall, shape and size range."
+          "label": "Cyst morphology",
+          "detail": "Trace each actual cyst or cyst-like lesion through obtained source planes; describe wall, contents, shape, septa, mural components and airway/vessel continuity with source uncertainty."
         },
         {
           "label": "Distribution",
-          "detail": "Assess zonal, axial and subpleural distribution."
+          "detail": "Record actual count/extent and regional distribution across every covered lobe, axial compartment, pleural recess and fissural/mediastinal interface; identify coverage limits."
         },
         {
-          "label": "Associated Nodules",
-          "detail": "Look for nodules and their relationship to cysts."
+          "label": "Associated nodules",
+          "detail": "Describe each solid/cavitating nodule, mural or intracystic component and its relationship to cysts, airways and vessels; assess actual prior change."
         },
         {
-          "label": "Background Lung",
-          "detail": "Assess ground glass, septal change and fibrosis."
+          "label": "Background lung",
+          "detail": "Describe intervening parenchyma, ground glass, septa, reticulation, fibrosis, honeycombing, emphysema and airway change with source phase and differential."
         },
         {
-          "label": "Extrapulmonary Context",
-          "detail": "Review pneumothorax and relevant visible systemic findings."
+          "label": "Extrapulmonary context",
+          "detail": "Review pleura, pneumothorax/fluid, covered nodes and systemic findings; separate observed CT from supplied history, genetics, microbiology or tissue evidence."
         }
       ],
       "measurements": [
         {
           "name": "Representative cysts",
-          "method": "Record a size range and maximum dimension of an index cyst when useful.",
-          "pitfall": "Do not base the differential on one selected cyst alone."
+          "method": "Measure selected source-resolved lesions in stated orthogonal/local planes, wall/airspace edge convention, reconstruction/window and actual calibration; describe justified range, burden estimate and uncertainty.",
+          "pitfall": "One lesion or still does not establish whole-lung burden, microscopic wall structure or calibrated serial change."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A thin-walled lucency is not automatically a cyst; identify airway continuity and the surrounding parenchymal pattern."
+        "Wall thickness or apparent absence alone is not a diagnostic cutoff; partial volume, reconstruction and orientation affect thin walls. Thick/irregular components and a cyst-like cavity require a stated differential.",
+        "The source four-cysts/age-forty rule is a contextual heuristic, not a diagnosis or exclusion rule, particularly with recurrent pneumothorax or suspected hereditary disease. Costophrenic distribution supports a differential, not a unique diagnosis.",
+        "New/growing mural solid tissue or changing cyst-associated nodules warrant appropriate clinical evaluation. Wall thinning or low/negative PET uptake alone does not establish benignity; no PET finding is borrowed when PET was not obtained.",
+        "LAM/BHD-FDS/PLCH/LIP/AMP-DIP patterns overlap with infection, neoplasia, deposition and other causes. Record morphology and uncertainty; source terminology does not prove histology, genotype or functional severity.",
+        "No pneumothorax, chylous fluid, renal tumour, systemic disease or hereditary finding may be asserted from unassessed anatomy. CT fluid is not proven chyle; urgency depends on actual findings and clinical context."
       ],
       "impression_prompts": [
-        "Cyst distribution, morphology and associated parenchymal findings.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "Describe actual cyst/mimic morphology, distribution, associated solid/parenchymal findings and full obtained extent with technical confidence.",
+        "Give a supported differential and the clinical/genetic/tissue sources or missing evidence; do not convert an age/count heuristic or teaching pattern into a confirmed diagnosis.",
+        "State concerning interval change or complication and appropriate source/context-dependent clinical assessment."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate an observed pneumothorax or other clinically urgent complication through local pathways; source pattern alone does not establish physiological instability."
+      ],
       "template_sections": [
         {
           "heading": "CYST MORPHOLOGY",
-          "body": "Wall: [ ]. Shape: [ ]. Size range: [ ]."
+          "body": "Actual lesion/site and cyst versus mimic [ ]; wall/shape/content/septa/mural or traversing-vessel interface [ ]; full source-resolved extent [ ]; representative size/axis/window/calibration and uncertainty [ ]; microscopic/unresolved components [ ]."
         },
         {
           "heading": "DISTRIBUTION",
-          "body": "Upper/lower predominance: [ ]. Central/peripheral: [ ]. Costophrenic involvement: [ ]."
+          "body": "Actual count or justified extent estimate [ ]; every covered side/lobe/region and zonal/axial pattern [ ]; costophrenic, subpleural, mediastinal and fissural relation [ ]; variant/coverage/unevaluable extent [ ]; prior source comparison [ ]."
         },
         {
           "heading": "ASSOCIATED NODULES",
-          "body": "Nodules: [ ]. Cavitating nodules: [ ]. Distribution: [ ]."
+          "body": "Each source solid/cavitating, mural/intracystic or adjacent nodule/mass [ ]; actual cyst/airway/vessel relation [ ]; local site, extent, size/method and change [ ]; comparison/registration/source limits [ ]; concerning or indeterminate component [ ]."
         },
         {
           "heading": "BACKGROUND LUNG",
-          "body": "Ground glass: [ ]. Septa/fibrosis: [ ]."
+          "body": "Each covered regional ground glass, septal/reticular/fibrotic/emphysematous or airway finding [ ]; intervening tissue versus lesion [ ]; actual acquired inspiration/expiration/contrast source [ ]; differential and technical limits [ ]."
         },
         {
           "heading": "EXTRAPULMONARY CONTEXT",
-          "body": "Pneumothorax: [ ]. Other findings: [ ]. Prior change: [ ]."
+          "body": "Actual pleural pneumothorax/fluid or other complication [ ]; covered nodal/vascular/upper-abdominal finding [ ]; supplied smoking, autoimmune/infectious, genetic/tissue or other history/source/date [ ]; unavailable/uncovered systemic or functional evidence [ ]; prior change and communication [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 Cystic Lung Disease - Differential diagnosis",
+          "title": "Radiology Assistant cystic lung approach",
           "url": "https://radiologyassistant.nl/chest/cystic-lung-disease/analysis-of-cystic-lung-disease-1-1-1"
+        },
+        {
+          "title": "2026 original cystic lung CT pictorial review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13200743/"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.esophagus": {
     "reporting": {

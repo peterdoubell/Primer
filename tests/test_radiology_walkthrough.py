@@ -30,6 +30,7 @@ CORRECTED = {
     'ra.mra-peripheral-vessels': 'aorta',
     'ra.ct-cardiovascular-pearls': 'heart',
     'ra.pulmonary-hypertension': 'thorax',
+    'ra.hrct-cystic-lung': 'thorax',
 }
 
 
