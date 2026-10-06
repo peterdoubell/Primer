@@ -63,13 +63,13 @@ FIGURES={
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 
 
-def append_evidence(path,assets):
+def append_evidence(path,assets,prefix=PREFIX):
     raw=path.read_text();start=raw.index('[',raw.index('"assets"'))+1;cursor=start;retained=[];decoder=json.JSONDecoder()
     while True:
         cursor+=len(re.match(r'\s*',raw[cursor:]).group())
         if raw[cursor]==']':break
         entry,end=decoder.raw_decode(raw,cursor)
-        if not entry['id'].startswith(PREFIX):retained.append(raw[cursor:end])
+        if not entry['id'].startswith(prefix):retained.append(raw[cursor:end])
         cursor=end+len(re.match(r'\s*',raw[end:]).group())
         if raw[cursor]==',':cursor+=1
     retained.extend(json.dumps(a,indent=2,ensure_ascii=False).replace('\n','\n    ') for a in assets)
