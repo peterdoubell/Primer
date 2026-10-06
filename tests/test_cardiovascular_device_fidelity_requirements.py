@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1];IDENT='ra.cardiovascular-devices'
 def test_each_actual_component_route_and_reporting_field_are_bound():
     data=json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text());item=next(i for i in data['investigations'] if i['investigation_id']==IDENT);ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];single={**data,'scope':{**data['scope'],'catalog_investigation_ids':[IDENT]},'investigations':[item]}
     assert item['source_contract_sha256']==digest({k:ref.get(k) for k in ('reporting','report_templates','walkthrough','reading')})
-    validate_reporting_snapshots(single,{IDENT:ref['reporting']});assert len(item['structures'])==93 and len(requirements_for(item))==906
+    validate_reporting_snapshots(single,{IDENT:ref['reporting']});assert len(item['structures'])==94 and len(requirements_for(item))==916
     assert {r['checklist_index'] for s in item['structures'] for r in s['report_refs']}==set(range(5))
     ids={p['id'] for p in requirements_for(item)}
     for suffix in ['dual_lumen_ra_pa_cannula.outer_drainage_lumen','dual_lumen_ra_pa_cannula.inner_return_lumen','generator_header.every_actual_port','coronary_sinus_lead.actual_tip_and_target_interface','conduction_system_lead.complete_visible_course',
@@ -20,7 +20,7 @@ def test_each_actual_component_route_and_reporting_field_are_bound():
         'complications.fracture_vs_projection_or_tie_down_mimic','function_and_system.current_device_specific_instructions_and_version']:
         assert 'cardiovascular_device.'+suffix in ids
     result=audit(single,{'assets':[{'id':'generic-heart','kind':'model','investigation_ids':[IDENT],'structure_ids':['cardiovascular_device.right_ventricle','cardiovascular_device.lvad_pump']}]},expected_catalog_ids={IDENT})
-    assert result['counts']=={'verified':0,'unverified':0,'missing':2718}
+    assert result['counts']=={'verified':0,'unverified':0,'missing':2748}
     assert all(s['requires_site_instantiation'] for s in item['structures']) and item['clinical_validation_status'].startswith('draft_')
 def test_no_normal_preset_or_generic_position_can_establish_device_safety():
     ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];s=ref['walkthrough']['steps'];r=ref['reporting']
