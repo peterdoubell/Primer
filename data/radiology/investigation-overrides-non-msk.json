@@ -3664,86 +3664,107 @@
   },
   "ra.hrct-lung": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-06",
       "protocol": [
-        "Review thin-section inspiratory CT; use expiratory or prone series when acquired and state their availability."
+        "Record actual volumetric/thin-section HRCT coverage, reconstruction, inspiratory adequacy and artefacts. Expiration, prone, contrast and serial studies are separate acquired sources only when performed.",
+        "Use source-resolved lobular/tissue and airway interfaces; named CT patterns differ from clinical, pathological, genetic and physiological conclusions. Do not substitute the orientation model for actual native disease anatomy."
       ],
       "checklist": [
         {
-          "label": "Dominant Pattern",
-          "detail": "Identify reticulation, ground glass, consolidation or nodules."
+          "label": "Dominant pattern",
+          "detail": "Describe every actual dominant and associated ground-glass, consolidative, nodular, reticular/cystic or other pattern with source-defined site, extent, tissue interfaces and quality."
         },
         {
           "label": "Distribution",
-          "detail": "Assess upper/lower, central/peripheral and lobular relationships."
+          "detail": "Record all covered side/lobe/segment and secondary-lobule/axial/pleural relationships with actual regional distribution and variant/coverage limits."
         },
         {
           "label": "Fibrosis",
-          "detail": "Assess architectural distortion, traction bronchiectasis and honeycombing."
+          "detail": "Describe each source fibrosis, distortion, traction airway, honeycomb and volume-loss component; separate the CT pattern from aetiological/multidisciplinary diagnosis."
         },
         {
-          "label": "Airways And Air Trapping",
-          "detail": "Assess airway disease and expiratory findings when obtained."
+          "label": "Airways and air trapping",
+          "detail": "Trace actual airway and regional mosaic changes; describe expiratory/prone findings only from those acquired phases with technique and source uncertainty."
         },
         {
-          "label": "Comparison And Context",
-          "detail": "Review progression and relevant pleural or systemic clues."
+          "label": "Comparison and context",
+          "detail": "Compare actual matching source sites and methods; report complications and supplied clinical/physiological context without inferring progression, pressure or function from a still."
         }
       ],
       "measurements": [
         {
           "name": "Extent and progression",
-          "method": "Describe distribution and reproducible extent compared with matching prior images.",
-          "pitfall": "Different inspiration levels can mimic interval change."
+          "method": "Record source method, actual covered regions, visual/quantitative basis, phase/calibration and uncertainty for any burden estimate; compare justified matching methods/sites.",
+          "pitfall": "Selected stills or a parent lung model do not supply full volumetric burden or calibrated serial change."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Dependent opacity and inadequate inspiration can mimic interstitial disease; honeycombing differs from clustered emphysematous spaces."
+        "Ground glass alone is not fibrosis, unique inflammation, infection or a specific histology. Motion, under-inspiration, window/reconstruction and partial volume may alter apparent pattern and thin tissue borders.",
+        "A representative still cannot establish whole-lung disease absence, burden or a microscopic lobular map. State mixed patterns, each actual region and unassessed coverage.",
+        "A CT UIP pattern does not equal idiopathic pulmonary fibrosis; secondary causes and multidisciplinary confidence matter. Honeycombing can overlap other fibrotic diseases; CT appearance is not the histological definition.",
+        "Do not assert no air trapping on an unperformed expiration or resolution on an unperformed prone scan. Air trapping/mosaicism alone does not uniquely diagnose HP; bronchiolocentric features can have other causes.",
+        "CT progression alone does not establish PPF. The named2022 definition uses at least two of symptoms/radiology/physiology within one year, no alternative explanation, in fibrotic ILD other than IPF. Preserve actual dates and sources; new acute opacity is not unique for exacerbation."
       ],
       "impression_prompts": [
-        "Basic HRCT patterns, common diagnoses and fibrotic lung disease.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "State source-supported dominant/mixed morphology, distribution, fibrotic features and coverage/quality limits.",
+        "Name a supported CT pattern with its reference/date and confidence; separate idiopathic/secondary or unclassifiable multidisciplinary diagnosis and missing sources.",
+        "Describe actual interval change and complications; apply named progression criteria only with the required dated radiological/clinical/physiological evidence."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate actual acute respiratory/pleural/mediastinal complications through local clinical pathways; CT pattern alone does not establish physiological instability or treatment choice."
+      ],
       "template_sections": [
         {
           "heading": "DOMINANT PATTERN",
-          "body": "Dominant findings: [ ]. Associated patterns: [ ]."
+          "body": "Each actual dominant/secondary pattern and location [ ]; full obtained extent and source-resolved borders [ ]; nodules, septa, cystic/airspace/solid components [ ]; acquisition/window/motion/inspiration limits [ ]; differential and unassessed extent [ ]."
         },
         {
           "heading": "DISTRIBUTION",
-          "body": "Zonal/axial distribution: [ ]. Subpleural sparing: [ ]."
+          "body": "Covered side/lobe/actual segment/variant [ ]; basal/apical and axial/peripheral gradient [ ]; subpleural, peribronchovascular, perilobular, fissural/recess and source lobular relationships [ ]; nodular distribution model if justified [ ]; quality/burden estimate and coverage limits [ ]."
         },
         {
           "heading": "FIBROSIS",
-          "body": "Traction change: [ ]. Honeycombing: [ ]. Volume loss: [ ]."
+          "body": "Actual reticulation, architectural distortion/displacement, volume loss, traction bronchiectasis/bronchiolectasis and honeycomb or mimic [ ]; each site/extent/source uncertainty [ ]; CT pattern and named reference/date if supported [ ]; primary/secondary or unclassifiable differential and supplied multidisciplinary source/confidence [ ]."
         },
         {
           "heading": "AIRWAYS AND AIR TRAPPING",
-          "body": "Airways: [ ]. Mosaic attenuation: [ ]. Expiratory air trapping: [not assessed / finding]."
+          "body": "Actual airway lumen/wall/branch and artery/cyst relationship [ ]; mosaic/three-density distribution and differential [ ]; actually acquired inspiration/expiration/prone phase and source findings [ ]; unavailable phases, perfusion or dynamic/function evidence [ ]; regional quality limits [ ]."
         },
         {
           "heading": "COMPARISON AND CONTEXT",
-          "body": "Interval change: [ ]. Pleura/nodes: [ ]. Clinical-context clues: [ ]."
+          "body": "Prior matching source dates/sites/coverage and technique [ ]; actual radiological change and uncertainty [ ]; symptoms and physiological source/date/values if supplied [ ]; named progression definition/window/exclusion context if applied [ ]; actual pleural/mediastinal air/fluid, nodes/mass/vascular/covered systemic findings [ ]; acute alternatives and communication [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 HRCT - Basic Interpretation",
+          "title": "RA basic HRCT morphology",
           "url": "https://radiologyassistant.nl/chest/hrct/basic-interpretation"
         },
         {
-          "title": "Radiology Assistant \u2014 HRCT - Common diagnoses",
+          "title": "RA common differential",
           "url": "https://radiologyassistant.nl/chest/hrct/common-diseases"
         },
         {
-          "title": "Radiology Assistant \u2014 HRCT \u2013 Patterns of pulmonary fibrosis in ILD",
+          "title": "RA fibrosis pattern approach",
           "url": "https://radiologyassistant.nl/chest/hrct/fibrosis-of-the-lung-on-hrct-imaging"
+        },
+        {
+          "title": "ESR/ESTI practice recommendations",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11914337/"
+        },
+        {
+          "title": "Named2022 IPF/PPF definitions",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9851481/"
+        },
+        {
+          "title": "2025ERS/ATS multidisciplinary pattern terminology",
+          "url": "https://publications.ersnet.org/content/erj/66/6/2500158"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.ct-mediastinum": {
     "reporting": {
