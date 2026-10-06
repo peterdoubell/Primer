@@ -35110,7 +35110,31 @@
           ],
           "reporting_aim": "Orient the arch region while inspecting actual source images for every anomalous vessel, airway and oesophageal relation. This generic aorta model does not contain the actual anomaly, pulmonary/systemic venous tree, ductal/ligamentous ring or complete airway anatomy."
         },
-        "source_anatomy_references": []
+        "source_anatomy_references": [
+          {
+            "id": "hvsmr2-pat7-blood-pools",
+            "label": "Bilateral-SVC MRI source blood pools \u00b7 partial",
+            "atlas": "hvsmr2-pat7",
+            "family": "cardiac-venous-source",
+            "manifest_url": "/app/anatomy/hvsmr2-pat7/manifest.json",
+            "manifest_sha256": "4efd281af53250fb9e265ae5b968f7d7a576aeeab5557ab31f4eb923653253bd",
+            "initial_layer": "blood_pool",
+            "initial_cropped": false,
+            "population_note": "Partial blood-pool reference from one adult MRI case (pat7, age 27), source-described bilateral SVC. It is not a normal whole-heart atlas or the anatomy of the patient being reported. Eight source classes only. LA includes limited source pulmonary-vein extents; SVC combines both source channels. Vessel endpoints and class junctions follow segmentation conventions, including benchmark optional zones, not complete clinical anatomy. Thin valves, myocardium/vessel walls, complete venous branches and drainage interfaces, coronary sinus, ductal/ligamentous ring and airway anatomy are not independently represented. The original small RV component is retained.",
+            "source_image": {
+              "src": "/app/reference-media/hvsmr2-pat7/native-mri-label-context.png",
+              "sha256": "1e033623b12335971afc05cf6035e57cf34e1eebdc367ec4fff160385c80a531",
+              "width": 2100,
+              "height": 840,
+              "title": "Matching native MRI planes and original label contours",
+              "alt": "Three native pat7 MRI index planes with original blood-pool label contours and optional zones.",
+              "caption": "Matching planes from the source MRI; coloured contours are original labels, white dashed contours optional zones. Recorded window display is not an edited source volume. These three planes do not establish whole-examination, thin-wall, valve or venous-branch completeness.",
+              "attribution": "Pace, Danielle; Contreras, Hannah; Romanowicz, Jennifer; et al. HVSMR-2.0 (orig), figshare DOI 10.6084/m9.figshare.25226360.v2; Scientific Data DOI 10.1038/s41597-024-03469-9. CC BY 4.0. Original masks preserved; derived 0.5 isosurfaces generated as described, without source annotation changes. Adaptation: source-plane window display and original-label contour overlays.",
+              "source_url": "https://figshare.com/articles/dataset/HVSMR-2_0_orig_/25226360/2",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/"
+            }
+          }
+        ]
       },
       "clinical_approval": false
     },
