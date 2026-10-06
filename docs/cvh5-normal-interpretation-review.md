@@ -13,3 +13,5 @@ Whole-decoder verification is still unfinished. Candidate face/normal indices re
 Every normal artifact therefore retains `normal_attribute_interpretation_verified=false`, `whole_decoder_independently_verified=false` and no clinical/model coverage credit. No runtime display uses these candidate normals. Full radiology requirements and image-rights counts are unchanged, and the original CC BY attribution/correction continue to apply.
 
 Reproduce with `python -m tools.anatomy_sources.review_cvh5_normal_interpretation --source docs/cvh5-pelvic-source-review --candidates docs/cvh5-candidate-geometry-review --output docs/cvh5-normal-interpretation-review`. Tests cover independent axis cases, all original spans and hashes, every vector and the retained non-approval scope.
+
+The [UIC1 history audit](cvh5-uic-history-review.md) uses these encoded direction candidates to expose early-face sensitivity that a global median can hide. Their shared candidate index interpretation remains an explicit limit.

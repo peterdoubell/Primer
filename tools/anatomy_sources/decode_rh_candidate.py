@@ -56,8 +56,10 @@ class R:
   else:raise ValueError('Unknown float datatype '+str(typ))
   self.float_blocks.append({'start':start,'end':self.p,'count':count,'dimensions':dimensions,'datatype':typ,'axis_controls':controls,'source_span_sha256':hashlib.sha256(self.b[start:self.p]).hexdigest()})
   return list(zip(*axes))
-def uic(buf,count,vertical):
- r=R(buf);values=[(-i)%32 for i in range(32)];deltas=[0]*32;vp=dp=0;queue=0;qi=0;cur=0;out=[]
+def uic(buf,count,vertical,initial_values=None):
+ values=[(-i)%32 for i in range(32)] if initial_values is None else list(initial_values)
+ if len(values)!=32 or any(not isinstance(v,int) or not 0<=v<=0xffffffff for v in values):raise ValueError('Invalid experimental history')
+ r=R(buf);deltas=[0]*32;vp=dp=0;queue=0;qi=0;cur=0;out=[]
  def back(i):return values[(vp-i)%32]
  for i in range(count):
   prev=cur;vert=out[i-3] if vertical and i>=3 else (0 if vertical else cur)
