@@ -658,3 +658,26 @@ def test_hosted_bundle_excludes_only_cdn_meshes_and_offline_fidelity_files():
         assert 'data/radiology/' + name in rules
     assert 'data/radiology/radiology-open-images.json' not in rules
     assert 'data/radiology/source-anatomy-references.json' not in rules
+
+
+def test_registered_radiology_images_keep_access_gate_and_exact_local_bytes(monkeypatch):
+    import json
+    from pathlib import Path
+    registry = json.loads((Path(srv.ROOT) / 'data/radiology/radiology-open-images.json').read_text())
+    path = registry['ra.ct-cardiovascular-pearls'][0]['src']
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV, 'secret')
+    with TestClient(srv.app, follow_redirects=False) as client:
+        monkeypatch.delenv('VERCEL', raising=False)
+        response = client.get(path, auth=('reader', 'secret'))
+        assert response.status_code == 200
+        assert response.content == (Path(srv.WEB_DIR) / path.removeprefix('/app/')).read_bytes()
+        monkeypatch.setenv('VERCEL', '1')
+        assert client.get(path).status_code == 401
+        response = client.get(path + '?v=original', auth=('reader', 'secret'))
+        assert response.status_code == 307
+        assert response.headers['location'] == path.replace('/app/', '/source-media/', 1) + '?v=original'
+        assert client.get('/app/reference-media/radiology-open/unknown.jpg', auth=('reader', 'secret')).status_code == 404
+    config = json.loads((Path(srv.ROOT) / 'vercel.json').read_text())
+    assert 'web/reference-media/radiology-open/**' in config['builds'][0]['config']['excludeFiles']
+    assert {'src': 'web/reference-media/radiology-open/**', 'use': '@vercel/static'} in config['builds']

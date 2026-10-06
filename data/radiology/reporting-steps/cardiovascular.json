@@ -1229,42 +1229,54 @@
       "steps": [
         {
           "label": "Inflow",
-          "detail": "Assess the aorta and iliac arteries.",
+          "detail": "Trace the actually covered aortic and iliac inflow, each side and branch configuration; identify unassessed proximal segments.",
           "sections": [
             "INFLOW"
           ],
-          "look": "First station MIP and source images of the abdominal aorta and iliac arteries.",
-          "normal": "Aorta and iliac arteries patent without significant stenosis.",
+          "look": "Original arterial source images plus multiple MIP/reformatted views of covered aorta, bifurcation, common/external/internal iliacs and proximal inflow; check station overlap and origin variants.",
+          "normal": {},
           "findings": [
-            "Stenosis of the [left common iliac] artery, [ ]%.",
-            "Occlusion of the [right external iliac] artery."
+            "Source-supported [ ] lesion in the [side, named inflow artery] from [ ] to [ ]; measurement convention and confidence [ ].",
+            "[ ] proximal segment is unassessed because [ ]; no normal patency claim is made."
           ],
           "images": [
-            "peripheral-vascular-image-1"
+            "open-peripheral-mra-pmc3946661-fig2",
+            "open-peripheral-mra-pmc3946661-fig3",
+            "open-peripheral-mra-pmc5072342-fig2"
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "An unopacified or uncovered artery is not automatically absent or occluded. Record variant origins and the source evidence for lumen continuity."
         },
         {
           "label": "Femoropopliteal segments",
-          "detail": "Map stenoses and occlusions by named segment and side.",
+          "detail": "Map every covered common/deep/superficial femoral and popliteal segment, lesion and variant by side and actual anatomical endpoints.",
           "sections": [
             "SEGMENTAL DISEASE"
           ],
-          "look": "Common femoral, superficial femoral, profunda and popliteal arteries on both sides.",
-          "normal": "Femoral and popliteal arteries patent on both sides.",
+          "look": "Each side: common femoral and bifurcation, profunda and relevant branches, superficial femoral course/adductor canal and complete covered popliteal segment. Trace actual high origins and branch variants.",
+          "normal": {},
           "findings": [
             "Occlusion of the [right] superficial femoral artery from [ ] to [ ].",
             "Multiple stenoses of the [left] popliteal artery."
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "Branch names describe actual observed anatomy; hypoplasia, high origin, trifurcation, dominant peroneal supply and postoperative anatomy must be traced rather than substituted with a normal tree.",
+          "images": [
+            "open-peripheral-mra-pmc3946661-fig2",
+            "open-peripheral-mra-pmc3946661-fig3",
+            "open-peripheral-mra-pmc5072342-fig2",
+            "open-peripheral-mra-pmc5072342-fig3",
+            "open-peripheral-perforator-pmc9964888-fig3",
+            "open-peripheral-perforator-pmc9964888-fig6"
+          ]
         },
         {
           "label": "Lesion length and calibre",
-          "detail": "Describe lesion length, stenosis severity and aneurysm.",
+          "detail": "Describe each lesion and its native-source minimum lumen, reference, length, morphology and uncertainty; distinguish signal loss from confirmed occlusion.",
           "sections": [
             "LESION MORPHOLOGY"
           ],
-          "look": "Source images and curved reformats; measure along the vessel.",
+          "look": "Native source and orthogonal/curved planes with stated calibration. Record each lesion start/end and reference location; do not infer wall composition, calcium, haemodynamic significance or device lumen from a bright-blood projection alone.",
           "findings": [
             "Focal stenosis __ mm long.",
             "Occlusion __ cm long.",
@@ -1274,61 +1286,102 @@
             "Lesion length"
           ],
           "landmark": "iliacs",
-          "tip": "MIP images can hide overlapping lesions or exaggerate stenosis; confirm on source images.",
+          "tip": "Stenosis percentage requires a stated measurement/reference convention and adequate native source. MIP overlap, subtraction and flow or metal artefacts can mimic or exaggerate disease; missing lumen evidence remains uncertain.",
           "images": [
-            "peripheral-vascular-image-2"
-          ]
+            "open-peripheral-mra-pmc5072342-fig2",
+            "open-peripheral-mra-pmc5072342-fig3",
+            "open-peripheral-perforator-pmc9964888-fig6"
+          ],
+          "normal": {}
         },
         {
           "label": "Runoff and collaterals",
-          "detail": "Identify distal runoff and collateral reconstitution.",
+          "detail": "Trace each actual tibial/peroneal artery to its resolved distal endpoint and each pedal/plantar connection, collateral and reconstitution; do not assume three patent channels.",
           "sections": [
             "RUNOFF AND COLLATERALS"
           ],
-          "look": "Anterior tibial, posterior tibial and peroneal arteries and the pedal arch.",
-          "normal": "Three-vessel runoff to the foot bilaterally.",
+          "look": "Trace anterior tibial, tibioperoneal trunk if present, posterior tibial and peroneal courses; then dorsalis pedis, medial/lateral plantar, actual plantar/dorsal arch and relevant distal branches. State every covered endpoint and unassessed foot extent. When perforator assessment is the clinical question, trace the parent artery, exit/course, source-resolved septal/muscular and cutaneous relationships and named fibular landmarks; preserve unassessed thin tissue and operative suitability limits.",
+          "normal": {},
           "findings": [
-            "[Two]-vessel runoff on the [right] via the [ ].",
-            "Reconstitution of the popliteal artery via collaterals."
+            "[Side] actual traced runoff: [named vessels and resolved endpoints]; unassessed distal segments [ ].",
+            "Collateral reconstitution of [ ] at [ ], with source-supported distal continuity to [ ]; flow/function evidence [available / unavailable].",
+            "Variant [high origin / trifurcation / hypoplastic channel / dominant peroneal / other actual configuration]: [ ]."
           ],
           "images": [
-            "peripheral-vascular-image-3"
+            "open-peripheral-mra-pmc5072342-fig1",
+            "open-peripheral-mra-pmc5072342-fig2",
+            "open-peripheral-mra-pmc3946661-fig3",
+            "open-peripheral-perforator-pmc9964888-fig3",
+            "open-peripheral-perforator-pmc9964888-fig4",
+            "open-peripheral-perforator-pmc9964888-fig6",
+            "open-peripheral-perforator-pmc9964888-fig8"
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "Tibial channel count does not establish uninterrupted supply to the foot, a complete pedal arch, wound perfusion or tissue viability. Morphological continuity does not by itself establish flow direction, pressure or clinical effect."
         },
         {
           "label": "Technical limitations",
-          "detail": "Identify venous contamination, bolus timing problems, motion and metal artefacts.",
+          "detail": "State per-station acquisition, coverage, source quality, contrast/flow timing, venous overlap and artefact; distinguish a non-diagnostic segment from disease.",
           "sections": [
             "TECHNICAL LIMITATIONS"
           ],
-          "look": "Lower-leg station for venous overlap; stents for susceptibility artefact.",
-          "normal": "Diagnostic arterial opacification throughout; no significant artefact.",
+          "look": "Inspect acquired precontrast masks and arterial source/station overlap where present; check bolus timing, slow/in-plane/turbulent flow, subtraction misregistration, motion, venous contamination and metal signal loss. Record the effect on each named segment.",
+          "normal": {},
           "findings": [
             "Venous contamination in the calf limits runoff assessment.",
             "Stent artefact in the [ ] prevents lumen assessment."
           ],
-          "landmark": "iliacs"
+          "landmark": "iliacs",
+          "tip": "Historical scanner/coil, injection, compression-cuff and pixel-count advice is not a universal current protocol or safety clearance. Suspected acute limb ischaemia requires urgent clinical assessment; do not delay care to obtain a routine MRA.",
+          "images": [
+            "open-peripheral-mra-pmc5072342-fig1",
+            "open-peripheral-mra-pmc5072342-fig2",
+            "open-peripheral-mra-pmc3946661-fig2",
+            "open-peripheral-mra-pmc3946661-fig3",
+            "open-peripheral-perforator-pmc9964888-fig1",
+            "open-peripheral-perforator-pmc9964888-fig2",
+            "open-peripheral-perforator-pmc9964888-fig4",
+            "open-peripheral-perforator-pmc9964888-fig8"
+          ]
         }
-      ]
+      ],
+      "model": {
+        "family": "aorta",
+        "reporting_aim": "Partial aortic orientation only. This companion does not supply patient-specific iliac/femoral/tibial/pedal branches, collateral or graft geometry, stenosis/occlusion, arterial wall or measured flow. Actual vessel identity, runoff, variants, lesions and tissue/clinical effects require the obtained source examination."
+      },
+      "start": {
+        "images": [
+          "open-peripheral-mra-pmc3946661-fig2",
+          "open-peripheral-mra-pmc5072342-fig1"
+        ],
+        "module_illustrations": false
+      }
     },
     "ra.ct-cardiovascular-pearls": {
       "steps": [
         {
           "label": "Cardiac chambers",
-          "detail": "Follow the flow of blood through the chambers and review their size and structure.",
+          "detail": "Review all covered chamber/appendage boundaries, septa and structural connections with actual phase/coverage limits; separate filling defect from mixing or unresolved lumen.",
           "sections": [
             "CHAMBERS"
           ],
-          "look": "Go with the flow: venae cavae, right atrium, right ventricle, pulmonary arteries, pulmonary veins, left atrium, left ventricle and aorta.",
-          "normal": "Cardiac chambers normal in size.",
+          "look": "Trace venae cavae, RA/RV, pulmonary arteries, every covered pulmonary venous return, LA/LAA, LV and aortic outflow. Inspect septa, appendages, membrane/connection variants and source-resolved mass/defect interfaces.",
+          "normal": {},
           "findings": [
             "Right ventricular dilatation with contrast reflux into the IVC and hepatic veins.",
             "Left atrial enlargement.",
             "Left atrial appendage filling defect (thrombus versus mixing)."
           ],
           "images": [
-            "ra-ct-cardiovascular-pearls-source-1"
+            "open-chest-calcium-pmc7774698-fig5",
+            "open-chest-calcium-pmc7774698-fig7",
+            "open-incidental-cardiac-ct-pmc6365314-fig1",
+            "open-incidental-cardiac-ct-pmc6365314-fig8",
+            "open-incidental-cardiac-ct-pmc6365314-fig9",
+            "open-incidental-cardiac-ct-pmc6365314-fig18",
+            "open-incidental-cardiac-ct-pmc6365314-fig19",
+            "open-incidental-cardiac-ct-pmc6365314-fig20",
+            "open-incidental-cardiac-ct-pmc6365314-fig21"
           ],
           "landmark": "ventricles",
           "parts": [
@@ -1336,36 +1389,49 @@
             "FJ2439",
             "FJ2438"
           ],
-          "tip": "Following the direction of blood flow is a systematic way to review the heart on any chest CT."
+          "tip": "Go-with-the-flow is an anatomical search mnemonic, not a measurement of flow, shunt direction or haemodynamics. Early contrast mixing can mimic LAA or chamber thrombus; report actual evidence and uncertainty rather than diagnose from one filling defect."
         },
         {
           "label": "Myocardium",
-          "detail": "Assess myocardial thickness, fat and calcification.",
+          "detail": "Describe each source-resolved myocardial site, wall, thickness/morphology, fat, calcium or attenuation difference with its acquisition/phase and differential.",
           "sections": [
             "MYOCARDIUM"
           ],
-          "look": "Left ventricular wall on soft-tissue windows.",
-          "normal": "Myocardium normal.",
+          "look": "Inspect all actually covered LV/RV/septal regions and endocardial/epicardial interfaces on appropriate windows and source reformats. Relate abnormalities to a stated region model if used; do not assign unassessed regions or estimate temporal function from stills.",
+          "normal": {},
           "findings": [
-            "Subendocardial fat or calcification in the [ ] wall (old infarction).",
+            "Source-resolved myocardial fat/calcium in the [actual region]; associated thinning or other morphology [ ]; clinical/prior comparison and differential [ ].",
             "Left ventricular aneurysm at the apex.",
             "Left ventricular hypertrophy."
           ],
           "landmark": "ventricles",
           "parts": [
             "FJ2428"
+          ],
+          "tip": "Unknown cardiac phase and oblique nongated planes can overestimate wall thickness. Fat, calcium or focal low attenuation support contextual differentials, not automatic infarct timing, viability, scar volume or cardiomyopathy aetiology.",
+          "images": [
+            "open-chest-calcium-pmc7774698-fig7",
+            "open-incidental-cardiac-ct-pmc6365314-fig8",
+            "open-incidental-cardiac-ct-pmc6365314-fig9",
+            "open-incidental-cardiac-ct-pmc6365314-fig10",
+            "open-incidental-cardiac-ct-pmc6365314-fig11",
+            "open-incidental-cardiac-ct-pmc6365314-fig12",
+            "open-incidental-cardiac-ct-pmc6365314-fig13",
+            "open-incidental-cardiac-ct-pmc6365314-fig14",
+            "open-incidental-cardiac-ct-pmc6365314-fig20",
+            "open-incidental-cardiac-ct-pmc6365314-fig21"
           ]
         },
         {
           "label": "Coronary and valve calcification",
-          "detail": "Report visible coronary and valve calcification within the limits of a non-gated scan.",
+          "detail": "Assess actual coronary course/calcification and each source-resolved valve/annulus within technique limits; distinguish calcium location/burden from diagnostic stenosis or valve function.",
           "sections": [
             "CORONARIES AND VALVES"
           ],
-          "look": "Coronary arteries and aortic and mitral valves.",
-          "normal": "No coronary or valve calcification.",
+          "look": "Inspect coronary origins/courses and cumulative visible calcium; separate aortic valve leaflets from aortic wall/root, mitral annulus and coronary calcium. Review covered native/prosthetic valves and any visible coronary aneurysm, fistula or anomalous course with source limits.",
+          "normal": {},
           "findings": [
-            "Coronary artery calcification [mild / moderate / severe] in the [ ].",
+            "Whole-patient visual coronary calcium burden [none / mild / moderate / severe / unassessed], with actual coronary distribution and technique limits [ ].",
             "Aortic valve calcification.",
             "Mitral annular calcification."
           ],
@@ -1376,23 +1442,41 @@
             "FJ2723",
             "FJ3413"
           ],
-          "tip": "A non-gated chest CT is not a coronary angiogram; report calcification, not stenosis."
+          "tip": "For adequately covered nongated CT, a whole-patient visual CAC burden may be none/mild/moderate/severe with method/limits. That is not CAD-RADS stenosis grading or an uncalibrated Agatston score. Valve calcium alone does not independently establish haemodynamic valve severity.",
+          "images": [
+            "open-chest-calcium-pmc7774698-fig3",
+            "open-chest-calcium-pmc7774698-fig4",
+            "open-chest-calcium-pmc7774698-fig5",
+            "open-chest-calcium-pmc7774698-fig6",
+            "open-incidental-cardiac-ct-pmc6365314-fig4",
+            "open-incidental-cardiac-ct-pmc6365314-fig5",
+            "open-incidental-cardiac-ct-pmc6365314-fig6",
+            "open-incidental-cardiac-ct-pmc6365314-fig7",
+            "open-incidental-cardiac-ct-pmc6365314-fig19"
+          ]
         },
         {
           "label": "Great vessels and veins",
-          "detail": "Inspect the aorta, pulmonary arteries and major veins.",
+          "detail": "Trace every covered aortic/pulmonary/venous channel, branch origin, course and endpoint, including actual variants and directly seen versus inferred connections.",
           "sections": [
             "GREAT VESSELS"
           ],
-          "look": "Measure the aorta and main pulmonary artery perpendicular to their axis; trace the venae cavae.",
-          "normal": "Aorta and pulmonary artery normal in calibre; normal systemic veins.",
+          "look": "Measure at named levels perpendicular to actual vessel axes with source calibration and stated edge convention. Trace systemic/pulmonary veins and covered arch/coronary/bronchial or systemic-lung branches and their actual drainage/attachments.",
+          "normal": {},
           "findings": [
             "Dilated ascending aorta __ mm.",
-            "Main pulmonary artery __ mm, larger than the ascending aorta.",
+            "Main pulmonary artery [ ] mm at [source-defined axis/level]; comparison artery/reference and method [ ]; associated morphology [ ]; haemodynamic confirmation [available / unavailable].",
             "Azygos continuation of the IVC / persistent left superior vena cava."
           ],
           "images": [
-            "ra-ct-cardiovascular-pearls-source-2"
+            "open-chest-calcium-pmc7774698-fig4",
+            "open-chest-calcium-pmc7774698-fig7",
+            "open-incidental-cardiac-ct-pmc6365314-fig1",
+            "open-incidental-cardiac-ct-pmc6365314-fig2",
+            "open-incidental-cardiac-ct-pmc6365314-fig3",
+            "open-incidental-cardiac-ct-pmc6365314-fig5",
+            "open-incidental-cardiac-ct-pmc6365314-fig6",
+            "open-incidental-cardiac-ct-pmc6365314-fig7"
           ],
           "measurements": [
             "Visible vessel diameter"
@@ -1400,16 +1484,17 @@
           "landmark": "outflow",
           "parts": [
             "FJ3413"
-          ]
+          ],
+          "tip": "No universal vessel size or artery-to-aorta ratio proves pulmonary hypertension, shunt flow or acute/chronic disease. Trace actual number, origin and venous drainage; left SVC drainage and pulmonary vein number are not universal normal configurations."
         },
         {
           "label": "Pericardium",
-          "detail": "Assess pericardial fluid, thickening and calcification.",
+          "detail": "Review all covered pericardial compartments/recesses and adjacent fat, fluid, thickening, calcium, cysts or masses with full source extent and uncertainty.",
           "sections": [
             "PERICARDIUM"
           ],
-          "look": "The pericardium around the whole heart.",
-          "normal": "No pericardial effusion, thickening or calcification.",
+          "look": "Assess covered pericardium around the heart, reflections/recesses and epicardial fat in original source planes. Record cyst/mass margins, adjacent interfaces and any source evidence for clinical effects.",
+          "normal": {},
           "findings": [
             "Pericardial effusion __ mm.",
             "Pericardial calcification.",
@@ -1420,35 +1505,55 @@
             "FJ2428",
             "FJ2439",
             "FJ2438"
+          ],
+          "tip": "Fluid, thickening or calcification does not independently establish tamponade, constrictive physiology, infection or histology. Static images and generic geometry do not supply physiological measurements.",
+          "images": [
+            "open-chest-calcium-pmc7774698-fig7",
+            "open-incidental-cardiac-ct-pmc6365314-fig15",
+            "open-incidental-cardiac-ct-pmc6365314-fig16",
+            "open-incidental-cardiac-ct-pmc6365314-fig17"
           ]
         }
-      ]
+      ],
+      "model": {
+        "family": "heart",
+        "reporting_aim": "Partial cardiac orientation only. This companion does not supply the patient-specific chamber/appendage walls, coronary tree, all venous/arch variants, valve apparatus, myocardial lesions, pericardial compartments, repair anatomy or measured flow/function. Report from the actual CT source and retain nongated/phase/coverage limitations."
+      },
+      "start": {
+        "images": [
+          "open-chest-calcium-pmc7774698-fig3",
+          "open-chest-calcium-pmc7774698-fig4",
+          "open-incidental-cardiac-ct-pmc6365314-fig1",
+          "open-incidental-cardiac-ct-pmc6365314-fig8"
+        ],
+        "module_illustrations": false
+      }
     },
     "ra.pulmonary-hypertension": {
       "steps": [
         {
           "label": "Opacification and evaluable level",
-          "detail": "Check arterial opacification, motion and mixing, and state the most distal evaluable level.",
+          "detail": "Record actual arterial opacification, motion/mixing and most distal reliably evaluable level for each side/territory; unassessed segments cannot be negative.",
           "sections": [
             "ARTERIAL QUALITY"
           ],
-          "look": "Main pulmonary artery attenuation; review each territory on thin sections.",
-          "normal": "Adequate opacification; evaluable to the subsegmental level.",
+          "look": "Original thin arterial source images with orthogonal confirmation by territory; note bolus phase, transient mixing, cardiac/respiratory/metal artefact and partial volume. Do not extrapolate contrast quality from the main PA to distal branches.",
+          "normal": {},
           "findings": [
             "Limited opacification: evaluable to the [segmental] level only.",
             "Transient interruption of contrast from inspiration (mixing artefact)."
           ],
           "landmark": "pulmonary",
-          "tip": "A poorly opacified or motion-degraded segment cannot be reported as negative."
+          "tip": "Absent contrast or severe motion is a technical limitation, not proof of occlusion or a negative embolic examination. Record affected segments and unresolved defect/mixing boundaries."
         },
         {
           "label": "Acute pulmonary emboli",
-          "detail": "Report side and most proximal level of filling defects and whether they occlude the vessel.",
+          "detail": "Describe every source-supported filling defect by named vessel/side, proximal/distal extent, occlusive component and confidence, including acute-on-chronic or mimic uncertainty.",
           "sections": [
             "EMBOLI"
           ],
-          "look": "Central filling defects surrounded by contrast (polo mint) or expanding the vessel.",
-          "normal": "No pulmonary embolism.",
+          "look": "Trace actual pulmonary trunk/bifurcation, right/left main, each covered lobar/segmental/subsegmental branch and variants. A defect can be central or eccentric; correlate margins, vessel calibre and source quality across planes.",
+          "normal": {},
           "findings": [
             "Acute pulmonary emboli in the [right lower-lobe] arteries, most proximal at the [lobar] level.",
             "Saddle embolus at the bifurcation."
@@ -1456,16 +1561,17 @@
           "images": [
             "pe-pulm-htn-image-1"
           ],
-          "landmark": "pulmonary"
+          "landmark": "pulmonary",
+          "tip": "Acute emboli may be eccentric as well as central. No location/angle alone dates a clot or excludes acute-on-chronic disease; distinguish source filling defects from motion, mixing, partial-volume or other mimics."
         },
         {
           "label": "Chronic thromboembolic features",
-          "detail": "Look for webs, bands, eccentric wall-adherent material, abrupt narrowing and bronchial collaterals.",
+          "detail": "Describe webs/bands, eccentric material, narrowing/pouch/recanalisation and collaterals with actual source morphology; chronic thromboembolic disease is distinct from confirmed haemodynamic PH.",
           "sections": [
             "CHRONIC FEATURES"
           ],
-          "look": "Thin sections along each artery; mosaic perfusion on lung windows.",
-          "normal": "No chronic thromboembolic features.",
+          "look": "Inspect actual vessel wall/lumen interfaces, webs/slits/bands, ring/length stenoses, pouch/tapered terminations, calcification, recanalisation and bronchial/nonbronchial systemic collateral routes. Retain mixed acute/chronic patterns and alternative intravascular causes.",
+          "normal": {},
           "findings": [
             "Webs and eccentric wall-adherent thrombus in the [ ] arteries (chronic).",
             "Abrupt narrowing and pouch defects.",
@@ -1475,16 +1581,16 @@
             "pe-pulm-htn-image-3"
           ],
           "landmark": "pulmonary",
-          "tip": "Chronic thrombus is eccentric and forms an obtuse angle with the wall; acute thrombus is central."
+          "tip": "CTEPD may occur without PH; CT chronic morphology alone does not establish CTEPH or operability. A limited or negative CTPA does not alone exclude distal chronic disease; clinical/perfusion assessment is separate."
         },
         {
           "label": "Right heart and pulmonary artery",
-          "detail": "Measure RV/LV ratio, describe septal configuration and contrast reflux, and measure the main pulmonary artery.",
+          "detail": "Record actual phase/method-defined RV/LV and PA/aortic measurements, septal and source-reflux morphology; separate CT clues from obtained cardiac/haemodynamic results.",
           "sections": [
             "RIGHT HEART AND PULMONARY ARTERY"
           ],
-          "look": "Axial or four-chamber reformat at the widest point of each ventricle; main pulmonary artery at the bifurcation.",
-          "normal": "RV/LV ratio below 1; normal septum; main pulmonary artery __ mm.",
+          "look": "Use declared axial/four-chamber or other source methods at stated planes; record phase/edge/calibration and prior comparison. Review RV/RA/LV/septum, valves/outflow, PA branches, coronary/root relations and caval/hepatic contrast reflux with injection context.",
+          "normal": {},
           "findings": [
             "RV/LV ratio __ with septal flattening and contrast reflux into the IVC (right-heart strain).",
             "Main pulmonary artery __ mm, larger than the ascending aorta (suggests pulmonary hypertension)."
@@ -1497,24 +1603,29 @@
             "Main pulmonary artery"
           ],
           "landmark": "heart",
-          "tip": "CT signs suggest pulmonary hypertension; confirmation requires haemodynamic measurement."
+          "tip": "CT dimensions, RV/LV, septal shape and reflux suggest morphology, not measured pressure or EF. In the named 2022 ESC/ERS definition PH requires resting mPAP >20 mmHg by haemodynamic source; precapillary pattern also requires PAWP ≤15 mmHg and PVR >2 WU. No such values are inferred from CT."
         },
         {
           "label": "Lungs and associated causes",
-          "detail": "Inspect infarcts, mosaic perfusion, pleura and causes of pulmonary hypertension.",
+          "detail": "Review all covered parenchymal/pleural, small-airway/interstitial, left-heart/valve and congenital/venous connections relevant to the supplied question; keep alternative causes and unavailable perfusion/clinical evidence explicit.",
           "sections": [
             "LUNGS AND ASSOCIATED CAUSES"
           ],
-          "look": "Lung windows; left heart, congenital shunts and lung disease.",
-          "normal": "No infarct or mosaic perfusion; no alternative cause identified.",
+          "look": "Assess every covered lobe/region, pleura, airways/interstitium and actual pulmonary venous/left-heart or shunt anatomy. Mosaic attenuation has vascular, airway and infiltrative differentials; expiration, iodine/perfusion maps, V/Q, MRI/echo and haemodynamic results are distinct sources only if actually obtained.",
+          "normal": {},
           "findings": [
-            "Peripheral wedge-shaped consolidation (infarct) in the [ ].",
-            "Mosaic perfusion pattern.",
-            "Emphysema / fibrosis as a cause of pulmonary hypertension (group 3)."
+            "Source-observed peripheral wedge-shaped opacity in [actual region]; imaging/clinical differential and comparison [ ].",
+            "Mosaic attenuation in [regions], with source vascular calibre/airway/interstitial observations [ ]; unavailable expiration/perfusion evidence [ ].",
+            "Emphysema/fibrosis/left-heart or other associated morphology [ ]; supplied clinical/haemodynamic classification [available / unavailable]."
           ],
-          "landmark": "lobes"
+          "landmark": "lobes",
+          "tip": "Emphysema/fibrosis, mosaic attenuation, septal thickening or a filling mass are differential clues, not automatic WHO-group, PVOD, sarcoma, infarct or viability diagnoses. Trace actual connections and retain clinical/tissue/functional uncertainty; no treatment choice is made from the companion model."
         }
-      ]
+      ],
+      "model": {
+        "family": "thorax",
+        "reporting_aim": "Partial thoracic orientation only. This companion does not supply patient-specific distal pulmonary arteries/veins, all branch variants, emboli/webs/stenoses, bronchial collaterals, complete right-heart wall/valves, microvascular disease or measured perfusion/pressure/function. Report actual acquired sources; missing or unresolved anatomy remains unassessed."
+      }
     },
     "ra.thoracic-aorta-measurement": {
       "steps": [

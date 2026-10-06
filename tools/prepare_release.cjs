@@ -16,7 +16,8 @@ const files = input.files;
 const forbidden = /(^|\/)(content|artifacts|\.git|\.venv|\.vercel|\.env[^/]*|\.agents|\.claude|\.github|\.pytest_cache|__pycache__|docs|tests|tools)(\/|$)|\.db(?:-|$)| 2\./;
 for (const file of files) {
   assert.ok(!path.isAbsolute(file.path) && !file.path.split('/').includes('..'), file.path);
-  assert.ok(!forbidden.test(file.path), 'Excluded path in release: ' + file.path);
+  const runtimeDocument = file.path === 'docs/msk-hamstring-shared-figures.md';
+  assert.ok(runtimeDocument || !forbidden.test(file.path), 'Excluded path in release: ' + file.path);
   const absolute = path.join(root, file.path);
   const stat = fs.lstatSync(absolute);
   assert.ok(stat.isFile() && !stat.isSymbolicLink(), 'Only regular files: ' + file.path);
