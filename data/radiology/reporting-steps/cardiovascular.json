@@ -716,7 +716,7 @@
             "DEVICE IDENTIFICATION"
           ],
           "look": "Whole radiograph or CT: generator, leads, valves, closure devices, stents, pumps and catheters.",
-          "normal": "No cardiovascular device.",
+          "normal": {},
           "findings": [
             "Dual-chamber pacemaker with right atrial and right ventricular leads.",
             "Cardiac resynchronisation device with a coronary sinus lead.",
@@ -731,7 +731,8 @@
             "FJ2428",
             "FJ2439",
             "FJ2438"
-          ]
+          ],
+          "tip": "Count and identify every actual component, including abandoned/retained hardware; verify model and intended configuration from records rather than generator shape alone."
         },
         {
           "label": "Course",
@@ -740,7 +741,7 @@
             "COURSE"
           ],
           "look": "Follow each lead from the generator to the tip on frontal and lateral views.",
-          "normal": "Leads follow a normal course without kink or discontinuity.",
+          "normal": {},
           "findings": [
             "Lead fracture at the [clavicle–first rib crossing].",
             "Twisted leads with generator rotation (Twiddler syndrome).",
@@ -750,7 +751,8 @@
           "parts": [
             "FJ2439",
             "FJ2428"
-          ]
+          ],
+          "tip": "Follow every component and connection, including nonstandard routes; bending/slack is device-specific and not automatically fracture or malfunction."
         },
         {
           "label": "Tip and landing position",
@@ -758,11 +760,11 @@
           "sections": [
             "TIP OR LANDING POSITION"
           ],
-          "look": "Right atrial appendage and right ventricular apex or septum; valve position relative to the annulus; IABP tip below the arch.",
-          "normal": "Leads and devices in expected positions.",
+          "look": "Use the intended device-specific site: actual atrial, ventricular, conduction-system, coronary sinus/epicardial, valve/closure/stent interface or pump/catheter route. Review balloon markers and covered branch-vessel relationships.",
+          "normal": {},
           "findings": [
             "Right ventricular lead tip projects beyond the cardiac contour, raising concern for perforation.",
-            "Intra-aortic balloon tip __ cm below the aortic arch.",
+            "Balloon-pump proximal/distal markers and covered balloon/access course: [ ]; named arch/branch-vessel relationships and device-specific position uncertainty: [ ].",
             "Coronary sinus lead in a [lateral] cardiac vein."
           ],
           "images": [
@@ -773,7 +775,8 @@
             "FJ2428",
             "FJ2439",
             "FJ2438"
-          ]
+          ],
+          "tip": "Distinguish LV-assist inflow from arterial outflow; left- and right-sided temporary pump positions differ. A projected tip or a generic arch distance does not validate complete 3D position or safety."
         },
         {
           "label": "Local complications",
@@ -782,7 +785,7 @@
             "LOCAL COMPLICATIONS"
           ],
           "look": "Pericardium and pleura; generator pocket.",
-          "normal": "No pneumothorax, pericardial effusion or pocket collection.",
+          "normal": {},
           "findings": [
             "New pericardial effusion after lead placement.",
             "Pneumothorax after device insertion.",
@@ -793,7 +796,8 @@
             "FJ2428",
             "FJ2439",
             "FJ2438"
-          ]
+          ],
+          "tip": "State actual modality/coverage limits. A radiograph alone cannot exclude subtle perforation, pocket infection, effusion or physiological tamponade."
         },
         {
           "label": "Comparison and limits",
@@ -802,7 +806,7 @@
             "COMPARISON AND FUNCTIONAL LIMITS"
           ],
           "look": "Prior radiographs and CT.",
-          "normal": "Device positions unchanged since [date]. Imaging does not assess device function.",
+          "normal": {},
           "findings": [
             "Lead retraction since [date].",
             "Device migration of __ mm."
@@ -813,9 +817,13 @@
             "FJ2439",
             "FJ2438"
           ],
-          "tip": "A normal position does not prove normal electrical or haemodynamic function."
+          "tip": "Compare actual component identity, projection, phase and source calibration. Functional performance requires appropriate interrogation/clinical imaging. Generator appearance alone does not clear MRI; specialist complete-system assessment is separate."
         }
-      ]
+      ],
+      "model": {
+        "family": "heart",
+        "reporting_aim": "Orient the cardiac region while reviewing actual device images. This generic heart model does not contain implanted generators, leads/coils, valves/repairs, occluders, stents, pumps, cannulae, catheters or their patient-specific interfaces; device geometry and function require source-specific evidence."
+      }
     },
     "ra.cardiac-masses": {
       "steps": [
