@@ -6564,5 +6564,105 @@
       ],
       "reviewed_at": "2026-10-06"
     }
+  },
+  "ra.pulmonary-hypertension": {
+    "reporting": {
+      "reviewed_at": "2026-10-06",
+      "protocol": [
+        "State actual clinical question, contrast/CTPA or other acquired CT method, coverage, bolus timing, motion/metal/partial-volume limits and prior treatment/context. Assess every actually covered territory separately.",
+        "Separate source CT morphology from dynamic perfusion, V/Q, echo/MRI, catheter pressures/resistance and clinical/tissue diagnosis; identify the source, date, definition and uncertainty of any supplied measurements."
+      ],
+      "checklist": [
+        {
+          "label": "Adequacy",
+          "detail": "Record actual arterial opacification, motion/mixing and most distal reliably evaluable level for each side/territory; unassessed segments cannot be negative."
+        },
+        {
+          "label": "Thrombus",
+          "detail": "Describe every source-supported filling defect by named vessel/side, proximal/distal extent, occlusive component and confidence, including acute-on-chronic or mimic uncertainty."
+        },
+        {
+          "label": "Chronicity",
+          "detail": "Describe webs/bands, eccentric material, narrowing/pouch/recanalisation and collaterals with actual source morphology; chronic thromboembolic disease is distinct from confirmed haemodynamic PH."
+        },
+        {
+          "label": "Right heart",
+          "detail": "Record actual phase/method-defined RV/LV and PA/aortic measurements, septal and source-reflux morphology; separate CT clues from obtained cardiac/haemodynamic results."
+        },
+        {
+          "label": "Consequences",
+          "detail": "Review all covered parenchymal/pleural, small-airway/interstitial, left-heart/valve and congenital/venous connections relevant to the supplied question; keep alternative causes and unavailable perfusion/clinical evidence explicit."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "RV/LV ratio",
+          "method": "Record source RV and LV diameters with named matching method/planes, cardiac phase if known, units/calibration and ratio uncertainty; compare actual prior method/coverage.",
+          "pitfall": "Morphological ratio is not independently measured pressure, EF or unique acute strain/aetiology."
+        },
+        {
+          "name": "Main pulmonary artery",
+          "method": "Measure source-resolved PA perpendicular to its local axis at a named level and source phase; use a stated ascending-aortic/reference measurement method and edge convention if ratio is reported.",
+          "pitfall": "PA diameter/ratio alone does not diagnose haemodynamic PH or establish a clinical group; motion and contrast/coverage limits remain."
+        }
+      ],
+      "classification": null,
+      "criteria_table": null,
+      "pitfalls": [
+        "Absent contrast or severe motion is a technical limitation, not proof of occlusion or a negative embolic examination. Record affected segments and unresolved defect/mixing boundaries.",
+        "Acute emboli may be eccentric as well as central. No location/angle alone dates a clot or excludes acute-on-chronic disease; distinguish source filling defects from motion, mixing, partial-volume or other mimics.",
+        "CTEPD may occur without PH; CT chronic morphology alone does not establish CTEPH or operability. A limited or negative CTPA does not alone exclude distal chronic disease; clinical/perfusion assessment is separate.",
+        "CT dimensions, RV/LV, septal shape and reflux suggest morphology, not measured pressure or EF. In the named 2022 ESC/ERS definition PH requires resting mPAP >20 mmHg by haemodynamic source; precapillary pattern also requires PAWP \u226415 mmHg and PVR >2 WU. No such values are inferred from CT.",
+        "Emphysema/fibrosis, mosaic attenuation, septal thickening or a filling mass are differential clues, not automatic WHO-group, PVOD, sarcoma, infarct or viability diagnoses. Trace actual connections and retain clinical/tissue/functional uncertainty; no treatment choice is made from the companion model."
+      ],
+      "impression_prompts": [
+        "State actual source-supported defects by side, named vessel and full obtained extent with per-territory technical confidence.",
+        "Separate acute, chronic, mixed and uncertain morphology from haemodynamic PH, functional severity and clinical/operability conclusions.",
+        "Describe associated cardiac, pulmonary venous, lung/pleural and shunt findings with actual source/clinical correlation and unperformed tests."
+      ],
+      "escalation": [
+        "Communicate source-suspected acute PE or significant associated cardiac findings and limitations according to local urgency pathways; clinical severity and management depend on supplied clinical/haemodynamic assessment."
+      ],
+      "template_sections": [
+        {
+          "heading": "ARTERIAL QUALITY",
+          "body": "Actual CT/contrast phase and source calibration/coverage [ ]; side/territory opacification and motion/mixing/metal/partial-volume limits [ ]; most distal actually evaluable branch per territory [ ]; unevaluable or unassessed segments [ ]; effect on defect assessment [ ]."
+        },
+        {
+          "heading": "EMBOLI",
+          "body": "Source-supported defect [absent in evaluable territory / present / indeterminate]; each named side/vessel and proximal/distal extent [ ]; occlusive component/margins [ ]; central/eccentric or other morphology [ ]; actual acute/chronic/mixed differential and confidence [ ]; mimics/unresolved or uncovered extent [ ]."
+        },
+        {
+          "heading": "CHRONIC FEATURES",
+          "body": "Actual webs/bands/slits, wall-adherent material/calcium, stenosis/length, pouch/tapered occlusion, recanalisation or vessel remodelling [ ]; each branch and collateral origin/course/reconstitution [ ]; prior/source comparison [ ]; acute-on-chronic or other intravascular differential [ ]; CTEPD versus supplied haemodynamic PH evidence [ ]; technique limits [ ]."
+        },
+        {
+          "heading": "RIGHT HEART AND PULMONARY ARTERY",
+          "body": "RV/LV source diameters, named planes/method/phase/calibration and ratio with limits [ ]; RV/RA wall/shape, septum and source caval/hepatic reflux with injection context [ ]; PA/aortic diameter site/axes/edge convention [ ]; separate actual echo/MRI/RHC source/date/values/units and definition if provided [ ]; unavailable pressure/resistance/function and comparison [ ]."
+        },
+        {
+          "heading": "LUNGS AND ASSOCIATED CAUSES",
+          "body": "Each covered lobe/region: opacity/infarct differential, mosaic attenuation with vascular/airway/interstitial findings, septa, pleura and nodes [ ]; actual left-heart/valve, pulmonary venous and congenital/shunt connections [ ]; source iodine/expiration/perfusion/VQ or other acquisitions if obtained [ ]; PVOD/sarcoma/other cause differential with clinical/tissue evidence or uncertainty [ ]; unassessed extent/tests and prior change [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "RA PH/thromboembolic imaging",
+          "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta-1/acute-aortic-syndrome-1"
+        },
+        {
+          "title": "2022 ESC/ERS PH definitions",
+          "url": "https://academic.oup.com/eurheartj/article/43/38/3618/6673929"
+        },
+        {
+          "title": "CTEPD imaging review (source text only; restricted figures)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11657945/"
+        },
+        {
+          "title": "Updated clinical/haemodynamic definitions review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10971453/"
+        }
+      ]
+    }
   }
 }
