@@ -30,7 +30,7 @@ def test_actual_reader_replaces_remote_figures_and_retains_device_function_limit
     for row in rows.values():
         for k in ['full_acquired_series_included','independent_calibrated_measurements_verified','same_examination_registration_verified','cross_figure_patient_identity_verified',
             'current_complete_device_system_or_mri_conditions_verified','electrical_or_haemodynamic_function_verified','complete_device_and_tissue_geometry_verified','radiographic_projections_are_actual_3d_geometry']:assert row['source_context'][k] is False
-    assert ref['walkthrough']['start']['images']==[PREFIX+'1',PREFIX+'11'] and ref['walkthrough']['start']['module_illustrations'] is False
+    assert ref['walkthrough']['start']['images']==[PREFIX+'1',PREFIX+'11','open-cardiac-support-pmc10350447-fig1'] and ref['walkthrough']['start']['module_illustrations'] is False
     assert PREFIX+'22' in ref['walkthrough']['steps'][3]['images'] and PREFIX+'9' in ref['walkthrough']['steps'][1]['images']
     assert not any(i in ['ra-cardiovascular-devices-source-1','ra-cardiovascular-devices-source-2'] for s in ref['walkthrough']['steps'] for i in s['images'])
 def test_rights_review_does_not_inherit_third_party_or_clinical_approval():
