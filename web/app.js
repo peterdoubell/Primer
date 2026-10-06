@@ -2127,7 +2127,7 @@ function renderRadiologyReference(n) {
             { clinical: 'Clinical example', diagram: 'Teaching diagram', table: 'Reference table' }[item.image_type] || 'Teaching example'),
         el('p', {}, item.caption || item.description || ''),
         item.attribution ? el('p', { class: 'rad-image-credit' }, item.attribution) : null,
-        item.source_url ? radiologySourceLink(item.src && item.src.startsWith('/app/') ? 'Original lesson illustration' : 'Source and case details', item.source_url, {
+        item.source_url ? radiologySourceLink(item.src && item.src.startsWith('/app/illustrations/') ? 'Original lesson illustration' : 'Source and case details', item.source_url, {
           'aria-label': 'Source and case details for ' + item.label,
         }) : null,
         item.license_url ? el('span', { class: 'rad-image-license' }, ' · ',

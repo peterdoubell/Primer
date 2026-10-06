@@ -53,7 +53,7 @@ def package(root):
     path=ROOT/'data/radiology/reporting-steps/cardiovascular.json';raw=path.read_text();start=raw.index('{',raw.index('"'+IDENT+'"'));node,end=json.JSONDecoder().raw_decode(raw,start);node['start']={'images':[PREFIX+'2',PREFIX+'7',PREFIX+'20'],'module_illustrations':False}
     for i,ns in {0:list(range(1,39)),1:[2,4,7,8,9,13,14,15,19,20,21,22,23,24,25,27,29,30,35,36,37],2:[4,5,6,8,12,13,14,16,17,18,19,22,23,25,26,27,28,29,31,32,33,34,35],3:[2,4,6,8,13,15,17,18,20,22,26,28,29,31,32,34,35,38],4:[9,10,11,14,15,16,17,20,23,24,28,30,31,32,33,34,35,36,37,38]}.items():node['steps'][i]['images']=list(dict.fromkeys(node['steps'][i].get('images',[])+[PREFIX+str(n) for n in ns]))
     from primer.curriculum import Curriculum
-    legacy=Curriculum().node('rad.5.cardiac-masses-devices')['radiology_reference']['key_images']
+    legacy=json.loads((OUT/'packaged-source-images.json').read_text())['replaced_unverified_investigation_images'] if (OUT/'packaged-source-images.json').exists() and 'replaced_unverified_investigation_images' in json.loads((OUT/'packaged-source-images.json').read_text()) else Curriculum().node('rad.5.cardiac-masses-devices')['radiology_reference']['key_images']
     legacy_ids={r['id'] for r in legacy}
     for step in node['steps']:step['images']=[id for id in step.get('images',[]) if id not in legacy_ids]
     override_path=ROOT/'data/radiology/investigation-overrides-non-msk.json';oraw=override_path.read_text();ostart=oraw.index('{',oraw.index('"'+IDENT+'"'));onode,oend=json.JSONDecoder().raw_decode(oraw,ostart);onode['key_images']=[];override_path.write_text(oraw[:ostart]+json.dumps(onode,indent=2,ensure_ascii=False).replace('\n','\n  ')+oraw[oend:])
