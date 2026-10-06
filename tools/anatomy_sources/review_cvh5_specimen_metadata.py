@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 import zipfile
 
 W='{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+OUTPUT=Path(__file__).resolve().parents[2]/'docs/cvh5-specimen-metadata-review'
 
 
 def text(element):return ''.join(n.text or '' for n in element.iter(W+'t'))
@@ -25,7 +26,8 @@ def paragraph_columns(paragraph):
     return parts
 
 
-def review(table,source,candidates,output):
+def review(table,source,candidates):
+    output=OUTPUT
     raw=table.read_bytes();meta=json.loads((source/'source-metadata.json').read_text())
     expected=next(u.split('md5=')[1] for u in meta['media_urls'] if '/pone.0132226.s009.docx?' in u)
     if hashlib.md5(raw).hexdigest()!=expected:raise ValueError('Original specimen table differs')
@@ -95,5 +97,5 @@ def review(table,source,candidates,output):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--table',type=Path,required=True);p.add_argument('--source',type=Path,required=True);p.add_argument('--candidates',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
-    a=p.parse_args();review(a.table,a.source,a.candidates,a.output)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--table',type=Path,required=True);p.add_argument('--source',type=Path,required=True);p.add_argument('--candidates',type=Path,required=True)
+    a=p.parse_args();review(a.table,a.source,a.candidates)

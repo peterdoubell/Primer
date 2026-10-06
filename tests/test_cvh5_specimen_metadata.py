@@ -1,12 +1,26 @@
 """Nominal acquisition facts and study-specific names cannot silently calibrate delivered images."""
 import hashlib
 import json
+import subprocess
+import sys
 from pathlib import Path
 import xml.etree.ElementTree as ET
-from tools.anatomy_sources.review_cvh5_specimen_metadata import paragraph_columns
+from tools.anatomy_sources.review_cvh5_specimen_metadata import OUTPUT, paragraph_columns
 
 ROOT=Path(__file__).resolve().parents[1]
 REVIEW=ROOT/'docs/cvh5-specimen-metadata-review'
+
+
+def test_cli_cannot_redirect_source_copy_to_an_arbitrary_destination(tmp_path):
+    assert OUTPUT==REVIEW
+    destination=tmp_path/'outside-review'
+    result=subprocess.run([sys.executable,'-m','tools.anatomy_sources.review_cvh5_specimen_metadata',
+                           '--table',str(REVIEW/'original-specimen-table.docx'),
+                           '--source',str(ROOT/'docs/cvh5-pelvic-source-review'),
+                           '--candidates',str(ROOT/'docs/cvh5-candidate-geometry-review'),
+                           '--output',str(destination)],cwd=ROOT,capture_output=True,text=True)
+    assert result.returncode==2 and 'unrecognized arguments: --output' in result.stderr
+    assert not destination.exists()
 
 
 def test_exact_source_table_and_all_model_term_links_are_retained():
