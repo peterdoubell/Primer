@@ -9,14 +9,16 @@ ROOT=Path(__file__).resolve().parents[1];IDENT='ra.ct-cardiovascular-pearls'
 def test_complete_named_source_scope_and_all_report_fields_remain_required():
     data=json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text());item=next(i for i in data['investigations'] if i['investigation_id']==IDENT);ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];single={**data,'scope':{**data['scope'],'catalog_investigation_ids':[IDENT]},'investigations':[item]}
     assert item['source_contract_sha256']==digest({k:ref.get(k) for k in ('reporting','report_templates','walkthrough','reading')});validate_reporting_snapshots(single,{IDENT:ref['reporting']})
-    assert len(item['structures'])==108 and len(requirements_for(item))==1053 and {r['checklist_index'] for s in item['structures'] for r in s['report_refs']}==set(range(5))
+    assert len(item['structures'])==111 and len(requirements_for(item))==1082 and {r['checklist_index'] for s in item['structures'] for r in s['report_refs']}==set(range(5))
     ids={r['id'] for r in requirements_for(item)}
     for key in ['LAA','RAA','atrial_membrane','aortic_valve','tricuspid_valve','levoatrial_cardinal_vein','left_superior_intercostal_vein','scimitar_return','systemic_lung_supply','ductus_ligament_region','coronary_variant','coronary_fistula']:
         assert any(i.startswith('chest_cv.'+key+'.') for i in ids)
+    for sinus in ['right_coronary','left_coronary','noncoronary']:assert 'chest_cv.'+sinus+'_sinus.actual_source_resolved_sinus_boundary' in ids
+    assert 'chest_cv.myocardial_aneurysm.actual_outpouching_subtype_and_differential' in ids
     for n in range(1,18):assert f'chest_cv.LV_region_{n}.unassigned_or_unresolved_extent' in ids
     for key in ['CAC_visual.whole_patient_visual_burden_method','valve_calcium.leaflet_vs_root_wall_annular_or_coronary_location','functional_evidence.actual_flow_pressure_shunt_or_perfusion_source','pericardial_compartments.each_fluid_fat_calcium_or_thickened_region']:
         assert 'chest_cv.'+key in ids
-    result=audit(single,{'assets':[{'id':'generic-heart','kind':'model','investigation_ids':[IDENT],'structure_ids':['chest_cv.LAA','chest_cv.pericardial_compartments']}]},expected_catalog_ids={IDENT});assert result['counts']=={'verified':0,'unverified':0,'missing':3159} and not result['clinical_commercial_ready']
+    result=audit(single,{'assets':[{'id':'generic-heart','kind':'model','investigation_ids':[IDENT],'structure_ids':['chest_cv.LAA','chest_cv.pericardial_compartments']}]},expected_catalog_ids={IDENT});assert result['counts']=={'verified':0,'unverified':0,'missing':3246} and not result['clinical_commercial_ready']
 def test_presets_or_still_morphology_cannot_assert_normal_or_functional_results():
     ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];steps=ref['walkthrough']['steps'];assert all(s['normal']=={} for s in steps)
     assert 'not a measurement of flow' in steps[0]['tip'] and 'one filling defect' in steps[0]['tip']

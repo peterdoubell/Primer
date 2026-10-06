@@ -139651,7 +139651,7 @@
           "review_status": "original_XML_visual_calcium_and_modality_limits_reviewed"
         }
       ],
-      "source_contract_sha256": "eac81867ca9cf2bcc5fc64cd599c2062408f68a5d8f1decd228e4c6a5e9389fe",
+      "source_contract_sha256": "15becbf36db3f30e8e60b1725ad87daac8c502bd58448a3d917f24c5dcbe2440",
       "reporting_checklist": [
         {
           "label": "Chambers",
@@ -139681,7 +139681,7 @@
         },
         {
           "heading": "MYOCARDIUM",
-          "body": "Each actual covered chamber/region/layer interface [ ]; source-resolved thickness/morphology with phase/axis [ ]; fat/calcium/attenuation findings and extent [ ]; focal thinning, aneurysm or other component [ ]; prior/clinical context and differential [ ]; unavailable temporal/perfusion/viability/tissue data [ ]."
+          "body": "Each actual covered chamber/region/layer interface [ ]; source-resolved thickness/morphology with phase/axis [ ]; fat/calcium/attenuation findings and extent [ ]; focal thinning, aneurysm/pseudoaneurysm/diverticulum or other component with actual neck/boundary [ ]; prior/clinical context and differential [ ]; unavailable temporal/perfusion/viability/tissue data [ ]."
         },
         {
           "heading": "CORONARIES AND VALVES",
@@ -143050,6 +143050,219 @@
             {
               "id": "chest_cv.descending_aorta.directly_seen_vs_inferred_or_uncovered_extent",
               "name": "Directly seen vs inferred or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual covered structure, branch, chamber region, lesion, variant and repair with source CT/phase/gating/coverage, laterality, calibration and uncertainty. Labels are a known floor, not source-resolved geometry. Routine nongated CT does not supply all thin layers, coronary/valve or functional/haemodynamic data; unassessed structures remain explicit rather than inferred from a normal companion.",
+          "requirement_basis": "effective_chest_CT_cardiovascular_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries And Valves",
+              "detail": "Assess actual coronary course/calcification and each source-resolved valve/annulus within technique limits; distinguish calcium location/burden from diagnostic stenosis or valve function."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Great Vessels",
+              "detail": "Trace every covered aortic/pulmonary/venous channel, branch origin, course and endpoint, including actual variants and directly seen versus inferred connections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/pearls/cardiovascular-pearls-on-chest-ct",
+            "https://radiologyassistant.nl/chest/pearls/cardiovascular-pearls-on-chest-ct-2",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6365314/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7774698/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "chest_cv.right_coronary_sinus",
+          "name": "Right coronary aortic sinus",
+          "tissue_class": "covered_chest_cardiovascular_structure_or_source_control",
+          "required_parts": [
+            {
+              "id": "chest_cv.right_coronary_sinus.actual_source_resolved_sinus_boundary",
+              "name": "Actual source resolved sinus boundary"
+            },
+            {
+              "id": "chest_cv.right_coronary_sinus.valve_leaflet_annular_and_wall_interfaces",
+              "name": "Valve leaflet annular and wall interfaces"
+            },
+            {
+              "id": "chest_cv.right_coronary_sinus.actual_coronary_ostium_or_absent_ostium_role",
+              "name": "Actual coronary ostium or absent ostium role"
+            },
+            {
+              "id": "chest_cv.right_coronary_sinus.source_defined_root_axis_and_phase",
+              "name": "Source defined root axis and phase"
+            },
+            {
+              "id": "chest_cv.right_coronary_sinus.if_measured_local_dimensions_and_method",
+              "name": "If measured local dimensions and method"
+            },
+            {
+              "id": "chest_cv.right_coronary_sinus.each_actual_aneurysm_neck_wall_or_other_component",
+              "name": "Each actual aneurysm neck wall or other component"
+            },
+            {
+              "id": "chest_cv.right_coronary_sinus.adjacent_chamber_or_vessel_relation",
+              "name": "Adjacent chamber or vessel relation"
+            },
+            {
+              "id": "chest_cv.right_coronary_sinus.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual covered structure, branch, chamber region, lesion, variant and repair with source CT/phase/gating/coverage, laterality, calibration and uncertainty. Labels are a known floor, not source-resolved geometry. Routine nongated CT does not supply all thin layers, coronary/valve or functional/haemodynamic data; unassessed structures remain explicit rather than inferred from a normal companion.",
+          "requirement_basis": "effective_chest_CT_cardiovascular_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries And Valves",
+              "detail": "Assess actual coronary course/calcification and each source-resolved valve/annulus within technique limits; distinguish calcium location/burden from diagnostic stenosis or valve function."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Great Vessels",
+              "detail": "Trace every covered aortic/pulmonary/venous channel, branch origin, course and endpoint, including actual variants and directly seen versus inferred connections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/pearls/cardiovascular-pearls-on-chest-ct",
+            "https://radiologyassistant.nl/chest/pearls/cardiovascular-pearls-on-chest-ct-2",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6365314/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7774698/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "chest_cv.left_coronary_sinus",
+          "name": "Left coronary aortic sinus",
+          "tissue_class": "covered_chest_cardiovascular_structure_or_source_control",
+          "required_parts": [
+            {
+              "id": "chest_cv.left_coronary_sinus.actual_source_resolved_sinus_boundary",
+              "name": "Actual source resolved sinus boundary"
+            },
+            {
+              "id": "chest_cv.left_coronary_sinus.valve_leaflet_annular_and_wall_interfaces",
+              "name": "Valve leaflet annular and wall interfaces"
+            },
+            {
+              "id": "chest_cv.left_coronary_sinus.actual_coronary_ostium_or_absent_ostium_role",
+              "name": "Actual coronary ostium or absent ostium role"
+            },
+            {
+              "id": "chest_cv.left_coronary_sinus.source_defined_root_axis_and_phase",
+              "name": "Source defined root axis and phase"
+            },
+            {
+              "id": "chest_cv.left_coronary_sinus.if_measured_local_dimensions_and_method",
+              "name": "If measured local dimensions and method"
+            },
+            {
+              "id": "chest_cv.left_coronary_sinus.each_actual_aneurysm_neck_wall_or_other_component",
+              "name": "Each actual aneurysm neck wall or other component"
+            },
+            {
+              "id": "chest_cv.left_coronary_sinus.adjacent_chamber_or_vessel_relation",
+              "name": "Adjacent chamber or vessel relation"
+            },
+            {
+              "id": "chest_cv.left_coronary_sinus.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "condition": "Instantiate every actual covered structure, branch, chamber region, lesion, variant and repair with source CT/phase/gating/coverage, laterality, calibration and uncertainty. Labels are a known floor, not source-resolved geometry. Routine nongated CT does not supply all thin layers, coronary/valve or functional/haemodynamic data; unassessed structures remain explicit rather than inferred from a normal companion.",
+          "requirement_basis": "effective_chest_CT_cardiovascular_reporting_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries And Valves",
+              "detail": "Assess actual coronary course/calcification and each source-resolved valve/annulus within technique limits; distinguish calcium location/burden from diagnostic stenosis or valve function."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Great Vessels",
+              "detail": "Trace every covered aortic/pulmonary/venous channel, branch origin, course and endpoint, including actual variants and directly seen versus inferred connections."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/pearls/cardiovascular-pearls-on-chest-ct",
+            "https://radiologyassistant.nl/chest/pearls/cardiovascular-pearls-on-chest-ct-2",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6365314/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7774698/"
+          ],
+          "requires_site_instantiation": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "chest_cv.noncoronary_sinus",
+          "name": "Noncoronary aortic sinus",
+          "tissue_class": "covered_chest_cardiovascular_structure_or_source_control",
+          "required_parts": [
+            {
+              "id": "chest_cv.noncoronary_sinus.actual_source_resolved_sinus_boundary",
+              "name": "Actual source resolved sinus boundary"
+            },
+            {
+              "id": "chest_cv.noncoronary_sinus.valve_leaflet_annular_and_wall_interfaces",
+              "name": "Valve leaflet annular and wall interfaces"
+            },
+            {
+              "id": "chest_cv.noncoronary_sinus.actual_coronary_ostium_or_absent_ostium_role",
+              "name": "Actual coronary ostium or absent ostium role"
+            },
+            {
+              "id": "chest_cv.noncoronary_sinus.source_defined_root_axis_and_phase",
+              "name": "Source defined root axis and phase"
+            },
+            {
+              "id": "chest_cv.noncoronary_sinus.if_measured_local_dimensions_and_method",
+              "name": "If measured local dimensions and method"
+            },
+            {
+              "id": "chest_cv.noncoronary_sinus.each_actual_aneurysm_neck_wall_or_other_component",
+              "name": "Each actual aneurysm neck wall or other component"
+            },
+            {
+              "id": "chest_cv.noncoronary_sinus.adjacent_chamber_or_vessel_relation",
+              "name": "Adjacent chamber or vessel relation"
+            },
+            {
+              "id": "chest_cv.noncoronary_sinus.unresolved_or_uncovered_extent",
+              "name": "Unresolved or uncovered extent"
             }
           ],
           "laterality": "not_applicable",
@@ -147023,7 +147236,7 @@
         },
         {
           "id": "chest_cv.myocardial_aneurysm",
-          "name": "Each ventricular aneurysm/pseudoaneurysm component",
+          "name": "Each ventricular aneurysm/pseudoaneurysm/diverticulum component",
           "tissue_class": "covered_chest_cardiovascular_structure_or_source_control",
           "required_parts": [
             {
@@ -147065,6 +147278,26 @@
             {
               "id": "chest_cv.myocardial_aneurysm.unresolved_or_uncovered_extent",
               "name": "Unresolved or uncovered extent"
+            },
+            {
+              "id": "chest_cv.myocardial_aneurysm.actual_outpouching_subtype_and_differential",
+              "name": "Actual outpouching subtype and differential"
+            },
+            {
+              "id": "chest_cv.myocardial_aneurysm.source_resolved_neck_or_communication",
+              "name": "Source resolved neck or communication"
+            },
+            {
+              "id": "chest_cv.myocardial_aneurysm.native_myocardium_pericardial_or_other_boundary",
+              "name": "Native myocardium pericardial or other boundary"
+            },
+            {
+              "id": "chest_cv.myocardial_aneurysm.neighbouring_organ_or_surgical_relation",
+              "name": "Neighbouring organ or surgical relation"
+            },
+            {
+              "id": "chest_cv.myocardial_aneurysm.actual_dynamic_contraction_source_if_obtained",
+              "name": "Actual dynamic contraction source if obtained"
             }
           ],
           "laterality": "not_applicable",
