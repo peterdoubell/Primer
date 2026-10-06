@@ -2317,7 +2317,8 @@ async function renderRadiologyDesk(page, nodeId) {
           el('figcaption', {}, el('p', {}, asset.caption), radiologySourceLink(asset.attribution, asset.source_url)))));
         panel.append(sourceDiagrams); attachPictureHandlers(sourceDiagrams);
       }
-      const illustrations = renderLessonMedia(n.lesson_media.filter(item => item.kind === 'illustration'));
+      const illustrations = ref.walkthrough?.start?.module_illustrations === false ? null
+        : renderLessonMedia(n.lesson_media.filter(item => item.kind === 'illustration'));
       if (illustrations) panel.append(el('details', { class: 'rad-protocol' },
         el('summary', {}, 'Reporting checklist overview'), illustrations));
     }],
@@ -2805,7 +2806,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     const page = pages[current];
     const list = page.images.map(id => figures.get(id)).filter(Boolean);
     // Orientation: figures no step claims and the module's original reporting diagram.
-    const extras = page.kind === 'start' ? [
+    const extras = page.kind === 'start' && walk.start.module_illustrations !== false ? [
       ...(n.lesson_media || []).filter(item => item.kind === 'illustration' && item.src).map(item => ({
         src: item.src, alt: item.alt, label: 'Reporting overview diagram', image_type: 'diagram', caption: item.caption,
         attribution: 'Original Primer diagram.', width: item.width, height: item.height }))] : [];

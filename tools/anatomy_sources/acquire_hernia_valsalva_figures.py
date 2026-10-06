@@ -18,7 +18,21 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def acquire(root, output, selection=None, panel_roles=None, modality='CT', pmcid='PMC11449955', extraction_prefix='hernia-pdf', allow_icc_without_alternate=False):
+def verify_flate_readback(path, samples, mode, size):
+    """Compare independent Poppler samples; accept gray expansion only if every channel agrees."""
+    from PIL import Image
+    if mode not in ('L','RGB') or len(samples)!=size[0]*size[1]*(3 if mode=='RGB' else 1):
+        raise ValueError('Original Flate sample count or mode differs')
+    with Image.open(path) as decoded:
+        decoded.load()
+        gray_expansion_verified=mode=='L' and decoded.mode=='RGB' and all(
+            channel.tobytes()==samples for channel in decoded.split())
+        matches=gray_expansion_verified or decoded.mode==mode and decoded.tobytes()==samples
+        if decoded.size!=size or not matches:raise ValueError('Independent Flate pixel readback differs')
+    return gray_expansion_verified
+
+
+def acquire(root, output, selection=None, panel_roles=None, modality='CT', pmcid='PMC11449955', extraction_prefix='hernia-pdf', allow_icc_without_alternate=False, allow_flate_samples=False):
     from PIL import Image
     from pypdf import PdfReader
     from pypdf.generic import IndirectObject
@@ -70,7 +84,8 @@ def acquire(root, output, selection=None, panel_roles=None, modality='CT', pmcid
                 or obj.get('/Decode') not in (None, [0, 1, 0, 1, 0, 1])):
             raise ValueError('Original PDF placement or sample interpretation differs')
         prefix = root / (extraction_prefix+'-' + f'{index:03d}')
-        if str(obj['/Filter']) != '/DCTDecode':
+        source_filter=str(obj['/Filter'])
+        if source_filter != '/DCTDecode' and not (allow_flate_samples and source_filter=='/FlateDecode'):
             raise ValueError('Unreviewed source filter')
         space = obj['/ColorSpace']; icc = None
         if str(space) == '/DeviceGray':
@@ -84,25 +99,32 @@ def acquire(root, output, selection=None, panel_roles=None, modality='CT', pmcid
             icc = profile.get_data(); mode = 'RGB'
         else:
             raise ValueError('Unreviewed source colour interpretation')
-        original = prefix.with_suffix('.jpg'); encoded = original.read_bytes()
-        if encoded != obj._data:
-            raise ValueError('Independent encoded JPEG stream readback differs')
-        with Image.open(original) as native:
-            native.load()
-            if native.mode != mode or native.size != (obj['/Width'],obj['/Height']):
-                raise ValueError('Original JPEG sample interpretation differs')
-            samples = native.tobytes()
-            if icc:
-                path = prefix.with_suffix('.png'); native.save(path,icc_profile=icc)
-                method = 'lossless_png_original_pdf_dct_rgb_samples_and_icc_preserved'
-            else:
-                path = original; method = 'original_pdf_dct_stream_byte_identical'
+        encoded=None;gray_expansion_verified=False
+        if source_filter=='/DCTDecode':
+            original = prefix.with_suffix('.jpg'); encoded = original.read_bytes()
+            if encoded != obj._data:raise ValueError('Independent encoded JPEG stream readback differs')
+            with Image.open(original) as native:
+                native.load()
+                if native.mode != mode or native.size != (obj['/Width'],obj['/Height']):raise ValueError('Original JPEG sample interpretation differs')
+                samples = native.tobytes()
+                if icc:
+                    path = prefix.with_suffix('.png'); native.save(path,icc_profile=icc)
+                    method = 'lossless_png_original_pdf_dct_rgb_samples_and_icc_preserved'
+                else:
+                    path = original; method = 'original_pdf_dct_stream_byte_identical'
+        else:
+            samples=obj.get_data()
+            independent=prefix.with_suffix('.ppm')
+            gray_expansion_verified=verify_flate_readback(independent,samples,mode,(obj['/Width'],obj['/Height']))
+            native=Image.frombytes(mode,(obj['/Width'],obj['/Height']),samples);path=prefix.with_suffix('.png')
+            native.save(path,**({'icc_profile':icc} if icc else {}))
+            method='lossless_png_original_pdf_flate_samples_and_profile_preserved'
         raw = path.read_bytes()
         with Image.open(path) as image:
             image.load()
             if (image.mode != mode or list(image.size) != [obj['/Width'], obj['/Height']]
                     or image.tobytes() != samples or (icc and image.info.get('icc_profile') != icc)):
-                raise ValueError('Original JPEG dimensions/sample mode differs')
+                raise ValueError('Original image dimensions/sample mode differs')
             pixels = image.tobytes()
             width, height = image.size
         rows.append({'pmcid': pmc, 'figure_number': number, 'source_figure_id': figure.get('id'),
@@ -114,7 +136,9 @@ def acquire(root, output, selection=None, panel_roles=None, modality='CT', pmcid
                      'width': width, 'height': height, 'pixel_mode': mode, 'decoded_pixel_sha256': sha(pixels),
                      'original_encoded_stream_or_decoded_pixel_readback_verified': True,
                      **({'source_icc_missing_alternate_rgb_signature_verified':missing_alternate_verified} if allow_icc_without_alternate and icc else {}),
-                     'source_pixels_changed': False, 'original_dct_stream_sha256': sha(encoded), 'source_icc_profile_sha256': sha(icc) if icc else None, 'source_icc_profile_bytes': len(icc) if icc else 0, 'clinical_approval': False, 'display_color_calibration_verified': False})
+                     'source_pixels_changed': False, 'original_dct_stream_sha256': sha(encoded) if encoded else None,
+                     **({'original_flate_stream_sha256':sha(obj._data),'independent_gray_expansion_verified':gray_expansion_verified} if source_filter=='/FlateDecode' else {}),
+                     'source_icc_profile_sha256': sha(icc) if icc else None, 'source_icc_profile_bytes': len(icc) if icc else 0, 'clinical_approval': False, 'display_color_calibration_verified': False})
     output.mkdir(parents=True, exist_ok=True)
     (output / 'original-source-review.json').write_text(json.dumps({'articles': [article], 'figures': rows,
         'clinical_approval': False, 'runtime_promoted': False}, indent=2) + '\n')
