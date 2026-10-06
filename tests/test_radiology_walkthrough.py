@@ -25,6 +25,7 @@ CORRECTED = {
     'ra.paediatric-ultrasound-values': 'abdomen', 'ra.recist': 'abdomen',
     'ra.aortic-aneurysm-rupture': 'aorta',
     'ra.cardiovascular-devices': 'heart',
+    'ra.cardiac-masses': 'heart',
 }
 
 

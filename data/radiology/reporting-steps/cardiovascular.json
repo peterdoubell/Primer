@@ -947,7 +947,7 @@
             "LOCATION AND ATTACHMENT"
           ],
           "look": "Cine images to show attachment; multiplanar CT.",
-          "normal": "No intracardiac mass.",
+          "normal": {},
           "findings": [
             "Left atrial mass attached to the interatrial septum at the fossa ovalis (myxoma pattern).",
             "Left atrial appendage filling defect.",
@@ -960,7 +960,8 @@
           "parts": [
             "FJ2438",
             "FJ2439"
-          ]
+          ],
+          "tip": "Trace actual attachment and nearby ridges, remnants, valves and vessels. Typical location is a differential clue, not automatic histology; no normality is inferred from an uncovered interface."
         },
         {
           "label": "Morphology",
@@ -979,7 +980,9 @@
           "landmark": "atria",
           "parts": [
             "FJ2438"
-          ]
+          ],
+          "normal": {},
+          "tip": "Report actual measurement plane/phase. Mobility and valve prolapse require the obtained cine/echo temporal study; a still image or generic model cannot establish them."
         },
         {
           "label": "Tissue characteristics",
@@ -997,7 +1000,9 @@
           "parts": [
             "FJ2439",
             "FJ2438"
-          ]
+          ],
+          "normal": {},
+          "tip": "Use actual CT/MRI sequence and reference tissues. T1/T2, fat/calcification or uptake patterns overlap; clinical/operative/pathology evidence may be required."
         },
         {
           "label": "Enhancement",
@@ -1007,9 +1012,9 @@
           ],
           "look": "First-pass perfusion and late gadolinium enhancement; long-inversion-time images for thrombus.",
           "findings": [
-            "No enhancement on any phase, compatible with thrombus.",
+            "No enhancement on the obtained adequately assessed acquisitions: [ ]. Differential confidence and unresolved organised/mixed lesion components: [ ].",
             "Heterogeneous enhancement.",
-            "Early appendage filling defect resolving on delayed images (mixing, not thrombus)."
+            "Early appendage filling defect [resolves / persists / remains uncertain] on the actual delayed acquisition; timing, quality and diagnostic confidence: [ ]."
           ],
           "images": [
             "cardiac-masses-devices-image-2"
@@ -1018,7 +1023,8 @@
           "parts": [
             "FJ2438"
           ],
-          "tip": "Thrombus does not enhance; a delayed-phase image resolves most appendage mixing artefacts."
+          "tip": "Thrombus usually does not enhance, but organised chronic thrombus may rarely enhance peripherally. Assess actual acquired contrast timing/sequence quality and mixed components; one phase does not establish thrombus or mixing.",
+          "normal": {}
         },
         {
           "label": "Effects and spread",
@@ -1027,7 +1033,7 @@
             "EFFECTS AND SPREAD"
           ],
           "look": "Inflow and outflow on cine; pericardium, mediastinum and lungs.",
-          "normal": "No obstruction, invasion or extracardiac disease.",
+          "normal": {},
           "findings": [
             "Obstruction of mitral inflow.",
             "Invasion of the myocardium and pericardium (malignant features).",
@@ -1042,9 +1048,13 @@
             "FJ2439",
             "FJ2438"
           ],
-          "tip": "Metastases are far more common than primary malignant cardiac tumours."
+          "tip": "Document actual covered spread and suspicious interfaces; static appearances do not prove histology, haemodynamic obstruction or tamponade. Correlate appropriate clinical/function/staging evidence."
         }
-      ]
+      ],
+      "model": {
+        "family": "heart",
+        "reporting_aim": "Orient the cardiac region while reviewing actual lesion images. This generic heart model does not contain the actual mass, pseudomass, stalk/base, thin valvular/chordal interface, invasion, thrombus or pericardial/extracardiac disease; complete lesion geometry and function require source-specific evidence."
+      }
     },
     "ra.mra-peripheral-vessels": {
       "steps": [

@@ -3141,30 +3141,31 @@
   },
   "ra.cardiac-masses": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-06",
       "protocol": [
-        "Use cardiac CT or MRI sequences that establish attachment, tissue characteristics and enhancement; correlate echocardiography when supplied."
+        "Tailor acquired cardiac CT/MRI/echo assessment to the actual lesion and clinical question. Record source coverage, cardiac phase, temporal/spatial resolution, contrast timing and sequence/artefact limits; no unperformed acquisition or function is assumed.",
+        "Compare source history, prior studies and available operative/pathology or clinical findings. Distinguish an actual lesion from normal structures, mixing, artefact and extracardiac mimics; tissue patterns support a differential rather than automatically establish histology."
       ],
       "checklist": [
         {
           "label": "Location And Attachment",
-          "detail": "Identify chamber, tissue of origin and attachment."
+          "detail": "Localise every actual lesion/pseudomass to its chamber, wall, valve, septum, vessel or pericardial/extracardiac origin; trace each attachment and adjacent interface with unresolved extent recorded."
         },
         {
           "label": "Morphology",
-          "detail": "Describe margins, dimensions and mobility if actually assessed."
+          "detail": "Describe each lesion component, orthogonal dimensions, contour, stalk/base and local spread; mobility or prolapse requires actual temporal acquisition, not a static picture."
         },
         {
           "label": "Tissue Characteristics",
-          "detail": "Evaluate fat, blood, calcification and MRI signal."
+          "detail": "Describe actual CT attenuation/calcification and MRI fat, blood, fluid/fibrous or other signal components with sequence, phase, calibration and reference tissues; appearances alone are not histology."
         },
         {
           "label": "Enhancement",
-          "detail": "Assess perfusion and delayed enhancement when obtained."
+          "detail": "Assess only obtained first-pass, early/delayed or late enhancement and persistence of filling defects with actual timing/sequence quality; lack of enhancement or a single phase is not a universal diagnosis."
         },
         {
           "label": "Effects And Spread",
-          "detail": "Assess obstruction, invasion, pericardium and extracardiac disease."
+          "detail": "Assess every relevant valve/inflow/outflow, coronary/venous and wall/pericardial interface, obstruction or invasive feature, and covered extracardiac sites; haemodynamic significance and staging need actual source evidence."
         }
       ],
       "measurements": [
@@ -3177,33 +3178,39 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Thrombus, normal variants and artefact can mimic a tumour; report confidence and supporting tissue features."
+        "Normal ridges, trabeculations, valve remnants, aneurysms and extracardiac structures can mimic a lesion; trace the actual structure and adjacent anatomy.",
+        "Thrombus usually lacks enhancement, but organised chronic thrombus can rarely show peripheral enhancement. Tumour-associated thrombus and mixed components must be assessed separately.",
+        "A single early filling defect may reflect mixing; resolution/persistence needs appropriate actual timing and quality. Additional phases are not automatic.",
+        "Signal, enhancement, FDG uptake, size or attachment pattern alone does not prove tumour type or malignancy; clinical/operative/pathology context and uncertainty matter.",
+        "Static position, effusion or apparent narrowing does not quantify mobility, obstruction, regurgitation, haemodynamic significance or tamponade."
       ],
       "impression_prompts": [
         "Cardiac mass location, tissue features and non-neoplastic mimics.",
         "State the dominant abnormality, relevant extent and examination limitations."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate source-supported critical obstruction, suspected embolic complication, severe clinically concerning pericardial involvement or other urgent finding through the actual clinical pathway; record uncertainty and required clinical assessment."
+      ],
       "template_sections": [
         {
           "heading": "LOCATION AND ATTACHMENT",
-          "body": "Chamber/site: [ ]. Attachment: [ ]. Number: [ ]."
+          "body": "Each actual lesion/site/number and source localisation: [ ]. Origin and every attachment/stalk/base: [ ]. Wall/valve/septal/vessel/pericardial relationships: [ ]. Normal-variant/mixing/artefact alternatives and uncertainty: [ ]."
         },
         {
           "heading": "MORPHOLOGY",
-          "body": "Dimensions: [ ]. Contour: [ ]. Mobility: [assessed finding / not assessed]."
+          "body": "Each actual component and orthogonal dimensions with phase/plane/calibration: [ ]. Contour, base/stalk and interface: [ ]. Mobility/prolapse and temporal source if assessed: [ ]. Prior comparison and unresolved extent: [ ]."
         },
         {
           "heading": "TISSUE CHARACTERISTICS",
-          "body": "Fat/calcification: [ ]. T1/T2/signal: [ ]."
+          "body": "Actual CT attenuation/iodine/calcification and measurement source: [ ]. MRI T1/T2/fat-sensitive/blood/fluid/fibrous features and sequence/reference tissues: [ ]. Each distinct component, artefact and diagnostic confidence: [ ]."
         },
         {
           "heading": "ENHANCEMENT",
-          "body": "First-pass/contrast enhancement: [ ]. Delayed enhancement: [ ]."
+          "body": "Obtained contrast/perfusion/early/delayed/LGE acquisition and timing: [ ]. Each region relative to actual precontrast/reference tissue: [ ]. Defect persistence or change: [ ]. Quality, registered comparison and unresolved enhancement: [ ]."
         },
         {
           "heading": "EFFECTS AND SPREAD",
-          "body": "Valve/inflow/outflow effect: [ ]. Invasion: [ ]. Pericardium/other disease: [ ]."
+          "body": "Each affected valve/inflow/outflow, vessel/coronary and wall/pericardial interface: [ ]. Source-supported obstruction/invasion/effusion: [ ]. Covered extracardiac disease and staging limits: [ ]. Actual functional/pathology/clinical evidence and uncertainty: [ ]."
         }
       ],
       "sources": [
