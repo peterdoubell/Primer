@@ -20,7 +20,7 @@ KINDS = ("clinical_image", "schematic", "model")
 REVIEW_FIELDS = ("anatomical_review", "visual_review")
 REVIEW_SCOPE_VERSION = 1
 IMAGE_MODALITIES = frozenset(('PET-CT', 'MRI', 'MR arthrography', 'CT', 'CT arthrography',
-                             'Ultrasound', 'Radiography'))
+                             'Ultrasound', 'Radiography', 'Nuclear medicine'))
 NORMAL_REFERENCE_STATES = frozenset(('normal_anatomy', 'normal_anatomical_reference',
                                      'normal_variant'))
 # Explicitly recorded alternatives, never a substring guess from an unknown
@@ -107,7 +107,7 @@ def inspect_source_context(asset, requirement):
     unknown = {'unknown', 'not_reported', 'unspecified'}
     fields = {'setting', 'laterality', 'depicted_state', 'extent', 'projection', 'anatomical_variant'}
     vocabularies = {
-        'setting': {'in_vivo', 'cadaveric', 'mixed'},
+        'setting': {'in_vivo', 'cadaveric', 'mixed', 'conceptual'},
         'projection': {'anteroposterior', 'lateral'},
         'anatomical_variant': {'none', 'peroneus_quartus', 'accessory_soleus', 'flexor_digitorum_accessorius_longus'},
         'laterality': {'left', 'right', 'bilateral'},
@@ -190,7 +190,7 @@ def inspect_source_context(asset, requirement):
                 actual = types.get(panel)
                 if not isinstance(actual, str) or actual in unknown or actual is None:
                     issues.append('source_context_panel_type_unresolved')
-                elif actual not in IMAGE_MODALITIES | {'Dissection', 'Histology', 'Schematic', 'Clinical photograph'}:
+                elif actual not in IMAGE_MODALITIES | {'Dissection', 'Histology', 'Schematic', 'Haemodynamic tracing', 'Clinical photograph'}:
                     issues.append('source_context_panel_type_invalid')
                 elif asset['kind'] == 'clinical_image' and actual not in IMAGE_MODALITIES:
                     issues.append('source_context_selected_panel_not_clinical_image')
