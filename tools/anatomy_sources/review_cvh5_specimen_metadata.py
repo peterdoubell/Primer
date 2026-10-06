@@ -6,7 +6,6 @@ import hashlib
 import json
 from pathlib import Path
 import re
-import shutil
 import xml.etree.ElementTree as ET
 import zipfile
 
@@ -69,7 +68,8 @@ def review(table,source,candidates):
                             'centre_to_centre_span_if_93_consecutive_planes_mm':(count-1)*spacing,
                             'cell_union_span_if_93_uniform_planes_mm':count*spacing,
                             'is_source_verified_delivered_spacing':False})
-    output.mkdir(parents=True,exist_ok=True);shutil.copyfile(table,output/'original-specimen-table.docx')
+    output.mkdir(parents=True,exist_ok=True)
+    (output/'original-specimen-table.docx').write_bytes(raw)
     report={'source_table_sha256':hashlib.sha256(raw).hexdigest(),'source_table_publisher_md5_verified':True,
             'source_document_xml_sha256':hashlib.sha256(document_raw).hexdigest(),
             'source_model_inventory_sha256':hashlib.sha256(inv_raw).hexdigest(),'source_sections_review_sha256':hashlib.sha256(section_raw).hexdigest(),
