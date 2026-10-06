@@ -15,3 +15,5 @@ Candidate arrays are a basis for further codec, source-correspondence and anatom
 Reproduce with `python -m tools.anatomy_sources.review_cvh5_candidate_geometry --source docs/cvh5-pelvic-source-review --output docs/cvh5-candidate-geometry-review`, then `python -m tools.anatomy_sources.render_cvh5_candidate_geometry --output docs/cvh5-candidate-geometry-review`. These commands preserve experimental interpretations; successful reproduction is not decoder or clinical approval.
 
 The [history sensitivity audit](cvh5-uic-history-review.md) now tests four initial histories on every applicable resource. Only the retained interpretation passes all 40 UIC1 resources; range-passing alternatives can still alter many faces. This is additional numeric evidence, not independent encoder provenance or clinical approval.
+
+The [scene review](cvh5-scene-review.md) now retains source hierarchy, world placements, raw appearance bindings and separate PDF skin controls, enabling whole-pelvis relationship review without granting clinical or full-renderer equivalence.
