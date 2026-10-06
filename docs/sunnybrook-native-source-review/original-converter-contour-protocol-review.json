@@ -1,0 +1,106 @@
+{
+  "converter_repository": "https://sourceforge.net/p/cardiacatlas/cimmodeltocapmodel/",
+  "converter_revision": "b2ba32",
+  "files": [
+    {
+      "file": "CIMModelToCAPModel.py",
+      "bytes": 5744,
+      "sha256": "ad15ad931fe57fd1011dd57b81b6fb1cd6bb8b9ad1003bf70b364722ba7bce9e",
+      "url": "https://sourceforge.net/p/cardiacatlas/cimmodeltocapmodel/ci/b2ba32/tree/CIMModelToCAPModel.py?format=raw"
+    },
+    {
+      "file": "HowToUse.txt",
+      "bytes": 299,
+      "sha256": "c40be5bcac83f824b82b8c397673637c0f78a058cabee0abf9b90c7633dd72f6",
+      "url": "https://sourceforge.net/p/cardiacatlas/cimmodeltocapmodel/ci/b2ba32/tree/HowToUse.txt?format=raw"
+    },
+    {
+      "file": "GlobalHermiteParam.exelem.template",
+      "bytes": 30686,
+      "sha256": "b924ce51a4b62e3f00725df01cfff66fa9ee06f7c19277c0cbfe382911c03cb0",
+      "url": "https://sourceforge.net/p/cardiacatlas/cimmodeltocapmodel/ci/b2ba32/tree/GlobalHermiteParam.exelem.template?format=raw"
+    },
+    {
+      "file": "CimModelLVPS4x4_2.map",
+      "bytes": 4571,
+      "sha256": "2ef9b645ed4c37c27925a1d7fb208b76defb5ee3ac839cdc3c2624f0c8747fa8",
+      "url": "https://sourceforge.net/p/cardiacatlas/cimmodeltocapmodel/ci/b2ba32/tree/CimModelLVPS4x4_2.map?format=raw"
+    }
+  ],
+  "published_converter_element_template_equals_original_after_explicit_focal_placeholder_substitution": true,
+  "original_CIM_model_inputs_available_or_conversion_replayed": false,
+  "converter_revision_proven_exactly_used_for_this_case": false,
+  "supplementary_archive": {
+    "url": "https://sourceforge.net/projects/cardiac-mr/files/Supplementary%20Files.zip/download",
+    "bytes": 1702365,
+    "sha256": "0b0de65b3563449914c8e8a474ecc8922a4d39fa8a3d7ceb0f0ad5dd3c964f75"
+  },
+  "author_documents": [
+    {
+      "archive_member": "Supplementary Files/Manual_Segmentation_Guidelines.doc",
+      "bytes": 35840,
+      "sha256": "1f9d8fc5a5bf23ad26bbb9f1b77b943be9033950bec9f4e940137c185db58742",
+      "zip_crc_verified": true
+    },
+    {
+      "archive_member": "Supplementary Files/Online Contest Information for Participants.pdf",
+      "bytes": 46860,
+      "sha256": "b336adc329990deb08d89c13e18cd6641b8df7ce8384fd038511ef307a0fe4b7",
+      "zip_crc_verified": true
+    },
+    {
+      "archive_member": "Supplementary Files/README Contour Format for Workshop.txt",
+      "bytes": 2356,
+      "sha256": "9313e7d5b125f5cce0b46349f0c5d765d1e5288ce19f6da8961f9b7a4068aec9",
+      "zip_crc_verified": true
+    },
+    {
+      "archive_member": "Supplementary Files/Visual Evaluation Method.pdf",
+      "bytes": 42152,
+      "sha256": "82002b482fe063220f144a723ae85e0f0ac3305f8c805307d6d7ca311aea55c0",
+      "zip_crc_verified": true
+    }
+  ],
+  "primary_author_format_facts": {
+    "image_prefix": "IM-0001-",
+    "image_sequence_number": "one-based position within series; twenty phases per slice; basal slice first",
+    "contour_coordinates": "x/y in pixel units; documented origin (0,0) at top-left corner",
+    "icontour_role": "LV endocardial/inner contour",
+    "ocontour_role": "LV epicardial/outer contour",
+    "p1_p2_role": "optional contours of two largest papillary muscles",
+    "outer_contour_phase": "diastole; source says no systolic outer contours supplied",
+    "source_mass_and_volume_convention": "papillary contour volumes included in source LV mass; papillary/trabecular tissue remains inside source endocardial LV-volume contour",
+    "clinical_protocol_not_universal_current_standard": true
+  },
+  "evaluation_software_grant_scope": {
+    "README_claim": "LGPL v2.1",
+    "included_COPYING_LESSER_header": "LGPL Version 3, 29 June 2007",
+    "software_license_version_ambiguity_preserved": true,
+    "source_code_inspected_not_embedded_or_executed": true,
+    "dataset_CC0_not_borrowed_as_software_grant": true
+  },
+  "evaluation_code_archive_sha256": "c138fb3dd6f67b75de24f5b58e9777d8bdaf9cb879f05bfd2898363251ebd725",
+  "evaluation_code_files": [
+    {
+      "file": "evaluation_code/README.txt",
+      "sha256": "5cc2aea2e7e33b4b45439440e2df17059a24253770ddee950b532dcc58526216"
+    },
+    {
+      "file": "evaluation_code/eval.m",
+      "sha256": "34e0795f0e4e932e58b13502ebb1870a13ae116949c89d2f46de648ab1bbc652"
+    },
+    {
+      "file": "evaluation_code/compare_contours.m",
+      "sha256": "7e0b350cf7ead255d444df5cbfa024306f4e5a8837b1bf1d9700c127beac0af3"
+    },
+    {
+      "file": "evaluation_code/COPYING.LESSER.txt",
+      "sha256": "9ccf26cfe845e0eb8bb58053e47366e7ab6b697ae010f7650978d4b71b7d1fc1"
+    },
+    {
+      "file": "evaluation_code/COPYING.txt",
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    }
+  ],
+  "coordinate_centre_ambiguity": "Author format says zero top-left corner; evaluator uses MATLAB poly2mask and its cropped plotting formula does not establish a unique native pixel-centre offset. Preserve raw coordinates and compare offsets explicitly; do not silently shift source contours."
+}
