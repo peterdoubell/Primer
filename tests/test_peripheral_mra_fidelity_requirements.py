@@ -9,16 +9,17 @@ ROOT=Path(__file__).resolve().parents[1];IDENT='ra.mra-peripheral-vessels'
 def test_named_bilateral_branches_variants_and_all_fields_remain_required():
     data=json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text());item=next(i for i in data['investigations'] if i['investigation_id']==IDENT);ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];single={**data,'scope':{**data['scope'],'catalog_investigation_ids':[IDENT]},'investigations':[item]}
     assert item['source_contract_sha256']==digest({k:ref.get(k) for k in ('reporting','report_templates','walkthrough','reading')});validate_reporting_snapshots(single,{IDENT:ref['reporting']})
-    assert len(item['structures'])==88 and len(requirements_for(item))==925 and {r['checklist_index'] for s in item['structures'] for r in s['report_refs']}==set(range(5))
+    assert len(item['structures'])==90 and len(requirements_for(item))==945 and {r['checklist_index'] for s in item['structures'] for r in s['report_refs']}==set(range(5))
     ids={r['id'] for r in requirements_for(item)}
     for side in ['right','left']:
         for artery in ['common_iliac','internal_iliac','profunda_femoris','popliteal','anterior_tibial','tibioperoneal_trunk','peroneal','posterior_tibial','dorsalis_pedis','medial_plantar','lateral_plantar','plantar_arch','metatarsal_branches','digital_branches']:
             assert f'peripheral_mra.{side}_{artery}.actual_origin' in ids and f'peripheral_mra.{side}_{artery}.uncovered_or_unresolved_extent' in ids
         assert f'peripheral_mra.{side}_runoff_tree.high_origin_or_other_branching_variant' in ids and f'peripheral_mra.{side}_intervention.distal_anastomosis_or_attachment' in ids
+        assert f'peripheral_mra.{side}_perforator_tissue_relations.actual_septal_or_muscle_interface' in ids
         assert f'peripheral_mra.{side}_collateral_routes.flow_direction_source_if_obtained' in ids
     assert 'peripheral_mra.additional_territories.separate_scope_expansion_required' in ids
     result=audit(single,{'assets':[{'id':'generic-aorta','kind':'model','investigation_ids':[IDENT],'structure_ids':['peripheral_mra.left_anterior_tibial','peripheral_mra.left_plantar_arch']}]},expected_catalog_ids={IDENT})
-    assert result['counts']=={'verified':0,'unverified':0,'missing':2775} and not result['clinical_commercial_ready']
+    assert result['counts']=={'verified':0,'unverified':0,'missing':2835} and not result['clinical_commercial_ready']
 def test_presets_cannot_assert_normal_patency_runoff_or_clinical_function():
     ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];steps=ref['walkthrough']['steps'];assert all(s['normal']=={} for s in steps)
     assert 'three patent channels' in steps[3]['detail'] and 'tissue viability' in steps[3]['tip']
