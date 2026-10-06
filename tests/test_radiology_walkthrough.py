@@ -15,7 +15,7 @@ from primer.curriculum import Curriculum
 from primer import radiology_catalog
 
 FLAGSHIPS = ('ra.ct-coronary', 'ra.mri-prostate')
-# Investigations whose backing module shows the wrong anatomy for the examination.
+# Investigation-specific anatomy or reporting-aim overrides.
 CORRECTED = {
     'ra.hip-arthroplasty': 'hip',
     'ra.mri-diabetic-foot': 'ankle', 'ra.paediatric-elbow-fractures': 'elbow',
@@ -23,6 +23,7 @@ CORRECTED = {
     'ra.paediatric-neck-masses': 'neck', 'ra.paediatric-cystic-abdominal-masses': 'abdomen',
     'ra.paediatric-solid-abdominal-masses': 'abdomen', 'ra.paediatric-renal-tumours': 'renal',
     'ra.paediatric-ultrasound-values': 'abdomen', 'ra.recist': 'abdomen',
+    'ra.aortic-aneurysm-rupture': 'aorta',
 }
 
 
@@ -100,7 +101,7 @@ def test_step_landmarks_and_mesh_parts_exist(references):
     assert any('supraspinatus' in name for name in cuff)
 
 
-def test_wrong_backing_anatomy_is_corrected(references):
+def test_investigation_anatomy_or_scope_is_overridden(references):
     corrected = {identifier: ref['walkthrough']['spatial_model']['family'] for identifier, ref in references.items()
                  if ref['walkthrough']['spatial_model']['scenario'].startswith('radiology-investigation:')}
     assert corrected == CORRECTED
@@ -232,7 +233,12 @@ def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_galle
         assert not atlas.intersection(ref['walkthrough']['start']['images'])
     for key, ref in references.items():
         atlas = {r['id'] for r in ref.get('structure_atlas', [])}
-        assert not atlas.intersection(ref['walkthrough']['start']['images']), key
+        authored_start = radiology_catalog._steps()['investigations'][key].get('start', {})
+        if 'images' in authored_start:
+            assert ref['walkthrough']['start']['images'] == authored_start['images'], key
+            assert len(atlas.intersection(authored_start['images'])) < len(atlas), key
+        else:
+            assert not atlas.intersection(ref['walkthrough']['start']['images']), key
 
 
 def test_walkthrough_rejects_foreign_atlas_figures_and_ambiguous_collection_ids(monkeypatch, curriculum):

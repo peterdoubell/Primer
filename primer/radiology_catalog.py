@@ -250,9 +250,20 @@ def _walkthrough(item, ref):
         raise ValueError('The walkthrough needs introductory and impression sections: ' + item['id'])
     if complete and set(measures) - used_measures:
         raise ValueError('Every measurement needs a reporting step: ' + item['id'])
+    introduction = authored.get('start', {})
+    if not isinstance(introduction, dict):
+        raise ValueError('Reporting introduction must be an object: ' + item['id'])
+    introductory_images = introduction.get('images', [i for i in key_images if i not in used_images])
+    if (not isinstance(introductory_images, list) or any(i not in images for i in introductory_images)
+            or len(set(introductory_images)) != len(introductory_images)):
+        raise ValueError('Reporting introduction needs distinct registered figures: ' + item['id'])
+    module_illustrations = introduction.get('module_illustrations', True)
+    if not isinstance(module_illustrations, bool):
+        raise ValueError('Reporting introduction illustration choice must be boolean: ' + item['id'])
     return {'reviewed_at': _steps()['reviewed_at'].get(item['id'], guide['reviewed_at']),
             'complete': complete, 'template_id': template['id'],
-            'start': {'sections': headings[:first], 'images': [i for i in key_images if i not in used_images]},
+            'start': {'sections': headings[:first], 'images': introductory_images,
+                      **({'module_illustrations': False} if not module_illustrations else {})},
             'steps': steps, 'finish': {'sections': headings[last + 1:]}}
 
 

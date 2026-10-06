@@ -417,7 +417,7 @@
       },
       "reporting_contract_sha256": "e6a67cf2d8cfbb4bd1bf4c56a3edb2217874a0fe04cc3245678b0df7934a2b79",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -1062,7 +1062,7 @@
       },
       "reporting_contract_sha256": "f223abd46a1cc47e60ae3b825211a4c97129a636d405583e40ecff39a0505662",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -2433,7 +2433,7 @@
       },
       "reporting_contract_sha256": "776461314d34341a810219ff75408474bff96d40b41d1976c7dd2fc12a70f30a",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -3487,7 +3487,7 @@
       },
       "reporting_contract_sha256": "c38e3511cc73520ee3e6700077b6d627edf874124b8ae240d5e30fa61b500711",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4013,7 +4013,7 @@
       },
       "reporting_contract_sha256": "86c0703d4456b3adce5211f61f20b18edc565224ebdfb095380b386312e14371",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -4807,7 +4807,7 @@
       },
       "reporting_contract_sha256": "59c2457d6bd7a458eb16b2bef90a6c21a9789cc4bf4b5f6f0d21a1997b6a40e9",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5627,7 +5627,11 @@
               "TECHNIQUE AND QUALITY",
               "KEY IMAGES"
             ],
-            "images": []
+            "images": [
+              "open-aortic-rupture-pmc4035490-fig11",
+              "open-aortic-rupture-pmc4035490-fig3"
+            ],
+            "module_illustrations": false
           },
           "steps": [
             {
@@ -5763,15 +5767,15 @@
             ]
           },
           "spatial_model": {
-            "id": "radiology-model-rad.5.aorta",
-            "title": "Acute Aortic Syndrome \u00b7 3D landmarks",
-            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Trace root, arch, descending aorta and branch vessels before describing longitudinal disease extent.",
-            "scenario": "radiology-reference:rad.5.aorta",
+            "id": "radiology-model-ra.aortic-aneurysm-rupture",
+            "title": "CT aortic aneurysm rupture \u00b7 spatial orientation",
+            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Use this schematic for general orientation only. It does not represent the actual abdominal aneurysm wall, lumen, thrombus, every branch, haemorrhage compartment, fistula or repair. Report from complete acquired CT; faithful patient geometry and structure coverage still require independent validation.",
+            "scenario": "radiology-investigation:ra.aortic-aneurysm-rupture",
             "family": "aorta",
             "focus": [
-              "arch"
+              "branches"
             ],
-            "reporting_aim": "Trace root, arch, descending aorta and branch vessels before describing longitudinal disease extent."
+            "reporting_aim": "Use this schematic for general orientation only. It does not represent the actual abdominal aneurysm wall, lumen, thrombus, every branch, haemorrhage compartment, fistula or repair. Report from complete acquired CT; faithful patient geometry and structure coverage still require independent validation."
           }
         },
         "reading": [
@@ -5801,9 +5805,9 @@
           }
         ]
       },
-      "reporting_contract_sha256": "e8cb237f9ba195319e2a6d3b6eb89231401431378ea0c84b066066897fef724b",
+      "reporting_contract_sha256": "85969323da2c8a860118a366a67bb9452e6673a296ab50e1d05a07389117e690",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -5904,6 +5908,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": false,
             "caption": "Original Figure 1: Paired aneurysm size examples. Complete source artwork, labels and annotations are preserved. Original b/d panels are flat CT-derived parametric renderings, with different displayed colour ranges; they are not acquired geometry, independently registered models or independently calibrated growth measurements.",
             "alt": "Original Figure 1: Paired aneurysm size examples. Complete source artwork, labels and annotations are preserved. Original b/d panels are flat CT-derived parametric renderings, with different displayed colour ranges; they are not acquired geometry, independently registered models or independently calibrated growth measurements.",
             "source_caption_full": "Rapid enlargement rate.  a  Axial enhanced CT and  b  3D rendering image with a colour parametric map of a 71-year-old man shows a 5.4-cm AAA.  c  Axial enhanced CT and  d  3D rendering image with a colour parametric map of the same patient performed a year later shows a 1 cm increase in diameter",
@@ -5981,6 +5986,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": true,
             "caption": "Original Figure 2: Calcification discontinuity. Complete source artwork, labels and annotations are preserved. The paired CT views are four years apart. Source-described sizes and focal gap are not independently measured from these bitmaps.",
             "alt": "Original Figure 2: Calcification discontinuity. Complete source artwork, labels and annotations are preserved. The paired CT views are four years apart. Source-described sizes and focal gap are not independently measured from these bitmaps.",
             "source_caption_full": "Focal wall discontinuity.  a  Illustration depicts a focal discontinuity ( white arrow ) of the calcified intima walls ( C ), indicating the AAA rupture site.  b  Axial unenhanced CT image of an asymptomatic 56-year-old man shows a 4.2 cm AAA with intact circumferential calcified walls.  c  Axial unenhanced CT image of the same patient who presented with severe lumbar pain 4\u00a0years later. The AAA now measures 5.7\u00a0cm, and a new 1 cm focal gap ( white arrow ) of the circumferential calcifications can be seen with periaortic fat infiltration near the rupture site ( white arrowhead )",
@@ -6054,6 +6060,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": true,
             "caption": "Original Figure 3: Hyperattenuating crescent. Complete source artwork, labels and annotations are preserved. The crescent mechanism is illustrated in schematic a. An isolated crescent does not independently establish imminent rupture; symptoms, size/growth and other rupture findings require clinical assessment.",
             "alt": "Original Figure 3: Hyperattenuating crescent. Complete source artwork, labels and annotations are preserved. The crescent mechanism is illustrated in schematic a. An isolated crescent does not independently establish imminent rupture; symptoms, size/growth and other rupture findings require clinical assessment.",
             "source_caption_full": "Hyperattenuating crescent sign.  a  Illustration demonstrates blood ( black arrow ) dissecting into a mural thrombus ( T ) from the aortic lumen ( L ). The resulting intramural haematoma ( H ) is crescent shaped.  b  Axial unenhanced CT of a 63-year-old man presenting with abdominal pain and a pulsating mass. A crescent ( H ) of higher attenuation than the aortic lumen ( L ) can be seen",
@@ -6134,6 +6141,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": true,
             "caption": "Original Figure 4: Thrombus fissuration. Complete source artwork, labels and annotations are preserved. The illustration is schematic a. Static fissuration views do not independently prove the full leak path, haemodynamic behaviour or reported subsequent surgical outcome.",
             "alt": "Original Figure 4: Thrombus fissuration. Complete source artwork, labels and annotations are preserved. The illustration is schematic a. Static fissuration views do not independently prove the full leak path, haemodynamic behaviour or reported subsequent surgical outcome.",
             "source_caption_full": "Thrombus fissuration.  a  Illustration demonstrates blood ( black arrow ) dissecting from the aortic lumen ( L ) into a mural thrombus ( T ). The infiltrating blood is seen as linear fissurations ( white arrows ).  b  Axial and  c  coronal enhanced CT of a 64-year-old man shows linear infiltrations of contrast material ( white arrows ) within the hypodense mural thrombus. The patient underwent successful emergent AAA repair before complete rupture occurred",
@@ -6207,6 +6215,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": true,
             "caption": "Original Figure 5: Draped posterior aortic wall. Complete source artwork, labels and annotations are preserved. Same source patient as Figure 13. Schematic a is a mechanism illustration. Local draping/fissuration needs the full CT and clinical context; the published appearance is not a universal imminent-rupture rule.",
             "alt": "Original Figure 5: Draped posterior aortic wall. Complete source artwork, labels and annotations are preserved. Same source patient as Figure 13. Schematic a is a mechanism illustration. Local draping/fissuration needs the full CT and clinical context; the published appearance is not a universal imminent-rupture rule.",
             "source_caption_full": "Draped aorta sign.  a  Illustration depicts loss of normal aneurysm wall convexity. The posterior wall of the aorta moulds to the anterior surface of the vertebral body.  b  Axial enhanced CT of an 85-year-old man with abdominal pain. The posterior aortic wall follows the contour of the anterior portion of the vertebra, with loss of fat planes between the aneurysm and vertebra ( white arrowheads ). Discrete thrombus fissuration ( white arrow ) is also seen. These are both signs of impending AAA rupture",
@@ -6287,6 +6296,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": true,
             "caption": "Original Figure 6: Aortoenteric fistula examples. Complete source artwork, labels and annotations are preserved. Panels b/c depict different patients; never join their anatomy or infer one complete fistula tract. Schematic a is a conceptual bowel connection. Prior graft geometry and operative cause are not resolved by c.",
             "alt": "Original Figure 6: Aortoenteric fistula examples. Complete source artwork, labels and annotations are preserved. Panels b/c depict different patients; never join their anatomy or infer one complete fistula tract. Schematic a is a conceptual bowel connection. Prior graft geometry and operative cause are not resolved by c.",
             "source_caption_full": "Aortoenteric fistula.  a  Illustration depicts a fistulous tract connecting a bowel loop to an aortic aneurysm. The  white double-headed arrow  shows communication between the structures allowing bowel gas to infiltrate into the aortic wall and blood to leak into the bowel lumen.  b  Sagittal enhanced CT image of a 73-year-old man demonstrates an aortoenteric fistula. Intraluminal gas ( white arrow ) is observed within the AAA, and normal fat planes between the aneurysm and the third portion of the duodenum are lost ( white arrowhead ).  c  Axial enhanced CT of an 82-year-old man who presented with massive lower gastrointestinal bleeding and a history of previously repaired AAA. Active contrast extravasation ( white arrow ) into the third portion of the duodenum ( D ) and the stomach ( S ) can be seen in this patient with an aortoenteric fistula",
@@ -6365,6 +6375,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": false,
             "caption": "Original Figure 7: Aortocaval fistula. Complete source artwork, labels and annotations are preserved. Panel a is explicitly arterial phase; b is a lower level in the same patient, without separately named phase. These snapshots do not independently delineate the complete tract or measure shunt flow.",
             "alt": "Original Figure 7: Aortocaval fistula. Complete source artwork, labels and annotations are preserved. Panel a is explicitly arterial phase; b is a lower level in the same patient, without separately named phase. These snapshots do not independently delineate the complete tract or measure shunt flow.",
             "source_caption_full": "Aortocaval fistula.  a  Axial arterial phase enhanced CT shows simultaneous enhancement of the AAA and IVC in an 83-year-old man with AAA rupture and retroperitoneal haematoma ( R ).  b  Axial enhanced CT of the same patient at a lower level demonstrates active contrast extravasation ( white arrows ) from the aortic aneurysm to the IVC with loss of normal fat planes between the structures. Retroperitoneal haematoma ( R ) can also be seen",
@@ -6439,6 +6450,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": false,
             "caption": "Original Figure 8: Periaortic stranding. Complete source artwork, labels and annotations are preserved. Stranding is nonspecific and cannot alone prove rupture or its absence. A displayed lack of haematoma is confined to the source-described example and provided snapshots.",
             "alt": "Original Figure 8: Periaortic stranding. Complete source artwork, labels and annotations are preserved. Stranding is nonspecific and cannot alone prove rupture or its absence. A displayed lack of haematoma is confined to the source-described example and provided snapshots.",
             "source_caption_full": "Periaortic stranding.  a  Axial and  b  coronal enhanced CT of a 51-year-old man with abdominal pain shows stranding of periaortic fat ( white arrows ) before any retroperitoneal haematoma can be seen",
@@ -6513,6 +6525,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": false,
             "caption": "Original Figure 9: Contrast extravasation. Complete source artwork, labels and annotations are preserved. The caption does not name arterial or delayed phase. No phase is inferred from brightness; the complete leak, serial evolution and full haemorrhage extent are not supplied.",
             "alt": "Original Figure 9: Contrast extravasation. Complete source artwork, labels and annotations are preserved. The caption does not name arterial or delayed phase. No phase is inferred from brightness; the complete leak, serial evolution and full haemorrhage extent are not supplied.",
             "source_caption_full": "Contrast extravasation.  a - b  Axial enhanced CT of a 75-year-old woman demonstrates active contrast extravasation ( white arrows ) from the aneurysm lumen ( L ) into the retroperitoneal space with massive retroperitoneal haematoma ( R )",
@@ -6587,6 +6600,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": false,
             "caption": "Original Figure 10: Retroperitoneal haemorrhage. Complete source artwork, labels and annotations are preserved. The caption reports 45 HU, but original calibrated voxel data and independent HU measurements are unavailable. Local axial/coronal views do not establish complete compartment boundaries.",
             "alt": "Original Figure 10: Retroperitoneal haemorrhage. Complete source artwork, labels and annotations are preserved. The caption reports 45 HU, but original calibrated voxel data and independent HU measurements are unavailable. Local axial/coronal views do not establish complete compartment boundaries.",
             "source_caption_full": "Retroperitoneal haematoma.  a  Axial unenhanced CT image of a 72-year-old man demonstrates haemorrhage involving bilateral anterior ( AP ) and posterior ( PP ) pararenal spaces as well as the area along the psoas muscles. The left kidney is displaced laterally. Attenuation of 45 HU (more than 30 HU) indicates acute haematoma.  b  Coronal unenhanced CT image of the same patient shows bilateral retroperitoneal haematomas ( white arrows)",
@@ -6664,6 +6678,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": true,
             "caption": "Original Figure 11: Intraperitoneal and retroperitoneal haemorrhage. Complete source artwork, labels and annotations are preserved. Schematic a illustrates compartment spread. The caption reports 60 HU, which cannot be independently recovered from display pixels; complete peritoneal and retroperitoneal extent remains unverified.",
             "alt": "Original Figure 11: Intraperitoneal and retroperitoneal haemorrhage. Complete source artwork, labels and annotations are preserved. Schematic a illustrates compartment spread. The caption reports 60 HU, which cannot be independently recovered from display pixels; complete peritoneal and retroperitoneal extent remains unverified.",
             "source_caption_full": "Intraperitoneal haematoma.  a  Illustration depicts AAA rupture of the left anterolateral wall ( white arrow ). Massive haemorrhage extends into both the retroperitoneal ( R , shown as translucent red blood) and intraperitoneal ( I , shown as more opaque blood) spaces.  b  Coronal unenhanced CT of a 51-year-old man demonstrates intraperitoneal haematoma involving the perihepatic space ( PH ), right ( RG ), and left ( LG ) paracolic gutters. Retroperitoneal haematoma ( white arrows ) is also seen. Attenuation of 60 HU indicates acute haemorrhage.  c  Axial unenhanced CT of the same patient shows right ( RG ) and left ( LG ) paracolic gutters, as well as retroperitoneal haematoma ( white arrows )",
@@ -6748,6 +6763,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": false,
             "caption": "Original Figure 12: Open repair context. Complete source artwork, labels and annotations are preserved. Pre/post snapshots are not independently registered; the full graft course, anastomoses, complications and surgical outcome are not validated by these views.",
             "alt": "Original Figure 12: Open repair context. Complete source artwork, labels and annotations are preserved. Pre/post snapshots are not independently registered; the full graft course, anastomoses, complications and surgical outcome are not validated by these views.",
             "source_caption_full": "Open surgical repair.  a  Axial and  b  coronal unenhanced CT image of a 73-year-old man demonstrates ruptured AAA with a retroperitoneal haematoma ( R ).  c  Sagittal enhanced CT image of the same patient after successful open surgical repair shows the junction between the native aorta and aortic graft ( white arrow)  and a surgical clip ( black arrow )",
@@ -6831,6 +6847,7 @@
               "independent_calibrated_measurements_verified": false,
               "clinical_suitability_or_outcome_verified": false
             },
+            "contains_schematic_panels": false,
             "caption": "Original Figure 13: Endovascular repair context. Complete source artwork, labels and annotations are preserved. Same patient as Figure 5. Panel b is fluoroscopy, and d is a flat CT-derived volume rendering, not an actual model. Local neck/repair views do not establish every branch, access/landing measurement, endoleak assessment or clinical suitability.",
             "alt": "Original Figure 13: Endovascular repair context. Complete source artwork, labels and annotations are preserved. Same patient as Figure 5. Panel b is fluoroscopy, and d is a flat CT-derived volume rendering, not an actual model. Local neck/repair views do not establish every branch, access/landing measurement, endoleak assessment or clinical suitability.",
             "source_caption_full": "Endovascular aneurysm repair.  a  Coronal enhanced CT image of an 85-year-old man presenting with an impending AAA rupture (same as Fig.\u00a0 5 ) demonstrates a large AAA ( white arrow ) with a long proximal neck ( white arrowheads ).  b  Fluoroscopy image,  c  axial, and  d  3D rendering of the same patient show a deployed aorto-biiliac stent-graft ( white arrows)",
@@ -6860,15 +6877,15 @@
         ],
         "anatomical_illustrations": null,
         "spatial_model": {
-          "id": "radiology-model-rad.5.aorta",
+          "id": "radiology-model-ra.aortic-aneurysm-rupture",
           "title": "CT aortic aneurysm rupture \u00b7 spatial orientation",
-          "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Trace root, arch, descending aorta and branch vessels before describing longitudinal disease extent.",
-          "scenario": "radiology-reference:rad.5.aorta",
+          "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Use this schematic for general orientation only. It does not represent the actual abdominal aneurysm wall, lumen, thrombus, every branch, haemorrhage compartment, fistula or repair. Report from complete acquired CT; faithful patient geometry and structure coverage still require independent validation.",
+          "scenario": "radiology-investigation:ra.aortic-aneurysm-rupture",
           "family": "aorta",
           "focus": [
-            "arch"
+            "branches"
           ],
-          "reporting_aim": "Trace root, arch, descending aorta and branch vessels before describing longitudinal disease extent."
+          "reporting_aim": "Use this schematic for general orientation only. It does not represent the actual abdominal aneurysm wall, lumen, thrombus, every branch, haemorrhage compartment, fistula or repair. Report from complete acquired CT; faithful patient geometry and structure coverage still require independent validation."
         },
         "source_anatomy_references": []
       },
@@ -7207,7 +7224,7 @@
       },
       "reporting_contract_sha256": "aa3f672e96791ec64c100fe08bf1e86e26948ff5d96dbd26b91dcbb3a5415e35",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -7856,7 +7873,7 @@
       },
       "reporting_contract_sha256": "ddd0b985987a87b953c26f3943f57effe3e3c370494ac75c6a6c2ffd2614bb90",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -8702,7 +8719,7 @@
       },
       "reporting_contract_sha256": "bfa856dbb924440a659742589423779e93ff41d87abce840163e96c590da27b4",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -9787,7 +9804,7 @@
       },
       "reporting_contract_sha256": "5e2553d4b2296031280b8ff52ecb45abe99d345c0d1443b334626cf463beaa22",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -10686,7 +10703,7 @@
       },
       "reporting_contract_sha256": "51afe1e42b4980b9410d9cde3df025ec185c91efcf1ed9f5a935c60d58bce8bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -11587,7 +11604,7 @@
       },
       "reporting_contract_sha256": "157a1fd76d9cd51e73683f63e8933edf810415a86770b53e11341939ffa5288d",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -12460,7 +12477,7 @@
       },
       "reporting_contract_sha256": "b9c6e28550ad5ea535af5d890dd506fe41e613a16ebce0a74013366fad0294cd",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -13326,7 +13343,7 @@
       },
       "reporting_contract_sha256": "10ba145d2740780d7999bf96467d0e7a0f6651f63afc61094da04794c57a63f7",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -14066,7 +14083,7 @@
       },
       "reporting_contract_sha256": "116b5af41de5f9b16a39206a18a71c0aaaa81d0814a4639683ca20164f6eb4bf",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -15458,7 +15475,7 @@
       },
       "reporting_contract_sha256": "01ea478d05690a040c5c45211a98b70e9fb938bcf0a500f21295cb4331587776",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -18866,7 +18883,7 @@
       },
       "reporting_contract_sha256": "a5559db55ad5fc9d1ad95963e6f666233107f52d3dbb35372d074cf1905162d2",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19251,7 +19268,7 @@
       },
       "reporting_contract_sha256": "05118373739be44fb70c7b9548439e338483cdb7d54cb333f49450a57c4656fa",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -19777,7 +19794,7 @@
       },
       "reporting_contract_sha256": "43c76d03f8a912f8e46830b54119628e1a644f24b374ef28e61db1f0d831d9f1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -20198,7 +20215,7 @@
       },
       "reporting_contract_sha256": "a657efff11ca7cfc89b20969b96cdc321d07a33989541bcc7424bb505e134fe3",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -20613,7 +20630,7 @@
       },
       "reporting_contract_sha256": "4bb79bd66eb8c1711ae1c5d939b6bc8c42c8d5613e2b90db1d49c5a58186fb77",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -21532,7 +21549,7 @@
       },
       "reporting_contract_sha256": "5aa54d6afa022f606fc3a478651fbe315794ab3013fa2af0f04c5cc0aaa4419f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -21993,7 +22010,7 @@
       },
       "reporting_contract_sha256": "f40593ef506bff70d997d8cea1f0847744855b2b68070280ec5a65bba78048ba",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -22940,7 +22957,7 @@
       },
       "reporting_contract_sha256": "06f4fc6e192eb0b98ad25204529d8b2d04bce426d967809956fe4be3d41ebed1",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -23746,7 +23763,7 @@
       },
       "reporting_contract_sha256": "a5f2f6535270f03f0b6744cbc53bc413901eedb91f2beaed0a12e5d09f652b0f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -30448,7 +30465,7 @@
       },
       "reporting_contract_sha256": "2253080d3e7aad42435a068b7cb99a10c7880f9a3b017ea2cd811273b5e64b29",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -34616,7 +34633,7 @@
       },
       "reporting_contract_sha256": "f092e51e7beb639d988415f739721932b90dabd2a6731ed7c79f8e0b16e75e28",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -37250,7 +37267,7 @@
       },
       "reporting_contract_sha256": "380dcd68147227e28b99b52d3aea26c77f86219d65e41c05dc0df2f8a8787a03",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -37645,7 +37662,7 @@
       },
       "reporting_contract_sha256": "52042a42aa8ef8a1712a116b5b4a988487e722c9e30b27b5c9f40b9017d78f1b",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [
@@ -59572,7 +59589,7 @@
       },
       "reporting_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
       "structure_inventory": "data/radiology/non-msk-structure-requirements.json",
-      "structure_inventory_sha256": "3ad45de9edf663bfc57d3bcc17c8149fb05c3ea2699331522383d63fdc6dc5be",
+      "structure_inventory_sha256": "3c0d60c1768435515547ce30e859e00a8f251132acd70f68d5ff5d9edaa6b31d",
       "structure_expansion_status": "draft_inventory_exists",
       "observed_visual_descriptors": {
         "key_images": [

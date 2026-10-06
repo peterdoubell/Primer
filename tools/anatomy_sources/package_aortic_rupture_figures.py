@@ -79,6 +79,8 @@ def append_evidence(path,assets):
 def update_steps(rows):
     path=ROOT/'data/radiology/reporting-steps/abdomen.json';raw=path.read_text();start=raw.index('{',raw.index('"'+INVESTIGATION+'"'))
     node,end=json.JSONDecoder().raw_decode(raw,start);steps=node['steps']
+    node['start']={'images':[PREFIX+'11',PREFIX+'3'],'module_illustrations':False}
+    node['model']={'family':'aorta','reporting_aim':'Use this schematic for general orientation only. It does not represent the actual abdominal aneurysm wall, lumen, thrombus, every branch, haemorrhage compartment, fistula or repair. Report from complete acquired CT; faithful patient geometry and structure coverage still require independent validation.'}
     steps[0]['images']=list(dict.fromkeys(steps[0].get('images',[])+[PREFIX+'1',PREFIX+'13']))
     steps[1]['images']=list(dict.fromkeys(steps[1].get('images',[])+[PREFIX+str(n) for n in (7,8,9,10,11,12)]))
     steps[2]['images']=list(dict.fromkeys(steps[2].get('images',[])+[PREFIX+str(n) for n in (2,3,4,5)]))
@@ -127,6 +129,7 @@ def package(root):
              'width':source['width'],'height':source['height'],'sha256':source['sha256'],'source_url':article['source_article_url'],
              'figure_url':article['source_article_url']+f'#Fig{n}','figure_number':n,'asset_source_url':article['pdf_url'],
              'modality':'CT','clinical_panels':panels,'image_state':state,'source_context':context,
+             'contains_schematic_panels':bool(schematics),
              'caption':caption,'alt':caption,'source_caption_full':source['source_caption'],'limits':limits,'structures_visible':visible,
              'license':'CC BY 4.0','license_url':article['license_url'],'attribution':credit,'source_background':'white',
              'rights_reviewed_on':DATE,'rights_review':'Original XML grant and complete captions checked for separate credits; original PDF samples/profile and independent Poppler readback verified.'}
