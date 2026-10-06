@@ -51,7 +51,7 @@ def build():
         'source_scope_issues':['Organised chronic thrombus may rarely enhance peripherally; no absolute nonenhancement rule or one-phase diagnosis is adopted.',
             'Imaging patterns and FDG uptake are not automatic histology/malignancy; source clinical/operative/pathology evidence matters.',
             'Normal ridges/remnants/trabeculations and actual vascular/extracardiac connections need complete tracing.',
-            'PMC10818366 is CC BY 4.0 but original figure-specific credits/pixels/panel roles need review before packaging.',
+            'PMC10818366 is CC BY 4.0; original Figures 1-14 have reviewed pixels/roles/credits and explicit still/render/map/modality limits. Figures 15-38 and complete independent anatomy/clinical review remain outstanding.',
             'PMC9558634 is CC BY-NC-SA 4.0; no figures are commercially reused from that grant.',
             'Generic heart model omits actual lesions/attachments/invasion. Native lesion datasets and independent complete anatomical/clinical validation remain outstanding.'],
         'functional_evidence_requirements':['Mobility, perfusion, obstruction, valve effects, flow and tamponade need actual temporal/functional/clinical sources; still images and geometry alone do not prove them.',
