@@ -568,7 +568,7 @@
     "ra.vascular-anomalies": {
       "model": {
         "family": "aorta",
-        "reporting_aim": "Relate the arch side, branching order and any aberrant vessel to the trachea and oesophagus."
+        "reporting_aim": "Orient the arch region while inspecting actual source images for every anomalous vessel, airway and oesophageal relation. This generic aorta model does not contain the actual anomaly, pulmonary/systemic venous tree, ductal/ligamentous ring or complete airway anatomy."
       },
       "steps": [
         {
@@ -578,7 +578,7 @@
             "AORTIC ARCH"
           ],
           "look": "Axial images above the arch for the four-artery sign; volume rendering of the arch and branches.",
-          "normal": "Left aortic arch with normal branching; no coarctation.",
+          "normal": {},
           "findings": [
             "Right aortic arch with aberrant left subclavian artery arising from a Kommerell diverticulum (__ mm).",
             "Left arch with aberrant right subclavian artery passing behind the oesophagus.",
@@ -592,7 +592,7 @@
             "Vessel calibre"
           ],
           "landmark": "arch",
-          "tip": "A right arch with an aberrant left subclavian artery can form a complete ring through the ligamentum arteriosum."
+          "tip": "Describe each patent or inferred atretic component and ductal/ligamentous attachment. The four-artery sign and flat volume rendering do not independently prove all ring components or the actual anomaly geometry."
         },
         {
           "label": "Airway and oesophagus",
@@ -601,7 +601,7 @@
             "AIRWAY AND OESOPHAGUS"
           ],
           "look": "Minimum-intensity projections of the trachea; oesophagus behind the arch.",
-          "normal": "No tracheal or oesophageal compression.",
+          "normal": {},
           "findings": [
             "Tracheal narrowing to __ mm at the level of the [double arch / innominate artery].",
             "Posterior oesophageal impression by the aberrant subclavian artery."
@@ -612,7 +612,8 @@
           "measurements": [
             "Airway narrowing"
           ],
-          "landmark": "arch"
+          "landmark": "arch",
+          "tip": "Record respiratory phase and actual level/length of narrowing. Static narrowing alone does not diagnose dynamic tracheobronchomalacia; cartilage and bronchial anomalies require source-resolved assessment."
         },
         {
           "label": "Pulmonary arteries",
@@ -621,13 +622,14 @@
             "PULMONARY ARTERIES"
           ],
           "look": "Axial and coronal images of the main and branch pulmonary arteries.",
-          "normal": "Normal pulmonary arteries; no ductus arteriosus.",
+          "normal": {},
           "findings": [
             "Left pulmonary artery arises from the right pulmonary artery and passes between the trachea and oesophagus (pulmonary sling).",
             "Unilateral pulmonary artery [agenesis / hypoplasia].",
             "Patent ductus arteriosus."
           ],
-          "landmark": "branches"
+          "landmark": "branches",
+          "tip": "Distinguish proximal pulmonary artery interruption from absence of lung and bronchus; trace distal arteries and systemic collateral supply. Ductal patency/flow needs adequate acquisition and appropriate functional evidence."
         },
         {
           "label": "Pulmonary veins",
@@ -635,8 +637,8 @@
           "sections": [
             "PULMONARY VEINS"
           ],
-          "look": "Follow each vein from the hilum; delayed images if a vein is poorly opacified.",
-          "normal": "Four pulmonary veins draining normally to the left atrium.",
+          "look": "Trace each actual lobar/segmental venous channel, common/accessory trunks, dual drainage and the complete collector route to its atrial or systemic endpoint. Record opacification and coverage limits.",
+          "normal": {},
           "findings": [
             "Partial anomalous return of the right upper-lobe vein to the superior vena cava (often with a sinus venosus defect).",
             "Scimitar vein draining the right lung to the IVC.",
@@ -645,7 +647,8 @@
           "images": [
             "congenital-ct-image-2"
           ],
-          "landmark": "root"
+          "landmark": "root",
+          "tip": "Do not assume four separate pulmonary veins. Morphology and right-heart enlargement do not quantify shunt flow or determine haemodynamic significance."
         },
         {
           "label": "Systemic veins",
@@ -653,15 +656,15 @@
           "sections": [
             "SYSTEMIC VEINS"
           ],
-          "look": "Left of the aortic arch for a left SVC; the azygos arch and retrocrural region.",
-          "normal": "Normal right superior vena cava and IVC.",
+          "look": "Follow each SVC and bridging vein to its actual endpoint, assess the coronary sinus/septum and trace covered IVC/hepatic and azygos/hemiazygos connections.",
+          "normal": {},
           "findings": [
             "Persistent left superior vena cava draining into a dilated coronary sinus.",
             "Azygos continuation of the IVC with an enlarged azygos arch.",
             "Prominent left superior intercostal vein (aortic nipple)."
           ],
           "landmark": "branches",
-          "tip": "A persistent left superior vena cava drains into the coronary sinus, which is then dilated."
+          "tip": "A left SVC usually drains through the coronary sinus to the right atrium, but left-atrial drainage occurs. Do not infer its endpoint from a single left mediastinal vessel or coronary-sinus enlargement."
         }
       ]
     },
