@@ -67,7 +67,7 @@ def build():
             'Left SVC drainage is not universally to the coronary sinus/right atrium.',
             'Static compression, morphology and chamber size do not prove dynamic airway dysfunction or shunt haemodynamics.',
             'PMC9705143 is CC BY-NC-ND 4.0; no figures are commercially reused from that grant.',
-            'Original ring/slings source is CC BY 4.0, but figure-specific rights/pixels and complete independent anatomical review remain outstanding.'],
+            'Original ring/slings source is CC BY 4.0; all 11 complete original figures have reviewed grants/pixels and explicit schematic/rendered roles, but native geometry and complete independent anatomical review remain outstanding.'],
         'functional_evidence_requirements':['Clinical significance requires actual functional/source evidence; no universal severity or procedural recommendation is inferred from instructional geometry.',
             'Acquire adequate actual source coverage/opacification; non-visualisation is not absence and extra phases are not automatic.',
             'Report measurement calibration/planes, respiratory/cardiac phase and unresolved connections.'],
