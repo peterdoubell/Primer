@@ -459,18 +459,19 @@
           "sections": [
             "ANNULUS"
           ],
-          "look": "Double-oblique plane through the three hinge points of the cusps at the systolic phase with the largest annulus.",
+          "look": "Define the actual annular basal plane from source-resolved cusp attachment landmarks, retaining bicuspid/other morphology. Use the appropriate available systolic reconstruction, record the exact phase/quality, and retain limits if the optimal phase is unavailable.",
           "findings": [
             "Annulus at __% phase: area __ mm², perimeter __ mm, diameters __ × __ mm."
           ],
           "images": [
-            "tavi-ct-image-1"
+            "tavi-ct-image-1",
+            "open-tavi-pmc9743261-fig2"
           ],
           "measurements": [
             "Annulus"
           ],
           "landmark": "root",
-          "tip": "Size from area or perimeter in systole; the annulus is oval, so a single diameter is not enough."
+          "tip": "Record area, perimeter and both diameters from an actual defined plane; retain cardiac phase, edge/calibration and source limits. Prosthesis sizing is device-specific heart-team planning, not a single diameter or generic model result."
         },
         {
           "label": "Valve and left ventricular outflow tract",
@@ -480,11 +481,15 @@
           ],
           "look": "Short-axis view of the valve in systole and diastole; calcium distribution on the non-contrast and contrast images.",
           "findings": [
-            "Tricuspid aortic valve with heavy leaflet calcification; aortic valve calcium score __ AU.",
+            "Actual valve morphology [ ]; leaflet/LVOT calcium location and extent [ ]. Calcium score [performed on named protocol / not performed / unavailable]; actual score/method [ ].",
             "Bicuspid valve with a [calcified] raphe between the [ ] cusps.",
-            "Bulky LVOT calcium below the [ ] cusp (annular rupture risk)."
+            "Bulky LVOT calcium at [ ], extent [ ]; relation to annulus, neighbouring structures and proposed procedure [ ], with device/clinical planning limits [ ]."
           ],
-          "landmark": "root"
+          "landmark": "root",
+          "tip": "Qualitative calcium on contrast CT is not an automatically valid Agatston score. Record the actual scoring acquisition/method and clinical context; calcification alone does not establish functional stenosis or a complication.",
+          "images": [
+            "open-tavi-pmc9743261-fig3"
+          ]
         },
         {
           "label": "Coronary heights and obstruction risk",
@@ -492,19 +497,21 @@
           "sections": [
             "CORONARIES"
           ],
-          "look": "From the annular plane to the lower margin of each ostium; sinus width at the ostium.",
+          "look": "Measure each ostium from the defined annular basal plane to its inferior margin; preserve side, sinus/leaflet geometry, coronary origin/course and any prior valve/graft. Retain unavailable coronary/device relations.",
           "findings": [
             "Left main height __ mm; right coronary height __ mm.",
             "Low coronary height with a narrow sinus and bulky leaflet: coronary obstruction risk."
           ],
           "images": [
-            "tavi-ct-image-2"
+            "tavi-ct-image-2",
+            "open-tavi-pmc9743261-fig4",
+            "open-tavi-pmc9743261-fig5"
           ],
           "measurements": [
             "Coronary heights"
           ],
           "landmark": "root",
-          "tip": "Coronary height alone does not describe obstruction risk; include sinus width and leaflet bulk."
+          "tip": "Coronary height alone does not determine obstruction risk. Include actual leaflet/cusp geometry, sinus/STJ dimensions, calcium and prior valve/device relationships; any virtual-device distances require explicit simulation assumptions and source-based heart-team review."
         },
         {
           "label": "Aortic root and ascending aorta",
@@ -517,7 +524,14 @@
             "Sinus of Valsalva __ mm; sinotubular junction __ mm at __ mm height; ascending aorta __ mm.",
             "Horizontal aorta with root angulation of __°."
           ],
-          "landmark": "root"
+          "landmark": "root",
+          "tip": "Record actual sinus-specific dimensions, STJ height/diameter and ascending/root angulation with named plane, phase and convention. Static morphology or a generic model does not establish device suitability.",
+          "images": [
+            "open-tavi-pmc9743261-fig5",
+            "open-tavi-pmc9743261-fig6",
+            "open-tavi-pmc9743261-fig7",
+            "open-tavi-pmc9743261-fig8"
+          ]
         },
         {
           "label": "Access routes",
@@ -529,15 +543,21 @@
           "findings": [
             "Right iliofemoral minimum lumen __ × __ mm at the [external iliac]; left __ × __ mm.",
             "Circumferential calcification and severe tortuosity of the [ ] external iliac artery.",
-            "Alternative access to consider: [subclavian / transcarotid / transcaval]."
+            "Actual candidate alternative route [ ], source coverage [ ], limiting segments/interfaces [ ]; suitability and device/clinical planning constraints [ ]."
           ],
           "measurements": [
             "Access lumen"
           ],
           "landmark": "iliacs",
-          "tip": "Name the limiting segment on each side; calcification and tortuosity matter as much as diameter."
+          "tip": "Trace each actual candidate route by side; name minimum inner lumen, location, orthogonal method, calcium and tortuosity. Sheath/device requirements and complete route coverage matter; no universal diameter cutoff or automatic access recommendation is derived from a generic model."
         }
-      ]
+      ],
+      "start": {
+        "images": [
+          "open-tavi-pmc9743261-fig1"
+        ],
+        "module_illustrations": false
+      }
     },
     "ra.vascular-anomalies": {
       "model": {

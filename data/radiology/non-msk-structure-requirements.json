@@ -35,7 +35,8 @@
       "ra.mri-anal-cancer",
       "ra.aortic-aneurysm-rupture",
       "ra.ct-acute-aortic-syndrome",
-      "ra.thoracic-aorta-measurement"
+      "ra.thoracic-aorta-measurement",
+      "ra.ct-tavi"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -100024,6 +100025,3975 @@
         "Valve function and operative suitability cannot be inferred from static contours or instructional figures."
       ],
       "clinical_validation_status": "draft_requires_cardiovascular_radiologist_and_aortic_team_review"
+    },
+    {
+      "investigation_id": "ra.ct-tavi",
+      "module_id": "rad.5.tavi-ct",
+      "title": "CT TAVI/TAVR planning",
+      "scope_status": "expanded_draft_requires_independent_anatomical_and_clinical_review",
+      "modality_scope": [
+        "CT"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant TAVI/TAVR",
+          "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+          "reviewed_at": "2026-10-06",
+          "review_status": "effective_source_scope_reviewed"
+        },
+        {
+          "title": "ESCR acquisition/measurement consensus",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+          "reviewed_at": "2026-10-06",
+          "review_status": "primary_protocol_and_coverage_extract_reviewed"
+        },
+        {
+          "title": "SCCT TAVI/TAVR consensus",
+          "url": "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+          "reviewed_at": "2026-10-06",
+          "review_status": "primary_risk_scoring_and_VIV_extract_reviewed"
+        },
+        {
+          "title": "CTA step-by-step planning source",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+          "reviewed_at": "2026-10-06",
+          "review_status": "original_XML_and_figures_reviewed"
+        },
+        {
+          "title": "Conditional native/SAVR/TAVR planning source",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/",
+          "reviewed_at": "2026-10-06",
+          "review_status": "primary_planning_group_extract_reviewed"
+        }
+      ],
+      "source_contract_sha256": "9e24116b571314c2f747e860edf048680e6543722f21a048cf648a1c0d2a283e",
+      "reporting_checklist": [
+        {
+          "label": "Annulus",
+          "detail": "Record area, perimeter and minimum/maximum diameters."
+        },
+        {
+          "label": "Valve/LVOT",
+          "detail": "Describe cusp morphology, raphe and calcium distribution."
+        },
+        {
+          "label": "Coronaries",
+          "detail": "Measure ostial heights and note leaflet/coronary relationships."
+        },
+        {
+          "label": "Root",
+          "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+        },
+        {
+          "label": "Access",
+          "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "ANNULUS",
+          "body": "Phase: [ ]%. Area: [ ] mm\u00b2. Perimeter: [ ] mm. Min/max diameters: [ ]/[ ] mm."
+        },
+        {
+          "heading": "VALVE AND LVOT",
+          "body": "Cusps/raphe: [ ]. Leaflet calcium: [ ]. LVOT calcium: [ ]. LVOT dimensions: [ ]."
+        },
+        {
+          "heading": "CORONARIES",
+          "body": "Left/right ostial heights: [ ]/[ ] mm. Origins: [ ]. Obstruction-risk anatomy: [ ]."
+        },
+        {
+          "heading": "AORTIC ROOT",
+          "body": "Sinus dimensions: [ ] mm. STJ: [ ] mm, height [ ] mm. Ascending aorta: [ ] mm. Angulation: [ ]."
+        },
+        {
+          "heading": "ACCESS ROUTES",
+          "body": "Right/left minimum lumen and location: [ ]. Calcification: [ ]. Tortuosity: [ ]. Alternative access anatomy: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "tavi.annulus",
+          "name": "Actual virtual basal annular ring",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.annulus.each_attachment_nadir",
+              "name": "Each attachment nadir"
+            },
+            {
+              "id": "tavi.annulus.source_defined_basal_plane",
+              "name": "Source defined basal plane"
+            },
+            {
+              "id": "tavi.annulus.complete_contour",
+              "name": "Complete contour"
+            },
+            {
+              "id": "tavi.annulus.area",
+              "name": "Area"
+            },
+            {
+              "id": "tavi.annulus.perimeter",
+              "name": "Perimeter"
+            },
+            {
+              "id": "tavi.annulus.orthogonal_minimum_diameter",
+              "name": "Orthogonal minimum diameter"
+            },
+            {
+              "id": "tavi.annulus.orthogonal_maximum_diameter",
+              "name": "Orthogonal maximum diameter"
+            },
+            {
+              "id": "tavi.annulus.actual_phase",
+              "name": "Actual phase"
+            },
+            {
+              "id": "tavi.annulus.edge_and_endpoint_conventions",
+              "name": "Edge and endpoint conventions"
+            },
+            {
+              "id": "tavi.annulus.calibration_and_unresolved_contour",
+              "name": "Calibration and unresolved contour"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Annulus",
+              "detail": "Record area, perimeter and minimum/maximum diameters."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.lvot",
+          "name": "Actual left ventricular outflow tract",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.lvot.covered_wall_and_lumen",
+              "name": "Covered wall and lumen"
+            },
+            {
+              "id": "tavi.lvot.annular_relation",
+              "name": "Annular relation"
+            },
+            {
+              "id": "tavi.lvot.subannular_levels",
+              "name": "Subannular levels"
+            },
+            {
+              "id": "tavi.lvot.minimum_maximum_diameters",
+              "name": "Minimum maximum diameters"
+            },
+            {
+              "id": "tavi.lvot.area_perimeter_if_measured",
+              "name": "Area perimeter if measured"
+            },
+            {
+              "id": "tavi.lvot.septal_and_fibrous_interfaces",
+              "name": "Septal and fibrous interfaces"
+            },
+            {
+              "id": "tavi.lvot.each_calcium_focus",
+              "name": "Each calcium focus"
+            },
+            {
+              "id": "tavi.lvot.phase_and_unresolved_extent",
+              "name": "Phase and unresolved extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_cusp",
+          "name": "Right coronary cusp",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_cusp.actual_cusp_morphology",
+              "name": "Actual cusp morphology"
+            },
+            {
+              "id": "tavi.right_cusp.hinge_attachment_nadir",
+              "name": "Hinge attachment nadir"
+            },
+            {
+              "id": "tavi.right_cusp.commissural_boundaries",
+              "name": "Commissural boundaries"
+            },
+            {
+              "id": "tavi.right_cusp.free_margin",
+              "name": "Free margin"
+            },
+            {
+              "id": "tavi.right_cusp.cusp_length_height_if_measured",
+              "name": "Cusp length height if measured"
+            },
+            {
+              "id": "tavi.right_cusp.each_leaflet_calcium_focus",
+              "name": "Each leaflet calcium focus"
+            },
+            {
+              "id": "tavi.right_cusp.leaflet_to_coronary_or_stj_relation",
+              "name": "Leaflet to coronary or stj relation"
+            },
+            {
+              "id": "tavi.right_cusp.unresolved_cusp_or_motion",
+              "name": "Unresolved cusp or motion"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_sinus",
+          "name": "Right coronary sinus",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_sinus.complete_wall_boundary",
+              "name": "Complete wall boundary"
+            },
+            {
+              "id": "tavi.right_sinus.sinus_width_and_axis",
+              "name": "Sinus width and axis"
+            },
+            {
+              "id": "tavi.right_sinus.each_asymmetric_dimension",
+              "name": "Each asymmetric dimension"
+            },
+            {
+              "id": "tavi.right_sinus.height_and_plane",
+              "name": "Height and plane"
+            },
+            {
+              "id": "tavi.right_sinus.annulus_stj_relation",
+              "name": "Annulus stj relation"
+            },
+            {
+              "id": "tavi.right_sinus.coronary_origin_relation",
+              "name": "Coronary origin relation"
+            },
+            {
+              "id": "tavi.right_sinus.cusp_commissural_interfaces",
+              "name": "Cusp commissural interfaces"
+            },
+            {
+              "id": "tavi.right_sinus.phase_edge_and_unresolved_boundary",
+              "name": "Phase edge and unresolved boundary"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_cusp",
+          "name": "Left coronary cusp",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_cusp.actual_cusp_morphology",
+              "name": "Actual cusp morphology"
+            },
+            {
+              "id": "tavi.left_cusp.hinge_attachment_nadir",
+              "name": "Hinge attachment nadir"
+            },
+            {
+              "id": "tavi.left_cusp.commissural_boundaries",
+              "name": "Commissural boundaries"
+            },
+            {
+              "id": "tavi.left_cusp.free_margin",
+              "name": "Free margin"
+            },
+            {
+              "id": "tavi.left_cusp.cusp_length_height_if_measured",
+              "name": "Cusp length height if measured"
+            },
+            {
+              "id": "tavi.left_cusp.each_leaflet_calcium_focus",
+              "name": "Each leaflet calcium focus"
+            },
+            {
+              "id": "tavi.left_cusp.leaflet_to_coronary_or_stj_relation",
+              "name": "Leaflet to coronary or stj relation"
+            },
+            {
+              "id": "tavi.left_cusp.unresolved_cusp_or_motion",
+              "name": "Unresolved cusp or motion"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_sinus",
+          "name": "Left coronary sinus",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_sinus.complete_wall_boundary",
+              "name": "Complete wall boundary"
+            },
+            {
+              "id": "tavi.left_sinus.sinus_width_and_axis",
+              "name": "Sinus width and axis"
+            },
+            {
+              "id": "tavi.left_sinus.each_asymmetric_dimension",
+              "name": "Each asymmetric dimension"
+            },
+            {
+              "id": "tavi.left_sinus.height_and_plane",
+              "name": "Height and plane"
+            },
+            {
+              "id": "tavi.left_sinus.annulus_stj_relation",
+              "name": "Annulus stj relation"
+            },
+            {
+              "id": "tavi.left_sinus.coronary_origin_relation",
+              "name": "Coronary origin relation"
+            },
+            {
+              "id": "tavi.left_sinus.cusp_commissural_interfaces",
+              "name": "Cusp commissural interfaces"
+            },
+            {
+              "id": "tavi.left_sinus.phase_edge_and_unresolved_boundary",
+              "name": "Phase edge and unresolved boundary"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.noncoronary_cusp",
+          "name": "Non-coronary cusp",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.noncoronary_cusp.actual_cusp_morphology",
+              "name": "Actual cusp morphology"
+            },
+            {
+              "id": "tavi.noncoronary_cusp.hinge_attachment_nadir",
+              "name": "Hinge attachment nadir"
+            },
+            {
+              "id": "tavi.noncoronary_cusp.commissural_boundaries",
+              "name": "Commissural boundaries"
+            },
+            {
+              "id": "tavi.noncoronary_cusp.free_margin",
+              "name": "Free margin"
+            },
+            {
+              "id": "tavi.noncoronary_cusp.cusp_length_height_if_measured",
+              "name": "Cusp length height if measured"
+            },
+            {
+              "id": "tavi.noncoronary_cusp.each_leaflet_calcium_focus",
+              "name": "Each leaflet calcium focus"
+            },
+            {
+              "id": "tavi.noncoronary_cusp.leaflet_to_coronary_or_stj_relation",
+              "name": "Leaflet to coronary or stj relation"
+            },
+            {
+              "id": "tavi.noncoronary_cusp.unresolved_cusp_or_motion",
+              "name": "Unresolved cusp or motion"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.noncoronary_sinus",
+          "name": "Non-coronary sinus",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.noncoronary_sinus.complete_wall_boundary",
+              "name": "Complete wall boundary"
+            },
+            {
+              "id": "tavi.noncoronary_sinus.sinus_width_and_axis",
+              "name": "Sinus width and axis"
+            },
+            {
+              "id": "tavi.noncoronary_sinus.each_asymmetric_dimension",
+              "name": "Each asymmetric dimension"
+            },
+            {
+              "id": "tavi.noncoronary_sinus.height_and_plane",
+              "name": "Height and plane"
+            },
+            {
+              "id": "tavi.noncoronary_sinus.annulus_stj_relation",
+              "name": "Annulus stj relation"
+            },
+            {
+              "id": "tavi.noncoronary_sinus.coronary_origin_relation",
+              "name": "Coronary origin relation"
+            },
+            {
+              "id": "tavi.noncoronary_sinus.cusp_commissural_interfaces",
+              "name": "Cusp commissural interfaces"
+            },
+            {
+              "id": "tavi.noncoronary_sinus.phase_edge_and_unresolved_boundary",
+              "name": "Phase edge and unresolved boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_left_commissure",
+          "name": "Right/left commissural/interleaflet interface",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_left_commissure.source_resolved_commissure",
+              "name": "Source resolved commissure"
+            },
+            {
+              "id": "tavi.right_left_commissure.actual_cusp_correspondence",
+              "name": "Actual cusp correspondence"
+            },
+            {
+              "id": "tavi.right_left_commissure.interleaflet_triangle_if_resolved",
+              "name": "Interleaflet triangle if resolved"
+            },
+            {
+              "id": "tavi.right_left_commissure.annulus_stj_relation",
+              "name": "Annulus stj relation"
+            },
+            {
+              "id": "tavi.right_left_commissure.device_alignment_reference_if_used",
+              "name": "Device alignment reference if used"
+            },
+            {
+              "id": "tavi.right_left_commissure.unresolved_interface",
+              "name": "Unresolved interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_noncoronary_commissure",
+          "name": "Right/non-coronary commissural/interleaflet interface",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_noncoronary_commissure.source_resolved_commissure",
+              "name": "Source resolved commissure"
+            },
+            {
+              "id": "tavi.right_noncoronary_commissure.actual_cusp_correspondence",
+              "name": "Actual cusp correspondence"
+            },
+            {
+              "id": "tavi.right_noncoronary_commissure.interleaflet_triangle_if_resolved",
+              "name": "Interleaflet triangle if resolved"
+            },
+            {
+              "id": "tavi.right_noncoronary_commissure.annulus_stj_relation",
+              "name": "Annulus stj relation"
+            },
+            {
+              "id": "tavi.right_noncoronary_commissure.device_alignment_reference_if_used",
+              "name": "Device alignment reference if used"
+            },
+            {
+              "id": "tavi.right_noncoronary_commissure.unresolved_interface",
+              "name": "Unresolved interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_noncoronary_commissure",
+          "name": "Left/non-coronary commissural/interleaflet interface",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_noncoronary_commissure.source_resolved_commissure",
+              "name": "Source resolved commissure"
+            },
+            {
+              "id": "tavi.left_noncoronary_commissure.actual_cusp_correspondence",
+              "name": "Actual cusp correspondence"
+            },
+            {
+              "id": "tavi.left_noncoronary_commissure.interleaflet_triangle_if_resolved",
+              "name": "Interleaflet triangle if resolved"
+            },
+            {
+              "id": "tavi.left_noncoronary_commissure.annulus_stj_relation",
+              "name": "Annulus stj relation"
+            },
+            {
+              "id": "tavi.left_noncoronary_commissure.device_alignment_reference_if_used",
+              "name": "Device alignment reference if used"
+            },
+            {
+              "id": "tavi.left_noncoronary_commissure.unresolved_interface",
+              "name": "Unresolved interface"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.bicuspid_variants",
+          "name": "Every actual bicuspid/other valve variant",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.bicuspid_variants.cusp_number_and_fusion",
+              "name": "Cusp number and fusion"
+            },
+            {
+              "id": "tavi.bicuspid_variants.each_raphe",
+              "name": "Each raphe"
+            },
+            {
+              "id": "tavi.bicuspid_variants.each_calcified_raphe",
+              "name": "Each calcified raphe"
+            },
+            {
+              "id": "tavi.bicuspid_variants.actual_attachment_nadirs",
+              "name": "Actual attachment nadirs"
+            },
+            {
+              "id": "tavi.bicuspid_variants.sinus_and_commissural_correspondence",
+              "name": "Sinus and commissural correspondence"
+            },
+            {
+              "id": "tavi.bicuspid_variants.root_asymmetry",
+              "name": "Root asymmetry"
+            },
+            {
+              "id": "tavi.bicuspid_variants.supra_annular_plane_if_actually_used",
+              "name": "Supra annular plane if actually used"
+            },
+            {
+              "id": "tavi.bicuspid_variants.unresolved_variant_or_sizing_method",
+              "name": "Unresolved variant or sizing method"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Annulus",
+              "detail": "Record area, perimeter and minimum/maximum diameters."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.calcium",
+          "name": "Each actually observed calcium region",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.calcium.leaflet_site",
+              "name": "Leaflet site"
+            },
+            {
+              "id": "tavi.calcium.annular_site",
+              "name": "Annular site"
+            },
+            {
+              "id": "tavi.calcium.lvot_site",
+              "name": "Lvot site"
+            },
+            {
+              "id": "tavi.calcium.circumferential_and_longitudinal_extent",
+              "name": "Circumferential and longitudinal extent"
+            },
+            {
+              "id": "tavi.calcium.bulk_and_protrusion",
+              "name": "Bulk and protrusion"
+            },
+            {
+              "id": "tavi.calcium.neighbouring_coronary_or_septal_interfaces",
+              "name": "Neighbouring coronary or septal interfaces"
+            },
+            {
+              "id": "tavi.calcium.actual_scoring_acquisition_and_method",
+              "name": "Actual scoring acquisition and method"
+            },
+            {
+              "id": "tavi.calcium.score_or_unavailable_status",
+              "name": "Score or unavailable status"
+            },
+            {
+              "id": "tavi.calcium.contrast_and_blooming_limit",
+              "name": "Contrast and blooming limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.membranous_septum",
+          "name": "Actual membranous/septal interface if assessed",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.membranous_septum.source_resolved_boundary",
+              "name": "Source resolved boundary"
+            },
+            {
+              "id": "tavi.membranous_septum.annular_lvot_relation",
+              "name": "Annular lvot relation"
+            },
+            {
+              "id": "tavi.membranous_septum.actual_length_and_plane",
+              "name": "Actual length and plane"
+            },
+            {
+              "id": "tavi.membranous_septum.calcium_or_device_relation",
+              "name": "Calcium or device relation"
+            },
+            {
+              "id": "tavi.membranous_septum.conduction_risk_context",
+              "name": "Conduction risk context"
+            },
+            {
+              "id": "tavi.membranous_septum.unresolved_visibility_or_function",
+              "name": "Unresolved visibility or function"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.aortic_mitral_interface",
+          "name": "Covered aortic-mitral/root support interface",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.aortic_mitral_interface.actual_fibrous_continuity",
+              "name": "Actual fibrous continuity"
+            },
+            {
+              "id": "tavi.aortic_mitral_interface.lvot_relation",
+              "name": "Lvot relation"
+            },
+            {
+              "id": "tavi.aortic_mitral_interface.cusp_root_relationship",
+              "name": "Cusp root relationship"
+            },
+            {
+              "id": "tavi.aortic_mitral_interface.each_calcium_or_repair_interface",
+              "name": "Each calcium or repair interface"
+            },
+            {
+              "id": "tavi.aortic_mitral_interface.unresolved_boundary",
+              "name": "Unresolved boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_coronary_ostium",
+          "name": "Right coronary ostium",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_coronary_ostium.actual_sinus_origin",
+              "name": "Actual sinus origin"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.inferior_ostial_margin",
+              "name": "Inferior ostial margin"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.annular_plane_reference",
+              "name": "Annular plane reference"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.ostial_height_and_plane",
+              "name": "Ostial height and plane"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.ostial_width_if_measured",
+              "name": "Ostial width if measured"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.sinus_width_at_ostium",
+              "name": "Sinus width at ostium"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.leaflet_length_bulk_relation",
+              "name": "Leaflet length bulk relation"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.stj_relation",
+              "name": "Stj relation"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.prior_valve_or_graft_relation",
+              "name": "Prior valve or graft relation"
+            },
+            {
+              "id": "tavi.right_coronary_ostium.unresolved_measurement_or_obstruction_context",
+              "name": "Unresolved measurement or obstruction context"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_coronary_course",
+          "name": "Right covered proximal coronary course",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_coronary_course.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_coronary_course.lumen_and_wall",
+              "name": "Lumen and wall"
+            },
+            {
+              "id": "tavi.right_coronary_course.each_variant_or_graft_origin",
+              "name": "Each variant or graft origin"
+            },
+            {
+              "id": "tavi.right_coronary_course.each_stenosis_or_device_if_resolved",
+              "name": "Each stenosis or device if resolved"
+            },
+            {
+              "id": "tavi.right_coronary_course.neighbouring_leaflet_or_root_relation",
+              "name": "Neighbouring leaflet or root relation"
+            },
+            {
+              "id": "tavi.right_coronary_course.uncovered_coronary_or_function_limit",
+              "name": "Uncovered coronary or function limit"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_coronary_ostium",
+          "name": "Left coronary ostium",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_coronary_ostium.actual_sinus_origin",
+              "name": "Actual sinus origin"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.inferior_ostial_margin",
+              "name": "Inferior ostial margin"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.annular_plane_reference",
+              "name": "Annular plane reference"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.ostial_height_and_plane",
+              "name": "Ostial height and plane"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.ostial_width_if_measured",
+              "name": "Ostial width if measured"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.sinus_width_at_ostium",
+              "name": "Sinus width at ostium"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.leaflet_length_bulk_relation",
+              "name": "Leaflet length bulk relation"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.stj_relation",
+              "name": "Stj relation"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.prior_valve_or_graft_relation",
+              "name": "Prior valve or graft relation"
+            },
+            {
+              "id": "tavi.left_coronary_ostium.unresolved_measurement_or_obstruction_context",
+              "name": "Unresolved measurement or obstruction context"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_coronary_course",
+          "name": "Left covered proximal coronary course",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_coronary_course.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_coronary_course.lumen_and_wall",
+              "name": "Lumen and wall"
+            },
+            {
+              "id": "tavi.left_coronary_course.each_variant_or_graft_origin",
+              "name": "Each variant or graft origin"
+            },
+            {
+              "id": "tavi.left_coronary_course.each_stenosis_or_device_if_resolved",
+              "name": "Each stenosis or device if resolved"
+            },
+            {
+              "id": "tavi.left_coronary_course.neighbouring_leaflet_or_root_relation",
+              "name": "Neighbouring leaflet or root relation"
+            },
+            {
+              "id": "tavi.left_coronary_course.uncovered_coronary_or_function_limit",
+              "name": "Uncovered coronary or function limit"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.obstruction_anatomy",
+          "name": "Actual combined obstruction-risk anatomy",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.obstruction_anatomy.coronary_heights",
+              "name": "Coronary heights"
+            },
+            {
+              "id": "tavi.obstruction_anatomy.sinus_dimensions",
+              "name": "Sinus dimensions"
+            },
+            {
+              "id": "tavi.obstruction_anatomy.stj_dimensions",
+              "name": "Stj dimensions"
+            },
+            {
+              "id": "tavi.obstruction_anatomy.leaflet_length_bulk_and_calcium",
+              "name": "Leaflet length bulk and calcium"
+            },
+            {
+              "id": "tavi.obstruction_anatomy.displaced_leaflet_or_neoskirt_assumptions",
+              "name": "Displaced leaflet or neoskirt assumptions"
+            },
+            {
+              "id": "tavi.obstruction_anatomy.coronary_sinus_sequestration_interfaces",
+              "name": "Coronary sinus sequestration interfaces"
+            },
+            {
+              "id": "tavi.obstruction_anatomy.actual_virtual_model_if_performed",
+              "name": "Actual virtual model if performed"
+            },
+            {
+              "id": "tavi.obstruction_anatomy.device_deployment_assumptions_and_uncertainty",
+              "name": "Device deployment assumptions and uncertainty"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.stj",
+          "name": "Actual sinotubular junction",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.stj.complete_contour",
+              "name": "Complete contour"
+            },
+            {
+              "id": "tavi.stj.orthogonal_minimum_maximum_diameters",
+              "name": "Orthogonal minimum maximum diameters"
+            },
+            {
+              "id": "tavi.stj.annular_plane_reference",
+              "name": "Annular plane reference"
+            },
+            {
+              "id": "tavi.stj.height_to_reference_plane",
+              "name": "Height to reference plane"
+            },
+            {
+              "id": "tavi.stj.sinus_ascending_transition",
+              "name": "Sinus ascending transition"
+            },
+            {
+              "id": "tavi.stj.leaflet_coronary_and_device_interfaces",
+              "name": "Leaflet coronary and device interfaces"
+            },
+            {
+              "id": "tavi.stj.phase_edge_and_unresolved_boundary",
+              "name": "Phase edge and unresolved boundary"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.ascending_aorta",
+          "name": "Covered ascending aorta",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.ascending_aorta.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.ascending_aorta.outer_inner_contours",
+              "name": "Outer inner contours"
+            },
+            {
+              "id": "tavi.ascending_aorta.orthogonal_maximum_diameter",
+              "name": "Orthogonal maximum diameter"
+            },
+            {
+              "id": "tavi.ascending_aorta.named_level",
+              "name": "Named level"
+            },
+            {
+              "id": "tavi.ascending_aorta.local_axis_and_tortuosity",
+              "name": "Local axis and tortuosity"
+            },
+            {
+              "id": "tavi.ascending_aorta.each_wall_abnormality",
+              "name": "Each wall abnormality"
+            },
+            {
+              "id": "tavi.ascending_aorta.prior_graft_or_repair",
+              "name": "Prior graft or repair"
+            },
+            {
+              "id": "tavi.ascending_aorta.unresolved_extent",
+              "name": "Unresolved extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.root_angulation",
+          "name": "Actual root/ascending angulation and projection method",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.root_angulation.source_axis_reference",
+              "name": "Source axis reference"
+            },
+            {
+              "id": "tavi.root_angulation.patient_reference_plane",
+              "name": "Patient reference plane"
+            },
+            {
+              "id": "tavi.root_angulation.angle_and_method",
+              "name": "Angle and method"
+            },
+            {
+              "id": "tavi.root_angulation.annular_plane_orientation",
+              "name": "Annular plane orientation"
+            },
+            {
+              "id": "tavi.root_angulation.fluoroscopic_projection_if_planned",
+              "name": "Fluoroscopic projection if planned"
+            },
+            {
+              "id": "tavi.root_angulation.actual_device_approach_relation",
+              "name": "Actual device approach relation"
+            },
+            {
+              "id": "tavi.root_angulation.phase_position_and_uncertainty",
+              "name": "Phase position and uncertainty"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.aortic_access_course",
+          "name": "Complete actual aortic access course",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.aortic_access_course.arch_branch_origins",
+              "name": "Arch branch origins"
+            },
+            {
+              "id": "tavi.aortic_access_course.thoracic_course",
+              "name": "Thoracic course"
+            },
+            {
+              "id": "tavi.aortic_access_course.diaphragmatic_course",
+              "name": "Diaphragmatic course"
+            },
+            {
+              "id": "tavi.aortic_access_course.abdominal_course",
+              "name": "Abdominal course"
+            },
+            {
+              "id": "tavi.aortic_access_course.bifurcation",
+              "name": "Bifurcation"
+            },
+            {
+              "id": "tavi.aortic_access_course.each_curvature_or_tortuosity",
+              "name": "Each curvature or tortuosity"
+            },
+            {
+              "id": "tavi.aortic_access_course.each_stenosis_thrombus_ulcer_dissection_or_aneurysm",
+              "name": "Each stenosis thrombus ulcer dissection or aneurysm"
+            },
+            {
+              "id": "tavi.aortic_access_course.each_graft_or_stent",
+              "name": "Each graft or stent"
+            },
+            {
+              "id": "tavi.aortic_access_course.proposed_route_and_uncovered_extent",
+              "name": "Proposed route and uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_common_iliac",
+          "name": "Right common iliac artery",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_common_iliac.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_common_iliac.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_common_iliac.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_common_iliac.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_common_iliac.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_common_iliac.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_common_iliac.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_common_iliac.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_common_iliac.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_common_iliac.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_common_iliac.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_external_iliac",
+          "name": "Right external iliac artery",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_external_iliac.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_external_iliac.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_external_iliac.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_external_iliac.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_external_iliac.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_external_iliac.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_external_iliac.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_external_iliac.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_external_iliac.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_external_iliac.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_external_iliac.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_internal_iliac",
+          "name": "Right internal iliac branch relationship",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_internal_iliac.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_internal_iliac.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_internal_iliac.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_internal_iliac.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_internal_iliac.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_internal_iliac.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_internal_iliac.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_internal_iliac.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_internal_iliac.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_internal_iliac.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_internal_iliac.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_common_femoral",
+          "name": "Right common femoral artery",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_common_femoral.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_common_femoral.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_common_femoral.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_common_femoral.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_common_femoral.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_common_femoral.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_common_femoral.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_common_femoral.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_common_femoral.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_common_femoral.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_common_femoral.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_femoral_bifurcation",
+          "name": "Right femoral bifurcation and covered branches",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_femoral_bifurcation.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_femoral_bifurcation.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_subclavian",
+          "name": "Right subclavian candidate route",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_subclavian.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_subclavian.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_subclavian.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_subclavian.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_subclavian.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_subclavian.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_subclavian.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_subclavian.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_subclavian.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_subclavian.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_subclavian.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Conditional on the actual proposed alternative access and acquired source. Instantiate the whole candidate route and critical neighbouring branches; unacquired routes remain unassessed.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_axillary",
+          "name": "Right axillary candidate route",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_axillary.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_axillary.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_axillary.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_axillary.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_axillary.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_axillary.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_axillary.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_axillary.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_axillary.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_axillary.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_axillary.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Conditional on the actual proposed alternative access and acquired source. Instantiate the whole candidate route and critical neighbouring branches; unacquired routes remain unassessed.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_carotid",
+          "name": "Right carotid candidate route",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_carotid.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_carotid.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.right_carotid.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.right_carotid.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.right_carotid.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.right_carotid.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.right_carotid.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.right_carotid.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.right_carotid.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.right_carotid.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.right_carotid.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Conditional on the actual proposed alternative access and acquired source. Instantiate the whole candidate route and critical neighbouring branches; unacquired routes remain unassessed.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.right_vertebral_relation",
+          "name": "Right alternative-access vertebral relation",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.right_vertebral_relation.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.right_vertebral_relation.source_resolved_course",
+              "name": "Source resolved course"
+            },
+            {
+              "id": "tavi.right_vertebral_relation.access_vessel_interface",
+              "name": "Access vessel interface"
+            },
+            {
+              "id": "tavi.right_vertebral_relation.each_variant_or_compromise",
+              "name": "Each variant or compromise"
+            },
+            {
+              "id": "tavi.right_vertebral_relation.uncovered_neurological_supply",
+              "name": "Uncovered neurological supply"
+            }
+          ],
+          "laterality": "right",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_common_iliac",
+          "name": "Left common iliac artery",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_common_iliac.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_common_iliac.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_common_iliac.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_common_iliac.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_common_iliac.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_common_iliac.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_common_iliac.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_common_iliac.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_common_iliac.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_common_iliac.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_common_iliac.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_external_iliac",
+          "name": "Left external iliac artery",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_external_iliac.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_external_iliac.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_external_iliac.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_external_iliac.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_external_iliac.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_external_iliac.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_external_iliac.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_external_iliac.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_external_iliac.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_external_iliac.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_external_iliac.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_internal_iliac",
+          "name": "Left internal iliac branch relationship",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_internal_iliac.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_internal_iliac.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_internal_iliac.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_internal_iliac.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_internal_iliac.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_internal_iliac.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_internal_iliac.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_internal_iliac.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_internal_iliac.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_internal_iliac.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_internal_iliac.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_common_femoral",
+          "name": "Left common femoral artery",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_common_femoral.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_common_femoral.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_common_femoral.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_common_femoral.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_common_femoral.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_common_femoral.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_common_femoral.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_common_femoral.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_common_femoral.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_common_femoral.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_common_femoral.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_femoral_bifurcation",
+          "name": "Left femoral bifurcation and covered branches",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_femoral_bifurcation.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_femoral_bifurcation.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_subclavian",
+          "name": "Left subclavian candidate route",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_subclavian.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_subclavian.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_subclavian.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_subclavian.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_subclavian.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_subclavian.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_subclavian.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_subclavian.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_subclavian.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_subclavian.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_subclavian.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Conditional on the actual proposed alternative access and acquired source. Instantiate the whole candidate route and critical neighbouring branches; unacquired routes remain unassessed.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_axillary",
+          "name": "Left axillary candidate route",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_axillary.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_axillary.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_axillary.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_axillary.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_axillary.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_axillary.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_axillary.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_axillary.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_axillary.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_axillary.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_axillary.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Conditional on the actual proposed alternative access and acquired source. Instantiate the whole candidate route and critical neighbouring branches; unacquired routes remain unassessed.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_carotid",
+          "name": "Left carotid candidate route",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_carotid.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_carotid.covered_course",
+              "name": "Covered course"
+            },
+            {
+              "id": "tavi.left_carotid.inner_lumen_contour",
+              "name": "Inner lumen contour"
+            },
+            {
+              "id": "tavi.left_carotid.outer_wall_boundary",
+              "name": "Outer wall boundary"
+            },
+            {
+              "id": "tavi.left_carotid.minimum_orthogonal_lumen_and_location",
+              "name": "Minimum orthogonal lumen and location"
+            },
+            {
+              "id": "tavi.left_carotid.calcification_extent_distribution",
+              "name": "Calcification extent distribution"
+            },
+            {
+              "id": "tavi.left_carotid.tortuosity_centreline",
+              "name": "Tortuosity centreline"
+            },
+            {
+              "id": "tavi.left_carotid.each_stenosis_occlusion_or_aneurysm",
+              "name": "Each stenosis occlusion or aneurysm"
+            },
+            {
+              "id": "tavi.left_carotid.each_thrombus_dissection_or_graft",
+              "name": "Each thrombus dissection or graft"
+            },
+            {
+              "id": "tavi.left_carotid.actual_device_or_sheath_context",
+              "name": "Actual device or sheath context"
+            },
+            {
+              "id": "tavi.left_carotid.uncovered_route_extent",
+              "name": "Uncovered route extent"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Conditional on the actual proposed alternative access and acquired source. Instantiate the whole candidate route and critical neighbouring branches; unacquired routes remain unassessed.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.left_vertebral_relation",
+          "name": "Left alternative-access vertebral relation",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.left_vertebral_relation.actual_origin",
+              "name": "Actual origin"
+            },
+            {
+              "id": "tavi.left_vertebral_relation.source_resolved_course",
+              "name": "Source resolved course"
+            },
+            {
+              "id": "tavi.left_vertebral_relation.access_vessel_interface",
+              "name": "Access vessel interface"
+            },
+            {
+              "id": "tavi.left_vertebral_relation.each_variant_or_compromise",
+              "name": "Each variant or compromise"
+            },
+            {
+              "id": "tavi.left_vertebral_relation.uncovered_neurological_supply",
+              "name": "Uncovered neurological supply"
+            }
+          ],
+          "laterality": "left",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.brachiocephalic_access",
+          "name": "Actual brachiocephalic/arch access relationship",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.brachiocephalic_access.origin",
+              "name": "Origin"
+            },
+            {
+              "id": "tavi.brachiocephalic_access.complete_covered_course",
+              "name": "Complete covered course"
+            },
+            {
+              "id": "tavi.brachiocephalic_access.carotid_subclavian_bifurcation",
+              "name": "Carotid subclavian bifurcation"
+            },
+            {
+              "id": "tavi.brachiocephalic_access.source_lumen_wall_and_calcium",
+              "name": "Source lumen wall and calcium"
+            },
+            {
+              "id": "tavi.brachiocephalic_access.route_angle_device_relation",
+              "name": "Route angle device relation"
+            },
+            {
+              "id": "tavi.brachiocephalic_access.uncovered_extent",
+              "name": "Uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.bypass_grafts",
+          "name": "Actual coronary/vascular grafts affecting access",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.bypass_grafts.each_graft_identity",
+              "name": "Each graft identity"
+            },
+            {
+              "id": "tavi.bypass_grafts.operative_history",
+              "name": "Operative history"
+            },
+            {
+              "id": "tavi.bypass_grafts.actual_origin_and_course",
+              "name": "Actual origin and course"
+            },
+            {
+              "id": "tavi.bypass_grafts.access_vessel_relationship",
+              "name": "Access vessel relationship"
+            },
+            {
+              "id": "tavi.bypass_grafts.source_patency_or_stenosis",
+              "name": "Source patency or stenosis"
+            },
+            {
+              "id": "tavi.bypass_grafts.unvisualised_graft_and_planning_limit",
+              "name": "Unvisualised graft and planning limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.transcaval_target",
+          "name": "Conditional transcaval aortic/caval target",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.transcaval_target.aortic_wall_target",
+              "name": "Aortic wall target"
+            },
+            {
+              "id": "tavi.transcaval_target.caval_wall_target",
+              "name": "Caval wall target"
+            },
+            {
+              "id": "tavi.transcaval_target.interposed_tissue_or_bowel",
+              "name": "Interposed tissue or bowel"
+            },
+            {
+              "id": "tavi.transcaval_target.no_crossing_structure_assumption",
+              "name": "No crossing structure assumption"
+            },
+            {
+              "id": "tavi.transcaval_target.actual_calcium_window",
+              "name": "Actual calcium window"
+            },
+            {
+              "id": "tavi.transcaval_target.source_level_and_geometry",
+              "name": "Source level and geometry"
+            },
+            {
+              "id": "tavi.transcaval_target.closure_device_assumptions",
+              "name": "Closure device assumptions"
+            },
+            {
+              "id": "tavi.transcaval_target.uncovered_route_and_uncertainty",
+              "name": "Uncovered route and uncertainty"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.transapical_target",
+          "name": "Conditional transapical target",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.transapical_target.actual_lv_apical_wall",
+              "name": "Actual lv apical wall"
+            },
+            {
+              "id": "tavi.transapical_target.source_ventricular_geometry",
+              "name": "Source ventricular geometry"
+            },
+            {
+              "id": "tavi.transapical_target.proposed_entry_and_device_axis",
+              "name": "Proposed entry and device axis"
+            },
+            {
+              "id": "tavi.transapical_target.neighbouring_coronary_or_thoracic_interfaces",
+              "name": "Neighbouring coronary or thoracic interfaces"
+            },
+            {
+              "id": "tavi.transapical_target.clinical_function_and_source_limits",
+              "name": "Clinical function and source limits"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.transaortic_target",
+          "name": "Conditional direct aortic target",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.transaortic_target.actual_entry_wall",
+              "name": "Actual entry wall"
+            },
+            {
+              "id": "tavi.transaortic_target.covered_route",
+              "name": "Covered route"
+            },
+            {
+              "id": "tavi.transaortic_target.root_arch_branch_relations",
+              "name": "Root arch branch relations"
+            },
+            {
+              "id": "tavi.transaortic_target.each_calcium_or_device_obstacle",
+              "name": "Each calcium or device obstacle"
+            },
+            {
+              "id": "tavi.transaortic_target.source_plane_and_proposed_axis",
+              "name": "Source plane and proposed axis"
+            },
+            {
+              "id": "tavi.transaortic_target.surgical_and_uncovered_extent_limits",
+              "name": "Surgical and uncovered extent limits"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.access_complications_context",
+          "name": "Actual pre-existing access/pathology interfaces",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.access_complications_context.each_prior_device_or_surgery",
+              "name": "Each prior device or surgery"
+            },
+            {
+              "id": "tavi.access_complications_context.each_graft_anastomosis",
+              "name": "Each graft anastomosis"
+            },
+            {
+              "id": "tavi.access_complications_context.each_pseudoaneurysm_or_dissection",
+              "name": "Each pseudoaneurysm or dissection"
+            },
+            {
+              "id": "tavi.access_complications_context.each_venous_or_bowel_interface",
+              "name": "Each venous or bowel interface"
+            },
+            {
+              "id": "tavi.access_complications_context.each_hazardous_wall_region",
+              "name": "Each hazardous wall region"
+            },
+            {
+              "id": "tavi.access_complications_context.clinical_history_and_full_route_limit",
+              "name": "Clinical history and full route limit"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.prior_surgical_valve",
+          "name": "Actual prior surgical valve if present",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.prior_surgical_valve.operative_identifier_and_model",
+              "name": "Operative identifier and model"
+            },
+            {
+              "id": "tavi.prior_surgical_valve.labelled_size_vs_actual_internal_diameter",
+              "name": "Labelled size vs actual internal diameter"
+            },
+            {
+              "id": "tavi.prior_surgical_valve.frame_or_strut_course",
+              "name": "Frame or strut course"
+            },
+            {
+              "id": "tavi.prior_surgical_valve.leaflet_or_stentless_morphology",
+              "name": "Leaflet or stentless morphology"
+            },
+            {
+              "id": "tavi.prior_surgical_valve.coronary_ostia_relation",
+              "name": "Coronary ostia relation"
+            },
+            {
+              "id": "tavi.prior_surgical_valve.stj_relation",
+              "name": "Stj relation"
+            },
+            {
+              "id": "tavi.prior_surgical_valve.each_pannus_thrombus_or_calcified_region",
+              "name": "Each pannus thrombus or calcified region"
+            },
+            {
+              "id": "tavi.prior_surgical_valve.source_history_and_artefact_limits",
+              "name": "Source history and artefact limits"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Annulus",
+              "detail": "Record area, perimeter and minimum/maximum diameters."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.prior_transcatheter_valve",
+          "name": "Actual prior transcatheter valve if present",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.prior_transcatheter_valve.identifier_model_and_deployment_history",
+              "name": "Identifier model and deployment history"
+            },
+            {
+              "id": "tavi.prior_transcatheter_valve.frame_dimensions_and_shape",
+              "name": "Frame dimensions and shape"
+            },
+            {
+              "id": "tavi.prior_transcatheter_valve.implantation_depth",
+              "name": "Implantation depth"
+            },
+            {
+              "id": "tavi.prior_transcatheter_valve.commissural_orientation",
+              "name": "Commissural orientation"
+            },
+            {
+              "id": "tavi.prior_transcatheter_valve.leaflet_or_neoskirt_geometry",
+              "name": "Leaflet or neoskirt geometry"
+            },
+            {
+              "id": "tavi.prior_transcatheter_valve.coronary_access_relation",
+              "name": "Coronary access relation"
+            },
+            {
+              "id": "tavi.prior_transcatheter_valve.stj_seal_and_sequestration_relation",
+              "name": "Stj seal and sequestration relation"
+            },
+            {
+              "id": "tavi.prior_transcatheter_valve.source_quality_and_unknown_device_geometry",
+              "name": "Source quality and unknown device geometry"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Annulus",
+              "detail": "Record area, perimeter and minimum/maximum diameters."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.virtual_valve_model",
+          "name": "Conditional actual virtual device model",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.virtual_valve_model.source_segmentation_boundaries",
+              "name": "Source segmentation boundaries"
+            },
+            {
+              "id": "tavi.virtual_valve_model.chosen_device_geometry",
+              "name": "Chosen device geometry"
+            },
+            {
+              "id": "tavi.virtual_valve_model.assumed_expansion",
+              "name": "Assumed expansion"
+            },
+            {
+              "id": "tavi.virtual_valve_model.deployment_depth",
+              "name": "Deployment depth"
+            },
+            {
+              "id": "tavi.virtual_valve_model.tilt_and_commissural_alignment",
+              "name": "Tilt and commissural alignment"
+            },
+            {
+              "id": "tavi.virtual_valve_model.virtual_valve_to_coronary_distances",
+              "name": "Virtual valve to coronary distances"
+            },
+            {
+              "id": "tavi.virtual_valve_model.virtual_valve_to_stj_distances",
+              "name": "Virtual valve to stj distances"
+            },
+            {
+              "id": "tavi.virtual_valve_model.source_method_and_uncertainty",
+              "name": "Source method and uncertainty"
+            },
+            {
+              "id": "tavi.virtual_valve_model.original_measurement_vs_simulation_distinction",
+              "name": "Original measurement vs simulation distinction"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Annulus",
+              "detail": "Record area, perimeter and minimum/maximum diameters."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            2,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.clinical_valve_context",
+          "name": "Actual clinical/functional valve context",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.clinical_valve_context.available_echo_or_clinical_diagnosis",
+              "name": "Available echo or clinical diagnosis"
+            },
+            {
+              "id": "tavi.clinical_valve_context.stenosis_or_regurgitation_source",
+              "name": "Stenosis or regurgitation source"
+            },
+            {
+              "id": "tavi.clinical_valve_context.actual_functional_measurement_if_supplied",
+              "name": "Actual functional measurement if supplied"
+            },
+            {
+              "id": "tavi.clinical_valve_context.treatment_and_prior_procedure_context",
+              "name": "Treatment and prior procedure context"
+            },
+            {
+              "id": "tavi.clinical_valve_context.ct_morphology_not_function_limit",
+              "name": "Ct morphology not function limit"
+            },
+            {
+              "id": "tavi.clinical_valve_context.heart_team_device_and_risk_source",
+              "name": "Heart team device and risk source"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Annulus",
+              "detail": "Record area, perimeter and minimum/maximum diameters."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.adjacent_chambers",
+          "name": "Actual source-covered neighbouring chamber findings",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.adjacent_chambers.lv_geometry_and_lvot",
+              "name": "Lv geometry and lvot"
+            },
+            {
+              "id": "tavi.adjacent_chambers.each_intracavitary_filling_defect_if_present",
+              "name": "Each intracavitary filling defect if present"
+            },
+            {
+              "id": "tavi.adjacent_chambers.left_atrial_root_relationship",
+              "name": "Left atrial root relationship"
+            },
+            {
+              "id": "tavi.adjacent_chambers.myocardial_or_pericardial_context",
+              "name": "Myocardial or pericardial context"
+            },
+            {
+              "id": "tavi.adjacent_chambers.clinical_or_alternative_modality_confirmation",
+              "name": "Clinical or alternative modality confirmation"
+            },
+            {
+              "id": "tavi.adjacent_chambers.source_phase_and_uncovered_extent",
+              "name": "Source phase and uncovered extent"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            }
+          ],
+          "walkthrough_step_indices": [
+            1,
+            3
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        },
+        {
+          "id": "tavi.planning_limits",
+          "name": "Actual acquisition and planning controls",
+          "tissue_class": "tavi_reportable_anatomy_or_planning_interface",
+          "required_parts": [
+            {
+              "id": "tavi.planning_limits.patient_and_study_identity",
+              "name": "Patient and study identity"
+            },
+            {
+              "id": "tavi.planning_limits.root_and_route_coverage",
+              "name": "Root and route coverage"
+            },
+            {
+              "id": "tavi.planning_limits.actual_ecg_gating",
+              "name": "Actual ecg gating"
+            },
+            {
+              "id": "tavi.planning_limits.cardiac_phase_and_reconstruction_quality",
+              "name": "Cardiac phase and reconstruction quality"
+            },
+            {
+              "id": "tavi.planning_limits.annular_landmark_plane",
+              "name": "Annular landmark plane"
+            },
+            {
+              "id": "tavi.planning_limits.voxel_calibration_and_units",
+              "name": "Voxel calibration and units"
+            },
+            {
+              "id": "tavi.planning_limits.contrast_or_scoring_protocol",
+              "name": "Contrast or scoring protocol"
+            },
+            {
+              "id": "tavi.planning_limits.each_actual_measurement_endpoint",
+              "name": "Each actual measurement endpoint"
+            },
+            {
+              "id": "tavi.planning_limits.comparison_and_registration_if_used",
+              "name": "Comparison and registration if used"
+            },
+            {
+              "id": "tavi.planning_limits.device_specific_instructions_and_version",
+              "name": "Device specific instructions and version"
+            },
+            {
+              "id": "tavi.planning_limits.multidisciplinary_decision_and_unresolved_assumptions",
+              "name": "Multidisciplinary decision and unresolved assumptions"
+            }
+          ],
+          "laterality": "not_applicable",
+          "modality_scope": [
+            "CT"
+          ],
+          "requires_site_instantiation": true,
+          "condition": "Instantiate every actual site, variant and source-defined plane. Preserve patient, side, phase, coverage, calibration and uncertainty; no generic model or isolated measurement establishes procedural suitability.",
+          "requirement_basis": "effective_tavi_reporting_and_conditional_device_access_scope",
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Annulus",
+              "detail": "Record area, perimeter and minimum/maximum diameters."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Valve/LVOT",
+              "detail": "Describe cusp morphology, raphe and calcium distribution."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Coronaries",
+              "detail": "Measure ostial heights and note leaflet/coronary relationships."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Root",
+              "detail": "Measure sinuses, sinotubular junction and ascending aorta."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Access",
+              "detail": "Assess minimum luminal diameters, tortuosity, calcium and prior devices by side."
+            }
+          ],
+          "walkthrough_step_indices": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC7160220/",
+            "https://www.jacc.org/doi/10.1016/j.jcmg.2018.12.003",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC9743261/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC12281215/"
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          }
+        }
+      ],
+      "expansion_rules": [
+        "Instantiate every actual cusp, calcium focus, coronary/device interface and candidate access route. Conditional/unacquired anatomy is not normal.",
+        "Each leaf requires independently reviewed image, schematic and model evidence; labels or a generic model do not provide clinical fidelity.",
+        "Preserve source-derived measurements separately from device simulations and heart-team decisions."
+      ],
+      "source_scope_issues": [
+        "Clinical stenosis/regurgitation, rupture/conduction/obstruction risk and procedural suitability are not established by an isolated static feature.",
+        "No universal coronary-height, sinus-width, access-diameter or device-sizing threshold is introduced.",
+        "Bicuspid/other valve anatomy may require adapted landmark/plane methods; do not force a three-cusp assumption.",
+        "Actual calcium scoring acquisition/method is separate from qualitative calcium in contrast CT.",
+        "Virtual coronary/STJ distances require actual device/deployment assumptions; prior SAVR/TAVR and native anatomy are not interchangeable.",
+        "Primary consensus extracts and local worksheet review are not full current device-specific or multidisciplinary approval."
+      ],
+      "functional_evidence_requirements": [
+        "Annular/root/access dimensions require actual acquisition quality, calibrated source and defined planes.",
+        "Valve function and obstruction/complication outcomes require clinical evidence and source-based heart-team planning.",
+        "Published annotated snapshots are not independently calibrated patient models or simulation outcomes."
+      ],
+      "clinical_validation_status": "draft_requires_cardiovascular_radiologist_and_structural_heart_team_review"
     }
   ],
   "additional_scope": []
