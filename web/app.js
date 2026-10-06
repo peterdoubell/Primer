@@ -2305,7 +2305,7 @@ async function renderRadiologyDesk(page, nodeId) {
       referenceImages.forEach(asset => panel.append(sourceReferenceFigure(asset)));
       if (atlasImages.length) panel.append(renderMskAtlasFigures(atlasImages));
       const images = legacy.querySelector('.rad-key-images');
-      panel.append(images); attachPictureHandlers(images);
+      if (images) { panel.append(images); attachPictureHandlers(images); }
     }],
     ['diagram', 'Diagram', panel => {
       if (atlasSchematics.length) panel.append(renderMskAtlasFigures(atlasSchematics, { onExploreSource: exploreSourceKnee }));
