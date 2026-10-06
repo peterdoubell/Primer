@@ -8,7 +8,7 @@ from tools.check_radiology_fidelity import digest
 from tools.check_msk_fidelity import requirements_for
 ROOT=Path(__file__).resolve().parents[2]
 IDENT='ra.vascular-anomalies'
-URLS=['https://radiologyassistant.nl/cardiovascular/thoracic-aorta/vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels','https://pmc.ncbi.nlm.nih.gov/articles/PMC4141344/','https://pmc.ncbi.nlm.nih.gov/articles/PMC9705143/']
+URLS=['https://radiologyassistant.nl/cardiovascular/thoracic-aorta/vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels','https://pmc.ncbi.nlm.nih.gov/articles/PMC4141344/','https://pmc.ncbi.nlm.nih.gov/articles/PMC9705143/','https://pmc.ncbi.nlm.nih.gov/articles/PMC7561662/','https://pmc.ncbi.nlm.nih.gov/articles/PMC3038141/','https://pmc.ncbi.nlm.nih.gov/articles/PMC8052389/']
 def build():
     ref=detail(Curriculum(),resolve(IDENT))['radiology_reference'];guide=ref['reporting'];structures=[]
     def add(key,name,children,steps,side='not_applicable',purpose='anatomical_reference'):
@@ -47,6 +47,11 @@ def build():
     for side in ['right','left']:
         add(side+'_svc',side.capitalize()+' superior vena cava',vessel+' every_tributary actual_coronary_sinus_or_atrial_endpoint',[3,4],side)
         add(side+'_brachiocephalic_vein',side.capitalize()+' brachiocephalic/bridging venous pathway',vessel+' bridging_presence_or_absence_and_basis anomalous_pulmonary_connection',[3,4],side)
+    for side in ['right','left']:
+        add(side+'_levoatriocardinal',side.capitalize()+' levoatriocardinal-type connection if present','actual_atrial_or_pulmonary_venous_origin complete_covered_course relation_to_pulmonary_artery actual_systemic_endpoint every_dual_or_collateral_connection obstructive_or_postoperative_context source_opacification dynamic_flow_source_if_available bidirectional_or_unresolved_function uncovered_extent',[3,4],side)
+        add(side+'_pericardiophrenic',side.capitalize()+' pericardiophrenic collateral channel if present','actual_cranial_origin complete_covered_course lateral_cardiac_and_diaphragm_relation each_transdiaphragmatic_connection actual_hepatic_or_systemic_endpoint obstruction_or_portal_context source_opacification dynamic_flow_source_if_available differential_from_caval_or_pulmonary_channel uncovered_extent',[4],side)
+        add(side+'_atrial_appendage',side.capitalize()+' actual atrial appendage if resolved','actual_sidedness source_resolved_morphology attachment_to_atrium relevant_isomerism_context source_phase_and_coverage unresolved_morphology',[3,4],side)
+    add('venous_collaterals','Every actual systemic venous obstruction/collateral pathway','obstruction_site_and_extent actual_proximal_distal_connections every_mediastinal_or_chest_wall_channel azygos_hemiazygos_relation hepatic_or_portosystemic_relation each_channel_minimum_calibre_if_measured source_phase_and_opacification flow_source_if_available acquired_vs_congenital_context uncovered_extent',[4])
     add('coronary_sinus','Coronary sinus and atrial interface','source_resolved_course wall_and_lumen actual_systemic_venous_connections right_atrial_ostium roof_and_left_atrial_relation unroofed_or_other_septal_defect_if_resolved actual_drainage_endpoint uncertainty_and_functional_limits',[4])
     for key,name in [('hepatic_ivc','Hepatic IVC segment'),('suprarenal_ivc','Suprarenal IVC segment if covered'),('renal_ivc','Renal IVC segment if covered'),('infrarenal_ivc','Infrarenal IVC segment if covered')]:add(key,name,vessel+' continuity_or_interruption actual_tributaries_and_continuation',[4])
     for key,name in [('hepatic_veins','Each actual hepatic vein'),('azygos','Azygos and arch'),('hemiazygos','Hemiazygos/accessory hemiazygos pathway'),('left_superior_intercostal','Left superior intercostal vein')]:add(key,name,vessel+' each_actual_tributary continuation_and_systemic_endpoint distinction_from_anomalous_pulmonary_channel',[3,4])
@@ -56,7 +61,7 @@ def build():
     add('functional_context','Actual clinical and haemodynamic interpretation','age_body_size_and_symptoms source_clinical_correspondence measured_gradient_source_if_available shunt_direction_and_quantification_source ventricular_function_source dynamic_airway_assessment_source swallowing_assessment_source comparison_dates_and_protocol operative_confirmation_if_available unresolved_clinical_significance',[0,1,2,3,4])
     return {'investigation_id':IDENT,'module_id':'rad.5.congenital-ct','title':'CT vascular anomalies',
         'scope_status':'expanded_draft_requires_independent_anatomical_and_clinical_review','modality_scope':['CT','MRI','Ultrasound'],
-        'sources':[{'title':t,'url':u,'reviewed_at':'2026-10-06','review_status':s} for t,u,s in zip(['Radiology Assistant vascular anomalies','CT evaluation of rings/slings','Thoracic vascular variants'],URLS,['effective_reporting_and_relevant_source_sections_reviewed','original_XML_body_and_ring_airway_tables_reviewed','original_XML_relevant_systemic_venous_and_pulmonary_sections_reviewed'])],
+        'sources':[{'title':t,'url':u,'reviewed_at':'2026-10-06','review_status':s} for t,u,s in zip(['Radiology Assistant vascular anomalies','CT evaluation of rings/slings','Thoracic vascular variants','Persistent left SVC review','Anomalous pulmonary vein multimodality case','Published left-SVC review correction'],URLS,['effective_reporting_and_relevant_source_sections_reviewed','original_XML_body_and_ring_airway_tables_reviewed','original_XML_relevant_systemic_venous_and_pulmonary_sections_reviewed','original_XML_venous_differentials_and_selected_captions_reviewed','original_XML_complete_case_and_multimodality_figure_reviewed','original_XML_complete_reference_numbering_and_name_correction_reviewed'])],
         'source_contract_sha256':digest({k:ref.get(k) for k in ('reporting','report_templates','walkthrough','reading')}),
         'reporting_checklist':guide['checklist'],'reporting_template_sections':guide['template_sections'],'structures':structures,
         'expansion_rules':['Instantiate every actual variant/channel/connection and conditional repair; this leaf inventory is a known floor, not an exhaustive congenital classification.',
@@ -65,7 +70,7 @@ def build():
         'source_scope_issues':['Atretic arch/ligamentous components may be inferred but must not be relabelled directly visible.',
             'Actual pulmonary venous number, common trunks, accessory and dual drainage require complete tracing.',
             'Left SVC drainage is not universally to the coronary sinus/right atrium.',
-            'Static compression, morphology and chamber size do not prove dynamic airway dysfunction or shunt haemodynamics.',
+            'Static compression, morphology, chamber size and single-phase contrast density do not independently prove dynamic dysfunction, flow direction or shunt haemodynamics; published case Qp/Qs and treatment context are not universal recommendations.',
             'PMC9705143 is CC BY-NC-ND 4.0; no figures are commercially reused from that grant.',
             'Original ring/slings source is CC BY 4.0; all 11 complete original figures have reviewed grants/pixels and explicit schematic/rendered roles, but native geometry and complete independent anatomical review remain outstanding.'],
         'functional_evidence_requirements':['Clinical significance requires actual functional/source evidence; no universal severity or procedural recommendation is inferred from instructional geometry.',
