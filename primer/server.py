@@ -3681,6 +3681,24 @@ async def lesson_illustration_delivery(asset: str, request: Request):
     return await app.state.source_static.get_response("illustrations/" + asset, request.scope)
 
 
+@app.api_route("/app/reference-media/radiology-open/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def radiology_image_delivery(asset: str, request: Request):
+    import json
+    url = "/app/reference-media/radiology-open/" + asset
+    with open(os.path.join(ROOT, "data/radiology/radiology-open-images.json"), encoding="utf-8") as source:
+        registry = json.load(source)
+    if not any(row.get("src") == url for rows in registry.values() for row in rows):
+        return JSONResponse({"detail": "Unknown source image"}, status_code=404)
+    if os.environ.get("VERCEL"):
+        from urllib.parse import quote, urlencode
+        target = "/source-media/reference-media/radiology-open/" + quote(asset, safe="")
+        query = urlencode(request.query_params.multi_items())
+        if query:
+            target += "?" + query
+        return RedirectResponse(target, status_code=307)
+    return await app.state.source_static.get_response("reference-media/radiology-open/" + asset, request.scope)
+
+
 @app.api_route("/app/reference-media/prenatal-development/prenatal-development.gif", methods=["GET", "HEAD"], include_in_schema=False)
 async def prenatal_gif_delivery():
     if os.environ.get("VERCEL"):
