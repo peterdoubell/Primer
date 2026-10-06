@@ -55,7 +55,7 @@ def build():
             'Primary RA LVAD text mislabels the apical cannula as outflow; inflow/outflow are separately required and actual device/procedure source must govern.',
             'No generic arch-distance, ideal tip, manufacturer brand or source-case threshold is adopted as universal safe device position.',
             'PMC4286824 licence URL is CC BY-NC-SA 3.0 despite broad attribution wording; its images are not commercially cleared/reused.',
-            'PMC6837806 is CC BY 4.0 but complete figure-specific credits/pixels/anatomy need separate inspection before image packaging; the reviewed erratum changes Original Research to Review Article only.',
+            'PMC6837806 is CC BY 4.0; 20 complete original radiographs are reviewed/preserved, but in-pixel permission-only Figures 13/21 are excluded. The erratum changes article classification only; complete anatomy/current-device-system validation remains pending.',
             'PMC7758755 snapshot was unavailable (404/500); no uninspected contents or rights are borrowed.',
             'No complete current manufacturer IFU catalogue, clinical certification or independent device/tissue-boundary review is claimed.'],
         'functional_evidence_requirements':['Imaging appearance/position does not prove capture, sensing, shock effectiveness, valve/pump performance, shunt or clinical complications.',
