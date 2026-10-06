@@ -50,7 +50,7 @@ def build():
             'LV segment labels are not complete tissue boundaries or automatic RV segmentation; apical and unresolved motion assessment needs its actual source/model.',
             'Contouring, basal/apical/papillary/trabecular conventions, phase and indexing/reference populations must remain comparable.',
             'Tissue mapping and ECV need raw-source quality, actual acquisition/ROI/method-comparable reference and documented haematocrit or named alternative inputs.',
-            'Both primary article grants are CC BY 4.0, but figure-specific credits/pixels, complete current guidelines and independent anatomical/clinical review remain outstanding.',
+            'Both primary article grants are CC BY 4.0; thirteen complete original figures are inspected/preserved with contour, static/map/graph and caption-unit limits. SCMR adapted/modified Figures 5/10 are held pending upstream rights; complete current guidelines and independent anatomical/clinical review remain outstanding.',
             'No native myocardial cine/scar/map models or validated quantitative function are supplied by the generic heart companion.'],
         'functional_evidence_requirements':['EF/volumes/regional motion and flow require complete obtained temporal/contour sources with declared conventions, not a still/picture/model.',
             'Mapping/ECV/LGE quantification requires valid source quality, method/calibration/reference and uncertainty; no universal cutoff or colour map diagnosis.',
