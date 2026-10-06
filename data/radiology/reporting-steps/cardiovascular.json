@@ -224,7 +224,7 @@
             "VENTRICULAR FUNCTION"
           ],
           "look": "Short-axis cine from base to apex; contour end diastole and end systole; compare with sex- and age-specific references.",
-          "normal": "Normal biventricular size and systolic function: LVEDVi __ mL/m², LVEF __%; RVEDVi __ mL/m², RVEF __%.",
+          "normal": {},
           "findings": [
             "Dilated left ventricle (LVEDVi __ mL/m²) with reduced ejection fraction (__%).",
             "Right ventricular dilatation with reduced RVEF __%."
@@ -238,7 +238,8 @@
           "landmark": "ventricles",
           "parts": [
             "FJ2428"
-          ]
+          ],
+          "tip": "Quantify actual temporal/source contours with complete coverage; document ED/ES and basal/apical/papillary/trabecular conventions plus reference/indexing context. Do not infer EF or normality from a still/model."
         },
         {
           "label": "Wall thickness and regional motion",
@@ -246,8 +247,8 @@
           "sections": [
             "MORPHOLOGY AND MOTION"
           ],
-          "look": "Short-axis and long-axis cines; 17-segment model for motion.",
-          "normal": "Normal wall thickness and myocardial mass; no regional wall-motion abnormality.",
+          "look": "Inspect obtained short/long-axis cines with actual named segment/region and apical coverage; state the model/convention and any region where motion/thickening cannot be assessed.",
+          "normal": {},
           "findings": [
             "Asymmetric septal hypertrophy with maximal wall thickness __ mm at [basal anteroseptum].",
             "Akinesia of the [anterior] wall in the [LAD] territory.",
@@ -259,7 +260,8 @@
           "landmark": "septum",
           "parts": [
             "FJ2428"
-          ]
+          ],
+          "tip": "Locate actual maximal thickness and distinguish endocardial/trabecular/papillary boundaries from compact myocardium; phase and source sampling limit thin regions."
         },
         {
           "label": "Oedema and mapping",
@@ -268,7 +270,7 @@
             "OEDEMA AND MAPPING"
           ],
           "look": "T2-weighted and mapping sequences with the local reference range and field strength.",
-          "normal": "No myocardial oedema; native T1 and T2 within the local reference range.",
+          "normal": {},
           "findings": [
             "Regional oedema in the [ ] segments with raised T2 (__ ms).",
             "Diffusely raised native T1 (__ ms) and ECV (__%)."
@@ -283,7 +285,7 @@
           "parts": [
             "FJ2428"
           ],
-          "tip": "Mapping values depend on scanner and sequence; always quote the local reference range."
+          "tip": "Mapping and ECV require actual sequence/field strength, raw-source/ROI quality and comparable references. ECV identifies its haematocrit/date or explicitly named alternative method; colour pictures are not calibrated measurements."
         },
         {
           "label": "Late gadolinium enhancement",
@@ -292,7 +294,7 @@
             "LATE ENHANCEMENT"
           ],
           "look": "Short- and long-axis LGE in matching planes; check the myocardium is correctly nulled.",
-          "normal": "No late gadolinium enhancement.",
+          "normal": {},
           "findings": [
             "Subendocardial / transmural LGE in the [LAD] territory, __% transmural (ischaemic pattern).",
             "Midwall LGE in the septum (non-ischaemic pattern).",
@@ -309,7 +311,7 @@
             "FMA3895",
             "FJ2723"
           ],
-          "tip": "Ischaemic scar always involves the subendocardium; midwall or subepicardial LGE indicates a non-ischaemic cause."
+          "tip": "Coronary-pattern subendocardial LGE supports an ischaemic differential, but global subendocardial, midwall/epicardial, mixed or artefactual patterns do not uniquely establish cause. Absent LGE does not exclude all cardiomyopathy; record nulling, quality and actual coverage."
         },
         {
           "label": "Atria, valves, thrombus and pericardium",
@@ -318,7 +320,7 @@
             "OTHER CARDIAC FINDINGS"
           ],
           "look": "Long-axis cines and early post-contrast images for thrombus.",
-          "normal": "Atria normal; no valvular abnormality; no thrombus; pericardium normal.",
+          "normal": {},
           "findings": [
             "Left ventricular apical thrombus __ mm (non-enhancing on early post-contrast images).",
             "Pericardial effusion __ mm.",
@@ -330,9 +332,13 @@
             "FJ2438",
             "FJ2428"
           ],
-          "tip": "An apical thrombus after anterior infarction is best seen as a non-enhancing filling defect on early post-contrast images."
+          "tip": "Assess actual tissue/contrast/temporal source for suspected thrombus and valve/pericardial effects. No single filling defect, jet or effusion proves functional severity or tamponade."
         }
-      ]
+      ],
+      "model": {
+        "family": "heart",
+        "reporting_aim": "Orient cardiac axes while reviewing actual acquired cine and tissue sources. This generic heart model does not supply patient-specific ventricular/myocardial contours, all segment/layer boundaries, papillary/chordal interfaces, scar/oedema/maps, motion or measured haemodynamics; those require source-specific evidence."
+      }
     },
     "ra.ct-acute-aortic-syndrome": {
       "steps": [

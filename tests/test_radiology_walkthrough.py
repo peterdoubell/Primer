@@ -26,6 +26,7 @@ CORRECTED = {
     'ra.aortic-aneurysm-rupture': 'aorta',
     'ra.cardiovascular-devices': 'heart',
     'ra.cardiac-masses': 'heart',
+    'ra.mri-cardiomyopathy': 'heart',
 }
 
 

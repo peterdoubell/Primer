@@ -6442,5 +6442,97 @@
       "Separate excretory collecting-system assessment from actual retrograde bladder cystography.",
       "Describe observations before applying an actual organ-specific grade/revision; partial tracks and parent anatomy do not complete injury maps."
     ]
+  },
+  "ra.mri-cardiomyopathy": {
+    "reporting": {
+      "protocol": [
+        "Record actual cine/tissue coverage, cardiac and respiratory gating, temporal/spatial sampling, contrast/sequence and artefact limits. Quantify only adequately acquired data; a still image or generic model does not supply function.",
+        "Compare native and enhanced sources in matching actual locations/planes and phase context. Record contour, basal/apical, papillary/trabecular conventions and applicable indexed reference context.",
+        "Use actual field strength, sequence, processing, ROI and comparable reference method for mapping/ECV. Record haematocrit source/date or explicitly named alternative method when used; unavailable acquisitions are not normal."
+      ],
+      "checklist": [
+        {
+          "label": "Function",
+          "detail": "Assess both actual ventricular blood-pool/wall contours across obtained phases; report source ED/ES selection, indexed volumes/function and regional motion with uncertainty."
+        },
+        {
+          "label": "Geometry",
+          "detail": "Assess actual chamber/atrial geometry, each covered myocardial region and maximal thickness/mass with named landmarks, phase, contours and variant anatomy."
+        },
+        {
+          "label": "Tissue",
+          "detail": "Assess actual oedema/T1/T2/T2-star or ECV acquisitions if available, with raw-source quality, local/method-comparable references, ROI/calibration and unresolved regions."
+        },
+        {
+          "label": "Scar",
+          "detail": "Localise actual LGE by named region/layer/extent and acquisition/nulling quality; distinguish pattern-based differential from histology and account for mixed disease and uncertainty."
+        },
+        {
+          "label": "Ancillary",
+          "detail": "Assess source-resolved valves, atria, appendages, thrombus, pericardium and covered extracardiac findings; physiology and clinical significance require actual evidence."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Ventricular volumes and EF",
+          "method": "Contour actually obtained end-diastolic/end-systolic sources with complete coverage and documented basal/apical, papillary/trabecular convention; report EDV/ESV/SV/EF and applicable index/reference context.",
+          "pitfall": "Basal slice and trabeculation conventions alter results."
+        },
+        {
+          "name": "Mapping",
+          "method": "Report only valid obtained mapping values with field strength, sequence/processing, ROI/source quality and method-comparable reference; ECV must identify its calculation/data/haematocrit or named alternative source.",
+          "pitfall": "Values from another scanner are not an interchangeable threshold."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Incomplete coverage, arrhythmia and contour convention can change apparent volume/function; no normal quantitative result is inferred from a still or unavailable sequence.",
+        "Ischaemic-type LGE commonly involves subendocardium in a coronary distribution; other patterns, global subendocardial involvement, mixed disease and acquisition artefact require a differential, not an exclusive cause.",
+        "Absent LGE does not exclude every cardiomyopathy or diffuse tissue abnormality. Poor nulling/ghosting/partial volume can mimic or obscure enhancement.",
+        "Map colours or another scanner/site threshold are not independently calibrated normality; actual raw source quality and reference method matter.",
+        "Static jet, effusion or filling-defect appearance does not quantify regurgitation, tamponade or prove thrombus; appropriate functional/tissue/clinical evidence is separate."
+      ],
+      "impression_prompts": [
+        "State biventricular size and systolic function.",
+        "Summarise tissue/LGE pattern and the supported differential.",
+        "Identify clinically consequential thrombus, valve or pericardial findings."
+      ],
+      "escalation": [
+        "Communicate an unexpected intracardiac thrombus or another acutely consequential finding directly."
+      ],
+      "template_sections": [
+        {
+          "heading": "VENTRICULAR FUNCTION",
+          "body": "Actual source coverage, phases and contour method: [ ]. LV EDV/ESV/SV/EF and index/body-size context: [ ]. RV EDV/ESV/SV/EF and index context: [ ]. Quality, convention and unavailable/uncertain results: [ ]."
+        },
+        {
+          "heading": "MORPHOLOGY AND MOTION",
+          "body": "Each relevant LV/RV region, wall thickness/site/phase and mass/index: [ ]. Chamber/atrial dimensions and method: [ ]. Regional motion/thickening with actual temporal source/model: [ ]. Trabecular/papillary/variant anatomy and limits: [ ]."
+        },
+        {
+          "heading": "OEDEMA AND MAPPING",
+          "body": "Actual oedema/map sequences, field strength, ROIs, processing and quality: [ ]. T1/T2/T2-star values/units if valid: [ ]. Local or method-comparable reference and limits: [ ]. ECV method, blood/myocardial sources, timing and haematocrit source/date if used: [ ]. Unavailable or unresolved tissue assessment: [ ]."
+        },
+        {
+          "heading": "LATE ENHANCEMENT",
+          "body": "Actual LGE sequence, timing/phase, nulling and quality: [ ]. Each named region/segment, layer, extent/transmurality and coronary-pattern context: [ ]. MVO/other mixed components and source: [ ]. Qualitative vs quantified method/reference and uncertainty: [ ]."
+        },
+        {
+          "heading": "OTHER CARDIAC FINDINGS",
+          "body": "Actual atrial/appendage, valve, thrombotic and pericardial findings and covered extent: [ ]. Functional/clinical source if assessed: [ ]. Extracardiac findings/limits and prior comparison: [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant — Cardiac Anatomy",
+          "url": "https://radiologyassistant.nl/cardiovascular/anatomy/cardiac-anatomy"
+        },
+        {
+          "title": "Radiology Assistant — Ischemic and non-ischemic cardiomyopathy",
+          "url": "https://radiologyassistant.nl/cardiovascular/cardiomyopathy/ischemic-and-non-ischemic-cardiomyopathy"
+        }
+      ],
+      "reviewed_at": "2026-10-06"
+    }
   }
 }
