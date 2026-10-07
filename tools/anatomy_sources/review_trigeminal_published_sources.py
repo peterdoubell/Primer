@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Acquire complete licensed original figure masters; retain modality and branch-caption conflicts."""
-import argparse,hashlib,io,json,sys,xml.etree.ElementTree as E
+import argparse,hashlib,io,json,re,sys,xml.etree.ElementTree as E
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 from pypdf import PdfReader
@@ -8,14 +8,21 @@ from PIL import Image,ImageChops,ImageStat,ImageCms
 from tools.anatomy_sources.acquire_pancreatitis_vascular_figures import exact_license
 SELECTION=['Fig1','Fig6','Fig12','Fig13','Fig19','Fig20','Fig21','Fig22','Fig28']
 def sha(raw):return hashlib.sha256(raw).hexdigest()
-def review(source,out,ident='PMC6420596',selection=None):
+def review(source,out,ident='PMC6420596',selection=None,object_ids=None,reviewed_bindings=None):
     selection=SELECTION if selection is None else selection;m=json.loads((source/(ident+'.1.json')).read_text());xml=(source/(ident+'.1.xml')).read_bytes();pdf=source/ident/(ident+'.1.pdf')
     if hashlib.md5(xml).hexdigest()!=m['xml_url'].split('md5=')[1] or hashlib.md5(pdf.read_bytes()).hexdigest()!=m['pdf_url'].split('md5=')[1] or m['is_retracted'] is not False:raise ValueError('Publisher original identity differs')
     tree=E.fromstring(xml);grant,url=exact_license(tree.find('.//article-meta/permissions'));reader=PdfReader(pdf);candidates={};masters=source/ident/'original-PDF-masters';masters.mkdir(exist_ok=True)
-    for page_number,page in enumerate(reader.pages,1):
-        for ref in page['/Resources'].get('/XObject',{}).values():
+    def image_refs(resources,ancestors=()):
+        for ref in resources.get('/XObject',{}).values():
             obj=ref.get_object()
-            if obj.get('/Subtype')!='/Image' or ref.idnum in candidates:continue
+            if obj.get('/Subtype')=='/Form':
+                if ref.idnum in ancestors:raise ValueError('Recursive source PDF form')
+                yield from image_refs(obj.get('/Resources',resources),ancestors+(ref.idnum,))
+            elif obj.get('/Subtype')=='/Image':yield ref
+    for page_number,page in enumerate(reader.pages,1):
+        for ref in image_refs(page['/Resources']):
+            obj=ref.get_object()
+            if obj.get('/Subtype')!='/Image' or ref.idnum in candidates or (object_ids is not None and ref.idnum not in object_ids):continue
             colour=obj['/ColorSpace'];profile=None
             if colour=='/DeviceGray':mode='1' if obj['/BitsPerComponent']==1 else 'L'
             elif colour=='/DeviceRGB':mode='RGB'
@@ -40,9 +47,15 @@ def review(source,out,ident='PMC6420596',selection=None):
         link=next(u for u in m['media_urls'] if '/'+filename+'?' in u)
         if hashlib.md5((source/ident/filename).read_bytes()).hexdigest()!=link.split('md5=')[1]:raise ValueError('Original numbered figure checksum differs')
         for key,c in candidates.items():scores.append((sum(ImageStat.Stat(ImageChops.difference(reference,c['image'].convert('RGB').resize((64,32)))).rms)/3,key))
-        scores.sort();rms,key=scores[0];c=candidates[key]
-        if rms>5:raise ValueError(f'{fid}: numbered figure/PDF binding needs review (RMS {rms})')
-        caption=' '.join(fig.find('caption').itertext());rows.append({'figure_id':fid,'figure_number':int(fid.removeprefix('Fig')),'source_caption_full':caption,'original_HTML_filename':filename,'original_HTML_sha256':sha((source/ident/filename).read_bytes()),'source_PDF_object':key,'source_PDF_page':c['page'],'source_master_filename':c['path'].name,'width':c['image'].width,'height':c['image'].height,'source_master_sha256':c['sha256'],'decoded_pixel_sha256':c['decoded_pixel_sha256'],'pixel_mode':c['mode'],'source_ICC_sha256':c['profile_sha256'],'source_ICC_name':c['profile_name'],'numbered_HTML_PDF_thumbnail_RGB_RMS':rms,'original_decoded_samples_and_ICC_preserved':True,'source_pixels_resampled_or_enhanced':False,'source_caption_mandibular_V2_discrepancy':ident=='PMC6420596' and fid=='Fig21','clinical_approval':False})
+        scores.sort();rms,key=scores[0]
+        explicit=reviewed_bindings.get(fid) if reviewed_bindings else None
+        if explicit:
+            key,page_number=explicit;c=candidates[key]
+            if c['page']!=page_number or 'Figure '+str(int(re.search(r'(\d+)$',fid).group(1))) not in reader.pages[page_number-1].extract_text():raise ValueError('Reviewed PDF page/caption binding differs')
+            rms=next(score for score,obj in scores if obj==key)
+        else:c=candidates[key]
+        if rms>5 and not explicit:raise ValueError(f'{fid}: numbered figure/PDF binding needs review (RMS {rms})')
+        caption=' '.join(fig.find('caption').itertext());rows.append({'figure_id':fid,'figure_number':int(re.search(r'(\d+)$',fid).group(1)),'source_caption_full':caption,'original_HTML_filename':filename,'original_HTML_sha256':sha((source/ident/filename).read_bytes()),'source_PDF_object':key,'source_PDF_page':c['page'],'source_master_filename':c['path'].name,'width':c['image'].width,'height':c['image'].height,'source_master_sha256':c['sha256'],'decoded_pixel_sha256':c['decoded_pixel_sha256'],'pixel_mode':c['mode'],'source_ICC_sha256':c['profile_sha256'],'source_ICC_name':c['profile_name'],'numbered_HTML_PDF_thumbnail_RGB_RMS':rms,'explicit_original_PDF_page_binding_visually_reviewed':bool(explicit),'original_HTML_and_PDF_encoded_contrast_differ':rms>5,'original_decoded_samples_and_ICC_preserved':True,'source_pixels_resampled_or_enhanced':False,'source_caption_mandibular_V2_discrepancy':ident=='PMC6420596' and fid=='Fig21','clinical_approval':False})
     report={'pmcid':ident,'doi':m['doi'],'source_article_url':'https://pmc.ncbi.nlm.nih.gov/articles/'+ident+'/','original_article_grant':grant,'license_url':url,'permissions_XML':E.tostring(tree.find('.//article-meta/permissions'),encoding='unicode'),'metadata_sha256':sha((source/(ident+'.1.json')).read_bytes()),'original_XML_sha256':sha(xml),'original_PDF_sha256':sha(pdf.read_bytes()),'publisher_original_MD5_checks_passed':True,'figures':rows,'original_anatomical_or_case_approval_granted':False,'runtime_promoted':False,'structure_coverage_granted':False};(out/'original-source-review.json').write_text(json.dumps(report,indent=2)+'\n');print([(r['figure_id'],r['source_PDF_object'],round(r['numbered_HTML_PDF_thumbnail_RGB_RMS'],3)) for r in rows])
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--source-root',type=Path,required=True);p.add_argument('--proof-dir',type=Path,required=True);a=p.parse_args();review(a.source_root,a.proof_dir)
