@@ -9,3 +9,9 @@ Panels a/b/c are source coronal T1, axial T2 and late postcontrast fat-suppresse
 The study statistics/distributions (Figures 4/5) and diagnostic algorithm (Figure 6) remain nonclinical intake. They are not rendered as anatomical structures or adopted as a universal histological classifier or management pathway. A source ghosting/signature appearance, enhancement or threshold does not remove the need for actual applicable clinical/tissue evidence.
 
 All three masters and original source pages were visually inspected. Four source-case/role/provenance checks passed. Source anatomical approval, full gland/duct/nerve/vessel/node/lesion-interface extent and matched native 3D remain unproven. No runtime publication or representation coverage is granted by this intake.
+
+## Reader integration, 7 October 2026
+
+The head/neck malignancy reader now includes the three complete original PDF-master figures. Each retains its distinct age, side and source tissue label, including the 15-year-old case. Panels a–e are acquired MRI views; panel f is explicitly an MRI-derived DCE signal/time plot. Source curve labels and reported measurements are not a new patient classifier or independently measured acquisition.
+
+Local API delivery returned all three exact original file hashes. The targeted integration/source/reader/safety checks passed (92 tests); the raster inventory verified 495 originals and the source mesh inventory verified 47 contracts. The full fidelity gate remains incomplete: 62 investigations have unexpanded requirements. These assets grant no new structure coverage or anatomical approval, and this release does not claim complete clinical/commercial readiness.
