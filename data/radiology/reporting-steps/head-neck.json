@@ -16,9 +16,7 @@
             "Every actual source side/descriptive group/node [ ]; map/version/level or unresolved assignment [ ].",
             "Retropharyngeal/parotid/other source region [ ]; named convention and actual boundaries [ ]."
           ],
-          "images": [
-            "neck-nodes-image-1"
-          ],
+          "images": [],
           "landmark": "nodes",
           "tip": "Name the map and version. A level number in one surgical/extended radiotherapy convention cannot silently become the same compartment in another; unknown boundaries remain unassigned."
         },
@@ -38,7 +36,10 @@
           ],
           "landmark": "nodes",
           "normal": {},
-          "tip": "Small size or a preserved visible feature does not prove benignity or exclude microscopic metastasis. Size thresholds and index-node choices depend on the actual disease/level and source context."
+          "tip": "Small size or a preserved visible feature does not prove benignity or exclude microscopic metastasis. Size thresholds and index-node choices depend on the actual disease/level and source context.",
+          "images": [
+            "open-cervical-nodes-pmc10548228-fig5"
+          ]
         },
         {
           "label": "Nodal morphology",
@@ -56,7 +57,10 @@
           ],
           "landmark": "nodes",
           "tip": "Cystic adult lateral-neck nodes/masses require an appropriate differential and clinical/tissue evaluation; neither benign congenital cyst nor unique metastatic/HPV/thyroid identity is established from morphology alone.",
-          "normal": {}
+          "normal": {},
+          "images": [
+            "open-cervical-nodes-pmc10548228-fig5"
+          ]
         },
         {
           "label": "Extranodal extension and vessels",
@@ -72,7 +76,10 @@
             "Pathological ENE if supplied [ ]; not established solely by imaging [ ]."
           ],
           "landmark": "carotids",
-          "tip": "Imaging-detected ENE is distinct from pathological ENE. Use actual applicability and source criteria with confidence; post-treatment inflammation, unresolved borders and vessel contact require explicit limits."
+          "tip": "Imaging-detected ENE is distinct from pathological ENE. Use actual applicability and source criteria with confidence; post-treatment inflammation, unresolved borders and vessel contact require explicit limits.",
+          "images": [
+            "open-cervical-nodes-pmc10548228-fig5"
+          ]
         },
         {
           "label": "Primary site and staging pathway",
@@ -87,12 +94,17 @@
             "Supplied primary/assay/treatment evidence and applicable staging system/version [ ]; unresolved components [ ]."
           ],
           "landmark": "pharynx",
-          "tip": "Absent visible primary in limited imaging is not exclusion of an occult primary. Assay/organism/histology and primary-specific stage are supplied evidence, not geometry or generic nodal patterns."
+          "tip": "Absent visible primary in limited imaging is not exclusion of an occult primary. Assay/organism/histology and primary-specific stage are supplied evidence, not geometry or generic nodal patterns.",
+          "images": []
         }
       ],
       "model": {
         "family": "neck",
         "reporting_aim": "Partial neck orientation only. This schematic does not supply every native patient node/level boundary, cortex/hilum/capsule or extranodal/vascular interface, microscopic metastasis, primary/assay identity, stage or flow. Actual acquired sources and unassessed anatomy remain explicit."
+      },
+      "start": {
+        "images": [],
+        "module_illustrations": false
       }
     },
     "ra.mri-neck-spaces": {
