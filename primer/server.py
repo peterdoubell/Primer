@@ -3642,7 +3642,12 @@ def sign_out(request: Request):
 
 @app.get("/healthz")
 def healthz():
-    return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives)}
+    # A healthy process must also be able to load the reference galleries.
+    # This checks metadata/provenance integrity, not clinical approval.
+    from .radiology_catalog import _structure_atlases
+    _structure_atlases()
+    return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives),
+            "source_gallery_metadata_validated": True}
 
 
 

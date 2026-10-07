@@ -14,6 +14,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from .radiology import DATA, validate_reference, validate_reporting_guide
+from .source_raster_integrity import verified_raster_header
 
 STEP_DIR = DATA / 'reporting-steps'
 MESH_MANIFEST = DATA.parents[1] / 'web' / 'anatomy' / 'bodyparts3d' / 'manifest.json'
@@ -432,8 +433,7 @@ def _validate_native_volume_figure(image, root):
             or evidence.get('source_voxels_changed') is not False
             or evidence.get('model_geometry_overlaid') is not False):
         raise ValueError('Native figure scope or byte contract changed')
-    figure_path = root / image['src'].removeprefix(prefix)
-    pixels = figure_path.read_bytes()
+    pixels = verified_raster_header(image, root, DATA)
     if (len(pixels) < 24 or pixels[:8] != b'\x89PNG\r\n\x1a\n'
             or struct.unpack('>II', pixels[16:24]) != (image['width'], image['height'])):
         raise ValueError('Native section figure dimensions changed')
@@ -518,6 +518,46 @@ def _validate_source_derived_figure(image, root):
             raise ValueError('Derived MSK figure runtime source geometry changed')
 
 
+def _validate_source_panel_roles(image):
+    """Reject contradictions in declared source roles, without inferring missing panels or approval."""
+    if (image.get('kind') == 'schematic') != (image.get('modality') == 'Schematic'):
+        raise ValueError('Source figure kind and schematic modality disagree')
+    context = image.get('source_context', {})
+    if not isinstance(context, dict):
+        raise ValueError('Source figure context must be a record')
+    if not any(key in context for key in ('selected_panels', 'panel_types', 'panel_states')):
+        return
+    selected, types = context.get('selected_panels'), context.get('panel_types')
+    if (not isinstance(selected, list) or not isinstance(types, dict)
+            or any(not isinstance(panel, str) or not panel.strip() for panel in selected)
+            or len(set(selected)) != len(selected)):
+        raise ValueError('Source figure panel selection must be explicit and unique')
+    primary_field = ('schematic_panels' if image.get('kind') == 'schematic'
+                     and 'schematic_panels' in image else 'clinical_panels')
+    declared = image.get(primary_field)
+    if (primary_field in image and (not isinstance(declared, list)
+            or any(not isinstance(panel, str) or not panel.strip() for panel in declared)
+            or len(set(declared)) != len(declared)
+            or set(declared) != set(selected))):
+        raise ValueError('Source figure selected panels disagree with the displayed primary selection')
+    if any(types.get(panel) != image.get('modality') for panel in selected):
+        raise ValueError('Source figure selected panel type disagrees with the displayed modality')
+    occupied = set(selected)
+    ancillary = image.get('ancillary_panels', [])
+    if not isinstance(ancillary, list):
+        raise ValueError('Source ancillary panel roles must be records')
+    for entry in ancillary:
+        if not isinstance(entry, dict) or not isinstance(entry.get('panels'), list):
+            raise ValueError('Source ancillary panel selection must be explicit')
+        panels = entry['panels']
+        if (not panels or any(not isinstance(panel, str) or not panel.strip() for panel in panels)
+                or len(set(panels)) != len(panels)
+                or occupied.intersection(panels)
+                or any(types.get(panel) != entry.get('kind') for panel in panels)):
+            raise ValueError('Source ancillary panel roles overlap or contradict the declared source types')
+        occupied.update(panels)
+
+
 @lru_cache(maxsize=1)
 def _structure_atlases():
     """Locally preserved, licensed figures with narrowly stated anatomy scope."""
@@ -536,8 +576,9 @@ def _structure_atlases():
         for image in images:
             if image['id'] in seen or image.get('kind') not in {'clinical-image', 'schematic'}:
                 raise ValueError('Invalid or duplicated MSK atlas figure')
-            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Schematic'}:
+            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Nuclear medicine', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
+            _validate_source_panel_roles(image)
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')
             if image.get('contains_schematic_panels'):
@@ -559,7 +600,7 @@ def _structure_atlases():
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
-                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Clinical photograph'}
+                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph'}
                         or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or
@@ -578,11 +619,7 @@ def _structure_atlases():
             if prefix is None:
                 raise ValueError('MSK atlas figures must be preserved locally')
             root = media / prefix.rstrip('/').rsplit('/',1)[1]
-            path = (root / image['src'].removeprefix(prefix)).resolve()
-            if not path.is_relative_to(root) or not path.is_file():
-                raise ValueError('MSK atlas figure leaves its reviewed directory')
-            if hashlib.sha256(path.read_bytes()).hexdigest() != image['sha256']:
-                raise ValueError('MSK atlas figure changed after source review')
+            verified_raster_header(image, root, DATA)
             # Preserve the source's actual version. Aubry's 2010 hip figures
             # use CC BY 2.0; their grant must not be relabelled as CC BY 4.0.
             reviewed_licenses = {
@@ -611,7 +648,8 @@ def _structure_atlases():
                         or use.get('preserve_all_panels') is not True
                         or use.get('distribution_of_adapted_material_permitted') is not False
                         or image.get('source_bytes_sha256') != image['sha256']
-                        or image.get('source_bytes_md5') != hashlib.md5(path.read_bytes()).hexdigest()):
+                        or not isinstance(image.get('source_bytes_md5'), str)
+                        or not re.fullmatch(r'[0-9a-f]{32}', image['source_bytes_md5'])):
                     raise ValueError('ND reference must preserve its complete reviewed original bytes')
             for field in ('alt', 'caption', 'attribution', 'limits', 'rights_review', 'rights_reviewed_on'):
                 if not isinstance(image.get(field), str) or not image[field].strip():

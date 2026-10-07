@@ -3495,78 +3495,91 @@
   },
   "ra.hrct-cystic-lung": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-06",
       "protocol": [
-        "Review thin-section inspiratory CT and distinguish true cysts from cavities, emphysema and dilated airways."
+        "Record actual thin-section CT acquisition, coverage, source voxel/reconstruction/window, inspiratory level, motion and available comparison. Expiration/contrast or other tests are separate only if performed.",
+        "Trace source cyst-like lesions and all covered regional interfaces. Teaching diagnoses, typical distributions and representative stills are not the current patient observations or complete native anatomy."
       ],
       "checklist": [
         {
-          "label": "Cyst Morphology",
-          "detail": "Describe wall, shape and size range."
+          "label": "Cyst morphology",
+          "detail": "Trace each actual cyst or cyst-like lesion through obtained source planes; describe wall, contents, shape, septa, mural components and airway/vessel continuity with source uncertainty."
         },
         {
           "label": "Distribution",
-          "detail": "Assess zonal, axial and subpleural distribution."
+          "detail": "Record actual count/extent and regional distribution across every covered lobe, axial compartment, pleural recess and fissural/mediastinal interface; identify coverage limits."
         },
         {
-          "label": "Associated Nodules",
-          "detail": "Look for nodules and their relationship to cysts."
+          "label": "Associated nodules",
+          "detail": "Describe each solid/cavitating nodule, mural or intracystic component and its relationship to cysts, airways and vessels; assess actual prior change."
         },
         {
-          "label": "Background Lung",
-          "detail": "Assess ground glass, septal change and fibrosis."
+          "label": "Background lung",
+          "detail": "Describe intervening parenchyma, ground glass, septa, reticulation, fibrosis, honeycombing, emphysema and airway change with source phase and differential."
         },
         {
-          "label": "Extrapulmonary Context",
-          "detail": "Review pneumothorax and relevant visible systemic findings."
+          "label": "Extrapulmonary context",
+          "detail": "Review pleura, pneumothorax/fluid, covered nodes and systemic findings; separate observed CT from supplied history, genetics, microbiology or tissue evidence."
         }
       ],
       "measurements": [
         {
           "name": "Representative cysts",
-          "method": "Record a size range and maximum dimension of an index cyst when useful.",
-          "pitfall": "Do not base the differential on one selected cyst alone."
+          "method": "Measure selected source-resolved lesions in stated orthogonal/local planes, wall/airspace edge convention, reconstruction/window and actual calibration; describe justified range, burden estimate and uncertainty.",
+          "pitfall": "One lesion or still does not establish whole-lung burden, microscopic wall structure or calibrated serial change."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A thin-walled lucency is not automatically a cyst; identify airway continuity and the surrounding parenchymal pattern."
+        "Wall thickness or apparent absence alone is not a diagnostic cutoff; partial volume, reconstruction and orientation affect thin walls. Thick/irregular components and a cyst-like cavity require a stated differential.",
+        "The source four-cysts/age-forty rule is a contextual heuristic, not a diagnosis or exclusion rule, particularly with recurrent pneumothorax or suspected hereditary disease. Costophrenic distribution supports a differential, not a unique diagnosis.",
+        "New/growing mural solid tissue or changing cyst-associated nodules warrant appropriate clinical evaluation. Wall thinning or low/negative PET uptake alone does not establish benignity; no PET finding is borrowed when PET was not obtained.",
+        "LAM/BHD-FDS/PLCH/LIP/AMP-DIP patterns overlap with infection, neoplasia, deposition and other causes. Record morphology and uncertainty; source terminology does not prove histology, genotype or functional severity.",
+        "No pneumothorax, chylous fluid, renal tumour, systemic disease or hereditary finding may be asserted from unassessed anatomy. CT fluid is not proven chyle; urgency depends on actual findings and clinical context."
       ],
       "impression_prompts": [
-        "Cyst distribution, morphology and associated parenchymal findings.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "Describe actual cyst/mimic morphology, distribution, associated solid/parenchymal findings and full obtained extent with technical confidence.",
+        "Give a supported differential and the clinical/genetic/tissue sources or missing evidence; do not convert an age/count heuristic or teaching pattern into a confirmed diagnosis.",
+        "State concerning interval change or complication and appropriate source/context-dependent clinical assessment."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate an observed pneumothorax or other clinically urgent complication through local pathways; source pattern alone does not establish physiological instability."
+      ],
       "template_sections": [
         {
           "heading": "CYST MORPHOLOGY",
-          "body": "Wall: [ ]. Shape: [ ]. Size range: [ ]."
+          "body": "Actual lesion/site and cyst versus mimic [ ]; wall/shape/content/septa/mural or traversing-vessel interface [ ]; full source-resolved extent [ ]; representative size/axis/window/calibration and uncertainty [ ]; microscopic/unresolved components [ ]."
         },
         {
           "heading": "DISTRIBUTION",
-          "body": "Upper/lower predominance: [ ]. Central/peripheral: [ ]. Costophrenic involvement: [ ]."
+          "body": "Actual count or justified extent estimate [ ]; every covered side/lobe/region and zonal/axial pattern [ ]; costophrenic, subpleural, mediastinal and fissural relation [ ]; variant/coverage/unevaluable extent [ ]; prior source comparison [ ]."
         },
         {
           "heading": "ASSOCIATED NODULES",
-          "body": "Nodules: [ ]. Cavitating nodules: [ ]. Distribution: [ ]."
+          "body": "Each source solid/cavitating, mural/intracystic or adjacent nodule/mass [ ]; actual cyst/airway/vessel relation [ ]; local site, extent, size/method and change [ ]; comparison/registration/source limits [ ]; concerning or indeterminate component [ ]."
         },
         {
           "heading": "BACKGROUND LUNG",
-          "body": "Ground glass: [ ]. Septa/fibrosis: [ ]."
+          "body": "Each covered regional ground glass, septal/reticular/fibrotic/emphysematous or airway finding [ ]; intervening tissue versus lesion [ ]; actual acquired inspiration/expiration/contrast source [ ]; differential and technical limits [ ]."
         },
         {
           "heading": "EXTRAPULMONARY CONTEXT",
-          "body": "Pneumothorax: [ ]. Other findings: [ ]. Prior change: [ ]."
+          "body": "Actual pleural pneumothorax/fluid or other complication [ ]; covered nodal/vascular/upper-abdominal finding [ ]; supplied smoking, autoimmune/infectious, genetic/tissue or other history/source/date [ ]; unavailable/uncovered systemic or functional evidence [ ]; prior change and communication [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 Cystic Lung Disease - Differential diagnosis",
+          "title": "Radiology Assistant cystic lung approach",
           "url": "https://radiologyassistant.nl/chest/cystic-lung-disease/analysis-of-cystic-lung-disease-1-1-1"
+        },
+        {
+          "title": "2026 original cystic lung CT pictorial review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13200743/"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.esophagus": {
     "reporting": {
@@ -3651,86 +3664,107 @@
   },
   "ra.hrct-lung": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-06",
       "protocol": [
-        "Review thin-section inspiratory CT; use expiratory or prone series when acquired and state their availability."
+        "Record actual volumetric/thin-section HRCT coverage, reconstruction, inspiratory adequacy and artefacts. Expiration, prone, contrast and serial studies are separate acquired sources only when performed.",
+        "Use source-resolved lobular/tissue and airway interfaces; named CT patterns differ from clinical, pathological, genetic and physiological conclusions. Do not substitute the orientation model for actual native disease anatomy."
       ],
       "checklist": [
         {
-          "label": "Dominant Pattern",
-          "detail": "Identify reticulation, ground glass, consolidation or nodules."
+          "label": "Dominant pattern",
+          "detail": "Describe every actual dominant and associated ground-glass, consolidative, nodular, reticular/cystic or other pattern with source-defined site, extent, tissue interfaces and quality."
         },
         {
           "label": "Distribution",
-          "detail": "Assess upper/lower, central/peripheral and lobular relationships."
+          "detail": "Record all covered side/lobe/segment and secondary-lobule/axial/pleural relationships with actual regional distribution and variant/coverage limits."
         },
         {
           "label": "Fibrosis",
-          "detail": "Assess architectural distortion, traction bronchiectasis and honeycombing."
+          "detail": "Describe each source fibrosis, distortion, traction airway, honeycomb and volume-loss component; separate the CT pattern from aetiological/multidisciplinary diagnosis."
         },
         {
-          "label": "Airways And Air Trapping",
-          "detail": "Assess airway disease and expiratory findings when obtained."
+          "label": "Airways and air trapping",
+          "detail": "Trace actual airway and regional mosaic changes; describe expiratory/prone findings only from those acquired phases with technique and source uncertainty."
         },
         {
-          "label": "Comparison And Context",
-          "detail": "Review progression and relevant pleural or systemic clues."
+          "label": "Comparison and context",
+          "detail": "Compare actual matching source sites and methods; report complications and supplied clinical/physiological context without inferring progression, pressure or function from a still."
         }
       ],
       "measurements": [
         {
           "name": "Extent and progression",
-          "method": "Describe distribution and reproducible extent compared with matching prior images.",
-          "pitfall": "Different inspiration levels can mimic interval change."
+          "method": "Record source method, actual covered regions, visual/quantitative basis, phase/calibration and uncertainty for any burden estimate; compare justified matching methods/sites.",
+          "pitfall": "Selected stills or a parent lung model do not supply full volumetric burden or calibrated serial change."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Dependent opacity and inadequate inspiration can mimic interstitial disease; honeycombing differs from clustered emphysematous spaces."
+        "Ground glass alone is not fibrosis, unique inflammation, infection or a specific histology. Motion, under-inspiration, window/reconstruction and partial volume may alter apparent pattern and thin tissue borders.",
+        "A representative still cannot establish whole-lung disease absence, burden or a microscopic lobular map. State mixed patterns, each actual region and unassessed coverage.",
+        "A CT UIP pattern does not equal idiopathic pulmonary fibrosis; secondary causes and multidisciplinary confidence matter. Honeycombing can overlap other fibrotic diseases; CT appearance is not the histological definition.",
+        "Do not assert no air trapping on an unperformed expiration or resolution on an unperformed prone scan. Air trapping/mosaicism alone does not uniquely diagnose HP; bronchiolocentric features can have other causes.",
+        "CT progression alone does not establish PPF. The named2022 definition uses at least two of symptoms/radiology/physiology within one year, no alternative explanation, in fibrotic ILD other than IPF. Preserve actual dates and sources; new acute opacity is not unique for exacerbation."
       ],
       "impression_prompts": [
-        "Basic HRCT patterns, common diagnoses and fibrotic lung disease.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "State source-supported dominant/mixed morphology, distribution, fibrotic features and coverage/quality limits.",
+        "Name a supported CT pattern with its reference/date and confidence; separate idiopathic/secondary or unclassifiable multidisciplinary diagnosis and missing sources.",
+        "Describe actual interval change and complications; apply named progression criteria only with the required dated radiological/clinical/physiological evidence."
       ],
-      "escalation": [],
+      "escalation": [
+        "Communicate actual acute respiratory/pleural/mediastinal complications through local clinical pathways; CT pattern alone does not establish physiological instability or treatment choice."
+      ],
       "template_sections": [
         {
           "heading": "DOMINANT PATTERN",
-          "body": "Dominant findings: [ ]. Associated patterns: [ ]."
+          "body": "Each actual dominant/secondary pattern and location [ ]; full obtained extent and source-resolved borders [ ]; nodules, septa, cystic/airspace/solid components [ ]; acquisition/window/motion/inspiration limits [ ]; differential and unassessed extent [ ]."
         },
         {
           "heading": "DISTRIBUTION",
-          "body": "Zonal/axial distribution: [ ]. Subpleural sparing: [ ]."
+          "body": "Covered side/lobe/actual segment/variant [ ]; basal/apical and axial/peripheral gradient [ ]; subpleural, peribronchovascular, perilobular, fissural/recess and source lobular relationships [ ]; nodular distribution model if justified [ ]; quality/burden estimate and coverage limits [ ]."
         },
         {
           "heading": "FIBROSIS",
-          "body": "Traction change: [ ]. Honeycombing: [ ]. Volume loss: [ ]."
+          "body": "Actual reticulation, architectural distortion/displacement, volume loss, traction bronchiectasis/bronchiolectasis and honeycomb or mimic [ ]; each site/extent/source uncertainty [ ]; CT pattern and named reference/date if supported [ ]; primary/secondary or unclassifiable differential and supplied multidisciplinary source/confidence [ ]."
         },
         {
           "heading": "AIRWAYS AND AIR TRAPPING",
-          "body": "Airways: [ ]. Mosaic attenuation: [ ]. Expiratory air trapping: [not assessed / finding]."
+          "body": "Actual airway lumen/wall/branch and artery/cyst relationship [ ]; mosaic/three-density distribution and differential [ ]; actually acquired inspiration/expiration/prone phase and source findings [ ]; unavailable phases, perfusion or dynamic/function evidence [ ]; regional quality limits [ ]."
         },
         {
           "heading": "COMPARISON AND CONTEXT",
-          "body": "Interval change: [ ]. Pleura/nodes: [ ]. Clinical-context clues: [ ]."
+          "body": "Prior matching source dates/sites/coverage and technique [ ]; actual radiological change and uncertainty [ ]; symptoms and physiological source/date/values if supplied [ ]; named progression definition/window/exclusion context if applied [ ]; actual pleural/mediastinal air/fluid, nodes/mass/vascular/covered systemic findings [ ]; acute alternatives and communication [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 HRCT - Basic Interpretation",
+          "title": "RA basic HRCT morphology",
           "url": "https://radiologyassistant.nl/chest/hrct/basic-interpretation"
         },
         {
-          "title": "Radiology Assistant \u2014 HRCT - Common diagnoses",
+          "title": "RA common differential",
           "url": "https://radiologyassistant.nl/chest/hrct/common-diseases"
         },
         {
-          "title": "Radiology Assistant \u2014 HRCT \u2013 Patterns of pulmonary fibrosis in ILD",
+          "title": "RA fibrosis pattern approach",
           "url": "https://radiologyassistant.nl/chest/hrct/fibrosis-of-the-lung-on-hrct-imaging"
+        },
+        {
+          "title": "ESR/ESTI practice recommendations",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11914337/"
+        },
+        {
+          "title": "Named2022 IPF/PPF definitions",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9851481/"
+        },
+        {
+          "title": "2025ERS/ATS multidisciplinary pattern terminology",
+          "url": "https://publications.ersnet.org/content/erj/66/6/2500158"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.ct-mediastinum": {
     "reporting": {
@@ -6663,6 +6697,108 @@
           "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10971453/"
         }
       ]
-    }
+    },
+    "key_images": []
+  },
+  "ra.chest-radiography": {
+    "reporting": {
+      "reviewed_at": "2026-10-07",
+      "protocol": [
+        "Confirm actually acquired views and source position, coverage, acquisition time and processing. Compare prior views with their own geometry/quality; missing lateral or other projections remain unavailable.",
+        "Review every covered central/peripheral/hidden interface systematically. Radiography is projection imaging: source silhouettes do not establish all native tissue boundaries, complete3D anatomy or clinical physiology."
+      ],
+      "checklist": [
+        {
+          "label": "Quality",
+          "detail": "Record actual source projection, position, acquisition/coverage and quality; distinguish technical limitations and artefacts from disease."
+        },
+        {
+          "label": "Airways and mediastinum",
+          "detail": "Inspect every covered airway, hilar, mediastinal and cardiac silhouette/interface with source projection limits; do not infer resolved chamber/wall anatomy or physiology from overlap."
+        },
+        {
+          "label": "Lungs",
+          "detail": "Describe each actual pulmonary opacity/lucency, vascular or volume-change pattern and covered regional extent; assess hidden and overlapping areas with appropriate uncertainty."
+        },
+        {
+          "label": "Pleura",
+          "detail": "Assess each actually visible pleural/diaphragmatic/recess interface and complication, with projection/position-dependent visibility and source limits."
+        },
+        {
+          "label": "Devices and review areas",
+          "detail": "Trace each actually present device and inspect all covered osseous/soft-tissue/upper-abdominal review regions; record full obtained route/tip/landmark relation and unresolved extent."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Cardiothoracic ratio",
+          "method": "Record actual cardiac/thoracic diameter method, acquired projection, position, inspiration and source calibration/uncertainty. Interpret only within a stated appropriate protocol.",
+          "pitfall": "AP/supine magnification and low inspiration do not supply a comparable standard PA ratio or measured cardiac function."
+        },
+        {
+          "name": "Device tip distance",
+          "method": "Use actual tip/port and named source landmark on a stated view/position with real calibration; record respiratory/temporal and overlap uncertainty.",
+          "pitfall": "A projected distance or single view does not prove full3D intraluminal course, intended device function or unchanged position."
+        }
+      ],
+      "classification": null,
+      "criteria_table": null,
+      "pitfalls": [
+        "Technical correction, crop or annotation removal can change source presentation; preserve original source and disclose processing. An unavailable or limited view is not an adequately assessed negative study.",
+        "CTR interpretation requires the actual method and projection; AP/supine magnification or poor inspiration must not be treated as standard PA size. Silhouette enlargement does not measure pressure, EF, shunt or establish a unique cause.",
+        "Consolidation, oedema, infection, haemorrhage, collapse and malignancy can overlap. Air bronchograms or projected volume-loss signs support a differential, not unique pathology or microscopic confirmation.",
+        "An inconspicuous pneumothorax/effusion on a limited/supine film is not exclusion. Do not derive an exact fluid volume, tension physiology or fluid chemistry from one projection. Free gas/urgent findings require actual source and clinical assessment.",
+        "No device or complication is asserted absent until actual covered sources are assessed. Projected tip distances require named landmarks, phase/position and calibration; lumen/wall/3D course and dynamic function may remain unresolved."
+      ],
+      "impression_prompts": [
+        "Describe actually supported source findings, regional extent, projection quality and unassessed interfaces.",
+        "State a supported differential and comparison limitations; separate morphology from clinical/physiological confirmation.",
+        "Report actual device/complication findings and appropriate source/context-dependent urgency."
+      ],
+      "escalation": [
+        "Communicate suspected urgent pneumothorax, free gas, device complication or acute cardiopulmonary findings through local clinical pathways; tension/instability depends on actual source and clinical assessment."
+      ],
+      "template_sections": [
+        {
+          "heading": "PROJECTION AND QUALITY",
+          "body": "Actual acquired views/projection/position/date [ ]; coverage, rotation, inspiration, exposure/penetration/motion and artefacts [ ]; source scaling/processing [ ]; effect on assessment and unavailable views [ ]."
+        },
+        {
+          "heading": "AIRWAYS AND CARDIOMEDIASTINUM",
+          "body": "Actual airway/carinal/hilar/mediastinal/cardiac contour and silhouette findings [ ]; named interface and obtained-view support [ ]; size method/projection/calibration and uncertainty [ ]; unresolved tissue or missing physiological/clinical confirmation [ ]."
+        },
+        {
+          "heading": "LUNGS",
+          "body": "Each actual covered region and opacity/lucency/nodule/mass/interstitial or vascular pattern [ ]; air bronchogram, volume/displacement and supported localisation [ ]; hidden apical/perihilar/retrocardiac/subdiaphragmatic regions [ ]; differential, comparison and technical limits [ ]."
+        },
+        {
+          "heading": "PLEURA AND DIAPHRAGM",
+          "body": "Each visible pleural/recess/fissural/diaphragmatic interface [ ]; source air/fluid/thickening or other component and projected extent [ ]; actual position/view and confidence [ ]; mimics, subdiaphragmatic gas and source/clinical urgency [ ]; unassessed extent [ ]."
+        },
+        {
+          "heading": "DEVICES AND BONES",
+          "body": "Each actually present device/type/route/tip/port and named landmarks [ ]; source date/view/position and calibrated distance if justified [ ]; possible complication and uncertainty [ ]; each covered bone/joint/soft-tissue/upper-abdominal finding [ ]; incomplete route or covered-region limits [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "RA systematic chest anatomy",
+          "url": "https://radiologyassistant.nl/chest/chest-x-ray/basic-interpretation"
+        },
+        {
+          "title": "RA projection-dependent heart failure signs",
+          "url": "https://radiologyassistant.nl/chest/chest-x-ray/heart-failure"
+        },
+        {
+          "title": "RA pulmonary patterns/localisation",
+          "url": "https://radiologyassistant.nl/chest/chest-x-ray/lung-disease"
+        },
+        {
+          "title": "Original radiograph quality-control study; text/processing limits only",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12127945/"
+        }
+      ]
+    },
+    "key_images": []
   }
 }
