@@ -37,6 +37,7 @@ CORRECTED = {
     'ra.mri-sinuses': 'sinuses',
     'ra.ct-temporal-bone': 'temporal',
     'ra.ct-mri-eye': 'orbit',
+    'ra.cervical-lymph-nodes': 'neck',
 }
 
 

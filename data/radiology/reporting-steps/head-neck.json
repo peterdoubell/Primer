@@ -6,89 +6,106 @@
       "steps": [
         {
           "label": "Nodal map",
-          "detail": "Assign side and nodal level using explicit anatomic boundaries and name the map used.",
+          "detail": "Assign every source node/group actual side and descriptive location using the explicitly named map/version, acquired boundaries and coverage limits.",
           "sections": [
             "NODAL MAP"
           ],
-          "look": "Axial contrast-enhanced images from skull base to clavicles; level boundaries: hyoid (II/III), cricoid (III/IV), posterior border of sternocleidomastoid (II–IV/V), submandibular gland (Ib).",
-          "normal": "No enlarged or morphologically abnormal cervical lymph nodes.",
+          "look": "Use actual acquired skull-base/lower-neck extent, planes and map-specific boundaries such as glands, muscles, hyoid, cricoid and vessels. Extended radiotherapy and surgical labels are not interchangeable; record descriptive location for every unassigned or differently defined region.",
+          "normal": {},
           "findings": [
-            "Suspicious nodes at right level [II] and [III].",
-            "Retropharyngeal node on the [left] (level VIIa of the radiotherapy map).",
-            "Parotid (level VIII) node on the [ ]."
+            "Every actual source side/descriptive group/node [ ]; map/version/level or unresolved assignment [ ].",
+            "Retropharyngeal/parotid/other source region [ ]; named convention and actual boundaries [ ]."
           ],
-          "images": [
-            "neck-nodes-image-1"
-          ],
+          "images": [],
           "landmark": "nodes",
-          "tip": "The surgical and radiotherapy node maps differ; name the map and describe the location in words as well."
+          "tip": "Name the map and version. A level number in one surgical/extended radiotherapy convention cannot silently become the same compartment in another; unknown boundaries remain unassigned."
         },
         {
           "label": "Index nodes",
-          "detail": "Describe number, distribution and the largest and most suspicious nodes with measurements.",
+          "detail": "Inventory actual covered nodes/components and distribution; index-node measurements do not replace all obtained nodal or non-nodal extent.",
           "sections": [
             "INDEX NODES"
           ],
-          "look": "Measure short axis and long axis on axial images; give series and image numbers.",
+          "look": "Trace every actual covered node/group and conglomerate component, including tiny or normal-sized but morphologically concerning nodes. Measure source-resolved local short/long axes with node identity, site, sequence/phase, calibration and comparison; selected index nodes do not quantify all burden.",
           "findings": [
-            "Node 1: right level IIa, __ mm short axis × __ mm long axis (series __ image __).",
-            "Multiple bilateral level II–IV nodes, largest __ mm."
+            "Each index node/component with actual identity/local axes/source measurement [ ].",
+            "Actual obtained distribution/coalescence and unresolved burden [ ]."
           ],
           "measurements": [
             "Nodal dimensions"
           ],
-          "landmark": "nodes"
+          "landmark": "nodes",
+          "normal": {},
+          "tip": "Small size or a preserved visible feature does not prove benignity or exclude microscopic metastasis. Size thresholds and index-node choices depend on the actual disease/level and source context.",
+          "images": [
+            "open-cervical-nodes-pmc10548228-fig5"
+          ]
         },
         {
           "label": "Nodal morphology",
-          "detail": "Assess necrosis, cystic change, calcification, shape, hilum and conglomeration.",
+          "detail": "Describe each source-resolved nodal margin/cortex/hilum/content and actual signal/contrast/diffusion or ultrasound findings with uncertainty and differential.",
           "sections": [
             "NODAL MORPHOLOGY"
           ],
-          "look": "Contrast-enhanced CT or MRI for necrosis; ultrasound for hilum and cortex.",
+          "look": "Inspect each actual source margin, cortical/hilar/content component, necrotic-appearing/cystic/calcific area and adjacent node. CT/MRI contrast/DWI/ADC, ultrasound cortex/hilum and Doppler are separate acquired sources; a permitted modality does not supply unperformed measurements or tissue identity.",
           "findings": [
-            "Central necrosis in the level [II] node.",
-            "Cystic node in an adult: metastasis (e.g., HPV-associated oropharyngeal or thyroid carcinoma) must be excluded.",
-            "Round node with loss of the fatty hilum.",
-            "Conglomerate nodal mass __ × __ × __ mm."
+            "Source cystic/necrotic-appearing/hilar/cortical/calcium or other component [ ]; differential and supplied tissue/assay information [ ].",
+            "Actual acquired contrast/DWI/ADC/US/Doppler details and unavailable source information [ ]."
           ],
           "measurements": [
             "Conglomerate extent"
           ],
           "landmark": "nodes",
-          "tip": "A cystic lateral neck mass in an adult is a metastasis until proven otherwise, not a branchial cyst."
+          "tip": "Cystic adult lateral-neck nodes/masses require an appropriate differential and clinical/tissue evaluation; neither benign congenital cyst nor unique metastatic/HPV/thyroid identity is established from morphology alone.",
+          "normal": {},
+          "images": [
+            "open-cervical-nodes-pmc10548228-fig5"
+          ]
         },
         {
           "label": "Extranodal extension and vessels",
-          "detail": "Describe irregular margins, infiltration of adjacent tissue and vascular involvement with confidence.",
+          "detail": "Trace source nodal-to-fat/adjacent-node/muscle/skin/gland/vascular interfaces; separate imaging suspicion from supplied pathological ENE and vascular function.",
           "sections": [
             "EXTRANODAL AND VASCULAR RELATIONSHIP"
           ],
-          "look": "Nodal margins, surrounding fat and muscle; carotid and internal jugular vein relationship.",
-          "normal": "No imaging signs of extranodal extension; vessels free.",
+          "look": "Assess all source-supported adjacent tissue and vascular contacts, fat-plane/capsular appearances, coalescent components and obtained extent. Record actual source technique, uncertainty and comparison. Contact/stranding or matting alone is not pathological ENE, vessel invasion, thrombosis, flow loss or surgical resectability.",
+          "normal": {},
           "findings": [
-            "Irregular nodal margin with infiltration of the sternocleidomastoid: extranodal extension suspected.",
-            "Carotid encasement over more than 270°.",
-            "Internal jugular vein compression / thrombosis."
+            "Source margin/adjacent tissue/vascular relation [ ]; imaging ENE suspicion and confidence [ ].",
+            "Actual carotid/venous contact/phase/source measurement and unassessed wall/patency/function [ ].",
+            "Pathological ENE if supplied [ ]; not established solely by imaging [ ]."
           ],
-          "landmark": "carotids"
+          "landmark": "carotids",
+          "tip": "Imaging-detected ENE is distinct from pathological ENE. Use actual applicability and source criteria with confidence; post-treatment inflammation, unresolved borders and vessel contact require explicit limits.",
+          "images": [
+            "open-cervical-nodes-pmc10548228-fig5"
+          ]
         },
         {
           "label": "Primary site and staging pathway",
-          "detail": "Review mucosal, thyroid and salivary sites and name the primary-specific staging system.",
+          "detail": "Review actual covered primary-site/airway/other tissue and supplied clinical/tissue/assay/staging context; morphology alone does not identify a primary, organism or molecular category.",
           "sections": [
             "PRIMARY AND ADDITIONAL FINDINGS"
           ],
-          "look": "Pharyngeal mucosa, tonsils, tongue base, larynx, thyroid and salivary glands.",
-          "normal": "No primary lesion identified in the mucosal, thyroid or salivary sites.",
+          "look": "Review only actually covered mucosal/tonsillar/tongue-base/laryngeal, thyroid/salivary and other source sites. Record supplied primary/treatment/surgery/biopsy/HPV or other assay dates separately. Any staging system/version/category needs the confirmed applicable clinical/tissue context and all required source findings.",
+          "normal": {},
           "findings": [
-            "Asymmetric tonsillar mass on the [right], compatible with the primary site.",
-            "Unknown primary: [ ].",
-            "Airway compromise at [ ]."
+            "Every covered primary-site/airway/other tissue finding and unassessed extent [ ].",
+            "Supplied primary/assay/treatment evidence and applicable staging system/version [ ]; unresolved components [ ]."
           ],
-          "landmark": "pharynx"
+          "landmark": "pharynx",
+          "tip": "Absent visible primary in limited imaging is not exclusion of an occult primary. Assay/organism/histology and primary-specific stage are supplied evidence, not geometry or generic nodal patterns.",
+          "images": []
         }
-      ]
+      ],
+      "model": {
+        "family": "neck",
+        "reporting_aim": "Partial neck orientation only. This schematic does not supply every native patient node/level boundary, cortex/hilum/capsule or extranodal/vascular interface, microscopic metastasis, primary/assay identity, stage or flow. Actual acquired sources and unassessed anatomy remain explicit."
+      },
+      "start": {
+        "images": [],
+        "module_illustrations": false
+      }
     },
     "ra.mri-neck-spaces": {
       "steps": [
