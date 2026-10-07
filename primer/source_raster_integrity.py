@@ -28,7 +28,8 @@ def verified_raster_header(image, root, data_dir):
         if hashlib.sha256(raw).hexdigest() != image['sha256']:
             raise ValueError('Source raster changed after source review')
         if 'source_bytes_md5' in image and hashlib.md5(raw).hexdigest() != image['source_bytes_md5']:
-            raise ValueError('Source raster MD5 changed after source review')
+            label = 'ND reference' if image.get('license') == 'CC BY-ND 4.0' else 'Source raster'
+            raise ValueError(label + ' original MD5 changed after source review')
         return raw[:24]
     # Only the configured radiology raster CDN can use this release inventory.
     # Provenance JSON and all other source directories still require local bytes.
