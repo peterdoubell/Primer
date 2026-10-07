@@ -41,6 +41,7 @@ CORRECTED = {
     'ra.ultrasound-thyroid': 'neck',
     'ra.mri-trigeminal': 'trigeminal',
     'ra.mri-neck-spaces': 'neck',
+    'ra.head-neck-malignancy': 'neck',
 }
 
 

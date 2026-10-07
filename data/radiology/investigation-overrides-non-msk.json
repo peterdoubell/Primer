@@ -4188,30 +4188,31 @@
   },
   "ra.head-neck-malignancy": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-07",
       "protocol": [
-        "Define examination coverage and review mucosal, salivary or deep-space lesion extent on contrast imaging as available."
+        "Record actual MRI/CT coverage, planes/sampling, motion/artifact, bone/soft-tissue reconstructions, paired DWI/ADC and pre/postcontrast sources if acquired. Ultrasound, PET, functional studies and pathology remain separately identified sources.",
+        "Record actual symptom/site, supplied tissue/primary/assays and dates, treatment and comparison. A source suspicion framework is not a universal tumour stage or unique pathology classifier."
       ],
       "checklist": [
         {
-          "label": "Primary Site",
-          "detail": "Identify the lesion epicentre and dimensions."
+          "label": "Primary and components",
+          "detail": "Inventory every actual obtained primary/other lesion and source epicentre/subsite/component, with identity, dimensions, technique and unresolved extent."
         },
         {
-          "label": "Local Invasion",
-          "detail": "Inspect adjacent fat planes, muscle, bone and cartilage."
+          "label": "Local tissue interfaces",
+          "detail": "Trace each actual lesion-to-mucosa/fat/muscle/gland/bone/cartilage interface, distinguishing source suspicion from supplied tissue diagnosis or microscopic invasion."
         },
         {
-          "label": "Perineural Spread",
-          "detail": "Review relevant neural pathways and skull base foramina."
+          "label": "Neural and skull-base routes",
+          "detail": "Map every source-supported neural/foraminal/skull-base connection and actual division/branch, with acquired coverage and uncertainty."
         },
         {
-          "label": "Vascular And Airway Relationships",
-          "detail": "Assess vessel encasement and airway compromise."
+          "label": "Vascular airway and visceral interfaces",
+          "detail": "Trace each actual vessel/airway/visceral contact and source morphology; vessel invasion, patency, clinical airway or swallowing function require corresponding evidence."
         },
         {
-          "label": "Nodes And Other Sites",
-          "detail": "Map regional nodes and additional lesions."
+          "label": "Nodes and other acquired sites",
+          "detail": "Inventory every actual acquired node/group/component and other covered lesion; source morphology, imaging ENE and supplied pathology/assays/stage remain separate domains."
         }
       ],
       "measurements": [
@@ -4224,7 +4225,11 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A single imaging feature does not determine histology; describe the combination suggesting malignancy."
+        "A generic primary-site icon or selected slice does not establish every component or lesion extent. Retained secretions and tumour are not separated reliably by a universal T2/enhancement rule.",
+        "Destruction can have a nonmalignant differential; remodelling is not proof of benignity. Contact or absent visible fat plane alone is not microscopic invasion or unique tissue identity.",
+        "Perineural imaging suspicion is distinct from supplied microscopic invasion. Fat-space loss/enhancement has a differential, and unacquired nerve branches remain unassessed.",
+        "Contact or a measured encasement arc is not a stand-alone diagnosis of vascular invasion, thrombosis, resectability or airway function.",
+        "Small/cystic nodes do not exclude metastasis or establish a congenital benign cyst. Histology, assays, primary-specific stage and clinical actions require their actual applicable sources."
       ],
       "impression_prompts": [
         "Imaging features that raise concern for malignancy in head and neck lesions.",
@@ -4234,29 +4239,45 @@
       "template_sections": [
         {
           "heading": "PRIMARY SITE",
-          "body": "Site/subsite: [ ]. Dimensions: [ ]."
+          "body": "Each actual lesion identity/subsite/side/epicentre and component [ ]; actual source orthogonal dimensions/planes/calibration [ ]; other obtained lesions, comparison and unresolved extent [ ]."
         },
         {
           "heading": "LOCAL INVASION",
-          "body": "Soft tissue invasion: [ ]. Bone/cartilage: [ ]."
+          "body": "Every actual mucosal/fat/muscle/gland/bone/cartilage interface [ ]; acquired MRI or bone CT appearances and confidence [ ]; contact versus supported extension and differential [ ]; unassessed/microscopic extent and supplied tissue evidence [ ]."
         },
         {
           "heading": "PERINEURAL SPREAD",
-          "body": "Nerve pathway: [ ]. Foraminal/skull base findings: [ ]."
+          "body": "Every actual obtained neural route/branch/foramen/ganglion/dural connection [ ]; source signal/enhancement/size/fat-space findings and uncertainty [ ]; uncovered course and supplied pathological context [ ]."
         },
         {
           "heading": "VASCULAR AND AIRWAY RELATIONSHIPS",
-          "body": "Vessel contact/encasement: [ ]. Airway: [ ]."
+          "body": "Each source vessel/contact/encasement/deformation and acquired sequence/phase [ ]; source airway/visceral wall/lumen interface [ ]; actual clinical/flow/swallowing evidence and uncertainty [ ]; unexamined extent [ ]."
         },
         {
           "heading": "NODES AND OTHER SITES",
-          "body": "Nodal levels/side/morphology: [ ]. Extranodal extension concern: [ ]. Other sites: [ ]."
+          "body": "Every acquired named nodal region/node/component/side/source dimensions [ ]; cortical/hilar/capsular/perinodal and imaging ENE findings [ ]; other obtained sites [ ]; supplied biopsy/pathological ENE/assay/primary-specific staging version and unresolved components [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 Head Neck tumors - When to think of malignancy",
+          "title": "RA head/neck tumour reporting",
           "url": "https://radiologyassistant.nl/head-neck/neck-masses/head-neck-tumors"
+        },
+        {
+          "title": "Salivary anatomy/source review (restricted graphics)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6251248/"
+        },
+        {
+          "title": "Salivary tumour source review (restricted graphics)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6251244/"
+        },
+        {
+          "title": "Source high-field parotid MRI study",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11719534/"
+        },
+        {
+          "title": "Source cranial nerve imaging overview",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6420596/"
         }
       ]
     }
