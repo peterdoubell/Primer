@@ -86,7 +86,7 @@ def build_report(scope,curriculum=None):
     evidence=json.loads((data/'msk-asset-evidence.json').read_text())
     extra_path=data/'radiology-asset-evidence.json'
     extra_evidence=json.loads(extra_path.read_text()) if extra_path.exists() else {'assets':[]}
-    all_evidence={'assets':evidence['assets']+extra_evidence['assets']}
+    all_evidence={'assets':evidence['assets']+extra_evidence['assets'],'reference_rights_assets':extra_evidence.get('reference_rights_assets',[])}
     if len({a['id'] for a in all_evidence['assets']}) != len(all_evidence['assets']):
         raise ValueError('Repeated asset identifier across radiology evidence inventories')
     catalog=radiology_catalog.catalogue()

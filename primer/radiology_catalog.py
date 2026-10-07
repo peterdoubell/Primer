@@ -39,6 +39,7 @@ def _text(value, message):
 SOURCE_REFERENCE_ATLASES = {'liu-lumbosacral-sub03': 'lumbosacral-neural', 'verse521': 'thoracolumbar-source', 'massp2-subcortex': 'brain-subcortex', 'bodyparts3d': 'brain'}
 SOURCE_REFERENCE_ATLASES['hvsmr2-pat7'] = 'cardiac-venous-source'
 SOURCE_REFERENCE_ATLASES['nasalseg-p001'] = 'sinonasal-source'
+SOURCE_REFERENCE_ATLASES['openear-zeta'] = 'temporal-source'
 
 
 @lru_cache(maxsize=1)

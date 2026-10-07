@@ -6912,5 +6912,201 @@
       ]
     },
     "key_images": []
+  },
+  "ra.ct-temporal-bone": {
+    "reporting": {
+      "protocol": [
+        "Record actual CT sampling/reconstruction/planes/coverage, artifact and comparison. Thin-bone, contrast, MRI IAC/inner-ear, DWI/ADC or vascular information are only used when actually acquired or supplied.",
+        "Record actual side, supplied hearing/otoscopic symptoms, trauma, surgery/device details and dates. Morphology is distinct from tissue diagnosis, hearing/neural function, flow or complete native anatomy."
+      ],
+      "checklist": [
+        {
+          "label": "External/middle ear",
+          "detail": "Describe each covered canal, membrane, ossicular component/joint, middle-ear compartment and source lesion with actual side, extent and resolution limits."
+        },
+        {
+          "label": "Mastoid and tegmen",
+          "detail": "Assess every covered mastoid cell/septum, aditus/antrum, tegmen and cortical interface; separate opacification from source-supported destruction or complication."
+        },
+        {
+          "label": "Inner ear",
+          "detail": "Trace actual cochlear, vestibular, semicircular, window and aqueduct anatomy with source-resolved bone versus unassessed membranous/neural structures."
+        },
+        {
+          "label": "Critical channels",
+          "detail": "Describe each acquired facial/neurovascular canal and adjacent ear interface, variant or defect; a visible bony channel does not establish nerve tissue, vascular flow or integrity."
+        },
+        {
+          "label": "Trauma/postoperative",
+          "detail": "Map every focal lesion, actual fracture course, postoperative change and device component; report acquired source support, extent, artifact and unresolved relationships."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Soft tissue/erosion",
+          "method": "Measure each source-resolved lesion/component on actual named orthogonal/local axes with sequence/window, source calibration and obtained extent; map each involved recess/wall rather than a single generic size.",
+          "pitfall": "Opacification, erosion or enhancement is not unique histology; selected stills do not establish full extent or postoperative tissue identity."
+        },
+        {
+          "name": "Bony defect",
+          "method": "State actual acquired thin-bone source, named defect/canal/aqueduct site, appropriate orthogonal/reformat planes, edge convention, calibration and uncertainty.",
+          "pitfall": "Partial volume, artifact, normal variant and prior surgical removal can mimic defects; an unresolved edge cannot yield a normal or dehiscent classification."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Middle-ear soft tissue and scutum/ossicular change support a differential but do not alone prove cholesteatoma or unique tissue identity. Clinical/otoscopic and acquired MRI evidence remain separate.",
+        "Mastoid opacification alone is not proof of coalescent infection. Destruction, extraskeletal extension and adjacent complication need source/clinical support; prior surgery can change expected margins.",
+        "Thin bone and partial volume can mimic canal or roof defects. A canal/aqueduct measurement needs its named site, plane, edge convention and calibration; unassessed membranous or neural anatomy stays unresolved.",
+        "Suspected exposed/aberrant vascular structures require source-specific characterization and appropriate clinical communication. CT canal shape alone does not establish vessel patency, flow or nerve function.",
+        "CT opacification cannot reliably distinguish all postoperative tissue. Actual non-EPI or suitable multi-shot DWI and anatomical MRI are distinct acquired evidence; small lesions/artifact and mimics limit negative and positive interpretations. Exact electrode scala or insertion extent is not assumed when unresolved."
+      ],
+      "impression_prompts": [
+        "Describe actual supported compartment/lesion/device anatomy, full obtained extent and source limitations.",
+        "Separate morphology and differential from supplied tissue/clinical confirmation; identify unresolved critical interfaces and unperformed MRI/vascular information.",
+        "Report relevant source-supported complications/variants and communicate according to actual clinical context and local pathways."
+      ],
+      "escalation": [
+        "Promptly communicate otic-capsule/vascular canal injury, intracranial infectious extension or destructive complication."
+      ],
+      "template_sections": [
+        {
+          "heading": "EXTERNAL AND MIDDLE EAR",
+          "body": "Actual side/coverage and canal/membrane findings [ ]; each source-resolved ossicular component/joint [ ]; epitympanic/mesotympanic/hypotympanic/recess extent [ ]; scutum/walls [ ]; soft tissue or erosion with differential [ ]; source resolution/artifact and unassessed structures [ ]."
+        },
+        {
+          "heading": "MASTOID AND TEGMEN",
+          "body": "Every covered mastoid/antral/aditus region and cell/septum [ ]; source content/aeration [ ]; tegmen/cortical boundary, surgical removal or suspected defect [ ]; adjacent dural/venous/soft-tissue relation [ ]; source uncertainty and uncovered extent [ ]."
+        },
+        {
+          "heading": "INNER EAR",
+          "body": "Actual cochlear turns/vestibule/canals/crura/ampullae, otic capsule and windows [ ]; aqueduct course/measurement source if supported [ ]; actual CT/reformat planes/resolution [ ]; acquired MRI fluid/neural source if supplied [ ]; variants/lesion and unresolved extent [ ]."
+        },
+        {
+          "heading": "NEUROVASCULAR CHANNELS",
+          "body": "Each covered facial canal segment/geniculate region and IAC [ ]; carotid/jugular/sigmoid bony and adjacent tissue interfaces [ ]; source-supported variants/defects or uncertainty [ ]; actual vascular/neural MRI/contrast source if acquired [ ]; unassessed tissue, flow and integrity [ ]."
+        },
+        {
+          "heading": "FOCAL LESION, TRAUMA OR DEVICE",
+          "body": "Each source lesion/component and full obtained extent [ ]; acquired MRI sequence/contrast/non-EPI or multi-shot DWI/ADC if available [ ]; actual fracture course and ear/neurovascular/intracranial relations [ ]; supplied surgery/device type and every resolved component [ ]; implant/artifact/scala or endpoint uncertainty [ ]; clinical/otoscopic comparison and unassessed extent [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "RA temporal anatomy1",
+          "url": "https://radiologyassistant.nl/head-neck/temporal-bone/anatomy"
+        },
+        {
+          "title": "RA temporal anatomy2",
+          "url": "https://radiologyassistant.nl/head-neck/temporal-bone/anatomy-2-0"
+        },
+        {
+          "title": "RA temporal pathology",
+          "url": "https://radiologyassistant.nl/head-neck/temporal-bone/pathology"
+        },
+        {
+          "title": "ESHNR middle-ear cholesteatoma recommendations",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11913933/"
+        }
+      ],
+      "reviewed_at": "2026-10-07"
+    },
+    "key_images": []
+  },
+  "ra.ct-mri-eye": {
+    "reporting": {
+      "protocol": [
+        "Record actual CT/MRI planes, sampling, coverage, contrast phases, DWI/ADC, artifacts and comparisons. Bone, soft-tissue, vascular and quantitative information are only used when actually acquired or supplied.",
+        "Record actual side, age/population, symptoms/vision/motility, trauma/surgery/implant and applicable MRI safety assessment. A static image/model cannot supply physiological state, tissue identity or complete anatomy."
+      ],
+      "checklist": [
+        {
+          "label": "Compartment",
+          "detail": "Localise every actual lesion/collection to its obtained preseptal, extraconal, conal, intraconal or other compartment and trace source boundaries/relationships."
+        },
+        {
+          "label": "Globe",
+          "detail": "Describe each actually covered globe, lens, intraocular and preseptal component with source side, extent, technique and uncertainty."
+        },
+        {
+          "label": "Muscles and nerve",
+          "detail": "Review each source-resolved extraocular muscle/tendon and optic nerve/sheath component; morphology does not alone establish endocrine/inflammatory/neoplastic identity or function."
+        },
+        {
+          "label": "Apex and extension",
+          "detail": "Trace actual acquired orbital-apical, canal/foraminal, cavernous, neural/vascular and intracranial interfaces; uncovered or unresolved extent remains unassessed."
+        },
+        {
+          "label": "Bone and infection",
+          "detail": "Describe each source-supported orbital wall/defect, herniated tissue and adjacent sinus/collection relation; imaging configuration is distinct from clinical entrapment or infection causality."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Lesion/collection",
+          "method": "Measure each source-resolved component on actual named local/orthogonal axes with source calibration, sequence/phase/window and obtained extent; trace surrounding interfaces and uncertainty.",
+          "pitfall": "Selected stills do not establish full lesion extent or microscopic boundaries; signal/enhancement alone is not unique diagnosis."
+        },
+        {
+          "name": "Proptosis comparison",
+          "method": "If supported, state each globe measurement on the same defined source reference plane with alignment, landmark/edge convention, calibration and uncertainty; actual comparable acquisitions are required.",
+          "pitfall": "Rotation, asymmetry, differing planes and prior surgery can change apparent position. Position alone does not establish pressure, visual function or a clinical syndrome."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Record actual MRI safety assessment/clearance when metallic foreign material is a concern; no model or teaching image clears a patient for MRI. Source contour change or material appearance needs appropriate clinical/ophthalmic correlation.",
+        "Static enhancement, DWI brightness and compartment location do not uniquely establish abscess, vascular lesion or tumour. Quantitative diffusion and time-dependent filling need their actual acquired ADC/phase sources.",
+        "Muscle/tendon and optic nerve/sheath patterns overlap across conditions. Imaging displacement, thickening or enhancement does not by itself measure vision, motility, optic neuropathy or a unique tissue diagnosis.",
+        "Apparent apical crowding or venous change must be communicated in actual source/clinical context. Unassessed canal, cavernous or intracranial regions cannot become negative extension or vascular-patency statements.",
+        "A muscle near or through a fracture is not proof of clinical entrapment. Sinus opacification does not alone prove the cause of an orbital process; trace actual supported interfaces and limits."
+      ],
+      "impression_prompts": [
+        "Describe actual source-supported compartment/structure involvement and full obtained extent with limitations.",
+        "Separate differential and suspected complication from supplied tissue/clinical confirmation; identify every unresolved or unassessed critical interface.",
+        "Communicate source-supported vision-risk/traumatic/infectious/vascular concerns according to actual clinical context and local pathways."
+      ],
+      "escalation": [
+        "Immediately communicate suspected globe rupture, orbital compartment syndrome pattern or orbital-apical/intracranial infection."
+      ],
+      "template_sections": [
+        {
+          "heading": "GLOBES AND PRESEPTAL TISSUES",
+          "body": "Actual side and source globe contour/lens/intraocular components [ ]; each source-supported retinal/choroidal/vitreous finding or unresolved layer [ ]; preseptal tissue and foreign material [ ]; actual MRI safety assessment if applicable [ ]; source planes/resolution/artifact and unassessed extent [ ]."
+        },
+        {
+          "heading": "ORBITAL COMPARTMENTS",
+          "body": "Every actual lesion/collection/component and obtained compartment/extent [ ]; source-resolved margin and globe/muscle/nerve/wall relationships [ ]; actual sequence/contrast phase and DWI/ADC if acquired [ ]; local calibrated measurements and proptosis reference method [ ]; differential and unassessed extent [ ]."
+        },
+        {
+          "heading": "MUSCLES AND OPTIC NERVES",
+          "body": "Each actual muscle belly/tendon/insertion [ ]; optic nerve/sheath and source signal/enhancement [ ]; source-supported displacement/compression or uncertainty [ ]; acquired technique/resolution and uncovered extent [ ]; supplied clinical visual/motility information kept separate [ ]."
+        },
+        {
+          "heading": "APEX AND INTRACRANIAL EXTENT",
+          "body": "Every obtained orbital-apical/canal/fissure/cavernous/neural/vascular/intracranial route [ ]; source-supported contact/continuity/encasement or unresolved interface [ ]; actual contrast/diffusion/vascular technique if acquired [ ]; missing sequences, artifact and unassessed extent [ ]."
+        },
+        {
+          "heading": "BONES AND SINUSES",
+          "body": "Every source-supported orbital wall/fracture/defect and acquired bone planes [ ]; each herniated component/connection [ ]; adjacent sinus/collection and supported extension relation [ ]; surgical/variant/artifact limits [ ]; clinical entrapment/motility and infectious context if supplied [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "RA eye/orbit CT/MRI",
+          "url": "https://radiologyassistant.nl/head-neck/orbita/pathology"
+        },
+        {
+          "title": "2025 paediatric orbital lesion review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11893699/"
+        },
+        {
+          "title": "Orbital MRI source review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6095049/"
+        }
+      ],
+      "reviewed_at": "2026-10-07"
+    },
+    "key_images": []
   }
 }
