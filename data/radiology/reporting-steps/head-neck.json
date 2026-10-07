@@ -329,90 +329,102 @@
       "steps": [
         {
           "label": "Primary site",
-          "detail": "Identify the lesion epicentre, subsite and dimensions.",
+          "detail": "Inventory every actual obtained primary/other lesion and source epicentre/subsite/component, with identity, dimensions, technique and unresolved extent.",
           "sections": [
             "PRIMARY SITE"
           ],
-          "look": "Contrast-enhanced MRI or CT; separate tumour from retained secretions on T2 and post-contrast images.",
+          "look": "Review actual acquired MRI/CT coverage and every mucosal, glandular, deep-space or other lesion, including solid/fluid/necrotic-appearing/secretory components. Name the source identity/subsite, comparative planes and calibrated dimensions; unknown extent remains unassessed.",
           "findings": [
-            "Mass in the [ ] measuring __ × __ × __ mm.",
-            "Enhancing tumour separate from T2-bright retained secretions in the obstructed sinus."
+            "Actual acquired primary site findings [ ]; source/side/subsite/interface [ ]; confidence and unavailable evidence [ ]."
           ],
           "images": [
-            "ra-head-neck-malignancy-source-2"
+            "open-parotid-pmc11719534-fig1",
+            "open-parotid-pmc11719534-fig2",
+            "open-parotid-pmc11719534-fig3"
           ],
           "measurements": [
             "Primary and nodal extent"
           ],
           "landmark": "pharynx",
-          "tip": "On MRI, retained secretions are T2-bright and non-enhancing; tumour is intermediate and enhances."
+          "tip": "A generic primary-site icon or selected slice does not establish every component or lesion extent. Retained secretions and tumour are not separated reliably by a universal T2/enhancement rule.",
+          "normal": {}
         },
         {
           "label": "Growth pattern and local invasion",
-          "detail": "Inspect fat planes, muscle, bone and cartilage, and whether growth is expansile or destructive.",
+          "detail": "Trace each actual lesion-to-mucosa/fat/muscle/gland/bone/cartilage interface, distinguishing source suspicion from supplied tissue diagnosis or microscopic invasion.",
           "sections": [
             "LOCAL INVASION"
           ],
-          "look": "Bone windows on CT; T1 marrow signal on MRI.",
+          "look": "Trace actual local interfaces on MRI and appropriate source bone CT if obtained. Use T1/T2, paired DWI/ADC and pre/postcontrast sources with limits. Secretions, blood, cystic or necrotic material and tumour have variable appearances; do not label each from a single signal rule.",
           "findings": [
-            "Destructive bone erosion (aggressive growth pattern).",
-            "Smooth expansile remodelling (slow-growing lesion).",
-            "Invasion of the [pterygoid muscles / orbit / cartilage]."
+            "Actual acquired growth pattern and local invasion findings [ ]; source/side/subsite/interface [ ]; confidence and unavailable evidence [ ]."
           ],
           "images": [
-            "ra-head-neck-malignancy-source-1"
+            "open-parotid-pmc11719534-fig1",
+            "open-parotid-pmc11719534-fig2",
+            "open-parotid-pmc11719534-fig3"
           ],
           "landmark": "spaces",
-          "tip": "Bone destruction suggests malignancy; smooth remodelling suggests a slow benign process such as a mucocele."
+          "tip": "Destruction can have a nonmalignant differential; remodelling is not proof of benignity. Contact or absent visible fat plane alone is not microscopic invasion or unique tissue identity.",
+          "normal": {}
         },
         {
           "label": "Perineural spread",
-          "detail": "Review neural pathways and skull-base foramina for spread.",
+          "detail": "Map every source-supported neural/foraminal/skull-base connection and actual division/branch, with acquired coverage and uncertainty.",
           "sections": [
             "PERINEURAL SPREAD"
           ],
-          "look": "Pterygopalatine fossa, foramen rotundum and ovale, Meckel cave; fat-suppressed post-contrast MRI.",
-          "normal": "No perineural spread.",
+          "look": "Trace every obtained cranial/peripheral nerve and actual foraminal/ganglion/CSF/dural interface relevant to the source lesion, including facial/trigeminal and other acquired routes. Record thickening/enhancement/fat-space changes and uncertainty; missing distal coverage is not absent disease.",
+          "normal": {},
           "findings": [
-            "Obliteration of fat in the pterygopalatine fossa with enhancement along V2.",
-            "Enlargement and enhancement of the [ ] nerve through the foramen [ ]."
+            "Actual acquired perineural spread findings [ ]; source/side/subsite/interface [ ]; confidence and unavailable evidence [ ]."
           ],
           "landmark": "spaces",
-          "tip": "Loss of fat in the pterygopalatine fossa is an early sign of perineural spread."
+          "tip": "Perineural imaging suspicion is distinct from supplied microscopic invasion. Fat-space loss/enhancement has a differential, and unacquired nerve branches remain unassessed.",
+          "images": []
         },
         {
           "label": "Vessels and airway",
-          "detail": "Assess vessel encasement and airway compromise.",
+          "detail": "Trace each actual vessel/airway/visceral contact and source morphology; vessel invasion, patency, clinical airway or swallowing function require corresponding evidence.",
           "sections": [
             "VASCULAR AND AIRWAY RELATIONSHIPS"
           ],
-          "look": "Carotid arteries and internal jugular veins; airway calibre.",
-          "normal": "No vascular encasement or airway compromise.",
+          "look": "Review actual carotid/jugular/other vessel source course and each contact/encasement/deformation, with phase/calibration/flow limitations. Inspect each obtained pharyngeal/laryngeal/tracheal/esophageal interface and actual lumen/morphology; static narrowing is not a functional measurement.",
+          "normal": {},
           "findings": [
-            "Carotid encasement of more than 270°.",
-            "Airway narrowed to __ mm."
+            "Actual acquired vessels and airway findings [ ]; source/side/subsite/interface [ ]; confidence and unavailable evidence [ ]."
           ],
-          "landmark": "carotids"
+          "landmark": "carotids",
+          "tip": "Contact or a measured encasement arc is not a stand-alone diagnosis of vascular invasion, thrombosis, resectability or airway function.",
+          "images": []
         },
         {
           "label": "Nodes and other sites",
-          "detail": "Map regional nodes by level and look for additional lesions.",
+          "detail": "Inventory every actual acquired node/group/component and other covered lesion; source morphology, imaging ENE and supplied pathology/assays/stage remain separate domains.",
           "sections": [
             "NODES AND OTHER SITES"
           ],
-          "look": "Nodal levels I–V and retropharyngeal nodes.",
-          "normal": "No suspicious nodes; no second lesion.",
+          "look": "Review all actually acquired named nodal regions and every relevant node/component, source local axes and cortical/hilar/capsular/perinodal findings. Map every other covered site separately. Supplied clinical primary, biopsy/pathological ENE, HPV/other assays and staging applicability/version are not inferred from geometry.",
+          "normal": {},
           "findings": [
-            "Necrotic level [II] node __ mm.",
-            "Cystic node from HPV-associated oropharyngeal carcinoma.",
-            "Second primary in the [ ]."
+            "Actual acquired nodes and other sites findings [ ]; source/side/subsite/interface [ ]; confidence and unavailable evidence [ ]."
           ],
           "measurements": [
             "Primary and nodal extent"
           ],
-          "landmark": "nodes"
+          "landmark": "nodes",
+          "tip": "Small/cystic nodes do not exclude metastasis or establish a congenital benign cyst. Histology, assays, primary-specific stage and clinical actions require their actual applicable sources.",
+          "images": []
         }
-      ]
+      ],
+      "model": {
+        "family": "neck",
+        "reporting_aim": "Partial head/neck orientation only. This schematic does not represent every native primary/subsite, gland/duct/internal component, nerve/vessel/wall, nodal cortex/hilum/capsule or tumour interface. Source extent, tissue/assays/staging applicability and function remain separate."
+      },
+      "start": {
+        "images": [],
+        "module_illustrations": false
+      }
     },
     "ra.ct-mri-eye": {
       "steps": [
