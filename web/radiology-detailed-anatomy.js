@@ -10,6 +10,7 @@
     "cervical-bones": "/app/anatomy/msk-cervical/",
     "massp2-subcortex": "/app/anatomy/massp2-subcortex/",
     "hvsmr2-pat7": "/app/anatomy/hvsmr2-pat7/",
+    "nasalseg-p001": "/app/anatomy/nasalseg-p001/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
@@ -17,6 +18,7 @@
     cervical: [150, 157],
     "brain-subcortex": [-25, 35],
     "cardiac-venous-source": [-69.42072296142578, 86.83314514160156],
+    "sinonasal-source": [-566, -488],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],
@@ -756,7 +758,7 @@
             (region.side === "right" ? "Right side" : region.side) +
             " · " +
             viewOrientation(state);
-          cropStatus.textContent = state.cropped ? (view?.cropLabel || (view ? "Whole-foot region" : "Cropped to region")) : "Uncropped source";
+          cropStatus.textContent = state.cropped ? (view?.cropLabel || (view ? "Whole-foot region" : "Cropped to region")) : (region.uncropped_label || "Uncropped source");
           const focus = state.selected ? [state.selected] : state.highlight;
           for (const [id, el] of labels) {
             el.setAttribute("aria-pressed", String(focus.includes(id)));
