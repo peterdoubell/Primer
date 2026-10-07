@@ -40,6 +40,7 @@ SOURCE_REFERENCE_ATLASES = {'liu-lumbosacral-sub03': 'lumbosacral-neural', 'vers
 SOURCE_REFERENCE_ATLASES['hvsmr2-pat7'] = 'cardiac-venous-source'
 SOURCE_REFERENCE_ATLASES['nasalseg-p001'] = 'sinonasal-source'
 SOURCE_REFERENCE_ATLASES['openear-zeta'] = 'temporal-source'
+SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
 
 
 @lru_cache(maxsize=1)

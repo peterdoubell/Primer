@@ -1,0 +1,13 @@
+# Partial native-source thyroid reader reference
+
+The thyroid reporting reader now offers the eight original reviewed s0358 CT label interfaces from TotalSegmentator v3.0.0. All 52,040 original triangles remain. Source float64 positions are retained in the independent review artifacts; float32 runtime positions were read back against them with maximum transport error below 0.00004 source units. Original face bytes, source hashes and open-edge counts are checked independently by the transport test.
+
+The two disconnected thyroid components are retained without an invented isthmus. Both common-carotid surfaces keep 22 boundary edges at the source volume boundary. No smoothing, repair, capping, decimation, class merging or component removal is added. Source RAS sform is displayed using the existing RAS transform; camera labels explicitly refer to source coordinates because independent patient orientation is unverified.
+
+This 1.5 mm dataset grid does not independently resolve every capsule, nodule, tiny vessel, parathyroid, nerve, lymph node, lumen or lesion interface required by thyroid reporting. Source CT does not supply ultrasound echogenicity, Doppler, physiological function, tissue diagnosis or registration with published ultrasound examples. The source metadata identifies age 90.00/female and a ct pelvis/trauma/abdomen study, not a dedicated normal neck CT. Source labels and clinical approval remain unverified; model assets grant no requirement coverage.
+
+The source dataset CC BY4 grant and creator attribution are preserved in `zenodo-22688904.json`. The reviewed range acquisition verified individual member CRCs/local SHA256s and unchanged publisher size/checksum before and after, not the whole 37.4 GB archive MD5 or an absent HTTP entity tag.
+
+Local browser review loaded all eight interfaces, exercised source-coordinate views and structure selection, and inspected the model on desktop and a 390×844 viewport. No JavaScript errors were reported. The source model is framed within the original extent, with coarse voxel stair steps visible. This review is software/display verification, not independent anatomical approval. The initial browser failure exposed missing family-range registration; the atlas URL and its source range are now both registered.
+
+Thirty-one targeted native-source, transport, registry and MSK review-queue tests passed. The shared viewer change adds only the new atlas URL and source range; 24 pending MSK dependency hashes were refreshed after checking that delta. The existing renderer, camera transforms and MSK geometry are unchanged. The whole-radiology clinical fidelity gate still fails, with 62 investigations awaiting full structure expansion. Full release checks remain required before deployment.
