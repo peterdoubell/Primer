@@ -7012,5 +7012,100 @@
       "reviewed_at": "2026-10-07"
     },
     "key_images": []
+  },
+  "ra.ct-mri-eye": {
+    "reporting": {
+      "protocol": [
+        "Record actual CT/MRI planes, sampling, coverage, contrast phases, DWI/ADC, artifacts and comparisons. Bone, soft-tissue, vascular and quantitative information are only used when actually acquired or supplied.",
+        "Record actual side, age/population, symptoms/vision/motility, trauma/surgery/implant and applicable MRI safety assessment. A static image/model cannot supply physiological state, tissue identity or complete anatomy."
+      ],
+      "checklist": [
+        {
+          "label": "Compartment",
+          "detail": "Localise every actual lesion/collection to its obtained preseptal, extraconal, conal, intraconal or other compartment and trace source boundaries/relationships."
+        },
+        {
+          "label": "Globe",
+          "detail": "Describe each actually covered globe, lens, intraocular and preseptal component with source side, extent, technique and uncertainty."
+        },
+        {
+          "label": "Muscles and nerve",
+          "detail": "Review each source-resolved extraocular muscle/tendon and optic nerve/sheath component; morphology does not alone establish endocrine/inflammatory/neoplastic identity or function."
+        },
+        {
+          "label": "Apex and extension",
+          "detail": "Trace actual acquired orbital-apical, canal/foraminal, cavernous, neural/vascular and intracranial interfaces; uncovered or unresolved extent remains unassessed."
+        },
+        {
+          "label": "Bone and infection",
+          "detail": "Describe each source-supported orbital wall/defect, herniated tissue and adjacent sinus/collection relation; imaging configuration is distinct from clinical entrapment or infection causality."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Lesion/collection",
+          "method": "Measure each source-resolved component on actual named local/orthogonal axes with source calibration, sequence/phase/window and obtained extent; trace surrounding interfaces and uncertainty.",
+          "pitfall": "Selected stills do not establish full lesion extent or microscopic boundaries; signal/enhancement alone is not unique diagnosis."
+        },
+        {
+          "name": "Proptosis comparison",
+          "method": "If supported, state each globe measurement on the same defined source reference plane with alignment, landmark/edge convention, calibration and uncertainty; actual comparable acquisitions are required.",
+          "pitfall": "Rotation, asymmetry, differing planes and prior surgery can change apparent position. Position alone does not establish pressure, visual function or a clinical syndrome."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Record actual MRI safety assessment/clearance when metallic foreign material is a concern; no model or teaching image clears a patient for MRI. Source contour change or material appearance needs appropriate clinical/ophthalmic correlation.",
+        "Static enhancement, DWI brightness and compartment location do not uniquely establish abscess, vascular lesion or tumour. Quantitative diffusion and time-dependent filling need their actual acquired ADC/phase sources.",
+        "Muscle/tendon and optic nerve/sheath patterns overlap across conditions. Imaging displacement, thickening or enhancement does not by itself measure vision, motility, optic neuropathy or a unique tissue diagnosis.",
+        "Apparent apical crowding or venous change must be communicated in actual source/clinical context. Unassessed canal, cavernous or intracranial regions cannot become negative extension or vascular-patency statements.",
+        "A muscle near or through a fracture is not proof of clinical entrapment. Sinus opacification does not alone prove the cause of an orbital process; trace actual supported interfaces and limits."
+      ],
+      "impression_prompts": [
+        "Describe actual source-supported compartment/structure involvement and full obtained extent with limitations.",
+        "Separate differential and suspected complication from supplied tissue/clinical confirmation; identify every unresolved or unassessed critical interface.",
+        "Communicate source-supported vision-risk/traumatic/infectious/vascular concerns according to actual clinical context and local pathways."
+      ],
+      "escalation": [
+        "Immediately communicate suspected globe rupture, orbital compartment syndrome pattern or orbital-apical/intracranial infection."
+      ],
+      "template_sections": [
+        {
+          "heading": "GLOBES AND PRESEPTAL TISSUES",
+          "body": "Actual side and source globe contour/lens/intraocular components [ ]; each source-supported retinal/choroidal/vitreous finding or unresolved layer [ ]; preseptal tissue and foreign material [ ]; actual MRI safety assessment if applicable [ ]; source planes/resolution/artifact and unassessed extent [ ]."
+        },
+        {
+          "heading": "ORBITAL COMPARTMENTS",
+          "body": "Every actual lesion/collection/component and obtained compartment/extent [ ]; source-resolved margin and globe/muscle/nerve/wall relationships [ ]; actual sequence/contrast phase and DWI/ADC if acquired [ ]; local calibrated measurements and proptosis reference method [ ]; differential and unassessed extent [ ]."
+        },
+        {
+          "heading": "MUSCLES AND OPTIC NERVES",
+          "body": "Each actual muscle belly/tendon/insertion [ ]; optic nerve/sheath and source signal/enhancement [ ]; source-supported displacement/compression or uncertainty [ ]; acquired technique/resolution and uncovered extent [ ]; supplied clinical visual/motility information kept separate [ ]."
+        },
+        {
+          "heading": "APEX AND INTRACRANIAL EXTENT",
+          "body": "Every obtained orbital-apical/canal/fissure/cavernous/neural/vascular/intracranial route [ ]; source-supported contact/continuity/encasement or unresolved interface [ ]; actual contrast/diffusion/vascular technique if acquired [ ]; missing sequences, artifact and unassessed extent [ ]."
+        },
+        {
+          "heading": "BONES AND SINUSES",
+          "body": "Every source-supported orbital wall/fracture/defect and acquired bone planes [ ]; each herniated component/connection [ ]; adjacent sinus/collection and supported extension relation [ ]; surgical/variant/artifact limits [ ]; clinical entrapment/motility and infectious context if supplied [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "RA eye/orbit CT/MRI",
+          "url": "https://radiologyassistant.nl/head-neck/orbita/pathology"
+        },
+        {
+          "title": "2025 paediatric orbital lesion review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11893699/"
+        },
+        {
+          "title": "Orbital MRI source review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6095049/"
+        }
+      ],
+      "reviewed_at": "2026-10-07"
+    }
   }
 }

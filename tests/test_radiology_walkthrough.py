@@ -36,6 +36,7 @@ CORRECTED = {
     'ra.tuberculosis': 'thorax',
     'ra.mri-sinuses': 'sinuses',
     'ra.ct-temporal-bone': 'temporal',
+    'ra.ct-mri-eye': 'orbit',
 }
 
 
