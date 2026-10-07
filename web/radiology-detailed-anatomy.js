@@ -12,6 +12,7 @@
     "hvsmr2-pat7": "/app/anatomy/hvsmr2-pat7/",
     "nasalseg-p001": "/app/anatomy/nasalseg-p001/",
     "openear-zeta": "/app/anatomy/openear-zeta/",
+    "totalseg-v3-s0358": "/app/anatomy/totalseg-v3-s0358/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
@@ -21,6 +22,7 @@
     "cardiac-venous-source": [-69.42072296142578, 86.83314514160156],
     "sinonasal-source": [-566, -488],
     "temporal-source": [-2, 78],
+    "thyroid-source": [-116.75, 121.5],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],
