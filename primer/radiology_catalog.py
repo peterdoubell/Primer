@@ -90,7 +90,7 @@ def _source_anatomy_references():
                     raise ValueError('Source CT volume viewer changed')
                 expected_levels = {part_id: manifest['parts'][part_id]['name'].split(' · ')[0] for part_id in manifest['parts']}
                 if volume.get('level_by_part') != expected_levels:
-                    raise ValueError('Source CT levels must match the registered vertebrae')
+                    raise ValueError('Source CT label selections must match the registered source parts')
                 script_path = volume_path.with_suffix('.js')
                 if hashlib.sha256(script_path.read_bytes()).hexdigest() != volume.get('script_sha256'):
                     raise ValueError('Source CT plane renderer changed')

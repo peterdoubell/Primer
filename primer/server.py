@@ -3659,7 +3659,7 @@ def healthz():
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358"}
     if (os.environ.get("VERCEL") and atlas in allowed
-            and (asset.endswith((".bin", ".bin.gz")) or (atlas == "verse521" and asset == "ct-reference.html"))
+            and (asset.endswith((".bin", ".bin.gz")) or (atlas in {"verse521", "totalseg-v3-s0358"} and asset == "ct-reference.html"))
             and all(part not in {"", ".", ".."} for part in asset.split("/"))
             and "\\" not in asset):
         from urllib.parse import quote, urlencode
