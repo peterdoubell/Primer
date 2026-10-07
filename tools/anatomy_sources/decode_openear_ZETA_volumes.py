@@ -50,6 +50,14 @@ def decode(path,out):
     else:raise ValueError('Unknown original spatial convention')
     return data,{'original_header':original,'source_sizes_fastest_first':sizes,'memmap_shape_reversed_axes':list(data.shape),'dtype':dtype,'decoded_bytes':total,'decoded_scalar_samples':samples,'all_decoded_bytes_match_independent_stream_and_written_readback':True,'decoded_sha256':digest.hexdigest(),'declared_space':fields['space'],'declared_source_affine':affine.tolist(),'equivalent_RAS_affine':RAS.tolist(),'source_samples_reordered_resampled_or_repaired':False},fields
 
+def verified_memmap(path,record):
+    if path.stat().st_size!=record['decoded_bytes']:raise ValueError('Decoded source cache size changed')
+    digest=hashlib.sha256()
+    with path.open('rb') as stream:
+        for block in iter(lambda:stream.read(8*1024*1024),b''):digest.update(block)
+    if digest.hexdigest()!=record['decoded_sha256']:raise ValueError('Decoded source cache bytes changed')
+    return np.memmap(path,dtype=record['dtype'],mode='r',shape=tuple(record['memmap_shape_reversed_axes']))
+
 def review(root,proof_dir):
     acquisition=json.loads((proof_dir/'ZETA-original-acquisition.json').read_text());records={r['member']:r for r in acquisition['members']};out=root/'ZETA-volume-review';out.mkdir(exist_ok=True);rows=[];layers=[]
     with zipfile.ZipFile(root/'ZETA.zip') as archive:

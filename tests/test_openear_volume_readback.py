@@ -25,3 +25,13 @@ def test_colour_support_preserves_outside_and_nonfinite_points_without_clamping(
     from tools.anatomy_sources.review_openear_colour_support import support
     points=np.array([[0,0,0],[1,1,1],[-.01,0,0],[1.01,0,0],[np.nan,0,0]])
     assert support(points,np.eye(4),[2,2,2]).tolist()==[True,True,False,False,False]
+
+
+def test_changed_decoded_source_cache_is_rejected_before_visual_or_geometry_use(tmp_path):
+    import hashlib
+    from tools.anatomy_sources.decode_openear_ZETA_volumes import verified_memmap
+    path=tmp_path/'source.raw';raw=bytes(range(8));path.write_bytes(raw)
+    record={'decoded_bytes':8,'decoded_sha256':hashlib.sha256(raw).hexdigest(),'dtype':'u1','memmap_shape_reversed_axes':[2,2,2]}
+    assert verified_memmap(path,record)[0,0,1]==1
+    path.write_bytes(bytes([99])+raw[1:])
+    with pytest.raises(ValueError,match='bytes changed'):verified_memmap(path,record)
