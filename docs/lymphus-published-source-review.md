@@ -1,0 +1,9 @@
+# Published nodal ultrasound comparison
+
+The complete original Figure 3 from Mohammadi et al., DOI 10.1016/j.dib.2026.112694, is preserved under its explicit article CC BY 4.0 grant. The native author dataset's research-use terms remain separate and do not clear native-data commercial publication.
+
+The publisher XML/PDF MD5 values match original metadata. PDF object 53 is the only image on page 7, whose text identifies Figure 3. That rendered page and its 1490 × 555 master were visually inspected. Every decoded source palette sample matches the packaged lossless RGB PNG, without resampling, enhancement or cropping. The smaller 709 × 264 HTML figure has different original encoded contrast (thumbnail RMS 30.98); equality is not asserted or artificially enforced. Both original versions depict the same labelled comparison layout; the complete larger PDF source is retained.
+
+Rows in the visible figure identify Centre 1 and Centre 2. Each row's left triple is labelled source-benign and right triple source-malignant. The original caption instead describes outcome-separated rows; that caption is preserved, with the discrepancy explicitly explained in reader text. Four B-mode image panels are primary; four binary masks and four masked-image panels have separate ancillary types. The four source examples are kept as separate case groups; no case number, age, side, level, plane or correspondence to a particular native dataset case is invented.
+
+The published outcomes do not diagnose a new patient. Masks describe selected node envelopes, not independently labelled cortex, hilum, capsule or ENE. These selected cropped images do not establish cine/Doppler, physical scale, full neck extent, vessel interfaces or 3D internals. The reference is linked to index-node and morphology steps only. Structure IDs and requirement coverage remain empty, with anatomical review pending; no clinical-grade completion is claimed.
