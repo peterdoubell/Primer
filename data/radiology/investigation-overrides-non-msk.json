@@ -6699,5 +6699,105 @@
       ]
     },
     "key_images": []
+  },
+  "ra.chest-radiography": {
+    "reporting": {
+      "reviewed_at": "2026-10-07",
+      "protocol": [
+        "Confirm actually acquired views and source position, coverage, acquisition time and processing. Compare prior views with their own geometry/quality; missing lateral or other projections remain unavailable.",
+        "Review every covered central/peripheral/hidden interface systematically. Radiography is projection imaging: source silhouettes do not establish all native tissue boundaries, complete3D anatomy or clinical physiology."
+      ],
+      "checklist": [
+        {
+          "label": "Quality",
+          "detail": "Record actual source projection, position, acquisition/coverage and quality; distinguish technical limitations and artefacts from disease."
+        },
+        {
+          "label": "Airways and mediastinum",
+          "detail": "Inspect every covered airway, hilar, mediastinal and cardiac silhouette/interface with source projection limits; do not infer resolved chamber/wall anatomy or physiology from overlap."
+        },
+        {
+          "label": "Lungs",
+          "detail": "Describe each actual pulmonary opacity/lucency, vascular or volume-change pattern and covered regional extent; assess hidden and overlapping areas with appropriate uncertainty."
+        },
+        {
+          "label": "Pleura",
+          "detail": "Assess each actually visible pleural/diaphragmatic/recess interface and complication, with projection/position-dependent visibility and source limits."
+        },
+        {
+          "label": "Devices and review areas",
+          "detail": "Trace each actually present device and inspect all covered osseous/soft-tissue/upper-abdominal review regions; record full obtained route/tip/landmark relation and unresolved extent."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Cardiothoracic ratio",
+          "method": "Record actual cardiac/thoracic diameter method, acquired projection, position, inspiration and source calibration/uncertainty. Interpret only within a stated appropriate protocol.",
+          "pitfall": "AP/supine magnification and low inspiration do not supply a comparable standard PA ratio or measured cardiac function."
+        },
+        {
+          "name": "Device tip distance",
+          "method": "Use actual tip/port and named source landmark on a stated view/position with real calibration; record respiratory/temporal and overlap uncertainty.",
+          "pitfall": "A projected distance or single view does not prove full3D intraluminal course, intended device function or unchanged position."
+        }
+      ],
+      "classification": null,
+      "criteria_table": null,
+      "pitfalls": [
+        "Technical correction, crop or annotation removal can change source presentation; preserve original source and disclose processing. An unavailable or limited view is not an adequately assessed negative study.",
+        "CTR interpretation requires the actual method and projection; AP/supine magnification or poor inspiration must not be treated as standard PA size. Silhouette enlargement does not measure pressure, EF, shunt or establish a unique cause.",
+        "Consolidation, oedema, infection, haemorrhage, collapse and malignancy can overlap. Air bronchograms or projected volume-loss signs support a differential, not unique pathology or microscopic confirmation.",
+        "An inconspicuous pneumothorax/effusion on a limited/supine film is not exclusion. Do not derive an exact fluid volume, tension physiology or fluid chemistry from one projection. Free gas/urgent findings require actual source and clinical assessment.",
+        "No device or complication is asserted absent until actual covered sources are assessed. Projected tip distances require named landmarks, phase/position and calibration; lumen/wall/3D course and dynamic function may remain unresolved."
+      ],
+      "impression_prompts": [
+        "Describe actually supported source findings, regional extent, projection quality and unassessed interfaces.",
+        "State a supported differential and comparison limitations; separate morphology from clinical/physiological confirmation.",
+        "Report actual device/complication findings and appropriate source/context-dependent urgency."
+      ],
+      "escalation": [
+        "Communicate suspected urgent pneumothorax, free gas, device complication or acute cardiopulmonary findings through local clinical pathways; tension/instability depends on actual source and clinical assessment."
+      ],
+      "template_sections": [
+        {
+          "heading": "PROJECTION AND QUALITY",
+          "body": "Actual acquired views/projection/position/date [ ]; coverage, rotation, inspiration, exposure/penetration/motion and artefacts [ ]; source scaling/processing [ ]; effect on assessment and unavailable views [ ]."
+        },
+        {
+          "heading": "AIRWAYS AND CARDIOMEDIASTINUM",
+          "body": "Actual airway/carinal/hilar/mediastinal/cardiac contour and silhouette findings [ ]; named interface and obtained-view support [ ]; size method/projection/calibration and uncertainty [ ]; unresolved tissue or missing physiological/clinical confirmation [ ]."
+        },
+        {
+          "heading": "LUNGS",
+          "body": "Each actual covered region and opacity/lucency/nodule/mass/interstitial or vascular pattern [ ]; air bronchogram, volume/displacement and supported localisation [ ]; hidden apical/perihilar/retrocardiac/subdiaphragmatic regions [ ]; differential, comparison and technical limits [ ]."
+        },
+        {
+          "heading": "PLEURA AND DIAPHRAGM",
+          "body": "Each visible pleural/recess/fissural/diaphragmatic interface [ ]; source air/fluid/thickening or other component and projected extent [ ]; actual position/view and confidence [ ]; mimics, subdiaphragmatic gas and source/clinical urgency [ ]; unassessed extent [ ]."
+        },
+        {
+          "heading": "DEVICES AND BONES",
+          "body": "Each actually present device/type/route/tip/port and named landmarks [ ]; source date/view/position and calibrated distance if justified [ ]; possible complication and uncertainty [ ]; each covered bone/joint/soft-tissue/upper-abdominal finding [ ]; incomplete route or covered-region limits [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "RA systematic chest anatomy",
+          "url": "https://radiologyassistant.nl/chest/chest-x-ray/basic-interpretation"
+        },
+        {
+          "title": "RA projection-dependent heart failure signs",
+          "url": "https://radiologyassistant.nl/chest/chest-x-ray/heart-failure"
+        },
+        {
+          "title": "RA pulmonary patterns/localisation",
+          "url": "https://radiologyassistant.nl/chest/chest-x-ray/lung-disease"
+        },
+        {
+          "title": "Original radiograph quality-control study; text/processing limits only",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12127945/"
+        }
+      ]
+    }
   }
 }
