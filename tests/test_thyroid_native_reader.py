@@ -29,3 +29,12 @@ def test_reader_is_explicitly_partial_CT_context_with_no_US_or_leaf_approval():
     for r in rows:
         assert not r['structure_ids'] and not r['requirement_coverage'] and r['anatomical_review']['status']=='pending'
         grant=r['source']['license'];assert grant['commercial_use'] and grant['redistribution'];assert sha((ROOT/grant['evidence_path']).read_bytes())==grant['evidence_sha256']
+def test_hosted_missing_mesh_uses_only_verified_static_contract(monkeypatch,tmp_path):
+    from primer.source_mesh_integrity import verified_mesh_contract
+    import pytest
+    data=ROOT/'data/radiology';manifest=json.loads((ROOT/'web/anatomy'/ATLAS/'manifest.json').read_text());part=next(iter(manifest['parts'].values()));monkeypatch.setenv('VERCEL','1')
+    header,size=verified_mesh_contract(part,tmp_path/ATLAS,data)
+    assert struct.unpack('<4sII',header)==(b'BP3D',part['vertices'],part['triangles']*3)
+    assert size==12+part['vertices']*24+part['triangles']*12
+    changed=dict(part,sha256='0'*64)
+    with pytest.raises(ValueError,match='differs'):verified_mesh_contract(changed,tmp_path/ATLAS,data)

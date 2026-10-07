@@ -3657,7 +3657,7 @@ def healthz():
 # original app route still crosses the reader access gate before redirecting.
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
-    allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta"}
+    allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358"}
     if (os.environ.get("VERCEL") and atlas in allowed
             and (asset.endswith((".bin", ".bin.gz")) or (atlas == "verse521" and asset == "ct-reference.html"))
             and all(part not in {"", ".", ".."} for part in asset.split("/"))
