@@ -1,0 +1,7 @@
+# Original OpenEar source acquisition and preparation limits
+
+The [OpenEar dataset](https://zenodo.org/records/1473724) explicitly grants CC BY 4.0. The complete ZETA.zip acquisition is in progress; its expected size is 3,868,308,936 bytes and publisher MD5 is `66fc062426086d2757e837593fd548e5`. Partial bytes are not a verified complete archive. Geometry, registration and colour remain unreviewed and no runtime promotion or structure coverage is granted.
+
+The [original source paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC6326113/) describes adult cadaveric specimens, fixation, staining, dehydration and epoxy embedding, with a preparation opening drilled into the superior semicircular canal. Specimen colour and altered morphology must not be represented as untreated living-ear appearance. The source acquisition used 0.25 mm unembedded CBCT and 0.125 mm embedded CBCT; registered sampling is not proof of original resolution. Micro-slicing reconstruction includes alignment/interpolation. Source overmould registration measurements do not independently validate every internal structure. Case-specific data and limits still need inspection.
+
+`tools/anatomy_sources/acquire_openear_case.py` retains incomplete transfers as `.zip.part`, checks exact HTTP resume ranges, verifies the complete publisher MD5 before promoting an archive, and then checks each member's ZIP CRC and SHA256. Three tests pass for exact resumed bytes, rejected non-range responses and checksum failure. No licence, header, mesh or colour claim is approved merely by those integrity checks.
