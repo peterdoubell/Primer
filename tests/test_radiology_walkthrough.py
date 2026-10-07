@@ -35,6 +35,7 @@ CORRECTED = {
     'ra.chest-radiography': 'thorax',
     'ra.tuberculosis': 'thorax',
     'ra.mri-sinuses': 'sinuses',
+    'ra.ct-temporal-bone': 'temporal',
 }
 
 

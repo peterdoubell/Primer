@@ -1129,3 +1129,13 @@ Verification:204source/reference/API/hosted/native-reader regressions pass;13tar
 ## Release viewer-dependency reconciliation — 2026-10-07
 
 Full PR78 CI exposed stale MSK candidate presentation dependency hashes after the shared viewer added NasalSeg and an optional source-extent label. Reviewed exact three-line viewer diff: existing source geometry, existing region framing and default extent label are unchanged. Updated24already-pending candidate dependency fingerprints and regenerated the authoritativeMSK review snapshot, keeping anatomical approvals pending and completeness false.23review-queue/native-reader/fullscope checks pass. Runtime build contents are unchanged by this metadata reconciliation; full CI must rerun before release.
+
+## Temporal-bone source-dependent reporting correction — 2026-10-07
+
+Previous turn progressed with PR78 release581adc7:30originalsinonasalfigures,partialfive-labelCTsourceviewerandhostedmeshvalidationrepair live afterbothPythonversions34458pass/124skip,64servedCDNhashesmatched andgallery/modelhealthvalidated. Fullclinical/commercialgoal remainsincomplete.
+
+Selected unexpandedra.ct-temporal-bone,readactual5steps/report/measurements/temporalorientation modelandprimaryRAanatomy/pathology+ESHNRcholesteatoma recommendations. Removed5presetnormal/intact/no-lesion/deviceabsence statements. Eachactualossicular/joint/recess,mastoid/septal/tegmen,inner-ear/window/aqueduct,facial/neurovascular,IAC,lesion/fracture/postoperative/device interface nowrequiresactualcoverage/planes/resolution/calibrationanduncertainty. Soft-tissue/scutum/ossicularchange notuniquecholesteatoma;CTcanalnotsuppliednerve/flow;unresolvedimplantnotexactscala/insertion. CTboneandacquiredMRIcontrast/anatomical/non-EPI/multi-shotDWI/ADC remainseparate. Actualhistory/tissue/clinicalevidence notborrowedfromsourcecase. Model explicitlypartialorientation,nofulltinywall/nerve/vessel/device/anatomicalapproval.
+
+OriginalPMC11913933metadata/XMLacquired,publisherXMLMD5checked,actualCCBY4grantverified.8fullcaption/media-pointercandidates saved;Fig8flowchartreferenceonly. No pixelsinspected/packagedyet,noleafcoverage. Completeanatomicalinventoryexpansion andnative3D/schematic/imagevalidation remain outstanding fortemporalboneandfullgoal.
+
+Verification:37report/walkthrough/fullscopechecks pass. FakeAPIall5normalfields empty,partialmodellimitpreserved. Readernormal-start leaves actualdevice/sequence/scalauncertainty prompts,nofalseabsence;browsererrors[]. Ownbrowser/serverclosed;Pythoncompilepass. Fullgateexit1:137investigations/106unreconciledcurriculum,69unexpanded,knownfloor65196obligations,totalunknown/readinessfalse;rights941/509/432unchanged. Local/notdeployed;fullobjectiveactive.
