@@ -7213,5 +7213,149 @@
       "reviewed_at": "2026-10-07"
     },
     "key_images": []
+  },
+  "ra.ultrasound-thyroid": {
+    "reporting": {
+      "protocol": [
+        "Record actual ultrasound planes, coverage, transducer/sampling, gain/focus, artifacts, Doppler settings if acquired, calibration and available comparisons. Unsurveyed retrosternal/deep neck extent remains unassessed.",
+        "Inventory actual gland/background and nodules using stable source identities. Adult ACR TI-RADS category is distinct from a clinical action; retain supplied biopsy, treatment, risk context and applicable framework/version."
+      ],
+      "checklist": [
+        {
+          "label": "Background",
+          "detail": "Describe both actual lobes, isthmus, encountered variants/ectopic or treated tissue, acquired dimensions, parenchyma and coverage limits."
+        },
+        {
+          "label": "Nodule identification",
+          "detail": "Inventory every actual relevant nodule/component; stable identity, side/site, source orthogonal dimensions and comparison. Selected index nodules do not represent all obtained anatomy."
+        },
+        {
+          "label": "Five features",
+          "detail": "Use source-resolved composition, echogenicity against actual references, transverse shape, margin and echogenic foci. Name ACR framework; unavailable features remain unresolved, not zero-point findings."
+        },
+        {
+          "label": "Extension",
+          "detail": "Trace each actual nodule-to-thyroid-boundary and adjacent tissue interface, with source confidence. Distinguish abutment/bulging from supported gross extension; microscopic invasion is not established by ultrasound."
+        },
+        {
+          "label": "Nodes",
+          "detail": "Record actually surveyed central/lateral/other nodal regions, named map and each relevant node source morphology, dimensions and adjacent interfaces. Node evaluation is separate from nodule TI-RADS."
+        },
+        {
+          "label": "Recommendation",
+          "detail": "State category and measurement separately from action. Use actual cytology/biopsy, prior treatment, clinical risk, suspicious nodes/extension and appropriate population-specific pathway."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Nodule size",
+          "method": "For each actual relevant nodule record stable site/identity, source transverse and longitudinal planes, three orthogonal edge-to-edge dimensions, calibrated units and unresolved borders. Maximum acquired diameter is a size prompt, not all native geometry.",
+          "pitfall": "Do not mix nodules, oblique planes, different acquisition/edge conventions or unresolved shadowed boundaries across comparisons."
+        },
+        {
+          "name": "Growth",
+          "method": "Significant growth: at least 20% in two dimensions with at least 2 mm increase, or at least 50% volume increase.",
+          "pitfall": "Compare consistent technique and account for cystic change."
+        }
+      ],
+      "classification": {
+        "name": "ACR TI-RADS",
+        "version": "2017 ACR system; current ACR atlas",
+        "applicability": "Adult acquired thyroid-nodule ultrasound features using the named ACR framework/version. Management additionally requires applicable population, supplied biopsy and clinical risk; suspicious nodes/extension and PET-avid/pediatric contexts need the appropriate separate pathway.",
+        "summary": "TR1\u20132: no routine FNA/follow-up. TR3: FNA \u22652.5 cm, follow \u22651.5 cm. TR4: FNA \u22651.5 cm, follow \u22651 cm. TR5: FNA \u22651 cm, follow \u22650.5 cm. Confirm schedule and exceptions in the ACR reference."
+      },
+      "pitfalls": [
+        "A generic thyroid/node model or published selected frame does not represent every actual nodule, tissue boundary, node or acquired neck extent.",
+        "Do not call all comet-tail artefacts zero-point foci: use the actual ACR lexicon and source location, size and surrounding component; unresolved foci/shadowed tissue remain unresolved.",
+        "Vascularity, motion, compressibility and vessel patency require actual corresponding acquisitions; static echotexture or colour labels are not functional measurements.",
+        "Biopsy-proven status and management context are supplied clinical evidence. Growth does not make the routine unbiopsied-nodule pathway automatically applicable to a previously biopsied nodule."
+      ],
+      "impression_prompts": [
+        "What is each index nodule\u2019s point total and TR category?",
+        "Does its size and clinical context meet FNA or follow-up criteria?",
+        "Are suspicious nodes or invasive features present?"
+      ],
+      "escalation": [
+        "Promptly flag invasive findings or suspicious nodes for the appropriate thyroid/neck pathway."
+      ],
+      "template_sections": [
+        {
+          "heading": "THYROID BACKGROUND",
+          "body": "Actual right/left lobes/isthmus and encountered variant/ectopic/treated tissue [ ]; acquired dimensions/parenchyma [ ]; actual Doppler if obtained [ ]; technique, surveyed extent and unassessed deep/retrosternal anatomy [ ]."
+        },
+        {
+          "heading": "INDEX NODULE",
+          "body": "Each actual relevant nodule/component identity, side/site [ ]; source dimensions/calibration/planes [ ]; comparison of the same nodule if available [ ]; unresolved components or margins [ ]."
+        },
+        {
+          "heading": "ACR FEATURE SCORING",
+          "body": "Actual source composition/echogenicity/reference tissue/transverse shape/margin/echogenic foci [ ]; evaluability of every feature [ ]; explicitly applicable ACR scores, total and category if supported [ ]; unresolved features and differential [ ]."
+        },
+        {
+          "heading": "EXTRATHYROIDAL AND NODAL FINDINGS",
+          "body": "Each source nodule-to-thyroid-boundary/adjacent muscle/tracheal/esophageal/vascular/other tissue interface [ ]; abutment/bulging versus supported extension and confidence [ ]; each actually surveyed node/side/descriptive site/named map/dimensions/morphology [ ]; unassessed interfaces and extent [ ]."
+        },
+        {
+          "heading": "NODULE-SPECIFIC ACTION",
+          "body": "Supplied prior cytology/biopsy/treatment and dates [ ]; actual same-nodule interval comparison [ ]; category/size and applicable population/risk context [ ]; individualised action/interval and reason [ ]; unavailable evidence [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "ACR TI-RADS resources",
+          "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/TI-RADS"
+        },
+        {
+          "title": "ACR current TI-RADS FAQ",
+          "url": "https://radssupport.acr.org/support/solutions/articles/11000071474-acr-ti-rads-faq"
+        },
+        {
+          "title": "RA source TI-RADS descriptors",
+          "url": "https://radiologyassistant.nl/head-neck/ti-rads/ti-rads"
+        },
+        {
+          "title": "ACR thyroid/parathyroid ultrasound practice parameter",
+          "url": "https://gravitas.acr.org/PPTS/DownloadPreviewDocument?DocId=157&ReleaseId=2"
+        }
+      ],
+      "reviewed_at": "2026-10-07",
+      "criteria_table": {
+        "title": "ACR TI-RADS category and size prompts",
+        "scope": "Adult thyroid nodule framework after the five ultrasound feature scores are added. Interpret with clinical context, prior biopsy and suspicious nodes; these size prompts are not an automatic patient recommendation.",
+        "rows": [
+          {
+            "category": "TR1 \u00b7 0 points",
+            "criteria": "No FNA or routine ultrasound follow-up under this framework.",
+            "report_note": "Benign category."
+          },
+          {
+            "category": "TR2 \u00b7 2 points",
+            "criteria": "No FNA or routine ultrasound follow-up under this framework.",
+            "report_note": "Not suspicious category."
+          },
+          {
+            "category": "TR3 \u00b7 3 points",
+            "criteria": "FNA at \u22652.5 cm; ultrasound follow-up from 1.5 to <2.5 cm.",
+            "report_note": "For follow-up-sized nodules: years 1, 3 and 5."
+          },
+          {
+            "category": "TR4 \u00b7 4\u20136 points",
+            "criteria": "FNA at \u22651.5 cm; ultrasound follow-up from 1.0 to <1.5 cm.",
+            "report_note": "For follow-up-sized nodules: years 1, 2, 3 and 5."
+          },
+          {
+            "category": "TR5 \u00b7 \u22657 points",
+            "criteria": "FNA at \u22651.0 cm; ultrasound follow-up from 0.5 to <1.0 cm.",
+            "report_note": "For follow-up-sized nodules: yearly for five years."
+          }
+        ],
+        "sources": [
+          {
+            "title": "ACR TI-RADS reporting recommendations",
+            "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/TI-RADS/TI-RADS-Ultrasound-Reporting-Template.pdf"
+          }
+        ]
+      }
+    }
   }
 }
