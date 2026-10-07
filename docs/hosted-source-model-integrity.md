@@ -1,0 +1,11 @@
+# Hosted source-model integrity
+
+Production excludes configured source mesh binaries from the Python function bundle and serves them through the static builder. Source-reference validation previously required those files locally. Reproducing the actual exclusion layout caused `Source anatomy mesh missing or outside atlas`; because the registry validates all source references, this can break reference API loading even for another investigation. A process-only or gallery-only health result did not expose this failure.
+
+The runtime now reads original local bytes when present. It verifies the file SHA256, optional decoded SHA256, BP3D header, decoded byte count and manifest geometry counts. A present but changed local file always fails; it cannot fall back to hosted metadata.
+
+Only registered source-reference atlases actually configured for mesh exclusion/CDN delivery may use `radiology-static-source-meshes.json` when local bytes are absent in Vercel. The reviewed release inventory covers 34 exact source-reference files. It records actual compressed/uncompressed hashes, header bytes, decoded length and source vertex/triangle counts. CI regenerates the expected inventory from actual files and compares it with the committed inventory before release. An unknown path, changed hash/count, forged header or inconsistent decoded length fails. Sources without configured CDN exclusion—including the new NasalSeg reference—still require local geometry bytes in hosted mode.
+
+This preserves source byte contracts; it does not assign anatomical identity, completeness, effective resolution, source-case registration or clinical approval. Runtime metadata cannot prove that a remotely served CDN file is correct on every request. Release verification must check actual served files against those hashes.
+
+Health now loads both source galleries and source-model metadata. A source integrity failure yields failure rather than a healthy result. Authenticated API tests simulate absent CDN mesh files, retaining source manifests and provenance, and verify vascular, sinonasal and thoracolumbar references. The broader regression suite passes 204 tests; 13 targeted tests include local corruption, unconfigured missing-source rejection and forged hosted contracts. No anatomy or structure-coverage approval changes.

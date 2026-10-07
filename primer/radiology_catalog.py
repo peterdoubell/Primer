@@ -15,6 +15,7 @@ from pathlib import Path
 
 from .radiology import DATA, validate_reference, validate_reporting_guide
 from .source_raster_integrity import verified_raster_header
+from .source_mesh_integrity import verified_mesh_contract
 
 STEP_DIR = DATA / 'reporting-steps'
 MESH_MANIFEST = DATA.parents[1] / 'web' / 'anatomy' / 'bodyparts3d' / 'manifest.json'
@@ -117,17 +118,11 @@ def _source_anatomy_references():
                 url = part.get('file', '')
                 if not isinstance(url, str) or not url.startswith(prefix) or '%' in url or '\\' in url:
                     raise ValueError('Source anatomy mesh must remain in its atlas')
-                mesh_path = (web / url.removeprefix('/app/')).resolve()
-                if path.parent.resolve() not in mesh_path.parents or not mesh_path.is_file():
-                    raise ValueError('Source anatomy mesh missing or outside atlas')
-                data = mesh_path.read_bytes()
-                if hashlib.sha256(data).hexdigest() != part['sha256']:
-                    raise ValueError('Source anatomy mesh changed')
-                decoded = gzip.decompress(data) if url.endswith('.gz') else data
-                if len(decoded) < 12:
+                header, decoded_size = verified_mesh_contract(part, path.parent, DATA)
+                if len(header) < 12:
                     raise ValueError('Incomplete source anatomy mesh')
-                magic, vertices, indices = struct.unpack('<4sII', decoded[:12])
-                if (magic != b'BP3D' or len(decoded) != 12 + vertices * 24 + indices * 4
+                magic, vertices, indices = struct.unpack('<4sII', header)
+                if (magic != b'BP3D' or decoded_size != 12 + vertices * 24 + indices * 4
                         or vertices != part['vertices'] or indices != part['triangles'] * 3
                         or selected['layer'] not in layers):
                     raise ValueError('Invalid source anatomy geometry contract')

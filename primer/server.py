@@ -3644,10 +3644,11 @@ def sign_out(request: Request):
 def healthz():
     # A healthy process must also be able to load the reference galleries.
     # This checks metadata/provenance integrity, not clinical approval.
-    from .radiology_catalog import _structure_atlases
+    from .radiology_catalog import _structure_atlases, _source_anatomy_references
     _structure_atlases()
+    _source_anatomy_references()
     return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives),
-            "source_gallery_metadata_validated": True}
+            "source_gallery_metadata_validated": True, "source_model_metadata_validated": True}
 
 
 
