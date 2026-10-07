@@ -14,6 +14,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from .radiology import DATA, validate_reference, validate_reporting_guide
+from .source_raster_integrity import verified_raster_header
 
 STEP_DIR = DATA / 'reporting-steps'
 MESH_MANIFEST = DATA.parents[1] / 'web' / 'anatomy' / 'bodyparts3d' / 'manifest.json'
@@ -432,8 +433,7 @@ def _validate_native_volume_figure(image, root):
             or evidence.get('source_voxels_changed') is not False
             or evidence.get('model_geometry_overlaid') is not False):
         raise ValueError('Native figure scope or byte contract changed')
-    figure_path = root / image['src'].removeprefix(prefix)
-    pixels = figure_path.read_bytes()
+    pixels = verified_raster_header(image, root, DATA)
     if (len(pixels) < 24 or pixels[:8] != b'\x89PNG\r\n\x1a\n'
             or struct.unpack('>II', pixels[16:24]) != (image['width'], image['height'])):
         raise ValueError('Native section figure dimensions changed')
@@ -619,11 +619,7 @@ def _structure_atlases():
             if prefix is None:
                 raise ValueError('MSK atlas figures must be preserved locally')
             root = media / prefix.rstrip('/').rsplit('/',1)[1]
-            path = (root / image['src'].removeprefix(prefix)).resolve()
-            if not path.is_relative_to(root) or not path.is_file():
-                raise ValueError('MSK atlas figure leaves its reviewed directory')
-            if hashlib.sha256(path.read_bytes()).hexdigest() != image['sha256']:
-                raise ValueError('MSK atlas figure changed after source review')
+            verified_raster_header(image, root, DATA)
             # Preserve the source's actual version. Aubry's 2010 hip figures
             # use CC BY 2.0; their grant must not be relabelled as CC BY 4.0.
             reviewed_licenses = {
@@ -652,7 +648,8 @@ def _structure_atlases():
                         or use.get('preserve_all_panels') is not True
                         or use.get('distribution_of_adapted_material_permitted') is not False
                         or image.get('source_bytes_sha256') != image['sha256']
-                        or image.get('source_bytes_md5') != hashlib.md5(path.read_bytes()).hexdigest()):
+                        or not isinstance(image.get('source_bytes_md5'), str)
+                        or not re.fullmatch(r'[0-9a-f]{32}', image['source_bytes_md5'])):
                     raise ValueError('ND reference must preserve its complete reviewed original bytes')
             for field in ('alt', 'caption', 'attribution', 'limits', 'rights_review', 'rights_reviewed_on'):
                 if not isinstance(image.get(field), str) or not image[field].strip():

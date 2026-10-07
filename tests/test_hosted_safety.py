@@ -679,5 +679,5 @@ def test_registered_radiology_images_keep_access_gate_and_exact_local_bytes(monk
         assert response.headers['location'] == path.replace('/app/', '/source-media/', 1) + '?v=original'
         assert client.get('/app/reference-media/radiology-open/unknown.jpg', auth=('reader', 'secret')).status_code == 404
     config = json.loads((Path(srv.ROOT) / 'vercel.json').read_text())
-    assert 'web/reference-media/radiology-open/**' in config['builds'][0]['config']['excludeFiles']
+    assert 'web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif}' in config['builds'][0]['config']['excludeFiles']
     assert {'src': 'web/reference-media/radiology-open/**', 'use': '@vercel/static'} in config['builds']

@@ -58,5 +58,8 @@ jobs:
       - name: Audit curriculum banks
         run: python tools/check_banks.py
 
+      - name: Verify hosted source raster inventory
+        run: python tools/check_static_raster_inventory.py
+
       - name: Run the full test suite
         run: python -m pytest tests/ -q
