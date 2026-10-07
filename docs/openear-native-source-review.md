@@ -53,3 +53,11 @@ The original position table has 222 entries and its transform table 222 row-majo
 Original photograph 135 at position 31.96 mm was visually compared with the preserved reconstructed layer 213 at position 31.95 mm. The original full frame and reconstructed image show corresponding specimen features, but they are not asserted pixel-identical or newly registered. Transform units, canvas/downsampling conventions, exact original-photo validity support, interpolation and padding remain unresolved. TIFF print-resolution tags are not microscopic physical calibration. No clamping, invented colours or texture application is performed.
 
 Photograph/frame/position/transform evidence is saved in `ZETA-original-photo-reconstruction-review.json`. Sixteen scientific acquisition, geometry, volume, cache and photograph-position checks pass. Full source colour registration and clinical/anatomical approval remain pending.
+
+## Recorded photograph transform and original template canvas
+
+The original XCF template was read against its acquired member hash. Its actual canvas is 3701×3701, not an assumed square size derived from TIFF dimensions or NRRD spacing. Original photograph 135 and reconstructed layer 213 were checked under two explicit matrix-direction hypotheses using that canvas. Only the recorded 3×3 matrix or its inverse was used; no translation, rotation, shear or scale was fitted.
+
+With the recorded matrix interpreted as raw-to-template, diagnostic RGB RMS is about 50.34 and mean absolute difference 26.55 on the 0–255 scale. Interpreting it as template-to-raw gives closer correspondence: RMS about 21.74 and mean absolute difference 5.59. Both results and their raw-domain masks are retained. This supports the latter direction as a candidate for this frame, but does not establish exact author reconstruction, resampling, edge padding, microscopic calibration or anatomical accuracy. Diagnostic bilinear sampling is not a replacement source image or newly registered volume.
+
+Matrix-direction, pixel-centre and singular-matrix rejection tests bring the scientific checks to nineteen passing. Evidence is saved in `ZETA-recorded-photo-transform-comparison.json`. No source pixel file, mesh texture, clinical approval or structure coverage is changed.
