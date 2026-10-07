@@ -54,4 +54,15 @@ def test_authenticated_reference_api_works_with_hosted_source_file_layout(monkey
                 response=client.get('/api/radiology/modules/ra.hrct-lung',auth=('reader','secret'))
                 assert response.status_code==200
                 assert len(response.json()['radiology_reference']['structure_atlas'])==8
+                health=client.get('/healthz')
+                assert health.status_code==200 and health.json()['source_gallery_metadata_validated'] is True
     finally:catalog._structure_atlases.cache_clear();integrity._inventory.cache_clear()
+
+
+def test_health_does_not_claim_success_when_reference_gallery_validation_fails(monkeypatch):
+    from fastapi.testclient import TestClient
+    import primer.server as server
+    def invalid():raise ValueError('Source integrity failure')
+    monkeypatch.setattr(catalog,'_structure_atlases',invalid)
+    with TestClient(server.app,raise_server_exceptions=False) as client:
+        assert client.get('/healthz').status_code==500
