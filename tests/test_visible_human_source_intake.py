@@ -19,3 +19,13 @@ def test_sampled_original_planar_rgb_matches_every_published_png_sample():
     assert all(r['all_original_RGB_channels_equal_published_PNG'] and r['raw_Z_single_object_MD5_verified'] for r in rows)
     for row in rows:
         assert len(row['decoded_planar_source_sha256'])==len(row['decoded_RGB_sha256'])==64
+
+def test_complete_original_sequence_preserves_every_frame_without_registration_claims():
+    r=json.loads((OUT/'female-head-original-acquisition.json').read_text());rows=r['records']
+    assert len(rows)==855 and [x['frame'] for x in rows]==[f'avf{n}{c}' for n in range(1001,1286) for c in 'abc']
+    assert r['source_grid']==[2048,1216,855]
+    assert all(x['all_original_RGB_samples_match_PNG'] and x['original_PNG']['single_object_MD5_verified'] and x['original_raw_Z']['single_object_MD5_verified'] for x in rows)
+    assert r['every_original_raw_RGB_sample_matches_PNG'] and not r['source_RGB_samples_repaired_cropped_or_enhanced']
+    assert not r['raw_photos_independently_registered_or_physically_calibrated']
+    assert not r['source_cadaver_photos_are_living_patient_US_CT_or_functional_evidence']
+    assert not r['clinical_approval'] and not r['structure_coverage_granted'] and not r['runtime_promoted']
