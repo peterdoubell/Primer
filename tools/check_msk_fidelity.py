@@ -22,7 +22,7 @@ REVIEW_SCOPE_VERSION = 1
 IMAGE_MODALITIES = frozenset(('PET-CT', 'MRI', 'MR arthrography', 'CT', 'CT arthrography',
                              'Ultrasound', 'Radiography', 'Nuclear medicine'))
 NORMAL_REFERENCE_STATES = frozenset(('normal_anatomy', 'normal_anatomical_reference',
-                                     'normal_variant'))
+                                     'normal_variant', 'normal_appearing_projection'))
 # Explicitly recorded alternatives, never a substring guess from an unknown
 # clinical phrase. Acquisition/site conditions still need their scope review.
 QUALIFIED_MODALITIES = {
@@ -164,7 +164,7 @@ def inspect_source_context(asset, requirement):
             state = context.get('depicted_state')
             if state is None or isinstance(state, str) and state in unknown:
                 issues.append('source_context_depicted_state_unresolved')
-            elif isinstance(state, str) and state in {'normal_anatomy', 'normal_anatomical_reference', 'normal_variant'}:
+            elif isinstance(state, str) and state in NORMAL_REFERENCE_STATES:
                 issues.append('source_context_purpose_mismatch')
 
     # A credited composite selection must not borrow the acquisition type of
