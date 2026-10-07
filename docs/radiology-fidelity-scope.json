@@ -59945,7 +59945,31 @@
           ],
           "reporting_aim": "Partial sinonasal orientation only. This companion does not supply native patient drainage routes/functional patency, all thin bone/optic/carotid/nerve interfaces, source lesions, perineural or intracranial extent, histology or organism. Actual acquired MRI/CT/clinical sources and unassessed anatomy remain explicit."
         },
-        "source_anatomy_references": []
+        "source_anatomy_references": [
+          {
+            "id": "nasalseg-p001-source-labels",
+            "label": "Regional CT source label interfaces \u00b7 partial",
+            "atlas": "nasalseg-p001",
+            "family": "sinonasal-source",
+            "manifest_url": "/app/anatomy/nasalseg-p001/manifest.json",
+            "manifest_sha256": "5bc7dbad6d1715b61385fc6759ef4da0e24eac5be46e42c430837b2aec0c2cb2",
+            "initial_layer": "source_labels",
+            "initial_cropped": false,
+            "population_note": "One regional source CT case (P001); patient age and native DICOM orientation are not independently verified. These are five original region-label interfaces, not a complete sinonasal atlas or the anatomy of the patient being reported. The source grid is 153\u00d7205\u00d752 with declared 0.586\u00d70.586\u00d71.5 mm sampling. This does not establish operative thin-bone effective resolution, raw DICOM/HU lineage or full head coverage. Both original left nasal-cavity components and 98 open nasal-pharynx edges at the acquired boundary are retained. Viewer rotation or uncropped framing cannot restore anatomy outside the scan. Frontal/ethmoid/sphenoid cells, full drainage routes, bone/mucosal thickness, optic/carotid/nerve/vessel boundaries and lesion or extrasinus extension are not independently represented.",
+            "source_image": {
+              "src": "/app/reference-media/nasalseg-p001/source-CT-label-context.png",
+              "sha256": "70d021c3568bd9a0d8c0ab552a6bca4e00832b4104110926eb302bd108245451",
+              "width": 1680,
+              "height": 1920,
+              "title": "Matching original CT planes and source labels",
+              "alt": "Original P001 CT index planes with the five original label contours.",
+              "caption": "Three selected planes from the same regional CT, with original mask contours. Declared physical sample aspect retained; display window is in source units, HU calibration unverified. These planes do not establish full operative anatomy or validate all labels.",
+              "attribution": "Zhang, Yichi, Wang, Jing, Pan, Tan, Jiang, Quanlin, Ge, Jingjie, Guo, Xin, Jiang, Chen, Lu, Jie, Zhang, Jianning, Liu, Xueling, Tian, Mei, Qi, Yuan, Cheng, Yuan, Zuo, Chuantao. NasalSeg Dataset for Nasal Cavity and Paranasal Sinuses Segmentation from CT Images. DOI 10.5281/zenodo.13893419. CC BY 4.0. Adaptation: source-unit window display and original contour overlays.",
+              "source_url": "https://zenodo.org/records/13893419",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/"
+            }
+          }
+        ]
       },
       "clinical_approval": false
     },
