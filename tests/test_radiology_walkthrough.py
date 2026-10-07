@@ -40,6 +40,7 @@ CORRECTED = {
     'ra.cervical-lymph-nodes': 'neck',
     'ra.ultrasound-thyroid': 'neck',
     'ra.mri-trigeminal': 'trigeminal',
+    'ra.mri-neck-spaces': 'neck',
 }
 
 
