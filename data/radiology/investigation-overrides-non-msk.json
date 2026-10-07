@@ -4014,30 +4014,31 @@
   },
   "ra.mri-neck-spaces": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-07",
       "protocol": [
-        "Review multiplanar neck MRI with sequences suited to the suspected lesion; identify the space of origin before the differential."
+        "Record actual MRI source coverage from obtained skull-base/face through neck and lower extent, planes/sampling, motion/artifact, pre/postcontrast fat-suppression and paired DWI/ADC/vascular sequences if acquired. Bone CT, US and functional examinations remain separate sources.",
+        "Record source symptom/site, supplied primary/tissue/microbiology, treatment and comparison. Source-resolved anatomy and uncertainty guide compartment localisation; there is no preset normality for unexamined spaces or physiology."
       ],
       "checklist": [
         {
-          "label": "Space Of Origin",
-          "detail": "Localise the epicentre above or below the hyoid."
+          "label": "Compartment and extent",
+          "detail": "Localise each actual source epicentre and obtained supra/infrahyoid extent using named compartments, retained landmarks and explicit convention/uncertainty."
         },
         {
-          "label": "Tissue Characteristics",
-          "detail": "Describe composition, signal, diffusion and enhancement."
+          "label": "Tissue components",
+          "detail": "Describe every actual source lesion/component and acquired tissue signal, diffusion and enhancement; maintain technical limitations and differential rather than unique tissue identity."
         },
         {
-          "label": "Displacement Pattern",
-          "detail": "Assess how normal fat planes and major structures are displaced."
+          "label": "Displacement and contacts",
+          "detail": "Trace actual source displacement/contact of each fat plane, vessel, gland, muscle and neural/visceral interface; direction is evidence for localisation, not a diagnosis by itself."
         },
         {
-          "label": "Spread And Critical Structures",
-          "detail": "Assess airway, skull base, neural and visceral relationships."
+          "label": "Spread and critical interfaces",
+          "detail": "Map each source-supported fascial, skull-base, neural, airway, visceral and mediastinal connection; distinguish contact from supported invasion and obtained from unassessed extent."
         },
         {
-          "label": "Nodes And Complications",
-          "detail": "Review regional nodes and collections or thrombosis."
+          "label": "Nodes and complications",
+          "detail": "Record every acquired nodal group/node and collection/vascular/other complication with actual source confidence; infection, flow and microscopic disease require corresponding evidence."
         }
       ],
       "measurements": [
@@ -4050,7 +4051,11 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "A large lesion can cross spaces; use displacement of preserved landmarks to infer origin."
+        "A schematic space boundary is not an independently seen fascial layer; use the actual convention and preserve unresolved boundaries.",
+        "Signal or enhancement patterns have a differential; they do not establish histology, organism, viability or a unique diagnosis.",
+        "ICA/ECA bifurcation splaying can support a carotid-body-region differential but is not unique proof of paraganglioma or another tissue diagnosis.",
+        "Contact, displacement or loss of fat plane alone is not proof of invasion, perineural spread or airway function; microscopy and clinical compromise remain separate evidence.",
+        "Rim enhancement/restriction does not independently prove a drainable abscess or organism; a flow void or static lumen shape does not certify thrombosis, patency or function."
       ],
       "impression_prompts": [
         "Deep neck spaces, normal landmarks and compartment-based localisation.",
@@ -4060,36 +4065,49 @@
       "template_sections": [
         {
           "heading": "SPACE OF ORIGIN",
-          "body": "Epicentre/space: [ ]. Suprahyoid/infrahyoid extent: [ ]."
+          "body": "Each actual epicentre/side/space and anatomical convention [ ]; obtained supra/infrahyoid/skull-base/mediastinal extent [ ]; retained landmarks, inferred boundaries and uncertainty [ ]."
         },
         {
           "heading": "TISSUE CHARACTERISTICS",
-          "body": "T1/T2: [ ]. Diffusion: [ ]. Enhancement: [ ]."
+          "body": "Each actual lesion/tissue component and source extent [ ]; source T1/T2, pre/postcontrast/fat suppression and paired DWI/ADC findings if obtained [ ]; unresolved contents and differential [ ]."
         },
         {
           "heading": "DISPLACEMENT PATTERN",
-          "body": "Fat planes: [ ]. Carotid/jugular displacement: [ ]."
+          "body": "Actual fat-plane/gland/muscle/neural and vessel contact/displacement [ ]; each source side/course/interface and source plane [ ]; variant/distortion and localisation limits [ ]."
         },
         {
           "heading": "SPREAD AND CRITICAL STRUCTURES",
-          "body": "Airway: [ ]. Skull base/neural pathways: [ ]. Visceral extension: [ ]."
+          "body": "Each obtained fascial/skull-base/neural/airway/esophageal/thyroid/mediastinal interface or connection [ ]; source confidence, contact versus supported extension [ ]; unexamined extent and clinical function [ ]."
         },
         {
           "heading": "NODES AND COMPLICATIONS",
-          "body": "Nodes by level: [ ]. Collection: [ ]. Vascular complication: [ ]."
+          "body": "Every actual acquired node/group/named map/side/component [ ]; source collection or vessel/other complication findings and confidence [ ]; supplied clinical/tissue/microbiology/flow evidence [ ]; unavailable or microscopic extent [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 Infrahyoid Neck - MR Anatomy and Pathology",
+          "title": "RA infrahyoid MRI reporting",
           "url": "https://radiologyassistant.nl/head-neck/infrahyoid-neck/MR-anatomy-and-pathology"
         },
         {
-          "title": "Radiology Assistant \u2014 Suprahyoid Neck - MR Anatomy and Pathology",
-          "url": "https://radiologyassistant.nl/head-neck/infrahyoid-neck/Suprahyoid-neck-MR-Pathology"
+          "title": "RA supra/infrahyoid source index",
+          "url": "https://radiologyassistant.nl/head-neck/infrahyoid-neck"
+        },
+        {
+          "title": "Retropharyngeal/prevertebral imaging anatomy",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3994542/"
+        },
+        {
+          "title": "Carotid space imaging",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6377693/"
+        },
+        {
+          "title": "Source cervical-fascia terminology review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7309289/"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.paediatric-neck-masses": {
     "reporting": {
