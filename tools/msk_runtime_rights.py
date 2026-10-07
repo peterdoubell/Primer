@@ -84,8 +84,14 @@ def audit_reference_image_rights(inventory, evidence, root):
     images = inventory['images']
     if len({item['src'] for item in images}) != len(images):
         raise ValueError('Runtime image inventory contains repeated resources')
+    reference_only = evidence.get('reference_rights_assets', [])
+    if not isinstance(reference_only,list) or any(not isinstance(a,dict) or a.get('kind')!='anatomical_specimen_photo' or a.get('reference_only') is not True or a.get('structure_ids') or a.get('requirement_coverage') for a in reference_only):
+        raise ValueError('Reference-only specimen photograph rights cannot carry anatomical coverage')
+    combined = evidence.get('assets', []) + reference_only
+    if len({a['id'] for a in combined}) != len(combined):
+        raise ValueError('Duplicate reference rights evidence identifier')
     assets_by_path = {}
-    for asset in evidence.get('assets', []):
+    for asset in combined:
         if asset.get('local_path'):
             assets_by_path.setdefault(asset['local_path'], []).append(asset)
     rows = []
