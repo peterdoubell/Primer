@@ -518,6 +518,46 @@ def _validate_source_derived_figure(image, root):
             raise ValueError('Derived MSK figure runtime source geometry changed')
 
 
+def _validate_source_panel_roles(image):
+    """Reject contradictions in declared source roles, without inferring missing panels or approval."""
+    if (image.get('kind') == 'schematic') != (image.get('modality') == 'Schematic'):
+        raise ValueError('Source figure kind and schematic modality disagree')
+    context = image.get('source_context', {})
+    if not isinstance(context, dict):
+        raise ValueError('Source figure context must be a record')
+    if not any(key in context for key in ('selected_panels', 'panel_types', 'panel_states')):
+        return
+    selected, types = context.get('selected_panels'), context.get('panel_types')
+    if (not isinstance(selected, list) or not isinstance(types, dict)
+            or any(not isinstance(panel, str) or not panel.strip() for panel in selected)
+            or len(set(selected)) != len(selected)):
+        raise ValueError('Source figure panel selection must be explicit and unique')
+    primary_field = ('schematic_panels' if image.get('kind') == 'schematic'
+                     and 'schematic_panels' in image else 'clinical_panels')
+    declared = image.get(primary_field)
+    if (primary_field in image and (not isinstance(declared, list)
+            or any(not isinstance(panel, str) or not panel.strip() for panel in declared)
+            or len(set(declared)) != len(declared)
+            or set(declared) != set(selected))):
+        raise ValueError('Source figure selected panels disagree with the displayed primary selection')
+    if any(types.get(panel) != image.get('modality') for panel in selected):
+        raise ValueError('Source figure selected panel type disagrees with the displayed modality')
+    occupied = set(selected)
+    ancillary = image.get('ancillary_panels', [])
+    if not isinstance(ancillary, list):
+        raise ValueError('Source ancillary panel roles must be records')
+    for entry in ancillary:
+        if not isinstance(entry, dict) or not isinstance(entry.get('panels'), list):
+            raise ValueError('Source ancillary panel selection must be explicit')
+        panels = entry['panels']
+        if (not panels or any(not isinstance(panel, str) or not panel.strip() for panel in panels)
+                or len(set(panels)) != len(panels)
+                or occupied.intersection(panels)
+                or any(types.get(panel) != entry.get('kind') for panel in panels)):
+            raise ValueError('Source ancillary panel roles overlap or contradict the declared source types')
+        occupied.update(panels)
+
+
 @lru_cache(maxsize=1)
 def _structure_atlases():
     """Locally preserved, licensed figures with narrowly stated anatomy scope."""
@@ -538,6 +578,7 @@ def _structure_atlases():
                 raise ValueError('Invalid or duplicated MSK atlas figure')
             if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Nuclear medicine', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
+            _validate_source_panel_roles(image)
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')
             if image.get('contains_schematic_panels'):
