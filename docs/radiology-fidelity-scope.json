@@ -57823,147 +57823,169 @@
       "modality": "MRI",
       "reporting_contract": {
         "reporting": {
+          "reviewed_at": "2026-10-07",
           "protocol": [
-            "Use thin-section multiplanar CT for bony anatomy and surgical mapping. Add contrast MRI/CT for suspected invasive infection, tumour or complications.",
-            "State prior surgery and whether the examination is for routine inflammatory disease or a focal aggressive process."
+            "Record actual MRI sequences/contrast/DWI/ADC, coverage/resolution and available comparison. CT or other bone/drainage/clinical sources are separate and only used when actually acquired or supplied.",
+            "Review all covered sinus/drainage/tissue/operative and extrasinus interfaces; a parent sinus model or teaching diagnosis does not supply native patient walls, patency, histology, organism or extent."
           ],
           "checklist": [
             {
               "label": "Disease distribution",
-              "detail": "Describe each sinus and drainage pathway, including unilateral patterns."
+              "detail": "Describe each actually covered sinus/compartment and source lesion/secretions/mucosa with extent, modality and uncertainty."
             },
             {
               "label": "Surgical anatomy",
-              "detail": "Inspect skull-base height/asymmetry, lamina papyracea and relevant optic/carotid relationships."
+              "detail": "Assess actual operative landmarks/variants with appropriate acquired thin-bone source; do not infer absent dehiscence from unassessed or unresolved MRI."
             },
             {
               "label": "Bone response",
-              "detail": "Distinguish smooth remodelling, sclerosis, dehiscence and destructive erosion."
+              "detail": "Describe each source tissue/bone component and acquired signal/enhancement/diffusion/CT bone response with technique and differential."
             },
             {
               "label": "Tissue character",
-              "detail": "Separate secretions from an enhancing mass and assess restricted diffusion where available."
+              "detail": "Describe each source tissue/bone component and acquired signal/enhancement/diffusion/CT bone response with technique and differential."
             },
             {
               "label": "Spread",
-              "detail": "Review orbit, pterygopalatine fossa, skull base and intracranial compartments."
+              "detail": "Trace every source-supported extrasinus interface/route and uncertainty, separating visible morphology from histological/perineural/microbial confirmation."
             }
           ],
           "measurements": [
             {
               "name": "Focal lesion extent",
-              "method": "Measure enhancing tissue or expansile lesion in three dimensions.",
-              "pitfall": "Protein-rich secretions may be T1 bright or T2 dark without tumour."
+              "method": "Measure each relevant source-resolved tissue/component on actual orthogonal/local axes, sequence/window/contrast and source calibration, describing obtained extent and uncertainty.",
+              "pitfall": "Protein-rich or low-signal material does not uniquely establish tumour/air; selected stills do not supply full3D extent."
             },
             {
               "name": "Surgical defect/variant",
-              "method": "Document location and size of a relevant bony defect on orthogonal planes.",
-              "pitfall": "Partial volume can mimic dehiscence; confirm on thin sections."
+              "method": "State actual acquired bone source/resolution, named location, orthogonal planes, edge convention/calibration and uncertainty for a supported defect or variant.",
+              "pitfall": "Unacquired or unresolved thin-bone information cannot become a negative dehiscence statement or normal operative-risk class."
             }
           ],
           "classification": null,
+          "criteria_table": null,
           "pitfalls": [
-            "Mucosal thickening alone does not diagnose symptomatic acute bacterial sinusitis.",
-            "Invasive spread may occur through neurovascular pathways with little bony destruction."
+            "A low-signal MRI sinus is not automatically aerated; protein-rich/fungal/blood material may simulate air. Hyperdensity or high T2 signal alone does not establish benignity, organism or absence of tumour.",
+            "MRI anatomy/visible lumen does not alone prove complete drainage patency; low resolution or overlap must remain explicit. Use each actual source and variant, not an inherited generic sinus outline.",
+            "MRI soft-tissue detail cannot substitute for unacquired/unresolved thin-bone integrity. Partial volume can mimic defects; a missing wall on one image is not confirmed dehiscence or a normal operative variant.",
+            "Enhancement/diffusion/CT morphology can overlap across inflammation, secretions and neoplasia. DWI needs actual ADC/source technique; no unique histology, restricted diffusion or quantitative values are borrowed from unperformed sequences.",
+            "No extrasinus extension is asserted absent from unassessed anatomy. Perineural, orbital/cavernous or intracranial findings require appropriate source extent and clinical correlation; urgency or diagnosis is not inferred solely from the teaching-case label."
           ],
           "impression_prompts": [
-            "What pattern and drainage pathway are involved?",
-            "Is there a focal mass, aggressive process or complication?",
-            "Which operative variants or defects need explicit communication?"
+            "Describe actual source-supported sinus/drainage/tissue/bone morphology and full obtained extent with modality/resolution limits.",
+            "Give a supported differential and any supplied tissue/clinical/organism confirmation; signal, hyperdensity, enhancement or diffusion alone does not uniquely diagnose or prove benignity.",
+            "Report relevant operative/extrasinus source findings and uncertainty, with unassessed anatomy and appropriate clinical/source-dependent urgency."
           ],
           "escalation": [
-            "Urgently communicate suspected invasive infection, orbital abscess or intracranial extension."
+            "Communicate suspected orbital/apical, intracranial, cavernous/vascular or acute invasive complications according to local clinical pathways; actual source/clinical context and confirmation govern management."
           ],
           "template_sections": [
             {
               "heading": "SINUS DISTRIBUTION",
-              "body": "Frontal R/L [ ]; ethmoid R/L [ ]; maxillary R/L [ ]; sphenoid R/L [ ]; contents [mucosal thickening / fluid / complete opacification / mass]."
+              "body": "Each actual covered side/sinus/compartment/variant [ ]; lesion versus secretions/mucosa and full obtained extent [ ]; sequence/window/contrast/calibration and quality [ ]; unilateral/bilateral distribution [ ]; unresolved or uncovered extent and differential [ ]."
             },
             {
               "heading": "DRAINAGE AND NASAL CAVITY",
-              "body": "Ostiomeatal units [ ]; frontal/sphenoethmoidal recesses [ ]; septum/turbinates [ ]; dental source [ ]."
+              "body": "Actual source-visible ostia/recesses/drainage/nasal/choanal routes [ ]; each obstruction/contact/variant and surrounding interfaces [ ]; source resolution and uncertainty [ ]; unassessed thin-bone or endoscopic/functional information [ ]."
             },
             {
               "heading": "OPERATIVE ANATOMY",
-              "body": "Skull-base asymmetry [ ]; lamina papyracea [ ]; optic nerve/carotid canal relationship [ ]; relevant cells/variants [ ]; prior surgery [ ]."
+              "body": "Actual acquired operative-anatomy source/planes/resolution [ ]; skull-base/foveal/lateral-lamella and orbital wall relationships [ ]; optic/carotid and relevant canal/nerve variant [ ]; source-supported defect/asymmetry/measurement or uncertainty [ ]; unassessed integrity/risk components [ ]."
             },
             {
               "heading": "FOCAL TISSUE AND BONE",
-              "body": "Enhancing mass [ ]; size [ ]; remodelling/erosion [ ]; diffusion/signal [ ]; secretion distinction [ ]."
+              "body": "Each actual solid/fluid/secretions/mucosal and bone/marrow component [ ]; source pre/postcontrast T1/T2/CT and DWI/ADC if acquired [ ]; calibrated extent/axis/method [ ]; remodelling/sclerosis/calcium/destruction or mimic [ ]; histological/microbial differential and missing sequences [ ]."
             },
             {
               "heading": "EXTRASINUS EXTENSION",
-              "body": "Orbit/apex [ ]; pterygopalatine/infratemporal fossae [ ]; cavernous sinus [ ]; dura/brain [ ]; complication [ ]."
+              "body": "Every source-supported orbital/apical, skull-base/foraminal/nerve, fossa/adjacent soft-tissue, cavernous/dural/intracranial route and obtained extent [ ]; margins/encasement/continuity or uncertainty [ ]; actual acquired source support and coverage limits [ ]; clinical/tissue/microbiological confirmation if supplied [ ]; unassessed interfaces [ ]."
             }
           ],
           "sources": [
             {
-              "title": "MRI of the Paranasal Sinuses",
+              "title": "RA complementary sinonasal CT/MRI",
               "url": "https://radiologyassistant.nl/head-neck/paranasal-sinuses/mri-examination"
+            },
+            {
+              "title": "2024sinonasal lesion review",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11392720/"
+            },
+            {
+              "title": "2024nasal mass case series",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11676659/"
             }
-          ],
-          "reviewed_at": "2026-09-23"
+          ]
         },
         "report_templates": [
           {
-            "id": "sinuses-report",
+            "id": "ra-mri-sinuses-report",
             "title": "MRI PARANASAL SINUSES",
-            "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+            "description": "Reporting fields for MRI paranasal sinuses. Complete the relevant observations and remove unused alternatives.",
             "sections": [
               {
                 "heading": "INDICATION",
-                "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+                "body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ]."
               },
               {
                 "heading": "COMPARISON",
-                "body": "[None available / date and examination]. Relevant interval change: [ ]."
+                "body": "[None / examination and date]."
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Use thin-section multiplanar CT for bony anatomy and surgical mapping. Add contrast MRI/CT for suspected invasive infection, tumour or complications.\nState prior surgery and whether the examination is for routine inflammatory disease or a focal aggressive process.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+                "body": "Record actual MRI sequences/contrast/DWI/ADC, coverage/resolution and available comparison. CT or other bone/drainage/clinical sources are separate and only used when actually acquired or supplied.\nReview all covered sinus/drainage/tissue/operative and extrasinus interfaces; a parent sinus model or teaching diagnosis does not supply native patient walls, patency, histology, organism or extent.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
-                "body": "[IMG 1: Ostiomeatal complex; series __ image __]\n[IMG 2: Bone boundary or variant; series __ image __]\n[IMG 3: Extrasinus extension; series __ image __]"
+                "body": "[IMG 1: sinus distribution; series __ image __]\n[IMG 2: drainage and nasal cavity; series __ image __]\n[IMG 3: operative anatomy; series __ image __]"
               },
               {
                 "heading": "SINUS DISTRIBUTION",
-                "body": "Frontal R/L [ ]; ethmoid R/L [ ]; maxillary R/L [ ]; sphenoid R/L [ ]; contents [mucosal thickening / fluid / complete opacification / mass]."
+                "body": "Each actual covered side/sinus/compartment/variant [ ]; lesion versus secretions/mucosa and full obtained extent [ ]; sequence/window/contrast/calibration and quality [ ]; unilateral/bilateral distribution [ ]; unresolved or uncovered extent and differential [ ]."
               },
               {
                 "heading": "DRAINAGE AND NASAL CAVITY",
-                "body": "Ostiomeatal units [ ]; frontal/sphenoethmoidal recesses [ ]; septum/turbinates [ ]; dental source [ ]."
+                "body": "Actual source-visible ostia/recesses/drainage/nasal/choanal routes [ ]; each obstruction/contact/variant and surrounding interfaces [ ]; source resolution and uncertainty [ ]; unassessed thin-bone or endoscopic/functional information [ ]."
               },
               {
                 "heading": "OPERATIVE ANATOMY",
-                "body": "Skull-base asymmetry [ ]; lamina papyracea [ ]; optic nerve/carotid canal relationship [ ]; relevant cells/variants [ ]; prior surgery [ ]."
+                "body": "Actual acquired operative-anatomy source/planes/resolution [ ]; skull-base/foveal/lateral-lamella and orbital wall relationships [ ]; optic/carotid and relevant canal/nerve variant [ ]; source-supported defect/asymmetry/measurement or uncertainty [ ]; unassessed integrity/risk components [ ]."
               },
               {
                 "heading": "FOCAL TISSUE AND BONE",
-                "body": "Enhancing mass [ ]; size [ ]; remodelling/erosion [ ]; diffusion/signal [ ]; secretion distinction [ ]."
+                "body": "Each actual solid/fluid/secretions/mucosal and bone/marrow component [ ]; source pre/postcontrast T1/T2/CT and DWI/ADC if acquired [ ]; calibrated extent/axis/method [ ]; remodelling/sclerosis/calcium/destruction or mimic [ ]; histological/microbial differential and missing sequences [ ]."
               },
               {
                 "heading": "EXTRASINUS EXTENSION",
-                "body": "Orbit/apex [ ]; pterygopalatine/infratemporal fossae [ ]; cavernous sinus [ ]; dura/brain [ ]; complication [ ]."
+                "body": "Every source-supported orbital/apical, skull-base/foraminal/nerve, fossa/adjacent soft-tissue, cavernous/dural/intracranial route and obtained extent [ ]; margins/encasement/continuity or uncertainty [ ]; actual acquired source support and coverage limits [ ]; clinical/tissue/microbiological confirmation if supplied [ ]; unassessed interfaces [ ]."
               },
               {
                 "heading": "IMPRESSION",
-                "body": "1. [What pattern and drainage pathway are involved?]\n2. [Is there a focal mass, aggressive process or complication?]\n3. [Which operative variants or defects need explicit communication?]"
+                "body": "1. [Describe actual source-supported sinus/drainage/tissue/bone morphology and full obtained extent with modality/resolution limits.]\n2. [Give a supported differential and any supplied tissue/clinical/organism confirmation; signal, hyperdensity, enhancement or diffusion alone does not uniquely diagnose or prove benignity.]\n3. [Report relevant operative/extrasinus source findings and uncertainty, with unassessed anatomy and appropriate clinical/source-dependent urgency.]"
               },
               {
                 "heading": "RECOMMENDATION AND COMMUNICATION",
-                "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+                "body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method]."
               }
             ],
             "notes": [
-              "Describe aggressive extrasinus findings separately from routine mucosal thickening.",
-              "Mucosal thickening alone does not diagnose symptomatic acute bacterial sinusitis.",
-              "Invasive spread may occur through neurovascular pathways with little bony destruction."
+              "A low-signal MRI sinus is not automatically aerated; protein-rich/fungal/blood material may simulate air. Hyperdensity or high T2 signal alone does not establish benignity, organism or absence of tumour.",
+              "MRI anatomy/visible lumen does not alone prove complete drainage patency; low resolution or overlap must remain explicit. Use each actual source and variant, not an inherited generic sinus outline.",
+              "MRI soft-tissue detail cannot substitute for unacquired/unresolved thin-bone integrity. Partial volume can mimic defects; a missing wall on one image is not confirmed dehiscence or a normal operative variant.",
+              "Enhancement/diffusion/CT morphology can overlap across inflammation, secretions and neoplasia. DWI needs actual ADC/source technique; no unique histology, restricted diffusion or quantitative values are borrowed from unperformed sequences.",
+              "No extrasinus extension is asserted absent from unassessed anatomy. Perineural, orbital/cavernous or intracranial findings require appropriate source extent and clinical correlation; urgency or diagnosis is not inferred solely from the teaching-case label."
             ],
             "sources": [
               {
-                "title": "MRI of the Paranasal Sinuses",
+                "title": "RA complementary sinonasal CT/MRI",
                 "url": "https://radiologyassistant.nl/head-neck/paranasal-sinuses/mri-examination"
+              },
+              {
+                "title": "2024sinonasal lesion review",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11392720/"
+              },
+              {
+                "title": "2024nasal mass case series",
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11676659/"
               }
             ]
           }
@@ -57971,7 +57993,7 @@
         "walkthrough": {
           "reviewed_at": "2026-09-25",
           "complete": true,
-          "template_id": "sinuses-report",
+          "template_id": "ra-mri-sinuses-report",
           "start": {
             "sections": [
               "INDICATION",
@@ -57984,13 +58006,11 @@
           "steps": [
             {
               "label": "Sinus distribution",
-              "detail": "Describe each sinus and the pattern of disease, including unilateral patterns.",
+              "detail": "Describe each actually covered sinus/compartment and source lesion/secretions/mucosa with extent, modality and uncertainty.",
               "sections": [
                 "SINUS DISTRIBUTION"
               ],
-              "normal": {
-                "SINUS DISTRIBUTION": "Paranasal sinuses clear."
-              },
+              "normal": {},
               "findings": [
                 "Mucosal thickening of the [maxillary] sinuses bilaterally.",
                 "Unilateral complete opacification of the [ ] sinus (consider obstructing lesion or fungal disease).",
@@ -58000,18 +58020,16 @@
               "measurements": [],
               "landmark": "maxillary",
               "parts": [],
-              "look": "Coronal images through the frontal, ethmoid, maxillary and sphenoid sinuses.",
-              "tip": "Unilateral disease needs a cause: tumour, dental source, fungal disease or a polyp."
+              "look": "Review every covered side/sinus, including actual frontal/maxillary/sphenoid/ethmoid subdivisions and variants. Trace full source lesion/secretions/mucosal boundaries on obtained sequences/windows; record unilateral/bilateral pattern and unassessed extent.",
+              "tip": "A low-signal MRI sinus is not automatically aerated; protein-rich/fungal/blood material may simulate air. Hyperdensity or high T2 signal alone does not establish benignity, organism or absence of tumour."
             },
             {
               "label": "Drainage pathways and nasal cavity",
-              "detail": "Assess the ostiomeatal units, frontal and sphenoethmoidal recesses, septum, turbinates and dental source.",
+              "detail": "Trace source-resolved drainage/nasal routes, obstruction and variants without assuming visible aeration proves functional patency.",
               "sections": [
                 "DRAINAGE AND NASAL CAVITY"
               ],
-              "normal": {
-                "DRAINAGE AND NASAL CAVITY": "Ostiomeatal units, recesses and nasal cavity patent."
-              },
+              "normal": {},
               "findings": [
                 "Obstruction of the [left] ostiomeatal unit.",
                 "Nasal polyps filling the nasal cavity.",
@@ -58023,17 +58041,16 @@
               "measurements": [],
               "landmark": "ethmoid",
               "parts": [],
-              "look": "Coronal images for the ostiomeatal complex; sagittal for the frontal recess."
+              "look": "Inspect actual ostia/recesses/infundibular/nasal/choanal routes, turbinates/septum and relevant variants with the acquired source resolution. Contact/opacification is not a complete 3D tract or measured flow; unacquired CT/endoscopic information remains unavailable.",
+              "tip": "MRI anatomy/visible lumen does not alone prove complete drainage patency; low resolution or overlap must remain explicit. Use each actual source and variant, not an inherited generic sinus outline."
             },
             {
               "label": "Operative anatomy and variants",
-              "detail": "Report skull-base asymmetry, lamina papyracea, optic nerve and carotid relationships and relevant variants.",
+              "detail": "Assess actual operative landmarks/variants with appropriate acquired thin-bone source; do not infer absent dehiscence from unassessed or unresolved MRI.",
               "sections": [
                 "OPERATIVE ANATOMY"
               ],
-              "normal": {
-                "OPERATIVE ANATOMY": "No dehiscence or relevant surgical variant."
-              },
+              "normal": {},
               "findings": [
                 "Asymmetric ethmoid roof, lower on the [ ].",
                 "Dehiscent lamina papyracea on the [ ].",
@@ -58048,18 +58065,16 @@
               ],
               "landmark": "sphenoid",
               "parts": [],
-              "look": "Coronal images of the cribriform plate and ethmoid roof; sphenoid sinus walls.",
-              "tip": "Surgical variants that put the orbit, optic nerve or carotid at risk should be stated explicitly."
+              "look": "Use actually obtained thin-section bone imaging for relevant skull-base/lateral-lamella/foveal, lamina-papyracea and optic/carotid-canal relationships. Record measured source planes/calibration, asymmetry and uncertainty rather than forcing a normal or operative-risk category.",
+              "tip": "MRI soft-tissue detail cannot substitute for unacquired/unresolved thin-bone integrity. Partial volume can mimic defects; a missing wall on one image is not confirmed dehiscence or a normal operative variant."
             },
             {
               "label": "Focal tissue and bone",
-              "detail": "Separate secretions from an enhancing mass and assess remodelling, erosion and diffusion.",
+              "detail": "Describe each source tissue/bone component and acquired signal/enhancement/diffusion/CT bone response with technique and differential.",
               "sections": [
                 "FOCAL TISSUE AND BONE"
               ],
-              "normal": {
-                "FOCAL TISSUE AND BONE": "No focal mass; no bone erosion."
-              },
+              "normal": {},
               "findings": [
                 "Enhancing mass with a convoluted cerebriform pattern (inverted papilloma pattern).",
                 "Expansile non-enhancing sinus with thinned walls (mucocele).",
@@ -58071,18 +58086,16 @@
               ],
               "landmark": "maxillary",
               "parts": [],
-              "look": "T2 and post-contrast MRI; bone windows on CT.",
-              "tip": "Secretions change signal with protein content; only enhancing tissue is tumour."
+              "look": "Distinguish source signal from true aeration, proteinaceous material, blood/fungal or solid components using actual pre/postcontrast T1/T2/other sequences, CT windows and DWI/ADC if obtained. Separate remodelling/sclerosis/calcification/dehiscence/destruction and marrow replacement.",
+              "tip": "Enhancement/diffusion/CT morphology can overlap across inflammation, secretions and neoplasia. DWI needs actual ADC/source technique; no unique histology, restricted diffusion or quantitative values are borrowed from unperformed sequences."
             },
             {
               "label": "Extension beyond the sinus",
-              "detail": "Review the orbit, pterygopalatine and infratemporal fossae, cavernous sinus, dura and brain.",
+              "detail": "Trace every source-supported extrasinus interface/route and uncertainty, separating visible morphology from histological/perineural/microbial confirmation.",
               "sections": [
                 "EXTRASINUS EXTENSION"
               ],
-              "normal": {
-                "EXTRASINUS EXTENSION": "No orbital, fossa or intracranial extension."
-              },
+              "normal": {},
               "findings": [
                 "Orbital subperiosteal abscess.",
                 "Extension into the pterygopalatine fossa.",
@@ -58094,8 +58107,8 @@
               "measurements": [],
               "landmark": "orbits",
               "parts": [],
-              "look": "Post-contrast fat-suppressed MRI of the orbit, fossae and anterior cranial fossa.",
-              "tip": "Invasive fungal sinusitis can spread along vessels and nerves with little bone destruction."
+              "look": "Inspect covered orbital walls/compartments/apex, pterygopalatine/infratemporal/masticator routes, foramina/cranial nerves, skull-base marrow, cavernous sinus, dura/brain and adjacent soft tissues. Report every actual source extent/connection and unavailable contrast/diffusion or thin-bone information.",
+              "tip": "No extrasinus extension is asserted absent from unassessed anatomy. Perineural, orbital/cavernous or intracranial findings require appropriate source extent and clinical correlation; urgency or diagnosis is not inferred solely from the teaching-case label."
             }
           ],
           "finish": {
@@ -58105,15 +58118,15 @@
             ]
           },
           "spatial_model": {
-            "id": "radiology-model-rad.5.sinuses",
-            "title": "Paranasal Sinuses \u00b7 3D landmarks",
-            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Relate frontal, ethmoid, maxillary and sphenoid cavities to the orbits and skull base.",
-            "scenario": "radiology-reference:rad.5.sinuses",
+            "id": "radiology-model-ra.mri-sinuses",
+            "title": "MRI paranasal sinuses \u00b7 spatial orientation",
+            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Partial sinonasal orientation only. This companion does not supply native patient drainage routes/functional patency, all thin bone/optic/carotid/nerve interfaces, source lesions, perineural or intracranial extent, histology or organism. Actual acquired MRI/CT/clinical sources and unassessed anatomy remain explicit.",
+            "scenario": "radiology-investigation:ra.mri-sinuses",
             "family": "sinuses",
             "focus": [
-              "ethmoid"
+              "maxillary"
             ],
-            "reporting_aim": "Relate frontal, ethmoid, maxillary and sphenoid cavities to the orbits and skull base."
+            "reporting_aim": "Partial sinonasal orientation only. This companion does not supply native patient drainage routes/functional patency, all thin bone/optic/carotid/nerve interfaces, source lesions, perineural or intracranial extent, histology or organism. Actual acquired MRI/CT/clinical sources and unassessed anatomy remain explicit."
           }
         },
         "reading": [
@@ -58150,7 +58163,7 @@
           }
         ]
       },
-      "reporting_contract_sha256": "651810f788193a641ddcaad705da088fdc1b89ab3d1a3278523238855b205a56",
+      "reporting_contract_sha256": "34af166a3f052ce4b0bdcc8099f1db7a568ebfab6feca1e24188c7befc31d542",
       "structure_inventory": null,
       "structure_inventory_sha256": null,
       "structure_expansion_status": "required_not_yet_expanded",
@@ -58199,15 +58212,15 @@
         "structure_atlas": [],
         "anatomical_illustrations": null,
         "spatial_model": {
-          "id": "radiology-model-rad.5.sinuses",
+          "id": "radiology-model-ra.mri-sinuses",
           "title": "MRI paranasal sinuses \u00b7 spatial orientation",
-          "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Relate frontal, ethmoid, maxillary and sphenoid cavities to the orbits and skull base.",
-          "scenario": "radiology-reference:rad.5.sinuses",
+          "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Partial sinonasal orientation only. This companion does not supply native patient drainage routes/functional patency, all thin bone/optic/carotid/nerve interfaces, source lesions, perineural or intracranial extent, histology or organism. Actual acquired MRI/CT/clinical sources and unassessed anatomy remain explicit.",
+          "scenario": "radiology-investigation:ra.mri-sinuses",
           "family": "sinuses",
           "focus": [
-            "ethmoid"
+            "maxillary"
           ],
-          "reporting_aim": "Relate frontal, ethmoid, maxillary and sphenoid cavities to the orbits and skull base."
+          "reporting_aim": "Partial sinonasal orientation only. This companion does not supply native patient drainage routes/functional patency, all thin bone/optic/carotid/nerve interfaces, source lesions, perineural or intracranial extent, histology or organism. Actual acquired MRI/CT/clinical sources and unassessed anatomy remain explicit."
         },
         "source_anatomy_references": []
       },
