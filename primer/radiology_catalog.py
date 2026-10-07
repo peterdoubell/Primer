@@ -583,6 +583,17 @@ def _structure_atlases():
                     raise ValueError('Mixed MSK figures need separate schematic coverage')
             ancillary = image.get('ancillary_panels', [])
             position_panels = image.get('panel_identifier_scheme') == 'position_unlettered'
+            grid_panels = image.get('panel_identifier_scheme') == 'grid_unlettered'
+            grid_positions = set()
+            if grid_panels:
+                context = image.get('source_context', {})
+                rows, columns = context.get('panel_grid_rows'), context.get('panel_grid_columns')
+                if (type(rows) is not int or type(columns) is not int or min(rows, columns) < 1
+                        or rows * columns > 64 or context.get('panel_identifier_scheme') != 'grid_unlettered'):
+                    raise ValueError('Unlettered grid needs explicit source dimensions')
+                grid_positions = {f'r{r}c{c}' for r in range(1, rows + 1) for c in range(1, columns + 1)}
+                if set(context.get('panel_types', {})) != grid_positions:
+                    raise ValueError('Unlettered grid needs every original panel role')
             if position_panels:
                 context = image.get('source_context', {})
                 types = context.get('panel_types', {}) if isinstance(context, dict) else {}
@@ -597,11 +608,11 @@ def _structure_atlases():
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
-                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph'}
+                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph', 'Segmentation mask', 'Masked ultrasound'}
                         or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or
-                               (panel not in {'left', 'middle', 'right'} if position_panels else
+                               (panel not in grid_positions if grid_panels else panel not in {'left', 'middle', 'right'} if position_panels else
                                 len(panel) != 1 or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
                                for panel in entry['panels'])
                         or not isinstance(entry.get('structures_visible'), list) or not entry['structures_visible']
