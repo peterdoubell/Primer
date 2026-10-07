@@ -462,28 +462,28 @@
       "steps": [
         {
           "label": "Sinus distribution",
-          "detail": "Describe each sinus and the pattern of disease, including unilateral patterns.",
+          "detail": "Describe each actually covered sinus/compartment and source lesion/secretions/mucosa with extent, modality and uncertainty.",
           "sections": [
             "SINUS DISTRIBUTION"
           ],
-          "look": "Coronal images through the frontal, ethmoid, maxillary and sphenoid sinuses.",
-          "normal": "Paranasal sinuses clear.",
+          "look": "Review every covered side/sinus, including actual frontal/maxillary/sphenoid/ethmoid subdivisions and variants. Trace full source lesion/secretions/mucosal boundaries on obtained sequences/windows; record unilateral/bilateral pattern and unassessed extent.",
+          "normal": {},
           "findings": [
             "Mucosal thickening of the [maxillary] sinuses bilaterally.",
             "Unilateral complete opacification of the [ ] sinus (consider obstructing lesion or fungal disease).",
             "Air–fluid level in the [ ] sinus."
           ],
           "landmark": "maxillary",
-          "tip": "Unilateral disease needs a cause: tumour, dental source, fungal disease or a polyp."
+          "tip": "A low-signal MRI sinus is not automatically aerated; protein-rich/fungal/blood material may simulate air. Hyperdensity or high T2 signal alone does not establish benignity, organism or absence of tumour."
         },
         {
           "label": "Drainage pathways and nasal cavity",
-          "detail": "Assess the ostiomeatal units, frontal and sphenoethmoidal recesses, septum, turbinates and dental source.",
+          "detail": "Trace source-resolved drainage/nasal routes, obstruction and variants without assuming visible aeration proves functional patency.",
           "sections": [
             "DRAINAGE AND NASAL CAVITY"
           ],
-          "look": "Coronal images for the ostiomeatal complex; sagittal for the frontal recess.",
-          "normal": "Ostiomeatal units, recesses and nasal cavity patent.",
+          "look": "Inspect actual ostia/recesses/infundibular/nasal/choanal routes, turbinates/septum and relevant variants with the acquired source resolution. Contact/opacification is not a complete 3D tract or measured flow; unacquired CT/endoscopic information remains unavailable.",
+          "normal": {},
           "findings": [
             "Obstruction of the [left] ostiomeatal unit.",
             "Nasal polyps filling the nasal cavity.",
@@ -492,16 +492,17 @@
           "images": [
             "sinuses-image-1"
           ],
-          "landmark": "ethmoid"
+          "landmark": "ethmoid",
+          "tip": "MRI anatomy/visible lumen does not alone prove complete drainage patency; low resolution or overlap must remain explicit. Use each actual source and variant, not an inherited generic sinus outline."
         },
         {
           "label": "Operative anatomy and variants",
-          "detail": "Report skull-base asymmetry, lamina papyracea, optic nerve and carotid relationships and relevant variants.",
+          "detail": "Assess actual operative landmarks/variants with appropriate acquired thin-bone source; do not infer absent dehiscence from unassessed or unresolved MRI.",
           "sections": [
             "OPERATIVE ANATOMY"
           ],
-          "look": "Coronal images of the cribriform plate and ethmoid roof; sphenoid sinus walls.",
-          "normal": "No dehiscence or relevant surgical variant.",
+          "look": "Use actually obtained thin-section bone imaging for relevant skull-base/lateral-lamella/foveal, lamina-papyracea and optic/carotid-canal relationships. Record measured source planes/calibration, asymmetry and uncertainty rather than forcing a normal or operative-risk category.",
+          "normal": {},
           "findings": [
             "Asymmetric ethmoid roof, lower on the [ ].",
             "Dehiscent lamina papyracea on the [ ].",
@@ -515,16 +516,16 @@
             "Surgical defect/variant"
           ],
           "landmark": "sphenoid",
-          "tip": "Surgical variants that put the orbit, optic nerve or carotid at risk should be stated explicitly."
+          "tip": "MRI soft-tissue detail cannot substitute for unacquired/unresolved thin-bone integrity. Partial volume can mimic defects; a missing wall on one image is not confirmed dehiscence or a normal operative variant."
         },
         {
           "label": "Focal tissue and bone",
-          "detail": "Separate secretions from an enhancing mass and assess remodelling, erosion and diffusion.",
+          "detail": "Describe each source tissue/bone component and acquired signal/enhancement/diffusion/CT bone response with technique and differential.",
           "sections": [
             "FOCAL TISSUE AND BONE"
           ],
-          "look": "T2 and post-contrast MRI; bone windows on CT.",
-          "normal": "No focal mass; no bone erosion.",
+          "look": "Distinguish source signal from true aeration, proteinaceous material, blood/fungal or solid components using actual pre/postcontrast T1/T2/other sequences, CT windows and DWI/ADC if obtained. Separate remodelling/sclerosis/calcification/dehiscence/destruction and marrow replacement.",
+          "normal": {},
           "findings": [
             "Enhancing mass with a convoluted cerebriform pattern (inverted papilloma pattern).",
             "Expansile non-enhancing sinus with thinned walls (mucocele).",
@@ -534,16 +535,16 @@
             "Focal lesion extent"
           ],
           "landmark": "maxillary",
-          "tip": "Secretions change signal with protein content; only enhancing tissue is tumour."
+          "tip": "Enhancement/diffusion/CT morphology can overlap across inflammation, secretions and neoplasia. DWI needs actual ADC/source technique; no unique histology, restricted diffusion or quantitative values are borrowed from unperformed sequences."
         },
         {
           "label": "Extension beyond the sinus",
-          "detail": "Review the orbit, pterygopalatine and infratemporal fossae, cavernous sinus, dura and brain.",
+          "detail": "Trace every source-supported extrasinus interface/route and uncertainty, separating visible morphology from histological/perineural/microbial confirmation.",
           "sections": [
             "EXTRASINUS EXTENSION"
           ],
-          "look": "Post-contrast fat-suppressed MRI of the orbit, fossae and anterior cranial fossa.",
-          "normal": "No orbital, fossa or intracranial extension.",
+          "look": "Inspect covered orbital walls/compartments/apex, pterygopalatine/infratemporal/masticator routes, foramina/cranial nerves, skull-base marrow, cavernous sinus, dura/brain and adjacent soft tissues. Report every actual source extent/connection and unavailable contrast/diffusion or thin-bone information.",
+          "normal": {},
           "findings": [
             "Orbital subperiosteal abscess.",
             "Extension into the pterygopalatine fossa.",
@@ -553,9 +554,13 @@
             "sinuses-image-3"
           ],
           "landmark": "orbits",
-          "tip": "Invasive fungal sinusitis can spread along vessels and nerves with little bone destruction."
+          "tip": "No extrasinus extension is asserted absent from unassessed anatomy. Perineural, orbital/cavernous or intracranial findings require appropriate source extent and clinical correlation; urgency or diagnosis is not inferred solely from the teaching-case label."
         }
-      ]
+      ],
+      "model": {
+        "family": "sinuses",
+        "reporting_aim": "Partial sinonasal orientation only. This companion does not supply native patient drainage routes/functional patency, all thin bone/optic/carotid/nerve interfaces, source lesions, perineural or intracranial extent, histology or organism. Actual acquired MRI/CT/clinical sources and unassessed anatomy remain explicit."
+      }
     },
     "ra.swallowing": {
       "steps": [

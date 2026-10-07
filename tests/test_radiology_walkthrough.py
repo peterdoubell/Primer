@@ -33,6 +33,8 @@ CORRECTED = {
     'ra.hrct-cystic-lung': 'thorax',
     'ra.hrct-lung': 'thorax',
     'ra.chest-radiography': 'thorax',
+    'ra.tuberculosis': 'thorax',
+    'ra.mri-sinuses': 'sinuses',
 }
 
 
