@@ -3847,77 +3847,91 @@
   },
   "ra.tuberculosis": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-07",
       "protocol": [
-        "State radiograph or CT technique, treatment history and microbiology if supplied; inspect for active-looking patterns and complications."
+        "Record actually acquired views/modalities, contrast/sequence/phase, coverage, quality and available comparison. Do not substitute CT/MRI/US tissue information when the source is only a radiograph.",
+        "Describe observed thoracic morphology and its differential. Infection/disease/resistance are distinct diagnostic domains; supplied clinical and laboratory sources cannot be invented from images."
       ],
       "checklist": [
         {
           "label": "Parenchyma",
-          "detail": "Describe consolidation, nodules and cavities."
+          "detail": "Record every actual consolidation/nodule/cavity or other parenchymal component, source site/extent and quality, with a supported differential."
         },
         {
-          "label": "Spread Pattern",
-          "detail": "Distinguish airway-centred and random/miliary distributions."
+          "label": "Spread pattern",
+          "detail": "Describe actually resolved airway-centred, random/miliary or other distribution and acquired regional extent; do not infer unique organism or microscopic spread from morphology."
         },
         {
           "label": "Nodes",
-          "detail": "Review nodal distribution and internal morphology."
+          "detail": "Describe every covered nodal site and source-resolved size/internal/adjacent interface; distinguish projection overlap or unresolved tissue from verified nodes."
         },
         {
-          "label": "Pleura And Airways",
-          "detail": "Assess effusion, pleural thickening and airway narrowing."
+          "label": "Pleura and airways",
+          "detail": "Inspect actual pleural, airway and relevant thoracic complications with source modality/phase and full obtained connections; clinical effect/organism remains separate."
         },
         {
-          "label": "Sequelae And Comparison",
-          "detail": "Assess scarring, volume loss and interval activity."
+          "label": "Sequelae and comparison",
+          "detail": "Record actual sequelae and matching-source change; separate apparent chronic morphology from supplied clinical/microbiological confirmation, activity, infectivity and resistance."
         }
       ],
       "measurements": [
         {
           "name": "Cavity or collection",
-          "method": "Measure location and maximum dimensions and describe wall morphology.",
-          "pitfall": "Cavitation is not specific to tuberculosis."
+          "method": "Record actual site, source modality/projection, local axes/edge convention/window and calibration for representative dimensions; describe full obtained extent and uncertainty.",
+          "pitfall": "One source still does not supply whole3D extent or unique TB diagnosis; measurements depend on actual source technique."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Imaging cannot reliably establish the organism or separate primary from reactivated tuberculosis without clinical context."
+        "Cavitation, consolidation, nodules or an apparent fungal-ball component are not unique TB or independently proven microbiology. Missing or limited views cannot be negative disease evidence.",
+        "Imaging distribution alone does not distinguish new infection from reactivation, establish bacillary viability/infectivity, or prove drug resistance. Actual immune/clinical context must be supplied, not inferred.",
+        "Necrotic-appearing/enlarged/calcified nodes have a differential. Imaging alone does not supply tissue histology, acid-fast results, genotype or resistance status.",
+        "Imaging fluid is not proven TB/chyle or a physiological severity measurement. Possible haemoptysis-related vascular lesions or other urgent complications require actual acquired evidence and clinical assessment.",
+        "Scarring or calcification does not alone exclude coexisting active disease or establish noninfectivity. Normal imaging does not exclude latent infection or unavailable microscopic disease. State uncertainty and missing confirmation; do not infer successful treatment from unmatched stills."
       ],
       "impression_prompts": [
-        "Imaging patterns of thoracic tuberculosis and important mimics.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "State actual source-supported morphology, regional extent and examination limits with a differential.",
+        "Separate imaging suspicion from supplied microbiological/clinical diagnosis, activity, infectivity and resistance status; name missing evidence.",
+        "Describe supported interval change/sequelae and urgent complications without asserting an absent history or successful treatment from unassessed sources."
       ],
       "escalation": [
-        "Communicate new findings suspicious for transmissible pulmonary TB through the clinical and infection-control pathway."
+        "Communicate source-suspected thoracic infection or urgent haemoptysis/airway/pleural/pericardial/vascular complications according to local clinical/infection-control pathways; imaging alone does not determine infectivity or management."
       ],
       "template_sections": [
         {
           "heading": "PARENCHYMA",
-          "body": "Consolidation: [ ]. Nodules: [ ]. Cavities: [ ]."
+          "body": "Actual source modality/projection/phase and region [ ]; each consolidation/nodule/cavity/collection or other component [ ]; wall/content/adjacent interfaces and obtained extent [ ]; calibrated measurement method/window/axis if available [ ]; differential and quality/unresolved extent [ ]."
         },
         {
           "heading": "SPREAD PATTERN",
-          "body": "Tree-in-bud: [ ]. Random/miliary pattern: [ ]. Lobes: [ ]."
+          "body": "Each covered side/lobe/actual region and supported distribution [ ]; airway-centred/tree-in-bud, random/miliary or other pattern [ ]; actual source resolution and mimics [ ]; unassessed regional/microscopic extent [ ]; supplied clinical/immune context without inferred timing or organism [ ]."
         },
         {
           "heading": "NODES",
-          "body": "Stations: [ ]. Necrosis/calcification: [ ]."
+          "body": "Each covered nodal site [ ]; source-resolved boundary/size/attenuation/signal/enhancement/calcium and adjacent airway/vessel relation [ ]; actual acquisition/comparison [ ]; necrotic-appearing differential and missing tissue/laboratory confirmation [ ]; uncovered groups [ ]."
         },
         {
           "heading": "PLEURA AND AIRWAYS",
-          "body": "Pleura: [ ]. Airway involvement: [ ]."
+          "body": "Actual pleural fluid/air/thickening/empyema and source extent [ ]; airway course/narrowing or bronchiectatic component [ ]; each source-supported fistula/chest-wall/pericardial/vascular/bone relation [ ]; modality/phase and confidence [ ]; clinical effect and urgent source findings if supplied [ ]; unresolved extent [ ]."
         },
         {
           "heading": "SEQUELAE AND COMPARISON",
-          "body": "Fibrosis/volume loss: [ ]. Prior/date: [ ]. Interval change: [ ]."
+          "body": "Actual prior sources/dates/methods and matching site change [ ]; source fibrosis/calcium/volume loss or other sequelae [ ]; supplied clinical/specimen/laboratory/molecular/culture/susceptibility results with dates [ ]; activity/infectivity/resistance confirmation or uncertainty [ ]; treatment chronology and unavailable/unassessed evidence [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 Imaging findings in TB",
+          "title": "RA thoracic TB morphology and mimics",
           "url": "https://radiologyassistant.nl/chest/tb/tuberculosis"
+        },
+        {
+          "title": "2024pulmonary/extrapulmonary thoracic imaging review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11449295/"
+        },
+        {
+          "title": "2025WHOdiagnosis domains; reference only, no reused graphics",
+          "url": "https://www.who.int/publications/i/item/9789240107984"
         }
       ]
     }

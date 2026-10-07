@@ -919,12 +919,12 @@
       "steps": [
         {
           "label": "Parenchyma",
-          "detail": "Describe consolidation, nodules and cavities.",
+          "detail": "Record every actual consolidation/nodule/cavity or other parenchymal component, source site/extent and quality, with a supported differential.",
           "sections": [
             "PARENCHYMA"
           ],
-          "look": "Upper-lobe apical and posterior segments and superior segments of the lower lobes; lung windows.",
-          "normal": "No consolidation, nodules or cavities.",
+          "look": "Review actual radiographic/CT or other acquired sources with appropriate projection/reconstruction/windows and coverage. Trace each visible lesion, wall/content, associated airway/vessel/pleural relation and mimics. A teaching-case diagnosis does not describe the current patient.",
+          "normal": {},
           "findings": [
             "Upper-lobe consolidation with cavitation __ mm (post-primary pattern).",
             "Consolidation in the [ ] with ipsilateral hilar lymphadenopathy (primary pattern)."
@@ -933,16 +933,16 @@
             "Cavity or collection"
           ],
           "landmark": "lobes",
-          "tip": "Cavitation and tree-in-bud spread suggest active, potentially transmissible disease."
+          "tip": "Cavitation, consolidation, nodules or an apparent fungal-ball component are not unique TB or independently proven microbiology. Missing or limited views cannot be negative disease evidence."
         },
         {
           "label": "Spread pattern",
-          "detail": "Distinguish endobronchial (tree-in-bud) from miliary spread.",
+          "detail": "Describe actually resolved airway-centred, random/miliary or other distribution and acquired regional extent; do not infer unique organism or microscopic spread from morphology.",
           "sections": [
             "SPREAD PATTERN"
           ],
-          "look": "Thin-section CT: tree-in-bud versus uniformly distributed random micronodules.",
-          "normal": "No tree-in-bud or miliary nodules.",
+          "look": "Assess every covered side/lobe/region and source-resolved bronchiolar/lobular relationships. Tree-in-bud and random nodules have multiple causes; small lesions may be unresolved on radiography and better depicted on actual CT.",
+          "normal": {},
           "findings": [
             "Tree-in-bud nodules in the [ ] (endobronchial spread).",
             "Innumerable random 2–3 mm nodules (miliary pattern)."
@@ -950,16 +950,17 @@
           "images": [
             "ra-tuberculosis-source-2"
           ],
-          "landmark": "airway"
+          "landmark": "airway",
+          "tip": "Imaging distribution alone does not distinguish new infection from reactivation, establish bacillary viability/infectivity, or prove drug resistance. Actual immune/clinical context must be supplied, not inferred."
         },
         {
           "label": "Nodes",
-          "detail": "Review nodal stations and internal necrosis or calcification.",
+          "detail": "Describe every covered nodal site and source-resolved size/internal/adjacent interface; distinguish projection overlap or unresolved tissue from verified nodes.",
           "sections": [
             "NODES"
           ],
-          "look": "Hilar and mediastinal nodes on contrast-enhanced CT.",
-          "normal": "No lymphadenopathy.",
+          "look": "Inspect actual hilar/mediastinal/axillary or other covered nodal groups, attenuation/signal/enhancement/calcium or necrotic-appearing components if supported by acquired sources, airway/vessel displacement and uncovered extent.",
+          "normal": {},
           "findings": [
             "Necrotic (low-attenuation centre, rim-enhancing) mediastinal nodes.",
             "Calcified hilar nodes (healed)."
@@ -967,39 +968,45 @@
           "images": [
             "ra-tuberculosis-source-1"
           ],
-          "landmark": "mediastinum"
+          "landmark": "mediastinum",
+          "tip": "Necrotic-appearing/enlarged/calcified nodes have a differential. Imaging alone does not supply tissue histology, acid-fast results, genotype or resistance status."
         },
         {
           "label": "Pleura and airways",
-          "detail": "Assess effusion, pleural thickening and airway narrowing.",
+          "detail": "Inspect actual pleural, airway and relevant thoracic complications with source modality/phase and full obtained connections; clinical effect/organism remains separate.",
           "sections": [
             "PLEURA AND AIRWAYS"
           ],
-          "look": "Pleural spaces; central bronchi.",
-          "normal": "No pleural effusion or thickening; airways normal.",
+          "look": "Trace effusions, pleural thickening, empyema/air/fluid or fistulous/chest-wall components, airway narrowing/bronchiectatic change and relevant pericardial/vascular/bone interfaces. Contrast, MRI, US/Doppler and other phases are separate sources only if acquired.",
+          "normal": {},
           "findings": [
             "[Right] pleural effusion.",
             "Empyema with split pleura sign.",
             "Bronchial stenosis."
           ],
-          "landmark": "pleura"
+          "landmark": "pleura",
+          "tip": "Imaging fluid is not proven TB/chyle or a physiological severity measurement. Possible haemoptysis-related vascular lesions or other urgent complications require actual acquired evidence and clinical assessment."
         },
         {
           "label": "Sequelae and comparison",
-          "detail": "Assess scarring, volume loss, calcified granulomas and interval activity.",
+          "detail": "Record actual sequelae and matching-source change; separate apparent chronic morphology from supplied clinical/microbiological confirmation, activity, infectivity and resistance.",
           "sections": [
             "SEQUELAE AND COMPARISON"
           ],
-          "look": "Prior imaging for change.",
-          "normal": "No signs of previous tuberculosis.",
+          "look": "Compare actual dates, matched sites, source projection/coverage/phase and treatment/clinical context. Record fibrosis/calcium/volume loss or new change; actual laboratory/specimen, molecular/culture/susceptibility and clinical source results require their own identities/dates.",
+          "normal": {},
           "findings": [
             "Apical fibrosis with volume loss and calcified granulomas (inactive, healed disease).",
             "New cavitation compared with [date] (reactivation)."
           ],
           "landmark": "lobes",
-          "tip": "Imaging suggests activity but cannot prove the organism or the stage of infection."
+          "tip": "Scarring or calcification does not alone exclude coexisting active disease or establish noninfectivity. Normal imaging does not exclude latent infection or unavailable microscopic disease. State uncertainty and missing confirmation; do not infer successful treatment from unmatched stills."
         }
-      ]
+      ],
+      "model": {
+        "family": "thorax",
+        "reporting_aim": "Partial thoracic orientation only. This companion does not supply actual patient TB lesions/cavities, full native nodal/pleural/airway/vascular/chest-wall interfaces, microscopic disease, genotype, viability, infectivity or resistance. Report actual acquired sources; unresolved anatomy and diagnostic confirmation remain unassessed."
+      }
     },
     "ra.thymus": {
       "steps": [
