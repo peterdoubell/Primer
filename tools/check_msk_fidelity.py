@@ -190,7 +190,7 @@ def inspect_source_context(asset, requirement):
                 actual = types.get(panel)
                 if not isinstance(actual, str) or actual in unknown or actual is None:
                     issues.append('source_context_panel_type_unresolved')
-                elif actual not in IMAGE_MODALITIES | {'Dissection', 'Histology', 'Schematic', 'Haemodynamic tracing', 'Clinical photograph'}:
+                elif actual not in IMAGE_MODALITIES | {'Dissection', 'Histology', 'Schematic', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph'}:
                     issues.append('source_context_panel_type_invalid')
                 elif asset['kind'] == 'clinical_image' and actual not in IMAGE_MODALITIES:
                     issues.append('source_context_selected_panel_not_clinical_image')
