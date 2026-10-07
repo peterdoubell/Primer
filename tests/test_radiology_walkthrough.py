@@ -39,6 +39,7 @@ CORRECTED = {
     'ra.ct-mri-eye': 'orbit',
     'ra.cervical-lymph-nodes': 'neck',
     'ra.ultrasound-thyroid': 'neck',
+    'ra.mri-trigeminal': 'trigeminal',
 }
 
 
