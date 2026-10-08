@@ -270,7 +270,7 @@
    viewer's preference and recolor the page to match. The theme toggle stamps
    data-theme on <html> and must win over the media query in both directions. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme]) {
     color-scheme: dark;
     --paper: var(--dk-paper); --paper-2: var(--dk-paper-2);
     --paper-edge: var(--dk-paper-edge); --paper-hi: var(--dk-paper-hi);
@@ -342,6 +342,63 @@
     --gilt: var(--dk-gilt);
     --fore-edge: var(--dk-fore-edge); --board-edge: var(--dk-board-edge);
 }
+/* Monochrome reading palettes affect interface paint, never source imagery. */
+:root[data-theme="silvertone"], :root[data-theme="slate"] {
+  --paper-grain: none; --leather-grain: none; --page-texture: none;
+  --shell-bg: none; --seam: none; --gilt: none;
+  --glow-soft: none; --glow-strong: none; --tile-glow: none;
+  --shadow: rgb(0 0 0 / 18%); --scrim: rgb(0 0 0 / 65%);
+  --hi: rgb(255 255 255 / 18%); --lo: rgb(0 0 0 / 15%);
+  --well: inset 0 1px 3px rgb(0 0 0 / 15%);
+  --fore-edge: inset -14px 0 22px -16px rgb(0 0 0 / 18%);
+  --board-edge: inset -1px 0 0 rgb(0 0 0 / 20%);
+  --surface-light: rgb(255 255 255 / 20%); --surface-shade: rgb(0 0 0 / 10%);
+  --control-relief: inset 0 1px 0 rgb(255 255 255 / 20%);
+  --gold: var(--accent); --gold-ink: var(--ink); --gold-bright: var(--ink);
+  --accent-2: var(--accent); --green: var(--accent); --green-ink: var(--ink);
+  --link: var(--ink); --heading-accent: var(--ink); --focus: var(--ink);
+  --ink-locked: var(--ink-faint); --ink-place: var(--ink-faint);
+  --tint-green: var(--tint-info); --tint-gold: var(--tint-info);
+  --tint-gold-strong: var(--chrome-active); --tint-info-soft: var(--tint-info);
+  --tint-wrong: var(--tint-info); --domain-lift: 0%;
+  --btn-gold-fill: var(--btn-fill); --btn-gold-ink: var(--btn-ink);
+  --chrome-hi: var(--chrome-ink); --chrome-ink-soft: var(--chrome-ink);
+  --chrome-ink-dim: var(--ink-faint); --chrome-rule: var(--edge);
+  --panel-bg: var(--chrome-bg); --glass: var(--paper);
+  --sk-sheen: var(--paper-hi); --img-glare: none;
+}
+:root[data-theme="silvertone"] {
+  color-scheme: light;
+  --paper: #f2f2f2; --paper-2: #e5e5e5; --paper-hi: #fafafa;
+  --paper-edge: #c4c4c4; --rule: #c4c4c4; --edge: #858585;
+  --ink: #242424; --ink-soft: #454545; --ink-faint: #595959;
+  --accent: #555555; --on-fill: #ffffff;
+  --field: #ffffff; --field-hi: #fafafa;
+  --shell-base: #dedede; --chrome-bg: linear-gradient(#e4e4e4, #d4d4d4);
+  --chrome-ink: #292929; --chrome-hover: rgb(0 0 0 / 7%);
+  --chrome-active: rgb(0 0 0 / 13%); --tint-info: rgb(0 0 0 / 6%);
+  --btn-fill: linear-gradient(#535353, #363636); --btn-ink: #ffffff;
+  --img-invert: none;
+}
+:root[data-theme="slate"] {
+  color-scheme: dark;
+  --paper: #202020; --paper-2: #292929; --paper-hi: #303030;
+  --paper-edge: #494949; --rule: #494949; --edge: #858585;
+  --ink: #eeeeee; --ink-soft: #cdcdcd; --ink-faint: #b0b0b0;
+  --accent: #c4c4c4; --on-fill: #202020;
+  --field: #252525; --field-hi: #353535;
+  --shell-base: #151515; --chrome-bg: linear-gradient(#252525, #191919);
+  --chrome-ink: #eeeeee; --chrome-hover: rgb(255 255 255 / 8%);
+  --chrome-active: rgb(255 255 255 / 16%); --tint-info: rgb(255 255 255 / 7%);
+  --btn-fill: linear-gradient(#dddddd, #bbbbbb); --btn-ink: #202020;
+  --img-invert: invert(1);
+}
+:root:is([data-theme="silvertone"], [data-theme="slate"]) :is(.domain-tag, .domain-head .ic, .qa-head .ic) {
+  background: var(--accent) !important; color: var(--on-fill);
+}
+.theme-select { min-width: 0; max-width: 100%; color-scheme: inherit; }
+.theme-select option { color: var(--ink); background: var(--paper); }
+
 /* Reduced motion, decided once. Zeroing the duration tokens and flattening
    the spring silences every transition and animation written against them —
    including ones not yet written — instead of adding a thirteenth scattered
