@@ -14,6 +14,7 @@
     "openear-zeta": "/app/anatomy/openear-zeta/",
     "totalseg-v3-s0358": "/app/anatomy/totalseg-v3-s0358/",
     "wt9fc-sub007": "/app/anatomy/wt9fc-sub007/",
+    "larynx-jasa19629778-phase01": "/app/anatomy/larynx-jasa19629778-phase01/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
@@ -25,6 +26,7 @@
     "temporal-source": [-2, 78],
     "thyroid-source": [-116.75, 121.5],
     "tongue-source": [-106.36968994140625, -49.87583923339844],
+    "larynx-phonation-source": [-23.082857131958008, 8.479644298553467],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],

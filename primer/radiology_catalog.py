@@ -43,6 +43,7 @@ SOURCE_REFERENCE_ATLASES['nasalseg-p001'] = 'sinonasal-source'
 SOURCE_REFERENCE_ATLASES['openear-zeta'] = 'temporal-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
 SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
+SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
 
 
 @lru_cache(maxsize=1)

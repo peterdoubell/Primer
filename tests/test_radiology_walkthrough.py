@@ -44,6 +44,7 @@ CORRECTED = {
     'ra.head-neck-malignancy': 'neck',
     'ra.swallowing': 'swallow',
     'ra.tinnitus': 'temporal',
+    'ra.esophagus': 'swallow',
 }
 
 

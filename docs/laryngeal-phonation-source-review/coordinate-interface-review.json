@@ -1,0 +1,445 @@
+{
+  "source_inputs": {
+    "NRRD_SHA256": "800d4727560cb05e23924337580ec8680ea29406ab5ef080f79f2b890f0ded3f",
+    "STL_SHA256": "dddf49ed16942555eefcda5f97db3f39942676532bd816f348277895715480d2",
+    "sample_count": 11239424,
+    "triangle_count": 29326,
+    "unique_vertices": 14831,
+    "source_arrays_and_surface_modified": false
+  },
+  "affines": {
+    "NRRD_LPS": [
+      [
+        0.3839285671710968,
+        0.0,
+        0.0,
+        -39.0951042175293
+      ],
+      [
+        0.0,
+        -0.3839285671710968,
+        0.0,
+        39.52631759643555
+      ],
+      [
+        0.0,
+        0.0,
+        -0.3839285671710968,
+        42.80107116699219
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "NRRD_convention_only_RAS": [
+      [
+        -0.3839285671710968,
+        0.0,
+        0.0,
+        39.0951042175293
+      ],
+      [
+        0.0,
+        0.3839285671710968,
+        0.0,
+        -39.52631759643555
+      ],
+      [
+        0.0,
+        0.0,
+        -0.3839285671710968,
+        42.80107116699219
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "inherited_NIfTI_srow": [
+      [
+        0.383929,
+        0.0,
+        0.0,
+        39.0951
+      ],
+      [
+        0.0,
+        0.383929,
+        0.0,
+        -39.5263
+      ],
+      [
+        0.0,
+        0.0,
+        0.383929,
+        42.8011
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "same_index_corner_displacement_max_source_numeric_units": 242.1589699643108,
+    "same_index_corner_displacement_axis_max": [
+      171.2322332616253,
+      0.00011411728096533125,
+      171.2322663121624
+    ],
+    "convention_only_equivalent": false,
+    "mismatch": "x and z direction signs differ after LPS to RAS conversion. Origins agree to rounding. A flip of array x/z would require a distinct origin translation; inherited srow does not provide that translation. The original NIfTI payload was not supplied, so its conversion provenance cannot be reconstructed.",
+    "standard_fields_govern_NRRD": true,
+    "inherited_metadata_is_standard_NRRD_affine": false,
+    "NRRD_explicit_space_units": null,
+    "inherited_NIfTI_xyzt_units": "0",
+    "source_corner_bounds_LPS_min": [
+      -39.0951042175293,
+      -46.08975288271904,
+      -42.8149993121624
+    ],
+    "source_corner_bounds_LPS_max": [
+      46.52096626162529,
+      39.52631759643555,
+      42.80107116699219
+    ],
+    "STL_source_bounds_min": [
+      -5.592214584350586,
+      -10.270164489746094,
+      -22.082857131958008
+    ],
+    "STL_source_bounds_max": [
+      10.068193435668945,
+      11.53636646270752,
+      7.479644298553467
+    ]
+  },
+  "fixed_hypothesis_tests": [
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        -1,
+        -1,
+        -1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        75.60497775859587,
+        76.20207405314417,
+        53.963720875714785
+      ],
+      "index_bounds_max": [
+        116.39487817004536,
+        133.00048088473477,
+        130.9637254555694
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.006713889326320595,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.0008900141838243095,
+        0.009992363235765325,
+        0.01853169256729703
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.0660948211453465,
+          "area_weighted_median_absolute_side_signal_difference": 0.0002439212566858881,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.12253402426984332,
+          "area_weighted_median_absolute_side_signal_difference": 0.00048710741757958264,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    },
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        -1,
+        -1,
+        1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        75.60497775859587,
+        76.20207405314417,
+        91.9999965845152
+      ],
+      "index_bounds_max": [
+        116.39487817004536,
+        133.00048088473477,
+        169.00000116436982
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.007874854890807812,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.0011897576495829532,
+        0.014492585792561533,
+        0.02018190998820588
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.057304974498367106,
+          "area_weighted_median_absolute_side_signal_difference": 0.0003251826588782029,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.1122701087358594,
+          "area_weighted_median_absolute_side_signal_difference": 0.0006481508056975205,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    },
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        -1,
+        1,
+        -1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        75.60497775859587,
+        72.90405957536986,
+        53.963720875714785
+      ],
+      "index_bounds_max": [
+        116.39487817004536,
+        129.70246640696047,
+        130.9637254555694
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.005100112646621012,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.0008764366226426336,
+        0.002289333144211868,
+        0.01645059416818396
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.058732294757179795,
+          "area_weighted_median_absolute_side_signal_difference": 0.00024903534960991273,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.13240575954782033,
+          "area_weighted_median_absolute_side_signal_difference": 0.0004503132040742753,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    },
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        -1,
+        1,
+        1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        75.60497775859587,
+        72.90405957536986,
+        91.9999965845152
+      ],
+      "index_bounds_max": [
+        116.39487817004536,
+        129.70246640696047,
+        169.00000116436982
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.007029760507648184,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.0010352906038616837,
+        0.011080517239452274,
+        0.018505224776171895
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.058943847629494776,
+          "area_weighted_median_absolute_side_signal_difference": 0.00035513726963664466,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.12167886014399204,
+          "area_weighted_median_absolute_side_signal_difference": 0.0007166903450600343,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    },
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        1,
+        -1,
+        -1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        87.26334140759116,
+        76.20207405314417,
+        53.963720875714785
+      ],
+      "index_bounds_max": [
+        128.05324181904064,
+        133.00048088473477,
+        130.9637254555694
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.006880619426357898,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.000890200125787156,
+        0.006251158932400359,
+        0.018363335144666263
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.02474107578869697,
+          "area_weighted_median_absolute_side_signal_difference": 0.0001763438612872117,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.053341916096859184,
+          "area_weighted_median_absolute_side_signal_difference": 0.0003430869087510953,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    },
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        1,
+        -1,
+        1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        87.26334140759116,
+        76.20207405314417,
+        91.9999965845152
+      ],
+      "index_bounds_max": [
+        128.05324181904064,
+        133.00048088473477,
+        169.00000116436982
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.007267824711517409,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.0012687208421866764,
+        0.00980225426087559,
+        0.02034085991654817
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.07413196672847562,
+          "area_weighted_median_absolute_side_signal_difference": 0.0003772667520710397,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.15056456665270002,
+          "area_weighted_median_absolute_side_signal_difference": 0.0007354462868562619,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    },
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        1,
+        1,
+        -1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        87.26334140759116,
+        72.90405957536986,
+        53.963720875714785
+      ],
+      "index_bounds_max": [
+        128.05324181904064,
+        129.70246640696047,
+        130.9637254555694
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.004026637888265176,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.0008855509078487545,
+        0.0017749095515479094,
+        0.013277820749750818
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.09660069909593802,
+          "area_weighted_median_absolute_side_signal_difference": 0.00025984160396824875,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.18611162018852562,
+          "area_weighted_median_absolute_side_signal_difference": 0.0005013607005125544,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    },
+    {
+      "STL_to_NRRD_LPS_fixed_axis_signs": [
+        1,
+        1,
+        1
+      ],
+      "unique_vertices_inside_source_grid": 14831,
+      "index_bounds_min": [
+        87.26334140759116,
+        72.90405957536986,
+        91.9999965845152
+      ],
+      "index_bounds_max": [
+        128.05324181904064,
+        129.70246640696047,
+        169.00000116436982
+      ],
+      "area_weighted_mean_abs_centroid_signal_minus_filename_threshold": 0.00266794318482203,
+      "area_weighted_centroid_signal_quantiles_05_50_95": [
+        0.0024278423405946687,
+        0.0031952214593234567,
+        0.003615927262189216
+      ],
+      "normal_offset_stats": {
+        "0.3839285671710968": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.30189274709010466,
+          "area_weighted_median_absolute_side_signal_difference": 0.0027165890473673073,
+          "both_side_interpolations_finite": true
+        },
+        "0.8": {
+          "area_weighted_fraction_sides_straddle_filename_threshold": 0.7754307019363158,
+          "area_weighted_median_absolute_side_signal_difference": 0.006446330385096735,
+          "both_side_interpolations_finite": true
+        }
+      },
+      "transform_approved": false
+    }
+  ],
+  "method_limits": {
+    "normal_offsets_are_source_numeric_units": "paper describes nominal millimetre scale; header does not explicitly declare units",
+    "filename_threshold_is_ground_truth": false,
+    "linear_interpolation_is_original_sample_measurement": false,
+    "air_tissue_straddling_is_anatomic_accuracy_proof": false,
+    "coordinate_fit_performed": false,
+    "registration_or_anatomical_coverage_approved": false,
+    "separate_cartilage_mucosal_ligament_muscle_vessel_nerve_labels_supported": false
+  },
+  "primary_references": {
+    "NRRD_format": "https://teem.sourceforge.net/nrrd/format.html",
+    "NIfTI_coordinate_definition": "https://github.com/NIFTI-Imaging/nifti_clib/blob/master/niftilib/nifti1.h",
+    "Slicer_file_defaults": "https://slicer.readthedocs.io/en/5.10/user_guide/data_loading_and_saving.html",
+    "Slicer_coordinate_systems": "https://slicer.readthedocs.io/en/5.10/user_guide/coordinate_systems.html",
+    "source_dataset": "https://zenodo.org/records/19629778",
+    "source_article": "https://doi.org/10.1121/10.0043582",
+    "retrieved_NIfTI_header_SHA256": "fb86abcab6dcb825da340a3252feb314832dc07b1286e25019dfb3dc07b99486"
+  },
+  "visual_review": {
+    "existing_overlay_file": "candidate-original-index-planes.png",
+    "inspected_all_three_original_index_planes": true,
+    "LPS_assumption_broadly_corresponds_to_central_visible_airspace": true,
+    "surface_ends_truncate_the_airspace_visible_in_MRI": true,
+    "anatomical_labels_and_registration_approved": false
+  }
+}
