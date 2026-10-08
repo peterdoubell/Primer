@@ -5,11 +5,11 @@
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html}"
+        "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html}"
       }
     },
     {
-      "src": "web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358}/**/*.bin*",
+      "src": "web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002}/**/*.bin*",
       "use": "@vercel/static"
     },
     {
@@ -21,7 +21,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "web/anatomy/{verse521,totalseg-v3-s0358,totalseg-v3-esophagus-s0358}/ct-reference.html",
+      "src": "web/anatomy/{verse521,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002}/ct-reference.html",
       "use": "@vercel/static"
     },
     {
@@ -34,6 +34,10 @@
     },
     {
       "src": "web/reference-media/radiology-motion/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "web/anatomy/ispy1-expert1002/mri-reference.html",
       "use": "@vercel/static"
     }
   ],
