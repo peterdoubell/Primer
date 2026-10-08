@@ -19,6 +19,7 @@ FLAGSHIPS = ('ra.ct-coronary', 'ra.mri-prostate')
 CORRECTED = {
     'ra.appendicitis': 'bowel',
     'ra.mri-prostate': 'prostate',
+    'ra.mri-rectal-cancer': 'rectal', 'ra.mri-perianal-fistula': 'rectal',
     'ra.mammography': 'breast', 'ra.ultrasound-breast': 'breast', 'ra.mri-breast': 'breast',
     'ra.breast-cancer-staging': 'breast', 'ra.breast-implants': 'breast', 'ra.male-breast': 'breast',
     'ra.hip-arthroplasty': 'hip',

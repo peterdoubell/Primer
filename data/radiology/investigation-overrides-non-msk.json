@@ -2222,30 +2222,31 @@
   },
   "ra.mri-rectal-cancer": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "Identify baseline or post-treatment examination; align high-resolution T2 to the tumour and correlate restaging diffusion with ADC."
+        "Identify baseline or post-treatment examination; align high-resolution T2 to the tumour and correlate restaging diffusion with ADC.",
+        "Retain actual examination purpose,source patient/position,planes,acquisition/processing,coverage,quality and temporal context. Source sampling does not establish fine anatomical resolution; unacquired structures remain unassessed."
       ],
       "checklist": [
         {
           "label": "Tumour Location",
-          "detail": "Record lower border, length, clock position and peritoneal reflection."
+          "detail": "Map every actual tumour component, lower/upper border, length, circumferential position and relation to sigmoid take-off, ARJ, verge, anal canal and peritoneal reflection. Record exact landmark and measurement convention; source height-category inequalities differ at5cm, so no automatic category is assigned."
         },
         {
           "label": "Local Extent",
-          "detail": "Assess extramural spread and sphincter or adjacent-organ involvement."
+          "detail": "Trace source-resolved wall layers, extramural invasion and every sphincter, pelvic-floor, peritoneal, fascial, neural, vascular and adjacent-organ interface. MRI may not separate T1 fromT2. Internal sphincter/intersphincteric involvement is described separately from the rectal cT descriptor; external sphincter invasion has different staging implications."
         },
         {
           "label": "Mrf And Emvi",
-          "detail": "Identify the nearest malignant component to the mesorectal fascia and extramural veins."
+          "detail": "Distinguish MRF from peritoneum and the eventual surgical margin. Name the closest primary tumour, EMVI or nodule and actual morphology, with measured distance and uncertainty. A smooth node within1mm does not automatically make MRF involved; baseline and treated fibrosis require separate interpretation."
         },
         {
           "label": "Nodes And Deposits",
-          "detail": "Map mesorectal and lateral pelvic disease."
+          "detail": "Inventory each actual node/nodule by side, compartment, size, morphology, vascular relationship and confidence. Preserve regional/nonregional context, including actual anal/dentate involvement. Baseline lateral criteria and mesorectal risk assessment are not universal restaging thresholds or histological proof of deposits."
         },
         {
           "label": "Response If Treated",
-          "detail": "Compare original tumour bed, fibrosis and concordant residual signal."
+          "detail": "Record treatment/date, complete original tumour bed and dated comparisons, fibrosis and actual matched T2/DWI/ADC findings. Reconcile supplied DRE/endoscopy and tissue information. MRI alone does not prove pathological complete response, provide all ycT detail or automatically select organ preservation; lateral nodal restaging remains uncertain."
         }
       ],
       "measurements": [
@@ -2253,12 +2254,20 @@
           "name": "Tumour and MRF distances",
           "method": "Measure from the defined landmarks and name the component closest to fascia.",
           "pitfall": "A deposit, node or involved vein may be closer than the primary tumour."
+        },
+        {
+          "name": "Every source component and interface",
+          "method": "Measure each actually resolved component,tract/nodule/lesion or interface in the supplied native plane with stated calibration,landmark and source series. Preserve complete extent and all uncovered tissue.",
+          "pitfall": "A still,diagram,source measurement or whole-organ model does not supply every layer,branch,opening,clinical state or histological boundary."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "MRI response is one component of clinical response assessment; fibrosis alone is not proof of viable tumour."
+        "MRI response is one component of clinical response assessment; fibrosis alone is not proof of viable tumour.",
+        "MRF invasion alone is notT4; MRF,peritoneal covering and eventual surgical CRM are distinct. A baseline smooth-margin node nearMRF is not the same as tumour,EMVI or irregular nodule involvement.",
+        "ESGAR2026 no longer recommends a baseline1–2mm threatenedMRF category. Its tumour-height boundary at5cm is inconsistent between source sections; record exact height/landmark and adopted convention.",
+        "Fibrosis or no visible restriction does not prove pathological complete response. Combine actual MRI quality and obtained clinical/endoscopic evidence; baseline nodal thresholds are not lateral restaging rules."
       ],
       "impression_prompts": [
         "Tumour, mesorectum and treatment response using the 2026 source update.",
@@ -2268,59 +2277,72 @@
       "template_sections": [
         {
           "heading": "TUMOUR LOCATION",
-          "body": "Lower border from anal verge: [ ] cm. Length: [ ]. Clock position/reflection: [ ]."
+          "body": "Lower border from anal verge: [ ] cm. Length: [ ]. Clock position/reflection: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "LOCAL EXTENT",
-          "body": "mrT descriptor: [ ]. Extramural depth: [ ] mm. Sphincter/organ invasion: [ ]."
+          "body": "mrT descriptor: [ ]. Extramural depth: [ ] mm. Sphincter/organ invasion: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "MRF AND EMVI",
-          "body": "MRF distance/component: [ ] mm/[ ]. EMVI: [ ]."
+          "body": "MRF distance/component: [ ] mm/[ ]. EMVI: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "NODES AND DEPOSITS",
-          "body": "Nodes by station/side/short axis: [ ]. Morphology: [ ]. Deposits: [ ]."
+          "body": "Nodes by station/side/short axis: [ ]. Morphology: [ ]. Deposits: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "RESPONSE IF TREATED",
-          "body": "Treatment/date: [ ]. Fibrosis: [ ]. Residual T2 and matched restriction: [ ]. Nodal response: [ ]."
+          "body": "Treatment/date: [ ]. Fibrosis: [ ]. Residual T2 and matched restriction: [ ]. Nodal response: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Rectal Cancer  MR staging and restaging- update 2026",
           "url": "https://radiologyassistant.nl/abdomen/rectum/rectal-cancer-mr-staging-1-1"
+        },
+        {
+          "title": "Source rectal MRI anatomy and modality limits",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9849549/"
+        },
+        {
+          "title": "ESGAR2026 PartI primary staging consensus",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13212678/"
+        },
+        {
+          "title": "ESGAR2026 PartII restaging and response consensus",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13212783/"
         }
       ]
     }
   },
   "ra.mri-perianal-fistula": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "Align small-field T2 planes to the anal canal; use fluid-sensitive and contrast sequences as appropriate to inflammation and collections."
+        "Align small-field T2 planes to the anal canal; use fluid-sensitive and contrast sequences as appropriate to inflammation and collections.",
+        "Retain actual examination purpose,source patient/position,planes,acquisition/processing,coverage,quality and temporal context. Source sampling does not establish fine anatomical resolution; unacquired structures remain unassessed."
       ],
       "checklist": [
         {
           "label": "Internal Opening",
-          "detail": "Locate the opening using a stated clock-face convention and height."
+          "detail": "Locate every source-demonstrated internal opening and actual height with an explicitly stated clock-face/view convention. Distinguish ARJ, verge and inferred dentate level; a schematic or lithotomy clock convention is not verified source MRI acquisition position."
         },
         {
           "label": "Primary Tract",
-          "detail": "Trace the main tract relative to internal and external sphincters."
+          "detail": "Trace the complete actual primary tract wall/lumen and each sphincter/intersphincteric/ischioanal crossing in native planes. Keep source visible segments and unresolved continuation distinct; a blind sinus is not a proven complete fistula."
         },
         {
           "label": "Secondary Extensions",
-          "detail": "Look for branches and horseshoe components."
+          "detail": "Map each branch, horseshoe component, blind endpoint, separate tract and external opening, including bilateral and deep extensions. Original drawn yellow fills are publication annotations, not supplied native segmentation masks or verified complete lumen boundaries."
         },
         {
           "label": "Collections And Levator",
-          "detail": "Localise abscesses and supralevator spread."
+          "detail": "Review every collection and its wall/content, three source dimensions, communicating tract and relation to puborectalis/levator and supralevator compartments. Selected views or signal alone do not independently establish organism, drainability or the complete route."
         },
         {
           "label": "Sphincters And Context",
-          "detail": "Assess sphincter defects, operative changes and other rectal disease."
+          "detail": "Review actual sphincter defects, perineal skin/soft tissue, proctitis, prior surgery/seton and supplied inflammatory/tissue context. State source limitations and operative correlation. Parks type describes the demonstrated anatomical relation; it is not current histology, disease activity or a complete treatment plan."
         }
       ],
       "measurements": [
@@ -2328,6 +2350,11 @@
           "name": "Tract and abscess localisation",
           "method": "Record opening height and collection dimensions in three planes.",
           "pitfall": "Specify clock-face orientation and distinguish a tract from a blind sinus."
+        },
+        {
+          "name": "Every source component and interface",
+          "method": "Measure each actually resolved component,tract/nodule/lesion or interface in the supplied native plane with stated calibration,landmark and source series. Preserve complete extent and all uncovered tissue.",
+          "pitfall": "A still,diagram,source measurement or whole-organ model does not supply every layer,branch,opening,clinical state or histological boundary."
         }
       ],
       "classification": {
@@ -2350,29 +2377,37 @@
       "template_sections": [
         {
           "heading": "INTERNAL OPENING",
-          "body": "Clock position: [ ]. Height/anal level: [ ]. Confidence: [ ]."
+          "body": "Clock position: [ ]. Height/anal level: [ ]. Confidence: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "PRIMARY TRACT",
-          "body": "Course: [ ]. Sphincter crossing: [ ]. External opening: [ ]."
+          "body": "Course: [ ]. Sphincter crossing: [ ]. External opening: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "SECONDARY EXTENSIONS",
-          "body": "Branches/endpoints: [ ]. Horseshoe: [ ]."
+          "body": "Branches/endpoints: [ ]. Horseshoe: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "COLLECTIONS AND LEVATOR",
-          "body": "Abscess site/dimensions: [ ]. Levator relationship: [ ]."
+          "body": "Abscess site/dimensions: [ ]. Levator relationship: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         },
         {
           "heading": "SPHINCTERS AND CONTEXT",
-          "body": "Sphincter integrity: [ ]. Seton/surgery: [ ]. Proctitis: [ ]. Parks type if applicable: [ ]."
+          "body": "Sphincter integrity: [ ]. Seton/surgery: [ ]. Proctitis: [ ]. Parks type if applicable: [ ].\nActual source-resolved components/interfaces [ ]; exact reference,quality and uncovered extent [ ]; separate clinical/tissue/temporal correlation [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant — Perianal Fistulas",
           "url": "https://radiologyassistant.nl/abdomen/rectum/perianal-fistulas"
+        },
+        {
+          "title": "Source rectal MRI anatomy and modality limits",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9849549/"
+        },
+        {
+          "title": "Original perianal MRI/source illustration review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13512459/"
         }
       ]
     }
