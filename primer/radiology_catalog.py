@@ -44,6 +44,7 @@ SOURCE_REFERENCE_ATLASES['openear-zeta'] = 'temporal-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-esophagus-s0358'] = 'esophagus-source'
 SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
+SOURCE_REFERENCE_ATLASES['ispy1-expert1002'] = 'breast-tumour-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
 
 
@@ -93,19 +94,21 @@ def _source_anatomy_references():
                 raise ValueError('Source anatomy initial layer is unavailable')
             volume = entry.get('source_volume')
             if volume:
-                if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + '/ct-reference.html':
-                    raise ValueError('Source CT volume must use its registered local viewer')
+                if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + ('/mri-reference.html' if entry['atlas']=='ispy1-expert1002' else '/ct-reference.html'):
+                    raise ValueError('Source volume must use its registered local viewer')
+                if entry['atlas']=='ispy1-expert1002' and volume.get('modality')!='MRI':
+                    raise ValueError('Registered source MRI viewer needs its actual MRI modality')
                 volume_path = web / volume['src'].removeprefix('/app/')
                 from .source_volume_integrity import verified_volume_identity
                 verified_volume_identity(volume, web, DATA)
                 expected_levels = {part_id: manifest['parts'][part_id]['name'].split(' · ')[0] for part_id in manifest['parts']}
                 if volume.get('level_by_part') != expected_levels:
-                    raise ValueError('Source CT label selections must match the registered source parts')
+                    raise ValueError('Source volume label selections must match the registered source parts')
                 script_path = volume_path.with_suffix('.js')
                 if hashlib.sha256(script_path.read_bytes()).hexdigest() != volume.get('script_sha256'):
-                    raise ValueError('Source CT plane renderer changed')
+                    raise ValueError('Source volume plane renderer changed')
                 for key in ('id', 'title', 'caption', 'attribution', 'source_url', 'license_url'):
-                    _text(volume.get(key), 'Source CT volume requires explicit ' + key)
+                    _text(volume.get(key), 'Source volume requires explicit ' + key)
             source_image = entry.get('source_image')
             if source_image:
                 if not isinstance(source_image, dict):

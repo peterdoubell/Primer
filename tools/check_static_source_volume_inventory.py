@@ -3,7 +3,7 @@
 import argparse,hashlib,json,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
-from primer.source_volume_integrity import CDN_VOLUME_ATLASES
+from primer.source_volume_integrity import CDN_VOLUME_ATLASES,CDN_VOLUME_FILES
 
 def inventory():
     files={}
@@ -11,7 +11,7 @@ def inventory():
         for entry in entries:
             if entry['atlas'] not in CDN_VOLUME_ATLASES:continue
             volume=entry.get('source_volume')
-            if not volume or volume.get('src')!='/app/anatomy/'+entry['atlas']+'/ct-reference.html':raise ValueError('Unregistered source volume')
+            if not volume or volume.get('src')!='/app/anatomy/'+entry['atlas']+'/'+CDN_VOLUME_FILES[entry['atlas']]:raise ValueError('Unregistered source volume')
             root=(ROOT/'web/anatomy'/entry['atlas']).resolve();path=(ROOT/'web'/volume['src'].removeprefix('/app/')).resolve()
             if not path.is_relative_to(root) or not path.is_file():raise ValueError('Source volume missing or outside atlas')
             raw=path.read_bytes();sha=hashlib.sha256(raw).hexdigest();script=hashlib.sha256(path.with_suffix('.js').read_bytes()).hexdigest()
@@ -24,4 +24,4 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--write',action='store_true');args=p.parse_args();data=inventory();path=ROOT/'data/radiology/radiology-static-source-volumes.json'
     if args.write:path.write_text(json.dumps(data,indent=2)+'\n')
     elif json.loads(path.read_text())!=data:raise SystemExit('Static source volume inventory differs from reviewed source bytes')
-    print(len(data['files']),'complete source CT viewer hashes verified')
+    print(len(data['files']),'complete source volume viewer hashes verified')
