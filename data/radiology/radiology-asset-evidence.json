@@ -43771,7 +43771,7 @@
     {
       "id": "larynx-jasa19629778-phase01-original-air-tissue-interface",
       "kind": "model",
-      "name": "Original segmented air–tissue interface · source phonation phase01",
+      "name": "Original segmented air\u2013tissue interface \u00b7 source phonation phase01",
       "local_path": "web/anatomy/larynx-jasa19629778-phase01/larynx-jasa19629778-phase01-original-air-tissue-interface.bin.gz",
       "sha256": "29b6cabfcc3ef8ae56fdea81e891a22c4427fb6f997348a75a77db7fff5485d6",
       "investigation_ids": [
@@ -43789,13 +43789,13 @@
           "review_status": "verified",
           "evidence_path": "docs/laryngeal-phonation-source-review/zenodo-19629778.json",
           "evidence_sha256": "1e90e4c24cbf9fe01683a9f008899c41f52ebe25d7f203b85ceed7e60b6f4a37",
-          "attribution": "Traser, Louisa, Stritt, Fiona, Jordan, Paula, Köberlein, Marie, Kirsch, Jonas, Rummel, Stefanie, Zhang, Zhaoyan, Richter, Bernhard, Bock, Michael, Fischer, Johannes, Echternach, Matthias. Supplementary dataset for Dynamic 3D MRI of vocal fold oscillations, Stiff phase 01. DOI 10.5281/zenodo.19629778. CC BY 4.0. Adaptation: bit-exact original STL geometry in BP3D transport; neutral display colour and averaged display normals.",
+          "attribution": "Traser, Louisa, Stritt, Fiona, Jordan, Paula, K\u00f6berlein, Marie, Kirsch, Jonas, Rummel, Stefanie, Zhang, Zhaoyan, Richter, Bernhard, Bock, Michael, Fischer, Johannes, Echternach, Matthias. Supplementary dataset for Dynamic 3D MRI of vocal fold oscillations, Stiff phase 01. DOI 10.5281/zenodo.19629778. CC BY 4.0. Adaptation: bit-exact original STL geometry in BP3D transport; neutral display colour and averaged display normals.",
           "reviewed_at": "2026-10-08"
         }
       },
       "anatomical_review": {
         "status": "pending",
-        "reason": "Original source air–tissue interface only; producer registration, fine tissue labels and complete clinical anatomy remain unverified."
+        "reason": "Original source air\u2013tissue interface only; producer registration, fine tissue labels and complete clinical anatomy remain unverified."
       }
     },
     {
@@ -44601,6 +44601,130 @@
       "anatomical_review": {
         "status": "pending",
         "reason": "MRI montage and temporal reconstruction do not establish every fine structure or clinically validated event."
+      }
+    },
+    {
+      "id": "tinnitus-pmc5263210-source1-original",
+      "kind": "source_motion_reference",
+      "reference_only": true,
+      "name": "Processed 4D-CTA MIP source original",
+      "local_path": "web/reference-media/radiology-motion/tinnitus-pmc5263210-source1-original.avi",
+      "sha256": "10af2498cd947900d4d45ea7af230bdbdb8fc8c8567bb648e7dcddc5653a039c",
+      "investigation_ids": [
+        "ra.tinnitus"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5263210/",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "evidence_path": "docs/tinnitus-clinical-source-review/original-source-review.json",
+          "evidence_sha256": "bca85a3cc33ec19fe59f65d5df0e04bdacca0f2a9c8a4f1bc31c95b04627ea91",
+          "attribution": "Sjoert A. H. Pegge, Stefan C. A. Steens, Henricus P. M. Kunst, Frederick J. A. Meijer. Pulsatile Tinnitus: Differential Diagnosis and Radiological Work-Up. DOI 10.1007/s40134-017-0199-7. Supplement MOESM1. CC BY4.0. Adaptation: decoded RGB24 lossless VP9 browser transport; original AVI and source RGB555 precision preserved in provenance. No endorsement implied.",
+          "reviewed_at": "2026-10-08"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Source display clips do not establish every native structure, timing/calibration or present clinical function."
+      }
+    },
+    {
+      "id": "tinnitus-pmc5263210-source1-transport",
+      "kind": "source_motion_reference",
+      "reference_only": true,
+      "name": "Processed 4D-CTA MIP source transport",
+      "local_path": "web/reference-media/radiology-motion/tinnitus-pmc5263210-source1-lossless.webm",
+      "sha256": "9cbcf5d1c2215eb78f8731f70799fd960e6bb76e9be4f1f317f7f1a0e40a2cb7",
+      "investigation_ids": [
+        "ra.tinnitus"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5263210/",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "evidence_path": "docs/tinnitus-clinical-source-review/original-source-review.json",
+          "evidence_sha256": "bca85a3cc33ec19fe59f65d5df0e04bdacca0f2a9c8a4f1bc31c95b04627ea91",
+          "attribution": "Sjoert A. H. Pegge, Stefan C. A. Steens, Henricus P. M. Kunst, Frederick J. A. Meijer. Pulsatile Tinnitus: Differential Diagnosis and Radiological Work-Up. DOI 10.1007/s40134-017-0199-7. Supplement MOESM1. CC BY4.0. Adaptation: decoded RGB24 lossless VP9 browser transport; original AVI and source RGB555 precision preserved in provenance. No endorsement implied.",
+          "reviewed_at": "2026-10-08"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Source display clips do not establish every native structure, timing/calibration or present clinical function."
+      }
+    },
+    {
+      "id": "tinnitus-pmc5263210-source2-original",
+      "kind": "source_motion_reference",
+      "reference_only": true,
+      "name": "DSA projection source original",
+      "local_path": "web/reference-media/radiology-motion/tinnitus-pmc5263210-source2-original.avi",
+      "sha256": "92256aedad045ec9e04884d92d025cfca6acb2c61613d59dadb24e046cfb6e26",
+      "investigation_ids": [
+        "ra.tinnitus"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5263210/",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "evidence_path": "docs/tinnitus-clinical-source-review/original-source-review.json",
+          "evidence_sha256": "bca85a3cc33ec19fe59f65d5df0e04bdacca0f2a9c8a4f1bc31c95b04627ea91",
+          "attribution": "Sjoert A. H. Pegge, Stefan C. A. Steens, Henricus P. M. Kunst, Frederick J. A. Meijer. Pulsatile Tinnitus: Differential Diagnosis and Radiological Work-Up. DOI 10.1007/s40134-017-0199-7. Supplement MOESM2. CC BY4.0. Adaptation: decoded RGB24 lossless VP9 browser transport; original AVI and source RGB555 precision preserved in provenance. No endorsement implied.",
+          "reviewed_at": "2026-10-08"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Source display clips do not establish every native structure, timing/calibration or present clinical function."
+      }
+    },
+    {
+      "id": "tinnitus-pmc5263210-source2-transport",
+      "kind": "source_motion_reference",
+      "reference_only": true,
+      "name": "DSA projection source transport",
+      "local_path": "web/reference-media/radiology-motion/tinnitus-pmc5263210-source2-lossless.webm",
+      "sha256": "2ce282f5c83bb8b74836dc2e64dd9187929b53e18a99426937d3e4b75f27543f",
+      "investigation_ids": [
+        "ra.tinnitus"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "source": {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5263210/",
+        "license": {
+          "name": "CC BY 4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "evidence_path": "docs/tinnitus-clinical-source-review/original-source-review.json",
+          "evidence_sha256": "bca85a3cc33ec19fe59f65d5df0e04bdacca0f2a9c8a4f1bc31c95b04627ea91",
+          "attribution": "Sjoert A. H. Pegge, Stefan C. A. Steens, Henricus P. M. Kunst, Frederick J. A. Meijer. Pulsatile Tinnitus: Differential Diagnosis and Radiological Work-Up. DOI 10.1007/s40134-017-0199-7. Supplement MOESM2. CC BY4.0. Adaptation: decoded RGB24 lossless VP9 browser transport; original AVI and source RGB555 precision preserved in provenance. No endorsement implied.",
+          "reviewed_at": "2026-10-08"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Source display clips do not establish every native structure, timing/calibration or present clinical function."
       }
     }
   ]

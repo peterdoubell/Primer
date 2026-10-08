@@ -349,9 +349,59 @@ def parse_webm_contract(source):
     return {"width": width, "height": height, "frames": len(pts), "pts_seconds": seconds}
 
 
+def _riff_chunks(data, start, end):
+    result=[]
+    while start<end:
+        if end-start<8 or len(result)>=MAX_ELEMENTS:raise ValueError('Truncated or excessive RIFF chunks')
+        tag=data[start:start+4];size=struct.unpack_from('<I',data,start+4)[0];payload=start+8;stop=payload+size;padded=stop+(size&1)
+        if stop>end or padded>end:raise ValueError('RIFF chunk exceeds its declared container')
+        result.append((tag,payload,stop));start=padded
+    return result
+
+
+def parse_avi_contract(source):
+    """Conservative single-video indexed AVI chronology; no image/physiology approval."""
+    data=_bytes(source)
+    if len(data)<12 or data[:4]!=b'RIFF' or data[8:12]!=b'AVI ':raise ValueError('Unsupported AVI signature')
+    end=struct.unpack_from('<I',data,4)[0]+8
+    if end<12 or end>len(data):raise ValueError('AVI RIFF length is invalid')
+    # These original AVI files have an opaque sector-alignment trailer, including
+    # nonzero bytes. Preserve it, but never treat it as another track or frame.
+    if len(data)!=end and (len(data)-end>511 or len(data)%512 or b'RIFF' in data[end:]):raise ValueError('Unsupported AVI trailer or continuation')
+    top=_riff_chunks(data,12,end)
+    def lists(items,kind):return [r for r in items if r[0]==b'LIST' and r[2]-r[1]>=4 and data[r[1]:r[1]+4]==kind]
+    headers=lists(top,b'hdrl');movies=lists(top,b'movi')
+    if len(headers)!=1 or len(movies)!=1:raise ValueError('Missing or repeated AVI headers/movie list')
+    head=_riff_chunks(data,headers[0][1]+4,headers[0][2]);main=_one(head,b'avih');streams=lists(head,b'strl')
+    if main[2]-main[1]!=56 or len(streams)!=1:raise ValueError('Unsupported AVI main header or tracks')
+    h=struct.unpack_from('<14I',data,main[1]);microseconds,total,initial,nstreams,width,height=h[0],h[4],h[5],h[6],h[8],h[9]
+    if nstreams!=1 or initial or not 0<total<=MAX_FRAMES or not width or not height:raise ValueError('Invalid AVI main frame count/dimensions')
+    parts=_riff_chunks(data,streams[0][1]+4,streams[0][2]);stream=_one(parts,b'strh');format_=_one(parts,b'strf')
+    if stream[2]-stream[1]!=56 or data[stream[1]:stream[1]+4]!=b'vids':raise ValueError('Unsupported AVI stream')
+    base=stream[1];scale,rate,start,length=struct.unpack_from('<4I',data,base+20)
+    if not scale or not rate or start or length!=total or struct.unpack_from('<I',data,base+16)[0]:raise ValueError('AVI rate/count/start mismatch')
+    if abs(microseconds-scale*1_000_000/rate)>1:raise ValueError('AVI clocks disagree')
+    rect=struct.unpack_from('<4h',data,base+48)
+    if rect!=(0,0,width,height):raise ValueError('Cropped or scaled AVI stream unsupported')
+    if format_[2]-format_[1]!=40:raise ValueError('Unsupported AVI bitmap format')
+    size,w,signed_h,planes,bits,compression=struct.unpack_from('<IiiHH4s',data,format_[1])
+    if size!=40 or w!=width or signed_h!=height or planes!=1 or bits!=16 or compression not in {b'CRAM',b'MSVC'}:raise ValueError('AVI source codec/bitmap dimensions differ')
+    movie=movies[0];packets=_riff_chunks(data,movie[1]+4,movie[2])
+    frames=[r for r in packets if r[0] in {b'00db',b'00dc'}]
+    if len(frames)!=total or any(r[0] not in {b'00db',b'00dc',b'JUNK'} for r in packets) or any(r[1]==r[2] for r in frames):raise ValueError('AVI frame chunks/count/track differ')
+    index=_one(top,b'idx1')
+    if index[2]-index[1]!=total*16:raise ValueError('AVI index count differs')
+    for i,frame in enumerate(frames):
+        tag,flags,offset,size=struct.unpack_from('<4sIII',data,index[1]+i*16)
+        if tag!=frame[0] or flags!=0x10 or movie[1]+offset!=frame[1]-8 or size!=frame[2]-frame[1]:raise ValueError('AVI index does not bind original ordered frames')
+    return {'width':width,'height':height,'frames':total,'pts_seconds':[i*scale/rate for i in range(total)]}
+
+
 def parse_motion_contract(source):
     """Dispatch using the actual container signature, not its filename suffix."""
     data = _bytes(source)
+    if data.startswith(b"RIFF"):
+        return parse_avi_contract(data)
     if data.startswith(b"\x1a\x45\xdf\xa3"):
         return parse_webm_contract(data)
     if len(data) >= 8 and data[4:8] == b"ftyp":

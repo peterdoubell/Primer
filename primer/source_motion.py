@@ -1,7 +1,7 @@
 """Byte-bound teaching movies; no anatomical or physiological coverage approval."""
 import hashlib,json,math
 from pathlib import Path
-from .source_motion_contract import parse_motion_contract
+from .source_motion_integrity import verified_motion_contract
 
 def validate_motion_references(registry,known,web):
     if not isinstance(registry,dict):raise ValueError('Source motion must map investigations')
@@ -14,16 +14,16 @@ def validate_motion_references(registry,known,web):
             for key in ['id','title','caption','attribution','source_url','license_url','limits']:
                 if not isinstance(row.get(key),str) or not row[key].strip():raise ValueError('Source motion requires '+key)
             if row.get('reference_only') is not True or row.get('clinical_approval') is not False or row.get('anatomical_approval') is not False or row.get('structure_ids') or row.get('requirement_coverage'):raise ValueError('Teaching motion cannot grant clinical or anatomical coverage')
-            if row.get('modality') not in {'MRI','Radiography','Ultrasound'}:raise ValueError('Source motion needs actual modality')
+            if row.get('modality') not in {'MRI','CT','Radiography','Ultrasound'}:raise ValueError('Source motion needs actual modality')
             for key in ['width','height','frames']:
                 if type(row.get(key)) is not int or row[key]<1:raise ValueError('Source motion has invalid dimensions/count')
             contracts={}
             for field,digest in [('src','sha256'),('original_src','original_sha256')]:
                 src=row.get(field);prefix='/app/reference-media/radiology-motion/'
-                if not isinstance(src,str) or not src.startswith(prefix) or '%' in src or '\\' in src or '/' in src.removeprefix(prefix) or not src.endswith(('.webm','.mp4')):raise ValueError('Motion file must stay in its registered directory')
+                if not isinstance(src,str) or not src.startswith(prefix) or '%' in src or '\\' in src or '/' in src.removeprefix(prefix) or not src.endswith(('.webm','.mp4','.avi')):raise ValueError('Motion file must stay in its registered directory')
                 path=(web/src.removeprefix('/app/')).resolve()
-                if not path.is_relative_to(web) or not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=row.get(digest):raise ValueError('Motion file missing or changed')
-                contracts[field]=parse_motion_contract(path)
+                if not path.is_relative_to(web):raise ValueError('Motion path leaves web directory')
+                contracts[field]=verified_motion_contract(path,src,row.get(digest),web.parent/'data/radiology')
             source=row.get('source_pts_seconds');transport=row.get('transport_pts_seconds')
             for times in [source,transport]:
                 if not isinstance(times,list) or len(times)!=row['frames'] or any(type(t) not in {int,float} or not math.isfinite(t) or t<0 for t in times) or any(a>=b for a,b in zip(times,times[1:])):raise ValueError('Motion timestamps/count/order differ')
