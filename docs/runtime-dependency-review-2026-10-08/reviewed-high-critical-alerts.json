@@ -1,0 +1,191 @@
+{
+  "reviewed_on": "2026-10-08",
+  "alerts": [
+    {
+      "manifest": "requirements.txt",
+      "number": 64,
+      "package": "anyio",
+      "patched": "4.14.2",
+      "severity": "critical",
+      "summary": "AnyIO: TLSStream IDNA 2003 host name encoding enables potential TLS certificate spoofing"
+    },
+    {
+      "manifest": "requirements.lock.txt",
+      "number": 63,
+      "package": "anyio",
+      "patched": "4.14.2",
+      "severity": "critical",
+      "summary": "AnyIO: TLSStream IDNA 2003 host name encoding enables potential TLS certificate spoofing"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 60,
+      "package": "pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow: Controlled heap out-of-bounds write in Pillow `ImageCmsTransform.apply()` via output mode mismatch"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 59,
+      "package": "pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow JPEG2000 tiled decode retains a growing scratch buffer and can be used for denial of service"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 58,
+      "package": "Pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow: Decompression Bomb DoS via PdfParser.PdfStream.decode()"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 57,
+      "package": "Pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow: Heap out-of-bounds write `Image.paste()` / `Image.crop()` via signed coordinate overflow"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 55,
+      "package": "Pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow: Heap out-of-bounds write in `ImageFilter.RankFilter` via integer overflow in `ImagingExpand`"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 53,
+      "package": "pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow `GdImageFile._open()`: image dimensions accepted without `_decompression_bomb_check()`"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 52,
+      "package": "pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow `BdfFontFile`: `Image.new()` called without `_decompression_bomb_check()` \u2014 bomb protection bypass via font loading"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 51,
+      "package": "pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow: `FontFile.compile()`: `Image.new()` called without `_decompression_bomb_check()`"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 50,
+      "package": "pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow `PcfFontFile._load_bitmaps()`: `Image.frombytes()` called without `_decompression_bomb_check()` \u2014 bomb protection bypass via PCF font loading"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 49,
+      "package": "pillow",
+      "patched": "12.3.0",
+      "severity": "high",
+      "summary": "Pillow: Out-of-bounds read via attacker-controlled row stride on Pillow's mmap path (McIdas AREA files)"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 48,
+      "package": "pillow",
+      "patched": "12.2.0",
+      "severity": "high",
+      "summary": "Pillow has an OOB Write with Invalid PSD Tile Extents (Integer Overflow)"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 44,
+      "package": "pillow",
+      "patched": "12.2.0",
+      "severity": "high",
+      "summary": "FITS GZIP decompression bomb in Pillow"
+    },
+    {
+      "manifest": "tools/requirements-math-illustrations.txt",
+      "number": 43,
+      "package": "pillow",
+      "patched": "12.1.1",
+      "severity": "high",
+      "summary": "Pillow affected by out-of-bounds write when loading PSD images"
+    },
+    {
+      "manifest": "requirements.txt",
+      "number": 42,
+      "package": "aiohttp",
+      "patched": "3.14.3",
+      "severity": "high",
+      "summary": "AIOHTTP: Out-of-bounds heap read in C HTTP response parser error path (malformed chunked response)"
+    },
+    {
+      "manifest": "requirements.txt",
+      "number": 39,
+      "package": "starlette",
+      "patched": "1.3.1",
+      "severity": "high",
+      "summary": "Starlette: request.form() limits silently ignored for application/x-www-form-urlencoded enable DoS"
+    },
+    {
+      "manifest": "requirements.txt",
+      "number": 37,
+      "package": "starlette",
+      "patched": "1.1.0",
+      "severity": "high",
+      "summary": "Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows"
+    },
+    {
+      "manifest": "requirements.lock.txt",
+      "number": 21,
+      "package": "aiohttp",
+      "patched": "3.14.3",
+      "severity": "high",
+      "summary": "AIOHTTP: Out-of-bounds heap read in C HTTP response parser error path (malformed chunked response)"
+    },
+    {
+      "manifest": "requirements.lock.txt",
+      "number": 18,
+      "package": "starlette",
+      "patched": "1.3.1",
+      "severity": "high",
+      "summary": "Starlette: request.form() limits silently ignored for application/x-www-form-urlencoded enable DoS"
+    },
+    {
+      "manifest": "requirements.lock.txt",
+      "number": 16,
+      "package": "starlette",
+      "patched": "1.1.0",
+      "severity": "high",
+      "summary": "Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows"
+    }
+  ],
+  "all_these_alerts_have_patched_versions_in_current_pins": true,
+  "GitHub_alerts_observed_closed_after_merge": false,
+  "critical_runtime_issue": "https://github.com/agronholm/anyio/security/advisories/GHSA-82r6-8w77-94w6",
+  "old_environment_TLS_regression": "Both loopback certificate cases fail: the old IDNA2003 alias is wrongly accepted and the correct IDNA2008 hostname certificate is wrongly rejected.",
+  "patched_environment_TLS_regression": "Both loopback certificate cases pass with certificate checking enabled.",
+  "old_TLS_regression_log_sha256": "1f19e114daf788e40b38f4550e382d6a609736d1fa6d1c8bcc8e852904660678",
+  "isolated_dependency_consistency": "pip check passed",
+  "minimum_Python": "3.10",
+  "production_Python": "3.12",
+  "pins": {
+    "fastapi": "0.143.0",
+    "starlette": "1.7.0",
+    "anyio": "4.15.1",
+    "aiohttp": "3.14.4",
+    "yarl": "1.25.1",
+    "Pillow_tool_only": "12.3.0"
+  },
+  "all_security_or_clinical_certification_claimed": false
+}
