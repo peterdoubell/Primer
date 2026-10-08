@@ -42,6 +42,7 @@ SOURCE_REFERENCE_ATLASES['hvsmr2-pat7'] = 'cardiac-venous-source'
 SOURCE_REFERENCE_ATLASES['nasalseg-p001'] = 'sinonasal-source'
 SOURCE_REFERENCE_ATLASES['openear-zeta'] = 'temporal-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
+SOURCE_REFERENCE_ATLASES['totalseg-v3-esophagus-s0358'] = 'esophagus-source'
 SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
 
