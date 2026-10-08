@@ -5763,7 +5763,12 @@
     },
     'radiology-anatomy': (item, hooks) => {
       const family = item.props?.family;
-      if (window.PrimerDetailedAnatomy?.supported(family)) return window.PrimerDetailedAnatomy.render({ family });
+      if (window.PrimerDetailedAnatomy?.supported(family)) {
+        const anatomy = window.PrimerDetailedAnatomy.render({ family });
+        return node('div', { class: 'lesson-native-anatomy' },
+          item.instructions ? node('p', { class: 'model-instructions' }, item.instructions) : null,
+          anatomy);
+      }
       const reference = window.PrimerRadiologyReferenceModels;
       return reference ? reference.render(reference.specification(item.props?.node_id), hooks) : null;
     },

@@ -21946,7 +21946,7 @@
       "id": "rad.5.prostate-mri",
       "title": "Prostate MRI",
       "stage": 5,
-      "goal": "Score a prostate MRI by PI-RADS v2.1 and tell real lesions from benign mimics.",
+      "goal": "Assess prostate MRI by the applicable PI-RADS v2.1 sequence and zonal rules, distinguish mimics, and report imaging extent separately from histology and management.",
       "articles": [
         "PI-RADS",
         "Prostate cancer",
@@ -21976,12 +21976,12 @@
         {
           "kind": "choice",
           "prompt": "A 9 mm posterolateral peripheral zone focus is discretely but not markedly hypointense on ADC and mildly hyperintense at b=1500, giving a DWI score of 3. On DCE there is focal enhancement at that site, appearing before the surrounding normal peripheral zone. What follows for the report?",
-          "answer": "The category becomes 4, so biopsy usually follows",
-          "explain": "DCE has exactly one job in PI-RADS v2.1: a peripheral zone lesion scored 3 on DWI becomes PI-RADS 4 if DCE is positive, meaning focal enhancement that is earlier than or contemporaneous with adjacent normal prostate and corresponds to the T2W or DWI finding. It is a binary read, so 'The category stays 3 unless washout appears later on' fails twice over: v2.1 abandoned curve typing, and the upgrade has already been earned. What DCE cannot buy is a higher ceiling, so 'The category becomes 5, as two sequences are positive' is wrong too; a DWI 4 lesion stays 4 however it enhances, since only a size of 1.5 cm or more, or definite extraprostatic extension, makes 5. The move from 3 to 4 is the one that matters clinically, because 3 is equivocal and may be watched, while v2.1 says biopsy should be considered for 4 or 5.",
+          "answer": "PI-RADS 4; management still requires clinical risk assessment",
+          "explain": "In this supplied adequate examination, PZ DWI3 with corresponding early focal DCE is PI-RADS4. DCE is positive or negative for this combination rule; washout-curve typing is not required, and DCE does not upgrade the category to5. The category expresses imaging suspicion, not proven cancer or an automatic biopsy instruction. PI-RADS itself separates management from scoring. Current clinical guidance combines MRI with PSA density, prior sampling, family history, other risk factors, examination quality and patient circumstances. State the imaging assessment and the separate clinical discussion.",
           "choices": [
             "The category stays 3, since DCE does not alter DWI",
             "The category becomes 5, as two sequences are positive",
-            "The category becomes 4, so biopsy usually follows",
+            "PI-RADS 4; management still requires clinical risk assessment",
             "The category stays 3 unless washout appears later on"
           ]
         },
@@ -21999,13 +21999,13 @@
         },
         {
           "kind": "choice",
-          "prompt": "Three weeks after systematic TRUS biopsy, T1W images show diffuse hyperintensity through much of both peripheral zones. Within it, a 14 mm right posterolateral area is conspicuously T1 hypointense, and that same area is T2 hypointense with markedly reduced ADC and marked b=1500 signal. What does the T1-dark area most likely represent?",
-          "answer": "Tumour, spared by the blood and standing out as a T1 defect",
-          "explain": "This is the haemorrhage exclusion sign. The explanation usually offered is that tumour has markedly reduced citrate, and that citrate is anticoagulant, so blood collects in the benign peripheral zone and spares the cancer; that mechanism is a published hypothesis rather than a measured fact, but the pattern it predicts is reliable. Read the T1W series as a map of where cancer is not, and a dark hole in a bright field is the suspicious finding; reading T1 brightness itself as tumour inverts the sign. 'Older blood whose signal has decayed back towards low T1' is the tempting answer, since v2.1 grants that chronic blood products may appear hypointense on all sequences, but the surrounding blood is the same three weeks old and still bright, so blood of that age has no reason to be dark in one 14 mm patch, and marked b=1500 signal with a low ADC indicates restricted diffusion rather than the signal loss susceptibility from old blood would produce. PI-RADS v2.1 does suggest considering a gap of six weeks or more when the study is for staging, but here the haemorrhage has made the lesion more conspicuous, not less.",
+          "prompt": "Three weeks after systematic TRUS biopsy, T1W images show diffuse hyperintensity through much of both peripheral zones. Within it, a 14 mm right posterolateral area is conspicuously T1 hypointense, and that same area is T2 hypointense with markedly reduced ADC and marked b=1500 signal. How should the T1-dark area be interpreted with the other sequences?",
+          "answer": "A suspicious tumour pattern: the haemorrhage exclusion sign",
+          "explain": "A T1-dark focus within T1-bright post-biopsy haemorrhage, with concordant suspicious T2 and diffusion findings, is a haemorrhage-exclusion pattern that raises concern for tumour. It is not histological confirmation, and T1W is not a map proving where cancer is absent. Blood age, heterogeneous bleeding, susceptibility and other mimics remain relevant; the citrate mechanism is a proposed explanation, not a measured fact in this case. Review every sequence, timing and limitation, correlate supplied tissue evidence, and distinguish imaging suspicion from diagnosis. For staging, post-biopsy changes may reduce accuracy and timing should follow the actual clinical question and source quality.",
           "choices": [
             "Older blood whose signal has decayed back towards low T1",
             "Prostatitis, which tends to bleed less than the normal gland",
-            "Tumour, spared by the blood and standing out as a T1 defect",
+            "A suspicious tumour pattern: the haemorrhage exclusion sign",
             "Artefact from a needle track running across the posterior zone"
           ]
         },
@@ -22025,19 +22025,19 @@
           "kind": "numeric",
           "prompt": "A prostate DWI acquires b = 100 and b = 1000 s/mm^2. In a peripheral zone lesion the mean signal falls from 800 to 400 arbitrary units between those two b-values. Fitting a mono-exponential decay through the two points only, what ADC does this give, in units of 10^-3 mm^2/s? Give it to two decimal places.",
           "answer": "0.77",
-          "explain": "Mono-exponential decay is S(b) = S0 exp(-b x ADC), so ADC = ln(S1/S2) / (b2 - b1) = ln 2 / 900 = 7.70 x 10^-4 mm^2/s, that is 0.77 x 10^-3. Now resist the obvious next step. PI-RADS v2.1 offers 750-900 micrometre^2/s as the range within which a threshold may be set, and says that values below the chosen threshold correlate with clinically significant cancer. 770 sits inside that range, which makes it indeterminate rather than positive: suspicious if your unit has settled on 900, unremarkable if it has settled on 750. That is not a fault in the arithmetic but the reason the number is not a verdict, since ADC depends on which b-values were used and varies between vendors, and it is why v2.1 keeps visual assessment of the ADC map as the primary method rather than a numerical cut-off."
+          "explain": "Under the explicitly supplied two-point mono-exponential model, ADC=ln(800/400)/(1000-100)=7.70×10^-4 mm²/s, or0.77×10^-3 mm²/s. The calculation assumes the stated b-values, same source region and comparable calibrated acquisitions. ADC depends on b-values, vendor and processing, and benign and malignant tissues overlap. A value within or outside a proposed threshold range does not independently establish or exclude cancer. Interpret qualitative morphology/diffusion and the complete clinical context. These hypothetical calibrated inputs must not be borrowed by an uncalibrated source ADC display."
         },
         {
           "kind": "short",
           "prompt": "Your protocol acquires b = 50 and b = 800 s/mm^2, and the scanner then synthesises a b = 1500 image by extrapolation. A trainee asks why the b = 1500 data is not simply acquired directly and folded into the mono-exponential ADC fit as a third point. Give the two separate reasons, and state the b-values PI-RADS v2.1 requires for the high b-value image set and permits for the ADC calculation.",
-          "answer": "Two reasons of different kinds. The first is practical: a directly acquired b = 1500 series needs strong diffusion gradients and so a longer echo time, and the signal-to-noise ratio falls as b rises, so it costs scan time and image quality and is more prone to artefact, which is why an image calculated from the acquired low and intermediate data is often the cleaner one. The second is about the model: prostate signal decay stops behaving in a mono-exponential way above roughly b = 1000 because of diffusion kurtosis, so folding a b = 1500 point into the fit would bias the calculated ADC and break comparability between studies. PI-RADS v2.1 requires a high b-value image set of at least 1400 s/mm^2, obtained either from a separate acquisition or calculated from the low and intermediate b-value images, and recommends that the maximum b-value used to calculate ADC be no greater than 1000 s/mm^2.",
+          "answer": "First, stronger diffusion weighting commonly lowers SNR and can require longer echo time or more acquisition effort; the practical result depends on the scanner and protocol. A calculated high-b image is a producer-derived image, not a separately acquired measurement. Second, diffusion kurtosis can make high-b signal depart from a mono-exponential fit, changing the ADC estimate. PI-RADS v2.1 requires a high-b image set of at least1400 s/mm², acquired or calculated, and recommends a maximum b-value no greater than1000 s/mm² for ADC calculation. Record actual acquisition/derivation, quality, source ROI and calibration.",
           "keywords": [
             "kurtosis",
             "mono-exponential",
             "1400",
             "1000"
           ],
-          "explain": "The two reasons are of different kinds, and conflating them is the usual error. One is practical: strong diffusion gradients force a long echo time and the signal-to-noise ratio falls as b rises, so a directly acquired b = 1500 series costs time and quality. PI-RADS v2.1 accepts either route for the high b-value set, acquired separately or calculated, and notes only that calculating it avoids the longer echo times the strong gradient pulses would need. The other reason is about the model: the mono-exponential fit that defines ADC holds to roughly b = 1000 and then departs from the data, because kurtosis flattens the decay curve. A point at b = 1500 sits above the fitted line, drags the fitted slope shallower, and so lowers the reported ADC for reasons that have nothing to do with cellularity, which is why v2.1 recommends 1000 s/mm^2 as the maximum b-value used in the calculation while requiring at least 1400 s/mm^2 for the high b-value images. Those images earn their keep by suppressing signal from benign tissue with high diffusivity, lifting conspicuity at the apex, the base, subcapsular sites and beside the anterior fibromuscular stroma."
+          "explain": "PI-RADS v2.1 accepts acquired or calculated high-b images, with at least1400 s/mm² for that image set. It recommends no more than1000 s/mm² in the ADC calculation to limit diffusion-kurtosis effects on the mono-exponential model. Stronger gradients and higher diffusion weighting impose signal/echo-time and scan-effort tradeoffs, but image quality depends on the actual system. A synthesized image is not automatically cleaner, a measured high-b acquisition or interchangeable calibrated data. Keep its derivation and the ADC fit separate."
         },
         {
           "kind": "choice",
@@ -22054,7 +22054,7 @@
         {
           "kind": "short",
           "prompt": "A 78-year-old man's seminal vesicles are diffusely low in T2W signal on both sides. There is no restricted diffusion and no abnormal enhancement in the walls, the angles with the prostatic base are preserved, and the sole prostatic finding is a small apical PI-RADS 3 focus. How do you report the vesicles, what benign process most likely accounts for the appearance, and what would have changed your mind?",
-          "answer": "Report them as uninvolved. Bilateral symmetric T2W hypointensity with no restricted diffusion, no abnormal enhancement, preserved angles at the base and no contiguous tumour is the picture of senile seminal vesicle amyloidosis, or of age-related atrophy, rather than invasion. Invasion would show some combination of focal or diffuse low T2W signal with restricted diffusion or abnormal enhancement within or along the vesicle, obliteration of the angle between the prostatic base and the vesicle, and tumour continuous with the gland extending along the ejaculatory duct; no single one of those is strictly required, but low T2W signal is the weakest of them and is the only one present here. Geography argues the same way, since an apical lesion is at the wrong end of the gland to reach the vesicles.",
+          "answer": "There is no convincing MRI evidence of seminal-vesicle invasion in the supplied views, but imaging does not establish pathological non-involvement. Bilateral symmetric low T2W signal without restricted diffusion or abnormal enhancement may reflect age-related atrophy or amyloid deposition; amyloid is a possible explanation, not confirmed histology. Review the source extent and quality, the base/vesicle angle and each ejaculatory-duct/vesicle interface, including any contiguous tumour. Concerning findings include actual diffusion/enhancement abnormality, disrupted interfaces and source continuity with a base lesion. An apical focus or symmetry alone does not exclude occult or multifocal disease.",
           "keywords": [
             "amyloid",
             "restricted diffusion",
@@ -22062,16 +22062,16 @@
             "contiguous",
             "base"
           ],
-          "explain": "Low T2W signal is the least specific of the seminal vesicle invasion features, and in an elderly man amyloid deposition in the vesicle walls is the commoner cause. The features that carry weight are the ones invasion cannot easily avoid: a diffusion or enhancement abnormality in the vesicle itself, loss of the angle at the base, and physical continuity with tumour extending from the prostate. PI-RADS v2.1 gives these as features of invasion rather than as a checklist every case must complete, so the call is a weighing and not a tally, and real invasion can be diagnosed on two of them. Here bilateral symmetry argues against tumour, three of the four are absent, and a small apical focus is at the wrong end of the gland to reach the vesicles at all."
+          "explain": "Low T2W seminal-vesicle signal is nonspecific. Symmetric age-related changes can mimic invasion, while diffusion/enhancement abnormalities and the actual base/duct/tumour relationships add evidence. Preserve uncovered or uncertain tissue rather than requiring a fixed count of signs, inferring amyloid from MRI or claiming pathological clearance. Separate source MRI observations, confidence and any supplied tissue findings."
         },
         {
           "kind": "choice",
-          "prompt": "A staging study at 3T uses an endorectal coil whose balloon has been inflated with air. The T2W images are high in resolution and diagnostic, but DWI shows marked geometric distortion and signal dropout across the posterior gland. What is the most appropriate correction?",
-          "answer": "Re-inflate the balloon with a liquid such as barium suspension",
-          "explain": "Air in the balloon sits in a steep susceptibility gradient right against the posterior peripheral zone, and echo-planar DWI is the sequence least able to tolerate field inhomogeneity, which is why the T2W images survive and the diffusion images do not. The distortion grows with field strength, so 3T is where it bites hardest. PI-RADS v2.1 answers this directly: expel the air and distend the balloon with a liquid such as perfluorocarbon or barium suspension, or use a rigid coil that needs no balloon. 'Rescan at 1.5T, where the same balloon causes less trouble' would indeed shrink the distortion, and dropping field strength is the right move when the source of inhomogeneity cannot be removed, as with a metal prosthesis; here it can be removed, so 1.5T surrenders the signal-to-noise and resolution a staging study was booked for in order to solve a problem a syringe of barium solves. Raising the b-value lowers signal-to-noise without touching the inhomogeneity, and dropping the coil throws away the resolution the staging question depends on.",
+          "prompt": "A staging study at 3T uses an endorectal coil whose balloon has been inflated with air. The T2W images are high in resolution and diagnostic, but DWI shows marked geometric distortion and signal dropout across the posterior gland. What is the most appropriate correction? The coil’s current manufacturer instructions explicitly permit an approved liquid fill.",
+          "answer": "Use an approved liquid fill under the coil’s current instructions",
+          "explain": "In the specified device, air near the posterior gland creates susceptibility differences that can distort echo-planar DWI. A manufacturer-approved liquid fill and correct positioning can reduce that cause; the prompt explicitly supplies permission for that method. The PI-RADS technical guidance discusses liquid perfluorocarbon or barium suspension as examples, not a universal prescription for every coil. Use the actual device instructions, MR safety and local protocol. Do not infer that a coil is always required or always improves the examination; reassess the obtained sequence quality.",
           "choices": [
             "Repeat the diffusion sequence after raising the b-value further",
-            "Re-inflate the balloon with a liquid such as barium suspension",
+            "Use an approved liquid fill under the coil’s current instructions",
             "Remove the coil and accept the lower-resolution T2W images",
             "Rescan at 1.5T, where the same balloon causes less trouble"
           ]
@@ -22086,11 +22086,11 @@
           "kind": "numeric",
           "prompt": "The prostate measures 4.8 cm by 3.6 cm by 4.2 cm on T2W imaging, and the volume is derived with the ellipsoid formula, multiplying the three dimensions by 0.52. The serum PSA is 8.4 ng/mL. What PSA density does that give? Answer in nanograms per millilitre per millilitre, to two decimal places.",
           "answer": "0.22",
-          "explain": "The gland volume is 4.8 x 3.6 x 4.2 x 0.52 = 37.7 mL, and 8.4 / 37.7 = 0.22 ng/mL/mL. The point of the calculation is that PSA alone cannot distinguish a large benign gland making a lot of protein from a small gland harbouring cancer, and dividing by volume does much of that work. A density of 0.15 or above is the threshold in common use to support proceeding to biopsy, and it earns its keep in exactly the situation this domain keeps returning to: a PI-RADS 3 lesion, where the imaging is equivocal and something else has to break the tie. Measure the three dimensions carefully and say which they were, since the ellipsoid figure is an approximation and a sloppy anteroposterior measurement moves the density more than anything else in the sum."
+          "explain": "The ellipsoid volume is4.8×3.6×4.2×0.52=37.7mL; PSA density is8.4/37.7=0.22ng/mL/mL. Record each dimension, native plane, volume method and PSA date; segmentation and ellipsoid estimates can differ. PSA density contributes to risk assessment, and it is not a PI-RADS scoring input or a universal biopsy threshold. Current EAU guidance combines MRI category/quality and PSA density with clinical risk and the patient context. A single0.15 threshold must not automatically determine biopsy or reassure against cancer."
         },
         {
           "kind": "order",
-          "prompt": "Put these local staging findings on prostate MRI into the order of increasing tumour stage.",
+          "prompt": "Order these anatomical extent descriptions from organ-confined to progressively more extensive involvement. This asks about TNM anatomical definitions, not automatic DRE-based clinical stage, pathological stage or treatment.",
           "items": [
             "seminal-vesicle-invasion",
             "organ-confined",
@@ -22098,12 +22098,12 @@
             "extraprostatic-extension"
           ],
           "answer": "organ-confined extraprostatic-extension seminal-vesicle-invasion rectal-wall-invasion",
-          "explain": "Disease confined within the capsule is T2 however large it is; extraprostatic extension is T3a; invasion of a seminal vesicle is T3b; and tumour fixed to or invading an adjacent structure such as the rectum, the external sphincter, the levator or the pelvic wall is T4. The ladder is worth holding because each rung changes a different decision. Extraprostatic extension at a particular site is what a surgeon needs in order to decide whether the neurovascular bundle on that side can be spared, so the report should say where along the gland the extension lies and how confident you are. Seminal vesicle involvement carries a distinctly worse prognosis and usually moves the conversation towards radiotherapy with androgen deprivation. T4 is uncommon at presentation and is often visible before anyone thinks about scoring."
+          "explain": "In the anatomical TNM definitions, organ-confined disease corresponds to T2, extraprostatic extension to T3a, seminal-vesicle invasion to T3b and specified adjacent-structure invasion such as rectal wall to T4. The requested ordering remains organ-confined, EPE, SVI, rectal-wall invasion. Report MRI sites, source evidence and confidence separately: EAU risk-group clinical T staging is based on DRE, while pathological stage needs tissue assessment. MRI extent does not automatically set those stages, prove negative interfaces or choose nerve-sparing surgery, radiotherapy or systemic therapy."
         },
         {
           "kind": "short",
           "prompt": "You are reporting a study containing three lesions that score 3, 4 and 5, together with two further areas scoring 2. Say which sequence you measure each lesion on and how, how many lesions the report should carry, and which lesion is designated the index lesion.",
-          "answer": "Measure each lesion on the sequence on which it was scored: the ADC map or high b-value images for a peripheral zone lesion, the T2W images for a transition zone lesion, taking the longest diameter on the axial image and using another plane only where the lesion is genuinely better seen there. PI-RADS v2.1 asks for up to four lesions of category 3 or above, so the three suspicious lesions are described individually and the two areas scoring 2 need no separate entry. The index lesion is the one with the highest category, here the lesion scoring 5; where two lesions share the highest category, the index is the one showing extraprostatic extension.",
+          "answer": "Measure the longest dimension on ADC for a PZ lesion and T2W for a TZ lesion. If that sequence is compromised, use the best-depicting sequence and document it. The axial measurement is the minimum convention; report the largest dimension and plane if larger on sagittal/coronal images. Describe the three category3–5 lesions individually; up to four principal suspicious lesions are ordinarily mapped, but this is not an absolute cap and additional findings can be appropriate. Category2/benign landmarks can be reported when useful. The index lesion has the highest category, here5; ties are resolved by EPE, then by size when no tied lesion shows EPE. Include all involved sectors and source series/images.",
           "keywords": [
             "index",
             "longest",
@@ -22111,12 +22111,12 @@
             "highest",
             "axial"
           ],
-          "explain": "These conventions exist so that two reports of the same gland can be compared, and so that a urologist reading yours can find the target again on the biopsy platform. Measuring on the sequence that generated the score keeps the size and the category describing the same thing, and the axial default keeps serial studies comparable. The cap of four lesions is a deliberate limit on clutter, since a report listing nine areas of low suspicion is harder to act on than one naming three. The index lesion is the one that will drive treatment, which is why the tie is broken by extraprostatic extension rather than by size: the lesion breaching the capsule is the one that changes the operation."
+          "explain": "Use ADC for PZ and T2W for TZ measurement, with a documented fallback when those are compromised. Record the longest relevant dimension and its plane/series. Four principal suspicious lesions is a reporting convention, not a rule forbidding more; include additional findings when clinically useful. The index is chosen by highest category, then EPE for ties, then largest size if EPE is absent. These are localization conventions and do not independently dictate treatment or prove complete tumour extent."
         },
         {
           "kind": "short",
           "prompt": "A 61-year-old man's peripheral zone shows several thin bands of low T2W signal radiating towards the capsule with indistinct margins. The ADC map is mildly and diffusely low across the same regions, there is no focal mass, and the high b-value images show nothing focal. How is this scored and reported, and what is the likely explanation?",
-          "answer": "Linear or wedge-shaped hypointensity with indistinct margins in the peripheral zone is a T2W score of 2, and with nothing focal on the high b-value images and no focal defect on the ADC map the non-focal linear diffusion abnormality is DWI 2, so the assessment is PI-RADS 2 and no target is offered for biopsy. The likely explanation is chronic prostatitis with post-inflammatory fibrosis and atrophy, which is common at this age. Cancer is the exception here rather than the rule, because it usually forms a focal rounded or ill-defined mass with markedly restricted diffusion, not a thin band running along the course of the ducts.",
+          "answer": "The described non-focal linear or wedge-shaped PZ morphology and mild non-focal diffusion findings support T2W2 and DWI2, giving PI-RADS2 in the supplied adequate examination. Inflammation, fibrosis or atrophy are plausible imaging explanations; prostatitis is not confirmed by appearance alone. Describe the actual pattern, comparison and limitations. This category does not prove absence of clinically significant cancer or automatically cancel biopsy when clinical suspicion remains high.",
           "keywords": [
             "wedge",
             "linear",
@@ -22124,7 +22124,7 @@
             "focal",
             "diffusion"
           ],
-          "explain": "The peripheral zone is normally bright on T2W, so any darkening draws the eye, and the commonest cause of a dark peripheral zone in a man of this age is not cancer at all. Shape and margin do most of the discrimination: benign post-inflammatory change is linear, wedge-shaped or diffuse and fades into the surrounding gland, while tumour is focal and mass-like. Diffusion then decides, since a genuine lesion is focally and markedly restricted rather than mildly and diffusely so. The important discipline is not to be pushed by a rising PSA into scoring bands as a lesion; prostatitis raises PSA too. If the clinical suspicion stays high, PSA density and follow-up carry the argument, not an inflated category."
+          "explain": "PZ assessment is driven by the actual diffusion findings and their morphology. Linear/wedge-shaped or diffuse change with mild non-focal diffusion abnormality can reflect benign inflammatory/fibrotic change; it differs from a suspicious focal marked abnormality. Do not upgrade solely because PSA rises, but do not let a low imaging category replace individualized clinical risk assessment or tissue evidence. Preserve source quality and unresolved discordance."
         }
       ],
       "section": "Genitourinary",
@@ -22134,7 +22134,7 @@
           "kind": "illustration",
           "src": "/app/illustrations/forest/radiology/rad-5-prostate-mri-800.webp",
           "srcset": "/app/illustrations/forest/radiology/rad-5-prostate-mri-800.webp 800w, /app/illustrations/forest/radiology/rad-5-prostate-mri-1600.webp 1600w",
-          "alt": "A radiology reasoning diagram for Prostate MRI linking Peripheral zone, Transition zone, and Stage and target.",
+          "alt": "A radiology reasoning diagram for Prostate MRI linking Peripheral zone, Transition zone, and Extent and context.",
           "caption": "Zone determines which sequence dominates PI-RADS assessment and which mimics matter.",
           "long_description": {
             "title": "Prostate MRI",
@@ -22151,9 +22151,9 @@
                 "detail": "T2 architecture separates organised nodules from suspicious tissue."
               },
               {
-                "heading": "Stage and target",
-                "label": "Stage and target",
-                "detail": "Capsule, seminal vesicles and lesion map guide biopsy and care."
+                "heading": "Extent and context",
+                "label": "Extent and context",
+                "detail": "Glandular surface, seminal vesicles and lesion map support extent reporting; care needs clinical context."
               }
             ],
             "takeaway": "Zone determines which sequence dominates PI-RADS assessment and which mimics matter."
@@ -22171,7 +22171,7 @@
         "approach": [
           {
             "step": "Zonal anatomy first",
-            "detail": "Locate the lesion in the peripheral zone (70-75% of cancers), transition zone (~25%), central zone or anterior fibromuscular stroma before you score anything."
+            "detail": "Identify peripheral, transition and central zones and anterior fibromuscular stroma, with actual side and base/midgland/apex. Their patient-specific extent may differ from an idealized sector diagram."
           },
           {
             "step": "Score the dominant sequence",
@@ -22183,15 +22183,15 @@
           },
           {
             "step": "Measure the dominant lesion",
-            "detail": "Greatest dimension on the sequence that best shows the lesion decides PI-RADS 4 vs 5 in both zones."
+            "detail": "Measure suspicious lesions on ADC in the PZ and T2W in the TZ; use the best-depicting sequence if those are compromised, and record the plane/series. The 1.5 cm criterion applies within the specified suspicious sequence-score definitions; size alone does not assign category 5."
           },
           {
             "step": "Check for extraprostatic extension",
-            "detail": "Definite capsular breach or seminal vesicle invasion makes the lesion a 5 regardless of size."
+            "detail": "Describe actual glandular-surface contact, direct extraprostatic extension, neurovascular, seminal-vesicle, sphincter and adjacent-organ findings with confidence. Apply the specified invasive-behaviour sequence-score criterion when established; uncertain contact is not definite invasion."
           },
           {
             "step": "Localise on the sector map",
-            "detail": "Record the lesion on the standardised 39-sector map (base, mid, apex, seminal vesicles, urethral sphincter) so biopsy can find it."
+            "detail": "Use the PI-RADS v2.1 41-region map: 38 prostate regions, two seminal-vesicle regions and one external urethral-sphincter region. Include every involved sector of a reported lesion. This idealized localization map is not a patient segmentation or a complete anatomical model."
           },
           {
             "step": "Complete the checklist",
@@ -22256,13 +22256,15 @@
           ],
           "note": "PZ is scored primarily on DWI/ADC and can be upgraded by DCE. TZ is scored primarily on T2W and can be upgraded by DWI/ADC. Report the index lesion as the highest category when there is more than one."
         },
-        "template": "TECHNIQUE\nMultiparametric prostate MRI: T2W, DWI (high b-value ≥1400) with ADC, DCE.\n\nFINDINGS\nProstate volume: [ ] mL (PSA density [ ] ng/mL/mL).\nZonal anatomy: [normal / BPH nodules / prior treatment change].\nIndex lesion: [zone] at [sector map location], [ ] mm.\nPZ score components: DWI/ADC [1-5], DCE [positive/negative].\nTZ score components: T2W [1-5], DWI/ADC [1-5].\nExtraprostatic extension: [absent / present - describe].\nSeminal vesicle invasion: [absent / present].\nAdditional lesions: [ ].\nLymph nodes and bone: [ ].\n\nIMPRESSION\n1. PI-RADS [1-5], index lesion in the [zone], sector [ ].\n2. [Plain-language statement of what this means for biopsy.]\n3. [Additional lesions / staging findings if present.]",
+        "template": "TECHNIQUE\nActual examination and comparison: [ ]. T2W planes/quality: [ ]. DWI acquired/calculated b-values and quality: [ ]. ADC source/calibration: [ ]. DCE acquisition/contrast/timing or not obtained: [ ]. Coverage and limitations: [ ].\n\nFINDINGS\nProstate volume: [ ] mL (PSA density [ ] ng/mL/mL).\nZonal anatomy: [normal / BPH nodules / prior treatment change].\nIndex lesion: [zone] at [sector map location], [ ] mm.\nPZ score components: DWI/ADC [1-5], DCE [positive/negative/not acquired/not evaluable].\nTZ score components: T2W [1-5], DWI/ADC [1-5].\nMRI extraprostatic extension: [not assessed / no convincing evidence / suspected / definite - describe evidence and confidence].\nMRI seminal-vesicle findings: [source observations and confidence]; unresolved extent [ ].\nAdditional lesions: [ ].\nLymph nodes and bone: [ ].\n\nIMPRESSION\n1. PI-RADS [1-5], index lesion in the [zone], sector [ ].\n2. [Imaging suspicion and separate individualized clinical/biopsy discussion; current guideline context.]\n3. [Additional lesions / staging findings if present.]",
         "pitfalls": [
-          "Scoring the PZ on T2W or the TZ on DWI/ADC. Each zone has its own dominant sequence — do not let the wrong sequence drive the category.",
-          "Forgetting the DCE upgrade rule in the PZ. A DWI/ADC score of 3 with a genuinely early, focal enhancement corresponding to the lesion becomes a 4.",
-          "Measuring the lesion on the sequence that overestimates it. Use the sequence that best defines the true margin for the 1.5 cm cut, not the one that looks most dramatic.",
-          "Missing definite extraprostatic extension because it looks subtle. Any definite capsular breach makes the lesion a 5 regardless of size.",
-          "Calling post-biopsy haemorrhage on T2W a lesion. Check the corresponding T1 for haemorrhage before scoring a hyperintense area on DWI as pathology."
+          "Using the wrong zone or dominant sequence; score the actual adequate T2W and DWI/ADC observations before applying the published combination rules.",
+          "Using DCE curve typing or enhancement alone to assign histology. Positive focal DCE has a specific PZ DWI3 upgrade role, and clinical/pathological correlation remains separate.",
+          "Assigning category5 from size alone, or from unresolved contact/contour change. The required suspicious sequence morphology or specified definite invasive behaviour must be established.",
+          "Treating a dark T1 patch in haemorrhage, low T2 seminal-vesicle signal, or one ADC value as a definitive diagnosis or exclusion of cancer.",
+          "Conflating an outer fibromuscular glandular boundary with the TZ/PZ pseudocapsule; neither is a complete true histological capsule.",
+          "Treating an MRI extension description as DRE-based clinical stage, pathological stage or a automatic treatment choice. State the evidence and applicable staging framework.",
+          "Treating PSA density or PI-RADS suspicion as a universal biopsy trigger. Current guidance integrates MRI quality, clinical risk, prior sampling, patient circumstances and preferences."
         ]
       }
     },

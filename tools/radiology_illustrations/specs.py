@@ -360,7 +360,7 @@ _RECORDS: List[Dict[str, object]] = [
       "Zone determines which sequence dominates PI-RADS assessment and which mimics matter.",
       I("Peripheral zone", "Diffusion abnormality carries the greatest weight.", "prostate-peripheral"),
       I("Transition zone", "T2 architecture separates organised nodules from suspicious tissue.", "prostate-transition"),
-      I("Stage and target", "Capsule, seminal vesicles and lesion map guide biopsy and care.", "prostate-stage-target")),
+      I("Extent and context", "Glandular surface, seminal vesicles and lesion map support extent reporting; care needs clinical context.", "prostate-stage-target")),
     R("rad.5.uterine-mr", "map", "abdomen",
       "Zonal anatomy links tumour, endometriosis and congenital form to the operation.",
       I("Cancer planes", "Stroma, myometrium and parametria define local extension.", "uterus"),
