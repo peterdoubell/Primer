@@ -3526,59 +3526,64 @@
       "steps": [
         {
           "label": "Gland volume and PSA density",
-          "detail": "Measure the gland, calculate volume and PSA density, and describe the background.",
+          "detail": "Review the complete acquired gland, base/mid/apex, separate PZ/TZ/CZ and anterior fibromuscular stroma, periurethral tissue, haemorrhage and BPH components. Record actual dimensions, volume method, dated PSA and source quality; unavailable tissue is unassessed.",
           "sections": [
             "GLAND / PSA DENSITY"
           ],
-          "look": "Axial and sagittal T2: AP, transverse and craniocaudal dimensions (ellipsoid × 0.52) or segmentation.",
-          "normal": "Gland volume __ mL; PSA density __ ng/mL/mL; no haemorrhage; benign prostatic hyperplasia [ ].",
+          "look": "Review the complete acquired gland, base/mid/apex, separate PZ/TZ/CZ and anterior fibromuscular stroma, periurethral tissue, haemorrhage and BPH components. Record actual dimensions, volume method, dated PSA and source quality; unavailable tissue is unassessed.",
+          "normal": {},
           "findings": [
             "Volume __ mL (ellipsoid); PSA density __ ng/mL/mL.",
             "Post-biopsy haemorrhage in the [ ] limiting assessment."
           ],
           "images": [
-            "prostate-img-1"
+            "prostate-img-1",
+            "open-prostate-biopsy0001-T2-15",
+            "open-prostate-biopsy0001-T2-25",
+            "open-prostate-biopsy0001-T2-35"
           ],
           "measurements": [
-            "Gland volume and PSA density"
+            "Gland volume and PSA density",
+            "Each actual source component and interface"
           ],
           "landmark": "transition",
-          "parts": [
-            "FJ3139"
-          ]
+          "parts": []
         },
         {
           "label": "Lesion map and sequence scores",
-          "detail": "Locate each lesion by zone, side, level and sector, then score T2, DWI and DCE.",
+          "detail": "Map every actually reported finding across all involved native sectors and levels, with complete components, margins, maximum dimension, source series/plane and neighbours. PI-RADS v2.1 has41 regions:38 prostate, two seminal-vesicle and one external-sphincter regions; the diagram is an idealized map, not patient geometry.",
           "sections": [
             "LESION WORKSHEET — REPEAT FOR EACH REPORTED LESION"
           ],
-          "look": "Axial T2 and ADC side by side; high-b DWI (1400 or more); DCE for peripheral zone DWI 3 lesions.",
+          "look": "Map every actually reported finding across all involved native sectors and levels, with complete components, margins, maximum dimension, source series/plane and neighbours. PI-RADS v2.1 has41 regions:38 prostate, two seminal-vesicle and one external-sphincter regions; the diagram is an idealized map, not patient geometry.",
           "findings": [
-            "Lesion 1 (index): [left] [peripheral zone] [mid] [posterolateral] sector, __ mm on ADC; T2 [ ], DWI [ ], DCE [positive / negative].",
+            "Lesion [ID/index status]: side [ ]; zone [ ]; level and all involved sectors [ ]; size and measurement plane/sequence [ ]; T2/DWI/DCE observations and quality [ ]; unresolved source/tissue correspondence [ ].",
             "Lesion 2: [ ]."
           ],
           "images": [
             "prostate-img-2",
             "prostate-img-3",
-            "prostate-img-4"
+            "prostate-img-4",
+            "open-prostate-biopsy0001-T2-15",
+            "open-prostate-biopsy0001-T2-25",
+            "open-prostate-biopsy0001-T2-35"
           ],
           "measurements": [
-            "Lesion dimension"
+            "Lesion dimension",
+            "Each actual source component and interface"
           ],
           "landmark": "peripheral",
-          "parts": [
-            "FJ3139"
-          ],
-          "tip": "Measure peripheral zone lesions on ADC and transition zone lesions on T2."
+          "parts": [],
+          "tip": "Measure peripheral zone lesions on ADC and transition zone lesions on T2.",
+          "normal": {}
         },
         {
           "label": "PI-RADS category",
-          "detail": "Apply the v2.1 zone-specific rules to reach the category.",
+          "detail": "Assess actual T2, acquired or calculated high-b DWI, ADC and any DCE separately, with quality, ROI, calibration, timing and motion limits. Apply applicable v2.1 sequence/zone rules only after adequate observations; a source Likert score, ROI, size alone or uncalibrated ADC value does not supply a current assessment.",
           "sections": [
             "SCORING CHECK"
           ],
-          "look": "Peripheral zone: DWI decides, DCE upgrades DWI 3 to 4. Transition zone: T2 decides, with DWI adjustments.",
+          "look": "Assess actual T2, acquired or calculated high-b DWI, ADC and any DCE separately, with quality, ROI, calibration, timing and motion limits. Apply applicable v2.1 sequence/zone rules only after adequate observations; a source Likert score, ROI, size alone or uncalibrated ADC value does not supply a current assessment.",
           "findings": [
             "Peripheral zone lesion: DWI [4] → PI-RADS [4].",
             "Peripheral zone DWI 3 with positive DCE → PI-RADS 4.",
@@ -3588,19 +3593,21 @@
             "prostate-img-5"
           ],
           "landmark": "transition",
-          "parts": [
-            "FJ3139"
-          ],
-          "tip": "A lesion 15 mm or larger, or with definite extraprostatic extension, is category 5 rather than 4."
+          "parts": [],
+          "tip": "Use the complete applicable v2.1 sequence-score definitions and zonal combination rules. Size of15mm alone does not assign category5; the required suspicious morphology or specified definite invasive behaviour must also be assessed. Missing/limited sequences remain identified.",
+          "normal": {},
+          "measurements": [
+            "Each actual source component and interface"
+          ]
         },
         {
           "label": "Local extent",
-          "detail": "Assess extraprostatic extension, neurovascular bundles, seminal vesicles, bladder neck and sphincter.",
+          "detail": "Trace each source-resolved lesion/glandular-surface interface, TZ/PZ pseudocapsule, anterior/apical gaps, bilateral nerves/vessels, seminal vesicles and ducts, bladder neck, urethra, external sphincter, fascia and rectal interfaces. Record actual contact and direct extension separately; the prostate has no complete true capsule.",
           "sections": [
             "LOCAL EXTENT"
           ],
-          "look": "Axial and coronal T2 at the capsule next to the lesion; seminal vesicles on axial and coronal images.",
-          "normal": "No extraprostatic extension; neurovascular bundles, seminal vesicles, bladder neck and external sphincter normal.",
+          "look": "Trace each source-resolved lesion/glandular-surface interface, TZ/PZ pseudocapsule, anterior/apical gaps, bilateral nerves/vessels, seminal vesicles and ducts, bladder neck, urethra, external sphincter, fascia and rectal interfaces. Record actual contact and direct extension separately; the prostate has no complete true capsule.",
+          "normal": {},
           "findings": [
             "Capsular contact __ mm with bulging and irregularity; extraprostatic extension [suspected / definite].",
             "Seminal vesicle invasion on the [left].",
@@ -3608,27 +3615,26 @@
           ],
           "images": [
             "prostate-img-6",
-            "prostate-img-7"
+            "prostate-img-7",
+            "open-prostate-biopsy0001-T2-15",
+            "open-prostate-biopsy0001-T2-25",
+            "open-prostate-biopsy0001-T2-35"
           ],
           "measurements": [
-            "Capsular contact"
+            "Capsular contact",
+            "Each actual source component and interface"
           ],
           "landmark": "vesicles",
-          "parts": [
-            "FJ3139",
-            "FJ3143",
-            "FJ3137",
-            "FJ3149"
-          ]
+          "parts": []
         },
         {
           "label": "Nodes, bones and pelvis",
-          "detail": "Review pelvic nodes, imaged bones and other pelvic findings.",
+          "detail": "Review every acquired pelvic node and basin, cortex/hilum and vascular relationship, imaged bones, bladder, rectum and other reported pelvic findings. Preserve actual field coverage, clinical/tissue and treatment evidence; no unacquired nodal/bone survey or whole-gland shape supplies a negative result or current stage.",
           "sections": [
             "NODES / BONES / OTHER PELVIC FINDINGS"
           ],
-          "look": "Axial T1 and T2 from the aortic bifurcation; bone marrow on T1.",
-          "normal": "No suspicious pelvic nodes or bone lesions; no other significant pelvic finding.",
+          "look": "Review every acquired pelvic node and basin, cortex/hilum and vascular relationship, imaged bones, bladder, rectum and other reported pelvic findings. Preserve actual field coverage, clinical/tissue and treatment evidence; no unacquired nodal/bone survey or whole-gland shape supplies a negative result or current stage.",
+          "normal": {},
           "findings": [
             "Suspicious [left obturator] node, short axis __ mm.",
             "Focal T1-hypointense bone lesion in the [ ], suspicious for metastasis."
@@ -3637,11 +3643,16 @@
             "prostate-img-8"
           ],
           "landmark": "rectum",
-          "parts": [
-            "FJ3149"
+          "parts": [],
+          "measurements": [
+            "Each actual source component and interface"
           ]
         }
-      ]
+      ],
+      "model": {
+        "family": "prostate",
+        "reporting_aim": "Partial schematic orientation only. It does not supply patient-specific zonal, fibromuscular/pseudocapsular, ductal, neurovascular, seminal-vesicle, sphincter, nodal, bone or lesion-extension geometry. Original source gland/ROI references are separately scoped; full reporting coverage remains unverified."
+      }
     },
     "ra.mri-rectal-cancer": {
       "steps": [

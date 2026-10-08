@@ -38,9 +38,10 @@ def test_missing_or_relabelled_scope_cannot_pass(scope,change):
 
 def test_unexpanded_scope_is_unknown_and_includes_non_msk_media(scope):
     report=build_report(scope)
-    assert report['known_representation_requirements']==99696
+    assert report['known_representation_requirements']==101622
     assert report['msk_subaudit']['representation_requirements']==5292
-    assert len(report['investigations_requiring_structure_expansion'])==53
+    assert len(report['investigations_requiring_structure_expansion'])==52
+    assert 'ra.mri-prostate' not in report['investigations_requiring_structure_expansion']
     assert not set(('ra.mammography','ra.ultrasound-breast','ra.mri-breast','ra.breast-cancer-staging','ra.breast-implants','ra.male-breast')).intersection(report['investigations_requiring_structure_expansion'])
     assert report['total_representation_requirements'] is None
     assert not report['clinical_commercial_ready']

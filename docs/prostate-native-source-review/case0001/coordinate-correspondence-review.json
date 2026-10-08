@@ -1,0 +1,72 @@
+{
+  "reviewed_on": "2026-10-08",
+  "source_frame": "Delivered shared MRI/M3D/SEG DICOM LPS frame; source transforms unchanged",
+  "DICOM_STL_frame_meaning_source": "https://dicom.nema.org/medical/dicom/2022e/output/chtml/part03/sect_A.85.html",
+  "DICOM_model_units_requirement_source": "https://dicom.nema.org/medical/dicom/2022e/output/chtml/part03/sect_C.35.html",
+  "historical_Slicer_5_4_default_LPS_source": "https://raw.githubusercontent.com/Slicer/Slicer/v5.4.0/Libs/MRML/Core/vtkMRMLModelStorageNode.cxx",
+  "producer_conversion_commit": "8d0af5ec221ad6c92e12f66e515ce17feecc4ab2",
+  "source_original_model_measurement_units_code_missing": true,
+  "source_model_full_DICOM_IOD_conformance_claimed": false,
+  "display_millimetre_scale_basis": "Inference from the producer-delivered MRI/SEG affine and numeric STL/SEG correspondence; not an encoded STL unit tag",
+  "source_MRI_model_frame_association_numerically_verified": true,
+  "source_clinical_native_registration_or_fine_tissue_accuracy_independently_approved": false,
+  "comparison": [
+    {
+      "role": "prostate",
+      "original_STL_sha256": "31e7b0ac3f5a8ff69aa68c223de5dad1acbd8d9afb7018c012e33f01f9adcdc2",
+      "all_original_voxel_centres_compared": 3932160,
+      "source_foreground": 74253,
+      "independent_foreground": 74319,
+      "mismatched_voxel_centres": 480,
+      "Dice": 0.9967692431952185,
+      "maximum_mismatch_distance_source_coordinate_units": 0.12748375437916384,
+      "mismatch_voxel_indices_sha256": "1d5e9eb1e3ee5ce96e8ad09e6846a2484cf1065a2df6579b1fdc21178b7f2ed6",
+      "actor_fit_flip_resample_or_repair_applied": false,
+      "every_source_mask_value_and_original_face_retained": true,
+      "agreement_is_anatomical_or_histological_accuracy": false
+    },
+    {
+      "role": "suspicious_target1",
+      "original_STL_sha256": "cf759c6621947ac2dc4e649943e073882971adf5fe8442e68565ae202673fc7a",
+      "all_original_voxel_centres_compared": 3932160,
+      "source_foreground": 1335,
+      "independent_foreground": 1338,
+      "mismatched_voxel_centres": 5,
+      "Dice": 0.998129442573887,
+      "maximum_mismatch_distance_source_coordinate_units": 0.02790843682164237,
+      "mismatch_voxel_indices_sha256": "63b75ca117e15c9afd465588a09d83dbeb778a5e135a69bbd7a4373dd28452c5",
+      "actor_fit_flip_resample_or_repair_applied": false,
+      "every_source_mask_value_and_original_face_retained": true,
+      "agreement_is_anatomical_or_histological_accuracy": false
+    }
+  ],
+  "actor_registration_transform_applied": [
+    [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "mismatch_source_masks_changed_or_replaced": false,
+  "source_US_registration_verified": false,
+  "clinical_anatomical_or_full_reporting_approval_granted": false
+}

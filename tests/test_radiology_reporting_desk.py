@@ -93,7 +93,7 @@ def test_reporting_endpoints_are_direct_and_do_not_fetch_wiki_or_change_progress
         assert 'key_images' not in index.text
         body = detail.json()
         assert set(body) == {'id', 'module_id', 'title', 'section', 'topic', 'modality', 'source_titles', 'goal', 'radiology_reference', 'lesson_media'}
-        assert body['radiology_reference']['spatial_model']['scenario'] == 'radiology-reference:rad.5.prostate-mri'
+        assert body['radiology_reference']['spatial_model']['scenario'] == 'radiology-investigation:ra.mri-prostate'
         assert 'quiz' not in body and 'mastery' not in body and 'unlocked' not in body
         assert client.get('/api/radiology/modules/math.0.counting').status_code == 404
         assert client.get('/api/radiology/modules/rad.missing').status_code == 404

@@ -10,7 +10,7 @@ from pathlib import Path
 # These registered source-reference atlases have mesh bytes excluded from the
 # Python bundle and delivered by the configured static builder. Other sources
 # must keep local bytes, even in hosted mode.
-CDN_ATLASES = frozenset(('bodyparts3d', 'liu-lumbosacral-sub03', 'verse521', 'hvsmr2-pat7', 'openear-zeta', 'totalseg-v3-s0358', 'totalseg-v3-esophagus-s0358', 'ispy1-expert1002'))
+CDN_ATLASES = frozenset(('bodyparts3d', 'liu-lumbosacral-sub03', 'verse521', 'hvsmr2-pat7', 'openear-zeta', 'totalseg-v3-s0358', 'totalseg-v3-esophagus-s0358', 'ispy1-expert1002', 'prostate-biopsy0001'))
 
 
 @lru_cache(maxsize=1)
