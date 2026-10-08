@@ -51,7 +51,8 @@ def review(source,out,ident='PMC6420596',selection=None,object_ids=None,reviewed
         explicit=reviewed_bindings.get(fid) if reviewed_bindings else None
         if explicit:
             key,page_number=explicit;c=candidates[key]
-            if c['page']!=page_number or 'Figure '+str(int(re.search(r'(\d+)$',fid).group(1))) not in reader.pages[page_number-1].extract_text():raise ValueError('Reviewed PDF page/caption binding differs')
+            number=int(re.search(r'(\d+)$',fid).group(1))
+            if c['page']!=page_number or not re.search(r'(?:Figure|Fig\.)\s*'+str(number)+r'\b',reader.pages[page_number-1].extract_text()):raise ValueError('Reviewed PDF page/caption binding differs')
             rms=next(score for score,obj in scores if obj==key)
         else:c=candidates[key]
         if rms>5 and not explicit:raise ValueError(f'{fid}: numbered figure/PDF binding needs review (RMS {rms})')
