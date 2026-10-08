@@ -3658,31 +3658,37 @@
       "steps": [
         {
           "label": "Tumour location and morphology",
-          "detail": "Record the lower border height, length, circumferential position, morphology and relation to the peritoneal reflection.",
+          "detail": "Map every actual tumour component, lower/upper border, length, circumferential position and relation to sigmoid take-off, ARJ, verge, anal canal and peritoneal reflection. Record exact landmark and measurement convention; source height-category inequalities differ at5cm, so no automatic category is assigned.",
           "sections": [
             "TUMOUR LOCATION"
           ],
-          "look": "Sagittal T2 for height and length; high-resolution T2 perpendicular to the tumour for morphology.",
+          "look": "Map every actual tumour component, lower/upper border, length, circumferential position and relation to sigmoid take-off, ARJ, verge, anal canal and peritoneal reflection. Record exact landmark and measurement convention; source height-category inequalities differ at5cm, so no automatic category is assigned.",
           "findings": [
             "[Polypoid / sessile / annular] tumour; lower border __ cm from the anal verge (__ cm from the anorectal junction); length __ cm; from __ to __ o'clock.",
             "Mucinous tumour (high T2 signal).",
             "Tumour lies [below / at / above] the anterior peritoneal reflection."
           ],
           "images": [
-            "rectal-mr-image-1"
+            "rectal-mr-image-1",
+            "open-anorectal-pmc9849549-fig3-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig4-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig7-mri-rectal-cancer"
           ],
           "measurements": [
-            "Tumour and MRF distances"
+            "Tumour and MRF distances",
+            "Every source component and interface"
           ],
-          "landmark": "wall"
+          "landmark": "wall",
+          "normal": {},
+          "parts": []
         },
         {
           "label": "T category and local extent",
-          "detail": "Assess extramural spread depth, peritoneal involvement, sphincter and adjacent organs.",
+          "detail": "Trace source-resolved wall layers, extramural invasion and every sphincter, pelvic-floor, peritoneal, fascial, neural, vascular and adjacent-organ interface. MRI may not separate T1 fromT2. Internal sphincter/intersphincteric involvement is described separately from the rectal cT descriptor; external sphincter invasion has different staging implications.",
           "sections": [
             "LOCAL EXTENT"
           ],
-          "look": "High-resolution T2 perpendicular to the tumour; coronal T2 for low tumours and the sphincter.",
+          "look": "Trace source-resolved wall layers, extramural invasion and every sphincter, pelvic-floor, peritoneal, fascial, neural, vascular and adjacent-organ interface. MRI may not separate T1 fromT2. Internal sphincter/intersphincteric involvement is described separately from the rectal cT descriptor; external sphincter invasion has different staging implications.",
           "findings": [
             "Tumour confined to the rectal wall (T1–T2).",
             "Extramural spread of __ mm (T3[a/b/c/d]).",
@@ -3690,96 +3696,142 @@
             "Invasion of the [prostate / vagina / levator] (T4b)."
           ],
           "images": [
-            "rectal-mr-image-2"
+            "rectal-mr-image-2",
+            "open-anorectal-pmc9849549-fig1-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig2-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig4-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig5-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig7-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig8-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig9-mri-rectal-cancer"
           ],
           "landmark": "mesorectum",
-          "tip": "For low rectal tumours, report sphincter and levator involvement separately."
+          "tip": "For low rectal tumours, report sphincter and levator involvement separately.",
+          "normal": {},
+          "parts": [],
+          "measurements": [
+            "Every source component and interface"
+          ]
         },
         {
           "label": "Mesorectal fascia and EMVI",
-          "detail": "Identify the nearest malignant component to the mesorectal fascia and assess extramural venous invasion.",
+          "detail": "Distinguish MRF from peritoneum and the eventual surgical margin. Name the closest primary tumour, EMVI or nodule and actual morphology, with measured distance and uncertainty. A smooth node within1mm does not automatically make MRF involved; baseline and treated fibrosis require separate interpretation.",
           "sections": [
             "MRF AND EMVI"
           ],
-          "look": "Axial T2 perpendicular to the tumour; follow extramural veins for expansion by tumour signal.",
-          "normal": "Mesorectal fascia clear (closest distance __ mm); no EMVI.",
+          "look": "Distinguish MRF from peritoneum and the eventual surgical margin. Name the closest primary tumour, EMVI or nodule and actual morphology, with measured distance and uncertainty. A smooth node within1mm does not automatically make MRF involved; baseline and treated fibrosis require separate interpretation.",
+          "normal": {},
           "findings": [
             "Mesorectal fascia involved (1 mm or less) by [tumour / EMVI / tumour deposit] at __ o'clock.",
             "EMVI positive: tumour signal within and expanding an extramural vein."
           ],
           "images": [
-            "rectal-mr-image-2"
+            "rectal-mr-image-2",
+            "open-anorectal-pmc9849549-fig1-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig6-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig7-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig8-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig10-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig11-mri-rectal-cancer"
           ],
           "measurements": [
-            "Tumour and MRF distances"
+            "Tumour and MRF distances",
+            "Every source component and interface"
           ],
           "landmark": "mesorectum",
-          "tip": "The closest structure to the fascia may be a tumour deposit, EMVI or node, not the primary tumour."
+          "tip": "The closest structure to the fascia may be a tumour deposit, EMVI or node, not the primary tumour.",
+          "parts": []
         },
         {
           "label": "Nodes and tumour deposits",
-          "detail": "Map mesorectal and lateral nodes and tumour deposits.",
+          "detail": "Inventory each actual node/nodule by side, compartment, size, morphology, vascular relationship and confidence. Preserve regional/nonregional context, including actual anal/dentate involvement. Baseline lateral criteria and mesorectal risk assessment are not universal restaging thresholds or histological proof of deposits.",
           "sections": [
             "NODES AND DEPOSITS"
           ],
-          "look": "Axial T2 of the mesorectum and pelvic sidewalls; DWI to find nodes.",
-          "normal": "No suspicious mesorectal or lateral pelvic nodes; no tumour deposits.",
+          "look": "Inventory each actual node/nodule by side, compartment, size, morphology, vascular relationship and confidence. Preserve regional/nonregional context, including actual anal/dentate involvement. Baseline lateral criteria and mesorectal risk assessment are not universal restaging thresholds or histological proof of deposits.",
+          "normal": {},
           "findings": [
             "Suspicious mesorectal node(s): [number], largest __ mm, with [round shape / irregular border / heterogeneous signal].",
             "Suspicious lateral [internal iliac / obturator] node, short axis __ mm.",
-            "Tumour deposit: irregular nodule in continuity with a vein."
+            "Irregular source nodule in continuity with a vein, suspicious for a deposit [ ]; nodal/deposit distinction and confidence [ ]; no histological N1c assignment from appearance alone."
           ],
           "images": [
-            "rectal-mr-image-3"
+            "rectal-mr-image-3",
+            "open-anorectal-pmc9849549-fig12-mri-rectal-cancer"
           ],
-          "landmark": "mesorectum"
+          "landmark": "mesorectum",
+          "parts": [],
+          "measurements": [
+            "Every source component and interface"
+          ]
         },
         {
           "label": "Response after treatment",
-          "detail": "Compare the tumour bed with baseline for fibrosis and residual tumour signal and matched diffusion restriction.",
+          "detail": "Record treatment/date, complete original tumour bed and dated comparisons, fibrosis and actual matched T2/DWI/ADC findings. Reconcile supplied DRE/endoscopy and tissue information. MRI alone does not prove pathological complete response, provide all ycT detail or automatically select organ preservation; lateral nodal restaging remains uncertain.",
           "sections": [
             "RESPONSE IF TREATED"
           ],
-          "look": "Restaging T2 in the same plane as baseline; DWI with ADC.",
-          "normal": "Not applicable (baseline staging).",
+          "look": "Record treatment/date, complete original tumour bed and dated comparisons, fibrosis and actual matched T2/DWI/ADC findings. Reconcile supplied DRE/endoscopy and tissue information. MRI alone does not prove pathological complete response, provide all ycT detail or automatically select organ preservation; lateral nodal restaging remains uncertain.",
+          "normal": {},
           "findings": [
-            "Low-signal fibrosis only, without restricted diffusion (possible complete response).",
-            "Residual intermediate T2 signal with matching diffusion restriction (residual tumour).",
+            "Hypointense fibrotic tumour-bed remnant with actual diffusion findings [ ]; source quality [ ]; reconcile obtained DRE/endoscopy and response confidence [ ]. MRI alone does not establish pathological complete response.",
+            "Residual intermediate T2 signal and corresponding source diffusion finding [ ]; extent and quality [ ]; response class/confidence and supplied clinical/tissue correlation [ ].",
             "Nodal response: [ ]."
           ],
           "landmark": "wall",
-          "tip": "Fibrosis alone is not proof of viable tumour, and MRI is one part of clinical response assessment."
+          "tip": "Fibrosis alone is not proof of viable tumour, and MRI is one part of clinical response assessment.",
+          "parts": [],
+          "measurements": [
+            "Every source component and interface"
+          ],
+          "images": [
+            "open-anorectal-pmc9849549-fig13-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig14-mri-rectal-cancer",
+            "open-anorectal-pmc9849549-fig15-mri-rectal-cancer"
+          ]
         }
-      ]
+      ],
+      "model": {
+        "family": "rectal",
+        "reporting_aim": "Partial schematic orientation only; complete source wall layers,fascia,peritoneum,sphincter/pelvic-floor,duct/neurovascular,nodal,tract/tumour and treated anatomy remain unverified. Selected published MRI/diagrams are separate source references,not registered whole-patient3D geometry or full reporting coverage."
+      }
     },
     "ra.mri-perianal-fistula": {
       "steps": [
         {
           "label": "Internal opening",
-          "detail": "Locate the internal opening with a stated clock face and height.",
+          "detail": "Locate every source-demonstrated internal opening and actual height with an explicitly stated clock-face/view convention. Distinguish ARJ, verge and inferred dentate level; a schematic or lithotomy clock convention is not verified source MRI acquisition position.",
           "sections": [
             "INTERNAL OPENING"
           ],
-          "look": "Axial T2 perpendicular to the anal canal; state the clock convention (12 o'clock anterior in the lithotomy position).",
+          "look": "Locate every source-demonstrated internal opening and actual height with an explicitly stated clock-face/view convention. Distinguish ARJ, verge and inferred dentate level; a schematic or lithotomy clock convention is not verified source MRI acquisition position.",
           "findings": [
             "Internal opening at __ o'clock at the level of the [dentate line / mid anal canal]."
           ],
           "images": [
-            "ra-mri-perianal-fistula-source-3"
+            "ra-mri-perianal-fistula-source-3",
+            "open-anorectal-pmc13512459-fig21-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig22-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig23-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig24-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig25-mri-perianal-fistula"
           ],
           "measurements": [
-            "Tract and abscess localisation"
+            "Tract and abscess localisation",
+            "Every source component and interface"
           ],
-          "landmark": "sphincter"
+          "landmark": "sphincter",
+          "normal": {},
+          "parts": []
         },
         {
           "label": "Primary tract",
-          "detail": "Trace the main tract relative to the internal and external sphincters (Parks classification).",
+          "detail": "Trace the complete actual primary tract wall/lumen and each sphincter/intersphincteric/ischioanal crossing in native planes. Keep source visible segments and unresolved continuation distinct; a blind sinus is not a proven complete fistula.",
           "sections": [
             "PRIMARY TRACT"
           ],
-          "look": "Coronal T2 parallel to the anal canal and axial T2 to follow the tract.",
-          "normal": "No fistula.",
+          "look": "Trace the complete actual primary tract wall/lumen and each sphincter/intersphincteric/ischioanal crossing in native planes. Keep source visible segments and unresolved continuation distinct; a blind sinus is not a proven complete fistula.",
+          "normal": {},
           "findings": [
             "Intersphincteric fistula at __ o'clock.",
             "Transsphincteric fistula crossing the external sphincter at __ o'clock.",
@@ -3787,59 +3839,119 @@
           ],
           "images": [
             "ra-mri-perianal-fistula-source-1",
-            "ra-mri-perianal-fistula-source-2"
+            "ra-mri-perianal-fistula-source-2",
+            "open-anorectal-pmc9849549-fig2-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig4-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig5-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig6-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig1-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig2-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig3-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig22-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig23-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig24-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig25-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig26-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig27-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig28-mri-perianal-fistula"
           ],
           "landmark": "sphincter",
-          "tip": "A transsphincteric tract crosses the external sphincter; an intersphincteric tract stays between the sphincters."
+          "tip": "A transsphincteric tract crosses the external sphincter; an intersphincteric tract stays between the sphincters.",
+          "parts": [],
+          "measurements": [
+            "Every source component and interface"
+          ]
         },
         {
           "label": "Secondary extensions",
-          "detail": "Look for branches and horseshoe extensions.",
+          "detail": "Map each branch, horseshoe component, blind endpoint, separate tract and external opening, including bilateral and deep extensions. Original drawn yellow fills are publication annotations, not supplied native segmentation masks or verified complete lumen boundaries.",
           "sections": [
             "SECONDARY EXTENSIONS"
           ],
-          "look": "Axial T2 around the anal canal and in the ischioanal fossae.",
-          "normal": "No secondary extensions.",
+          "look": "Map each branch, horseshoe component, blind endpoint, separate tract and external opening, including bilateral and deep extensions. Original drawn yellow fills are publication annotations, not supplied native segmentation masks or verified complete lumen boundaries.",
+          "normal": {},
           "findings": [
             "Horseshoe extension in the [intersphincteric / ischioanal] space.",
             "Secondary branch to the [ ]."
           ],
-          "landmark": "sphincter"
+          "landmark": "sphincter",
+          "parts": [],
+          "measurements": [
+            "Every source component and interface"
+          ],
+          "images": [
+            "open-anorectal-pmc13512459-fig1-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig24-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig26-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig27-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig28-mri-perianal-fistula"
+          ]
         },
         {
           "label": "Abscess and levator",
-          "detail": "Localise abscesses and any extension above the levator ani.",
+          "detail": "Review every collection and its wall/content, three source dimensions, communicating tract and relation to puborectalis/levator and supralevator compartments. Selected views or signal alone do not independently establish organism, drainability or the complete route.",
           "sections": [
             "COLLECTIONS AND LEVATOR"
           ],
-          "look": "Coronal T2 and post-contrast images; the levator plane.",
-          "normal": "No abscess; no supralevator extension.",
+          "look": "Review every collection and its wall/content, three source dimensions, communicating tract and relation to puborectalis/levator and supralevator compartments. Selected views or signal alone do not independently establish organism, drainability or the complete route.",
+          "normal": {},
           "findings": [
             "Abscess __ × __ × __ mm in the [ischioanal / intersphincteric] space.",
             "Supralevator extension."
           ],
           "measurements": [
-            "Tract and abscess localisation"
+            "Tract and abscess localisation",
+            "Every source component and interface"
           ],
           "landmark": "levator",
-          "tip": "Supralevator extension changes the surgical approach; always look above the levator plane."
+          "tip": "Supralevator extension changes the surgical approach; always look above the levator plane.",
+          "parts": [],
+          "images": [
+            "open-anorectal-pmc9849549-fig2-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig4-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig5-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig6-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig1-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig2-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig3-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig26-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig28-mri-perianal-fistula"
+          ]
         },
         {
           "label": "Sphincters and context",
-          "detail": "Assess sphincter defects, setons, surgical changes and proctitis.",
+          "detail": "Review actual sphincter defects, perineal skin/soft tissue, proctitis, prior surgery/seton and supplied inflammatory/tissue context. State source limitations and operative correlation. Parks type describes the demonstrated anatomical relation; it is not current histology, disease activity or a complete treatment plan.",
           "sections": [
             "SPHINCTERS AND CONTEXT"
           ],
-          "look": "Sphincter integrity on axial T2; rectal wall.",
-          "normal": "Sphincters intact; no seton; no proctitis.",
+          "look": "Review actual sphincter defects, perineal skin/soft tissue, proctitis, prior surgery/seton and supplied inflammatory/tissue context. State source limitations and operative correlation. Parks type describes the demonstrated anatomical relation; it is not current histology, disease activity or a complete treatment plan.",
+          "normal": {},
           "findings": [
             "Seton in situ along the [ ] tract.",
             "Sphincter defect at __ o'clock.",
             "Proctitis, compatible with Crohn disease in the appropriate context."
           ],
-          "landmark": "wall"
+          "landmark": "wall",
+          "parts": [],
+          "measurements": [
+            "Every source component and interface"
+          ],
+          "images": [
+            "open-anorectal-pmc9849549-fig2-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig4-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig5-mri-perianal-fistula",
+            "open-anorectal-pmc9849549-fig6-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig1-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig2-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig3-mri-perianal-fistula",
+            "open-anorectal-pmc13512459-fig26-mri-perianal-fistula"
+          ]
         }
-      ]
+      ],
+      "model": {
+        "family": "rectal",
+        "reporting_aim": "Partial schematic orientation only; complete source wall layers,fascia,peritoneum,sphincter/pelvic-floor,duct/neurovascular,nodal,tract/tumour and treated anatomy remain unverified. Selected published MRI/diagrams are separate source references,not registered whole-patient3D geometry or full reporting coverage."
+      }
     },
     "ra.dynamic-rectal-examination": {
       "steps": [

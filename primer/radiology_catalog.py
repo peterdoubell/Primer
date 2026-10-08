@@ -587,6 +587,23 @@ def _validate_source_panel_roles(image):
                 or any(types.get(panel) != entry.get('kind') for panel in panels)):
             raise ValueError('Source ancillary panel roles overlap or contradict the declared source types')
         occupied.update(panels)
+    if image.get('panel_identifier_scheme') == 'descriptive_source_positions':
+        if (not types or len(types) > 32
+                or context.get('panel_identifier_scheme') != 'descriptive_source_positions'
+                or any(not isinstance(panel, str)
+                       or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_]{0,63}', panel)
+                       for panel in types)):
+            raise ValueError('Descriptive source positions need explicit complete panel roles')
+        schematics = image.get('schematic_panels', [])
+        if (not isinstance(schematics, list)
+                or any(not isinstance(panel, str) or types.get(panel) != 'Schematic'
+                       for panel in schematics)
+                or len(schematics) != len(set(schematics))
+                or occupied.intersection(schematics)):
+            raise ValueError('Descriptive source schematic roles overlap or contradict source types')
+        occupied.update(schematics)
+        if occupied != set(types):
+            raise ValueError('Descriptive source positions must partition every source role')
 
 
 @lru_cache(maxsize=1)
@@ -618,7 +635,11 @@ def _structure_atlases():
             ancillary = image.get('ancillary_panels', [])
             position_panels = image.get('panel_identifier_scheme') == 'position_unlettered'
             grid_panels = image.get('panel_identifier_scheme') == 'grid_unlettered'
+            descriptive_panels = image.get('panel_identifier_scheme') == 'descriptive_source_positions'
             grid_positions = set()
+            descriptive_positions = set()
+            if descriptive_panels:
+                descriptive_positions = set(image['source_context']['panel_types'])
             if grid_panels:
                 context = image.get('source_context', {})
                 rows, columns = context.get('panel_grid_rows'), context.get('panel_grid_columns')
@@ -646,7 +667,7 @@ def _structure_atlases():
                         or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or
-                               (panel not in grid_positions if grid_panels else panel not in {'left', 'middle', 'right'} if position_panels else
+                               (panel not in descriptive_positions if descriptive_panels else panel not in grid_positions if grid_panels else panel not in {'left', 'middle', 'right'} if position_panels else
                                 len(panel) != 1 or panel not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
                                for panel in entry['panels'])
                         or not isinstance(entry.get('structures_visible'), list) or not entry['structures_visible']
