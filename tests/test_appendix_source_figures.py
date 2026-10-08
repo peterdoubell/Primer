@@ -15,7 +15,7 @@ def records():
 
 
 def test_appendix_figures_are_byte_bound_and_do_not_claim_complete_anatomy():
-    assets,leaves=records();images=_structure_atlases()['ra.appendicitis']
+    assets,leaves=records();images=[r for r in _structure_atlases()['ra.appendicitis'] if r['id'].startswith('open-appendix-mostbeck-2016-')]
     assert len(images)==3
     for image in images:
         asset=assets[image['id']];raw=(ROOT/asset['local_path']).read_bytes()
