@@ -10,7 +10,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import shutil
 import subprocess
+import tempfile
 import xml.etree.ElementTree as ET
 from fractions import Fraction
 from pathlib import Path
@@ -74,7 +76,36 @@ def validate_report(report: dict) -> None:
     assert report["source_acquisition"]["phantom_21_slices_is_volunteer_movie"] is False
 
 
-def review(source: Path, output: Path, decodes: Path, ffmpeg: str, ffprobe: str) -> dict:
+def decode_original_movie(movie: Path, decodes: Path) -> tuple[dict, str]:
+    """Only fixed tool names and private, literal file names reach subprocesses."""
+    ffmpeg = shutil.which("ffmpeg")
+    ffprobe = shutil.which("ffprobe")
+    if ffmpeg is None or ffprobe is None:
+        raise RuntimeError("Reviewed ffmpeg and ffprobe must be available on PATH")
+    with tempfile.TemporaryDirectory(prefix="primer-original-swallowing-") as private:
+        work = Path(private)
+        # User-selected paths are handled by Python file operations only. They
+        # cannot become executable names, media protocol URLs or CLI options.
+        shutil.copyfile(movie, work / "original-source.mp4")
+        if digest(work / "original-source.mp4") != SOURCE_SHA256:
+            raise ValueError("The private copy differs from the reviewed original movie")
+        probe = json.loads(subprocess.check_output([
+            ffprobe, "-v", "error", "-show_streams", "-show_format", "-show_frames",
+            "-show_entries", "frame=best_effort_timestamp,best_effort_timestamp_time,key_frame,pict_type,width,height",
+            "-of", "json", "original-source.mp4"], cwd=work, text=True))
+        subprocess.run([
+            ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-i", "original-source.mp4",
+            "-fps_mode", "passthrough", "-frames:v", "64", "frame-%03d.png"], cwd=work, check=True)
+        tool_version = subprocess.check_output([ffmpeg, "-version"], cwd=work, text=True).splitlines()[0]
+        decodes.mkdir(parents=True, exist_ok=True)
+        for ordinal in range(1, 65):
+            name = f"frame-{ordinal:03d}.png"
+            shutil.copyfile(work / name, decodes / name)
+    return probe, tool_version
+
+
+def review(source: Path, output: Path, decodes: Path) -> dict:
+    source, output, decodes = source.resolve(), output.resolve(), decodes.resolve()
     movie, xml = source / MOVIE, source / "PMC9188511.1.xml"
     metadata = json.loads((source / "PMC9188511.1.json").read_text())
     movie_sha, xml_sha = digest(movie), digest(xml)
@@ -88,20 +119,14 @@ def review(source: Path, output: Path, decodes: Path, ffmpeg: str, ffprobe: str)
     license_links = [text(e) for e in root.findall(".//license/*") if e.tag.endswith("license_ref")]
     assert "https://creativecommons.org/licenses/by/4.0/" in license_links
     assert metadata["license_code"] == "CC BY" and not metadata["is_retracted"]
-    probe = json.loads(subprocess.check_output([
-        ffprobe, "-v", "error", "-show_streams", "-show_format", "-show_frames",
-        "-show_entries", "frame=best_effort_timestamp,best_effort_timestamp_time,key_frame,pict_type,width,height",
-        "-of", "json", str(movie)], text=True))
+    probe, tool_version = decode_original_movie(movie, decodes)
     video = probe["streams"]
     assert len(video) == 1 and video[0]["codec_type"] == "video"
     stream = video[0]
     assert stream["codec_name"] == "mpeg4" and stream["pix_fmt"] == "yuv420p"
     pts = probe["frames"]
     assert len(pts) == 64 and int(stream["duration_ts"]) == 64000
-    decodes.mkdir(parents=True, exist_ok=True)
     output.mkdir(parents=True, exist_ok=True)
-    subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-i", str(movie),
-                    "-fps_mode", "passthrough", "-frames:v", "64", str(decodes / "frame-%03d.png")], check=True)
     records, images, previous = [], [], None
     for ordinal, timing in enumerate(pts, 1):
         path = decodes / f"frame-{ordinal:03d}.png"
@@ -161,7 +186,7 @@ def review(source: Path, output: Path, decodes: Path, ffmpeg: str, ffprobe: str)
                                "half_frame_shift_combination": True, "flat_field_filter": True,
                                "temporal_regularisation": True, "oral_agent": "20 mL pineapple juice",
                                "position": "supine", "coil": "custom 12-channel flexible surface coil"},
-        "decoded_display": {"tool": subprocess.check_output([ffmpeg, "-version"], text=True).splitlines()[0],
+        "decoded_display": {"tool": tool_version,
                             "RGB_decodes_are_raw_MRI_intensities": False,
                             "additional_crop_resize_enhancement_in_frame_decodes": False,
                             "encoded_colour_space_metadata_present": "color_space" in stream,
@@ -183,8 +208,6 @@ if __name__ == "__main__":
     parser.add_argument("source", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("decodes", type=Path)
-    parser.add_argument("--ffmpeg", default="ffmpeg")
-    parser.add_argument("--ffprobe", default="ffprobe")
     args = parser.parse_args()
-    result = review(args.source, args.output, args.decodes, args.ffmpeg, args.ffprobe)
+    result = review(args.source, args.output, args.decodes)
     print(f"Verified {len(result['frames'])} original movie display frames; physiology/native anatomy remains unapproved.")

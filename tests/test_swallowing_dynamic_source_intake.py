@@ -114,3 +114,57 @@ def test_cohort_does_not_assign_movie_identity(field, value):
     report["source_cohort"][field] = value
     with pytest.raises(AssertionError):
         MODULE.validate_report(report)
+
+
+def test_user_file_paths_never_become_subprocess_arguments(tmp_path, monkeypatch):
+    source = tmp_path / "-i source; --frames:v 999.mp4"
+    source.write_bytes(b"original movie fixture")
+    decodes = tmp_path / "https:output --ffmpeg arbitrary"
+    monkeypatch.setattr(MODULE, "SOURCE_SHA256", hashlib.sha256(source.read_bytes()).hexdigest())
+    monkeypatch.setattr(MODULE.shutil, "which", lambda name: "/reviewed-tools/" + name)
+    calls = []
+
+    def check_output(command, **kwargs):
+        calls.append((command, kwargs))
+        assert kwargs["cwd"].is_absolute() and kwargs["cwd"] != tmp_path
+        assert (kwargs["cwd"] / "original-source.mp4").read_bytes() == source.read_bytes()
+        assert "shell" not in kwargs
+        if command == ["/reviewed-tools/ffmpeg", "-version"]:
+            return "ffmpeg reviewed fixture\n"
+        assert command[0] == "/reviewed-tools/ffprobe"
+        assert command[-1] == "original-source.mp4"
+        return '{"probe": "fixture"}'
+
+    def run(command, **kwargs):
+        calls.append((command, kwargs))
+        assert command == [
+            "/reviewed-tools/ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i",
+            "original-source.mp4", "-fps_mode", "passthrough", "-frames:v", "64", "frame-%03d.png",
+        ]
+        assert kwargs["check"] and "shell" not in kwargs
+        for ordinal in range(1, 65):
+            (kwargs["cwd"] / f"frame-{ordinal:03d}.png").write_bytes(f"frame {ordinal}".encode())
+
+    monkeypatch.setattr(MODULE.subprocess, "check_output", check_output)
+    monkeypatch.setattr(MODULE.subprocess, "run", run)
+    probe, version = MODULE.decode_original_movie(source, decodes)
+    assert probe == {"probe": "fixture"} and version == "ffmpeg reviewed fixture"
+    assert len(calls) == 3
+    assert len(list(decodes.glob("frame-*.png"))) == 64
+    assert all((decodes / f"frame-{i:03d}.png").read_bytes() == f"frame {i}".encode() for i in range(1, 65))
+    assert all(str(source) not in command and str(decodes) not in command for command, _ in calls)
+    assert all(not options["cwd"].exists() for _, options in calls)
+
+
+def test_unreviewed_private_movie_copy_fails_before_any_command(tmp_path, monkeypatch):
+    source = tmp_path / "source.mp4"
+    source.write_bytes(b"changed source")
+    monkeypatch.setattr(MODULE.shutil, "which", lambda name: "/reviewed-tools/" + name)
+
+    def unexpected_command(*args, **kwargs):
+        pytest.fail("A source digest mismatch must fail before running a tool")
+
+    monkeypatch.setattr(MODULE.subprocess, "check_output", unexpected_command)
+    monkeypatch.setattr(MODULE.subprocess, "run", unexpected_command)
+    with pytest.raises(ValueError, match="private copy differs"):
+        MODULE.decode_original_movie(source, tmp_path / "decodes")
