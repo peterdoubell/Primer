@@ -17,4 +17,6 @@ def test_original_grayscale_master_and_case_context_survive():
 def test_FOV_example_does_not_fill_functional_steps_or_replace_other_investigations():
     ref=detail(Curriculum(),resolve(INV))['radiology_reference'];assert not ref['key_images'];w=ref['walkthrough'];assert w['start']['images']==[] and not w['start']['module_illustrations']
     assert all(not r['images'] and not r['normal'] for r in w['steps']);assert len(ref['structure_atlas'])==1
-    other=detail(Curriculum(),resolve('ra.esophagus'))['radiology_reference'];assert other['key_images']
+    other=detail(Curriculum(),resolve('ra.esophagus'))['radiology_reference']
+    images=other['key_images']+other.get('structure_atlas',[]);assert images and all(x['id']!=ID for x in images)
+    assert not any(ID in s['images'] for s in other['walkthrough']['steps'])
