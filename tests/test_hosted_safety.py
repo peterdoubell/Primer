@@ -577,6 +577,8 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
         '/app/anatomy/verse521/verse521-t1.bin.gz',
         '/app/anatomy/hvsmr2-pat7/hvsmr2-pat7-label7.bin.gz',
         '/app/anatomy/verse521/ct-reference.html',
+        '/app/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html',
+        '/app/anatomy/totalseg-v3-esophagus-s0358/totalseg-v3-esophagus-s0358-esophagus.bin.gz',
         '/app/reference-media/prenatal-development/prenatal-development.gif',
         '/app/reference-media/prenatal-development/day-005.webp',
     ]

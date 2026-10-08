@@ -42,6 +42,7 @@ SOURCE_REFERENCE_ATLASES['hvsmr2-pat7'] = 'cardiac-venous-source'
 SOURCE_REFERENCE_ATLASES['nasalseg-p001'] = 'sinonasal-source'
 SOURCE_REFERENCE_ATLASES['openear-zeta'] = 'temporal-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
+SOURCE_REFERENCE_ATLASES['totalseg-v3-esophagus-s0358'] = 'esophagus-source'
 SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
 
@@ -95,8 +96,8 @@ def _source_anatomy_references():
                 if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + '/ct-reference.html':
                     raise ValueError('Source CT volume must use its registered local viewer')
                 volume_path = web / volume['src'].removeprefix('/app/')
-                if hashlib.sha256(volume_path.read_bytes()).hexdigest() != volume.get('sha256'):
-                    raise ValueError('Source CT volume viewer changed')
+                from .source_volume_integrity import verified_volume_identity
+                verified_volume_identity(volume, web, DATA)
                 expected_levels = {part_id: manifest['parts'][part_id]['name'].split(' · ')[0] for part_id in manifest['parts']}
                 if volume.get('level_by_part') != expected_levels:
                     raise ValueError('Source CT label selections must match the registered source parts')

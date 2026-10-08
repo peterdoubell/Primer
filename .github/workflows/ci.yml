@@ -64,6 +64,9 @@ jobs:
       - name: Verify hosted source motion inventory
         run: python tools/check_static_motion_inventory.py
 
+      - name: Verify hosted source volume inventory
+        run: python tools/check_static_source_volume_inventory.py
+
       - name: Verify hosted source mesh inventory
         run: python tools/check_static_source_mesh_inventory.py
 

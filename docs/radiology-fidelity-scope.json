@@ -53959,7 +53959,59 @@
           ],
           "reporting_aim": "Partial esophageal orientation only. This static schematic does not contain every native cervical/thoracic/abdominal wall layer, gland/duct, neural/vascular/lymphatic branch, mucosal lesion, pouch/hiatal/gastric or treated interface. It supplies no acquired transit, sphincter pressure/relaxation, reflux diagnosis, histology, complete leak exclusion or treatment effect."
         },
-        "source_anatomy_references": [],
+        "source_anatomy_references": [
+          {
+            "id": "totalseg-v3-esophagus-s0358-original-labels",
+            "label": "Esophageal CT context \u00b7 original source candidates",
+            "atlas": "totalseg-v3-esophagus-s0358",
+            "family": "esophagus-source",
+            "manifest_url": "/app/anatomy/totalseg-v3-esophagus-s0358/manifest.json",
+            "manifest_sha256": "4e9a71e2a5b94856a36379c87d01e23754ef2cd8333e7d50c855f8e650543cfa",
+            "initial_layer": "source_labels",
+            "initial_cropped": false,
+            "population_note": "Original CT case s0358: source metadata age 90,female,study type ct pelvis,trauma/abdomen. These are source-labelled inspection candidates, not a normal esophageal atlas or current patient. All 27 complete original selected source label interfaces and 686,252 triangles are retained. Original source-grid CT and masks can be inspected separately in every plane. No smoothing,padding,capping,decimation,component deletion,relabeling or fitted transformation is applied. Display colours and normals are illustrative. One declared 255\u00d7255\u00d7523 grid with 1.5 mm pitch and original RAS sform. Raw DICOM/HU calibration, native patient orientation,contrast phase and fine-tissue accuracy remain unverified. Left/right are original source label names; patient laterality is not independently verified. The esophageal label is an organ envelope, without separate lumen,wall layers,mucosa,glands,plexuses or hiatal attachments. Whole heart does not separately identify left atrium; atrial appendage is not the entire atrium. Published clinical figures are different cases with no registration to this CT. Left upper lung mask contains 261 six-connected components and 137 surface interfaces. Heart has 2 foreground components and 47 surface interfaces,including 45 opposite-winding to the largest; surface count alone does not identify organ fragments. Pulmonary veins retain 4 disconnected components. These source assignments require further anatomical review. Spinal cord retains 40 open source boundary edges at the scan extent. T6,T8,T11 and lower lung additional components remain. Closed source label endpoints do not establish physical organ ends. Source stair steps and Lewiner ambiguity-field residuals are not independently measured anatomical accuracy. Inspection reference only: no every-structure reporting coverage,clinical approval,current lesion diagnosis,physiological timing,pressure or flow evidence is granted. Original members pass CRC/SHA with stable publisher archive identity before/after; full 37.4 GB archive MD5 and object immutability remain unverified. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+            "source_volume": {
+              "id": "totalseg-v3-esophagus-s0358-complete-CT",
+              "src": "/app/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html",
+              "sha256": "d5796f3d6ff37d51c54e14fc2b1ca2d28ab8eed4f199d8fba78a39f35fc19965",
+              "script_sha256": "a03aea533e60c429c57e9b78b3f7539afbd6f5e73b18be7166e2695bc0dc8055",
+              "level_by_part": {
+                "totalseg-v3-esophagus-s0358-esophagus": "esophagus",
+                "totalseg-v3-esophagus-s0358-trachea": "trachea",
+                "totalseg-v3-esophagus-s0358-aorta": "aorta",
+                "totalseg-v3-esophagus-s0358-heart": "heart",
+                "totalseg-v3-esophagus-s0358-stomach": "stomach",
+                "totalseg-v3-esophagus-s0358-lung_upper_lobe_left": "lung upper lobe left",
+                "totalseg-v3-esophagus-s0358-lung_lower_lobe_left": "lung lower lobe left",
+                "totalseg-v3-esophagus-s0358-lung_upper_lobe_right": "lung upper lobe right",
+                "totalseg-v3-esophagus-s0358-lung_middle_lobe_right": "lung middle lobe right",
+                "totalseg-v3-esophagus-s0358-lung_lower_lobe_right": "lung lower lobe right",
+                "totalseg-v3-esophagus-s0358-pulmonary_vein": "pulmonary vein",
+                "totalseg-v3-esophagus-s0358-atrial_appendage_left": "atrial appendage left",
+                "totalseg-v3-esophagus-s0358-superior_vena_cava": "superior vena cava",
+                "totalseg-v3-esophagus-s0358-inferior_vena_cava": "inferior vena cava",
+                "totalseg-v3-esophagus-s0358-spinal_cord": "spinal cord",
+                "totalseg-v3-esophagus-s0358-vertebrae_T1": "vertebrae T1",
+                "totalseg-v3-esophagus-s0358-vertebrae_T2": "vertebrae T2",
+                "totalseg-v3-esophagus-s0358-vertebrae_T3": "vertebrae T3",
+                "totalseg-v3-esophagus-s0358-vertebrae_T4": "vertebrae T4",
+                "totalseg-v3-esophagus-s0358-vertebrae_T5": "vertebrae T5",
+                "totalseg-v3-esophagus-s0358-vertebrae_T6": "vertebrae T6",
+                "totalseg-v3-esophagus-s0358-vertebrae_T7": "vertebrae T7",
+                "totalseg-v3-esophagus-s0358-vertebrae_T8": "vertebrae T8",
+                "totalseg-v3-esophagus-s0358-vertebrae_T9": "vertebrae T9",
+                "totalseg-v3-esophagus-s0358-vertebrae_T10": "vertebrae T10",
+                "totalseg-v3-esophagus-s0358-vertebrae_T11": "vertebrae T11",
+                "totalseg-v3-esophagus-s0358-vertebrae_T12": "vertebrae T12"
+              },
+              "title": "Inspect matching complete source CT and original labels",
+              "caption": "Every native source slice and all27 original masks, with preserved overlaps. One 1.5 mm CT dataset grid; source-label assignment remains unapproved; source index/RAS coordinates and source-value windowing, not independently calibrated HU, native DICOM orientation or current esophageal findings. Source annotation bounds and caps do not establish complete physical anatomy.",
+              "attribution": "Inspection reference only: no every-structure reporting coverage,clinical approval,current lesion diagnosis,physiological timing,pressure or flow evidence is granted. Original members pass CRC/SHA with stable publisher archive identity before/after; full 37.4 GB archive MD5 and object immutability remain unverified. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+              "source_url": "https://zenodo.org/records/22688904",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/"
+            }
+          }
+        ],
         "source_motion_references": []
       },
       "clinical_approval": false
