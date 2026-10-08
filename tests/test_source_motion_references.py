@@ -6,7 +6,7 @@ from primer.source_motion import validate_motion_references
 ROOT=Path(__file__).resolve().parents[1];INV='ra.swallowing'
 def registry():return json.loads((ROOT/'data/radiology/source-motion-references.json').read_text())
 def test_source_and_transport_are_bound_to_all_reviewed_frames():
-    data=registry();validate_motion_references(data,{INV},ROOT/'web');r=data[INV][0]
+    data=registry();validate_motion_references(data,set(data),ROOT/'web');r=data[INV][0]
     proof=json.loads((ROOT/r['source_proof_path']).read_text());transport=json.loads((ROOT/r['transport_proof_path']).read_text())
     assert r['original_sha256']==proof['source']['sha256']==transport['original_movie_sha256']
     assert r['sha256']==transport['browser_movie_sha256'] and r['frames']==64
@@ -29,7 +29,7 @@ def test_movie_metadata_cannot_silently_become_clinical_or_different_source(chan
     if change=='paired_count':r['frames']-=1;r['source_pts_seconds'].pop();r['transport_pts_seconds'].pop()
     if change=='negative_tolerance':r['max_transport_timestamp_error_seconds']=-1
     if change=='path_escape':r['src']='/app/reference-media/radiology-motion/../movie.webm'
-    with pytest.raises(ValueError):validate_motion_references(data,{INV},ROOT/'web')
+    with pytest.raises(ValueError):validate_motion_references(data,set(data),ROOT/'web')
 def test_motion_rights_are_inspected_but_never_grant_anatomical_coverage():
     from tools.msk_runtime_rights import audit_reference_image_rights
     from tools.check_msk_fidelity import inspect_asset
