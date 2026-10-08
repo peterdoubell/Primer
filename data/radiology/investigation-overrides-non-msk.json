@@ -4285,41 +4285,46 @@
   },
   "ra.swallowing": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "Record fluoroscopic bolus consistencies, projections and examination cooperation; document which swallow phases were observed."
+        "Record patient/source/trial identity, indication, supplied clinical context and populations; actual projections, posture, field coverage, fluoroscopy pulse rate, recorded frame rate, frame order/timestamps and missing/dropped frames if known.",
+        "Record actual contrast type, bolus volume/consistency, delivery and instructions; tested strategies and examinations obtained, recording/storage and available dose. State temporal/spatial, calibration, projection and cooperation limits. Adult technical consensus is not an automatic pediatric protocol or acquired finding."
       ],
       "checklist": [
         {
-          "label": "Oral Phase",
-          "detail": "Assess bolus control and transfer when included."
+          "label": "Oral tissues bolus and transfer",
+          "detail": "Map actual source oral tissues, bolus and preparation/transport events for each recorded trial; distinguish observed movement from inferred muscle or nerve function."
         },
         {
-          "label": "Pharyngeal Phase",
-          "detail": "Describe initiation, pharyngeal propulsion and clearance."
+          "label": "Pharyngeal route and clearance",
+          "detail": "Trace actual palate/pharyngeal/hyoid/laryngeal relationships and bolus/residue route with recorded timing, projections and evaluability."
         },
         {
-          "label": "Airway Protection",
-          "detail": "Record penetration or aspiration and the timing and response."
+          "label": "Airway entry and response",
+          "detail": "Describe each actually recorded airway-entry event relative to the visible vocal-fold level, bolus passage and observed response; unresolved timing or boundaries remain uncertain."
         },
         {
-          "label": "Structural Findings",
-          "detail": "Assess pharyngeal pouches, webs and upper sphincter opening."
+          "label": "Structural and passage interfaces",
+          "detail": "Map each acquired wall/lumen, pouch/web/bar, external impression or treated interface and its observed passage effect; static contour is not a unique physiological cause."
         },
         {
-          "label": "Manoeuvres And Limitations",
-          "detail": "Record observed response to tested modifications and incomplete coverage."
+          "label": "Tested trials and source limits",
+          "detail": "Identify each tested bolus, delivery, position and manoeuvre with trial-specific observations; acquired esophageal screening, unavailable phases and clinical management remain separately documented."
         }
       ],
       "measurements": [],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Report only consistencies and manoeuvres actually tested; a static CT cannot establish swallow coordination."
+        "Projection overlap or unobserved preparatory events do not establish normal oral control. Source bolus boundaries are not every tiny muscle, mucosal layer or neural branch.",
+        "Asymmetry has a differential, including positioning/rotation, distension, structural change and functional impairment; it does not uniquely diagnose unilateral paresis.",
+        "Document aspiration and observed response without a universal risk ranking. Absence of cough during an observed event is distinct from an unrecorded response or a unique cause of impaired airway protection.",
+        "A visible bar/impression, pouch or static narrowing alone does not establish functional obstruction, sphincter pressure, neurological cause, histology or a surgical indication.",
+        "A tested manoeuvre or consistency has source-specific results; future diet safety, treatment benefit and full esophageal motility are not certified by a selected still or schematic."
       ],
       "impression_prompts": [
-        "Swallowing mechanics, aspiration and structural abnormalities.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "Summarise actual acquired morphology and recorded trial-specific swallowing/airway events with their source confidence and limits.",
+        "Keep uncovered anatomy, clinical diagnosis, neurological mechanism and treatment decisions explicit rather than filling normal or safe findings automatically."
       ],
       "escalation": [
         "Communicate consequential aspiration observed during the examination to the treating team."
@@ -4327,32 +4332,41 @@
       "template_sections": [
         {
           "heading": "ORAL PHASE",
-          "body": "Bolus control/transfer: [ ]. Oral residue: [ ]."
+          "body": "Every acquired oral component/bolus interface and trial [ ]; source containment, mastication/transfer and residue [ ]; observed events/frames and unresolved neural or microscopic mechanism [ ]."
         },
         {
           "heading": "PHARYNGEAL PHASE",
-          "body": "Initiation/propulsion: [ ]. Vallecular/pyriform residue: [ ]."
+          "body": "Each acquired palate/tongue-base/pharyngeal/hyoid/laryngeal/upper-esophageal interface [ ]; bolus route/residue and source sequence timing [ ]; asymmetry, overlap and unobserved extent [ ]."
         },
         {
           "heading": "AIRWAY PROTECTION",
-          "body": "Penetration/aspiration: [ ]. Before/during/after swallow: [ ]. Cough response: [ ]."
+          "body": "Each recorded trial and airway-entry event [ ]; source vocal-fold/vestibular/subglottic landmarks and evaluability [ ]; observed timing and clearance/response [ ]; unobserved response, differential and temporal limitations [ ]."
         },
         {
           "heading": "STRUCTURAL FINDINGS",
-          "body": "Diverticulum/web: [ ]. Cricopharyngeal opening: [ ]."
+          "body": "Every actual pouch/neck/wall/content, web/bar/narrowing or extrinsic/treated interface [ ]; obtained projections and source passage effect [ ]; separate structural/clinical/pressure/tissue evidence and uncertainty [ ]."
         },
         {
           "heading": "MANOEUVRES AND LIMITATIONS",
-          "body": "Tested manoeuvre/response: [ ]. Cervical oesophagus: [ ]. Limitation: [ ]."
+          "body": "Every tested bolus/volume/consistency/delivery, posture/manoeuvre and trial-specific response [ ]; actually acquired esophageal screening/other sources [ ]; absent coverage, source limitations and relevant clinical communication [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant \u2014 Swallowing disorders update",
+          "title": "RA swallowing source approach",
           "url": "https://radiologyassistant.nl/head-neck/swallowing/swallowing-disorders-update"
+        },
+        {
+          "title": "ESSD\u2013ESGAR adult VFSS technical consensus",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12081525/"
+        },
+        {
+          "title": "ASHA VFSS practice resource",
+          "url": "https://www.asha.org/practice-portal/resources/videofluoroscopic-swallow-study/"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.carotid-obstruction": {
     "reporting": {
