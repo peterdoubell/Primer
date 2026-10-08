@@ -3644,11 +3644,12 @@ def sign_out(request: Request):
 def healthz():
     # A healthy process must also be able to load the reference galleries.
     # This checks metadata/provenance integrity, not clinical approval.
-    from .radiology_catalog import _structure_atlases, _source_anatomy_references
+    from .radiology_catalog import _structure_atlases, _source_anatomy_references, _source_motion_references
     _structure_atlases()
     _source_anatomy_references()
+    _source_motion_references()
     return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives),
-            "source_gallery_metadata_validated": True, "source_model_metadata_validated": True}
+            "source_gallery_metadata_validated": True, "source_model_metadata_validated": True, "source_motion_metadata_validated": True}
 
 
 
@@ -3685,6 +3686,20 @@ async def lesson_illustration_delivery(asset: str, request: Request):
             target += "?" + query
         return RedirectResponse(target, status_code=307)
     return await app.state.source_static.get_response("illustrations/" + asset, request.scope)
+
+
+@app.api_route("/app/reference-media/radiology-motion/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def source_motion_delivery(asset: str, request: Request):
+    from .radiology_catalog import _source_motion_references
+    url = "/app/reference-media/radiology-motion/" + asset
+    if not any(url in {r["src"], r["original_src"]} for rows in _source_motion_references().values() for r in rows):
+        return JSONResponse({"detail": "Unknown source motion reference"}, status_code=404)
+    if os.environ.get("VERCEL"):
+        from urllib.parse import quote, urlencode
+        target = "/source-media/reference-media/radiology-motion/" + quote(asset, safe="")
+        query = urlencode(request.query_params.multi_items())
+        return RedirectResponse(target + ("?" + query if query else ""), status_code=307)
+    return await app.state.source_static.get_response("reference-media/radiology-motion/" + asset, request.scope)
 
 
 @app.api_route("/app/reference-media/radiology-open/{asset}", methods=["GET", "HEAD"], include_in_schema=False)

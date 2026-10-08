@@ -27,6 +27,8 @@ def reference_images(curriculum, catalogue, requirements, detail, catalog_sectio
         surfaces.append(surface)
         collections = {field: reference.get(field, []) for field in ('key_images', 'structure_atlas', 'anatomical_illustrations')}
         collections['source_anatomy_images'] = [source['source_image'] for source in reference.get('source_anatomy_references', []) if source.get('source_image')]
+        collections['source_motion_references'] = reference.get('source_motion_references',[])
+        collections['source_motion_originals'] = [dict(r,src=r['original_src']) for r in reference.get('source_motion_references',[])]
         collections['source_anatomy_ct_volumes'] = [source['source_volume'] for source in reference.get('source_anatomy_references', []) if source.get('source_volume')]
         for field, images in collections.items():
             for image in images:
@@ -85,8 +87,8 @@ def audit_reference_image_rights(inventory, evidence, root):
     if len({item['src'] for item in images}) != len(images):
         raise ValueError('Runtime image inventory contains repeated resources')
     reference_only = evidence.get('reference_rights_assets', [])
-    if not isinstance(reference_only,list) or any(not isinstance(a,dict) or a.get('kind')!='anatomical_specimen_photo' or a.get('reference_only') is not True or a.get('structure_ids') or a.get('requirement_coverage') for a in reference_only):
-        raise ValueError('Reference-only specimen photograph rights cannot carry anatomical coverage')
+    if not isinstance(reference_only,list) or any(not isinstance(a,dict) or a.get('kind') not in {'anatomical_specimen_photo','source_motion_reference'} or a.get('reference_only') is not True or a.get('structure_ids') or a.get('requirement_coverage') for a in reference_only):
+        raise ValueError('Reference-only media rights cannot carry anatomical coverage')
     combined = evidence.get('assets', []) + reference_only
     if len({a['id'] for a in combined}) != len(combined):
         raise ValueError('Duplicate reference rights evidence identifier')
@@ -133,4 +135,4 @@ def audit_reference_image_rights(inventory, evidence, root):
             'counts': {'images': len(rows), 'cleared': sum(row['status'] == 'cleared' for row in rows),
                        'unverified': sum(row['status'] == 'unverified' for row in rows)},
             'images': rows,
-            'qualification': 'Static reference-figure rights accounting only; it does not approve clinical accuracy, every project asset, external reading or the complete product.'}
+            'qualification': 'Reference-media rights accounting only; it does not approve clinical accuracy, every project asset, external reading or the complete product.'}

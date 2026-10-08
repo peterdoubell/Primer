@@ -7508,5 +7508,112 @@
       "reviewed_at": "2026-10-07"
     },
     "key_images": []
+  },
+  "ra.tinnitus": {
+    "reporting": {
+      "protocol": [
+        "Record source/patient/side, actual pulse synchrony or other rhythm, onset, supplied otoscopy/audiology/neurological and systemic context, and obtained comparison. Select and document a phenotype- and examination-specific pathway; current guidance does not require imaging for every symmetrical non-pulsatile symptom without associated findings.",
+        "Record actually acquired CT/MRI/ultrasound/angiography, field coverage, source sampling, reconstruction/plane, motion and bone/soft-tissue evaluability. Record obtained pre/postcontrast, diffusion/ADC, TOF/ASL or venographic technique without substituting one for another.",
+        "For obtained dynamic vascular sources record injection/labeling, arterial/venous phases, timestamps/frame rate, ordering/gaps, projections and transit limitations. A static reconstruction, source flow void or simulated model animation does not supply temporal shunting, physiological pressure, sound or neural/muscle function."
+      ],
+      "checklist": [
+        {
+          "label": "Phenotype and acquired coverage",
+          "detail": "Record supplied symptom side, pulse synchrony or non-synchronous rhythm, audiology and examination; identify actual source coverage and each missing anatomical or temporal question."
+        },
+        {
+          "label": "IAC CPA nerves and labyrinth",
+          "detail": "Trace every acquired CN VII/VIII component, IAC/CPA and labyrinthine interface; record source-resolved lesion or vessel contact without assigning symptom causation from contact alone."
+        },
+        {
+          "label": "Temporal bone and local interfaces",
+          "detail": "Review every acquired external/middle/inner-ear, ossicular, otic-capsule, skull-base and vascular-channel wall/interface, including every actual lesion, variant and treated component."
+        },
+        {
+          "label": "Arterial venous and shunt anatomy",
+          "detail": "Trace actual covered arteries, veins, each feeder/shunt/nidus/drainage connection and adjacent neural/bone interfaces; record source-supported morphology and only actually acquired transit or flow evidence."
+        },
+        {
+          "label": "Clinical concordance and source limits",
+          "detail": "Correlate actual findings with supplied phenotype, clinical/audiological data and source confidence; describe acquired intracranial-pressure/tremor-related anatomy, unresolved high-risk questions and protocol limits."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Focal lesion",
+          "method": "Measure each actual lesion and obtained extension on source-supported orthogonal planes with sequence, side and uncertainty.",
+          "pitfall": "Size or enhancement alone does not prove tissue identity, auditory dysfunction or symptom causation."
+        },
+        {
+          "name": "Vascular abnormality",
+          "method": "Describe and measure actual acquired wall/lumen, stenosis, aneurysm/pouch, defect and source feeder/drainage interfaces where evaluable; state source technique and reference segment.",
+          "pitfall": "No universal size cutoff proves tinnitus causation; a static narrowing or geometric model does not directly measure a pressure gradient or flow/transit."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Do not prescribe temporal-bone CT plus all vascular studies for every pulsatile symptom or MRI for every non-pulsatile symptom. State the applicable phenotype/examination and actual acquired coverage; unacquired structures remain unassessed.",
+        "A vascular loop/contact, enhancement pattern or lesion size does not independently prove tinnitus causation, tissue identity, neural dysfunction or benefit from decompression.",
+        "A high jugular bulb, diverticulum or apparent plate defect may be incidental or artifact; an enhancing promontory mass is not uniquely paraganglioma. Imaging morphology is not histology or the patient's hearing mechanics.",
+        "A routine negative MRI does not exclude every dural arteriovenous fistula. TOF signal loss is not uniquely thrombosis and static sinus calibre does not measure pressure. Reflux classification and risk need adequate source angioarchitecture/transit rather than a generic vascular model.",
+        "No visible cause on a limited protocol is not an automatic normal or complete-exclusion finding. IIH, palatal/middle-ear muscle activity, systemic causes and treatment benefit require corresponding clinical/physiological evidence; catheter angiography is a specialist decision for the actual unresolved question, not an automatic consequence of every negative scan."
+      ],
+      "impression_prompts": [
+        "Summarise actual acquired anatomical and vascular findings, supplied clinical concordance, source confidence and available temporal evidence.",
+        "State unresolved dangerous vascular or skull-base questions and missing coverage; do not automatically supply normality, exclusion, causality or treatment effect."
+      ],
+      "escalation": [
+        "Communicate suspected shunting, dissection or another significant vascular/skull-base lesion through the appropriate specialist pathway, documenting the actual concerning source finding and uncertainty."
+      ],
+      "template_sections": [
+        {
+          "heading": "SYMPTOM-TARGETED COVERAGE",
+          "body": "Supplied phenotype/pulse synchrony/other rhythm and side [ ]; source audiology/otoscopy/neurological context [ ]; obtained modality, sequence/phase and anatomical/temporal extent [ ]; unavailable evidence [ ]."
+        },
+        {
+          "heading": "IAC AND CPA",
+          "body": "Each acquired facial/cochlear/vestibular component and IAC/CPA/labyrinthine interface [ ]; source lesion/contact/extension and actual dimensions [ ]; nerve morphology, sequence/comparison and uncertainty [ ]; unresolved fascicles/function or uncovered course [ ]."
+        },
+        {
+          "heading": "MIDDLE EAR AND BONE",
+          "body": "Every acquired external/middle/inner-ear, ossicle/window/otic-capsule and skull-base component [ ]; actual carotid/jugular/sigmoid/tegmen wall or defect and adjacent interface [ ]; every lesion/variant/repair and source limitation [ ]; separate tissue/clinical evidence [ ]."
+        },
+        {
+          "heading": "ARTERIAL AND VENOUS FINDINGS",
+          "body": "Each actual covered artery/vein, source wall/lumen and variant/lesion [ ]; every identified feeder, shunt/nidus/pouch and drainage/reflux route [ ]; acquired phases/transit and confidence [ ]; unavailable microscopic connections, flow/pressure or coverage [ ]."
+        },
+        {
+          "heading": "CONCORDANCE AND LIMITS",
+          "body": "Source-supported findings and supplied symptom/clinical concordance [ ]; actual acquired pressure/tremor-related structures and separate physiological evidence [ ]; incidental-versus-contributory differential [ ]; unresolved high-risk question and targeted specialist communication [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant tinnitus source approach",
+          "url": "https://radiologyassistant.nl/head-neck/tinnitus/pulsatile-and-non-pulsatile-tinnitus"
+        },
+        {
+          "title": "Original Pegge et al. imaging work-up review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5263210/"
+        },
+        {
+          "title": "NICE NG155 phenotype and clinical assessment guidance",
+          "url": "https://www.nice.org.uk/guidance/ng155/chapter/Recommendations"
+        },
+        {
+          "title": "Original compartmental imaging review and patient series",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3719451/"
+        },
+        {
+          "title": "Institutional physiology-based MR protocol and limitations",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8917066/"
+        },
+        {
+          "title": "Original palatal-tremor case and pathway review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3639700/"
+        }
+      ],
+      "reviewed_at": "2026-10-08"
+    }
   }
 }

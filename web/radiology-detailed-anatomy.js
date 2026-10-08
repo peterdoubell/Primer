@@ -13,6 +13,7 @@
     "nasalseg-p001": "/app/anatomy/nasalseg-p001/",
     "openear-zeta": "/app/anatomy/openear-zeta/",
     "totalseg-v3-s0358": "/app/anatomy/totalseg-v3-s0358/",
+    "wt9fc-sub007": "/app/anatomy/wt9fc-sub007/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
@@ -23,6 +24,7 @@
     "sinonasal-source": [-566, -488],
     "temporal-source": [-2, 78],
     "thyroid-source": [-116.75, 121.5],
+    "tongue-source": [-106.36968994140625, -49.87583923339844],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],

@@ -43,6 +43,7 @@ CORRECTED = {
     'ra.mri-neck-spaces': 'neck',
     'ra.head-neck-malignancy': 'neck',
     'ra.swallowing': 'swallow',
+    'ra.tinnitus': 'temporal',
 }
 
 

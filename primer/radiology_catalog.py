@@ -16,6 +16,7 @@ from pathlib import Path
 from .radiology import DATA, validate_reference, validate_reporting_guide
 from .source_raster_integrity import verified_raster_header
 from .source_mesh_integrity import verified_mesh_contract
+from .source_motion import validate_motion_references
 
 STEP_DIR = DATA / 'reporting-steps'
 MESH_MANIFEST = DATA.parents[1] / 'web' / 'anatomy' / 'bodyparts3d' / 'manifest.json'
@@ -41,6 +42,13 @@ SOURCE_REFERENCE_ATLASES['hvsmr2-pat7'] = 'cardiac-venous-source'
 SOURCE_REFERENCE_ATLASES['nasalseg-p001'] = 'sinonasal-source'
 SOURCE_REFERENCE_ATLASES['openear-zeta'] = 'temporal-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
+SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
+
+
+@lru_cache(maxsize=1)
+def _source_motion_references():
+    return validate_motion_references(_read('source-motion-references.json',{}),
+        {i['id'] for i in catalogue()['investigations']},DATA.parents[1]/'web')
 
 
 @lru_cache(maxsize=1)
@@ -850,6 +858,7 @@ def detail(curriculum, item):
     ref['key_images'] = selected
     ref['structure_atlas'] = copy.deepcopy(_structure_atlases().get(item['id'], []))
     ref['source_anatomy_references'] = copy.deepcopy(_source_anatomy_references().get(item['id'], []))
+    ref['source_motion_references'] = copy.deepcopy(_source_motion_references().get(item['id'], []))
     ref['investigation'] = copy.deepcopy(item)
     corrected = _step_model(item, _steps()['investigations'].get(item['id'], {}))
     if corrected and not has_source_binding:
@@ -885,6 +894,7 @@ def index(curriculum):
                 *({'ra.ct-coronary': ['CCTA', 'CTCA'], 'ra.mri-prostate': ['mpMRI', 'PI-RADS']}.get(item['id'], []))])),
             'image_count': len(reference['key_images']) + len(reference.get('structure_atlas', []))
                 + sum(bool(source.get('source_image')) for source in reference.get('source_anatomy_references', [])),
+            'motion_count': len(reference.get('source_motion_references',[])),
             'template_count': len(reference['report_templates']),
             'classification': classification['name'] if classification else '',
             'model_family': reference['spatial_model']['family'],

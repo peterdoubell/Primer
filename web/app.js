@@ -2191,6 +2191,62 @@ function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceL
   return figure;
 }
 
+function sourceMotionFrameAtTime(times, time) {
+  if (!Number.isFinite(time)) return 0;
+  let index = 0;
+  for (let i = 1; i < times.length && times[i] <= time; i++) index = i;
+  return index;
+}
+
+function sourceMotionReference(asset) {
+  const video = el('video', { controls: '', playsinline: '', preload: 'metadata', src: asset.src,
+    width: asset.width, height: asset.height, 'aria-label': asset.title,
+    style: 'display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;background:#000' });
+  const slider = el('input', { type: 'range', min: 1, max: asset.frames, step: 1, value: 1,
+    'aria-label': 'Published movie frame' });
+  const status = el('output', { 'aria-live': 'polite', style: 'flex-basis:100%;white-space:normal;overflow-wrap:anywhere' });
+  let ordinal = 0, requested = null;
+  const previous = btn({ class: 'btn ghost small', onclick: () => seek((requested ?? ordinal) - 1) }, 'Previous frame');
+  const next = btn({ class: 'btn ghost small', onclick: () => seek((requested ?? ordinal) + 1) }, 'Next frame');
+  function update(index) {
+    requested = null;
+    ordinal = Math.max(0, Math.min(asset.frames - 1, index)); slider.value = String(ordinal + 1);
+    previous.disabled = ordinal === 0; next.disabled = ordinal === asset.frames - 1;
+    status.textContent = 'Published frame ' + (ordinal + 1) + ' of ' + asset.frames
+      + ' · source movie time ' + asset.source_pts_seconds[ordinal].toFixed(3) + ' s · ' + asset.modality + ' source movie';
+  }
+  function nearest(time) {
+    let index = 0;
+    for (let i = 1; i < asset.frames; i++)
+      if (Math.abs(asset.transport_pts_seconds[i] - time) < Math.abs(asset.transport_pts_seconds[index] - time)) index = i;
+    return index;
+  }
+  function seek(index) {
+    video.pause(); requested = Math.max(0, Math.min(asset.frames - 1, index));
+    slider.value = String(requested + 1);
+    status.textContent = 'Loading published frame ' + (requested + 1) + '…';
+    video.currentTime = asset.transport_pts_seconds[requested] + 0.001;
+  }
+  slider.addEventListener('input', () => seek(Number(slider.value) - 1));
+  if (video.requestVideoFrameCallback) {
+    const displayFrame = (now, metadata) => { update(nearest(metadata.mediaTime)); video.requestVideoFrameCallback(displayFrame); };
+    video.requestVideoFrameCallback(displayFrame);
+  } else {
+    video.addEventListener('timeupdate', () => update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)));
+  }
+  video.addEventListener('seeked', () => { if (video.readyState >= 2) update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)); });
+  video.addEventListener('error', () => { status.textContent = 'The source movie could not load. Open the original source below.'; });
+  previous.disabled = true;
+  status.textContent = 'Loading published source movie…';
+  return el('section', { class: 'rad-structure-atlas', 'aria-label': 'Separate source motion reference' },
+    el('h3', {}, asset.title), el('p', {}, asset.caption), video,
+    el('div', { style: 'display:flex;flex-wrap:wrap;gap:12px;align-items:center' }, previous, next, el('label', { style: 'display:flex;flex-wrap:wrap;gap:8px;max-width:100%;align-items:center' }, 'Published movie frame ', slider), status),
+    el('p', { class: 'rad-image-credit' }, asset.limits), el('p', { class: 'rad-image-credit' }, asset.attribution),
+    radiologySourceLink('Source article', asset.source_url), ' · ',
+    el('a', { href: asset.original_src, target: '_blank', rel: 'noopener noreferrer' }, 'Original published movie'), ' · ',
+    radiologySourceLink(asset.license || 'Source licence', asset.license_url));
+}
+
 function renderMskAtlasFigures(items, { onExploreSource } = {}) {
   const atlas = el('section', { class: 'rad-structure-atlas', 'aria-label': 'Source anatomical atlas figures' },
     el('h3', {}, 'Source anatomical atlas'));
@@ -2256,6 +2312,7 @@ async function renderRadiologyDesk(page, nodeId) {
   const n = await reportingGuard(page, () => api.get('/api/radiology/modules/' + encodeURIComponent(nodeId)));
   if (!n) return;
   const ref = n.radiology_reference, guide = ref.reporting;
+  const motionReferences = ref.source_motion_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
   const atlasSchematics = (ref.structure_atlas || []).filter(item => item.kind === 'schematic' || item.contains_schematic_panels);
   const referenceImages = (ref.source_anatomy_references || []).map(source => source.source_image).filter(Boolean);
@@ -2265,9 +2322,9 @@ async function renderRadiologyDesk(page, nodeId) {
       el('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
         loading: 'lazy', dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
       el('figcaption', {}, el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
-        radiologySourceLink('Source dataset', asset.source_url), ' · ', radiologySourceLink('CC BY 4.0', asset.license_url)));
+        radiologySourceLink('Source dataset', asset.source_url), ' · ', radiologySourceLink(asset.license || 'Source licence', asset.license_url)));
     attachPictureHandlers(figure);
-    return el('section', { class: 'rad-structure-atlas', 'aria-label': 'Source MRI correspondence' }, figure);
+    return el('section', { class: 'rad-structure-atlas', 'aria-label': 'Source image correspondence' }, figure);
   }
 
   if (!S.radiologyFilter) S.radiologyFilter = { query: '', section: n.section };
@@ -2301,7 +2358,8 @@ async function renderRadiologyDesk(page, nodeId) {
     } }))],
     ['guide', 'Checklist', panel => panel.append(renderReportingGuide(guide, n.id))],
     ['template', 'Report template', panel => panel.append(templates)],
-    ['images', 'Images (' + (ref.key_images.length + atlasImages.length + referenceImages.length) + ')', panel => {
+    ['images', (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+      motionReferences.forEach(asset => panel.append(sourceMotionReference(asset)));
       referenceImages.forEach(asset => panel.append(sourceReferenceFigure(asset)));
       if (atlasImages.length) panel.append(renderMskAtlasFigures(atlasImages));
       const images = legacy.querySelector('.rad-key-images');
@@ -6263,7 +6321,7 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,
-    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure });
+    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
   // all — send them to the first page instead of the error card. This needs
