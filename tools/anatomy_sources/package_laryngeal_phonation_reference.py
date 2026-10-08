@@ -12,6 +12,9 @@ import sys
 import zlib
 
 ROOT = Path(__file__).resolve().parents[2]
+# CLI compatibility selector only: every source read uses this reviewed cache.
+# Relocation requires an explicit code change and a fresh source proof review.
+TRUSTED_SOURCE_ROOT = Path('/Users/peter/Documents/ChatGPT/Primer/.research/swallow-fine-larynx-19629778')
 ATLAS = 'larynx-jasa19629778-phase01'
 FAMILY = 'larynx-phonation-source'
 PART = ATLAS + '-original-air-tissue-interface'
@@ -112,7 +115,10 @@ def write_json(path, data):
 
 
 def package(source_root, apply_registry=False, investigations=('ra.swallowing',)):
-    source_root = Path(source_root)
+    if Path(source_root).expanduser().resolve() != TRUSTED_SOURCE_ROOT.resolve():
+        raise ValueError('Source root must select the fixed reviewed laryngeal source cache')
+    # Do not propagate the CLI value to filesystem reads, even after checking it.
+    source_root = TRUSTED_SOURCE_ROOT
     if not investigations or any(i not in ALLOWED_INVESTIGATIONS for i in investigations):
         raise ValueError('Only explicitly scoped source-reference investigations are permitted')
     metadata_raw = (source_root/'zenodo-record.json').read_bytes()
@@ -224,7 +230,7 @@ def package(source_root, apply_registry=False, investigations=('ra.swallowing',)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source-root', type=Path, required=True)
+    parser.add_argument('--source-root', type=Path, required=True, help='Compatibility selector: must resolve to the fixed reviewed source-cache directory')
     parser.add_argument('--apply-registry', action='store_true', help='Explicitly add the reviewed partial reference to global registry/evidence')
     parser.add_argument('--investigation', action='append', choices=ALLOWED_INVESTIGATIONS, dest='investigations')
     args = parser.parse_args()

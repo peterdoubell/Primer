@@ -132,3 +132,34 @@ def test_changed_source_binary_contract_is_rejected(mutation):
         struct.pack_into('<f',raw,96,float('nan'))
     with pytest.raises(ValueError):
         read_original_STL(raw)
+
+
+@pytest.mark.parametrize('selection', ['other', 'child', 'escape'])
+def test_arbitrary_source_selection_is_rejected_before_any_reads(monkeypatch, tmp_path, selection):
+    from tools.anatomy_sources import package_laryngeal_phonation_reference as packager
+    candidates = {
+        'other': tmp_path,
+        'child': packager.TRUSTED_SOURCE_ROOT/'unreviewed-child',
+        'escape': packager.TRUSTED_SOURCE_ROOT/'..'/'unreviewed-sibling',
+    }
+    def forbidden_read(*args, **kwargs):
+        raise AssertionError('Untrusted source selection reached a filesystem read')
+    monkeypatch.setattr(Path, 'read_bytes', forbidden_read)
+    monkeypatch.setattr(Path, 'read_text', forbidden_read)
+    with pytest.raises(ValueError, match='fixed reviewed laryngeal source cache'):
+        packager.package(candidates[selection])
+
+
+def test_known_source_reproduces_identical_runtime_bytes_in_isolated_output(monkeypatch, tmp_path):
+    from tools.anatomy_sources import package_laryngeal_phonation_reference as packager
+    if not (packager.TRUSTED_SOURCE_ROOT/'stiff-phase01/frame_01.stl').is_file():
+        pytest.skip('Original acquisition cache is intentionally outside the repository')
+    expected = ROOT/'web/anatomy'/ATLAS
+    monkeypatch.setattr(packager, 'ROOT', tmp_path)
+    monkeypatch.setattr(packager, 'PROOF', tmp_path/'docs/laryngeal-phonation-source-review')
+    packager.package(packager.TRUSTED_SOURCE_ROOT)
+    actual = tmp_path/'web/anatomy'/ATLAS
+    for filename in ['manifest.json', 'ATTRIBUTION.md', PART+'.bin.gz']:
+        assert (actual/filename).read_bytes() == (expected/filename).read_bytes()
+    assert not (tmp_path/'data/radiology/source-anatomy-references.json').exists()
+    assert not (tmp_path/'data/radiology/radiology-asset-evidence.json').exists()
