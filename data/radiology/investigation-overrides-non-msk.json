@@ -2601,30 +2601,31 @@
   },
   "ra.ultrasound-breast": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "Record targeted or whole-breast ultrasound coverage and correlate mammography, palpable findings and prior imaging."
+        "State targeted or survey scope, clinical site, side, probe and actual scan planes, settings and coverage. Identify radial/antiradial orientation, pressure, artifacts and obtained Doppler or other acquisitions; a targeted negative examination is not whole-breast clearance.",
+        "Record every relevant source population, age/development, hormonal/lactation, intervention and dated comparison context. Source views, planes and tissue confirmation are separate evidence; unrelated patients and modalities are not implicitly registered."
       ],
       "checklist": [
         {
           "label": "Localisation",
-          "detail": "Map each lesion by side, clock position and nipple distance."
+          "detail": "Map each actual scanned skin, fat, glandular, ductal, retroareolar and chest-wall interface, with side, clock/quadrant, depth and measured nipple distance where applicable."
         },
         {
           "label": "Morphology",
-          "detail": "Describe shape, orientation and margins."
+          "detail": "Trace each mass or non-mass finding separately, including shape, orientation, every margin, duct extension and surrounding rind or tissue distortion. Preserve orthogonal planes and source measurement boundaries."
         },
         {
           "label": "Echo Features",
-          "detail": "Assess echo pattern, posterior features and calcification."
+          "detail": "Describe actual internal solid/fluid/debris/calcific components, echo texture and posterior features with settings and artifact. An echogenic focus is not automatically confirmed calcification or tissue identity."
         },
         {
           "label": "Vascularity And Associated Findings",
-          "detail": "Review Doppler, ducts, skin and surrounding tissue."
+          "detail": "Review supplied vascularity, skin, duct, edema and adjacent tissue changes. Recorded Doppler depends on its settings and motion; a static colour panel is not calibrated flow or proof of absent vascularity."
         },
         {
           "label": "Nodes And Assessment",
-          "detail": "Assess regional nodes and give a modality-appropriate assessment."
+          "detail": "Map each acquired intramammary and regional node with cortex, hilum, capsule and vessel interfaces. Correlate actual clinical/mammographic/MRI findings and sampling, keeping unscanned nodes and discordance explicit."
         }
       ],
       "measurements": [
@@ -2632,6 +2633,11 @@
           "name": "Lesion dimensions",
           "method": "Measure three orthogonal dimensions without compressing the lesion excessively.",
           "pitfall": "Orientation and nipple distance should remain reproducible."
+        },
+        {
+          "name": "Source finding and every relevant interface",
+          "method": "Record actual side/site, acquisition axes and calibration; measure each source-resolved component and total span where relevant, preserving supplied tissue and temporal context.",
+          "pitfall": "A displayed source shape or ROI does not prove every native boundary, histology or calibrated physiological measurement."
         }
       ],
       "classification": {
@@ -2642,7 +2648,9 @@
       },
       "criteria_table": null,
       "pitfalls": [
-        "A negative targeted ultrasound does not negate a suspicious finding on another modality."
+        "Unacquired tissue is not negative. Preserve every source limitation and unresolved clinical/imaging/tissue discordance.",
+        "A whole-breast outline, single-side schematic, one published case or surface mesh does not supply all ductal, fascial, neural, vascular, nodal, microscopic, lesion or implant interfaces.",
+        "Appearance, source kinetics or device shape is not current histology, complete stage or an automatic clinical-action rule."
       ],
       "impression_prompts": [
         "Breast ultrasound descriptors and BI-RADS assessment.",
@@ -2652,23 +2660,23 @@
       "template_sections": [
         {
           "heading": "LOCALISATION",
-          "body": "Side/clock: [ ]. Nipple distance: [ ] cm. Depth: [ ]."
+          "body": "Side/clock: [ ]. Nipple distance: [ ] cm. Depth: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "MORPHOLOGY",
-          "body": "Shape: [ ]. Orientation: [parallel / not parallel]. Margins: [ ]."
+          "body": "Shape: [ ]. Orientation: [parallel / not parallel]. Margins: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "ECHO FEATURES",
-          "body": "Echo pattern: [ ]. Posterior features: [ ]. Calcifications: [ ]."
+          "body": "Echo pattern: [ ]. Posterior features: [ ]. Calcifications: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "VASCULARITY AND ASSOCIATED FINDINGS",
-          "body": "Doppler: [ ]. Ducts/skin/adjacent tissue: [ ]."
+          "body": "Doppler: [ ]. Ducts/skin/adjacent tissue: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "NODES AND ASSESSMENT",
-          "body": "Nodes/cortex/hilum: [ ]. Correlation: [ ]. BI-RADS v2025: [ ]. Recommendation: [ ]."
+          "body": "Nodes/cortex/hilum: [ ]. Correlation: [ ]. BI-RADS v2025: [ ]. Recommendation: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         }
       ],
       "sources": [
@@ -2679,36 +2687,49 @@
         {
           "title": "Radiology Assistant \u2014 Ultrasound of the Breast",
           "url": "https://radiologyassistant.nl/breast/ultrasound/ultrasound-of-the-breast"
+        },
+        {
+          "title": "ACR public BI-RADS v2025 context; full manual not retrieved",
+          "url": "https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging"
+        },
+        {
+          "title": "Source human mammary anatomy review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998991/"
+        },
+        {
+          "title": "ACR public breast ultrasound reporting requirements",
+          "url": "https://accreditationsupport.acr.org/support/solutions/articles/11000067043-reporting-breast-ultrasound"
         }
       ]
     }
   },
   "ra.breast-cancer-staging": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "Identify the known primary, biopsy information and treatment timing; specify modalities and staging coverage."
+        "Identify the proven index lesion, dated tissue diagnosis and actual imaging modalities/extent. State clinical versus pathological evidence, applicable staging framework/edition, pretreatment or post-treatment setting, dates and measured comparators. No local examination supplies unacquired systemic staging.",
+        "Record every relevant source population, age/development, hormonal/lactation, intervention and dated comparison context. Source views, planes and tissue confirmation are separate evidence; unrelated patients and modalities are not implicitly registered."
       ],
       "checklist": [
         {
           "label": "Index Tumour",
-          "detail": "Localise the known malignancy and measure its extent."
+          "detail": "Map each index tumour component, site, margins and actual invasive-size evidence; separate imaging span from supplied biopsy/resection histology and biomarkers."
         },
         {
           "label": "Additional Breast Disease",
-          "detail": "Assess separate foci and overall disease span."
+          "detail": "Inventory each additional ipsilateral/contralateral mass, non-mass component and calcific/ductal extension with actual intervening tissue and span. Do not equate all enhancement with invasive tumour."
         },
         {
           "label": "Local Invasion",
-          "detail": "Describe skin, nipple and chest wall relationships."
+          "detail": "Describe separately acquired nipple, skin, fascia, pectoral and deeper chest-wall interfaces. Contact, lost fat plane or isolated pectoral involvement is not alone complete evidence of chest-wall stage or invasion."
         },
         {
           "label": "Regional Nodes",
-          "detail": "Map suspicious axillary and other regional nodes."
+          "detail": "Map actual nodes by side and basin, with relation to pectoralis minor, cortex/hilum/capsule, vessels and treatment markers. Imaging suspicion and clinical, sampled, pathological or post-treatment nodal evidence remain distinct."
         },
         {
           "label": "Distant Disease And Response",
-          "detail": "Report covered distant sites and comparison when staging or restaging."
+          "detail": "Record supplied clinical evidence and obtained imaging/pathology for distant disease, plus actual treatment comparisons, residual targets, clips and complications. No whole-body imaging is automatically required by this draft. Preserve clinical/pathological/post-treatment evidence and staging limits; no automatic M0, response or therapy eligibility is assigned."
         }
       ],
       "measurements": [
@@ -2716,12 +2737,19 @@
           "name": "Primary and total extent",
           "method": "Measure the index lesion and combined disease span separately.",
           "pitfall": "Do not replace total extent with the largest single focus."
+        },
+        {
+          "name": "Source finding and every relevant interface",
+          "method": "Record actual side/site, acquisition axes and calibration; measure each source-resolved component and total span where relevant, preserving supplied tissue and temporal context.",
+          "pitfall": "A displayed source shape or ROI does not prove every native boundary, histology or calibrated physiological measurement."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Contact with pectoralis alone is not synonymous with chest wall invasion; final stage integrates pathology and clinical information."
+        "Unacquired tissue is not negative. Preserve every source limitation and unresolved clinical/imaging/tissue discordance.",
+        "A whole-breast outline, single-side schematic, one published case or surface mesh does not supply all ductal, fascial, neural, vascular, nodal, microscopic, lesion or implant interfaces.",
+        "Appearance, source kinetics or device shape is not current histology, complete stage or an automatic clinical-action rule."
       ],
       "impression_prompts": [
         "Local and regional breast cancer extent and treatment-related imaging context.",
@@ -2731,59 +2759,72 @@
       "template_sections": [
         {
           "heading": "INDEX TUMOUR",
-          "body": "Side/site: [ ]. Index dimensions: [ ]. Histology supplied: [ ]."
+          "body": "Side/site: [ ]. Index dimensions: [ ]. Histology supplied: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "ADDITIONAL BREAST DISEASE",
-          "body": "Ipsilateral foci: [ ]. Contralateral finding: [ ]. Total span: [ ]."
+          "body": "Ipsilateral foci: [ ]. Contralateral finding: [ ]. Total span: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "LOCAL INVASION",
-          "body": "Skin/nipple: [ ]. Pectoralis: [ ]. Chest wall structures: [ ]."
+          "body": "Skin/nipple: [ ]. Pectoralis: [ ]. Chest wall structures: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "REGIONAL NODES",
-          "body": "Axillary levels: [ ]. Internal mammary/supraclavicular nodes: [ ]."
+          "body": "Axillary levels: [ ]. Internal mammary/supraclavicular nodes: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "DISTANT DISEASE AND RESPONSE",
-          "body": "Coverage: [ ]. Distant findings: [ ]. Interval response: [ ]."
+          "body": "Coverage: [ ]. Distant findings: [ ]. Interval response: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant \u2014 Staging and Treatment of Breast Cancer",
           "url": "https://radiologyassistant.nl/breast/breast-cancer/staging-and-treatment-of-breast-cancer"
+        },
+        {
+          "title": "ACR public BI-RADS v2025 context; full manual not retrieved",
+          "url": "https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging"
+        },
+        {
+          "title": "Source human mammary anatomy review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998991/"
+        },
+        {
+          "title": "NCI professional breast cancer staging/treatment evidence",
+          "url": "https://www.cancer.gov/types/breast/hp/breast-treatment-pdq"
         }
       ]
     }
   },
   "ra.breast-implants": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "State implant type, side and modality; distinguish implant-integrity imaging from contrast-enhanced breast assessment."
+        "Record side, supplied device identity, fill/shell type, surgery/reconstruction dates and actual prepectoral, retropectoral or dual-plane pocket. Distinguish integrity sequences from a contrast-enhanced breast examination and document obtained capsule, breast, chest-wall and nodal extent.",
+        "Record every relevant source population, age/development, hormonal/lactation, intervention and dated comparison context. Source views, planes and tissue confirmation are separate evidence; unrelated patients and modalities are not implicitly registered."
       ],
       "checklist": [
         {
           "label": "Implant Type And Position",
-          "detail": "Identify silicone or saline implants and their relationship to muscle."
+          "detail": "Map each actual implant/expander, fill, shell, valve/port where present, pocket and muscle/fascial relationship. Preserve reconstruction and actual device-specific source evidence."
         },
         {
           "label": "Shell And Contour",
-          "detail": "Inspect implant contour and shell integrity."
+          "detail": "Trace source shell, folds, contour, external fibrous capsule and their interface separately. A radial fold is not automatically shell failure; separate shell rupture from capsular or pocket findings."
         },
         {
           "label": "Intracapsular Findings",
-          "detail": "Assess internal material and signs of intracapsular rupture."
+          "detail": "Locate every observed internal line, displaced shell fragment and fill/material component in source planes and sequences. An isolated sign is not full proof of every rupture boundary or current device identity."
         },
         {
           "label": "Extracapsular Findings",
-          "detail": "Look for extracapsular silicone, fluid and capsular abnormalities."
+          "detail": "Map each supplied extracapsular material route, peri-implant fluid, capsular thickening/mass and surrounding interface. Delayed fluid or a capsular mass requires its actual clinical/tissue workup; rupture, BIA-ALCL and SCC are different source questions."
         },
         {
           "label": "Breast And Nodes",
-          "detail": "Assess surrounding breast tissue and regional nodes within study scope."
+          "detail": "Review each acquired breast, chest-wall and node compartment, including material within nodes and postoperative change. Integrity imaging does not establish a complete malignancy assessment or tumour histology."
         }
       ],
       "measurements": [
@@ -2791,13 +2832,19 @@
           "name": "Peri-implant abnormality",
           "method": "Measure fluid collections or masses in three planes and describe their relation to the capsule.",
           "pitfall": "A new peri-implant mass requires tissue-specific assessment rather than a rupture label."
+        },
+        {
+          "name": "Source finding and every relevant interface",
+          "method": "Record actual side/site, acquisition axes and calibration; measure each source-resolved component and total span where relevant, preserving supplied tissue and temporal context.",
+          "pitfall": "A displayed source shape or ROI does not prove every native boundary, histology or calibrated physiological measurement."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Normal radial folds can mimic rupture.",
-        "An implant-integrity examination does not automatically provide a complete cancer assessment."
+        "Unacquired tissue is not negative. Preserve every source limitation and unresolved clinical/imaging/tissue discordance.",
+        "A whole-breast outline, single-side schematic, one published case or surface mesh does not supply all ductal, fascial, neural, vascular, nodal, microscopic, lesion or implant interfaces.",
+        "Appearance, source kinetics or device shape is not current histology, complete stage or an automatic clinical-action rule."
       ],
       "impression_prompts": [
         "Implant integrity, peri-implant findings and associated complications.",
@@ -2807,59 +2854,76 @@
       "template_sections": [
         {
           "heading": "IMPLANT TYPE AND POSITION",
-          "body": "Side/type: [ ]. Prepectoral/retropectoral position: [ ]."
+          "body": "Side/type: [ ]. Prepectoral/retropectoral position: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "SHELL AND CONTOUR",
-          "body": "Contour: [ ]. Shell discontinuity/folding: [ ]."
+          "body": "Contour: [ ]. Shell discontinuity/folding: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "INTRACAPSULAR FINDINGS",
-          "body": "Internal lines/material: [ ]. Intracapsular rupture signs: [ ]."
+          "body": "Internal lines/material: [ ]. Intracapsular rupture signs: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "EXTRACAPSULAR FINDINGS",
-          "body": "Silicone beyond capsule: [ ]. Fluid: [ ]. Capsular mass/thickening: [ ]."
+          "body": "Silicone beyond capsule: [ ]. Fluid: [ ]. Capsular mass/thickening: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "BREAST AND NODES",
-          "body": "Breast findings: [ ]. Regional nodes: [ ]. Study limitation: [ ]."
+          "body": "Breast findings: [ ]. Regional nodes: [ ]. Study limitation: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant \u2014 Breast Implants",
           "url": "https://radiologyassistant.nl/breast/breast-prosthesis/breast-prosthesis-imaging"
+        },
+        {
+          "title": "ACR public BI-RADS v2025 context; full manual not retrieved",
+          "url": "https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging"
+        },
+        {
+          "title": "Source human mammary anatomy review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998991/"
+        },
+        {
+          "title": "FDA BIA-ALCL clinical/source context",
+          "url": "https://www.fda.gov/medical-devices/breast-implants/questions-and-answers-about-breast-implant-associated-anaplastic-large-cell-lymphoma-bia-alcl"
+        },
+        {
+          "title": "FDA capsular SCC source context",
+          "url": "https://www.fda.gov/medical-devices/safety-communications/update-reports-squamous-cell-carcinoma-scc-capsule-around-breast-implants-fda-safety-communication"
         }
       ]
     }
   },
   "ra.male-breast": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "Correlate the symptomatic site and clinical history with mammography and targeted ultrasound when performed."
+        "Record actual symptoms, side, source age/developmental and hormonal context, prior therapy/surgery and obtained modalities/extent. Assess the supplied tissue rather than imposing a female atlas, fat-only normal template or categorical exclusion of a tumour type.",
+        "Record every relevant source population, age/development, hormonal/lactation, intervention and dated comparison context. Source views, planes and tissue confirmation are separate evidence; unrelated patients and modalities are not implicitly registered."
       ],
       "checklist": [
         {
           "label": "Symptom Localisation",
-          "detail": "Identify the palpable or symptomatic site."
+          "detail": "Map each symptomatic source site and obtained bilateral tissues, with actual skin, nipple, retroareolar gland/fat and chest-wall relation. Clinical and imaging correspondence must be identified."
         },
         {
           "label": "Retroareolar Tissue",
-          "detail": "Distinguish glandular patterns from predominantly fatty enlargement."
+          "detail": "Describe source retroareolar ductal/stromal and fatty components, distribution and symmetry in the actual hormonal/treatment context; an appearance label does not provide an independent endocrine cause."
         },
         {
           "label": "Focal Lesion",
-          "detail": "Describe eccentric or discrete masses separately."
+          "detail": "Characterise each separate focal mass/non-mass component, margin, internal tissue and adjacent route. Retain eccentric and coexisting lesions rather than absorbing every finding into a glandular pattern."
         },
         {
           "label": "Nipple And Skin",
-          "detail": "Look for retraction, skin lesions and inflammatory change."
+          "detail": "Trace source nipple, areolar/skin layers, duct orifices, actual discharge-related route and surface lesions, documenting retraction or inflammatory features without inferred histology."
         },
         {
           "label": "Nodes And Correlation",
-          "detail": "Review regional nodes and imaging-clinical agreement."
+          "detail": "Review acquired nodal basins and every clinical/imaging/sampling correlation. State the applicable assessment rationale, unresolved discordance and coverage limitations; patient sex does not itself certify benignity."
         }
       ],
       "measurements": [
@@ -2867,12 +2931,19 @@
           "name": "Focal mass",
           "method": "Measure three dimensions and record its relationship to the nipple.",
           "pitfall": "Separate glandular tissue extent from an associated discrete lesion."
+        },
+        {
+          "name": "Source finding and every relevant interface",
+          "method": "Record actual side/site, acquisition axes and calibration; measure each source-resolved component and total span where relevant, preserving supplied tissue and temporal context.",
+          "pitfall": "A displayed source shape or ROI does not prove every native boundary, histology or calibrated physiological measurement."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Do not attribute an eccentric suspicious mass to gynaecomastia without characterising it."
+        "Unacquired tissue is not negative. Preserve every source limitation and unresolved clinical/imaging/tissue discordance.",
+        "A whole-breast outline, single-side schematic, one published case or surface mesh does not supply all ductal, fascial, neural, vascular, nodal, microscopic, lesion or implant interfaces.",
+        "Appearance, source kinetics or device shape is not current histology, complete stage or an automatic clinical-action rule."
       ],
       "impression_prompts": [
         "Gynaecomastia, focal lesions and malignant features in the male breast.",
@@ -2882,59 +2953,72 @@
       "template_sections": [
         {
           "heading": "SYMPTOM LOCALISATION",
-          "body": "Side/site: [ ]. Clinical correlate: [ ]."
+          "body": "Side/site: [ ]. Clinical correlate: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "RETROAREOLAR TISSUE",
-          "body": "Retroareolar pattern: [ ]. Bilateral symmetry: [ ]."
+          "body": "Retroareolar pattern: [ ]. Bilateral symmetry: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "FOCAL LESION",
-          "body": "Site/dimensions: [ ]. Shape/margin: [ ]. Echogenicity or density: [ ]."
+          "body": "Site/dimensions: [ ]. Shape/margin: [ ]. Echogenicity or density: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "NIPPLE AND SKIN",
-          "body": "Nipple/skin: [ ]. Retraction/inflammation: [ ]."
+          "body": "Nipple/skin: [ ]. Retraction/inflammation: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "NODES AND CORRELATION",
-          "body": "Nodes: [ ]. Comparison: [ ]. Concordance/assessment: [ ]."
+          "body": "Nodes: [ ]. Comparison: [ ]. Concordance/assessment: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant \u2014 Pathology of the Male Breast",
           "url": "https://radiologyassistant.nl/breast/male-breast/pathology-of-the-male-breast"
+        },
+        {
+          "title": "ACR public BI-RADS v2025 context; full manual not retrieved",
+          "url": "https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging"
+        },
+        {
+          "title": "Source human mammary anatomy review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998991/"
+        },
+        {
+          "title": "ACR public breast ultrasound reporting requirements",
+          "url": "https://accreditationsupport.acr.org/support/solutions/articles/11000067043-reporting-breast-ultrasound"
         }
       ]
     }
   },
   "ra.mri-breast": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
-        "Review bilateral contrast-enhanced MRI, subtraction registration and fat suppression; correlate prior imaging and treatment timing."
+        "Document indication, side, obtained breast/chest-wall/nodal coverage, coil, source spatial sampling, sequences and fat suppression. Record actual contrast dose/route, baseline and acquired postcontrast times, motion/subtraction limitations and comparison; acquisition pitch does not prove fine-tissue resolution.",
+        "Record every relevant source population, age/development, hormonal/lactation, intervention and dated comparison context. Source views, planes and tissue confirmation are separate evidence; unrelated patients and modalities are not implicitly registered."
       ],
       "checklist": [
         {
           "label": "Background And Quality",
-          "detail": "Assess fibroglandular tissue, enhancement and technical artefact."
+          "detail": "Map actual fibroglandular tissue and background enhancement separately, with native source extent and sequence quality. Include skin, nipple, ductal, fat, fascial and chest-wall interfaces only to the extent acquired."
         },
         {
           "label": "Lesion Location",
-          "detail": "Identify side, quadrant or clock position and dimensions."
+          "detail": "Localise each source finding in its native planes, with side, site/depth, nipple, skin and chest-wall relationships. Projection/MIP and other modalities do not establish registered3D correspondence without evidence."
         },
         {
           "label": "Morphology",
-          "detail": "Distinguish mass from non-mass enhancement and describe its pattern."
+          "detail": "Trace every actual mass and non-mass enhancing component, margin, distribution, ductal and adjacent interface; keep acquired total span distinct from separately proven invasive tumour size."
         },
         {
           "label": "Signal And Kinetics",
-          "detail": "Correlate T2, diffusion and enhancement time course."
+          "detail": "Review original T1/T2, diffusion/ADC and dynamic acquisitions where supplied. Preserve ROI, actual times, source series and subtraction/motion context; enhancement kinetics or ADC alone are not histology or universal malignancy classifiers."
         },
         {
           "label": "Extent And Assessment",
-          "detail": "Review total span, skin, chest wall and nodes."
+          "detail": "Reconcile every finding, overall span, additional breast/nodal findings, actual tissue results and prior therapy. Document assessment framework/version and unresolved correlations; a negative or nonenhancing study does not prove pathological eradication."
         }
       ],
       "measurements": [
@@ -2942,12 +3026,24 @@
           "name": "Lesion and disease extent",
           "method": "Measure the lesion in three planes and total related enhancement separately.",
           "pitfall": "Background enhancement and subtraction artefact may exaggerate extent."
+        },
+        {
+          "name": "Source finding and every relevant interface",
+          "method": "Record actual side/site, acquisition axes and calibration; measure each source-resolved component and total span where relevant, preserving supplied tissue and temporal context.",
+          "pitfall": "A displayed source shape or ROI does not prove every native boundary, histology or calibrated physiological measurement."
         }
       ],
-      "classification": null,
+      "classification": {
+        "name": "Breast MRI assessment framework",
+        "version": "Record applicable current source version; public v2025 context only",
+        "applicability": "Actual contrast-enhanced or other supplied breast MRI and acquired workup scope.",
+        "summary": "Document source findings and integrated assessment rationale; this draft does not reproduce the full BI-RADS manual or assign a category from kinetics alone."
+      },
       "criteria_table": null,
       "pitfalls": [
-        "Enhancement kinetics or diffusion alone do not establish malignancy."
+        "Unacquired tissue is not negative. Preserve every source limitation and unresolved clinical/imaging/tissue discordance.",
+        "A whole-breast outline, single-side schematic, one published case or surface mesh does not supply all ductal, fascial, neural, vascular, nodal, microscopic, lesion or implant interfaces.",
+        "Appearance, source kinetics or device shape is not current histology, complete stage or an automatic clinical-action rule."
       ],
       "impression_prompts": [
         "Breast MRI technique, enhancement patterns and lesion assessment.",
@@ -2957,29 +3053,37 @@
       "template_sections": [
         {
           "heading": "BACKGROUND AND QUALITY",
-          "body": "Fibroglandular tissue: [ ]. Background enhancement: [ ]. Motion/subtraction: [ ]."
+          "body": "Fibroglandular tissue: [ ]. Background enhancement: [ ]. Motion/subtraction: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "LESION LOCATION",
-          "body": "ID/side/site: [ ]. Depth/nipple distance: [ ]. Size: [ ] mm."
+          "body": "ID/side/site: [ ]. Depth/nipple distance: [ ]. Size: [ ] mm.\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "MORPHOLOGY",
-          "body": "Finding type: [ ]. Shape/margins or distribution: [ ]. Internal enhancement: [ ]."
+          "body": "Finding type: [ ]. Shape/margins or distribution: [ ]. Internal enhancement: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "SIGNAL AND KINETICS",
-          "body": "T2: [ ]. Diffusion/ADC: [ ]. Initial/delayed enhancement: [ ]."
+          "body": "T2: [ ]. Diffusion/ADC: [ ]. Initial/delayed enhancement: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         },
         {
           "heading": "EXTENT AND ASSESSMENT",
-          "body": "Total span: [ ]. Skin/nipple/chest wall: [ ]. Nodes: [ ]. MRI assessment/recommendation: [ ]."
+          "body": "Total span: [ ]. Skin/nipple/chest wall: [ ]. Nodes: [ ]. MRI assessment/recommendation: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
         }
       ],
       "sources": [
         {
           "title": "Radiology Assistant \u2014 MRI of the Breast",
           "url": "https://radiologyassistant.nl/breast/mri/mri-of-the-breast"
+        },
+        {
+          "title": "ACR public BI-RADS v2025 context; full manual not retrieved",
+          "url": "https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging"
+        },
+        {
+          "title": "Source human mammary anatomy review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998991/"
         }
       ]
     }
@@ -7679,5 +7783,110 @@
       "reviewed_at": "2026-10-08"
     },
     "key_images": []
+  },
+  "ra.mammography": {
+    "reporting": {
+      "protocol": [
+        "Record screening/diagnostic purpose, side, actual digital mammography, tomosynthesis, synthetic or contrast-enhanced acquisitions and views. Identify compression, positioning, obtained tissue, motion and obscured extent; density and enhancement are different observations.",
+        "Record every relevant source population, age/development, hormonal/lactation, intervention and dated comparison context. Source views, planes and tissue confirmation are separate evidence; unrelated patients and modalities are not implicitly registered."
+      ],
+      "checklist": [
+        {
+          "label": "Composition",
+          "detail": "Map actual bilateral composition and obtained skin-to-chest-wall tissue, including nipple, retroareolar ducts and axillary tail. Preserve view and depth; a compressed projection is not native3D geometry."
+        },
+        {
+          "label": "Mass",
+          "detail": "Locate each actual mass and all internal, marginal and adjacent components using acquired projections or tomosynthesis; document site, dimensions and evidence for cross-view correspondence."
+        },
+        {
+          "label": "Other findings",
+          "detail": "Trace each acquired asymmetry and distortion, its centre, radiating tissue and adjacent interfaces; compare dated studies and actual additional views without treating unacquired workup as negative."
+        },
+        {
+          "label": "Change",
+          "detail": "Map every actual calcification group, individual resolved morphology/distribution, span, skin/duct/lesion relation and associated nipple, skin or node finding. A selected projection does not resolve every microscopic boundary."
+        },
+        {
+          "label": "Assessment",
+          "detail": "Reconcile each imaging and clinical site, prior intervention and obtained other modality. Record unresolved discordance and assessment rationale under the applicable current framework; source morphology is not current histology."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Finding size",
+          "method": "Measure the maximum dimension on the view best showing its boundary.",
+          "pitfall": "Magnification and projection changes affect apparent size."
+        },
+        {
+          "name": "Distribution/span",
+          "method": "Measure calcification or related abnormality extent and record depth.",
+          "pitfall": "A single mass measurement may underestimate total abnormal tissue."
+        },
+        {
+          "name": "Source finding and every relevant interface",
+          "method": "Record actual side/site, acquisition axes and calibration; measure each source-resolved component and total span where relevant, preserving supplied tissue and temporal context.",
+          "pitfall": "A displayed source shape or ROI does not prove every native boundary, histology or calibrated physiological measurement."
+        }
+      ],
+      "classification": {
+        "name": "BI-RADS breast assessment",
+        "version": "v2025",
+        "applicability": "Screening or diagnostic mammography with relevant comparisons and workup status stated.",
+        "summary": "Document composition, standardised findings, final assessment and a concordant recommendation; category 0 means further evaluation is needed."
+      },
+      "pitfalls": [
+        "Unacquired tissue is not negative. Preserve every source limitation and unresolved clinical/imaging/tissue discordance.",
+        "A whole-breast outline, single-side schematic, one published case or surface mesh does not supply all ductal, fascial, neural, vascular, nodal, microscopic, lesion or implant interfaces.",
+        "Appearance, source kinetics or device shape is not current histology, complete stage or an automatic clinical-action rule."
+      ],
+      "impression_prompts": [
+        "Lead with the finding that determines assessment.",
+        "State side, site, size and interval change.",
+        "Give a final assessment with the matching action and clinical correlation."
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "COMPOSITION",
+          "body": "Density: [A / B / C / D]. Relevant asymmetry of composition: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
+        },
+        {
+          "heading": "MASSES",
+          "body": "Side/site/depth: [ ]. Size: [ ] mm. Shape: [ ]. Margin: [ ]. Density: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
+        },
+        {
+          "heading": "ASYMMETRY AND DISTORTION",
+          "body": "Asymmetry type/site: [ ]. Architectural distortion: [ ]. Persistence on additional views/DBT: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
+        },
+        {
+          "heading": "CALCIFICATIONS AND ASSOCIATED SIGNS",
+          "body": "Morphology/distribution/span: [ ]. Skin/nipple/trabecular change: [ ]. Axillary finding: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
+        },
+        {
+          "heading": "CORRELATION AND ASSESSMENT",
+          "body": "Clinical site correlation: [ ]. Prior interval change: [ ]. BI-RADS v2025: [ ]. Recommendation: [ ].\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant \u2014 BI-RADS v2025 Manual - Mammography.",
+          "url": "https://radiologyassistant.nl/breast/bi-rads/bi-rads-for-mammography-and-ultrasound-2013-1-1"
+        },
+        {
+          "title": "ACR BI-RADS v2025",
+          "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS"
+        },
+        {
+          "title": "ACR public BI-RADS v2025 context; full manual not retrieved",
+          "url": "https://www.acr.org/Clinical-Resources/Publications-and-Research/ACR-Bulletin/2026/definitive-guide-to-breast-imaging"
+        },
+        {
+          "title": "Source human mammary anatomy review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8998991/"
+        }
+      ],
+      "reviewed_at": "2026-10-08"
+    }
   }
 }
