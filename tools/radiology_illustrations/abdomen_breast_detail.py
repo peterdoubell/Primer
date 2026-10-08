@@ -1121,11 +1121,15 @@ def _render_prostate_mri(plate: RadiologyPlate,
                fill=_text_tone(BLUE), anchor="mm")
     plate.text((650, 742), "T2 dominant", size=21, bold=True,
                fill=_text_tone(GOLD), anchor="mm")
+    plate.text((500, 790), "Conceptual comparison; not complete zonal anatomy",
+               size=18, fill=INK_SOFT, anchor="mm")
 
     _arrow(plate, (785, 480), (865, 480), "target", PLUM)
-    right = _panel(plate, (875, 250, 1525, 790), "STAGE + BIOPSY MAP", CORAL)
-    layers = (("capsule", 375, BLUE), ("extraprostatic extension", 465, CORAL),
-              ("seminal vesicles", 555, PLUM), ("lesion coordinates", 645, TEAL))
+    right = _panel(plate, (875, 250, 1525, 790), "MRI EXTENT + LOCALIZATION", CORAL)
+    layers = (("outer fibromuscular boundary", 375, BLUE),
+              ("direct EPE: evidence + confidence", 465, CORAL),
+              ("seminal-vesicle interfaces", 555, PLUM),
+              ("41-region localization map", 645, TEAL))
     for index, (label, y, tone) in enumerate(layers):
         plate.draw.rounded_rectangle((right[0] + 20, y - 31,
                                       right[2] - 20, y + 31), radius=15,
@@ -1134,7 +1138,7 @@ def _render_prostate_mri(plate: RadiologyPlate,
         plate.text(((right[0] + right[2]) / 2, y), label, size=20,
                    bold=True, fill=INK, anchor="mm")
     plate.text(((right[0] + right[2]) / 2, 727),
-               "zone score + extent + map", size=20, bold=True,
+               "MRI extent differs from DRE-based cT", size=20, bold=True,
                fill=_text_tone(CORAL), anchor="mm")
 
 
