@@ -1,7 +1,7 @@
 """Local source viewer bytes or release-verified CDN identity; no anatomy approval."""
 import hashlib,json,os
 from pathlib import Path
-CDN_VOLUME_FILES={'totalseg-v3-esophagus-s0358':'ct-reference.html','ispy1-expert1002':'mri-reference.html'}
+CDN_VOLUME_FILES={'totalseg-v3-esophagus-s0358':'ct-reference.html','ispy1-expert1002':'mri-reference.html','prostate-biopsy0001':'mri-reference.html'}
 CDN_VOLUME_ATLASES=frozenset(CDN_VOLUME_FILES)
 def verified_volume_identity(volume,web,data_dir):
     src=volume.get('src');prefix='/app/anatomy/'

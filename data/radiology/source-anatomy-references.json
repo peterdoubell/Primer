@@ -383,5 +383,34 @@
         "license_url": "https://creativecommons.org/licenses/by/3.0/"
       }
     }
+  ],
+  "ra.mri-prostate": [
+    {
+      "id": "prostate-biopsy0001-operator-surfaces",
+      "label": "Original source gland/ROI and matching MRI · partial",
+      "atlas": "prostate-biopsy0001",
+      "family": "prostate-source",
+      "manifest_url": "/app/anatomy/prostate-biopsy0001/manifest.json",
+      "manifest_sha256": "4a83f952c564fd1739883ab5d5f4977386e98c7bf3614bea0f62f80de46d9afd",
+      "initial_layer": "target",
+      "initial_cropped": false,
+      "population_note": "Source case Prostate-MRI-US-Biopsy-0001,source64-year-old male. These are operator source references,not a normal whole-prostate atlas or the current patient. All1,198 original prostate faces and4,280 suspicious-target faces remain. The prostate was outlined semi-automatically in Profuse with user-adjustable contours/vertices; accuracy is user-dependent. A suspicious MRI biopsy-target ROI is not proven complete tumour or histological extent. The delivered model/MRI/SEG frame identifiers and independent all-voxel comparison support the source DICOM LPS association. No fitting,axis flip,resampling,smoothing,capping or component deletion was applied. Original mesh and producer-derived mask differ at480 gland and5 ROI voxel centres; every original value remains. This numeric correspondence is not independent anatomical accuracy. The source encapsulated models omit the required measurement-units code. Display millimetre scale is inferred from the matching producer MRI/SEG grids and numeric correspondence; full DICOM model conformance and independent clinical registration are not claimed. The source supplies complete T2,producer ADC and calculated-DWI grids. ADC and calculated DWI use their own coarser source grid. They have no supplied rescale/physical ADC calibration,original native high-b series or DCE. Source study description and private diffusion metadata do not supply missing acquisitions or current assessment. Only the original T2 grid has the two producer-derived masks. They were rasterized from source STL and are not independent native manual voxel annotations. No mask is fitted or resampled onto ADC/DWI. The41 idealized PI-RADS regions,zones,outer fibromuscular boundary,pseudocapsule,ducts,nerves,vessels,seminal vesicles,sphincter,nodes,bone and actual extension/treatment interfaces still require faithful source coverage and independent review. The whole-gland outline and one suspicious ROI do not meet full reporting coverage. Source ultrasound has different private voxel-size tags and lacks standard patient orientation/position. Publisher nonrigid MRI-to-US target mapping is not this viewer's native registration. Source Likert-like scores do not assign current PI-RADS2.1. Source clinical/pathology/biopsy results are not inferred. Natarajan,S.,Priester,A.,Margolis,D.,Huang,J.,and Marks,L.(2020). Prostate MRI and Ultrasound With Pathology and Coordinates of Tracked Biopsy,version2. TCIA DOI10.7937/TCIA.2020.A61IOC1A. CC BY4.0. Adaptation: complete source arrays/face transport,illustrative lighting and overlays; no endorsement implied.",
+      "source_volume": {
+        "id": "prostate-biopsy0001-complete-source-MRI",
+        "modality": "MRI",
+        "src": "/app/anatomy/prostate-biopsy0001/mri-reference.html",
+        "sha256": "51f06a43e402ceb7c046fcb610a4339dec87e75ef3c706f526ee59a0f3656039",
+        "script_sha256": "bb6a3169428374f839c2fb48b0fb635f8515c2221d65917de6fb75a9c8e09e46",
+        "level_by_part": {
+          "prostate-biopsy0001-prostate": "source prostate outline",
+          "prostate-biopsy0001-suspicious-target1": "suspicious source target ROI"
+        },
+        "title": "Inspect complete original T2, source ADC and calculated-DWI grids",
+        "caption": "Every stored MRI and source-derived mask sample is retained. The masks belong only to T2. Source processing, absent ADC units/DCE/native high-b series and missing model unit code remain explicit; full anatomical/clinical approval is pending.",
+        "attribution": "Natarajan,S.,Priester,A.,Margolis,D.,Huang,J.,and Marks,L.(2020). Prostate MRI and Ultrasound With Pathology and Coordinates of Tracked Biopsy,version2. TCIA DOI10.7937/TCIA.2020.A61IOC1A. CC BY4.0. Adaptation: complete source arrays/face transport,illustrative lighting and overlays; no endorsement implied.",
+        "source_url": "https://www.cancerimagingarchive.net/collection/prostate-mri-us-biopsy/",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
   ]
 }

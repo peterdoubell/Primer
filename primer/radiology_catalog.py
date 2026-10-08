@@ -45,6 +45,7 @@ SOURCE_REFERENCE_ATLASES['totalseg-v3-s0358'] = 'thyroid-source'
 SOURCE_REFERENCE_ATLASES['totalseg-v3-esophagus-s0358'] = 'esophagus-source'
 SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
 SOURCE_REFERENCE_ATLASES['ispy1-expert1002'] = 'breast-tumour-source'
+SOURCE_REFERENCE_ATLASES['prostate-biopsy0001'] = 'prostate-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
 
 
@@ -94,12 +95,13 @@ def _source_anatomy_references():
                 raise ValueError('Source anatomy initial layer is unavailable')
             volume = entry.get('source_volume')
             if volume:
-                if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + ('/mri-reference.html' if entry['atlas']=='ispy1-expert1002' else '/ct-reference.html'):
+                from .source_volume_integrity import verified_volume_identity, CDN_VOLUME_FILES
+                filename = CDN_VOLUME_FILES.get(entry['atlas'], 'ct-reference.html')
+                if not isinstance(volume, dict) or volume.get('src') != '/app/anatomy/' + entry['atlas'] + '/' + filename:
                     raise ValueError('Source volume must use its registered local viewer')
-                if entry['atlas']=='ispy1-expert1002' and volume.get('modality')!='MRI':
+                if filename=='mri-reference.html' and volume.get('modality')!='MRI':
                     raise ValueError('Registered source MRI viewer needs its actual MRI modality')
                 volume_path = web / volume['src'].removeprefix('/app/')
-                from .source_volume_integrity import verified_volume_identity
                 verified_volume_identity(volume, web, DATA)
                 expected_levels = {part_id: manifest['parts'][part_id]['name'].split(' · ')[0] for part_id in manifest['parts']}
                 if volume.get('level_by_part') != expected_levels:
@@ -336,10 +338,10 @@ def _visuals():
 
 def _validate_native_volume_figure(image, root):
     """Validate packaged section provenance without approving clinical anatomy."""
-    if (image.get('kind') != 'clinical-image' or image.get('modality') != 'CT'
+    if (image.get('kind') != 'clinical-image' or image.get('modality') not in {'CT','MRI'}
             or not isinstance(image.get('figure_title'), str) or not image['figure_title'].strip()
             or any(key in image for key in ('figure_number', 'source_panel'))):
-        raise ValueError('Native volume figure needs explicit CT section title')
+        raise ValueError('Native volume figure needs an explicit source section title')
     derivation = image.get('derivation', {})
     prefix = '/app/reference-media/radiology-open/'
     url = derivation.get('evidence_url', '') if isinstance(derivation, dict) else ''
@@ -354,7 +356,25 @@ def _validate_native_volume_figure(image, root):
     evidence = json.loads(raw)
     source = evidence.get('source', {})
     doi = source.get('dataset_doi')
-    if doi == '10.5281/zenodo.10069289':
+    if image['modality'] != ('MRI' if doi=='10.7937/TCIA.2020.A61IOC1A' else 'CT'):
+        raise ValueError('Native section modality differs from its registered source')
+    if doi == '10.7937/TCIA.2020.A61IOC1A':
+        verified_source = (source.get('data_license')=='CC BY 4.0'
+            and source.get('case_id')=='Prostate-MRI-US-Biopsy-0001'
+            and source.get('source_role')=='T2'
+            and source.get('source_series_UID')=='1.3.6.1.4.1.14519.5.2.1.266717969984343981963002258381778490221'
+            and source.get('whole_object_md5_and_scalar_readback_verified') is True
+            and source.get('source_MRI_stored_sample_count')==3932160
+            and all(re.fullmatch(r'[0-9a-f]{64}',source.get(k,'')) for k in ('source_T2_payload_sha256','source_object_sha256','source_plane_stored_samples_sha256'))
+            and evidence.get('source_shape')==[60,256,256]
+            and evidence.get('source_dtype')=='<u2'
+            and evidence.get('source_sampling_zyx_mm')==[1.5,.6640625,.6640625]
+            and evidence.get('source_display_adaptation')=='original_DICOM_LINEAR_VOI_to_8bit'
+            and len(evidence.get('planes',[]))==1
+            and evidence['planes'][0].get('axis')==0
+            and evidence['planes'][0].get('index') in [15,25,35]
+            and evidence.get('clinical_approval') is False)
+    elif doi == '10.5281/zenodo.10069289':
         verified_source = (source.get('data_license') == 'CC BY 4.0'
             and source.get('mirror_repository') == 'andreped/AeroPath'
             and re.fullmatch(r'[0-9a-f]{40}', source.get('mirror_revision', ''))

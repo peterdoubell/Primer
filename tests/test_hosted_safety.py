@@ -579,6 +579,8 @@ def test_hosted_source_media_redirects_only_after_access_gate(monkeypatch):
         '/app/anatomy/verse521/ct-reference.html',
         '/app/anatomy/ispy1-expert1002/mri-reference.html',
         '/app/anatomy/ispy1-expert1002/ispy1-expert1002-expert-structural-tumour.bin.gz',
+        '/app/anatomy/prostate-biopsy0001/mri-reference.html',
+        '/app/anatomy/prostate-biopsy0001/prostate-biopsy0001-prostate.bin.gz',
         '/app/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html',
         '/app/anatomy/totalseg-v3-esophagus-s0358/totalseg-v3-esophagus-s0358-esophagus.bin.gz',
         '/app/reference-media/prenatal-development/prenatal-development.gif',
