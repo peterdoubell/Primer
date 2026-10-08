@@ -619,7 +619,7 @@ def _structure_atlases():
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
-                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Endoscopy', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph', 'Segmentation mask', 'Masked ultrasound', 'MRI-derived plot'}
+                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Endoscopy', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph', 'Segmentation mask', 'Masked ultrasound', 'MRI-derived plot', 'Ultrasound-derived display'}
                         or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or
