@@ -38,6 +38,6 @@ def test_six_applied_contracts_and_modality_population_scope_remain_explicit():
         assert item['clinical_validation_status'].startswith('draft_requires_') and all(not s.get('requirement_coverage') for s in item['structures'])
     assert total==580 and items['ra.mammography']['modality_scope']==['Radiography'] and items['ra.ultrasound-breast']['modality_scope']==['Ultrasound'] and items['ra.mri-breast']['modality_scope']==['MRI']
     stage,_=inputs('ra.breast-cancer-staging');assert 'pectoral involvement is not alone' in stage['walkthrough']['steps'][2]['look'];assert 'No whole-body imaging is automatically required' in stage['walkthrough']['steps'][4]['look']
-    implant,_=inputs('ra.breast-implants');assert 'BIA-ALCL and SCC are different' in implant['walkthrough']['steps'][3]['look']
+    implant,_=inputs('ra.breast-implants');assert 'BIA-ALCL and SCC are different' in implant['walkthrough']['steps'][3]['look'];assert any('single assay does not exclude' in phrase for phrase in implant['walkthrough']['steps'][3]['findings'])
     male,_=inputs('ra.male-breast');assert 'fat-only normal template' in ' '.join(male['reporting']['protocol']);assert 'patient sex does not itself certify benignity' in male['walkthrough']['steps'][4]['look']
     MRI,_=inputs('ra.mri-breast');assert 'actual times' in MRI['walkthrough']['steps'][3]['look'] and 'full BI-RADS manual' in MRI['reporting']['classification']['summary']

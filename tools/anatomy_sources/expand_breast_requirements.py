@@ -47,6 +47,9 @@ def build_draft(inv,ref,original):
         guide['checklist'][index]['detail']=look
         guide['template_sections'][index]['body']=guide['template_sections'][index]['body'].split('\n\nAdditional source anatomy:')[0]+'\n\nAdditional source anatomy: Actual acquired side/site and every relevant component/interface [ ]; source extent, dimensions and dated comparison [ ]; separate clinical/tissue correlation [ ]; unresolved or uncovered anatomy [ ].'
     if any(i not in {m['name'] for m in guide['measurements']} for step in node['steps'] for i in step.get('measurements',[])):raise ValueError('Breast measurement routing requires review')
+    if inv=='ra.breast-implants':
+        for step in node['steps']:
+            step['findings']=[('Late peri-implant fluid [amount/extent], capsular or solid findings [ ]; correlate with supplied cytology/histology and relevant immunophenotyping. Imaging appearance or a single assay does not exclude every capsular malignancy.' if 'CD30' in phrase and 'exclude' in phrase else phrase) for phrase in step['findings']]
     node['model']={'family':'breast','reporting_aim':'Partial single-left-breast schematic orientation only. Bilateral native gland/duct, skin/fascia, neurovascular/lymphatic, chest-wall, nodal, lesion and implant anatomy and physiology remain unverified; no current patient registration or full reporting coverage is supplied.'}
     if inv=='ra.mri-breast':guide['classification']={'name':'Breast MRI assessment framework','version':'Record applicable current source version; public v2025 context only','applicability':'Actual contrast-enhanced or other supplied breast MRI and acquired workup scope.','summary':'Document source findings and integrated assessment rationale; this draft does not reproduce the full BI-RADS manual or assign a category from kinetics alone.'}
     structures=[];namespace=inv.removeprefix('ra.').replace('-','_')
