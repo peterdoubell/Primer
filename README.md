@@ -235,8 +235,14 @@ tests/           pytest regression suite (unit + HTTP layer)
 content/         ZIM archives, the learner database and its rotating backups
 ```
 
-Requirements: Python 3.9+ and the pinned packages in `requirements.txt`.
-CI exercises Python 3.9 and the Vercel runtime pinned to Python 3.12.
+Requirements: Python 3.10+ and the pinned packages in `requirements.txt`.
+CI exercises Python 3.10 and the Vercel runtime pinned to Python 3.12.
+The security-patched networking and image dependencies require Python 3.10+.
+For a first run with a specific interpreter, use `PRIMER_PYTHON=/path/to/python3.12 ./run.sh`.
+For an older virtual environment, create a new Python 3.10+ environment and install
+`requirements.lock.txt`; preserve the old environment if needed. Reader records under
+`content/` are independent of the virtual environment. In an existing supported
+environment, install the current lock file before starting the updated application.
 `run.sh` sets up a virtualenv on first launch.
 
 ```bash
