@@ -115,7 +115,7 @@ def write_json(path, data):
 
 
 def package(source_root, apply_registry=False, investigations=('ra.swallowing',)):
-    if Path(source_root).expanduser().resolve() != TRUSTED_SOURCE_ROOT.resolve():
+    if str(source_root) != str(TRUSTED_SOURCE_ROOT):
         raise ValueError('Source root must select the fixed reviewed laryngeal source cache')
     # Do not propagate the CLI value to filesystem reads, even after checking it.
     source_root = TRUSTED_SOURCE_ROOT
