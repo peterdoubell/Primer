@@ -396,7 +396,14 @@
 :root:is([data-theme="silvertone"], [data-theme="slate"]) :is(.domain-tag, .domain-head .ic, .qa-head .ic) {
   background: var(--accent) !important; color: var(--on-fill);
 }
-.theme-select { min-width: 0; max-width: 100%; color-scheme: inherit; }
+.theme-control { position: relative; text-align: center; }
+.theme-control .theme-select {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; padding: 0; opacity: 0; cursor: pointer; color-scheme: inherit;
+}
+.theme-control:has(.theme-select:focus-visible) {
+  outline: 2px solid var(--chrome-hi); outline-offset: 3px;
+}
 .theme-select option { color: var(--ink); background: var(--paper); }
 
 /* Reduced motion, decided once. Zeroing the duration tokens and flattening

@@ -1009,7 +1009,9 @@ function effectiveTheme() {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 function themeToggle() {
-  const b = el('select', { id: 'theme-toggle', class: 'chrome-toggle theme-select',
+  const icon = el('span', { class: 'tt-icon', 'aria-hidden': 'true' });
+  const label = el('span', { class: 'tt-label', 'aria-hidden': 'true' });
+  const b = el('select', { id: 'theme-toggle', class: 'theme-select',
     'aria-label': 'Reading theme', onchange: event => {
     const next = event.target.value;
     applyTheme(next); localStorage.setItem('primer-theme', next);
@@ -1039,9 +1041,14 @@ function themeToggle() {
     } else paint();
   } }, ...[['light', 'Day'], ['dark', 'Night'], ['silvertone', 'Silvertone'], ['slate', 'Slate']]
     .map(([value, label]) => el('option', { value }, label)));
-  function paint() { b.value = effectiveTheme(); }
+  function paint() {
+    const theme = effectiveTheme();
+    b.value = theme;
+    label.textContent = b.selectedOptions[0].textContent;
+    icon.replaceChildren(glyph(['dark', 'slate'].includes(theme) ? 'moon' : 'sun', 15));
+  }
   paint();
-  return b;
+  return el('div', { class: 'chrome-toggle theme-control', title: 'Reading theme' }, icon, label, b);
 }
 function accountToggle() {
   return btn({ id: 'account-toggle', class: 'chrome-toggle',
