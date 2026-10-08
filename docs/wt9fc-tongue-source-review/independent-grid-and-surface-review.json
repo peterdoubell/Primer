@@ -1,0 +1,345 @@
+{
+  "case": "BeLong/sub-007_segID-001",
+  "source_dataset_license": "CC0 1.0 Universal via linked OSF licence",
+  "raw_acquisition_available": false,
+  "distributed_image_processed": true,
+  "source_processing_already_included": "Study-template registration; mouth ROI masking/crop; publisher final 1mm Gaussian smoothing of labels",
+  "sample_checks": {
+    "sub-007_segID-001_T2w.nii.gz": {
+      "shape": [
+        64,
+        320,
+        320
+      ],
+      "raw_dtype": "int16",
+      "samples": 6553600,
+      "original_raw_samples_independently_equal": true,
+      "scaled_samples_independently_equal": true,
+      "vox_offset": 352,
+      "scale_slope_intercept": [
+        0.05391012504696846,
+        1766.5269775390625
+      ],
+      "sha256": "c329cac7bcd47a45c13432ed14153e5b1451ad2702c7dcc2b894a9890c1432cf",
+      "affine": [
+        [
+          0.7987403273582458,
+          0.001532876049168408,
+          0.04486987739801407,
+          -37.29716110229492
+        ],
+        [
+          -0.001530465204268694,
+          0.7999985218048096,
+          -8.597507257945836e-05,
+          -117.71481323242188
+        ],
+        [
+          -0.04487001895904541,
+          -2.8390401141109578e-11,
+          0.7987406849861145,
+          -264.65576171875
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pixdim": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "raw_sample_range": [
+        -32768,
+        32767
+      ],
+      "scaled_range": [
+        0.0,
+        3533.000044953078
+      ],
+      "raw_header_sform_independently_equal_nibabel": true,
+      "qform_sform_codes": [
+        1,
+        1
+      ]
+    },
+    "sub-007_segID-001_T2w_labels.nii.gz": {
+      "shape": [
+        64,
+        320,
+        320
+      ],
+      "raw_dtype": "uint16",
+      "samples": 6553600,
+      "original_raw_samples_independently_equal": true,
+      "scaled_samples_independently_equal": true,
+      "vox_offset": 352,
+      "scale_slope_intercept": [
+        1.0,
+        0.0
+      ],
+      "sha256": "c404360a49d023aa39dd6ec6b80b9dbe4f8bd8c18fa19f9a46e4b8563c911276",
+      "affine": [
+        [
+          0.7987392544746399,
+          0.0015328761655837297,
+          0.04486988112330437,
+          -37.29716110229492
+        ],
+        [
+          -0.0015304632252082229,
+          0.7999985814094543,
+          -8.597507985541597e-05,
+          -117.71481323242188
+        ],
+        [
+          -0.04486996307969093,
+          -3.162911252352352e-11,
+          0.7987407445907593,
+          -264.65576171875
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "pixdim": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "raw_sample_range": [
+        0,
+        4
+      ],
+      "scaled_range": [
+        0.0,
+        4.0
+      ],
+      "raw_header_sform_independently_equal_nibabel": true,
+      "qform_sform_codes": [
+        1,
+        1
+      ]
+    }
+  },
+  "unique_mask_values": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "image_mask_affine_max_abs_difference_mm": 1.0728836059570312e-06,
+  "max_image_mask_grid_corner_distance_mm": 7.265267097566997e-05,
+  "image_mask_affine_identical": false,
+  "labels": [
+    {
+      "label_value": 1,
+      "source_name": "transverse / vertical (combined)",
+      "name_source": "original demographics.xlsx/label_key",
+      "source_voxels": 35773,
+      "computed_volume_mm3": 18315.779193853203,
+      "source_spreadsheet_volume_mm3": 18315.7769,
+      "source_bbox_indices": [
+        [
+          10,
+          208,
+          206
+        ],
+        [
+          48,
+          266,
+          263
+        ]
+      ],
+      "source_connected_components": 1,
+      "component_voxel_counts": [
+        35773
+      ],
+      "touches_grid_boundary_axes": [],
+      "surface_vertices": 11544,
+      "surface_triangles": 23084,
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "output_files": [
+        {
+          "filename": "label-1-positions.f64le.bin",
+          "bytes": 277056,
+          "sha256": "0ac14fb440e2efef74d246c9f5cde9bebfa7f35ddcb67cae7f8d572aef6db292"
+        },
+        {
+          "filename": "label-1-triangles.u32le.bin",
+          "bytes": 277008,
+          "sha256": "bf664b572e7dda6be71826eefb3ce27bf1fef6a4624afbc7d4bb4d677481b32f"
+        }
+      ],
+      "extraction": "Source distributed mask .5 level Lewiner; mask sform only; no smoothing, padding, cropping, repair, deletion or component merging",
+      "clinical_anatomy_approval": false
+    },
+    {
+      "label_value": 2,
+      "source_name": "superior longitudinal",
+      "name_source": "original demographics.xlsx/label_key",
+      "source_voxels": 23477,
+      "computed_volume_mm3": 12020.226096052655,
+      "source_spreadsheet_volume_mm3": 12020.2246,
+      "source_bbox_indices": [
+        [
+          11,
+          200,
+          202
+        ],
+        [
+          46,
+          265,
+          269
+        ]
+      ],
+      "source_connected_components": 1,
+      "component_voxel_counts": [
+        23477
+      ],
+      "touches_grid_boundary_axes": [],
+      "surface_vertices": 12558,
+      "surface_triangles": 25128,
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "output_files": [
+        {
+          "filename": "label-2-positions.f64le.bin",
+          "bytes": 301392,
+          "sha256": "a7d18c0570d2fc9c5ef9e3dae9b5ea0eff619e40c0c7fc44fe5390363b930105"
+        },
+        {
+          "filename": "label-2-triangles.u32le.bin",
+          "bytes": 301536,
+          "sha256": "ac9aede39d177f1a3082445939007d379a2d3bc7dff314426eab3ae18b618044"
+        }
+      ],
+      "extraction": "Source distributed mask .5 level Lewiner; mask sform only; no smoothing, padding, cropping, repair, deletion or component merging",
+      "clinical_anatomy_approval": false
+    },
+    {
+      "label_value": 3,
+      "source_name": "inferior longitudinal",
+      "name_source": "original demographics.xlsx/label_key",
+      "source_voxels": 8456,
+      "computed_volume_mm3": 4329.472754961079,
+      "source_spreadsheet_volume_mm3": 4329.4722,
+      "source_bbox_indices": [
+        [
+          10,
+          216,
+          220
+        ],
+        [
+          49,
+          259,
+          248
+        ]
+      ],
+      "source_connected_components": 2,
+      "component_voxel_counts": [
+        4415,
+        4041
+      ],
+      "touches_grid_boundary_axes": [],
+      "surface_vertices": 5228,
+      "surface_triangles": 10448,
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "output_files": [
+        {
+          "filename": "label-3-positions.f64le.bin",
+          "bytes": 125472,
+          "sha256": "914fe402306b2c129a7a0c2186bb8714c8af36f123d318f5641f90ba89cc9262"
+        },
+        {
+          "filename": "label-3-triangles.u32le.bin",
+          "bytes": 125376,
+          "sha256": "8edba9af2583d2738b05ec51dae999f9502e79b42665f320d6b1a49e9c079c30"
+        }
+      ],
+      "extraction": "Source distributed mask .5 level Lewiner; mask sform only; no smoothing, padding, cropping, repair, deletion or component merging",
+      "clinical_anatomy_approval": false
+    },
+    {
+      "label_value": 4,
+      "source_name": "genioglossus",
+      "name_source": "original demographics.xlsx/label_key",
+      "source_voxels": 10807,
+      "computed_volume_mm3": 5533.184964860972,
+      "source_spreadsheet_volume_mm3": 5533.1843,
+      "source_bbox_indices": [
+        [
+          19,
+          225,
+          215
+        ],
+        [
+          40,
+          258,
+          249
+        ]
+      ],
+      "source_connected_components": 1,
+      "component_voxel_counts": [
+        10807
+      ],
+      "touches_grid_boundary_axes": [],
+      "surface_vertices": 4426,
+      "surface_triangles": 8848,
+      "open_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_triangles": 0,
+      "output_files": [
+        {
+          "filename": "label-4-positions.f64le.bin",
+          "bytes": 106224,
+          "sha256": "332a8ccd6d65be9c43006efdd2358fe4bb001ea43a51001146506f1c54528d3f"
+        },
+        {
+          "filename": "label-4-triangles.u32le.bin",
+          "bytes": 106176,
+          "sha256": "6ff9c6f59d3359f043a792db9e7f11fe917030edc458c836363d8c5fd3a81984"
+        }
+      ],
+      "extraction": "Source distributed mask .5 level Lewiner; mask sform only; no smoothing, padding, cropping, repair, deletion or component merging",
+      "clinical_anatomy_approval": false
+    }
+  ],
+  "case_context_from_source_spreadsheet": {
+    "subjid": "sub-007",
+    "segmentation.id": 1,
+    "dataset": "BeLong",
+    "sex": "Female",
+    "sex.numerical": 1,
+    "height": 157,
+    "weight": 60,
+    "age.at.scan": 33.12,
+    "Trans.vol": 18315.7769,
+    "SLong.vol": 12020.2246,
+    "Genio.vol": 5533.1843,
+    "ILong.vol": 4329.4722,
+    "SNR": 25.2,
+    "CNR": 47.4
+  },
+  "clinical_coverage_approved": false,
+  "runtime_integrated": false,
+  "source_health_context": {
+    "publication_cohort_description": "Publicrelease is47non-neurodegenerative healthycontrolparticipants;BeLong has4controls",
+    "source_spreadsheet_diagnosis_or_health_column": null,
+    "subject_specific_diagnosis_not_provided": true,
+    "independent_normal_anatomy_or_swallowing_function_proven": false,
+    "clinical_validation": "Source cohort label does not prove individually normal structure or function"
+  }
+}

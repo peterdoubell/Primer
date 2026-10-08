@@ -681,3 +681,22 @@ def test_registered_radiology_images_keep_access_gate_and_exact_local_bytes(monk
     config = json.loads((Path(srv.ROOT) / 'vercel.json').read_text())
     assert 'web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif}' in config['builds'][0]['config']['excludeFiles']
     assert {'src': 'web/reference-media/radiology-open/**', 'use': '@vercel/static'} in config['builds']
+
+
+def test_registered_motion_keeps_reader_gate_ranges_and_CDN_contract(monkeypatch):
+    import json
+    from pathlib import Path
+    row=json.loads((Path(srv.ROOT)/'data/radiology/source-motion-references.json').read_text())['ra.swallowing'][0]
+    monkeypatch.setenv(srv.ACCESS_USERNAME_ENV,'reader');monkeypatch.setenv(srv.ACCESS_PASSWORD_ENV,'secret')
+    with TestClient(srv.app,follow_redirects=False) as client:
+        monkeypatch.delenv('VERCEL',raising=False)
+        assert client.get(row['src']).status_code==401
+        response=client.get(row['src'],auth=('reader','secret'),headers={'Range':'bytes=0-127'})
+        assert response.status_code==206
+        assert response.content==(Path(srv.WEB_DIR)/row['src'].removeprefix('/app/')).read_bytes()[:128]
+        monkeypatch.setenv('VERCEL','1')
+        response=client.get(row['src']+'?v=reviewed',auth=('reader','secret'))
+        assert response.status_code==307 and response.headers['location']==row['src'].replace('/app/','/source-media/',1)+'?v=reviewed'
+        assert client.get('/app/reference-media/radiology-motion/unknown.webm',auth=('reader','secret')).status_code==404
+    config=json.loads((Path(srv.ROOT)/'vercel.json').read_text())
+    assert {'src':'web/reference-media/radiology-motion/**','use':'@vercel/static'} in config['builds']
