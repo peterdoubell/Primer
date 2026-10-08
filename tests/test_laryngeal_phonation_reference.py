@@ -163,3 +163,11 @@ def test_known_source_reproduces_identical_runtime_bytes_in_isolated_output(monk
         assert (actual/filename).read_bytes() == (expected/filename).read_bytes()
     assert not (tmp_path/'data/radiology/source-anatomy-references.json').exists()
     assert not (tmp_path/'data/radiology/radiology-asset-evidence.json').exists()
+
+
+def test_gzip_transport_header_has_fixed_platform_marker():
+    from tools.anatomy_sources.package_laryngeal_phonation_reference import canonical_gzip
+    payload=b'Original reviewed source geometry'*200
+    encoded=canonical_gzip(payload)
+    assert encoded[:10]==bytes.fromhex('1f8b08000000000002ff')
+    assert gzip.decompress(encoded)==payload

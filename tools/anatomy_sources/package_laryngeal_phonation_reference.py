@@ -3,6 +3,7 @@
 import argparse
 from collections import Counter
 import gzip
+import io
 import hashlib
 import json
 import math
@@ -25,6 +26,14 @@ GRANT = 'https://creativecommons.org/licenses/by/4.0/'
 ORIGINAL_SHA = 'dddf49ed16942555eefcda5f97db3f39942676532bd816f348277895715480d2'
 ALLOWED_INVESTIGATIONS = ('ra.swallowing', 'ra.mri-neck-spaces')
 DATE = '2026-10-08'
+
+
+def canonical_gzip(raw):
+    # GzipFile fixes the platform OS marker across Python/zlib versions.
+    buffer = io.BytesIO()
+    with gzip.GzipFile(filename='', mode='wb', fileobj=buffer, mtime=0, compresslevel=9) as target:
+        target.write(raw)
+    return buffer.getvalue()
 
 
 def sha(data):
@@ -141,7 +150,7 @@ def package(source_root, apply_registry=False, investigations=('ra.swallowing',)
     if len(positions) != 14831:
         raise ValueError('Original source coordinate count changed')
     decoded = struct.pack('<4sII', b'BP3D', len(positions), len(faces)*3) + pos + norm + face_bytes
-    encoded = gzip.compress(decoded, mtime=0)
+    encoded = canonical_gzip(decoded)
     out = ROOT/'web/anatomy'/ATLAS
     out.mkdir(parents=True, exist_ok=True)
     PROOF.mkdir(parents=True, exist_ok=True)
