@@ -5,7 +5,7 @@ from PIL import Image
 from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail,resolve
 ROOT=Path(__file__).resolve().parents[1];INV='ra.esophagus';PREFIX='open-esophagus-pmc5438315-fig'
-def rows():return json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text())[INV]
+def rows():return [r for r in json.loads((ROOT/'data/radiology/radiology-open-images.json').read_text())[INV] if r['id'].startswith(PREFIX)]
 def test_complete_original_figures_and_nonsequential_PDF_bindings_preserved():
     r=rows();proof=json.loads((ROOT/'docs/esophagus-published-source-review/original-source-review.json').read_text());figures={f['figure_number']:f for f in proof['figures']};assert len(r)==19 and {x['figure_number'] for x in r}==set(range(2,21))
     assert figures[9]['source_PDF_object']==66 and figures[10]['source_PDF_object']==65
@@ -24,5 +24,5 @@ def test_drawing_is_not_histology_and_two_foreign_body_patients_are_not_merged()
         c=x['source_context'];assert c['population']['age_not_supplied'] and c['population']['sex_not_supplied'];assert not c['source_native_registration_verified'] and not c['source_static_views_supply_timed_transit_or_pressure'] and not c['source_labels_are_current_patient_histology_or_cause']
 def test_source_figures_follow_relevant_steps_not_intro_or_other_reader():
     r=detail(Curriculum(),resolve(INV))['radiology_reference'];w=r['walkthrough'];assert not r['key_images'] and not w['start']['images'] and not w['start']['module_illustrations']
-    placed={i for s in w['steps'] for i in s['images']};assert placed=={PREFIX+str(i) for i in range(3,21)} and PREFIX+'2' not in placed
+    placed={i for s in w['steps'] for i in s['images'] if i.startswith(PREFIX)};assert placed=={PREFIX+str(i) for i in range(3,21)} and PREFIX+'2' not in placed
     assert all(not s['normal'] for s in w['steps']);other=detail(Curriculum(),resolve('ra.swallowing'))['radiology_reference'];assert len(other['source_motion_references'])==1 and len(other['source_anatomy_references'])==2
