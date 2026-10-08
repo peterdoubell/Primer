@@ -31,3 +31,15 @@ def test_source_volume_or_part_pairing_cannot_change_silently(monkeypatch,mutati
     try:
         with pytest.raises(ValueError):catalog._source_anatomy_references()
     finally:catalog._source_anatomy_references.cache_clear()
+
+@pytest.mark.parametrize('mutation',['html_hash','script_hash','missing_local','unregistered_hosted','escaped_path'])
+def test_missing_source_volume_only_uses_exact_verified_CDN_identity(monkeypatch,tmp_path,mutation):
+    from primer.source_volume_integrity import verified_volume_identity
+    registry=json.loads((ROOT/'data/radiology/source-anatomy-references.json').read_text());v=copy.deepcopy(next(r for r in registry['ra.esophagus'] if r['atlas']=='totalseg-v3-esophagus-s0358')['source_volume']);monkeypatch.setenv('VERCEL','1')
+    assert verified_volume_identity(v,tmp_path,ROOT/'data/radiology')==(OUT/'ct-reference.html').stat().st_size
+    if mutation=='html_hash':v['sha256']='0'*64
+    elif mutation=='script_hash':v['script_sha256']='0'*64
+    elif mutation=='missing_local':monkeypatch.delenv('VERCEL')
+    elif mutation=='unregistered_hosted':v['src']='/app/anatomy/unknown/ct-reference.html'
+    elif mutation=='escaped_path':v['src']='/app/anatomy/../ct-reference.html'
+    with pytest.raises(ValueError):verified_volume_identity(v,tmp_path,ROOT/'data/radiology')
