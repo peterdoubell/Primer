@@ -221,7 +221,9 @@ function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.ad
    silenced — navigate away mid-read and the book keeps reading the page you
    left. Every stop bumps the sequence, and a chunk that finishes under a stale
    sequence drops the rest of its queue on the floor. */
-const SPEAK_CHUNK = PrimerSpeechChunks.SPEAK_CHUNK;
+const SpeechChunks = typeof module !== 'undefined' && module.exports
+  ? require('./speech-chunks.js') : globalThis.PrimerSpeechChunks;
+const SPEAK_CHUNK = SpeechChunks.SPEAK_CHUNK;
 let speakSeq = 0;
 // Whatever the voice leaves lit — a pulsing speaker button, the paragraph it is
 // reading, the article's transport row — is only true while it is talking. The
@@ -234,7 +236,7 @@ let _voiceRestore = null;
 // boundary inside a clause is exactly what made the old truncation sound like
 // a fault rather than an ending.
 function splitForSpeech(text) {
-  return PrimerSpeechChunks.splitForSpeech(text);
+  return SpeechChunks.splitForSpeech(text);
 }
 
 // The only place an utterance is ever built. `parts` is spoken in order;
