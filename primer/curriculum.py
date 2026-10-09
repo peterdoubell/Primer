@@ -306,6 +306,23 @@ def _validate_lesson_media(node: Dict) -> None:
                                    for key in ("heading", "label", "detail"))):
                         raise ValueError("{} illustration {} has an invalid description item".format(
                             node.get("id"), media_id))
+        elif kind == "source-gallery":
+            if set(entry) != {"id", "kind", "title", "instructions", "investigation_ids"}:
+                raise ValueError("{} source gallery has unexpected fields".format(node.get("id")))
+            text(entry, "title")
+            text(entry, "instructions")
+            identifiers = entry.get("investigation_ids")
+            if (not isinstance(identifiers, list) or not 1 <= len(identifiers) <= 4
+                    or any(not isinstance(identifier, str) for identifier in identifiers)
+                    or len(set(identifiers)) != len(identifiers)):
+                raise ValueError("Source gallery needs explicit unique investigation bindings")
+            from . import radiology_catalog
+            for identifier in identifiers:
+                investigation = radiology_catalog.resolve(identifier)
+                if (not investigation or investigation['id'] != identifier
+                        or investigation['module_id'] != node.get('id')
+                        or not radiology_catalog._structure_atlases().get(identifier)):
+                    raise ValueError("Source gallery has an unknown or cross-lesson binding")
         elif kind == "model":
             if set(entry) != model_keys:
                 raise ValueError("{} model {} has unexpected fields".format(node.get("id"), media_id))
@@ -613,6 +630,7 @@ def _validate_lesson_media(node: Dict) -> None:
 # whitelist for the same reason lesson images must be local — authored data is
 # still data, and a link is the one thing in a node that leaves the book.
 REFERENCE_HOSTS = (
+    "pmc.ncbi.nlm.nih.gov",
     "asecho.org",
     "radiologyassistant.nl",
     "radiopaedia.org",

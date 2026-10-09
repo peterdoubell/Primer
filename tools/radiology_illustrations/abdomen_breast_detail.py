@@ -707,15 +707,16 @@ def _render_peritoneum(plate: RadiologyPlate,
 def _render_rectal_mr(plate: RadiologyPlate,
                       item: Mapping[str, object]) -> None:
     _ = item
-    left = _panel(plate, (65, 225, 965, 790), "RECTAL CANCER: SURGICAL PLANES", PLUM)
+    left = _panel(plate, (65, 225, 965, 790), "CONCEPT: WALL AND MRF", PLUM)
     cx, cy = 500, 495
     # Axial rectum, mesorectum and mesorectal fascia.
     plate.draw.ellipse((cx - 245, cy - 190, cx + 245, cy + 190),
                        fill=hex_rgba(GOLD_LIGHT, 70), outline=PLUM, width=6)
-    plate.draw.ellipse((cx - 155, cy - 125, cx + 155, cy + 125),
-                       fill=hex_rgba(TEAL_LIGHT, 90), outline=TEAL, width=6)
+    # Mesorectal fat is a compartment, not a second concentric fascial boundary.
     plate.draw.ellipse((cx - 64, cy - 83, cx + 64, cy + 83),
                        fill=PAPER_LIGHT, outline=INK_SOFT, width=8)
+    plate.draw.ellipse((cx - 44, cy - 63, cx + 44, cy + 63),
+                       fill=PAPER_LIGHT, outline=TEAL, width=3)
     plate.draw.pieslice((cx - 91, cy - 109, cx + 91, cy + 109),
                         285, 355, fill=hex_rgba(CORAL, 210), outline=CORAL)
     _tag(plate, (360, 337), "MRF", PLUM, size=19)
@@ -742,10 +743,12 @@ def _render_rectal_mr(plate: RadiologyPlate,
     _measure(plate, wall, outer, "extramural depth", CORAL,
              label_at=(670, 570))
     plate.draw.line((outer, (617, 549)), fill=CORAL, width=2)
-    plate.text((500, 718), "also report nodes + extramural venous invasion",
+    plate.text((500, 706), "qualifying component + exact distance + confidence",
+               size=20, bold=True, fill=INK_SOFT, anchor="mm")
+    plate.text((500, 744), "MRF is not the pathological CRM; not calibrated anatomy",
                size=20, bold=True, fill=INK_SOFT, anchor="mm")
 
-    right = _panel(plate, (995, 225, 1535, 790), "FISTULA: CLOCK + LAYERS", TEAL)
+    right = _panel(plate, (995, 225, 1535, 790), "FISTULA: VIEW CONVENTION", TEAL)
     fx, fy = 1265, 470
     for radius, tone in ((155, PLUM), (105, TEAL), (58, INK_SOFT)):
         plate.draw.ellipse((fx - radius, fy - radius,
@@ -762,7 +765,7 @@ def _render_rectal_mr(plate: RadiologyPlate,
                        fill=hex_rgba(CORAL_LIGHT, 190), outline=CORAL, width=4)
     plate.text((fx, 684), "opening | sphincter relation | abscess",
                size=19, bold=True, fill=INK, anchor="mm")
-    _tag(plate, (fx, 742), "ONE OPERATIVE MAP", TEAL, size=20)
+    _tag(plate, (fx, 742), "CONCEPTUAL ROUTE ONLY", TEAL, size=20)
 
 
 def _render_acute_abdomen(plate: RadiologyPlate,

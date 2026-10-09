@@ -1894,11 +1894,49 @@ function renderReference(ref, nodeTitle) {
   return wrap;
 }
 
+function lessonSourceGallery(item, { loadReference = id => api.get('/api/radiology/modules/' + encodeURIComponent(id)),
+  createElement = el, createButton = btn, renderFigure = sourceAtlasFigure, wirePictures = attachPictureHandlers } = {}) {
+  const status = createElement('p', { role: 'status', 'aria-live': 'polite' });
+  const groups = new Map();
+  const gallery = createElement('section', { class: 'card lesson-source-gallery', 'aria-label': item.title },
+    createElement('h3', {}, item.title), createElement('p', {}, item.instructions));
+  const load = createButton({ class: 'btn ghost small', onclick: async () => {
+    load.disabled = true;
+    status.textContent = 'Loading original source figures…';
+    const missing = item.investigation_ids.filter(id => !groups.has(id));
+    const results = await Promise.allSettled(missing.map(loadReference));
+    results.forEach((result, index) => {
+      if (result.status !== 'fulfilled') return;
+      const reference = result.value;
+      const figures = reference.radiology_reference?.structure_atlas;
+      if (!Array.isArray(figures) || !figures.length || reference.id !== missing[index]) return;
+      const section = createElement('details', {}, createElement('summary', {}, reference.title + ' · ' + figures.length + ' source references'));
+      section.append(createElement('a', { href: '#radiology/' + encodeURIComponent(reference.id) }, 'Open reporting reference'));
+      for (const figure of figures) section.append(renderFigure(figure));
+      groups.set(missing[index], section);
+      wirePictures(section);
+    });
+    // Keep source-reader order after retries; each reader retains its own case context.
+    for (const id of item.investigation_ids) if (groups.has(id)) gallery.append(groups.get(id));
+    const complete = groups.size === item.investigation_ids.length;
+    status.textContent = complete ? 'Original source figures loaded. Expand a reference to read its figures and source captions.'
+      : 'Some source figures could not be loaded. Retry to load the missing references.';
+    load.textContent = complete ? 'Source figures loaded' : 'Retry missing source figures';
+    load.disabled = complete;
+  } }, 'Load original source figures');
+  gallery.append(load, status);
+  return gallery;
+}
+
 function renderLessonMedia(items) {
   if (!Array.isArray(items) || !items.length) return null;
   const media = el('div', { class: 'lesson-media' });
   let imageCount = 0;
   items.forEach(item => {
+    if (item && item.kind === 'source-gallery') {
+      media.append(lessonSourceGallery(item));
+      return;
+    }
     if (item && item.kind === 'illustration') {
       if (!item.src || !item.alt) return;
       const firstImage = imageCount++ === 0;
@@ -6321,7 +6359,7 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,
-    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime });
+    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime, lessonSourceGallery });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
   // all — send them to the first page instead of the error card. This needs

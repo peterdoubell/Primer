@@ -50,7 +50,17 @@ def reference_images(curriculum, catalogue, requirements, detail, catalog_sectio
         node = curriculum.node(identifier)
         if not node:
             raise ValueError('MSK curriculum surface is missing: ' + identifier)
-        reference = node.get('radiology_reference')
+        reference = dict(node.get('radiology_reference') or {})
+        gallery_figures = []
+        for media in node.get('lesson_media', []):
+            if media.get('kind') != 'source-gallery':
+                continue
+            for investigation in media['investigation_ids']:
+                if investigation not in by_id or by_id[investigation]['module_id'] != identifier:
+                    raise ValueError('Lesson source gallery has a cross-module investigation')
+                gallery_figures.extend(detail(curriculum, by_id[investigation])['radiology_reference']['structure_atlas'])
+        if gallery_figures:
+            reference['structure_atlas'] = list(reference.get('structure_atlas', [])) + gallery_figures
         if reference:
             collect(reference, 'lesson:' + identifier)
     return {'surfaces': surfaces, 'images': [resources[key] for key in sorted(resources)]}
