@@ -8,7 +8,7 @@ import subprocess
 
 import pytest
 
-from tools.anatomy_sources.review_west_bohemia_pelvic_source import inspect_arrays
+from tools.anatomy_sources.review_west_bohemia_pelvic_source import inspect_arrays, ORIGINAL_ARCHIVE_SHA256
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/west-bohemia-pelvic-source-review'
@@ -41,6 +41,7 @@ def test_reference_triangle_keeps_order_and_does_not_gain_volume_or_clinical_cre
 def test_all_original_JSON_bytes_and_both_complete_object_inventories_are_retained():
     proof = json.loads((REVIEW / 'review.json').read_text())
     assert proof['source_archive_MD5_verified'] and proof['doi'] == '10.5281/zenodo.17423100'
+    assert proof['source_archive_sha256'] == ORIGINAL_ARCHIVE_SHA256
     assert proof['software_license']['id'] == 'mit-license'
     assert hashlib.sha256((REVIEW / 'original-License.txt').read_bytes()).hexdigest() == proof['license_sha256']
     for model, count, positions, triangles in zip(proof['models'], [22, 43], [130146, 133874], [271775, 271771]):

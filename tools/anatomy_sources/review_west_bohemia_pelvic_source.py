@@ -8,6 +8,8 @@ from pathlib import Path
 import subprocess
 import zipfile
 
+ORIGINAL_ARCHIVE_SHA256 = '21ed60ce4d47deb23ba20d6b3bd37cd529abb3b94d640ae6e8c8e3cf6f00308d'
+
 
 def sha(raw):
     return hashlib.sha256(raw).hexdigest()
@@ -58,7 +60,9 @@ def review(source, output):
     archive = source / 'Pelvic_Visualiser.zip'
     file_record = next(f for f in metadata['files'] if f['key'] == archive.name)
     raw = archive.read_bytes()
-    if len(raw) != file_record['size'] or hashlib.md5(raw).hexdigest() != file_record['checksum'].split(':')[1]:
+    if (sha(raw) != ORIGINAL_ARCHIVE_SHA256 or metadata.get('id') != 17423100
+            or len(raw) != file_record['size']
+            or hashlib.md5(raw).hexdigest() != file_record['checksum'].split(':')[1]):
         raise ValueError('Published archive checksum changed')
     output.mkdir(parents=True, exist_ok=True)
     report = {
