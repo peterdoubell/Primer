@@ -4,7 +4,8 @@
 /*
  * Deterministic DOM smoke check for every curriculum lesson model not already
  * exercised by the physics, biology, spatial, music-listening, Doppler, or
- * prenatal-sequence checks (tests/prenatal-sequence.test.cjs).
+ * prenatal-sequence checks (tests/prenatal-sequence.test.cjs), or the independent
+ * second-order ODE checks (tools/check_math_ode_lab.js).
  *
  * The fake DOM intentionally implements only the browser primitives used by
  * the shipped renderers.  The model code itself is loaded through Node's
@@ -386,10 +387,19 @@ const INTERACTIONS = Object.freeze({
 function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
+  let odeEntries = 0;
   for (const filename of fs.readdirSync(CURRICULUM_DIR).filter(name => name.endsWith('.json')).sort()) {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-ode-lab') {
+          if (media.kind !== 'model' || lesson.id !== 'math.4.diffeq' ||
+              media.props?.scenario !== 'math.4.diffeq.second-order') {
+            throw new Error('invalid separately verified second-order ODE binding');
+          }
+          odeEntries++;
+          continue;
+        }
         if (media.kind !== 'model' || media.renderer === 'physics-concept-lab' ||
             ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(media.renderer) ||
             BIOLOGY_CHECKED.has(media.renderer)) continue;
@@ -399,6 +409,7 @@ function collectRemainingModels() {
       }
     }
   }
+  if (odeEntries !== 1) throw new Error('expected exactly one separately verified second-order ODE binding, found ' + odeEntries);
   return entries.sort((left, right) => left.lessonId.localeCompare(right.lessonId, undefined, { numeric: true }));
 }
 

@@ -460,6 +460,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'mind.3.logic': (3, 'truth-table-lab'),
         'cs.3.data-structures': (3, 'stack-queue-lab'),
         'math.4.linalg': (4, 'matrix-transform-lab'),
+        'math.4.diffeq': (4, 'math-ode-lab'),
         'phys.4.fluids': (4, 'venturi-flow-lab'),
         'bio.4.molecular': (4, 'gene-expression-stepper'),
         'cs.4.networks': (4, 'tcp-packet-tracer'),
@@ -659,7 +660,8 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'momentum remains 8 kg m/s; kinetic energy falls from 16 j to 10⅔ j',
         'remaining 5⅓ j becomes internal energy',
         'photon arrival-rate scale',
-        'resolution/√12',
+        'independent read-off errors are uniform',
+        'shared calibration standard uncertainty remains',
         'fusion of light nuclei and fission of heavy nuclei',
         'mean residual',
         'residual scatter',
@@ -2237,7 +2239,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '36 scenarios, 62 independently exercised controls' in result.stdout
+    assert '36 scenarios, 63 independently exercised controls' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')

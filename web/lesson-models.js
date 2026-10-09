@@ -4306,14 +4306,39 @@
   }
 
   function drawPhysicsGraph(svg, visual) {
+    const plotWidth = visual.phaseOrbit != null ? 350 : 560;
+    const plotRight = 88 + plotWidth;
     svg.append(
-      svgNode('line', { x1: 82, y1: 244, x2: 660, y2: 244, class: 'physics-svg-axis' }),
+      svgNode('line', { x1: 82, y1: 244, x2: plotRight + 12, y2: 244, class: 'physics-svg-axis' }),
       svgNode('line', { x1: 82, y1: 244, x2: 82, y2: 26, class: 'physics-svg-axis' }),
-      physicsSvgText(660, 274, visual.xLabel || 'input', 'physics-svg-small', 'end'),
+      physicsSvgText(plotRight + 12, visual.xTicks ? 292 : 274, visual.xLabel || 'input', 'physics-svg-small', 'end'),
       physicsSvgText(92, 30, visual.yLabel || 'response', 'physics-svg-small', 'start'),
     );
+    // Curves and markers share these calibrated plot coordinates.  Tick labels
+    // state the physical scale rather than suggesting that all graphs are 0–1.
+    (visual.xTicks || []).forEach(tick => {
+      const x = 88 + tick[0] * plotWidth;
+      svg.append(
+        svgNode('line', { x1: x, y1: 239, x2: x, y2: 248, class: 'physics-svg-axis' }),
+        physicsSvgText(x, 265, tick[1], 'physics-svg-small'),
+      );
+    });
+    (visual.yTicks || []).forEach(tick => {
+      const y = 239 - tick[0] * 205;
+      svg.append(
+        svgNode('line', { x1: 75, y1: y, x2: 88, y2: y, class: 'physics-svg-axis' }),
+        physicsSvgText(70, y + 5, tick[1], 'physics-svg-small', 'end'),
+      );
+    });
+    if (visual.threshold != null) {
+      const x = 88 + visual.threshold * plotWidth;
+      svg.append(
+        svgNode('line', { x1: x, y1: 239, x2: x, y2: 145, class: 'physics-svg-guide' }),
+        physicsSvgText(x + 12, 126, visual.thresholdLabel, 'physics-svg-small', 'start'),
+      );
+    }
     if (visual.histogram) {
-      const barWidth = 560 / visual.histogram.length;
+      const barWidth = plotWidth / visual.histogram.length;
       visual.histogram.forEach((height, index) => {
         const bounded = Math.max(0, Math.min(1, height));
         svg.append(svgNode('rect', {
@@ -4325,16 +4350,16 @@
     }
     (visual.curves || []).forEach((curve, index) => {
       svg.append(svgNode('path', {
-        d: physicsCurvePath(curve.points),
+        d: physicsCurvePath(curve.points, 88, 34, plotWidth),
         class: 'physics-svg-curve physics-curve-' + (curve.tone || (index ? 'secondary' : 'primary')),
       }));
       if (curve.label) {
-        svg.append(physicsSvgText(648, 48 + index * 22, curve.label,
+        svg.append(physicsSvgText(plotRight, 48 + index * 22, curve.label,
           'physics-svg-small physics-text-' + (curve.tone || (index ? 'secondary' : 'primary')), 'end'));
       }
     });
     (visual.scatter || []).forEach(point => {
-      const x = 88 + Math.max(0, Math.min(1, point[0])) * 560;
+      const x = 88 + Math.max(0, Math.min(1, point[0])) * plotWidth;
       const y = 34 + (1 - Math.max(0, Math.min(1, point[1]))) * 205;
       svg.append(svgNode('circle', { cx: x, cy: y, r: 7, class: 'physics-svg-data-point' }));
     });
@@ -4346,7 +4371,7 @@
       svg.append(physicsSvgText(110, 91, 'incident photons', 'physics-svg-small', 'start'));
     }
     if (visual.marker) {
-      const x = 88 + Math.max(0, Math.min(1, visual.marker[0])) * 560;
+      const x = 88 + Math.max(0, Math.min(1, visual.marker[0])) * plotWidth;
       const y = 34 + (1 - Math.max(0, Math.min(1, visual.marker[1]))) * 205;
       svg.append(
         svgNode('line', { x1: x, y1: 239, x2: x, y2: y, class: 'physics-svg-guide' }),
@@ -4358,17 +4383,18 @@
       svg.append(
         svgNode('rect', { x: 470, y: 112, width: 170, height: 108, rx: 10,
           class: 'physics-svg-inset' }),
-        svgNode('line', { x1: 487, y1: 166, x2: 625, y2: 166, class: 'physics-svg-guide' }),
-        svgNode('line', { x1: 556, y1: 124, x2: 556, y2: 208, class: 'physics-svg-guide' }),
+        svgNode('line', { x1: 495, y1: 166, x2: 617, y2: 166, class: 'physics-svg-guide' }),
+        svgNode('line', { x1: 556, y1: 131, x2: 556, y2: 201, class: 'physics-svg-guide' }),
         svgNode('ellipse', { cx: 556, cy: 166, rx: 61 * scale, ry: 35 * scale,
           class: 'physics-svg-phase-orbit' }),
-        physicsSvgText(556, 107, 'constant-H phase orbit', 'physics-svg-small'),
-        physicsSvgText(626, 184, 'q', 'physics-svg-small', 'end'),
-        physicsSvgText(568, 132, 'p', 'physics-svg-small', 'start'),
+        physicsSvgText(556, 84, 'Separate oscillator', 'physics-svg-small'),
+        physicsSvgText(556, 108, 'constant-H orbit', 'physics-svg-small'),
+        physicsSvgText(556, 244, 'q: −2…2 m', 'physics-svg-small'),
+        physicsSvgText(556, 269, 'p: −2…2 kg m/s', 'physics-svg-small'),
       );
     }
     if (visual.measurement) {
-      const x = 88 + Math.max(0, Math.min(1, visual.measurement.x)) * 560;
+      const x = 88 + Math.max(0, Math.min(1, visual.measurement.x)) * plotWidth;
       const center = Math.max(0, Math.min(1, visual.measurement.y));
       const error = Math.max(0, Math.min(1, visual.measurement.error || 0));
       const y = 34 + (1 - center) * 205;
@@ -4532,6 +4558,40 @@
       physicsSvgText(70, 40, visual.label || 'wave state', 'physics-svg-label', 'start'),
       physicsSvgText(650, 272, visual.note || '', 'physics-svg-note', 'end'),
     );
+  }
+
+  function drawPhysicsInterference(svg, visual) {
+    const amplitude = visual.amplitude;
+    const phase = visual.phase;
+    function trace(mid, fn, tone, role) {
+      const points = Array.from({ length: 121 }, (_, index) => {
+        const x = index / 120;
+        return [70 + 580 * x, mid - 22 * amplitude / 10 * fn(6 * Math.PI * x)];
+      });
+      svg.append(svgNode('path', {
+        d: points.map((point, index) => (index ? 'L' : 'M') +
+          physicsFixed(point[0], 2) + ' ' + physicsFixed(point[1], 2)).join(' '),
+        class: 'physics-svg-curve physics-curve-' + tone,
+        'data-physics-trace': role,
+      }));
+    }
+    svg.append(
+      svgNode('line', { x1: 65, y1: 92, x2: 655, y2: 92, class: 'physics-svg-guide' }),
+      svgNode('line', { x1: 65, y1: 220, x2: 655, y2: 220, class: 'physics-svg-guide' }),
+      physicsSvgText(70, 35, 'Contributions: A sin θ and A sin(θ + φ)', 'physics-svg-label', 'start'),
+      physicsSvgText(70, 167, 'Resultant = contribution 1 + contribution 2', 'physics-svg-label', 'start'),
+      physicsSvgText(650, 135, 'θ: 0 → 6π; amplitude in units', 'physics-svg-small', 'end'),
+    );
+    [[70, '+10'], [92, '0'], [114, '−10'], [176, '+20'], [220, '0'], [264, '−20']].forEach(([y, value]) => {
+      svg.append(
+        svgNode('line', { x1: 63, y1: y, x2: 70, y2: y, class: 'physics-svg-axis' }),
+        physicsSvgText(60, y + 5, value, 'physics-svg-small', 'end'),
+      );
+    });
+    trace(92, theta => Math.sin(theta), 'primary', 'contribution-1');
+    trace(92, theta => Math.sin(theta + phase), 'secondary', 'contribution-2');
+    trace(220, theta => Math.sin(theta) + Math.sin(theta + phase), 'primary', 'resultant');
+    svg.append(physicsSvgText(650, 293, visual.note, 'physics-svg-note', 'end'));
   }
 
   function drawPhysicsQft(svg, visual) {
@@ -4824,6 +4884,7 @@
     if (kind === 'vector') drawPhysicsVector(svg, visual, arrowId);
     else if (kind === 'transfer') drawPhysicsTransfer(svg, visual, arrowId);
     else if (kind === 'wave') drawPhysicsWave(svg, visual);
+    else if (kind === 'interference') drawPhysicsInterference(svg, visual);
     else if (kind === 'particles') drawPhysicsParticles(svg, visual);
     else if (kind === 'ensemble') drawPhysicsEnsemble(svg, visual);
     else if (kind === 'spacetime') drawPhysicsSpacetime(svg, visual);
@@ -5124,24 +5185,28 @@
       controls: [
         physicsControl('resolution', 'Instrument resolution', 0.1, 2, 0.1, 0.5, 'mm', 'fine scale', 'coarse scale'),
         physicsControl('repeats', 'Repeated readings', 1, 25, 1, 5, '', 'one reading', '25 readings'),
+        physicsControl('calibration', 'Shared calibration uncertainty', 0, 1, 0.05, 0.3, 'mm', 'known calibration', '1 mm standard uncertainty'),
       ],
-      caveat: 'The model combines an independent uniform read-off term (resolution/√12) with a 1.2 mm single-reading standard deviation. Repeating cannot remove a calibration bias shared by every reading.',
+      caveat: 'Independent read-off errors are uniform over ±resolution/2 and independent of the 1.2 mm single-reading random term. Both average with N; the shared calibration standard uncertainty remains. This independence assumption can fail when every repeat rounds to the same display value. All displayed uncertainties are standard uncertainties, not guaranteed error bounds.',
       compute(state) {
-        const random = 1.2 / Math.sqrt(state.repeats);
-        const rounding = state.resolution / Math.sqrt(12);
-        const uncertainty = Math.sqrt(rounding ** 2 + random ** 2);
+        const independentVariance = 1.2 ** 2 + state.resolution ** 2 / 12;
+        const uncertaintyFor = n => Math.sqrt(independentVariance / n + state.calibration ** 2);
+        const uncertainty = uncertaintyFor(state.repeats);
         const curve = physicsGraphPoints(x => {
           const n = 1 + 24 * x;
-          return Math.min(1, Math.sqrt(rounding ** 2 + (1.2 / Math.sqrt(n)) ** 2) / 1.3);
+          return uncertaintyFor(n) / 2;
         });
         return {
           readout: state.repeats + ' readings at ' + physicsFixed(state.resolution, 1) +
-            ' mm resolution give one-standard combined uncertainty u_c ≈ ' + physicsFixed(uncertainty, 2) + ' mm.',
-          visual: { kind: 'graph', xLabel: 'repeat count', yLabel: 'one-standard uncertainty',
-            curves: [{ points: curve, label: 'random term falls; resolution floor remains', tone: 'primary' }],
-            marker: [(state.repeats - 1) / 24, Math.min(1, uncertainty / 1.3)],
+            ' mm resolution with shared calibration uncertainty ' + physicsFixed(state.calibration, 2) +
+            ' mm give u_c = √[(1.2² + resolution²/12)/N + u_cal²] = ' + physicsFixed(uncertainty, 3) + ' mm.',
+          visual: { kind: 'graph', xLabel: 'repeat count N', yLabel: 'standard uncertainty (mm)',
+            xTicks: [[0, '1'], [9 / 24, '10'], [19 / 24, '20'], [1, '25']],
+            yTicks: [[0, '0'], [0.5, '1'], [1, '2']],
+            curves: [{ points: curve, label: 'independent errors average; calibration remains', tone: 'primary' }],
+            marker: [(state.repeats - 1) / 24, uncertainty / 2],
             note: state.repeats + ' readings at ' + physicsFixed(state.resolution, 1) +
-              ' mm resolution → u_c ' + physicsFixed(uncertainty, 2) + ' mm' },
+              ' mm resolution → u_c ' + physicsFixed(uncertainty, 3) + ' mm; calibration floor ' + physicsFixed(state.calibration, 2) + ' mm' },
         };
       },
     },
@@ -5208,18 +5273,19 @@
         physicsControl('difference', 'Path difference', 0, 2, 0.05, 0.5, 'λ', 'equal paths', 'two wavelengths'),
         physicsControl('amplitude', 'Each-wave amplitude', 1, 10, 1, 5, 'units', 'small', 'large'),
       ],
-      caveat: 'The two sources are coherent and equally strong; finite slit width and detector geometry are omitted.',
+      caveat: 'These coherent, equal-frequency, equal-amplitude contributions meet at one detector; the horizontal coordinate is phase, not an image of a two-slit pattern. Normalized intensity is the time average of the squared resultant divided by its constructive value. Finite slit width and detector geometry are omitted.',
       compute(state) {
         const intensity = Math.cos(Math.PI * state.difference) ** 2;
         const word = intensity > 0.9 ? 'constructive' : intensity < 0.1 ? 'destructive' : 'partial';
         return {
           readout: 'Path difference ' + physicsFixed(state.difference, 2) + ' λ gives normalized intensity ' +
             physicsFixed(intensity, 2) + ': ' + word + ' interference. Each-wave amplitude ' +
-            state.amplitude + ' sets the absolute intensity scale, not the normalized fringe positions.',
-          visual: { kind: 'wave', cycles: 3, amplitude: state.amplitude / 10,
-            secondCycles: 3, secondAmplitude: state.amplitude / 10,
-            secondPhase: 2 * Math.PI * state.difference,
-            label: 'two coherent contributions', note: 'I/Imax = cos²(π Δr/λ) = ' + physicsFixed(intensity, 2) },
+            state.amplitude + ' gives resultant peak amplitude ' +
+            physicsFixed(2 * state.amplitude * Math.abs(Math.cos(Math.PI * state.difference)), 2) +
+            '. Increasing both contributions changes absolute intensity without moving the phase maxima.',
+          visual: { kind: 'interference', amplitude: state.amplitude,
+            phase: 2 * Math.PI * state.difference,
+            note: 'φ = ' + physicsFixed(2 * state.difference, 2) + 'π; I/Imax = cos²(φ/2) = ' + physicsFixed(intensity, 2) },
         };
       },
     },
@@ -5279,25 +5345,33 @@
         physicsControl('frequency', 'Light frequency', 3, 10, 0.25, 6, '×10¹⁴ Hz', 'infrared', 'ultraviolet'),
         physicsControl('intensity', 'Photon arrival-rate scale', 1, 10, 1, 4, '', 'few photons', 'many photons'),
       ],
-      caveat: 'The arrival-rate control means photon flux, not fixed optical power. The toy metal has one work function, constant collection efficiency above threshold, and no electron energy loss before detection.',
+      caveat: 'The example metal has work function φ = 2.15 eV. Planck’s constant and elementary charge use exact SI values; the display rounds calculated results. The arrival-rate control means photon flux, not fixed optical power. Collection efficiency above threshold is constant and electron energy loss before detection is omitted.',
       compute(state) {
-        const threshold = 5.2;
+        const planckPerFrequencyUnit = 6.62607015e-34 / 1.602176634e-19 * 1e14;
+        const workFunction = 2.15;
+        const threshold = workFunction / planckPerFrequencyUnit;
         const thresholdX = (threshold - 3) / 7;
-        const kinetic = Math.max(0, 0.414 * state.frequency - 2.153);
+        const kineticFor = frequency => planckPerFrequencyUnit * frequency - workFunction;
+        const kinetic = Math.max(0, kineticFor(state.frequency));
         const count = state.frequency >= threshold ? state.intensity * 10 : 0;
         const curve = Array.from({ length: 61 }, (_, index) => {
           const x = thresholdX + (1 - thresholdX) * index / 60;
-          return [x, Math.min(1, (x - thresholdX) / .65)];
+          return [x, Math.max(0, kineticFor(3 + 7 * x)) / 2];
         });
         const markerX = (state.frequency - 3) / 7;
         return {
           readout: state.frequency < threshold
             ? 'Frequency is below the threshold: no electrons emerge, even at photon arrival-rate scale ' + state.intensity + '.'
-            : 'Above threshold, K_max = ' + physicsFixed(kinetic, 2) + ' eV; photon arrival-rate scale ' + state.intensity +
+            : 'Above f₀ = ' + physicsFixed(threshold, 4) + ' ×10¹⁴ Hz, K_max = hf − φ = ' +
+              physicsFixed(kinetic, 3) + ' eV and stopping-potential magnitude = ' + physicsFixed(kinetic, 3) +
+              ' V; photon arrival-rate scale ' + state.intensity +
               ' gives a relative electron count of ' + count + ' without changing K_max.',
-          visual: { kind: 'graph', xLabel: 'frequency', yLabel: 'maximum electron KE',
-            curves: [{ points: curve, label: 'K_max = hf − work function', tone: 'primary' }],
-            marker: state.frequency >= threshold ? [markerX, Math.min(1, kinetic / 2)] : null,
+          visual: { kind: 'graph', xLabel: 'frequency (×10¹⁴ Hz)', yLabel: 'K_max (eV)',
+            xTicks: [[0, '3'], [2 / 7, '5'], [4 / 7, '7'], [1, '10']],
+            yTicks: [[0, '0'], [.5, '1'], [1, '2']],
+            threshold: thresholdX, thresholdLabel: 'f₀ = ' + physicsFixed(threshold, 3),
+            curves: [{ points: curve, tone: 'primary' }],
+            marker: state.frequency >= threshold ? [markerX, kinetic / 2] : null,
             incidentPhotons: state.intensity,
             note: state.frequency >= threshold ? count + ' relative electrons; K_max ' +
               physicsFixed(kinetic, 2) + ' eV' : 'below threshold: incident photons but no emission' },
@@ -5306,25 +5380,33 @@
     },
     'phys.4.classical': {
       controls: [
-        physicsControl('deviation', 'Trial-path deformation', -1, 1, 0.05, 0.45, '', 'bend below', 'bend above'),
-        physicsControl('energy', 'Oscillator energy', 0.5, 2, 0.1, 1, 'units', 'small orbit', 'large orbit'),
+        physicsControl('deviation', 'Trial-path deformation ε', -1, 1, 0.05, 0.45, 'm', 'bend below', 'bend above'),
+        physicsControl('energy', 'Separate oscillator energy', 0.5, 2, 0.1, 1, 'J', 'small orbit', 'large orbit'),
       ],
-      caveat: 'This toy action has a minimum at the physical path; in general stationary action may be a minimum, maximum, or saddle.',
+      caveat: 'The graph is a free 1 kg particle with L = ½m q̇², endpoints q(0)=0 m and q(1 s)=1 m, and trial paths q(t)=t+ε sin(πt) in these units. This positive quadratic action has a minimum; general stationary actions can be maxima or saddles. The inset is a separate oscillator with m=1 kg and k=1 N/m; it is not the free-particle path.',
       compute(state) {
-        const deltaAction = state.deviation ** 2 * 4;
-        const physical = physicsGraphPoints(x => 0.2 + 0.6 * x);
-        const trial = physicsGraphPoints(x => 0.2 + 0.6 * x + state.deviation * 0.65 * 4 * x * (1 - x));
+        // Integrating ½m[1 + επ cos(πt)]² from 0 to 1 s gives
+        // S = 0.5 + π²ε²/4 J s: the cross term vanishes at fixed endpoints.
+        const deltaAction = state.deviation ** 2 * Math.PI ** 2 / 4;
+        const physical = physicsGraphPoints(x => (x + 1) / 3);
+        const trial = physicsGraphPoints(x => (x + state.deviation * Math.sin(Math.PI * x) + 1) / 3);
+        const amplitude = Math.sqrt(2 * state.energy);
         return {
-          readout: 'The trial deformation ' + physicsFixed(state.deviation, 2) +
-            ' raises this toy action by ΔS = ' + physicsFixed(deltaAction, 2) +
-            '. Oscillator energy ' + physicsFixed(state.energy, 1) + ' sets a larger constant-H phase orbit.',
-          visual: { kind: 'graph', xLabel: 'time', yLabel: 'configuration q', curves: [
-            { points: physical, label: 'stationary path δS = 0', tone: 'primary' },
+          readout: 'The free-particle trial deformation ε = ' + physicsFixed(state.deviation, 2) +
+            ' m gives S = 0.500 + π²ε²/4 = ' + physicsFixed(.5 + deltaAction, 3) +
+            ' J s and ΔS = ' + physicsFixed(deltaAction, 3) +
+            ' J s. The separate oscillator at E = ' + physicsFixed(state.energy, 1) +
+            ' J has q_max = ' + physicsFixed(amplitude, 3) + ' m and p_max = ' +
+            physicsFixed(amplitude, 3) + ' kg m/s.',
+          visual: { kind: 'graph', xLabel: 'time (s)', yLabel: 'free-particle q (m)',
+            xTicks: [[0, '0'], [.5, '0.5'], [1, '1']],
+            yTicks: [[0, '−1'], [1 / 3, '0'], [2 / 3, '1'], [1, '2']], curves: [
+            { points: physical, label: 'free path: δS = 0', tone: 'primary' },
             { points: trial, label: 'selected trial path', tone: 'secondary' },
           ], marker: [0.5, trial[Math.floor(trial.length / 2)][1]],
           phaseOrbit: Math.sqrt(state.energy / 2),
-          note: 'trial deformation ' + physicsFixed(state.deviation, 2) +
-            '; phase-orbit radius scales as sqrt(' + physicsFixed(state.energy, 1) + ')' },
+          note: 'free-particle ΔS = ' + physicsFixed(deltaAction, 3) + ' J s; separate oscillator E = ' +
+            physicsFixed(state.energy, 1) + ' J' },
         };
       },
     },
@@ -5807,6 +5889,7 @@
       return reference ? reference.render(reference.specification(item.props?.node_id), hooks) : null;
     },
     'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
+    'math-ode-lab': (item, hooks) => window.PrimerMathODELab?.render(item, hooks) || null,
     'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
     'prenatal-sequence': (item, hooks) => window.PrimerPrenatalSequence ? window.PrimerPrenatalSequence.render(item, hooks) : null,
     'doppler-angle-lab': renderDopplerAngle,
@@ -5854,7 +5937,7 @@
       const result = RENDERERS[rendererName](item, hooks);
       if (!result) return result;
       // These renderers own their responsive viewport and camera controls.
-      if (['concept-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      if (['concept-lab', 'math-ode-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
       for (const picture of result.querySelectorAll('svg')) {
         if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
         const viewport = picture.parentNode;

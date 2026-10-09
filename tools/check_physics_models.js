@@ -411,6 +411,156 @@ function checkUnknownScenarios(renderer) {
   return failures;
 }
 
+// Scientific checks inspect shipped SVG coordinates and readouts after actual
+// slider events.  They cannot be satisfied by merely changing text/attributes.
+function checkPhysicsFidelity(renderer, models) {
+  const failures = [];
+  let checks = 0;
+  const requireClose = (actual, expected, tolerance, description) => {
+    checks += 1;
+    if (!Number.isFinite(actual) || Math.abs(actual - expected) > tolerance) {
+      throw new Error(description + ': expected ' + expected + ', got ' + actual);
+    }
+  };
+  const scenario = id => {
+    const model = models.find(candidate => candidate.lessonId === id);
+    if (!model) throw new Error('missing fidelity scenario ' + id);
+    const root = renderer.render(model.media, {});
+    return {
+      root,
+      set(label, value) {
+        const input = one(root, candidate => candidate.tagName === 'input' &&
+          candidate.getAttribute('aria-label') === label, label);
+        input.value = String(value);
+        input.dispatch('input');
+      },
+      svg() { return one(root, candidate => candidate.tagName === 'svg', 'SVG'); },
+      readout() { return one(root, candidate => hasClass(candidate, 'model-readout'), 'readout').textContent; },
+    };
+  };
+  const points = path => {
+    const values = (path.getAttribute('d').match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+    if (values.length % 2 || values.length < 4) throw new Error('invalid scientific curve');
+    return Array.from({ length: values.length / 2 }, (_, index) => values.slice(index * 2, index * 2 + 2));
+  };
+  const curves = root => descendants(root, candidate => candidate.tagName === 'path' &&
+    hasClass(candidate, 'physics-svg-curve'));
+  const marker = root => one(root, candidate => candidate.tagName === 'circle' &&
+    hasClass(candidate, 'physics-svg-marker'), 'calibrated marker');
+  function audit(name, fn) {
+    try { fn(); } catch (error) { failures.push(name + ': ' + error.message); }
+  }
+
+  audit('photoelectric energy / threshold / plotted slope', () => {
+    const lab = scenario('phys.3.modern');
+    const h = 6.62607015e-34 / 1.602176634e-19 * 1e14;
+    for (const frequency of [5.25, 6, 8, 10]) {
+      lab.set('Light frequency', frequency);
+      const svg = lab.svg();
+      const selected = marker(svg);
+      const energy = h * frequency - 2.15;
+      requireClose((Number(selected.getAttribute('cy')) - 239) / -205 * 2,
+        energy, 1e-12, 'marker energy in eV at f=' + frequency);
+      requireClose((Number(selected.getAttribute('cx')) - 88) / 560 * 7 + 3,
+        frequency, 1e-12, 'marker frequency');
+      const curve = points(curves(svg)[0]);
+      const first = curve[0], last = curve[curve.length - 1];
+      requireClose((first[0] - 88) / 560 * 7 + 3, 2.15 / h, 0.0001, 'zero-energy threshold');
+      requireClose(first[1], 239, 0.005, 'threshold energy zero');
+      for (const [x, y] of curve) {
+        const plottedFrequency = (x - 88) / 560 * 7 + 3;
+        requireClose((239 - y) / 205 * 2, h * plottedFrequency - 2.15,
+          0.00008, 'entire energy curve follows Planck slope');
+      }
+      requireClose(last[0], 648, 0.005, 'upper frequency 10');
+      const displayed = lab.readout().match(/K_max = hf − φ = ([\d.]+) eV/);
+      if (!displayed) throw new Error('physical-energy readout missing');
+      requireClose(Number(displayed[1]), energy, 0.0005, 'readout agrees with marker');
+      const before = selected.getAttribute('cy');
+      lab.set('Photon arrival-rate scale', 10);
+      if (marker(lab.svg()).getAttribute('cy') !== before) throw new Error('photon flux changed electron energy');
+    }
+    lab.set('Light frequency', 3);
+    if (descendants(lab.svg(), candidate => hasClass(candidate, 'physics-svg-marker')).length) {
+      throw new Error('below-threshold state plots an electron energy');
+    }
+  });
+
+  audit('free-particle action / fixed endpoints / separate oscillator', () => {
+    const lab = scenario('phys.4.classical');
+    for (const deformation of [-1, -0.45, 0, 0.45, 1]) {
+      lab.set('Trial-path deformation ε', deformation);
+      const path = points(curves(lab.svg())[1]);
+      const coordinates = path.map(([x, y]) => [(x - 88) / 350, (239 - y) / 205 * 3 - 1]);
+      requireClose(coordinates[0][1], 0, 0.0001, 'fixed start');
+      requireClose(coordinates[coordinates.length - 1][1], 1, 0.0001, 'fixed end');
+      coordinates.forEach(([time, q]) => requireClose(q,
+        time + deformation * Math.sin(Math.PI * time), 0.0003, 'unclipped trial coordinate'));
+      const action = coordinates.slice(1).reduce((sum, [time, q], index) => {
+        const [previousTime, previousQ] = coordinates[index];
+        return sum + .5 * (q - previousQ) ** 2 / (time - previousTime);
+      }, 0);
+      const expected = .5 + Math.PI ** 2 * deformation ** 2 / 4;
+      requireClose(action, expected, 0.0013, 'integrated drawn-path action');
+      const displayed = lab.readout().match(/= ([\d.]+) J s and ΔS/);
+      if (!displayed) throw new Error('physical-action readout missing');
+      requireClose(Number(displayed[1]), expected, 0.0005, 'action readout agrees');
+    }
+    for (const energy of [.5, 1, 2]) {
+      lab.set('Separate oscillator energy', energy);
+      const ellipse = one(lab.svg(), candidate => candidate.tagName === 'ellipse' &&
+        hasClass(candidate, 'physics-svg-phase-orbit'), 'oscillator orbit');
+      requireClose(Number(ellipse.getAttribute('rx')) / 61 * 2, Math.sqrt(2 * energy),
+        1e-12, 'q intercept from H=p²/(2m)+kq²/2');
+      requireClose(Number(ellipse.getAttribute('ry')) / 35 * 2, Math.sqrt(2 * energy),
+        1e-12, 'p intercept from oscillator Hamiltonian');
+    }
+  });
+
+  audit('interference resultant is the pointwise sum', () => {
+    const lab = scenario('phys.3.optics-waves');
+    for (const difference of [0, .25, .5, .75, 1, 1.5, 2]) {
+      lab.set('Path difference', difference);
+      for (const amplitude of [1, 5, 10]) {
+        lab.set('Each-wave amplitude', amplitude);
+        const svg = lab.svg();
+        const paths = ['contribution-1', 'contribution-2', 'resultant'].map(role => points(
+          one(svg, candidate => candidate.getAttribute('data-physics-trace') === role, role)));
+        const [first, second, result] = paths;
+        first.forEach(([x, y], index) => {
+          requireClose(result[index][0], x, 0, 'matched phase coordinate');
+          requireClose(220 - result[index][1], (92 - y) + (92 - second[index][1]),
+            .0151, 'pointwise superposition at phase sample ' + index);
+        });
+        if (difference === .5 || difference === 1.5) {
+          result.forEach(point => requireClose(point[1], 220, .005, 'destructive cancellation'));
+        }
+      }
+    }
+  });
+
+  audit('independent uncertainty averages; shared calibration remains', () => {
+    const lab = scenario('phys.2.units');
+    for (const resolution of [.1, .5, 2]) {
+      lab.set('Instrument resolution', resolution);
+      for (const calibration of [0, .3, 1]) {
+        lab.set('Shared calibration uncertainty', calibration);
+        for (const repeats of [1, 5, 25]) {
+          lab.set('Repeated readings', repeats);
+          const expected = Math.sqrt((1.2 ** 2 + resolution ** 2 / 12) / repeats + calibration ** 2);
+          const selected = marker(lab.svg());
+          requireClose((239 - Number(selected.getAttribute('cy'))) / 205 * 2,
+            expected, 1e-12, 'calibrated uncertainty marker');
+          const displayed = lab.readout().match(/u_cal²\] = ([\d.]+) mm/);
+          if (!displayed) throw new Error('uncertainty-budget readout missing');
+          requireClose(Number(displayed[1]), expected, .0005, 'uncertainty readout agrees');
+        }
+      }
+    }
+  });
+  return { failures, checks };
+}
+
 function main() {
   const curriculum = JSON.parse(fs.readFileSync(CURRICULUM_PATH, 'utf8'));
   const models = collectPhysicsModels(curriculum);
@@ -428,6 +578,8 @@ function main() {
     failures.push(...checkScenario(renderer, lessonId, media));
   }
   failures.push(...checkUnknownScenarios(renderer));
+  const fidelity = checkPhysicsFidelity(renderer, models);
+  failures.push(...fidelity.failures);
 
   if (failures.length) {
     console.error('Physics model DOM smoke check failed (' + failures.length + '):');
@@ -441,7 +593,8 @@ function main() {
     return total + descendants(root, node => node.tagName === 'input' && node.type === 'range').length;
   }, 0);
   console.log('Physics model DOM smoke check passed: ' + models.length +
-    ' scenarios, ' + controls + ' independently exercised controls.');
+    ' scenarios, ' + controls + ' independently exercised controls; ' + fidelity.checks +
+    ' equation/geometry assertions across four targeted scenarios.');
 }
 
 try {

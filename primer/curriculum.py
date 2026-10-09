@@ -155,6 +155,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "music-listening-lab",
     "spatial-3d",
     "concept-lab",
+    "math-ode-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -361,6 +362,11 @@ def _validate_lesson_media(node: Dict) -> None:
                 if set(props) != {"scenario"} or not isinstance(scenario, str) \
                         or scenario not in CONCEPT_MODEL_SCENARIOS or scenario != node.get("id"):
                     raise ValueError("{} concept model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-ode-lab":
+                if node.get("id") != "math.4.diffeq" or props != {
+                        "scenario": "math.4.diffeq.second-order"}:
+                    raise ValueError("{} second-order ODE model has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
             elif renderer == "counter":
                 if set(props) != {"total"} or isinstance(props.get("total"), bool) \
                         or not isinstance(props.get("total"), int) or not 1 <= props["total"] <= 20:

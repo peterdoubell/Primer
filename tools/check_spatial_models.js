@@ -30,7 +30,7 @@ assert.equal(entries.length, expected.length, 'Every spatial scene must be reach
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(item.renderer)).length,
+  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab'].includes(item.renderer)).length,
   70, 'The 70 existing lesson models must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');
@@ -38,6 +38,12 @@ assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.
   1, 'The ultrasound Doppler model must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'prenatal-sequence').length,
   1, 'The separately checked prenatal sequence must remain present');
+const odeEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'math-ode-lab').map(item => ({ node, item })));
+assert.equal(odeEntries.length, 1, 'The separately checked second-order ODE activity must remain present');
+assert.equal(odeEntries[0].node.id, 'math.4.diffeq');
+assert.equal(odeEntries[0].item.kind, 'model');
+assert.deepEqual(odeEntries[0].item.props, { scenario: 'math.4.diffeq.second-order' });
 
 const C = { blue: '#3e7085', teal: '#317e78', gold: '#b98a2f', coral: '#b96652', plum: '#876888', green: '#5c7754', ink: '#263b46' };
 const near = (a, b, tolerance = 1e-7) => assert.ok(Math.abs(a - b) <= tolerance, `${a} differs from ${b}`);

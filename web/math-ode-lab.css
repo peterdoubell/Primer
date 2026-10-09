@@ -1,0 +1,13 @@
+.math-ode-lab { min-width: 0; }
+.math-ode-equation { overflow-wrap: anywhere; font-weight: 600; }
+.math-ode-lab .model-controls { margin-bottom: 18px; }
+.math-ode-lab .model-range-control output { font-variant-numeric: tabular-nums; font-weight: 600; }
+.math-ode-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; min-width: 0; }
+.math-ode-viewport { min-width: 0; overflow: auto; border: 1px solid var(--line, #ddd6c7); border-radius: 10px; background: #f5efdf; }
+.math-ode-viewport:last-child { grid-column: 1 / -1; max-width: 660px; width: 100%; justify-self: center; }
+.math-ode-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.math-ode-lab.is-enlarged .math-ode-viewport svg { width: 660px; min-width: 660px; max-width: none; }
+@media (max-width: 760px) {
+  .math-ode-panels { grid-template-columns: minmax(0, 1fr); }
+  .math-ode-lab .concept-controls { grid-template-columns: minmax(0, 1fr); }
+}
