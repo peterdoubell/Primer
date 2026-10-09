@@ -703,6 +703,157 @@ function checkPhysicsFidelity(renderer, models) {
       }
     }
   });
+  audit('Born density and histogram preserve every count and physical probability area', () => {
+    const lab = scenario('phys.4.quantum');
+    for (const n of [1, 2, 3, 4, 5]) {
+      lab.set('Box energy state n', n);
+      for (const samples of [16, 64, 128]) {
+        lab.set('Detection samples', samples);
+        for (const length of [.5, 1, 2]) {
+          lab.set('Well length L', length);
+          const bars = descendants(lab.svg(), candidate => hasClass(candidate, 'physics-svg-histogram'));
+          const total = bars.reduce((sum, bar) => sum + Number(bar.getAttribute('data-physics-count')), 0);
+          requireClose(total, samples, 0, 'all requested detections retained');
+          const ceiling = Number(bars[0].getAttribute('data-physics-density-max'));
+          const area = bars.reduce((sum, bar) => sum + Number(bar.getAttribute('width')) / 280 *
+            Number(bar.getAttribute('height')) / 205 * ceiling, 0);
+          requireClose(area, 1, 1e-12, 'actual histogram probability area');
+          const wall = one(lab.svg(), candidate => candidate.hasAttribute('data-physics-wall'), 'hard wall');
+          requireClose((Number(wall.getAttribute('x1')) - 88) / 280, length, 1e-12, 'physical well length');
+          bars.forEach(bar => {
+            const density = Number(bar.getAttribute('height')) / 205 * ceiling;
+            requireClose(density, Number(bar.getAttribute('data-physics-count')) / (samples * length / bars.length),
+              1e-12, 'physical bin density');
+          });
+          const path = points(curves(lab.svg())[0]);
+          const coordinates = path.map(([x, y]) => [(x - 88) / 280, (239 - y) / 205 * ceiling]);
+          let integral = 0;
+          coordinates.forEach(([x, density], index) => {
+            requireClose(density, x <= length + 1e-5 ? 2 / length * Math.sin(n * Math.PI * x / length) ** 2 : 0,
+              .003, 'physical Born-density coordinate');
+            if (index) integral += (x - coordinates[index - 1][0]) * (density + coordinates[index - 1][1]) / 2;
+          });
+          requireClose(integral, 1, .0002, 'normalized displayed theoretical density');
+          const energy = lab.readout().match(/= ([\d.]+) eV/);
+          if (!energy) throw new Error('well energy readout missing');
+          requireClose(Number(energy[1]), .3760301621 * n ** 2 / length ** 2, .0000006, 'electron energy n²/L²');
+        }
+      }
+    }
+  });
+
+  audit('charge neutrality, mass action and Fermi level agree with actual band coordinates', () => {
+    const lab = scenario('phys.4.solid-state');
+    for (const gap of [.5, 1.1, 4]) {
+      lab.set('Band gap', gap);
+      for (const temperature of [100, 300, 800]) {
+        lab.set('Temperature', temperature);
+        for (const doping of [-100, 0, 100]) {
+          lab.set('Net ionized dopants', doping);
+          const conduction = one(lab.svg(), candidate => candidate.getAttribute('data-band-edge') === 'conduction', 'Ec');
+          const valence = one(lab.svg(), candidate => candidate.getAttribute('data-band-edge') === 'valence', 'Ev');
+          const fermi = one(lab.svg(), candidate => candidate.hasAttribute('data-band-fermi'), 'EF');
+          const ef = (Number(conduction.getAttribute('y1')) - Number(fermi.getAttribute('y1'))) / 40;
+          const eg = (Number(valence.getAttribute('y1')) - Number(conduction.getAttribute('y1'))) / 40;
+          requireClose(eg, gap, 1e-12, 'common-scale gap');
+          const kt = 1.380649e-23 / 1.602176634e-19 * temperature;
+          const nc = 1e19 * (temperature / 300) ** 1.5;
+          const electrons = nc * Math.exp(ef / kt), holes = nc * Math.exp((-eg - ef) / kt);
+          requireClose((electrons - holes - doping * 1e14) / Math.max(electrons, holes, Math.abs(doping) * 1e14, 1),
+            0, 1e-11, 'charge neutrality inferred from rendered EF');
+          requireClose(electrons * holes / (nc ** 2 * Math.exp(-gap / kt)), 1, 1e-11, 'mass action');
+          if (electrons / nc > .03 || holes / nc > .03) throw new Error('chosen range leaves dilute carrier approximation');
+          const displayed = lab.readout().match(/; n=([^,]+), p=([^ ]+) cm/);
+          if (!displayed) throw new Error('carrier densities missing');
+          requireClose(Number(displayed[1]) / electrons, 1, .0005, 'electron readout');
+          requireClose(Number(displayed[2]) / holes, 1, .0005, 'hole readout');
+          if (doping === 0) requireClose(ef, -gap / 2, 1e-12, 'intrinsic symmetric-band Fermi level');
+        }
+      }
+    }
+  });
+
+  audit('free mode ladder retains physical vacuum offset and level spacing', () => {
+    const lab = scenario('phys.5.qft');
+    for (const frequency of [1, 2, 5]) {
+      lab.set('Mode frequency', frequency);
+      for (const occupation of [0, 3, 6]) {
+        lab.set('Excitation number n', occupation);
+        const zero = one(lab.svg(), candidate => candidate.hasAttribute('data-qft-zero'), 'energy zero');
+        const levels = descendants(lab.svg(), candidate => candidate.hasAttribute('data-qft-level'));
+        requireClose(levels.length, 7, 0, 'all levels shown');
+        levels.forEach(level => {
+          const n = Number(level.getAttribute('data-qft-level'));
+          const energy = (Number(zero.getAttribute('y1')) - Number(level.getAttribute('y1'))) * 34 / 198;
+          requireClose(energy / frequency - .5, n, 1e-12, 'vacuum offset and nħω spectrum');
+          if (n === 0 && !(energy > 0)) throw new Error('vacuum is falsely drawn at zero');
+        });
+        const selected = one(lab.svg(), candidate => hasClass(candidate, 'physics-svg-qft-level') &&
+          hasClass(candidate, 'is-selected'), 'selected occupation');
+        requireClose(Number(selected.getAttribute('data-qft-level')), occupation, 0, 'selected number state');
+      }
+    }
+  });
+
+  audit('four-setting CHSH, finite samples and signed error bars are consistent', () => {
+    const lab = scenario('phys.5.quantum-info');
+    for (const angle of [0, 30, 45, 60, 90]) {
+      lab.set('Bob setting angle θ', angle);
+      for (const visibility of [0, .5, 1]) {
+        lab.set('Singlet visibility', visibility);
+        for (const samples of [32, 128, 256]) {
+          lab.set('Pairs per setting', samples);
+          const angles = [[0,angle],[0,-angle],[90,angle],[90,-angle]];
+          const correlations = angles.map(([a,b]) => -visibility * Math.cos((a-b) * Math.PI / 180));
+          const theory = correlations[0] + correlations[1] + correlations[2] - correlations[3];
+          const selected = marker(lab.svg());
+          requireClose((239 - Number(selected.getAttribute('cy'))) / 205 * 8 - 4, theory, 1e-12, 'four-setting signed theory');
+          if (Math.abs(theory) > 2 * Math.sqrt(2) + 1e-12) throw new Error('Tsirelson bound exceeded by theory');
+          if (angle === 45 && visibility === 1) requireClose(Math.abs(theory), 2 * Math.sqrt(2), 1e-12, 'maximal singlet CHSH');
+          const text = lab.readout();
+          // A simple bounded extraction handles signed decimal lists without
+          // interpreting prose or assuming finite samples are exactly 50/50.
+          const mock = text.split('Mock E00,E01,E10,E11: ')[1]?.split('. Mock local')[0]?.split(', ').map(Number);
+          if (!mock || mock.length !== 4 || !mock.every(Number.isFinite)) throw new Error('four mock correlations missing');
+          mock.forEach(e => requireClose(samples * (1+e)/2, Math.round(samples * (1+e)/2), .00007, 'integer same-outcome count'));
+          const measurement = one(lab.svg(), candidate => hasClass(candidate, 'physics-svg-measurement'), 'mock signed S');
+          const observed = (239 - Number(measurement.getAttribute('cy'))) / 205 * 8 - 4;
+          requireClose(observed,
+            mock[0] + mock[1] + mock[2] - mock[3], .0000021, 'mock S assembled from four correlations');
+          const sigma = Math.sqrt(correlations.reduce((sum, e) => sum+(1-e*e)/samples, 0));
+          const error = one(lab.svg(), candidate => hasClass(candidate, 'physics-svg-measurement-error') &&
+            candidate.getAttribute('x1') === candidate.getAttribute('x2'), 'signed S error bar');
+          requireClose((239 - Number(error.getAttribute('y1'))) / 205 * 8 - 4,
+            Math.min(4, observed + sigma), 1e-12, 'upper signed-S deviation');
+          requireClose((239 - Number(error.getAttribute('y2'))) / 205 * 8 - 4,
+            Math.max(-4, observed - sigma), 1e-12, 'lower signed-S deviation');
+          const reported = text.match(/theoretical standard deviation ([\d.]+)\. Mock/);
+          if (!reported) throw new Error('signed-S standard deviation missing');
+          requireClose(Number(reported[1]), sigma, .0000006, 'independent-setting variance');
+        }
+      }
+    }
+  });
+  audit('current gauge retains the complete Ohmic range without false saturation', () => {
+    const lab = scenario('phys.2.electricity');
+    for (const voltage of [1, 6, 12]) {
+      lab.set('Battery voltage', voltage);
+      for (const resistance of [1, 6, 20]) {
+        lab.set('Resistance', resistance);
+        for (const closed of [0, 1]) {
+          lab.set('Switch', closed);
+          const gauge = one(lab.svg(), candidate => candidate.hasAttribute('data-current-gauge'), 'current gauge');
+          const current = closed ? voltage / resistance : 0;
+          requireClose(Number(gauge.getAttribute('width')) / 340 * 12, current, 1e-12, 'entire physical current scale');
+          if (closed) {
+            const reported = lab.readout().match(/load power V × I = ([\d.]+) W/);
+            if (!reported) throw new Error('load power missing');
+            requireClose(Number(reported[1]), voltage * current, .005, 'P=VI');
+          }
+        }
+      }
+    }
+  });
   return { failures, checks };
 }
 
@@ -739,7 +890,7 @@ function main() {
   }, 0);
   console.log('Physics model DOM smoke check passed: ' + models.length +
     ' scenarios, ' + controls + ' independently exercised controls; ' + fidelity.checks +
-    ' equation/geometry assertions across nine targeted scenarios.');
+    ' equation/geometry assertions across fourteen targeted scenarios.');
 }
 
 try {

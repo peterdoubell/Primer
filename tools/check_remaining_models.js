@@ -390,6 +390,7 @@ function collectRemainingModels() {
   const lessonIds = new Set();
   let odeEntries = 0;
   let fieldEntries = 0;
+  let waveEntries = 0, probabilityEntries = 0;
   for (const filename of fs.readdirSync(CURRICULUM_DIR).filter(name => name.endsWith('.json')).sort()) {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
@@ -410,6 +411,15 @@ function collectRemainingModels() {
           fieldEntries++;
           continue;
         }
+        if (media.renderer === 'math-wave-lab' || media.renderer === 'math-probability-lab') {
+          const wave = media.renderer === 'math-wave-lab';
+          if (media.kind !== 'model' || lesson.id !== (wave ? 'math.5.pde' : 'math.4.prob-theory') ||
+              media.props?.scenario !== (wave ? 'math.5.pde.wave-field' : 'math.4.prob-theory.large-numbers')) {
+            throw new Error('invalid separately verified wave/probability binding');
+          }
+          if (wave) waveEntries++; else probabilityEntries++;
+          continue;
+        }
         if (media.kind !== 'model' || media.renderer === 'physics-concept-lab' ||
             ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(media.renderer) ||
             BIOLOGY_CHECKED.has(media.renderer)) continue;
@@ -421,6 +431,7 @@ function collectRemainingModels() {
   }
   if (odeEntries !== 1) throw new Error('expected exactly one separately verified second-order ODE binding, found ' + odeEntries);
   if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
+  if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');
   return entries.sort((left, right) => left.lessonId.localeCompare(right.lessonId, undefined, { numeric: true }));
 }
 

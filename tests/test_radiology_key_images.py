@@ -56,7 +56,7 @@ def test_every_slot_is_backed_by_one_curated_figure():
     nodes = [node for node in curriculum.nodes.values()
              if node['domain'] == 'radiology' and node['id'].startswith('rad.')]
     images = [image for node in nodes for image in node['radiology_reference']['key_images']]
-    assert len(images) == 298
+    assert len(images) == 295  # Three uncleared Sella slots are replaced by its licensed source gallery.
     assert len({image['id'] for image in images}) == len(images)
     for node in nodes:
         entries = node['radiology_reference']['key_images']

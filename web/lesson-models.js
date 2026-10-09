@@ -4326,6 +4326,8 @@
     return safe.toFixed(digits).replace(/\.0$/, '');
   }
 
+  function physicsScientific(value) { return value.toExponential(3); }
+
   function physicsChoose(n, k) {
     if (k < 0 || k > n) return 0;
     let result = 1;
@@ -4357,7 +4359,7 @@
     const random = physicsSeededRandom(0x9e3779b9 ^ Math.imul(stateNumber, 0x85ebca6b));
     let accepted = 0;
     let trial = 0;
-    while (accepted < sampleCount && trial < sampleCount * 12) {
+    while (accepted < sampleCount && trial < sampleCount * 64) {
       const x = random();
       const gate = random();
       if (gate <= Math.sin(stateNumber * Math.PI * x) ** 2) {
@@ -4366,8 +4368,8 @@
       }
       trial += 1;
     }
-    const expectedPeak = Math.max(1, 2 * sampleCount / binCount);
-    return counts.map(count => Math.min(1, count / expectedPeak));
+    if (accepted !== sampleCount) throw new Error('Quantum sampler did not produce the full requested sample.');
+    return counts;
   }
 
   function physicsDeterministicCount(probability, sampleCount, seed) {
@@ -4377,6 +4379,18 @@
       if (random() < probability) count += 1;
     }
     return count;
+  }
+
+  function physicsBellSample(correlation, sampleCount, setting) {
+    const random = physicsSeededRandom(0x7352ac91 ^ Math.imul(setting + 1, 0x45d9f3b));
+    let same = 0, alicePlus = 0, bobPlus = 0;
+    for (let pair = 0; pair < sampleCount; pair += 1) {
+      const alice = random() < .5 ? 1 : -1;
+      const matches = random() < (1 + correlation) / 2;
+      const bob = matches ? alice : -alice;
+      same += Number(matches); alicePlus += Number(alice === 1); bobPlus += Number(bob === 1);
+    }
+    return { same, alicePlus, bobPlus, correlation: 2 * same / sampleCount - 1 };
   }
 
   function physicsDecayTimes(count, realization) {
@@ -4441,15 +4455,23 @@
       );
     }
     if (visual.histogram) {
-      const barWidth = plotWidth / visual.histogram.length;
+      const fraction = visual.histogramFraction || 1;
+      const barWidth = plotWidth * fraction / visual.histogram.length;
+      const gap = visual.histogramGap == null ? 2 : visual.histogramGap;
       visual.histogram.forEach((height, index) => {
         const bounded = Math.max(0, Math.min(1, height));
         svg.append(svgNode('rect', {
-          x: 88 + index * barWidth + 1, y: 239 - bounded * 205,
-          width: Math.max(1, barWidth - 2), height: bounded * 205,
-          class: 'physics-svg-histogram',
+          x: 88 + index * barWidth + gap / 2, y: 239 - bounded * 205,
+          width: Math.max(1, barWidth - gap), height: bounded * 205,
+          class: 'physics-svg-histogram', 'data-physics-count': visual.histogramCounts?.[index],
+          'data-physics-density-max': visual.densityMax,
         }));
       });
+    }
+    if (visual.wellLength != null) {
+      const wall = 88 + plotWidth * visual.wellLength / 2;
+      svg.append(svgNode('line', { x1: wall, x2: wall, y1: 239, y2: 34,
+        class: 'physics-svg-guide', 'data-physics-wall': visual.wellLength }));
     }
     (visual.curves || []).forEach((curve, index) => {
       svg.append(svgNode('path', {
@@ -4714,18 +4736,24 @@
       svg.append(svgNode('circle', { cx: 150 + index * 36, cy: 245, r: 9,
         class: 'physics-svg-particle is-active' }));
     }
-    const spacing = 6 * Math.max(1, Math.min(5, visual.frequency || 1));
+    const energyScale = 198 / 34;
+    svg.append(svgNode('line', { x1: 475, y1: 257, x2: 650, y2: 257,
+      class: 'physics-svg-guide', 'data-qft-zero': 'true' }));
+    [0, 8, 16, 24, 32].forEach(energy => svg.append(physicsSvgText(695, 262 - energyScale * energy,
+      String(energy), 'physics-svg-small', 'end')));
     for (let number = 0; number <= 6; number += 1) {
-      const y = 257 - number * spacing;
+      const y = 257 - (number + .5) * visual.frequency * energyScale;
       svg.append(svgNode('line', { x1: 475, y1: y, x2: 650, y2: y,
-        class: number === visual.occupation ? 'physics-svg-qft-level is-selected' : 'physics-svg-qft-level' }));
+        class: number === visual.occupation ? 'physics-svg-qft-level is-selected' : 'physics-svg-qft-level',
+        'data-qft-level': number }));
       if (number === 0 || number === 6 || number === visual.occupation) {
         svg.append(physicsSvgText(462, y + 6, 'n=' + number, 'physics-svg-small', 'end'));
       }
     }
     svg.append(
-      physicsSvgText(562, 55, 'occupation-energy ladder', 'physics-svg-label'),
-      physicsSvgText(650, 286, visual.note || '', 'physics-svg-note', 'end'),
+      physicsSvgText(562, 30, 'E/ℏ (s⁻¹)', 'physics-svg-small'),
+      physicsSvgText(562, 54, 'energy ladder', 'physics-svg-label'),
+      physicsSvgText(650, 286, 'Vacuum level E₀/ℏ = ω/2 > 0', 'physics-svg-note', 'end'),
     );
   }
 
@@ -4901,8 +4929,10 @@
     }
     svg.append(
       svgNode('rect', { x: 190, y: 120, width: 340 * current, height: 25, rx: 8,
-        class: 'physics-svg-current' }),
+        class: 'physics-svg-current', 'data-current-gauge': 'true' }),
       physicsSvgText(360, 112, visual.meter || 'current', 'physics-svg-label'),
+      physicsSvgText(190, 169, '0 A', 'physics-svg-small', 'start'),
+      physicsSvgText(530, 169, '12 A', 'physics-svg-small', 'end'),
       physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
     );
   }
@@ -4933,20 +4963,28 @@
   }
 
   function drawPhysicsBands(svg, visual) {
-    const gap = 25 + 90 * Math.max(0, Math.min(1, visual.gap || 0));
+    const gap = 40 * visual.gap;
+    const edge = 70;
+    const fermiY = edge - 40 * visual.fermi;
     svg.append(
-      svgNode('rect', { x: 120, y: 48, width: 480, height: 58, rx: 8, class: 'physics-svg-band upper' }),
-      svgNode('rect', { x: 120, y: 106 + gap, width: 480, height: 58, rx: 8, class: 'physics-svg-band lower' }),
-      physicsSvgText(360, 83, 'conduction band', 'physics-svg-label'),
-      physicsSvgText(360, 141 + gap, 'valence band', 'physics-svg-label'),
-      physicsSvgText(155, 126 + gap / 2, 'gap', 'physics-svg-small', 'start'),
+      svgNode('rect', { x: 100, y: 25, width: 390, height: 45, rx: 0, class: 'physics-svg-band upper' }),
+      svgNode('rect', { x: 100, y: edge + gap, width: 390, height: 45, rx: 0, class: 'physics-svg-band lower' }),
+      svgNode('line', { x1: 100, x2: 490, y1: edge, y2: edge, class: 'physics-svg-axis', 'data-band-edge': 'conduction' }),
+      svgNode('line', { x1: 100, x2: 490, y1: edge + gap, y2: edge + gap, class: 'physics-svg-axis', 'data-band-edge': 'valence' }),
+      svgNode('line', { x1: 100, x2: 490, y1: fermiY, y2: fermiY,
+        class: 'physics-svg-simultaneity', 'data-band-fermi': 'true' }),
+      physicsSvgText(295, 56, 'conduction band', 'physics-svg-label'),
+      physicsSvgText(295, edge + gap + 32, 'valence band', 'physics-svg-label'),
+      physicsSvgText(95, edge + 5, '0', 'physics-svg-small', 'end'),
+      physicsSvgText(95, edge + gap + 5, '−' + physicsFixed(visual.gap, 1), 'physics-svg-small', 'end'),
+      physicsSvgText(95, 25, 'E (eV)', 'physics-svg-small', 'end'),
+      physicsSvgText(512, 52, 'charge neutrality', 'physics-svg-small', 'start'),
+      physicsSvgText(512, 98, 'log₁₀ n = ' + physicsFixed(Math.log10(visual.electrons), 2), 'physics-svg-small', 'start'),
+      physicsSvgText(512, 132, 'log₁₀ p = ' + physicsFixed(Math.log10(visual.holes), 2), 'physics-svg-small', 'start'),
+      physicsSvgText(512, 178, 'EF = ' + physicsFixed(visual.fermi, 3) + ' eV', 'physics-svg-small', 'start'),
+      physicsSvgText(512, 212, 'n,p in cm⁻³', 'physics-svg-small', 'start'),
     );
-    const carriers = Math.max(0, Math.min(18, Math.round(visual.carriers || 0)));
-    for (let index = 0; index < carriers; index += 1) {
-      svg.append(svgNode('circle', { cx: 195 + (index % 9) * 42, cy: 65 + Math.floor(index / 9) * 24,
-        r: 7, class: 'physics-svg-particle is-active' }));
-    }
-    svg.append(physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'));
+    svg.append(physicsSvgText(660, 294, 'Dashed EF; common energy scale', 'physics-svg-small', 'end'));
   }
 
   function drawPhysicsLedger(svg, visual, arrowId) {
@@ -5249,9 +5287,10 @@
         const current = state.closed ? state.voltage / state.resistance : 0;
         return {
           readout: state.closed ? 'Closed circuit: I = V/R = ' + state.voltage + '/' + state.resistance +
-            ' = ' + physicsFixed(current, 2) + ' A.' : 'Open circuit: the broken path makes current 0 A.',
+            ' = ' + physicsFixed(current, 2) + ' A; load power V × I = ' + physicsFixed(state.voltage * current, 2) +
+            ' W.' : 'Open circuit: the broken path makes current and load power zero.',
           visual: { kind: 'circuit', closed: Boolean(state.closed),
-            current: Math.min(1, current / 3), meter: physicsFixed(current, 2) + ' A',
+            current: current / 12, meter: physicsFixed(current, 2) + ' A',
             note: state.closed ? 'complete path' : 'open switch breaks the path' },
         };
       },
@@ -5597,20 +5636,34 @@
       controls: [
         physicsControl('state', 'Box energy state n', 1, 5, 1, 2, '', 'ground state', 'n = 5'),
         physicsControl('samples', 'Detection samples', 16, 128, 16, 64, '', '16 samples', '128 samples'),
+        physicsControl('length', 'Well length L', .5, 2, .25, 1, 'nm', '0.5 nm', '2 nm'),
       ],
-      caveat: 'This one-dimensional infinite well has ideal hard walls; a wavefunction is an amplitude, not a material wave trajectory.',
+      caveat: 'One electron is confined by ideal infinite walls. The density integrates to one; histogram area is exactly one for all requested seeded detections. The physical x-axis stays at 0–2 nm and the density axis rescales explicitly to retain every count. These eigenstates do not model spin, tunnelling, superpositions or measurement collapse.',
       compute(state) {
-        const probability = physicsGraphPoints(x => Math.sin(state.state * Math.PI * x) ** 2);
-        const histogram = physicsWellHistogram(state.state, state.samples);
+        const counts = physicsWellHistogram(state.state, state.samples);
+        const binWidth = state.length / counts.length;
+        const density = counts.map(count => count / (state.samples * binWidth));
+        const densityMax = Math.max(2 / state.length, ...density) * 1.05;
+        const probability = Array.from({ length: 121 }, (_, index) => {
+          const fraction = index / 120;
+          return [fraction * state.length / 2, 2 / state.length * Math.sin(state.state * Math.PI * fraction) ** 2 / densityMax];
+        });
+        probability.push([1, 0]);
+        const energy = 6.62607015e-34 ** 2 * state.state ** 2 /
+          (8 * 9.1093837139e-31 * (state.length * 1e-9) ** 2 * 1.602176634e-19);
         return {
           readout: 'State n = ' + state.state + ' has ' + (state.state - 1) +
-            ' interior probability nodes and energy proportional to n² = ' + (state.state ** 2) +
-            '. With ' + state.samples + ' samples, histogram noise is reduced but not erased. ' +
-            'The vertical scale is relative to the theoretical peak.',
-          visual: { kind: 'graph', xLabel: 'position x', yLabel: 'relative density (peak = 1)', curves: [
-            { points: probability, label: 'relative |ψ|²', tone: 'primary' },
-          ], histogram, marker: [0.5, probability[Math.floor(probability.length / 2)][1]],
-          note: state.samples + ' seeded detections; sample bars above the plot ceiling are clipped' },
+            ' interior nodes. For L = ' + physicsFixed(state.length, 2) +
+            ' nm, electron E_n = h²n²/(8mL²) = ' + physicsFixed(energy, 6) +
+            ' eV. Density |ψ|² = (2/L) sin²(nπx/L) has unit integral. All ' + state.samples +
+            ' seeded detections are counted; each bar density is count/(N × bin width).',
+          visual: { kind: 'graph', xLabel: 'position x (nm)', yLabel: '|ψ|² (nm⁻¹)',
+            xTicks: [[0, '0'], [.5, '1'], [1, '2']],
+            yTicks: [[0, '0'], [.5, physicsFixed(densityMax / 2, 2)], [1, physicsFixed(densityMax, 2)]],
+            curves: [{ points: probability, tone: 'primary' }],
+            histogram: density.map(value => value / densityMax), histogramCounts: counts,
+            histogramFraction: state.length / 2, histogramGap: 0, densityMax, wellLength: state.length,
+            note: 'Curve: Born density; bars: all ' + state.samples + ' detections; E_n=' + physicsFixed(energy, 6) + ' eV' },
         };
       },
     },
@@ -5652,21 +5705,30 @@
     },
     'phys.4.solid-state': {
       controls: [
-        physicsControl('gap', 'Band gap', 0.2, 4, 0.1, 1.1, 'eV', 'narrow gap', 'wide gap'),
+        physicsControl('gap', 'Band gap', 0.5, 4, 0.1, 1.1, 'eV', '0.5 eV', '4 eV'),
         physicsControl('temperature', 'Temperature', 100, 800, 25, 300, 'K', 'cold', 'hot'),
-        physicsControl('doping', 'Donor density', 0, 10, 1, 2, 'units', 'intrinsic', 'heavily doped'),
+        physicsControl('doping', 'Net ionized dopants', -100, 100, 5, 20, '×10¹⁴ cm⁻³', 'p-type acceptors', 'n-type donors'),
       ],
-      caveat: 'The model uses n_i = (material prefactor) exp[−Eg/(2kBT)] and reports only that exponential factor. Donors are treated as fully ionized and nondegenerate; freeze-out, band-gap narrowing, and degenerate statistics are omitted. Carrier dots use a compressed log scale.',
+      caveat: 'This hypothetical symmetric parabolic-band semiconductor has Nc=Nv=10¹⁹(T/300)^(3/2) cm⁻³. Dopants are assumed fully ionized and nondegenerate throughout the chosen range, with fixed gap and effective masses. It is not a calibrated silicon model; freeze-out, mobility, gap temperature-dependence, junctions and degenerate statistics are omitted. Densities are shown logarithmically, not as misleading electron-dot counts.',
       compute(state) {
-        const log10Thermal = -state.gap * 5802 / (state.temperature * Math.LN10);
-        const thermalVisual = Math.max(0, 10 + log10Thermal);
-        const carriers = Math.min(18, state.doping + thermalVisual);
+        const thermalEnergy = 1.380649e-23 / 1.602176634e-19 * state.temperature;
+        const states = 1e19 * (state.temperature / 300) ** 1.5;
+        const intrinsic = states * Math.exp(-state.gap / (2 * thermalEnergy));
+        const dopants = state.doping * 1e14;
+        const majority = (Math.abs(dopants) + Math.hypot(dopants, 2 * intrinsic)) / 2;
+        const minority = intrinsic ** 2 / majority;
+        const electrons = dopants >= 0 ? majority : minority;
+        const holes = dopants >= 0 ? minority : majority;
+        const fermi = thermalEnergy * Math.log(electrons / states);
         return {
-          readout: 'For gap ' + physicsFixed(state.gap, 1) + ' eV at ' + state.temperature +
-            ' K, log₁₀[n_i/material prefactor] = −Eg/(2kBT ln 10) = ' + physicsFixed(log10Thermal, 2) +
-            '. Donor index ' + state.doping + ' adds carriers on the compressed visual scale.',
-          visual: { kind: 'bands', gap: state.gap / 4, carriers,
-            note: 'log-scaled carriers; the gap remains visible' },
+          readout: 'At ' + state.temperature + ' K with E_g=' + physicsFixed(state.gap, 1) +
+            ' eV, n_i=' + physicsScientific(intrinsic) + ' cm⁻³. Net donors minus acceptors=' +
+            physicsScientific(dopants) + ' cm⁻³; n=' + physicsScientific(electrons) + ', p=' +
+            physicsScientific(holes) + ' cm⁻³. Charge neutrality n−p=N_D−N_A and mass action np=n_i² both hold. EF=' +
+            physicsFixed(fermi, 6) + ' eV relative to Ec=0. ' +
+            (dopants > 0 ? 'Electrons are majority carriers.' : dopants < 0 ? 'Holes are majority carriers.' : 'Intrinsic: n=p.'),
+          visual: { kind: 'bands', gap: state.gap, electrons, holes, fermi,
+            note: 'n−p = net ionized dopants; np = n_i²; EF=' + physicsFixed(fermi, 3) + ' eV' },
         };
       },
     },
@@ -5731,14 +5793,14 @@
     'phys.5.qft': {
       controls: [
         physicsControl('quanta', 'Excitation number n', 0, 6, 1, 2, '', 'vacuum state', 'six quanta'),
-        physicsControl('frequency', 'Mode frequency', 1, 5, 0.25, 2, 'ω units', 'low frequency', 'high frequency'),
+        physicsControl('frequency', 'Mode frequency', 1, 5, 0.25, 2, 'rad/s', 'low frequency', 'high frequency'),
       ],
       caveat: 'This is one free bosonic mode; a number state has no definite classical field amplitude. Fermionic occupations and interacting fields differ.',
       compute(state) {
         const energy = (state.quanta + 0.5) * state.frequency;
         return {
           readout: 'For one free bosonic mode with n = ' + state.quanta + ' and ω = ' + physicsFixed(state.frequency, 2) +
-            ', E/ℏ = (n + 1/2)ω = ' + physicsFixed(energy, 2) + '. Even n = 0 retains zero-point energy.',
+            ' rad/s, E/ℏ = (n + 1/2)ω = ' + physicsFixed(energy, 2) + ' s⁻¹. Even n = 0 retains zero-point energy in this oscillator Hamiltonian; subtracting a reference vacuum energy changes the zero, not the level spacing.',
           visual: { kind: 'qft', occupation: state.quanta, frequency: state.frequency,
             energy, note: 'spacing ∝ ω; selected level n=' + state.quanta },
         };
@@ -5794,28 +5856,38 @@
     },
     'phys.5.quantum-info': {
       controls: [
-        physicsControl('angle', 'Detector angle difference', 0, 180, 5, 45, '°', 'same axis', 'opposite axes'),
-        physicsControl('trials', 'Entangled pairs', 32, 256, 32, 128, '', '32 pairs', '256 pairs'),
+        physicsControl('angle', 'Bob setting angle θ', 0, 90, 5, 45, '°', 'same Bob settings', '90 degrees'),
+        physicsControl('trials', 'Pairs per setting', 32, 256, 32, 128, '', '32 per setting', '256 per setting'),
+        physicsControl('visibility', 'Singlet visibility', 0, 1, .05, 1, '', 'white noise', 'pure singlet'),
       ],
-      caveat: 'This ideal spin-singlet model omits detector inefficiency. One angle cannot show Bell violation; CHSH combines four setting pairs.',
+      caveat: 'Four independent mock samples use spin-singlet correlations mixed with isotropic white noise. Alice uses 0°/90° and Bob uses θ/−θ. The local bound assumes local outcomes and independent setting choices; a finite mock fluctuation above it is not an experimental Bell proof. The reported standard deviation applies to signed S, not |S|. Detector loopholes, gates, algorithms and teleportation are omitted.',
       compute(state) {
-        const correlation = -Math.cos(state.angle * Math.PI / 180);
-        const sameProbability = (1 + correlation) / 2;
-        const expectedSame = state.trials * sameProbability;
-        const observedSame = physicsDeterministicCount(sameProbability, state.trials, state.angle);
-        const observedProbability = observedSame / state.trials;
-        const standardError = Math.sqrt(sameProbability * (1 - sameProbability) / state.trials);
-        const curve = physicsGraphPoints(x => (1 - Math.cos(x * Math.PI)) / 2);
+        const angle = state.angle * Math.PI / 180;
+        const correlations = [-Math.cos(angle), -Math.cos(angle), -Math.sin(angle), Math.sin(angle)].map(e => state.visibility * e);
+        const samples = correlations.map((e, index) => physicsBellSample(e, state.trials, index));
+        const sum = values => values[0] + values[1] + values[2] - values[3];
+        const theory = sum(correlations), observed = sum(samples.map(sample => sample.correlation));
+        const deviation = Math.sqrt(correlations.reduce((total, e) => total + (1 - e ** 2) / state.trials, 0));
+        const curve = physicsGraphPoints(x => (4 - 2 * state.visibility *
+          (Math.cos(x * Math.PI / 2) + Math.sin(x * Math.PI / 2))) / 8);
         return {
-          readout: 'At angle difference ' + state.angle + '°, singlet correlation E = ' +
-            physicsFixed(correlation, 3) + '; theory expects ' + physicsFixed(expectedSame, 1) + ' matches. A reproducible ' +
-            state.trials + '-pair mock sample has ' + observedSame +
-            '. Alice and Bob each still see 50/50 locally, so neither can signal.',
-          visual: { kind: 'graph', xLabel: 'angle difference', yLabel: 'same-outcome probability',
-            curves: [{ points: curve, label: 'P(same) theory', tone: 'primary' }],
-            measurement: { x: state.angle / 180, y: observedProbability, error: standardError },
-            note: state.trials + '-pair mock sample at ' + state.angle + '°: ' +
-              observedSame + ' same outcomes with one-standard-error bar' },
+          readout: 'Alice A0=0°, A1=90°; Bob B0=' + state.angle + '°, B1=−' + state.angle +
+            '°. E00,E01,E10,E11 theory: ' + correlations.map(e => physicsFixed(e, 6)).join(', ') +
+            '. S=E00+E01+E10−E11=' + physicsFixed(theory, 6) + '; |S|=' + physicsFixed(Math.abs(theory), 6) +
+            ' versus local bound 2. ' + state.trials + ' pairs for each setting give mock S=' + physicsFixed(observed, 6) +
+            ', theoretical standard deviation ' + physicsFixed(deviation, 6) + '. Mock E00,E01,E10,E11: ' +
+            samples.map(sample => physicsFixed(sample.correlation, 6)).join(', ') + '. Mock local + counts (Alice/Bob): ' +
+            samples.map(sample => sample.alicePlus + '/' + sample.bobPlus).join(', ') +
+            '. Theoretical local marginals remain 50/50 for all settings and visibility, so neither observer can signal.',
+          visual: { kind: 'graph', xLabel: 'Bob angle θ (degrees)', yLabel: 'signed CHSH S',
+            xTicks: [[0, '0'], [.5, '45'], [1, '90']],
+            yTicks: [[0, '−4'], [.25, '−2'], [.5, '0'], [.75, '2'], [1, '4']],
+            curves: [{ points: curve, label: 'four-setting theory', tone: 'primary' },
+              { points: [[0,.25],[1,.25]], tone: 'secondary' },
+              { points: [[0,.75],[1,.75]], tone: 'secondary' }],
+            marker: [state.angle / 90, (theory + 4) / 8],
+            measurement: { x: state.angle / 90, y: (observed + 4) / 8, error: deviation / 8 },
+            note: 'Dashed local bounds ±2; theory |S|=' + physicsFixed(Math.abs(theory), 3) + '; mock S=' + physicsFixed(observed, 3) },
         };
       },
     },
@@ -6056,6 +6128,8 @@
     'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
     'math-ode-lab': (item, hooks) => window.PrimerMathODELab?.render(item, hooks) || null,
     'math-field-lab': (item, hooks) => window.PrimerMathFieldLab?.render(item, hooks) || null,
+    'math-wave-lab': (item, hooks) => window.PrimerMathWaveLab?.render(item, hooks) || null,
+    'math-probability-lab': (item, hooks) => window.PrimerMathProbabilityLab?.render(item, hooks) || null,
     'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
     'prenatal-sequence': (item, hooks) => window.PrimerPrenatalSequence ? window.PrimerPrenatalSequence.render(item, hooks) : null,
     'doppler-angle-lab': renderDopplerAngle,
@@ -6103,7 +6177,7 @@
       const result = RENDERERS[rendererName](item, hooks);
       if (!result) return result;
       // These renderers own their responsive viewport and camera controls.
-      if (['concept-lab', 'math-ode-lab', 'math-field-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      if (['concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
       for (const picture of result.querySelectorAll('svg')) {
         if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
         const viewport = picture.parentNode;

@@ -88,7 +88,11 @@ def test_all_original_meshes_normals_indices_and_source_defects_are_preserved(se
 def test_every_available_source_model_reaches_its_matching_lesson_with_exact_context():
     curr = Curriculum(); bindings = source_model_bindings()
     proof = json.loads((PROOF / 'source-model-lesson-delivery-review.json').read_text())
-    assert len(bindings) == proof['matching_lessons'] == 11 and proof['source_references'] == 16
+    # Preserve this historical review's exact scope. The new Sella lesson is
+    # independently checked in test_bp3d_sellar_source.py, not approved here.
+    reviewed_bindings = {key: value for key, value in bindings.items() if key != 'rad.5.sella'}
+    assert set(reviewed_bindings) == {row['module_id'] for row in proof['modules']}
+    assert len(reviewed_bindings) == proof['matching_lessons'] == 11 and proof['source_references'] == 16
     fields = ['goal','learning_outcomes','lesson','reference','radiology_reference','visual_spec','lesson_media','model_family','model_context','practice','quiz','kid_text']
     for row in proof['modules']:
         node = curr.node(row['module_id']); _validate_lesson_media(node)

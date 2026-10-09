@@ -1,0 +1,730 @@
+{
+  "source_objects": {
+    "FJ1682": {
+      "sha256": "492d46ad280939035f518f32c8ffa98f2e3d62cf2623515e05b47dd00e025c04",
+      "vertices": 650,
+      "triangles": 1272,
+      "actual_bounds_mm": [
+        [
+          -37.4652,
+          -114.556,
+          1434.54
+        ],
+        [
+          -9.84248,
+          -94.0397,
+          1537.72
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 1129.347737969931
+    },
+    "FJ4993": {
+      "sha256": "893e6efd5fdb36d234e14963de05d8475887093df1985a675a9f185dfb209b56",
+      "vertices": 417,
+      "triangles": 792,
+      "actual_bounds_mm": [
+        [
+          -30.5272,
+          -114.733,
+          1429.06
+        ],
+        [
+          -9.88811,
+          -86.8009,
+          1539.22
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 956.7615801119041
+    },
+    "FJ7503": {
+      "sha256": "d2bdfb92da6414e5f6ce7d94aee4467228b0c243da32629a933f2596036b5f04",
+      "vertices": 754,
+      "triangles": 1464,
+      "actual_bounds_mm": [
+        [
+          -8.52568,
+          -111.172,
+          1534.79
+        ],
+        [
+          -0.357486,
+          -100.828,
+          1543.35
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 260.5095156562435
+    },
+    "FJ7503M": {
+      "sha256": "3b11c8fe33deed3047292cb9fe63d4ce1f44ce07e7b5b859b263c1124dd83d3e",
+      "vertices": 755,
+      "triangles": 1464,
+      "actual_bounds_mm": [
+        [
+          0.364304,
+          -111.151,
+          1534.79
+        ],
+        [
+          8.50882,
+          -100.836,
+          1543.34
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 259.15484693679355
+    },
+    "FJ7505": {
+      "sha256": "b233b17435d371dbfd75818957e77c8566225e5f9e4e30668c232cb29dfc72e4",
+      "vertices": 1707,
+      "triangles": 3406,
+      "actual_bounds_mm": [
+        [
+          -8.52602,
+          -111.169,
+          1534.79
+        ],
+        [
+          0.70429,
+          -100.832,
+          1543.34
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 302.55453864640293
+    },
+    "FJ7505M": {
+      "sha256": "584151bab2b9fb9ffee5f9aea5fd862627577136844bd5cee63915202f82d7a4",
+      "vertices": 1707,
+      "triangles": 3406,
+      "actual_bounds_mm": [
+        [
+          -0.700445,
+          -111.161,
+          1534.79
+        ],
+        [
+          8.52051,
+          -100.838,
+          1543.33
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 302.04541377652123
+    },
+    "FJ1796": {
+      "sha256": "545f63719b069a73dedff8c54dc716546726ddbc837d818a6c77dda1a966e93c",
+      "vertices": 609,
+      "triangles": 1164,
+      "actual_bounds_mm": [
+        [
+          -6.7911,
+          -110.563,
+          1522.57
+        ],
+        [
+          5.51969,
+          -101.105,
+          1535.54
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 621.347090250731
+    },
+    "FJ3848": {
+      "sha256": "092a965e9d2e9e53b5d6f26e8c54adc4b093addb6a6dceb66da4118b3f5702ca",
+      "vertices": 596,
+      "triangles": 1138,
+      "actual_bounds_mm": [
+        [
+          -6.7911,
+          -110.562,
+          1522.62
+        ],
+        [
+          5.51969,
+          -101.105,
+          1535.5
+        ]
+      ],
+      "signed_enclosed_geometric_volume_mm3": 620.9786527082528
+    }
+  },
+  "method": "Independent OBJ v/f parsing; all original triangles. Nearest triangle distance from projected barycentric interior or clamped edges; generalized solid angle winding test. Exact duplicated positions need no altered geometry for either test. Cross-sections link interpolated edge points rounded to8 decimals in diagnostic graph only. No source weld, repair, registration or anatomy approval.",
+  "directed_surface_comparisons": [
+    {
+      "source": "FJ1682",
+      "target": "FJ4993",
+      "sample": "All original triangle centroids; area-weighted where stated. Surface sampling, not volume intersection or anatomical registration.",
+      "all_original_source_triangle_count": 1272,
+      "inside_target_centroids": 208,
+      "inside_target_surface_area_fraction": 0.0903891771025398,
+      "centroid_distance_to_target_surface_mm_quantiles": [
+        3.9229831366658337e-05,
+        0.03439364578296321,
+        0.08523318840094092,
+        0.30719352399512434,
+        9.449976703891483,
+        15.015839754606132,
+        17.65485394817263
+      ],
+      "area_weighted_mean_centroid_distance_mm": 7.700057944983565,
+      "signed_winding_min_max": [
+        -5.831016916016448e-15,
+        1.0000000000000029
+      ]
+    },
+    {
+      "source": "FJ4993",
+      "target": "FJ1682",
+      "sample": "All original triangle centroids; area-weighted where stated. Surface sampling, not volume intersection or anatomical registration.",
+      "all_original_source_triangle_count": 792,
+      "inside_target_centroids": 313,
+      "inside_target_surface_area_fraction": 0.27635120767229404,
+      "centroid_distance_to_target_surface_mm_quantiles": [
+        0.00015196107227245784,
+        0.0407418076157244,
+        0.10310605888912866,
+        0.47994162808422713,
+        13.827676709630872,
+        15.932432334785961,
+        17.157789400001658
+      ],
+      "area_weighted_mean_centroid_distance_mm": 7.7567432695278855,
+      "signed_winding_min_max": [
+        -3.290990607903222e-16,
+        1.0000000000000038
+      ]
+    },
+    {
+      "source": "FJ7503",
+      "target": "FJ7505",
+      "sample": "All original triangle centroids; area-weighted where stated. Surface sampling, not volume intersection or anatomical registration.",
+      "all_original_source_triangle_count": 1464,
+      "inside_target_centroids": 1102,
+      "inside_target_surface_area_fraction": 0.7584374407751522,
+      "centroid_distance_to_target_surface_mm_quantiles": [
+        1.20759964501364e-05,
+        0.0009132811771149893,
+        0.002610630065012115,
+        0.006676913096538275,
+        0.08358900164209809,
+        0.4673486599236566,
+        1.0810217030478186
+      ],
+      "area_weighted_mean_centroid_distance_mm": 0.13344110937858425,
+      "signed_winding_min_max": [
+        -1.7316353265745813e-15,
+        1.0000000000000069
+      ]
+    },
+    {
+      "source": "FJ7505",
+      "target": "FJ7503",
+      "sample": "All original triangle centroids; area-weighted where stated. Surface sampling, not volume intersection or anatomical registration.",
+      "all_original_source_triangle_count": 3406,
+      "inside_target_centroids": 1112,
+      "inside_target_surface_area_fraction": 0.32495070279890714,
+      "centroid_distance_to_target_surface_mm_quantiles": [
+        2.9849752598087745e-06,
+        0.0011866531034004618,
+        0.003111631627506243,
+        0.007404925641193775,
+        0.44124746854662045,
+        0.972602639361924,
+        1.0818147920156596
+      ],
+      "area_weighted_mean_centroid_distance_mm": 0.2038323135441267,
+      "signed_winding_min_max": [
+        -2.1203697876423446e-15,
+        1.0000000000000102
+      ]
+    },
+    {
+      "source": "FJ7505",
+      "target": "FJ7505M",
+      "sample": "All original triangle centroids; area-weighted where stated. Surface sampling, not volume intersection or anatomical registration.",
+      "all_original_source_triangle_count": 3406,
+      "inside_target_centroids": 543,
+      "inside_target_surface_area_fraction": 0.14119496808697551,
+      "centroid_distance_to_target_surface_mm_quantiles": [
+        0.000217139058861411,
+        0.2514463228339997,
+        0.8741701642265413,
+        3.9625364004850354,
+        6.161331142847823,
+        7.096922814603112,
+        7.911781904634343
+      ],
+      "area_weighted_mean_centroid_distance_mm": 3.4399944758966132,
+      "signed_winding_min_max": [
+        -5.831016916016447e-16,
+        1.0000000000000004
+      ]
+    },
+    {
+      "source": "FJ1796",
+      "target": "FJ3848",
+      "sample": "All original triangle centroids; area-weighted where stated. Surface sampling, not volume intersection or anatomical registration.",
+      "all_original_source_triangle_count": 1164,
+      "inside_target_centroids": 386,
+      "inside_target_surface_area_fraction": 0.36641082755668136,
+      "centroid_distance_to_target_surface_mm_quantiles": [
+        0.0,
+        1.4996343458529006e-14,
+        1.0723079017675688e-13,
+        0.0007004474223472255,
+        0.007684034521911206,
+        0.018625550962289593,
+        0.06729732971920106
+      ],
+      "area_weighted_mean_centroid_distance_mm": 0.006268681369708389,
+      "signed_winding_min_max": [
+        -2.6327924863225776e-15,
+        1.0000000000000044
+      ]
+    },
+    {
+      "source": "FJ3848",
+      "target": "FJ1796",
+      "sample": "All original triangle centroids; area-weighted where stated. Surface sampling, not volume intersection or anatomical registration.",
+      "all_original_source_triangle_count": 1138,
+      "inside_target_centroids": 385,
+      "inside_target_surface_area_fraction": 0.3572971025420559,
+      "centroid_distance_to_target_surface_mm_quantiles": [
+        0.0,
+        1.4179408147708725e-14,
+        9.376103971713491e-14,
+        0.0005524264771317922,
+        0.0068906092949642455,
+        0.018225988280201694,
+        0.06536834024799051
+      ],
+      "area_weighted_mean_centroid_distance_mm": 0.006447635116024007,
+      "signed_winding_min_max": [
+        -1.90833280887811e-15,
+        1.0000000000000042
+      ]
+    }
+  ],
+  "right_ICA_original_z_sections": [
+    {
+      "z_mm": 1435.123,
+      "sections": {
+        "FJ1682": {
+          "z_mm": 1435.123,
+          "segments": 28,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 6.0604395859263605,
+              "centroid_xy_mm": [
+                -35.493393501827214,
+                -105.51495926664336
+              ],
+              "bounds_xy_mm": [
+                [
+                  -36.91718395,
+                  -106.92385
+                ],
+                [
+                  -34.07521855,
+                  -104.11309286
+                ]
+              ]
+            }
+          ]
+        },
+        "FJ4993": {
+          "z_mm": 1435.123,
+          "segments": 36,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 9.915243076116667,
+              "centroid_xy_mm": [
+                -26.750701154874,
+                -91.35963995173186
+              ],
+              "bounds_xy_mm": [
+                [
+                  -28.54434,
+                  -93.15081914
+                ],
+                [
+                  -24.96672266,
+                  -89.56422536
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "centroid_separation_xy_mm": 16.637539913718637
+    },
+    {
+      "z_mm": 1450.123,
+      "sections": {
+        "FJ1682": {
+          "z_mm": 1450.123,
+          "segments": 32,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 11.576113174942066,
+              "centroid_xy_mm": [
+                -33.994195056593774,
+                -105.5102586375238
+              ],
+              "bounds_xy_mm": [
+                [
+                  -35.93569143,
+                  -107.38871058
+                ],
+                [
+                  -32.01817153,
+                  -103.61951387
+                ]
+              ]
+            }
+          ]
+        },
+        "FJ4993": {
+          "z_mm": 1450.123,
+          "segments": 23,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 8.63615622245311,
+              "centroid_xy_mm": [
+                -28.592487560630428,
+                -88.80655182495275
+              ],
+              "bounds_xy_mm": [
+                [
+                  -30.2988582,
+                  -90.50051428
+                ],
+                [
+                  -26.85570522,
+                  -87.18126652
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "centroid_separation_xy_mm": 17.555405582107163
+    },
+    {
+      "z_mm": 1475.123,
+      "sections": {
+        "FJ1682": {
+          "z_mm": 1475.123,
+          "segments": 31,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 10.406684365050296,
+              "centroid_xy_mm": [
+                -27.759214015325792,
+                -105.26956783214919
+              ],
+              "bounds_xy_mm": [
+                [
+                  -29.6106756,
+                  -107.11475516
+                ],
+                [
+                  -25.91368845,
+                  -103.42546451
+                ]
+              ]
+            }
+          ]
+        },
+        "FJ4993": {
+          "z_mm": 1475.123,
+          "segments": 22,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 7.990024940143712,
+              "centroid_xy_mm": [
+                -27.37033257603922,
+                -90.28246750211628
+              ],
+              "bounds_xy_mm": [
+                [
+                  -28.99387266,
+                  -91.97100846
+                ],
+                [
+                  -25.73592662,
+                  -88.68643388
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "centroid_separation_xy_mm": 14.992144779059945
+    },
+    {
+      "z_mm": 1500.123,
+      "sections": {
+        "FJ1682": {
+          "z_mm": 1500.123,
+          "segments": 29,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 10.861720256589138,
+              "centroid_xy_mm": [
+                -16.896955782498143,
+                -97.64960303791767
+              ],
+              "bounds_xy_mm": [
+                [
+                  -18.84491723,
+                  -99.53663097
+                ],
+                [
+                  -14.96828791,
+                  -95.78297756
+                ]
+              ]
+            }
+          ]
+        },
+        "FJ4993": {
+          "z_mm": 1500.123,
+          "segments": 20,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 8.14179835396692,
+              "centroid_xy_mm": [
+                -17.024083638152618,
+                -94.36889553866538
+              ],
+              "bounds_xy_mm": [
+                [
+                  -18.74694192,
+                  -95.91677031
+                ],
+                [
+                  -15.2955887,
+                  -92.85680873
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "centroid_separation_xy_mm": 3.2831696860402295
+    },
+    {
+      "z_mm": 1510.123,
+      "sections": {
+        "FJ1682": {
+          "z_mm": 1510.123,
+          "segments": 29,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 8.468705055056034,
+              "centroid_xy_mm": [
+                -13.466409749493671,
+                -95.83960843720023
+              ],
+              "bounds_xy_mm": [
+                [
+                  -15.12763107,
+                  -97.47664397
+                ],
+                [
+                  -11.80269708,
+                  -94.18835472
+                ]
+              ]
+            }
+          ]
+        },
+        "FJ4993": {
+          "z_mm": 1510.123,
+          "segments": 17,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 6.8863510470742995,
+              "centroid_xy_mm": [
+                -13.597695357826513,
+                -96.02278940930537
+              ],
+              "bounds_xy_mm": [
+                [
+                  -15.05728308,
+                  -97.60703882
+                ],
+                [
+                  -12.03788695,
+                  -94.41972008
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "centroid_separation_xy_mm": 0.22536898521471754
+    },
+    {
+      "z_mm": 1520.123,
+      "sections": {
+        "FJ1682": {
+          "z_mm": 1520.123,
+          "segments": 32,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 17.341199282758907,
+              "centroid_xy_mm": [
+                -13.383192095322137,
+                -103.70924629204386
+              ],
+              "bounds_xy_mm": [
+                [
+                  -14.982595,
+                  -107.29165787
+                ],
+                [
+                  -11.78942692,
+                  -100.29150412
+                ]
+              ]
+            }
+          ]
+        },
+        "FJ4993": {
+          "z_mm": 1520.123,
+          "segments": 21,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 15.62808421034731,
+              "centroid_xy_mm": [
+                -13.41238570589513,
+                -103.462157617338
+              ],
+              "bounds_xy_mm": [
+                [
+                  -14.87232011,
+                  -107.13496341
+                ],
+                [
+                  -11.96080866,
+                  -99.95039186
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "centroid_separation_xy_mm": 0.24880731513801588
+    },
+    {
+      "z_mm": 1530.123,
+      "sections": {
+        "FJ1682": {
+          "z_mm": 1530.123,
+          "segments": 31,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 8.436331262980957,
+              "centroid_xy_mm": [
+                -12.398860820360733,
+                -111.20682124427144
+              ],
+              "bounds_xy_mm": [
+                [
+                  -13.85450829,
+                  -113.11766923
+                ],
+                [
+                  -10.93273005,
+                  -109.26738923
+                ]
+              ]
+            }
+          ]
+        },
+        "FJ4993": {
+          "z_mm": 1530.123,
+          "segments": 20,
+          "closed_analysis_loops": true,
+          "loops": [
+            {
+              "area_mm2": 8.374679234902828,
+              "centroid_xy_mm": [
+                -12.544702743875252,
+                -111.14697833916236
+              ],
+              "bounds_xy_mm": [
+                [
+                  -14.12619832,
+                  -113.03289879
+                ],
+                [
+                  -10.97509814,
+                  -109.31091429
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "centroid_separation_xy_mm": 0.1576421261792324
+    }
+  ],
+  "clinical_approval": false,
+  "anatomical_equivalence_verified": false,
+  "source_geometry_changed": false,
+  "volume_intersection_computed": false,
+  "interpretation": "Both right ICA objects follow a long broadly similar source course, with substantially divergent inferior cross-sections and strongly overlapping superior course. Surface overlap is a geometric relationship, not evidence of two separate biological arteries or complementary branches. Reduced and elongated chiasm objects are source presentation forms, not independently delineated tissue compartments.",
+  "chiasm_pair_medial_axis_extent_mm": {
+    "reduced_pair_positive_X_gap": 0.72179,
+    "elongated_pair_positive_X_AABB_overlap": 1.404735,
+    "AABB_overlap_is_physical_intersection_proof": false,
+    "elongated_actual_surface_centroids_inside_other_observed": 543,
+    "interpretation": "Reduced pair cannot geometrically meet because their X extents are disjoint. Elongated pair has actual surface centroids inside the other closed source envelope, independently of its AABB overlap. Neither is an independently delineated fibre or tissue compartment."
+  },
+  "bounded_default_assembly_recommendation": {
+    "preserve_every_original_object": true,
+    "show_one_right_ICA_course_at_a_time": [
+      "FJ1682",
+      "FJ4993"
+    ],
+    "right_ICA_baseline": "FJ1682 may be a deterministic first-manifest baseline; no superiority or medical accuracy asserted. Expose FJ4993 as exclusive source comparison, without source transformations or trimming.",
+    "show_one_pituitary_source_object_at_a_time": [
+      "FJ1796",
+      "FJ3848"
+    ],
+    "pituitary_baseline": "FJ1796 is first-manifest baseline, with FJ3848 selectable independently; do not superimpose as two glands.",
+    "show_one_chiasm_source_pair_at_a_time": [
+      [
+        "FJ7503",
+        "FJ7503M"
+      ],
+      [
+        "FJ7505",
+        "FJ7505M"
+      ]
+    ],
+    "chiasm_baseline": "Reduced pair may be the first-manifest baseline, with native0.72179mm gap disclosed. Elongated pair is a separate producer form with actual source-envelope overlap; do not treat the overlap as crossing fibres or fuse the shapes.",
+    "display_both_ICAs_as_complementary_branch_tree": false,
+    "display_all_four_chiasm_objects_as_four_tissues": false,
+    "infer_cellular_fibre_or_wall_anatomy_from_mesh": false,
+    "source_geometry_healed_to_anatomical_expectation": false,
+    "FJ3483_remains_held": true
+  },
+  "visual_inspection": {
+    "artifact": "all-original-object-review.png",
+    "scope": "Existing full original object montage inspected independently. Both rightICA meshes show a long tube with superior bends and markedly different inferior course. Pituitary pair outlines nearly coincide. Both chiasm pairs show smooth closed lobular surfaces; no independently modelled fibre crossings or named tissue interfaces visible. Montage alone is not a clinical/anatomical fidelity validation."
+  }
+}

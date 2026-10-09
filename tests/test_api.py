@@ -1200,11 +1200,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 819, 'items': 1380,
+        'models': 821, 'items': 1382,
     }
 
     expected_domain_counts = {
-        'math': (59, 116), 'language': (40, 61), 'physics': (39, 78),
+        'math': (59, 118), 'language': (40, 61), 'physics': (39, 78),
         'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
@@ -1342,7 +1342,9 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
     assert [entry['kind'] for entry in authored_media(grove.json())] == ['illustration', 'model']
     forest = client.get('/api/curriculum/node/math.5.pde')
     assert forest.status_code == 200
-    assert [entry['kind'] for entry in authored_media(forest.json())] == ['illustration', 'model']
+    assert [entry['kind'] for entry in authored_media(forest.json())] == ['illustration', 'model', 'model']
+    assert [entry['renderer'] for entry in authored_media(forest.json()) if entry['kind'] == 'model'] == [
+        'heat-equation-lab', 'math-wave-lab']
     for node_id in ('phys.0.push-pull', 'phys.2.waves', 'phys.5.quantum-info',
                     'phys.0.light-shadow', 'phys.4.fluids'):
         physics = client.get('/api/curriculum/node/' + node_id)

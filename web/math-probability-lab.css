@@ -1,0 +1,19 @@
+.math-probability-lab { min-width: 0; }
+.math-probability-lab .model-range-control select, .math-probability-lab input[type="number"] { width: 100%; min-width: 0; min-height: 44px; }
+.math-probability-lab .model-range-control output { font-variant-numeric: tabular-nums; font-weight: 600; }
+.math-probability-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+.math-probability-summary p { display: grid; gap: 4px; margin: 0; padding: 10px; border: 1px solid var(--line, #d5cfbf); border-radius: 8px; }
+.math-probability-summary strong { font-size: 20px; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.math-probability-outcomes { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+.math-probability-outcomes span { display: grid; place-items: center; min-width: 28px; min-height: 32px; border: 1px solid var(--line, #d5cfbf); border-radius: 5px; }
+.math-probability-outcomes .is-success { outline: 2px solid #b98a2f; outline-offset: -2px; }
+.math-probability-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; min-width: 0; }
+.math-probability-viewport { min-width: 0; overflow: auto; border-radius: 10px; background: #f5efdf; }
+.math-probability-viewport:last-child { grid-column: 1 / -1; max-width: 660px; width: 100%; justify-self: center; }
+.math-probability-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.math-probability-lab.is-enlarged .math-probability-viewport svg { width: 660px; min-width: 660px; max-width: none; }
+@media (max-width: 760px) {
+  .math-probability-panels { grid-template-columns: minmax(0, 1fr); }
+  .math-probability-lab .concept-controls { grid-template-columns: minmax(0, 1fr); }
+  .math-probability-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

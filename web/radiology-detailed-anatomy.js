@@ -1,8 +1,9 @@
-/* BodyParts3D real-mesh anatomy viewer. Geometry: DBCLS, CC BY 4.0; see manifest. */
+/* Licensed source-mesh anatomy viewer. Rights and construction differ by manifest. */
 (function () {
   "use strict";
   const ATLASES = {
     bodyparts3d: "/app/anatomy/bodyparts3d/",
+    "bp3d-sella-4.3": "/app/anatomy/bp3d-sella-4.3/",
     "z-anatomy": "/app/anatomy/msk-atlas/",
     "malaya-mri": "/app/anatomy/msk-mri-knee/",
     "malaya-ankle": "/app/anatomy/msk-mri-ankle/",
@@ -28,6 +29,13 @@
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
   const RANGES = {
+    "sella-gross-default": [1518.3900146484375, 1543.3499755859375],
+    "gland-source-2011": [1522.5699462890625, 1535.5400390625],
+    "gland-source-2014": [1522.6199951171875, 1535.5],
+    "optic-reduced-source": [1518.3900146484375, 1543.3499755859375],
+    "optic-elongated-source": [1518.3900146484375, 1543.3399658203125],
+    "right-ICA-source-2011": [1434.5400390625, 1537.719970703125],
+    "right-ICA-source-2014": [1429.06005859375, 1539.219970703125],
     cervical: [150, 157],
     "brain-subcortex": [-25, 35],
     "cardiac-venous-source": [-69.42072296142578, 86.83314514160156],
@@ -675,6 +683,8 @@
     const note = $("div", "detailed-anatomy-note");
     note.innerHTML =
       '<p>Registered surface anatomy from an adult male reference model. Bone shapes and spatial relationships come from the source dataset. Shafts and neighbouring structures are cropped to the selected region. Colours distinguish structures.</p><p>This surface atlas does not depict every ligament, labrum, meniscus, articular cartilage layer or MRI finding. Use the clinical images alongside the model.</p><p><a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html" target="_blank" rel="noopener noreferrer">BodyParts3D</a>, © The Database Center for Life Science · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Selected polygon-reduced source meshes; display normals recalculated. <a href="/app/anatomy/bodyparts3d/manifest.json" target="_blank" rel="noopener noreferrer">Mesh provenance</a>.</p>';
+    if (atlas !== "bodyparts3d") note.replaceChildren($("p", null,
+      "Loading this source's own construction, licence and limitations. Registered geometry is not clinical or complete anatomical approval."));
     root.append(header, instructions, toolbar, stage, status, partsUI, note);
     let engine = null,
       cancelled = false;

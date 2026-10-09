@@ -1,0 +1,13 @@
+.math-wave-lab { min-width: 0; }
+.math-wave-lab .model-heading-row { flex-wrap: wrap; }
+.math-wave-lab .model-heading-row h3 { flex: 1 1 260px; }
+.math-wave-lab .model-heading-row button { flex-shrink: 0; }
+.math-wave-equation, .math-wave-readout { overflow-wrap: anywhere; }
+.math-wave-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.math-wave-viewport { min-width: 0; overflow: auto; border-radius: 10px; }
+.math-wave-viewport:last-child { grid-column: 1 / -1; }
+.math-wave-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans); }
+.math-wave-lab.is-enlarged .math-wave-viewport svg { width: 100%; min-width: 660px; max-width: none; }
+.math-wave-lab .model-range-control { display: grid; gap: 6px; }
+.math-wave-lab .model-range-control:has(input:disabled) { opacity: .6; }
+@media(max-width:760px) { .math-wave-panels, .math-wave-lab .concept-controls { grid-template-columns: minmax(0, 1fr); } }
