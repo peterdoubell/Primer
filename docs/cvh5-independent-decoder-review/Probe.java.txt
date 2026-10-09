@@ -1,0 +1,32 @@
+import com.aspose.threed.*;
+
+public class Probe {
+    static int meshes = 0;
+    static long points = 0, polygons = 0;
+    static void visit(Node node, String parent) {
+        String path = parent + "/" + node.getName();
+        System.out.println("NODE\t" + path + "\t" + node.getChildNodes().size());
+        for (Entity entity : node.getEntities()) {
+            System.out.println("ENTITY\t" + path + "\t" + entity.getClass().getName());
+            if (entity instanceof Mesh) {
+                Mesh mesh = (Mesh) entity;
+                meshes++;
+                points += mesh.getControlPoints().size();
+                polygons += mesh.getPolygonCount();
+                System.out.println("MESH\t" + path + "\t" + mesh.getControlPoints().size() + "\t" + mesh.getPolygonCount());
+            }
+        }
+        for (Node child : node.getChildNodes()) visit(child, path);
+    }
+    public static void main(String[] args) {
+        Scene scene = new Scene();
+        try {
+            scene.open(args[0]);
+            System.out.println("IMPORT_RETURNED");
+        } catch (Exception exception) {
+            System.out.println("IMPORT_EXCEPTION\t" + exception.getClass().getName() + "\t" + exception.getMessage());
+        }
+        visit(scene.getRootNode(), "");
+        System.out.println("TOTAL\t" + meshes + "\t" + points + "\t" + polygons);
+    }
+}
