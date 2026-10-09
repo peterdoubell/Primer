@@ -130,3 +130,18 @@ def test_every_current_case_model_prop_matches_its_full_current_delivery_proof()
         assert digest({k:node.get(k) for k in fields})==row['current_module_contract_sha256']
         assert digest(model['props'])==row['model_props_sha256']
         assert digest(bindings[node['id']])==row['source_references_sha256']
+
+
+def test_viewer_script_and_scalar_files_are_published_with_the_static_viewer():
+    import fnmatch
+    config=json.loads((ROOT/'vercel.json').read_text());patterns=[b['src'] for b in config['builds'] if b['use']=='@vercel/static']
+    def expanded(pattern):
+        if '{' not in pattern:return [pattern]
+        before,rest=pattern.split('{',1);options,after=rest.split('}',1)
+        return [before+item+after for item in options.split(',')]
+    for center,case in CASES:
+        prefix='web/anatomy/fedbca-'+center.lower()+'-'+case+'/'
+        for filename in ['mri-reference.html','mri-reference.js','source-image.bin.gz','source-label.bin.gz']:
+            path=prefix+filename
+            # **/* also includes files directly within the matched folder.
+            assert any(fnmatch.fnmatch(path,p) or fnmatch.fnmatch(path,p.replace('/**/','/')) for pattern in patterns for p in expanded(pattern))
