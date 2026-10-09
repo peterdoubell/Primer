@@ -47,7 +47,7 @@ jobs:
           cache-dependency-path: requirements.lock.txt
 
       - name: Install locked dependencies
-        run: python -m pip install --disable-pip-version-check --requirement requirements.lock.txt --requirement tools/requirements-math-illustrations.txt
+        run: python -m pip install --disable-pip-version-check --requirement requirements.lock.txt --requirement tools/requirements-math-illustrations.txt --requirement tools/requirements-anatomy-source-checks.txt
 
       - name: Check dependency consistency
         run: python -m pip check
@@ -69,6 +69,9 @@ jobs:
 
       - name: Verify hosted source mesh inventory
         run: python tools/check_static_source_mesh_inventory.py
+
+      - name: Verify source-array and generated-image reproduction
+        run: python -m pytest tests/test_west_bohemia_pelvic_source.py tests/test_wt9fc_tongue_reference.py -q
 
       - name: Run the full test suite
         run: python -m pytest tests/ -q

@@ -151,9 +151,34 @@ def test_default_build_reproduces_geometry_without_touching_global_registries(tm
     for old in OUT.glob('*.bin.gz'):
         assert old.read_bytes() == (tmp_path / 'web/anatomy' / ATLAS / old.name).read_bytes()
     source_image = ROOT / 'web/reference-media' / ATLAS / 'source-MRI-label-context.png'
-    assert source_image.read_bytes() == (tmp_path / source_image.relative_to(ROOT)).read_bytes()
     full = ROOT / 'web/reference-media' / ATLAS / 'full-source-index-planes.png'
-    assert full.read_bytes() == (tmp_path / full.relative_to(ROOT)).read_bytes()
+    from PIL import Image
+    # PNG deflate bytes can differ with the host's zlib build. Exact decoded
+    # samples/profile are the image-fidelity requirement; delivered-file hashes
+    # remain independently checked above against the committed release records.
+    for original in (source_image, full):
+        generated = tmp_path / original.relative_to(ROOT)
+        with Image.open(original) as expected, Image.open(generated) as actual:
+            assert actual.mode == expected.mode and actual.size == expected.size
+            assert actual.tobytes() == expected.tobytes()
+            assert actual.info.get('icc_profile') == expected.info.get('icc_profile')
+
+
+def test_released_transport_header_is_reproduced_on_a_different_build_host(monkeypatch):
+    pytest.importorskip('numpy')
+    pytest.importorskip('PIL')
+    from tools.anatomy_sources import package_wt9fc_tongue_reference as packager
+    payload = b'BP3D' + struct.pack('<2I', 3, 3) + bytes(range(96))
+    released = packager.gzip_transport(payload)
+    compress = gzip.compress
+    def linux_compress(raw, **kwargs):
+        encoded = compress(raw, **kwargs)
+        return encoded[:9] + b'\x03' + encoded[10:]
+    monkeypatch.setattr(packager.gzip, 'compress', linux_compress)
+    reproduced = packager.gzip_transport(payload)
+    assert reproduced == released
+    assert reproduced[9] == 19
+    assert gzip.decompress(reproduced) == payload
 
 
 def test_preview_repeats_exact_full_plane_pixels_without_smoothing():

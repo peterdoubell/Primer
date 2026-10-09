@@ -1,0 +1,11 @@
+# Original university pelvic templates
+
+The University of West Bohemia published the Female Pelvic Floor Visualiser at DOI 10.5281/zenodo.17423100. Its unchanged archive contains two original JSON models: a basic template with 22 objects and an advanced template with 43 objects. The manual describes 24 logical parts for the advanced model; the actual file retains five unpaired organ objects plus 19 pairs. All source labels, decimal coordinates and VTK triangle-cell order are retained.
+
+The basic model contains 130,146 points and 271,775 triangles; the advanced model contains 133,874 points and 271,771 triangles. CPython/NumPy and an independent V8 JSON/cursor implementation agree on every float64 coordinate bit, original uint32 cell and ordered triangle index. The five organ arrays are identical between the templates. The complete original JSON files are gzip-retained without changing their decoded bytes. No source triangle, point, duplicate, boundary or nonmanifold interface is removed or repaired.
+
+The published record and embedded licence identify the software as MIT licensed. The original copyright notice is retained. That software grant does not prove the template’s anatomical accuracy, source MRI acquisition, demographics, segmentation method, physical units, clinical coordinate axes or registration. Those facts are not borrowed from related work or the CVH5 model. The files have combined “Anal sphincter” and “Rectum & intestinum” objects; they do not separately provide every reporting layer or lumen. No simulation, morphing or physiological/material claim is made.
+
+The topology audit retains open and nonmanifold interfaces. These require interpretation against the producer’s intended representation and independent anatomical review; they are not automatically anatomical defects or acceptance scores. Offline renders retain every original triangle in three review cameras. Their colours and facet lighting are review choices, not native optical tissue data or patient axes.
+
+This intake establishes a reproducible open-format route for further pelvic geometry review. It does not clear the held CVH5 decoder, replace a complete MRI examination, grant whole-reporting coverage or promote either template into the clinical runtime.

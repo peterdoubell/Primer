@@ -82,6 +82,19 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
+def gzip_transport(raw):
+    """Preserve the released WT9FC gzip profile across build hosts.
+
+    Python 3.10/3.12 can delegate mtime=0 compression to zlib, which inserts
+    the host OS byte. The existing byte-bound transport files use 19. Pin
+    that wrapper metadata without changing deflate data or geometry bytes.
+    """
+    encoded = gzip.compress(raw, mtime=0)
+    if encoded[:9] != b'\x1f\x8b\x08\x00\x00\x00\x00\x00\x02':
+        raise ValueError('Unexpected gzip transport header')
+    return encoded[:9] + b'\x13' + encoded[10:]
+
+
 def write_json(path, value):
     path.write_text(json.dumps(value, indent=2) + '\n')
 
@@ -231,7 +244,7 @@ def package(source_root, root=ROOT, apply_registry=False):
         lengths = np.linalg.norm(normals, axis=1)
         normals[lengths > 0] /= lengths[lengths > 0, None]
         decoded = struct.pack('<4sII', b'BP3D', len(vertices), faces.size) + stored.tobytes() + normals.astype('<f4').tobytes() + fraw
-        encoded = gzip.compress(decoded, mtime=0)
+        encoded = gzip_transport(decoded)
         ident = ATLAS + '-' + stem
         filename = ident + '.bin.gz'
         (out / filename).write_bytes(encoded)
