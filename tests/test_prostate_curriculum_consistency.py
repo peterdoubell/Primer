@@ -47,7 +47,17 @@ def test_review_is_bound_to_actual_curriculum_and_does_not_approve_full_anatomy(
     proof=json.loads((ROOT/'docs/prostate-curriculum-consistency-review/review.json').read_text())
     node=Curriculum().node(NODE)
     fields=['goal','learning_outcomes','lesson','reference','radiology_reference','visual_spec','lesson_media','model_family','model_context','practice','quiz','kid_text']
-    assert proof['module_contract_after_sha256']==digest({k:node.get(k) for k in fields})
+    # The historical teaching review remains bound to its original surface;
+    # the independently reviewed automatic source gallery is an additive layer.
+    original_media = [m for m in node['lesson_media']
+                      if m['id'] != 'module-source-figures-' + NODE]
+    original_contract = {k:node.get(k) for k in fields}
+    original_contract['lesson_media'] = original_media
+    assert proof['module_contract_after_sha256']==digest(original_contract)
+    delivery=json.loads((ROOT/'docs/radiology-lesson-source-delivery-review/review.json').read_text())
+    current=next(r for r in delivery['modules'] if r['module_id']==NODE)
+    assert current['module_contract_after_sha256']==digest({k:node.get(k) for k in fields})
+    assert current['module_contract_before_sha256']==proof['module_contract_after_sha256']
     assert proof['all15_quiz_items_reviewed'] and proof['question_kinds_and_order_preserved']
     assert not proof['clinical_or_full_anatomical_approval'] and not proof['full_curriculum_media_scope_reconciled']
 
