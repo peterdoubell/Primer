@@ -29,7 +29,8 @@ def test_complete_native_study_reaches_both_surfaces_without_mesh_registration()
     _validate_lesson_media(node)
     assert row == registry()['ra.mri-bladder'][0]
     assert (row['source_series'], row['source_frames'], row['source_pixel_samples']) == (22, 1359, 107937792)
-    assert not ref['source_anatomy_references']
+    assert all(s['atlas'].startswith('hra-bladder-') and not s.get('source_volume')
+               for s in ref['source_anatomy_references'])  # No invented MRI-to-reference registration.
     assert row['reference_only'] and not row['clinical_approval'] and not row['anatomical_approval']
     assert row['structure_ids'] == row['requirement_coverage'] == []
     assert inventory() == json.loads((ROOT / 'data/radiology/radiology-static-source-studies.json').read_text())

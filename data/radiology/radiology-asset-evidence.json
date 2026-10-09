@@ -53816,6 +53816,75 @@
         "status": "pending",
         "reason": "Published source figures do not independently supply every reported layer/interface,registered native3D or current diagnosis."
       }
+    },
+    {
+      "id": "bladder-histology-niazi-2020-fig1",
+      "kind": "clinical_image",
+      "name": "Complete original four-panel human bladder histology figure, with original H&E tissue in panel a and separate annotation/training preparations in panels b\u2013d.",
+      "local_path": "web/reference-media/radiology-open/bladder-histology-niazi-2020-fig1.png",
+      "sha256": "00ce9cfef46fc35e0da612787d63738eaf859b7ab21468130aaef5157609cb60",
+      "modality": "Histology",
+      "investigation_ids": [
+        "ra.mri-bladder"
+      ],
+      "structure_ids": [],
+      "requirement_coverage": {},
+      "source_context": {
+        "setting": "ex_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown",
+          "age_not_supplied": true,
+          "sex_not_supplied": true
+        },
+        "extent": "local",
+        "depicted_state": "source_bladder_biopsy_histology_and_annotation_preparation",
+        "selected_panels": [
+          "a"
+        ],
+        "panel_types": {
+          "a": "Histology",
+          "b": "Segmentation mask",
+          "c": "Segmentation mask",
+          "d": "Masked histology"
+        },
+        "panel_states": {
+          "a": "original_histology_input",
+          "b": "pathologist_selected_region_annotations",
+          "c": "edited_annotation_mask",
+          "d": "edited_histology_training_input"
+        },
+        "source_case_groups": {
+          "one_source_histology_example_processing_comparison": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "source_native_registration_verified": false,
+        "source_full_fine_anatomy_approved": false,
+        "source_current_diagnosis_or_histology_inferred": false
+      },
+      "source": {
+        "url": "https://link.springer.com/article/10.1186/s13000-020-01002-1",
+        "asset_url": "https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs13000-020-01002-1/MediaObjects/13000_2020_1002_Fig1_HTML.png",
+        "license": {
+          "name": "CC BY4.0",
+          "url": "https://creativecommons.org/licenses/by/4.0/",
+          "commercial_use": true,
+          "redistribution": true,
+          "review_status": "verified",
+          "evidence_path": "docs/bladder-anatomy-fidelity-review/histology-figure-review.json",
+          "evidence_sha256": "da03bc008855633f9a6b4a028333b7cd62184edaa88c3e100ab6138b7bb49c3a",
+          "attribution": "Muhammad Khalid Khan Niazi, Enes Yazgan, Thomas E. Tavolara, Wencheng Li, Cheryl T. Lee, Anil Parwani and Metin N. Gurcan. Semantic segmentation to identify bladder layers from H&E Images. Diagnostic Pathology15,87(2020). DOI10.1186/s13000-020-01002-1. Figure1. CC BY4.0. Complete original publisher PNG retained without crop,resize,enhancement or relabelling; no endorsement implied.",
+          "reviewed_at": "2026-10-09"
+        }
+      },
+      "anatomical_review": {
+        "status": "pending",
+        "reason": "Complete published figure, not whole-slide source resolution or a full-thickness wall section. Only selected regions have pathologist labels; unlabelled tissue remains unknown. Muscularis propria, muscularis mucosae, complete serosa/adventitia and native3D layer extent are not established. No MRI correspondence, current diagnosis or complete reporting-anatomy approval is granted."
+      }
     }
   ],
   "reference_rights_assets": [

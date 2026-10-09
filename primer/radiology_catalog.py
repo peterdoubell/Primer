@@ -47,6 +47,8 @@ SOURCE_REFERENCE_ATLASES['wt9fc-sub007'] = 'tongue-source'
 SOURCE_REFERENCE_ATLASES['ispy1-expert1002'] = 'breast-tumour-source'
 SOURCE_REFERENCE_ATLASES['prostate-biopsy0001'] = 'prostate-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
+SOURCE_REFERENCE_ATLASES['hra-bladder-female-v1.1'] = 'bladder-source'
+SOURCE_REFERENCE_ATLASES['hra-bladder-male-v1.1'] = 'bladder-source'
 
 
 @lru_cache(maxsize=1)
@@ -631,7 +633,7 @@ def _structure_atlases():
         for image in images:
             if image['id'] in seen or image.get('kind') not in {'clinical-image', 'schematic'}:
                 raise ValueError('Invalid or duplicated MSK atlas figure')
-            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Nuclear medicine', 'Schematic'}:
+            if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Nuclear medicine', 'Histology', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
             _validate_source_panel_roles(image)
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
@@ -670,7 +672,7 @@ def _structure_atlases():
             if not isinstance(ancillary, list):
                 raise ValueError('Ancillary anatomical panels must be explicit records')
             for entry in ancillary:
-                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Endoscopy', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph', 'Segmentation mask', 'Masked ultrasound', 'MRI-derived plot', 'Ultrasound-derived display'}
+                if (not isinstance(entry, dict) or entry.get('kind') not in {'Dissection', 'Histology', 'Endoscopy', 'Ultrasound', 'MRI', 'CT', 'PET-CT', 'Radiography', 'Nuclear medicine', 'Haemodynamic tracing', 'Anatomical specimen photograph', 'Clinical photograph', 'Segmentation mask', 'Masked ultrasound', 'Masked histology', 'MRI-derived plot', 'Ultrasound-derived display'}
                         or entry.get('kind') == image.get('modality')
                         or not isinstance(entry.get('panels'), list) or not entry['panels']
                         or any(not isinstance(panel, str) or

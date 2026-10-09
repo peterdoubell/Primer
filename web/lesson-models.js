@@ -5763,6 +5763,40 @@
     },
     'radiology-anatomy': (item, hooks) => {
       const family = item.props?.family;
+      if (item.props?.source_references?.length) {
+        const host = node('div', { class: 'lesson-native-anatomy' });
+        const select = node('select', { 'aria-label': 'Original anatomy source' });
+        const view = node('div');
+        item.props.source_references.forEach((source, i) => select.append(node('option', { value: String(i) }, source.label)));
+        function show() {
+          view.querySelector('.detailed-anatomy')?.dispose();
+          const source = item.props.source_references[Number(select.value)];
+          const anatomy = window.PrimerDetailedAnatomy?.render({ family: source.family, atlas: source.atlas,
+            initialLayer: source.initial_layer, initialCropped: source.initial_cropped, populationNote: source.population_note });
+          view.replaceChildren(anatomy || node('p', { role: 'status' }, 'This original anatomy reference could not load.'));
+          if (source.source_image) {
+            const image = source.source_image;
+            view.append(node('figure', {}, node('img', { src: image.src, alt: image.alt,
+              width: image.width, height: image.height, loading: 'lazy', style: 'max-width:100%;height:auto' }),
+              node('figcaption', {}, image.caption, node('p', {}, image.attribution))));
+          }
+          if (source.source_volume) {
+            const volume = source.source_volume;
+            const link = node('a', { href: volume.src, target: '_blank', rel: 'noopener noreferrer' }, volume.title);
+            anatomy?.addEventListener('anatomy-selection', event => {
+              const ids = event.detail.partIds;
+              const level = ids.length === 1 ? volume.level_by_part?.[ids[0]] : null;
+              link.href = volume.src + (level ? '?level=' + encodeURIComponent(level) : '');
+            });
+            view.append(node('p', {}, link),
+              node('p', {}, volume.caption));
+          }
+        }
+        select.addEventListener('change', show);
+        host.append(node('label', {}, 'Original anatomy source ', select), view);
+        show();
+        return host;
+      }
       if (window.PrimerDetailedAnatomy?.supported(family)) {
         const anatomy = window.PrimerDetailedAnatomy.render({ family });
         return node('div', { class: 'lesson-native-anatomy' },

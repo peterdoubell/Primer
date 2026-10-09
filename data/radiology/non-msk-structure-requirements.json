@@ -67,7 +67,8 @@
       "ra.male-breast",
       "ra.mri-prostate",
       "ra.mri-rectal-cancer",
-      "ra.mri-perianal-fistula"
+      "ra.mri-perianal-fistula",
+      "ra.mri-bladder"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -361151,6 +361152,3461 @@
         "Current treatment,clinical complete response,pathological complete response,organism or disease activity requires relevant actual clinical/tissue/temporal correlation."
       ],
       "source_contract_sha256": "48c86d307dcc1d6227b782476d1e7e697d2c50f5a258adc19116b882bbc4b96b"
+    },
+    {
+      "investigation_id": "ra.mri-bladder",
+      "module_id": "rad.5.bladder-virads",
+      "title": "Complete bladder reporting anatomy, tissue interfaces and conditional acquired staging scope",
+      "modality": "MRI",
+      "scope_type": "lesion_specific_wall_assessment_with_distinct_histological_context_and_conditional_pelvic_upper_tract_scope",
+      "scope_status": "expanded_draft_requires_independent_bladder_anatomical_and_clinical_review",
+      "clinical_validation_status": "draft_requires_bladder_radiologist_anatomist_and_relevant_urological_pathology_review",
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "modality_scope": [
+        "MRI",
+        "CT",
+        "Histology"
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant \u2014 Bladder Cancer - VI-RADS",
+          "url": "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+          "reviewed_at": "2026-10-09",
+          "review_status": "primary_reporting_scope_and_separate_tissue_context; no image licence inferred from citation"
+        },
+        {
+          "title": "VI-RADS development consensus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+          "reviewed_at": "2026-10-09",
+          "review_status": "primary_reporting_scope_and_separate_tissue_context; no image licence inferred from citation"
+        },
+        {
+          "title": "Original VI-RADS consensus (2018)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+          "reviewed_at": "2026-10-09",
+          "review_status": "primary_reporting_scope_and_separate_tissue_context; no image licence inferred from citation"
+        },
+        {
+          "title": "ACR VI-RADS steering committee: updates and future perspectives (2026)",
+          "url": "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+          "reviewed_at": "2026-10-09",
+          "review_status": "primary_reporting_scope_and_separate_tissue_context; no image licence inferred from citation"
+        },
+        {
+          "title": "EAU bladder cancer diagnostic evaluation",
+          "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+          "reviewed_at": "2026-10-09",
+          "review_status": "primary_reporting_scope_and_separate_tissue_context; no image licence inferred from citation"
+        },
+        {
+          "title": "EAU bladder TNM classification",
+          "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+          "reviewed_at": "2026-10-09",
+          "review_status": "primary_reporting_scope_and_separate_tissue_context; no image licence inferred from citation"
+        },
+        {
+          "title": "EAU upper-tract urothelial carcinoma diagnosis",
+          "url": "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis",
+          "reviewed_at": "2026-10-09",
+          "review_status": "primary_reporting_scope_and_separate_tissue_context; no image licence inferred from citation"
+        }
+      ],
+      "reporting_checklist": [
+        {
+          "label": "Lesion map",
+          "detail": "Number lesions and record wall location and size."
+        },
+        {
+          "label": "Morphology",
+          "detail": "Describe papillary/sessile form, stalk and underlying wall."
+        },
+        {
+          "label": "Muscle interface",
+          "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+        },
+        {
+          "label": "Functional sequences",
+          "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+        },
+        {
+          "label": "Beyond bladder",
+          "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "LESION INVENTORY",
+          "body": "ID/location: [ ]. Maximum size: [ ] mm. Multiplicity, stalk, inner layer and base: [ ]."
+        },
+        {
+          "heading": "T2 INTERFACE",
+          "body": "T2 quality: [ ]. Inner layer/stalk: [ ]. Muscular line: [continuous / focally involved / interrupted / not assessable]. Structural category and evidence: [ ]."
+        },
+        {
+          "heading": "DIFFUSION",
+          "body": "DWI/ADC quality and actual acquisition: [ ]. Tumour restriction and muscle/perivesical extent: [ ]. Category or reason not assessable: [ ]. No unverified physical ADC cutoff."
+        },
+        {
+          "heading": "DYNAMIC ENHANCEMENT",
+          "body": "Actual dynamic acquisition and early phase: [ ]. Inner-layer/muscle/perivesical enhancement: [ ]. DCE category or reason not assessable: [ ]."
+        },
+        {
+          "heading": "EXTENT AND VI-RADS",
+          "body": "Overall VI-RADS [1\u20135 / not assessable / not applicable] using original 2018 rules; quality, discordance and rationale: [ ]. Visible local extent and organ-invasion route/confidence: [ ]. UVJ/neck/diverticulum limitations: [ ]. Obstruction: [ ]. Nodes by station, short axis and morphology: [ ]. Upper tract coverage/limits: [ ]."
+        }
+      ],
+      "structures": [
+        {
+          "id": "bladder.location.anterior",
+          "name": "anterior wall",
+          "laterality": "midline",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.anterior.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.anterior.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.anterior.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.anterior.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.anterior.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.anterior.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.location.posterior",
+          "name": "posterior wall",
+          "laterality": "midline",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.posterior.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.posterior.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.posterior.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.posterior.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.posterior.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.posterior.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.location.right_lateral",
+          "name": "right lateral wall",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.right_lateral.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.right_lateral.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.right_lateral.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.right_lateral.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.right_lateral.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.right_lateral.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.location.left_lateral",
+          "name": "left lateral wall",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.left_lateral.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.left_lateral.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.left_lateral.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.left_lateral.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.left_lateral.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.left_lateral.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.location.dome",
+          "name": "bladder dome",
+          "laterality": "midline",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.dome.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.dome.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.dome.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.dome.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.dome.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.dome.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.location.base",
+          "name": "bladder base",
+          "laterality": "midline",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.base.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.base.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.base.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.base.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.base.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.base.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.location.trigone",
+          "name": "bladder trigone",
+          "laterality": "midline",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.trigone.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.trigone.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.trigone.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.trigone.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.trigone.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.trigone.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.location.neck",
+          "name": "bladder neck",
+          "laterality": "midline",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.location.neck.complete_reported_region",
+              "name": "complete reported region"
+            },
+            {
+              "id": "bladder.location.neck.luminal_surface",
+              "name": "luminal surface"
+            },
+            {
+              "id": "bladder.location.neck.deep_wall_interface",
+              "name": "deep wall interface"
+            },
+            {
+              "id": "bladder.location.neck.adjacent_region_continuity",
+              "name": "adjacent region continuity"
+            },
+            {
+              "id": "bladder.location.neck.lesion_base_relationship",
+              "name": "lesion base relationship"
+            },
+            {
+              "id": "bladder.location.neck.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lumen",
+          "name": "bladder lumen and distension",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lumen.complete_acquired_lumen",
+              "name": "complete acquired lumen"
+            },
+            {
+              "id": "bladder.lumen.inner_wall_relationship",
+              "name": "inner wall relationship"
+            },
+            {
+              "id": "bladder.lumen.folds_and_partial_volume",
+              "name": "folds and partial volume"
+            },
+            {
+              "id": "bladder.lumen.degree_of_distension",
+              "name": "degree of distension"
+            },
+            {
+              "id": "bladder.lumen.unassessed_extent",
+              "name": "unassessed extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Lesion map",
+              "detail": "Number lesions and record wall location and size."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.inner_layer",
+          "name": "MRI inner-layer appearance",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.inner_layer.source_resolved_extent",
+              "name": "source resolved extent"
+            },
+            {
+              "id": "bladder.inner_layer.stalk_relationship",
+              "name": "stalk relationship"
+            },
+            {
+              "id": "bladder.inner_layer.t2_appearance",
+              "name": "t2 appearance"
+            },
+            {
+              "id": "bladder.inner_layer.early_enhancement_interface",
+              "name": "early enhancement interface"
+            },
+            {
+              "id": "bladder.inner_layer.unresolved_histological_components",
+              "name": "unresolved histological components"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.detrusor",
+          "name": "muscularis propria/detrusor interface",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.detrusor.source_resolved_extent",
+              "name": "source resolved extent"
+            },
+            {
+              "id": "bladder.detrusor.luminal_interface",
+              "name": "luminal interface"
+            },
+            {
+              "id": "bladder.detrusor.perivesical_interface",
+              "name": "perivesical interface"
+            },
+            {
+              "id": "bladder.detrusor.continuous_or_interrupted_regions",
+              "name": "continuous or interrupted regions"
+            },
+            {
+              "id": "bladder.detrusor.tumour_contact_and_depth",
+              "name": "tumour contact and depth"
+            },
+            {
+              "id": "bladder.detrusor.unresolved_bundle_and_layer_extent",
+              "name": "unresolved bundle and layer extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.perivesical_fat",
+          "name": "perivesical fat",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.perivesical_fat.source_resolved_extent",
+              "name": "source resolved extent"
+            },
+            {
+              "id": "bladder.perivesical_fat.bladder_wall_boundary",
+              "name": "bladder wall boundary"
+            },
+            {
+              "id": "bladder.perivesical_fat.adjacent_organ_interfaces",
+              "name": "adjacent organ interfaces"
+            },
+            {
+              "id": "bladder.perivesical_fat.source_resolved_fat_planes",
+              "name": "source resolved fat planes"
+            },
+            {
+              "id": "bladder.perivesical_fat.focal_mass_or_stranding",
+              "name": "focal mass or stranding"
+            },
+            {
+              "id": "bladder.perivesical_fat.microscopic_invasion_unresolved",
+              "name": "microscopic invasion unresolved"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.histology.urothelium",
+          "name": "urothelium",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "Histology"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.histology.urothelium.actual_sample_extent",
+              "name": "actual sample extent"
+            },
+            {
+              "id": "bladder.histology.urothelium.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "bladder.histology.urothelium.source_resolved_internal_components",
+              "name": "source resolved internal components"
+            },
+            {
+              "id": "bladder.histology.urothelium.distinction_from_neighbouring_layer",
+              "name": "distinction from neighbouring layer"
+            },
+            {
+              "id": "bladder.histology.urothelium.missing_or_unlabelled_tissue",
+              "name": "missing or unlabelled tissue"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Histological context is separate from MRI signal and sampling. Do not equate a 2D specimen, prediction mask, whole-organ surface or MRI band with complete native3D layer anatomy or current pathological stage."
+        },
+        {
+          "id": "bladder.histology.lamina_propria",
+          "name": "lamina propria",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "Histology"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.histology.lamina_propria.actual_sample_extent",
+              "name": "actual sample extent"
+            },
+            {
+              "id": "bladder.histology.lamina_propria.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "bladder.histology.lamina_propria.source_resolved_internal_components",
+              "name": "source resolved internal components"
+            },
+            {
+              "id": "bladder.histology.lamina_propria.distinction_from_neighbouring_layer",
+              "name": "distinction from neighbouring layer"
+            },
+            {
+              "id": "bladder.histology.lamina_propria.missing_or_unlabelled_tissue",
+              "name": "missing or unlabelled tissue"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Histological context is separate from MRI signal and sampling. Do not equate a 2D specimen, prediction mask, whole-organ surface or MRI band with complete native3D layer anatomy or current pathological stage."
+        },
+        {
+          "id": "bladder.histology.muscularis_mucosae",
+          "name": "muscularis mucosae when present",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "Histology"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.histology.muscularis_mucosae.actual_sample_extent",
+              "name": "actual sample extent"
+            },
+            {
+              "id": "bladder.histology.muscularis_mucosae.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "bladder.histology.muscularis_mucosae.source_resolved_internal_components",
+              "name": "source resolved internal components"
+            },
+            {
+              "id": "bladder.histology.muscularis_mucosae.distinction_from_neighbouring_layer",
+              "name": "distinction from neighbouring layer"
+            },
+            {
+              "id": "bladder.histology.muscularis_mucosae.missing_or_unlabelled_tissue",
+              "name": "missing or unlabelled tissue"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Histological context is separate from MRI signal and sampling. Do not equate a 2D specimen, prediction mask, whole-organ surface or MRI band with complete native3D layer anatomy or current pathological stage."
+        },
+        {
+          "id": "bladder.histology.muscularis_propria",
+          "name": "muscularis propria histological context",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "Histology"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.histology.muscularis_propria.actual_sample_extent",
+              "name": "actual sample extent"
+            },
+            {
+              "id": "bladder.histology.muscularis_propria.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "bladder.histology.muscularis_propria.source_resolved_internal_components",
+              "name": "source resolved internal components"
+            },
+            {
+              "id": "bladder.histology.muscularis_propria.distinction_from_neighbouring_layer",
+              "name": "distinction from neighbouring layer"
+            },
+            {
+              "id": "bladder.histology.muscularis_propria.missing_or_unlabelled_tissue",
+              "name": "missing or unlabelled tissue"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Histological context is separate from MRI signal and sampling. Do not equate a 2D specimen, prediction mask, whole-organ surface or MRI band with complete native3D layer anatomy or current pathological stage."
+        },
+        {
+          "id": "bladder.histology.adventitia",
+          "name": "adventitial tissue",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "Histology"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.histology.adventitia.actual_sample_extent",
+              "name": "actual sample extent"
+            },
+            {
+              "id": "bladder.histology.adventitia.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "bladder.histology.adventitia.source_resolved_internal_components",
+              "name": "source resolved internal components"
+            },
+            {
+              "id": "bladder.histology.adventitia.distinction_from_neighbouring_layer",
+              "name": "distinction from neighbouring layer"
+            },
+            {
+              "id": "bladder.histology.adventitia.missing_or_unlabelled_tissue",
+              "name": "missing or unlabelled tissue"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Histological context is separate from MRI signal and sampling. Do not equate a 2D specimen, prediction mask, whole-organ surface or MRI band with complete native3D layer anatomy or current pathological stage."
+        },
+        {
+          "id": "bladder.histology.serosa",
+          "name": "dome serosa/peritoneal covering",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "Histology"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.histology.serosa.actual_sample_extent",
+              "name": "actual sample extent"
+            },
+            {
+              "id": "bladder.histology.serosa.tissue_interface",
+              "name": "tissue interface"
+            },
+            {
+              "id": "bladder.histology.serosa.source_resolved_internal_components",
+              "name": "source resolved internal components"
+            },
+            {
+              "id": "bladder.histology.serosa.distinction_from_neighbouring_layer",
+              "name": "distinction from neighbouring layer"
+            },
+            {
+              "id": "bladder.histology.serosa.missing_or_unlabelled_tissue",
+              "name": "missing or unlabelled tissue"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Histological context is separate from MRI signal and sampling. Do not equate a 2D specimen, prediction mask, whole-organ surface or MRI band with complete native3D layer anatomy or current pathological stage."
+        },
+        {
+          "id": "bladder.lesion.papillary",
+          "name": "papillary/exophytic tumour",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.papillary.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.papillary.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.papillary.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.papillary.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.papillary.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.papillary.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe papillary/sessile form, stalk and underlying wall."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lesion.sessile",
+          "name": "sessile/broad-based tumour",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.sessile.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.sessile.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.sessile.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.sessile.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.sessile.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.sessile.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe papillary/sessile form, stalk and underlying wall."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lesion.stalk",
+          "name": "lesion stalk",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.stalk.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.stalk.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.stalk.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.stalk.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.stalk.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.stalk.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe papillary/sessile form, stalk and underlying wall."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lesion.base",
+          "name": "lesion base/deepest interface",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.base.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.base.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.base.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.base.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.base.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.base.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe papillary/sessile form, stalk and underlying wall."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lesion.multifocal",
+          "name": "each additional lesion",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.multifocal.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.multifocal.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.multifocal.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.multifocal.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.multifocal.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.multifocal.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            0
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Morphology",
+              "detail": "Describe papillary/sessile form, stalk and underlying wall."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lesion.inner_layer_contact",
+          "name": "tumour\u2013inner-layer contact",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.inner_layer_contact.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.inner_layer_contact.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.inner_layer_contact.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.inner_layer_contact.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.inner_layer_contact.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.inner_layer_contact.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Functional sequences",
+              "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lesion.muscle_invasion",
+          "name": "suspected focal muscle invasion",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.muscle_invasion.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.muscle_invasion.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.muscle_invasion.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.muscle_invasion.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.muscle_invasion.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.muscle_invasion.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Functional sequences",
+              "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.lesion.extravesical",
+          "name": "suspected extravesical tumour extension",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.lesion.extravesical.whole_source_resolved_extent",
+              "name": "whole source resolved extent"
+            },
+            {
+              "id": "bladder.lesion.extravesical.complete_margin",
+              "name": "complete margin"
+            },
+            {
+              "id": "bladder.lesion.extravesical.internal_components",
+              "name": "internal components"
+            },
+            {
+              "id": "bladder.lesion.extravesical.deepest_interface",
+              "name": "deepest interface"
+            },
+            {
+              "id": "bladder.lesion.extravesical.maximum_dimension_and_plane",
+              "name": "maximum dimension and plane"
+            },
+            {
+              "id": "bladder.lesion.extravesical.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Functional sequences",
+              "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.uvj.right",
+          "name": "right ureterovesical junction",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.uvj.right.ureteral_orifice",
+              "name": "ureteral orifice"
+            },
+            {
+              "id": "bladder.uvj.right.intramural_ureter",
+              "name": "intramural ureter"
+            },
+            {
+              "id": "bladder.uvj.right.wall_entry_interface",
+              "name": "wall entry interface"
+            },
+            {
+              "id": "bladder.uvj.right.adjacent_trigone",
+              "name": "adjacent trigone"
+            },
+            {
+              "id": "bladder.uvj.right.physiological_opening_vs_suspected_invasion",
+              "name": "physiological opening vs suspected invasion"
+            },
+            {
+              "id": "bladder.uvj.right.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.ureter.right",
+          "name": "right acquired ureter/obstruction",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.ureter.right.complete_acquired_course",
+              "name": "complete acquired course"
+            },
+            {
+              "id": "bladder.ureter.right.wall_and_lumen",
+              "name": "wall and lumen"
+            },
+            {
+              "id": "bladder.ureter.right.level_of_narrowing_or_lesion",
+              "name": "level of narrowing or lesion"
+            },
+            {
+              "id": "bladder.ureter.right.upstream_dilatation",
+              "name": "upstream dilatation"
+            },
+            {
+              "id": "bladder.ureter.right.distal_orifice_relationship",
+              "name": "distal orifice relationship"
+            },
+            {
+              "id": "bladder.ureter.right.unacquired_segments",
+              "name": "unacquired segments"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.upper_tract.right",
+          "name": "right actually acquired upper urinary tract",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.upper_tract.right.renal_pelvis_and_calyces",
+              "name": "renal pelvis and calyces"
+            },
+            {
+              "id": "bladder.upper_tract.right.urothelial_wall_and_lumen",
+              "name": "urothelial wall and lumen"
+            },
+            {
+              "id": "bladder.upper_tract.right.filling_defect_or_thickening",
+              "name": "filling defect or thickening"
+            },
+            {
+              "id": "bladder.upper_tract.right.enhancement_and_opacification",
+              "name": "enhancement and opacification"
+            },
+            {
+              "id": "bladder.upper_tract.right.upstream_obstruction",
+              "name": "upstream obstruction"
+            },
+            {
+              "id": "bladder.upper_tract.right.unopacified_or_unacquired_segments",
+              "name": "unopacified or unacquired segments"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.uvj.left",
+          "name": "left ureterovesical junction",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.uvj.left.ureteral_orifice",
+              "name": "ureteral orifice"
+            },
+            {
+              "id": "bladder.uvj.left.intramural_ureter",
+              "name": "intramural ureter"
+            },
+            {
+              "id": "bladder.uvj.left.wall_entry_interface",
+              "name": "wall entry interface"
+            },
+            {
+              "id": "bladder.uvj.left.adjacent_trigone",
+              "name": "adjacent trigone"
+            },
+            {
+              "id": "bladder.uvj.left.physiological_opening_vs_suspected_invasion",
+              "name": "physiological opening vs suspected invasion"
+            },
+            {
+              "id": "bladder.uvj.left.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.ureter.left",
+          "name": "left acquired ureter/obstruction",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.ureter.left.complete_acquired_course",
+              "name": "complete acquired course"
+            },
+            {
+              "id": "bladder.ureter.left.wall_and_lumen",
+              "name": "wall and lumen"
+            },
+            {
+              "id": "bladder.ureter.left.level_of_narrowing_or_lesion",
+              "name": "level of narrowing or lesion"
+            },
+            {
+              "id": "bladder.ureter.left.upstream_dilatation",
+              "name": "upstream dilatation"
+            },
+            {
+              "id": "bladder.ureter.left.distal_orifice_relationship",
+              "name": "distal orifice relationship"
+            },
+            {
+              "id": "bladder.ureter.left.unacquired_segments",
+              "name": "unacquired segments"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.upper_tract.left",
+          "name": "left actually acquired upper urinary tract",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.upper_tract.left.renal_pelvis_and_calyces",
+              "name": "renal pelvis and calyces"
+            },
+            {
+              "id": "bladder.upper_tract.left.urothelial_wall_and_lumen",
+              "name": "urothelial wall and lumen"
+            },
+            {
+              "id": "bladder.upper_tract.left.filling_defect_or_thickening",
+              "name": "filling defect or thickening"
+            },
+            {
+              "id": "bladder.upper_tract.left.enhancement_and_opacification",
+              "name": "enhancement and opacification"
+            },
+            {
+              "id": "bladder.upper_tract.left.upstream_obstruction",
+              "name": "upstream obstruction"
+            },
+            {
+              "id": "bladder.upper_tract.left.unopacified_or_unacquired_segments",
+              "name": "unopacified or unacquired segments"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.outlet",
+          "name": "bladder neck/outlet",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.outlet.neck_muscle",
+              "name": "neck muscle"
+            },
+            {
+              "id": "bladder.outlet.internal_urethral_opening",
+              "name": "internal urethral opening"
+            },
+            {
+              "id": "bladder.outlet.proximal_urethra",
+              "name": "proximal urethra"
+            },
+            {
+              "id": "bladder.outlet.tumour_interface",
+              "name": "tumour interface"
+            },
+            {
+              "id": "bladder.outlet.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.diverticulum",
+          "name": "each actual bladder diverticulum",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.diverticulum.neck_and_lumen",
+              "name": "neck and lumen"
+            },
+            {
+              "id": "bladder.diverticulum.complete_acquired_wall",
+              "name": "complete acquired wall"
+            },
+            {
+              "id": "bladder.diverticulum.actual_muscle_presence_or_absence",
+              "name": "actual muscle presence or absence"
+            },
+            {
+              "id": "bladder.diverticulum.perivesical_interface",
+              "name": "perivesical interface"
+            },
+            {
+              "id": "bladder.diverticulum.lesion_base_and_extent",
+              "name": "lesion base and extent"
+            },
+            {
+              "id": "bladder.diverticulum.unresolved_or_uncovered_extent",
+              "name": "unresolved or uncovered extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            1
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Muscle interface",
+              "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.extent.prostatic_protrusion",
+          "name": "intravesical prostatic protrusion in relevant male anatomy",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.extent.prostatic_protrusion.complete_acquired_interface",
+              "name": "complete acquired interface"
+            },
+            {
+              "id": "bladder.extent.prostatic_protrusion.direct_continuity_or_contact",
+              "name": "direct continuity or contact"
+            },
+            {
+              "id": "bladder.extent.prostatic_protrusion.native_tissue_components",
+              "name": "native tissue components"
+            },
+            {
+              "id": "bladder.extent.prostatic_protrusion.adjacent_organ_boundary",
+              "name": "adjacent organ boundary"
+            },
+            {
+              "id": "bladder.extent.prostatic_protrusion.route_and_depth_of_suspected_extension",
+              "name": "route and depth of suspected extension"
+            },
+            {
+              "id": "bladder.extent.prostatic_protrusion.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.extent.prostatic_stroma",
+          "name": "prostatic stroma/direct bladder-wall route",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.extent.prostatic_stroma.complete_acquired_interface",
+              "name": "complete acquired interface"
+            },
+            {
+              "id": "bladder.extent.prostatic_stroma.direct_continuity_or_contact",
+              "name": "direct continuity or contact"
+            },
+            {
+              "id": "bladder.extent.prostatic_stroma.native_tissue_components",
+              "name": "native tissue components"
+            },
+            {
+              "id": "bladder.extent.prostatic_stroma.adjacent_organ_boundary",
+              "name": "adjacent organ boundary"
+            },
+            {
+              "id": "bladder.extent.prostatic_stroma.route_and_depth_of_suspected_extension",
+              "name": "route and depth of suspected extension"
+            },
+            {
+              "id": "bladder.extent.prostatic_stroma.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.extent.prostatic_urethra",
+          "name": "prostatic urethral route separately",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.extent.prostatic_urethra.complete_acquired_interface",
+              "name": "complete acquired interface"
+            },
+            {
+              "id": "bladder.extent.prostatic_urethra.direct_continuity_or_contact",
+              "name": "direct continuity or contact"
+            },
+            {
+              "id": "bladder.extent.prostatic_urethra.native_tissue_components",
+              "name": "native tissue components"
+            },
+            {
+              "id": "bladder.extent.prostatic_urethra.adjacent_organ_boundary",
+              "name": "adjacent organ boundary"
+            },
+            {
+              "id": "bladder.extent.prostatic_urethra.route_and_depth_of_suspected_extension",
+              "name": "route and depth of suspected extension"
+            },
+            {
+              "id": "bladder.extent.prostatic_urethra.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.extent.uterus",
+          "name": "adjacent uterus in relevant female anatomy",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.extent.uterus.complete_acquired_interface",
+              "name": "complete acquired interface"
+            },
+            {
+              "id": "bladder.extent.uterus.direct_continuity_or_contact",
+              "name": "direct continuity or contact"
+            },
+            {
+              "id": "bladder.extent.uterus.native_tissue_components",
+              "name": "native tissue components"
+            },
+            {
+              "id": "bladder.extent.uterus.adjacent_organ_boundary",
+              "name": "adjacent organ boundary"
+            },
+            {
+              "id": "bladder.extent.uterus.route_and_depth_of_suspected_extension",
+              "name": "route and depth of suspected extension"
+            },
+            {
+              "id": "bladder.extent.uterus.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.extent.vagina",
+          "name": "adjacent vagina in relevant female anatomy",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.extent.vagina.complete_acquired_interface",
+              "name": "complete acquired interface"
+            },
+            {
+              "id": "bladder.extent.vagina.direct_continuity_or_contact",
+              "name": "direct continuity or contact"
+            },
+            {
+              "id": "bladder.extent.vagina.native_tissue_components",
+              "name": "native tissue components"
+            },
+            {
+              "id": "bladder.extent.vagina.adjacent_organ_boundary",
+              "name": "adjacent organ boundary"
+            },
+            {
+              "id": "bladder.extent.vagina.route_and_depth_of_suspected_extension",
+              "name": "route and depth of suspected extension"
+            },
+            {
+              "id": "bladder.extent.vagina.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.extent.pelvic_wall",
+          "name": "pelvic sidewall",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.extent.pelvic_wall.complete_acquired_interface",
+              "name": "complete acquired interface"
+            },
+            {
+              "id": "bladder.extent.pelvic_wall.direct_continuity_or_contact",
+              "name": "direct continuity or contact"
+            },
+            {
+              "id": "bladder.extent.pelvic_wall.native_tissue_components",
+              "name": "native tissue components"
+            },
+            {
+              "id": "bladder.extent.pelvic_wall.adjacent_organ_boundary",
+              "name": "adjacent organ boundary"
+            },
+            {
+              "id": "bladder.extent.pelvic_wall.route_and_depth_of_suspected_extension",
+              "name": "route and depth of suspected extension"
+            },
+            {
+              "id": "bladder.extent.pelvic_wall.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.extent.abdominal_wall",
+          "name": "abdominal wall",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.extent.abdominal_wall.complete_acquired_interface",
+              "name": "complete acquired interface"
+            },
+            {
+              "id": "bladder.extent.abdominal_wall.direct_continuity_or_contact",
+              "name": "direct continuity or contact"
+            },
+            {
+              "id": "bladder.extent.abdominal_wall.native_tissue_components",
+              "name": "native tissue components"
+            },
+            {
+              "id": "bladder.extent.abdominal_wall.adjacent_organ_boundary",
+              "name": "adjacent organ boundary"
+            },
+            {
+              "id": "bladder.extent.abdominal_wall.route_and_depth_of_suspected_extension",
+              "name": "route and depth of suspected extension"
+            },
+            {
+              "id": "bladder.extent.abdominal_wall.unresolved_extent",
+              "name": "unresolved extent"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.right_obturator",
+          "name": "right obturator nodal station",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.right_obturator.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.right_obturator.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.right_obturator.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.right_obturator.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.right_obturator.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.right_obturator.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.right_internal_iliac",
+          "name": "right internal iliac nodal station",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.right_internal_iliac.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.right_internal_iliac.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.right_internal_iliac.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.right_internal_iliac.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.right_internal_iliac.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.right_internal_iliac.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.right_external_iliac",
+          "name": "right external iliac nodal station",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.right_external_iliac.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.right_external_iliac.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.right_external_iliac.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.right_external_iliac.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.right_external_iliac.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.right_external_iliac.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.right_common_iliac",
+          "name": "right common iliac nodal station",
+          "laterality": "right",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.right_common_iliac.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.right_common_iliac.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.right_common_iliac.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.right_common_iliac.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.right_common_iliac.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.right_common_iliac.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.left_obturator",
+          "name": "left obturator nodal station",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.left_obturator.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.left_obturator.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.left_obturator.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.left_obturator.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.left_obturator.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.left_obturator.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.left_internal_iliac",
+          "name": "left internal iliac nodal station",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.left_internal_iliac.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.left_internal_iliac.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.left_internal_iliac.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.left_internal_iliac.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.left_internal_iliac.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.left_internal_iliac.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.left_external_iliac",
+          "name": "left external iliac nodal station",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.left_external_iliac.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.left_external_iliac.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.left_external_iliac.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.left_external_iliac.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.left_external_iliac.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.left_external_iliac.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.left_common_iliac",
+          "name": "left common iliac nodal station",
+          "laterality": "left",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.left_common_iliac.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.left_common_iliac.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.left_common_iliac.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.left_common_iliac.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.left_common_iliac.vessel_and_station_relationship",
+              "name": "vessel and station relationship"
+            },
+            {
+              "id": "bladder.nodes.left_common_iliac.unresolved_micrometastatic_status",
+              "name": "unresolved micrometastatic status"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.perivesical",
+          "name": "perivesical nodal region",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.perivesical.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.perivesical.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.perivesical.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.perivesical.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.perivesical.station_and_vessel_relationship",
+              "name": "station and vessel relationship"
+            },
+            {
+              "id": "bladder.nodes.perivesical.unassessed_region_or_micrometastases",
+              "name": "unassessed region or micrometastases"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.sacral",
+          "name": "sacral nodal region",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.sacral.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.sacral.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.sacral.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.sacral.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.sacral.station_and_vessel_relationship",
+              "name": "station and vessel relationship"
+            },
+            {
+              "id": "bladder.nodes.sacral.unassessed_region_or_micrometastases",
+              "name": "unassessed region or micrometastases"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.nodes.nonregional",
+          "name": "nonregional nodal region",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI",
+            "CT"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.nodes.nonregional.each_actual_node",
+              "name": "each actual node"
+            },
+            {
+              "id": "bladder.nodes.nonregional.cortex_and_hilum",
+              "name": "cortex and hilum"
+            },
+            {
+              "id": "bladder.nodes.nonregional.whole_margin",
+              "name": "whole margin"
+            },
+            {
+              "id": "bladder.nodes.nonregional.short_axis_and_plane",
+              "name": "short axis and plane"
+            },
+            {
+              "id": "bladder.nodes.nonregional.station_and_vessel_relationship",
+              "name": "station and vessel relationship"
+            },
+            {
+              "id": "bladder.nodes.nonregional.unassessed_region_or_micrometastases",
+              "name": "unassessed region or micrometastases"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.sequence.t2",
+          "name": "T2 tumour\u2013wall assessment",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.sequence.t2.actual_source_plane_and_sampling",
+              "name": "actual source plane and sampling"
+            },
+            {
+              "id": "bladder.sequence.t2.whole_reported_lesion_interface",
+              "name": "whole reported lesion interface"
+            },
+            {
+              "id": "bladder.sequence.t2.quality_and_artifact_affected_region",
+              "name": "quality and artifact affected region"
+            },
+            {
+              "id": "bladder.sequence.t2.native_sequence_correspondence",
+              "name": "native sequence correspondence"
+            },
+            {
+              "id": "bladder.sequence.t2.unavailable_components",
+              "name": "unavailable components"
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Functional sequences",
+              "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.sequence.diffusion",
+          "name": "DWI/ADC tumour\u2013wall assessment",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.sequence.diffusion.actual_source_plane_and_sampling",
+              "name": "actual source plane and sampling"
+            },
+            {
+              "id": "bladder.sequence.diffusion.whole_reported_lesion_interface",
+              "name": "whole reported lesion interface"
+            },
+            {
+              "id": "bladder.sequence.diffusion.quality_and_artifact_affected_region",
+              "name": "quality and artifact affected region"
+            },
+            {
+              "id": "bladder.sequence.diffusion.native_sequence_correspondence",
+              "name": "native sequence correspondence"
+            },
+            {
+              "id": "bladder.sequence.diffusion.unavailable_components",
+              "name": "unavailable components"
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Functional sequences",
+              "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.sequence.dce",
+          "name": "actual early DCE tumour\u2013wall assessment",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.sequence.dce.actual_source_plane_and_sampling",
+              "name": "actual source plane and sampling"
+            },
+            {
+              "id": "bladder.sequence.dce.whole_reported_lesion_interface",
+              "name": "whole reported lesion interface"
+            },
+            {
+              "id": "bladder.sequence.dce.quality_and_artifact_affected_region",
+              "name": "quality and artifact affected region"
+            },
+            {
+              "id": "bladder.sequence.dce.native_sequence_correspondence",
+              "name": "native sequence correspondence"
+            },
+            {
+              "id": "bladder.sequence.dce.unavailable_components",
+              "name": "unavailable components"
+            }
+          ],
+          "walkthrough_step_indices": [
+            2,
+            3
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Functional sequences",
+              "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        },
+        {
+          "id": "bladder.treatment",
+          "name": "each actual treated/instrumented site",
+          "laterality": "unspecified",
+          "tissue_class": "bladder_reporting_anatomy_tissue_lesion_or_interface",
+          "modality_scope": [
+            "MRI"
+          ],
+          "required_parts": [
+            {
+              "id": "bladder.treatment.site_and_dates",
+              "name": "site and dates"
+            },
+            {
+              "id": "bladder.treatment.resection_or_treatment_bed",
+              "name": "resection or treatment bed"
+            },
+            {
+              "id": "bladder.treatment.source_resolved_wall_and_perivesical_changes",
+              "name": "source resolved wall and perivesical changes"
+            },
+            {
+              "id": "bladder.treatment.residual_lesion_vs_confounder",
+              "name": "residual lesion vs confounder"
+            },
+            {
+              "id": "bladder.treatment.unresolved_tissue_identity",
+              "name": "unresolved tissue identity"
+            }
+          ],
+          "walkthrough_step_indices": [
+            4
+          ],
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Beyond bladder",
+              "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+            }
+          ],
+          "source_urls": [
+            "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+            "https://pubmed.ncbi.nlm.nih.gov/29755006/",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "https://link.springer.com/article/10.1186/s40644-026-01062-4",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems",
+            "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          ],
+          "requires_site_instantiation": true,
+          "requires_independent_source_layer_review": true,
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "condition": "Instantiate each actual reported site/component and its source-resolved interfaces; source labels alone do not establish boundaries or complete native extent. Unacquired, microscopic or unresolved tissue remains unproven."
+        }
+      ],
+      "expansion_rules": [
+        "This is a minimum inventory, not a closed list. Instantiate every actual reported lesion, side, tissue component, node, route and treatment interface.",
+        "MRI inner-layer/muscle signal is not separate microscopic tissue reconstruction. Histology needs its own source identity, sampling, scale and acquisition context.",
+        "A female pelvic MRI does not supply male anatomy or a complete upper-tract urography assessment. Preserve sex, anatomy, acquired extent and actual image quality.",
+        "A whole-bladder shape, source gross region, node label or small annotated specimen cannot supply complete fine-layer or every-structure coverage."
+      ],
+      "source_scope_issues": [
+        "The complete TCGA MRI study has no native source segmentations or wall-layer surfaces.",
+        "HRA gross source regions are independent Visible Human reference anatomies; open boundaries, female contact pairs and FMA URI discrepancies remain explicit.",
+        "The published human histology example supplies selected urothelium/lamina-propria observations and processing masks, not a full-thickness 3D wall."
+      ],
+      "functional_evidence_requirements": [
+        "DWI/ADC requires actual b-values, scaling, source quality and ROI context; producer names alone do not verify physical ADC units or repeated acquisition identity.",
+        "DCE interpretation requires actual dynamic timing and quality; source temporal identifiers do not establish contrast-bolus start or physiological registration.",
+        "Prior treatment, tissue stage, CIS, inflammatory histology and nodal metastasis require separate appropriate clinical/tissue evidence."
+      ],
+      "source_contract_sha256": "645faa3611bb21d2c963611d3f4ac7950d541a0ebcab0ba9b6adb7d06dcbc949"
     }
   ],
   "additional_scope": []
