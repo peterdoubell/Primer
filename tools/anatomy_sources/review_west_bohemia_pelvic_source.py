@@ -53,7 +53,7 @@ def inspect_arrays(value):
     }
 
 
-def review(source, output, node_binary='node'):
+def review(source, output):
     metadata = json.loads((source / 'record.json').read_text())
     archive = source / 'Pelvic_Visualiser.zip'
     file_record = next(f for f in metadata['files'] if f['key'] == archive.name)
@@ -98,8 +98,8 @@ def review(source, output, node_binary='node'):
                                 'side_label_independently_anatomically_verified': False})
             # V8 JSON/IEEE754 and a cursor-based VTK cell reader provide a
             # second implementation; no shared Python topology parser is used.
-            result = subprocess.run([node_binary, str(Path(__file__).with_name('read_pelvic_source_arrays.cjs')),
-                                     str(source / name)], text=True, capture_output=True, check=True)
+            result = subprocess.run(['node', str(Path(__file__).with_name('read_pelvic_source_arrays.cjs'))],
+                                    input=raw.decode('utf-8'), text=True, capture_output=True, check=True)
             independent = json.loads(result.stdout)
             fields = ['positions', 'triangles', 'positions_float64_le_sha256',
                       'original_VTK_cells_uint32_le_sha256', 'ordered_triangle_indices_uint32_le_sha256']
@@ -140,6 +140,5 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--node-binary', default='node')
     args = parser.parse_args()
-    review(args.source, args.output, args.node_binary)
+    review(args.source, args.output)

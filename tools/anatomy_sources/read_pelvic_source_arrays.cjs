@@ -2,7 +2,7 @@
 const fs = require('node:fs');
 const { createHash } = require('node:crypto');
 const hash = buffer => createHash('sha256').update(buffer).digest('hex');
-const models = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const models = JSON.parse(fs.readFileSync(0, 'utf8'));
 const result = {};
 for (const [label, [vertices, cells]] of Object.entries(models)) {
   const points = Buffer.alloc(vertices.length * 24);

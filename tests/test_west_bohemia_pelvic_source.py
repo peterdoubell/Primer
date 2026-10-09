@@ -71,8 +71,8 @@ def test_every_source_coordinate_and_face_matches_both_independent_interpreters(
         source = tmp_path / model['source_filename']
         source.write_bytes(gzip.decompress((REVIEW / model['retained_file']).read_bytes()))
         data = json.loads(source.read_bytes())
-        result = subprocess.run(['node', str(ROOT / 'tools/anatomy_sources/read_pelvic_source_arrays.cjs'), str(source)],
-                                text=True, capture_output=True, check=True)
+        result = subprocess.run(['node', str(ROOT / 'tools/anatomy_sources/read_pelvic_source_arrays.cjs')],
+                                input=source.read_text(), text=True, capture_output=True, check=True)
         independent = json.loads(result.stdout)
         for obj in model['objects']:
             actual = inspect_arrays(data[obj['source_label']])
