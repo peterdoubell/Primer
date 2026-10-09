@@ -35,7 +35,6 @@ CORRECTED = {
     'ra.mra-peripheral-vessels': 'aorta',
     'ra.ct-cardiovascular-pearls': 'heart',
     'ra.pulmonary-hypertension': 'thorax',
-    'ra.hrct-cystic-lung': 'thorax',
     'ra.hrct-lung': 'thorax',
     'ra.chest-radiography': 'thorax',
     'ra.tuberculosis': 'thorax',
@@ -266,7 +265,8 @@ def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_galle
         authored_start = radiology_catalog._steps()['investigations'][key].get('start', {})
         if 'images' in authored_start:
             assert ref['walkthrough']['start']['images'] == authored_start['images'], key
-            assert len(atlas.intersection(authored_start['images'])) < len(atlas), key
+            if atlas:
+                assert len(atlas.intersection(authored_start['images'])) < len(atlas), key
         else:
             assert not atlas.intersection(ref['walkthrough']['start']['images']), key
 

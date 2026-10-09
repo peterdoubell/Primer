@@ -23,7 +23,7 @@ def test_actual_case_patterns_and_chronology_are_not_merged_or_qualified_as_new_
     assert rows[5]['source_context']['source_follow_up_months']==13 and rows[6]['source_context']['source_follow_up_months']==15
     assert rows[7]['source_context']['source_time_groups']['40_days_after_acute_phase']==list('ghi')
     for row in rows.values():assert row['source_context']['actual_expiratory_acquisition_verified'] is False and row['source_context']['quantified_fibrosis_or_physiology_independently_verified'] is False
-    assert not ref['key_images'] and all(not s['normal'] for s in ref['walkthrough']['steps'])
+    assert ref['key_images'] and all(not s['normal'] for s in ref['walkthrough']['steps'])
     assert 'unperformed expiration' in ref['walkthrough']['steps'][3]['tip']
     assert 'within one year' in ref['walkthrough']['steps'][4]['tip']
 def test_rights_and_source_integrity_do_not_approve_structure_bindings():
@@ -33,7 +33,7 @@ def test_rights_and_source_integrity_do_not_approve_structure_bindings():
         assert row['anatomical_review']['status']=='pending' and not row['structure_ids'] and not row['requirement_coverage']
 def test_inventory_covers_lobular_patterns_and_full_actual_site_instantiation():
     item=build();stored=next(i for i in json.loads((ROOT/'data/radiology/non-msk-structure-requirements.json').read_text())['investigations'] if i['investigation_id']=='ra.hrct-lung');assert item==stored
-    assert len(item['structures'])==81 and len(requirements_for(item))==609
+    assert len(item['structures'])==157 and len(requirements_for(item))==1176
     ids={s['id'] for s in item['structures']}
     for key in ['right_secondary_lobule','left_secondary_lobule','right_bronchiolocentric_pattern','left_mosaic','right_traction_airway','left_additional_region','oesophagus','cardiovascular_context','acquisition','comparison']:assert 'hrct_lung.'+key in ids
     assert all(s['requires_site_instantiation'] and s['report_refs'] for s in item['structures'])

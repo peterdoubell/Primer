@@ -3871,32 +3871,24 @@
           "detail": "Compare actual matching source sites and methods; report complications and supplied clinical/physiological context without inferring progression, pressure or function from a still."
         },
         {
-          "label": "Dominant Pattern",
-          "detail": "Identify reticulation, ground glass, consolidation or nodules."
+          "label": "Cyst morphology",
+          "detail": "Trace each actual cyst or cyst-like lesion through obtained source planes; describe wall, contents, shape, septa, mural components and airway/vessel continuity with source uncertainty."
         },
         {
-          "label": "Airways And Air Trapping",
-          "detail": "Assess airway disease and expiratory findings when obtained."
+          "label": "Distribution",
+          "detail": "Record actual count/extent and regional distribution across every covered lobe, axial compartment, pleural recess and fissural/mediastinal interface; identify coverage limits."
         },
         {
-          "label": "Comparison And Context",
-          "detail": "Review progression and relevant pleural or systemic clues."
+          "label": "Associated nodules",
+          "detail": "Describe each solid/cavitating nodule, mural or intracystic component and its relationship to cysts, airways and vessels; assess actual prior change."
         },
         {
-          "label": "Cyst Morphology",
-          "detail": "Describe wall, shape and size range."
+          "label": "Background lung",
+          "detail": "Describe intervening parenchyma, ground glass, septa, reticulation, fibrosis, honeycombing, emphysema and airway change with source phase and differential."
         },
         {
-          "label": "Associated Nodules",
-          "detail": "Look for nodules and their relationship to cysts."
-        },
-        {
-          "label": "Background Lung",
-          "detail": "Assess ground glass, septal change and fibrosis."
-        },
-        {
-          "label": "Extrapulmonary Context",
-          "detail": "Review pneumothorax and relevant visible systemic findings."
+          "label": "Extrapulmonary context",
+          "detail": "Review pleura, pneumothorax/fluid, covered nodes and systemic findings; separate observed CT from supplied history, genetics, microbiology or tissue evidence."
         },
         {
           "label": "Pattern synthesis",
@@ -3911,8 +3903,8 @@
         },
         {
           "name": "Representative cysts",
-          "method": "Record a size range and maximum dimension of an index cyst when useful.",
-          "pitfall": "Do not base the differential on one selected cyst alone."
+          "method": "Measure selected source-resolved lesions in stated orthogonal/local planes, wall/airspace edge convention, reconstruction/window and actual calibration; describe justified range, burden estimate and uncertainty.",
+          "pitfall": "One lesion or still does not establish whole-lung burden, microscopic wall structure or calibrated serial change."
         }
       ],
       "classification": null,
@@ -3924,7 +3916,12 @@
         "Do not assert no air trapping on an unperformed expiration or resolution on an unperformed prone scan. Air trapping/mosaicism alone does not uniquely diagnose HP; bronchiolocentric features can have other causes.",
         "CT progression alone does not establish PPF. The named2022 definition uses at least two of symptoms/radiology/physiology within one year, no alternative explanation, in fibrotic ILD other than IPF. Preserve actual dates and sources; new acute opacity is not unique for exacerbation.",
         "Dependent opacity and inadequate inspiration can mimic interstitial disease; honeycombing differs from clustered emphysematous spaces.",
-        "A thin-walled lucency is not automatically a cyst; identify airway continuity and the surrounding parenchymal pattern."
+        "A thin-walled lucency is not automatically a cyst; identify airway continuity and the surrounding parenchymal pattern.",
+        "Wall thickness or apparent absence alone is not a diagnostic cutoff; partial volume, reconstruction and orientation affect thin walls. Thick/irregular components and a cyst-like cavity require a stated differential.",
+        "The source four-cysts/age-forty rule is a contextual heuristic, not a diagnosis or exclusion rule, particularly with recurrent pneumothorax or suspected hereditary disease. Costophrenic distribution supports a differential, not a unique diagnosis.",
+        "New/growing mural solid tissue or changing cyst-associated nodules warrant appropriate clinical evaluation. Wall thinning or low/negative PET uptake alone does not establish benignity; no PET finding is borrowed when PET was not obtained.",
+        "LAM/BHD-FDS/PLCH/LIP/AMP-DIP patterns overlap with infection, neoplasia, deposition and other causes. Record morphology and uncertainty; source terminology does not prove histology, genotype or functional severity.",
+        "No pneumothorax, chylous fluid, renal tumour, systemic disease or hereditary finding may be asserted from unassessed anatomy. CT fluid is not proven chyle; urgency depends on actual findings and clinical context."
       ],
       "impression_prompts": [
         "State source-supported dominant/mixed morphology, distribution, fibrotic features and coverage/quality limits.",
@@ -3957,23 +3954,23 @@
         },
         {
           "heading": "CYST MORPHOLOGY",
-          "body": "Wall: [ ]. Shape: [ ]. Size range: [ ]."
+          "body": "Actual lesion/site and cyst versus mimic [ ]; wall/shape/content/septa/mural or traversing-vessel interface [ ]; full source-resolved extent [ ]; representative size/axis/window/calibration and uncertainty [ ]; microscopic/unresolved components [ ]."
         },
         {
           "heading": "CYST DISTRIBUTION",
-          "body": "Upper/lower predominance: [ ]. Central/peripheral: [ ]. Costophrenic involvement: [ ]."
+          "body": "Actual count or justified extent estimate [ ]; every covered side/lobe/region and zonal/axial pattern [ ]; costophrenic, subpleural, mediastinal and fissural relation [ ]; variant/coverage/unevaluable extent [ ]; prior source comparison [ ]."
         },
         {
           "heading": "ASSOCIATED NODULES",
-          "body": "Nodules: [ ]. Cavitating nodules: [ ]. Distribution: [ ]."
+          "body": "Each source solid/cavitating, mural/intracystic or adjacent nodule/mass [ ]; actual cyst/airway/vessel relation [ ]; local site, extent, size/method and change [ ]; comparison/registration/source limits [ ]; concerning or indeterminate component [ ]."
         },
         {
           "heading": "BACKGROUND LUNG",
-          "body": "Ground glass: [ ]. Septa/fibrosis: [ ]."
+          "body": "Each covered regional ground glass, septal/reticular/fibrotic/emphysematous or airway finding [ ]; intervening tissue versus lesion [ ]; actual acquired inspiration/expiration/contrast source [ ]; differential and technical limits [ ]."
         },
         {
           "heading": "EXTRAPULMONARY CONTEXT",
-          "body": "Pneumothorax: [ ]. Other findings: [ ]. Prior change: [ ]."
+          "body": "Actual pleural pneumothorax/fluid or other complication [ ]; covered nodal/vascular/upper-abdominal finding [ ]; supplied smoking, autoimmune/infectious, genetic/tissue or other history/source/date [ ]; unavailable/uncovered systemic or functional evidence [ ]; prior change and communication [ ]."
         },
         {
           "heading": "PATTERN SYNTHESIS",
@@ -4008,6 +4005,10 @@
         {
           "title": "Radiology Assistant — Cystic Lung Disease - Differential diagnosis",
           "url": "https://radiologyassistant.nl/chest/cystic-lung-disease/analysis-of-cystic-lung-disease-1-1-1"
+        },
+        {
+          "title": "2026 original cystic lung CT pictorial review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13200743/"
         }
       ]
     },
