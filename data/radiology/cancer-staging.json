@@ -1,0 +1,2105 @@
+{
+  "reviewed_at": "2026-10-09",
+  "systems": {
+    "lung-tnm9": {
+      "id": "lung-tnm9",
+      "title": "Lung cancer TNM",
+      "version": "9th edition / Version 9 (2025)",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Lung carcinoma; identify invasive/solid size, regional stations and all metastatic sites.",
+      "sources": [
+        {
+          "title": "IASLC ninth-edition staging cards",
+          "url": "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition"
+        },
+        {
+          "title": "Radiology Assistant — TNM 9",
+          "url": "https://radiologyassistant.nl/chest/lung-cancer/tnm-classification-8th-edition-1"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T — size and extension",
+          "rows": [
+            {
+              "category": "T1a / T1b / T1c",
+              "criteria": "≤1 / >1–2 / >2–3 cm.",
+              "report_note": "Measure the solid component of a part-solid lesion; record total size separately."
+            },
+            {
+              "category": "T2a / T2b",
+              "criteria": ">3–4 / >4–5 cm; smaller tumours with qualifying T2 features are T2a.",
+              "report_note": "T2 features include visceral pleura, adjacent lobe, main bronchus without carina, or hilar-extending atelectasis/pneumonitis."
+            },
+            {
+              "category": "T3",
+              "criteria": ">5–7 cm, qualifying chest-wall/parietal pleural/pericardial/phrenic invasion, or same-lobe separate tumour nodule.",
+              "report_note": "Specify each invaded structure and separate nodule location."
+            },
+            {
+              "category": "T4",
+              "criteria": ">7 cm, qualifying mediastinal/major-structure invasion, or separate nodule in another ipsilateral lobe.",
+              "report_note": "State carina, great vessels, heart, oesophagus, diaphragm or spine involvement."
+            }
+          ]
+        },
+        {
+          "title": "N / M — stations and metastatic sites",
+          "rows": [
+            {
+              "category": "N1",
+              "criteria": "Ipsilateral hilar / peribronchial / intrapulmonary nodes.",
+              "report_note": "Name stations."
+            },
+            {
+              "category": "N2a / N2b",
+              "criteria": "One / multiple ipsilateral mediastinal or subcarinal stations.",
+              "report_note": "Count stations, rather than individual nodes."
+            },
+            {
+              "category": "N3",
+              "criteria": "Contralateral hilar/mediastinal or scalene/supraclavicular nodes.",
+              "report_note": "Report laterality and station."
+            },
+            {
+              "category": "M1a",
+              "criteria": "Contralateral lung nodule, malignant pleural/pericardial nodules or effusion.",
+              "report_note": "Do not label an indeterminate effusion malignant."
+            },
+            {
+              "category": "M1b",
+              "criteria": "Single extrathoracic metastasis.",
+              "report_note": "Name the site."
+            },
+            {
+              "category": "M1c1 / M1c2",
+              "criteria": "Multiple extrathoracic metastases in one / multiple organ systems.",
+              "report_note": "List organs and burden."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Solid size → T1/T2",
+        "Apply highest qualifying T feature",
+        "Stations → N1/N2a/N2b/N3",
+        "Sites → M1a/b/c1/c2"
+      ],
+      "report_fields": [
+        "Solid and total diameter, lobe and series/image",
+        "Invaded structures and additional nodules",
+        "Node stations, short axes and certainty",
+        "Metastatic sites and staging coverage"
+      ],
+      "limits": [
+        "Use the highest applicable descriptor; suspicious nodes may need tissue confirmation.",
+        "Clinical stage uses all available investigations; CT alone does not establish pathological stage."
+      ],
+      "diagram_kind": "lung",
+      "illustration": {
+        "title": "Lung cancer TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/lung-tnm9.svg",
+        "alt": "Lung cancer TNM. Solid size → T1/T2. Apply highest qualifying T feature. Stations → N1/N2a/N2b/N3. Sites → M1a/b/c1/c2",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "anal-tnm9": {
+      "id": "anal-tnm9",
+      "title": "Anal canal carcinoma TNM",
+      "version": "AJCC Version 9 (2023): T/N reporting anchors",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Anal canal carcinoma; confirm histology and precise primary site before applying the system.",
+      "sources": [
+        {
+          "title": "CAP — Anal carcinoma protocol, Version 9",
+          "url": "https://documents.cap.org/protocols/Anus_5.0.0.0.REL_CAPCP.pdf"
+        },
+        {
+          "title": "NCI PDQ — anal/hp/anal-treatment-pdq",
+          "url": "https://www.cancer.gov/types/anal/hp/anal-treatment-pdq"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T / N / M",
+          "rows": [
+            {
+              "category": "T1 / T2 / T3",
+              "criteria": "≤2 / >2–5 / >5 cm.",
+              "report_note": "Greatest tumour dimension determines size category."
+            },
+            {
+              "category": "T4",
+              "criteria": "Adjacent organ invasion.",
+              "report_note": "Name vagina, urethra or bladder; sphincter involvement alone is insufficient."
+            },
+            {
+              "category": "N1a",
+              "criteria": "Inguinal, mesorectal or internal iliac nodes.",
+              "report_note": "Map each basin and side."
+            },
+            {
+              "category": "N1b",
+              "criteria": "External iliac nodes.",
+              "report_note": "Record side and morphology."
+            },
+            {
+              "category": "N1c",
+              "criteria": "External iliac plus an N1a basin.",
+              "report_note": "Describe both distributions."
+            },
+            {
+              "category": "M1",
+              "criteria": "Distant metastasis.",
+              "report_note": "Nonregional nodes and distant organs; state coverage."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Measure ≤2 / >2–5 / >5 cm",
+        "Adjacent organ → T4",
+        "Map pelvic and inguinal basins",
+        "Separate regional from distant spread"
+      ],
+      "report_fields": [
+        "Epicentre, length and greatest dimension",
+        "Sphincters, intersphincteric plane and levators",
+        "Actual adjacent organ invasion",
+        "Regional nodal basins and distant findings"
+      ],
+      "limits": [
+        "Size-based T staging differs from rectal wall-depth staging.",
+        "Report cT/cN findings and confidence; complete stage grouping uses the adopted Version 9 protocol."
+      ],
+      "diagram_kind": "size",
+      "illustration": {
+        "title": "Anal canal carcinoma TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/anal-tnm9.svg",
+        "alt": "Anal canal carcinoma TNM. Measure ≤2 / >2–5 / >5 cm. Adjacent organ → T4. Map pelvic and inguinal basins. Separate regional from distant spread",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "rectal-tnm": {
+      "id": "rectal-tnm",
+      "title": "Rectal adenocarcinoma TNM and MRI risk features",
+      "version": "AJCC 8 anatomical descriptors; ESGAR / 2026 reporting reference",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Baseline MRI local staging and post-treatment MRI restaging; state c versus yc prefix.",
+      "sources": [
+        {
+          "title": "NCI PDQ — colorectal/hp/rectal-treatment-pdq",
+          "url": "https://www.cancer.gov/types/colorectal/hp/rectal-treatment-pdq"
+        },
+        {
+          "title": "Radiology Assistant — Rectal MRI 2026",
+          "url": "https://radiologyassistant.nl/abdomen/rectum/rectal-cancer-mr-staging-1-1"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T — wall depth and interfaces",
+          "rows": [
+            {
+              "category": "T1 / T2",
+              "criteria": "Submucosa / muscularis propria.",
+              "report_note": "MRI may not reliably separate T1 from T2."
+            },
+            {
+              "category": "T3",
+              "criteria": "Beyond muscularis propria into mesorectal tissue.",
+              "report_note": "Measure extramural depth in mm; record MRF distance separately."
+            },
+            {
+              "category": "T4a",
+              "criteria": "Visceral peritoneal invasion.",
+              "report_note": "Identify the peritoneal reflection; MRF involvement alone is not T4a."
+            },
+            {
+              "category": "T4b",
+              "criteria": "Adjacent organ or structure invasion.",
+              "report_note": "Name the actual structure; distinguish contact/desmoplasia from convincing invasion."
+            }
+          ]
+        },
+        {
+          "title": "N / M and MRI risk",
+          "rows": [
+            {
+              "category": "N1",
+              "criteria": "1–3 involved regional nodes; N1c denotes deposits without positive regional nodes.",
+              "report_note": "Use morphology and size criteria; deposits/EMVI are separate observations."
+            },
+            {
+              "category": "N2a / N2b",
+              "criteria": "4–6 / ≥7 involved regional nodes.",
+              "report_note": "Do not convert uncertain MRI nodes to pathological counts."
+            },
+            {
+              "category": "M1a / M1b / M1c",
+              "criteria": "One distant organ/site / ≥2 organs/sites / peritoneal metastases with or without other sites.",
+              "report_note": "Pelvic MRI does not complete distant staging."
+            },
+            {
+              "category": "MRI risk fields",
+              "criteria": "MRF distance, EMVI, extramural depth and lateral pelvic nodes.",
+              "report_note": "Record each independently of TNM."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Wall → T1/T2",
+        "Beyond muscle → T3",
+        "Peritoneum / organ → T4a/b",
+        "MRF + EMVI + lateral nodes"
+      ],
+      "report_fields": [
+        "Height, length and peritoneal reflection",
+        "Extramural depth and shortest MRF distance in mm",
+        "EMVI and mesorectal/lateral nodes",
+        "Sphincter/levator involvement; yc stage and response if treated"
+      ],
+      "limits": [
+        "Do not label MRF involvement as T4.",
+        "Restaging fibrosis and viable tumour can overlap; use DWI and morphology with uncertainty."
+      ],
+      "diagram_kind": "wall",
+      "illustration": {
+        "title": "Rectal adenocarcinoma TNM and MRI risk features — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/rectal-tnm.svg",
+        "alt": "Rectal adenocarcinoma TNM and MRI risk features. Wall → T1/T2. Beyond muscle → T3. Peritoneum / organ → T4a/b. MRF + EMVI + lateral nodes",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "cervix-figo": {
+      "id": "cervix-figo",
+      "title": "Cervical carcinoma FIGO",
+      "version": "FIGO 2018 with corrected IB size boundaries (2019 / 2021 reference)",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Integrate imaging with examination and pathology; append r for imaging-based nodal staging.",
+      "sources": [
+        {
+          "title": "NCI PDQ — cervical/hp/cervical-treatment-pdq",
+          "url": "https://www.cancer.gov/types/cervical/hp/cervical-treatment-pdq"
+        },
+        {
+          "title": "FIGO cervical staging review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9298213/"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Local extent",
+          "rows": [
+            {
+              "category": "IA",
+              "criteria": "Microscopic invasive disease, depth ≤5 mm.",
+              "report_note": "Requires pathology; MRI does not diagnose microinvasion."
+            },
+            {
+              "category": "IB1 / IB2 / IB3",
+              "criteria": "Confined cervix; ≤2 / >2–4 / >4 cm.",
+              "report_note": "Record maximum dimension and preserved stroma."
+            },
+            {
+              "category": "IIA1 / IIA2",
+              "criteria": "Upper two-thirds vaginal involvement without parametria; ≤4 / >4 cm.",
+              "report_note": "Map vaginal extent."
+            },
+            {
+              "category": "IIB",
+              "criteria": "Parametrial invasion.",
+              "report_note": "Describe side and ureteric relationship."
+            },
+            {
+              "category": "IIIA / IIIB",
+              "criteria": "Lower-third vagina / pelvic wall or tumour-related hydronephrosis/nonfunctioning kidney.",
+              "report_note": "Describe wall and urinary obstruction."
+            },
+            {
+              "category": "IVA",
+              "criteria": "Bladder or rectal mucosal invasion.",
+              "report_note": "Bullous oedema alone is insufficient; confirmation may be required."
+            }
+          ]
+        },
+        {
+          "title": "Nodes and distant spread",
+          "rows": [
+            {
+              "category": "IIIC1r / IIIC2r",
+              "criteria": "Pelvic / para-aortic nodal metastases on imaging.",
+              "report_note": "Report local extent as well as nodal stage."
+            },
+            {
+              "category": "IVB",
+              "criteria": "Distant metastases.",
+              "report_note": "Name sites and examination limits."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Cervix + size → IB",
+        "Vagina / parametria → II",
+        "Wall / lower vagina / nodes → III",
+        "Mucosa / distant sites → IV"
+      ],
+      "report_fields": [
+        "Maximum size and residual stromal rim",
+        "Parametria, vaginal thirds and pelvic wall",
+        "Hydronephrosis; bladder/rectal wall and mucosa",
+        "Pelvic/para-aortic nodes and distant sites"
+      ],
+      "limits": [
+        "Keep 2018 FIGO distinct from older size cutoffs.",
+        "A nodal stage does not replace a description of local surgical/radiotherapy anatomy."
+      ],
+      "diagram_kind": "uterus",
+      "illustration": {
+        "title": "Cervical carcinoma FIGO — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/cervix-figo.svg",
+        "alt": "Cervical carcinoma FIGO. Cervix + size → IB. Vagina / parametria → II. Wall / lower vagina / nodes → III. Mucosa / distant sites → IV",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "endometrium-figo2023": {
+      "id": "endometrium-figo2023",
+      "title": "Endometrial carcinoma FIGO",
+      "version": "FIGO 2023",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Imaging supplies anatomical extent; final stage integrates histology, LVSI and molecular findings.",
+      "sources": [
+        {
+          "title": "FIGO 2023 staging publication",
+          "url": "https://ejgo.org/pdf/10.3802/jgo.2023.34.e85"
+        },
+        {
+          "title": "NCI PDQ — uterine/hp/endometrial-treatment-pdq",
+          "url": "https://www.cancer.gov/types/uterine/hp/endometrial-treatment-pdq"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Uterus-confined disease",
+          "rows": [
+            {
+              "category": "IA1 / IA2",
+              "criteria": "Nonaggressive type: endometrium/polyp only / <50% myometrial invasion with no or focal LVSI.",
+              "report_note": "Report invasion depth and remaining myometrium."
+            },
+            {
+              "category": "IA3",
+              "criteria": "Selected low-grade endometrioid uterine and ovarian disease meeting pathological criteria.",
+              "report_note": "Imaging alone cannot confirm eligibility."
+            },
+            {
+              "category": "IB",
+              "criteria": "Nonaggressive type, ≥50% myometrial invasion; no/focal LVSI.",
+              "report_note": "Report percentage and deepest site."
+            },
+            {
+              "category": "IC",
+              "criteria": "Aggressive type confined to endometrium/polyp.",
+              "report_note": "Histology is required."
+            },
+            {
+              "category": "IIA / IIB / IIC",
+              "criteria": "Nonaggressive type with cervical stroma / substantial LVSI / aggressive type with myometrial invasion.",
+              "report_note": "LVSI and molecular modifiers require pathology."
+            }
+          ]
+        },
+        {
+          "title": "Extrauterine extent",
+          "rows": [
+            {
+              "category": "IIIA1 / IIIA2",
+              "criteria": "Adnexa / uterine serosa or subserosa.",
+              "report_note": "Describe separately."
+            },
+            {
+              "category": "IIIB1 / IIIB2",
+              "criteria": "Vagina/parametria / pelvic peritoneum.",
+              "report_note": "Map extent."
+            },
+            {
+              "category": "IIIC1 / IIIC2",
+              "criteria": "Pelvic / para-aortic nodes up to renal vessels.",
+              "report_note": "Micrometastatic versus macrometastatic suffixes need pathology."
+            },
+            {
+              "category": "IVA / IVB / IVC",
+              "criteria": "Bladder/bowel mucosa / extrapelvic peritoneum / distant metastases.",
+              "report_note": "Specify organs and nodal level."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Myometrial depth: <50 / ≥50%",
+        "Cervical stroma + extrauterine sites",
+        "Pelvic / para-aortic nodes",
+        "Histology + LVSI + molecular → final FIGO"
+      ],
+      "report_fields": [
+        "Deepest invasion and percentage",
+        "Cervical stroma; serosa; adnexa",
+        "Vagina, parametria, pelvic/extrapelvic peritoneum",
+        "Nodes by level and distant sites"
+      ],
+      "limits": [
+        "Do not assign FIGO 2023 from MRI anatomy alone.",
+        "POLEmut and p53abn modifiers can alter early-stage classification; record available pathology separately."
+      ],
+      "diagram_kind": "uterus",
+      "illustration": {
+        "title": "Endometrial carcinoma FIGO — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/endometrium-figo2023.svg",
+        "alt": "Endometrial carcinoma FIGO. Myometrial depth: <50 / ≥50%. Cervical stroma + extrauterine sites. Pelvic / para-aortic nodes. Histology + LVSI + molecular → final FIGO",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "pancreas-tnm": {
+      "id": "pancreas-tnm",
+      "title": "Pancreatic ductal adenocarcinoma TNM",
+      "version": "AJCC 8 (exocrine pancreas)",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Use for ductal/exocrine carcinoma; neuroendocrine tumours use a separate framework.",
+      "sources": [
+        {
+          "title": "NCI PDQ — pancreatic/hp/pancreatic-treatment-pdq",
+          "url": "https://www.cancer.gov/types/pancreatic/hp/pancreatic-treatment-pdq"
+        },
+        {
+          "title": "SAR/APA structured pancreatic reporting",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/24354378/"
+        }
+      ],
+      "tables": [
+        {
+          "title": "TNM versus resectability",
+          "rows": [
+            {
+              "category": "T1 / T2 / T3",
+              "criteria": "≤2 / >2–4 / >4 cm.",
+              "report_note": "Record greatest dimension."
+            },
+            {
+              "category": "T4",
+              "criteria": "Coeliac axis, SMA and/or common hepatic artery involvement, regardless of size.",
+              "report_note": "Describe artery, contact angle, length and contour; multidisciplinary interpretation is required."
+            },
+            {
+              "category": "N1 / N2",
+              "criteria": "1–3 / ≥4 involved regional nodes.",
+              "report_note": "Pathological counts differ from suspicious CT nodes."
+            },
+            {
+              "category": "M1",
+              "criteria": "Distant metastasis.",
+              "report_note": "Name liver, peritoneum, lung or nonregional nodes."
+            },
+            {
+              "category": "Resectability",
+              "criteria": "Separate from TNM.",
+              "report_note": "Report arterial/venous contact, narrowing/occlusion, thrombus, reconstructible segments and variant anatomy."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Size → T1/T2/T3",
+        "CA / SMA / CHA involvement → T4",
+        "Map venous/arterial contact separately",
+        "Distant sites + resectability discussion"
+      ],
+      "report_fields": [
+        "Tumour size and pancreatic/bile duct obstruction",
+        "Artery-by-artery contact angle and length",
+        "SMV/PV contact, occlusion, thrombus and collaterals",
+        "Nodes, metastatic sites and treatment history"
+      ],
+      "limits": [
+        "A TNM category alone does not establish resectability.",
+        "Residual soft tissue after therapy can overestimate viable vascular invasion."
+      ],
+      "diagram_kind": "vessels",
+      "illustration": {
+        "title": "Pancreatic ductal adenocarcinoma TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/pancreas-tnm.svg",
+        "alt": "Pancreatic ductal adenocarcinoma TNM. Size → T1/T2/T3. CA / SMA / CHA involvement → T4. Map venous/arterial contact separately. Distant sites + resectability discussion",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "renal-tnm": {
+      "id": "renal-tnm",
+      "title": "Renal cell carcinoma TNM",
+      "version": "AJCC/UICC 8 anatomical categories",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Solid renal carcinoma; Bosniak is a cystic-mass risk classification rather than cancer stage.",
+      "sources": [
+        {
+          "title": "EAU RCC staging table",
+          "url": "https://uroweb.org/guidelines/renal-cell-carcinoma/chapter/staging-and-classification-systems"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T / N / M",
+          "rows": [
+            {
+              "category": "T1a / T1b",
+              "criteria": "Kidney-confined, ≤4 / >4–7 cm.",
+              "report_note": "Measure maximum diameter."
+            },
+            {
+              "category": "T2a / T2b",
+              "criteria": "Kidney-confined, >7–10 / >10 cm.",
+              "report_note": "Document confinement."
+            },
+            {
+              "category": "T3a",
+              "criteria": "Renal vein/segmental venous branches, collecting system, renal sinus or perirenal fat; not beyond Gerota fascia.",
+              "report_note": "Separate venous thrombus from bland thrombus."
+            },
+            {
+              "category": "T3b / T3c",
+              "criteria": "IVC below diaphragm / above diaphragm or IVC wall invasion.",
+              "report_note": "Give upper thrombus level and wall findings."
+            },
+            {
+              "category": "T4",
+              "criteria": "Beyond Gerota fascia, including contiguous ipsilateral adrenal invasion.",
+              "report_note": "Distinguish separate adrenal metastasis."
+            },
+            {
+              "category": "N1 / M1",
+              "criteria": "Regional nodes / distant disease.",
+              "report_note": "State sites and certainty."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Confined + size → T1/T2",
+        "Vein / sinus / fat → T3a",
+        "IVC level / wall → T3b/c",
+        "Beyond Gerota → T4"
+      ],
+      "report_fields": [
+        "Size, kidney pole and hilar relation",
+        "Sinus/perirenal fat and collecting system",
+        "Venous thrombus upper limit and IVC wall",
+        "Nodes, adrenal findings and distant metastases"
+      ],
+      "limits": [
+        "Loss of a fat plane alone does not prove invasion.",
+        "Do not apply RCC staging to all renal tumour histologies."
+      ],
+      "diagram_kind": "renal",
+      "illustration": {
+        "title": "Renal cell carcinoma TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/renal-tnm.svg",
+        "alt": "Renal cell carcinoma TNM. Confined + size → T1/T2. Vein / sinus / fat → T3a. IVC level / wall → T3b/c. Beyond Gerota → T4",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "prostate-local": {
+      "id": "prostate-local",
+      "title": "Prostate carcinoma: imaging extent and TNM",
+      "version": "UICC/AJCC 8; EAU clinical-stage conventions",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Report MRI local extent separately from DRE-based cT used in EAU risk groups; PI-RADS expresses suspicion.",
+      "sources": [
+        {
+          "title": "EAU prostate staging",
+          "url": "https://uroweb.org/guidelines/prostate-cancer/chapter/classification-and-staging-systems"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Local / nodal / distant extent",
+          "rows": [
+            {
+              "category": "Organ-confined appearance",
+              "criteria": "No convincing extraprostatic extension.",
+              "report_note": "Do not infer cT1/T2 substage solely from MRI."
+            },
+            {
+              "category": "T3a-equivalent extent",
+              "criteria": "Extraprostatic extension.",
+              "report_note": "Record location, extent and neurovascular bundle involvement."
+            },
+            {
+              "category": "T3b-equivalent extent",
+              "criteria": "Seminal vesicle invasion.",
+              "report_note": "State side and extent."
+            },
+            {
+              "category": "T4-equivalent extent",
+              "criteria": "Adjacent structures other than seminal vesicles.",
+              "report_note": "Name external sphincter, rectum, levators or pelvic wall."
+            },
+            {
+              "category": "N1",
+              "criteria": "Regional pelvic nodes.",
+              "report_note": "Give basin and short axis."
+            },
+            {
+              "category": "M1a / M1b / M1c",
+              "criteria": "Nonregional nodes / bone / other sites.",
+              "report_note": "State staging coverage and modality."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "PI-RADS → suspicion",
+        "Capsule / neurovascular bundle → EPE",
+        "Seminal vesicle → T3b-equivalent",
+        "DRE + PSA + histology → clinical risk"
+      ],
+      "report_fields": [
+        "Lesion map and PI-RADS score",
+        "EPE and neurovascular bundle side",
+        "Seminal vesicles and adjacent structures",
+        "Pelvic nodes; distant findings only within assessed coverage"
+      ],
+      "limits": [
+        "MRI does not supply PSA, grade group or DRE-based clinical T.",
+        "PSMA miTNM is distinct from conventional TNM."
+      ],
+      "diagram_kind": "prostate",
+      "illustration": {
+        "title": "Prostate carcinoma: imaging extent and TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/prostate-local.svg",
+        "alt": "Prostate carcinoma: imaging extent and TNM. PI-RADS → suspicion. Capsule / neurovascular bundle → EPE. Seminal vesicle → T3b-equivalent. DRE + PSA + histology → clinical risk",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "breast-tnm": {
+      "id": "breast-tnm",
+      "title": "Breast carcinoma anatomical TNM",
+      "version": "AJCC 8 anatomical staging",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Invasive breast cancer. Prognostic stage additionally requires grade and ER/PR/HER2.",
+      "sources": [
+        {
+          "title": "NCI PDQ — breast/stages/tnm-staging-system",
+          "url": "https://www.cancer.gov/types/breast/stages/tnm-staging-system"
+        },
+        {
+          "title": "NCI PDQ — breast/hp/breast-treatment-pdq",
+          "url": "https://www.cancer.gov/types/breast/hp/breast-treatment-pdq"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T — size and local extension",
+          "rows": [
+            {
+              "category": "T1mi / T1a / T1b / T1c",
+              "criteria": "≤1 mm / >1–5 / >5–10 / >10–20 mm.",
+              "report_note": "Microinvasion is pathological; imaging estimates invasive extent."
+            },
+            {
+              "category": "T2 / T3",
+              "criteria": ">20–50 / >50 mm.",
+              "report_note": "Use largest invasive focus, describe multifocal span separately."
+            },
+            {
+              "category": "T4a / T4b / T4c / T4d",
+              "criteria": "Chest wall / qualifying skin findings / both / inflammatory carcinoma.",
+              "report_note": "Pectoralis invasion alone is not chest-wall T4a; T4d requires clinical assessment."
+            }
+          ]
+        },
+        {
+          "title": "Clinical N / M",
+          "rows": [
+            {
+              "category": "cN1",
+              "criteria": "Movable ipsilateral level I/II axillary nodes.",
+              "report_note": "Mobility requires examination; describe imaging suspicion."
+            },
+            {
+              "category": "cN2",
+              "criteria": "Fixed/matted axillary nodes or clinically detected internal mammary nodes without axillary involvement.",
+              "report_note": "Distinguish clinical descriptors from pathology counts."
+            },
+            {
+              "category": "cN3",
+              "criteria": "Infraclavicular, combined axillary/internal mammary, or supraclavicular regional spread.",
+              "report_note": "Map basin and level."
+            },
+            {
+              "category": "M1",
+              "criteria": "Distant metastases.",
+              "report_note": "Breast MRI cannot exclude disease outside its field."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Largest invasive focus → size T",
+        "Qualifying skin / chest wall → T4",
+        "Axillary + IM + SC basins → N",
+        "Grade + ER/PR/HER2 → prognostic stage"
+      ],
+      "report_fields": [
+        "Index tumour size; focality and overall span",
+        "Nipple, skin and chest-wall findings",
+        "Axillary levels, internal mammary and supraclavicular nodes",
+        "Contralateral findings and metastatic coverage"
+      ],
+      "limits": [
+        "BI-RADS assessment is not a stage.",
+        "Do not sum separate invasive foci to derive T; prognostic stage needs biomarkers and grade."
+      ],
+      "diagram_kind": "breast",
+      "illustration": {
+        "title": "Breast carcinoma anatomical TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/breast-tnm.svg",
+        "alt": "Breast carcinoma anatomical TNM. Largest invasive focus → size T. Qualifying skin / chest wall → T4. Axillary + IM + SC basins → N. Grade + ER/PR/HER2 → prognostic stage",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "ovarian-figo": {
+      "id": "ovarian-figo",
+      "title": "Ovarian, tubal and primary peritoneal carcinoma FIGO",
+      "version": "FIGO 2014",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Confirmed epithelial ovarian/tubal/peritoneal malignancy; image anatomy and surgical/pathological staging complement each other.",
+      "sources": [
+        {
+          "title": "NCI PDQ — ovarian/hp/ovarian-epithelial-treatment-pdq",
+          "url": "https://www.cancer.gov/types/ovarian/hp/ovarian-epithelial-treatment-pdq"
+        }
+      ],
+      "tables": [
+        {
+          "title": "FIGO extent",
+          "rows": [
+            {
+              "category": "I / IC",
+              "criteria": "Confined ovaries/tubes; IC1 surgical spill, IC2 preoperative rupture/surface tumour, IC3 positive washings/ascites.",
+              "report_note": "Imaging cannot confirm cytology or surgical spill."
+            },
+            {
+              "category": "IIA / IIB",
+              "criteria": "Uterus/tubes/ovaries / other pelvic intraperitoneal extension.",
+              "report_note": "Map pelvic organs."
+            },
+            {
+              "category": "IIIA1 / IIIA2",
+              "criteria": "Retroperitoneal nodes only / microscopic extrapelvic peritoneal disease.",
+              "report_note": "Microscopic stage requires pathology."
+            },
+            {
+              "category": "IIIB / IIIC",
+              "criteria": "Macroscopic extrapelvic peritoneal deposits ≤2 / >2 cm.",
+              "report_note": "Measure largest deposit; liver/splenic capsule differs from parenchymal spread."
+            },
+            {
+              "category": "IVA / IVB",
+              "criteria": "Cytology-positive pleural effusion / parenchymal or other distant disease.",
+              "report_note": "Effusion alone cannot establish IVA."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Adnexal only → I",
+        "Pelvic extension → II",
+        "Extrapelvic peritoneum / nodes → III",
+        "Pleural cytology / distant organs → IV"
+      ],
+      "report_fields": [
+        "Adnexal mass, laterality and solid extent",
+        "Peritoneal map; greatest implant size",
+        "Bowel/mesentery, porta hepatis and diaphragms",
+        "Nodes and parenchymal/pleural distant sites"
+      ],
+      "limits": [
+        "O-RADS is a risk score; use FIGO only after establishing malignancy.",
+        "Different primary tumours have different staging systems for peritoneal disease."
+      ],
+      "diagram_kind": "ovarian",
+      "illustration": {
+        "title": "Ovarian, tubal and primary peritoneal carcinoma FIGO — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/ovarian-figo.svg",
+        "alt": "Ovarian, tubal and primary peritoneal carcinoma FIGO. Adnexal only → I. Pelvic extension → II. Extrapelvic peritoneum / nodes → III. Pleural cytology / distant organs → IV",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "liver-bclc": {
+      "id": "liver-bclc",
+      "title": "Hepatocellular carcinoma BCLC",
+      "version": "BCLC 2022 framework",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Known HCC; staging incorporates tumour burden, liver function and performance status.",
+      "sources": [
+        {
+          "title": "NCI PDQ — liver/what-is-liver-cancer/stages",
+          "url": "https://www.cancer.gov/types/liver/what-is-liver-cancer/stages"
+        },
+        {
+          "title": "BCLC 2022 strategy update",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8866082/"
+        }
+      ],
+      "tables": [
+        {
+          "title": "BCLC reporting anchors",
+          "rows": [
+            {
+              "category": "0",
+              "criteria": "Single ≤2 cm lesion, preserved liver function, performance status 0.",
+              "report_note": "Record lesion size and vascular invasion."
+            },
+            {
+              "category": "A",
+              "criteria": "Single lesion or ≤3 nodules each ≤3 cm; preserved function, PS 0.",
+              "report_note": "Document count and largest size."
+            },
+            {
+              "category": "B",
+              "criteria": "Multifocal disease beyond A, no vascular invasion/extrahepatic spread; PS 0 and preserved function.",
+              "report_note": "Map burden and distribution."
+            },
+            {
+              "category": "C",
+              "criteria": "Vascular invasion or extrahepatic spread, PS ≤2 with preserved liver function.",
+              "report_note": "Specify vessel, tumour thrombus and distant sites."
+            },
+            {
+              "category": "D",
+              "criteria": "PS >2 and/or severely impaired liver function without transplant option.",
+              "report_note": "Requires clinical assessment."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Count + size + distribution",
+        "Tumour-in-vein + extrahepatic spread",
+        "Liver function + performance status",
+        "Multidisciplinary → BCLC"
+      ],
+      "report_fields": [
+        "Lesion count, dimensions and segments",
+        "Tumour versus bland thrombus",
+        "Extrahepatic sites and portal hypertension",
+        "Available liver function, PS and treatment history"
+      ],
+      "limits": [
+        "LI-RADS categorises observations; it is not a cancer stage.",
+        "CT/MRI cannot supply all BCLC inputs."
+      ],
+      "diagram_kind": "liver",
+      "illustration": {
+        "title": "Hepatocellular carcinoma BCLC — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/liver-bclc.svg",
+        "alt": "Hepatocellular carcinoma BCLC. Count + size + distribution. Tumour-in-vein + extrahepatic spread. Liver function + performance status. Multidisciplinary → BCLC",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "bladder-tnm": {
+      "id": "bladder-tnm",
+      "title": "Bladder urothelial carcinoma: TNM and VI-RADS",
+      "version": "AJCC 8 anatomy; VI-RADS 2018 likelihood assessment",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Pretreatment bladder MRI; record prior TURBT/therapy and bladder distension.",
+      "sources": [
+        {
+          "title": "NCI PDQ — bladder/hp/bladder-treatment-pdq",
+          "url": "https://www.cancer.gov/types/bladder/hp/bladder-treatment-pdq"
+        },
+        {
+          "title": "VI-RADS consensus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29755006/"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T / N / M",
+          "rows": [
+            {
+              "category": "Ta / Tis / T1",
+              "criteria": "Noninvasive papillary / flat in-situ / subepithelial connective tissue.",
+              "report_note": "Histology/endoscopy required."
+            },
+            {
+              "category": "T2a / T2b",
+              "criteria": "Inner / outer muscularis propria.",
+              "report_note": "MRI evaluates muscle invasion; microscopic depth subdivision is difficult."
+            },
+            {
+              "category": "T3a / T3b",
+              "criteria": "Microscopic / macroscopic perivesical tissue.",
+              "report_note": "Perivesical inflammatory change after TURBT may mimic invasion."
+            },
+            {
+              "category": "T4a / T4b",
+              "criteria": "Prostatic stroma, seminal vesicles, uterus or vagina / pelvic or abdominal wall.",
+              "report_note": "Name organ and route."
+            },
+            {
+              "category": "N1 / N2 / N3",
+              "criteria": "Single true-pelvic / multiple true-pelvic / common iliac nodes.",
+              "report_note": "Give basin and number of suspicious nodes."
+            },
+            {
+              "category": "M1a / M1b",
+              "criteria": "Nonregional nodes / other distant sites.",
+              "report_note": "State coverage."
+            }
+          ]
+        },
+        {
+          "title": "VI-RADS score",
+          "rows": [
+            {
+              "category": "1",
+              "criteria": "Muscle invasion highly unlikely.",
+              "report_note": "A likelihood score, separate from TNM."
+            },
+            {
+              "category": "2",
+              "criteria": "Unlikely.",
+              "report_note": "A likelihood score, separate from TNM."
+            },
+            {
+              "category": "3",
+              "criteria": "Equivocal.",
+              "report_note": "A likelihood score, separate from TNM."
+            },
+            {
+              "category": "4",
+              "criteria": "Likely.",
+              "report_note": "A likelihood score, separate from TNM."
+            },
+            {
+              "category": "5",
+              "criteria": "Muscle invasion and extension outside bladder very likely.",
+              "report_note": "A likelihood score, separate from TNM."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Mucosa / lamina propria → tissue",
+        "Muscularis → T2 likelihood",
+        "Perivesical / adjacent organs → T3/T4",
+        "VI-RADS ≠ final TNM"
+      ],
+      "report_fields": [
+        "Lesion site, size and multiplicity",
+        "T2/DWI/DCE muscle interface and VI-RADS",
+        "Perivesical/adjacent organ extension",
+        "Nodes by basin; distant disease and TURBT timing"
+      ],
+      "limits": [
+        "Do not equate VI-RADS 5 with a specific TNM stage.",
+        "Final stage and microscopic categories need pathology."
+      ],
+      "diagram_kind": "wall",
+      "illustration": {
+        "title": "Bladder urothelial carcinoma: TNM and VI-RADS — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/bladder-tnm.svg",
+        "alt": "Bladder urothelial carcinoma: TNM and VI-RADS. Mucosa / lamina propria → tissue. Muscularis → T2 likelihood. Perivesical / adjacent organs → T3/T4. VI-RADS ≠ final TNM",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "small-bowel-tnm": {
+      "id": "small-bowel-tnm",
+      "title": "Small-bowel adenocarcinoma TNM",
+      "version": "AJCC 8",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Adenocarcinoma only; GIST, neuroendocrine tumour and lymphoma require their own systems.",
+      "sources": [
+        {
+          "title": "NCI PDQ — small-intestine/hp/small-intestine-treatment-pdq",
+          "url": "https://www.cancer.gov/types/small-intestine/hp/small-intestine-treatment-pdq"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T / N / M",
+          "rows": [
+            {
+              "category": "T1 / T2",
+              "criteria": "Lamina propria/submucosa / muscularis propria.",
+              "report_note": "CT cannot reliably resolve early wall layers."
+            },
+            {
+              "category": "T3",
+              "criteria": "Through muscle into subserosa or nonperitonealised perimuscular tissues without serosal penetration.",
+              "report_note": "Describe mesenteric extension."
+            },
+            {
+              "category": "T4",
+              "criteria": "Visceral peritoneal perforation or direct invasion of other organs/structures.",
+              "report_note": "Name invaded organ; duodenal invasion of pancreas/bile duct qualifies."
+            },
+            {
+              "category": "N1 / N2",
+              "criteria": "1–2 / ≥3 involved regional nodes.",
+              "report_note": "Imaging suspicion differs from tissue-confirmed counts."
+            },
+            {
+              "category": "M1",
+              "criteria": "Distant disease.",
+              "report_note": "Report peritoneal and organ metastases."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Confirm histology",
+        "Wall / mesentery / organ invasion",
+        "Regional nodes by location",
+        "Peritoneum and distant organs"
+      ],
+      "report_fields": [
+        "Segment, length, obstruction and multifocality",
+        "Local invasion and vascular relation",
+        "Regional nodes and distant sites"
+      ],
+      "limits": [
+        "Do not apply adenocarcinoma TNM to lymphoma, GIST or NET."
+      ],
+      "diagram_kind": "wall",
+      "illustration": {
+        "title": "Small-bowel adenocarcinoma TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/small-bowel-tnm.svg",
+        "alt": "Small-bowel adenocarcinoma TNM. Confirm histology. Wall / mesentery / organ invasion. Regional nodes by location. Peritoneum and distant organs",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "esophagus-tnm": {
+      "id": "esophagus-tnm",
+      "title": "Oesophageal carcinoma TNM",
+      "version": "AJCC 8 anatomical descriptors",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Histology, location and treatment phase influence stage grouping.",
+      "sources": [
+        {
+          "title": "NCI PDQ — esophageal/hp/esophageal-treatment-pdq",
+          "url": "https://www.cancer.gov/types/esophageal/hp/esophageal-treatment-pdq"
+        },
+        {
+          "title": "IASLC staging cards",
+          "url": "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T / N / M",
+          "rows": [
+            {
+              "category": "T1a / T1b / T2",
+              "criteria": "Mucosa / submucosa / muscularis propria.",
+              "report_note": "EUS/pathology improves early wall-layer staging."
+            },
+            {
+              "category": "T3",
+              "criteria": "Adventitia.",
+              "report_note": "Describe local soft-tissue extent."
+            },
+            {
+              "category": "T4a",
+              "criteria": "Pleura, pericardium, azygos, diaphragm or peritoneum.",
+              "report_note": "Name invaded structure."
+            },
+            {
+              "category": "T4b",
+              "criteria": "Other major adjacent structures, such as aorta, vertebra or airway.",
+              "report_note": "Contact alone is insufficient."
+            },
+            {
+              "category": "N1 / N2 / N3",
+              "criteria": "1–2 / 3–6 / ≥7 involved regional nodes.",
+              "report_note": "Map nodal stations; imaging counts are estimates."
+            },
+            {
+              "category": "M1",
+              "criteria": "Distant spread.",
+              "report_note": "Name sites."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Length + epicentre + histology",
+        "Wall depth: EUS / pathology",
+        "Adjacent structures: CT/MRI",
+        "Nodes + distant sites"
+      ],
+      "report_fields": [
+        "Epicentre relative to GE junction and longitudinal length",
+        "Airway/aorta/pericardium interface",
+        "Regional stations; organ/peritoneal metastases"
+      ],
+      "limits": [
+        "A preserved/lost fat plane is not a stand-alone invasion test.",
+        "Do not derive the complete prognostic stage group from CT alone."
+      ],
+      "diagram_kind": "wall",
+      "illustration": {
+        "title": "Oesophageal carcinoma TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/esophagus-tnm.svg",
+        "alt": "Oesophageal carcinoma TNM. Length + epicentre + histology. Wall depth: EUS / pathology. Adjacent structures: CT/MRI. Nodes + distant sites",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "thymic-tnm9": {
+      "id": "thymic-tnm9",
+      "title": "Thymic epithelial tumour TNM",
+      "version": "9th edition / Version 9 (2025)",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Thymoma and thymic carcinoma; keep TNM separate from pathological Masaoka–Koga staging.",
+      "sources": [
+        {
+          "title": "IASLC staging manual / thymic TNM ninth edition",
+          "url": "https://www.iaslc.org/file/10870/download?token=ZdsZFnAS"
+        },
+        {
+          "title": "IASLC ninth-edition cards",
+          "url": "https://www.iaslc.org/research-education/publications-resources-guidelines/staging-cards-thoracic-oncology-9th-edition"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T / N / M",
+          "rows": [
+            {
+              "category": "T1a / T1b",
+              "criteria": "No higher-level invasion; ≤5 / >5 cm.",
+              "report_note": "Describe mediastinal fat/pleural interfaces."
+            },
+            {
+              "category": "T2",
+              "criteria": "Pericardium, lung or phrenic nerve invasion.",
+              "report_note": "These invasion descriptors differ from TNM 8."
+            },
+            {
+              "category": "T3",
+              "criteria": "Brachiocephalic vein, SVC, chest wall or extrapericardial pulmonary vessels.",
+              "report_note": "Name structure and length of contact/invasion."
+            },
+            {
+              "category": "T4",
+              "criteria": "Aorta/arch vessels, intrapericardial pulmonary vessels, myocardium, trachea or oesophagus.",
+              "report_note": "Contact alone does not prove invasion."
+            },
+            {
+              "category": "N1 / N2",
+              "criteria": "Anterior/perithymic / deep intrathoracic or cervical nodes.",
+              "report_note": "Map compartments."
+            },
+            {
+              "category": "M1a / M1b",
+              "criteria": "Pleural/pericardial nodules / pulmonary intraparenchymal or distant metastasis.",
+              "report_note": "Specify distribution."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Size ≤5 / >5 cm → T1",
+        "Pericardium / lung / phrenic → T2",
+        "Venous / chest-wall → T3",
+        "Major structures → T4"
+      ],
+      "report_fields": [
+        "Size and mediastinal location",
+        "Named invaded structures and confidence",
+        "Pleural/pericardial nodules; nodes and distant disease"
+      ],
+      "limits": [
+        "Masaoka–Koga includes operative/pathological inputs.",
+        "Use the stated edition; T1 and T2 definitions changed in the ninth edition."
+      ],
+      "diagram_kind": "lung",
+      "illustration": {
+        "title": "Thymic epithelial tumour TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/thymic-tnm9.svg",
+        "alt": "Thymic epithelial tumour TNM. Size ≤5 / >5 cm → T1. Pericardium / lung / phrenic → T2. Venous / chest-wall → T3. Major structures → T4",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "head-neck-frameworks": {
+      "id": "head-neck-frameworks",
+      "title": "Head and neck cancer: choose the site-specific stage",
+      "version": "AJCC site-specific systems: 8th edition and phased Version 9 updates",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Determine primary subsite, histology and HPV/EBV status before using T/N criteria.",
+      "sources": [
+        {
+          "title": "CAP current cancer protocols",
+          "url": "https://www.cap.org/protocols-and-guidelines/cancer-protocols/current-cancer-protocols/"
+        },
+        {
+          "title": "CAP 2026 HPV-associated / salivary staging update",
+          "url": "https://newsroom.cap.org/latest-news/cap-statement-on-salivary-gland-and-hpv-associated-oropharyngeal-carcinomas/s/94a259e6-6386-48c4-a45e-e4c7ada937a3"
+        },
+        {
+          "title": "CAP HPV-associated oropharynx — AJCC Version 9",
+          "url": "https://www.cap.org/wp-content/uploads/2026/06/HN.HPV-Assoc_Oropharynx.Res_1.1.0.0.REL_CAPCP.pdf?download=true"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Framework and required reporting inputs",
+          "rows": [
+            {
+              "category": "Oral cavity",
+              "criteria": "Site-specific TNM; size and depth of invasion matter.",
+              "report_note": "Describe DOI estimate, mandible/maxilla, extrinsic muscles and skin."
+            },
+            {
+              "category": "HPV-associated oropharynx",
+              "criteria": "AJCC Version 9 (2026).",
+              "report_note": "Document primary subsite, HPV evidence, nodal laterality/size and imaging ENE; use the linked current protocol."
+            },
+            {
+              "category": "HPV-independent oropharynx / hypopharynx",
+              "criteria": "Separate site-specific TNM.",
+              "report_note": "Do not reuse HPV-associated N rules; map invasion and ENE."
+            },
+            {
+              "category": "Larynx",
+              "criteria": "Subsite-specific TNM.",
+              "report_note": "Map pre-epiglottic/paraglottic spaces, cartilage and extralaryngeal extension; mobility needs clinical assessment."
+            },
+            {
+              "category": "Nasopharynx / salivary glands",
+              "criteria": "Version 9 updates; use named current protocol.",
+              "report_note": "Nasopharynx: skull base, nerves, intracranial extent. Salivary: size, extraparenchymal spread, nerve and skin."
+            },
+            {
+              "category": "Nodes and metastases",
+              "criteria": "Level, side, size, necrosis and suspected ENE.",
+              "report_note": "Imaging ENE is separate from pathological ENE; stage cannot be assigned from a generic neck table."
+            }
+          ]
+        },
+        {
+          "title": "HPV-associated oropharynx — primary tumour categories (Version 9)",
+          "rows": [
+            {
+              "category": "T1 / T2",
+              "criteria": "≤2 / >2–4 cm.",
+              "report_note": "Measure greatest dimension; confirm HPV-associated primary subsite."
+            },
+            {
+              "category": "T3",
+              "criteria": ">4 cm or lingual epiglottic surface extension.",
+              "report_note": "Mucosal spread to epiglottis alone does not prove laryngeal invasion."
+            },
+            {
+              "category": "T4",
+              "criteria": "Qualifying invasion of larynx, deep tongue muscles, pterygoids, hard palate, mandible, pterygoid plates, nasopharynx, skull base or carotid encasement.",
+              "report_note": "Name each invaded structure."
+            },
+            {
+              "category": "N — use clinical Version 9",
+              "criteria": "Record side, size, node number/distribution and imaging-detected ENE.",
+              "report_note": "Use the clinical N protocol; pathological ENE/count categories cannot be substituted for imaging N."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Primary subsite + histology",
+        "HPV / EBV + named version",
+        "Local invasion + nodal levels/ENE",
+        "Apply the matching site protocol"
+      ],
+      "report_fields": [
+        "Primary subsite and size; DOI where appropriate",
+        "Bone/cartilage, neurovascular/perineural spread",
+        "Nodal level, side, short axis, necrosis and suspected ENE",
+        "Distant sites and missing clinical/biological inputs"
+      ],
+      "limits": [
+        "A single generic head/neck TNM table would give incorrect categories across subsites.",
+        "The current CAP protocols linked here provide the complete site-specific definitions.",
+        "The additional T table applies only to HPV-associated oropharyngeal carcinoma; use the subsite selector table for other primaries."
+      ],
+      "diagram_kind": "nodes",
+      "illustration": {
+        "title": "Head and neck cancer: choose the site-specific stage — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/head-neck-frameworks.svg",
+        "alt": "Head and neck cancer: choose the site-specific stage. Primary subsite + histology. HPV / EBV + named version. Local invasion + nodal levels/ENE. Apply the matching site protocol",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "bone-enneking": {
+      "id": "bone-enneking",
+      "title": "Malignant bone tumours: Enneking / MSTS",
+      "version": "Enneking surgical staging",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Primary musculoskeletal malignancy; histological grade and tumour-specific treatment pathways are required.",
+      "sources": [
+        {
+          "title": "NCI PDQ — bone/hp/osteosarcoma-treatment-pdq",
+          "url": "https://www.cancer.gov/types/bone/hp/osteosarcoma-treatment-pdq"
+        },
+        {
+          "title": "Original surgical staging framework",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/7449206/"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Surgical stage",
+          "rows": [
+            {
+              "category": "IA / IB",
+              "criteria": "Low grade, intracompartmental / extracompartmental; no metastases.",
+              "report_note": "Map cortical breach and soft-tissue extension."
+            },
+            {
+              "category": "IIA / IIB",
+              "criteria": "High grade, intracompartmental / extracompartmental; no metastases.",
+              "report_note": "Grade requires histology."
+            },
+            {
+              "category": "III",
+              "criteria": "Regional or distant metastases.",
+              "report_note": "Report skip lesions, nodes and distant organs explicitly."
+            }
+          ]
+        },
+        {
+          "title": "Imaging report before definitive stage",
+          "rows": [
+            {
+              "category": "Local",
+              "criteria": "Entire involved bone, joint, neurovascular bundles and biopsy tract.",
+              "report_note": "Give length, compartment, skip lesions and surgical interfaces."
+            },
+            {
+              "category": "Systemic",
+              "criteria": "Lung and other metastatic sites using tumour-specific protocol.",
+              "report_note": "Paediatric osteosarcoma pathways often use localised/metastatic status rather than AJCC stage groups."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Histology → low/high grade",
+        "Intra / extracompartmental extent",
+        "Skip lesions and metastases",
+        "Combine → Enneking stage"
+      ],
+      "report_fields": [
+        "Bone segment, length and soft-tissue component",
+        "Compartment/joint/neurovascular involvement",
+        "Skip lesions; lung and other metastases"
+      ],
+      "limits": [
+        "Do not infer histological grade from aggressive MRI appearance.",
+        "AJCC criteria differ for appendicular skeleton, pelvis and spine; specify site-specific system when used."
+      ],
+      "diagram_kind": "bone",
+      "illustration": {
+        "title": "Malignant bone tumours: Enneking / MSTS — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/bone-enneking.svg",
+        "alt": "Malignant bone tumours: Enneking / MSTS. Histology → low/high grade. Intra / extracompartmental extent. Skip lesions and metastases. Combine → Enneking stage",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "cns-classification": {
+      "id": "cns-classification",
+      "title": "Primary CNS tumours: integrated diagnosis and extent",
+      "version": "WHO CNS5 (2021); tumour-specific response criteria",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Primary adult CNS tumours generally have no conventional TNM stage.",
+      "sources": [
+        {
+          "title": "NCI PDQ — brain/hp/adult-brain-treatment-pdq",
+          "url": "https://www.cancer.gov/types/brain/hp/adult-brain-treatment-pdq"
+        },
+        {
+          "title": "WHO CNS5 summary",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8328013/"
+        }
+      ],
+      "tables": [
+        {
+          "title": "What imaging contributes",
+          "rows": [
+            {
+              "category": "Integrated diagnosis / WHO grade",
+              "criteria": "Histology and molecular markers determine classification.",
+              "report_note": "MRI describes extent; it cannot independently assign an integrated WHO diagnosis."
+            },
+            {
+              "category": "Local extent",
+              "criteria": "Enhancing and nonenhancing components, eloquent structures and mass effect.",
+              "report_note": "Record dimensions and relevant T2/FLAIR extent."
+            },
+            {
+              "category": "Dissemination",
+              "criteria": "Multifocal, leptomeningeal or CSF-axis disease.",
+              "report_note": "Use tumour-specific brain/spine/CSF work-up where indicated."
+            },
+            {
+              "category": "Response",
+              "criteria": "RANO or other appropriate protocol, rather than generic TNM.",
+              "report_note": "Document steroids, timing, treatment effects and new lesions."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Anatomical extent on MRI",
+        "Tissue + molecular diagnosis",
+        "Tumour-specific dissemination work-up",
+        "Appropriate RANO / treatment context"
+      ],
+      "report_fields": [
+        "Location, enhancing/nonenhancing dimensions",
+        "Functional and surgical interfaces; mass effect",
+        "Multifocal/leptomeningeal spread",
+        "Treatment timing and steroid use"
+      ],
+      "limits": [
+        "Do not convert WHO grade to a TNM stage.",
+        "CNS metastases are staged under the known primary cancer; response frameworks have separate scope."
+      ],
+      "diagram_kind": "brain",
+      "illustration": {
+        "title": "Primary CNS tumours: integrated diagnosis and extent — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/cns-classification.svg",
+        "alt": "Primary CNS tumours: integrated diagnosis and extent. Anatomical extent on MRI. Tissue + molecular diagnosis. Tumour-specific dissemination work-up. Appropriate RANO / treatment context",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "neuroblastoma-inrg": {
+      "id": "neuroblastoma-inrg",
+      "title": "Neuroblastoma INRGSS",
+      "version": "Pretreatment INRG staging system",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Neuroblastoma; document each image-defined risk factor (IDRF).",
+      "sources": [
+        {
+          "title": "NCI PDQ — neuroblastoma/hp/neuroblastoma-treatment-pdq",
+          "url": "https://www.cancer.gov/types/neuroblastoma/hp/neuroblastoma-treatment-pdq"
+        },
+        {
+          "title": "SIOPE neuroblastoma guidance",
+          "url": "https://siope.eu/media/documents/low-risk-neuroblastoma-standard-clinical-practice-recommendations.pdf"
+        }
+      ],
+      "tables": [
+        {
+          "title": "INRGSS",
+          "rows": [
+            {
+              "category": "L1",
+              "criteria": "Localised, one body compartment, no IDRF.",
+              "report_note": "Use the complete IDRF checklist."
+            },
+            {
+              "category": "L2",
+              "criteria": "Locoregional disease with ≥1 IDRF.",
+              "report_note": "Name vessel encasement, organ or spinal involvement."
+            },
+            {
+              "category": "M",
+              "criteria": "Distant metastatic disease, except MS.",
+              "report_note": "State bone, marrow, liver, skin and distant nodes."
+            },
+            {
+              "category": "MS",
+              "criteria": "Age <18 months with metastases restricted to skin, liver and/or marrow and qualifying criteria.",
+              "report_note": "Age, marrow burden and functional imaging eligibility require the full protocol."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Any IDRF? → L1 / L2",
+        "Distant disease? → M",
+        "Age + restricted sites → consider MS",
+        "Biology + stage → clinical risk group"
+      ],
+      "report_fields": [
+        "Origin, body compartments and dimensions",
+        "Named vascular/airway/organ/spinal IDRFs",
+        "Metastatic sites and functional imaging findings"
+      ],
+      "limits": [
+        "INRG stage is not the overall risk group; biology and age matter.",
+        "MS is not assigned from liver metastases alone."
+      ],
+      "diagram_kind": "vessels",
+      "illustration": {
+        "title": "Neuroblastoma INRGSS — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/neuroblastoma-inrg.svg",
+        "alt": "Neuroblastoma INRGSS. Any IDRF? → L1 / L2. Distant disease? → M. Age + restricted sites → consider MS. Biology + stage → clinical risk group",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "wilms-cog": {
+      "id": "wilms-cog",
+      "title": "Wilms tumour staging",
+      "version": "COG / NWTS I–V; distinguish SIOP postchemotherapy staging",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Suspected Wilms tumour; final local stage incorporates surgery and pathology.",
+      "sources": [
+        {
+          "title": "NCI PDQ — kidney/hp/wilms-treatment-pdq",
+          "url": "https://www.cancer.gov/types/kidney/hp/wilms-treatment-pdq"
+        },
+        {
+          "title": "CAP paediatric renal tumour protocol",
+          "url": "https://documents.cap.org/documents/New-Cancer-Protocols-March-2025/Kidney.Wilms_4.3.0.1.REL_CAPCP_R.pdf"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Stage and imaging contribution",
+          "rows": [
+            {
+              "category": "I / II",
+              "criteria": "Kidney-confined / extends beyond kidney, completely resected.",
+              "report_note": "Resection and pathological criteria are required."
+            },
+            {
+              "category": "III",
+              "criteria": "Residual nonhaematogenous abdominal disease or qualifying local surgical/pathological factors.",
+              "report_note": "Describe nodes, rupture/spill suspicion, peritoneal implants; imaging does not establish margins."
+            },
+            {
+              "category": "IV",
+              "criteria": "Haematogenous metastases or distant nodes.",
+              "report_note": "Give lung/liver/bone/brain sites."
+            },
+            {
+              "category": "V",
+              "criteria": "Bilateral renal tumours at diagnosis.",
+              "report_note": "Describe and stage each kidney locally in the definitive pathway."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Both kidneys → bilateral V",
+        "Vein / IVC extent ≠ distant spread",
+        "Nodes / rupture / peritoneum",
+        "Surgery + pathology → local I–III"
+      ],
+      "report_fields": [
+        "Both kidneys and nephrogenic rests",
+        "Renal vein/IVC thrombus upper limit",
+        "Rupture, nodes and peritoneal disease",
+        "Lung and other distant sites"
+      ],
+      "limits": [
+        "Venous tumour extension is not automatically stage IV.",
+        "Use the treating pathway: preoperative chemotherapy changes staging context."
+      ],
+      "diagram_kind": "renal",
+      "illustration": {
+        "title": "Wilms tumour staging — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/wilms-cog.svg",
+        "alt": "Wilms tumour staging. Both kidneys → bilateral V. Vein / IVC extent ≠ distant spread. Nodes / rupture / peritoneum. Surgery + pathology → local I–III",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "pretext": {
+      "id": "pretext",
+      "title": "Hepatoblastoma PRETEXT / POSTTEXT",
+      "version": "2017 PRETEXT framework",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Childhood liver tumour anatomy before / after therapy; four liver sections, not four arbitrary lobes.",
+      "sources": [
+        {
+          "title": "NCI PDQ — liver/hp/child-liver-treatment-pdq",
+          "url": "https://www.cancer.gov/types/liver/hp/child-liver-treatment-pdq"
+        },
+        {
+          "title": "NCI PDQ — liver/childhood-liver-cancer/hepatoblastoma",
+          "url": "https://www.cancer.gov/types/liver/childhood-liver-cancer/hepatoblastoma"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Group and annotations",
+          "rows": [
+            {
+              "category": "I",
+              "criteria": "Three adjoining sections free.",
+              "report_note": "Name involved section."
+            },
+            {
+              "category": "II",
+              "criteria": "Two adjoining sections free.",
+              "report_note": "Noncontiguous free sections do not suffice."
+            },
+            {
+              "category": "III",
+              "criteria": "One section free, or two nonadjoining sections free.",
+              "report_note": "Map all sections."
+            },
+            {
+              "category": "IV",
+              "criteria": "No section free.",
+              "report_note": "All four sections involved."
+            },
+            {
+              "category": "Annotations",
+              "criteria": "V/P venous/portal, E extrahepatic, F multifocal, R rupture, C caudate, N nodes, M metastases.",
+              "report_note": "State anatomy and exact vascular criteria; use the complete annotation protocol."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Left lateral | left medial",
+        "Right anterior | right posterior",
+        "Adjoining free sections → I–IV",
+        "Add V/P/E/F/R/C/N/M"
+      ],
+      "report_fields": [
+        "II/III; IV; V/VIII; VI/VII section involvement",
+        "Portal and hepatic venous involvement",
+        "Multifocality, caudate, rupture, extrahepatic sites",
+        "PRETEXT before and POSTTEXT after therapy"
+      ],
+      "limits": [
+        "The number of involved sections alone can misclassify noncontiguous disease.",
+        "Risk group needs age, AFP, histology and clinical inputs."
+      ],
+      "diagram_kind": "liver",
+      "illustration": {
+        "title": "Hepatoblastoma PRETEXT / POSTTEXT — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/pretext.svg",
+        "alt": "Hepatoblastoma PRETEXT / POSTTEXT. Left lateral | left medial. Right anterior | right posterior. Adjoining free sections → I–IV. Add V/P/E/F/R/C/N/M",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "lymphoma-lugano": {
+      "id": "lymphoma-lugano",
+      "title": "Lymphoma Lugano extent",
+      "version": "Lugano 2014",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Adult lymphoma; PET/CT is preferred for FDG-avid histologies and tissue diagnosis is required.",
+      "sources": [
+        {
+          "title": "NCI PDQ — lymphoma/hp/indolent-b-cell-lymphoma-treatment-pdq",
+          "url": "https://www.cancer.gov/types/lymphoma/hp/indolent-b-cell-lymphoma-treatment-pdq"
+        },
+        {
+          "title": "Lugano consensus",
+          "url": "https://imaging.cancer.gov/clinical_trials/docs/Lugano%20Recommendations%20for%20Lymphoma%20-%20JCO%202014.pdf"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Stage and burden",
+          "rows": [
+            {
+              "category": "I / IE",
+              "criteria": "One lymphatic site / single extranodal site without nodes.",
+              "report_note": "Describe the actual site."
+            },
+            {
+              "category": "II / IIE",
+              "criteria": "≥2 nodal regions on one side of diaphragm; E denotes limited contiguous extranodal extension.",
+              "report_note": "Map regions and contiguous organ extension."
+            },
+            {
+              "category": "III",
+              "criteria": "Nodes on both sides of diaphragm, including qualifying splenic distribution.",
+              "report_note": "Document spleen findings."
+            },
+            {
+              "category": "IV",
+              "criteria": "Disseminated/noncontiguous extranodal disease.",
+              "report_note": "Specify organs, marrow and distribution."
+            },
+            {
+              "category": "Bulky / response",
+              "criteria": "Record bulk separately; response uses appropriate PET/CT criteria.",
+              "report_note": "Do not equate Deauville score with stage."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "One region → I",
+        "Same side of diaphragm → II",
+        "Both sides → III",
+        "Disseminated extranodal → IV"
+      ],
+      "report_fields": [
+        "Nodal regions above/below diaphragm",
+        "Spleen and extranodal sites",
+        "Largest mass dimensions and baseline comparison"
+      ],
+      "limits": [
+        "Paediatric lymphoma staging may use a different system.",
+        "PET avidity and clinical symptoms cannot be inferred from CT alone."
+      ],
+      "diagram_kind": "nodes",
+      "illustration": {
+        "title": "Lymphoma Lugano extent — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/lymphoma-lugano.svg",
+        "alt": "Lymphoma Lugano extent. One region → I. Same side of diaphragm → II. Both sides → III. Disseminated extranodal → IV",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "recist11": {
+      "id": "recist11",
+      "title": "Solid-tumour response: RECIST",
+      "version": "RECIST 1.1 (2009)",
+      "kind": "response",
+      "reviewed_at": "2026-10-09",
+      "scope": "Response assessment, separate from cancer stage; follow the specified clinical/trial protocol.",
+      "sources": [
+        {
+          "title": "RECIST Working Group",
+          "url": "https://recist.eortc.org/recist-1-1/"
+        }
+      ],
+      "tables": [
+        {
+          "title": "Response anchors",
+          "rows": [
+            {
+              "category": "Target selection",
+              "criteria": "Up to 5 overall, ≤2 per organ; nonnodal ≥10 mm, nodal short axis ≥15 mm on appropriate CT.",
+              "report_note": "Use repeatable lesions and technique."
+            },
+            {
+              "category": "CR",
+              "criteria": "All target lesions disappear; nodes <10 mm short axis.",
+              "report_note": "Overall CR also requires non-target/new-lesion assessment."
+            },
+            {
+              "category": "PR",
+              "criteria": "Sum decreases ≥30% from baseline.",
+              "report_note": "Use baseline denominator."
+            },
+            {
+              "category": "PD",
+              "criteria": "Sum increases ≥20% from nadir and ≥5 mm absolute; new/unequivocally progressive disease affects overall result.",
+              "report_note": "Use nadir denominator."
+            },
+            {
+              "category": "SD",
+              "criteria": "Neither PR nor PD.",
+              "report_note": "Integrate non-target and new disease."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Select reproducible targets",
+        "Compare with baseline → PR",
+        "Compare with nadir → PD",
+        "Non-target + new lesions → overall response"
+      ],
+      "report_fields": [
+        "Baseline, nadir and current target sum",
+        "Lesion-by-lesion dimensions and series/images",
+        "Non-target disease and new lesions",
+        "Named protocol and overall response"
+      ],
+      "limits": [
+        "RECIST is not TNM stage.",
+        "Use iRECIST or another protocol only when appropriate; record confirmation requirements separately."
+      ],
+      "diagram_kind": "response",
+      "illustration": {
+        "title": "Solid-tumour response: RECIST — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/recist11.svg",
+        "alt": "Solid-tumour response: RECIST. Select reproducible targets. Compare with baseline → PR. Compare with nadir → PD. Non-target + new lesions → overall response",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "thyroid-tnm": {
+      "id": "thyroid-tnm",
+      "title": "Thyroid carcinoma anatomical TNM",
+      "version": "AJCC 8; histology-specific stage grouping",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Confirmed thyroid carcinoma; TI-RADS is a nodule risk score, not stage.",
+      "sources": [
+        {
+          "title": "NCI PDQ — thyroid/hp/thyroid-treatment-pdq",
+          "url": "https://www.cancer.gov/types/thyroid/hp/thyroid-treatment-pdq"
+        }
+      ],
+      "tables": [
+        {
+          "title": "T / N / M",
+          "rows": [
+            {
+              "category": "T1a / T1b / T2",
+              "criteria": "Thyroid-confined; ≤1 / >1–2 / >2–4 cm.",
+              "report_note": "Measure greatest dimension."
+            },
+            {
+              "category": "T3a / T3b",
+              "criteria": ">4 cm but confined / gross strap-muscle invasion.",
+              "report_note": "Microscopic extrathyroidal extension is not established by ultrasound."
+            },
+            {
+              "category": "T4a",
+              "criteria": "Gross invasion of subcutaneous tissue, larynx, trachea, oesophagus or recurrent laryngeal nerve.",
+              "report_note": "Describe named structure and confidence."
+            },
+            {
+              "category": "T4b",
+              "criteria": "Prevertebral fascia invasion or carotid/mediastinal vessel encasement.",
+              "report_note": "Map surgical interfaces."
+            },
+            {
+              "category": "N1a / N1b",
+              "criteria": "Central level VI/VII / lateral neck I–V or retropharyngeal nodes.",
+              "report_note": "Record level and side."
+            },
+            {
+              "category": "M1",
+              "criteria": "Distant metastases.",
+              "report_note": "Papillary/follicular stage groups also depend on age <55 / ≥55; medullary and anaplastic differ."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Confirmed carcinoma + histology",
+        "Size / extrathyroidal anatomy",
+        "Central vs lateral nodal levels",
+        "Age + histology → stage group"
+      ],
+      "report_fields": [
+        "Size and lobe",
+        "Gross extrathyroidal extension and named structures",
+        "Nodes by neck level",
+        "Distant imaging coverage"
+      ],
+      "limits": [
+        "Do not apply differentiated-thyroid age-based stage groups to other histologies."
+      ],
+      "diagram_kind": "nodes",
+      "illustration": {
+        "title": "Thyroid carcinoma anatomical TNM — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/thyroid-tnm.svg",
+        "alt": "Thyroid carcinoma anatomical TNM. Confirmed carcinoma + histology. Size / extrathyroidal anatomy. Central vs lateral nodal levels. Age + histology → stage group",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    },
+    "adrenal-ensat": {
+      "id": "adrenal-ensat",
+      "title": "Adrenocortical carcinoma ENSAT",
+      "version": "ENSAT 2008 anatomical stage framework",
+      "kind": "staging",
+      "reviewed_at": "2026-10-09",
+      "scope": "Confirmed adrenocortical carcinoma; adrenal adenoma characterisation and pheochromocytoma staging are separate.",
+      "sources": [
+        {
+          "title": "NCI PDQ — adrenocortical/hp/adrenocortical-treatment-pdq",
+          "url": "https://www.cancer.gov/types/adrenocortical/hp/adrenocortical-treatment-pdq"
+        },
+        {
+          "title": "NCI ENSAT staging definitions",
+          "url": "https://gdc.cancer.gov/system/files/public/file/Adrenocortical%20Enrollment%20Form.pdf"
+        }
+      ],
+      "tables": [
+        {
+          "title": "ENSAT I–IV",
+          "rows": [
+            {
+              "category": "I",
+              "criteria": "≤5 cm, adrenal-confined, N0M0.",
+              "report_note": "Give size and local interfaces."
+            },
+            {
+              "category": "II",
+              "criteria": ">5 cm, adrenal-confined, N0M0.",
+              "report_note": "Describe tumour burden."
+            },
+            {
+              "category": "III",
+              "criteria": "Local infiltration/adjacent-organ invasion or regional nodal disease, M0.",
+              "report_note": "Describe renal vein/IVC thrombus and organ invasion."
+            },
+            {
+              "category": "IV",
+              "criteria": "Distant metastases.",
+              "report_note": "Name sites; use ENSAT rather than silently mixing an older AJCC stage-group definition."
+            }
+          ]
+        }
+      ],
+      "illustration_steps": [
+        "Adrenal confined + size → I/II",
+        "Local / venous / nodal extension → III",
+        "Distant metastases → IV",
+        "Histology + endocrine assessment"
+      ],
+      "report_fields": [
+        "Size and organ of origin",
+        "Renal/adrenal vessels and IVC thrombus",
+        "Adjacent organ invasion",
+        "Regional nodes and distant disease"
+      ],
+      "limits": [
+        "Imaging does not prove adrenocortical histology or hormone function."
+      ],
+      "diagram_kind": "adrenal",
+      "illustration": {
+        "title": "Adrenocortical carcinoma ENSAT — reporting anatomy and pathway",
+        "src": "/app/reference-media/reporting-diagrams/cancer/adrenal-ensat.svg",
+        "alt": "Adrenocortical carcinoma ENSAT. Adrenal confined + size → I/II. Local / venous / nodal extension → III. Distant metastases → IV. Histology + endocrine assessment",
+        "caption": "Original simplified anatomical and reporting schematic. Read with the category table; this is not a clinical case image."
+      }
+    }
+  },
+  "bindings": {
+    "ra.ct-lung-cancer": [
+      "lung-tnm9"
+    ],
+    "ra.mri-anal-cancer": [
+      "anal-tnm9"
+    ],
+    "ra.mri-rectal-cancer": [
+      "rectal-tnm"
+    ],
+    "ra.mri-cervical-cancer": [
+      "cervix-figo"
+    ],
+    "ra.mri-endometrial-cancer": [
+      "endometrium-figo2023"
+    ],
+    "ra.ct-pancreatic-cancer": [
+      "pancreas-tnm"
+    ],
+    "ra.solid-renal-masses": [
+      "renal-tnm"
+    ],
+    "ra.renal-cysts-bosniak": [
+      "renal-tnm"
+    ],
+    "ra.mri-prostate": [
+      "prostate-local"
+    ],
+    "ra.breast-cancer-staging": [
+      "breast-tnm"
+    ],
+    "ra.mri-breast": [
+      "breast-tnm"
+    ],
+    "ra.mammography": [
+      "breast-tnm"
+    ],
+    "ra.ultrasound-breast": [
+      "breast-tnm"
+    ],
+    "ra.male-breast": [
+      "breast-tnm"
+    ],
+    "ra.ovarian-cysts": [
+      "ovarian-figo"
+    ],
+    "ra.ct-peritoneal-carcinomatosis": [
+      "ovarian-figo"
+    ],
+    "ra.liver-lirads": [
+      "liver-bclc"
+    ],
+    "ra.liver-masses": [
+      "liver-bclc"
+    ],
+    "ra.mri-bladder": [
+      "bladder-tnm"
+    ],
+    "ra.ct-small-bowel-tumours": [
+      "small-bowel-tnm"
+    ],
+    "ra.esophagus": [
+      "esophagus-tnm"
+    ],
+    "ra.thymus": [
+      "thymic-tnm9"
+    ],
+    "ra.head-neck-malignancy": [
+      "head-neck-frameworks"
+    ],
+    "ra.cervical-lymph-nodes": [
+      "head-neck-frameworks",
+      "lymphoma-lugano"
+    ],
+    "ra.mri-neck-spaces": [
+      "head-neck-frameworks"
+    ],
+    "ra.bone-tumours": [
+      "bone-enneking"
+    ],
+    "ra.cartilage-tumours": [
+      "bone-enneking"
+    ],
+    "ra.mri-brain-tumours": [
+      "cns-classification"
+    ],
+    "ra.paediatric-solid-abdominal-masses": [
+      "neuroblastoma-inrg",
+      "wilms-cog",
+      "pretext"
+    ],
+    "ra.paediatric-mediastinum": [
+      "neuroblastoma-inrg"
+    ],
+    "ra.paediatric-neck-masses": [
+      "neuroblastoma-inrg"
+    ],
+    "ra.paediatric-renal-tumours": [
+      "wilms-cog"
+    ],
+    "ra.ct-mediastinum": [
+      "lymphoma-lugano"
+    ],
+    "ra.recist": [
+      "recist11"
+    ],
+    "ra.ultrasound-thyroid": [
+      "thyroid-tnm"
+    ],
+    "ra.adrenal-lesions": [
+      "adrenal-ensat"
+    ]
+  }
+}

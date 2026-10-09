@@ -3726,6 +3726,17 @@ async def source_motion_delivery(asset: str, request: Request):
     return await app.state.source_static.get_response("reference-media/radiology-motion/" + asset, request.scope)
 
 
+@app.api_route("/app/reference-media/annotated-ct/{reference}/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def annotated_ct_delivery(reference: str, asset: str, request: Request):
+    from .radiology_catalog import annotated_ct_frames
+    path = "reference-media/annotated-ct/" + reference + "/" + asset
+    if "/app/" + path not in annotated_ct_frames():
+        return JSONResponse({"detail": "Unknown annotated CT frame"}, status_code=404)
+    if os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/" + path, status_code=307)
+    return await app.state.source_static.get_response(path, request.scope)
+
+
 @app.api_route("/app/reference-media/radiology-open/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
 async def radiology_image_delivery(asset: str, request: Request):
     import json

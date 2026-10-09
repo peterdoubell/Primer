@@ -35,7 +35,6 @@ CORRECTED = {
     'ra.mra-peripheral-vessels': 'aorta',
     'ra.ct-cardiovascular-pearls': 'heart',
     'ra.pulmonary-hypertension': 'thorax',
-    'ra.hrct-cystic-lung': 'thorax',
     'ra.hrct-lung': 'thorax',
     'ra.chest-radiography': 'thorax',
     'ra.tuberculosis': 'thorax',
@@ -78,7 +77,7 @@ def _landmarks():
 
 
 def test_every_investigation_has_a_complete_authored_walkthrough(references):
-    assert len(references) == 137
+    assert len(references) == 136
     for identifier, ref in references.items():
         walk = ref['walkthrough']
         headings = [section['heading'] for section in ref['report_templates'][0]['sections']]
@@ -106,7 +105,11 @@ def test_steps_follow_the_scoped_reporting_guide(references):
         if identifier in FLAGSHIPS:
             continue
         guide = [[section['heading']] for section in ref['reporting']['template_sections']]
-        assert [step['sections'] for step in ref['walkthrough']['steps']] == guide, identifier
+        # The combined HRCT guide groups related cyst fields into one step.
+        if identifier == 'ra.hrct-lung':
+            assert [heading for step in ref['walkthrough']['steps'] for heading in step['sections']] == [row[0] for row in guide]
+        else:
+            assert [step['sections'] for step in ref['walkthrough']['steps']] == guide, identifier
 
 
 def test_step_landmarks_and_mesh_parts_exist(references):
@@ -245,9 +248,9 @@ def test_walkthrough_helpers_and_step_models_build(references):
                             timeout=60, check=False)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report == {'investigations': 137, 'corrected': len(CORRECTED),
+    assert report == {'investigations': 136, 'corrected': len(CORRECTED),
                       'builds': report['builds'], 'status': 'passed'}
-    assert report['builds'] >= 137
+    assert report['builds'] >= 136
 
 
 def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_gallery_into_intro(references):
@@ -262,7 +265,8 @@ def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_galle
         authored_start = radiology_catalog._steps()['investigations'][key].get('start', {})
         if 'images' in authored_start:
             assert ref['walkthrough']['start']['images'] == authored_start['images'], key
-            assert len(atlas.intersection(authored_start['images'])) < len(atlas), key
+            if atlas:
+                assert len(atlas.intersection(authored_start['images'])) < len(atlas), key
         else:
             assert not atlas.intersection(ref['walkthrough']['start']['images']), key
 

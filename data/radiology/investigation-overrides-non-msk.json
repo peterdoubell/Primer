@@ -196,7 +196,7 @@
   },
   "ra.aortic-aneurysm-rupture": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
         "Review contrast-enhanced CT with multiplanar aortic assessment; inspect any available unenhanced images for haemorrhage."
       ],
@@ -232,11 +232,13 @@
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Absence of active extravasation does not exclude a contained rupture."
+        "Absence of active extravasation does not exclude a contained rupture.",
+        "A hyperattenuating crescent or focal wall change alone does not establish rupture; integrate haematoma, leak and clinical presentation."
       ],
       "impression_prompts": [
-        "Rupture signs, contained leak and surrounding structures.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "Lead with location, maximal orthogonal diameter and ruptured / contained rupture / no CT evidence of rupture.",
+        "Describe proximal and distal extent, renal/visceral involvement and relevant neck/access anatomy.",
+        "If dissection coexists, add Stanford and DeBakey type separately. Record comparison and urgent communication."
       ],
       "escalation": [
         "Immediately communicate suspected aortic rupture or contained leak."
@@ -244,7 +246,7 @@
       "template_sections": [
         {
           "heading": "ANEURYSM",
-          "body": "Segment: [ ]. Morphology: [ ]. Maximum outer diameter: [ ] mm."
+          "body": "Segment and proximal/distal landmarks [ ]. Infrarenal / juxtarenal / pararenal / suprarenal / thoracoabdominal [ ]. Crawford extent if applicable [ ]. Fusiform/saccular morphology [ ]. Maximum outer-wall diameter [ ] mm, perpendicular to centreline; prior [ ] mm on [date]."
         },
         {
           "heading": "RUPTURE",
@@ -256,7 +258,7 @@
         },
         {
           "heading": "BRANCH VESSELS",
-          "body": "Renal/visceral origins: [ ]. Branch patency: [ ]. Organ perfusion: [ ]."
+          "body": "Relation to lowest renal artery [ ]; proximal neck length/diameter/angulation if assessable [ ]. Coeliac/SMA/renal origins and patency [ ]. Organ perfusion [ ]."
         },
         {
           "heading": "ILIAC AND ADJACENT STRUCTURES",
@@ -267,6 +269,10 @@
         {
           "title": "Radiology Assistant — Aortic Aneurysm Rupture",
           "url": "https://radiologyassistant.nl/abdomen/aorta/aneurysm-rupture"
+        },
+        {
+          "title": "ACC/AHA 2022 aortic disease guideline — classifications and reporting",
+          "url": "https://doi.org/10.1161/CIR.0000000000001106"
         }
       ]
     }
@@ -3129,7 +3135,7 @@
   },
   "ra.ct-acute-aortic-syndrome": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-08",
       "protocol": [
         "Review available unenhanced and contrast-enhanced aortic CT; assess the full imaged aorta and branch perfusion."
       ],
@@ -3162,14 +3168,66 @@
           "pitfall": "Do not confuse oblique vessel sections with focal enlargement."
         }
       ],
-      "classification": null,
-      "criteria_table": null,
+      "classification": {
+        "name": "Stanford and DeBakey",
+        "version": "Anatomic classification · ACC/AHA 2022",
+        "applicability": "Aortic dissection; report atypical patterns anatomically.",
+        "summary": "Stanford uses ascending involvement; DeBakey uses tear origin and extent."
+      },
+      "criteria_table": {
+        "title": "Dissection classification for the impression",
+        "scope": "Identify ascending involvement first. Do not infer entry site from the longest flap.",
+        "rows": [
+          {
+            "category": "DeBakey I",
+            "criteria": "Ascending origin, extending beyond the ascending aorta.",
+            "report_note": "Usually Stanford A; specify distal endpoint."
+          },
+          {
+            "category": "DeBakey II",
+            "criteria": "Ascending origin and confined to the ascending aorta.",
+            "report_note": "Stanford A."
+          },
+          {
+            "category": "DeBakey IIIa",
+            "criteria": "Descending origin; confined above the diaphragm.",
+            "report_note": "Stanford B if ascending aorta is uninvolved."
+          },
+          {
+            "category": "DeBakey IIIb",
+            "criteria": "Descending origin; extends below the diaphragm.",
+            "report_note": "Stanford B if ascending aorta is uninvolved."
+          },
+          {
+            "category": "Stanford A",
+            "criteria": "Any ascending-aortic involvement, regardless of tear origin.",
+            "report_note": "Urgent direct communication; state root, coronary and pericardial findings."
+          },
+          {
+            "category": "Stanford B",
+            "criteria": "No ascending-aortic involvement.",
+            "report_note": "Describe arch, tear and distal extent; identify rupture and malperfusion."
+          },
+          {
+            "category": "Atypical / arch-only",
+            "criteria": "Classic DeBakey categories may not capture the observed pattern.",
+            "report_note": "Describe anatomy explicitly; name any non-A/non-B framework used."
+          }
+        ],
+        "sources": [
+          {
+            "title": "ACC/AHA 2022 aortic disease guideline — classifications and reporting",
+            "url": "https://doi.org/10.1161/CIR.0000000000001106"
+          }
+        ]
+      },
       "pitfalls": [
         "Ascending aortic motion may mimic a flap; correlate reconstruction quality and other planes."
       ],
       "impression_prompts": [
-        "Aortic dissection, intramural haematoma and penetrating ulcer.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "Lead with acute aortic syndrome subtype, Stanford type and actual extent; add DeBakey type when applicable.",
+        "State rupture, coronary/branch involvement and imaging evidence of organ malperfusion.",
+        "Give maximal diameter, prior repair and interval change. Record urgent communication."
       ],
       "escalation": [
         "Immediately communicate suspected acute aortic syndrome, rupture or branch malperfusion."
@@ -3177,7 +3235,7 @@
       "template_sections": [
         {
           "heading": "AORTIC SEGMENT",
-          "body": "Ascending/arch/descending extent: [ ]. Root involvement: [ ]."
+          "body": "Stanford [A / B / atypical pattern described]. DeBakey [I / II / IIIa / IIIb / not classifiable]. Proximal/distal extent [ ]. Entry tear [site / not identified]. Root/arch involvement [ ]."
         },
         {
           "heading": "WALL AND LUMEN",
@@ -3200,6 +3258,10 @@
         {
           "title": "Radiology Assistant — Acute Aortic Syndrome",
           "url": "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome"
+        },
+        {
+          "title": "ACC/AHA 2022 aortic disease guideline — classifications and reporting",
+          "url": "https://doi.org/10.1161/CIR.0000000000001106"
         }
       ]
     }
@@ -3636,94 +3698,6 @@
       ]
     }
   },
-  "ra.hrct-cystic-lung": {
-    "reporting": {
-      "reviewed_at": "2026-10-06",
-      "protocol": [
-        "Record actual thin-section CT acquisition, coverage, source voxel/reconstruction/window, inspiratory level, motion and available comparison. Expiration/contrast or other tests are separate only if performed.",
-        "Trace source cyst-like lesions and all covered regional interfaces. Teaching diagnoses, typical distributions and representative stills are not the current patient observations or complete native anatomy."
-      ],
-      "checklist": [
-        {
-          "label": "Cyst morphology",
-          "detail": "Trace each actual cyst or cyst-like lesion through obtained source planes; describe wall, contents, shape, septa, mural components and airway/vessel continuity with source uncertainty."
-        },
-        {
-          "label": "Distribution",
-          "detail": "Record actual count/extent and regional distribution across every covered lobe, axial compartment, pleural recess and fissural/mediastinal interface; identify coverage limits."
-        },
-        {
-          "label": "Associated nodules",
-          "detail": "Describe each solid/cavitating nodule, mural or intracystic component and its relationship to cysts, airways and vessels; assess actual prior change."
-        },
-        {
-          "label": "Background lung",
-          "detail": "Describe intervening parenchyma, ground glass, septa, reticulation, fibrosis, honeycombing, emphysema and airway change with source phase and differential."
-        },
-        {
-          "label": "Extrapulmonary context",
-          "detail": "Review pleura, pneumothorax/fluid, covered nodes and systemic findings; separate observed CT from supplied history, genetics, microbiology or tissue evidence."
-        }
-      ],
-      "measurements": [
-        {
-          "name": "Representative cysts",
-          "method": "Measure selected source-resolved lesions in stated orthogonal/local planes, wall/airspace edge convention, reconstruction/window and actual calibration; describe justified range, burden estimate and uncertainty.",
-          "pitfall": "One lesion or still does not establish whole-lung burden, microscopic wall structure or calibrated serial change."
-        }
-      ],
-      "classification": null,
-      "criteria_table": null,
-      "pitfalls": [
-        "Wall thickness or apparent absence alone is not a diagnostic cutoff; partial volume, reconstruction and orientation affect thin walls. Thick/irregular components and a cyst-like cavity require a stated differential.",
-        "The source four-cysts/age-forty rule is a contextual heuristic, not a diagnosis or exclusion rule, particularly with recurrent pneumothorax or suspected hereditary disease. Costophrenic distribution supports a differential, not a unique diagnosis.",
-        "New/growing mural solid tissue or changing cyst-associated nodules warrant appropriate clinical evaluation. Wall thinning or low/negative PET uptake alone does not establish benignity; no PET finding is borrowed when PET was not obtained.",
-        "LAM/BHD-FDS/PLCH/LIP/AMP-DIP patterns overlap with infection, neoplasia, deposition and other causes. Record morphology and uncertainty; source terminology does not prove histology, genotype or functional severity.",
-        "No pneumothorax, chylous fluid, renal tumour, systemic disease or hereditary finding may be asserted from unassessed anatomy. CT fluid is not proven chyle; urgency depends on actual findings and clinical context."
-      ],
-      "impression_prompts": [
-        "Describe actual cyst/mimic morphology, distribution, associated solid/parenchymal findings and full obtained extent with technical confidence.",
-        "Give a supported differential and the clinical/genetic/tissue sources or missing evidence; do not convert an age/count heuristic or teaching pattern into a confirmed diagnosis.",
-        "State concerning interval change or complication and appropriate source/context-dependent clinical assessment."
-      ],
-      "escalation": [
-        "Communicate an observed pneumothorax or other clinically urgent complication through local pathways; source pattern alone does not establish physiological instability."
-      ],
-      "template_sections": [
-        {
-          "heading": "CYST MORPHOLOGY",
-          "body": "Actual lesion/site and cyst versus mimic [ ]; wall/shape/content/septa/mural or traversing-vessel interface [ ]; full source-resolved extent [ ]; representative size/axis/window/calibration and uncertainty [ ]; microscopic/unresolved components [ ]."
-        },
-        {
-          "heading": "DISTRIBUTION",
-          "body": "Actual count or justified extent estimate [ ]; every covered side/lobe/region and zonal/axial pattern [ ]; costophrenic, subpleural, mediastinal and fissural relation [ ]; variant/coverage/unevaluable extent [ ]; prior source comparison [ ]."
-        },
-        {
-          "heading": "ASSOCIATED NODULES",
-          "body": "Each source solid/cavitating, mural/intracystic or adjacent nodule/mass [ ]; actual cyst/airway/vessel relation [ ]; local site, extent, size/method and change [ ]; comparison/registration/source limits [ ]; concerning or indeterminate component [ ]."
-        },
-        {
-          "heading": "BACKGROUND LUNG",
-          "body": "Each covered regional ground glass, septal/reticular/fibrotic/emphysematous or airway finding [ ]; intervening tissue versus lesion [ ]; actual acquired inspiration/expiration/contrast source [ ]; differential and technical limits [ ]."
-        },
-        {
-          "heading": "EXTRAPULMONARY CONTEXT",
-          "body": "Actual pleural pneumothorax/fluid or other complication [ ]; covered nodal/vascular/upper-abdominal finding [ ]; supplied smoking, autoimmune/infectious, genetic/tissue or other history/source/date [ ]; unavailable/uncovered systemic or functional evidence [ ]; prior change and communication [ ]."
-        }
-      ],
-      "sources": [
-        {
-          "title": "Radiology Assistant cystic lung approach",
-          "url": "https://radiologyassistant.nl/chest/cystic-lung-disease/analysis-of-cystic-lung-disease-1-1-1"
-        },
-        {
-          "title": "2026 original cystic lung CT pictorial review",
-          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13200743/"
-        }
-      ]
-    },
-    "key_images": []
-  },
   "ra.esophagus": {
     "reporting": {
       "reviewed_at": "2026-10-08",
@@ -3870,7 +3844,7 @@
   },
   "ra.hrct-lung": {
     "reporting": {
-      "reviewed_at": "2026-10-06",
+      "reviewed_at": "2026-10-09",
       "protocol": [
         "Record actual volumetric/thin-section HRCT coverage, reconstruction, inspiratory adequacy and artefacts. Expiration, prone, contrast and serial studies are separate acquired sources only when performed.",
         "Use source-resolved lobular/tissue and airway interfaces; named CT patterns differ from clinical, pathological, genetic and physiological conclusions. Do not substitute the orientation model for actual native disease anatomy."
@@ -3895,6 +3869,30 @@
         {
           "label": "Comparison and context",
           "detail": "Compare actual matching source sites and methods; report complications and supplied clinical/physiological context without inferring progression, pressure or function from a still."
+        },
+        {
+          "label": "Cyst morphology",
+          "detail": "Trace each actual cyst or cyst-like lesion through obtained source planes; describe wall, contents, shape, septa, mural components and airway/vessel continuity with source uncertainty."
+        },
+        {
+          "label": "Distribution",
+          "detail": "Record actual count/extent and regional distribution across every covered lobe, axial compartment, pleural recess and fissural/mediastinal interface; identify coverage limits."
+        },
+        {
+          "label": "Associated nodules",
+          "detail": "Describe each solid/cavitating nodule, mural or intracystic component and its relationship to cysts, airways and vessels; assess actual prior change."
+        },
+        {
+          "label": "Background lung",
+          "detail": "Describe intervening parenchyma, ground glass, septa, reticulation, fibrosis, honeycombing, emphysema and airway change with source phase and differential."
+        },
+        {
+          "label": "Extrapulmonary context",
+          "detail": "Review pleura, pneumothorax/fluid, covered nodes and systemic findings; separate observed CT from supplied history, genetics, microbiology or tissue evidence."
+        },
+        {
+          "label": "Pattern synthesis",
+          "detail": "Integrate fibrosis and cyst findings; state pattern, leading differential and interval change. UIP is not synonymous with IPF."
         }
       ],
       "measurements": [
@@ -3902,6 +3900,11 @@
           "name": "Extent and progression",
           "method": "Record source method, actual covered regions, visual/quantitative basis, phase/calibration and uncertainty for any burden estimate; compare justified matching methods/sites.",
           "pitfall": "Selected stills or a parent lung model do not supply full volumetric burden or calibrated serial change."
+        },
+        {
+          "name": "Representative cysts",
+          "method": "Measure selected source-resolved lesions in stated orthogonal/local planes, wall/airspace edge convention, reconstruction/window and actual calibration; describe justified range, burden estimate and uncertainty.",
+          "pitfall": "One lesion or still does not establish whole-lung burden, microscopic wall structure or calibrated serial change."
         }
       ],
       "classification": null,
@@ -3911,7 +3914,14 @@
         "A representative still cannot establish whole-lung disease absence, burden or a microscopic lobular map. State mixed patterns, each actual region and unassessed coverage.",
         "A CT UIP pattern does not equal idiopathic pulmonary fibrosis; secondary causes and multidisciplinary confidence matter. Honeycombing can overlap other fibrotic diseases; CT appearance is not the histological definition.",
         "Do not assert no air trapping on an unperformed expiration or resolution on an unperformed prone scan. Air trapping/mosaicism alone does not uniquely diagnose HP; bronchiolocentric features can have other causes.",
-        "CT progression alone does not establish PPF. The named2022 definition uses at least two of symptoms/radiology/physiology within one year, no alternative explanation, in fibrotic ILD other than IPF. Preserve actual dates and sources; new acute opacity is not unique for exacerbation."
+        "CT progression alone does not establish PPF. The named2022 definition uses at least two of symptoms/radiology/physiology within one year, no alternative explanation, in fibrotic ILD other than IPF. Preserve actual dates and sources; new acute opacity is not unique for exacerbation.",
+        "Dependent opacity and inadequate inspiration can mimic interstitial disease; honeycombing differs from clustered emphysematous spaces.",
+        "A thin-walled lucency is not automatically a cyst; identify airway continuity and the surrounding parenchymal pattern.",
+        "Wall thickness or apparent absence alone is not a diagnostic cutoff; partial volume, reconstruction and orientation affect thin walls. Thick/irregular components and a cyst-like cavity require a stated differential.",
+        "The source four-cysts/age-forty rule is a contextual heuristic, not a diagnosis or exclusion rule, particularly with recurrent pneumothorax or suspected hereditary disease. Costophrenic distribution supports a differential, not a unique diagnosis.",
+        "New/growing mural solid tissue or changing cyst-associated nodules warrant appropriate clinical evaluation. Wall thinning or low/negative PET uptake alone does not establish benignity; no PET finding is borrowed when PET was not obtained.",
+        "LAM/BHD-FDS/PLCH/LIP/AMP-DIP patterns overlap with infection, neoplasia, deposition and other causes. Record morphology and uncertainty; source terminology does not prove histology, genotype or functional severity.",
+        "No pneumothorax, chylous fluid, renal tumour, systemic disease or hereditary finding may be asserted from unassessed anatomy. CT fluid is not proven chyle; urgency depends on actual findings and clinical context."
       ],
       "impression_prompts": [
         "State source-supported dominant/mixed morphology, distribution, fibrotic features and coverage/quality limits.",
@@ -3941,6 +3951,30 @@
         {
           "heading": "COMPARISON AND CONTEXT",
           "body": "Prior matching source dates/sites/coverage and technique [ ]; actual radiological change and uncertainty [ ]; symptoms and physiological source/date/values if supplied [ ]; named progression definition/window/exclusion context if applied [ ]; actual pleural/mediastinal air/fluid, nodes/mass/vascular/covered systemic findings [ ]; acute alternatives and communication [ ]."
+        },
+        {
+          "heading": "CYST MORPHOLOGY",
+          "body": "Actual lesion/site and cyst versus mimic [ ]; wall/shape/content/septa/mural or traversing-vessel interface [ ]; full source-resolved extent [ ]; representative size/axis/window/calibration and uncertainty [ ]; microscopic/unresolved components [ ]."
+        },
+        {
+          "heading": "CYST DISTRIBUTION",
+          "body": "Actual count or justified extent estimate [ ]; every covered side/lobe/region and zonal/axial pattern [ ]; costophrenic, subpleural, mediastinal and fissural relation [ ]; variant/coverage/unevaluable extent [ ]; prior source comparison [ ]."
+        },
+        {
+          "heading": "ASSOCIATED NODULES",
+          "body": "Each source solid/cavitating, mural/intracystic or adjacent nodule/mass [ ]; actual cyst/airway/vessel relation [ ]; local site, extent, size/method and change [ ]; comparison/registration/source limits [ ]; concerning or indeterminate component [ ]."
+        },
+        {
+          "heading": "BACKGROUND LUNG",
+          "body": "Each covered regional ground glass, septal/reticular/fibrotic/emphysematous or airway finding [ ]; intervening tissue versus lesion [ ]; actual acquired inspiration/expiration/contrast source [ ]; differential and technical limits [ ]."
+        },
+        {
+          "heading": "EXTRAPULMONARY CONTEXT",
+          "body": "Actual pleural pneumothorax/fluid or other complication [ ]; covered nodal/vascular/upper-abdominal finding [ ]; supplied smoking, autoimmune/infectious, genetic/tissue or other history/source/date [ ]; unavailable/uncovered systemic or functional evidence [ ]; prior change and communication [ ]."
+        },
+        {
+          "heading": "PATTERN SYNTHESIS",
+          "body": "HRCT pattern: [UIP / probable UIP / indeterminate for UIP / alternative diagnosis / no fibrosis]. Cystic differential if applicable: [ ]. Supporting features: [ ]. Extent and interval change: [ ]."
         }
       ],
       "sources": [
@@ -3967,6 +4001,14 @@
         {
           "title": "2025ERS/ATS multidisciplinary pattern terminology",
           "url": "https://publications.ersnet.org/content/erj/66/6/2500158"
+        },
+        {
+          "title": "Radiology Assistant — Cystic Lung Disease - Differential diagnosis",
+          "url": "https://radiologyassistant.nl/chest/cystic-lung-disease/analysis-of-cystic-lung-disease-1-1-1"
+        },
+        {
+          "title": "2026 original cystic lung CT pictorial review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13200743/"
         }
       ]
     },

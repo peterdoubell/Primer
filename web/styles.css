@@ -4717,3 +4717,48 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .quest-item .tick .glyph svg { width: 15px; height: 15px; }
 .story-fleuron .glyph { color: var(--gold-ink); filter: drop-shadow(var(--glow-soft)); }
 .pick-mark .glyph, .conf-mark .glyph, .sel-mark .glyph, .reader-source .glyph, .tl-epoch .yr .glyph { vertical-align: -0.12em; }
+
+/* Diagnostic decision schematic: readable in all themes and stacked on mobile. */
+.rad-quick-entry, .rad-quick-report { padding: 1rem; border: 1px solid currentColor; border-radius: .65rem; }
+.rad-quick-branches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.rad-quick-branch { position: relative; border: 1px solid var(--border, #777); border-top: 4px solid currentColor; border-radius: .65rem; padding: 1rem; }
+.rad-quick-branch::before { content: '↓'; display: block; text-align: center; font-size: 1.4rem; }
+.rad-quick-branch h4 { margin: .5rem 0; font-size: 1.1rem; }
+.rad-quick-branch dt { font-weight: 700; margin-top: 1rem; }
+.rad-quick-branch dd { margin: .3rem 0 0; }
+.rad-quick-note { border-top: 1px solid var(--border, #777); padding-top: .8rem; font-size: .9rem; }
+.rad-quick-reference .rad-image-example img { width: 100%; height: auto; max-height: 360px; object-fit: contain; background: #fff; cursor: zoom-in; }
+@media (max-width: 1050px) { .rad-quick-branches { grid-template-columns: 1fr; } }
+.rad-reporting-sequence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2.5rem; padding-left: 1.5rem; }
+.rad-reporting-sequence > li { padding: .8rem; border-bottom: 1px solid var(--border, #777); }
+.rad-reporting-sequence > li::marker { font-weight: 700; }
+.rad-reporting-sequence p { margin: .5rem 0; }
+.rad-reporting-sequence summary { cursor: pointer; }
+.rad-reporting-diagrams img { width: 100%; height: auto; }
+@media (max-width: 760px) { .rad-reporting-sequence { grid-template-columns: 1fr; } }
+
+/* Versioned cancer staging references retain semantic tables on small screens. */
+.rad-staging-table th:first-child { min-width: 8rem; }
+.rad-staging-table td { min-width: 15rem; vertical-align: top; }
+.rad-staging-table tr[hidden] { display: none; }
+.rad-staging-illustration { margin: 1.4rem 0; }
+.rad-staging-illustration img { width: 100%; height: auto; cursor: zoom-in; }
+.rad-staging-examples { margin: 1.5rem 0; }
+.rad-staging-examples img { width: 100%; height: 240px; object-fit: contain; background: white; }
+.rad-staging-summary { padding: .8rem; border-left: 3px solid currentColor; }
+.rad-annotated-anatomy { display: grid; gap: 1rem; margin: 1.25rem 0; }
+.rad-annotated-anatomy .rad-quick-branch::before { display: none; }
+
+.rad-ct-stack { margin: 1rem 0; border: 1px solid var(--border, #777); border-radius: .6rem; padding: .7rem; }
+.rad-ct-stack summary { cursor: pointer; font-weight: 700; }
+.rad-ct-stack-stage { width: 100%; height: min(68vh, 700px); min-height: 280px; overflow: auto; background: #000; position: relative; border-radius: .4rem; }
+.rad-ct-stack-stage img { display: block; width: 100%; height: 100%; object-fit: contain; margin: 0 auto; }
+.rad-ct-stack-stage.is-zoomed img { height: auto; min-height: 100%; object-fit: initial; }
+.rad-ct-stack-stage:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.rad-ct-stack-stage img.is-loading { opacity: .35; }
+.rad-ct-stack-controls { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .7rem 0; }
+.rad-ct-frame-number { width: 5rem; padding: .35rem; }
+.rad-ct-stack-slider { display: flex; gap: .8rem; align-items: center; margin: .7rem 0; }
+.rad-ct-stack-slider input { flex: 1; min-width: 0; }
+.rad-ct-stack:fullscreen { overflow: auto; background: var(--paper, #202124); color: var(--ink, #ddd); padding: 1rem; }
+.rad-ct-stack:fullscreen .rad-ct-stack-stage { height: 72vh; }
