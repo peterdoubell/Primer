@@ -156,6 +156,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "spatial-3d",
     "concept-lab",
     "math-ode-lab",
+    "math-field-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -366,6 +367,11 @@ def _validate_lesson_media(node: Dict) -> None:
                 if node.get("id") != "math.4.diffeq" or props != {
                         "scenario": "math.4.diffeq.second-order"}:
                     raise ValueError("{} second-order ODE model has an unknown or cross-lesson scenario".format(
+                        node.get("id")))
+            elif renderer == "math-field-lab":
+                if node.get("id") != "math.4.multivar" or props != {
+                        "scenario": "math.4.multivar.integral-flux"}:
+                    raise ValueError("{} integral/flux model has an unknown or cross-lesson scenario".format(
                         node.get("id")))
             elif renderer == "counter":
                 if set(props) != {"total"} or isinstance(props.get("total"), bool) \

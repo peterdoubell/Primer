@@ -558,6 +558,151 @@ function checkPhysicsFidelity(renderer, models) {
       }
     }
   });
+
+  audit('stopping motion uses one time coordinate and closes the energy account', () => {
+    const lab = scenario('phys.1.motion');
+    for (const friction of [0, 1, 3, 8]) {
+      lab.set('Surface friction', friction);
+      for (const time of [0, 2.2, 4, 6.2, 8]) {
+        lab.set('Elapsed time', time);
+        const selected = marker(lab.svg());
+        const stopTime = friction === 0 ? Infinity : 8 / friction;
+        const movingTime = Math.min(time, stopTime);
+        const distance = 4 * movingTime - friction * movingTime ** 2 / 4;
+        const speed = Math.max(0, 4 - friction * time / 2);
+        requireClose((Number(selected.getAttribute('cx')) - 88) / 560 * 8, time, 1e-12,
+          'motion marker time');
+        requireClose((239 - Number(selected.getAttribute('cy'))) / 205 * 32, distance, 1e-12,
+          'motion marker distance');
+        requireClose(speed ** 2 + friction * distance, 16, 1e-12, 'closed kinetic/thermal account');
+        const curve = points(curves(lab.svg())[0]);
+        curve.forEach(([x, y]) => {
+          const plottedTime = (x - 88) / 560 * 8;
+          const moving = Math.min(plottedTime, stopTime);
+          requireClose((239 - y) / 205 * 32, 4 * moving - friction * moving ** 2 / 4,
+            .0012, 'full stopping trajectory');
+        });
+        const displayed = lab.readout().match(/v = ([\d.]+) m\/s/);
+        if (!displayed) throw new Error('velocity readout missing');
+        requireClose(Number(displayed[1]), speed, .0005, 'displayed speed');
+      }
+    }
+  });
+
+  audit('Lorentz event, interval and simultaneity slice share physical coordinates', () => {
+    for (const id of ['phys.3.relativity-intro', 'phys.4.relativity']) {
+      const lab = scenario(id);
+      const advanced = id === 'phys.4.relativity';
+      const maximum = advanced ? 24 : 4;
+      const scale = 210 / maximum;
+      for (const beta of advanced ? [-.9, -.6, 0, .6, .9] : [0, .6, .95]) {
+        lab.set(advanced ? 'Frame speed v/c' : 'Relative speed v/c', beta);
+        for (const proper of advanced ? [1, 4, 10] : [1]) {
+          if (advanced) lab.set('Proper-time interval', proper);
+          const gamma = 1 / Math.sqrt(1 - beta ** 2);
+          const event = one(lab.svg(), candidate => candidate.getAttribute('data-physics-role') ===
+            'clock-event', 'clock event');
+          const space = (Number(event.getAttribute('cx')) - 360) / scale;
+          const time = (258 - Number(event.getAttribute('cy'))) / scale;
+          requireClose(time, gamma * proper, 1e-12, 'coordinate time');
+          requireClose(space, beta * time, 1e-12, 'moving clock worldline');
+          requireClose(time ** 2 - space ** 2, proper ** 2, 1e-10, 'Minkowski interval');
+          requireClose(gamma * (time - beta * space), proper, 1e-12, 'inverse Lorentz proper time');
+          if (advanced) {
+            const slice = one(lab.svg(), candidate => candidate.getAttribute('data-physics-role') ===
+              'simultaneity-slice', 'moving-frame simultaneity');
+            const endpoints = [1, 2].map(index => [
+              (Number(slice.getAttribute('x' + index)) - 360) / scale,
+              (258 - Number(slice.getAttribute('y' + index))) / scale,
+            ]);
+            endpoints.forEach(([u, t]) => {
+              requireClose(gamma * (t - beta * u), proper, 1e-12, 'constant transformed time over full slice');
+              if (t < -1e-12 || t > maximum + 1e-12 || Math.abs(u) > maximum + 1e-12) {
+                throw new Error('simultaneity line exceeds physical plot domain');
+              }
+            });
+            requireClose((endpoints[1][1] - endpoints[0][1]) /
+              (endpoints[1][0] - endpoints[0][0]), beta, 1e-12, 'simultaneity slope');
+          }
+        }
+      }
+    }
+  });
+
+  audit('Carnot flow shafts share one energy scale and conserve energy', () => {
+    const lab = scenario('phys.3.thermo');
+    for (const hot of [400, 600, 1000]) {
+      lab.set('Hot reservoir', hot);
+      for (const cold of [200, 300, 390]) {
+        lab.set('Cold reservoir', cold);
+        const input = one(lab.svg(), candidate => candidate.getAttribute('data-physics-flow') === 'input', 'input shaft');
+        const work = one(lab.svg(), candidate => candidate.getAttribute('data-physics-flow') === 'work', 'work shaft');
+        const rejected = one(lab.svg(), candidate => candidate.getAttribute('data-physics-flow') === 'rejected', 'rejected shaft');
+        const widths = [Number(input.getAttribute('width')), Number(work.getAttribute('height')),
+          Number(rejected.getAttribute('width'))];
+        requireClose(widths[0], 24, 1e-12, '100 J input scale');
+        requireClose(widths[1] / 24, 1 - cold / hot, 1e-12, 'work fraction');
+        requireClose(widths[2] / 24, cold / hot, 1e-12, 'rejected fraction');
+        requireClose(widths[1] + widths[2], widths[0], 1e-12, 'Qh = W + Qc');
+        requireClose(widths[2] / .24 / cold - 100 / hot, 0, 1e-12, 'reversible reservoir entropy balance');
+      }
+    }
+  });
+
+  audit('radioactive expectation differs from integer mock survivors', () => {
+    const lab = scenario('phys.3.nuclear');
+    for (const initial of [32, 64, 128]) {
+      lab.set('Starting nuclei', initial);
+      for (const realization of [1, 2, 8]) {
+        lab.set('Mock realization', realization);
+        let fullPath;
+        for (const elapsed of [0, .5, 1, 2, 6]) {
+          lab.set('Elapsed half-lives', elapsed);
+          const svg = lab.svg();
+          const selected = marker(svg);
+          requireClose((239 - Number(selected.getAttribute('cy'))) / 205, 2 ** -elapsed,
+            1e-12, 'fractional ensemble expectation');
+          const measurement = one(svg, candidate => hasClass(candidate, 'physics-svg-measurement'), 'mock survivors');
+          const observed = (239 - Number(measurement.getAttribute('cy'))) / 205 * initial;
+          requireClose(observed, Math.round(observed), 1e-12, 'integer sample survivor count');
+          const p = 2 ** -elapsed;
+          const deviation = Math.sqrt(initial * p * (1 - p));
+          const verticalError = one(svg, candidate => hasClass(candidate, 'physics-svg-measurement-error') &&
+            candidate.getAttribute('x1') === candidate.getAttribute('x2'), 'survival standard-deviation bar');
+          requireClose((239 - Number(verticalError.getAttribute('y1'))) / 205,
+            Math.min(1, (observed + deviation) / initial), 1e-12, 'upper physical-support error bar');
+          requireClose((239 - Number(verticalError.getAttribute('y2'))) / 205,
+            Math.max(0, (observed - deviation) / initial), 1e-12, 'lower physical-support error bar');
+          const sampleCurve = curves(svg)[1];
+          if (fullPath !== undefined && fullPath !== sampleCurve.getAttribute('d')) {
+            throw new Error('moving time resamples lifetimes');
+          }
+          fullPath = sampleCurve.getAttribute('d');
+          const plotted = points(sampleCurve);
+          requireClose(plotted[0][1], 34, .005, 'all nuclei initially undecayed');
+          let previous = plotted[0];
+          plotted.slice(1).forEach(point => {
+            if (point[0] < previous[0] || point[1] < previous[1]) throw new Error('survival trace reverses');
+            if (point[1] !== previous[1]) {
+              requireClose(point[0], previous[0], .005, 'instantaneous integer decay');
+              requireClose((point[1] - previous[1]) / 205 * initial, 1, .0064, 'one nucleus per decay event');
+            }
+            previous = point;
+          });
+          const timeX = 88 + elapsed / 6 * 560;
+          const matching = plotted.filter(point => point[0] <= timeX + .005).at(-1);
+          requireClose((239 - matching[1]) / 205 * initial, observed, .0032, 'selected count belongs to drawn lifetime trace');
+          if (elapsed === 0) requireClose(observed, initial, 1e-12, 'no synthetic decay at t=0');
+          const displayed = lab.readout().match(/expected N = .* = ([\d.]+) nuclei/);
+          if (!displayed) throw new Error('ensemble expectation readout missing');
+          requireClose(Number(displayed[1]), initial * 2 ** -elapsed, .0005, 'expected-count equation');
+          const spread = lab.readout().match(/standard deviation = ([\d.]+)\./);
+          if (!spread) throw new Error('sample standard deviation readout missing');
+          requireClose(Number(spread[1]), deviation, .0005, 'binomial survivor standard deviation');
+        }
+      }
+    }
+  });
   return { failures, checks };
 }
 
@@ -594,7 +739,7 @@ function main() {
   }, 0);
   console.log('Physics model DOM smoke check passed: ' + models.length +
     ' scenarios, ' + controls + ' independently exercised controls; ' + fidelity.checks +
-    ' equation/geometry assertions across four targeted scenarios.');
+    ' equation/geometry assertions across nine targeted scenarios.');
 }
 
 try {

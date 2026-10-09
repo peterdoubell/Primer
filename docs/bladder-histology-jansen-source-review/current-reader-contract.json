@@ -1,0 +1,712 @@
+{
+  "previous_source_contract_sha256": "645faa3611bb21d2c963611d3f4ac7950d541a0ebcab0ba9b6adb7d06dcbc949",
+  "current_source_contract_sha256": "30ae067fb388ac69d31337d71ac393fef007033e7ce36c0eeb4dacb71dde961b",
+  "basis": "Adds separately labelled processed histology references and their specimen/MRI limitations to muscle-interface teaching; no report checklist, report template, structure extent or approval is changed.",
+  "source_contract": {
+    "reporting": {
+      "protocol": [
+        "Record indication and dates of biopsy, TURBT, intravesical and systemic treatment; primary local-staging MRI is preferably before TURBT.",
+        "Assess moderate bladder distension, coverage, motion and susceptibility on each sequence. Record which lesion interfaces are assessable.",
+        "Use acquired small-field T2 in appropriate planes, high-b DWI with ADC and an actual early dynamic contrast series; late enhancement is not a substitute for DCE."
+      ],
+      "checklist": [
+        {
+          "label": "Lesion map",
+          "detail": "Number lesions and record wall location and size."
+        },
+        {
+          "label": "Morphology",
+          "detail": "Describe papillary/sessile form, stalk and underlying wall."
+        },
+        {
+          "label": "Muscle interface",
+          "detail": "Trace the muscle and inner-layer/stalk morphology in more than one plane; assess bladder neck, UVJ and diverticula explicitly."
+        },
+        {
+          "label": "Functional sequences",
+          "detail": "Record each functional category, quality and discordance; apply optimal-quality DWI priority for 4\u20135, then DCE, using the original combination algorithm."
+        },
+        {
+          "label": "Beyond bladder",
+          "detail": "Assess perivesical spread, adjacent organs, ureters and nodes."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Tumour size",
+          "method": "Record maximum dimension and base/wall relationship.",
+          "pitfall": "An underfilled bladder can mimic thickening."
+        },
+        {
+          "name": "Nodal assessment",
+          "method": "Measure short axis by named station and describe morphology.",
+          "pitfall": "MRI nodal staging has limitations for microscopic disease."
+        }
+      ],
+      "classification": {
+        "name": "VI-RADS",
+        "version": "Original consensus (2018)",
+        "applicability": "Lesion-specific baseline muscle-invasion assessment on suitable MRI. Record quality and treatment confounders; do not substitute baseline categories for a treatment-response framework.",
+        "summary": "Scores 1\u20135 express increasing likelihood of muscle invasion; combine T2 structure with diffusion and contrast findings using the published algorithm."
+      },
+      "pitfalls": [
+        "Scoring on an underdistended bladder. Wall thickening from an empty or non-distended bladder mimics tumour and disrupts the muscularis propria assessment.",
+        "Applying a majority vote or selecting the worst-looking sequence regardless of quality. Record each category and use the published hierarchy and combinations.",
+        "Missing early enhancement because the dynamic series was not truly early. Delayed post-contrast imaging cannot distinguish focal early enhancement from generalised bladder wall enhancement.",
+        "Assuming a fixed waiting interval after treatment restores baseline scoring reliability. Describe the intervention, dates and persistent confounders.",
+        "Stopping at the VI-RADS category without staging locoregional and upper-tract disease when the category is 4 or 5.",
+        "At the ureterovesical junction and bladder neck, normal openings and prostate protrusion complicate the muscle interface. Review the anatomy in more than one plane.",
+        "A diverticulum may lack muscularis propria; do not force the ordinary muscle-interface rule onto absent muscle.",
+        "Baseline VI-RADS does not establish treatment response, exclude CIS or prove histological grade.",
+        "Do not use a universal ADC cutoff when acquisition, scaling or physical units are unverified.",
+        "MRI cannot exclude flat carcinoma in situ or microscopic perivesical invasion.",
+        "Node size and enhancement do not prove metastatic disease; record station and degree of suspicion."
+      ],
+      "impression_prompts": [
+        "State the index lesion\u2019s site, size and VI-RADS score with sequence evidence.",
+        "Describe any extravesical or adjacent-organ invasion.",
+        "Report nodes, obstruction and technical/post-treatment limitations."
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "LESION INVENTORY",
+          "body": "ID/location: [ ]. Maximum size: [ ] mm. Multiplicity, stalk, inner layer and base: [ ]."
+        },
+        {
+          "heading": "T2 INTERFACE",
+          "body": "T2 quality: [ ]. Inner layer/stalk: [ ]. Muscular line: [continuous / focally involved / interrupted / not assessable]. Structural category and evidence: [ ]."
+        },
+        {
+          "heading": "DIFFUSION",
+          "body": "DWI/ADC quality and actual acquisition: [ ]. Tumour restriction and muscle/perivesical extent: [ ]. Category or reason not assessable: [ ]. No unverified physical ADC cutoff."
+        },
+        {
+          "heading": "DYNAMIC ENHANCEMENT",
+          "body": "Actual dynamic acquisition and early phase: [ ]. Inner-layer/muscle/perivesical enhancement: [ ]. DCE category or reason not assessable: [ ]."
+        },
+        {
+          "heading": "EXTENT AND VI-RADS",
+          "body": "Overall VI-RADS [1\u20135 / not assessable / not applicable] using original 2018 rules; quality, discordance and rationale: [ ]. Visible local extent and organ-invasion route/confidence: [ ]. UVJ/neck/diverticulum limitations: [ ]. Obstruction: [ ]. Nodes by station, short axis and morphology: [ ]. Upper tract coverage/limits: [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Radiology Assistant \u2014 Bladder Cancer - VI-RADS",
+          "url": "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads"
+        },
+        {
+          "title": "VI-RADS development consensus",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29755006/"
+        },
+        {
+          "title": "Original VI-RADS consensus (2018)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/"
+        },
+        {
+          "title": "ACR VI-RADS steering committee: updates and future perspectives (2026)",
+          "url": "https://link.springer.com/article/10.1186/s40644-026-01062-4"
+        },
+        {
+          "title": "EAU bladder cancer diagnostic evaluation",
+          "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation"
+        },
+        {
+          "title": "EAU bladder TNM classification",
+          "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems"
+        },
+        {
+          "title": "EAU upper-tract urothelial carcinoma diagnosis",
+          "url": "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+        }
+      ],
+      "reviewed_at": "2026-10-09"
+    },
+    "report_templates": [
+      {
+        "id": "bladder-virads-report",
+        "title": "MRI BLADDER \u2014 VI-RADS",
+        "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question and prior treatment/dates: [ ]."
+          },
+          {
+            "heading": "COMPARISON",
+            "body": "Examination/date and treatment interval: [ ]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Record indication and dates of biopsy, TURBT, intravesical and systemic treatment; primary local-staging MRI is preferably before TURBT.\nAssess moderate bladder distension, coverage, motion and susceptibility on each sequence. Record which lesion interfaces are assessable.\nUse acquired small-field T2 in appropriate planes, high-b DWI with ADC and an actual early dynamic contrast series; late enhancement is not a substitute for DCE.\n\nActual sequences, distension, contrast times and lesion-specific limits: [ ]."
+          },
+          {
+            "heading": "KEY IMAGES",
+            "body": "T2 interface, DWI/ADC and actual early DCE: series/image [ ]."
+          },
+          {
+            "heading": "LESION INVENTORY",
+            "body": "ID/location: [ ]. Maximum size: [ ] mm. Multiplicity, stalk, inner layer and base: [ ]."
+          },
+          {
+            "heading": "T2 INTERFACE",
+            "body": "T2 quality: [ ]. Inner layer/stalk: [ ]. Muscular line: [continuous / focally involved / interrupted / not assessable]. Structural category and evidence: [ ]."
+          },
+          {
+            "heading": "DIFFUSION",
+            "body": "DWI/ADC quality and actual acquisition: [ ]. Tumour restriction and muscle/perivesical extent: [ ]. Category or reason not assessable: [ ]. No unverified physical ADC cutoff."
+          },
+          {
+            "heading": "DYNAMIC ENHANCEMENT",
+            "body": "Actual dynamic acquisition and early phase: [ ]. Inner-layer/muscle/perivesical enhancement: [ ]. DCE category or reason not assessable: [ ]."
+          },
+          {
+            "heading": "EXTENT AND VI-RADS",
+            "body": "Overall VI-RADS [1\u20135 / not assessable / not applicable] using original 2018 rules; quality, discordance and rationale: [ ]. Visible local extent and organ-invasion route/confidence: [ ]. UVJ/neck/diverticulum limitations: [ ]. Obstruction: [ ]. Nodes by station, short axis and morphology: [ ]. Upper tract coverage/limits: [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. [State the index lesion\u2019s site, size and VI-RADS score with sequence evidence.]\n2. [Describe any extravesical or adjacent-organ invasion.]\n3. [Report nodes, obstruction and technical/post-treatment limitations.]"
+          },
+          {
+            "heading": "RECOMMENDATION AND COMMUNICATION",
+            "body": "Contextual next evaluation and rationale: [ ]. Communication when indicated: [ ]."
+          }
+        ],
+        "notes": [
+          "Scoring on an underdistended bladder. Wall thickening from an empty or non-distended bladder mimics tumour and disrupts the muscularis propria assessment.",
+          "Applying a majority vote or selecting the worst-looking sequence regardless of quality. Record each category and use the published hierarchy and combinations.",
+          "Missing early enhancement because the dynamic series was not truly early. Delayed post-contrast imaging cannot distinguish focal early enhancement from generalised bladder wall enhancement.",
+          "Assuming a fixed waiting interval after treatment restores baseline scoring reliability. Describe the intervention, dates and persistent confounders.",
+          "Stopping at the VI-RADS category without staging locoregional and upper-tract disease when the category is 4 or 5.",
+          "At the ureterovesical junction and bladder neck, normal openings and prostate protrusion complicate the muscle interface. Review the anatomy in more than one plane.",
+          "A diverticulum may lack muscularis propria; do not force the ordinary muscle-interface rule onto absent muscle.",
+          "Baseline VI-RADS does not establish treatment response, exclude CIS or prove histological grade.",
+          "Do not use a universal ADC cutoff when acquisition, scaling or physical units are unverified.",
+          "MRI cannot exclude flat carcinoma in situ or microscopic perivesical invasion.",
+          "Node size and enhancement do not prove metastatic disease; record station and degree of suspicion."
+        ],
+        "sources": [
+          {
+            "title": "Radiology Assistant \u2014 Bladder Cancer - VI-RADS",
+            "url": "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads"
+          },
+          {
+            "title": "VI-RADS development consensus",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29755006/"
+          },
+          {
+            "title": "Original VI-RADS consensus (2018)",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/"
+          },
+          {
+            "title": "ACR VI-RADS steering committee: updates and future perspectives (2026)",
+            "url": "https://link.springer.com/article/10.1186/s40644-026-01062-4"
+          },
+          {
+            "title": "EAU bladder cancer diagnostic evaluation",
+            "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation"
+          },
+          {
+            "title": "EAU bladder TNM classification",
+            "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems"
+          },
+          {
+            "title": "EAU upper-tract urothelial carcinoma diagnosis",
+            "url": "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          }
+        ]
+      }
+    ],
+    "walkthrough": {
+      "reviewed_at": "2026-09-25",
+      "complete": true,
+      "template_id": "bladder-virads-report",
+      "start": {
+        "sections": [
+          "INDICATION",
+          "COMPARISON",
+          "TECHNIQUE AND QUALITY",
+          "KEY IMAGES"
+        ],
+        "images": []
+      },
+      "steps": [
+        {
+          "label": "Lesion inventory",
+          "detail": "Record treatment context and sequence quality, then number lesions and describe location, dimensions, base, inner layer and stalk.",
+          "sections": [
+            "LESION INVENTORY"
+          ],
+          "normal": {},
+          "findings": [
+            "Single [papillary / sessile] tumour on the [left lateral wall], __ mm, [with / without] a stalk.",
+            "Multiple tumours: [locations and sizes]."
+          ],
+          "images": [],
+          "measurements": [
+            "Tumour size"
+          ],
+          "landmark": "wall",
+          "parts": [],
+          "look": "Small-field T2 in three planes with a well-distended bladder."
+        },
+        {
+          "label": "T2 muscle interface",
+          "detail": "Assess the continuity of the low-T2 muscular layer beneath each lesion.",
+          "sections": [
+            "T2 INTERFACE"
+          ],
+          "normal": {},
+          "findings": [
+            "Stalk/thickened inner layer and preserved muscle: record the full structural criteria, including size, before assigning category 1 or 2.",
+            "Category 2 morphology absent but no clear muscle disruption: structural category 3.",
+            "Loss of the low-signal muscle line beneath the tumour (T2 score 4).",
+            "Tumour extends through the muscle into the perivesical fat (T2 score 5)."
+          ],
+          "images": [
+            "bladder-virads-image-1",
+            "bladder-histology-jansen-2019-fig1",
+            "bladder-histology-jansen-2019-fig4",
+            "bladder-histology-jansen-2019-fig6"
+          ],
+          "measurements": [],
+          "landmark": "wall",
+          "parts": [],
+          "look": "High-resolution T2 perpendicular to the tumour base.",
+          "tip": "Stalk and inner-layer findings support the structural assessment; they do not prove histology. Review the UVJ, neck and any diverticulum. The Jansen figures are independent processed tissue references: tumour and muscularis propria are separately outlined, with specimen 1 source-reported as Ta. They are not registered to the MRI examples and cannot justify an MRI score or prove muscle invasion.",
+          "anatomy_note": "The current gross anatomy and MRI tumour-cell models do not resolve every fine wall layer. Published histology renderings supply separate tissue context; deliberately blurred tissue in Figure 6 is not absent anatomy."
+        },
+        {
+          "label": "Diffusion",
+          "detail": "Assess DWI/ADC quality and restriction extending into muscle or perivesical tissue, retaining discordance.",
+          "sections": [
+            "DIFFUSION"
+          ],
+          "normal": {},
+          "findings": [
+            "Restricted diffusion confined to the tumour with a low-signal stalk (DWI score 1\u20132).",
+            "Restricted diffusion extends focally into the muscular layer (DWI score 4).",
+            "Restricted diffusion extends to the perivesical fat (DWI score 5)."
+          ],
+          "images": [
+            "bladder-virads-image-2"
+          ],
+          "measurements": [],
+          "landmark": "wall",
+          "parts": [],
+          "look": "High-b-value DWI and ADC matched to the T2 plane.",
+          "tip": "For categories 4\u20135, DWI is dominant when quality is optimal; DCE is next. T2 guides the first pass, especially 1\u20133. Use the original combination rules."
+        },
+        {
+          "label": "Dynamic contrast enhancement",
+          "detail": "Assess the early enhancement pattern at the tumour base.",
+          "sections": [
+            "DYNAMIC ENHANCEMENT"
+          ],
+          "normal": {},
+          "findings": [
+            "Early enhancement confined to the inner layer (DCE score 1\u20132).",
+            "Early enhancement extends focally into the muscular layer (DCE score 4).",
+            "Early enhancement extends through the wall into perivesical fat (DCE score 5)."
+          ],
+          "images": [
+            "bladder-virads-image-3"
+          ],
+          "measurements": [],
+          "landmark": "wall",
+          "parts": [],
+          "look": "Early dynamic phase at the tumour\u2013muscle interface."
+        },
+        {
+          "label": "Extent and VI-RADS",
+          "detail": "Apply the original sequence-combination rules; state quality, treatment limits and lesion-specific evidence. Describe visible extension, obstruction and suspicious nodes separately.",
+          "sections": [
+            "EXTENT AND VI-RADS"
+          ],
+          "normal": {},
+          "findings": [
+            "Overall VI-RADS [2]: muscle invasion unlikely.",
+            "Overall VI-RADS [4]: muscle invasion likely.",
+            "Overall VI-RADS 5 with extravesical extension to the [ ].",
+            "Tumour at the [left] ureteric orifice with hydroureteronephrosis."
+          ],
+          "images": [],
+          "measurements": [
+            "Nodal assessment"
+          ],
+          "landmark": "perivesical",
+          "parts": [],
+          "look": "Integrate the three sequences; review the ureteric orifices, prostate or uterus, and pelvic nodes.",
+          "tip": "VI-RADS is muscle-invasion likelihood, not histology, treatment selection or microscopic staging. Record any unassessed anatomy."
+        }
+      ],
+      "finish": {
+        "sections": [
+          "IMPRESSION",
+          "RECOMMENDATION AND COMMUNICATION"
+        ]
+      },
+      "spatial_model": {
+        "id": "radiology-model-rad.5.bladder-virads",
+        "title": "Bladder Cancer and VI-RADS \u00b7 3D landmarks",
+        "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Relate mucosal surface, muscular wall and perivesical tissue; invasion assessment needs multiplanar T2, diffusion and enhancement.",
+        "scenario": "radiology-reference:rad.5.bladder-virads",
+        "family": "bladder",
+        "focus": [
+          "wall"
+        ],
+        "reporting_aim": "Relate mucosal surface, muscular wall and perivesical tissue; invasion assessment needs multiplanar T2, diffusion and enhancement."
+      }
+    },
+    "reading": [
+      {
+        "id": "ra-0c0b00d2b11c",
+        "title": "Bladder Cancer - VI-RADS",
+        "url": "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads",
+        "section": "Abdomen",
+        "topic": "Bladder",
+        "module_id": "rad.5.bladder-virads",
+        "headings": [
+          "Introduction",
+          "Anatomy",
+          "Overview",
+          "MR anatomy",
+          "VI-RADS",
+          "VI-RADS 1",
+          "VI-RADS 2",
+          "VI-RADS 3",
+          "VI-RADS 4",
+          "VI-RADS 5",
+          "MR protocol",
+          "Patient Preparation"
+        ]
+      }
+    ]
+  },
+  "reader_tissue_figures": [
+    {
+      "id": "bladder-histology-niazi-2020-fig1",
+      "kind": "clinical-image",
+      "modality": "Histology",
+      "figure_number": 1,
+      "src": "/app/reference-media/radiology-open/bladder-histology-niazi-2020-fig1.png",
+      "sha256": "00ce9cfef46fc35e0da612787d63738eaf859b7ab21468130aaef5157609cb60",
+      "width": 1418,
+      "height": 911,
+      "source_url": "https://link.springer.com/article/10.1186/s13000-020-01002-1",
+      "figure_url": "https://link.springer.com/article/10.1186/s13000-020-01002-1/figures/1",
+      "asset_source_url": "https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs13000-020-01002-1/MediaObjects/13000_2020_1002_Fig1_HTML.png",
+      "alt": "Complete original four-panel human bladder histology figure, with original H&E tissue in panel a and separate annotation/training preparations in panels b\u2013d.",
+      "caption": "Published H&E tissue example (a): urothelium, lamina propria and red blood cells are annotated by the authors\u2019 pathologist in (b). Panels (c) and (d) remove unlabelled regions for training; they are processed evidence, not complete tissue. Black/unlabelled does not mean absent anatomy. This specimen is separate from the linked TCGA MRI and HRA reference models.",
+      "clinical_panels": [
+        "a"
+      ],
+      "source_context": {
+        "setting": "ex_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown",
+          "age_not_supplied": true,
+          "sex_not_supplied": true
+        },
+        "extent": "local",
+        "depicted_state": "source_bladder_biopsy_histology_and_annotation_preparation",
+        "selected_panels": [
+          "a"
+        ],
+        "panel_types": {
+          "a": "Histology",
+          "b": "Segmentation mask",
+          "c": "Segmentation mask",
+          "d": "Masked histology"
+        },
+        "panel_states": {
+          "a": "original_histology_input",
+          "b": "pathologist_selected_region_annotations",
+          "c": "edited_annotation_mask",
+          "d": "edited_histology_training_input"
+        },
+        "source_case_groups": {
+          "one_source_histology_example_processing_comparison": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "source_native_registration_verified": false,
+        "source_full_fine_anatomy_approved": false,
+        "source_current_diagnosis_or_histology_inferred": false
+      },
+      "image_state": "source_bladder_biopsy_histology_and_annotation_preparation",
+      "structures_visible": [
+        "Source-local urothelium",
+        "Source-local lamina propria",
+        "Source-local red blood cells"
+      ],
+      "limits": "Complete published figure, not whole-slide source resolution or a full-thickness wall section. Only selected regions have pathologist labels; unlabelled tissue remains unknown. Muscularis propria, muscularis mucosae, complete serosa/adventitia and native3D layer extent are not established. No MRI correspondence, current diagnosis or complete reporting-anatomy approval is granted.",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Muhammad Khalid Khan Niazi, Enes Yazgan, Thomas E. Tavolara, Wencheng Li, Cheryl T. Lee, Anil Parwani and Metin N. Gurcan. Semantic segmentation to identify bladder layers from H&E Images. Diagnostic Pathology15,87(2020). DOI10.1186/s13000-020-01002-1. Figure1. CC BY4.0. Complete original publisher PNG retained without crop,resize,enhancement or relabelling; no endorsement implied.",
+      "rights_reviewed_on": "2026-10-09",
+      "rights_review": "Primary publisher article grants CC BY4.0 to figures unless otherwise credited; Figure1 has no excluded third-party credit. Original publisher bytes retained.",
+      "ancillary_panels": [
+        {
+          "kind": "Segmentation mask",
+          "panels": [
+            "b",
+            "c"
+          ],
+          "structures_visible": [
+            "Selected source pathologist region annotations",
+            "Processed training mask"
+          ],
+          "limits": "Annotation and edited background are separate from the original tissue; no complete tissue or3D segmentation is established."
+        },
+        {
+          "kind": "Masked histology",
+          "panels": [
+            "d"
+          ],
+          "structures_visible": [
+            "Processed histology training input"
+          ],
+          "limits": "Unlabelled tissue was removed in the original publication\u2019s preparation. This panel cannot establish absent tissue or complete anatomy."
+        }
+      ],
+      "source_tissue_evidence": true
+    },
+    {
+      "id": "bladder-histology-jansen-2019-fig1",
+      "kind": "clinical-image",
+      "modality": "Histology",
+      "figure_number": 1,
+      "source_tissue_evidence": true,
+      "src": "/app/reference-media/radiology-open/bladder-histology-jansen-2019-fig1.png",
+      "sha256": "d1e1d767a8300049639e486224e5c3119f6f91d50192265fa5c963ea7a414bf4",
+      "width": 1420,
+      "height": 609,
+      "source_url": "https://link.springer.com/article/10.1186/s13000-019-0803-7",
+      "figure_url": "https://link.springer.com/article/10.1186/s13000-019-0803-7/figures/1",
+      "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC6440143.1/PMC6440143.1.pdf?md5=51682729cdc3b083a5b373d7f44b5f0e",
+      "clinical_panels": [
+        "right_tissue"
+      ],
+      "source_context": {
+        "setting": "ex_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown",
+          "age_not_supplied": true,
+          "sex_not_supplied": true
+        },
+        "extent": "local",
+        "depicted_state": "source_human_en_bloc_bladder_histology",
+        "selected_panels": [
+          "right_tissue"
+        ],
+        "panel_types": {
+          "left_workstation": "Clinical photograph",
+          "right_tissue": "Histology"
+        },
+        "panel_processing": {
+          "left_workstation": "workstation photograph",
+          "right_tissue": "digitized tissue with original manual outlines"
+        },
+        "source_specimen_id": "not_stated",
+        "source_reported_pathology": null,
+        "source_case_groups": {
+          "figure1_specimen_not_numbered": [
+            "right_tissue"
+          ]
+        },
+        "figure1_assumed_same_specimen_as_figures4_6": false,
+        "source_native_registration_verified": false,
+        "source_full_fine_anatomy_approved": false,
+        "source_current_diagnosis_or_histology_inferred": false,
+        "flat_rendering_is_native_3d_geometry": false,
+        "original_slide_or_volume_arrays_supplied": false,
+        "panel_identifier_scheme": "descriptive_source_positions"
+      },
+      "image_state": "source_human_en_bloc_bladder_histology",
+      "source_caption_full": "Left: Impression of the software and hardware used for delineation of the digitized tissue slides. Right: digitized en-bloc resection specimen with manual delineations. The tumour has been delineated in red, the MP in orange",
+      "caption": "Original Figure 1: right, digitized en-bloc tissue with the authors\u2019 tumour outlines in red and muscularis propria in orange; left, the annotation workstation photograph. The specimen number is not stated. Labels are publication evidence, not a new pathology reading.",
+      "alt": "Original Figure 1: right, digitized en-bloc tissue with the authors\u2019 tumour outlines in red and muscularis propria in orange; left, the annotation workstation photograph. The specimen number is not stated. Labels are publication evidence, not a new pathology reading.",
+      "limits": "Formalin fixation, paraffin embedding, sectioning, mounting and staining alter the tissue. The authors aligned sections by rigid, affine and nonrigid B-spline transformations; registration was assessed qualitatively. Excluded sections could be replaced by duplicate neighbours, and only portions of tumour blocks were sectioned. Whole-slide sampling reported as 0.5 micrometres/pixel does not describe the resolution of these published bitmaps. Native slide arrays, masks and aligned volumes are not publicly supplied. No whole-wall or microscopic invasion validation, native 3D geometry, calibrated independent tissue measurement, MRI correspondence, current diagnosis or VI-RADS category is established.",
+      "structures_visible": [
+        "Source-local human tumour and muscularis propria relationship; complete boundaries unapproved"
+      ],
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Ilaria Jansen, Marit Lucas, C. Dilara Savci-Heijink, Sybren L. Meijer, Esmee I. M. L. Liem, Onno J. de Boer, Ton G. van Leeuwen, Henk A. Marquering, Daniel M. de Bruin. Three-dimensional histopathological reconstruction of bladder tumours. Diagnostic Pathology14,25(2019). DOI10.1186/s13000-019-0803-7. Figure1. CC BY4.0. Original complete PDF image samples and embedded RGB ICC profile retained in lossless PNG, with no crop, resize, enhancement or relabelling. No endorsement implied.",
+      "source_background": "white",
+      "rights_reviewed_on": "2026-10-09",
+      "rights_review": "Full original XML grant, PDF and figure captions reviewed; no separate figure restriction or credit. Original NLM publisher MD5s verified; original PDF samples and RGB ICC preserved.",
+      "panel_identifier_scheme": "descriptive_source_positions",
+      "ancillary_panels": [
+        {
+          "kind": "Clinical photograph",
+          "panels": [
+            "left_workstation"
+          ],
+          "structures_visible": [
+            "Original annotation workstation and tissue display"
+          ],
+          "limits": "Hardware photograph only; not a second native histological slide, tissue-boundary measurement or patient acquisition."
+        }
+      ]
+    },
+    {
+      "id": "bladder-histology-jansen-2019-fig4",
+      "kind": "clinical-image",
+      "modality": "Histology",
+      "figure_number": 4,
+      "source_tissue_evidence": true,
+      "src": "/app/reference-media/radiology-open/bladder-histology-jansen-2019-fig4.png",
+      "sha256": "8f3cd30dc414d28c816db3cd00c0946b1bc489e2008a2a3402afce4a5dd75699",
+      "width": 1420,
+      "height": 752,
+      "source_url": "https://link.springer.com/article/10.1186/s13000-019-0803-7",
+      "figure_url": "https://link.springer.com/article/10.1186/s13000-019-0803-7/figures/4",
+      "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC6440143.1/PMC6440143.1.pdf?md5=51682729cdc3b083a5b373d7f44b5f0e",
+      "clinical_panels": [
+        "a",
+        "b",
+        "c"
+      ],
+      "source_context": {
+        "setting": "ex_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown",
+          "age_not_supplied": true,
+          "sex_not_supplied": true
+        },
+        "extent": "local",
+        "depicted_state": "source_human_en_bloc_bladder_histology",
+        "selected_panels": [
+          "a",
+          "b",
+          "c"
+        ],
+        "panel_types": {
+          "a": "Histology",
+          "b": "Histology",
+          "c": "Histology"
+        },
+        "panel_processing": {
+          "a": "flat histology volume rendering",
+          "b": "rendered histology detail",
+          "c": "aligned histology stack view"
+        },
+        "source_specimen_id": "Jansen2019_specimen1",
+        "source_reported_pathology": {
+          "T_stage": "Ta",
+          "grade": "low grade (grade 2)"
+        },
+        "source_case_groups": {
+          "Jansen2019_specimen1": [
+            "a",
+            "b",
+            "c"
+          ]
+        },
+        "figure1_assumed_same_specimen_as_figures4_6": false,
+        "source_native_registration_verified": false,
+        "source_full_fine_anatomy_approved": false,
+        "source_current_diagnosis_or_histology_inferred": false,
+        "flat_rendering_is_native_3d_geometry": false,
+        "original_slide_or_volume_arrays_supplied": false
+      },
+      "image_state": "source_human_en_bloc_bladder_histology",
+      "source_caption_full": "3D reconstruction of en-bloc resection specimen of patient 1 a . 3D rendering b . Detailed view showing a zoomed-in view of a lumen and tumour nests. c . Sagittal view, showing the alignment",
+      "caption": "Original Figure 4: source specimen 1, reported papillary low-grade (grade 2) Ta tumour with muscularis propria present. Panels a/b are flat histology volume-rendering/detail displays; c shows the aligned section stack. Original 1000, 250 and 500 micrometre scale bars remain. This is processed histology, not an acquired 3D model.",
+      "alt": "Original Figure 4: source specimen 1, reported papillary low-grade (grade 2) Ta tumour with muscularis propria present. Panels a/b are flat histology volume-rendering/detail displays; c shows the aligned section stack. Original 1000, 250 and 500 micrometre scale bars remain. This is processed histology, not an acquired 3D model.",
+      "limits": "Formalin fixation, paraffin embedding, sectioning, mounting and staining alter the tissue. The authors aligned sections by rigid, affine and nonrigid B-spline transformations; registration was assessed qualitatively. Excluded sections could be replaced by duplicate neighbours, and only portions of tumour blocks were sectioned. Whole-slide sampling reported as 0.5 micrometres/pixel does not describe the resolution of these published bitmaps. Native slide arrays, masks and aligned volumes are not publicly supplied. No whole-wall or microscopic invasion validation, native 3D geometry, calibrated independent tissue measurement, MRI correspondence, current diagnosis or VI-RADS category is established.",
+      "structures_visible": [
+        "Source-local human tumour and muscularis propria relationship; complete boundaries unapproved"
+      ],
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Ilaria Jansen, Marit Lucas, C. Dilara Savci-Heijink, Sybren L. Meijer, Esmee I. M. L. Liem, Onno J. de Boer, Ton G. van Leeuwen, Henk A. Marquering, Daniel M. de Bruin. Three-dimensional histopathological reconstruction of bladder tumours. Diagnostic Pathology14,25(2019). DOI10.1186/s13000-019-0803-7. Figure4. CC BY4.0. Original complete PDF image samples and embedded RGB ICC profile retained in lossless PNG, with no crop, resize, enhancement or relabelling. No endorsement implied.",
+      "source_background": "white",
+      "rights_reviewed_on": "2026-10-09",
+      "rights_review": "Full original XML grant, PDF and figure captions reviewed; no separate figure restriction or credit. Original NLM publisher MD5s verified; original PDF samples and RGB ICC preserved."
+    },
+    {
+      "id": "bladder-histology-jansen-2019-fig6",
+      "kind": "clinical-image",
+      "modality": "Histology",
+      "figure_number": 6,
+      "source_tissue_evidence": true,
+      "src": "/app/reference-media/radiology-open/bladder-histology-jansen-2019-fig6.png",
+      "sha256": "8a76bb6e6c826952d6c031a1f7b99a24353dab33bd2bb2f33a36e8e10f080897",
+      "width": 896,
+      "height": 604,
+      "source_url": "https://link.springer.com/article/10.1186/s13000-019-0803-7",
+      "figure_url": "https://link.springer.com/article/10.1186/s13000-019-0803-7/figures/6",
+      "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC6440143.1/PMC6440143.1.pdf?md5=51682729cdc3b083a5b373d7f44b5f0e",
+      "clinical_panels": [
+        "full_figure"
+      ],
+      "source_context": {
+        "setting": "ex_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown",
+          "age_not_supplied": true,
+          "sex_not_supplied": true
+        },
+        "extent": "local",
+        "depicted_state": "source_human_en_bloc_bladder_histology",
+        "selected_panels": [
+          "full_figure"
+        ],
+        "panel_types": {
+          "full_figure": "Histology"
+        },
+        "panel_processing": {
+          "full_figure": "segmented histology rendering with intentionally blurred intervening tissue"
+        },
+        "source_specimen_id": "Jansen2019_specimen1",
+        "source_reported_pathology": {
+          "T_stage": "Ta",
+          "grade": "low grade (grade 2)"
+        },
+        "source_case_groups": {
+          "Jansen2019_specimen1": [
+            "full_figure"
+          ]
+        },
+        "figure1_assumed_same_specimen_as_figures4_6": false,
+        "source_native_registration_verified": false,
+        "source_full_fine_anatomy_approved": false,
+        "source_current_diagnosis_or_histology_inferred": false,
+        "flat_rendering_is_native_3d_geometry": false,
+        "original_slide_or_volume_arrays_supplied": false,
+        "panel_identifier_scheme": "descriptive_source_positions"
+      },
+      "image_state": "source_human_en_bloc_bladder_histology",
+      "source_caption_full": "Segmentation of en-bloc resection specimen 1. The upper part shows the bladder cancer, the lower part shows the muscularis propria. The tissue between these two structures is blurred, making it possible to easily view the relationship of the two layers",
+      "caption": "Original Figure 6: the same source specimen 1 as Figure 4. The published segmented histology rendering shows tumour above and muscularis propria below; intervening tissue is deliberately blurred. The faded tissue is not absent anatomy, and this separated Ta example does not demonstrate muscle invasion.",
+      "alt": "Original Figure 6: the same source specimen 1 as Figure 4. The published segmented histology rendering shows tumour above and muscularis propria below; intervening tissue is deliberately blurred. The faded tissue is not absent anatomy, and this separated Ta example does not demonstrate muscle invasion.",
+      "limits": "Formalin fixation, paraffin embedding, sectioning, mounting and staining alter the tissue. The authors aligned sections by rigid, affine and nonrigid B-spline transformations; registration was assessed qualitatively. Excluded sections could be replaced by duplicate neighbours, and only portions of tumour blocks were sectioned. Whole-slide sampling reported as 0.5 micrometres/pixel does not describe the resolution of these published bitmaps. Native slide arrays, masks and aligned volumes are not publicly supplied. No whole-wall or microscopic invasion validation, native 3D geometry, calibrated independent tissue measurement, MRI correspondence, current diagnosis or VI-RADS category is established.",
+      "structures_visible": [
+        "Source-local human tumour and muscularis propria relationship; complete boundaries unapproved"
+      ],
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Ilaria Jansen, Marit Lucas, C. Dilara Savci-Heijink, Sybren L. Meijer, Esmee I. M. L. Liem, Onno J. de Boer, Ton G. van Leeuwen, Henk A. Marquering, Daniel M. de Bruin. Three-dimensional histopathological reconstruction of bladder tumours. Diagnostic Pathology14,25(2019). DOI10.1186/s13000-019-0803-7. Figure6. CC BY4.0. Original complete PDF image samples and embedded RGB ICC profile retained in lossless PNG, with no crop, resize, enhancement or relabelling. No endorsement implied.",
+      "source_background": "white",
+      "rights_reviewed_on": "2026-10-09",
+      "rights_review": "Full original XML grant, PDF and figure captions reviewed; no separate figure restriction or credit. Original NLM publisher MD5s verified; original PDF samples and RGB ICC preserved.",
+      "panel_identifier_scheme": "descriptive_source_positions"
+    }
+  ],
+  "groups": 56,
+  "components": 323,
+  "representation_requirements": 969,
+  "new_verified_structure_coverage": 0,
+  "clinical_or_complete_anatomical_approval": false
+}
