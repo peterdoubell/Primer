@@ -5804,17 +5804,15 @@
     ]
   },
   "rad.5.bladder-virads": {
-    "overview": "Assign a VI-RADS category from a multiparametric bladder MRI, defend it when the sequences disagree, and stage urothelial carcinoma beyond the bladder wall and into the upper tract. Use the linked foundation readings for the illustrated teaching cases, then apply the reporting checklist to a supervised case.",
+    "overview": "Assess the likelihood of bladder tumour muscle invasion using the original VI-RADS algorithm, explain sequence quality and treatment limitations, and report visible local, nodal and upper-tract findings without assigning histology or treatment from MRI alone.",
     "learning_points": [
-      "Show tumour, wall and muscular continuity in the correct plane.",
-      "Concordant interruption raises suspicion of muscle invasion.",
-      "Combine sequences and report extension beyond the bladder.",
-      "Review distension, protocol and previous resection/treatment.",
-      "Review tumour number, site and dimensions.",
-      "Review t2 appearance of muscularis propria.",
-      "Review diffusion and early enhancement relationship to muscle.",
-      "Review perivesical, adjacent-organ and nodal findings.",
-      "Treatment and poor bladder distension can impair VI-RADS assessment; state the limiting factor and avoid false precision."
+      "Record TURBT, biopsy, intravesical or systemic treatment and dates. Assess distension, motion, susceptibility and actual T2, DWI/ADC and DCE quality before scoring each lesion.",
+      "Look for a continuous low-signal line under the tumour. Interruption is the key structural sign of invasion.",
+      "Early enhancement that extends focally into or through the muscularis propria tracks with invasion.",
+      "Confirm tumour restriction on high-b DWI and ADC, then inspect its muscle interface. The normal muscle has intermediate DWI signal; poor diffusion quality invalidates confident dominance.",
+      "Record stalk, thickened inner layer, base and dimensions. An intact muscle line in a lesion over 1 cm does not automatically mean category 2.",
+      "Apply the original consensus combination algorithm: T2 guides the first pass, especially 1–3; optimal-quality DWI takes priority for 4–5, followed by DCE. Record discordance and limits. Report visible extravesical findings separately.",
+      "Inspect the linked complete TCIA native study as a separate source case; its pathology, treatment eligibility and VI-RADS score are not independently assigned."
     ],
     "report_templates": [
       {
@@ -5824,53 +5822,92 @@
         "sections": [
           {
             "heading": "INDICATION",
-            "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+            "body": "Clinical question and prior treatment/dates: [ ]."
           },
           {
             "heading": "COMPARISON",
-            "body": "[None available / date and examination]. Relevant interval change: [ ]."
+            "body": "Examination/date and treatment interval: [ ]."
           },
           {
             "heading": "TECHNIQUE AND QUALITY",
-            "body": "Modality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+            "body": "Actual sequences, distension, contrast times and lesion-specific limits: [ ]."
           },
           {
             "heading": "KEY IMAGES",
-            "body": "[IMG 1: T2 tumour-muscle interface; series __ image __]\n[IMG 2: Matched DWI and ADC; series __ image __]\n[IMG 3: Early enhancement interface; series __ image __]"
+            "body": "T2 interface, DWI/ADC and actual early DCE: series/image [ ]."
           },
           {
-            "heading": "DISTENSION, PROTOCOL AND PREVIOUS RESECTION/TREATMENT",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "LESION INVENTORY",
+            "body": "ID/location: [ ]. Maximum size: [ ] mm. Multiplicity, stalk, inner layer and base: [ ]."
           },
           {
-            "heading": "TUMOUR NUMBER, SITE AND DIMENSIONS",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "T2 INTERFACE",
+            "body": "T2 quality: [ ]. Inner layer/stalk: [ ]. Muscular line: [continuous / focally involved / interrupted / not assessable]. Structural category and evidence: [ ]."
           },
           {
-            "heading": "T2 APPEARANCE OF MUSCULARIS PROPRIA",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "DIFFUSION",
+            "body": "DWI/ADC quality and actual acquisition: [ ]. Tumour restriction and muscle/perivesical extent: [ ]. Category or reason not assessable: [ ]. No unverified physical ADC cutoff."
           },
           {
-            "heading": "DIFFUSION AND EARLY ENHANCEMENT RELATIONSHIP TO MUSCLE",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "DYNAMIC ENHANCEMENT",
+            "body": "Actual dynamic acquisition and early phase: [ ]. Inner-layer/muscle/perivesical enhancement: [ ]. DCE category or reason not assessable: [ ]."
           },
           {
-            "heading": "PERIVESICAL, ADJACENT-ORGAN AND NODAL FINDINGS",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "EXTENT AND VI-RADS",
+            "body": "Overall VI-RADS [1–5 / not assessable / not applicable] using original 2018 rules; quality, discordance and rationale: [ ]. Visible local extent and organ-invasion route/confidence: [ ]. UVJ/neck/diverticulum limitations: [ ]. Obstruction: [ ]. Nodes by station, short axis and morphology: [ ]. Upper tract coverage/limits: [ ]."
           },
           {
             "heading": "IMPRESSION",
-            "body": "1. Answer to the clinical question: [ ].\n2. Principal finding, location and extent: [ ].\n3. Relevant classification and version, if applicable: [ ].\n4. Complication, alternative diagnosis or unresolved limitation: [ ]."
+            "body": "Lesion-specific VI-RADS and supporting usable evidence: [ ]. Visible local extent and degree of suspicion: [ ]. Technical/treatment limits: [ ]."
           },
           {
             "heading": "RECOMMENDATION AND COMMUNICATION",
-            "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+            "body": "Contextual next evaluation and rationale: [ ]. Communication when indicated: [ ]."
           }
         ],
         "notes": [
-          "Treatment and poor bladder distension can impair VI-RADS assessment; state the limiting factor and avoid false precision."
+          "Scoring on an underdistended bladder. Wall thickening from an empty or non-distended bladder mimics tumour and disrupts the muscularis propria assessment.",
+          "Applying a majority vote or selecting the worst-looking sequence regardless of quality. Record each category and use the published hierarchy and combinations.",
+          "Missing early enhancement because the dynamic series was not truly early. Delayed post-contrast imaging cannot distinguish focal early enhancement from generalised bladder wall enhancement.",
+          "Assuming a fixed waiting interval after treatment restores baseline scoring reliability. Describe the intervention, dates and persistent confounders.",
+          "Stopping at the VI-RADS category without staging locoregional and upper-tract disease when the category is 4 or 5.",
+          "At the ureterovesical junction and bladder neck, normal openings and prostate protrusion complicate the muscle interface. Review the anatomy in more than one plane.",
+          "A diverticulum may lack muscularis propria; do not force the ordinary muscle-interface rule onto absent muscle.",
+          "Baseline VI-RADS does not establish treatment response, exclude CIS or prove histological grade.",
+          "Do not use a universal ADC cutoff when acquisition, scaling or physical units are unverified.",
+          "MRI cannot exclude flat carcinoma in situ or microscopic perivesical invasion.",
+          "Node size and enhancement do not prove metastatic disease; record station and degree of suspicion."
         ],
-        "sources": []
+        "sources": [
+          {
+            "title": "Radiology Assistant — Bladder Cancer - VI-RADS",
+            "url": "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads"
+          },
+          {
+            "title": "VI-RADS development consensus",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29755006/"
+          },
+          {
+            "title": "Original VI-RADS consensus (2018)",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/"
+          },
+          {
+            "title": "ACR VI-RADS steering committee: updates and future perspectives (2026)",
+            "url": "https://link.springer.com/article/10.1186/s40644-026-01062-4"
+          },
+          {
+            "title": "EAU bladder cancer diagnostic evaluation",
+            "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation"
+          },
+          {
+            "title": "EAU bladder TNM classification",
+            "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems"
+          },
+          {
+            "title": "EAU upper-tract urothelial carcinoma diagnosis",
+            "url": "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          }
+        ]
       }
     ],
     "key_images": [

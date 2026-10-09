@@ -306,7 +306,7 @@ def _validate_lesson_media(node: Dict) -> None:
                                    for key in ("heading", "label", "detail"))):
                         raise ValueError("{} illustration {} has an invalid description item".format(
                             node.get("id"), media_id))
-        elif kind == "source-gallery":
+        elif kind in {"source-gallery", "source-studies"}:
             if set(entry) != {"id", "kind", "title", "instructions", "investigation_ids"}:
                 raise ValueError("{} source gallery has unexpected fields".format(node.get("id")))
             text(entry, "title")
@@ -321,7 +321,8 @@ def _validate_lesson_media(node: Dict) -> None:
                 investigation = radiology_catalog.resolve(identifier)
                 if (not investigation or investigation['id'] != identifier
                         or investigation['module_id'] != node.get('id')
-                        or not radiology_catalog._structure_atlases().get(identifier)):
+                        or not (radiology_catalog._structure_atlases() if kind == 'source-gallery'
+                                else radiology_catalog._source_study_references()).get(identifier)):
                     raise ValueError("Source gallery has an unknown or cross-lesson binding")
         elif kind == "model":
             if set(entry) != model_keys:
@@ -641,6 +642,7 @@ REFERENCE_HOSTS = (
     "acsearch.acr.org",
     "nice.org.uk",
     "escardio.org",
+    "uroweb.org",
 )
 
 

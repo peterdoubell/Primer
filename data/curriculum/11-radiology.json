@@ -21412,7 +21412,7 @@
       "title": "Bladder Cancer and VI-RADS",
       "section": "Genitourinary",
       "stage": 5,
-      "goal": "Assign a VI-RADS category from a multiparametric bladder MRI, defend it when the sequences disagree, and stage urothelial carcinoma beyond the bladder wall and into the upper tract.",
+      "goal": "Assess the likelihood of bladder tumour muscle invasion using the original VI-RADS algorithm, explain sequence quality and treatment limitations, and report visible local, nodal and upper-tract findings without assigning histology or treatment from MRI alone.",
       "articles": [
         "Bladder cancer",
         "Transitional cell carcinoma",
@@ -21431,14 +21431,14 @@
         {
           "kind": "choice",
           "prompt": "A 68-year-old man with painless visible haematuria has a 2.5 cm broad-based tumour on the left lateral bladder wall at cystoscopy. The urologist asks for multiparametric MRI before taking him to theatre. Which management question is the MRI being asked to answer?",
-          "answer": "Whether tumour extends into the muscularis propria, since that separates transurethral resection from cystectomy with neoadjuvant chemotherapy",
+          "answer": "Whether there is imaging evidence of muscularis propria invasion, to inform local staging alongside tissue diagnosis and multidisciplinary assessment",
           "choices": [
-            "Whether tumour extends into the muscularis propria, since that separates transurethral resection from cystectomy with neoadjuvant chemotherapy",
+            "Whether there is imaging evidence of muscularis propria invasion, to inform local staging alongside tissue diagnosis and multidisciplinary assessment",
             "Whether the tumour is high grade, since that separates simple surveillance from a course of intravesical BCG after resection",
             "Whether the histology is urothelial rather than squamous or glandular, since that changes which systemic agents are chosen",
             "Whether residual papillary tumour will be left at the base, since that decides if a second-look resection is required"
           ],
-          "explain": "Bladder cancer splits into two diseases at one anatomical line. Non-muscle-invasive disease (Ta, Tis, T1) is managed endoscopically with intravesical therapy and surveillance; muscle-invasive disease (T2 and above) earns neoadjuvant cisplatin-based chemotherapy and radical cystectomy or bladder-preserving chemoradiation. That single question is what VI-RADS was built to answer, and it is the one thing cystoscopy cannot settle, because the scope sees only the luminal surface. Grade and histological subtype come from the pathologist, not from MRI. Residual tumour at the base is a resection-quality question answered by re-resection. And note the sequencing: TURBT itself causes oedema, granulation and enhancement at the base, so the most informative MRI is the one done before the resection, not after it."
+          "explain": "VI-RADS estimates muscle-invasion likelihood. It does not determine grade, histological subtype or an individual treatment plan. Tissue diagnosis and adequate muscle sampling remain essential. When MRI is obtained for primary local staging, perform it before TURBT where possible."
         },
         {
           "kind": "short",
@@ -21455,23 +21455,23 @@
           "kind": "numeric",
           "prompt": "A bladder multiparametric MRI is technically good on all three sequences. The T2 structural category is 3, the diffusion-weighted score is 4 and the dynamic contrast-enhanced score is 4. Give the overall VI-RADS category as a single whole number.",
           "answer": "4",
-          "explain": "VI-RADS scores each of the three sequences from 1 to 5 and then combines them into one category, but the combination is not an average and not a majority vote. Diffusion is the dominant sequence, with dynamic contrast enhancement second and T2 providing the structural framework. Here diffusion and the dynamic series both say 4, so the overall category is 4 — muscle invasion is likely — and the T2 score of 3 does not pull it down. VI-RADS 4 means the low-signal muscularis propria is breached on the sequences that matter, and it should push the team towards staging for muscle-invasive disease rather than towards a purely endoscopic plan. Most published series use a cut-off of VI-RADS 3 or above to call muscle invasion, gaining sensitivity; a cut-off of 4 or above trades some of that sensitivity for specificity."
+          "explain": "The supplied optimal-quality T2 category 3 and functional categories 4 support overall VI-RADS 4: muscle invasion is likely. T2 provides the initial structural assessment, particularly for categories 1–3. For categories 4–5, DWI has priority when quality is optimal, with DCE next. Apply the published combination algorithm rather than averaging, voting or automatically selecting the maximum. The score does not prove pathological T2 disease."
         },
         {
           "kind": "choice",
-          "prompt": "A 1.8 cm papillary bladder tumour is bright on high b-value diffusion imaging, while the stalk at its base is dark on diffusion and bright on ADC. The low-signal muscularis propria beneath the tumour is unbroken on T2, on diffusion and on the early dynamic images. What should the report conclude?",
-          "answer": "Muscle invasion is unlikely: this reads as VI-RADS 2, and complete transurethral resection with sampling of the base is the appropriate step",
+          "prompt": "Before treatment, a technically adequate multiparametric MRI shows a 1.8 cm papillary bladder tumour with a visible stalk. The tumour restricts diffusion; the stalk does not. T2 shows continuous muscle, and early DCE preserves a nonenhancing muscle band. The structural, diffusion and contrast categories are each 2. What should the report conclude?",
+          "answer": "VI-RADS 2: muscle invasion is unlikely on this examination; MRI does not establish histological stage or select treatment",
           "choices": [
-            "Muscle invasion is unlikely: this reads as VI-RADS 2, and complete transurethral resection with sampling of the base is the appropriate step",
+            "VI-RADS 2: muscle invasion is unlikely on this examination; MRI does not establish histological stage or select treatment",
             "Muscle invasion is likely: restricted diffusion within the tumour itself makes this VI-RADS 4 regardless of what the muscle line does",
             "Muscle invasion is equivocal: a dark stalk on diffusion is a post-resection change, so the study should be reported as VI-RADS 3",
             "The study is not interpretable: a stalk that is dark on diffusion means the b-value was too low, and the sequence needs repeating"
           ],
-          "explain": "This is the inchworm sign, and it is one of the most useful patterns in bladder MRI. A papillary tumour has a fibrovascular submucosal stalk. The tumour is cellular and restricts diffusion, so it is bright on high b-value images with a low ADC; the stalk is loose oedematous connective tissue, so it is dark on high b-value images and bright on ADC. The bright cap sitting on a dark base gives the arched look of an inchworm, and its presence tells you the tumour is exophytic on a stalk with the wall beneath it intact — the picture of non-muscle-invasive disease. Restricted diffusion inside a urothelial tumour is expected and says nothing about stage on its own; what matters is whether the dark muscle line is interrupted. Under VI-RADS, an exophytic tumour with a stalk and an intact muscle line scores 1 if under 1 cm and 2 at 1 cm or more."
+          "explain": "The stalk and preserved underlying muscle support the supplied category 2 features. Diffusion restriction within the tumour alone does not demonstrate invasion. Size above 1 cm with intact muscle is insufficient by itself: morphology and the inner layer matter, and a lesion without category 2 features can have structural category 3. This teaching vignette is separate from the linked TCIA study."
         },
         {
           "kind": "order",
-          "prompt": "Arrange the tissue planes that a bladder tumour crosses as its T category rises, working from the luminal surface outward.",
+          "prompt": "For the specified direct bladder-wall route into the adjacent prostate, arrange these tissue compartments from the luminal surface outward. This exercise describes a route, not every tumour’s progression.",
           "items": [
             "urothelium",
             "lamina-propria",
@@ -21480,7 +21480,7 @@
             "prostatic-stroma"
           ],
           "answer": "urothelium lamina-propria muscularis-propria perivesical-fat prostatic-stroma",
-          "explain": "The T categories of bladder cancer are simply a list of the layers a tumour has eaten through. Ta and Tis sit in the urothelium; T1 breaches the basement membrane into the lamina propria; T2 is in the muscularis propria, split into T2a for the inner half and T2b for the outer half; T3 reaches perivesical fat, microscopically as T3a and as a visible extravesical mass as T3b; T4a is direct contiguous invasion of an adjacent organ such as prostatic stroma, seminal vesicles, uterus or vagina, and T4b is pelvic or abdominal wall. Knowing the ladder tells you where imaging is strong and where it is weak. MRI is good at the muscularis propria step, which is the step that changes treatment. It cannot see microscopic perivesical spread, so it cannot reliably separate T2b from T3a — a limitation worth stating in the report rather than papering over."
+          "explain": "The ordered compartments are an anatomical orientation exercise. MRI cannot resolve every microscopic layer or reliably distinguish microscopic perivesical invasion from muscle-confined disease. Prostatic stromal involvement must be assessed by its route; direct transmural extension and spread through the prostatic urethra are distinct staging questions."
         },
         {
           "kind": "short",
@@ -21491,72 +21491,72 @@
             "diffusion",
             "dominant"
           ],
-          "explain": "The VI-RADS hierarchy is diffusion first, dynamic contrast second, T2 as the structural scaffold — but the hierarchy assumes each sequence is diagnostic. Echo-planar diffusion is the sequence most easily destroyed by metal, bowel gas and motion, and a hip prosthesis on the side of interest will do it. When diffusion fails, the dynamic series inherits the decision: on early dynamic images tumour and the inner layer enhance before the muscularis propria does, so an intact non-enhancing dark muscle band in that early window is reassuring, and early enhancement extending into the muscle is not. Say this explicitly in the report. A category assigned without its dominant sequence carries less weight, and the urologist deciding between resection and cystectomy is entitled to know which evidence the number rests on."
+          "explain": "DWI priority requires usable images. Here DCE and T2 carry the assessment, with the failed diffusion sequence and its effect explicitly reported. Verify that the dynamic acquisition captures the relevant early enhancement rather than substituting a late post-contrast series. If the remaining sequences cannot answer the interface question, report it as not assessable."
         },
         {
           "kind": "choice",
           "prompt": "An MRI is requested six days after transurethral resection because the specimen contained no muscle. At the resection base there is wall thickening, restricted diffusion and early enhancement that would otherwise read as VI-RADS 4. What is the right response?",
-          "answer": "Report the appearance but state that post-resection change cannot be separated from residual tumour here, and advise reassessment at least two weeks after the resection",
+          "answer": "Describe the findings and recent TURBT confounder; MRI cannot establish invasion at this treated base, so discuss tissue assessment and clinically appropriate follow-up",
           "choices": [
-            "Report the appearance but state that post-resection change cannot be separated from residual tumour here, and advise reassessment at least two weeks after the resection",
+            "Describe the findings and recent TURBT confounder; MRI cannot establish invasion at this treated base, so discuss tissue assessment and clinically appropriate follow-up",
             "Report VI-RADS 4 at face value, since restricted diffusion at a resection base reflects residual tumour rather than granulation tissue in most patients",
             "Report VI-RADS 2, since enhancement and restricted diffusion this soon after a resection are granulation tissue and carry no diagnostic weight at all",
             "Report the bladder as normal for the interval, since wall thickening at a resection base always settles and no further imaging is warranted"
           ],
-          "explain": "A fresh resection bed does everything a tumour does. Granulation tissue is cellular and hyperaemic, so it restricts diffusion and enhances early; oedema and haemorrhage thicken the wall and blur the dark muscle line; a perforation of the detrusor during resection may leave inflammatory change tracking into perivesical fat that mimics T3. This is the single commonest cause of overstaging on bladder MRI. The VI-RADS recommendation is to scan before resection wherever possible, and if the study must follow a resection, to leave an interval of at least two weeks so the acute inflammatory phase settles. Neither of the confident extremes is defensible: calling it tumour risks a cystectomy on granulation tissue, and calling it nothing risks missing residual disease. Report what you see, state the confounder, and give the interval at which the question can be answered."
+          "explain": "Inflammation, haemorrhage and healing can mimic tumour at the resection base. The original consensus suggested an interval of at least two weeks if post-procedure imaging is necessary; that interval does not guarantee disappearance of reactive change. Current EAU guidance favours MRI before TURBT for primary local staging. Missing muscle in the specimen is a tissue-sampling problem and must not be resolved by a confident post-TURBT VI-RADS score."
         },
         {
           "kind": "choice",
           "prompt": "A woman on maintenance intravesical BCG for high-grade T1 disease has surveillance MRI. There is smooth diffuse wall thickening around the whole bladder with early enhancement and mildly restricted diffusion, and no focal mass anywhere. How should this be handled?",
-          "answer": "Read it as granulomatous inflammatory change from BCG, report the absence of any focal mass, and correlate with cystoscopy and urine cytology",
+          "answer": "Describe diffuse thickening and the BCG confounder, without claiming inflammation or excluding tumour; correlate with cystoscopy and urine cytology",
           "choices": [
-            "Read it as granulomatous inflammatory change from BCG, report the absence of any focal mass, and correlate with cystoscopy and urine cytology",
+            "Describe diffuse thickening and the BCG confounder, without claiming inflammation or excluding tumour; correlate with cystoscopy and urine cytology",
             "Read it as diffuse carcinoma in situ, assign VI-RADS 4, and recommend cystectomy on the strength of the enhancement and diffusion findings",
             "Assign VI-RADS 3 to the bladder as a whole, since diffuse enhancement is equivocal and that category conveys the uncertainty faithfully",
             "Repeat the study in 48 hours with a fuller bladder, since diffuse thickening of this degree is an artefact of poor distension alone"
           ],
-          "explain": "Intravesical BCG sets up a granulomatous cystitis. The wall thickens, enhances and shows mild diffusion restriction, often circumferentially and often for months after the last instillation. VI-RADS was designed for, and validated on, a bladder containing a visible tumour that has not been recently instilled or resected; applied to a diffusely inflamed bladder it will overcall. The discriminator is focality and asymmetry — a discrete mass with its own stalk or a segmental interruption of the dark muscle line means something, while smooth symmetrical change does not. Carcinoma in situ is flat and is essentially invisible on MRI, which is precisely why cystoscopy with biopsy and urine cytology remain the arbiters of BCG failure. Report the pattern, name the confounder, and hand the question back to the endoscopist rather than manufacturing a category the system was not built to give."
+          "explain": "Treatment-related cystitis is a possibility, but MRI cannot establish granulomatous histology or exclude flat carcinoma in situ. Report the observed pattern and absence of a visible focal mass, with the limitation. A whole-bladder baseline VI-RADS score should not replace appropriate surveillance and tissue assessment."
         },
         {
           "kind": "numeric",
-          "prompt": "Staging CT for a muscle-invasive bladder cancer shows a 12 mm short-axis left obturator node and a 9 mm short-axis right common iliac node. There is no nodal disease above the aortic bifurcation. Give the N category as a single whole number.",
+          "prompt": "For this staging exercise, metastases are independently confirmed in a left obturator node and a right common iliac node. No nonregional nodal metastasis is supplied. Under the bladder TNM nodal definitions, give the N category as a single whole number.",
           "answer": "3",
-          "explain": "Bladder nodal staging is anatomical before it is numerical. N1 is a single node in the true pelvis — perivesical, obturator, internal iliac, external iliac or sacral. N2 is multiple nodes within that same true pelvic group. N3 is disease in a common iliac node, which sits above the true pelvis but is still regional. Anything higher, in the retroperitoneum, is no longer nodal staging at all: it counts as distant disease. Here the obturator node alone would be N1, but the common iliac node overrides it and makes the case N3. Size thresholds are conventions rather than rules — 8 mm short axis is commonly used for pelvic nodes and 10 mm above the bifurcation — and shape, necrosis and clustering matter as much as the caliper. The distinction is not academic: N3 disease remains within the field a radical lymphadenectomy or a radiotherapy volume can cover."
+          "explain": "Common iliac nodal metastasis is regional N3. This exercise supplies metastatic status: node size alone cannot establish it. In an imaging report, name each station, record short axis and morphology, and distinguish suspicious nodes from confirmed metastases."
         },
         {
           "kind": "choice",
           "prompt": "A bladder tumour at the trigone extends through the full thickness of the wall, and there is intermediate-signal tumour replacing the adjacent prostatic stroma in direct continuity with the bladder mass. The pelvic side walls and obturator internus are clear. How should T be reported?",
-          "answer": "T4a, since tumour spreading contiguously from the bladder into prostatic stroma is what that category describes and it still points towards radical surgery",
+          "answer": "Imaging findings favour cT4a through direct bladder-wall invasion of prostatic stroma; state the route and confidence without declaring resectability",
           "choices": [
-            "T4a, since tumour spreading contiguously from the bladder into prostatic stroma is what that category describes and it still points towards radical surgery",
+            "Imaging findings favour cT4a through direct bladder-wall invasion of prostatic stroma; state the route and confidence without declaring resectability",
             "T3b, since extension of any degree towards the prostate beyond the detrusor is graded simply as macroscopic extravesical disease",
             "T4b, since involvement of a neighbouring pelvic organ by direct spread is the category used to denote surgically unresectable disease",
             "T2b, since the prostatic stroma lies deep to the outer half of the detrusor and is therefore staged together with the muscle layer"
           ],
-          "explain": "T4 divides into two very different prognoses. T4a is contiguous invasion of an adjacent organ — prostatic stroma, seminal vesicles, uterus or vagina — and remains resectable, so it belongs in the radical cystectomy conversation. T4b is fixation to the pelvic side wall or abdominal wall, and that is the category that generally takes surgery off the table. T3b is a macroscopic perivesical soft tissue mass without organ invasion, which is not what is described here. One nuance to keep: prostatic stromal invasion counts as T4a when tumour reaches it directly through the bladder wall, but urothelial carcinoma spreading along the prostatic urethra and into the stroma from within is staged under the urethral rules instead. On MRI, look for intermediate-signal tumour replacing the normally heterogeneous prostatic tissue rather than merely abutting it."
+          "explain": "Direct invasion of prostatic stroma from the bladder wall supports cT4a; contact alone does not. Describe the continuity, organ interface and uncertainty. Do not infer pathological stage, surgical candidacy or treatment from MRI. A separate prostatic-urethral route requires its own staging assessment."
         },
         {
           "kind": "short",
           "prompt": "A 70-year-old with previously treated bladder cancer presents with fresh right-sided haematuria and a CT urogram is booked. Say which acquisition on that study answers the upper tract question, and what you are hunting for in the collecting system.",
-          "answer": "The excretory or delayed acquisition, taken several minutes after injection once the collecting systems and ureters are opacified. Look for a fixed filling defect, focal urothelial thickening or an enhancing soft tissue mass, an irregular stricture, and hydronephrosis or calyceal dilatation above the level of the lesion.",
+          "answer": "The excretory acquisition evaluates opacified collecting systems and ureters for filling defects or irregular narrowing. Also inspect actual unenhanced and enhancing acquisitions for urothelial thickening, enhancement and obstruction. State any unopacified or poorly distended segment.",
           "keywords": [
             "excretory",
             "filling",
             "defect"
           ],
-          "explain": "CT urography is a multiphase study and each phase does a different job. Unenhanced images find calculi and give a baseline density. The nephrographic phase, at around 100 seconds, is where renal parenchymal tumours are seen. Only the excretory phase, obtained several minutes later, distends and opacifies the urothelium so that a filling defect can be identified — and upper tract urothelial carcinoma lives in the urothelium. The three appearances to know are a filling defect, focal or circumferential wall thickening, and an infiltrative stricture with upstream obstruction. Enhancement is what separates tumour from clot: a clot does not enhance, and it moves between phases or between studies. Compare the two sides on the same image, because subtle asymmetric thickening reads far better as a comparison than as an absolute measurement."
+          "explain": "An excretory phase is not evidence that every segment is adequately examined. Review coverage and opacification alongside enhancement. CT can miss flat urothelial lesions. Describe visible findings and any unassessed segment rather than declaring the whole upper tract normal from bladder MRI."
         },
         {
           "kind": "choice",
           "prompt": "The CT urogram shows a 1.5 cm enhancing filling defect in the right renal pelvis with mild upstream calyceal dilatation, alongside the separately confirmed bladder tumour. What does this add to the plan?",
-          "answer": "It signals a synchronous upper tract primary that needs ureteroscopy and its own staging, since the urothelium behaves as a single field at risk",
+          "answer": "Report a suspicious separate upper-tract urothelial lesion and refer for urological assessment; CT alone does not prove a synchronous primary",
           "choices": [
-            "It signals a synchronous upper tract primary that needs ureteroscopy and its own staging, since the urothelium behaves as a single field at risk",
+            "Report a suspicious separate upper-tract urothelial lesion and refer for urological assessment; CT alone does not prove a synchronous primary",
             "It most likely represents blood clot shed from the bladder tumour, so a repeat urogram in three months is the proportionate response here",
             "It represents a metastasis from the bladder primary, so systemic chemotherapy replaces any local treatment of the renal pelvic lesion",
             "It has little staging consequence, since the bladder tumour drives management and the renal pelvic lesion is treated only if it obstructs"
           ],
-          "explain": "Urothelium runs continuously from renal calyx to urethra and is exposed to the same carcinogens along its whole length, so urothelial carcinoma is characteristically multifocal in space and metachronous in time. A patient with a bladder tumour and a separate enhancing renal pelvic lesion has two primaries until proved otherwise, and the upper tract one is staged and treated in its own right — ureteroscopy with biopsy, and radical nephroureterectomy including a bladder cuff for high-risk disease, or kidney-sparing treatment for low-risk lesions. Enhancement is the point that excludes clot, which is avascular and mobile. The field effect also runs the other way: after nephroureterectomy for an upper tract tumour, bladder recurrence is common enough that cystoscopic surveillance is routine. Report the lesion, its length and site, the degree of obstruction, and the contralateral kidney, because renal function shapes whether cisplatin is an option."
+          "explain": "Describe site, extent, enhancement and obstruction. A separate enhancing renal-pelvic lesion raises concern for upper-tract urothelial carcinoma, but imaging alone does not establish histology or risk group. Ureteroscopy is used when imaging and cytology do not sufficiently establish the diagnosis or risk assessment; it is not an automatic treatment instruction."
         }
       ],
       "lesson_media": [
@@ -21601,8 +21601,8 @@
         },
         "approach": [
           {
-            "step": "Read all three categories separately",
-            "detail": "VI-RADS is built from a structural (T2W), a diffusion (DWI) and a contrast-enhanced (DCE) category — score each, then combine."
+            "step": "Establish context and assessability",
+            "detail": "Record TURBT, biopsy, intravesical or systemic treatment and dates. Assess distension, motion, susceptibility and actual T2, DWI/ADC and DCE quality before scoring each lesion."
           },
           {
             "step": "Trace the muscularis propria on T2W",
@@ -21614,79 +21614,94 @@
           },
           {
             "step": "Confirm on DWI",
-            "detail": "A continuous intermediate-to-low signal line under the tumour argues against invasion; focal extension into or through it argues for it."
+            "detail": "Confirm tumour restriction on high-b DWI and ADC, then inspect its muscle interface. The normal muscle has intermediate DWI signal; poor diffusion quality invalidates confident dominance."
           },
           {
-            "step": "Measure the lesion",
-            "detail": "Size above or below 1 cm separates VI-RADS 1 from 2 when the muscularis propria line is otherwise intact."
+            "step": "Describe size and morphology together",
+            "detail": "Record stalk, thickened inner layer, base and dimensions. An intact muscle line in a lesion over 1 cm does not automatically mean category 2."
           },
           {
             "step": "Assign the overall category",
-            "detail": "Combine the three categories into the single VI-RADS score, then stage any disease beyond the bladder wall separately."
+            "detail": "Apply the original consensus combination algorithm: T2 guides the first pass, especially 1–3; optimal-quality DWI takes priority for 4–5, followed by DCE. Record discordance and limits. Report visible extravesical findings separately."
           }
         ],
         "measure": [
           {
             "what": "Lesion size",
             "how": "Longest diameter on T2W.",
-            "cutoff": "< 1 cm favours VI-RADS 1 · > 1 cm favours VI-RADS 2 when the muscularis propria line is intact"
+            "cutoff": "Size is one component of morphology, not a standalone category or invasion threshold."
           }
         ],
         "classify": {
           "name": "VI-RADS",
           "columns": [
             "Category",
-            "T2W (structural)",
-            "DWI (diffusion)",
-            "DCE (contrast)",
-            "Meaning"
+            "Interpretation",
+            "Structural context",
+            "Functional assessment"
           ],
           "rows": [
             [
               "1",
-              "Continuous low-signal muscularis propria line, lesion < 1 cm",
-              "Continuous intermediate signal line of muscularis propria",
-              "No early enhancement of the muscularis propria line",
-              "Muscle-invasive disease highly unlikely"
+              "Muscle invasion highly unlikely",
+              "Small exophytic lesion; muscle preserved",
+              "Category 1 in all three sequences"
             ],
             [
               "2",
-              "Lesion > 1 cm, papillary with a stalk and/or high signal intensity",
-              "Continuous intermediate signal line in lesions > 1 cm",
-              "Low-signal muscular layer, no early enhancement",
-              "Muscle-invasive disease unlikely"
+              "Muscle invasion unlikely",
+              "Stalk/inner-layer features with preserved muscle",
+              "Both functional categories 2 can support overall 2 even with structural 3"
             ],
             [
               "3",
-              "No stalk in a papillary tumour, but the low-signal line is still continuous",
-              "Continuous low-signal line of the muscularis propria",
-              "No focal early enhancement of the muscularis propria",
-              "Equivocal for muscle invasion"
+              "Muscle invasion equivocal",
+              "Category 2 morphology absent; no clear muscle break",
+              "Apply the specified original category 3 combinations"
             ],
             [
               "4",
-              "Interruption of the low-signal muscularis propria line",
-              "Focal extension into the muscularis propria",
-              "Focal early enhancement extending into the muscularis propria",
-              "Muscle-invasive disease likely"
+              "Muscle invasion likely",
+              "Focal muscle involvement assessed with functional sequences",
+              "Optimal-quality DWI priority, DCE second; use the original combination rules"
             ],
             [
               "5",
-              "Tumour extends into the peri-vesical fat",
-              "Extension throughout the bladder wall and into the extravesical fat",
-              "Early enhancement into the extravesical adipose tissue",
-              "Muscle-invasive disease with extravesical extension"
+              "Muscle and extravesical invasion very likely",
+              "Structural extension beyond the bladder",
+              "Compatible functional extension; use the original combination rules"
             ]
           ],
-          "note": "VI-RADS 1-2 argue against muscle invasion; 4-5 argue for it. Category 3 is the genuinely equivocal group where the three sequences do not agree cleanly."
+          "note": "This overview is not a substitute for the full 2018 sequence criteria and combination algorithm linked above. There is no mean, majority-vote or automatic maximum-score rule. A numeric category is not a pathological stage. The 2026 steering paper discusses future revisions; it does not supply a released VI-RADS 2.0 algorithm."
         },
-        "template": "TECHNIQUE\nMultiparametric bladder MRI: T2W (three planes), DWI with ADC, DCE.\n\nFINDINGS\nBladder distension: [adequate/inadequate].\nLesion location and size: [ ], [ ] cm.\nT2W: muscularis propria line [continuous/interrupted]. [Papillary with stalk / sessile].\nDWI: [continuous/focally extending into] the muscularis propria signal line.\nDCE: early enhancement [confined to mucosa/submucosa / extending into muscularis propria / extending into perivesical fat].\nPerivesical fat and adjacent organs: [normal/invaded].\nUpper tracts: [normal/filling defect/hydronephrosis].\nPelvic and retroperitoneal nodes: [ ].\n\nIMPRESSION\n1. VI-RADS [1-5].\n2. [Plain-language statement: muscle-invasive disease likely/unlikely, and why.]\n3. [Staging findings beyond the bladder wall, upper tract or nodal status if present.]",
+        "template": "TECHNIQUE AND CONTEXT\nIndication, prior TURBT/biopsy/treatment and dates: [ ]. Actual T2, DWI/ADC and dynamic contrast acquisitions: [ ]. Distension and quality of each: [ ]; effect of any limitation: [ ].\n\nFINDINGS\nLesion ID, site, dimensions and base: [ ]. Stalk and thickened inner layer: [ ]. T2 muscle interface and category: [ ]. DWI/ADC quality, restriction and muscle/perivesical extent; category: [ ]. Actual early DCE timing and interface; category: [ ]. Discordance and dominant usable evidence: [ ]. UVJ, bladder neck or diverticulum limitations: [ ].\nPerivesical and adjacent-organ findings, route and confidence: [ ]. Ureteric obstruction: [ ]. Nodes by station, short axis and morphology: [ ]. Upper tract assessment only where acquired and diagnostic; unassessed segments: [ ].\n\nIMPRESSION\nLesion-specific VI-RADS using original 2018 rules: [1–5 / not assessable / not applicable], with evidence and limitations. Visible local extent: [ ]; no pathological-stage claim. Suspicious nodes, obstruction or upper-tract findings: [ ]. Further evaluation based on the clinical context: [ ].",
         "pitfalls": [
           "Scoring on an underdistended bladder. Wall thickening from an empty or non-distended bladder mimics tumour and disrupts the muscularis propria assessment.",
-          "Letting a single discordant sequence override the other two. VI-RADS is a synthesis of T2W, DWI and DCE — do not anchor on whichever one looks worst.",
+          "Applying a majority vote or selecting the worst-looking sequence regardless of quality. Record each category and use the published hierarchy and combinations.",
           "Missing early enhancement because the dynamic series was not truly early. Delayed post-contrast imaging cannot distinguish focal early enhancement from generalised bladder wall enhancement.",
-          "Applying VI-RADS to a bladder with recent instrumentation or biopsy. Post-procedural change mimics invasion on all three sequences.",
-          "Stopping at the VI-RADS category without staging locoregional and upper-tract disease when the category is 4 or 5."
+          "Assuming a fixed waiting interval after treatment restores baseline scoring reliability. Describe the intervention, dates and persistent confounders.",
+          "Stopping at the VI-RADS category without staging locoregional and upper-tract disease when the category is 4 or 5.",
+          "At the ureterovesical junction and bladder neck, normal openings and prostate protrusion complicate the muscle interface. Review the anatomy in more than one plane.",
+          "A diverticulum may lack muscularis propria; do not force the ordinary muscle-interface rule onto absent muscle.",
+          "Baseline VI-RADS does not establish treatment response, exclude CIS or prove histological grade.",
+          "Do not use a universal ADC cutoff when acquisition, scaling or physical units are unverified."
+        ],
+        "also": [
+          {
+            "title": "Original VI-RADS consensus (2018)",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/",
+            "publisher": "European Urology"
+          },
+          {
+            "title": "ACR VI-RADS steering committee: updates and future perspectives (2026)",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13435428/",
+            "publisher": "Cancer Imaging"
+          },
+          {
+            "title": "EAU bladder cancer diagnostic evaluation",
+            "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation",
+            "publisher": "European Association of Urology"
+          }
         ]
       }
     },

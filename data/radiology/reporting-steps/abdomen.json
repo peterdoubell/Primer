@@ -1075,7 +1075,7 @@
       "steps": [
         {
           "label": "Lesion inventory",
-          "detail": "Number each lesion, record wall location, size, morphology and stalk.",
+          "detail": "Record treatment context and sequence quality, then number lesions and describe location, dimensions, base, inner layer and stalk.",
           "sections": [
             "LESION INVENTORY"
           ],
@@ -1097,7 +1097,8 @@
           ],
           "look": "High-resolution T2 perpendicular to the tumour base.",
           "findings": [
-            "Tumour with a stalk and thickened inner layer; the low-signal muscle is continuous (T2 score 1–2).",
+            "Stalk/thickened inner layer and preserved muscle: record the full structural criteria, including size, before assigning category 1 or 2.",
+            "Category 2 morphology absent but no clear muscle disruption: structural category 3.",
             "Loss of the low-signal muscle line beneath the tumour (T2 score 4).",
             "Tumour extends through the muscle into the perivesical fat (T2 score 5)."
           ],
@@ -1105,11 +1106,11 @@
             "bladder-virads-image-1"
           ],
           "landmark": "wall",
-          "tip": "A thickened, enhancing inner layer or stalk beneath the tumour indicates it is superficial."
+          "tip": "Stalk and inner-layer findings support the structural assessment; they do not prove histology. Review the UVJ, neck and any diverticulum."
         },
         {
           "label": "Diffusion",
-          "detail": "Look for concordant extension of restricted diffusion into the muscle.",
+          "detail": "Assess DWI/ADC quality and restriction extending into muscle or perivesical tissue, retaining discordance.",
           "sections": [
             "DIFFUSION"
           ],
@@ -1123,7 +1124,7 @@
             "bladder-virads-image-2"
           ],
           "landmark": "wall",
-          "tip": "When T2 and DWI disagree, DWI is the dominant sequence for the final category."
+          "tip": "For categories 4–5, DWI is dominant when quality is optimal; DCE is next. T2 guides the first pass, especially 1–3. Use the original combination rules."
         },
         {
           "label": "Dynamic contrast enhancement",
@@ -1144,7 +1145,7 @@
         },
         {
           "label": "Extent and VI-RADS",
-          "detail": "Give the overall VI-RADS category and assess perivesical spread, adjacent organs, ureters and nodes.",
+          "detail": "Apply the original sequence-combination rules; state quality, treatment limits and lesion-specific evidence. Describe visible extension, obstruction and suspicious nodes separately.",
           "sections": [
             "EXTENT AND VI-RADS"
           ],
@@ -1159,7 +1160,7 @@
             "Nodal assessment"
           ],
           "landmark": "perivesical",
-          "tip": "VI-RADS estimates the likelihood of muscle invasion; it is not a histological stage."
+          "tip": "VI-RADS is muscle-invasion likelihood, not histology, treatment selection or microscopic staging. Record any unassessed anatomy."
         }
       ]
     },

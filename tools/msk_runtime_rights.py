@@ -30,6 +30,9 @@ def reference_images(curriculum, catalogue, requirements, detail, catalog_sectio
         collections['source_motion_references'] = reference.get('source_motion_references',[])
         collections['source_motion_originals'] = [dict(r,src=r['original_src']) for r in reference.get('source_motion_references',[])]
         collections['source_anatomy_ct_volumes'] = [source['source_volume'] for source in reference.get('source_anatomy_references', []) if source.get('source_volume')]
+        collections['source_study_files'] = [dict(source, id=source['id'] + '-' + filename,
+            src='/app/studies/' + source['id'] + '/' + filename)
+            for source in reference.get('source_study_references', []) for filename in source['files']]
         for field, images in collections.items():
             for image in images:
                 src = image.get('src')
@@ -52,15 +55,22 @@ def reference_images(curriculum, catalogue, requirements, detail, catalog_sectio
             raise ValueError('MSK curriculum surface is missing: ' + identifier)
         reference = dict(node.get('radiology_reference') or {})
         gallery_figures = []
+        study_references = []
         for media in node.get('lesson_media', []):
-            if media.get('kind') != 'source-gallery':
+            if media.get('kind') not in {'source-gallery', 'source-studies'}:
                 continue
             for investigation in media['investigation_ids']:
                 if investigation not in by_id or by_id[investigation]['module_id'] != identifier:
                     raise ValueError('Lesson source gallery has a cross-module investigation')
-                gallery_figures.extend(detail(curriculum, by_id[investigation])['radiology_reference']['structure_atlas'])
+                ref = detail(curriculum, by_id[investigation])['radiology_reference']
+                if media['kind'] == 'source-studies':
+                    study_references.extend(ref['source_study_references'])
+                else:
+                    gallery_figures.extend(ref['structure_atlas'])
         if gallery_figures:
             reference['structure_atlas'] = list(reference.get('structure_atlas', [])) + gallery_figures
+        if study_references:
+            reference['source_study_references'] = study_references
         if reference:
             collect(reference, 'lesson:' + identifier)
     return {'surfaces': surfaces, 'images': [resources[key] for key in sorted(resources)]}
@@ -97,7 +107,7 @@ def audit_reference_image_rights(inventory, evidence, root):
     if len({item['src'] for item in images}) != len(images):
         raise ValueError('Runtime image inventory contains repeated resources')
     reference_only = evidence.get('reference_rights_assets', [])
-    if not isinstance(reference_only,list) or any(not isinstance(a,dict) or a.get('kind') not in {'anatomical_specimen_photo','source_motion_reference'} or a.get('reference_only') is not True or a.get('structure_ids') or a.get('requirement_coverage') for a in reference_only):
+    if not isinstance(reference_only,list) or any(not isinstance(a,dict) or a.get('kind') not in {'anatomical_specimen_photo','source_motion_reference','source_study_reference'} or a.get('reference_only') is not True or a.get('structure_ids') or a.get('requirement_coverage') for a in reference_only):
         raise ValueError('Reference-only media rights cannot carry anatomical coverage')
     combined = evidence.get('assets', []) + reference_only
     if len({a['id'] for a in combined}) != len(combined):

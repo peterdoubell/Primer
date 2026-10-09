@@ -67,6 +67,9 @@ jobs:
       - name: Verify hosted source volume inventory
         run: python tools/check_static_source_volume_inventory.py
 
+      - name: Verify complete native source studies
+        run: python tools/check_static_source_study_inventory.py
+
       - name: Verify hosted source mesh inventory
         run: python tools/check_static_source_mesh_inventory.py
 
