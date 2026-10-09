@@ -6,6 +6,7 @@ an exact depiction of every lesson's concept.
 """
 
 import json
+import copy
 from functools import lru_cache
 from pathlib import Path
 
@@ -35,6 +36,28 @@ def model_props(node):
         "mode": record["mode"],
         "lesson": node["title"],
     }
+
+
+@lru_cache(maxsize=1)
+def source_model_bindings():
+    from . import radiology_catalog
+    references = radiology_catalog._source_anatomy_references()
+    bindings = {}
+    for investigation in radiology_catalog.catalogue()['investigations']:
+        for source in references.get(investigation['id'], []):
+            rows = bindings.setdefault(investigation['module_id'], [])
+            if source not in rows:
+                rows.append(source)
+    return bindings
+
+
+def radiology_model_props(node):
+    reference = node.get('radiology_reference', {}).get('spatial_model', {})
+    props = {'node_id': node['id'], 'family': reference.get('family')}
+    sources = source_model_bindings().get(node['id'])
+    if sources:
+        props['source_references'] = copy.deepcopy(sources)
+    return props
 
 
 @lru_cache(maxsize=1)
@@ -93,7 +116,7 @@ def attach_module_media(node):
             "kind": "model", "renderer": "radiology-anatomy",
             "title": reference["title"],
             "instructions": reference["instructions"],
-            "props": {"node_id": node["id"], "family": reference["family"]},
+            "props": radiology_model_props(node),
         })
     elif not any(item.get("renderer") == "spatial-3d" for item in media):
         record = model_bindings().get(node["id"])

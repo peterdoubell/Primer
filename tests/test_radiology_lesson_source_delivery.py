@@ -35,10 +35,11 @@ def test_every_existing_source_reader_is_attached_once_to_its_matching_lesson(cu
             assert len(ids) == len(set(ids))
             actual[node['id']] = ids
             _validate_lesson_media(node)
-    assert len(actual) == 49 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
+    assert len(actual) == 50 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
     assert set(actual['rad.5.cardiac-masses-devices']) == {
         'ra.cardiovascular-devices', 'ra.cardiac-masses', 'ra.ct-cardiovascular-pearls'}
-    assert 'rad.5.bladder-virads' not in actual  # Missing native figures are not replaced with another case.
+    assert actual['rad.5.bladder-virads'] == ['ra.mri-bladder']
+    assert atlas['ra.mri-bladder'][0]['modality'] == 'Histology'  # Separate specimen context, not relabelled MRI.
 
 
 def test_authored_gallery_and_all_source_cases_survive_idempotent_attachment(curriculum):
@@ -57,7 +58,13 @@ def test_every_attached_figure_keeps_its_original_role_rights_and_case_context(c
     atlas = catalog._structure_atlases()
     for module in proof['modules']:
         node = curriculum.node(module['module_id'])
-        assert module['module_contract_after_sha256'] == digest({key: node.get(key) for key in FIELDS})
+        historical = copy.deepcopy({key: node.get(key) for key in FIELDS})
+        # Preserve the older figure-delivery proof; the later model-delivery
+        # proof independently binds the complete current props and source cases.
+        for media in historical['lesson_media']:
+            if media.get('renderer') == 'radiology-anatomy':
+                media['props'].pop('source_references', None)
+        assert module['module_contract_after_sha256'] == digest(historical)
         for reader in module['source_readers']:
             source = atlas[reader['investigation_id']]
             assert reader['source_figures_sha256'] == digest(source)

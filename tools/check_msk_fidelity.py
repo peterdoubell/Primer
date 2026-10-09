@@ -20,7 +20,7 @@ KINDS = ("clinical_image", "schematic", "model")
 REVIEW_FIELDS = ("anatomical_review", "visual_review")
 REVIEW_SCOPE_VERSION = 1
 IMAGE_MODALITIES = frozenset(('PET-CT', 'MRI', 'MR arthrography', 'CT', 'CT arthrography',
-                             'Ultrasound', 'Radiography', 'Nuclear medicine'))
+                             'Ultrasound', 'Radiography', 'Nuclear medicine', 'Histology'))
 NORMAL_REFERENCE_STATES = frozenset(('normal_anatomy', 'normal_anatomical_reference',
                                      'normal_variant', 'normal_appearing_projection'))
 # Explicitly recorded alternatives, never a substring guess from an unknown
@@ -107,7 +107,7 @@ def inspect_source_context(asset, requirement):
     unknown = {'unknown', 'not_reported', 'unspecified'}
     fields = {'setting', 'laterality', 'depicted_state', 'extent', 'projection', 'anatomical_variant'}
     vocabularies = {
-        'setting': {'in_vivo', 'cadaveric', 'mixed', 'conceptual'},
+        'setting': {'in_vivo', 'ex_vivo', 'cadaveric', 'mixed', 'conceptual'},
         'projection': {'anteroposterior', 'lateral'},
         'anatomical_variant': {'none', 'peroneus_quartus', 'accessory_soleus', 'flexor_digitorum_accessorius_longus'},
         'laterality': {'left', 'right', 'bilateral'},

@@ -352,8 +352,9 @@ def _validate_lesson_media(node: Dict) -> None:
                         or scenario not in SPATIAL_MODEL_SCENARIOS or scenario != node.get("id"):
                     raise ValueError("{} spatial model has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "radiology-anatomy":
+                from .module_media import radiology_model_props
                 reference = node.get("radiology_reference", {}).get("spatial_model", {})
-                if not reference or props != {"node_id": node.get("id"), "family": reference.get("family")}:
+                if not reference or props != radiology_model_props(node):
                     raise ValueError("{} anatomy model has an unknown or cross-lesson binding".format(node.get("id")))
             elif renderer == "concept-lab":
                 scenario = props.get("scenario")

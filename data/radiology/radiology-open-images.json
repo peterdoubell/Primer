@@ -42270,5 +42270,98 @@
       "rights_reviewed_on": "2026-10-08",
       "rights_review": "Original XML CC BY4 grant and complete numbered PDF/HTML figures reviewed; no excluded figure credit found."
     }
+  ],
+  "ra.mri-bladder": [
+    {
+      "id": "bladder-histology-niazi-2020-fig1",
+      "kind": "clinical-image",
+      "modality": "Histology",
+      "figure_number": 1,
+      "src": "/app/reference-media/radiology-open/bladder-histology-niazi-2020-fig1.png",
+      "sha256": "00ce9cfef46fc35e0da612787d63738eaf859b7ab21468130aaef5157609cb60",
+      "width": 1418,
+      "height": 911,
+      "source_url": "https://link.springer.com/article/10.1186/s13000-020-01002-1",
+      "figure_url": "https://link.springer.com/article/10.1186/s13000-020-01002-1/figures/1",
+      "asset_source_url": "https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs13000-020-01002-1/MediaObjects/13000_2020_1002_Fig1_HTML.png",
+      "alt": "Complete original four-panel human bladder histology figure, with original H&E tissue in panel a and separate annotation/training preparations in panels b–d.",
+      "caption": "Published H&E tissue example (a): urothelium, lamina propria and red blood cells are annotated by the authors’ pathologist in (b). Panels (c) and (d) remove unlabelled regions for training; they are processed evidence, not complete tissue. Black/unlabelled does not mean absent anatomy. This specimen is separate from the linked TCGA MRI and HRA reference models.",
+      "clinical_panels": [
+        "a"
+      ],
+      "source_context": {
+        "setting": "ex_vivo",
+        "laterality": "unknown",
+        "population": {
+          "life_stage": "unknown",
+          "age_not_supplied": true,
+          "sex_not_supplied": true
+        },
+        "extent": "local",
+        "depicted_state": "source_bladder_biopsy_histology_and_annotation_preparation",
+        "selected_panels": [
+          "a"
+        ],
+        "panel_types": {
+          "a": "Histology",
+          "b": "Segmentation mask",
+          "c": "Segmentation mask",
+          "d": "Masked histology"
+        },
+        "panel_states": {
+          "a": "original_histology_input",
+          "b": "pathologist_selected_region_annotations",
+          "c": "edited_annotation_mask",
+          "d": "edited_histology_training_input"
+        },
+        "source_case_groups": {
+          "one_source_histology_example_processing_comparison": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        },
+        "source_native_registration_verified": false,
+        "source_full_fine_anatomy_approved": false,
+        "source_current_diagnosis_or_histology_inferred": false
+      },
+      "image_state": "source_bladder_biopsy_histology_and_annotation_preparation",
+      "structures_visible": [
+        "Source-local urothelium",
+        "Source-local lamina propria",
+        "Source-local red blood cells"
+      ],
+      "limits": "Complete published figure, not whole-slide source resolution or a full-thickness wall section. Only selected regions have pathologist labels; unlabelled tissue remains unknown. Muscularis propria, muscularis mucosae, complete serosa/adventitia and native3D layer extent are not established. No MRI correspondence, current diagnosis or complete reporting-anatomy approval is granted.",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Muhammad Khalid Khan Niazi, Enes Yazgan, Thomas E. Tavolara, Wencheng Li, Cheryl T. Lee, Anil Parwani and Metin N. Gurcan. Semantic segmentation to identify bladder layers from H&E Images. Diagnostic Pathology15,87(2020). DOI10.1186/s13000-020-01002-1. Figure1. CC BY4.0. Complete original publisher PNG retained without crop,resize,enhancement or relabelling; no endorsement implied.",
+      "rights_reviewed_on": "2026-10-09",
+      "rights_review": "Primary publisher article grants CC BY4.0 to figures unless otherwise credited; Figure1 has no excluded third-party credit. Original publisher bytes retained.",
+      "ancillary_panels": [
+        {
+          "kind": "Segmentation mask",
+          "panels": [
+            "b",
+            "c"
+          ],
+          "structures_visible": [
+            "Selected source pathologist region annotations",
+            "Processed training mask"
+          ],
+          "limits": "Annotation and edited background are separate from the original tissue; no complete tissue or3D segmentation is established."
+        },
+        {
+          "kind": "Masked histology",
+          "panels": [
+            "d"
+          ],
+          "structures_visible": [
+            "Processed histology training input"
+          ],
+          "limits": "Unlabelled tissue was removed in the original publication’s preparation. This panel cannot establish absent tissue or complete anatomy."
+        }
+      ]
+    }
   ]
 }

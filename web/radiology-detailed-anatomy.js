@@ -18,6 +18,8 @@
     "ispy1-expert1002": "/app/anatomy/ispy1-expert1002/",
     "prostate-biopsy0001": "/app/anatomy/prostate-biopsy0001/",
     "larynx-jasa19629778-phase01": "/app/anatomy/larynx-jasa19629778-phase01/",
+    "hra-bladder-female-v1.1": "/app/anatomy/hra-bladder-female-v1.1/",
+    "hra-bladder-male-v1.1": "/app/anatomy/hra-bladder-male-v1.1/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
@@ -33,6 +35,7 @@
     "prostate-source": [-61.48846435546875, -4.33062744140625],
     "tongue-source": [-106.36968994140625, -49.87583923339844],
     "larynx-phonation-source": [-23.082857131958008, 8.479644298553467],
+    "bladder-source": [0, 1],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],
@@ -765,7 +768,7 @@
         const labels = new Map();
         const displayName = (name) =>
           region.side === "right" ? name.replace(/^right /, "").replace(/\.r$/, "") : name;
-        const nativeYUp = data.coordinate_system?.display_basis === "native-x-left-y-superior-z-anterior";
+        const nativeYUp = ["native-x-left-y-superior-z-anterior", "native-gltf-y-up"].includes(data.coordinate_system?.display_basis);
         const nativeRAS = data.coordinate_system?.display_basis === "native-ras-to-x-left-y-superior-z-anterior";
         engine = renderer(canvas, initialParts, view?.range || region.source_up_range || RANGES[family], (state) => {
           orientation.textContent =
