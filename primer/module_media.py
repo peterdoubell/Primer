@@ -78,6 +78,15 @@ def attach_module_media(node):
     media = node["lesson_media"]
     if node.get("radiology_reference"):
         attach_source_gallery(node)
+        from . import radiology_catalog
+        studies = radiology_catalog._source_study_references()
+        identifiers = [i['id'] for i in radiology_catalog.catalogue()['investigations']
+                       if i['module_id'] == node['id'] and studies.get(i['id'])]
+        if identifiers:
+            media.append({'id': 'module-source-studies-' + node['id'], 'kind': 'source-studies',
+                          'title': 'Original MRI source study',
+                          'instructions': 'Inspect the original study in its native planes. Read its case context and limitations before interpreting the images.',
+                          'investigation_ids': identifiers})
         reference = node["radiology_reference"]["spatial_model"]
         media.append({
             "id": "module-anatomy-" + node["id"],

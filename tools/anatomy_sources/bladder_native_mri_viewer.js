@@ -22,6 +22,12 @@
   }
   data.series.forEach((s, i) => series.add(new Option(s.number + ' · ' + s.description + ' · ' + s.frames.length + ' frames', String(i))));
   const sourceWindow = () => { center.value = current.window_center; width.value = current.window_width; };
+  function direction(vector) {
+    // Patient LPS directions, derived from the literal source IOP; no rotation or fitting.
+    return vector.map((v, i) => ({v, i})).filter(a => Math.abs(a.v) > .05)
+      .sort((a, b) => Math.abs(b.v) - Math.abs(a.v))
+      .map(a => [['R', 'L'], ['A', 'P'], ['I', 'S']][a.i][a.v > 0 ? 1 : 0]).join('/');
+  }
   function redraw(resetWindow) {
     current = frames[Number(slider.value)];
     if (!current) return;
@@ -45,10 +51,16 @@
     byId('ordinal').textContent = (Number(slider.value) + 1) + ' / ' + frames.length;
     byId('previous').disabled = Number(slider.value) === 0;
     byId('next').disabled = Number(slider.value) === frames.length - 1;
+    const right = current.orientation.slice(0, 3), down = current.orientation.slice(3, 6);
+    byId('directions').textContent = 'Patient directions from source IOP: screen left ' + direction(right.map(v => -v))
+      + '; right ' + direction(right) + '; top ' + direction(down.map(v => -v)) + '; bottom ' + direction(down) + '.';
     byId('geometry').textContent = 'Source instance ' + current.instance + '; temporal identifier ' + current.temporal
       + '; acquisition time ' + (current.acquisition_time || 'not supplied') + '; trigger time ' + (current.trigger_time ?? 'not supplied')
       + '; ImageType ' + current.image_type.join('/') + '. LPS position: ' + current.position.join(', ')
-      + ' mm; source orientation: ' + current.orientation.join(', ') + '; reconstructed pixel spacing: ' + current.spacing.join(' × ') + ' mm.';
+      + ' mm; source orientation: ' + current.orientation.join(', ') + '; reconstructed pixel spacing: ' + current.spacing.join(' × ') + ' mm.'
+      + ' Source acquisition: ' + (current.acquisition_type || 'not supplied') + '; acquisition matrix '
+      + (current.acquisition_matrix?.join(' × ') || 'not supplied') + '; slice thickness ' + (current.slice_thickness ?? 'not supplied')
+      + ' mm; declared spacing between slices ' + (current.spacing_between_slices ?? 'not supplied') + ' mm.';
   }
   function chooseTemporal() {
     frames = selected.frames.filter(f => temporal.value === 'all' || f.temporal === temporal.value);
@@ -59,6 +71,7 @@
     const token = ++request, choice = data.series[Number(series.value)];
     byId('status').textContent = 'Loading and verifying complete original series…';
     current = null; frames = []; canvas.width = 0; canvas.height = 0;
+    for (const id of ['directions', 'geometry', 'sample', 'ordinal']) byId(id).textContent = '';
     const controls = [temporal, slider, center, width, byId('source-window'), byId('previous'), byId('next')];
     controls.forEach(i => { i.disabled = true; });
     try { const values = await sourcePixels(choice); if (token !== request) return; pixels = values; selected = choice; }
@@ -84,7 +97,10 @@
     const y = Math.floor((event.clientY - box.top) / box.height * current.rows);
     if (x < 0 || y < 0 || x >= current.columns || y >= current.rows) return;
     const value = pixels.getInt16(current.offset + (y * current.columns + x) * 2, true);
-    byId('sample').textContent = 'Original stored int16 sample: row ' + y + ', column ' + x + ' = ' + value + '. No physical ADC/concentration unit inferred.';
+    const point = current.position.map((p, i) => p + x * current.spacing[1] * current.orientation[i]
+      + y * current.spacing[0] * current.orientation[i + 3]);
+    byId('sample').textContent = 'Original stored int16 sample: row ' + y + ', column ' + x + ' = ' + value
+      + '; source pixel-centre LPS position ' + point.map(p => p.toFixed(4)).join(', ') + ' mm. No physical ADC/concentration unit inferred.';
   });
   series.value = String(Math.max(0, data.series.findIndex(s => s.number === 4))); await chooseSeries();
 })().catch(error => { document.getElementById('status').textContent = 'The original source study could not load: ' + error.message; });

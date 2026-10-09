@@ -34,6 +34,8 @@ def package(source, review, output):
                                'position': frame['image_position_patient'], 'window_center': float(wc), 'window_width': float(ww),
                                'temporal': str(tags['TemporalPositionIdentifier']) if tags['TemporalPositionIdentifier'] is not None else 'not supplied',
                                'acquisition_time': tags['AcquisitionTime'], 'trigger_time': tags['TriggerTime'],
+                               'acquisition_matrix': tags['AcquisitionMatrix'], 'acquisition_type': tags['MRAcquisitionType'],
+                               'slice_thickness': tags['SliceThickness'], 'spacing_between_slices': tags['SpacingBetweenSlices'],
                                'image_type': tags['ImageType'], 'source_pixel_int16_le_sha256': frame['pixel_int16_le_sha256']})
                 buffer.extend(pixels)
         raw = bytes(buffer); compressed = gzip.compress(raw, mtime=0)

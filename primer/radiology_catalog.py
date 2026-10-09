@@ -56,6 +56,13 @@ def _source_motion_references():
 
 
 @lru_cache(maxsize=1)
+def _source_study_references():
+    from .source_study import validate_study_references
+    return validate_study_references(_read('source-study-references.json', {}),
+        {i['id'] for i in catalogue()['investigations']}, DATA.parents[1] / 'web')
+
+
+@lru_cache(maxsize=1)
 def _source_anatomy_references():
     """Validate curated source resources without assigning anatomical completeness."""
     references = _read('source-anatomy-references.json', {})
@@ -905,6 +912,7 @@ def detail(curriculum, item):
     ref['structure_atlas'] = copy.deepcopy(_structure_atlases().get(item['id'], []))
     ref['source_anatomy_references'] = copy.deepcopy(_source_anatomy_references().get(item['id'], []))
     ref['source_motion_references'] = copy.deepcopy(_source_motion_references().get(item['id'], []))
+    ref['source_study_references'] = copy.deepcopy(_source_study_references().get(item['id'], []))
     ref['investigation'] = copy.deepcopy(item)
     corrected = _step_model(item, _steps()['investigations'].get(item['id'], {}))
     if corrected and not has_source_binding:

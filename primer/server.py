@@ -3644,18 +3644,37 @@ def sign_out(request: Request):
 def healthz():
     # A healthy process must also be able to load the reference galleries.
     # This checks metadata/provenance integrity, not clinical approval.
-    from .radiology_catalog import _structure_atlases, _source_anatomy_references, _source_motion_references
+    from .radiology_catalog import _structure_atlases, _source_anatomy_references, _source_motion_references, _source_study_references
     _structure_atlases()
     _source_anatomy_references()
     _source_motion_references()
+    _source_study_references()
     return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives),
-            "source_gallery_metadata_validated": True, "source_model_metadata_validated": True, "source_motion_metadata_validated": True}
+            "source_gallery_metadata_validated": True, "source_model_metadata_validated": True, "source_motion_metadata_validated": True,
+            "source_study_metadata_validated": True}
 
 
 
 
 # Large, already-public source media live on the CDN in hosted builds. The
 # original app route still crosses the reader access gate before redirecting.
+@app.api_route("/app/studies/{study}/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def source_study_delivery(study: str, asset: str, request: Request):
+    from .radiology_catalog import _source_study_references
+    rows = [row for entries in _source_study_references().values() for row in entries]
+    row = next((r for r in rows if r['id'] == study), None)
+    if row is None or asset not in row['files']:
+        return JSONResponse({"detail": "Unknown source study file"}, status_code=404)
+    if os.environ.get("VERCEL"):
+        return RedirectResponse('/source-media/studies/' + study + '/' + asset, status_code=307)
+    # Study viewers verify the original gzip container before decompressing it.
+    # Mesh delivery instead uses gzip as HTTP content encoding; keep them distinct.
+    if asset.endswith('.bin.gz'):
+        return FileResponse(os.path.join(WEB_DIR, 'studies', study, asset),
+                            media_type='application/octet-stream', headers={'Cache-Control': 'no-cache'})
+    return await app.state.source_static.get_response('studies/' + study + '/' + asset, request.scope)
+
+
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     allowed = {"bodyparts3d", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
