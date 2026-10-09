@@ -435,6 +435,174 @@
       "initial_layer": "source_regions",
       "initial_cropped": false,
       "population_note": "Six complete original HRA female bladder mesh primitives are preserved: source dome/base regions, bladder neck smooth muscle, trigone and two ureteral-orifice regions. Source hierarchy names and duplicate fundus labels are retained. This curated Visible Human reference is separate from the TCGA-DK-AA6P MRI study and from the patient being reported. No fitting, overlay, registration, invented tissue layer or pathological invasion is presented. Original Float32 positions, normals and triangle order remain unchanged. Original source surfaces have open boundaries; no cap, bridge, repair, welding or smoothing was applied. Named source regions are not solid histological wall layers. The two orifice nodes retain their original FMA IDs and source labels. Their embedded representation_of strings differ from the canonical FMA URI form; the discrepancy is recorded, not silently rewritten or treated as independent anatomical proof. glTF declares metre units and Y-up coordinates. Source acquisition calibration and patient anatomical directions remain independently unverified. Cameras show source coordinates rather than anterior/posterior claims. Urothelium, lamina propria, muscularis mucosae, full detrusor bundles, serosa/adventitia, intramural ureter walls, nodes, adjacent organs, lesions and treatment interfaces are not separately supplied. Complete reporting anatomy and clinical/commercial fidelity remain unverified. Complete numerical contact review records 82 contact pairs; their biological/interface meaning is unverified. Kristen Browne; Heidi Schlehlein. 2022. *3D Reference Organ for Urinary Bladder, Female v1.1.* [https://doi.org/10.48539/HBM235.KQNP.897](https://doi.org/10.48539/HBM235.KQNP.897). Accessed on May 6, 2022."
+    },
+    {
+      "id": "fedbca-center1-001-source-cells",
+      "label": "Original MRI annotation center1-001 \u00b7 partial",
+      "atlas": "fedbca-center1-001",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center1-001/manifest.json",
+      "manifest_sha256": "8809545a69a925cc0dc232239ace7bebaabe70c3adccb5d7a9627f94bb680c6c",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center1-001. Producer table fields: Age (years) 67; Gender Male; Pathological T stage Ta; Pathological grade Low; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 486 voxels in 1 six-connected components. All source components remain. Cell-boundary topology retains 1 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 2.2633427572127194e-05 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center1-001-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center1-001/mri-reference.html",
+        "sha256": "d128d4c5d4cdb1be1ae579cc9a26dd5324497e7bde06432f9bd589e8d434bd36",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "b421cce892c4ea633bb9b9257981aa54c7d46b0eece5bc5c3425d522a77b423b",
+            "compressed_bytes": 1619913,
+            "bytes": 2355200,
+            "raw_source_voxel_sha256": "2fc5d47292a0fdc219ef01f47e12484f0ef303d26d1476fb0f392dec43f296e0"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "331ee1b3c25ddb42d025d1a7ce3efad8f9c8cf345ada0639cad476851e1e18ef",
+            "compressed_bytes": 4731,
+            "bytes": 4710400,
+            "raw_source_voxel_sha256": "4a24418896ff8559066f4c705e737cb0748b8caa28b0d58dc7fb783389b229d6"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center1-001-label1-cells": "Original source tumour annotation cells center1-001"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center1-001",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "fedbca-center2-01-source-cells",
+      "label": "Original MRI annotation center2-01 \u00b7 partial",
+      "atlas": "fedbca-center2-01",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center2-01/manifest.json",
+      "manifest_sha256": "9e3a3a17ffe326de5b0195c752912950f6dccbf835e405a4181c85f57fb7341c",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center2-01. Producer table fields: Age (years) 58; Gender Male; Pathological T stage T2; Pathological grade High; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 38458 voxels in 2 six-connected components. All source components remain. Cell-boundary topology retains 12 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 0.002142482695551848 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center2-01-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center2-01/mri-reference.html",
+        "sha256": "684c2f71fe45d3f6e1a0a4a0a349ac9a36d62b1a71e995e9045579cbf523728f",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "25eb9a177fb1a6fdc22527bd26e6132e72f0654889a4359bed77e9760e53f2c0",
+            "compressed_bytes": 9598207,
+            "bytes": 12582912,
+            "raw_source_voxel_sha256": "acdd8f06d2eee8ca5f00aa88874bae6c1cc82d953c7f265263c47abcd37aa8e0"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "3c09294bf121cd962af48b5ea0a4f0709fc7bc0f988b66256fcf5815b72099b6",
+            "compressed_bytes": 14102,
+            "bytes": 12582912,
+            "raw_source_voxel_sha256": "a48726ae6f7f55e592c6c2f1081ed5ab2302cd2f5d907637a1e0841940e8b530"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center2-01-label1-cells": "Original source tumour annotation cells center2-01"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center2-01",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "fedbca-center3-01-source-cells",
+      "label": "Original MRI annotation center3-01 \u00b7 partial",
+      "atlas": "fedbca-center3-01",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center3-01/manifest.json",
+      "manifest_sha256": "c914e02b110ed1dbd0f8f4c4682ace6e4919c067eefb623ab56460b2c320dd13",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center3-01. Producer table fields: Age (years) 54; Gender Male; Pathological T stage Ta; Pathological grade Low; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 3142 voxels in 1 six-connected components. All source components remain. Cell-boundary topology retains 5 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 0.00036296903253068007 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center3-01-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center3-01/mri-reference.html",
+        "sha256": "aacd2b3d7dd1bccd03d572165334fe4be8fd54dde54cac39f5e87d6f71600b84",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "95061db81673940a7a0aa533830b3982b532d33435a676082092034b501606dc",
+            "compressed_bytes": 8198698,
+            "bytes": 24576000,
+            "raw_source_voxel_sha256": "780ac90108efc5aa20a4d4818ee4380ebdd3ddc91768aecc2afef8bdad47fb89"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "0df6b99edadbd59da71f722b5e45b1d58141db4f567f6a3e6557ce968b660234",
+            "compressed_bytes": 24224,
+            "bytes": 24576000,
+            "raw_source_voxel_sha256": "ba956dc9d060fbb9b3402d9f32908bbd64e35fd8d4ac562bb42b714b52f48f1f"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center3-01-label1-cells": "Original source tumour annotation cells center3-01"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center3-01",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "fedbca-center4-01-source-cells",
+      "label": "Original MRI annotation center4-01 \u00b7 partial",
+      "atlas": "fedbca-center4-01",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center4-01/manifest.json",
+      "manifest_sha256": "fb06cdb74e9aaee9b0be16701c526a82f9fe2cf6a2da25b6d4dc21b2e9ba4f20",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center4-01. Producer table fields: Age (years) 46; Gender Male; Pathological T stage T4; Pathological grade High; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 4621 voxels in 1 six-connected components. All source components remain. Cell-boundary topology retains 3 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 0.0 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center4-01-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center4-01/mri-reference.html",
+        "sha256": "629e84db10a8e9e9325760d8a3ab2f07f200ca3222c000cb364a5302d43b3f91",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "ad0ace3d2f05ad3356b56f63ce2aa8773fc09a668c366a1a430a3eb31310506e",
+            "compressed_bytes": 9833378,
+            "bytes": 18350080,
+            "raw_source_voxel_sha256": "092c52115f7801cb9f41c43f5613c385eb6bb084b3957e05020f639e3c2d70f4"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "0e4df12486327d37332e25b6cc19462d2e071586ba7dea9e72bf25b9d45003dd",
+            "compressed_bytes": 18513,
+            "bytes": 18350080,
+            "raw_source_voxel_sha256": "054bf71c615e499c5af2f67312f47513be67fa98b9956add1f04ca407ec89d81"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center4-01-label1-cells": "Original source tumour annotation cells center4-01"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center4-01",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
     }
   ]
 }

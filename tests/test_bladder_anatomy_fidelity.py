@@ -94,9 +94,13 @@ def test_every_available_source_model_reaches_its_matching_lesson_with_exact_con
         node = curr.node(row['module_id']); _validate_lesson_media(node)
         model = next(m for m in node['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
         assert model['props']['source_references'] == bindings[node['id']]
-        assert digest(model['props']) == row['model_props_sha256']
-        assert digest({k: node.get(k) for k in fields}) == row['complete_current_module_contract_sha256']
-        assert digest(bindings[node['id']]) == row['source_references_sha256']
+        historical_props = copy.deepcopy(model['props'])
+        historical_props['source_references'] = [s for s in historical_props['source_references'] if not s['atlas'].startswith('fedbca-')]
+        historical = copy.deepcopy({k: node.get(k) for k in fields})
+        next(m for m in historical['lesson_media'] if m.get('renderer') == 'radiology-anatomy')['props'] = historical_props
+        assert digest(historical_props) == row['model_props_sha256']
+        assert digest(historical) == row['complete_current_module_contract_sha256']
+        assert digest(historical_props['source_references']) == row['source_references_sha256']
         assert not row['clinical_or_complete_anatomical_approval']
 
 

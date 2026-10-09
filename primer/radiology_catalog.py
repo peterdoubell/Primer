@@ -49,6 +49,8 @@ SOURCE_REFERENCE_ATLASES['prostate-biopsy0001'] = 'prostate-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
 SOURCE_REFERENCE_ATLASES['hra-bladder-female-v1.1'] = 'bladder-source'
 SOURCE_REFERENCE_ATLASES['hra-bladder-male-v1.1'] = 'bladder-source'
+for _source_case in ['center1-001', 'center2-01', 'center3-01', 'center4-01']:
+    SOURCE_REFERENCE_ATLASES['fedbca-' + _source_case] = 'bladder-tumour-source'
 
 
 @lru_cache(maxsize=1)
