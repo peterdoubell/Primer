@@ -2304,12 +2304,280 @@ function renderMskAtlasFigures(items, { onExploreSource } = {}) {
   return atlas;
 }
 
+function referenceFrameIndex(index, count) {
+  return Math.max(0, Math.min(count - 1, Math.round(Number(index) || 0)));
+}
+
+function renderAnnotatedCTStack(reference) {
+  const stack = reference.stack;
+  const panel = el('details', { class: 'rad-ct-stack' },
+    el('summary', {}, 'Open scrollable reference · ' + stack.frame_count + ' frames · ' + stack.plane));
+  const host = el('div', { class: 'rad-ct-stack-body' });
+  panel.append(host);
+  let pending = false, loaded = false;
+  async function load() {
+    if (pending || loaded) return;
+    pending = true;
+    host.replaceChildren(el('p', { role: 'status' }, 'Loading reference sequence…'));
+    try {
+      const manifest = await api.get(stack.manifest_url);
+      if (!manifest.frames?.length || manifest.frames.length !== stack.frame_count) throw new Error('Reference sequence is incomplete.');
+      if (!panel.isConnected) return;
+      const frames = manifest.frames;
+      let index = Math.floor((frames.length - 1) / 2), zoom = 100, generation = 0;
+      const image = el('img', { alt: reference.title, referrerpolicy: 'no-referrer', decoding: 'async', draggable: 'false' });
+      const stage = el('div', { class: 'rad-ct-stack-stage', tabindex: '0', role: 'group',
+        'aria-label': reference.title + ' viewer. Use arrow keys or mouse wheel to change frames.' }, image);
+      const status = el('p', { class: 'rad-ct-stack-status', role: 'status', 'aria-live': 'polite' });
+      const slider = el('input', { type: 'range', min: 1, max: frames.length, value: index + 1, step: 1,
+        'aria-label': reference.title + ' frame' });
+      const jump = el('input', { type: 'number', min: 1, max: frames.length, value: index + 1, step: 1,
+        'aria-label': reference.title + ' frame number', class: 'rad-ct-frame-number' });
+      const previous = btn({ class: 'btn ghost small', onclick: () => show(index - 1) }, 'Previous frame');
+      const next = btn({ class: 'btn ghost small', onclick: () => show(index + 1) }, 'Next frame');
+      const zoomControl = el('input', { type: 'range', min: 100, max: 300, step: 25, value: 100,
+        'aria-label': reference.title + ' zoom' });
+      const zoomLabel = el('output', {}, '100%');
+      function applyZoom() {
+        image.style.width = zoom + '%';
+        image.style.maxWidth = 'none';
+        stage.classList.toggle('is-zoomed', zoom > 100);
+        zoomControl.value = String(zoom); zoomLabel.textContent = zoom + '%';
+      }
+      function show(requested) {
+        index = referenceFrameIndex(requested, frames.length);
+        slider.value = String(index + 1); jump.value = String(index + 1);
+        previous.disabled = index === 0; next.disabled = index === frames.length - 1;
+        const attempt = ++generation;
+        status.textContent = 'Loading frame ' + (index + 1) + ' of ' + frames.length + '…';
+        image.classList.add('is-loading');
+        const candidate = new Image();
+        candidate.referrerPolicy = 'no-referrer';
+        candidate.onload = () => {
+          if (attempt !== generation || !panel.isConnected) return;
+          image.src = candidate.src;
+          image.alt = reference.title + ' — published ' + manifest.plane + ' frame ' + (index + 1) + ' of ' + frames.length;
+          image.classList.remove('is-loading');
+          status.textContent = 'Frame ' + (index + 1) + ' of ' + frames.length + ' · ' + manifest.plane;
+        };
+        candidate.onerror = () => {
+          if (attempt !== generation || !panel.isConnected) return;
+          image.removeAttribute('src'); image.classList.remove('is-loading');
+          status.textContent = 'Frame ' + (index + 1) + ' could not load. Check your connection or open the source case.';
+        };
+        candidate.src = frames[index].src;
+      }
+      slider.addEventListener('input', () => show(Number(slider.value) - 1));
+      jump.addEventListener('change', () => show(Number(jump.value) - 1));
+      jump.addEventListener('keydown', event => {
+        if (event.key === 'Enter') { event.preventDefault(); show(Number(jump.value) - 1); }
+      });
+      stage.addEventListener('keydown', event => {
+        const keys = { ArrowDown: index + 1, ArrowRight: index + 1, ArrowUp: index - 1,
+          ArrowLeft: index - 1, Home: 0, End: frames.length - 1 };
+        if (event.key in keys) { event.preventDefault(); show(keys[event.key]); }
+      });
+      stage.addEventListener('wheel', event => {
+        if (!event.deltaY || event.ctrlKey) return;
+        const target = referenceFrameIndex(index + Math.sign(event.deltaY), frames.length);
+        if (target === index) return;
+        event.preventDefault(); show(target);
+      }, { passive: false });
+      zoomControl.addEventListener('input', () => { zoom = Number(zoomControl.value); applyZoom(); });
+      const fit = btn({ class: 'btn ghost small', onclick: () => { zoom = 100; applyZoom(); stage.scrollTop = 0; stage.scrollLeft = 0; } }, 'Fit image');
+      const fullscreen = btn({ class: 'btn ghost small', onclick: async () => {
+        try {
+          if (document.fullscreenElement === panel) await document.exitFullscreen();
+          else await panel.requestFullscreen();
+        } catch (_) { status.textContent = 'Fullscreen is unavailable; the inline viewer remains usable.'; }
+      } }, 'Fullscreen');
+      host.replaceChildren(el('p', { class: 'muted' }, 'Scroll over the image, use arrow keys, or drag the frame slider. Published annotations and image windows are preserved.'),
+        stage, el('div', { class: 'rad-ct-stack-controls' }, previous, next,
+          el('label', {}, 'Frame ', jump), el('span', {}, '/ ' + frames.length), fullscreen, fit),
+        el('label', { class: 'rad-ct-stack-slider' }, 'Frame sequence ', slider),
+        el('label', { class: 'rad-ct-stack-slider' }, 'Zoom ', zoomControl, zoomLabel), status,
+        el('p', { class: 'rad-image-credit' }, manifest.contributor + ' · Radiopaedia · rID ' + manifest.source_case_id + '. ',
+          radiologySourceLink('Original case and attribution', manifest.source_url), ' · ',
+          radiologySourceLink('Non-commercial image-use terms', manifest.reuse_url)));
+      loaded = true; show(index);
+    } catch (error) {
+      host.replaceChildren(el('p', { role: 'status' }, error.message || 'The reference sequence could not load.'),
+        btn({ class: 'btn ghost small', onclick: load }, 'Retry reference'));
+    } finally { pending = false; }
+  }
+  panel.addEventListener('toggle', () => { if (panel.open) load(); });
+  return panel;
+}
+
+function renderAnnotatedAnatomy(ref) {
+  return el('section', { class: 'rad-annotated-anatomy', 'aria-label': 'Annotated CT anatomy references' },
+    el('h3', {}, 'Annotated CT anatomy'),
+    ...ref.annotated_anatomy_links.map(reference => el('article', { class: 'rad-quick-branch' },
+      el('h4', {}, radiologySourceLink(reference.title, reference.url)),
+      el('p', { class: 'muted' }, reference.publisher + ' · ' + reference.modality),
+      el('p', {}, reference.reporting_use),
+      reference.stack ? renderAnnotatedCTStack(reference) : null,
+      radiologySourceLink('Open annotated case', reference.url))));
+}
+
+function renderCancerStaging(n, { openTab, usePrompts } = {}) {
+  const ref = n.radiology_reference, systems = ref.cancer_staging;
+  const root = el('section', { class: 'rad-cancer-staging', 'aria-label': 'Cancer staging tables and illustrations' },
+    el('h3', {}, 'Staging and reporting reference'));
+  const selector = el('select', { 'aria-label': 'Cancer staging system' },
+    ...systems.map((system, index) => el('option', { value: String(index) }, system.title)));
+  const body = el('div', { class: 'rad-staging-system' });
+  if (systems.length > 1) root.append(el('label', { class: 'rad-filter-field' }, 'Choose the tumour or framework', selector));
+  root.append(body);
+  function show() {
+    const system = systems[Number(selector.value) || 0];
+    body.replaceChildren(el('h4', {}, system.title),
+      el('p', { class: 'rad-classification-version' }, system.version + ' · Reviewed ' + system.reviewed_at),
+      el('p', {}, system.scope));
+    const search = el('input', { type: 'search', class: 'rad-desk-search',
+      placeholder: 'Find a category, structure or reporting feature…', 'aria-label': 'Filter staging table' });
+    const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
+    body.append(search, status);
+    const rows = [];
+    for (const table of system.tables) {
+      const wrap = el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': table.title });
+      const rendered = table.rows.map(row => {
+        const node = el('tr', {}, el('th', { scope: 'row' }, row.category),
+          el('td', {}, row.criteria), el('td', {}, row.report_note));
+        rows.push({ node, text: [row.category, row.criteria, row.report_note].join(' ').toLowerCase() });
+        return node;
+      });
+      wrap.append(el('table', { class: 'rad-measurement-table rad-staging-table' },
+        el('caption', {}, table.title),
+        el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Category / framework'),
+          el('th', { scope: 'col' }, 'Criterion'), el('th', { scope: 'col' }, 'What to report'))),
+        el('tbody', {}, ...rendered)));
+      body.append(wrap);
+    }
+    function filter() {
+      const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      let visible = 0;
+      for (const row of rows) {
+        row.node.hidden = !terms.every(term => row.text.includes(term));
+        if (!row.node.hidden) visible++;
+      }
+      status.textContent = visible + ' of ' + rows.length + ' reference rows';
+    }
+    search.addEventListener('input', filter); filter();
+    const figure = system.illustration;
+    const illustration = el('figure', { class: 'rad-anatomy-illustration rad-staging-illustration' },
+      el('h4', {}, figure.title), el('img', { src: figure.src, alt: figure.alt, loading: 'lazy',
+        width: 960, height: 600, dataset: { fullSrc: figure.src, sourceFigure: 'true', paperBackground: 'white' } }),
+      el('figcaption', {}, figure.caption));
+    body.append(illustration,
+      el('section', {}, el('h4', {}, 'Stage-relevant report fields'),
+        el('ul', {}, ...system.report_fields.map(field => el('li', {}, field)))),
+      el('section', { class: 'rad-quick-note' }, el('h4', {}, 'Interpretation and scope'),
+        el('ul', {}, ...system.limits.map(limit => el('li', {}, limit)))));
+    if (usePrompts) body.append(btn({ class: 'btn small', onclick: () => usePrompts(system) }, 'Add staging prompts to report'));
+    body.append(el('p', { class: 'rad-desk-source-list' }, ...system.sources.flatMap((source, index) =>
+      [index ? ' · ' : '', radiologySourceLink(source.title, source.url)])));
+    attachPictureHandlers(body);
+  }
+  selector.addEventListener('change', show); show();
+  if (ref.annotated_anatomy_links?.length) root.append(renderAnnotatedAnatomy(ref));
+  const examples = ref.key_images.filter(image => image.image_type === 'clinical').slice(0, 3);
+  if (examples.length) {
+    const images = el('details', { class: 'rad-staging-examples' },
+      el('summary', {}, 'Illustrative clinical reporting examples'),
+      el('p', {}, 'Independent source cases illustrate reporting features. Read the case caption alongside the staging criteria.'));
+    images.append(el('div', { class: 'rad-image-grid' }, ...examples.map(asset =>
+      el('figure', { class: 'rad-image-example' },
+        el('img', { src: asset.src, alt: asset.alt, loading: 'lazy', referrerpolicy: 'no-referrer',
+          dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
+        el('figcaption', {}, el('strong', {}, asset.label), el('p', {}, asset.caption),
+          radiologySourceLink(asset.attribution || 'Source and case details', asset.source_url))))));
+    root.append(images); attachPictureHandlers(images);
+  }
+  if (openTab) root.append(btn({ class: 'btn ghost small', onclick: () => openTab('images') }, 'View all reference images'));
+  return root;
+}
+
+function renderReportingDiagrams(ref) {
+  const root = el('section', { class: 'rad-reporting-diagrams' }, el('h3', {}, 'Classification diagrams'));
+  for (const diagram of ref.reporting_diagrams || []) {
+    root.append(el('figure', { class: 'rad-anatomy-illustration' },
+      el('h4', {}, diagram.title),
+      el('img', { src: diagram.src, alt: diagram.alt, loading: 'lazy',
+        dataset: { fullSrc: diagram.src, sourceFigure: 'true', paperBackground: 'white' } }),
+      el('figcaption', {}, el('p', {}, diagram.caption), radiologySourceLink(diagram.source.title, diagram.source.url))));
+  }
+  attachPictureHandlers(root);
+  return root;
+}
+
+function renderReportingStart(n, openTab) {
+  const ref = n.radiology_reference, guide = ref.reporting;
+  const root = el('section', { class: 'rad-reporting-start', 'aria-label': 'Practical reporting guide' },
+    el('h3', {}, 'Report this examination'),
+    el('div', { class: 'rad-checklist-actions' },
+      btn({ class: 'btn small', onclick: () => openTab('steps') }, 'Work through findings'),
+      btn({ class: 'btn ghost small', onclick: () => openTab('template') }, 'Open report editor'),
+      ref.cancer_staging?.length ? btn({ class: 'btn ghost small', onclick: () => openTab('staging') }, 'Staging tables and illustrations') : null));
+  if (ref.cancer_staging?.length) root.append(el('p', { class: 'rad-staging-summary' },
+    el('strong', {}, 'Staging reference: '), ref.cancer_staging.map(system => system.title + ' (' + system.version + ')').join(' · ')));
+  if (ref.annotated_anatomy_links?.length) root.append(renderAnnotatedAnatomy(ref));
+  if (guide.escalation.length) root.append(el('section', { class: 'rad-escalation' },
+    el('h4', {}, 'Communicate promptly'), el('ul', {}, ...guide.escalation.map(text => el('li', {}, text)))));
+  if (ref.quick_reference) {
+    root.append(renderRadiologyQuickReference(ref));
+    return root;
+  }
+  if (ref.reporting_diagrams?.length) root.append(renderReportingDiagrams(ref));
+  root.append(el('h3', {}, 'Reading sequence → reporting decisions'),
+    el('ol', { class: 'rad-reporting-sequence' }, ...ref.walkthrough.steps.map(step =>
+      el('li', {}, el('strong', {}, step.label), el('p', {}, step.detail),
+        el('details', {}, el('summary', {}, 'What to inspect and how to phrase it'),
+          step.look ? el('p', {}, step.look) : null,
+          el('ul', {}, ...step.findings.map(phrase => el('li', {}, phrase))),
+          step.tip ? el('p', { class: 'rad-quick-note' }, step.tip) : null)))));
+  // Reuse the authored clinical content, including its exact scope and version.
+  // Do not invent a classification when a module has no applicable one.
+  const guideView = renderReportingGuide(guide, n.id + '-quick');
+  for (const child of [...guideView.children]) {
+    if (!['rad-desk-checklist', 'rad-desk-draft-note', 'rad-escalation'].some(name => child.classList.contains(name))) root.append(child);
+  }
+  root.append(el('details', {}, el('summary', {}, 'Reporting sources'),
+    el('ul', {}, ...guide.sources.map(source => el('li', {}, radiologySourceLink(source.title, source.url))))));
+  return root;
+}
+
+function renderRadiologyQuickReference(ref) {
+  const quick = ref.quick_reference;
+  const section = el('section', { class: 'rad-quick-reference', 'aria-label': quick.title },
+    el('h3', {}, quick.title), el('p', { class: 'rad-quick-entry' }, quick.intro),
+    el('div', { class: 'rad-quick-branches' }, ...quick.branches.map(branch =>
+      el('section', { class: 'rad-quick-branch' }, el('h4', {}, branch.title),
+        el('p', {}, branch.lead), el('dl', {}, ...branch.rows.flatMap(([finding, interpretation]) =>
+          [el('dt', {}, finding), el('dd', {}, interpretation)])),
+        el('p', { class: 'rad-quick-note' }, branch.note)))),
+    el('p', { class: 'rad-quick-report' }, el('strong', {}, 'Impression → '), quick.report));
+  const gallery = el('div', { class: 'rad-image-grid' });
+  ref.key_images.filter(image => image.image_type === 'clinical').forEach(asset => {
+    gallery.append(el('figure', { class: 'rad-image-example' },
+      el('img', { src: asset.src, alt: asset.alt, loading: 'lazy', referrerpolicy: 'no-referrer',
+        dataset: { fullSrc: asset.src, sourceFigure: 'true' } }),
+      el('figcaption', {}, el('strong', {}, asset.label), el('p', {}, asset.caption),
+        radiologySourceLink('Source and case details', asset.source_url))));
+  });
+  section.append(el('h3', {}, 'Compare the pattern'), gallery,
+    el('details', {}, el('summary', {}, 'Sources for this quick reference'),
+      el('ul', {}, ...quick.sources.map(source => el('li', {}, radiologySourceLink(source.title, source.url))))));
+  attachPictureHandlers(section);
+  return section;
+}
+
 async function renderRadiologyDesk(page, nodeId) {
   if (!nodeId) {
     const catalog = await reportingGuard(page, () => api.get('/api/radiology/modules'));
     if (!catalog) return;
     page.append(pagehead('Radiology', 'Reporting reference',
-      'Investigations and procedures organised by Radiology Assistant topics, with reporting guides, clinical images and detailed anatomy.'));
+      'Practical reporting guides: reading sequence, measurements, classifications, impression wording and clinical image examples.'));
     const search = el('input', { type: 'search', placeholder: 'Find an exam, finding or classification…',
       'aria-label': 'Search reporting references', class: 'rad-desk-search' });
     const specialty = el('select', { 'aria-label': 'Filter reporting specialty' },
@@ -2394,6 +2662,22 @@ async function renderRadiologyDesk(page, nodeId) {
   const panels = [];
   const templates = legacy.querySelector('.rad-report-templates');
   const choices = [
+    ['quick', 'Quick reference', panel => panel.append(renderReportingStart(n,
+      key => activate(choices.findIndex(([id]) => id === key), true)))],
+    ...(ref.cancer_staging?.length ? [['staging', 'Staging', panel => panel.append(renderCancerStaging(n, {
+      openTab: key => activate(choices.findIndex(([id]) => id === key), true),
+      usePrompts: system => {
+        const editor = templates.querySelector('.rad-report-editor');
+        if (!editor) return;
+        editor.value += '\n\nSTAGING REVIEW — ' + system.title + ' (' + system.version + ')\n'
+          + system.report_fields.map(field => field + ': [ ].').join('\n')
+          + '\nImaging category / descriptor and confidence: [ ].\nUnassessed extent / required clinical or pathological inputs: [ ].';
+        templates.querySelector('.rad-template').open = true;
+        editor.dispatchEvent(new Event('input'));
+        activate(choices.findIndex(([id]) => id === 'template'), true);
+        editor.focus();
+      },
+    }))]] : []),
     ['steps', 'Step by step', panel => panel.append(renderReportWalkthrough(n, { openTemplate: text => {
       // Hand the assembled draft to the free-text editor; its own reset still
       // restores the blank template.
@@ -2407,6 +2691,7 @@ async function renderRadiologyDesk(page, nodeId) {
       editor.focus();
     } }))],
     ['guide', 'Checklist', panel => panel.append(renderReportingGuide(guide, n.id))],
+    ...(ref.annotated_anatomy_links?.length ? [['anatomy', 'Annotated anatomy', panel => panel.append(renderAnnotatedAnatomy(ref))]] : []),
     ['template', 'Report template', panel => panel.append(templates)],
     ['images', studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
       studyReferences.forEach(asset => panel.append(sourceStudyReference(asset)));
@@ -2417,6 +2702,8 @@ async function renderRadiologyDesk(page, nodeId) {
       if (images) { panel.append(images); attachPictureHandlers(images); }
     }],
     ['diagram', 'Diagram', panel => {
+      if (ref.reporting_diagrams?.length) panel.append(renderReportingDiagrams(ref));
+      if (ref.quick_reference) panel.append(renderRadiologyQuickReference(ref));
       if (atlasSchematics.length) panel.append(renderMskAtlasFigures(atlasSchematics, { onExploreSource: exploreSourceKnee }));
       const detailedDiagrams = ref.key_images.filter(image => image.image_type === 'diagram');
       if (detailedDiagrams.length) {
@@ -2514,6 +2801,7 @@ async function renderRadiologyDesk(page, nodeId) {
       if (additional.length) panel.append(el('h3', {}, 'Additional measurement and spatial exercises'), renderLessonMedia(additional));
     }],
     ['sources', 'Sources', panel => {
+      if (ref.annotated_anatomy_links?.length) panel.append(renderAnnotatedAnatomy(ref));
       panel.append(el('h3', {}, 'Reporting references'), el('ul', { class: 'rad-desk-source-list' },
         ...guide.sources.map(source => el('li', {}, radiologySourceLink(source.title, source.url)))));
       const foundation = legacy.querySelector('.rad-reading');
@@ -6372,7 +6660,7 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,
-    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime, lessonSourceGallery, sourceStudyReference });
+    walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime, lessonSourceGallery, sourceStudyReference, referenceFrameIndex });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
   // all — send them to the first page instead of the error card. This needs

@@ -345,6 +345,84 @@ def _visuals():
     return merged
 
 
+@lru_cache(maxsize=1)
+def cancer_staging_catalog():
+    """Versioned, source-linked oncology reporting tables and original diagrams."""
+    catalog = _read('cancer-staging.json')
+    date.fromisoformat(catalog['reviewed_at'])
+    known = {item['id'] for item in catalogue()['investigations']}
+    if not set(catalog['bindings']).issubset(known):
+        raise ValueError('Cancer staging assigned to an unknown investigation')
+    root = DATA.parents[1] / 'web/reference-media/reporting-diagrams/cancer'
+    for identifier, system in catalog['systems'].items():
+        if system.get('id') != identifier or system.get('kind') not in {'staging', 'response'}:
+            raise ValueError('Invalid cancer staging identity or scope')
+        for field in ('title', 'version', 'scope'):
+            _text(system.get(field), 'Cancer staging needs ' + field)
+        date.fromisoformat(system['reviewed_at'])
+        for field in ('tables', 'report_fields', 'limits', 'sources'):
+            if not isinstance(system.get(field), list) or not system[field]:
+                raise ValueError('Cancer staging needs ' + field)
+        for table in system['tables']:
+            _text(table.get('title'), 'Staging table needs a title')
+            if not table.get('rows'):
+                raise ValueError('Staging table needs criteria')
+            for row in table['rows']:
+                for field in ('category', 'criteria', 'report_note'):
+                    _text(row.get(field), 'Staging row needs ' + field)
+        for source in system['sources']:
+            from .radiology import _source
+            _source(source)
+        figure = system['illustration']
+        if figure['src'] != '/app/reference-media/reporting-diagrams/cancer/' + identifier + '.svg':
+            raise ValueError('Cancer staging diagram must use its registered local SVG')
+        path = (root / (identifier + '.svg')).resolve()
+        if not path.is_relative_to(root.resolve()) or not path.is_file():
+            raise ValueError('Missing cancer staging illustration')
+        _text(figure.get('alt'), 'Cancer staging diagram needs accessible text')
+    for selection in catalog['bindings'].values():
+        if (not selection or len(selection) != len(set(selection))
+                or not set(selection).issubset(catalog['systems'])):
+            raise ValueError('Cancer staging binding needs distinct known systems')
+    return catalog
+
+
+@lru_cache(maxsize=1)
+def annotated_anatomy_links():
+    """External annotated case references, distinct from licensed local images."""
+    from .radiology import _source
+    data = _read('annotated-anatomy-links.json')
+    known = {item['id'] for item in catalogue()['investigations']}
+    if not set(data['bindings']).issubset(known):
+        raise ValueError('Annotated anatomy link has an unknown investigation')
+    for reference in data['references'].values():
+        _source(reference)
+        _text(reference.get('reporting_use'), 'Anatomy reference needs its reporting use')
+        if reference.get('stack'):
+            stack = reference['stack']
+            expected = '/app/reference-media/annotated-ct/' + reference['id'] + '.json'
+            if stack.get('manifest_url') != expected:
+                raise ValueError('Annotated CT stack must use its registered manifest')
+            manifest = _read('../../web/reference-media/annotated-ct/' + reference['id'] + '.json')
+            frames = manifest.get('frames', [])
+            if (len(frames) != stack['frame_count'] or not frames
+                    or len({frame['src'] for frame in frames}) != len(frames)
+                    or [frame['index'] for frame in frames] != list(range(len(frames)))
+                    or manifest['source_url'] != reference['url']):
+                raise ValueError('Annotated CT stack identity, count or order differs')
+            for frame in frames:
+                if not re.fullmatch(r'https://prod-images-static\.radiopaedia\.org/images/[0-9]+/[a-zA-Z0-9]+_big_gallery\.jpeg', frame['source_image_url']):
+                    raise ValueError('Annotated CT stack has an unreviewed image host or path')
+                expected_frame = '/app/reference-media/annotated-ct/' + reference['id'] + '/' + str(frame['index'] + 1).zfill(3) + '.jpeg'
+                if frame['src'] != expected_frame:
+                    raise ValueError('Annotated CT stack has an unregistered local frame')
+                frame_path = DATA.parents[1] / 'web' / frame['src'].removeprefix('/app/')
+                if hashlib.sha256(frame_path.read_bytes()).hexdigest() != frame['sha256']:
+                    raise ValueError('Preserved annotated CT frame changed after acquisition')
+    return {identifier: [copy.deepcopy(data['references'][key]) for key in selection]
+            for identifier, selection in data['bindings'].items()}
+
+
 def _validate_native_volume_figure(image, root):
     """Validate packaged section provenance without approving clinical anatomy."""
     if (image.get('kind') != 'clinical-image' or image.get('modality') not in {'CT','MRI'}
@@ -788,6 +866,8 @@ def _structure_atlases():
 
 
 def resolve(identifier):
+    if identifier == 'ra.hrct-cystic-lung':
+        identifier = 'ra.hrct-lung'
     investigations = catalogue()['investigations']
     exact = next((item for item in investigations if item['id'] == identifier), None)
     if exact:
@@ -819,6 +899,25 @@ def _template(item, guide, base):
     template['notes'] = guide['pitfalls']
     template['sources'] = guide['sources']
     return template
+
+
+def reporting_image(image):
+    """Keep diagnostic images and teaching diagrams out of research-figure clutter.
+
+    Preserve original source records/bytes for provenance; exclude whole mixed
+    figures rather than silently cropping licensed publisher panels.
+    """
+    if image.get('origin') == 'source-derived':
+        return False
+    excluded = ('dissection', 'histology', 'photograph', 'specimen', 'experimental')
+    if any(any(term in panel.get('kind', '').lower() for term in excluded)
+           for panel in image.get('ancillary_panels', [])):
+        return False
+    description = ' '.join(str(image.get(key, '')) for key in
+                           ('caption', 'alt', 'title', 'source_url')).lower()
+    return not any(term in description for term in
+                   ('synchrotron', 'phase-contrast tomography', 's41597-022-01353',
+                    'micro-ct', 'microct', 'experimental setup'))
 
 
 def detail(curriculum, item):
@@ -915,7 +1014,17 @@ def detail(curriculum, item):
     ref['source_anatomy_references'] = copy.deepcopy(_source_anatomy_references().get(item['id'], []))
     ref['source_motion_references'] = copy.deepcopy(_source_motion_references().get(item['id'], []))
     ref['source_study_references'] = copy.deepcopy(_source_study_references().get(item['id'], []))
+    ref['annotated_anatomy_links'] = copy.deepcopy(annotated_anatomy_links().get(item['id'], []))
     ref['investigation'] = copy.deepcopy(item)
+    if item['id'] == 'ra.hrct-lung':
+        ref['quick_reference'] = _read('hrct-quick-reference.json')
+    if item['module_id'] == 'rad.5.aorta':
+        ref['reporting_diagrams'] = _read('aortic-reporting-diagrams.json')
+    cancer = cancer_staging_catalog()
+    if item['id'] in cancer['bindings']:
+        ref['cancer_staging'] = [copy.deepcopy(cancer['systems'][key])
+                                 for key in cancer['bindings'][item['id']]]
+        ref['cancer_staging_reviewed_at'] = cancer['reviewed_at']
     corrected = _step_model(item, _steps()['investigations'].get(item['id'], {}))
     if corrected and not has_source_binding:
         ref['spatial_model'] = corrected
@@ -928,6 +1037,11 @@ def detail(curriculum, item):
     validate_reference(ref)
     ref['walkthrough'] = _walkthrough(item, dict(ref, spatial_model=walkthrough_model))
     ref['walkthrough']['spatial_model'] = walkthrough_model
+    for collection in ('key_images', 'structure_atlas'):
+        ref[collection] = [image for image in ref[collection] if reporting_image(image)]
+    visible = {image['id'] for key in ('key_images', 'structure_atlas') for image in ref[key]}
+    for step in [ref['walkthrough']['start'], *ref['walkthrough']['steps']]:
+        step['images'] = [identifier for identifier in step['images'] if identifier in visible]
     return {'id': item['id'], 'module_id': node['id'], 'title': item['title'],
             'section': item['section'], 'topic': item['topic'], 'modality': item['modality'],
             'source_titles': item['source_titles'], 'goal': item['summary'],
@@ -946,6 +1060,7 @@ def index(curriculum):
             'topics': list(dict.fromkeys([item['topic'], item['modality'], *item['source_titles'],
                 *[heading for article in reference['reading'] for heading in article.get('headings', [])],
                 *[point['label'] for point in reference['reporting']['checklist']],
+                *[system['title'] for system in reference.get('cancer_staging', [])],
                 *({'Musculoskeletal': ['MSK'], 'Head/Neck': ['ENT'], 'Pediatrics': ['paediatric', 'pediatric']}.get(item['section'], [])),
                 *({'ra.ct-coronary': ['CCTA', 'CTCA'], 'ra.mri-prostate': ['mpMRI', 'PI-RADS']}.get(item['id'], []))])),
             'image_count': len(reference['key_images']) + len(reference.get('structure_atlas', []))
@@ -953,6 +1068,7 @@ def index(curriculum):
             'motion_count': len(reference.get('source_motion_references',[])),
             'template_count': len(reference['report_templates']),
             'classification': classification['name'] if classification else '',
+            'staging_systems': [system['title'] for system in reference.get('cancer_staging', [])],
             'model_family': reference['spatial_model']['family'],
             'step_count': len(reference['walkthrough']['steps']),
             'reviewed_at': reference['reporting']['reviewed_at'],

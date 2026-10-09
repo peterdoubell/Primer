@@ -21,7 +21,7 @@ def test_all_reference_headings_are_backed_by_radiology_assistant():
     cat = radiology_catalog.catalogue()
     sources = json.loads((ROOT/'data/radiology/source-catalog.json').read_text())['articles']
     refs = cat['investigations']
-    assert len(refs) == 137
+    assert len(refs) == 136
     counts = Counter(a for item in refs for a in item['article_ids'])
     assert set(counts) == {a['id'] for a in sources}
     assert all(count == 1 for count in counts.values())
@@ -326,3 +326,26 @@ def test_regional_source_configuration_rejects_ambiguous_anatomy(curriculum,monk
     item=next(x for x in radiology_catalog.catalogue()['investigations'] if x['id']=='ra.mri-muscle-injury')
     with pytest.raises(ValueError,match='Regional'):
         radiology_catalog.detail(curriculum,item)
+
+
+def test_hrct_combines_four_sources_and_preserves_old_link(curriculum):
+    item = radiology_catalog.resolve('ra.hrct-cystic-lung')
+    assert item['id'] == 'ra.hrct-lung'
+    assert len(item['article_ids']) == 4
+    ref = radiology_catalog.detail(curriculum, item)['radiology_reference']
+    assert len(ref['quick_reference']['branches']) == 3
+    assert len(ref['walkthrough']['steps']) == 8
+    assert {'CYST MORPHOLOGY', 'FIBROSIS', 'PATTERN SYNTHESIS'} <= {
+        section['heading'] for section in ref['report_templates'][0]['sections']}
+    assert {'hrct-image-2', 'hrct-bhd-comparison', 'hrct-plch-comparison'} <= {
+        image['id'] for image in ref['key_images']}
+
+
+def test_reporting_images_exclude_research_and_specimen_panels():
+    keep = radiology_catalog.reporting_image
+    assert keep({'caption': 'Axial CT: subpleural honeycombing'})
+    assert keep({'caption': 'Diagnostic distribution schematic', 'kind': 'schematic'})
+    assert not keep({'caption': 'Synchrotron phase-contrast tomography of fixed lung'})
+    assert not keep({'origin': 'source-derived', 'caption': 'Rendered specimen mesh'})
+    assert not keep({'ancillary_panels': [{'kind': 'Dissection'}]})
+    assert not keep({'ancillary_panels': [{'kind': 'Anatomical specimen photograph'}]})

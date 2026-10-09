@@ -87,8 +87,8 @@ def test_reporting_endpoints_are_direct_and_do_not_fetch_wiki_or_change_progress
         index = client.get('/api/radiology/modules')
         detail = client.get('/api/radiology/modules/rad.5.prostate-mri')
         assert index.status_code == detail.status_code == 200
-        assert index.json()['count'] == 137
-        assert len(index.json()['modules']) == 137
+        assert index.json()['count'] == 136
+        assert len(index.json()['modules']) == 136
         assert 'report_templates' not in index.text
         assert 'key_images' not in index.text
         body = detail.json()
@@ -116,3 +116,30 @@ def test_reporting_endpoints_keep_the_existing_hosted_access_gate(curriculum, tm
             assert client.get(path, auth=('reader', 'secret')).status_code == 200
     finally:
         client.close()
+
+
+def test_aortic_guides_have_classification_diagrams_and_report_fields(curriculum):
+    from primer import radiology_catalog as catalog
+    import xml.etree.ElementTree as ET
+    for identifier in ('ra.aortic-aneurysm-rupture', 'ra.ct-acute-aortic-syndrome', 'ra.thoracic-aorta-measurement'):
+        ref = catalog.detail(curriculum, catalog.resolve(identifier))['radiology_reference']
+        assert len(ref['reporting_diagrams']) == 2
+        for diagram in ref['reporting_diagrams']:
+            path = ROOT / 'web' / diagram['src'].removeprefix('/app/')
+            assert ET.parse(path).getroot().tag.endswith('svg')
+            assert diagram['source']['url'].startswith('https://')
+        assert ref['reporting']['measurements']
+    ref = catalog.detail(curriculum, catalog.resolve('ra.ct-acute-aortic-syndrome'))['radiology_reference']
+    categories = {row['category'] for row in ref['reporting']['criteria_table']['rows']}
+    assert {'DeBakey I', 'DeBakey II', 'DeBakey IIIa', 'DeBakey IIIb', 'Stanford A', 'Stanford B'} <= categories
+    assert 'DeBakey' in ref['report_templates'][0]['sections'][4]['body']
+
+
+def test_all_investigations_support_practical_reporting_start(curriculum):
+    from primer import radiology_catalog as catalog
+    for item in catalog.catalogue()['investigations']:
+        ref = catalog.detail(curriculum, item)['radiology_reference']
+        assert ref['walkthrough']['steps'], item['id']
+        assert all(step['detail'] and step['findings'] for step in ref['walkthrough']['steps']), item['id']
+        assert ref['reporting']['impression_prompts'], item['id']
+        assert ref['report_templates'], item['id']
