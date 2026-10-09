@@ -16,7 +16,7 @@ def audit(source_root, output):
     for sex in ['female', 'male']:
         review, parts = source(source_root / sex, sex)
         vertices, faces, identities, preparation = contact_arrays(parts)
-        print('Auditing all', sex, 'source triangles', flush=True)
+        print('Auditing complete original source triangles.', flush=True)
         contacts = inspect(vertices, faces)
         pairs = Counter()
         for row in contacts['unexpected_contacts']:
@@ -35,7 +35,7 @@ def audit(source_root, output):
                           'contact_count': contacts['unexpected_contact_count'],
                           'affected_parts': [{'parts': list(k), 'contact_pairs': v} for k, v in sorted(pairs.items())],
                           'clinical_approval': False})
-        print(sex, 'contact pairs', contacts['unexpected_contact_count'], flush=True)
+        print('Complete source contact evidence saved.', flush=True)
     (output / 'complete-contact-summary.json').write_text(json.dumps(summaries, indent=2) + '\n')
 
 

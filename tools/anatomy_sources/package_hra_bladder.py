@@ -102,7 +102,7 @@ def package(source_root, output, review_output):
             'source_boundary_edge_occurrences': boundaries['source_boundary_edge_occurrences'], 'unmatched_boundary_edges': boundaries['unmatched_boundary_edges'],
             'canonical_FMA_URI_mismatches': sum(not r['semantic_metadata_exact_match'] for r in review['records']),
             'clinical_approval': False, 'complete_reporting_anatomy_approved': False})
-        print(sex, manifest['total_triangles'], 'original triangles; unmatched source edges', boundaries['unmatched_boundary_edges'], flush=True)
+        print('Complete original source transport and boundary evidence saved.', flush=True)
     (review_output / 'transport-review.json').write_text(json.dumps(receipts, indent=2) + '\n')
 
 
