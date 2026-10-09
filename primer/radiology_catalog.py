@@ -930,9 +930,20 @@ def reporting_image(image):
     if image.get('origin') == 'source-derived' and image.get('kind') != 'schematic':
         return False
     excluded = ('dissection', 'histology', 'photograph', 'specimen', 'experimental')
+    # Explicit tissue references retain complete mixed artwork: ancillary
+    # workstation photographs remain separate from the primary ex-vivo slide.
+    # This does not make them MRI, acquired 3D or diagnostic approval.
+    context = image.get('source_context', {})
+    panels = image.get('clinical_panels', [])
+    tissue = (image.get('source_tissue_evidence') is True
+              and image.get('kind') == 'clinical-image'
+              and image.get('modality') == 'Histology'
+              and context.get('setting') == 'ex_vivo'
+              and bool(panels)
+              and all(context.get('panel_types', {}).get(p) == 'Histology' for p in panels))
     clinical = image.get('kind') == 'clinical-image' and image.get('modality') in {
         'CT', 'MRI', 'MR arthrography', 'Ultrasound', 'Radiography', 'CT arthrography'}
-    if (not clinical
+    if (not (clinical or tissue)
             and any(any(term in panel.get('kind', '').lower() for term in excluded)
                     for panel in image.get('ancillary_panels', []))):
         return False

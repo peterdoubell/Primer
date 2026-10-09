@@ -461,6 +461,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'cs.3.data-structures': (3, 'stack-queue-lab'),
         'math.4.linalg': (4, 'matrix-transform-lab'),
         'math.4.diffeq': (4, 'math-ode-lab'),
+        'math.4.multivar': (4, 'math-field-lab'),
         'phys.4.fluids': (4, 'venturi-flow-lab'),
         'bio.4.molecular': (4, 'gene-expression-stepper'),
         'cs.4.networks': (4, 'tcp-packet-tracer'),
@@ -653,7 +654,7 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'outer disk and excludes the galactic center',
         'makes the field transition abrupt',
         'relative density (peak = 1)',
-        'fixed 24 μs axis',
+        'gravity and acceleration require additional treatment',
         'absolute temperatures in kelvin',
         'relatively scaled, not normalized densities',
         'synthetic example, not experimental data',
@@ -2123,6 +2124,27 @@ def _web(name):
         return fh.read()
 
 
+def _assert_models_stay_local(js):
+    # A cited external document can legitimately contain /api/ in its URL.
+    # Block network calls and local API paths rather than that URL substring.
+    assert not re.search(r"\bfetch\s*\(", js)
+    assert not re.search(r"[\"']/api/", js)
+
+
+@pytest.mark.parametrize("source,allowed", [
+    ("node('a', {href: 'https://media.schott.com/api/public/content/document'}, 'Source')", True),
+    ("fetch('/api/quiz/submit')", False),
+    ("fetch ('https://example.org/anything')", False),
+    ("api.post('/api/score')", False),
+])
+def test_local_model_guard_distinguishes_source_links_from_api_calls(source, allowed):
+    if allowed:
+        _assert_models_stay_local(source)
+    else:
+        with pytest.raises(AssertionError):
+            _assert_models_stay_local(source)
+
+
 def test_text_on_a_coloured_fill_flips_with_the_theme():
     """Regression: fills lighten in dark mode while their text stayed `#fff`, so
     the completed-quest tick measured 2.00:1 — the primary completion indicator
@@ -2185,7 +2207,7 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'day-night-rotation-lab', 'classroom-paint-mixer',
                      'physics-concept-lab'):
         assert renderer in js
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
     assert "type: 'range'" in js and "type: 'button'" in js
     assert 'runPackBag' in js and 'traceJamSandwich' in js and 'Read this activity aloud' in js
@@ -2239,7 +2261,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '36 scenarios, 63 independently exercised controls' in result.stdout
+    assert '36 scenarios, 65 independently exercised controls' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
@@ -2376,7 +2398,7 @@ def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
         assert 'frame.readout.textContent' in source
         assert 'frame.status.textContent' in source
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
     model_frame = js[js.index('function modelFrame('):js.index('function clampNumber(')]
     assert "role: 'status'" in model_frame and "'aria-live': 'polite'" in model_frame
 
@@ -2419,7 +2441,7 @@ def test_grove_model_registration_accessibility_resets_and_accuracy_caveats():
         assert 'frame.readout.textContent' in source
         assert 'frame.status.textContent' in source
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
     for reset in ('selected = authoredTransform;', 'selected = authoredThroat;',
                   'stage = authoredStage;', 'step = 0;'):
         assert reset in js
@@ -2464,7 +2486,7 @@ def test_forest_model_registration_accessibility_resets_and_accuracy_caveats():
         assert 'frame.readout.textContent' in source
         assert 'frame.status.textContent' in source
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
 
     lower = js.lower()
     for accuracy_phrase in (
@@ -2511,7 +2533,7 @@ def test_second_seedling_model_registration_accessibility_resets_and_guardrails(
         assert 'aria-label' in source
         assert 'authored' in source.lower(), '{} reset must restore authored state'.format(renderer)
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
 
     alphabet = sources['alphabet-explorer']
     assert 'more than one sound' in alphabet
@@ -2576,7 +2598,7 @@ def test_second_sprout_model_registration_accessibility_resets_and_guardrails():
         assert 'authored' in source.lower(), \
             '{} reset must restore authored state'.format(renderer)
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
 
     reading = sources['reading-path-lab']
     for phrase in ('one simple english example', 'blending is one reading strategy',

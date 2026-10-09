@@ -5619,6 +5619,16 @@
      "props": {
       "scenario": "math.4.multivar"
      }
+    },
+    {
+     "id": "math.4.multivar.integral-flux-model",
+     "kind": "model",
+     "renderer": "math-field-lab",
+     "title": "Accumulate an integral and measure boundary flux",
+     "instructions": "Change the rectangle, cell resolution and accumulation boundary. Compare signed Riemann prisms with the exact double integral, then compare the interior integral with flux through each of the four oriented sides.",
+     "props": {
+      "scenario": "math.4.multivar.integral-flux"
+     }
     }
    ]
   },
@@ -5648,7 +5658,7 @@
      "kind": "model",
      "renderer": "matrix-transform-lab",
      "title": "Transform the plane",
-     "instructions": "Choose a fixed 2-by-2 matrix. Compare the original grid, basis vectors and vector v with their images, then use the determinant to predict area scaling and invertibility.",
+     "instructions": "Choose a fixed 2-by-2 matrix. Compare the grid, basis vectors and v with their images, then inspect area scaling, eigenvectors, column space and kernel. Rotate the unit probe to distinguish an eigenvector from a general vector.",
      "props": {
       "start_transform": "x-shear"
      }

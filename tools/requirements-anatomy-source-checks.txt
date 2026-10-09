@@ -1,5 +1,7 @@
-# Offline source-array verification only; not a production dependency.
+# Offline source-array and published-figure verification; not production dependencies.
 # This release supports both CI Python 3.10 and 3.12.
 numpy==2.2.6
 # Existing source-boundary checks use spatial trees and distance oracles.
 scipy==1.15.3
+# Reproduce original PDF image streams in both CI environments.
+pypdf==6.10.0

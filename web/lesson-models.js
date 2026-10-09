@@ -239,10 +239,10 @@
     const start = Math.round(clampNumber(props.start_position, 0, 100, 45));
     let lampOn = true;
     const picture = svgNode('svg', {
-      viewBox: '0 0 640 280', class: 'shadow-model-svg', 'aria-hidden': 'true', focusable: 'false',
+      viewBox: '0 0 640 280', class: 'shadow-model-svg science-diagram', 'aria-hidden': 'true', focusable: 'false',
     });
     const field = svgNode('rect', { x: 8, y: 8, width: 624, height: 264, rx: 18, class: 'shadow-model-field' });
-    const table = svgNode('line', { x1: 24, y1: 220, x2: 612, y2: 220, class: 'shadow-table-line' });
+    const table = svgNode('line', { x1: 24, y1: 220, x2: 98, y2: 220, class: 'shadow-table-line' });
     const glow = svgNode('circle', { cx: 60, cy: 140, r: 32, class: 'shadow-lamp-glow' });
     const lamp = svgNode('g', { class: 'shadow-lamp' });
     lamp.append(
@@ -255,9 +255,10 @@
     const blocker = svgNode('g', { class: 'shadow-blocker' });
     // A plain opaque card keeps the projection honest: its top and bottom are
     // exactly the two boundary points used to calculate the cast rectangle.
-    blocker.append(svgNode('rect', { x: -16, y: 100, width: 32, height: 80, rx: 5 }));
-    const screen = svgNode('rect', { x: 575, y: 20, width: 36, height: 232, rx: 5, class: 'shadow-screen' });
-    const shadow = svgNode('rect', { x: 584, width: 18, rx: 9, class: 'shadow-cast' });
+    blocker.append(svgNode('rect', { x: -16, y: 100, width: 32, height: 80, rx: 0,
+      'data-shadow-blocker': 'true' }));
+    const screen = svgNode('rect', { x: 584, y: 8, width: 24, height: 264, rx: 0, class: 'shadow-screen' });
+    const shadow = svgNode('rect', { x: 584, width: 18, rx: 0, class: 'shadow-cast' });
     picture.append(field, glow, topRay, bottomRay, table, screen, shadow, lamp, blocker);
 
     const sliderId = 'shadow-position-' + nextModelId;
@@ -287,24 +288,26 @@
       const sourceX = 60;
       const sourceY = 140;
       const screenX = 584;
-      const scale = (screenX - sourceX) / (objectX - sourceX);
+      const frontX = objectX - 16;
+      const scale = (screenX - sourceX) / (frontX - sourceX);
       const top = sourceY - 40 * scale;
       const height = 80 * scale;
       const size = height > 180 ? 'large' : height > 130 ? 'medium-sized' : 'small';
-      blocker.setAttribute('transform', 'translate(' + objectX.toFixed(1) + ' 0)');
+      blocker.setAttribute('transform', 'translate(' + objectX + ' 0)');
       topRay.setAttribute('x1', sourceX); topRay.setAttribute('y1', sourceY);
-      topRay.setAttribute('x2', screenX); topRay.setAttribute('y2', top.toFixed(1));
+      topRay.setAttribute('x2', screenX); topRay.setAttribute('y2', top);
       bottomRay.setAttribute('x1', sourceX); bottomRay.setAttribute('y1', sourceY);
-      bottomRay.setAttribute('x2', screenX); bottomRay.setAttribute('y2', (top + height).toFixed(1));
-      shadow.setAttribute('y', top.toFixed(1));
-      shadow.setAttribute('height', height.toFixed(1));
+      bottomRay.setAttribute('x2', screenX); bottomRay.setAttribute('y2', top + height);
+      shadow.setAttribute('y', top);
+      shadow.setAttribute('height', height);
       [glow, topRay, bottomRay, shadow].forEach(part => { part.style.display = lampOn ? '' : 'none'; });
       picture.classList.toggle('is-lamp-off', !lampOn);
       slider.style.setProperty('--range-fill', value + '%');
       const place = positionWords(value);
       slider.setAttribute('aria-valuetext', value + ' of 100, ' + place);
       frame.readout.textContent = lampOn
-        ? 'Lamp on · blocker ' + place + ' · ' + size + ' shadow'
+        ? 'Lamp on · blocker ' + place + ' · ' + size + ' shadow. The card is 80 coordinate units tall; its shadow is ' +
+          height.toFixed(2) + ' units tall, a magnification of ' + scale.toFixed(3) + '.'
         : 'Lamp off · no cast shadow';
       if (announce) {
         frame.status.textContent = lampOn
@@ -329,7 +332,8 @@
     }, 'Reset');
 
     frame.canvas.classList.add('shadow-canvas');
-    frame.canvas.append(picture);
+    frame.canvas.append(picture, node('p', { class: 'spatial-note' },
+      'The lamp is an ideal point source at its centre. Boundary rays touch the near face of the opaque card; all lengths share one scale. A real extended lamp can make soft shadow edges, which this model does not calculate.'));
     frame.controls.append(sliderLabel, node('div', { class: 'model-button-row' }, lampButton, resetButton));
     updateShadow(false);
     return frame.root;
@@ -569,11 +573,46 @@
   function renderLightPaths(item, hooks) {
     const frame = modelFrame(item, hooks);
     let selected = 'prism';
+    let spectralChoice = 0;
+    // SCHOTT N-BK7 tabulated refractive indices, not an invented colour fan.
+    // A finite set of wavelength samples stands in for continuous white light.
+    const spectra = [
+      { name: 'red', wavelength: 706.5, index: 1.51289, color: '#d95842' },
+      { name: 'orange', wavelength: 643.8, index: 1.51472, color: '#e79732' },
+      { name: 'yellow', wavelength: 589.3, index: 1.51673, color: '#e8c94d' },
+      { name: 'green', wavelength: 546.1, index: 1.51872, color: '#6fae66' },
+      { name: 'cyan', wavelength: 486.1, index: 1.52238, color: '#4f8fbd' },
+      { name: 'blue', wavelength: 435.8, index: 1.52668, color: '#5b6daf' },
+      { name: 'violet', wavelength: 404.7, index: 1.53024, color: '#755a9d' },
+    ];
+    const wavelengthName = choice => choice === 0 ? 'white light (seven sampled lines)' :
+      spectra[choice - 1].name + ' · ' + spectra[choice - 1].wavelength + ' nm';
     const picture = svgNode('svg', {
-      viewBox: '0 0 640 280', class: 'light-path-svg', 'aria-hidden': 'true', focusable: 'false',
+      viewBox: '0 0 640 280', class: 'light-path-svg science-diagram', 'aria-hidden': 'true', focusable: 'false',
     });
     const optionButtons = {};
     const optionRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose what light meets' });
+    const wavelengthId = 'lesson-spectrum-' + nextModelId;
+    const wavelengthOutput = node('output', { for: wavelengthId });
+    const wavelengthInput = node('input', { id: wavelengthId, type: 'range', min: 0, max: 7, step: 1,
+      value: 0, 'aria-label': 'Prism light', oninput: event => {
+        spectralChoice = Number(event.currentTarget.value); draw(false);
+      }, onchange: () => draw(true) });
+    const wavelengthControl = node('label', { class: 'model-slider', for: wavelengthId },
+      node('span', { class: 'model-slider-title' }, 'Prism light'), wavelengthOutput, wavelengthInput,
+      node('span', { class: 'model-slider-ends' }, node('span', {}, 'white'), node('span', {}, 'red → violet')));
+
+    function prismRay(sample) {
+      const normalAngle = Math.atan2(50, 164);
+      const insideAngle = normalAngle - Math.asin(Math.sin(normalAngle) / sample.index);
+      const insideSlope = Math.tan(insideAngle);
+      const entry = [295, 140];
+      const exitX = (140 - insideSlope * 295 - 58 + 164 / 50 * 320) / (164 / 50 - insideSlope);
+      const exit = [exitX, 140 + insideSlope * (exitX - 295)];
+      const outsideAngle = Math.asin(sample.index * Math.sin(insideAngle + normalAngle)) - normalAngle;
+      const screen = [604, exit[1] + Math.tan(outsideAngle) * (604 - exit[0])];
+      return { entry, exit, screen, outsideAngle };
+    }
 
     function lampParts() {
       return [
@@ -596,42 +635,56 @@
       picture.append(svgNode('rect', { x: 8, y: 8, width: 624, height: 264, rx: 18, class: 'light-path-field' }));
       lampParts().forEach(part => picture.append(part));
       if (selected === 'prism') {
-        const gradientId = 'lesson-spectrum-' + nextModelId;
-        const defs = svgNode('defs');
-        const gradient = svgNode('linearGradient', { id: gradientId, x1: '0%', y1: '0%', x2: '0%', y2: '100%' });
-        [['0%', '#d95842'], ['18%', '#e79732'], ['36%', '#e8c94d'], ['54%', '#6fae66'],
-          ['72%', '#4f8fbd'], ['100%', '#755a9d']].forEach(([offset, color]) =>
-          gradient.append(svgNode('stop', { offset, 'stop-color': color })));
-        defs.append(gradient);
-        picture.append(defs,
-          ...whiteRay(78, 140, 288, 140),
-          svgNode('polygon', { points: '320,58 270,222 370,222', class: 'light-prism' }),
-          svgNode('polygon', { points: '342,140 604,150 604,238', fill: 'url(#' + gradientId + ')', class: 'light-spectrum' }),
+        picture.append(svgNode('polygon', { points: '320,58 270,222 370,222', class: 'light-prism' }),
+          ...whiteRay(64, 140, 295, 140),
           svgNode('rect', { x: 604, y: 38, width: 16, height: 214, rx: 4, class: 'light-screen' }));
+        const displayed = spectralChoice === 0 ? spectra : [spectra[spectralChoice - 1]];
+        displayed.forEach(sample => {
+          const ray = prismRay(sample);
+          [['internal', ray.entry, ray.exit], ['outgoing', ray.exit, ray.screen]].forEach(([role, first, last]) => {
+            picture.append(svgNode('line', { x1: first[0], y1: first[1], x2: last[0], y2: last[1],
+              stroke: sample.color, 'stroke-width': spectralChoice ? 4 : 1.5,
+              'data-optical-segment': role, 'data-optical-wavelength': sample.wavelength,
+              'data-optical-index': sample.index }));
+          });
+        });
+        picture.append(svgText('Small spread is physically to scale', { x: 320, y: 25,
+          'text-anchor': 'middle', fill: 'currentColor', 'font-size': 16 }));
       } else if (selected === 'mirror') {
         picture.append(
-          ...whiteRay(78, 140, 320, 220),
-          svgNode('line', { x1: 320, y1: 220, x2: 562, y2: 140, class: 'light-reflected-ray' }),
+          ...whiteRay(64, 140, 320, 220),
+          svgNode('line', { x1: 320, y1: 220, x2: 576, y2: 140, class: 'light-reflected-ray' }),
           svgNode('line', { x1: 224, y1: 220, x2: 416, y2: 220, class: 'light-mirror' }),
           svgNode('line', { x1: 320, y1: 164, x2: 320, y2: 262, class: 'light-normal' }),
-          svgNode('path', { d: 'M548 140 Q566 124 584 140 Q566 156 548 140 Z', class: 'light-eye' }),
-          svgNode('circle', { cx: 566, cy: 140, r: 5, class: 'light-pupil' }));
+          svgNode('path', { d: 'M558 140 Q576 124 594 140 Q576 156 558 140 Z', class: 'light-eye' }),
+          svgNode('circle', { cx: 576, cy: 140, r: 5, class: 'light-pupil' }));
       } else {
         picture.append(
-          ...whiteRay(78, 140, 304, 140),
+          ...whiteRay(64, 140, 304, 140),
           svgNode('rect', { x: 304, y: 98, width: 76, height: 84, rx: 17, class: 'light-toy' }),
-          svgNode('line', { x1: 380, y1: 140, x2: 552, y2: 82, class: 'light-reflected-ray' }),
-          svgNode('line', { x1: 380, y1: 140, x2: 520, y2: 150, class: 'light-scatter-ray' }),
-          svgNode('line', { x1: 380, y1: 140, x2: 500, y2: 228, class: 'light-scatter-ray' }),
-          svgNode('path', { d: 'M540 82 Q558 66 576 82 Q558 98 540 82 Z', class: 'light-eye' }),
-          svgNode('circle', { cx: 558, cy: 82, r: 5, class: 'light-pupil' }));
+          svgNode('line', { x1: 304, y1: 140, x2: 184, y2: 68, class: 'light-reflected-ray' }),
+          svgNode('line', { x1: 304, y1: 140, x2: 118, y2: 160, class: 'light-scatter-ray' }),
+          svgNode('line', { x1: 304, y1: 140, x2: 190, y2: 240, class: 'light-scatter-ray' }),
+          svgNode('path', { d: 'M166 68 Q184 52 202 68 Q184 84 166 68 Z', class: 'light-eye' }),
+          svgNode('circle', { cx: 184, cy: 68, r: 5, class: 'light-pupil' }));
       }
       Object.entries(optionButtons).forEach(([name, button]) => {
         const active = name === selected;
         button.classList.toggle('is-selected', active);
         button.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
-      frame.readout.textContent = LIGHT_PATHS[selected].readout;
+      wavelengthControl.hidden = selected !== 'prism';
+      wavelengthInput.value = String(spectralChoice);
+      wavelengthInput.setAttribute('aria-valuetext', wavelengthName(spectralChoice));
+      wavelengthOutput.textContent = wavelengthName(spectralChoice);
+      if (selected === 'prism') {
+        const displayed = spectralChoice === 0 ? spectra : [spectra[spectralChoice - 1]];
+        frame.readout.textContent = 'Prism · ' + wavelengthName(spectralChoice) +
+          '. Incoming, internal and outgoing segments join at both faces and obey Snell’s law with air index 1. ' +
+          displayed.map(sample => sample.wavelength + ' nm: n=' + sample.index + ', deviation ' +
+            (prismRay(sample).outsideAngle * 180 / Math.PI).toFixed(3) + '°').join('; ') +
+          '. Indices are tabulated SCHOTT N-BK7 values. Seven rays approximate continuous white light; colours and equal line weights are display cues, not a measured spectrum. Fresnel reflections, absorption and diffraction are omitted.';
+      } else frame.readout.textContent = LIGHT_PATHS[selected].readout;
       if (announce) frame.status.textContent = LIGHT_PATHS[selected].status;
     }
 
@@ -646,6 +699,7 @@
     const resetButton = node('button', {
       type: 'button', class: 'btn ghost small', onclick: () => {
         selected = 'prism';
+        spectralChoice = 0;
         draw(false);
         frame.status.textContent = 'Back to the prism and white light.';
       },
@@ -653,7 +707,11 @@
 
     frame.canvas.classList.add('light-path-canvas');
     frame.canvas.append(picture);
-    frame.controls.append(optionRow, node('div', { class: 'model-button-row' }, resetButton));
+    frame.canvas.append(node('p', { class: 'spatial-note' },
+      'Prism: a fixed ideal ray geometry with ', node('a', { href: 'https://media.schott.com/api/public/content/41e799d0bf874807a0bb8e702fbb75b5?v=54856406',
+        target: '_blank', rel: 'noopener noreferrer' }, 'SCHOTT N-BK7 refractive-index data'),
+      '. Mirror: equal angles to its normal. Toy: illustrative diffuse rays leave the illuminated face; their directions do not encode a scattering probability distribution.'));
+    frame.controls.append(optionRow, wavelengthControl, node('div', { class: 'model-button-row' }, resetButton));
     draw(false);
     return frame.root;
   }
@@ -2436,6 +2494,8 @@
     const props = item.props || {};
     const authoredTransform = MATRIX_TRANSFORMS[props.start_transform] ? props.start_transform : 'x-shear';
     let selected = authoredTransform;
+    const eigenspace = window.PrimerMathEigenspace?.create();
+    let gridExtent = 2;
     const original = svgNode('svg', {
       viewBox: '0 0 300 280', class: 'matrix-grid', 'aria-hidden': 'true', focusable: 'false',
     });
@@ -2455,7 +2515,8 @@
     }
     function drawGrid(svg, matrix) {
       svg.replaceChildren();
-      const map = point => [150 + point[0] * 48, 140 - point[1] * 48];
+      const scale = 116 / gridExtent;
+      const map = point => [150 + point[0] * scale, 140 - point[1] * scale];
       const segment = (from, to, className) => {
         const start = map(applyMatrix(matrix, from));
         const end = map(applyMatrix(matrix, to));
@@ -2472,6 +2533,15 @@
         svg.append(svgNode('circle', { cx: end[0], cy: end[1], r: 5, class: className + '-tip' }));
       };
       svg.append(svgNode('rect', { x: 8, y: 8, width: 284, height: 264, rx: 14, class: 'matrix-grid-field' }));
+      // Both panels keep the same Cartesian scale; all transformed corners fit.
+      // The stronger axis lines below are the images of the original grid axes.
+      svg.append(svgNode('line', { x1: 28, y1: 140, x2: 272, y2: 140, stroke: '#aaa', 'stroke-dasharray': '3 4' }),
+        svgNode('line', { x1: 150, y1: 18, x2: 150, y2: 260, stroke: '#aaa', 'stroke-dasharray': '3 4' }));
+      [-gridExtent, 0, gridExtent].forEach(value => {
+        const [x] = map([value, 0]), [, y] = map([0, value]);
+        svg.append(svgText(String(value), { x, y: 269, 'text-anchor': 'middle', fill: 'currentColor', 'font-size': 12 }),
+          svgText(String(value), { x: 20, y: y + 4, 'text-anchor': 'middle', fill: 'currentColor', 'font-size': 12 }));
+      });
       for (let grid = -2; grid <= 2; grid += 1) {
         segment([grid, -2], [grid, 2], grid === 0 ? 'matrix-axis-line' : 'matrix-grid-line');
         segment([-2, grid], [2, grid], grid === 0 ? 'matrix-axis-line' : 'matrix-grid-line');
@@ -2493,6 +2563,9 @@
     }
     function refresh(announce) {
       const detail = MATRIX_TRANSFORMS[selected];
+      eigenspace?.setMatrix(detail.matrix, detail.label);
+      const corners = [[-2, -2], [-2, 2], [2, -2], [2, 2]];
+      gridExtent = Math.max(2, ...corners.flatMap(p => applyMatrix(detail.matrix, p).map(Math.abs)));
       const image = applyMatrix(detail.matrix, [1, 1]);
       drawGrid(original, MATRIX_TRANSFORMS.identity.matrix);
       drawGrid(transformed, detail.matrix);
@@ -2509,7 +2582,9 @@
         : detail.determinant > 0 ? 'Orientation is preserved. ' : '';
       frame.readout.textContent = 'A = ' + formatMatrix(detail.matrix) + '. v = (1, 1) maps to Av = ' +
         formatVector(image) + '. det(A) = ' + detail.determinant + ', so signed area is multiplied by ' +
-        detail.determinant + ' and ordinary area by ' + Math.abs(detail.determinant) + '. ' + orientation + invertibility;
+        detail.determinant + ' and ordinary area by ' + Math.abs(detail.determinant) + '. ' + orientation + invertibility +
+        ' The two grid panels share the same coordinate scale, from −' + gridExtent + ' to ' + gridExtent +
+        ' on each axis. Pale dashed axes are the fixed Cartesian reference; strong axes belong to the original grid and its image.';
       if (announce) frame.status.textContent = detail.label + ' selected. ' + invertibility;
     }
 
@@ -2524,6 +2599,7 @@
     const resetButton = node('button', {
       type: 'button', class: 'btn ghost small', onclick: () => {
         selected = authoredTransform;
+        eigenspace?.reset();
         refresh(false);
         frame.status.textContent = 'The matrix is back to the authored starting transform.';
       },
@@ -2533,6 +2609,7 @@
       node('div', { class: 'matrix-panel' }, node('strong', { 'data-model-speak': true }, 'Original plane'), original),
       node('span', { class: 'matrix-map-arrow', 'aria-hidden': 'true' }, '→'),
       node('div', { class: 'matrix-panel' }, node('strong', { 'data-model-speak': true }, 'Transformed plane'), transformed)));
+    if (eigenspace) frame.canvas.append(eigenspace.element);
     frame.controls.append(transformRow, node('div', { class: 'model-button-row' }, resetButton));
     refresh(false);
     return frame.root;
@@ -2550,7 +2627,7 @@
     const authoredThroat = VENTURI_THROATS[props.start_throat] ? props.start_throat : 'half-area';
     let selected = authoredThroat;
     const diagram = svgNode('svg', {
-      viewBox: '0 0 640 270', class: 'venturi-diagram', 'aria-hidden': 'true', focusable: 'false',
+      viewBox: '0 0 640 270', class: 'venturi-diagram science-diagram', 'aria-hidden': 'true', focusable: 'false',
     });
     const throatButtons = {};
     const throatRow = node('div', {
@@ -2560,9 +2637,9 @@
 
     function drawVenturi(detail) {
       diagram.replaceChildren();
-      const center = 166;
-      const wideHalf = 58;
-      const throatHalf = Math.max(16, wideHalf * detail.ratio);
+      const center = 202;
+      const wideHalf = 40;
+      const throatHalf = wideHalf * Math.sqrt(detail.ratio);
       const top = 'M48,' + (center - wideHalf) + ' L206,' + (center - wideHalf) +
         ' L276,' + (center - throatHalf) + ' L364,' + (center - throatHalf) +
         ' L434,' + (center - wideHalf) + ' L592,' + (center - wideHalf);
@@ -2575,10 +2652,11 @@
       diagram.append(svgNode('path', { d: fluid, class: 'venturi-fluid' }));
       diagram.append(svgNode('path', { d: top, class: 'venturi-wall' }));
       diagram.append(svgNode('path', { d: bottom, class: 'venturi-wall' }));
-      [[112, 44], [320, 44 + detail.speed * 11], [490, 44]].forEach(([x, length], index) => {
+      [[112, 20], [320, 20 * detail.speed], [490, 20]].forEach(([x, length], index) => {
         diagram.append(svgNode('line', {
           x1: x - length / 2, y1: center, x2: x + length / 2, y2: center,
           class: index === 1 ? 'venturi-flow-arrow is-throat' : 'venturi-flow-arrow',
+          'data-venturi-speed': index === 1 ? 'throat' : index === 0 ? 'inlet' : 'outlet',
         }));
         diagram.append(svgNode('polygon', {
           points: (x + length / 2) + ',' + center + ' ' + (x + length / 2 - 10) + ',' +
@@ -2586,17 +2664,32 @@
           class: index === 1 ? 'venturi-arrowhead is-throat' : 'venturi-arrowhead',
         }));
       });
-      const throatColumnTop = 34 + detail.drop * 8;
-      [[120, 34, center - wideHalf], [320, throatColumnTop, center - throatHalf],
-        [520, 34, center - wideHalf]].forEach(([x, y, tubeTop], index) => {
-        diagram.append(svgNode('line', { x1: x, y1: tubeTop, x2: x, y2: 22, class: 'venturi-tap' }));
+      // Open standpipes have h=P_g/(ρg), measured above the same centreline
+      // datum. The head panel uses one common metres scale; the pipe below is
+      // magnified separately so millimetre radii remain visible.
+      const headBase = 128, headScale = 60;
+      [[120, 16.5, center - wideHalf], [320, 16.5 - detail.drop, center - throatHalf],
+        [520, 16.5, center - wideHalf]].forEach(([x, pressure, tubeTop], index) => {
+        const head = pressure / 9.81;
+        const y = headBase - headScale * head;
+        diagram.append(svgNode('line', { x1: x, y1: tubeTop, x2: x, y2: 20, class: 'venturi-tap' }));
         diagram.append(svgNode('line', {
-          x1: x, y1: tubeTop - 1, x2: x, y2: y, class: index === 1 ? 'venturi-column is-throat' : 'venturi-column',
+          x1: x, y1: headBase, x2: x, y2: y, class: index === 1 ? 'venturi-column is-throat' : 'venturi-column',
+          'data-venturi-head': index === 1 ? 'throat' : index === 0 ? 'inlet' : 'outlet',
         }));
         diagram.append(svgNode('circle', {
           cx: x, cy: y, r: 5, class: index === 1 ? 'venturi-column-cap is-throat' : 'venturi-column-cap',
         }));
+        diagram.append(svgText(head.toFixed(3) + ' m', { x: x + 12, y: y + 4,
+          fill: 'currentColor', 'font-size': 15 }));
+        diagram.append(svgNode('path', { d: 'M' + (x - 5) + ',149 L' + (x + 5) + ',143',
+          stroke: 'currentColor', 'stroke-width': 2, fill: 'none' }));
       });
+      diagram.append(svgNode('line', { x1: 74, y1: headBase, x2: 580, y2: headBase,
+        stroke: 'currentColor', 'stroke-dasharray': '3 4', 'stroke-width': 1 }),
+        svgText('head 0 m', { x: 16, y: headBase + 5, fill: 'currentColor', 'font-size': 13 }),
+        svgText('Circular radius ∝ √area; common speed-arrow scale', {
+          x: 48, y: 262, fill: 'currentColor', 'font-size': 15 }));
     }
     function metric(label, value) {
       return node('div', { class: 'venturi-metric' }, node('small', {}, label), node('strong', {}, value));
@@ -2616,7 +2709,9 @@
       );
       frame.readout.textContent = 'For this steady, horizontal, incompressible-water model with negligible viscosity and other losses, volume flow rate Q = 400 cm³/s. Continuity gives v = Q/A: the 4 cm² wide section moves at 1 m/s, and the ' +
         detail.area + ' cm² throat moves at ' + detail.speed + ' m/s. For horizontal ideal water flow, Bernoulli gives a throat pressure drop of ' +
-        detail.drop + ' kPa relative to the wide section. Real viscous flow loses energy, so downstream pressure recovery is not perfect.';
+        detail.drop + ' kPa relative to the wide section. Water density is 1000 kg/m³ and g=9.81 m/s². The inlet gauge pressure is fixed at 16.5 kPa; open standpipe heights h=P_g/(ρg) are ' +
+        (16.5 / 9.81).toFixed(3) + ' m at the inlet/outlet and ' + ((16.5 - detail.drop) / 9.81).toFixed(3) +
+        ' m at the throat. Head heights share a centreline datum and a common scale in the upper panel; the circular-pipe radius uses a separate magnified scale below the marked breaks. Real viscous flow loses energy, so downstream pressure recovery is not perfect.';
       if (announce) frame.status.textContent = detail.label + ' selected: throat speed ' + detail.speed +
         ' m/s and ideal pressure drop ' + detail.drop + ' kPa.';
     }
@@ -4284,6 +4379,14 @@
     return count;
   }
 
+  function physicsDecayTimes(count, realization) {
+    const random = physicsSeededRandom(0x2468ace1 ^ Math.imul(realization, 0x45d9f3b));
+    // An open-interval uniform variate avoids an artificial decay at t=0 or
+    // an infinite time. One sampled lifetime persists as the time control moves.
+    return Array.from({ length: count }, () =>
+      -Math.log(random() + .5 / 4294967296) / Math.LN2).sort((a, b) => a - b);
+  }
+
   function physicsSvgText(x, y, value, className = 'physics-svg-label', anchor = 'middle') {
     const textNode = svgNode('text', { x, y, class: className, 'text-anchor': anchor });
     textNode.textContent = value;
@@ -4732,33 +4835,52 @@
   }
 
   function drawPhysicsSpacetime(svg, visual) {
+    const timeMax = visual.timeMax || 24;
+    const scale = 210 / timeMax;
+    const beta = visual.beta;
+    const project = (space, time) => [360 + scale * space, 258 - scale * time];
     svg.append(
       svgNode('line', { x1: 360, y1: 258, x2: 360, y2: 28, class: 'physics-svg-axis' }),
       svgNode('line', { x1: 82, y1: 258, x2: 650, y2: 258, class: 'physics-svg-axis' }),
       svgNode('line', { x1: 360, y1: 258, x2: 150, y2: 48, class: 'physics-svg-light' }),
       svgNode('line', { x1: 360, y1: 258, x2: 570, y2: 48, class: 'physics-svg-light' }),
-      physicsSvgText(650, 282, 'x/c (μs)', 'physics-svg-small', 'end'),
+      physicsSvgText(650, 235, 'x/c (μs)', 'physics-svg-small', 'end'),
       physicsSvgText(372, 35, 't (μs)', 'physics-svg-small', 'start'),
     );
-    const beta = Math.max(-0.95, Math.min(0.95, visual.beta || 0));
+    [0, .25, .5, .75, 1].forEach(fraction => {
+      const time = timeMax * fraction;
+      const [, y] = project(0, time);
+      svg.append(physicsSvgText(346, y + 5, physicsFixed(time, 0), 'physics-svg-small', 'end'));
+    });
+    [-1, -.5, 0, .5, 1].forEach(fraction => {
+      const [x] = project(timeMax * fraction, 0);
+      svg.append(physicsSvgText(x, 282, physicsFixed(timeMax * fraction, 0), 'physics-svg-small'));
+    });
     const topX = 360 + beta * 210;
     svg.append(svgNode('line', { x1: 360, y1: 258, x2: topX, y2: 48,
-      class: 'physics-svg-worldline' }));
+      class: 'physics-svg-worldline', 'data-physics-role': 'clock-worldline' }));
     if (visual.simultaneity) {
-      const tilt = beta * 130;
-      svg.append(svgNode('line', { x1: 230, y1: 155 + tilt, x2: 490, y2: 155 - tilt,
-        class: 'physics-svg-simultaneity' }));
+      // All points on this slice have the selected moving-frame clock time:
+      // t' = γ(t − βx/c) = τ. Clip its physical coordinates to the fixed view.
+      const gamma = 1 / Math.sqrt(1 - beta ** 2);
+      const intercept = visual.properTime / gamma;
+      let left = -timeMax, right = timeMax;
+      if (beta !== 0) {
+        const crossings = [-intercept / beta, (timeMax - intercept) / beta].sort((a, b) => a - b);
+        left = Math.max(left, crossings[0]);
+        right = Math.min(right, crossings[1]);
+      }
+      const first = project(left, intercept + beta * left);
+      const second = project(right, intercept + beta * right);
+      svg.append(svgNode('line', { x1: first[0], y1: first[1], x2: second[0], y2: second[1],
+        class: 'physics-svg-simultaneity', 'data-physics-role': 'simultaneity-slice' }));
     }
-    if (visual.duration != null) {
-      // Both axes share a fixed 0–24 μs scale, so x/c = βt is visible.
-      const fraction = Math.max(0.04, Math.min(0.96, visual.duration));
-      svg.append(svgNode('circle', { cx: 360 + beta * 210 * fraction,
-        cy: 258 - 210 * fraction, r: 9, class: 'physics-svg-marker' }));
+    if (visual.coordinateTime != null) {
+      const event = project(beta * visual.coordinateTime, visual.coordinateTime);
+      svg.append(svgNode('circle', { cx: event[0], cy: event[1], r: 9,
+        class: 'physics-svg-marker', 'data-physics-role': 'clock-event' }));
     }
-    svg.append(
-      physicsSvgText(100, 28, visual.label || 'spacetime state', 'physics-svg-label', 'start'),
-      physicsSvgText(630, 282, visual.note || '', 'physics-svg-note', 'end'),
-    );
+    svg.append(physicsSvgText(100, 28, 'Moving clock', 'physics-svg-label', 'start'));
   }
 
   function drawPhysicsCircuit(svg, visual) {
@@ -4848,8 +4970,6 @@
   }
 
   function drawPhysicsEngine(svg, visual, arrowId) {
-    const workFraction = Math.max(0, Math.min(1, (visual.work || 0) / 100));
-    const rejectedFraction = Math.max(0, Math.min(1, (visual.coldHeat || 0) / 100));
     svg.append(
       svgNode('rect', { x: 210, y: 28, width: 300, height: 55, rx: 11, class: 'physics-svg-reservoir hot' }),
       physicsSvgText(360, 63, visual.hotLabel, 'physics-svg-label'),
@@ -4858,15 +4978,30 @@
       svgNode('rect', { x: 210, y: 224, width: 300, height: 48, rx: 11, class: 'physics-svg-reservoir cold' }),
       physicsSvgText(360, 255, visual.coldLabel, 'physics-svg-label'),
     );
-    physicsArrow(svg, arrowId, 360, 86, 360, 116, 'physics-svg-coral');
-    physicsArrow(svg, arrowId, 360, 188, 360, 188 + 32 * rejectedFraction,
-      'physics-svg-accent');
-    physicsArrow(svg, arrowId, 445, 152, 445 + 165 * workFraction, 152,
-      'physics-svg-teal');
+    // Every shaft uses 24 SVG units per 100 J. Direction identifies a pathway;
+    // shaft width, not differently scaled arrow length, represents energy.
+    const flow = (role, energy, x, y, length, horizontal, className) => {
+      const width = 24 * energy / 100;
+      svg.append(svgNode('rect', {
+        x: horizontal ? x : x - width / 2, y: horizontal ? y - width / 2 : y,
+        width: horizontal ? length - 8 : width, height: horizontal ? width : length - 8,
+        class: 'physics-svg-flow ' + className, 'data-physics-flow': role,
+        style: 'fill:var(' + (role === 'work' ? '--green-ink' : '--gold-ink') + ');stroke:none',
+      }));
+      const tip = horizontal
+        ? [[x + length - 8, y - width], [x + length, y], [x + length - 8, y + width]]
+        : [[x - width, y + length - 8], [x, y + length], [x + width, y + length - 8]];
+      svg.append(svgNode('polygon', { points: tip.map(point => point.join(',')).join(' '),
+        style: 'fill:var(' + (role === 'work' ? '--green-ink' : '--gold-ink') + ');stroke:none' }));
+    };
+    flow('input', 100, 360, 86, 30, false, 'hot');
+    flow('rejected', visual.coldHeat, 360, 188, 32, false, 'cold');
+    flow('work', visual.work, 445, 152, 165, true, 'work');
     svg.append(
       physicsSvgText(392, 105, 'Q_h = 100 J', 'physics-svg-small', 'start'),
       physicsSvgText(392, 214, 'Q_c ≥ ' + physicsFixed(visual.coldHeat, 1) + ' J', 'physics-svg-small', 'start'),
       physicsSvgText(520, 132, 'W ≤ ' + physicsFixed(visual.work, 1) + ' J', 'physics-svg-small'),
+      physicsSvgText(70, 293, 'Reversible limit; common shaft-width scale', 'physics-svg-small', 'start'),
     );
   }
 
@@ -4951,28 +5086,36 @@
       },
     },
     'phys.1.motion': {
-      controls: [physicsControl('friction', 'Surface friction', 0, 8, 1, 3, 'N', 'smooth ice', 'rough sand')],
-      caveat: 'After launch there is no continuing forward push; the curve isolates steady opposing friction.',
+      controls: [
+        physicsControl('friction', 'Surface friction', 0, 8, 1, 3, 'N', 'smooth ice', 'rough sand'),
+        physicsControl('time', 'Elapsed time', 0, 8, .2, 6.2, 's', 'launch', 'eight seconds'),
+      ],
+      caveat: 'The 2 kg cart starts at 4 m/s. Kinetic friction is constant while it moves; after stopping there is no applied horizontal force, so it stays at rest. The lost kinetic energy enters thermal stores of cart and surface. Air drag and rotation are omitted.',
       compute(state) {
         const stop = state.friction === 0 ? Infinity : 16 / state.friction;
         const stopTime = state.friction === 0 ? Infinity : 8 / state.friction;
-        const points = physicsGraphPoints(x => {
-          const time = 8 * x;
+        const positionAt = time => {
           const movingTime = Math.min(time, stopTime);
-          const position = 4 * movingTime - state.friction * movingTime ** 2 / 4;
-          return position / 32;
-        });
+          return 4 * movingTime - state.friction * movingTime ** 2 / 4;
+        };
+        const points = physicsGraphPoints(x => positionAt(8 * x) / 32);
+        const position = positionAt(state.time);
+        const speed = Math.max(0, 4 - state.friction * state.time / 2);
+        const kinetic = speed ** 2;
+        const thermal = state.friction * position;
         return {
-          readout: state.friction === 0
-            ? 'A 2 kg cart launched at 4 m/s keeps constant speed when no friction is modeled.'
-            : 'A 2 kg cart launched at 4 m/s against ' + state.friction +
-              ' N friction slows without reversing; its stopping distance is ' +
-              physicsFixed(stop, 1) + ' m.',
-          visual: { kind: 'graph', xLabel: 'time', yLabel: 'position',
-            curves: [{ points, label: state.friction + ' N friction', tone: 'primary' }],
-            marker: [0.78, points[Math.round(points.length * .78)][1]],
-            note: state.friction === 0 ? 'straight position line: constant speed' :
-              state.friction + ' N makes position level off after ' + physicsFixed(stopTime, 1) + ' s' },
+          readout: 'At t = ' + physicsFixed(state.time, 1) + ' s, x = ' + physicsFixed(position, 3) +
+            ' m and v = ' + physicsFixed(speed, 3) + ' m/s. Kinetic energy ' + physicsFixed(kinetic, 3) +
+            ' J + thermal gain ' + physicsFixed(thermal, 3) + ' J = initial 16 J. ' +
+            (state.friction === 0 ? 'No friction: the speed remains 4 m/s.' :
+              'Stopping time ' + physicsFixed(stopTime, 3) + ' s; stopping distance ' + physicsFixed(stop, 3) + ' m.'),
+          visual: { kind: 'graph', xLabel: 'time (s)', yLabel: 'position (m)',
+            xTicks: [[0, '0'], [.25, '2'], [.5, '4'], [.75, '6'], [1, '8']],
+            yTicks: [[0, '0'], [.5, '16'], [1, '32']],
+            curves: [{ points, label: state.friction + ' N kinetic friction', tone: 'primary' }],
+            marker: [state.time / 8, position / 32],
+            note: 't = ' + physicsFixed(state.time, 1) + ' s: x = ' + physicsFixed(position, 3) +
+              ' m; v = ' + physicsFixed(speed, 3) + ' m/s' },
         };
       },
     },
@@ -5311,18 +5454,38 @@
     },
     'phys.3.nuclear': {
       controls: [
-        physicsControl('halves', 'Elapsed half-lives', 0, 6, 1, 2, '', 'start', 'six half-lives'),
+        physicsControl('halves', 'Elapsed half-lives', 0, 6, .25, 2, '', 'start', 'six half-lives'),
         physicsControl('initial', 'Starting nuclei', 32, 128, 32, 128, '', '32 nuclei', '128 nuclei'),
+        physicsControl('realization', 'Mock realization', 1, 8, 1, 1, '', 'sample 1', 'sample 8'),
       ],
-      caveat: 'The dots show the expected ensemble fraction deterministically; an individual nucleus has no scheduled decay time.',
+      caveat: 'Independent exponential lifetimes are sampled once for each reproducible mock realization. Fractional expected counts are ensemble averages, while one sample always contains an integer number of undecayed nuclei. The error bar is one theoretical standard deviation of the sample fraction, clipped to its physical 0–1 support; it is not a guaranteed range or a confidence interval. Daughter decay and detector efficiency are omitted.',
       compute(state) {
-        const expected = state.initial * (0.5 ** state.halves);
+        const probability = 0.5 ** state.halves;
+        const expected = state.initial * probability;
+        const times = physicsDecayTimes(state.initial, state.realization);
+        const observed = times.filter(time => time > state.halves).length;
+        let remaining = state.initial;
+        const sample = [[0, 1]];
+        times.filter(time => time <= 6).forEach(time => {
+          sample.push([time / 6, remaining / state.initial]);
+          remaining -= 1;
+          sample.push([time / 6, remaining / state.initial]);
+        });
+        sample.push([1, remaining / state.initial]);
+        const standardDeviation = Math.sqrt(state.initial * probability * (1 - probability));
         return {
-          readout: 'After ' + state.halves + ' half-lives, N = ' + state.initial +
-            ' × (1/2)^' + state.halves + ' = ' + physicsFixed(expected, 1) + ' nuclei expected on average.',
-          visual: { kind: 'ensemble', fraction: expected / state.initial, total: state.initial,
-            label: state.initial + '-nucleus ensemble',
-            note: physicsFixed(expected, 1) + ' expected; individual decays remain random' },
+          readout: 'After ' + physicsFixed(state.halves, 2) + ' half-lives, expected N = ' + state.initial +
+            ' × 2⁻ᵗ = ' + physicsFixed(expected, 3) + ' nuclei; standard deviation = ' +
+            physicsFixed(standardDeviation, 3) + '. Mock realization ' + state.realization +
+            ' contains ' + observed + ' undecayed nuclei. Moving time retains the same sampled lifetimes.',
+          visual: { kind: 'graph', xLabel: 'elapsed half-lives', yLabel: 'undecayed fraction',
+            xTicks: [[0, '0'], [1 / 3, '2'], [2 / 3, '4'], [1, '6']],
+            yTicks: [[0, '0'], [.5, '0.5'], [1, '1']],
+            curves: [{ points: physicsGraphPoints(x => 2 ** (-6 * x)), label: 'ensemble expectation', tone: 'primary' },
+              { points: sample, label: 'mock sample ' + state.realization, tone: 'secondary' }],
+            marker: [state.halves / 6, probability],
+            measurement: { x: state.halves / 6, y: observed / state.initial, error: standardDeviation / state.initial },
+            note: physicsFixed(expected, 3) + ' expected; mock sample ' + state.realization + ': ' + observed + ' undecayed' },
         };
       },
     },
@@ -5335,6 +5498,7 @@
           readout: 'At v = ' + physicsFixed(state.beta, 2) + ' c, γ = ' + physicsFixed(gamma, 3) +
             '. A 1.00 μs proper-time tick spans ' + physicsFixed(gamma, 3) + ' μs in this frame.',
           visual: { kind: 'spacetime', beta: state.beta,
+            timeMax: 4, properTime: 1, coordinateTime: gamma,
             label: 'moving clock worldline',
             note: 'γ = ' + physicsFixed(gamma, 3) },
         };
@@ -5479,9 +5643,10 @@
             '. Proper time ' + physicsFixed(state.proper, 1) + ' μs spans ' + physicsFixed(coordinate, 2) +
             ' μs in this frame; the light cone and spacetime interval stay invariant.',
           visual: { kind: 'spacetime', beta: state.beta, simultaneity: true,
-            duration: coordinate / 24,
+            timeMax: 24, properTime: state.proper, coordinateTime: coordinate,
             label: 'worldline and frame simultaneity slice',
-            note: 'marker: t = ' + physicsFixed(coordinate, 2) + ' μs on a fixed 24 μs axis; Δs² invariant' },
+            note: 'marker: t = ' + physicsFixed(coordinate, 2) + ' μs; slice t′ = ' +
+              physicsFixed(state.proper, 1) + ' μs; t² − (x/c)² = ' + physicsFixed(state.proper ** 2, 2) + ' μs²' },
         };
       },
     },
@@ -5685,7 +5850,7 @@
 
   function formatPhysicsControl(control, value) {
     if (control.names) return control.names[Math.round(value)] || String(value);
-    const digits = control.step < 0.1 ? 2 : control.step < 1 ? 1 : 0;
+    const digits = (String(control.step).split('.')[1] || '').length;
     return physicsFixed(value, digits) + (control.unit ? ' ' + control.unit : '');
   }
 
@@ -5890,6 +6055,7 @@
     },
     'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
     'math-ode-lab': (item, hooks) => window.PrimerMathODELab?.render(item, hooks) || null,
+    'math-field-lab': (item, hooks) => window.PrimerMathFieldLab?.render(item, hooks) || null,
     'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
     'prenatal-sequence': (item, hooks) => window.PrimerPrenatalSequence ? window.PrimerPrenatalSequence.render(item, hooks) : null,
     'doppler-angle-lab': renderDopplerAngle,
@@ -5937,7 +6103,7 @@
       const result = RENDERERS[rendererName](item, hooks);
       if (!result) return result;
       // These renderers own their responsive viewport and camera controls.
-      if (['concept-lab', 'math-ode-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      if (['concept-lab', 'math-ode-lab', 'math-field-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
       for (const picture of result.querySelectorAll('svg')) {
         if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
         const viewport = picture.parentNode;

@@ -204,6 +204,7 @@ class FakeElement {
     this.append(...values);
   }
   querySelectorAll(selector) { return descendants(this, element => matchesSelector(element, selector)); }
+  querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   focus() { this.ownerDocument.activeElement = this; }
   remove() {
     if (!this.parentNode) return;
@@ -388,6 +389,7 @@ function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
   let odeEntries = 0;
+  let fieldEntries = 0;
   for (const filename of fs.readdirSync(CURRICULUM_DIR).filter(name => name.endsWith('.json')).sort()) {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
@@ -400,6 +402,14 @@ function collectRemainingModels() {
           odeEntries++;
           continue;
         }
+        if (media.renderer === 'math-field-lab') {
+          if (media.kind !== 'model' || lesson.id !== 'math.4.multivar' ||
+              media.props?.scenario !== 'math.4.multivar.integral-flux') {
+            throw new Error('invalid separately verified integral/flux binding');
+          }
+          fieldEntries++;
+          continue;
+        }
         if (media.kind !== 'model' || media.renderer === 'physics-concept-lab' ||
             ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(media.renderer) ||
             BIOLOGY_CHECKED.has(media.renderer)) continue;
@@ -410,6 +420,7 @@ function collectRemainingModels() {
     }
   }
   if (odeEntries !== 1) throw new Error('expected exactly one separately verified second-order ODE binding, found ' + odeEntries);
+  if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
   return entries.sort((left, right) => left.lessonId.localeCompare(right.lessonId, undefined, { numeric: true }));
 }
 
@@ -552,8 +563,11 @@ function main() {
   coverage.forEach(entry => console.log('COVER ' + entry));
 }
 
-try { main(); }
-catch (error) {
-  console.error('Remaining lesson-model DOM smoke check could not run: ' + error.stack);
-  process.exitCode = 1;
+module.exports = { FakeDocument, descendants, hasClass, one };
+if (require.main === module) {
+  try { main(); }
+  catch (error) {
+    console.error('Remaining lesson-model DOM smoke check could not run: ' + error.stack);
+    process.exitCode = 1;
+  }
 }

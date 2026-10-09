@@ -3530,7 +3530,8 @@ def app_shell():
                      "spatial-cross-subject.js", "spatial-radiology.js", "spatial-module-objects.js",
                      "radiology-reference-models.js", "radiology-detailed-anatomy.js", "concept-models.js",
                      "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css",
-                     "math-ode-lab.js", "math-ode-lab.css"):
+                     "math-ode-lab.js", "math-ode-lab.css", "math-eigenspace.js", "math-eigenspace.css",
+                     "math-field-lab.js", "math-field-lab.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
