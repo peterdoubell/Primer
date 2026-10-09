@@ -20,6 +20,10 @@
     "larynx-jasa19629778-phase01": "/app/anatomy/larynx-jasa19629778-phase01/",
     "hra-bladder-female-v1.1": "/app/anatomy/hra-bladder-female-v1.1/",
     "hra-bladder-male-v1.1": "/app/anatomy/hra-bladder-male-v1.1/",
+    "fedbca-center1-001": "/app/anatomy/fedbca-center1-001/",
+    "fedbca-center2-01": "/app/anatomy/fedbca-center2-01/",
+    "fedbca-center3-01": "/app/anatomy/fedbca-center3-01/",
+    "fedbca-center4-01": "/app/anatomy/fedbca-center4-01/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
@@ -36,6 +40,7 @@
     "tongue-source": [-106.36968994140625, -49.87583923339844],
     "larynx-phonation-source": [-23.082857131958008, 8.479644298553467],
     "bladder-source": [0, 1],
+    "bladder-tumour-source": [-1000, 1000],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],

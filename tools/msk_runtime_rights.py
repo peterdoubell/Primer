@@ -30,6 +30,11 @@ def reference_images(curriculum, catalogue, requirements, detail, catalog_sectio
         collections['source_motion_references'] = reference.get('source_motion_references',[])
         collections['source_motion_originals'] = [dict(r,src=r['original_src']) for r in reference.get('source_motion_references',[])]
         collections['source_anatomy_ct_volumes'] = [source['source_volume'] for source in reference.get('source_anatomy_references', []) if source.get('source_volume')]
+        collections['source_volume_arrays'] = [dict(source['source_volume'],
+            id=source['atlas']+'-'+row['file'],
+            src=source['source_volume']['src'].rsplit('/',1)[0]+'/'+row['file'])
+            for source in reference.get('source_anatomy_references', []) if source.get('source_volume')
+            for row in source['source_volume'].get('data_files', [])]
         collections['source_study_files'] = [dict(source, id=source['id'] + '-' + filename,
             src='/app/studies/' + source['id'] + '/' + filename)
             for source in reference.get('source_study_references', []) for filename in source['files']]
