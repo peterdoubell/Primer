@@ -3088,48 +3088,54 @@
   },
   "rad.5.rectal-mr": {
     "protocol": [
-      "Select baseline cancer, post-treatment cancer or fistula pathway before reporting.",
-      "Use high-resolution T2 planes perpendicular/parallel to the lesion or anal canal; correlate DWI with ADC in restaging."
+      "Select primary staging, post-treatment assessment or fistula mapping and record actual treatment, comparison and clinical context.",
+      "Check tumour-aligned high-resolution T2 planes, slices no thicker than 3 mm and in-plane sampling below 1 × 1 mm, with coverage of relevant pelvic compartments. Source sampling does not establish fine tissue resolution.",
+      "For response assessment, evaluate actual matched T2 and DWI/ADC with image quality and obtained clinical/endoscopic evidence. A numerical ADC threshold does not establish primary stage or histology."
     ],
     "checklist": [
       {
         "label": "Tumour localisation",
-        "detail": "Record lower border, length, clock-face location and peritoneal reflection relationship."
+        "detail": "Record every actual tumour/treated-bed endpoint and relation to sigmoid take-off, ARJ, verge and peritoneal reflection; retain exact height, landmark and local category convention."
       },
       {
         "label": "Local cancer extent",
-        "detail": "Assess extramural depth, mesorectal fascia, EMVI and sphincter/organ involvement."
+        "detail": "Map definite wall/extramural, fascia, peritoneal, vascular, sphincter and adjacent-organ findings with confidence. Baseline MRF rules depend on the qualifying component and node morphology; the eventual surgical CRM is separate."
       },
       {
         "label": "Nodes",
-        "detail": "Describe mesorectal and lateral pelvic nodes by station and morphology."
+        "detail": "Describe each mesorectal and lateral nodule by actual station/side, size and morphology, with patient-level confidence. Primary lateral-node criteria are not lateral restaging criteria or pathological proof."
       },
       {
         "label": "Restaging",
-        "detail": "Compare original tumour bed and nodes; distinguish fibrosis, residual intermediate T2 and concordant restriction."
+        "detail": "Compare the complete treated bed and nodes using matched source T2/DWI/ADC and actual clinical/endoscopic context. Fibrosis, mrTRG and absent restriction alone do not prove complete response."
       },
       {
         "label": "Fistula map",
-        "detail": "Locate internal opening and sphincter crossing; describe branches, abscess and supralevator extent."
+        "detail": "Locate every demonstrated opening and route, and map each branch, blind sinus, collection and deep extension with a stated view/clock convention. Preserve unresolved extent; grade alone does not prescribe repair."
       }
     ],
     "measurements": [
       {
         "name": "Cancer distances",
-        "method": "Measure lower tumour border from anal verge, extramural depth and shortest distance to MRF.",
-        "pitfall": "Name the tumour deposit/node/EMVI component closest to the fascia."
+        "method": "Measure lower/upper borders with stated ARJ/verge/lumen convention, maximal definite extramural depth and nearest qualifying baseline component to MRF.",
+        "pitfall": "A smooth-margin node alone within 1 mm does not make baseline MRF involved. MRF distance is not pathological CRM. Record exact values and the source’s unresolved 5 cm category boundary convention."
       },
       {
         "name": "Fistula anatomy",
         "method": "Record internal opening clock position/height and abscess dimensions.",
-        "pitfall": "Clock-face orientation must be consistent with the stated anal convention."
+        "pitfall": "State the clock/view convention; it does not prove MRI acquisition position. A drawn tract fill is not a native mask or complete lumen boundary."
       }
     ],
     "classification": null,
     "pitfalls": [
-      "MRI complete response is not equivalent to a clinical complete response established by the multidisciplinary pathway.",
-      "Do not mix Parks fistula categories with rectal cancer staging.",
-      "Post-treatment fibrosis can remain close to the fascia without definite viable tumour."
+      "Conflating MRF involvement with pathological CRM or T4. Peritoneum, fascia and actual surgical margin are different interfaces.",
+      "Treating any nearby node as MRF involvement, or reintroducing a baseline 1–2 mm threatened category. Preserve the qualifying component and smooth versus irregular morphology.",
+      "Applying primary lateral-node criteria to restaging, using 9 mm for baseline obturator nodes, or omitting possibly cN+ confidence and regional context.",
+      "Using a numerical ADC threshold to stage the primary tumour or prove nodal histology; DWI has specific adjunct and response roles.",
+      "Treating fibrosis, mrTRG or absent diffusion restriction as proof of complete response, or forcing a fixed treatment or surveillance programme from selected MRI views.",
+      "Inferring viable or acellular mucin from T2 signal, or treating a negative superficial biopsy as proof of clearance.",
+      "Inferring an operation from sphincter involvement or fistula grade alone; actual extent, sepsis, continence, prior procedures and patient context require surgical assessment.",
+      "Borrowing a drawing’s dentate line, clock convention or coloured tract fill as native MRI resolution, acquisition position, segmentation or registered 3D anatomy."
     ],
     "impression_prompts": [
       "For cancer, summarise local extent, MRF relationship, EMVI and nodal findings.",
@@ -3142,19 +3148,19 @@
     "template_sections": [
       {
         "heading": "PATHWAY AND LOCALISATION",
-        "body": "Pathway: [baseline cancer / restaging / fistula]. Cancer lower edge from anal verge: [ ] cm. Length: [ ] cm. Clock-face/peritoneal reflection: [ ]."
+        "body": "Purpose and actual treatment/comparison [ ]. Tumour/bed endpoints and length [ ]. Exact lower-border height, ARJ/verge landmark and adopted convention [ ]. Sigmoid take-off and peritoneal reflection [ ]."
       },
       {
         "heading": "BASELINE CANCER EXTENT",
-        "body": "mrT descriptor: [ ]. Extramural depth: [ ] mm. Shortest MRF distance: [ ] mm from [component]. EMVI: [ ]. Sphincter/adjacent organ: [ ]."
+        "body": "MRI T assessment/framework/confidence [ ]. Maximal definite extramural depth and uncertainty [ ]. Baseline MRF qualifying component/morphology/distance/level [ ]. Separate peritoneal, vascular and each actual sphincter/adjacent-organ interface [ ]; unassessed extent [ ]."
       },
       {
         "heading": "NODES AND DEPOSITS",
-        "body": "Mesorectal nodes: [ ]. Lateral pelvic station/side/short axis: [ ]. Morphology: [ ]. Tumour deposits: [ ]."
+        "body": "Each actual nodule: side/station/short axis/morphology and deposit suspicion [ ]. Regional context [ ]. Patient-level cN0/possibly cN+/cN+ and confidence [ ]. No histological N1c inference from MRI alone."
       },
       {
         "heading": "RESTAGING ONLY",
-        "body": "Treatment/end date: [ ]. Tumour-bed fibrosis: [ ]. Residual intermediate T2: [ ]. Matched high-b/ADC restriction: [ ]. Nodal response: [ ]. MRF/EMVI change: [ ]."
+        "body": "Actual treatment/date and comparison [ ]. Complete fibrotic bed and source residual signal [ ]. Matched T2/DWI/ADC findings/quality [ ]. Response class/confidence, mesorectal/lateral nodal change and MRF/EMVI interpretation [ ]. Actual DRE/endoscopy/tissue correlation [ ]; unresolved findings [ ]."
       },
       {
         "heading": "FISTULA ONLY",
@@ -3173,9 +3179,25 @@
       {
         "title": "Radiology Assistant — Perianal Fistulas",
         "url": "https://radiologyassistant.nl/abdomen/rectum/perianal-fistulas"
+      },
+      {
+        "title": "ESGAR 2026 Part I: primary rectal MRI staging",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13212678/"
+      },
+      {
+        "title": "ESGAR 2026 Part II: restaging and response evaluation",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13212783/"
+      },
+      {
+        "title": "Original MRI anatomy of the rectum",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9849549/"
+      },
+      {
+        "title": "Original perianal fistula imaging maps",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13512459/"
       }
     ],
-    "reviewed_at": "2026-09-23"
+    "reviewed_at": "2026-10-09"
   },
   "rad.3.acute-abdomen": {
     "protocol": [

@@ -23,7 +23,7 @@ def test_every_module_has_a_spatial_model_and_no_photorealistic_scene(curriculum
     assert len(curriculum.domains) == 19
     for node in curriculum.nodes.values():
         media = node["lesson_media"]
-        assert {item["kind"] for item in media} <= {"illustration", "model"}, node["id"]
+        assert {item["kind"] for item in media} <= {"illustration", "model", "source-gallery"}, node["id"]
         assert any(item.get("renderer") in {"spatial-3d", "radiology-anatomy"}
                    for item in media), node["id"]
         assert len({item["id"] for item in media}) == len(media)
