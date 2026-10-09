@@ -70,5 +70,8 @@ jobs:
       - name: Verify hosted source mesh inventory
         run: python tools/check_static_source_mesh_inventory.py
 
+      - name: Verify source-array and generated-image reproduction
+        run: python -m pytest tests/test_west_bohemia_pelvic_source.py tests/test_wt9fc_tongue_reference.py -q
+
       - name: Run the full test suite
         run: python -m pytest tests/ -q
