@@ -853,7 +853,8 @@
       },
       "presentation_dependencies": {
         "web/reference-media/radiology-open/aeropath-case1-sections.provenance.json": "35358543048f6afe95589066d8bd7f84ba9fed479e1336e0836b028db61ce79f",
-        "web/app.js": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434"
+        "web/app.js": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_reader_dependency_review": {
         "reviewed_at": "2026-10-08",
@@ -864,9 +865,11 @@
         "reviewed_at": "2026-10-09",
         "previous_recorded_dependency_sha256": "a4aeb92f72702a9a43dd8f0999cf0d86a7513941b09fca164d58d78d72c697f5",
         "tested_base_app_sha256": "43ca1a31c0bc504f211463babd846f94e732da197031b3b6c50c214c7c46f491",
-        "current_app_sha256": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434",
+        "current_app_sha256": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
         "previous_recorded_dependency_was_stale": true,
-        "basis": "Rebind the actual current software artifact. The tested-base-to-current diff changes only speech sentence boundaries, preserving decimal/scientific tokens. Older stale presentation records are not retrospectively approved. Native geometry/source pixels and clinical/anatomical approval fields remain unchanged; independent review is still required."
+        "basis": "Speech sentence boundaries preserve decimal/scientific tokens; the identical reviewed splitter function now lives in a normal imported module. The test imports that module without executing sliced filesystem source text. Older stale presentations are not retrospectively approved; source pixels, native geometry, coverage and clinical/anatomical approval are unchanged.",
+        "speech_helper_sha256": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+        "shared_module_review_path": "docs/sellar-published-source-review/shared-speech-module-review.json"
       }
     },
     {
@@ -919,7 +922,8 @@
       "requirement_coverage": {},
       "presentation_dependencies": {
         "web/reference-media/radiology-open/nih-med001-label1-sections.provenance.json": "509dd71dbd04b266ac016580d06d4b0d712b9a377778c0e8868a78b5615f5014",
-        "web/app.js": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434"
+        "web/app.js": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_reader_dependency_review": {
         "reviewed_at": "2026-10-08",
@@ -930,9 +934,11 @@
         "reviewed_at": "2026-10-09",
         "previous_recorded_dependency_sha256": "a4aeb92f72702a9a43dd8f0999cf0d86a7513941b09fca164d58d78d72c697f5",
         "tested_base_app_sha256": "43ca1a31c0bc504f211463babd846f94e732da197031b3b6c50c214c7c46f491",
-        "current_app_sha256": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434",
+        "current_app_sha256": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
         "previous_recorded_dependency_was_stale": true,
-        "basis": "Rebind the actual current software artifact. The tested-base-to-current diff changes only speech sentence boundaries, preserving decimal/scientific tokens. Older stale presentation records are not retrospectively approved. Native geometry/source pixels and clinical/anatomical approval fields remain unchanged; independent review is still required."
+        "basis": "Speech sentence boundaries preserve decimal/scientific tokens; the identical reviewed splitter function now lives in a normal imported module. The test imports that module without executing sliced filesystem source text. Older stale presentations are not retrospectively approved; source pixels, native geometry, coverage and clinical/anatomical approval are unchanged.",
+        "speech_helper_sha256": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+        "shared_module_review_path": "docs/sellar-published-source-review/shared-speech-module-review.json"
       }
     },
     {
@@ -985,7 +991,8 @@
       "requirement_coverage": {},
       "presentation_dependencies": {
         "web/reference-media/radiology-open/nih-med001-label2-sections.provenance.json": "3ac6dc9f45fd2ea1c28a3955fe00aaa8b75429241eb4dd481e3f29543e5bc359",
-        "web/app.js": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434"
+        "web/app.js": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_reader_dependency_review": {
         "reviewed_at": "2026-10-08",
@@ -996,9 +1003,11 @@
         "reviewed_at": "2026-10-09",
         "previous_recorded_dependency_sha256": "a4aeb92f72702a9a43dd8f0999cf0d86a7513941b09fca164d58d78d72c697f5",
         "tested_base_app_sha256": "43ca1a31c0bc504f211463babd846f94e732da197031b3b6c50c214c7c46f491",
-        "current_app_sha256": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434",
+        "current_app_sha256": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
         "previous_recorded_dependency_was_stale": true,
-        "basis": "Rebind the actual current software artifact. The tested-base-to-current diff changes only speech sentence boundaries, preserving decimal/scientific tokens. Older stale presentation records are not retrospectively approved. Native geometry/source pixels and clinical/anatomical approval fields remain unchanged; independent review is still required."
+        "basis": "Speech sentence boundaries preserve decimal/scientific tokens; the identical reviewed splitter function now lives in a normal imported module. The test imports that module without executing sliced filesystem source text. Older stale presentations are not retrospectively approved; source pixels, native geometry, coverage and clinical/anatomical approval are unchanged.",
+        "speech_helper_sha256": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+        "shared_module_review_path": "docs/sellar-published-source-review/shared-speech-module-review.json"
       }
     },
     {
@@ -1051,7 +1060,8 @@
       "requirement_coverage": {},
       "presentation_dependencies": {
         "web/reference-media/radiology-open/nih-med001-label3-sections.provenance.json": "08692de715c682337e6355a26af4356c21a533f23d7c8a0a746c5c3d84295dfd",
-        "web/app.js": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434"
+        "web/app.js": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_reader_dependency_review": {
         "reviewed_at": "2026-10-08",
@@ -1062,9 +1072,11 @@
         "reviewed_at": "2026-10-09",
         "previous_recorded_dependency_sha256": "a4aeb92f72702a9a43dd8f0999cf0d86a7513941b09fca164d58d78d72c697f5",
         "tested_base_app_sha256": "43ca1a31c0bc504f211463babd846f94e732da197031b3b6c50c214c7c46f491",
-        "current_app_sha256": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434",
+        "current_app_sha256": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
         "previous_recorded_dependency_was_stale": true,
-        "basis": "Rebind the actual current software artifact. The tested-base-to-current diff changes only speech sentence boundaries, preserving decimal/scientific tokens. Older stale presentation records are not retrospectively approved. Native geometry/source pixels and clinical/anatomical approval fields remain unchanged; independent review is still required."
+        "basis": "Speech sentence boundaries preserve decimal/scientific tokens; the identical reviewed splitter function now lives in a normal imported module. The test imports that module without executing sliced filesystem source text. Older stale presentations are not retrospectively approved; source pixels, native geometry, coverage and clinical/anatomical approval are unchanged.",
+        "speech_helper_sha256": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+        "shared_module_review_path": "docs/sellar-published-source-review/shared-speech-module-review.json"
       }
     },
     {
@@ -1117,7 +1129,8 @@
       "requirement_coverage": {},
       "presentation_dependencies": {
         "web/reference-media/radiology-open/cptac-c3n03018-acq1-sections.provenance.json": "5524660d9cdae9395e12e857911224b79bb17552d2bc2773bffbf6e663f18fae",
-        "web/app.js": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434"
+        "web/app.js": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_reader_dependency_review": {
         "reviewed_at": "2026-10-08",
@@ -1128,9 +1141,11 @@
         "reviewed_at": "2026-10-09",
         "previous_recorded_dependency_sha256": "a4aeb92f72702a9a43dd8f0999cf0d86a7513941b09fca164d58d78d72c697f5",
         "tested_base_app_sha256": "43ca1a31c0bc504f211463babd846f94e732da197031b3b6c50c214c7c46f491",
-        "current_app_sha256": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434",
+        "current_app_sha256": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
         "previous_recorded_dependency_was_stale": true,
-        "basis": "Rebind the actual current software artifact. The tested-base-to-current diff changes only speech sentence boundaries, preserving decimal/scientific tokens. Older stale presentation records are not retrospectively approved. Native geometry/source pixels and clinical/anatomical approval fields remain unchanged; independent review is still required."
+        "basis": "Speech sentence boundaries preserve decimal/scientific tokens; the identical reviewed splitter function now lives in a normal imported module. The test imports that module without executing sliced filesystem source text. Older stale presentations are not retrospectively approved; source pixels, native geometry, coverage and clinical/anatomical approval are unchanged.",
+        "speech_helper_sha256": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+        "shared_module_review_path": "docs/sellar-published-source-review/shared-speech-module-review.json"
       }
     },
     {
@@ -1183,7 +1198,8 @@
       "requirement_coverage": {},
       "presentation_dependencies": {
         "web/reference-media/radiology-open/cptac-c3l02112-arterial-labelled-sections.provenance.json": "c1bb802819716b534c04ca86fb889c60b58f4642f6d5368e5282050020b80397",
-        "web/app.js": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434"
+        "web/app.js": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_reader_dependency_review": {
         "reviewed_at": "2026-10-08",
@@ -1194,9 +1210,11 @@
         "reviewed_at": "2026-10-09",
         "previous_recorded_dependency_sha256": "a4aeb92f72702a9a43dd8f0999cf0d86a7513941b09fca164d58d78d72c697f5",
         "tested_base_app_sha256": "43ca1a31c0bc504f211463babd846f94e732da197031b3b6c50c214c7c46f491",
-        "current_app_sha256": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434",
+        "current_app_sha256": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
         "previous_recorded_dependency_was_stale": true,
-        "basis": "Rebind the actual current software artifact. The tested-base-to-current diff changes only speech sentence boundaries, preserving decimal/scientific tokens. Older stale presentation records are not retrospectively approved. Native geometry/source pixels and clinical/anatomical approval fields remain unchanged; independent review is still required."
+        "basis": "Speech sentence boundaries preserve decimal/scientific tokens; the identical reviewed splitter function now lives in a normal imported module. The test imports that module without executing sliced filesystem source text. Older stale presentations are not retrospectively approved; source pixels, native geometry, coverage and clinical/anatomical approval are unchanged.",
+        "speech_helper_sha256": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+        "shared_module_review_path": "docs/sellar-published-source-review/shared-speech-module-review.json"
       }
     },
     {
@@ -1249,7 +1267,8 @@
       "requirement_coverage": {},
       "presentation_dependencies": {
         "web/reference-media/radiology-open/cptac-c3l02112-venous-labelled-sections.provenance.json": "2bf9f3113251d0efa7a9a6eacd1b73633a14871091a71cc949dc0ae5990f4774",
-        "web/app.js": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434"
+        "web/app.js": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_reader_dependency_review": {
         "reviewed_at": "2026-10-08",
@@ -1260,9 +1279,11 @@
         "reviewed_at": "2026-10-09",
         "previous_recorded_dependency_sha256": "a4aeb92f72702a9a43dd8f0999cf0d86a7513941b09fca164d58d78d72c697f5",
         "tested_base_app_sha256": "43ca1a31c0bc504f211463babd846f94e732da197031b3b6c50c214c7c46f491",
-        "current_app_sha256": "3ca3acfb3744a4446c0d04e8ea866c0bdecd4189a089ac0de5689b5870f1c434",
+        "current_app_sha256": "8139cf750cc667bcea5cb4c3c87f09e7b59e876bcacb977c02146f927ffe44b9",
         "previous_recorded_dependency_was_stale": true,
-        "basis": "Rebind the actual current software artifact. The tested-base-to-current diff changes only speech sentence boundaries, preserving decimal/scientific tokens. Older stale presentation records are not retrospectively approved. Native geometry/source pixels and clinical/anatomical approval fields remain unchanged; independent review is still required."
+        "basis": "Speech sentence boundaries preserve decimal/scientific tokens; the identical reviewed splitter function now lives in a normal imported module. The test imports that module without executing sliced filesystem source text. Older stale presentations are not retrospectively approved; source pixels, native geometry, coverage and clinical/anatomical approval are unchanged.",
+        "speech_helper_sha256": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+        "shared_module_review_path": "docs/sellar-published-source-review/shared-speech-module-review.json"
       }
     },
     {

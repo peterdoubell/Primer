@@ -221,7 +221,7 @@ function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.ad
    silenced — navigate away mid-read and the book keeps reading the page you
    left. Every stop bumps the sequence, and a chunk that finishes under a stale
    sequence drops the rest of its queue on the floor. */
-const SPEAK_CHUNK = 1200;
+const SPEAK_CHUNK = PrimerSpeechChunks.SPEAK_CHUNK;
 let speakSeq = 0;
 // Whatever the voice leaves lit — a pulsing speaker button, the paragraph it is
 // reading, the article's transport row — is only true while it is talking. The
@@ -234,32 +234,7 @@ let _voiceRestore = null;
 // boundary inside a clause is exactly what made the old truncation sound like
 // a fault rather than an ending.
 function splitForSpeech(text) {
-  const clean = String(text == null ? '' : text).replace(/\s+/g, ' ').trim();
-  if (!clean) return [];
-  if (clean.length <= SPEAK_CHUNK) return [clean];
-  // A decimal point or a dot inside a source URL is not a sentence boundary.
-  // Require whitespace/end after punctuation, preserving numeric tokens intact.
-  const sentences = clean.match(/[\s\S]+?(?:[.!?\u2026]+["\')\]]*(?=\s|$)|$)/g) || [clean];
-  const out = [];
-  let buf = '';
-  for (const s of sentences) {
-    let piece = s.trim();
-    // One "sentence" longer than a whole chunk — a run-on caption, a list of
-    // dates with no full stop in it. Fall back to word boundaries rather than
-    // cutting a word in half.
-    while (piece.length > SPEAK_CHUNK) {
-      let cut = piece.lastIndexOf(' ', SPEAK_CHUNK);
-      if (cut < SPEAK_CHUNK * 0.5) cut = SPEAK_CHUNK;
-      if (buf) { out.push(buf); buf = ''; }
-      out.push(piece.slice(0, cut).trim());
-      piece = piece.slice(cut).trim();
-    }
-    if (!piece) continue;
-    if (buf && buf.length + 1 + piece.length > SPEAK_CHUNK) { out.push(buf); buf = piece; }
-    else buf = buf ? buf + ' ' + piece : piece;
-  }
-  if (buf) out.push(buf);
-  return out;
+  return PrimerSpeechChunks.splitForSpeech(text);
 }
 
 // The only place an utterance is ever built. `parts` is spoken in order;
