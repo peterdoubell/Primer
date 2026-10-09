@@ -462,6 +462,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'math.4.linalg': (4, 'matrix-transform-lab'),
         'math.4.diffeq': (4, 'math-ode-lab'),
         'math.4.multivar': (4, 'math-field-lab'),
+        'math.4.prob-theory': (4, 'math-probability-lab'),
         'phys.4.fluids': (4, 'venturi-flow-lab'),
         'bio.4.molecular': (4, 'gene-expression-stepper'),
         'cs.4.networks': (4, 'tcp-packet-tracer'),
@@ -492,7 +493,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert node['stage'] == expected[nid][0], nid
         base_media = [entry for entry in node['lesson_media']
                       if entry['kind'] != 'source-gallery' and (entry.get('renderer') == expected[nid][1]
-                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})]
+                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]
@@ -634,7 +635,8 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
     all_physics = (' '.join(str(node).lower() for nid, node in curr.nodes.items()
                             if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower())
     assert 'slow big wiggles' not in sound
-    assert 'speed changes pitch; size changes loudness' in sound
+    assert 'vibration frequency changes pitch' in sound
+    assert 'different from how fast the sound travels' in sound
     assert 'slides steadily when two people' not in forces
     assert 'begins accelerating when two people' in forces
     for boundary in (
@@ -650,10 +652,10 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'heating and sound are transfer pathways',
         'two phases can coexist',
         'one free bosonic mode',
-        'one angle cannot show bell violation',
+        'a finite mock fluctuation above it is not an experimental bell proof',
         'outer disk and excludes the galactic center',
         'makes the field transition abrupt',
-        'relative density (peak = 1)',
+        'the density integrates to one',
         'gravity and acceleration require additional treatment',
         'absolute temperatures in kelvin',
         'relatively scaled, not normalized densities',
@@ -2261,7 +2263,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '36 scenarios, 65 independently exercised controls' in result.stdout
+    assert '36 scenarios, 67 independently exercised controls' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')

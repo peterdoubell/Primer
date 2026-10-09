@@ -35,7 +35,7 @@ def test_every_existing_source_reader_is_attached_once_to_its_matching_lesson(cu
             assert len(ids) == len(set(ids))
             actual[node['id']] = ids
             _validate_lesson_media(node)
-    assert len(actual) == 50 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
+    assert len(actual) == 51 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
     assert set(actual['rad.5.cardiac-masses-devices']) == {
         'ra.cardiovascular-devices', 'ra.cardiac-masses', 'ra.ct-cardiovascular-pearls'}
     assert actual['rad.5.bladder-virads'] == ['ra.mri-bladder']

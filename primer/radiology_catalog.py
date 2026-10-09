@@ -50,6 +50,11 @@ SOURCE_REFERENCE_ATLASES['prostate-biopsy0001'] = 'prostate-source'
 SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-source'
 SOURCE_REFERENCE_ATLASES['hra-bladder-female-v1.1'] = 'bladder-source'
 SOURCE_REFERENCE_ATLASES['hra-bladder-male-v1.1'] = 'bladder-source'
+SOURCE_REFERENCE_ATLASES['bp3d-sella-4.3'] = 'sella-gross-default'
+SOURCE_REFERENCE_FAMILY_REGIONS = {'bp3d-sella-4.3': frozenset((
+    'sella-gross-default', 'gland-source-2011', 'gland-source-2014',
+    'optic-reduced-source', 'optic-elongated-source',
+    'right-ICA-source-2011', 'right-ICA-source-2014'))}
 for _source_case in ['center1-001', 'center2-01', 'center3-01', 'center4-01']:
     SOURCE_REFERENCE_ATLASES['fedbca-' + _source_case] = 'bladder-tumour-source'
 
@@ -87,7 +92,8 @@ def _source_anatomy_references():
             if entry['id'] in seen:
                 raise ValueError('Duplicate source anatomy reference')
             seen.add(entry['id'])
-            if SOURCE_REFERENCE_ATLASES.get(entry['atlas']) != entry['family']:
+            if (SOURCE_REFERENCE_ATLASES.get(entry['atlas']) != entry['family']
+                    and entry['family'] not in SOURCE_REFERENCE_FAMILY_REGIONS.get(entry['atlas'], ())):
                 raise ValueError('Unknown source anatomy atlas/family')
             expected_url = '/app/anatomy/' + entry['atlas'] + '/manifest.json'
             if entry['manifest_url'] != expected_url or not isinstance(entry.get('initial_cropped'), bool):

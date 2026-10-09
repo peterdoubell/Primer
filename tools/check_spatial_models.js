@@ -30,7 +30,7 @@ assert.equal(entries.length, expected.length, 'Every spatial scene must be reach
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab'].includes(item.renderer)).length,
+  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab'].includes(item.renderer)).length,
   70, 'The 70 existing lesson models must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');
@@ -49,6 +49,11 @@ const fieldEntries = nodes.flatMap(node => (node.lesson_media || [])
 assert.equal(fieldEntries.length, 1, 'The separately checked integral/flux activity must remain present');
 assert.equal(fieldEntries[0].node.id, 'math.4.multivar');
 assert.deepEqual(fieldEntries[0].item.props, { scenario: 'math.4.multivar.integral-flux' });
+for (const [renderer, lesson, scenario] of [['math-wave-lab','math.5.pde','math.5.pde.wave-field'],
+  ['math-probability-lab','math.4.prob-theory','math.4.prob-theory.large-numbers']]) {
+  const entries = nodes.flatMap(node => (node.lesson_media || []).filter(m => m.renderer === renderer).map(item => ({node,item})));
+  assert.equal(entries.length,1); assert.equal(entries[0].node.id,lesson); assert.deepEqual(entries[0].item.props,{scenario});
+}
 
 const C = { blue: '#3e7085', teal: '#317e78', gold: '#b98a2f', coral: '#b96652', plum: '#876888', green: '#5c7754', ink: '#263b46' };
 const near = (a, b, tolerance = 1e-7) => assert.ok(Math.abs(a - b) <= tolerance, `${a} differs from ${b}`);

@@ -31,7 +31,13 @@ def test_all_modules_have_reviewed_reporting_content_and_a_3d_companion(curricul
         assert len(guide['pitfalls']) >= 2, node['id']
         assert len(guide['impression_prompts']) >= 3, node['id']
         assert any(item['kind'] == 'illustration' for item in node['lesson_media'])
-        assert ref['key_images'] and all(image['src'] for image in ref['key_images'])
+        if node['id'] == 'rad.5.sella':
+            from primer.radiology_catalog import detail, resolve
+            sources = detail(curriculum, resolve('ra.mri-sella'))['radiology_reference']['structure_atlas']
+            assert len(sources) == 20 and all(image['src'] and image['license'] == 'CC BY 4.0' for image in sources)
+            assert not ref['key_images']
+        else:
+            assert ref['key_images'] and all(image['src'] for image in ref['key_images'])
         model = ref['spatial_model']
         assert model['scenario'] == 'radiology-reference:' + node['id']
         assert model['id'] not in model_ids

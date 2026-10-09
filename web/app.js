@@ -237,7 +237,9 @@ function splitForSpeech(text) {
   const clean = String(text == null ? '' : text).replace(/\s+/g, ' ').trim();
   if (!clean) return [];
   if (clean.length <= SPEAK_CHUNK) return [clean];
-  const sentences = clean.match(/[^.!?\u2026]+(?:[.!?\u2026]+["\')\]]*|$)/g) || [clean];
+  // A decimal point or a dot inside a source URL is not a sentence boundary.
+  // Require whitespace/end after punctuation, preserving numeric tokens intact.
+  const sentences = clean.match(/[\s\S]+?(?:[.!?\u2026]+["\')\]]*(?=\s|$)|$)/g) || [clean];
   const out = [];
   let buf = '';
   for (const s of sentences) {

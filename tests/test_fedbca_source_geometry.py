@@ -123,7 +123,11 @@ def test_every_current_case_model_prop_matches_its_full_current_delivery_proof()
     from primer.module_media import source_model_bindings
     from tools.check_radiology_fidelity import digest
     curr=Curriculum();proof=json.loads((PROOF/'current-source-delivery-review.json').read_text());bindings=source_model_bindings()
-    assert proof['matching_lessons']==len(bindings)==11 and proof['source_references']==20
+    # The retained case-delivery proof precedes the separately reviewed Sella
+    # registration; its original contracts must remain exactly reproducible.
+    reviewed_bindings={key:value for key,value in bindings.items() if key!='rad.5.sella'}
+    assert set(reviewed_bindings)=={row['module_id'] for row in proof['modules']}
+    assert proof['matching_lessons']==len(reviewed_bindings)==11 and proof['source_references']==20
     fields=['goal','learning_outcomes','lesson','reference','radiology_reference','visual_spec','lesson_media','model_family','model_context','practice','quiz','kid_text']
     for row in proof['modules']:
         node=curr.node(row['module_id']);model=next(m for m in node['lesson_media'] if m.get('renderer')=='radiology-anatomy')
