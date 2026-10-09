@@ -3663,16 +3663,19 @@ async def source_study_delivery(study: str, asset: str, request: Request):
     from .radiology_catalog import _source_study_references
     rows = [row for entries in _source_study_references().values() for row in entries]
     row = next((r for r in rows if r['id'] == study), None)
-    if row is None or asset not in row['files']:
+    if row is None:
+        return JSONResponse({"detail": "Unknown source study file"}, status_code=404)
+    filename = next((name for name in row['files'] if name == asset), None)
+    if filename is None:
         return JSONResponse({"detail": "Unknown source study file"}, status_code=404)
     if os.environ.get("VERCEL"):
-        return RedirectResponse('/source-media/studies/' + study + '/' + asset, status_code=307)
+        return RedirectResponse('/source-media/studies/' + row['id'] + '/' + filename, status_code=307)
     # Study viewers verify the original gzip container before decompressing it.
     # Mesh delivery instead uses gzip as HTTP content encoding; keep them distinct.
-    if asset.endswith('.bin.gz'):
-        return FileResponse(os.path.join(WEB_DIR, 'studies', study, asset),
+    if filename.endswith('.bin.gz'):
+        return FileResponse(os.path.join(WEB_DIR, 'studies', row['id'], filename),
                             media_type='application/octet-stream', headers={'Cache-Control': 'no-cache'})
-    return await app.state.source_static.get_response('studies/' + study + '/' + asset, request.scope)
+    return await app.state.source_static.get_response('studies/' + row['id'] + '/' + filename, request.scope)
 
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
