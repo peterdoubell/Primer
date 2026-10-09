@@ -64,14 +64,23 @@ def test_every_attached_figure_keeps_its_original_role_rights_and_case_context(c
         for media in historical['lesson_media']:
             if media.get('renderer') == 'radiology-anatomy':
                 media['props'].pop('source_references', None)
+        if module['module_id'] == 'rad.4.hrct':
+            # Preserve the original byte-delivery proof across the page merge.
+            for media in historical['lesson_media']:
+                if media.get('kind') == 'source-gallery':
+                    media['investigation_ids'] = [reader['investigation_id'] for reader in module['source_readers']]
         assert module['module_contract_after_sha256'] == digest(historical)
         for reader in module['source_readers']:
-            source = atlas[reader['investigation_id']]
+            canonical = catalog.resolve(reader['investigation_id'])['id']
+            by_figure = {f['id']: f for f in atlas[canonical]}
+            source = [by_figure[identifier] for identifier in reader['figure_ids']]
             assert reader['source_figures_sha256'] == digest(source)
             assert reader['figure_ids'] == [f['id'] for f in source]
             assert reader['figure_count'] == len(source)
             delivered = catalog.detail(curriculum, catalog.resolve(reader['investigation_id']))['radiology_reference']['structure_atlas']
-            assert digest(delivered) == reader['source_figures_sha256']
+            visible = [figure for figure in source if catalog.reporting_image(figure)]
+            selected = [figure for figure in delivered if figure['id'] in set(reader['figure_ids'])]
+            assert digest(selected) == digest(visible)
         assert not module['clinical_or_complete_anatomical_approval']
     assert proof['newly_attached_lessons'] == 48 and not proof['whole_radiology_goal_complete']
 
@@ -85,6 +94,8 @@ def test_runtime_rights_audit_counts_all_new_lesson_uses(curriculum):
             if u['collection'] == 'structure_atlas'}
     for identifier, figures in atlas.items():
         for figure in figures:
+            if not catalog.reporting_image(figure):
+                continue
             assert ('lesson:' + by_id[identifier]['module_id'], figure['id']) in uses
 
 

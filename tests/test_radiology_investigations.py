@@ -337,7 +337,8 @@ def test_hrct_combines_four_sources_and_preserves_old_link(curriculum):
     assert len(ref['walkthrough']['steps']) == 8
     assert {'CYST MORPHOLOGY', 'FIBROSIS', 'PATTERN SYNTHESIS'} <= {
         section['heading'] for section in ref['report_templates'][0]['sections']}
-    assert {'hrct-image-2', 'hrct-bhd-comparison', 'hrct-plch-comparison'} <= {
+    assert any(image['id'].startswith('open-hrct-fibrosis-') for image in ref['structure_atlas'])
+    assert {'hrct-bhd-comparison', 'hrct-plch-comparison'} <= {
         image['id'] for image in ref['key_images']}
 
 

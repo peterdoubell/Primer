@@ -907,16 +907,19 @@ def reporting_image(image):
     Preserve original source records/bytes for provenance; exclude whole mixed
     figures rather than silently cropping licensed publisher panels.
     """
-    if image.get('origin') == 'source-derived':
+    if image.get('origin') == 'source-derived' and image.get('kind') != 'schematic':
         return False
     excluded = ('dissection', 'histology', 'photograph', 'specimen', 'experimental')
-    if any(any(term in panel.get('kind', '').lower() for term in excluded)
-           for panel in image.get('ancillary_panels', [])):
+    clinical = image.get('kind') == 'clinical-image' and image.get('modality') in {
+        'CT', 'MRI', 'MR arthrography', 'Ultrasound', 'Radiography', 'CT arthrography'}
+    if (not clinical
+            and any(any(term in panel.get('kind', '').lower() for term in excluded)
+                    for panel in image.get('ancillary_panels', []))):
         return False
     description = ' '.join(str(image.get(key, '')) for key in
-                           ('caption', 'alt', 'title', 'source_url')).lower()
+                           ('id', 'caption', 'alt', 'title', 'source_url')).lower()
     return not any(term in description for term in
-                   ('synchrotron', 'phase-contrast tomography', 's41597-022-01353',
+                   ('synchrotron', 'hipct-lung', 'phase-contrast tomography', 's41597-022-01353',
                     'micro-ct', 'microct', 'experimental setup'))
 
 
