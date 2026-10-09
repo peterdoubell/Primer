@@ -64,3 +64,11 @@ Direct remote image loads failed in the local viewer. The source browser's permi
 These references are published teaching-image stacks, not original calibrated DICOM volumes. The original case's axial sequence is supplied for neck levels; its sagittal and coronal series remain available on the source case. Image controls do not invent HU, slice spacing, editable source annotations or new anatomical territory boundaries.
 
 Verification completed: 42 focused catalogue/reporting/walkthrough tests passed. Browser verification confirmed all three local stacks load, first/last-frame boundary handling, keyboard/wheel navigation, numeric Enter-to-jump, zoom and fit, staging-table filtering, paediatric framework selection and insertion of staging prompts without replacing the existing report. No browser console errors were reported on the inspected head/neck page.
+
+## Release integration
+
+Integration with current main preserves the later fibrosis/cystic source guides, native-study viewers and historical source-delivery proofs. Cystic and fibrosis requirements are combined without deleting any original structure or requirement: 157 groups, 1,176 detailed leaves, plus the current report-field and walkthrough mappings. The formerly stale lung and related display-contract snapshots are reconciled; clinical and anatomical approval statuses remain unchanged.
+
+The reporting filter preserves diagnostically relevant CT/MRI comparison figures and labelled anatomical schematics. The original fixed-lung synchrotron/HiP-CT publication figures remain preserved for source provenance but are excluded from the reporting view.
+
+The full supported Python 3.12 suite passed: 34,946 tests, 64 skipped. CT JPEGs are deployed as byte-preserving static assets using the existing source-media route pattern; registered `/app` frame routes keep the reader gate before redirecting. Source manifests, credits, dimensions and SHA-256 hashes remain in the application bundle, and local-file validation remains strict.

@@ -8,6 +8,7 @@ import gzip
 import struct
 import hashlib
 import json
+import os
 from datetime import date
 import re
 from functools import lru_cache
@@ -416,11 +417,28 @@ def annotated_anatomy_links():
                 expected_frame = '/app/reference-media/annotated-ct/' + reference['id'] + '/' + str(frame['index'] + 1).zfill(3) + '.jpeg'
                 if frame['src'] != expected_frame:
                     raise ValueError('Annotated CT stack has an unregistered local frame')
+                if (not re.fullmatch(r'[0-9a-f]{64}', frame.get('sha256', ''))
+                        or any(type(frame.get(key)) is not int or frame[key] <= 0 for key in ('width', 'height'))):
+                    raise ValueError('Annotated CT frame needs its reviewed hash and dimensions')
                 frame_path = DATA.parents[1] / 'web' / frame['src'].removeprefix('/app/')
-                if hashlib.sha256(frame_path.read_bytes()).hexdigest() != frame['sha256']:
+                if not os.environ.get('VERCEL') and hashlib.sha256(frame_path.read_bytes()).hexdigest() != frame['sha256']:
                     raise ValueError('Preserved annotated CT frame changed after acquisition')
     return {identifier: [copy.deepcopy(data['references'][key]) for key in selection]
             for identifier, selection in data['bindings'].items()}
+
+
+@lru_cache(maxsize=1)
+def annotated_ct_frames():
+    """Registered public-source rasters; hosted builds deliver bytes on the CDN."""
+    frames, seen = {}, set()
+    for references in annotated_anatomy_links().values():
+        for reference in references:
+            if not reference.get('stack') or reference['id'] in seen:
+                continue
+            seen.add(reference['id'])
+            manifest = _read('../../web/reference-media/annotated-ct/' + reference['id'] + '.json')
+            frames.update({frame['src']: frame for frame in manifest['frames']})
+    return frames
 
 
 def _validate_native_volume_figure(image, root):

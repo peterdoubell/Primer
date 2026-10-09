@@ -98,3 +98,25 @@ def test_embedded_references_preserve_complete_ordered_source_sequences():
         assert 'Non-commercial' in data['reuse']
         assert all((ROOT / 'web' / frame['src'].removeprefix('/app/')).is_file() for frame in data['frames'])
         assert all(frame['source_image_url'].startswith('https://prod-images-static.radiopaedia.org/images/') for frame in data['frames'])
+
+
+def test_hosted_stack_delivery_preserves_reader_gate_and_registered_frame_paths(monkeypatch, curriculum):
+    from fastapi.testclient import TestClient
+    import primer.server as server
+    monkeypatch.setenv('VERCEL', '1')
+    monkeypatch.setenv(server.ACCESS_USERNAME_ENV, 'reader')
+    monkeypatch.setenv(server.ACCESS_PASSWORD_ENV, 'secret')
+    catalog.annotated_anatomy_links.cache_clear()
+    catalog.annotated_ct_frames.cache_clear()
+    try:
+        with TestClient(server.app) as client:
+            path = '/app/reference-media/annotated-ct/liver-segments/001.jpeg'
+            assert client.get(path).status_code == 401
+            response = client.get(path, auth=('reader', 'secret'), follow_redirects=False)
+            assert response.status_code == 307
+            assert response.headers['location'] == '/source-media/reference-media/annotated-ct/liver-segments/001.jpeg'
+            assert client.get('/app/reference-media/annotated-ct/liver-segments/999.jpeg', auth=('reader','secret')).status_code == 404
+            assert len(catalog.annotated_ct_frames()) == 220
+    finally:
+        catalog.annotated_anatomy_links.cache_clear()
+        catalog.annotated_ct_frames.cache_clear()
