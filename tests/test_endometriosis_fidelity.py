@@ -66,7 +66,9 @@ def test_all_report_steps_insert_assessment_prompts_and_only_their_source_figure
   assert not step['parts']
  assert w['start']['module_illustrations'] is False
  assert 'conceptual orientation only' in ref['spatial_model']['reporting_aim']
- assert not ref['source_anatomy_references']
+ assert len(ref['source_anatomy_references'])==1
+ assert ref['source_anatomy_references'][0]['atlas']=='hra-female-pelvis-v1.10'
+ assert ref['source_anatomy_references'][0]['initial_cropped'] is False
  # The same broad lesson also hosts other examinations; their effective scoped contracts remain separate.
  for inv in ['ra.mri-cervical-cancer','ra.mri-endometrial-cancer']:
   other=detail(Curriculum(),resolve(inv))['radiology_reference']

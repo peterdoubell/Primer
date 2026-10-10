@@ -1,0 +1,14 @@
+.physics-phase-lab { min-width: 0; }
+.physics-phase-lab .model-heading-row { flex-wrap: wrap; }
+.physics-phase-lab .model-heading-row > button { flex-shrink: 0; }
+.phase-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 15px 0; }
+.phase-viewport { min-width: 0; overflow: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 10px; background: #f5efdf; }
+.phase-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.physics-phase-lab.is-enlarged .phase-viewport svg { min-width: 660px; }
+.phase-summary, .phase-readout, .phase-equation, .phase-assumptions { overflow-wrap: anywhere; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.physics-phase-lab .phase-start-control, .physics-phase-lab .phase-number-control { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.physics-phase-lab input[type=number], .physics-phase-lab select { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; min-height: 38px; font: inherit; color: inherit; background: var(--paper, #f5efdf); border: 1px solid var(--line, #d5cfbf); border-radius: 6px; padding: 6px 8px; }
+.phase-assumptions > summary { cursor: pointer; }
+.phase-viewport:focus-visible, .physics-phase-lab button:focus-visible, .physics-phase-lab input:focus-visible, .physics-phase-lab select:focus-visible, .phase-assumptions > summary:focus-visible { outline: 3px solid var(--accent, #317e78); outline-offset: 3px; }
+.phase-live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 760px) { .phase-panels, .physics-phase-lab .concept-controls { grid-template-columns: minmax(0, 1fr); } }

@@ -20757,7 +20757,20 @@
           ],
           "reporting_aim": "The procedural pelvic diagram is conceptual orientation only. It is not complete source-derived ovarian, tubal, parametrial, ureteric, neural or fine uterine/bowel-wall anatomy and does not represent individual endometriosis or its surgical boundaries. Published cases and held native model candidates are independent of the current patient."
         },
-        "source_anatomy_references": [],
+        "source_anatomy_references": [
+          {
+            "id": "hra-female-pelvis-v1.10-original-source",
+            "label": "Original female pelvic atlas surfaces \u00b7 partial source reference",
+            "atlas": "hra-female-pelvis-v1.10",
+            "family": "female-pelvis-source",
+            "manifest_url": "/app/anatomy/hra-female-pelvis-v1.10/manifest.json",
+            "manifest_sha256": "ca947cc1bf39e165708d2a634e1acbe847629b90d14a89b6f38a4f6ccfbcc776",
+            "initial_layer": "source-surfaces",
+            "initial_cropped": false,
+            "source_coordinate_system": "native-gltf-y-up",
+            "population_note": "54 complete original HRA female-assembly mesh occurrences: ovaries, tubal parts, uterine regions, source ligaments/folds, vagina, bladder regions, ureters, rectum/sigmoid and selected pelvic bones. Source labels, open surfaces and shared uterus-wall triangles are preserved. This curated reference is independent of the published MRI cases and current patient. Endometrium, myometrium, junctional zone, bowel-wall layers, nerves, parametrial boundaries, lesions and surgical margins remain unverified. Native declared metres/Y-up are retained; patient axes, acquisition calibration and MRI registration are unverified. The older standalone uterus provenance conflict is retained below."
+          }
+        ],
         "source_motion_references": [],
         "source_study_references": []
       },
@@ -171484,7 +171497,21 @@
             "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Relate endometrial cavity, myometrium, cervix and adnexa across orthogonal views.",
             "props": {
               "node_id": "rad.5.uterine-mr",
-              "family": "female"
+              "family": "female",
+              "source_references": [
+                {
+                  "id": "hra-female-pelvis-v1.10-original-source",
+                  "label": "Original female pelvic atlas surfaces \u00b7 partial source reference",
+                  "atlas": "hra-female-pelvis-v1.10",
+                  "family": "female-pelvis-source",
+                  "manifest_url": "/app/anatomy/hra-female-pelvis-v1.10/manifest.json",
+                  "manifest_sha256": "ca947cc1bf39e165708d2a634e1acbe847629b90d14a89b6f38a4f6ccfbcc776",
+                  "initial_layer": "source-surfaces",
+                  "initial_cropped": false,
+                  "source_coordinate_system": "native-gltf-y-up",
+                  "population_note": "54 complete original HRA female-assembly mesh occurrences: ovaries, tubal parts, uterine regions, source ligaments/folds, vagina, bladder regions, ureters, rectum/sigmoid and selected pelvic bones. Source labels, open surfaces and shared uterus-wall triangles are preserved. This curated reference is independent of the published MRI cases and current patient. Endometrium, myometrium, junctional zone, bowel-wall layers, nerves, parametrial boundaries, lesions and surgical margins remain unverified. Native declared metres/Y-up are retained; patient axes, acquisition calibration and MRI registration are unverified. The older standalone uterus provenance conflict is retained below."
+                }
+              ]
             }
           }
         ],
@@ -171651,7 +171678,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "d4ea70c4d65953987f87dac2ae063c2f04893d377013b5d463ae58b7ca4761c6",
+      "module_contract_sha256": "d1eccd2ad9be1a8c98b5e6835f69ea75f37b8894c0a6c6ce623ce76cdcb9b169",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

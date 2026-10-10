@@ -388,6 +388,7 @@ const INTERACTIONS = Object.freeze({
 function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
+  let phaseEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
   let odeEntries = 0;
@@ -397,6 +398,11 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'physics-phase-lab') {
+          const bindings={'phys.0.hot-cold':'phys.0.hot-cold.melting-ice','phys.2.matter':'phys.2.matter.phase-change'};
+          if (media.kind !== 'model' || !bindings[lesson.id] || JSON.stringify(media.props) !== JSON.stringify({scenario:bindings[lesson.id]})) throw new Error('invalid phase binding');
+          phaseEntries++; continue;
+        }
         if (media.renderer === 'math-numerical-lab') {
           if (media.kind !== 'model' || lesson.id !== 'math.5.numerical' || JSON.stringify(media.props) !== JSON.stringify({scenario:'math.5.numerical.error-accounting'})) throw new Error('invalid numerical error binding');
           numericalEntries++; continue;
@@ -460,6 +466,7 @@ function collectRemainingModels() {
   if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
   if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');
   if (buoyancyEntries !== 1) throw new Error('expected one separately verified buoyancy model');
+  if (phaseEntries !== 2) throw new Error('expected two separately verified phase models');
   if (numericalEntries !== 1) throw new Error('expected one separately verified numerical error model');
   if (thermalEntries !== 2) throw new Error('expected two separately verified thermal models');
   if (convergenceEntries !== 1) throw new Error('expected one separately verified convergence model');

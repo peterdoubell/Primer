@@ -3532,7 +3532,7 @@ def app_shell():
                      "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css",
                      "math-ode-lab.js", "math-ode-lab.css", "math-eigenspace.js", "math-eigenspace.css",
                      "math-field-lab.js", "math-field-lab.css", "math-wave-lab.js", "math-wave-lab.css",
-                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
+                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3683,7 +3683,7 @@ async def source_study_delivery(study: str, asset: str, request: Request):
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
-    allowed = {"bodyparts3d", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
+    allowed = {"bodyparts3d", "hra-female-pelvis-v1.10", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
     mri_atlases = {"ispy1-expert1002", "prostate-biopsy0001", "fedbca-center1-001", "fedbca-center2-01", "fedbca-center3-01", "fedbca-center4-01"}
     allowed |= mri_atlases
     if (os.environ.get("VERCEL") and atlas in allowed
