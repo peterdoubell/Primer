@@ -683,5 +683,50 @@
       "initial_cropped": false,
       "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
     }
+  ],
+  "ra.carotid-obstruction": [
+    {
+      "id": "bp3d-carotid-4.3-original-right-trunks",
+      "label": "Original right carotid source trunks · curated, incomplete reporting scope",
+      "atlas": "bp3d-carotid-4.3",
+      "family": "carotid-right-source",
+      "manifest_url": "/app/anatomy/bp3d-carotid-4.3/manifest.json",
+      "manifest_sha256": "191242052253a0e5965b2f5cc226a6d2eaab14536adbc81c0fd0d46b64db23f9",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Curated adult-male right common, external and internal carotid source trunks. Independent of the native CT, published cases and current patient. Full original objects are retained, but left-side anatomy, branch completeness, junction continuity and separated lumen/wall or lesion tissues remain unapproved. Do not grade patient stenosis or infer patency from this reference. Source coordinates and calibration limits, full construction details and CC BY-SA2.1 Japan attribution are stated below."
+    },
+    {
+      "id": "totalseg-v3-s0358-carotid-source-context",
+      "label": "Native CT common-carotid and adjacent labels · partial, not CTA grading",
+      "atlas": "totalseg-v3-s0358",
+      "family": "thyroid-source",
+      "manifest_url": "/app/anatomy/totalseg-v3-s0358/manifest.json",
+      "manifest_sha256": "e0990dce59ecb4571d11ef82a6fd20dfc485b72cfb6bc30d292815e829384f99",
+      "initial_layer": "source_labels",
+      "initial_cropped": false,
+      "population_note": "Independent CT case s0358, source metadata female and age90; all eight original labels remain, including partial common-carotid interfaces and adjacent structures. This is not a dedicated carotid CTA or a matched current-patient/publication/curated-male examination. No complete ICA/ECA/bifurcation, separated wall/lumen or stenosis grade is supplied. The source grid is1.5mm; raw DICOM calibration, arterial phase, effective wall resolution and independent orientation remain unverified. Full source details are below.",
+      "source_volume": {
+        "id": "totalseg-v3-s0358-complete-CT",
+        "src": "/app/anatomy/totalseg-v3-s0358/ct-reference.html",
+        "sha256": "be3f68908b66d05b41c664b78e1adef6c64da6bf1b6ebe1e36f539b9dc6d8bf9",
+        "script_sha256": "6b159e1b9eb4a48153cb0c3bb721d010439286837e0e1b1cd2a2d65bfbf3282d",
+        "level_by_part": {
+          "totalseg-v3-s0358-thyroid_gland": "thyroid gland",
+          "totalseg-v3-s0358-trachea": "trachea",
+          "totalseg-v3-s0358-esophagus": "esophagus",
+          "totalseg-v3-s0358-common_carotid_artery_left": "common carotid artery left",
+          "totalseg-v3-s0358-common_carotid_artery_right": "common carotid artery right",
+          "totalseg-v3-s0358-brachiocephalic_trunk": "brachiocephalic trunk",
+          "totalseg-v3-s0358-brachiocephalic_vein_left": "brachiocephalic vein left",
+          "totalseg-v3-s0358-brachiocephalic_vein_right": "brachiocephalic vein right"
+        },
+        "title": "Inspect matching complete source CT and original labels",
+        "caption": "Every native source slice and all eight original masks, with preserved overlaps. One 1.5 mm CT dataset grid; source index/RAS coordinates and source-value windowing, not independently calibrated HU, native DICOM orientation or ultrasound findings. Source annotation bounds and caps do not establish complete physical anatomy.",
+        "attribution": "ZIP member CRCs and local SHA256s were verified with stable publisher size/checksum before and after range acquisition. The whole 37.4 GB archive MD5 was not verified and no HTTP entity tag was supplied. Independent anatomical/clinical approval remains pending. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+        "source_url": "https://zenodo.org/records/22688904",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
   ]
 }

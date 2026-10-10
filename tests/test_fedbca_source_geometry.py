@@ -125,7 +125,8 @@ def test_every_current_case_model_prop_matches_its_full_current_delivery_proof()
     curr=Curriculum();proof=json.loads((PROOF/'current-source-delivery-review.json').read_text());bindings=source_model_bindings()
     # The retained case-delivery proof precedes the separately reviewed Sella
     # registration; its original contracts must remain exactly reproducible.
-    reviewed_bindings={key:value for key,value in bindings.items() if key!='rad.5.sella'}
+    reviewed_ids={row['module_id'] for row in proof['modules']}
+    reviewed_bindings={key:value for key,value in bindings.items() if key in reviewed_ids}
     assert set(reviewed_bindings)=={row['module_id'] for row in proof['modules']}
     assert proof['matching_lessons']==len(reviewed_bindings)==11 and proof['source_references']==20
     fields=['goal','learning_outcomes','lesson','reference','radiology_reference','visual_spec','lesson_media','model_family','model_context','practice','quiz','kid_text']

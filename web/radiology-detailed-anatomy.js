@@ -4,6 +4,7 @@
   const ATLASES = {
     bodyparts3d: "/app/anatomy/bodyparts3d/",
     "bp3d-sella-4.3": "/app/anatomy/bp3d-sella-4.3/",
+    "bp3d-carotid-4.3": "/app/anatomy/bp3d-carotid-4.3/",
     "z-anatomy": "/app/anatomy/msk-atlas/",
     "malaya-mri": "/app/anatomy/msk-mri-knee/",
     "malaya-ankle": "/app/anatomy/msk-mri-ankle/",
@@ -29,6 +30,7 @@
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
   const RANGES = {
+    "carotid-right-source": [1330.4599609375, 1539.219970703125],
     "sella-gross-default": [1518.3900146484375, 1543.3499755859375],
     "gland-source-2011": [1522.5699462890625, 1535.5400390625],
     "gland-source-2014": [1522.6199951171875, 1535.5],

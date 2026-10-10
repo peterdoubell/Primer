@@ -379,7 +379,7 @@
     "ra.carotid-obstruction": {
       "model": {
         "family": "neck",
-        "reporting_aim": "Follow each common and internal carotid artery from the bifurcation to the skull base before grading narrowing."
+        "reporting_aim": "Use source references only for their retained acquired or curated extent. The schematic neck is orientation, not complete bilateral carotid lumen/wall, plaque, dissection or intracranial collateral anatomy. No reference is registered to the current patient."
       },
       "steps": [
         {
@@ -388,38 +388,45 @@
           "sections": [
             "SITE AND MORPHOLOGY"
           ],
-          "look": "CTA or contrast MRA source images and curved reformats along each carotid; Doppler when performed.",
-          "normal": "Carotid arteries patent without significant plaque or narrowing.",
+          "look": "Trace actual covered arch origins, common carotid course, bifurcation, ICA and ECA on each side using the acquired source images and suitable reformats. Describe the supplied plaque/wall and surrounding tissue interfaces; a generic tube or selected publication view does not establish every branch or wall layer.",
+          "normal": {
+            "SITE AND MORPHOLOGY": "Source adequacy and coverage [__]. Each observed side, vessel segment, plaque/wall finding and unresolved source boundary [__]. Unassessed origin, branch or vessel extent [__]."
+          },
           "findings": [
             "Calcified / soft plaque at the [right] ICA origin.",
             "Carotid web: shelf-like intraluminal projection along the posterior wall of the ICA bulb.",
             "Floating thrombus in the ICA."
           ],
           "images": [
-            "ra-carotid-obstruction-source-1"
+            "open-carotid-obstruction-neck-spaces-fig12",
+            "open-carotid-obstruction-neck-spaces-fig14"
           ],
-          "landmark": "carotids"
+          "landmark": "carotids",
+          "anatomy_note": "The curated right trunk reference and native CT label reference are separate source contexts, not a reconstructed bilateral current-patient carotid tree. Neither independently resolves lumen versus intima/media/adventitia or pathological plaque components."
         },
         {
           "label": "Residual lumen and distal calibre",
-          "detail": "Assess the degree of stenosis, near-occlusion and the calibre of the distal ICA.",
+          "detail": "Assess the supplied minimum lumen and distal ICA, first excluding an unsuitable or collapsed reference. Distal reduction may be threadlike or subtler and normal-appearing; retain full-collapse versus without-full-collapse distinctions.",
           "sections": [
             "RESIDUAL LUMEN"
           ],
-          "look": "Minimum lumen diameter compared with the normal distal ICA (NASCET method).",
-          "normal": "No haemodynamically significant stenosis.",
+          "look": "For suitable conventional NASCET assessment, record the actual narrowest lumen and disease-free distal ICA reference, method and plane. Review both distal ICAs, ipsilateral ECA and supplied intracranial variants/obstructions. Do not use bulb calibre, a collapsed vessel, an unvalidated model surface or an inadequate source as an interchangeable reference.",
+          "normal": {
+            "RESIDUAL LUMEN": "Lumen and reference evaluability [__]. Observed minimum lumen, actual named reference site/diameter and method [__]. Distal ICA calibre, comparison ICA/ECA and possible full or subtler distal collapse [__]. Reasons grading is withheld or unresolved [__]."
+          },
           "findings": [
-            "[Right] ICA stenosis of __% (NASCET).",
-            "Near-occlusion: severe stenosis with collapse of the distal ICA (not graded as a percentage)."
+            "[Side/site] source-supported conventional stenosis of [__]% by [method], with actual reference site and quality [__].",
+            "Near-occlusion concern: severe proximal narrowing with source-supported distal ICA reduction [with full collapse / without full collapse / unresolved]. No routine percentage grade is assigned to a collapsed reference."
           ],
           "images": [
-            "ra-carotid-obstruction-source-2"
+            "open-carotid-obstruction-pmc7160198-fig2",
+            "open-carotid-obstruction-pmc12866240-fig1"
           ],
           "measurements": [
             "Stenosis"
           ],
           "landmark": "carotids",
-          "tip": "Near-occlusion with distal collapse is a separate category; a percentage stenosis is misleading."
+          "tip": "Near-occlusion can occur without a threadlike full collapse. Small ICA calibre alone is insufficient: assess severe proximal disease, expected calibre, comparison vessels, variants and distal disease together. Do not calculate a routine NASCET percentage from a reduced/collapsed distal reference."
         },
         {
           "label": "Occlusion pattern",
@@ -427,14 +434,19 @@
           "sections": [
             "OCCLUSION PATTERN"
           ],
-          "look": "Delayed images to separate true occlusion from slow flow (pseudo-occlusion).",
-          "normal": "No occlusion.",
+          "look": "Use the actual complete covered lumen, source quality, contrast acquisition and any supplied delayed imaging to assess non-opacification, true occlusion, near-occlusion/slow filling and pseudo-occlusion from distal intracranial disease. Single-phase absence of contrast or a static MRA display cannot independently establish complete occlusion.",
+          "normal": {
+            "OCCLUSION PATTERN": "Actual acquisition and temporal adequacy [__]. Observed stump, non-opacified extent, distal contrast/reconstitution and uncertainty [__]. Unacquired delayed phase or distal vessel coverage [__]."
+          },
           "findings": [
             "Occlusion of the [left] ICA from the origin with reconstitution of the [petrous / cavernous] segment.",
             "Pseudo-occlusion: slow antegrade filling on delayed images."
           ],
           "landmark": "carotids",
-          "tip": "Slow flow can mimic occlusion on a single early phase; check delayed images."
+          "tip": "Separate source-observed non-opacification from confirmed occlusion. Record what was acquired, any unresolved timing/flow limitation and the actual distal examination; do not invent delayed-phase confirmation.",
+          "images": [
+            "open-carotid-obstruction-pmc12866240-fig1"
+          ]
         },
         {
           "label": "Non-atherosclerotic causes",
@@ -442,14 +454,24 @@
           "sections": [
             "OTHER CAUSES"
           ],
-          "look": "Crescentic mural haematoma (fat-suppressed T1 on MRI), flap, tapered narrowing sparing the bulb.",
-          "normal": "No dissection or other vasculopathy.",
+          "look": "Inspect actual acquired wall and lumen data for dissection, flap/true-false channels, mural haematoma, pseudoaneurysm and supplied non-atherosclerotic morphology. Fat-suppressed T1 and angiographic findings require their actual acquisition context. Source diagrams illustrate concepts, not independently resolved patient wall thickness or exact dissection planes.",
+          "normal": {
+            "OTHER CAUSES": "Wall/vasculopathy source adequacy [__]. Observed flap, mural signal, channel, aneurysm or bead-like morphology [__]. Unresolved wall layers, channels and unassessed source extent [__]."
+          },
           "findings": [
             "Dissection of the [left] ICA with crescentic mural haematoma and tapered narrowing distal to the bulb.",
             "String-of-beads appearance (fibromuscular dysplasia)."
           ],
           "landmark": "carotids",
-          "tip": "Dissection usually spares the bulb and starts 2–3 cm above the bifurcation."
+          "tip": "Typical location or a bead-like outline is not independent proof of tissue identity, cause or vessel patency. Describe acquired morphology and limits. Static vocal-fold medialisation in a source trauma case does not independently establish functional paralysis or a unique nerve injury.",
+          "images": [
+            "open-carotid-obstruction-neck-spaces-fig11",
+            "open-carotid-obstruction-neck-spaces-fig12",
+            "open-carotid-obstruction-neck-spaces-fig13",
+            "open-carotid-obstruction-neck-spaces-fig14",
+            "open-carotid-obstruction-neck-spaces-fig15",
+            "open-carotid-obstruction-neck-spaces-fig16"
+          ]
         },
         {
           "label": "Intracranial run-off and comparison",
@@ -457,15 +479,30 @@
           "sections": [
             "INTRACRANIAL AND COMPARISON"
           ],
-          "look": "Circle of Willis collaterals; the prior study.",
-          "normal": "Normal intracranial run-off; contralateral carotid normal.",
+          "look": "Trace each actually covered intracranial vessel, contralateral carotid and available collateral route. Retain anatomical variants, distal tandem obstruction, unacquired territories and comparison-method/timing limits. A visible artery or flat MRA rendering does not prove functional collateral flow, cerebral perfusion or a registered interval change.",
+          "normal": {
+            "INTRACRANIAL AND COMPARISON": "Acquired intracranial/contralateral coverage and comparison adequacy [__]. Observed runoff, collaterals, variant anatomy and source-supported interval change [__]. Unassessed vessels, perfusion and timing limitations [__]."
+          },
           "findings": [
             "Tandem intracranial stenosis of the [ ].",
             "Progression from __% to __% since [date]."
           ],
-          "landmark": "carotids"
+          "landmark": "carotids",
+          "images": [
+            "open-carotid-obstruction-pmc12866240-fig1",
+            "open-carotid-obstruction-neck-spaces-fig16"
+          ]
         }
-      ]
+      ],
+      "start": {
+        "images": [
+          "open-carotid-obstruction-pmc12866240-fig1",
+          "open-carotid-obstruction-neck-spaces-fig12"
+        ],
+        "module_illustrations": false
+      },
+      "preset_mode": "assessment-prompts",
+      "walkthrough_reviewed_at": "2026-10-10"
     },
     "ra.mri-dementia": {
       "steps": [
