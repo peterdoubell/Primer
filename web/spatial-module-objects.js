@@ -72,6 +72,38 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  define('analysis-tail-errors','Function tails and error bounds',{family:'powers',index:5,epsilon:50},
+    [choice('family','Function family',[['powers','xⁿ: pointwise, not uniform'],['uniform-ramp','x/n: uniform']]),
+     range('index','First tail index N',1,120,1),range('epsilon','Tolerance ε in hundredths',1,200,1)],(s,g)=>{
+      const lab=window.PrimerMathConvergenceLab,e=s.epsilon/100;
+      for(let offset=0;offset<8;offset++){
+        const n=s.index+offset,z=.2*offset;
+        const xs=lab.functionGrid(n).filter(x=>s.family!=='powers'||x<1);
+        g.line(xs.map(x=>[x,lab.functionPoint(s.family,n,x).error,z]),offset%2?g.colors.teal:g.colors.blue,{width:2,convergence_kind:'data',index:n});
+        if(s.family==='powers'){
+          // Open ring: an excluded supremum, not a sampled function value.
+          g.line(Array.from({length:25},(_,i)=>[1+.045*Math.cos(i*Math.PI/12),1+.045*Math.sin(i*Math.PI/12),z]),g.colors.coral,{width:1.25,convergence_kind:'unattained',index:n});
+          g.sphere([1,0,z],.012,g.colors.blue,{convergence_kind:'endpoint',index:n});
+        }else g.sphere([1,1/n,z],.012,g.colors.blue,{convergence_kind:'endpoint',index:n});
+      }
+      g.polygon([[0,e,0],[1,e,0],[1,e,1.4],[0,e,1.4]],g.colors.gold,{opacity:.15});
+      g.line([[0,0,0],[1.15,0,0]],g.colors.ink,{width:2});
+      g.line([[0,0,0],[0,2.1,0]],g.colors.ink,{width:2});
+      g.line([[0,0,0],[0,0,1.55]],g.colors.ink,{width:2});
+      g.label([1.15,-.1,0],'x = 1');g.label([-.15,2.1,0],'Error');
+      g.label([-.12,-.1,0],'n = '+s.index);g.label([-.12,-.1,1.4],'n = '+(s.index+7));
+      const m=lab.build({family:s.family,index:s.index,epsilon:s.epsilon,sample:50});
+      return {readout:m.readout,
+        note:'Eight separate curves show actual absolute errors for integer indices N…N+7 on x∈[0,1]. The index axis advances by0.2 coordinate units per index; labels give the actual n. No continuous surface or intervening noninteger index data is drawn. Gold is the strict ε boundary, not an error value. '+
+          (s.family==='powers'?'Open red rings at x=1,error=1 are unattained left-endpoint limits/suprema; filled blue points at x=1,error=0 are actual data. ':'Filled endpoint points at x=1 attain error1/n. ')+
+          'Adaptive finite curve samples are rounded and connected only to illustrate the known continuous pieces. The all-index/all-input result follows from the displayed analytical argument, not the eight visible curves. '+m.proof,
+        legend:[{label:'Blue/teal: separate finite-index error curves',color:g.colors.blue},
+          {label:'Gold: ε boundary; strict inequality excludes equality',color:g.colors.gold},
+          {label:s.family==='powers'?'Open red rings: excluded supremum1':'Filled endpoints: attained maxima',color:g.colors.coral}],
+        convergence:{family:s.family,index:s.index,epsilon:e,works:m.works},
+      };
+    });
+
   define('buoyant-prism', 'Sealed prism in liquid',
     { volume: 200, mass: 120, height: 10, density: 1000, gravity: 9.81, depth: 6 },
     [range('volume', 'Sealed volume', 50, 200, 5, 'cm³'), range('mass', 'Mass', 50, 200, 10, 'g'),

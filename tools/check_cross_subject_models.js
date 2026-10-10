@@ -1197,7 +1197,7 @@ for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
-assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab'].includes(item.renderer)).length,
+assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab'].includes(item.renderer)).length,
   70, 'All 70 earlier lesson models remain reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-ode-lab').length,
   1, 'The separately checked second-order ODE activity remains reachable');
@@ -1205,6 +1205,7 @@ assert.equal(entries.filter(({ item }) => item.renderer === 'math-field-lab').le
   1, 'The separately checked integral/flux activity remains reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-wave-lab').length,1);
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-probability-lab').length,1);
+assert.equal(entries.filter(({ item }) => item.renderer === 'math-convergence-lab').length,1);
 assert.equal(entries.filter(({ item }) => item.renderer === 'music-listening-lab').length,
   8, 'All eight separately checked music models remain reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'doppler-angle-lab').length,

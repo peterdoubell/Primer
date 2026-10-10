@@ -6111,6 +6111,7 @@
     'math-ode-lab': (item, hooks) => window.PrimerMathODELab?.render(item, hooks) || null,
     'math-field-lab': (item, hooks) => window.PrimerMathFieldLab?.render(item, hooks) || null,
     'physics-buoyancy-lab': (item, hooks) => window.PrimerPhysicsBuoyancyLab?.render(item, hooks) || null,
+    'math-convergence-lab': (item, hooks) => window.PrimerMathConvergenceLab?.render(item, hooks) || null,
     'math-wave-lab': (item, hooks) => window.PrimerMathWaveLab?.render(item, hooks) || null,
     'math-probability-lab': (item, hooks) => window.PrimerMathProbabilityLab?.render(item, hooks) || null,
     'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
@@ -6160,7 +6161,7 @@
       const result = RENDERERS[rendererName](item, hooks);
       if (!result) return result;
       // These renderers own their responsive viewport and camera controls.
-      if (['physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      if (['math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
       for (const picture of result.querySelectorAll('svg')) {
         if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
         const viewport = picture.parentNode;

@@ -9,6 +9,7 @@ const root = path.resolve(__dirname, '..');
 const context = { window: {} };
 globalThis.window = context.window;
 context.window.PrimerPhysicsBuoyancyLab = require('../web/physics-buoyancy-lab.js');
+context.window.PrimerMathConvergenceLab = require('../web/math-convergence-lab.js');
 require('../web/spatial-models.js');
 require('../web/spatial-math.js');
 require('../web/spatial-physical.js');
