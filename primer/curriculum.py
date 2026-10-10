@@ -159,6 +159,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-field-lab",
     "math-wave-lab",
     "math-probability-lab",
+    "physics-buoyancy-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -196,11 +197,11 @@ CONCEPT_MODEL_SCENARIOS = frozenset({
     "hist.3.economics-intro", "lang.4.linguistics", "mind.5.logic-advanced",
 })
 
-# These scenarios intentionally exclude the three physics lessons with bespoke
+# These scenarios intentionally exclude the four physics lessons with bespoke
 # renderers.  A scenario is bound to the matching node id below, so authored
 # curriculum data cannot silently reuse a scientific model in the wrong lesson.
 PHYSICS_MODEL_SCENARIOS = frozenset({
-    "phys.0.push-pull", "phys.0.hot-cold", "phys.0.float-sink",
+    "phys.0.push-pull", "phys.0.hot-cold",
     "phys.1.motion", "phys.1.machines", "phys.1.magnets", "phys.1.sound",
     "phys.1.energy", "phys.2.forces", "phys.2.gravity", "phys.2.electricity",
     "phys.2.heat", "phys.2.waves", "phys.2.matter", "phys.2.units",
@@ -375,6 +376,9 @@ def _validate_lesson_media(node: Dict) -> None:
                         "scenario": "math.4.multivar.integral-flux"}:
                     raise ValueError("{} integral/flux model has an unknown or cross-lesson scenario".format(
                         node.get("id")))
+            elif renderer == "physics-buoyancy-lab":
+                if node.get("id") != "phys.0.float-sink" or props != {"scenario": "phys.0.float-sink.hydrostatics"}:
+                    raise ValueError("{} buoyancy model has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "math-wave-lab":
                 if node.get("id") != "math.5.pde" or props != {"scenario": "math.5.pde.wave-field"}:
                     raise ValueError("{} wave-field model has an unknown or cross-lesson scenario".format(

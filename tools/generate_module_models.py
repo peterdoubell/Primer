@@ -46,7 +46,8 @@ bind('lang','computer','context','Inspect the physical computing substrate on wh
 # Physics: geometry and ideal examples, with research apparatus for abstract topics.
 bind('phys','lever','model','Inspect a load, effort and pivot, and compare force with moment arm in the stated ideal static example.', '0.push-pull 1.machines 2.forces 3.energy-work')
 bind('phys','camera','model','Trace straight sightlines through a pinhole and inspect the inverted image on the screen.', '0.light-shadow 1.light 3.optics-waves')
-bind('phys','particles','context','Compare inspectable arrangements of enlarged particles; this static object does not calculate temperature, pressure, buoyancy or a thermodynamic process.', '0.hot-cold 0.float-sink 2.heat 2.matter 3.thermo 4.statmech')
+bind('phys','particles','context','Compare inspectable arrangements of enlarged particles; this static object does not calculate temperature, pressure, buoyancy or a thermodynamic process.', '0.hot-cold 2.heat 2.matter 3.thermo 4.statmech')
+bind('phys','buoyant-prism','model','inspect the actual prism volume and hydrostatic force balance at a chosen held depth.', '0.float-sink')
 bind('phys','pendulum','model','Relate string length and angular position to the bob’s geometry and height above its lowest point.', '1.motion 1.energy 2.gravity 3.mechanics 4.classical')
 bind('phys','circuit','model','Trace the complete path in a simple ideal DC circuit and compare resistance, voltage and current; magnetic effects need a separate field description.', '2.electricity')
 bind('phys','wave','context','Inspect a transverse rope example and distinguish its spatial wavelength from displacement. Sound in air and electromagnetic fields are different physical wave systems.', '1.sound 2.waves 4.em-maxwell')
@@ -115,6 +116,7 @@ bind('mind','book','context','Inspect a physical carrier of arguments, definitio
 bind('mind','neuron','context','Inspect a generic neuron as one biological level relevant to mind research; it does not explain consciousness, diagnose mental states or reduce the lesson’s philosophical question to anatomy.', '4.cognitive-sci 5.phil-mind')
 
 FAMILY_TITLES = {
+ 'buoyant-prism':'Sealed prism in liquid',
  'magnet':'Bar magnet and field directions','detector':'Layered particle detector','interference':'Two-slit optical bench',
  'unit-blocks':'Counting blocks','balance':'Equal-arm balance','surface':'Coordinate surface',
  'urn':'Probability urn','book':'Bound book','press':'Printing press','stage':'Speaking and performance space',
@@ -144,8 +146,8 @@ for node_id, node in NODES.items():
     models.append({
         'node_id':node_id,
         'family':family,
-        'title':FAMILY_TITLES[family] + ' · 3D study',
-        'instructions':'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.',
+        'title':FAMILY_TITLES[family] + (' · 3D hydrostatics' if family=='buoyant-prism' else ' · 3D study'),
+        'instructions':('Rotate the sealed prism and inspect its real dimensions and submerged surfaces. Set a held depth and compare displaced liquid, buoyancy, weight and the required holding force.' if family=='buoyant-prism' else 'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.'),
         'context':node['title'] + ': ' + binding['context'],
         'mode':binding['mode'],
     })
