@@ -388,6 +388,7 @@ const INTERACTIONS = Object.freeze({
 function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
+  let thermalEntries = 0;
   let odeEntries = 0;
   let fieldEntries = 0;
   let waveEntries = 0, probabilityEntries = 0, buoyancyEntries = 0, convergenceEntries = 0;
@@ -395,6 +396,11 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'physics-thermal-lab') {
+          const bindings={'phys.0.hot-cold':'phys.0.hot-cold.energy-balance','phys.2.heat':'phys.2.heat.transport'};
+          if (media.kind !== 'model' || !bindings[lesson.id] || JSON.stringify(media.props) !== JSON.stringify({scenario:bindings[lesson.id]})) throw new Error('invalid thermal binding');
+          thermalEntries++; continue;
+        }
         if (media.renderer === 'math-convergence-lab') {
           if (media.kind !== 'model' || lesson.id !== 'math.4.analysis' ||
               JSON.stringify(media.props) !== JSON.stringify({scenario:'math.4.analysis.convergence'})) {
@@ -449,6 +455,7 @@ function collectRemainingModels() {
   if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
   if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');
   if (buoyancyEntries !== 1) throw new Error('expected one separately verified buoyancy model');
+  if (thermalEntries !== 2) throw new Error('expected two separately verified thermal models');
   if (convergenceEntries !== 1) throw new Error('expected one separately verified convergence model');
   return entries.sort((left, right) => left.lessonId.localeCompare(right.lessonId, undefined, { numeric: true }));
 }

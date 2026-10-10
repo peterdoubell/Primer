@@ -104,6 +104,26 @@
       };
     });
 
+  define('thermal-slab','Steady conducting slab',
+    {left:80,right:20,area:100,length:5,conductivity:1},
+    [range('left','Boundary A temperature',-20,120,1,'°C'),range('right','Boundary B temperature',-20,120,1,'°C'),
+     range('area','Square cross-section area',10,200,10,'cm²'),range('length','Thickness',.5,20,.5,'cm'),
+     range('conductivity','Thermal conductivity',.02,200,.02,'W/(m·K)')],(s,g)=>{
+      const m=window.PrimerPhysicsThermalLab.build({...s,mode:'conduction'}),w=Math.sqrt(s.area)*.1,L=s.length*.1;
+      // All geometric lengths use 0.1 scene unit per centimetre.
+      for(let i=0;i<16;i++){
+        const t=s.left+(s.right-s.left)*(i+.5)/16,u=(t+20)/140;
+        const color='rgb('+Math.round(62+(185-62)*u)+','+Math.round(112+(102-112)*u)+','+Math.round(133+(82-133)*u)+')';
+        g.box([-L/2+L*(i+.5)/16,0,0],[L/16,w,w],color,{thermal_kind:'slab',temperature:t,slice:i});
+      }
+      g.label([-L/2,w/2+.2,0],'A: '+s.left+' °C');g.label([L/2,w/2+.2,0],'B: '+s.right+' °C');
+      g.label([0,-w/2-.2,0],s.length+' cm');g.label([0,w/2+.7,0],'A → B: '+Number(m.power.toPrecision(5))+' W');g.label([0,0,w/2+.2],s.area+' cm²');
+      if(m.power!==0)g.arrow([m.power>0?-L/2:L/2,w/2+.45,0],[m.power>0?L/2:-L/2,w/2+.45,0],g.colors.gold,{width:2});
+      return {...result(m.readout,'Square transverse section and thickness are physical dimensions. Every length uses0.1 scene unit/cm. Sixteen colour bands sample the exact linear steady temperature at their centres; they are display subdivisions, not separate materials or numerical cells. Blue is−20 °C and red120 °C. The gold arrow gives signed net-energy direction, not magnitude; matter stays stationary. '+m.note,
+        [['Colour: temperature on fixed−20…120 °C scale',g.colors.coral],['Gold: net heat direction',g.colors.gold]],g),
+        thermal:{area:m.area,length:m.length,power:m.power,flux:m.flux}};
+    });
+
   define('buoyant-prism', 'Sealed prism in liquid',
     { volume: 200, mass: 120, height: 10, density: 1000, gravity: 9.81, depth: 6 },
     [range('volume', 'Sealed volume', 50, 200, 5, 'cm³'), range('mass', 'Mass', 50, 200, 10, 'g'),
