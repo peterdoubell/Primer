@@ -2306,92 +2306,225 @@
     "ra.mri-cervical-cancer": {
       "steps": [
         {
-          "label": "Primary tumour",
-          "detail": "Identify the cervical epicentre and measure the tumour in three axes.",
+          "label": "Source adequacy and anatomy",
+          "detail": "Record histology supplied, biopsy/treatment timing, MRI quality, actual coverage, age-related zonal visibility and anatomy variants. Plan acquired cervical planes from the actual canal orientation; record missing sequences or regions.",
+          "sections": [
+            "SOURCE ADEQUACY AND ANATOMY"
+          ],
+          "look": "Record histology supplied, biopsy/treatment timing, MRI quality, actual coverage, age-related zonal visibility and anatomy variants. Plan acquired cervical planes from the actual canal orientation; record missing sequences or regions.",
+          "findings": [
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
+          ],
+          "images": [
+            "open-cervical-cancer-pmc10605640-fig1",
+            "open-cervical-cancer-pmc11171278-fig1",
+            "open-cervical-cancer-normal-uterus-2018-fig3-1",
+            "open-cervical-cancer-pmc7338830-fig3",
+            "open-cervical-cancer-pmc7338830-fig4",
+            "open-cervical-cancer-pmc7338830-fig6"
+          ],
+          "measurements": [],
+          "landmark": "cervix",
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled.",
+          "normal": {
+            "SOURCE ADEQUACY AND ANATOMY": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
+          "parts": []
+        },
+        {
+          "label": "Primary tumour and uterine relationships",
+          "detail": "Describe each observed tumour epicentre/growth pattern and maximal dimension plus orthogonal dimensions. Assess cervical canal, external/internal os, cervical stroma and covered uterine/endometrial relationships; record actual internal-os distance and whole uterine size when evaluable.",
           "sections": [
             "PRIMARY TUMOUR"
           ],
-          "look": "High-resolution T2 perpendicular (oblique axial) and parallel to the cervical canal; DWI.",
+          "look": "Describe each observed tumour epicentre/growth pattern and maximal dimension plus orthogonal dimensions. Assess cervical canal, external/internal os, cervical stroma and covered uterine/endometrial relationships; record actual internal-os distance and whole uterine size when evaluable.",
+          "normal": {
+            "PRIMARY TUMOUR": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
           "findings": [
-            "Cervical tumour __ × __ × __ mm centred on the [anterior / posterior] lip.",
-            "Distance from the tumour to the internal os __ mm."
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
           ],
           "images": [
-            "uterine-mr-image-1"
-          ],
-          "measurements": [
-            "Tumour size"
+            "open-cervical-cancer-pmc10605640-fig3",
+            "open-cervical-cancer-pmc10605640-fig4",
+            "open-cervical-cancer-pmc10605640-fig5",
+            "open-cervical-cancer-pmc10605640-fig13",
+            "open-cervical-cancer-pmc10886638-fig4"
           ],
           "landmark": "cervix",
-          "tip": "FIGO stage IB depends on size (2 cm and 4 cm thresholds); measure in three planes."
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled.",
+          "parts": [],
+          "measurements": [
+            "Tumour and uterine extent",
+            "Planning and interface distances"
+          ]
         },
         {
-          "label": "Stroma and parametria",
-          "detail": "Assess the low-signal stromal ring and true extension into the parametrium on each side.",
+          "label": "Stroma, parametria and sacrouterine ligaments",
+          "detail": "Assess source-resolved inner and outer cervical boundaries, stromal ring and each parametrial/uterosacral interface. Distinguish expansion, oedema and uncertain post-biopsy change from source-supported extra-stromal tumour, vascular encasement and actual ureteric relationships.",
           "sections": [
             "STROMA AND PARAMETRIA"
           ],
-          "look": "Oblique axial T2 perpendicular to the cervix.",
-          "normal": "Preserved low-signal stromal ring; no parametrial invasion.",
+          "look": "Assess source-resolved inner and outer cervical boundaries, stromal ring and each parametrial/uterosacral interface. Distinguish expansion, oedema and uncertain post-biopsy change from source-supported extra-stromal tumour, vascular encasement and actual ureteric relationships.",
+          "normal": {
+            "STROMA AND PARAMETRIA": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
           "findings": [
-            "Full-thickness stromal invasion with an intact outer stromal ring.",
-            "Disruption of the stromal ring with nodular tumour in the [left] parametrium (FIGO IIB)."
-          ],
-          "images": [
-            "uterine-mr-image-2"
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
           ],
           "landmark": "cervix",
-          "tip": "Parametrial invasion needs tumour beyond the disrupted stromal ring; expansion or oedema alone is not enough."
+          "images": [
+            "open-cervical-cancer-pmc10605640-fig6",
+            "open-cervical-cancer-pmc10605640-fig8",
+            "open-cervical-cancer-pmc10886638-fig10",
+            "open-cervical-cancer-pmc10886638-fig11",
+            "open-cervical-cancer-pmc11171278-fig2"
+          ],
+          "parts": [],
+          "measurements": [
+            "Planning and interface distances"
+          ],
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled."
         },
         {
-          "label": "Vagina and pelvic sidewall",
-          "detail": "Describe vaginal extent, pelvic sidewall involvement and hydronephrosis.",
+          "label": "Vagina",
+          "detail": "Map each involved vaginal region, fornix and upper/lower extent with source-supported wall and adjacent tissue interfaces. Distinguish each actual lesion/contact and unassessed or collapsed source boundary.",
           "sections": [
-            "VAGINA AND SIDEWALL"
+            "VAGINA"
           ],
-          "look": "Sagittal T2 for vaginal extent; axial for sidewall and ureters.",
-          "normal": "No vaginal, sidewall or ureteric involvement.",
+          "look": "Map each involved vaginal region, fornix and upper/lower extent with source-supported wall and adjacent tissue interfaces. Distinguish each actual lesion/contact and unassessed or collapsed source boundary.",
+          "normal": {
+            "VAGINA": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
           "findings": [
-            "Extension to the upper two-thirds of the vagina (FIGO IIA).",
-            "Extension to the lower third of the vagina (FIGO IIIA).",
-            "Pelvic sidewall involvement or hydronephrosis (FIGO IIIB)."
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
           ],
-          "landmark": "cervix"
+          "images": [
+            "open-cervical-cancer-pmc10605640-fig5",
+            "open-cervical-cancer-pmc10605640-fig7",
+            "open-cervical-cancer-pmc10886638-fig3"
+          ],
+          "landmark": "cervix",
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled.",
+          "parts": [],
+          "measurements": []
         },
         {
-          "label": "Bladder and rectum",
-          "detail": "Differentiate contact from mucosal invasion of the bladder or rectum.",
+          "label": "Pelvic sidewalls, ureters and kidneys",
+          "detail": "Review each covered sidewall muscular/fascial and vascular interface, ureteric course and acquired renal collecting system. Record actual proximity/extension, obstruction, alternative cause and unresolved or unacquired extent.",
+          "sections": [
+            "SIDEWALLS AND URINARY TRACT"
+          ],
+          "look": "Review each covered sidewall muscular/fascial and vascular interface, ureteric course and acquired renal collecting system. Record actual proximity/extension, obstruction, alternative cause and unresolved or unacquired extent.",
+          "normal": {
+            "SIDEWALLS AND URINARY TRACT": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
+          "findings": [
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
+          ],
+          "landmark": "cervix",
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled.",
+          "images": [
+            "open-cervical-cancer-pmc10605640-fig8",
+            "open-cervical-cancer-pmc10605640-fig10",
+            "open-cervical-cancer-pmc11171278-fig1"
+          ],
+          "parts": [],
+          "measurements": [
+            "Planning and interface distances"
+          ]
+        },
+        {
+          "label": "Bladder, rectum and other adjacent organs",
+          "detail": "Separate contact, wall-layer findings, mucosal/luminal concern and uncertainty at each observed interface. Bullous oedema or detrusor involvement alone does not establish histologically proven mucosal invasion.",
           "sections": [
             "ADJACENT ORGANS"
           ],
-          "look": "Sagittal T2 of the bladder and rectal walls next to the tumour.",
-          "normal": "Fat planes with the bladder and rectum preserved.",
+          "look": "Separate contact, wall-layer findings, mucosal/luminal concern and uncertainty at each observed interface. Bullous oedema or detrusor involvement alone does not establish histologically proven mucosal invasion.",
+          "normal": {
+            "ADJACENT ORGANS": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
           "findings": [
-            "Tumour abuts the bladder wall with preserved low-signal muscle.",
-            "Tumour invades the bladder mucosa (FIGO IVA)."
-          ],
-          "images": [
-            "uterine-mr-image-3"
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
           ],
           "landmark": "bladder",
-          "tip": "Bullous oedema of the bladder mucosa without tumour signal is not stage IVA."
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled.",
+          "images": [
+            "open-cervical-cancer-pmc10605640-fig11",
+            "open-cervical-cancer-pmc10886638-fig1",
+            "open-cervical-cancer-pmc10886638-fig6",
+            "open-cervical-cancer-pmc11171278-fig2"
+          ],
+          "parts": [],
+          "measurements": []
         },
         {
           "label": "Nodes and other spread",
-          "detail": "Map suspicious pelvic and para-aortic nodes and other disease in the field.",
+          "detail": "Describe each actually covered suspicious nodal station, node morphology and short axis, including pelvic and para-aortic level. Retain the renal-vein reference, covered inguinal/distant sites and unacquired staging extent; MRI size alone does not prove or exclude microscopic metastasis.",
           "sections": [
             "NODES AND SPREAD"
           ],
-          "look": "Axial T2 and DWI from the renal veins to the inguinal regions.",
-          "normal": "No suspicious pelvic or para-aortic nodes.",
+          "look": "Describe each actually covered suspicious nodal station, node morphology and short axis, including pelvic and para-aortic level. Retain the renal-vein reference, covered inguinal/distant sites and unacquired staging extent; MRI size alone does not prove or exclude microscopic metastasis.",
+          "normal": {
+            "NODES AND SPREAD": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
           "findings": [
-            "Suspicious [right external iliac] node, short axis __ mm, round with heterogeneous signal (FIGO IIIC1r).",
-            "Suspicious para-aortic node (FIGO IIIC2r)."
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
           ],
-          "landmark": "ovaries",
-          "tip": "Nodal involvement upstages to IIIC regardless of the local extent; label it r (radiological)."
+          "landmark": "cervix",
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled.",
+          "images": [
+            "open-cervical-cancer-pmc10605640-fig2",
+            "open-cervical-cancer-pmc10605640-fig9",
+            "open-cervical-cancer-pmc10605640-fig10",
+            "open-cervical-cancer-pmc10605640-fig12",
+            "open-cervical-cancer-pmc10886638-fig8",
+            "open-cervical-cancer-pmc10886638-fig10"
+          ],
+          "parts": [],
+          "measurements": [
+            "Nodal short axis"
+          ]
+        },
+        {
+          "label": "Treatment response, recurrence and planning limits",
+          "detail": "When supplied, compare registered/anatomically matched acquired pre/post-treatment findings with actual timing, source signals and uncertainty. Separate residual/recurrent-tumour concern from fibrosis/oedema; include relevant fertility-planning distances, associated benign findings and unresolved non-imaging staging inputs.",
+          "sections": [
+            "RESPONSE AND PLANNING LIMITS"
+          ],
+          "look": "When supplied, compare registered/anatomically matched acquired pre/post-treatment findings with actual timing, source signals and uncertainty. Separate residual/recurrent-tumour concern from fibrosis/oedema; include relevant fertility-planning distances, associated benign findings and unresolved non-imaging staging inputs.",
+          "normal": {
+            "RESPONSE AND PLANNING LIMITS": "Actual source adequacy/covered extent: [__]. Observed site/side/lesion and source-supported findings: [__]. Actual measurements/method where evaluable: [__]. Unassessed or uncertain boundaries and missing clinical/pathological inputs: [__]."
+          },
+          "findings": [
+            "Source-supported observation at [site/side]: [__], with actual extent, method and uncertainty [__]."
+          ],
+          "landmark": "cervix",
+          "tip": "Publication cases and atlas geometry are independent source references. Record only actual evaluated findings, uncertainty and limits; no normal or stage statement is prefilled.",
+          "images": [
+            "open-cervical-cancer-pmc10605640-fig13",
+            "open-cervical-cancer-pmc10605640-fig17",
+            "open-cervical-cancer-pmc10605640-fig18",
+            "open-cervical-cancer-pmc10886638-fig4"
+          ],
+          "parts": [],
+          "measurements": []
         }
-      ]
+      ],
+      "start": {
+        "images": [
+          "open-cervical-cancer-pmc11171278-fig1",
+          "open-cervical-cancer-normal-uterus-2018-fig3-1",
+          "open-cervical-cancer-pmc10605640-fig1"
+        ],
+        "module_illustrations": false
+      },
+      "preset_mode": "assessment-prompts",
+      "walkthrough_reviewed_at": "2026-10-10",
+      "model": {
+        "family": "female",
+        "reporting_aim": "The procedural pelvic diagram is conceptual orientation only. The independent HRA source atlas is gross reference geometry, with unverified fine cervical/uterine and organ-wall layers. Neither represents complete current-patient tumour, parametrial, neural, vascular, nodal, mucosal or treatment-response anatomy."
+      }
     },
     "ra.mri-endometrial-cancer": {
       "steps": [

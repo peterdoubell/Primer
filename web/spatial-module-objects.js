@@ -72,6 +72,54 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  define('shrinking-support-subgraph','Exact shrinking-support subgraph volume',
+    {indexPower:2,amplitude:2,alpha:'1',probe:'quarter'},
+    [range('indexPower','n = 2ᑫ; choose q',0,16,1),range('amplitude','Fixed amplitude A',0,8,.25),
+     choice('alpha','Fixed exponent α',[['0','0: fixed height'],['0.5','1/2: square-root height'],['1','1: height proportional to n']]),
+     choice('probe','Probe in the input interval',[['zero','x = 0'],['quarter','x = 1/4'],['boundary','Moving: x = 1/n'],['inside','Moving: x = 1/(2n)']])],(s,g)=>{
+      const n=2**s.indexPower,alpha=Number(s.alpha),height=s.amplitude*n**alpha,width=1/n;
+      const probe=s.probe==='zero'?{a:0,b:1}:s.probe==='quarter'?{a:1,b:4}:s.probe==='boundary'?{a:1,b:n}:{a:1,b:2*n};
+      const inside=probe.a>0&&n*probe.a<probe.b,x=probe.a/probe.b,value=inside?height:0;
+      const integral=s.amplitude*n**(alpha-1),norm2Squared=s.amplitude**2*n**(2*alpha-1);
+      if(height>0)g.box([width/2,height/2,.5],[width,height,1],g.colors.teal,{opacity:.24,measure_kind:'subgraph_boundary',physical:{width,height,depth:1,volume:integral},x_boundaries_included:false});
+      else g.line([[0,0,.5],[width,0,.5]],g.colors.teal,{measure_kind:'support_interval_reference',volume:0});
+      g.line([[0,0,0],[1.08,0,0]],g.colors.ink);g.label([1.08,-.12,0],'x');
+      g.line([[0,0,0],[0,Math.max(1.1,height*1.12),0]],g.colors.ink);g.label([-.13,Math.max(1.1,height*1.12),0],'height hₙ');
+      g.line([[0,0,0],[0,0,1.12]],g.colors.ink);g.label([-.13,0,1.12],'z');
+      g.label([1,-.12,0],'1');g.label([0,-.12,0],'0');g.label([width,height,1],'1/'+n+' excluded');
+      g.sphere([x,value,.5],.025,g.colors.coral,{measure_kind:'probe',rational:probe,inside,physical:{x,value}});
+      const fmt=v=>Number(v.toPrecision(6));
+      return {...result('n = '+n+', A = '+s.amplitude+', α = '+s.alpha+'. Defined open interval width1/'+n+'; height ≈ '+fmt(height)+'. Exact unit-depth subgraph volume and integral ≈ '+fmt(integral)+'. Squared L² norm ≈ '+fmt(norm2Squared)+'; essential supremum ≈ '+fmt(height)+'. Probe x = '+probe.a+'/'+probe.b+' is '+(inside?'inside':'outside')+' the defined open interval; hₙ(x) ≈ '+fmt(value)+'.',
+        'Every coordinate is dimensionless and uses its actual value: x width1/n, y heightA n^α and unit depth0<z<1. The product-measure volume equals ∫hₙ dx, not the squared L² norm or an assigned probability. The translucent faces draw the boundary of the closure for inspection; x=0 andx=1/n are excluded from the function’s support. Rational membership uses exact integer products within these controls. The zero and quarter probes are fixed; boundary and interior probes move with n and cannot test pointwise convergence at a fixed x. Marker radius and colour are display aids, not part of the subgraph volume. At A=0 there is no nonzero set or volume; the teal line marks the defined input interval only, not a nonempty subgraph. Very thin or tall shapes can become visually unresolved; no minimum width or artificial height is imposed, and the analytic readout remains authoritative. Use the 2D support-detail view to inspect narrow intervals. This is a finite, exact subgraph example; convergence of the infinite sequence and common domination require the separate analytic arguments in the integration activity.',
+        [['Teal: subgraph boundary, not included end faces',g.colors.teal],['Coral: function-value probe',g.colors.coral]],g),
+        measure:{n,alpha,amplitude:s.amplitude,width,height,integral,norm2Squared,probe:{...probe,x,value,inside}}};
+    });
+
+  define('carnot-state-path','Working-gas pressure, volume and temperature',
+    {mode:'engine',hot:600,cold:300,hotHeat:400,leg:'0',progress:50},
+    [choice('mode','Cycle direction',[['engine','Heat engine'],['refrigerator','Reversed cycle']]),
+     range('hot','Hot reservoir',400,1200,50,'K'),range('cold','Cold reservoir',100,350,25,'K'),
+     range('hotHeat','Working-gas hot-isotherm heat magnitude',200,500,25,'J'),
+     choice('leg','Process leg',[['0','First leg'],['1','Second leg'],['2','Third leg'],['3','Fourth leg']]),
+     range('progress','Log-volume position along the selected leg',0,100,1,'%')],(s,g)=>{
+      const lab=window.PrimerPhysicsCycleLab,m=lab.build({...s,moles:.1,volume:.001,leak:0}),q=lab.stateAtLeg(m.state,Number(s.leg),s.progress/100);
+      const scales={volume:.005,pressure:200000,temperature:1000},point=q=>[q.V/scales.volume,q.p/scales.pressure,q.T/scales.temperature];
+      for(const leg of m.legs){const color=leg.reservoir==='hot'?g.colors.coral:leg.reservoir==='cold'?g.colors.blue:g.colors.teal;
+        g.line(leg.points.map(point),color,{width:3,cycle_kind:'process_leg',leg:leg.index,process:leg.kind,reservoir:leg.reservoir});}
+      for(const c of m.corners)g.label(point(c),c.name);
+      g.sphere(point(q),.05,g.colors.ink,{cycle_kind:'selected_state',physical:q});
+      const limits=[Math.max(1.1,m.plot.maxV/scales.volume*1.08),Math.max(1.1,m.plot.maxP/scales.pressure*1.08),Math.max(1.1,s.hot/scales.temperature*1.12)];
+      g.line([[0,0,0],[limits[0],0,0]],g.colors.ink);g.label([limits[0],-.13,0],'V (m³)');
+      g.line([[0,0,0],[0,limits[1],0]],g.colors.ink);g.label([-.1,limits[1],0],'p (Pa)');
+      g.line([[0,0,0],[0,0,limits[2]]],g.colors.ink);g.label([-.13,0,limits[2]],'T (K)');
+      g.label([1,-.12,0],'0.005');g.label([-.18,1,0],'200000');g.label([-.1,0,1],'1000');
+      const fmt=v=>Number(v.toPrecision(6));
+      return {...result('Leg '+(Number(s.leg)+1)+' of the '+s.mode+' cycle: V ≈ '+fmt(q.V)+' m³, p ≈ '+fmt(q.p)+' Pa, T ≈ '+fmt(q.T)+' K. From this leg’s start: Q ≈ '+fmt(q.Q)+' J, work by gas ≈ '+fmt(q.Wby)+' J, ΔU ≈ '+fmt(q.deltaU)+' J. pV = nRT for n = 0.1 mol.',
+        'This is a quantitative state-space graph, not a piston, molecular arrangement or real-time engine simulation. One x coordinate unit is0.005 m³, one y unit200000 Pa and one z unit1000 K. Every state uses a monatomic ideal gas with fixed γ=5/3. The reversible isotherms and adiabats are calculated analytically; each curved leg is shown by121 log-volume samples with straight display joins, not an exact polygonal physical path. The selected state is analytic. Position parameterizes log volume on a leg, not elapsed time. Reversing the cycle reverses process order and work; it does not fabricate a new equation of state. The 2D activity separately models a heat leak bypassing the working gas, first-law budgets, entropy and the room boundary for an open refrigerator. These controls deliberately retain Tc<Th and an accessible isothermal ratio; volume at A is0.001 m³. A reversible adiabat does not solve a rapid irreversible compression transient.',
+        [['Coral: hot isotherm',g.colors.coral],['Blue: cold isotherm',g.colors.blue],['Teal: reversible adiabats',g.colors.teal]],g),
+        cycle:{state:m.state,scales,current:q,corners:m.corners,legs:m.legs}};
+    });
+
   define('phase-enthalpy-path','Energy, temperature and liquid fraction',
     {stage:'fusion',progress:50},
     [choice('stage','Equilibrium interval',[['ice','Ice warming/cooling'],['fusion','Melting/freezing'],['liquid','Liquid warming/cooling'],['vaporization','Boiling/condensing'],['steam','Vapour warming/cooling']]),
