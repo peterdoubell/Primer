@@ -30,12 +30,13 @@ bind('math','lattice','model','Inspect edges, equal distances and repeated posit
 bind('math','clock','model','Relate equal angular divisions to the positions of an analog clock’s two hands.', '1.time')
 bind('math','fraction-disk','model','Compare equal parts with the fixed whole; relate the selected fraction to its decimal and percentage.', '1.fractions-intro 2.fractions 2.decimals 2.percent 2.ratio')
 bind('math','balance','context','Use a physical equality comparison to discuss which changes preserve or break a balance; signed numbers and algebraic symbols need the lesson’s separate definitions.', '2.negatives 2.prealgebra 3.linear 3.systems')
-bind('math','surface','model','Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.', '2.coordinates 3.slope 3.quadratics 3.functions 3.polynomials 3.trig 3.precalc 4.diff-calc 4.int-calc 4.multivar 4.diffeq 5.diffgeo 5.numerical 5.pde')
+bind('math','surface','model','Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.', '2.coordinates 3.slope 3.quadratics 3.functions 3.polynomials 3.trig 3.precalc 4.diff-calc 4.int-calc 4.multivar 4.diffeq 5.diffgeo 5.pde')
 bind('math','urn','model','Use an inspectable finite population to connect counts, proportions and equally likely selection; broader distributions require additional assumptions.', '2.data 3.probability 3.statistics 4.prob-theory')
 bind('math','lattice','context','This regular spatial construction provides a concrete example for discussing structure and relations; it does not establish the lesson’s general theorem or abstract definition.', '3.euclid 3.expo-logs 3.vectors 4.linalg 4.discrete 4.numtheory 5.abstract 5.topology')
 bind('math','surface','context','Use the chosen real-valued surface as one geometric example when discussing the lesson’s more general mathematical objects; it is not a complete model of those objects.', '4.complex 5.measure 5.functional 5.complex-analysis')
 bind('math','book','context','Inspect a text-bearing object as a setting for definitions, arguments and open problems; mathematical validity comes from the statements and proofs, not the object’s shape.', '5.logic 5.frontier')
 
+bind('math','numerical-conditioning','model','Inspect actual singular-value scaling for an embedded linear problem and separate its conditioning from an algorithm’s error.', '5.numerical')
 bind('math','analysis-tail-errors','model','Compare exact finite-index function errors with the all-tail argument; open suprema and actual endpoint values stay distinct.', '4.analysis')
 
 # Language: material texts, reproduction and physical communication settings.
@@ -119,7 +120,7 @@ bind('mind','book','context','Inspect a physical carrier of arguments, definitio
 bind('mind','neuron','context','Inspect a generic neuron as one biological level relevant to mind research; it does not explain consciousness, diagnose mental states or reduce the lesson’s philosophical question to anatomy.', '4.cognitive-sci 5.phil-mind')
 
 FAMILY_TITLES = {
- 'analysis-tail-errors':'Function tails and error bounds',
+ 'analysis-tail-errors':'Function tails and error bounds', 'numerical-conditioning':'Singular-value scaling and conditioning',
  'buoyant-prism':'Sealed prism in liquid', 'thermal-slab':'Steady conducting slab',
  'magnet':'Bar magnet and field directions','detector':'Layered particle detector','interference':'Two-slit optical bench',
  'unit-blocks':'Counting blocks','balance':'Equal-arm balance','surface':'Coordinate surface',
@@ -151,7 +152,7 @@ for node_id, node in NODES.items():
         'node_id':node_id,
         'family':family,
         'title':FAMILY_TITLES[family] + (' · 3D hydrostatics' if family=='buoyant-prism' else ' · 3D study'),
-        'instructions':('Rotate the stationary conducting slab. Change its area, thickness, temperatures and conductivity, and inspect the corresponding steady heat flux.' if family=='thermal-slab' else 'Rotate eight separate error curves. Compare finite-index values, the strict epsilon boundary and endpoint markers with the all-tail proof. The open rings are excluded suprema, not actual function values.' if family=='analysis-tail-errors' else 'Rotate the sealed prism and inspect its real dimensions and submerged surfaces. Set a held depth and compare displaced liquid, buoyancy, weight and the required holding force.' if family=='buoyant-prism' else 'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.'),
+        'instructions':('Rotate the original unit cube and its actual scaled image. Compare tiny positive thickness with the exact nearby-data solution and condition-number error bound.' if family=='numerical-conditioning' else 'Rotate the stationary conducting slab. Change its area, thickness, temperatures and conductivity, and inspect the corresponding steady heat flux.' if family=='thermal-slab' else 'Rotate eight separate error curves. Compare finite-index values, the strict epsilon boundary and endpoint markers with the all-tail proof. The open rings are excluded suprema, not actual function values.' if family=='analysis-tail-errors' else 'Rotate the sealed prism and inspect its real dimensions and submerged surfaces. Set a held depth and compare displaced liquid, buoyancy, weight and the required holding force.' if family=='buoyant-prism' else 'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.'),
         'context':node['title'] + ': ' + binding['context'],
         'mode':binding['mode'],
     })

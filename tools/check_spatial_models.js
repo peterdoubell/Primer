@@ -30,7 +30,7 @@ assert.equal(entries.length, expected.length, 'Every spatial scene must be reach
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab'].includes(item.renderer)).length,
+  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab'].includes(item.renderer)).length,
   70, 'The 70 existing lesson models must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');
@@ -51,7 +51,8 @@ assert.equal(fieldEntries[0].node.id, 'math.4.multivar');
 assert.deepEqual(fieldEntries[0].item.props, { scenario: 'math.4.multivar.integral-flux' });
 for (const [renderer, lesson, scenario] of [['math-wave-lab','math.5.pde','math.5.pde.wave-field'],
   ['math-probability-lab','math.4.prob-theory','math.4.prob-theory.large-numbers'],
-  ['math-convergence-lab','math.4.analysis','math.4.analysis.convergence']]) {
+  ['math-convergence-lab','math.4.analysis','math.4.analysis.convergence'],
+  ['math-numerical-lab','math.5.numerical','math.5.numerical.error-accounting']]) {
   const entries = nodes.flatMap(node => (node.lesson_media || []).filter(m => m.renderer === renderer).map(item => ({node,item})));
   assert.equal(entries.length,1); assert.equal(entries[0].node.id,lesson); assert.deepEqual(entries[0].item.props,{scenario});
 }

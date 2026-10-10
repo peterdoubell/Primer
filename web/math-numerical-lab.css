@@ -1,0 +1,13 @@
+.math-numerical-lab { min-width: 0; }
+.math-numerical-lab .model-heading-row { flex-wrap: wrap; }
+.math-numerical-lab .model-heading-row > button { flex-shrink: 0; }
+.numerical-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 15px 0; }
+.numerical-viewport { min-width: 0; overflow: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 10px; background: #f5efdf; }
+.numerical-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.math-numerical-lab.is-enlarged .numerical-viewport svg { min-width: 660px; }
+.numerical-readout, .numerical-proof, .numerical-equation, .numerical-exact { overflow-wrap: anywhere; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.numerical-exact { font-family: monospace; }
+.math-numerical-lab > select { width: 100%; max-width: 100%; margin: 6px 0; }
+.math-numerical-lab [hidden] { display: none !important; }
+.numerical-live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 760px) { .numerical-panels, .math-numerical-lab .concept-controls { grid-template-columns: minmax(0, 1fr); } }
