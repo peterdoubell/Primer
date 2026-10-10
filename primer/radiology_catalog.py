@@ -749,6 +749,12 @@ def _structure_atlases():
                 raise ValueError('Invalid or duplicated MSK atlas figure')
             if image.get('modality') not in {'MRI', 'MR arthrography', 'CT', 'CT arthrography', 'Ultrasound', 'Radiography', 'Nuclear medicine', 'Histology', 'Schematic'}:
                 raise ValueError('MSK atlas figure needs its actual source modality')
+            if 'source_table' in image:
+                if (type(image['source_table']) is not int or image['source_table'] < 1
+                        or image.get('kind') != 'schematic'
+                        or not isinstance(image.get('source_table_panel'), str)
+                        or not re.fullmatch(r'[a-z]', image['source_table_panel'])):
+                    raise ValueError('Source table artwork requires a positive table number and original panel identifier')
             _validate_source_panel_roles(image)
             if 'source_panel' in image and image['source_panel'] not in tuple('abcdefABCDEF'):
                 raise ValueError('MSK source panel needs an explicit publication panel identifier')
