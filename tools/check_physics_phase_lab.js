@@ -162,7 +162,8 @@ async function browserReview() {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   let browser, checked = 0;
   try {
-    const executablePath = process.env.PHASE_LAB_CHROMIUM_EXECUTABLE || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+    // The optional QA launch uses a fixed installed Chrome or Playwright's bundled browser.
+    const executablePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
     browser = await chromium.launch({headless: true, ...(fs.existsSync(executablePath) ? {executablePath} : {})});
     const page = await browser.newPage();
     const errors = []; page.on('pageerror', err => errors.push(String(err)));
