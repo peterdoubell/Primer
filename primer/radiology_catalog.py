@@ -51,6 +51,7 @@ SOURCE_REFERENCE_ATLASES['larynx-jasa19629778-phase01'] = 'larynx-phonation-sour
 SOURCE_REFERENCE_ATLASES['hra-bladder-female-v1.1'] = 'bladder-source'
 SOURCE_REFERENCE_ATLASES['hra-bladder-male-v1.1'] = 'bladder-source'
 SOURCE_REFERENCE_ATLASES['bp3d-sella-4.3'] = 'sella-gross-default'
+SOURCE_REFERENCE_ATLASES['bp3d-carotid-4.3'] = 'carotid-right-source'
 SOURCE_REFERENCE_FAMILY_REGIONS = {'bp3d-sella-4.3': frozenset((
     'sella-gross-default', 'gland-source-2011', 'gland-source-2014',
     'optic-reduced-source', 'optic-elongated-source',
@@ -192,7 +193,8 @@ def _steps():
                 raise ValueError('Duplicate step guide: ' + identifier)
             if sections[identifier] != data['section']:
                 raise ValueError('Step guide filed under the wrong specialty: ' + identifier)
-            merged[identifier], reviewed[identifier] = entry, stamp
+            entry_stamp = date.fromisoformat(entry.get('walkthrough_reviewed_at', stamp)).isoformat()
+            merged[identifier], reviewed[identifier] = entry, entry_stamp
     return {'investigations': merged, 'reviewed_at': reviewed}
 
 
@@ -293,11 +295,19 @@ def _walkthrough(item, ref):
     module_illustrations = introduction.get('module_illustrations', True)
     if not isinstance(module_illustrations, bool):
         raise ValueError('Reporting introduction illustration choice must be boolean: ' + item['id'])
-    return {'reviewed_at': _steps()['reviewed_at'].get(item['id'], guide['reviewed_at']),
+    result = {'reviewed_at': _steps()['reviewed_at'].get(item['id'], guide['reviewed_at']),
             'complete': complete, 'template_id': template['id'],
             'start': {'sections': headings[:first], 'images': introductory_images,
                       **({'module_illustrations': False} if not module_illustrations else {})},
             'steps': steps, 'finish': {'sections': headings[last + 1:]}}
+    if 'preset_mode' in authored:
+        if authored['preset_mode'] != 'assessment-prompts':
+            raise ValueError('Unknown report preset mode: ' + item['id'])
+        if any(not re.search(r'\[(?:\s|_)*\]', text)
+               for step in steps for text in step['normal'].values()):
+            raise ValueError('Assessment presets require explicit unfilled observations: ' + item['id'])
+        result['preset_mode'] = 'assessment-prompts'
+    return result
 
 
 @lru_cache(maxsize=1)

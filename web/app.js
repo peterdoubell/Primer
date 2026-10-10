@@ -2945,6 +2945,7 @@ function walkthroughFigure(item, { sourceRenderer = sourceAtlasFigure } = {}) {
 
 function renderReportWalkthrough(n, { openTemplate } = {}) {
   const ref = n.radiology_reference, guide = ref.reporting, walk = ref.walkthrough;
+  const assessmentPresets = walk.preset_mode === 'assessment-prompts';
   const template = ref.report_templates[0];
   const uid = 'rad-walk-' + String(n.id).replace(/[^a-z0-9-]/gi, '-');
   const bodyOf = section => Array.isArray(section.body) ? section.body.join('\n') : (section.body || '');
@@ -2974,7 +2975,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const intro = el('div', { class: 'rad-walk-intro' },
     el('p', {}, 'Work through the examination in this order. Each step says where to look and what to describe, links the figures and 3D anatomy for that step, and offers phrases with blanks for your findings. Your text builds the report as you go.'),
     el('div', { class: 'rad-walk-intro-actions' },
-      btn({ class: 'btn small', onclick: startNormal }, 'Start from normal statements'),
+      btn({ class: 'btn small', onclick: startNormal }, assessmentPresets ? 'Insert assessment prompts' : 'Start from normal statements'),
       btn({ class: 'btn ghost small', onclick: clearAll }, 'Restore all prompts')));
   const stepper = el('ol', { class: 'rad-walk-steps' });
   const stepButtons = pages.map((page, index) => {
@@ -3017,8 +3018,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     fit();
     const useNormal = normals.has(heading) ? btn({ class: 'btn small', onclick: () => {
       set(heading, normals.get(heading));
-      say('Normal statement placed in ' + heading.toLowerCase() + '.');
-    } }, 'Use normal statement') : null;
+      say((assessmentPresets ? 'Assessment prompts' : 'Normal statement') + ' placed in ' + heading.toLowerCase() + '.');
+    } }, assessmentPresets ? 'Use assessment prompts' : 'Use normal statement') : null;
     const restore = btn({ class: 'btn ghost small', onclick: () => {
       set(heading, originals.get(heading));
       say('Original prompts restored in ' + heading.toLowerCase() + '.');
@@ -3042,8 +3043,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     normals.forEach((text, heading) => {
       if (values.get(heading) === originals.get(heading)) { set(heading, text); placed++; } else if (values.get(heading) !== text) kept++;
     });
-    say(plural(placed, 'normal statement') + ' placed' + (kept ? '; ' + plural(kept, 'edited field') + ' left unchanged.' : '.') +
-      ' Replace any statement that does not match the examination.');
+    say(plural(placed, assessmentPresets ? 'assessment prompt' : 'normal statement') + ' placed' + (kept ? '; ' + plural(kept, 'edited field') + ' left unchanged.' : '.') +
+      (assessmentPresets ? ' Fill observations from the actual source; retain unassessed or unresolved fields.' : ' Replace any statement that does not match the examination.'));
     if (pages[current].kind === 'review') show(current, false);
   }
   function clearAll() {

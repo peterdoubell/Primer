@@ -64,11 +64,11 @@ def test_every_attached_figure_keeps_its_original_role_rights_and_case_context(c
         for media in historical['lesson_media']:
             if media.get('renderer') == 'radiology-anatomy':
                 media['props'].pop('source_references', None)
-        if module['module_id'] == 'rad.4.hrct':
-            # Preserve the original byte-delivery proof across the page merge.
-            for media in historical['lesson_media']:
-                if media.get('kind') == 'source-gallery':
-                    media['investigation_ids'] = [reader['investigation_id'] for reader in module['source_readers']]
+        # Preserve the original reviewed reader scope across later source-gallery
+        # additions and page merges. New readers need their own source/case proof.
+        for media in historical['lesson_media']:
+            if media.get('kind') == 'source-gallery':
+                media['investigation_ids'] = [reader['investigation_id'] for reader in module['source_readers']]
         assert module['module_contract_after_sha256'] == digest(historical)
         for reader in module['source_readers']:
             canonical = catalog.resolve(reader['investigation_id'])['id']
