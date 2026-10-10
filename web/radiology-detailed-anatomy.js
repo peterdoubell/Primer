@@ -21,6 +21,7 @@
     "prostate-biopsy0001": "/app/anatomy/prostate-biopsy0001/",
     "larynx-jasa19629778-phase01": "/app/anatomy/larynx-jasa19629778-phase01/",
     "hra-bladder-female-v1.1": "/app/anatomy/hra-bladder-female-v1.1/",
+    "hra-female-pelvis-v1.10": "/app/anatomy/hra-female-pelvis-v1.10/",
     "hra-bladder-male-v1.1": "/app/anatomy/hra-bladder-male-v1.1/",
     "fedbca-center1-001": "/app/anatomy/fedbca-center1-001/",
     "fedbca-center2-01": "/app/anatomy/fedbca-center2-01/",
@@ -49,6 +50,7 @@
     "prostate-source": [-61.48846435546875, -4.33062744140625],
     "tongue-source": [-106.36968994140625, -49.87583923339844],
     "larynx-phonation-source": [-23.082857131958008, 8.479644298553467],
+    "female-pelvis-source": [-0.05308705738186836, 0.2365201542377472],
     "bladder-source": [0, 1],
     "bladder-tumour-source": [-1000, 1000],
     "thoracolumbar-source": [-500, -36],
@@ -196,8 +198,9 @@
     .detailed-anatomy-toolbar .detailed-divider{width:1px;height:24px;background:#3b4e5b;margin:0 .3rem}
     .detailed-anatomy-stage{height:480px;position:relative;background:radial-gradient(ellipse at 45% 37%,#263846 0%,#15232f 55%,#0e1821 100%);border-block:1px solid #344754;overflow:hidden}
     .detailed-anatomy canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}.detailed-anatomy canvas:active{cursor:grabbing}
-    .detailed-anatomy-orientation{position:absolute;top:1rem;left:1rem;pointer-events:none;font:500 .68rem/1.6 system-ui;letter-spacing:.07em;text-transform:uppercase;color:#96afbc}
-    .detailed-anatomy-crop-status{position:absolute;top:2.8rem;left:1rem;pointer-events:none;background:#101923e6;color:#c2d4df;padding:.2rem .45rem;border-radius:4px;font:500 .67rem/1.5 system-ui}
+    .detailed-anatomy-context{position:absolute;top:1rem;left:1rem;right:1rem;display:grid;justify-items:start;gap:.35rem;pointer-events:none}
+    .detailed-anatomy-orientation{font:500 .68rem/1.6 system-ui;letter-spacing:.07em;text-transform:uppercase;color:#96afbc}
+    .detailed-anatomy-crop-status{max-width:100%;background:#101923e6;color:#c2d4df;padding:.2rem .45rem;border-radius:4px;font:500 .67rem/1.5 system-ui}
     .detailed-anatomy-selected{position:absolute;bottom:1rem;left:1rem;right:1rem;pointer-events:none;display:flex;align-items:center;justify-content:center;gap:.5rem;color:#f0e9db;font:600 .9rem/1.4 system-ui;text-shadow:0 1px 5px #000}
     .detailed-anatomy-status{padding:.85rem 1.25rem;font:.8rem/1.5 system-ui;color:#b2c5cd}.detailed-anatomy-status:empty{display:none}
     .detailed-anatomy-parts{padding:.9rem 1.25rem;display:flex;gap:.4rem;flex-wrap:wrap;border-bottom:1px solid #344754}.detailed-anatomy-parts button{font-size:.72rem;display:flex;gap:.4rem;align-items:center}
@@ -673,7 +676,9 @@
       ),
       selected = $("div", "detailed-anatomy-selected"),
       cropStatus = $("div", "detailed-anatomy-crop-status", "Cropped to region");
-    stage.append(canvas, orientation, cropStatus, selected);
+    const context = $("div", "detailed-anatomy-context");
+    context.append(orientation, cropStatus);
+    stage.append(canvas, context, selected);
     const status = $(
       "div",
       "detailed-anatomy-status",

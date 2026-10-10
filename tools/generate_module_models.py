@@ -49,7 +49,8 @@ bind('lang','computer','context','Inspect the physical computing substrate on wh
 # Physics: geometry and ideal examples, with research apparatus for abstract topics.
 bind('phys','lever','model','Inspect a load, effort and pivot, and compare force with moment arm in the stated ideal static example.', '0.push-pull 1.machines 2.forces 3.energy-work')
 bind('phys','camera','model','Trace straight sightlines through a pinhole and inspect the inverted image on the screen.', '0.light-shadow 1.light 3.optics-waves')
-bind('phys','particles','context','Compare inspectable arrangements of enlarged particles; this static object does not calculate temperature, pressure, buoyancy or a thermodynamic process.', '0.hot-cold 2.matter 3.thermo 4.statmech')
+bind('phys','particles','context','Compare inspectable arrangements of enlarged particles; this static object does not calculate temperature, pressure, buoyancy or a thermodynamic process.', '0.hot-cold 3.thermo 4.statmech')
+bind('phys','phase-enthalpy-path','model','Inspect the actual equilibrium relation between specific enthalpy, temperature and liquid mass fraction; latent heat changes fractions on a temperature plateau.', '2.matter')
 bind('phys','thermal-slab','model','Inspect the physical slab dimensions, its steady linear temperature profile and signed Fourier heat flux.', '2.heat')
 bind('phys','buoyant-prism','model','inspect the actual prism volume and hydrostatic force balance at a chosen held depth.', '0.float-sink')
 bind('phys','pendulum','model','Relate string length and angular position to the bob’s geometry and height above its lowest point.', '1.motion 1.energy 2.gravity 3.mechanics 4.classical')
@@ -121,7 +122,7 @@ bind('mind','neuron','context','Inspect a generic neuron as one biological level
 
 FAMILY_TITLES = {
  'analysis-tail-errors':'Function tails and error bounds', 'numerical-conditioning':'Singular-value scaling and conditioning',
- 'buoyant-prism':'Sealed prism in liquid', 'thermal-slab':'Steady conducting slab',
+ 'buoyant-prism':'Sealed prism in liquid', 'thermal-slab':'Steady conducting slab', 'phase-enthalpy-path':'Energy, temperature and liquid fraction',
  'magnet':'Bar magnet and field directions','detector':'Layered particle detector','interference':'Two-slit optical bench',
  'unit-blocks':'Counting blocks','balance':'Equal-arm balance','surface':'Coordinate surface',
  'urn':'Probability urn','book':'Bound book','press':'Printing press','stage':'Speaking and performance space',
@@ -152,7 +153,7 @@ for node_id, node in NODES.items():
         'node_id':node_id,
         'family':family,
         'title':FAMILY_TITLES[family] + (' · 3D hydrostatics' if family=='buoyant-prism' else ' · 3D study'),
-        'instructions':('Rotate the original unit cube and its actual scaled image. Compare tiny positive thickness with the exact nearby-data solution and condition-number error bound.' if family=='numerical-conditioning' else 'Rotate the stationary conducting slab. Change its area, thickness, temperatures and conductivity, and inspect the corresponding steady heat flux.' if family=='thermal-slab' else 'Rotate eight separate error curves. Compare finite-index values, the strict epsilon boundary and endpoint markers with the all-tail proof. The open rings are excluded suprema, not actual function values.' if family=='analysis-tail-errors' else 'Rotate the sealed prism and inspect its real dimensions and submerged surfaces. Set a held depth and compare displaced liquid, buoyancy, weight and the required holding force.' if family=='buoyant-prism' else 'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.'),
+        'instructions':('Rotate the equilibrium enthalpy path. Choose a phase interval and inspect how energy changes temperature and liquid fraction, including the two latent-heat plateaux.' if family=='phase-enthalpy-path' else 'Rotate the original unit cube and its actual scaled image. Compare tiny positive thickness with the exact nearby-data solution and condition-number error bound.' if family=='numerical-conditioning' else 'Rotate the stationary conducting slab. Change its area, thickness, temperatures and conductivity, and inspect the corresponding steady heat flux.' if family=='thermal-slab' else 'Rotate eight separate error curves. Compare finite-index values, the strict epsilon boundary and endpoint markers with the all-tail proof. The open rings are excluded suprema, not actual function values.' if family=='analysis-tail-errors' else 'Rotate the sealed prism and inspect its real dimensions and submerged surfaces. Set a held depth and compare displaced liquid, buoyancy, weight and the required holding force.' if family=='buoyant-prism' else 'Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.'),
         'context':node['title'] + ': ' + binding['context'],
         'mode':binding['mode'],
     })

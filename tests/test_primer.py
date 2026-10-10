@@ -496,7 +496,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert node['stage'] == expected[nid][0], nid
         base_media = [entry for entry in node['lesson_media']
                       if entry['kind'] != 'source-gallery' and (entry.get('renderer') == expected[nid][1]
-                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab'})]
+                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'physics-phase-lab'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]
@@ -579,7 +579,7 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
         'phys.4.fluids': 'venturi-flow-lab',
     }
     for nid, node in physics.items():
-        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab'}]
+        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab', 'physics-phase-lab'}]
         assert [item['kind'] for item in base_media] == [
             'illustration', 'model'], nid
         plate, model = base_media

@@ -72,6 +72,26 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  define('phase-enthalpy-path','Energy, temperature and liquid fraction',
+    {stage:'fusion',progress:50},
+    [choice('stage','Equilibrium interval',[['ice','Ice warming/cooling'],['fusion','Melting/freezing'],['liquid','Liquid warming/cooling'],['vaporization','Boiling/condensing'],['steam','Vapour warming/cooling']]),
+     range('progress','Position within the chosen enthalpy interval',0,100,1,'%')],(s,g)=>{
+      const lab=window.PrimerPhysicsPhaseLab,H=lab.H,keys=['ice','fusion','liquid','vaporization','steam'];
+      const knots=[H.min,H.ice0,H.water0,H.water100,H.steam100,H.max],colours=[g.colors.blue,g.colors.teal,g.colors.green,g.colors.gold,g.colors.coral];
+      const point=h=>{const q=lab.equilibriumAtSpecificEnthalpy(h);return [h/1000,q.temperature/100,q.fractions.water];};
+      for(let i=0;i<5;i++)g.line([point(knots[i]),point(knots[i+1])],colours[i],{width:3,phase_kind:'equilibrium_segment',stage:keys[i],enthalpy_bounds:[knots[i],knots[i+1]]});
+      const i=keys.indexOf(s.stage),h=s.progress===0?knots[i]:s.progress===100?knots[i+1]:knots[i]+(knots[i+1]-knots[i])*s.progress/100,q=lab.equilibriumAtSpecificEnthalpy(h);
+      g.sphere(point(h),.045,g.colors.ink,{phase_kind:'selected_state',enthalpy:h,temperature:q.temperature,fractions:q.fractions});
+      g.line([[0,0,0],[3.25,0,0]],g.colors.ink);g.label([3.25,-.12,0],'h: kJ/kg');
+      g.line([[0,-.3,0],[0,1.55,0]],g.colors.ink);g.label([-.08,1.55,0],'T: °C');
+      g.line([[0,0,0],[0,0,1.15]],g.colors.ink);g.label([-.2,0,1.15],'Liquid fraction');
+      g.label([0,-.15,0],'0');g.label([3,-.15,0],'3000');g.label([-.16,1,0],'100');g.label([-.16,-.3,0],'−30');g.label([-.13,0,1],'1');
+      return {...result('At h ≈ '+Number(h.toPrecision(7))+' kJ/kg: '+q.phase+'; T ≈ '+Number(q.temperature.toPrecision(7))+' °C; mass fractions ice/liquid/vapour = '+Object.values(q.fractions).map(v=>Number(v.toPrecision(7))).join(' / ')+'.',
+        'Every curve coordinate follows the same constant-pressure, constant-property equilibrium law as the phase activity. One x coordinate unit represents 1000 kJ/kg, one y unit 100 °C, and one z unit liquid mass fraction1. The specific-enthalpy reference is pure ice at0 °C. Two horizontal-temperature stages change phase fractions while heat changes. Adjacent endpoints are continuous; each of the five intervals is linear under the stated approximation, so its two endpoints determine its full segment. Progress selects enthalpy within an interval, not elapsed time or generally a phase fraction. Cooling traverses the same path backward. This is a thermodynamic graph in three physical variables, not a molecular arrangement or inferred volume. Pressure ≈101.325 kPa, no escaped mass, fixed heat capacities/latent heats, temperature domain−30…140 °C. Graphics are rounded; heat-resolved tiny coexistence in the 2D activity can remain distinct even if its absolute-h plot coordinate rounds to a boundary.',
+        [['Blue: ice temperature change',g.colors.blue],['Teal: fusion plateau',g.colors.teal],['Green: liquid temperature change',g.colors.green],['Gold: vaporization plateau',g.colors.gold],['Coral: vapour temperature change',g.colors.coral]],g),
+        phase:{enthalpy:h,temperature:q.temperature,fractions:q.fractions}};
+    });
+
   define('numerical-conditioning','Singular-value scaling and conditioning',
     {conditionPower:1,perturbPower:16,sign:1},
     [range('conditionPower','η = 10⁻ᑫ; choose q',0,16,1),range('perturbPower','|δ| = 10⁻ᵖ; choose p',2,16,1),
