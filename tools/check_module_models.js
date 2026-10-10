@@ -8,6 +8,7 @@ const root = path.resolve(__dirname, '..');
 // modules through Node's module loader; no file contents become executable input.
 const context = { window: {} };
 globalThis.window = context.window;
+context.window.PrimerPhysicsBuoyancyLab = require('../web/physics-buoyancy-lab.js');
 require('../web/spatial-models.js');
 require('../web/spatial-math.js');
 require('../web/spatial-physical.js');

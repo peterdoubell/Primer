@@ -5105,24 +5105,6 @@
         };
       },
     },
-    'phys.0.float-sink': {
-      controls: [physicsControl('volume', 'Displaced volume', 50, 200, 5, 100, 'cm³', 'compact shape', 'wide hollow shape')],
-      caveat: 'The object has fixed mass and is fully immersed; real floating objects settle after displacing only their own weight.',
-      compute(state) {
-        const mass = 120;
-        const density = mass / state.volume;
-        const buoyancy = state.volume / 120;
-        const outcome = density < 1 ? 'rises or floats' : density > 1 ? 'sinks' : 'is neutrally buoyant';
-        return {
-          readout: 'The same 120 g spread through ' + state.volume + ' cm³ has average density ' +
-            physicsFixed(density, 2) + ' g/cm³, so in water it ' + outcome + '.',
-          visual: { kind: 'vector', vertical: true, object: '120 g',
-            up: buoyancy / 1.7, down: 1 / 1.7,
-            upLabel: 'buoyancy ' + physicsFixed(buoyancy, 2), downLabel: 'weight 1.00',
-            note: 'average density ' + physicsFixed(density, 2) + ' g/cm³' },
-        };
-      },
-    },
     'phys.1.motion': {
       controls: [
         physicsControl('friction', 'Surface friction', 0, 8, 1, 3, 'N', 'smooth ice', 'rough sand'),
@@ -6128,6 +6110,7 @@
     'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
     'math-ode-lab': (item, hooks) => window.PrimerMathODELab?.render(item, hooks) || null,
     'math-field-lab': (item, hooks) => window.PrimerMathFieldLab?.render(item, hooks) || null,
+    'physics-buoyancy-lab': (item, hooks) => window.PrimerPhysicsBuoyancyLab?.render(item, hooks) || null,
     'math-wave-lab': (item, hooks) => window.PrimerMathWaveLab?.render(item, hooks) || null,
     'math-probability-lab': (item, hooks) => window.PrimerMathProbabilityLab?.render(item, hooks) || null,
     'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
@@ -6177,7 +6160,7 @@
       const result = RENDERERS[rendererName](item, hooks);
       if (!result) return result;
       // These renderers own their responsive viewport and camera controls.
-      if (['concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      if (['physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
       for (const picture of result.querySelectorAll('svg')) {
         if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
         const viewport = picture.parentNode;

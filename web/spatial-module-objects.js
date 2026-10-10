@@ -72,6 +72,54 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  define('buoyant-prism', 'Sealed prism in liquid',
+    { volume: 200, mass: 120, height: 10, density: 1000, gravity: 9.81, depth: 6 },
+    [range('volume', 'Sealed volume', 50, 200, 5, 'cm³'), range('mass', 'Mass', 50, 200, 10, 'g'),
+      range('height', 'Prism height', 5, 15, .5, 'cm'), range('density', 'Liquid density', 800, 1200, 50, 'kg/m³'),
+      range('gravity', 'Gravity', 1, 20, .01, 'm/s²'), range('depth', 'Held bottom depth', 0, 20, .1, 'cm')],
+    (state, g) => {
+      const m = window.PrimerPhysicsBuoyancyLab.build({ ...state, mode: 'hold' });
+      const half = m.widthCm / 20, bottom = -m.depth / 10, top = (m.state.height - m.depth) / 10;
+      const cut = Math.max(bottom, Math.min(top, 0));
+      const corners = [[-half, -half], [half, -half], [half, half], [-half, half]];
+      const point = (corner, y) => [corner[0], y, corner[1]];
+      for (const [low, high, color, part] of [[bottom, cut, g.colors.blue, 'wet'], [cut, top, g.colors.gold, 'dry']]) {
+        if (high <= low) continue;
+        corners.forEach((corner, i) => {
+          const next = corners[(i + 1) % 4];
+          g.polygon([point(corner, low), point(corner, high), point(next, high), point(next, low)], color,
+            { buoyancy_surface: part });
+        });
+      }
+      g.polygon(corners.map(c => point(c, bottom)), m.immersedHeight > 0 ? g.colors.blue : g.colors.gold,
+        { buoyancy_surface: 'bottom' });
+      g.polygon([...corners].reverse().map(c => point(c, top)), top > 0 ? g.colors.gold : g.colors.blue,
+        { buoyancy_surface: 'top' });
+      g.polygon([[-1.5, 0, -1.5], [-1.5, 0, 1.5], [1.5, 0, 1.5], [1.5, 0, -1.5]], g.colors.blue,
+        { opacity: .18, buoyancy_surface: 'liquid-reference' });
+      for (const x of [-1, -.5, 0, .5, 1]) {
+        g.line([[x, 0, -1.5], [x, 0, 1.5]], g.colors.teal, { width: 1 });
+        g.line([[-1.5, 0, x], [1.5, 0, x]], g.colors.teal, { width: 1 });
+      }
+      g.line([[-1.4, .08, 1.3], [-.9, .08, 1.3]], g.colors.ink, { width: 3 });
+      g.label([-1.15, .25, 1.3], '5 cm');
+      const centreMass = (m.state.height / 2 - m.depth) / 10;
+      const centreBuoyancy = (-m.depth + m.immersedHeight / 2) / 10;
+      g.arrow([-half - .25, centreBuoyancy, 0], [-half - .25, centreBuoyancy + .15 * m.buoyancy, 0], g.colors.teal, { buoyancy_force: 'buoyancy' });
+      g.arrow([half + .25, centreMass, 0], [half + .25, centreMass - .15 * m.weight, 0], g.colors.coral, { buoyancy_force: 'weight' });
+      g.arrow([half + .65, centreMass, 0], [half + .65, centreMass + .15 * m.holding, 0], g.colors.plum, { buoyancy_force: 'holding' });
+      return { readout: m.readout,
+        note: 'The prism is held at the selected position for inspection. Its predicted free floating depth is ' +
+          (m.floats ? fmt(m.equilibriumDepth) + ' cm.' : m.neutral ? 'not unique: any fully immersed depth is neutral.' : 'absent: it is too dense to float.') +
+          ' One 3D coordinate unit is 10 cm; the square base and height preserve the actual stated volume. Blue and gold partition one sealed object into submerged and exposed surfaces, not separate materials or water entering it. The grid is a window of the free liquid surface; it is not a tank bottom or a wall. Force arrows use one graphical scale, 0.15 coordinate units per newton. They are moved sideways for legibility and do not depict torques or different physical attachment points. Pressure is hydrostatic in a large uniform-density reservoir. Surface tension, air buoyancy, flooding, rotation and motion are omitted. The side-section activity above predicts the free equilibrium; this separate view lets you inspect a held depth.',
+        legend: [{ label: 'Blue: submerged object surfaces', color: g.colors.blue },
+          { label: 'Gold: exposed object surfaces', color: g.colors.gold },
+          { label: 'Grid: liquid surface; each square is 5 cm × 5 cm', color: g.colors.teal },
+          { label: 'Teal: buoyancy; coral: weight; purple: holding force', color: g.colors.teal }],
+        hydrostatics: m,
+      };
+    });
+
   define('unit-blocks', 'Counting blocks', {count: 12, group: 4}, [range('count', 'Number of blocks', 1, 30, 1), range('group', 'Blocks in each row', 1, 10, 1)], (s, g) => {
     for (let i = 0; i < s.count; i++) g.box([(i % s.group - (s.group-1)/2)*.4, -.68, (Math.floor(i/s.group) - 1)*.4], [.34,.34,.34], i % 2 ? g.colors.teal : g.colors.blue);
     const rows = Math.floor(s.count / s.group), remainder = s.count % s.group;

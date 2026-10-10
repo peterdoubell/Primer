@@ -390,7 +390,7 @@ function collectRemainingModels() {
   const lessonIds = new Set();
   let odeEntries = 0;
   let fieldEntries = 0;
-  let waveEntries = 0, probabilityEntries = 0;
+  let waveEntries = 0, probabilityEntries = 0, buoyancyEntries = 0;
   for (const filename of fs.readdirSync(CURRICULUM_DIR).filter(name => name.endsWith('.json')).sort()) {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
@@ -410,6 +410,14 @@ function collectRemainingModels() {
           }
           fieldEntries++;
           continue;
+        }
+        if (media.renderer === 'physics-buoyancy-lab') {
+          if (media.kind !== 'model' || lesson.id !== 'phys.0.float-sink' ||
+              JSON.stringify(media.props) !== JSON.stringify({ scenario: 'phys.0.float-sink.hydrostatics' })) {
+            throw new Error('invalid separately verified hydrostatic binding');
+          }
+          buoyancyEntries++;
+          continue; // Dedicated hydrostatic and actual-geometry checker exercises this renderer.
         }
         if (media.renderer === 'math-wave-lab' || media.renderer === 'math-probability-lab') {
           const wave = media.renderer === 'math-wave-lab';
@@ -432,6 +440,7 @@ function collectRemainingModels() {
   if (odeEntries !== 1) throw new Error('expected exactly one separately verified second-order ODE binding, found ' + odeEntries);
   if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
   if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');
+  if (buoyancyEntries !== 1) throw new Error('expected one separately verified buoyancy model');
   return entries.sort((left, right) => left.lessonId.localeCompare(right.lessonId, undefined, { numeric: true }));
 }
 

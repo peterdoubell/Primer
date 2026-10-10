@@ -478,6 +478,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         n['id']: (n['stage'], 'music-listening-lab')
         for n in curr.nodes.values() if n.get('music_grade')
     })
+    expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
         for node_id in PHYSICS_MODEL_SCENARIOS
@@ -570,6 +571,7 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
     plate_ids = set()
     model_ids = set()
     bespoke = {
+        'phys.0.float-sink': 'physics-buoyancy-lab',
         'phys.0.light-shadow': 'shadow-lab',
         'phys.1.light': 'light-paths',
         'phys.4.fluids': 'venturi-flow-lab',
@@ -2229,12 +2231,12 @@ def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
         any(media.get('renderer') == 'physics-concept-lab' for media in node['lesson_media'])
     }
     assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
-    assert len(scenario_keys) == 36
-    assert registry.count('controls: [') == 36
-    assert registry.count('caveat:') == 36
-    assert registry.count('compute(state)') == 36
-    assert registry.count('readout:') >= 36
-    assert registry.count('visual:') == 36
+    assert len(scenario_keys) == 35
+    assert registry.count('controls: [') == 35
+    assert registry.count('caveat:') == 35
+    assert registry.count('compute(state)') == 35
+    assert registry.count('readout:') >= 35
+    assert registry.count('visual:') == 35
 
 
 def test_physics_model_has_native_controls_resets_live_copy_and_fail_closed_lookup():
@@ -2263,7 +2265,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '36 scenarios, 67 independently exercised controls' in result.stdout
+    assert '35 scenarios, 66 independently exercised controls' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
