@@ -514,7 +514,7 @@ async function boot() {
   setTimeout(askPronounsIfUnknown, 600);
 }
 function applyTheme(theme) {
-  if (theme === 'dark' || theme === 'light') document.documentElement.setAttribute('data-theme', theme);
+  if (['light', 'dark', 'silvertone', 'slate'].includes(theme)) document.documentElement.setAttribute('data-theme', theme);
   else document.documentElement.removeAttribute('data-theme');
 }
 
@@ -988,10 +988,11 @@ function effectiveTheme() {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 function themeToggle() {
-  const b = btn({ id: 'theme-toggle', class: 'chrome-toggle', onclick: () => {
-    // Toggle relative to what the reader actually sees, so the first press
-    // always visibly changes the page (even when following the OS setting).
-    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+  const icon = el('span', { class: 'tt-icon', 'aria-hidden': 'true' });
+  const label = el('span', { class: 'tt-label', 'aria-hidden': 'true' });
+  const b = el('select', { id: 'theme-toggle', class: 'theme-select',
+    'aria-label': 'Reading theme', onchange: event => {
+    const next = event.target.value;
     applyTheme(next); localStorage.setItem('primer-theme', next);
     // Some engines don't fully invalidate custom properties on an attribute
     // change, so elements can keep the old theme's colours. Rebuilding the view
@@ -1017,23 +1018,16 @@ function themeToggle() {
       S.restoreFocus = 'theme-toggle';   // honoured once the view has rebuilt
       renderShell(); renderRoute();
     } else paint();
-  } }, el('span', { class: 'tt-icon', 'aria-hidden': 'true' }, glyph('moon', 15)), el('span', { class: 'tt-label' }, ''));
+  } }, ...[['light', 'Day'], ['dark', 'Night'], ['silvertone', 'Silvertone'], ['slate', 'Slate']]
+    .map(([value, label]) => el('option', { value }, label)));
   function paint() {
-    const now = effectiveTheme();
-    b.querySelector('.tt-label').textContent = now === 'dark' ? 'Night' : 'Day';
-    b.querySelector('.tt-icon').replaceChildren(glyph(now === 'dark' ? 'moon' : 'sun', 15));
-    // The state has to live in the NAME. A fixed aria-label ("Switch between
-    // day and night reading") overrides the element's contents in the
-    // accessible-name computation, so the one word that says which mode is on
-    // — the visible 'Night'/'Day' right there in the button — never reached a
-    // screen reader at all, and the control announced identically in both
-    // states. Named rather than aria-pressed: a theme is not a pressed
-    // control, and a polarity has to be guessed to announce one.
-    b.setAttribute('aria-label', now === 'dark'
-      ? 'Night reading on — switch to day' : 'Day reading on — switch to night');
+    const theme = effectiveTheme();
+    b.value = theme;
+    label.textContent = b.selectedOptions[0].textContent;
+    icon.replaceChildren(glyph(['dark', 'slate'].includes(theme) ? 'moon' : 'sun', 15));
   }
   paint();
-  return b;
+  return el('div', { class: 'chrome-toggle theme-control', title: 'Reading theme' }, icon, label, b);
 }
 function accountToggle() {
   return btn({ id: 'account-toggle', class: 'chrome-toggle',
