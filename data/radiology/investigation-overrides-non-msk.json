@@ -1313,78 +1313,130 @@
   },
   "ra.mri-cervical-cancer": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-10",
       "protocol": [
-        "Plan high-resolution T2 perpendicular and parallel to the cervix, with diffusion and relevant additional sequences; record biopsy and treatment timing."
+        "Record the actual histological diagnosis supplied, biopsy/conization and treatment timing, comparison and MRI adequacy. Inspect acquired high-resolution T2 aligned perpendicular/parallel to the actual cervical canal, DWI/ADC and other sequences when obtained; preserve missing sequences/coverage.",
+        "Record covered urinary, nodal and distant staging extent and actual comparison methods. Source publication figures and atlas surfaces are separate reference contexts, not matched acquired data from this patient."
       ],
       "checklist": [
         {
-          "label": "Primary Tumour",
-          "detail": "Identify cervical epicentre and tumour dimensions."
+          "label": "Source adequacy and anatomy",
+          "detail": "Record histology supplied, biopsy/treatment timing, MRI quality, actual coverage, age-related zonal visibility and anatomy variants. Plan acquired cervical planes from the actual canal orientation; record missing sequences or regions."
         },
         {
-          "label": "Stroma And Parametria",
-          "detail": "Assess the stromal ring and true extension into parametrial tissue."
+          "label": "Primary tumour and uterine relationships",
+          "detail": "Describe each observed tumour epicentre/growth pattern and maximal dimension plus orthogonal dimensions. Assess cervical canal, external/internal os, cervical stroma and covered uterine/endometrial relationships; record actual internal-os distance and whole uterine size when evaluable."
         },
         {
-          "label": "Vagina And Sidewall",
-          "detail": "Describe vaginal extent, sidewall and ureteric involvement."
+          "label": "Stroma, parametria and sacrouterine ligaments",
+          "detail": "Assess source-resolved inner and outer cervical boundaries, stromal ring and each parametrial/uterosacral interface. Distinguish expansion, oedema and uncertain post-biopsy change from source-supported extra-stromal tumour, vascular encasement and actual ureteric relationships."
         },
         {
-          "label": "Adjacent Organs",
-          "detail": "Differentiate organ contact from bladder or rectal invasion."
+          "label": "Vagina",
+          "detail": "Map each involved vaginal region, fornix and upper/lower extent with source-supported wall and adjacent tissue interfaces. Distinguish each actual lesion/contact and unassessed or collapsed source boundary."
         },
         {
-          "label": "Nodes And Spread",
-          "detail": "Map suspicious nodes and other disease in the field."
+          "label": "Pelvic sidewalls, ureters and kidneys",
+          "detail": "Review each covered sidewall muscular/fascial and vascular interface, ureteric course and acquired renal collecting system. Record actual proximity/extension, obstruction, alternative cause and unresolved or unacquired extent."
+        },
+        {
+          "label": "Bladder, rectum and other adjacent organs",
+          "detail": "Separate contact, wall-layer findings, mucosal/luminal concern and uncertainty at each observed interface. Bullous oedema or detrusor involvement alone does not establish histologically proven mucosal invasion."
+        },
+        {
+          "label": "Nodes and other spread",
+          "detail": "Describe each actually covered suspicious nodal station, node morphology and short axis, including pelvic and para-aortic level. Retain the renal-vein reference, covered inguinal/distant sites and unacquired staging extent; MRI size alone does not prove or exclude microscopic metastasis."
+        },
+        {
+          "label": "Treatment response, recurrence and planning limits",
+          "detail": "When supplied, compare registered/anatomically matched acquired pre/post-treatment findings with actual timing, source signals and uncertainty. Separate residual/recurrent-tumour concern from fibrosis/oedema; include relevant fertility-planning distances, associated benign findings and unresolved non-imaging staging inputs."
         }
       ],
       "measurements": [
         {
-          "name": "Tumour size",
-          "method": "Measure three axes on planes aligned to the cervical tumour.",
-          "pitfall": "Post-biopsy change can obscure tumour margins."
+          "name": "Tumour and uterine extent",
+          "method": "Measure each observed primary/other lesion maximum dimension and orthogonal dimensions on suitable acquired planes with actual scale. Record whole uterine size when evaluable and source planes/method.",
+          "pitfall": "Biopsy oedema, distorted orientation, source display pixels or a reference mesh cannot supply calibrated patient tumour boundaries."
+        },
+        {
+          "name": "Planning and interface distances",
+          "method": "When evaluable, measure the actual tumour-to-internal-os distance and source-resolved sidewall/interface proximity, naming the endpoints, plane and uncertainty.",
+          "pitfall": "A distance alone is not proof of tissue invasion or an independently sufficient fertility-sparing decision."
+        },
+        {
+          "name": "Nodal short axis",
+          "method": "Record actual station/level and short axis for each observed suspicious node with source morphology and measurement method.",
+          "pitfall": "Size, DWI signal or a displayed publication node alone cannot prove or exclude microscopic metastasis."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Cervical expansion or oedema alone does not establish parametrial invasion."
+        "An intact-appearing or thinned stromal ring and an enlarged cervix must be distinguished from source-supported extra-stromal tumour; retain uncertainty from oedema or inadequate planes.",
+        "Separate bladder/rectal wall findings from proven mucosal invasion. Bullous oedema and detrusor involvement alone do not establish a histological mucosal endpoint.",
+        "Imaging cannot independently diagnose microscopic stage IA, substitute for missing clinical/pathological inputs or automatically determine treatment. State an adopted staging version and evidence basis when actually assessed.",
+        "Record each actual side/site/lesion and unacquired extent. Negative or limited MRI is not proof of complete normality or absence of microscopic residual/nodal disease."
       ],
       "impression_prompts": [
-        "Summarise tumour size and extension into parametrium, vagina or adjacent organs.",
-        "Describe nodal stations and any non-imaging inputs needed for final stage."
+        "Summarize actual primary tumour extent and source-supported stromal, parametrial, vaginal, sidewall, urinary and adjacent-organ relationships.",
+        "Summarize source-supported nodal/distant observations and examination limits. If staging is supplied, state its actual version/evidence basis and unresolved clinical/pathological inputs.",
+        "For follow-up, retain actual timing/comparison, source-supported response or recurrence concern and uncertainty."
       ],
       "escalation": [],
       "template_sections": [
         {
+          "heading": "SOURCE ADEQUACY AND ANATOMY",
+          "body": "Histology and actual biopsy/treatment context: [ ]. MRI acquisition/quality and cervical planning: [ ]. Covered regions, zonal visibility and variants: [ ]. Missing/unassessed data: [ ]."
+        },
+        {
           "heading": "PRIMARY TUMOUR",
-          "body": "Location: [ ]. Three dimensions: [ ] mm. Internal os distance: [ ]."
+          "body": "Each observed tumour identity/epicentre and growth pattern: [ ]. Maximum and orthogonal dimensions with source plane/scale: [ ] mm. Cervical canal, external/internal os and uterine/cavity interfaces: [ ]. Actual internal-os distance and whole uterine size when evaluable: [ ]."
         },
         {
           "heading": "STROMA AND PARAMETRIA",
-          "body": "Stromal ring: [ ]. Parametrium by side: [ ]."
+          "body": "Cervical stromal ring and inner/outer boundary evaluability: [ ]. Right/left parametrium and sacrouterine ligament findings/extent: [ ]. Actual vessels/ureter interfaces: [ ]. Expansion, oedema, post-biopsy effects and uncertainty: [ ]."
         },
         {
-          "heading": "VAGINA AND SIDEWALL",
-          "body": "Upper/lower vagina: [ ]. Sidewall: [ ]. Hydroureteronephrosis: [ ]."
+          "heading": "VAGINA",
+          "body": "Each observed vaginal lesion/interface and wall evaluability: [ ]. Fornices, upper extent and lower-third relationship: [ ]. Adjacent tissue and unassessed extent: [ ]."
+        },
+        {
+          "heading": "SIDEWALLS AND URINARY TRACT",
+          "body": "Right/left internal obturator, levator, piriformis/fascial and actual iliac-vessel relationships: [ ]. Source-supported proximity/extent with method: [ ]. Covered ureter, obstruction and renal collecting-system findings or alternative cause: [ ]. Unacquired extent: [ ]."
         },
         {
           "heading": "ADJACENT ORGANS",
-          "body": "Bladder wall/mucosa: [ ]. Rectal wall/mucosa: [ ]. Other extension: [ ]."
+          "body": "Each bladder/rectal or other-organ contact and source-resolved layer/outer-interface finding: [ ]. Mucosal/luminal concern, actual confirmation and uncertainty: [ ]. Bullous oedema or unresolved boundaries: [ ]."
         },
         {
           "heading": "NODES AND SPREAD",
-          "body": "Nodal stations/morphology/short axis: [ ]. Other spread: [ ]. Imaging extent summary: [ ]."
+          "body": "Each suspicious node station, renal-vein level, morphology and short axis/method: [ ]. Covered inguinal, other distant nodes and organ/peritoneal findings: [ ]. Unacquired or unresolved disease assessment: [ ]."
+        },
+        {
+          "heading": "RESPONSE AND PLANNING LIMITS",
+          "body": "Actual treatment/date and matched comparison: [ ]. Source-supported response/residual or recurrent-lesion concern, fibrosis/oedema and uncertainty: [ ]. Relevant fertility-planning distances, variants/associated benign findings: [ ]. Adopted staging framework/version and missing clinical/pathological inputs: [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant — Cervical Cancer - MR staging",
+          "title": "The role of MRI in cervical cancer staging and treatment (2023)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10605640/"
+        },
+        {
+          "title": "ESGO/ESTRO/ESP imaging update for cervical cancer (2024; guideline update2023)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10886638/"
+        },
+        {
+          "title": "ESUR MRI staging, recurrence and follow-up recommendations (2021)",
+          "url": "https://doi.org/10.1007/s00330-020-07632-9"
+        },
+        {
+          "title": "Radiology Assistant — Cervical Cancer MR staging (2023)",
           "url": "https://radiologyassistant.nl/abdomen/unsorted/mr-in-cervical-cancer-1"
         }
       ]
-    }
+    },
+    "key_images": []
   },
   "ra.mri-endometrial-cancer": {
     "reporting": {

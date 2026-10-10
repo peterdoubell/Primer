@@ -18,6 +18,7 @@ FLAGSHIPS = ('ra.ct-coronary', 'ra.mri-prostate')
 # Investigation-specific anatomy or reporting-aim overrides.
 CORRECTED = {
     'ra.mri-endometriosis': 'female',
+    'ra.mri-cervical-cancer': 'female',
     'ra.appendicitis': 'bowel',
     'ra.mri-prostate': 'prostate',
     'ra.mri-rectal-cancer': 'rectal', 'ra.mri-perianal-fistula': 'rectal',

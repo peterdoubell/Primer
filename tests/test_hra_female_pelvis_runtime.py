@@ -67,7 +67,7 @@ def test_reporting_api_and_shared_lesson_bind_the_same_uncropped_native_source(r
     models = [m for m in lesson.json()['lesson_media'] if m.get('renderer') == 'radiology-anatomy']
     assert len(models) == 1 and source in models[0]['props']['source_references']
     mapping = catalog._source_anatomy_references()
-    assert {i for i, rows in mapping.items() if any(r['atlas'] == ATLAS_NAME for r in rows)} == {'ra.mri-endometriosis'}
+    assert {i for i, rows in mapping.items() if any(r['atlas'] == ATLAS_NAME for r in rows)} == {'ra.mri-endometriosis', 'ra.mri-cervical-cancer'}
     assert not MANIFEST['clinical_approval'] and not MANIFEST['complete_reporting_anatomy_approved']
     assert not MANIFEST['every_structure_approved'] and not MANIFEST['full_module_fidelity_approved']
 
@@ -134,7 +134,7 @@ def test_source_assets_remain_reference_only_with_pending_anatomical_coverage():
     for record in records:
         part = MANIFEST['parts'][record['id']]
         assert record['reference_only'] is True
-        assert record['investigation_ids'] == ['ra.mri-endometriosis']
+        assert record['investigation_ids'] == ['ra.mri-endometriosis', 'ra.mri-cervical-cancer']
         assert record['structure_ids'] == [] and record['requirement_coverage'] == {}
         assert record['representation'] == 'complete_original_curated_source_surface'
         assert record['anatomical_review']['status'] == 'pending'

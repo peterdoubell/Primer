@@ -6868,7 +6868,7 @@
       "The interval has infinite measure",
       "No single integrable function dominates every f_n"
      ],
-     "explain": "A dominating g would have to exceed n on (0, 1/n) for each n, forcing g above 1/x near the origin, and 1/x is not integrable there."
+     "explain": "At each x > 0, the largest active integer is ceil(1/x) − 1 because the intervals are open. A common dominator must therefore be at least ceil(1/x) − 1; for 0 < x ≤ 1/2 this is at least 1/(2x), whose integral diverges near zero. At x = 1/4 the envelope is 3, so it need not lie above 1/x. No integrable common dominator exists."
     },
     {
      "kind": "choice",
@@ -6945,6 +6945,16 @@
      "instructions": "Compare finite-stage interval lengths with the limiting measures of two constructions.",
      "props": {
       "scenario": "math.5.measure"
+     }
+    },
+    {
+     "id": "math.5.measure-math-measure-lab",
+     "kind": "model",
+     "renderer": "math-measure-lab",
+     "title": "Measure, integral and convergence",
+     "instructions": "Inspect shrinking supports, exact integrals and distinct norms. Compare pointwise convergence with the hypotheses of dominated convergence.",
+     "props": {
+      "scenario": "math.5.measure.integration-norms"
      }
     }
    ]

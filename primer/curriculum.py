@@ -164,6 +164,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "physics-buoyancy-lab",
     "physics-thermal-lab",
     "physics-phase-lab",
+    "math-measure-lab", "physics-cycle-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -380,6 +381,12 @@ def _validate_lesson_media(node: Dict) -> None:
                         "scenario": "math.4.multivar.integral-flux"}:
                     raise ValueError("{} integral/flux model has an unknown or cross-lesson scenario".format(
                         node.get("id")))
+            elif renderer == "math-measure-lab":
+                if node.get("id") != "math.5.measure" or props != {"scenario": "math.5.measure.integration-norms"}:
+                    raise ValueError("{} math-measure-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-cycle-lab":
+                if node.get("id") != "phys.3.thermo" or props != {"scenario": "phys.3.thermo.cycle-entropy"}:
+                    raise ValueError("{} physics-cycle-lab has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "physics-phase-lab":
                 expected = {"phys.0.hot-cold": "phys.0.hot-cold.melting-ice",
                             "phys.2.matter": "phys.2.matter.phase-change"}

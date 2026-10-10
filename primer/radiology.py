@@ -97,6 +97,22 @@ def validate_image_source(url):
     """Keep image loading confined to the curated publishers and local plates."""
     if not isinstance(url, str) or not url:
         raise ValueError("Radiology image needs a source")
+    open_prefix = '/app/reference-media/radiology-open/'
+    if url.startswith(open_prefix):
+        # Reuse the already reviewed original-raster registry; a local prefix
+        # alone cannot turn an arbitrary file into a clinical source example.
+        registry = _read('radiology-static-rasters.json')
+        record = registry.get('files', {}).get(url)
+        relative = url.removeprefix(open_prefix)
+        if (registry.get('schema_version') != 1 or not record
+                or any(part in ('', '.', '..') for part in relative.split('/'))
+                or '%' in url or '\\' in url
+                or Path(relative).suffix.lower() not in ('.jpg', '.jpeg', '.png', '.webp')):
+            raise ValueError('Unknown reviewed open radiology source figure')
+        from .source_raster_integrity import verified_raster_header
+        verified_raster_header(dict(record, src=url),
+            DATA.parents[1] / 'web/reference-media/radiology-open', DATA)
+        return
     source_prefix = '/app/reference-media/source-figures/'
     if url.startswith(source_prefix):
         # A locally preserved publisher figure must be explicitly registered

@@ -255,7 +255,10 @@
           max: control.max, step: control.step, 'data-parameter': control.key });
       }
       const update = () => {
-        current.state[control.key] = control.options ? input.value : Number(input.value);
+        // Native selects stringify values; recover the authored number/string type.
+        current.state[control.key] = control.options
+          ? (control.options.find(option => String(option.value) === input.value)?.value ?? input.value)
+          : Number(input.value);
         refresh(true);
       };
       input.addEventListener(control.options ? 'change' : 'input', update);

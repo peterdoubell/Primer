@@ -388,6 +388,7 @@ const INTERACTIONS = Object.freeze({
 function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
+  let measureEntries = 0, cycleEntries = 0;
   let phaseEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
@@ -398,6 +399,11 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-measure-lab' || media.renderer === 'physics-cycle-lab') {
+          const measure = media.renderer === 'math-measure-lab', expectedLesson = measure ? 'math.5.measure' : 'phys.3.thermo', expectedScenario = measure ? 'math.5.measure.integration-norms' : 'phys.3.thermo.cycle-entropy';
+          if (media.kind !== 'model' || lesson.id !== expectedLesson || JSON.stringify(media.props) !== JSON.stringify({scenario:expectedScenario})) throw new Error('invalid separately verified integration/cycle binding');
+          if (measure) measureEntries++; else cycleEntries++; continue;
+        }
         if (media.renderer === 'physics-phase-lab') {
           const bindings={'phys.0.hot-cold':'phys.0.hot-cold.melting-ice','phys.2.matter':'phys.2.matter.phase-change'};
           if (media.kind !== 'model' || !bindings[lesson.id] || JSON.stringify(media.props) !== JSON.stringify({scenario:bindings[lesson.id]})) throw new Error('invalid phase binding');
@@ -466,6 +472,7 @@ function collectRemainingModels() {
   if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
   if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');
   if (buoyancyEntries !== 1) throw new Error('expected one separately verified buoyancy model');
+  if (measureEntries !== 1 || cycleEntries !== 1) throw new Error('expected one integration and one cycle model');
   if (phaseEntries !== 2) throw new Error('expected two separately verified phase models');
   if (numericalEntries !== 1) throw new Error('expected one separately verified numerical error model');
   if (thermalEntries !== 2) throw new Error('expected two separately verified thermal models');
