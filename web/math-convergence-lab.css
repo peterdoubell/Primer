@@ -1,0 +1,12 @@
+.math-convergence-lab { min-width: 0; }
+.math-convergence-lab .model-heading-row { flex-wrap: wrap; }
+.math-convergence-lab .model-heading-row > button { flex-shrink: 0; }
+.convergence-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 15px 0; }
+.convergence-viewport { min-width: 0; overflow: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 10px; background: #f5efdf; }
+.convergence-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.math-convergence-lab.is-enlarged .convergence-viewport svg { width: 100%; min-width: 660px; max-width: none; }
+.convergence-proof { line-height: 1.6; }
+.convergence-readout { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; line-height: 1.6; }
+.convergence-decimal { font-family: monospace; overflow-wrap: anywhere; }
+.math-convergence-lab > select { width: 100%; max-width: 100%; }
+@media (max-width: 760px) { .convergence-panels, .math-convergence-lab .concept-controls { grid-template-columns: minmax(0, 1fr); } }

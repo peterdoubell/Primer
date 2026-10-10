@@ -159,6 +159,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-field-lab",
     "math-wave-lab",
     "math-probability-lab",
+    "math-convergence-lab",
     "physics-buoyancy-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
@@ -379,6 +380,9 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "physics-buoyancy-lab":
                 if node.get("id") != "phys.0.float-sink" or props != {"scenario": "phys.0.float-sink.hydrostatics"}:
                     raise ValueError("{} buoyancy model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-convergence-lab":
+                if node.get("id") != "math.4.analysis" or props != {"scenario": "math.4.analysis.convergence"}:
+                    raise ValueError("{} convergence model has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "math-wave-lab":
                 if node.get("id") != "math.5.pde" or props != {"scenario": "math.5.pde.wave-field"}:
                     raise ValueError("{} wave-field model has an unknown or cross-lesson scenario".format(

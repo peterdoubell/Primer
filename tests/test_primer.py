@@ -478,6 +478,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         n['id']: (n['stage'], 'music-listening-lab')
         for n in curr.nodes.values() if n.get('music_grade')
     })
+    expected['math.4.analysis'] = (4, 'math-convergence-lab')
     expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
@@ -494,7 +495,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert node['stage'] == expected[nid][0], nid
         base_media = [entry for entry in node['lesson_media']
                       if entry['kind'] != 'source-gallery' and (entry.get('renderer') == expected[nid][1]
-                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab'})]
+                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]
