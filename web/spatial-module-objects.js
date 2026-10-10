@@ -72,6 +72,21 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  define('numerical-conditioning','Singular-value scaling and conditioning',
+    {conditionPower:1,perturbPower:16,sign:1},
+    [range('conditionPower','η = 10⁻ᑫ; choose q',0,16,1),range('perturbPower','|δ| = 10⁻ᵖ; choose p',2,16,1),
+     choice('sign','RHS perturbation sign',[[1,'Positive δ'],[-1,'Negative δ']])],(s,g)=>{
+      const m=window.PrimerMathNumericalLab.conditioning({...s,mode:'conditioning'});
+      g.box([-1.5,0,0],[2,2,2],g.colors.gold,{opacity:.18,conditioning_kind:'input'});
+      g.box([1.5,0,0],[2,2*m.eta,2],g.colors.blue,{opacity:.3,conditioning_kind:'output',eta:m.eta});
+      g.label([-1.5,1.3,0],'Input cube');g.label([1.5,1.3,0],'diag(1,η,1)');
+      g.label([1.5,-1.3,0],'η = '+Number(m.eta.toPrecision(5)));
+      g.label([-1.5,-1.3,0],'Δx₂ = '+Number(window.PrimerMathNumericalLab.approximate(m.change).toPrecision(5)));
+      return {...result(m.readout,'The two dimensionless cubes are separated by translations of−1.5 and+1.5 on x for comparison. Subtract the centre before applying the linear map. Every output corner is exactly the displayed floating-point evaluation of(x,ηy,z). The additional identity z direction embeds the lesson’s two-dimensional diag(1,η) problem without changing κ₂. No minimum thickness is invented: a tiny positive η can look flat at screen resolution, but its world coordinates remain positive and the mathematical map remains invertible. The boxes show singular-value scaling, not a computed solver’s accuracy. Exact nearby-RHS formulas and error norms are in the readout. '+m.proof,
+        [['Gold: unit input cube',g.colors.gold],['Blue: actual scaled output cube',g.colors.blue]],g),
+        conditioning:{eta:m.eta,kappa:m.kappa,inputRelative:m.inputRelative,forwardRelative:m.forwardRelative,bound:m.bound}};
+    });
+
   define('analysis-tail-errors','Function tails and error bounds',{family:'powers',index:5,epsilon:50},
     [choice('family','Function family',[['powers','xⁿ: pointwise, not uniform'],['uniform-ramp','x/n: uniform']]),
      range('index','First tail index N',1,120,1),range('epsilon','Tolerance ε in hundredths',1,200,1)],(s,g)=>{

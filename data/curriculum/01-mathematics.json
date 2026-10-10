@@ -7734,7 +7734,7 @@
      "kind": "choice",
      "prompt": "Binary floating point stores 0.1 as the nearest representable value, which is slightly off. A program adds 0.1 ten times and then tests the total for equality with 1.0, and the test fails. Decide which repair is sound.",
      "answer": "Compare with a tolerance",
-     "explain": "The stored value nearest 0.1 is not 0.1, so ten of them sum to a value a few units in the last place away from 1.0. Extra precision shrinks the gap without closing it, reordering only shuffles it, and rounding cannot make an unrepresentable value representable. Asking whether the difference is below a tolerance is the standard fix.",
+     "explain": "Binary 0.1 is approximate and each addition may round. A scale-appropriate tolerance tests agreement. Extra precision, reordering or decimal-looking rounding does not guarantee exact equality. Some algorithms and runs can still return exactly 1.0; that does not make the stored input 0.1 exact.",
      "choices": [
       "Compare with a tolerance",
       "Store the running total in higher precision",
@@ -7792,7 +7792,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "A program solves x^2 - 200x + 1 = 0 in double precision with the textbook quadratic formula, and the smaller root emerges with only a few correct digits. Diagnose.",
+     "prompt": "The textbook quadratic formula subtracts nearly equal quantities when computing the smaller root of x^2 - Bx + 1 = 0 for large positive B. The problem becomes much more severe as B grows. Diagnose the numerical issue.",
      "answer": "Subtracting two nearly equal quantities destroys significant digits",
      "choices": [
       "Subtracting two nearly equal quantities destroys significant digits",
@@ -7800,7 +7800,7 @@
       "The iteration stopped before it converged",
       "Rounding of the coefficient 200 dominates the error"
      ],
-     "explain": "The square root of the discriminant is very close to 100, so the numerator suffers catastrophic cancellation. Computing the small root as 1 divided by the large root avoids the loss entirely."
+     "explain": "The small-root numerator subtracts sqrt(B^2 - 4) from B. For B = 200, binary64 retains roughly twelve correct relative digits; at larger B cancellation can make the computed small root zero. Computing it as the reciprocal of the large root avoids the dangerous subtraction, but still has ordinary input and arithmetic rounding."
     },
     {
      "kind": "numeric",
@@ -7860,8 +7860,18 @@
      "props": {
       "scenario": "math.5.numerical"
      }
-    }
-   ]
+    },
+        {
+          "id": "math-numerical-errors-model",
+          "kind": "model",
+          "renderer": "math-numerical-lab",
+          "title": "Where numerical error comes from",
+          "instructions": "Compare exact references, certified bounds and rounded calculations. Separate input error, algorithmic rounding, approximation and conditioning.",
+          "props": {
+            "scenario": "math.5.numerical.error-accounting"
+          }
+        }
+      ]
   },
   {
    "id": "math.5.pde",
