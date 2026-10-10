@@ -2191,11 +2191,12 @@ function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceL
   const nativeVolume = asset.origin === 'native-volume-sections';
   const derived = asset.origin === 'source-derived' || nativeVolume;
   const panel = asset.source_panel || '';
+  const tableArtwork = asset.source_table ? 'Table ' + asset.source_table + ' · artwork ' + asset.source_table_panel : null;
   const ancillary = asset.ancillary_panels || [];
   const modality = (asset.modality || 'Source anatomy') + (asset.contains_schematic_panels ? ' + schematic panels' : '')
     + [...new Set(ancillary.map(item => item.kind.toLowerCase()))].map(kind => ' + ' + kind + ' panels').join('');
   const figure = createElement('figure', { class: 'rad-anatomy-illustration' },
-    createElement('h4', {}, (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel) + ' · ' + modality),
+    createElement('h4', {}, (tableArtwork || (derived ? asset.figure_title : 'Figure ' + asset.figure_number + panel)) + ' · ' + modality),
     createElement('img', { src: asset.src, alt: asset.alt, width: asset.width, height: asset.height,
       loading: 'lazy', decoding: 'async', dataset: { fullSrc: asset.src, sourceFigure: 'true',
         ...(asset.source_background === 'white' ? { paperBackground: 'white' } : {}) } }),
@@ -2208,13 +2209,13 @@ function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceL
       createElement('p', { class: 'rad-image-credit' }, asset.limits),
       createElement('p', { class: 'rad-image-credit' }, asset.attribution),
       sourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
-      sourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : 'Original figure', asset.figure_url), ' · ',
+      sourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : tableArtwork ? 'Original table' : 'Original figure', asset.figure_url), ' · ',
       sourceLink(asset.license, asset.license_url)));
   if (derived && onExploreSource) figure.append(btn({ class: 'btn ghost small',
     onclick: () => onExploreSource(asset) }, 'Explore this source knee in 3D'));
   if (asset.source_caption_full && asset.source_caption_full !== asset.caption) {
     figure.append(createElement('details', { class: 'rad-source-caption' },
-      createElement('summary', {}, 'Complete source-figure caption'), createElement('p', {}, asset.source_caption_full)));
+      createElement('summary', {}, tableArtwork ? 'Complete source-table context' : 'Complete source-figure caption'), createElement('p', {}, asset.source_caption_full)));
   }
   return figure;
 }

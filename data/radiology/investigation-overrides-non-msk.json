@@ -1207,76 +1207,105 @@
   },
   "ra.mri-endometriosis": {
     "reporting": {
-      "reviewed_at": "2026-09-23",
+      "reviewed_at": "2026-10-10",
       "protocol": [
-        "Review multiplanar high-resolution T2 and fat-suppressed T1 images; record prior surgery and compartments covered."
+        "Record actual symptoms, prior surgery, comparison, preparation and examination coverage/quality. Review acquired multiplanar high-resolution T2, T1 with appropriate fat separation, and kidney views when supplied; explicitly record missing regions or sequences.",
+        "Describe lesion characterization from sequences actually obtained. When an adnexal solid component is suspected, document available diffusion/contrast evidence and unresolved characterization; do not claim enhancement or exclusion from an unperformed sequence."
       ],
       "checklist": [
         {
-          "label": "Ovaries",
-          "detail": "Assess endometriomas, haemorrhagic content and ovarian position."
+          "label": "Adnexa",
+          "detail": "Assess each ovary and tube separately: lesion number, location, source signal, residual parenchyma, adhesional position, tubal content and any suspected solid tissue. Record unresolved characterization."
         },
         {
-          "label": "Anterior Compartment",
-          "detail": "Inspect bladder, vesicouterine space and distal ureters."
+          "label": "Anterior central compartment",
+          "detail": "Localize bladder findings to anterior/posterior dome or base/trigone; inspect the vesicouterine relationship and each proximal round ligament. Record actual wall/lumen interfaces and ureteric-orifice proximity when evaluable."
         },
         {
-          "label": "Posterior Compartment",
-          "detail": "Map uterosacral, torus, rectovaginal and pouch of Douglas findings."
+          "label": "Medial central compartment",
+          "detail": "Assess torus, each proximal uterosacral ligament, pouch of Douglas, posterior vaginal wall/fornix, rectovaginal space and external myometrial infiltration. Separate site, extent, adhesions and uncertainty."
         },
         {
-          "label": "Bowel",
-          "detail": "Define segment, mural involvement and stenotic effect."
+          "label": "Posterior central compartment and bowel",
+          "detail": "Map every observed rectal/rectosigmoid lesion and each covered segment. Record source-supported mural depth, longitudinal extent, inferior margin relative to the anal verge and luminal effect; do not infer transmural invasion from tethering."
         },
         {
-          "label": "Uterus And Complications",
-          "detail": "Assess adenomyosis and obstructive complications."
+          "label": "Lateral compartments, ureters and nerves",
+          "detail": "Assess each distal round ligament, mediolateral/posterolateral parametrium, ureter and actual covered neural relationship. Trace obstruction toward the kidneys when acquired; preserve unassessed course or uncertain intrinsic/extrinsic involvement."
+        },
+        {
+          "label": "Uterus and superficial disease",
+          "detail": "Assess uterus, junctional zone/myometrium and associated adenomyosis separately from external infiltration. Describe any source-observed peritoneal foci and adhesions; negative MRI does not exclude superficial endometriosis."
+        },
+        {
+          "label": "Extra-pelvic sites and examination limits",
+          "detail": "Review actual covered abdominal-wall/scar, umbilical, inguinal, sigmoid, ileocaecal/appendiceal and diaphragmatic sites. Record unacquired extent, unresolved lesions and implications for complete mapping."
         }
       ],
       "measurements": [
         {
-          "name": "Deep lesion extent",
-          "method": "Measure lesion dimensions and affected bowel length at named anatomic sites.",
-          "pitfall": "Tethering and contact do not by themselves prove transmural invasion."
+          "name": "Lesion and organ extent",
+          "method": "Measure each identified lesion in recorded evaluable source planes with actual scale: include site-specific dimensions, adnexal maximum diameter, bladder anteroposterior extent, posterior vaginal extent and affected bowel length/wall thickness.",
+          "pitfall": "Source drawings and published display pixels are not independently calibrated measurements of the current patient."
+        },
+        {
+          "name": "Surgical interface distances",
+          "method": "When evaluable in the actual examination, document inferior bowel-lesion margin to the anal verge and bladder-lesion proximity to each identified ureteric orifice, with source plane/method and uncertainty.",
+          "pitfall": "Tethering, contact, mucosal oedema or a diagram does not establish transmural invasion or supply an unobserved interface."
         }
       ],
       "classification": null,
       "criteria_table": null,
       "pitfalls": [
-        "Normal MRI does not exclude superficial peritoneal endometriosis."
+        "A negative or limited MRI does not exclude superficial peritoneal endometriosis.",
+        "Separate each actual lesion, side and compartment; preserved publication cases and conceptual drawings are not registered current-patient evidence.",
+        "Avoid diagnosis or extent inferred from a single uncertain plane, thickness alone, missing sequences or unassessed regions."
       ],
       "impression_prompts": [
-        "Pelvic compartments and the distribution of endometriotic disease.",
-        "State the dominant abnormality, relevant extent and examination limitations."
+        "Summarize the observed disease distribution, each relevant compartment/site and source-supported extent.",
+        "State important ureteric/bowel/neural relationships, unresolved characterization and examination limitations.",
+        "Record an adopted classification/version and source-supported derivation only when actually assessed; no automatic score is supplied."
       ],
       "escalation": [
-        "Communicate significant ureteric obstruction."
+        "Communicate source-supported significant ureteric obstruction or another urgent identified complication through the appropriate clinical pathway."
       ],
       "template_sections": [
         {
-          "heading": "OVARIES",
-          "body": "Right/left ovary: [ ]. Endometrioma dimensions: [ ]. Adhesional position: [ ]."
+          "heading": "ADNEXA",
+          "body": "Right/left ovary and tube evaluability: [ ]. Each lesion identity/site, dimensions, multiplicity and source signal: [ ]. Position/adhesional relationships: [ ]. Residual ovarian parenchyma: [ ]. Tubal calibre/content/wall: [ ]. Suspected solid tissue and actual characterization sequences: [ ]. Uncertainty: [ ]."
         },
         {
-          "heading": "ANTERIOR COMPARTMENT",
-          "body": "Bladder wall: [ ]. Vesicouterine disease: [ ]. Ureteric involvement: [ ]."
+          "heading": "ANTERIOR CENTRAL COMPARTMENT",
+          "body": "Bladder anterior dome / posterior dome-vesicouterine level / base-trigone: [ ]. Lesion site/laterality and anteroposterior extent: [ ]. Wall/lumen interface evaluability: [ ]. Ureteric-orifice distance, if evaluable: [ ]. Vesicouterine involvement: [ ]. Right/left proximal round ligament and source-supported measurements: [ ]."
         },
         {
-          "heading": "POSTERIOR COMPARTMENT",
-          "body": "Uterosacrals/torus: [ ]. Rectovaginal space: [ ]. Cul-de-sac: [ ]."
+          "heading": "MEDIAL CENTRAL COMPARTMENT",
+          "body": "Torus and right/left proximal uterosacral site, source planes and findings: [ ]. Pouch of Douglas and adhesional relationships: [ ]. Posterior vaginal wall/fornix lesion extent: [ ]. Rectovaginal space and peritoneal-reflection relationship: [ ]. External myometrial infiltration location/extent: [ ]. Unresolved boundaries: [ ]."
         },
         {
-          "heading": "BOWEL",
-          "body": "Segment/site: [ ]. Lesion length/depth: [ ]. Luminal narrowing: [ ]."
+          "heading": "POSTERIOR CENTRAL COMPARTMENT AND BOWEL",
+          "body": "Each lesion and involved rectal/rectosigmoid segment: [ ]. Number, longitudinal length, wall thickness and inferior-margin distance to the anal verge: [ ]. Source-supported depth, luminal effect and adjacent interfaces: [ ]. Measurement planes/method and uncertainty: [ ]."
         },
         {
-          "heading": "UTERUS AND COMPLICATIONS",
-          "body": "Adenomyosis: [ ]. Hydroureteronephrosis: [ ]. Additional implants/adhesions: [ ]."
+          "heading": "LATERAL COMPARTMENTS, URETERS AND NERVES",
+          "body": "Right/left distal round ligament and inguinal course: [ ]. Mediolateral/posterolateral parametrium and mesorectal/pelvic-wall relationship: [ ]. Each ureter site, proximal extent and obstruction/renal coverage: [ ]. Source-resolved intrinsic/extrinsic distinction: [ ]. Actual covered obturator/lumbosacral-root/plexus/sciatic relationship: [ ]. Unassessed structures or extent: [ ]."
+        },
+        {
+          "heading": "UTERUS AND SUPERFICIAL DISEASE",
+          "body": "Uterine orientation, cavity, junctional zone and myometrial evaluability: [ ]. Associated internal adenomyosis description/source measurements: [ ]. Covered ovarian-fossa, mesosalpinx, pouch-of-Douglas and parietal-peritoneal observations: [ ]. Adhesions, confidence and limitations: [ ]."
+        },
+        {
+          "heading": "EXTRA-PELVIC SITES AND LIMITATIONS",
+          "body": "Covered abdominal wall/scars and layer interfaces, umbilicus, inguinal sites, sigmoid, ileocaecal junction/appendix and diaphragm: [ ]. Each observed lesion location/extent and adjacent relationships: [ ]. Unacquired/unassessed regions: [ ]. Unresolved mapping or characterization: [ ]."
         }
       ],
       "sources": [
         {
-          "title": "Radiology Assistant — Endometriosis - MRI detection",
+          "title": "ESUR consensus MRI for endometriosis — protocol, lexicon and compartment analysis (2025)",
+          "url": "https://link.springer.com/article/10.1007/s00330-025-11611-3"
+        },
+        {
+          "title": "Radiology Assistant — Endometriosis MRI detection",
           "url": "https://radiologyassistant.nl/abdomen/unsorted/endometriosis-mri-detection"
         }
       ]

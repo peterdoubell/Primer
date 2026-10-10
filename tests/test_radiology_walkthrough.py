@@ -17,6 +17,7 @@ from primer import radiology_catalog
 FLAGSHIPS = ('ra.ct-coronary', 'ra.mri-prostate')
 # Investigation-specific anatomy or reporting-aim overrides.
 CORRECTED = {
+    'ra.mri-endometriosis': 'female',
     'ra.appendicitis': 'bowel',
     'ra.mri-prostate': 'prostate',
     'ra.mri-rectal-cancer': 'rectal', 'ra.mri-perianal-fistula': 'rectal',
