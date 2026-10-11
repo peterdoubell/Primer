@@ -15,6 +15,47 @@ from tools.anatomy_sources import reconcile_native_source_presentation as review
 ROOT = Path(__file__).resolve().parents[1]
 
 
+@pytest.mark.parametrize('arguments', [
+    ['--acquire-verse', '/tmp/caller-selected-source'],
+    ['--verify-verse', '../caller-selected-source'],
+    ['--verse-candidates', '/tmp/caller-selected-candidates'],
+    ['--liu-proof', '/tmp/caller-selected-proof.json'],
+    ['--reader-proof', '../caller-selected-proof.json'],
+])
+def test_cli_rejects_caller_selected_paths_before_source_or_proof_access(monkeypatch, arguments):
+    calls = []
+    for name in ['acquire_verse', 'verify_verse', 'proposed_contract']:
+        monkeypatch.setattr(review, name, lambda *args: calls.append(args))
+    with pytest.raises(SystemExit) as error:
+        review.main(arguments)
+    assert error.value.code == 2
+    assert calls == []
+
+
+def test_cli_uses_fixed_ignored_native_cache(monkeypatch):
+    calls = []
+    monkeypatch.setattr(review, 'acquire_verse', lambda path: calls.append(('acquire', path)))
+    monkeypatch.setattr(review, 'verify_verse', lambda source, candidates: calls.append(('verify', source, candidates)))
+    review.main(['--acquire-verse', '--verify-verse'])
+    cache = ROOT / '.research/native-source-presentation-20261011'
+    assert calls == [('acquire', cache / 'verse-master'),
+                     ('verify', cache / 'verse-master', cache / 'verse-candidates')]
+
+
+def test_cli_reads_only_fixed_portable_proofs(monkeypatch, tmp_path):
+    calls = []
+    monkeypatch.setattr(review, 'REVIEW', tmp_path)
+    def record(liu, reader):
+        calls.append((liu, reader))
+        return {'fixture': 'bounded proof inputs'}
+    monkeypatch.setattr(review, 'proposed_contract', record)
+    review.main(['--make-proposed-contract'])
+    assert calls == [(tmp_path / 'liu-native-coordinate-proof.json',
+                      tmp_path / 'reader-presentation-proof.json')]
+    assert json.loads((tmp_path / 'proposed-presentation-amendments.json').read_text()) == {
+        'fixture': 'bounded proof inputs'}
+
+
 def test_original_forty_issues_remain_recorded_without_approval():
     path = ROOT / 'docs/native-source-presentation-review-20261011/initial-dependency-issues.json'
     data = json.loads(path.read_text())

@@ -15,6 +15,9 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
 REVIEW = ROOT / 'docs/native-source-presentation-review-20261011'
+NATIVE_CACHE = ROOT / '.research/native-source-presentation-20261011'
+VERSE_MASTER = NATIVE_CACHE / 'verse-master'
+VERSE_CANDIDATES = NATIVE_CACHE / 'verse-candidates'
 SOURCE_IDS = ['liu-sub03-cord-contour-envelope', 'liu-sub03-dura-contour-envelope'] + [
     'verse521-' + level for level in [*[f't{i}' for i in range(1, 13)], *[f'l{i}' for i in range(1, 6)]]
 ] + ['verse521-native-ct-planes']
@@ -304,30 +307,26 @@ def proposed_contract(liu_proof, reader_proof):
         'apply_status': 'proposed_pending_root_independent_review'}
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--acquire-verse', type=Path)
-    parser.add_argument('--verify-verse', type=Path)
-    parser.add_argument('--verse-candidates', type=Path)
+    parser.add_argument('--acquire-verse', action='store_true',
+                        help='Acquire the pinned case into the fixed ignored native cache')
+    parser.add_argument('--verify-verse', action='store_true',
+                        help='Compare the fixed native cache with the fixed candidate cache')
     parser.add_argument('--write-verse-proof', action='store_true')
     parser.add_argument('--make-proposed-contract', action='store_true')
-    parser.add_argument('--liu-proof', type=Path)
-    parser.add_argument('--reader-proof', type=Path)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if args.acquire_verse:
-        acquire_verse(args.acquire_verse)
+        acquire_verse(VERSE_MASTER)
     if args.verify_verse:
-        if not args.verse_candidates:
-            parser.error('--verse-candidates is required for independent source-array comparison')
-        result = verify_verse(args.verify_verse, args.verse_candidates)
+        result = verify_verse(VERSE_MASTER, VERSE_CANDIDATES)
         if args.write_verse_proof:
             REVIEW.mkdir(parents=True, exist_ok=True)
             (REVIEW / 'verse-native-coordinate-proof.json').write_text(json.dumps(result, indent=2) + '\n')
         print('17 native VerSe levels and all embedded source crops verified; no anatomical approval')
     if args.make_proposed_contract:
-        if not args.liu_proof or not args.reader_proof:
-            parser.error('--liu-proof and --reader-proof are required for real presentation evidence')
-        result = proposed_contract(args.liu_proof, args.reader_proof)
+        result = proposed_contract(REVIEW / 'liu-native-coordinate-proof.json',
+                                   REVIEW / 'reader-presentation-proof.json')
         REVIEW.mkdir(parents=True, exist_ok=True)
         (REVIEW / 'proposed-presentation-amendments.json').write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n')
         print('Proposed 20 source-presentation amendments; all 40 original issues retained; no approval or ledger edits')

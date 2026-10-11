@@ -51,3 +51,16 @@ No existing data/evidence ledger was edited by this reviewer, and no commit, dep
 ## Applied presentation reconciliation
 
 Root applied the exact independently reviewed contract with `tools/anatomy_sources/apply_native_source_presentation_review.py`. The applied receipt binds 20 unchanged source assets, 41 current dependency entries and preserved-field fingerprints. All 40 historical issues remain recorded. Only additive Liu coordinate metadata and the explicitly qualified cohort unknown were added. Anatomical review remains pending, fine-structure coverage remains empty, and clinical/fine approval remains false. The current MSK queue audit is preserved separately in `current-msk-audit.json`; previous audit snapshots remain historical evidence.
+
+## Fixed source-review CLI paths
+
+The acquisition and verification CLI uses the ignored cache `.research/native-source-presentation-20261011/` in this checkout. `--acquire-verse` is a boolean switch that places only the pinned original VerSe case members in `verse-master/`. Place the previously retained T1–T12/L1–L5 candidate NPZ files in `verse-candidates/`; `--verify-verse` compares those fixed directories and verifies every recorded source/candidate hash before using its arrays. `--write-verse-proof` retains its explicit proof-write switch.
+
+```sh
+python tools/anatomy_sources/reconcile_native_source_presentation.py --acquire-verse
+python tools/anatomy_sources/reconcile_native_source_presentation.py --verify-verse
+```
+
+`--make-proposed-contract` reads the fixed `liu-native-coordinate-proof.json` and `reader-presentation-proof.json` in this review directory. It checks their native oracles, current served hashes and source-preservation scope before writing the proposed contract. The CLI accepts no source, candidate or proof path arguments. Helpers retain path parameters for direct local fixture tests.
+
+GitHub CodeQL found 11 `py/path-injection` paths from the former caller-selected CLI paths to filesystem access. Removing those CLI path inputs bounds each acquisition/read/write location without suppressing the query. Focused regression tests reject every removed path argument before source/proof access and check the fixed native-cache and portable-proof routing. This CLI correction changes no runtime/source files, approval ledger or existing portable proof bytes; the seven contract-bound evidence hashes remain unchanged.
