@@ -109,7 +109,7 @@ def test_every_available_source_model_reaches_its_matching_lesson_with_exact_con
         assert not row['clinical_or_complete_anatomical_approval']
 
 
-@pytest.mark.parametrize('drift', ['population_note', 'caption', 'helper'])
+@pytest.mark.parametrize('drift', ['population_note', 'caption', 'helper', 'gallery_scope'])
 def test_delivery_renewal_rejects_changes_beyond_the_reviewed_helper(drift):
     node = copy.deepcopy(Curriculum().node('rad.4.spine-imaging'))
     row = next(r for r in json.loads(delivery.HISTORICAL.read_text())['modules'] if r['module_id'] == node['id'])
@@ -119,6 +119,8 @@ def test_delivery_renewal_rejects_changes_beyond_the_reviewed_helper(drift):
         source['population_note'] = 'Registered to the current MRI patient'
     elif drift == 'caption':
         source['source_volume']['caption'] = 'Complete fine anatomical approval'
+    elif drift == 'gallery_scope':
+        next(m for m in node['lesson_media'] if m.get('kind') == 'source-gallery')['investigation_ids'].append('ra.mri-bladder')
     else:
         source['source_volume']['script_sha256'] = '0' * 64
     with pytest.raises(ValueError, match='drift|Unreviewed'):

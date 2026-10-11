@@ -12,6 +12,7 @@
  * module boundary; this file does not duplicate any teaching calculation.
  */
 
+const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
 
@@ -389,7 +390,7 @@ function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
   let measureEntries = 0, cycleEntries = 0, operatorEntries = 0, ensembleEntries = 0;
-  let curvatureEntries = 0, constraintsEntries = 0;
+  let curvatureEntries = 0, constraintsEntries = 0, complexEntries = 0, quantumEntries = 0;
   let phaseEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
@@ -400,6 +401,14 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-complex-lab' || media.renderer === 'physics-quantum-lab') {
+          const complex = media.renderer === 'math-complex-lab';
+          assert.equal(lesson.id, complex ? 'math.5.complex-analysis' : 'phys.4.quantum');
+          assert.deepEqual(media.props, {scenario: complex ? 'math.5.complex-analysis.holomorphy-contours' : 'phys.4.quantum.states-measurement'});
+          assert.equal(media.kind, 'model');
+          if (complex) complexEntries++; else quantumEntries++;
+          continue;
+        }
         if (media.renderer === 'math-curvature-lab' || media.renderer === 'physics-constraints-lab') {
           const curvature = media.renderer === 'math-curvature-lab';
           const lessonId = curvature ? 'math.5.diffgeo' : 'phys.4.classical';
@@ -492,6 +501,7 @@ function collectRemainingModels() {
   if (measureEntries !== 1 || cycleEntries !== 1) throw new Error('expected one integration and one cycle model');
   if (operatorEntries !== 1 || ensembleEntries !== 1) throw new Error('expected one operator and one ensemble model');
   if (curvatureEntries !== 1 || constraintsEntries !== 1) throw new Error('expected one curvature and one constraints model');
+  if (complexEntries !== 1 || quantumEntries !== 1) throw new Error('expected one complex and one quantum model');
   if (phaseEntries !== 2) throw new Error('expected two separately verified phase models');
   if (numericalEntries !== 1) throw new Error('expected one separately verified numerical error model');
   if (thermalEntries !== 2) throw new Error('expected two separately verified thermal models');

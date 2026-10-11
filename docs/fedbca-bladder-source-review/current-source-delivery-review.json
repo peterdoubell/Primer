@@ -99,7 +99,7 @@
     },
     {
       "module_id": "rad.4.spine-imaging",
-      "current_module_contract_sha256": "86fbc421d52c02c13ad6caf7cb04a9b59625af551f2986cfc1ece071a0e0b337",
+      "current_module_contract_sha256": "122da2bec0954a377ea3d5195e377802e5049458bc26ba0cd16a3e1291b67ff5",
       "model_props_sha256": "ecc04ea2ff40aaf5ed146b0dfeafeca459d773279a32736d25312d0e845c4ae1",
       "source_reference_ids": [
         "verse521-bones",
@@ -146,6 +146,13 @@
       "clinical_approval": false,
       "fine_anatomical_approval": false
     },
+    "separate_additive_gallery_scope": {
+      "module_id": "rad.4.spine-imaging",
+      "investigation_id": "ra.mri-myelopathy",
+      "review": "docs/myelopathy-independent-source-review-20261011.json",
+      "review_sha256": "ac775f60d6011bca10099a6607da02e4d99ea9489e9868ff0cf3948c60cba1b1",
+      "source_models_or_historical_approval_extended": false
+    },
     "permitted_descriptor_change": {
       "source_id": "verse521-bones",
       "field": "source_volume.script_sha256",
@@ -153,7 +160,7 @@
       "current_sha256": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
       "path": "web/anatomy/verse521/ct-reference.js"
     },
-    "basis": "Every retained full module contract, model props and source binding reproduces its historical digest after restoring only the reviewed VerSe helper fingerprint. Local source manifests, model payloads, images, volume viewers, scripts and complete scalar arrays match their descriptor identities.",
+    "basis": "Every retained full module contract, model props and source binding reproduces its historical digest after restoring only the reviewed VerSe helper fingerprint and the independently reviewed additive myelopathy gallery reference in the shared spine lesson. The gallery does not extend historical source model approval. Local source manifests, model payloads, images, volume viewers, scripts and complete scalar arrays match their descriptor identities.",
     "new_browser_or_clinical_review_claimed": false,
     "clinical_approval": false,
     "fine_anatomical_approval": false,

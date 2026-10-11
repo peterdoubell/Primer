@@ -1057,7 +1057,8 @@ def detail(curriculum, item):
     if 'reporting' in override and 'report_templates' not in override:
         ref['report_templates'] = [_template(item, ref['reporting'], ref['report_templates'][0])]
     assigned_urls = {article['url'].rstrip('/') for article in ref['reading']}
-    candidates = list(_visuals().get(item['id'], [])) + ref['key_images']
+    # A scoped source-only review can explicitly suppress the visual fallback.
+    candidates = ([] if override.get('suppress_visual_fallback') is True else list(_visuals().get(item['id'], []))) + ref['key_images']
     selected, seen = [], set()
     for image in candidates:
         if image.get('source_url', '').rstrip('/') not in assigned_urls:

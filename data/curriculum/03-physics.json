@@ -3893,9 +3893,9 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "A wavefunction gives the value of |psi| squared near point A as twice its value near point B. Many identically prepared particles then have their positions measured. What should you expect?",
+     "prompt": "A wavefunction has |psi| squared near point A twice its value near point B. The two detection neighborhoods are equally small and their densities vary negligibly within each. Many identically prepared particles have their positions measured. What should you expect?",
      "answer": "About twice as many detections near A as near B.",
-     "explain": "Born's rule makes |psi| squared a probability density: it says how often a detection lands in a region, not where any one particle sits and not how much of a particle is there. Each electron is always found whole, at a single place.",
+     "explain": "Born’s rule assigns a probability to a region by integrating |psi|² over it. For equal small regions with nearly constant densities, a density ratio of two gives approximately twice the expected detections. Finite samples fluctuate, and unequal or wide regions require the full integral. A normalized wavefunction describes probabilities for whole-particle detections.",
      "choices": [
       "Every particle detected at A, since |psi| squared is larger there.",
       "Each particle found smeared out, with more of it sitting at A.",
@@ -3905,9 +3905,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "An electron sits in the ground state of a one-dimensional infinite square well. The well is then widened to twice its original length. What happens to the ground-state energy?",
+     "prompt": "Compare the ground-state eigenenergies of two static one-dimensional infinite square wells for an electron. The second well is twice as wide as the first. How does its ground-state eigenenergy compare?",
      "answer": "It falls to a quarter of its old value.",
-     "explain": "The levels go as n squared over L squared, so doubling L divides every level by four. Widening a well always lowers its levels and packs them closer together, which is why a large box behaves almost classically.",
+     "explain": "For fixed electron mass, E_n=n²π²ℏ²/(2mL²), so doubling L divides each eigenenergy by four. This compares two stationary problems. Sudden widening can leave a superposition of new eigenstates; following the instantaneous ground state during a physical expansion requires an adiabatic protocol. Smaller energy spacing alone does not make a ground state classical.",
      "choices": [
       "It falls to half its old value.",
       "It doubles, since the electron now has more room to move.",
@@ -3935,7 +3935,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "Silver atoms pass a z-oriented Stern-Gerlach magnet; the z-up beam then enters an x-oriented magnet, and the x-up output enters a second z-magnet. Predict what leaves that final z-magnet.",
+     "prompt": "A beam passes an ideal z-spin measurement/filter that transmits only z-up. An ideal x-spin measurement/filter then transmits only x-up and blocks its other output. The surviving beam enters a final z-spin measurement. What does that final measurement produce?",
      "answer": "Half emerge z-up and half z-down.",
      "choices": [
       "The whole beam emerges z-up, as it did before.",
@@ -3979,19 +3979,19 @@
       "Each electron carried a hidden value fixed before it was measured.",
       "The electrons must have interacted with each other during the run."
      ],
-     "explain": "Measuring a superposition is probabilistic, so a scatter is exactly what a perfectly prepared ensemble gives. The spread is the physics, not a fault in the preparation, and Bell tests rule out a pre-existing hidden value behind it."
+     "explain": "For a fixed superposition and chosen observable, the Born rule predicts a probability distribution across independently prepared systems. A finite batch can therefore scatter even with ideal preparation. That observation alone does not diagnose preparation quality or exclude every hidden-variable account. Bell tests constrain local hidden-variable models through correlations across multiple measurement settings and their stated assumptions; this single preparation/measurement experiment is not a Bell test."
     },
     {
      "kind": "choice",
-     "prompt": "A particle meets a barrier taller than its energy, and yet a detector on the far side clicks from time to time. Which account fits?",
-     "answer": "Its wavefunction decays inside the barrier without reaching zero.",
+     "prompt": "A particle scatters from a finite rectangular barrier taller than its energy. The potential on both sides is the same, and a detector beyond the barrier sometimes clicks. Which account fits?",
+     "answer": "A matched evanescent solution gives nonzero transmitted flux beyond the finite barrier.",
      "choices": [
       "A few of the particles happen to arrive carrying more energy than the rest.",
       "The barrier momentarily drops, letting particles slip across.",
-      "Its wavefunction decays inside the barrier without reaching zero.",
+      "A matched evanescent solution gives nonzero transmitted flux beyond the finite barrier.",
       "The detector is picking up the reflected particles instead."
      ],
-     "explain": "Inside a barrier the solution is an exponential decay rather than an oscillation, so a small amplitude survives to the far side and the transmission probability is non-zero. No particle borrows energy and no barrier flickers."
+     "explain": "For energy below a finite barrier, the internal stationary solution combines growing and decaying exponentials. Matching the wavefunction and its derivative at both boundaries gives reflected and transmitted waves with conserved probability current. Transmission can be nonzero and the outgoing energy remains the incoming energy when the exterior potentials match. A semi-infinite step can have an evanescent amplitude with zero transmitted flux; no particle borrows energy."
     }
    ],
    "lesson_media": [
@@ -4014,8 +4014,32 @@
      "props": {
       "scenario": "phys.4.quantum"
      }
+    },
+    {
+     "id": "phys.4.quantum-physics-quantum-lab",
+     "kind": "model",
+     "renderer": "physics-quantum-lab",
+     "title": "States, probabilities and quantum measurement",
+     "instructions": "Compare normalized well states, conditional spin filters, Fourier uncertainty, conserved tunnelling flux and photon energy. Keep state predictions and finite mock detections distinct.",
+     "props": {
+      "scenario": "phys.4.quantum.states-measurement"
     }
-   ]
+    }
+   ],
+   "learning_outcomes": [
+    "Interpret hard-wall eigenfunctions, stationary energies and complex superposition evolution using the Schrödinger equation.",
+    "Calculate integrated position probabilities and distinguish exact predictions from finite detection counts.",
+    "Apply ideal energy and spin measurement, state updates and conditional successive filters.",
+    "Quantify Gaussian position/momentum state uncertainty and account for displayed distribution tails.",
+    "Calculate sub-barrier transmission with matched amplitudes and conserved current.",
+    "Convert vacuum photon wavelength to energy using exact constants and a stated rounded convention."
+   ],
+   "lesson": {
+    "overview": "A state supplies complex amplitudes; measured position probabilities come from integrating |ψ|². For fixed hard walls, normalized sine eigenfunctions have energies proportional to n²/L². Their time-dependent phases satisfy iℏ∂ψ/∂t=Hψ. A stationary eigenstate’s density is fixed, but interference between distinct energies can change a superposition’s density. Compare independent preparations, rather than repeatedly measuring one unchanged state after a measurement has altered it.",
+    "worked_example": "If E₁=2 eV in an electron well, E₃=9E₁=18 eV; if E₁=1.5 eV, E₄=16E₁=24 eV. The fixture lengths are derived from the physical energy formula. For spin, z-up measured along x gives equal probabilities. Selecting x-up prepares a new state, so its final z outcomes again split equally among survivors. Blocking branches reduces throughput; percentages must name whether their denominator is the original input or the surviving beam.",
+    "activity": "Use the well, spin, Gaussian, finite-barrier and photon stations. Change a coherent relative phase and inspect regional probability, then apply an ideal energy measurement and repeat it immediately. Compare spin filtering with a bypass. Change Gaussian width and chirp while inspecting both Fourier-linked distributions and their cropped tails. Match the finite-barrier amplitudes at both boundaries and compare reflection and transmission currents. At 500 nm, the rounded convention hc=1240 eV nm gives 2.48 eV.",
+    "reflection": "State uncertainty describes distributions of position and momentum; it is distinct from apparatus noise or measurement disturbance. A finite scattering barrier admits a flux-normalized state, not a unit-integral bound-state density. Its evanescent amplitude does not imply an energy-changing trajectory. A Bloch vector describes spin expectations, and real/imaginary wavefunction coordinates are mathematical axes; neither display is a literal rotating particle. These analytic examples do not solve arbitrary potentials or every interpretation of measurement."
+   }
   },
   {
    "id": "phys.4.statmech",

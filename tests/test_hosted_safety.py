@@ -122,7 +122,7 @@ def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
     assert allowed.status_code == 200
     assert allowed.json()["counts"] == {
         "lessons": 558, "illustrations": 561,
-        "models": 833, "items": 1394,
+        "models": 835, "items": 1396,
     }
     assert allowed.headers["vary"] == "Authorization, Cookie"
 
@@ -685,7 +685,7 @@ def test_registered_radiology_images_keep_access_gate_and_exact_local_bytes(monk
         assert response.headers['location'] == path.replace('/app/', '/source-media/', 1) + '?v=original'
         assert client.get('/app/reference-media/radiology-open/unknown.jpg', auth=('reader', 'secret')).status_code == 404
     config = json.loads((Path(srv.ROOT) / 'vercel.json').read_text())
-    assert 'web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif}' in config['builds'][0]['config']['excludeFiles']
+    assert 'web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf}' in config['builds'][0]['config']['excludeFiles']
     assert {'src': 'web/reference-media/radiology-open/**', 'use': '@vercel/static'} in config['builds']
 
 

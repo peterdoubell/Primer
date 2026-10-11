@@ -72,6 +72,167 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  const cqNum=(v,d,a,b)=>(typeof v==='number'||typeof v==='string'&&v.trim()!=='')&&Number.isFinite(Number(v))?Math.max(a,Math.min(b,Number(v))):d;
+  const cqFmt=v=>Number.isFinite(v)?Number(v.toPrecision(6)).toString():String(v);
+  function cqColor(phase){
+    if(phase==null||!Number.isFinite(phase))return '#83949a';
+    const h=((phase/TAU%1)+1)%1*6,x=1-Math.abs(h%2-1),rgb=[[1,x,0],[x,1,0],[0,1,x],[0,x,1],[x,0,1],[1,0,x]][Math.floor(h)%6];
+    return 'rgb('+rgb.map(v=>Math.round(45+145*v)).join(',')+')';
+  }
+  function cqAxes(g,o,ends,labels){
+    ends.forEach((p,i)=>{g.line([o,p],g.colors.ink,{width:1.2,cq_kind:'axis'});g.label(p,labels[i]);});
+  }
+  define('complex-function-domain','Complex domain and projected function values',{},[],(s,g)=>{
+    const lab=window.PrimerMathComplexLab,m=lab.build(s),c=m.state,d=m.active,name=d.functionName;
+    let extent=s.domainExtent;
+    if(d.center&&d.radius)extent=Math.max(extent,Math.abs(d.center.re)+d.radius,Math.abs(d.center.im)+d.radius);
+    if(c.station==='C6'||c.station==='C4')extent=Math.max(extent,d.R);
+    const cap=s.heightCrop,poles=(d.poles||d.singularities||[]).map(p=>p.z||p),fields=[],cells=[];
+    if(name==='pathology')poles.push({re:0,im:0,discontinuity:true});
+    const evaluate=z=>{
+      if(c.station!=='C6')return lab.evaluate(name,z,c);
+      const factor=lab.arcFactor(c.arcFn,z,c.poleA);
+      if(!factor)return {value:null,logAbs:Infinity,phase:null,status:'pole'};
+      const a=lab.abs(factor),logAbs=a===0?-Infinity:Math.log(a)-c.k*z.im;
+      const phase=a===0?null:Math.atan2(Math.sin(Math.atan2(factor.im,factor.re)+c.k*z.re),Math.cos(Math.atan2(factor.im,factor.re)+c.k*z.re));
+      return {value:logAbs>-740&&logAbs<700?lab.polar(Math.exp(logAbs),phase):null,logAbs,phase,status:'sample'};
+    };
+    const height=v=>s.heightMode==='log'?v.logAbs:(v.logAbs<700?Math.exp(v.logAbs):Infinity);
+    const displayed=(z,v)=>[z.re,height(v),-z.im];
+    function zeroTest(bounds,radialRange){
+      const {x0,x1,y0,y1}=bounds,contains=(x,y)=>x>=x0&&x<=x1&&y>=y0&&y<=y1;
+      if(c.station==='C6')return {possible:false,basis:'Exponential times the selected reciprocal factor is nonzero in its regular domain'};
+      if(name==='peak')return {possible:radialRange.min<=1&&radialRange.max>=1,basis:'Exact zero circle |z|=1'};
+      if(['z2','linear','annulus-z','conjugate','abs2','pathology'].includes(name))return {possible:contains(0,0),basis:'Exact isolated zero/extension at 0'};
+      if(name==='rational'){
+        if(c.residueA===0&&c.residueB===0)return {possible:true,basis:'Identically zero'};
+        const sum=c.residueA+c.residueB;
+        const zero=c.residueA!==0&&c.residueB!==0&&sum!==0?2*c.residueA/sum:null;
+        return {possible:zero!==null&&contains(zero,0),basis:'Exact numerator zero after removing zero-residue terms',zero};
+      }
+      if(name==='laurent'){
+        // f=P(z)/z², P=z⁴+2z³+7z²+5z+3. On a convex rectangle,
+        // |P(z)-P(mid)| <= sup|P'| |z-mid|. Failure to certify
+        // nonzero means omission; it does not assert that a root exists.
+        const z={re:(x0+x1)/2,im:(y0+y1)/2},R=radialRange.max;
+        const P=lab.add(lab.add(lab.pow(z,4),lab.scale(lab.pow(z,3),2)),lab.add(lab.scale(lab.pow(z,2),7),lab.add(lab.scale(z,5),lab.complex(3))));
+        const derivativeBound=4*R**3+6*R**2+14*R+5,halfDiagonal=Math.hypot((x1-x0)/2,(y1-y0)/2),variation=derivativeBound*halfDiagonal;
+        const midpointMagnitude=lab.abs(P),lower=midpointMagnitude-variation,roundingGuard=64*Number.EPSILON*(midpointMagnitude+variation+1);
+        return {possible:!(lower>roundingGuard),basis:'Conservative analytic polynomial derivative bound with roundoff guard',midpoint:z,midpointMagnitude,derivativeBound,halfDiagonal,lower,roundingGuard};
+      }
+      return {possible:false,basis:'Selected named numerator is nonzero throughout its regular domain'};
+    }
+    for(let i=0;i<24;i++)for(let j=0;j<24;j++){
+      const x0=-extent+2*extent*i/24,x1=-extent+2*extent*(i+1)/24,y0=-extent+2*extent*j/24,y1=-extent+2*extent*(j+1)/24;
+      const inputs=[{re:x0,im:y0},{re:x1,im:y0},{re:x1,im:y1},{re:x0,im:y1}],samples=inputs.map(evaluate);
+      const critical=poles.some(p=>p.re>=x0&&p.re<=x1&&p.im>=y0&&p.im<=y1);
+      const nearX=x0>0?x0:x1<0?x1:0,nearY=y0>0?y0:y1<0?y1:0;
+      const radialRange={min:Math.hypot(nearX,nearY),max:Math.max(...inputs.map(z=>Math.hypot(z.re,z.im)))};
+      const domainContained=d.domain.kind!=='annulus'||radialRange.min>d.domain.inner&&radialRange.max<d.domain.outer;
+      const zeroCertificate=zeroTest({x0,x1,y0,y1},radialRange);
+      const visible=!critical&&domainContained&&(s.heightMode!=='log'||!zeroCertificate.possible)&&samples.every(v=>Number.isFinite(height(v))&&Math.abs(height(v))<=cap);
+      const row={indices:[i,j],bounds:{x0,x1,y0,y1},inputs,samples,critical,radialRange,domainContained,zeroCertificate,visible};fields.push(row);
+      if(!visible)continue;
+      const midpoint=evaluate({re:(x0+x1)/2,im:(y0+y1)/2}),corners=inputs.map((z,k)=>displayed(z,samples[k]));
+      g.polygon(corners,cqColor(midpoint.phase),{opacity:.52,cq_kind:'function_cell',i,j});cells.push({...row,corners,midpoint});
+    }
+    cqAxes(g,[0,0,0],[[extent,0,0],[0,cap,0],[0,0,-extent]],['Re z',s.heightMode==='log'?'ln |f|':'|f|','Im z']);
+    const curve=['C2','C5','C6'].includes(c.station)?d.curve:c.station==='C3'&&Number.isFinite(d.radius)?lab.circlePoints({re:0,im:0},d.radius,1,96):c.station==='C4'?lab.circlePoints({re:0,im:0},d.R,1,96):[];
+    if(curve.length)g.line(curve.map(z=>[z.re,0,-z.im]),g.colors.teal,{width:3,cq_kind:'input_curve'});
+    if(c.station==='C6')g.line([[-d.R,0,0],[d.R,0,0]],g.colors.blue,{width:2,cq_kind:'real_segment'});
+    if(d.domain.kind==='annulus')for(const r of [d.domain.inner,d.domain.outer])g.line(lab.circlePoints({re:0,im:0},r,1,128).map(z=>[z.re,0,-z.im]),g.colors.coral,{width:1.4,dashed:true,cq_kind:'annulus_boundary',radius:r});
+    for(const p of poles)g.sphere([p.re,0,-p.im],.025*extent,g.colors.coral,{cq_kind:'critical_input'});
+    const probe=['C1','C3'].includes(c.station)?{re:c.pointRe,im:c.pointIm}:['C2','C6'].includes(c.station)?d.probe.z:c.station==='C4'?{re:d.R,im:0}:d.center||{re:0,im:0},sample=evaluate(probe);
+    const probeInDomain=d.domain.kind!=='annulus'||Math.hypot(probe.re,probe.im)>d.domain.inner&&Math.hypot(probe.re,probe.im)<d.domain.outer;
+    g.sphere([probe.re,0,-probe.im],.025*extent,g.colors.ink,{cq_kind:'input_probe'});
+    if(probeInDomain&&Number.isFinite(height(sample))&&Math.abs(height(sample))<=cap)g.line([[probe.re,0,-probe.im],displayed(probe,sample)],g.colors.ink,{width:2,cq_kind:'probe_height'});
+    const representable=q=>q&&q.value&&Number.isFinite(q.value.re)&&Number.isFinite(q.value.im)&&!String(q.status).includes('log-only');
+    const outputSamples=d.pathPole||d.contourInDomain===false?[]:c.station==='C2'?d.outputCurve:c.station==='C5'?d.outputs:[],values=outputSamples.filter(representable).map(v=>v.value);
+    const extraSamples=c.station==='C3'?[{value:d.partial,status:'regular'}]:c.station==='C5'?[{value:d.mean,status:'regular'}]:c.station==='C1'?[d.selected]:[];
+    const extraValues=extraSamples.map(q=>q.value),finiteExtra=extraSamples.filter(representable).map(q=>q.value);
+    const outputScale=Math.max(1,...values.map(lab.abs),...finiteExtra.map(lab.abs),representable(sample)?lab.abs(sample.value):0),origin=[3.5*extent,0,0],output=v=>[origin[0]+extent*v.re/outputScale,0,-extent*v.im/outputScale];
+    cqAxes(g,origin,[[origin[0]+extent,0,0],[origin[0],cap/3,0],[origin[0],0,-extent]],['Re f / scale','Output plane','Im f / scale']);
+    if(values.length===outputSamples.length&&values.length>1)g.line((c.station==='C5'?[...values,values[0]]:values).map(output),g.colors.plum,{width:2.5,cq_kind:'output_curve'});
+    if(probeInDomain&&representable(sample))g.sphere(output(sample.value),.025*extent,g.colors.gold,{cq_kind:'output_probe'});
+    for(const value of finiteExtra)g.sphere(output(value),.025*extent,g.colors.coral,{cq_kind:'auxiliary_output',station:c.station});
+    const proofGlyphs=[];
+    if(c.station==='C1'){
+      const endpoint={re:probe.re+d.h*Math.cos(d.theta),im:probe.im+d.h*Math.sin(d.theta)};
+      const points=[[probe.re,0,-probe.im],[endpoint.re,0,-endpoint.im]];
+      g.line(points,g.colors.coral,{width:3,cq_kind:'approach_step'});proofGlyphs.push({kind:'approach_step',points,endpoint,h:d.h,theta:d.theta});
+    }
+    if(c.station==='C4'){
+      const points=d.growth.map(v=>[origin[0]+v.radius/6,.1*v.hypotheticalBound,-extent/2]);
+      g.line(points,g.colors.coral,{width:2,cq_kind:'hypothetical_cauchy_bound'});
+      g.label([origin[0],0,-extent/2],'Hypothesis only: y = 0.1 M/R; x = R/6');
+      proofGlyphs.push({kind:'hypothetical_cauchy_bound',points,growth:d.growth,xGain:1/6,yGain:.1});
+    }
+    const note='Projection: (Re z, Im z, '+(s.heightMode==='log'?'ln |f|':'|f|')+'); a C→C graph needs four real coordinates. Input Im z maps to −Z. The separate output plane uses uniform scale '+cqFmt(outputScale)+'. Phase colour is cyclic; a true zero has undefined phase. '+(576-cells.length)+' of 576 cells are conservatively omitted when they leave the selected open domain, touch poles/discontinuities, lack a certificate excluding zeros in log-height mode, or exceed the ±'+cqFmt(cap)+' height crop; no artificial caps or bridges are inserted. Dashed annulus rings are excluded boundaries. A requested contour outside the annulus has no mapped-output trace here. Log-only underflow/overflow is retained in the ledger and is not plotted as a genuine zero. Probe/theorem values remain uncropped. Finite facets do not prove holomorphy or a global theorem. Taylor rings mark open convergence boundaries, not value contours. The complete six-station state is shared with the activity; camera and display crop stay local.';
+    return {...result(m.readout+' Uncropped probe ln magnitude '+cqFmt(sample.logAbs)+'.',note,[['Arg f = 0',cqColor(0)],['Arg f = π/2',cqColor(Math.PI/2)],['Arg f = π',cqColor(Math.PI)],['Arg f = −π/2',cqColor(-Math.PI/2)],['Input contour',g.colors.teal],['Complex output',g.colors.plum]],g),
+      state:{...s,...c},complex:{state:c,active:d,name,extent,cap,heightMode:s.heightMode,domain:d.domain,fields,cells,poles,probe,probeInDomain,sample,curve,outputSamples,outputScale,outputOrigin:origin,extraValues,extraSamples,proofGlyphs}};
+  });
+  const cf=families['complex-function-domain'];cf.requires='PrimerMathComplexLab';cf.linkedStateKey='math.5.complex-analysis';
+  cf.initialFactory=()=>({...window.PrimerMathComplexLab.initial,domainExtent:2,heightCrop:5,heightMode:'log'});
+  cf.normalize=raw=>({...window.PrimerMathComplexLab.normalize(raw),domainExtent:cqNum(raw.domainExtent,2,.5,5),heightCrop:cqNum(raw.heightCrop,5,1,12),heightMode:raw.heightMode==='magnitude'?'magnitude':'log'});
+  cf.controlsFactory=()=>[...window.PrimerMathComplexLab.controls.map(c=>({...c,numericInput:!c.options,preserveExact:!c.options,visibleWhen:c.stations?{station:c.stations,...(c.presets?{contourFn:c.presets}:{})}:undefined})),
+    {...range('domainExtent','Minimum input half-span',.5,5,.25),numericInput:true,preserveExact:true},{...range('heightCrop','Visible absolute height crop',1,12,.5),numericInput:true,preserveExact:true},choice('heightMode','Surface height',[['log','Natural log magnitude'],['magnitude','Magnitude']])];
+
+  define('quantum-state-geometry','Complex amplitudes, spin and conserved quantum flux',{},[],(s,g)=>{
+    const lab=window.PrimerPhysicsQuantumLab,m=lab.build(s),c=m.state,d=m.current,samples=[],ribbons=[],glyphs=[];
+    const line=(points,color,kind,attrs={})=>g.line(points,color,{width:2.5,cq_kind:kind,...attrs});
+    if(c.mode==='well'){
+      const points=m.curves.find(v=>v.key==='real').points.map(v=>{const q=lab.wellAt(c,v.x),p=[q.xNm,q.re,q.im];samples.push({input:v.x,value:q,point:p});return p;});
+      line(points,g.colors.blue,'well_amplitude');cqAxes(g,[0,0,0],[[c.lengthNm,0,0],[0,2,0],[0,0,2]],['x / nm','Re ψ / nm⁻¹/²','Im ψ / nm⁻¹/²']);
+      for(const x of [0,c.lengthNm])line([[x,-2,-2],[x,2,-2],[x,2,2],[x,-2,2],[x,-2,-2]],g.colors.ink,'hard_wall',{xNm:x});
+      const density=m.curves.find(v=>v.key==='density').points.map(v=>[v.x,v.y,-2.5]);line(density,g.colors.teal,'well_density');ribbons.push({kind:'well_density',points:density,gain:1,unit:'nm⁻¹',offsetZ:-2.5});
+      line([[c.regionStart*c.lengthNm,0,-2.5],[c.regionEnd*c.lengthNm,0,-2.5]],g.colors.gold,'well_region');
+      const energyScale=Math.max(1,...d.energies.map(e=>e.energyEV)),energyGain=2/energyScale;
+      for(const e of d.energies){const p=[[c.lengthNm+.4,energyGain*e.energyEV,-1.8],[c.lengthNm+.7,energyGain*e.energyEV,-1.8]];line(p,g.colors.coral,'well_energy',{n:e.n,energyEV:e.energyEV});glyphs.push({kind:'energy',n:e.n,energyEV:e.energyEV,points:p,gain:energyGain,scaleEV:energyScale});}
+      const probe=d.probe;g.sphere([probe.xNm,probe.re,probe.im],.025,g.colors.coral,{cq_kind:'well_probe'});
+      for(const bin of d.counts.histogram){const a=bin.start*c.lengthNm,b=bin.end*c.lengthNm,h=bin.count/d.counts.total,p=[[a,0,-3.2],[b,0,-3.2],[b,h,-3.2],[a,h,-3.2]];g.polygon(p,g.colors.gold,{opacity:.6,cq_kind:'well_count',count:bin.count});glyphs.push({kind:'count',bin,points:p});}
+      g.label([c.lengthNm+.5,0,-1.8],'Energy: y = 2 E/('+cqFmt(energyScale)+' eV)');g.label([c.lengthNm,0,-3.2],'Bin count / N');
+    }else if(c.mode==='spin'){
+      const display=p=>[p[0],p[2],-p[1]];
+      for(let k=0;k<3;k++)line(Array.from({length:65},(_,i)=>{const t=TAU*i/64,p=[0,0,0];p[(k+1)%3]=Math.cos(t);p[(k+2)%3]=Math.sin(t);return display(p);}), '#b9c8c4','bloch_unit_circle');
+      cqAxes(g,[0,0,0],[[1.3,0,0],[0,1.3,0],[0,0,-1.3]],['⟨σx⟩','⟨σz⟩','⟨σy⟩']);
+      const b=display(d.bloch),a=display(d.measurement.postPlus);line([[0,0,0],b],g.colors.blue,'prepared_bloch');line([a.map(v=>-v),a],g.colors.plum,'measurement_axis');g.sphere(b,.045,g.colors.blue,{cq_kind:'bloch_endpoint'});glyphs.push({kind:'bloch',physical:d.bloch,points:[[0,0,0],b]});
+      const t=d.tree,flows=[{key:'first_selected',p:t.firstPlus,points:[[2,0,0],[3,.6,0]]},{key:'middle_selected',p:t.survivalOriginal,points:[[3,.6,0],[4,.6,0]]},{key:'final_plus',p:t.finalOriginalPlus,points:[[4,.6,0],[5,1.2,0]]},{key:'final_minus',p:t.finalOriginalMinus,points:[[4,.6,0],[5,0,0]]}];
+      for(const f of flows){g.line(f.points,f.key==='final_minus'?g.colors.coral:g.colors.teal,{width:1+5*f.p,cq_kind:'spin_branch',probabilityOriginal:f.p});glyphs.push({kind:'branch',...f});}
+      g.label([2,-.4,0],'Original input');g.label([3,1,0],'Selected z+');g.label([4,1,0],c.middle==='bypass'?'Bypass':'Selected '+c.middle+c.middleSign);g.label([5,1.6,0],'Final z+');g.label([5,-.4,0],'Final z−');
+    }else if(c.mode==='gaussian'){
+      const x=m.curves.find(v=>v.key==='position').points,k=m.curves.find(v=>v.key==='momentum').points;
+      const position=x.map(v=>{const q=lab.gaussianAt(c,v.x),p=[q.xNm,q.re,q.im];samples.push({kind:'position',input:v.x,value:q,point:p});return p;});line(position,g.colors.blue,'gaussian_position_amplitude');
+      const momentum=k.map(v=>{const q=lab.gaussianMomentumAt(c,v.x),p=[4+q.kNmInverse/10,5*q.re,5*q.im];samples.push({kind:'momentum',input:v.x,value:q,point:p});return p;});line(momentum,g.colors.plum,'gaussian_momentum_amplitude');
+      cqAxes(g,[0,0,0],[[2,0,0],[0,2,0],[0,0,2]],['x / nm','Re ψ / nm⁻¹/²','Im ψ / nm⁻¹/²']);cqAxes(g,[4,0,0],[[6,0,0],[4,2,0],[4,0,2]],['k / (10 nm⁻¹)','5 Re φ / nm¹/²','5 Im φ / nm¹/²']);
+      const xp=x.map(v=>[v.x,v.y,-2.5]),kp=k.map(v=>[4+v.x/10,5*v.y,-2.5]);line(xp,g.colors.teal,'gaussian_position_density');line(kp,g.colors.gold,'gaussian_momentum_density');ribbons.push({kind:'position_density',points:xp,gain:1,unit:'nm⁻¹'},{kind:'momentum_density',points:kp,gain:5,unit:'nm'});
+    }else if(c.mode==='barrier'){
+      const real=m.curves.find(v=>v.key==='real').points,points=real.map(v=>{const q=lab.barrierAt(c,v.x),p=[q.xNm,q.re,q.im];samples.push({input:v.x,value:q,point:p});return p;});line(points,g.colors.blue,'barrier_amplitude');
+      const potential=[[real[0].x,0,-2],[0,0,-2],[0,.25*c.heightEV,-2],[c.widthNm,.25*c.heightEV,-2],[c.widthNm,0,-2],[real.at(-1).x,0,-2]],energy=[[real[0].x,.25*c.energyEV,-2],[real.at(-1).x,.25*c.energyEV,-2]];
+      line(potential,g.colors.coral,'barrier_potential');line(energy,g.colors.gold,'barrier_energy');glyphs.push({kind:'potential',points:potential,gain:.25},{kind:'incident_energy',points:energy,gain:.25});
+      cqAxes(g,[0,0,0],[[Math.max(.5,c.widthNm),0,0],[0,2,0],[0,0,2]],['x / nm','Re ψ; incident amplitude 1','Im ψ; incident amplitude 1']);g.label([c.widthNm,.25*c.heightEV,-2],'Potential y = 0.25 V/eV');
+      const origin=real.at(-1).x+.5;for(const [key,p,z] of [['R',d.R,-1],['T',d.T,1]]){const ps=[[origin,0,z],[origin,p,z]];line(ps,key==='T'?g.colors.teal:g.colors.coral,'flux_fraction');glyphs.push({kind:'flux_fraction',key,probability:p,points:ps});g.label([origin,p+.2,z],key+' = '+cqFmt(p));}
+    }else{
+      const points=m.curves.find(v=>v.key==='exact').points.map(v=>[v.x/100,v.y,0]);line(points,g.colors.blue,'photon_energy_curve');ribbons.push({kind:'photon_energy',points,xGain:.01,yGain:1});
+      const marker=[c.wavelengthNm/100,d.energyEV,0];g.sphere(marker,.05,g.colors.coral,{cq_kind:'photon_energy_probe'});glyphs.push({kind:'photon_probe',points:[marker],wavelengthNm:c.wavelengthNm,energyEV:d.energyEV});
+      const phase=Array.from({length:65},(_,i)=>[c.wavelengthNm*i/6400,0,-2+.5*Math.sin(TAU*i/64)]);line(phase,g.colors.teal,'photon_phase_reference');glyphs.push({kind:'wavelength',points:[[0,0,-2],[c.wavelengthNm/100,0,-2]],gain:.01});
+      cqAxes(g,[0,0,0],[[10,0,0],[0,6.5,0],[0,0,1]],['λ / (100 nm)','E / eV','Separate phase reference']);g.label([c.wavelengthNm/200,0,-2.8],'One wavelength; phase reference only');
+    }
+    const note='These are calibrated mathematical charts, not three physical particle directions. Position uses x in nm and complex ψ in nm⁻¹/²; density and count strips have separate ordinates. The energy strip uses its explicitly labelled uniform scale, with y=2 E/max(1 eV,largest shown energy). Momentum uses k=p/ℏ, horizontal gain 0.1 and amplitude/density gain 5; cropped tails are not renormalized. Scattering has incident-amplitude/flux normalization and matched internal exponentials; potential/energy gain is 0.25. Bloch coordinates are expectations, not a rotating ball; branch separations are schematic and widths show original-input probabilities. Zero-survivor branches do not define a selected state. Photon phase marks one wavelength without assigning amplitude-dependent photon energy or a trajectory. Complete core state, batches and projections are shared with the activity; camera stays local.';
+    return {...result(m.readout,note,[['Complex amplitudes',g.colors.blue],['Density / transmission',g.colors.teal],['Momentum / measurement axis',g.colors.plum],['Energy / count / wavelength',g.colors.gold]],g),state:{...s,...c},quantum:{state:c,current:d,samples,ribbons,glyphs,curves:m.curves}};
+  });
+  const qf=families['quantum-state-geometry'];qf.requires='PrimerPhysicsQuantumLab';qf.linkedStateKey='phys.4.quantum';
+  qf.initialFactory=()=>({...window.PrimerPhysicsQuantumLab.initial});qf.normalize=raw=>window.PrimerPhysicsQuantumLab.normalize(raw);
+  qf.controlsFactory=()=>[choice('mode','Quantum station',window.PrimerPhysicsQuantumLab.modes),
+    {...choice('wellState','Well preparation',[['eigen','Eigenstate'],['superposition','n=1 / n=2 superposition']]),visibleWhen:{mode:['well']}},
+    {...choice('projection','Observed eigenenergy / restore preparation',[['none','Unmeasured preparation'],...Array.from({length:6},(_,i)=>[String(i+1),'Observed n = '+(i+1)])]),visibleWhen:{mode:['well']},optionEnabled:(state,value)=>value==='none'||window.PrimerPhysicsQuantumLab.preparedEnergyProbability(state,value)>0},
+    {...choice('prep','Spin preparation',[['z+','z+'],['z-','z−'],['x+','x+'],['x-','x−'],['y+','y+'],['y-','y−'],['unpolarized','Unpolarized']]),visibleWhen:{mode:['spin']}},
+    {...choice('axis','Single spin measurement axis',[['x','x'],['y','y'],['z','z']]),visibleWhen:{mode:['spin']}},
+    {...choice('middle','Middle filter / bypass',[['x','x'],['y','y'],['z','z'],['bypass','Bypass']]),visibleWhen:{mode:['spin']}},
+    {...choice('middleSign','Transmitted middle output',[['+','+'],['-','−']]),visibleWhen:{mode:['spin']}},
+    ...window.PrimerPhysicsQuantumLab.controls.map(v=>({...v,numericInput:true,preserveExact:true,visibleWhen:{mode:v.modes,...(['mix','phaseDeg'].includes(v.key)?{wellState:['superposition']}:{})}})),
+    {...range('batch','Independent preparation batch',0,1000000,1),numericInput:true,preserveExact:true,visibleWhen:{mode:['well','spin','barrier']}}];
+
+
   define('curvature-surface','Metric and curvature on an embedded surface',
     {surface:'torus',radius:1,major:3,a:0,b:0,normal:'outward',coverage:100},
     [choice('surface','Surface',[['plane','Plane patch'],['cylinder','Circular cylinder'],['sphere','Round sphere'],['torus','Standard embedded torus']]),
@@ -762,9 +923,12 @@
     if (registered.has(p.scenario)) return registered.get(p.scenario) === binding;
     if (window.PrimerSpatial.supported.includes(p.scenario)) return false;
     const family = families[p.family];
+    if (family.requires && !window[family.requires]) return false;
     const context = p.context, mode = p.mode, lesson = p.lesson;
     window.PrimerSpatial.register({[p.scenario]: {
-      initial:{...family.initial}, controls:family.controls, camera:{yaw:-28,pitch:21},
+      initial:family.initialFactory ? family.initialFactory() : {...family.initial},
+      controls:family.controlsFactory ? family.controlsFactory() : family.controls,
+      normalize:family.normalize, camera:{yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
       build(state,g) {
         const explanation = family.build(state,g);
         explanation.readout = context + ' ' + explanation.readout;

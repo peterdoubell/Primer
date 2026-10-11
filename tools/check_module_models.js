@@ -16,6 +16,8 @@ context.window.PrimerMathOperatorLab = require('../web/math-operator-lab.js');
 context.window.PrimerPhysicsEnsembleLab = require('../web/physics-ensemble-lab.js');
 context.window.PrimerMathCurvatureLab = require('../web/math-curvature-lab.js');
 context.window.PrimerPhysicsConstraintsLab = require('../web/physics-constraints-lab.js');
+context.window.PrimerMathComplexLab = require('../web/math-complex-lab.js');
+context.window.PrimerPhysicsQuantumLab = require('../web/physics-quantum-lab.js');
 context.window.PrimerMathNumericalLab = require('../web/math-numerical-lab.js');
 context.window.PrimerMathConvergenceLab = require('../web/math-convergence-lab.js');
 require('../web/spatial-models.js');
@@ -67,7 +69,12 @@ function verify(id,state={}) {
 for(const [family,id] of familyIds){
   const initial=verify(id);let minimum={},maximum={};
   for(const control of spatial.controls(id)){
-    const values=control.options?control.options.map(o=>o.value):Array.from({length:Math.floor((control.max-control.min)/control.step+1e-7)+1},(_,i)=>Number((control.min+i*control.step).toFixed(8)));
+    const coordinated=['complex-function-domain','quantum-state-geometry'].includes(family);
+    // Large batch/seed ranges have no useful million-state exhaustive sweep.
+    // Their distributions and geometry have separate independent oracles.
+    const values=control.options?control.options.map(o=>o.value):coordinated
+      ? [...new Set([control.min,Math.min(control.max,control.min+control.step),(control.min+control.max)/2,control.max])]
+      : Array.from({length:Math.floor((control.max-control.min)/control.step+1e-7)+1},(_,i)=>Number((control.min+i*control.step).toFixed(8)));
     const versions=values.map(value=>verify(id,{[control.key]:value}));
     if(family==='operator-coordinate-graph' && ['realization','probe'].includes(control.key)) {
       // Cropping the same coefficient pairs must not fabricate a visible change
@@ -93,6 +100,15 @@ for(const [family,id] of familyIds){
       const visible=verify(id,{position:'first'});
       const visibleVersions=values.map(value=>verify(id,{position:'first',second:value}));
       assert.ok(visibleVersions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(visible.primitives)),family+': second changes visible coefficients when k = 1');
+    } else if(coordinated && control.visibleWhen && !Object.entries(control.visibleWhen).every(([key,allowed])=>allowed.includes(initial.state[key]))) {
+      // Inactive station parameters persist for the next station; they do not
+      // fabricate geometry in the current station.
+      for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
+      const api=family==='complex-function-domain'?window.PrimerMathComplexLab:window.PrimerPhysicsQuantumLab;
+      values.forEach((value,i)=>assert.deepEqual(family==='complex-function-domain'?versions[i].complex.state:versions[i].quantum.state,api.normalize({[control.key]:value})));
+    } else if(family==='quantum-state-geometry'&&control.key==='n'&&initial.state.wellState==='superposition') {
+      for(const scene of versions){assert.deepEqual(scene.primitives,initial.primitives);assert.equal(scene.quantum.current.coefficients.length,2);}
+      values.forEach((value,i)=>assert.equal(versions[i].state.n,Math.round(value)));
     } else assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)),family+': '+control.key+' visibly changes geometry');
     if(!control.options)for(const invalid of [NaN,Infinity,-Infinity,'not a number'])assert.equal(JSON.stringify(verify(id,{[control.key]:invalid})),JSON.stringify(initial),family+': invalid input fallback');
     minimum[control.key]=values[0];maximum[control.key]=values.at(-1);controls++;
