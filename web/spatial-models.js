@@ -75,6 +75,7 @@
     return { g, primitives };
   }
   function normalizeState(spec, supplied = {}) {
+    if (typeof spec.normalize === 'function') return spec.normalize({...spec.initial, ...supplied});
     const state = { ...spec.initial };
     spec.controls.forEach(control => {
       const value = Object.prototype.hasOwnProperty.call(supplied, control.key) ? supplied[control.key] : state[control.key];
@@ -83,8 +84,9 @@
       } else {
         const numeric = Number(value);
         if (Number.isFinite(numeric)) {
-          const stepped = control.min + Math.round((numeric - control.min) / control.step) * control.step;
-          state[control.key] = Number(clamp(stepped, control.min, control.max).toFixed(8));
+          const stepped = control.preserveExact ? numeric : control.min + Math.round((numeric - control.min) / control.step) * control.step;
+          const clipped = clamp(stepped, control.min, control.max);
+          state[control.key] = control.preserveExact ? clipped : Number(clipped.toFixed(8));
         }
       }
     });
@@ -221,10 +223,17 @@
       draw();
       if (announce) status.textContent = orientation.textContent + '. ' + current.readout;
     }
-    function refresh(announce) {
+    function refresh(announce, fromShared = false) {
       current = build(id, current.state);
-      parameterControls.forEach(({ input, output, control }) => {
+      parameterControls.forEach(({ input, output, control, label }) => {
+        const visible = !control.visibleWhen || Object.entries(control.visibleWhen).every(([key, values]) => values.includes(current.state[key]));
+        label.hidden = !visible;
+        label.style.display = visible ? '' : 'none';
+        input.disabled = !visible;
         input.value = current.state[control.key];
+        if (control.optionEnabled && input.options) Array.from(input.options).forEach(option => {
+          option.disabled = !control.optionEnabled(current.state, option.value);
+        });
         if (output) {
           output.textContent = current.state[control.key] + (control.unit || '');
           input.setAttribute('aria-valuetext', output.textContent);
@@ -240,6 +249,7 @@
       }));
       draw();
       if (announce) status.textContent = current.readout;
+      if (announce && !fromShared && spec.linkedStateKey) window.PrimerLessonStateBus?.publish(spec.linkedStateKey, root, current.state);
     }
     spec.controls.forEach(control => {
       const label = element('label', { class: 'spatial-parameter', for: uid + '-' + control.key });
@@ -252,18 +262,30 @@
         output = element('output', { for: uid + '-' + control.key });
         title.append(output);
         input = element('input', { id: uid + '-' + control.key, type: 'range', min: control.min,
-          max: control.max, step: control.step, 'data-parameter': control.key });
+          max: control.max, step: control.preserveExact ? 'any' : control.step, 'data-parameter': control.key });
+        if (control.numericInput) {
+          input.type = 'number';
+          input.style.width = '100%'; input.style.minWidth = '0'; input.style.minHeight = '42px';
+        }
       }
       const update = () => {
+        if (control.numericInput && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {
+          input.value = current.state[control.key];
+          return;
+        }
         // Native selects stringify values; recover the authored number/string type.
         current.state[control.key] = control.options
           ? (control.options.find(option => String(option.value) === input.value)?.value ?? input.value)
           : Number(input.value);
         refresh(true);
       };
-      input.addEventListener(control.options ? 'change' : 'input', update);
+      input.addEventListener(control.options || control.numericInput ? 'change' : 'input', update);
+      if (control.numericInput) input.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {event.preventDefault(); update();}
+        if (event.key === 'Escape') {event.preventDefault(); input.value = current.state[control.key];}
+      });
       label.append(title, input); controls.append(label);
-      parameterControls.set(control.key, { input, output, control });
+      parameterControls.set(control.key, { input, output, control, label });
     });
     const cameraButtons = element('div', { class: 'model-button-row spatial-camera-controls',
       role: 'group', 'aria-label': '3D camera controls' });
@@ -323,11 +345,12 @@
     root.append(heading, instructions, canvas, help, cameraButtons, controls, legend, readout, note, status);
     refresh(false);
     // Values pass through the same validation as the visible controls.
-    root.setModelState = (values, announce = false) => {
+    root.setModelState = (values, announce = false, fromShared = false) => {
       if (!values || typeof values !== 'object') return;
       Object.assign(current.state, values);
-      refresh(announce);
+      refresh(announce, fromShared);
     };
+    if (spec.linkedStateKey) window.PrimerLessonStateBus?.join(spec.linkedStateKey, root, values => root.setModelState(values, true, true));
     return root;
   }
   window.PrimerSpatial = Object.freeze({

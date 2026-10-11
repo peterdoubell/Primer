@@ -400,6 +400,12 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-complex-lab' || media.renderer === 'physics-quantum-lab') {
+          const complex = media.renderer === 'math-complex-lab';
+          assert.equal(node.id, complex ? 'math.5.complex-analysis' : 'phys.4.quantum');
+          assert.deepEqual(media.props, {scenario: complex ? 'math.5.complex-analysis.holomorphy-contours' : 'phys.4.quantum.states-measurement'});
+          continue;
+        }
         if (media.renderer === 'math-curvature-lab' || media.renderer === 'physics-constraints-lab') {
           const curvature = media.renderer === 'math-curvature-lab';
           const lessonId = curvature ? 'math.5.diffgeo' : 'phys.4.classical';

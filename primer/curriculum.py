@@ -167,6 +167,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-measure-lab", "physics-cycle-lab",
     "math-operator-lab", "physics-ensemble-lab",
     "math-curvature-lab", "physics-constraints-lab",
+    "math-complex-lab", "physics-quantum-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -401,6 +402,12 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "physics-constraints-lab":
                 if node.get("id") != "phys.4.classical" or props != {"scenario": "phys.4.classical.constraints-energy"}:
                     raise ValueError("{} physics-constraints-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-complex-lab":
+                if node.get("id") != "math.5.complex-analysis" or props != {"scenario": "math.5.complex-analysis.holomorphy-contours"}:
+                    raise ValueError("{} math-complex-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-quantum-lab":
+                if node.get("id") != "phys.4.quantum" or props != {"scenario": "phys.4.quantum.states-measurement"}:
+                    raise ValueError("{} physics-quantum-lab has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "physics-phase-lab":
                 expected = {"phys.0.hot-cold": "phys.0.hot-cold.melting-ice",
                             "phys.2.matter": "phys.2.matter.phase-change"}

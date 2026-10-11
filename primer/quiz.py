@@ -15,6 +15,7 @@ worked-example numbers, and mismatched distractors. All are filtered here.
 import random
 import re
 from typing import Dict, List, Optional
+from .rational_complex import has_imaginary_unit, parse_rational_complex
 
 R = random.Random()
 
@@ -816,7 +817,7 @@ def cards_from_missed(questions: List[Dict], answers: List[str],
         correct = str(q.get("answer", "")).strip()
         if not correct:
             continue
-        num = _numeric_equal(str(a), correct)
+        num = _numeric_equal(str(a), correct, allow_complex=q.get("kind") == "numeric")
         got_it = num is True or (num is None and str(a).strip().lower() == correct.lower())
         if not got_it:
             # The flag alone cannot decide this: a generator stamps it on both
@@ -878,9 +879,13 @@ def cards_from_missed(questions: List[Dict], answers: List[str],
     return cards
 
 
-def _numeric_equal(given: str, expected: str) -> Optional[bool]:
+def _numeric_equal(given: str, expected: str, *, allow_complex: bool = True) -> Optional[bool]:
     """Compare numeric answers by value, so '0.5', '.50' and '1/2' all match —
     returns None when either side isn't numeric."""
+    if allow_complex and has_imaginary_unit(expected):
+        complex_expected = parse_rational_complex(expected)
+        if complex_expected is not None:
+            return parse_rational_complex(given) == complex_expected
     def parse(v):
         v = str(v).strip().replace(",", "").replace("−", "-").replace(" ", "")
         if not v:
@@ -1138,7 +1143,7 @@ def score_quiz(questions: List[Dict], answers: List[str]) -> Dict:
             # Partial credit: producing most of the idea is most of the way there.
             right += score_short_answer(given, q.get("keywords") or [])
             continue
-        num = _numeric_equal(given, expected)
+        num = _numeric_equal(given, expected, allow_complex=q.get("kind") == "numeric")
         if num is True or (num is None and given.lower() == expected.lower()):
             right += 1
     total = max(total, 1)

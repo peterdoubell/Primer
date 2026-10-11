@@ -7468,11 +7468,11 @@
      "kind": "choice",
      "prompt": "The Cauchy-Riemann equations u_x = v_y and u_y = -v_x, for f = u + iv, are necessary for f to be holomorphic. A function satisfies them at every point of an open set but the partials u_x, u_y, v_x, v_y are not continuous there. Judge whether f must be holomorphic.",
      "answer": "Not guaranteed — the equations alone are insufficient under these weak hypotheses",
-     "explain": "Pointwise existence of the partial derivatives and the Cauchy-Riemann equations alone do not guarantee complex differentiability on the open set. Continuity of the first partials is a standard sufficient extra hypothesis, though it is not a necessary condition for every holomorphic function.",
+     "explain": "Existing first partial derivatives and pointwise Cauchy–Riemann equations alone do not guarantee complex differentiability under these weak hypotheses. Real differentiability of the pair (u,v), together with the equations, is sufficient at a point; continuous first partials on an open neighborhood are a familiar sufficient hypothesis. A function holomorphic throughout an open set is analytic and therefore has continuous partial derivatives of every order there. Do not confuse that open-set conclusion with differentiability at only one point.",
      "choices": [
       "Not guaranteed — the equations alone are insufficient under these weak hypotheses",
       "Yes, satisfying the equations pointwise is always enough",
-      "Yes, provided u and v are each real-differentiable",
+      "Yes, the equations force continuity of all first partials",
       "No holomorphic function can fail this way, so the premise is impossible"
      ]
     },
@@ -7503,7 +7503,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "The residue theorem lets you evaluate the closed contour integral of f as 2 pi i times the sum of residues at the poles enclosed. A function has a pole of order 2 at z=0 with Laurent series f(z) = 3/z^2 + 5/z + 7 + 2z + ..., inside a small circle around the origin. Give the integral of f over that circle.",
+     "prompt": "The residue theorem evaluates a positively oriented closed contour integral as 2 pi i times the sum of enclosed residues. A function has a pole of order 2 at z=0 with Laurent series f(z) = 3/z^2 + 5/z + 7 + 2z + ..., inside a small positively oriented circle around the origin. Give the integral of f over that circle.",
      "answer": "10 pi i",
      "explain": "The residue is the coefficient of the 1/z term in the Laurent expansion, here 5 — the 3/z^2 term and the nonnegative powers all integrate to zero around a closed loop. The residue theorem then gives 2 pi i times 5, that is 10 pi i.",
      "choices": [
@@ -7515,9 +7515,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "The maximum modulus principle says a nonconstant holomorphic function on a bounded domain attains its maximum |f| only on the boundary, never strictly inside. A student tries to build a counterexample using f(z) = |z|^2. Diagnose the attempt.",
+     "prompt": "The maximum modulus principle rules out an interior local maximum of |f| for a nonconstant holomorphic function on a connected domain. If the domain is bounded and f extends continuously to its closure, its maximum is attained on the boundary. A student tries to refute the principle using f(z) = |z|^2. Diagnose the attempt.",
      "answer": "|z|^2 is not holomorphic, so the theorem doesn't apply to it",
-     "explain": "f(z) = |z|^2 = z times its own conjugate is a real-valued function of a complex variable, and outside of the constant z=0 it fails the Cauchy-Riemann equations everywhere — it is not holomorphic at all, so it lies outside the theorem's hypothesis entirely. The maximum modulus principle only constrains genuinely holomorphic functions, which is exactly why it is such a strong statement about them.",
+     "explain": "For f(z)=x²+y², u_x=2x, u_y=2y and v_x=v_y=0. The Cauchy–Riemann equations fail away from zero. At zero the complex difference quotient tends to zero, so a derivative exists there, but no open neighborhood is holomorphic. This function therefore cannot refute maximum modulus. Boundary attainment additionally uses continuity on a compact closure; boundedness of the domain alone is not that hypothesis.",
      "choices": [
       "|z|^2 is not holomorphic, so the theorem doesn't apply to it",
       "The attempt succeeds: |z|^2 is a valid counterexample",
@@ -7593,8 +7593,32 @@
      "props": {
       "scenario": "math.5.complex-analysis"
      }
+    },
+    {
+     "id": "math.5.complex-analysis-math-complex-lab",
+     "kind": "model",
+     "renderer": "math-complex-lab",
+     "title": "Holomorphy, contours and analytic proofs",
+     "instructions": "Compare directional limits, complex residues, convergence disks, exact circle means and qualified large-arc bounds. Follow each theorem’s hypotheses in its proof ledger.",
+     "props": {
+      "scenario": "math.5.complex-analysis.holomorphy-contours"
     }
-   ]
+    }
+   ],
+   "learning_outcomes": [
+    "Distinguish pointwise complex differentiability, Cauchy–Riemann hypotheses and holomorphy on an open set.",
+    "Calculate complex residues and oriented contour integrals while checking domain holes and path singularities.",
+    "Derive Taylor-radius bounds from singularities and convergence evidence without assigning unsupported boundary behavior.",
+    "Explain the complete Liouville-to-fundamental-theorem-of-algebra argument.",
+    "Apply complex mean value and maximum modulus with their domain and boundary hypotheses.",
+    "Choose a valid Jordan closure and bound its arc contribution."
+   ],
+   "lesson": {
+    "overview": "A complex derivative must agree for every approach direction. Holomorphy means that derivative exists throughout an open neighborhood; Cauchy’s integral formula then supplies all higher derivatives. Axis partial derivatives alone are weaker. The conjugate function has incompatible real- and imaginary-axis quotients, while |z|² is differentiable at zero and holomorphic on no neighborhood. In the directional station compare these cases with z², the exponential and a function whose zero axis partials conceal a divergent diagonal approach.",
+    "worked_example": "For a positive circle around zero, the Laurent term 5/z contributes 10πi and the double-pole term 3/z² contributes zero. For 1/(z²+1), the residue at i is 1/(2i)=−i/2; a contour enclosing only i integrates to π, while enclosing both opposite residues gives zero. A domain hole does not by itself force a nonzero integral. Taylor convergence depends on the distance to singularities: convergence throughout |z|<2 and divergence at one modulus-3 point imply only 2≤R≤3.",
+    "activity": "Work through directional derivatives, contours, Taylor radius, Liouville’s argument, circle means and Jordan arcs. Reverse a contour and compare its signed winding with the complex integral; avoid a path through a pole. Compare a holomorphic complex circle mean with the mean of its modulus. For Jordan’s lemma, choose the sign of k and matching half-plane, then inspect a valid bound for the remaining factor. Keep finite samples separate from statements proved for every point or every large radius.",
+    "reflection": "If a nonconstant polynomial had no root, its reciprocal would be entire. Polynomial growth bounds the reciprocal outside a large disk; continuity and compactness bound it inside. Liouville would force the reciprocal, and hence the polynomial, to be constant, a contradiction. A sampled minimum cannot replace the root-free assumption or the compactness argument. Similarly, maximum modulus uses the complex mean, equality in the triangle inequality and connectedness; attainment on the boundary requires continuity on the compact closure."
+   }
   },
   {
    "id": "math.5.logic",

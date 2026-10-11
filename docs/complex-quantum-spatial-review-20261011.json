@@ -1,0 +1,573 @@
+{
+  "date": "2026-10-11",
+  "branch_context": "codex/complex-quantum-fidelity-20261011",
+  "scope": "Independent bounded numeric, primitive, units, state-retention and semantic-ledger audit only",
+  "overall_status": "bounded_checks_passed",
+  "completion_claim": "This report does not certify browser reader QA or completion of the parent task.",
+  "source_sha256": {
+    "web/math-complex-lab.js": "c9f06c07b437adb46aaba846bce94412952aca233efb494ef40bc1d0f8b647cd",
+    "web/physics-quantum-lab.js": "605847b573ce47c2a46a2f4976b02053030d73556ec1714df925bfe9ec9be21d",
+    "web/spatial-models.js": "025f49beb5663c305f138ddf2bd6347ad9b5d6ff41478644c5c8d18bd4035afb",
+    "web/spatial-module-objects.js": "3f46dd514ccb4e0b838f4c4ee16cd9023c02f82360cc69430a90892edbfdcb74",
+    "tools/check_complex_quantum_spatial.js": "9bcc7833656aac2544f09ad080b7e1272f6d4b9b28eb536f7ec8dfc2b668c917",
+    "tests/test_complex_quantum_spatial.py": "d4b8ec206680cc7ba3628d94f198b052f8103d92299d2e3fa3605bc708cab3f7"
+  },
+  "verification": [
+    {
+      "command": "node tools/check_complex_quantum_spatial.js",
+      "status": "passed",
+      "complex_states": 73,
+      "complex_stations": 6,
+      "quantum_states": 80,
+      "quantum_modes": 5
+    },
+    {
+      "command": "/Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/bin/python -m pytest tests/test_complex_quantum_spatial.py -q",
+      "status": "passed",
+      "passed": 7,
+      "skipped": 0,
+      "elapsed_seconds": 5.24
+    },
+    {
+      "command": "python3 -m pytest tests/test_complex_quantum_spatial.py -q",
+      "status": "passed_available_checks",
+      "passed": 4,
+      "skipped": 3,
+      "skip_reason": "NumPy and SciPy absent in system Python"
+    }
+  ],
+  "safety_of_reproduction": {
+    "imports": "fixed known CommonJS modules only",
+    "numerical_expected_values": "independent arithmetic, analytic Born CDF, complex Gaussian integral/direct Fourier quadrature, four-equation barrier solve, exact SI constants",
+    "prohibited_mechanisms_used": [],
+    "observation_mode": "fixed --fixtures packet containing actual scene primitives/current/curves and observed core semantic ledger"
+  },
+  "stations": {
+    "C1": {
+      "status": "passed",
+      "checks": [
+        "named values/logs/phases",
+        "CR and pointwise existence",
+        "approach length and angle",
+        "input/probe/output/facet transforms",
+        "pathological quotient underflow/overflow"
+      ]
+    },
+    "C2": {
+      "status": "passed",
+      "checks": [
+        "genuine poles and removed zero residues",
+        "signed winding and residue integral",
+        "annulus containment",
+        "oriented input and closed output loops",
+        "correct contour probe",
+        "off-grid rational zero exclusion",
+        "independent Laurent root calibrations and conservative polynomial nonzero certificate"
+      ]
+    },
+    "C3": {
+      "status": "passed",
+      "checks": [
+        "independent coefficients and finite polynomial",
+        "actual errors and valid remainder bound",
+        "open convergence boundary",
+        "assessed inference endpoints and invariant-geometry ledger"
+      ]
+    },
+    "C4": {
+      "status": "passed",
+      "checks": [
+        "exact disk maxima",
+        "hypothetical fixed M/R strip",
+        "six dependent proof steps",
+        "invariant-geometry proof ledger"
+      ]
+    },
+    "C5": {
+      "status": "passed",
+      "checks": [
+        "complex mean",
+        "independent modulus quadrature",
+        "analytic boundary maximum",
+        "theorem hypotheses",
+        "closed output loop",
+        "exact interior-zero circle exclusion in log projection"
+      ]
+    },
+    "C6": {
+      "status": "passed",
+      "checks": [
+        "orientation",
+        "independent finite real/arc quadrature",
+        "residue integral",
+        "factor supremum",
+        "conditional Jordan bound",
+        "g=1/k=0/wrong-half-plane counterexamples",
+        "nonzero reciprocal integrands exempt from isolated-zero detection"
+      ]
+    }
+  },
+  "modes": {
+    "well": {
+      "status": "passed",
+      "checks": [
+        "exact assessed widths and n squared energy",
+        "independent complex coefficients",
+        "Born CDF and SciPy interval quadrature",
+        "independently inverted seeded bins",
+        "hard walls/density/probe/energy/region/count primitives",
+        "Hamiltonian samples",
+        "batch and projection retention",
+        "impossible alternative energy outcomes retain complete unmeasured preparation",
+        "positive support outcomes and same-n n3/n4 repeats"
+      ]
+    },
+    "spin": {
+      "status": "passed",
+      "checks": [
+        "all six pure preparations and unpolarized input",
+        "Pauli measurement probability for all axes",
+        "all selected middle/sign/bypass choices",
+        "Bloch transform and calibration circles",
+        "branch connections and width gain",
+        "original/survivor denominators",
+        "zero survivors and conservation"
+      ]
+    },
+    "gaussian": {
+      "status": "passed",
+      "checks": [
+        "complex Gaussian integral",
+        "independent direct Fourier quadrature in JS and SciPy",
+        "position/momentum amplitude and density transforms",
+        "k and SI momentum units",
+        "erfc tails and unrenormalized crops",
+        "chirp density invariance and changed spread ledger"
+      ]
+    },
+    "barrier": {
+      "status": "passed",
+      "checks": [
+        "independent 4x4 complex solve and NumPy solve",
+        "three-region emitted amplitudes",
+        "both interface matching residuals",
+        "conserved current",
+        "potential/energy coordinate gain",
+        "reflection/transmission fraction height",
+        "zero-width transparency and unchanged outgoing energy"
+      ]
+    },
+    "photon": {
+      "status": "passed",
+      "checks": [
+        "exact SI hc/lambda and joule conversion",
+        "separate rounded assessment convention",
+        "actual curve and marker gains",
+        "one-wavelength phase reference with fixed amplitude"
+      ]
+    }
+  },
+  "control_crosswalk": {
+    "complex-function-domain": {
+      "station": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "station selection and complete inactive state retention",
+        "evidence": "state transitions"
+      },
+      "directionalFn": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "named values, CR/derivative, probe, step and quotient",
+        "evidence": "C1"
+      },
+      "pointRe": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "named values, CR/derivative, probe, step and quotient",
+        "evidence": "C1"
+      },
+      "pointIm": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "named values, CR/derivative, probe, step and quotient",
+        "evidence": "C1"
+      },
+      "angle": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "named values, CR/derivative, probe, step and quotient",
+        "evidence": "C1"
+      },
+      "logStep": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "named values, CR/derivative, probe, step and quotient",
+        "evidence": "C1"
+      },
+      "contourFn": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "genuine poles, signed residues, oriented contour and annulus",
+        "evidence": "C2/C5"
+      },
+      "residueA": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "genuine poles, signed residues, oriented contour and annulus",
+        "evidence": "C2/C5"
+      },
+      "residueB": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "genuine poles, signed residues, oriented contour and annulus",
+        "evidence": "C2/C5"
+      },
+      "circleRe": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "genuine poles, signed residues, oriented contour and annulus",
+        "evidence": "C2/C5"
+      },
+      "circleIm": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "genuine poles, signed residues, oriented contour and annulus",
+        "evidence": "C2/C5"
+      },
+      "radius": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "genuine poles, signed residues, oriented contour and annulus",
+        "evidence": "C2/C5"
+      },
+      "winding": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "genuine poles, signed residues, oriented contour and annulus",
+        "evidence": "C2/C5"
+      },
+      "taylorFn": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "finite Taylor coefficients/errors/bounds and convergence circle",
+        "evidence": "C3"
+      },
+      "terms": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "finite Taylor coefficients/errors/bounds and convergence circle",
+        "evidence": "C3"
+      },
+      "inferenceRadius": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "admissible 2<=R<=3 inference; geometry invariance with separate complete ledger check",
+        "evidence": "C3 semantic"
+      },
+      "growthFn": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "entire comparison, compact disk maximum and uniformly scaled hypothetical M/R",
+        "evidence": "C4"
+      },
+      "growthRadius": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "entire comparison, compact disk maximum and uniformly scaled hypothetical M/R",
+        "evidence": "C4"
+      },
+      "globalM": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "entire comparison, compact disk maximum and uniformly scaled hypothetical M/R",
+        "evidence": "C4"
+      },
+      "proofStep": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "six dependent proof steps; geometry invariance with separate complete ledger check",
+        "evidence": "C4 semantic"
+      },
+      "meanFn": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "complex mean, modulus maximum, disk hypotheses and exact zero-circle exclusion in log height",
+        "evidence": "C5"
+      },
+      "arcFn": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "arc orientation, exponential logs, factor supremum, finite integrals and Jordan certificate",
+        "evidence": "C6"
+      },
+      "k": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "arc orientation, exponential logs, factor supremum, finite integrals and Jordan certificate",
+        "evidence": "C6"
+      },
+      "halfPlane": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "arc orientation, exponential logs, factor supremum, finite integrals and Jordan certificate",
+        "evidence": "C6"
+      },
+      "arcRadius": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "arc orientation, exponential logs, factor supremum, finite integrals and Jordan certificate",
+        "evidence": "C6"
+      },
+      "poleA": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "arc orientation, exponential logs, factor supremum, finite integrals and Jordan certificate",
+        "evidence": "C6"
+      },
+      "domainExtent": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "local exact bounded projection/crop and sampled cell omission",
+        "evidence": "optional display"
+      },
+      "heightCrop": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "local exact bounded projection/crop and sampled cell omission",
+        "evidence": "optional display"
+      },
+      "heightMode": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "local bounded ordinate with exact-zero and conservative polynomial nonzero certificates in logarithmic mode",
+        "evidence": "optional display"
+      }
+    },
+    "quantum-state-geometry": {
+      "mode": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "mode selection and full inactive preparation retention",
+        "evidence": "state transitions"
+      },
+      "wellState": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI energy, time-evolving complex coefficients, Born density and phase invariance",
+        "evidence": "well"
+      },
+      "n": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI energy, time-evolving complex coefficients, Born density and phase invariance",
+        "evidence": "well"
+      },
+      "lengthNm": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI energy, time-evolving complex coefficients, Born density and phase invariance",
+        "evidence": "well"
+      },
+      "mix": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI energy, time-evolving complex coefficients, Born density and phase invariance",
+        "evidence": "well"
+      },
+      "phaseDeg": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI energy, time-evolving complex coefficients, Born density and phase invariance",
+        "evidence": "well"
+      },
+      "globalPhaseDeg": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI energy, time-evolving complex coefficients, Born density and phase invariance",
+        "evidence": "well"
+      },
+      "timeFs": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI energy, time-evolving complex coefficients, Born density and phase invariance",
+        "evidence": "well"
+      },
+      "projection": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "only positive prepared Born-probability outcomes may be observed; impossible alternatives restore unmeasured state and supported observations repeat certainly",
+        "evidence": "well"
+      },
+      "regionStart": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact Born interval, ordered endpoints and complex probe transform",
+        "evidence": "well"
+      },
+      "regionEnd": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact Born interval, ordered endpoints and complex probe transform",
+        "evidence": "well"
+      },
+      "probe": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact Born interval, ordered endpoints and complex probe transform",
+        "evidence": "well"
+      },
+      "prep": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Pauli expectations and original/survivor branch probabilities",
+        "evidence": "spin"
+      },
+      "axis": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Pauli expectations and original/survivor branch probabilities",
+        "evidence": "spin"
+      },
+      "middle": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Pauli expectations and original/survivor branch probabilities",
+        "evidence": "spin"
+      },
+      "middleSign": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Pauli expectations and original/survivor branch probabilities",
+        "evidence": "spin"
+      },
+      "sigmaNm": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Gaussian integral/Fourier phase, spreads, unrenormalized crop/tails and SI units",
+        "evidence": "gaussian"
+      },
+      "centerNm": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Gaussian integral/Fourier phase, spreads, unrenormalized crop/tails and SI units",
+        "evidence": "gaussian"
+      },
+      "kCenter": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Gaussian integral/Fourier phase, spreads, unrenormalized crop/tails and SI units",
+        "evidence": "gaussian"
+      },
+      "chirp": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Gaussian integral/Fourier phase, spreads, unrenormalized crop/tails and SI units",
+        "evidence": "gaussian"
+      },
+      "cropSigma": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "Gaussian integral/Fourier phase, spreads, unrenormalized crop/tails and SI units",
+        "evidence": "gaussian"
+      },
+      "energyEV": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "independently solved four-equation interface matching, current, potential/energy gain and flux",
+        "evidence": "barrier"
+      },
+      "heightEV": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "independently solved four-equation interface matching, current, potential/energy gain and flux",
+        "evidence": "barrier"
+      },
+      "widthNm": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "independently solved four-equation interface matching, current, potential/energy gain and flux",
+        "evidence": "barrier"
+      },
+      "wavelengthNm": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "exact SI photon dispersion and fixed-amplitude one-wavelength phase reference",
+        "evidence": "photon"
+      },
+      "detections": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "independent inverse-CDF seeded bins, finite count geometry and amplitude invariance",
+        "evidence": "well/spin/barrier"
+      },
+      "seed": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "independent inverse-CDF seeded bins, finite count geometry and amplitude invariance",
+        "evidence": "well/spin/barrier"
+      },
+      "batch": {
+        "status": "passed_bounded_fixtures",
+        "dependency": "independent inverse-CDF seeded bins, finite count geometry and amplitude invariance",
+        "evidence": "well/spin/barrier"
+      }
+    }
+  },
+  "negative_calibrations": {
+    "status": "passed",
+    "rejected_mutations": [
+      "photon marker wavelength coordinate displaced by 0.01",
+      "spin final-plus branch width displaced by 0.1",
+      "complex facet Im-to-Z coordinate displaced by 0.01"
+    ]
+  },
+  "regression_findings": [
+    {
+      "id": "c5-output-loop",
+      "status": "fixed_and_checked",
+      "finding": "C5 output loop excluded its repeated endpoint."
+    },
+    {
+      "id": "optional-control-types",
+      "status": "fixed_and_checked",
+      "finding": "Optional crop controls treated null, booleans, arrays and whitespace as numbers."
+    },
+    {
+      "id": "active-contour-probe",
+      "status": "fixed_and_checked",
+      "finding": "C2/C6 scene probes did not use the corresponding active contour/arc probe."
+    },
+    {
+      "id": "annulus-domain",
+      "status": "fixed_and_checked",
+      "finding": "Annulus surface rectangles and output curves needed selected-domain containment."
+    },
+    {
+      "id": "log-only-zero-marker",
+      "status": "fixed_and_checked",
+      "finding": "Unrepresentable log-only samples needed suppression of false output-zero markers."
+    },
+    {
+      "id": "interior-zero-log-trough",
+      "status": "fixed_and_independently_checked",
+      "finding": "Peak-ring, isolated and known rational zeros are omitted in log height; uncertain Laurent rectangles use a conservative analytic polynomial nonzero certificate. Independent fixed Laurent roots calibrate omission."
+    },
+    {
+      "id": "c6-reciprocal-zero-exemption",
+      "status": "fixed_and_independently_checked",
+      "finding": "The C6 linear reciprocal integrand is nonzero at 0 and must not inherit the C4 linear named-function zero."
+    },
+    {
+      "id": "unsupported-energy-outcome",
+      "status": "fixed_and_independently_checked",
+      "finding": "Eigenstate n1->6, mix0->2 and mix1->1 are impossible outcomes; each restores projection none and preserves complete preparation data/geometry."
+    }
+  ],
+  "reported_limitations": [
+    {
+      "id": "finite-mesh-and-conservative-certificate",
+      "status": "disclosed_bound_of_verification",
+      "finding": "Finite facets approximate functions between mesh samples. Laurent derivative certificates may omit nonzero rectangles because they certify sufficient nonzero conditions and do not claim roots exist.",
+      "numerical_audit_contract": "Emitted vertices, selected-domain/pole/discontinuity containment, exact named-zero loci and conservative Laurent nonzero certificates are checked; this audit does not prove holomorphy, a global theorem or exact continuous surface coverage."
+    }
+  ],
+  "excluded_work": [
+    "full repository suite",
+    "Git mutations",
+    "deployment",
+    "browser reader QA"
+  ],
+  "browser_qa_owner": "complex_analysis_lab",
+  "zero_locus_regressions": {
+    "status": "passed",
+    "peak": {
+      "log_omitted": true,
+      "magnitude_retained": true,
+      "i": 15,
+      "j": 16,
+      "finite_corner_values": [
+        0.3055555555555556,
+        0.1111111111111111,
+        -0.1388888888888889,
+        0.05555555555555555
+      ]
+    },
+    "rational": {
+      "residueA": 1,
+      "residueB": 2,
+      "domainExtent": 1.7,
+      "independent_zero": 0.6666666666666666,
+      "crossing_cells_omitted": true
+    },
+    "laurent": {
+      "independent_roots": [
+        [
+          -0.6054302026638816,
+          2.265469609505237
+        ],
+        [
+          -0.6054302026638816,
+          -2.265469609505237
+        ],
+        [
+          -0.3945697973361175,
+          0.62440251735213
+        ],
+        [
+          -0.3945697973361175,
+          -0.62440251735213
+        ]
+      ],
+      "polynomial_residual_bound": 2e-12,
+      "all_containing_cells_omitted": true
+    },
+    "c6": {
+      "reciprocal_integrands_have_no_zero_locus": true
+    }
+  }
+}

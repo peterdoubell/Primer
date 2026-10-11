@@ -30,7 +30,7 @@ assert.equal(entries.length, expected.length, 'Every spatial scene must be reach
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'physics-phase-lab'].includes(item.renderer)).length,
+  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'physics-phase-lab'].includes(item.renderer)).length,
   70, 'The 70 existing lesson models must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');
@@ -58,7 +58,9 @@ for (const [renderer, lesson, scenario] of [['math-wave-lab','math.5.pde','math.
   ['math-operator-lab','math.5.functional','math.5.functional.operators-truncation'],
   ['physics-ensemble-lab','phys.4.statmech','phys.4.statmech.ensembles-entropy'],
   ['math-curvature-lab','math.5.diffgeo','math.5.diffgeo.curvature-transport'],
-  ['physics-constraints-lab','phys.4.classical','phys.4.classical.constraints-energy']]) {
+  ['physics-constraints-lab','phys.4.classical','phys.4.classical.constraints-energy'],
+  ['math-complex-lab','math.5.complex-analysis','math.5.complex-analysis.holomorphy-contours'],
+  ['physics-quantum-lab','phys.4.quantum','phys.4.quantum.states-measurement']]) {
   const entries = nodes.flatMap(node => (node.lesson_media || []).filter(m => m.renderer === renderer).map(item => ({node,item})));
   assert.equal(entries.length,1); assert.equal(entries[0].node.id,lesson); assert.deepEqual(entries[0].item.props,{scenario});
 }

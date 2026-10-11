@@ -3,3 +3,11 @@ docs/hra-pancreatic-source-review/pancreas-female-v1.3-crosswalk.csv -text white
 docs/hra-pancreatic-source-review/pancreas-male-v1.3-crosswalk.csv -text whitespace=cr-at-eol
 # Preserve original NLM source README bytes, including archival whitespace.
 docs/visible-human-source-review/*README.txt -whitespace
+
+# Keep original publication PDFs as binary source artifacts.
+*.pdf binary
+*.icc binary
+*.samples binary
+# Preserve archival publisher source text without whitespace normalization.
+docs/myelopathy-published-source-review-20261011/source/** -text -whitespace
+docs/myelopathy-published-source-review-20261011/source-mogad/** -text -whitespace

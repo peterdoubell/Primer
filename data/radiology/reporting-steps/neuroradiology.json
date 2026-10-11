@@ -1618,90 +1618,172 @@
       ]
     },
     "ra.mri-myelopathy": {
-      "steps": [
-        {
-          "label": "Compression",
-          "detail": "First exclude extrinsic cord compression and canal disease.",
-          "sections": [
-            "COMPRESSION"
-          ],
-          "look": "Sagittal T2 and axial images at every narrowed level.",
-          "normal": "No cord compression.",
-          "findings": [
-            "Cord compression at [C5–C6] by disc–osteophyte complex with cord signal change (compressive myelopathy).",
-            "Epidural mass compressing the cord at [ ]."
-          ],
-          "images": [
-            "spine-imaging-image-3"
-          ],
-          "landmark": "canal",
-          "tip": "Always exclude compression before considering an intrinsic cord disease."
-        },
-        {
-          "label": "Longitudinal extent",
-          "detail": "Map cord signal by level and length.",
-          "sections": [
-            "LONGITUDINAL EXTENT"
-          ],
-          "look": "Sagittal T2 and STIR; count vertebral segments.",
-          "normal": "No cord signal abnormality.",
-          "findings": [
-            "Short-segment lesion (under two vertebral segments) at [ ].",
-            "Longitudinally extensive lesion from [ ] to [ ] (three or more segments).",
-            "Multifocal cord lesions."
-          ],
-          "measurements": [
-            "Cord lesion length"
-          ],
-          "landmark": "cord",
-          "tip": "Short peripheral lesions suggest MS; longitudinally extensive central lesions suggest NMOSD, MOGAD, ADEM or other causes."
-        },
-        {
-          "label": "Axial pattern",
-          "detail": "Assess axial location and the proportion of the cord involved.",
-          "sections": [
-            "TRANSVERSE PATTERN"
-          ],
-          "look": "Axial T2 through each lesion.",
-          "findings": [
-            "Peripheral, dorsolateral lesion involving less than half of the cross-section (MS pattern).",
-            "Central grey matter involvement (owl-eye pattern: infarction, MOGAD).",
-            "Symmetric dorsal column involvement (metabolic pattern, e.g., B12 deficiency)."
-          ],
-          "landmark": "cord"
-        },
-        {
-          "label": "Calibre and enhancement",
-          "detail": "Assess cord expansion, atrophy and enhancement.",
-          "sections": [
-            "CALIBRE AND ENHANCEMENT"
-          ],
-          "look": "Sagittal and axial post-contrast T1.",
-          "normal": "Normal cord calibre; no enhancement.",
-          "findings": [
-            "Cord expansion with heterogeneous enhancement (tumour pattern).",
-            "Patchy enhancement of the lesion.",
-            "Cord atrophy at [ ]."
-          ],
-          "landmark": "cord"
-        },
-        {
-          "label": "Associated findings",
-          "detail": "Inspect perimedullary vessels, the conus and relevant brain findings.",
-          "sections": [
-            "ASSOCIATED FINDINGS"
-          ],
-          "look": "Dorsal surface of the cord for flow voids; brain if imaged.",
-          "normal": "No abnormal perimedullary vessels; conus normal.",
-          "findings": [
-            "Dilated perimedullary veins on the dorsal cord with conus oedema (spinal dural arteriovenous fistula pattern).",
-            "Brain lesions typical of demyelination."
-          ],
-          "landmark": "cord",
-          "tip": "Flow voids on the dorsal cord surface with lower cord oedema suggest a spinal dural arteriovenous fistula."
-        }
-      ]
+  "steps": [
+    {
+      "label": "Compression",
+      "detail": "First exclude extrinsic cord compression and canal disease.",
+      "sections": [
+        "COMPRESSION"
+      ],
+      "look": "Sagittal T2 and axial images at every narrowed level.",
+      "normal": {
+        "COMPRESSION": "Compression assessment [__]; actual covered levels, cause and cord/root relation [__]. Unassessed extent is not a normal finding."
+      },
+      "findings": [
+        "Cord compression at [C5–C6] by disc–osteophyte complex with cord signal change (compressive myelopathy).",
+        "Epidural mass compressing the cord at [ ]."
+      ],
+      "images": [
+        "open-myelopathy-moghaddam2018-fig23"
+      ],
+      "landmark": "canal",
+      "tip": "Always exclude compression before considering an intrinsic cord disease.",
+      "original_normal_report_statement": "No cord compression.",
+      "clinical_approval": false,
+      "source_example_note": "Actual source case/sequence/side/timepoint only; no fine boundary or clinical approval and no unrelated mesh highlighted.",
+      "parts": []
     },
+    {
+      "label": "Longitudinal extent",
+      "detail": "Map cord signal by level and length.",
+      "sections": [
+        "LONGITUDINAL EXTENT"
+      ],
+      "look": "Sagittal T2 and STIR; count vertebral segments.",
+      "normal": {
+        "LONGITUDINAL EXTENT": "Cord signal and longitudinal extent [__]; actual covered levels [__]; motion/partial-volume limitations [__]."
+      },
+      "findings": [
+        "Short-segment lesion (under two vertebral segments) at [ ].",
+        "Longitudinally extensive lesion from [ ] to [ ] (three or more segments).",
+        "Multifocal cord lesions."
+      ],
+      "measurements": [
+        "Cord lesion length"
+      ],
+      "landmark": "cord",
+      "tip": "Short peripheral lesions suggest MS; longitudinally extensive central lesions suggest NMOSD, MOGAD, ADEM or other causes.",
+      "original_normal_report_statement": "No cord signal abnormality.",
+      "images": [
+        "open-myelopathy-moghaddam2018-fig4",
+        "open-myelopathy-moghaddam2018-fig5",
+        "open-myelopathy-moghaddam2018-fig6",
+        "open-myelopathy-moghaddam2018-fig7",
+        "open-myelopathy-moghaddam2018-fig9",
+        "open-myelopathy-mogad2025-fig1"
+      ],
+      "clinical_approval": false,
+      "source_example_note": "Actual source case/sequence/side/timepoint only; no fine boundary or clinical approval and no unrelated mesh highlighted.",
+      "parts": []
+    },
+    {
+      "label": "Axial pattern",
+      "detail": "Assess axial location and the proportion of the cord involved.",
+      "sections": [
+        "TRANSVERSE PATTERN"
+      ],
+      "look": "Axial T2 through each lesion.",
+      "findings": [
+        "Peripheral, dorsolateral lesion involving less than half of the cross-section (MS pattern).",
+        "Central grey matter involvement (owl-eye pattern: infarction, MOGAD).",
+        "Symmetric dorsal column involvement (metabolic pattern, e.g., B12 deficiency)."
+      ],
+      "landmark": "cord",
+      "original_normal_report_statement": null,
+      "normal": {
+        "TRANSVERSE PATTERN": "Axial distribution and cross-sectional involvement [__]; each actual side/tract/horn [__]; unresolved boundaries [__]."
+      },
+      "images": [
+        "open-myelopathy-moghaddam2018-fig4",
+        "open-myelopathy-moghaddam2018-fig5",
+        "open-myelopathy-moghaddam2018-fig6",
+        "open-myelopathy-moghaddam2018-fig11",
+        "open-myelopathy-moghaddam2018-fig22",
+        "open-myelopathy-moghaddam2018-fig24",
+        "open-myelopathy-mogad2025-fig1"
+      ],
+      "clinical_approval": false,
+      "source_example_note": "Actual source case/sequence/side/timepoint only; no fine boundary or clinical approval and no unrelated mesh highlighted.",
+      "parts": []
+    },
+    {
+      "label": "Calibre and enhancement",
+      "detail": "Assess cord expansion, atrophy and enhancement.",
+      "sections": [
+        "CALIBRE AND ENHANCEMENT"
+      ],
+      "look": "Sagittal and axial post-contrast T1.",
+      "normal": {
+        "CALIBRE AND ENHANCEMENT": "Cord calibre [__]; diagnostic contrast acquired [__]; enhancement [not acquired / unassessed / pattern: __]."
+      },
+      "findings": [
+        "Cord expansion with heterogeneous enhancement (tumour pattern).",
+        "Patchy enhancement of the lesion.",
+        "Cord atrophy at [ ]."
+      ],
+      "landmark": "cord",
+      "original_normal_report_statement": "Normal cord calibre; no enhancement.",
+      "images": [
+        "open-myelopathy-moghaddam2018-fig5",
+        "open-myelopathy-moghaddam2018-fig6",
+        "open-myelopathy-moghaddam2018-fig9",
+        "open-myelopathy-moghaddam2018-fig10",
+        "open-myelopathy-moghaddam2018-fig12",
+        "open-myelopathy-moghaddam2018-fig13",
+        "open-myelopathy-moghaddam2018-fig15",
+        "open-myelopathy-moghaddam2018-fig16",
+        "open-myelopathy-moghaddam2018-fig17",
+        "open-myelopathy-moghaddam2018-fig21",
+        "open-myelopathy-moghaddam2018-fig23"
+      ],
+      "clinical_approval": false,
+      "source_example_note": "Actual source case/sequence/side/timepoint only; no fine boundary or clinical approval and no unrelated mesh highlighted.",
+      "parts": []
+    },
+    {
+      "label": "Associated findings",
+      "detail": "Inspect perimedullary vessels, the conus and relevant brain findings.",
+      "sections": [
+        "ASSOCIATED FINDINGS"
+      ],
+      "look": "Dorsal surface of the cord for flow voids; brain if imaged.",
+      "normal": {
+        "ASSOCIATED FINDINGS": "Perimedullary vessels, conus and actually acquired brain/orbital observations [__]; unacquired regions [__]."
+      },
+      "findings": [
+        "Dilated perimedullary veins on the dorsal cord with conus oedema (spinal dural arteriovenous fistula pattern).",
+        "Brain lesions typical of demyelination."
+      ],
+      "landmark": "cord",
+      "tip": "Flow voids on the dorsal cord surface with lower cord oedema suggest a spinal dural arteriovenous fistula.",
+      "original_normal_report_statement": "No abnormal perimedullary vessels; conus normal.",
+      "images": [
+        "open-myelopathy-moghaddam2018-fig6",
+        "open-myelopathy-moghaddam2018-fig7",
+        "open-myelopathy-moghaddam2018-fig8",
+        "open-myelopathy-moghaddam2018-fig14",
+        "open-myelopathy-moghaddam2018-fig18",
+        "open-myelopathy-moghaddam2018-fig19",
+        "open-myelopathy-moghaddam2018-fig20"
+      ],
+      "clinical_approval": false,
+      "source_example_note": "Actual source case/sequence/side/timepoint only; no fine boundary or clinical approval and no unrelated mesh highlighted.",
+      "parts": []
+    }
+  ],
+  "start": {
+    "images": [
+      "open-myelopathy-moghaddam2018-fig1",
+      "open-myelopathy-moghaddam2018-fig2",
+      "open-myelopathy-moghaddam2018-fig3"
+    ],
+    "module_illustrations": false
+  },
+  "preset_mode": "assessment-prompts",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "source_example_conditions": "Published source cases are examples, never findings in the reader patient. Normal observations require actual diagnostic acquisition."
+},
     "ra.thoracolumbar-injury": {
       "steps": [
         {

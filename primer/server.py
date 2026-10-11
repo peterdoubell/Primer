@@ -3532,7 +3532,7 @@ def app_shell():
                      "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css",
                      "math-ode-lab.js", "math-ode-lab.css", "math-eigenspace.js", "math-eigenspace.css",
                      "math-field-lab.js", "math-field-lab.css", "math-wave-lab.js", "math-wave-lab.css",
-                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
+                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "lesson-state.js", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3746,7 +3746,8 @@ async def radiology_image_delivery(asset: str, request: Request):
     url = "/app/reference-media/radiology-open/" + asset
     with open(os.path.join(ROOT, "data/radiology/radiology-open-images.json"), encoding="utf-8") as source:
         registry = json.load(source)
-    if not any(row.get("src") == url for rows in registry.values() for row in rows):
+    if not any(row.get("src") == url or row.get("original_publication_pdf", {}).get("src") == url
+               for rows in registry.values() for row in rows):
         return JSONResponse({"detail": "Unknown source image"}, status_code=404)
     if os.environ.get("VERCEL"):
         from urllib.parse import quote, urlencode
