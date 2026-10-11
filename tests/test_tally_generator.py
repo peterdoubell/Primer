@@ -152,8 +152,8 @@ def test_grading_really_travels_through_numeric_equal():
     calls = []
     real = quiz._numeric_equal
 
-    def spy(given, expected):
-        out = real(given, expected)
+    def spy(given, expected, **options):
+        out = real(given, expected, **options)
         calls.append((given, expected, out))
         return out
 
