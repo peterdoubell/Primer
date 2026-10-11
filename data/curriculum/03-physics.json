@@ -4048,12 +4048,12 @@
     },
     {
      "kind": "choice",
-     "prompt": "Two macrostates of the same isolated system have W1 = 10^20 and W2 = 10^22 accessible microstates, and every microstate is equally likely. Which statement follows?",
-     "answer": "The system spends about a hundred times longer in the second.",
-     "explain": "Equal likelihood per microstate makes the chance of a macrostate proportional to its microstate count, so a factor of 100 in W is a factor of 100 in time spent. Entropy is k ln W, so the entropies differ by k ln 100, about 4.6k — not by a factor of a hundred.",
+     "prompt": "Two macrostates of the same isolated system have Ω₁ = 10²⁰ and Ω₂ = 10²² accessible microstates. In an ensemble where every microstate is equally likely, which statement follows about an observation?",
+     "answer": "The second macrostate is a hundred times as likely as the first.",
+     "explain": "Equal probability per microstate makes a macrostate’s probability proportional to its count, so P₂/P₁ = Ω₂/Ω₁ = 100. The entropy difference is k ln 100, not an entropy ratio of 100. A claim about time spent additionally requires suitable dynamics and sampling assumptions; equal ensemble weights alone do not prove it.",
      "choices": [
       "The second has an entropy a hundred times larger than the first.",
-      "The system spends about a hundred times longer in the second.",
+      "The second macrostate is a hundred times as likely as the first.",
       "The two are equally likely, since both counts are enormous.",
       "The first is favoured, since lower entropy is more stable."
      ]
@@ -4078,7 +4078,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "An ideal gas expands freely into the evacuated half of an insulated box. No heat enters and no work is done, and the gas never crowds back into one half. Identify what has changed.",
+     "prompt": "A macroscopic ideal gas expands freely into the evacuated half of an insulated box. No heat enters and no work is done. Identify the thermodynamic change.",
      "answer": "The entropy rose along with the volume now accessible.",
      "choices": [
       "The internal energy fell as the gas spread out.",
@@ -4086,7 +4086,7 @@
       "The temperature dropped because work was done.",
       "The total energy leaked away into the vacuum region."
      ],
-     "explain": "With Q = 0 and W = 0 the internal energy and temperature are unchanged, but each molecule now has twice the volume, so W and hence the entropy increase."
+     "explain": "With Q = 0 and work by the gas W_by = 0, its internal energy and ideal-gas equilibrium temperature are unchanged. The accessible volume doubles, giving ΔS = N k ln 2. Here the microstate count Ω is distinct from mechanical work W_by; equilibrium fluctuations are statistical, not strictly forbidden."
     },
     {
      "kind": "numeric",
@@ -4144,6 +4144,16 @@
      "instructions": "Choose the number of heads and compare macrostate multiplicity with entropy.",
      "props": {
       "scenario": "phys.4.statmech"
+     }
+    },
+    {
+     "id": "phys.4.statmech-physics-ensemble-lab",
+     "kind": "model",
+     "renderer": "physics-ensemble-lab",
+     "title": "Ensembles, multiplicity and entropy",
+     "instructions": "Compare canonical probabilities, exact distinguishable-state counts, free-expansion endpoints and isolated thermal blocks. Distinguish ensemble entropy from multiplicity entropy.",
+     "props": {
+      "scenario": "phys.4.statmech.ensembles-entropy"
      }
     }
    ]

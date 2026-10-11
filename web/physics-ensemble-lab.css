@@ -1,0 +1,26 @@
+.physics-ensemble-lab { min-width: 0; }
+.physics-ensemble-lab .model-heading-row { flex-wrap: wrap; }
+.physics-ensemble-lab .model-heading-row > button { flex-shrink: 0; }
+.physics-ensemble-lab .ensemble-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ensemble-select { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.physics-ensemble-lab input[type=number], .physics-ensemble-lab select { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; min-height: 40px; font: inherit; color: inherit; background: var(--paper, #f5efdf); border: 1px solid var(--line, #d5cfbf); border-radius: 6px; padding: 6px 8px; }
+.ensemble-viewport { min-width: 0; max-width: 100%; overflow: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 10px; background: #f5efdf; margin: 16px 0; }
+.ensemble-viewport svg { display: block; width: 100%; max-width: 900px; height: auto; margin: auto; font-family: var(--sans, sans-serif); }
+.physics-ensemble-lab.is-enlarged .ensemble-viewport svg { min-width: 740px; max-width: none; }
+.ensemble-readout, .ensemble-equation, .ensemble-assumptions, .ensemble-limits { overflow-wrap: anywhere; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.ensemble-table-region { max-width: 100%; max-height: 440px; overflow: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 8px; }
+.ensemble-table { width: 100%; min-width: 620px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ensemble-table caption { text-align: left; padding: 10px; }
+.ensemble-table th, .ensemble-table td { padding: 9px; border-top: 1px solid var(--line, #d5cfbf); text-align: right; }
+.ensemble-table th:first-child { text-align: left; }
+.ensemble-table .ensemble-exact-count { max-width: 280px; overflow-wrap: anywhere; }
+.ensemble-selected-row { font-weight: 700; }
+.ensemble-microstates { display: grid; grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); gap: 8px; padding: 0; max-height: 420px; overflow: auto; list-style: none; }
+.ensemble-microstates li { border: 1px solid var(--line, #d5cfbf); border-radius: 6px; padding: 8px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.ensemble-microstates small { display: block; margin-top: 5px; }
+.ensemble-selected-microstate { outline: 2px solid var(--accent, #317e78); outline-offset: -2px; font-weight: 700; }
+.ensemble-assumptions > summary, .ensemble-enumeration > summary { cursor: pointer; }
+.physics-ensemble-lab [hidden] { display: none !important; }
+.physics-ensemble-lab :is(button,input,select,summary,.ensemble-viewport,.ensemble-table-region):focus-visible { outline: 3px solid var(--accent, #317e78); outline-offset: 3px; }
+.ensemble-live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 760px) { .physics-ensemble-lab .ensemble-controls { grid-template-columns: minmax(0, 1fr); } }

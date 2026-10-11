@@ -12,6 +12,8 @@ context.window.PrimerPhysicsThermalLab = require('../web/physics-thermal-lab.js'
 context.window.PrimerPhysicsBuoyancyLab = require('../web/physics-buoyancy-lab.js');
 context.window.PrimerPhysicsPhaseLab = require('../web/physics-phase-lab.js');
 context.window.PrimerPhysicsCycleLab = require('../web/physics-cycle-lab.js');
+context.window.PrimerMathOperatorLab = require('../web/math-operator-lab.js');
+context.window.PrimerPhysicsEnsembleLab = require('../web/physics-ensemble-lab.js');
 context.window.PrimerMathNumericalLab = require('../web/math-numerical-lab.js');
 context.window.PrimerMathConvergenceLab = require('../web/math-convergence-lab.js');
 require('../web/spatial-models.js');
@@ -65,7 +67,31 @@ for(const [family,id] of familyIds){
   for(const control of spatial.controls(id)){
     const values=control.options?control.options.map(o=>o.value):Array.from({length:Math.floor((control.max-control.min)/control.step+1e-7)+1},(_,i)=>Number((control.min+i*control.step).toFixed(8)));
     const versions=values.map(value=>verify(id,{[control.key]:value}));
-    assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)),family+': '+control.key+' visibly changes geometry');
+    if(family==='operator-coordinate-graph' && ['realization','probe'].includes(control.key)) {
+      // Cropping the same coefficient pairs must not fabricate a visible change
+      // when a domain or spectral probe changes only the full operator ledger.
+      for(const scene of versions) assert.deepEqual(scene.primitives,initial.primitives);
+      assert.ok(versions.some(scene=>scene.readout!==initial.readout),family+': '+control.key+' changes its exact ledger');
+      if(control.key==='realization') {
+        assert.equal(versions[0].operator.selected.output.offscreenSquared.exact,'1');
+        assert.equal(versions[1].operator.selected.output.normSquared.exact,'0');
+      } else {
+        assert.deepEqual(versions.map(v=>v.operator.lambda.exact),['0','2/5','1']);
+        assert.deepEqual(versions.map(v=>v.operator.selected.residual.normSquared.exact),['1','29/25','2']);
+      }
+    } else if(family==='operator-coordinate-graph' && control.key==='second') {
+      // The canonical e_N fixture puts its next coefficient beyond the crop.
+      // Retain that crop while verifying the full hidden-coordinate ledger.
+      for(let i=0;i<versions.length;i++) {
+        assert.deepEqual(versions[i].primitives,initial.primitives);
+        assert.equal(versions[i].operator.selected.input.offscreenSquared.value,(values[i]/4)**2);
+        assert.equal(versions[i].operator.selected.output.offscreenSquared.value,1+(values[i]/4)**2);
+      }
+      // Move the same sparse input inside the view to test visible dependence.
+      const visible=verify(id,{position:'first'});
+      const visibleVersions=values.map(value=>verify(id,{position:'first',second:value}));
+      assert.ok(visibleVersions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(visible.primitives)),family+': second changes visible coefficients when k = 1');
+    } else assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)),family+': '+control.key+' visibly changes geometry');
     if(!control.options)for(const invalid of [NaN,Infinity,-Infinity,'not a number'])assert.equal(JSON.stringify(verify(id,{[control.key]:invalid})),JSON.stringify(initial),family+': invalid input fallback');
     minimum[control.key]=values[0];maximum[control.key]=values.at(-1);controls++;
   }

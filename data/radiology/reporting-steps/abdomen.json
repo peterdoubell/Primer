@@ -2529,87 +2529,264 @@
     "ra.mri-endometrial-cancer": {
       "steps": [
         {
-          "label": "Uterus and tumour",
-          "detail": "Describe uterine anatomy, tumour location and size.",
+          "label": "Source adequacy, uterus and tumour",
+          "detail": "Record supplied histology and biopsy/treatment dates, menopausal/cycle context, actual acquisition quality and coverage. Describe uterine orientation, cavity, tumour epicentre and growth pattern; correlate T2, high-b-value DWI/ADC and acquired enhancement. Record each tumour dimension and whole uterine size with real planes and scale.",
           "sections": [
             "UTERUS AND TUMOUR"
           ],
-          "look": "Sagittal T2 and T2 perpendicular to the endometrial cavity; DWI.",
+          "look": "Record supplied histology and biopsy/treatment dates, menopausal/cycle context, actual acquisition quality and coverage. Describe uterine orientation, cavity, tumour epicentre and growth pattern; correlate T2, high-b-value DWI/ADC and acquired enhancement. Record each tumour dimension and whole uterine size with real planes and scale.",
+          "normal": {
+            "UTERUS AND TUMOUR": "Sequences/coverage and missing clinical inputs: [__]. Uterine orientation and dimensions: [__]. Tumour site, morphology, signal and dimensions in stated planes: [__]. Uncertain or unassessed extent: [__]."
+          },
           "findings": [
-            "Endometrial tumour __ × __ × __ mm at the [fundus / body].",
-            "Uterus __ cm long with [fibroids / adenomyosis]."
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
           ],
           "images": [
-            "ra-mri-endometrial-cancer-source-1"
+            "open-endometrial-cancer-pmc11119523-fig4",
+            "open-endometrial-cancer-pmc11119523-fig7",
+            "open-endometrial-cancer-pmc11119523-fig9",
+            "open-endometrial-cancer-pmc11119523-fig18",
+            "open-endometrial-cancer-pmc12830431-fig1",
+            "open-endometrial-cancer-pmc12830431-fig5",
+            "open-endometrial-cancer-pmc12830431-fig7",
+            "open-endometrial-cancer-pmc13025262-fig2"
           ],
-          "landmark": "endometrium"
+          "landmark": "endometrium",
+          "parts": [],
+          "measurements": [
+            "Tumour and whole uterine dimensions"
+          ],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
         },
         {
           "label": "Myometrial invasion",
-          "detail": "Assess the deepest invasion relative to the local myometrial thickness.",
+          "detail": "Evaluate the endometrium–junctional-zone interface and deepest source-supported tumour penetration. Measure depth and full myometrial thickness at the same site in aligned planes. Distinguish absent, superficial (<50%), deep (≥50%) and indeterminate invasion; document cavity expansion, thin cornual wall, adenomyosis or leiomyoma distortion.",
           "sections": [
             "MYOMETRIAL INVASION"
           ],
-          "look": "T2 perpendicular to the tumour base, DWI and dynamic contrast images.",
+          "look": "Evaluate the endometrium–junctional-zone interface and deepest source-supported tumour penetration. Measure depth and full myometrial thickness at the same site in aligned planes. Distinguish absent, superficial (<50%), deep (≥50%) and indeterminate invasion; document cavity expansion, thin cornual wall, adenomyosis or leiomyoma distortion.",
+          "normal": {
+            "MYOMETRIAL INVASION": "Evaluable tumour–myometrial interface/site: [__]. Invasion depth and local full wall thickness: [__]/[__] mm, method/plane [__]. Imaging category [absent / <50% / ≥50% / indeterminate], supporting sequences and uncertainty [__]."
+          },
           "findings": [
-            "Tumour confined to the endometrium with an intact junctional zone.",
-            "Myometrial invasion of less than 50% (__ of __ mm).",
-            "Myometrial invasion of 50% or more (__ of __ mm)."
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
           ],
           "images": [
-            "ra-mri-endometrial-cancer-source-2"
+            "open-endometrial-cancer-pmc11119523-fig4",
+            "open-endometrial-cancer-pmc11119523-fig5",
+            "open-endometrial-cancer-pmc11119523-fig6",
+            "open-endometrial-cancer-pmc11119523-fig7",
+            "open-endometrial-cancer-pmc12830431-fig1",
+            "open-endometrial-cancer-pmc12830431-fig2",
+            "open-endometrial-cancer-pmc12830431-fig4",
+            "open-endometrial-cancer-pmc12830431-fig5",
+            "open-endometrial-cancer-pmc12830431-fig7",
+            "open-endometrial-cancer-pmc13025262-fig2",
+            "open-endometrial-cancer-esr2026-fig5"
           ],
+          "landmark": "uterus",
+          "parts": [],
           "measurements": [
             "Myometrial invasion"
           ],
-          "landmark": "uterus",
-          "tip": "Adenomyosis, fibroids and a thinned myometrium make invasion assessment difficult; DWI and dynamic contrast help."
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
         },
         {
-          "label": "Cervix",
-          "detail": "Distinguish endocervical glandular extension from cervical stromal invasion.",
+          "label": "Cervical canal and stroma",
+          "detail": "Assess internal os, endocervical canal and source-resolved cervical stromal boundaries. Separate canal protrusion or glandular extension and mass-effect thinning from tumour signal extending into cervical stroma. Record the actual involved region, extent and equivocal interface.",
           "sections": [
             "CERVIX"
           ],
-          "look": "Sagittal and oblique axial T2 of the cervix; delayed contrast phase.",
-          "normal": "No cervical involvement.",
+          "look": "Assess internal os, endocervical canal and source-resolved cervical stromal boundaries. Separate canal protrusion or glandular extension and mass-effect thinning from tumour signal extending into cervical stroma. Record the actual involved region, extent and equivocal interface.",
+          "normal": {
+            "CERVIX": "Internal-os/canal relationship: [__]. Stromal interface and source-supported extent: [__]. Protrusion, invasion concern or indeterminate boundary and supporting sequences: [__]."
+          },
           "findings": [
-            "Tumour extends into the endocervical canal with an intact cervical stroma.",
-            "Cervical stromal invasion."
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
           ],
-          "landmark": "cervix"
+          "images": [
+            "open-endometrial-cancer-pmc11119523-fig8",
+            "open-endometrial-cancer-pmc11119523-fig9",
+            "open-endometrial-cancer-pmc11119523-fig12",
+            "open-endometrial-cancer-pmc12830431-fig6",
+            "open-endometrial-cancer-pmc12830431-fig8"
+          ],
+          "landmark": "cervix",
+          "parts": [],
+          "measurements": [],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
         },
         {
-          "label": "Extrauterine extent",
-          "detail": "Assess the serosa, adnexa, vagina, parametria, bladder and rectum.",
+          "label": "Uterine outer wall and adnexa",
+          "detail": "Assess subserosa/serosal contour and each covered ovary and tube, including actual tumour interfaces and discontinuous lesions. Describe adnexal morphology and laterality. Distinguish imaging findings from the pathological and clinical criteria for synchronous ovarian disease or FIGO IA3; a published image cannot supply those criteria.",
           "sections": [
-            "EXTRAUTERINE EXTENT"
+            "SEROSA AND ADNEXA"
           ],
-          "look": "Axial and sagittal T2 around the uterus.",
-          "normal": "No extrauterine extension.",
+          "look": "Assess subserosa/serosal contour and each covered ovary and tube, including actual tumour interfaces and discontinuous lesions. Describe adnexal morphology and laterality. Distinguish imaging findings from the pathological and clinical criteria for synchronous ovarian disease or FIGO IA3; a published image cannot supply those criteria.",
+          "normal": {
+            "SEROSA AND ADNEXA": "Outer uterine contour/subserosal or serosal concern: [__]. Right and left adnexal coverage, findings and interfaces: [__]. Separate lesion, uncertainty and required pathological correlation: [__]."
+          },
           "findings": [
-            "Serosal breach with tumour in the [ ].",
-            "Adnexal involvement.",
-            "Invasion of the bladder or rectal mucosa."
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
           ],
-          "landmark": "ovaries"
+          "images": [
+            "open-endometrial-cancer-pmc11119523-fig10",
+            "open-endometrial-cancer-pmc12830431-fig3",
+            "open-endometrial-cancer-pmc12830431-fig8",
+            "open-endometrial-cancer-pmc12830431-fig9",
+            "open-endometrial-cancer-pmc12830431-fig10",
+            "open-endometrial-cancer-pmc13025262-fig1"
+          ],
+          "landmark": "ovaries",
+          "parts": [],
+          "measurements": [],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
         },
         {
-          "label": "Nodes and distant sites",
-          "detail": "Describe pelvic and para-aortic nodes, peritoneal disease and other covered metastases.",
+          "label": "Vagina, parametria and adjacent organs",
+          "detail": "Map each actual vaginal, parametrial, sidewall and adjacent-organ interface. Separate contact, muscular-wall findings and mucosal/luminal concern in bladder and bowel; loss of fat plane or oedema alone does not prove mucosal invasion. Record covered ureteric relationships and obstruction when relevant, and the limits of wall-layer resolution.",
           "sections": [
-            "NODES AND DISTANT SITES"
+            "VAGINA AND ADJACENT ORGANS"
           ],
-          "look": "Axial T2 and DWI to the renal veins.",
-          "normal": "No suspicious nodes or peritoneal disease.",
+          "look": "Map each actual vaginal, parametrial, sidewall and adjacent-organ interface. Separate contact, muscular-wall findings and mucosal/luminal concern in bladder and bowel; loss of fat plane or oedema alone does not prove mucosal invasion. Record covered ureteric relationships and obstruction when relevant, and the limits of wall-layer resolution.",
+          "normal": {
+            "VAGINA AND ADJACENT ORGANS": "Vaginal/parametrial sites and extent: [__]. Bladder and each contacted bowel segment: contact, wall and mucosal/luminal evidence [__]. Sidewall/ureteric findings, uncertainty and unacquired extent: [__]."
+          },
           "findings": [
-            "Suspicious [left obturator] node, short axis __ mm.",
-            "Peritoneal deposits in the [ ]."
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
+          ],
+          "images": [
+            "open-endometrial-cancer-pmc11119523-fig11",
+            "open-endometrial-cancer-pmc11119523-fig12",
+            "open-endometrial-cancer-pmc11119523-fig13",
+            "open-endometrial-cancer-pmc11119523-fig15",
+            "open-endometrial-cancer-pmc11119523-fig19",
+            "open-endometrial-cancer-pmc12830431-fig13"
+          ],
+          "landmark": "cervix",
+          "parts": [],
+          "measurements": [
+            "Nodes and reported interfaces"
+          ],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
+        },
+        {
+          "label": "Regional and distant nodes",
+          "detail": "Map each suspicious node by actual station, side, short-axis measurement and morphology. Record para-aortic extent relative to the acquired renal-vessel reference, inguinal or other distant stations and incomplete coverage. Node size or diffusion cannot establish microscopic metastatic burden or replace sentinel-node/pathological assessment.",
+          "sections": [
+            "LYMPH NODES"
+          ],
+          "look": "Map each suspicious node by actual station, side, short-axis measurement and morphology. Record para-aortic extent relative to the acquired renal-vessel reference, inguinal or other distant stations and incomplete coverage. Node size or diffusion cannot establish microscopic metastatic burden or replace sentinel-node/pathological assessment.",
+          "normal": {
+            "LYMPH NODES": "Acquired stations and renal-vessel reference/coverage: [__]. Each suspicious node: station/side, short axis, morphology and uncertainty [__]. Unassessed stations and pathological inputs: [__]."
+          },
+          "findings": [
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
+          ],
+          "images": [
+            "open-endometrial-cancer-pmc11119523-fig12",
+            "open-endometrial-cancer-pmc12830431-fig12",
+            "open-endometrial-cancer-pmc13025262-fig1",
+            "open-endometrial-cancer-pmc8648287-fig4"
           ],
           "landmark": "uterus",
-          "tip": "FIGO 2023 staging includes pathology and molecular inputs that MRI cannot provide; report imaging extent."
+          "parts": [],
+          "measurements": [
+            "Nodes and reported interfaces"
+          ],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
+        },
+        {
+          "label": "Peritoneal and distant disease",
+          "detail": "Separate pelvic peritoneal deposits from abdominal peritoneal disease beyond the pelvis. Map actual omental, mesenteric, organ-surface and other covered lesions, ascites and distant organ findings. State which abdominal/chest sites are acquired or assessed by another dated examination; a pelvic MRI cannot exclude unacquired distant disease.",
+          "sections": [
+            "PERITONEUM AND DISTANT SITES"
+          ],
+          "look": "Separate pelvic peritoneal deposits from abdominal peritoneal disease beyond the pelvis. Map actual omental, mesenteric, organ-surface and other covered lesions, ascites and distant organ findings. State which abdominal/chest sites are acquired or assessed by another dated examination; a pelvic MRI cannot exclude unacquired distant disease.",
+          "normal": {
+            "PERITONEUM AND DISTANT SITES": "Pelvic peritoneal findings: [__]. Extrapelvic peritoneal/omental/mesenteric findings: [__]. Other covered distant lesions, modality/date and uncertainty: [__]. Unacquired sites: [__]."
+          },
+          "findings": [
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
+          ],
+          "images": [
+            "open-endometrial-cancer-pmc11119523-fig14",
+            "open-endometrial-cancer-pmc11119523-fig15",
+            "open-endometrial-cancer-pmc11119523-fig16",
+            "open-endometrial-cancer-pmc12830431-fig11",
+            "open-endometrial-cancer-pmc12830431-fig14",
+            "open-endometrial-cancer-pmc8648287-fig4"
+          ],
+          "landmark": "uterus",
+          "parts": [],
+          "measurements": [],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
+        },
+        {
+          "label": "Planning, variants and benign mimics",
+          "detail": "Record actual uterine size, position or developmental variants, source-visible zones and benign abnormalities that affect measurement or planning. Assess atypical enhancement and differential diagnosis without inferring histology from appearance. State imaging evidence relevant to an actual fertility-preservation request; eligibility requires multidisciplinary clinical/pathological assessment.",
+          "sections": [
+            "PLANNING AND MIMICS"
+          ],
+          "look": "Record actual uterine size, position or developmental variants, source-visible zones and benign abnormalities that affect measurement or planning. Assess atypical enhancement and differential diagnosis without inferring histology from appearance. State imaging evidence relevant to an actual fertility-preservation request; eligibility requires multidisciplinary clinical/pathological assessment.",
+          "normal": {
+            "PLANNING AND MIMICS": "Actual size/orientation/variant and leiomyoma, adenomyosis, endometriosis or other mimic: [__]. Effect on assessment/planning and unresolved interfaces: [__]. Supplied fertility question and evaluable imaging findings/limitations: [__]."
+          },
+          "findings": [
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
+          ],
+          "images": [
+            "open-endometrial-cancer-pmc11119523-fig7",
+            "open-endometrial-cancer-pmc11119523-fig18",
+            "open-endometrial-cancer-pmc12830431-fig5",
+            "open-endometrial-cancer-pmc13025262-fig2",
+            "open-endometrial-cancer-esr2026-fig5"
+          ],
+          "landmark": "uterus",
+          "parts": [],
+          "measurements": [
+            "Tumour and whole uterine dimensions"
+          ],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
+        },
+        {
+          "label": "Supplied treatment or comparison examination",
+          "detail": "When an actual treatment or comparison study is supplied, record its date, therapy and surgery, source matching and altered anatomy. Assess each suspected residual/recurrent lesion and organ-wall change with acquired sequences; distinguish fibrosis/oedema and uncertainty. Do not infer complete microscopic response or serial behaviour from unrelated publication cases.",
+          "sections": [
+            "COMPARISON AND TREATMENT CONTEXT"
+          ],
+          "look": "When an actual treatment or comparison study is supplied, record its date, therapy and surgery, source matching and altered anatomy. Assess each suspected residual/recurrent lesion and organ-wall change with acquired sequences; distinguish fibrosis/oedema and uncertainty. Do not infer complete microscopic response or serial behaviour from unrelated publication cases.",
+          "normal": {
+            "COMPARISON AND TREATMENT CONTEXT": "Applicable comparison/treatment, dates and altered anatomy: [__ / not supplied]. Matched site/lesion and acquired signal/extent: [__]. Residual/recurrent concern, alternatives, uncertainty and unassessed interfaces: [__]."
+          },
+          "findings": [
+            "Source-supported finding at [site/side]: [__]; method, extent and uncertainty: [__]."
+          ],
+          "images": [
+            "open-endometrial-cancer-pmc7643338-fig2",
+            "open-endometrial-cancer-pmc7643338-fig3",
+            "open-endometrial-cancer-pmc8648287-fig5"
+          ],
+          "landmark": "cervix",
+          "parts": [],
+          "measurements": [],
+          "tip": "Use actual acquired findings and state uncertain or unassessed boundaries. Independent published figures and source atlas geometry are references; they do not supply current-patient findings."
         }
-      ]
+      ],
+      "start": {
+        "images": [
+          "open-endometrial-cancer-pmc11119523-fig18",
+          "open-endometrial-cancer-pmc12830431-fig1",
+          "open-endometrial-cancer-esr2026-fig5"
+        ],
+        "module_illustrations": false
+      },
+      "preset_mode": "assessment-prompts",
+      "walkthrough_reviewed_at": "2026-10-11",
+      "model": {
+        "family": "female",
+        "reporting_aim": "Conceptual pelvic orientation only. The independent original HRA atlas supplies gross source surfaces; it does not approve fine uterine/cervical/organ-wall layers, current-patient tumour, nodal extent, microscopic disease or registration."
+      }
     },
     "ra.mullerian-anomalies": {
       "steps": [

@@ -388,7 +388,7 @@ const INTERACTIONS = Object.freeze({
 function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
-  let measureEntries = 0, cycleEntries = 0;
+  let measureEntries = 0, cycleEntries = 0, operatorEntries = 0, ensembleEntries = 0;
   let phaseEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
@@ -399,6 +399,14 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-operator-lab' || media.renderer === 'physics-ensemble-lab') {
+          const operator = media.renderer === 'math-operator-lab';
+          const expectedLesson = operator ? 'math.5.functional' : 'phys.4.statmech';
+          const expectedScenario = operator ? 'math.5.functional.operators-truncation' : 'phys.4.statmech.ensembles-entropy';
+          if (media.kind !== 'model' || lesson.id !== expectedLesson || JSON.stringify(media.props) !== JSON.stringify({scenario:expectedScenario})) throw new Error('invalid separately verified operator/ensemble binding');
+          if (operator) operatorEntries++; else ensembleEntries++;
+          continue;
+        }
         if (media.renderer === 'math-measure-lab' || media.renderer === 'physics-cycle-lab') {
           const measure = media.renderer === 'math-measure-lab', expectedLesson = measure ? 'math.5.measure' : 'phys.3.thermo', expectedScenario = measure ? 'math.5.measure.integration-norms' : 'phys.3.thermo.cycle-entropy';
           if (media.kind !== 'model' || lesson.id !== expectedLesson || JSON.stringify(media.props) !== JSON.stringify({scenario:expectedScenario})) throw new Error('invalid separately verified integration/cycle binding');
@@ -473,6 +481,7 @@ function collectRemainingModels() {
   if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');
   if (buoyancyEntries !== 1) throw new Error('expected one separately verified buoyancy model');
   if (measureEntries !== 1 || cycleEntries !== 1) throw new Error('expected one integration and one cycle model');
+  if (operatorEntries !== 1 || ensembleEntries !== 1) throw new Error('expected one operator and one ensemble model');
   if (phaseEntries !== 2) throw new Error('expected two separately verified phase models');
   if (numericalEntries !== 1) throw new Error('expected one separately verified numerical error model');
   if (thermalEntries !== 2) throw new Error('expected two separately verified thermal models');

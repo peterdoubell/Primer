@@ -72,6 +72,56 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  define('operator-coordinate-graph','Input and output coefficient graph',
+    {operator:'shift',realization:'infinite',cutoff:4,position:'boundary',first:4,second:0,probe:'zero'},
+    [choice('operator','Operator',[['shift','Right shift S'],['diagonal','Diagonal D']]),
+     choice('realization','Domain',[['infinite','Infinite operator; cropped view'],['matrix','Compressed N-dimensional matrix'],['finite-rank','Finite-rank operator on ℓ²']]),
+     range('cutoff','Visible cutoff N',1,32,1),
+     choice('position','First occupied coordinate',[['first','k = 1'],['boundary','k = N'],['tail','k = N + 1']]),
+     range('first','First coefficient numerator a; value a/4',-16,16,1),range('second','Next coefficient numerator b; value b/4',-16,16,1),
+     choice('probe','Real spectral probe',[['zero','λ = 0'],['two-fifths','λ = 2/5'],['one','λ = 1']])],(s,g)=>{
+      const k=s.position==='first'?1:s.position==='boundary'?s.cutoff:s.cutoff+1;
+      const p=s.probe==='two-fifths'?2:s.probe==='one'?1:0,q=s.probe==='two-fifths'?5:1;
+      const m=window.PrimerMathOperatorLab.build({...s,index:k,lambdaNumerator:p,lambdaDenominator:q});
+      const input=new Map(m.selected.input.entries.map(e=>[e.index,e.value])),output=new Map(m.selected.output.entries.map(e=>[e.index,e.value]));
+      const plotted=[];
+      for(let j=1;j<=s.cutoff;j++){
+        const a=input.get(j)||0,b=output.get(j)||0,point=[j/s.cutoff,a,b];
+        g.line([[j/s.cutoff,0,0],[j/s.cutoff,a,0],point],g.colors.teal,{operator_kind:'coordinate_pair',index:j,input:a,output:b});
+        g.sphere(point,.025,g.colors.blue,{operator_kind:'coordinate_point',index:j,input:a,output:b});
+        plotted.push({index:j,input:a,output:b,point});
+      }
+      g.line([[0,0,0],[1.18,0,0]],g.colors.ink);g.label([1.22,0,0],'j/N');
+      g.line([[0,-4.3,0],[0,4.3,0]],g.colors.ink);g.label([0,4.55,0],'xⱼ');
+      g.line([[0,0,-4.3],[0,0,4.3]],g.colors.ink);g.label([0,0,4.55],'(Tx)ⱼ');
+      return {...result(m.readout,
+        'Each discrete point has coordinates (j/N, accepted input coefficient x_j, output coefficient (Tx)_j). The coefficient axes keep their real dimensionless values; horizontal position is the labelled coordinate fraction. These are coordinate-wise pairs, not vectors embedded isometrically from infinite ℓ² into physical space. Joined stems are display guides, not a continuous curve or norm. Only coordinates1…N are drawn; all hidden input, output and residual terms remain in the exact ledger. Fixed-size dots mark points and do not encode probability, length or norm. A zero visible output can still have a nonzero offscreen norm. The 2D activity supplies general sparse inputs, exact spectral probes and the analytic infinite-dimensional arguments.',
+        [['Blue: discrete accepted-input/output pair',g.colors.blue],['Teal: display stem',g.colors.teal]],g),
+        operator:{state:m.state,plotted,requested:m.requested,selected:m.selected,lambda:m.lambda,truncation:m.truncation}};
+    });
+
+  define('ensemble-state-graph','Multiplicity and macrostate surprisal',
+    {mode:'particles',N:4,x:1,selected:'middle'},
+    [choice('mode','Independent distinguishable sites',[['coins','Fair coins'],['particles','Canonical two-level sites']]),
+     range('N','Number of distinguishable sites N',1,32,1),range('x','Canonical gap ΔE/(kT)',0,20,.25),
+     choice('selected','Selected upper-state count',[['zero','j = 0'],['middle','j = floor(N/2)'],['all','j = N']])],(s,g)=>{
+      const j=s.selected==='zero'?0:s.selected==='all'?s.N:Math.floor(s.N/2);
+      const m=window.PrimerPhysicsEnsembleLab.build({mode:s.mode,N:s.N,j,temperature:300,gap:s.x*1.380649e-23*300/1e-21});
+      const plotted=m.rows.map(r=>({j:r.j,omega:r.omega.toString(),logOmega:r.logOmega,macroLogP:r.macroLogP,
+        point:[r.j/s.N,r.logOmega/s.N,-r.macroLogP/s.N]}));
+      for(const row of plotted){const selected=row.j===j;
+        g.line([[row.point[0],row.point[1],0],row.point],g.colors.teal,{ensemble_kind:'surprisal_stem',j:row.j});
+        g.sphere(row.point,selected?.045:.025,selected?g.colors.coral:g.colors.blue,{ensemble_kind:'macrostate',j:row.j,omega:row.omega,logOmega:row.logOmega,macroLogP:row.macroLogP});}
+      const zMax=Math.max(1,...plotted.map(r=>r.point[2]))*1.06;
+      g.line([[0,0,0],[1.15,0,0]],g.colors.ink);g.label([1.23,0,0],'j/N');
+      g.line([[0,0,0],[0,.85,0]],g.colors.ink);g.label([0,.99,0],'ln Ω/N');
+      g.line([[0,0,0],[0,0,zMax]],g.colors.ink);g.label([0,0,zMax+.12],'−ln P/N');
+      return {...result('N = '+s.N+', selected j = '+j+'. Exact Ω = '+m.omega+'. '+m.readout,
+        'Each point is a discrete macrostate: upper-state fraction j/N, multiplicity entropy per site lnΩ/N and macrostate surprisal per site −lnP(j)/N. Natural logarithms remain finite even for very small positive probabilities; no underflowed zero is plotted. For fair coins, lnΩ/N −lnP/N = ln2. For independent canonical sites this sum is (j/N)x + lnZ, with x = ΔE/(kT). This plot does not equate the selected multiplicity entropy with the full ensemble Gibbs entropy. T is fixed at300 K for the canonical example, x ranges0…20 and N1…32; the 2D activity includes wider counts/temperature bounds, exact enumeration, entropy decomposition, free expansion and finite blocks. All sites are distinguishable and independent, a positive gap gives distinct energies while at x=0 the two labelled states share one energy, and these static probabilities give no recurrence time or dynamics. Point size/highlight and stems are display aids, not physical particles or entropy volume.',
+        [['Blue: discrete macrostate',g.colors.blue],['Coral: selected count',g.colors.coral]],g),
+        ensemble:{state:m.state,x:m.x,logZ:m.logZ,plotted,selected:j,microGibbsOverK:m.microGibbsOverK,macroGibbsOverK:m.macroGibbsOverK}};
+    });
+
   define('shrinking-support-subgraph','Exact shrinking-support subgraph volume',
     {indexPower:2,amplitude:2,alpha:'1',probe:'quarter'},
     [range('indexPower','n = 2ᑫ; choose q',0,16,1),range('amplitude','Fixed amplitude A',0,8,.25),
