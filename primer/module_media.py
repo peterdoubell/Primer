@@ -132,7 +132,7 @@ def attach_module_media(node):
         })
     elif (not any(item.get("renderer") == "spatial-3d" for item in media)
           or (model_bindings().get(node["id"], {}).get("family") in {
-              "topology-open-set-geometry", "relativistic-event-geometry", "maxwell-field-geometry"}
+              "topology-open-set-geometry", "relativistic-event-geometry", "maxwell-field-geometry", "qft-observable-geometry"}
               and not any(item.get("props", {}).get("scenario") == "module." + node["id"] for item in media))):
         record = model_bindings().get(node["id"])
         if not record:

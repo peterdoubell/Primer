@@ -1,0 +1,23 @@
+.physics-qft-lab [hidden] { display:none !important; }
+.qft-widget { min-width:0; display:flex; flex-direction:column; gap:7px; }
+.physics-qft-lab .qft-number-control { display:flex; flex-direction:column; gap:6px; font-size:13px; }
+.qft-panels { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
+.qft-panel, .qft-viewport { min-width:0; }
+.qft-viewport { overflow:auto; background:#f5efdf; border:1px solid var(--line,#d5cfbf); border-radius:10px; }
+.qft-viewport svg { display:block; width:100%; height:auto; font-family:var(--sans,sans-serif); }
+.physics-qft-lab.is-enlarged .qft-viewport svg { width:720px; min-width:720px; max-width:none; }
+.qft-summary, .qft-equation, .qft-sources, .qft-assumptions, .qft-legend, .qft-amplitude-detail { overflow-wrap:anywhere; line-height:1.6; font-variant-numeric:tabular-nums; }
+.qft-summary { border-left:3px solid #b98a2f; padding-left:12px; }
+.qft-legend { font-size:12px; }
+.qft-ledger-region { overflow:auto; max-width:100%; margin:16px 0; }
+.qft-ledger { width:100%; min-width:440px; border-collapse:collapse; }
+.qft-ledger caption { text-align:left; margin:8px 0; }
+.qft-ledger th, .qft-ledger td { text-align:left; padding:8px; border-bottom:1px solid var(--line,#d5cfbf); }
+.qft-assumptions > summary, .qft-amplitude-detail > summary { cursor:pointer; }
+.qft-viewport:focus-visible, .qft-ledger-region:focus-visible, .physics-qft-lab input:focus-visible, .physics-qft-lab select:focus-visible, .physics-qft-lab button:focus-visible { outline:3px solid var(--accent,#317e78); outline-offset:3px; }
+.qft-live { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media (max-width:760px) { .qft-panels, .physics-qft-lab .concept-controls { grid-template-columns:minmax(0,1fr); } }
+
+.physics-qft-lab input,
+.physics-qft-lab select,
+.physics-qft-lab button { min-height: 44px; }

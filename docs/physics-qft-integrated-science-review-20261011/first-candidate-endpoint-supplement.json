@@ -1,0 +1,26 @@
+{
+  "scope": "Additional endpoint observation against the same first repair candidate; preserves every prior receipt.",
+  "core_sha256": "930d825770ecdd263a262de97b245bd279d6769293c1d2905406807de4d7d6da",
+  "cases": [
+    {
+      "angleDeg": 179.99999999999997,
+      "accepted_degree_complement": 2.842170943040401e-14,
+      "u_actual": -3.2098331000762286e-31,
+      "u_complement_oracle": -2.4606799208348864e-31,
+      "relative_error": 0.30444966567905396
+    },
+    {
+      "angleDeg": 179.99999999999994,
+      "accepted_degree_complement": 5.684341886080802e-14,
+      "u_actual": -2.116246092201149e-30,
+      "u_complement_oracle": -9.842719683339546e-31,
+      "relative_error": 1.1500623407809232
+    }
+  ],
+  "oracle": "Use delta=180-the accepted angle, exact near-endpoint by Sterbenz subtraction; u=-4(pc)^2 sin^2(delta*pi/360). At these tiny delta the direct squared-radian Taylor value has negligible relative error.",
+  "decision": "The symmetric invariant correction needs accepted-degree complements near 180 degrees, not cos of a previously rounded radian angle.",
+  "exact_endpoints_observed_correct": [
+    0,
+    180
+  ]
+}
