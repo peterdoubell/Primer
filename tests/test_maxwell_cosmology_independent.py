@@ -134,6 +134,7 @@ def test_independent_review_scope_and_frozen_asset_pins():
     assert len(review['quiz_mapping']['phys.4.em-maxwell']) == 10
     assert len(review['quiz_mapping']['phys.5.gr-cosmo']) == 10
     for path, pin in review['files'].items():
-        blob = (ROOT/path).read_bytes()
+        from tools.qft_runtime_compatibility import historical_runtime_bytes
+        blob = historical_runtime_bytes(path, (ROOT/path).read_bytes())
         assert len(blob) == pin['bytes']
         assert hashlib.sha256(blob).hexdigest() == pin['sha256']

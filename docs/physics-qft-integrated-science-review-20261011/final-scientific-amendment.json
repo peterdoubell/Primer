@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-11T19:07:29.728419+00:00",
+  "reviewer": "Independent full-curriculum QFT fidelity auditor",
+  "decision": "GO for the exact pinned educational scientific claims, accepted-value transfer calculations and actual emitted geometry. Release remains conditional on separate actual maximum-mesh desktop/mobile reader verification.",
+  "educational_scientific_go": true,
+  "browser_reader_approval": false,
+  "production_deployment_approved": false,
+  "whole_continuum_qft_approved": false,
+  "clinical_approved": false,
+  "full_goal_complete": false,
+  "current_pins": {
+    "web/physics-qft-lab.js": "a48695e3190ef5743a27231be7dcd5b238e58b3e682956b5d512ba9e6ad2c1c5",
+    "web/spatial-qft.js": "53d7c8dd42e8ee9eab60581903c884be562393e308c8be451df839fffe17625f",
+    "web/spatial-models.js": "d16b25a18d59a79cb5d9f94c5573c486f19d01099d7ced70d74b4ecee0e20136",
+    "web/spatial-module-objects.js": "ca8cbf328cc1c38e3fc89826d72f47e0e72f3abb1fe6ffbb70889b923ea974fe",
+    "tools/check_physics_qft_integrated_geometry.js": "1e7d02bc001f08814216a68ff78ebf047d0c8838182f8ac171a82964a415d3a3"
+  },
+  "candidate_receipt": {
+    "path": "docs/physics-qft-integrated-reader-review-20261011/integration-repair-candidate.json",
+    "sha256": "09e2ab2b6451a89e97865f266d9370db1e4fc4d9691714a6ad781a062cde9a48"
+  },
+  "curriculum_scope": {
+    "id": "phys.5.qft",
+    "semantic_node_sha256": "77a62ed6bd7b452c773744cc6f097d65a057993f20f191dbf6514bdfc006ed43",
+    "all_ten_assessed_concepts_examined": true,
+    "nine_station_mapping": [
+      "modes",
+      "scattering",
+      "antiparticle",
+      "compton",
+      "renormalization",
+      "casimir",
+      "perturbation",
+      "mediator",
+      "magnetic"
+    ],
+    "authored_goal_body_outcomes_and_quiz_unchanged": true,
+    "core_lines_changed_from_frozen": [
+      21,
+      34
+    ],
+    "other_core_functions_and_renderer_unchanged": true
+  },
+  "resolved_findings": [
+    {
+      "id": "qft-antiparticle-singletons-not-emitted",
+      "result": "21 independently executed engine states emit both keyed positive-energy particle/antiparticle spheres with calibrated charge coordinates. Neutral values retain exactly coincident physical coordinates and distinct marker sizes/colors/opacity/labels; glyph aids do not claim physical size or uncertainty."
+    },
+    {
+      "id": "qft-casimir-allowed-frequency-facets",
+      "result": "Actual emitted triangular surfaces satisfy the rigorously derived full-domain harmonic variance bound of at most 0.02. 203658 triangles and 1425606 independent interior probes measured maximum absolute normalized error 0.009940233318527891; actual maximum is 47500 triangles / 47509 total engine primitives."
+    },
+    {
+      "id": "qft-scattering-nonzero-underflow-classification",
+      "result": "Symmetric t/u zero/negative-transfer classification and row/readout underflow disclosure pass 80 accepted-value states, including subnormal momenta/angles, exact 0/180 degree endpoints and the nearest two representable angles below 180. Tiny log magnitudes agree with the independent degree-based Taylor log oracle within 4.547473508864641e-13 dex. At the nearest 180 predecessor u=-2.4606799208348864e-31 MeV\u00b2. Plotted t values use the stable noncancelling transfer calculation."
+    }
+  ],
+  "universal_surface_proof": {
+    "decomposition": "sin(Az)cos(Bx) = [sin(Az+Bx)+sin(Az-Bx)]/2",
+    "barycentric_variance": "For triangle weights w_i and linear phase phi, phi(point)=sum w_i phi_i. Taylor remainder and |sin second derivative|<=1 give |sum w_i sin(phi_i)-sin(sum w_i phi_i)| <= Var_w(phi)/2 <= range(phi)^2/8.",
+    "full_controls": "A=n*pi for integer n=1..6, B=k_parallel*a in [0,50]. nx>=ceil(B/.2), nz>=ceil(A/.2), so every triangle phase range <= A/nz+B/nx <=.4. Averaging both harmonic bounds gives absolute normalized factor error <=.4^2/8=.02, excluding bounded Float64 roundoff. This derives the full-domain bound independently of sampled probes.",
+    "maximum_mesh": "nx<=250, nz<=95 => 47500 triangles. Actual maximum candidate has 47509 total engine primitives, below 50000."
+  },
+  "logarithmic_numerics_review": {
+    "identity": "For accepted degree angle a, log10|t|=2[log10(2p)+log10(a*pi/360)+log10 sinc(a*pi/360)]. For u use accepted complement delta=180-a. The sum of logs avoids underflow in a sine or product.",
+    "small_sinc": "For x<1e-4, log1p(-x\u00b2/6+x\u2074/120-x\u2076/5040)/ln10 has omitted sine-series relative term bounded by x\u2078/9! (<3e-38 at the branch edge); if x\u00b2 underflows, its physically negligible correction is below Float64. For larger x<=pi/2, sin(x)/x lies in[2/pi,1], away from log singularities.",
+    "endpoint": "The accepted-degree complement near 180 is exact under Sterbenz subtraction, avoiding subtraction of separately rounded radian angles. Exactly zero channel transfers receive null logarithms and mathematical zero classification."
+  },
+  "actual_engine_gate_review": {
+    "cases": 16,
+    "permitted_only_when": "id=module.phys.5.qft AND spec.familyId=qft-observable-geometry AND linkedStateKey=phys.5.qft AND normalized mode=casimir",
+    "larger_limit": 50000,
+    "other_limit": 3000,
+    "normalized_mode_negative_case": true,
+    "arbitrary_spec_budget_ignored": true,
+    "duplicate_registration_rejected": true,
+    "scope_limit": "These are application scene/metadata gates from the fixed trusted loader, not a security boundary against arbitrary already-executing JavaScript."
+  },
+  "bounded_renderer_extrema_review": {
+    "engine_sha256": "d16b25a18d59a79cb5d9f94c5573c486f19d01099d7ced70d74b4ecee0e20136",
+    "change": "Only replace spread-argument extrema with seeded reductions; finite-input min/max selection, center, radius and projected auto-fit expressions are otherwise unchanged.",
+    "ordinary_cases": 21,
+    "identical_actual_svg_productions": 126,
+    "families": [
+      "cell",
+      "lattice",
+      "magnet",
+      "molecule",
+      "pendulum",
+      "surface",
+      "urn"
+    ],
+    "actual_maximum_mesh_svg_polygons": 47500,
+    "camera_actions": 3,
+    "preserved_pre_reduction_failure": "RangeError: Maximum call stack size exceeded",
+    "limits": "In-memory document exercises actual SVG element/coordinate production, not browser painting, CSS, performance or real viewport behavior. Separate maximum-mesh desktop/mobile QA remains required."
+  },
+  "remaining_browser_requirement": "Verify actual 1440px and 390px browser render, readability, full 47500-triangle mesh, camera/state controls, singleton and coincident-neutral glyphs, and selected tiny-transfer row/speech under these current exact runtime bodies. The release owner performs that independent gate.",
+  "historical_receipts_preserved": {
+    "docs/physics-qft-independent-review-20261011.json": "faa6862c273e7d834032cb21d53437b790eb247929db735afdfe66f91d80ede8",
+    "docs/physics-qft-independent-review-20261011.md": "f03546e3a2d90d424338cb333eeea0aa8090b51f84409d6c997a554b5cb294a6",
+    "docs/physics-qft-independent-amendment-20261011.json": "148d9a6c6a00144ed047ff2c731913875bb0decda92535f79cb21ae08ec82401",
+    "docs/physics-qft-independent-amendment-20261011.md": "5c327d740af19d4ceb7df4c9d04a1c1bf743be79679192548848f908e762d5fd",
+    "docs/physics-qft-fidelity-review-20261011.json": "3b6f88c4c399621adcc7d4cba4585d1afa6dec9fbd201d70900acaa48e648822",
+    "docs/physics-qft-fidelity-review-20261011.md": "050ee6c1c532c20c44cbeee7332bba01c808df80d4b111bf135bcc87ede7bb13",
+    "docs/physics-qft-reader-review-20261011/reader-proof.json": "fa720eaa60f7a2f776a42c15d787c5a4791bf44bcc2e137ddc3869b1d796ffcd",
+    "docs/physics-qft-reader-review-20261011/qa-history.json": "2a42237f098a469f53cc9fddd071dacf5185d88d76fdfe6e841e3c6f58a1968b"
+  },
+  "initial_findings_preserved": {
+    "docs/physics-qft-integrated-science-review-20261011/original-frozen-no-go.json": "4b991387991c3f5fb6aa76923728246df37d0932fc360dfb86b9ff689c04b8ba",
+    "docs/physics-qft-integrated-science-review-20261011/first-candidate-review.json": "db1189c8b8b88955f910125388088c4447576821e7b1ce1d15cdf4ca204bb3c9",
+    "docs/physics-qft-integrated-science-review-20261011/first-candidate-endpoint-supplement.json": "47c780583316684312b71f0d5bbe489d375e80381f84075a4dfcd7c3dff65d6f"
+  },
+  "evidence": {
+    "docs/physics-qft-integrated-science-review-20261011/final-independent-emission-check.js": "bae1f81708614792318218dfecee1cf285fa662351c1ae442122fdd449a99741",
+    "docs/physics-qft-integrated-science-review-20261011/final-independent-emission-result.json": "fdacad30ed19bc68dc0621c4685eb631ba8540ade403b9604d0fbb451ee89b8c",
+    "docs/physics-qft-integrated-science-review-20261011/independent-render-parity.js": "1dd5df0360bebfa927bc096280d9820983334afe007e23d5450b27fe6f093eb9",
+    "docs/physics-qft-integrated-science-review-20261011/independent-render-parity-result.json": "56461b13b4fcc8c4b8b4f0326fbc76b7a15c1f61436c3d6803b0b681e645f2a4",
+    "docs/physics-qft-integrated-science-review-20261011/final-check-harness-failure.json": "3b7c5aeffb5fc5e5c41c38362bdfbf9d7265a5a532058ff0fc598c0d7915aefd",
+    "docs/physics-qft-integrated-science-review-20261011/final-check-harness-failure.js": "11815308c637fd0f2e175ba9ba10e4ebe6b1a62ebfd65b7a565d5a6b91d1e007",
+    "docs/physics-qft-integrated-science-review-20261011/frozen-original-spatial-models.js": "21dd37ae78eef1a15a25d75e3eca4211bd1e7383482f0b4feb51f6da54d3bffb"
+  },
+  "observations_limits": [
+    "No product file, frozen worktree or historical owner receipt was modified by this reviewer.",
+    "No real browser pixels/performance, live production request, external account or production credential was used.",
+    "One failed relative-error harness assertion applied 0/0 to an underflowed oracle; the failed checker and diagnosis are retained. The corrected checker limits relative accuracy assertions to normal representable values and checks logarithm/classification separately.",
+    "Emitted geometry and in-memory actual SVG construction are inspected directly, not inferred from returned coordinate metadata or the prior 39,469-comparison receipt.",
+    "Finite educational free modes, idealized plates, scalar static/subtraction examples and one-loop anomaly remain explicitly limited models; no clinical, continuum-QFT or whole-Primer approval."
+  ],
+  "remaining_substantive_science_findings": [],
+  "live_handles": [],
+  "reproducible_commands": [
+    {
+      "command": "node docs/physics-qft-integrated-science-review-20261011/final-independent-emission-check.js",
+      "exit_code": 0
+    },
+    {
+      "command": "node docs/physics-qft-integrated-science-review-20261011/independent-render-parity.js",
+      "exit_code": 0
+    }
+  ],
+  "supporting_io_amendment": "Published checkers create only their ignored research output directory. Renderer parity uses the included exact frozen engine body, so its reproduction does not depend on the local frozen-worktree path. Both published commands were rerun successfully; results are byte-identical to the separately executed research commands.",
+  "included_frozen_engine": {
+    "path": "docs/physics-qft-integrated-science-review-20261011/frozen-original-spatial-models.js",
+    "sha256": "21dd37ae78eef1a15a25d75e3eca4211bd1e7383482f0b4feb51f6da54d3bffb",
+    "scope": "Historical original engine used exclusively by the in-memory parity oracle; never imported by product or deployed runtime."
+  }
+}

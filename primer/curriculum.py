@@ -171,7 +171,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-operator-lab", "physics-ensemble-lab",
     "math-curvature-lab", "physics-constraints-lab",
     "math-complex-lab", "physics-quantum-lab",
-    "math-topology-lab", "physics-relativity-lab", "math-algebra-lab", "physics-quantum-info-lab",
+    "math-topology-lab", "physics-relativity-lab", "math-algebra-lab", "physics-quantum-info-lab", "physics-qft-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -424,6 +424,9 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "math-algebra-lab":
                 if node.get("id") != "math.5.abstract" or props != {"scenario": "math.5.abstract.groups-rings-fields"}:
                     raise ValueError("{} math-algebra-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-qft-lab":
+                if node.get("id") != "phys.5.qft" or props != {"scenario": "phys.5.qft.fields-observables"}:
+                    raise ValueError("{} physics-qft-lab has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "physics-quantum-info-lab":
                 if node.get("id") != "phys.5.quantum-info" or props != {"scenario": "phys.5.quantum-info.qubits-circuits-resources"}:
                     raise ValueError("{} physics-quantum-info-lab has an unknown or cross-lesson scenario".format(node.get("id")))

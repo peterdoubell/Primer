@@ -411,44 +411,100 @@ def _run_days(app_client, monkeypatch, node_id, answer_for, days=45):
     return None
 
 
-def test_a_reader_who_knows_half_and_taps_the_rest_is_not_credited(app_client, monkeypatch):
-    """The auditor's scenario, with the clock actually running and the
-    unknowns answered the only way a child can answer them on a tap screen:
-    by tapping one of the four. Under a five-item, one-miss, two-pass bar
-    that reader was credited on every seed. The young bar is eight items,
-    every one right, three spaced passes."""
+def _visible_tap_guess(question, rng):
+    """Guess from displayed chips only; never fall back to a server key."""
+    if question.get("kind") == "choice" and question.get("choices"):
+        return rng.choice(question["choices"])
+    if question.get("kind") == "order" and question.get("items"):
+        return ", ".join(rng.sample(question["items"], len(question["items"])))
+    raise AssertionError("Unsupported unknown question shape: %r" % question.get("kind"))
+
+
+def _plant_prompt_universe():
+    """The finite authored fronts; knowledge is fixed before any sitting."""
+    from primer import practice
+    spec = practice.young_material()["bio.0.plants"]
+    prompts = set(practice._group_prompts("know:bio.0.plants"))
+    prompts.update(f["q"] for f in spec["facts"])
+    prompts.update(practice._articled((spec.get("pair_questions") or {}).get(left)
+                   or spec["pair_prompt"].format(left)) for left, right in spec["pairs"])
+    assert not spec.get("pair_back_prompt"), "Declare reverse fronts before simulating them"
+    for sequence in spec["sequences"]:
+        meta = sequence[-1] if isinstance(sequence[-1], dict) else {}
+        items = sequence[:-1] if meta else sequence
+        prefix = meta.get("prompt") or spec["sequence_prompt"]
+        prompts.add("%s: %s" % (prefix, ", ".join(practice._front_order(items))))
+    assert len(prompts) == 18
+    return frozenset(prompts)
+
+
+def _isolated_plant_draws(monkeypatch, seed):
     import random
+    from primer import practice
     import primer.server as srv
+    monkeypatch.setattr(practice, "R", random.Random(10000 + seed))
+    for turn in practice._ROTATIONS:
+        monkeypatch.setitem(turn, "n", 0)  # pytest restores each original counter
+    paper_rng = random.Random(20000 + seed)
+    monkeypatch.setattr(srv.random, "shuffle", paper_rng.shuffle)
+
+
+@pytest.mark.parametrize("kind,visible", [("choice", {"choices": ["A", "B", "C", "D"]}),
+                                          ("order", {"items": ["seed", "shoot", "leaf", "flower"]})])
+def test_unknown_tap_guess_cannot_read_or_depend_on_answer_key(kind, visible):
+    import random
+    a = {"kind": kind, **visible, "answer": "secret one"}
+    b = {"kind": kind, **visible, "answer": "different secret"}
+    assert _visible_tap_guess(a, random.Random(12)) == _visible_tap_guess(b, random.Random(12))
+    with pytest.raises(AssertionError, match="Unsupported unknown"):
+        _visible_tap_guess({"kind": "numeric", "answer": "secret"}, random.Random(12))
+
+
+@pytest.mark.parametrize("seed", [1, 2])
+@pytest.mark.parametrize("bar", ["current", "old_weak"])
+def test_fixed_half_knower_current_negatives_and_old_bar_samples(app_client, monkeypatch, tmp_path, seed, bar):
+    """Sampled real-route regression, with an explicit old-bar positive control.
+
+    Exactly nine of 18 fronts are known forever. Unknowns are guessed from
+    visible choices or a uniform permutation of ordering chips, without keys.
+    These two retained seeds are examples, not a universal probability claim.
+    """
+    import random
+    import json
+    import primer.server as srv
+    _isolated_plant_draws(monkeypatch, seed)
     monkeypatch.setattr(srv, "_locked_lesson_response", lambda node, reader_id: None)
-    node_id = "bio.0.plants"
-    credited = []
-    for seed in (1, 2):
-        rnd = random.Random(seed)
-        # A FIXED half, decided per item once and never growing: this reader
-        # learns nothing from any sitting. (A first draft let the known set
-        # grow by chance on every sitting, which is a learner, not a
-        # half-knower — and a learner should be credited.)
-        known = {}
+    if bar == "old_weak":
+        monkeypatch.setattr(srv, "YOUNG_DRILL_ITEMS", 5)
+        monkeypatch.setattr(srv, "_evidence_bar", lambda node: {"pass_bar": .8, "passes_needed": 2})
+    universe = _plant_prompt_universe()
+    known = frozenset(random.Random(30000 + seed).sample(sorted(universe), len(universe)//2))
+    assert len(known)*2 == len(universe)
+    guesses = random.Random(40000 + seed)
+    trace = []
 
-        def knows(prompt):
-            if prompt not in known:
-                known[prompt] = rnd.random() < 0.5
-            return known[prompt]
+    def answer_for(i, q):
+        assert q["prompt"] in universe, "An undeclared front changed the simulated knowledge"
+        knows = q["prompt"] in known
+        visible = {key: q[key] for key in ("kind", "choices", "items") if key in q}
+        answer = str(q.get("answer", "")) if knows else _visible_tap_guess(visible, guesses)
+        trace.append({"prompt":q["prompt"], "kind":q["kind"], "known":knows, "answer":answer})
+        return answer
 
-        def answer_for(i, q):
-            if knows(q["prompt"]):
-                return str(q.get("answer", ""))
-            return rnd.choice(q.get("choices") or [str(q.get("answer", ""))])
-
-        day = _run_days(app_client, monkeypatch, node_id, answer_for)
-        credited.append(day)
-        with srv.learner._conn() as c:
-            for t in ("mastery", "srs_cards", "attempts"):
-                try:
-                    c.execute("DELETE FROM %s WHERE node_id=?" % t, (node_id,))
-                except Exception:
-                    pass
-    assert credited == [None, None], "credited with mastery on days %s" % credited
+    day = _run_days(app_client, monkeypatch, "bio.0.plants", answer_for)
+    assert any(not row["known"] and row["kind"] == "order" for row in trace)
+    assert any(not row["known"] and row["kind"] == "choice" for row in trace)
+    record = {"seed":seed, "bar":bar, "known":sorted(known), "universe":sorted(universe),
+              "credited_day":day, "trace":trace, "sampled_claim_only":True}
+    path = tmp_path/"fixed-half-reader-trace.json"
+    path.write_text(json.dumps(record, indent=2)+"\n")
+    print(json.dumps({"seed":seed,"bar":bar,"credited_day":day,"known":len(known),
+                      "universe":len(universe),"questions":len(trace),"trace_path":str(path)}))
+    # Retained samples: both current cases are negative; the original seed 1
+    # weak-bar case is a positive control. Seed 2 is explicitly uncredited
+    # under both rules. No seed is substituted to manufacture a passing sample.
+    expected_credited = bar == "old_weak" and seed == 1
+    assert (day is not None) == expected_credited, record
 
 
 def test_a_reader_who_learns_from_the_explanations_is_credited_in_days(app_client, monkeypatch):
@@ -470,6 +526,7 @@ def test_a_reader_who_learns_from_the_explanations_is_credited_in_days(app_clien
         return "zzz"
 
     day = _run_days(app_client, monkeypatch, node_id, answer_for, days=30)
+    print("Learning-positive reader credited on day %s" % day)
     assert day is not None and day <= 14, "an honest learner was credited on day %s" % day
 
 

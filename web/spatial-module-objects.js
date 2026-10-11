@@ -77,6 +77,7 @@
     families['relativistic-event-geometry'] = window.PrimerFidelitySpatialFamilies.relativity;
   }
   if (window.PrimerQuantumInformationSpatialFamily) families['quantum-information-geometry'] = window.PrimerQuantumInformationSpatialFamily;
+  if (window.PrimerQftSpatialFamily) families['qft-observable-geometry'] = window.PrimerQftSpatialFamily;
   if (window.PrimerAlgebraSpatialFamily) families['algebra-operation-geometry'] = window.PrimerAlgebraSpatialFamily;
   if (window.PrimerLogicSpatialFamily) families['logic-witness-geometry'] = window.PrimerLogicSpatialFamily;
   if (window.PrimerMaxwellSpatialFamily) families['maxwell-field-geometry'] = window.PrimerMaxwellSpatialFamily;
@@ -938,7 +939,7 @@
     window.PrimerSpatial.register({[p.scenario]: {
       initial:family.initialFactory ? family.initialFactory() : {...family.initial},
       controls:family.controlsFactory ? family.controlsFactory() : family.controls,
-      normalize:family.normalize, camera:{yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
+      normalize:family.normalize, familyId:p.family, camera:{yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
       build(state,g) {
         const explanation = family.build(state,g);
         explanation.readout = context + ' ' + explanation.readout;

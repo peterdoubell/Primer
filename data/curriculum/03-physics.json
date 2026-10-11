@@ -4826,7 +4826,7 @@
           "kind": "choice",
           "prompt": "Every electron ever measured has exactly the same mass and the same charge, to the limits of experiment. How does quantum field theory account for that exact sameness?",
           "answer": "All electrons are excitations of one and the same field.",
-          "explain": "There is one electron field filling space, and an electron is a quantum of it. Two quanta of the same field can no more differ in mass or charge than two ripples can differ in what the pond is made of. That strict identity is also what forces Fermi statistics on them.",
+          "explain": "Excitations of the same electron field share its mass and charge parameters. The relativistic spin-statistics theorem, with locality and positive-energy assumptions, makes electron spin modes fermionic; identical properties alone do not prove that theorem.",
           "choices": [
             "All electrons are excitations of one and the same field.",
             "They were all produced in the Big Bang by a single process.",
@@ -4837,10 +4837,10 @@
         {
           "kind": "choice",
           "prompt": "In electron-electron scattering the internal photon line of a Feynman diagram carries an energy and momentum that need not satisfy E squared = p squared c squared. A student concludes such a photon should be detectable as an unusual particle. Correct them.",
-          "answer": "Internal lines are summed over and never reach the final state.",
-          "explain": "An internal line is a term in a calculation, integrated over every energy and momentum it could carry; only external lines match particles that enter or leave. Every photon that is actually detected is on shell.",
+          "answer": "Internal lines are propagators, not detected external states.",
+          "explain": "An internal line represents a propagator in an amplitude contribution rather than a detected asymptotic photon. At tree level its transfer is fixed by external momenta; independent loop momenta are integrated and diagram contributions are summed. Detected freely propagating photons are on shell.",
           "choices": [
-            "Internal lines are summed over and never reach the final state.",
+            "Internal lines are propagators, not detected external states.",
             "The relation always holds, so the student's premise is mistaken.",
             "It is detectable, but only within the collision region itself.",
             "It is an ordinary photon; the relation fails for all photons."
@@ -4848,9 +4848,9 @@
         },
         {
           "kind": "choice",
-          "prompt": "The Dirac equation's solutions come in positive- and negative-energy pairs, and the theory is made consistent by reading the negative-energy ones as antiparticles. A new charged fundamental fermion is then discovered. What does that argument predict for it?",
+          "prompt": "The quantized charged Dirac field contains particle and antiparticle excitations. A new charged fundamental Dirac fermion is discovered. What does its antiparticle partner have?",
           "answer": "A partner of equal mass and opposite charge must exist.",
-          "explain": "The pairing follows from combining special relativity with quantum mechanics, so it applies to every charged fermion, quark or lepton alike. Masses are positive for both members; it is charge and the other additive quantum numbers that reverse.",
+          "explain": "The conjugate excitation has equal positive rest mass and opposite electric charge; its physical excitation energy is positive. Other additive quantum numbers reverse in the conjugate representation. The classical Hamiltonian’s negative eigenvalue branch does not mean observable negative-mass particles.",
           "choices": [
             "A partner of opposite mass and equal charge must exist.",
             "No partner is needed unless the new particle is a lepton.",
@@ -4862,7 +4862,7 @@
           "kind": "numeric",
           "prompt": "The Compton wavelength h/(mc) of the electron is 2.43e-12 m. A hypothetical particle has exactly 100 times the electron mass. Give its Compton wavelength in units of 1e-14 m.",
           "answer": "2.43",
-          "explain": "The Compton wavelength is inversely proportional to mass: 2.43e-12 / 100 = 2.43e-14 m. It sets the scale below which pair creation makes single-particle language fail."
+          "explain": "Using the stated rounded ordinary wavelength h/(mc), inverse-mass scaling gives 2.43e−12 / 100 = 2.43e−14 m. The reduced Compton length ħ/(mc) is smaller by 2π. These scales indicate where fixed-particle language can become inadequate; pair creation also requires a permitted interaction and conserved energy–momentum."
         },
         {
           "kind": "choice",
@@ -4874,19 +4874,19 @@
             "The integral is cut off at the Planck scale and the rest ignored.",
             "The divergence is absorbed into the measured parameters of the theory."
           ],
-          "explain": "The bare mass and charge are not observable. Rewriting every prediction in terms of the measured values soaks up the infinities and leaves finite relations between observables, such as the electron's anomalous magnetic moment."
+          "explain": "Regulate the integral consistently, include the theory’s allowed counterterms and fix enough parameters by measured inputs. Relations between observables can then be finite. Bare parameters depend on the regulator; finite-cutoff or finite-order predictions can retain controlled residual dependence. This is not a rule to discard divergent diagrams."
         },
         {
           "kind": "choice",
           "prompt": "Two neutral, uncharged conducting plates a micrometre apart, in a region emptied of particles, are pushed together. A student objects that with nothing between the plates there is nothing to do the pushing. Where does the objection go wrong?",
-          "answer": "Empty space still has field modes, and fewer of them fit inside.",
+          "answer": "Field boundary conditions change the vacuum interaction energy.",
           "choices": [
-            "Empty space still has field modes, and fewer of them fit inside.",
+            "Field boundary conditions change the vacuum interaction energy.",
             "A thin residual gas always remains, and it presses them together.",
             "The plates attract gravitationally, which is what is measured.",
             "The objection stands; the measured force is stray surface charge."
           ],
-          "explain": "The quantum vacuum is empty of particles but not of fields. The gap admits only a restricted set of electromagnetic modes while the outside admits all of them, so the zero-point energy density is lower between the plates and they are pushed together. That is the Casimir force, measured against the prediction to a few percent."
+          "explain": "For ideal perfectly conducting parallel plates at zero temperature, a consistently regulated boundary-dependent energy difference gives E/A=−π²ħc/(720a³) and P=−π²ħc/(240a⁴). The vacuum has field fluctuations without detectable particles. Finite counting of a few cavity modes is not this calculation, and real materials, temperature and electrostatic backgrounds need separate treatment."
         },
         {
           "kind": "numeric",
@@ -4896,13 +4896,13 @@
         },
         {
           "kind": "numeric",
-          "prompt": "A force's range is h-bar c divided by the mediator's rest energy. With h-bar c = 197 MeV femtometres and a mediator of rest energy 197 MeV, what is the range, in femtometres?",
+          "prompt": "In a static single-mediator Yukawa model, the characteristic exponential range is ħc divided by the mediator’s rest energy. With ħc = 197 MeV femtometres and mediator rest energy 197 MeV, what is the range in femtometres?",
           "answer": "1",
-          "explain": "197 / 197 = 1 femtometre."
+          "explain": "The stated rounded constants give 197 / 197 = 1 fm. It is an e-fold attenuation scale, not a hard endpoint; the static Yukawa tail extends beyond it."
         },
         {
           "kind": "choice",
-          "prompt": "The electron's magnetic moment is measured to twelve digits and sits slightly above the value Dirac's equation alone gives. How does quantum field theory account for the difference?",
+          "prompt": "A precision measurement finds the electron’s magnetic moment differs slightly from the free Dirac g=2 value. How does QED account for the radiative part of that difference?",
           "answer": "Loop corrections from virtual particles alter the interaction vertex.",
           "choices": [
             "The electron has a small internal size that Dirac neglected.",
@@ -4910,19 +4910,19 @@
             "Loop corrections from virtual particles alter the interaction vertex.",
             "The applied field polarises the electron's own spin slightly."
           ],
-          "explain": "Dirac gives g exactly 2 for a structureless spin-half particle. Radiative corrections, computed as loop diagrams, add about one part in a thousand, and the calculation agrees with experiment to twelve digits — evidence that the electron is still pointlike."
+          "explain": "Radiative vertex corrections contribute to aₑ=(g−2)/2; Schwinger’s first term is α/(2π). A full precision comparison requires higher QED orders, additional Standard Model contributions and independently determined inputs. Agreement constrains possible structure within experimental sensitivity rather than proving literal structurelessness."
         },
         {
           "kind": "choice",
           "prompt": "A student computing a scattering rate finds the answer depends on the arbitrary cut-off imposed on loop momenta and concludes the theory is meaningless. What is the standard reply?",
-          "answer": "Re-express predictions in measured quantities and it drops out.",
+          "answer": "Match enough measured inputs, then remove or control the regulator.",
           "choices": [
             "The cut-off is a physical scale, so the dependence is real.",
-            "Re-express predictions in measured quantities and it drops out.",
+            "Match enough measured inputs, then remove or control the regulator.",
             "Loop diagrams should simply be discarded as unphysical artefacts.",
             "Only the tree-level term ever carries any physical meaning."
           ],
-          "explain": "Renormalisation absorbs the cut-off dependence into a handful of measured parameters. Relations between observables then come out finite and independent of the cut-off, which is what makes the loop terms predictive rather than disposable."
+          "explain": "Use the allowed counterterms and enough measured inputs so relations among observables have a regulator-independent continuum limit where the theory permits it. Finite cutoff, finite perturbative order and effective-theory truncation can leave controlled residual dependence. The cutoff must not simply be deleted from an unmatched calculation."
         }
       ],
       "lesson_media": [
@@ -4937,6 +4937,16 @@
           "height": 1000
         },
         {
+          "id": "phys-5-qft-full-lab",
+          "kind": "model",
+          "renderer": "physics-qft-lab",
+          "title": "Fields, Diagrams and Observables",
+          "instructions": "Choose all nine stations. Compare common field parameters, exact kinematics, conjugate excitations, matched observables and calibrated ideal predictions; read the assumptions alongside the values.",
+          "props": {
+            "scenario": "phys.5.qft.fields-observables"
+          }
+        },
+        {
           "id": "phys-5-qft-concept-lab",
           "kind": "model",
           "renderer": "physics-concept-lab",
@@ -4946,7 +4956,24 @@
             "scenario": "phys.5.qft"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Relate identical particles to shared field parameters and distinguish bosonic occupation from fermionic exclusion.",
+        "Use external on-shell four-momenta and conserved internal transfer; distinguish diagram contributions from trajectories.",
+        "Compare a free Dirac Hamiltonian’s branches with equal-positive-mass, opposite-charge particle and antiparticle excitations.",
+        "Distinguish ordinary and reduced Compton lengths, inverse-mass scaling and the invariant pair-production threshold.",
+        "Match a regulated scalar loop example to a reference observable, preserving finite-cutoff remainders and theory assumptions.",
+        "Differentiate ideal EM parallel-plate interaction energy to obtain attractive Casimir pressure and its fourth-power scaling.",
+        "Separate declared rate corrections from amplitude interference and its coefficient and phase.",
+        "Relate static Yukawa attenuation to mediator mass without treating the range as a sharp boundary.",
+        "Compute the Schwinger one-loop anomaly and ideal spin-energy splitting, without claiming a full precision QED prediction."
+      ],
+      "lesson": {
+        "overview": "A free field has many momentum modes with a common mass parameter. The finite periodic-box activity shows nine modes. Bosons admit n=0,1,2,…; a fermionic spin mode has n=0 or 1. A number state is not a classical ripple: its mean canonical field coordinate vanishes even though its variance and excitation energy need not. Relativistic spin-statistics requires the theorem’s locality and positivity assumptions.",
+        "worked_example": "External free particles are on shell. In the elastic centre-of-mass example, the internal photon transfer q=p₁−p₃ is fixed by the external momenta and generally spacelike. Independent loop momenta are integrated; diagram contributions are summed. A diagram is an amplitude contribution rather than a photographed or computed trajectory. A quantized charged Dirac field has positive-energy particle and antiparticle excitations with equal positive rest mass and opposite electric charge.",
+        "activity": "Use all nine stations and the shared 3D view. The ordinary Compton wavelength h/(mc) differs by 2π from ħ/(mc); the quiz uses a rounded ordinary wavelength. A permitted pair-production process needs sufficient invariant energy and conserved quantum numbers. The subtraction station uses an explicit Euclidean scalar radial loop, rather than claiming to compute electron self-energy. It displays regulator-dependent bare terms, exact matching at μ and a finite-cutoff remainder approaching a finite continuum difference.",
+        "reflection": "Ideal zero-temperature perfectly conducting parallel plates have interaction energy per area −π²ħc/(720a³) and attractive pressure −π²ħc/(240a⁴). This is a regulated energy difference, not a finite count of virtual particles. Real material and thermal corrections are outside this ideal activity. A relative rate correction Cα differs from a relative amplitude correction Cαeⁱφ: interference gives 2Cα cosφ and a quadratic term. The static single-mediator Yukawa model has characteristic range ħc/(Mc²), an exponential scale rather than a hard cutoff. Schwinger’s term aₑ=α/(2π) is the first loop correction to g=2, not the full high-precision prediction."
+      }
     },
     {
       "id": "phys.5.gr-cosmo",

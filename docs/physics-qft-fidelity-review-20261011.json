@@ -1,0 +1,184 @@
+{
+  "status": "scoped educational implementation verified",
+  "base": "837c0b1825bb0dc29c32b963fb9da09ebb3ce558",
+  "branch": "codex/quantum-field-full-fidelity-20261011",
+  "node": "phys.5.qft",
+  "node_sha256": "77a62ed6bd7b452c773744cc6f097d65a057993f20f191dbf6514bdfc006ed43",
+  "unchanged_other_physics_nodes": 38,
+  "retained_original_media": [
+    {
+      "id": "phys-qft-field-quanta-amplitudes",
+      "kind": "illustration",
+      "src": "/app/illustrations/forest/physics/phys-5-qft-800.webp",
+      "srcset": "/app/illustrations/forest/physics/phys-5-qft-800.webp 800w, /app/illustrations/forest/physics/phys-5-qft-1600.webp 1600w",
+      "alt": "One bosonic spatial mode sits above occupation-number energy levels beside a Feynman contribution with external and internal lines.",
+      "caption": "For a bosonic mode, occupation sets quantized energy rather than classical field amplitude; diagram lines organize amplitudes, not photographed trajectories.",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "id": "phys-5-qft-concept-lab",
+      "kind": "model",
+      "renderer": "physics-concept-lab",
+      "title": "Field Mode Lab",
+      "instructions": "Change one free bosonic mode's occupation number and frequency, then inspect its quantized energy ladder.",
+      "props": {
+        "scenario": "phys.5.qft"
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "question": 1,
+      "station": "modes",
+      "representation": "Common relativistic field dispersion; complete nine-mode selected state; creation/annihilation coefficients and exclusion.",
+      "limit": "A finite 1D periodic free-mode subset, not the continuum electron field or a proof of spin-statistics."
+    },
+    {
+      "question": 2,
+      "station": "scattering",
+      "representation": "Four conserved external four-momenta; direct/exchange transfer invariants; isotropic momentum vector charts and categorical contribution graph.",
+      "limit": "No spinor amplitude, cross-section, interaction trajectory or independent-loop integration computed."
+    },
+    {
+      "question": 3,
+      "station": "antiparticle",
+      "representation": "Actual 4\u00d74 free Dirac Hamiltonian and normalized eigenvectors; positive physical energies and conjugate charges.",
+      "limit": "Momentum along z and one representative spin vector per degenerate branch."
+    },
+    {
+      "question": 4,
+      "station": "compton",
+      "representation": "Ordinary and reduced Compton scales; invariant pair rest-energy threshold; explicitly rounded quiz convention.",
+      "limit": "A scale for limits of fixed-particle language, not an absolute localization prohibition."
+    },
+    {
+      "question": 5,
+      "station": "renormalization",
+      "representation": "Explicit radial one-loop integral, measured-reference matching and numerical-quadrature oracle.",
+      "limit": "Declared scalar subtraction example; not the electron self-energy."
+    },
+    {
+      "question": 6,
+      "station": "casimir",
+      "representation": "Ideal regulated EM interaction energy, pressure derivative, area force and fourth-power scaling; full scalar standing-factor mesh.",
+      "limit": "Perfect plates at zero temperature; mesh is not the full vector EM field and is not a mode-sum force approximation."
+    },
+    {
+      "question": 7,
+      "station": "perturbation",
+      "representation": "Declared rate shift versus amplitude interference and quadratic term; complex plane with equal gains.",
+      "limit": "Coefficients and phases are declared inputs; no QED loop amplitude inferred from order alone."
+    },
+    {
+      "question": 8,
+      "station": "mediator",
+      "representation": "Yukawa massive Green-function tail, massless limit and characteristic attenuation scale.",
+      "limit": "Static attractive scalar single-mediator unit-coupling example; source point excluded."
+    },
+    {
+      "question": 9,
+      "station": "magnetic",
+      "representation": "Schwinger anomaly, one-loop g, electron spin-energy signs and magnetic splitting.",
+      "limit": "First loop only; not a full high-precision Standard Model prediction or proof of structurelessness."
+    },
+    {
+      "question": 10,
+      "station": "renormalization",
+      "representation": "Finite-cutoff remainders and matched continuum limit; measured inputs, counterterm and EFT qualifications.",
+      "limit": "Renormalizability, finite-order and effective-theory assumptions remain explicit."
+    }
+  ],
+  "files": {
+    "web/physics-qft-lab.js": {
+      "sha256": "3f7fbf315e7a274038eb5951a464fd5a31b44167d738d25ec876d20c0bebdadb",
+      "bytes": 43036
+    },
+    "web/physics-qft-lab.css": {
+      "sha256": "7277c40849e9df88991fbd255f5436bfa720e72c25190adaa5677547f922497d",
+      "bytes": 1916
+    },
+    "web/spatial-qft.js": {
+      "sha256": "c7819307d9f6ea5392a7527b93c4b39fabe43bc5d23b95f1a63dda9d530b9deb",
+      "bytes": 6852
+    },
+    "tools/check_physics_qft_lab.js": {
+      "sha256": "a543fc94a30a290ee24ed0d2f038c65bfee4874ec48e77ab99cb93d7db684495",
+      "bytes": 5469
+    },
+    "tools/check_physics_qft_independent.js": {
+      "sha256": "0e22d171c4486c8cc87a785f9a5d292068382295ecf19e77f6e5000309f807f8",
+      "bytes": 19778
+    },
+    "tools/check_physics_qft_reader.cjs": {
+      "sha256": "51df53c1c6859661629a9ba16fd2bc5fbef3e583ef0d18470f1236271f6116d7",
+      "bytes": 9629
+    },
+    "data/curriculum/03-physics.json": {
+      "sha256": "51ff41e05c596878310bde8d669387735e206abafb82ea606ad8d1b34032c9da",
+      "bytes": 289980
+    },
+    "data/module-models.json": {
+      "sha256": "6fdf056a5d654bf30539449cbd91f13e8313e39381314ef1f1dab7bf554b0aed",
+      "bytes": 244976
+    },
+    "primer/curriculum.py": {
+      "sha256": "1c5daff09e8048974e83428e9c1b36222765f509620da10cb2d5bb3239692d46",
+      "bytes": 80618
+    },
+    "primer/module_media.py": {
+      "sha256": "7671ae0bc572a1cf75d7e696e7b62ebc6df8d1fca6d82e48d7e344091b31ec97",
+      "bytes": 6618
+    },
+    "primer/server.py": {
+      "sha256": "9e599dec5b29f3b8789b182b27377e4bb0ee0034c057b48501a2c2cf69c18cab",
+      "bytes": 188423
+    },
+    "web/index.html": {
+      "sha256": "06df781655b4d28dbb541e1a73c8b703c8d8cb492a6c9f76456cde7fd598e2b4",
+      "bytes": 4892
+    },
+    "web/lesson-models.js": {
+      "sha256": "c71f750a646c620f3280028b16988b9ca9613c2ec6a7bbe514b5419426235667",
+      "bytes": 332406
+    },
+    "web/lesson-state.js": {
+      "sha256": "24727c8fe4178adb493fb9f8e2e5736378086f2f3290a9b4802e757f024f78b1",
+      "bytes": 1299
+    },
+    "web/spatial-module-objects.js": {
+      "sha256": "be86e8609b3ce2d0c07ef133fcf4d8c656ea7b27ae058971718d2231f3c822a3",
+      "bytes": 117042
+    },
+    "tools/generate_module_models.py": {
+      "sha256": "e8890688a24bd22b7d6bcbfd1c8bff4a78df78c53309fbbcbbabd7d1b3603cdf",
+      "bytes": 30950
+    }
+  },
+  "verification": {
+    "mounted": "109 states, 317 calibrated SVG curves, 27 exact draft cases",
+    "independent": "39,469 numerical comparisons including 27 actual adapter states; additive mode-calibration readout amendment preserves every emitted geometric and other non-readout quantity.",
+    "reader": "1440\u00d71000 and 390\u00d7844; per width 82 activity states, 37 spatial states, 219 full speeches, 9 draft checks and 63 camera actions; 54 exact-size captures and 8 exact served source bodies.",
+    "target_tests": "35 prior physics/spatial tests, 18 new scope/gallery tests, then final 57 QFT/module/hosted/visual/gallery tests passed. Targeted checks only, not an unreleased full-suite/CI claim.",
+    "final_current_hash_tests": "7 tests passed, including exact restoration of the frozen adapter and semantic target-node pins after the bounded amendment."
+  },
+  "receipts": {
+    "reader": "docs/physics-qft-reader-review-20261011/reader-proof.json",
+    "science": "docs/physics-qft-independent-review-20261011.json",
+    "history": "docs/physics-qft-reader-review-20261011/qa-history.json",
+    "scientific_amendment": "docs/physics-qft-independent-amendment-20261011.json"
+  },
+  "scope_limits": [
+    "Finite displayed educational models do not establish a full interacting continuum QFT.",
+    "No newly synthesized photorealistic particle or clinical anatomy imagery. Original explanatory schematic is retained and separately labelled.",
+    "No clinical, fine-anatomical or whole-Primer goal approval.",
+    "Not merged, deployed or published. Integration with the concurrently advancing main branch requires separate review and whole-release validation."
+  ],
+  "live_handles": [],
+  "receipt_pins": {
+    "docs/physics-qft-reader-review-20261011/reader-proof.json": "fa720eaa60f7a2f776a42c15d787c5a4791bf44bcc2e137ddc3869b1d796ffcd",
+    "docs/physics-qft-independent-review-20261011.json": "faa6862c273e7d834032cb21d53437b790eb247929db735afdfe66f91d80ede8",
+    "docs/physics-qft-reader-review-20261011/qa-history.json": "2a42237f098a469f53cc9fddd071dacf5185d88d76fdfe6e841e3c6f58a1968b",
+    "docs/physics-qft-independent-amendment-20261011.json": "148d9a6c6a00144ed047ff2c731913875bb0decda92535f79cb21ae08ec82401"
+  }
+}

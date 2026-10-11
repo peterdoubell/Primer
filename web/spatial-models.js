@@ -24,11 +24,12 @@
     return '#' + [1, 3, 5].map(i => Math.round(clamp(parseInt(hex.slice(i, i + 2), 16) * light,
       0, 255)).toString(16).padStart(2, '0')).join('');
   }
-  function geometry() {
+  function geometry(limit = 3000) {
+    if (!Number.isSafeInteger(limit) || limit < 1 || limit > 50000) throw new Error('Invalid 3D primitive budget');
     const primitives = [];
     function add(kind, points, color, options = {}) {
       if (!points.every(finitePoint)) throw new Error('Non-finite 3D geometry');
-      if (primitives.length >= 3000) throw new Error('3D scene exceeds geometry limit');
+      if (primitives.length >= limit) throw new Error('3D scene exceeds geometry limit');
       primitives.push({ kind, points, color, ...options });
     }
     const g = {
@@ -95,7 +96,10 @@
   function build(id, supplied) {
     if (!Object.prototype.hasOwnProperty.call(scenes, id)) return null;
     const spec = scenes[id], state = normalizeState(spec, supplied);
-    const { g, primitives } = geometry();
+    const trustedQft = id === 'module.phys.5.qft' && spec.familyId === 'qft-observable-geometry'
+      && spec.linkedStateKey === 'phys.5.qft' && state.mode === 'casimir';
+    const limit = trustedQft ? 50000 : 3000;
+    const { g, primitives } = geometry(limit);
     const explanation = spec.build(state, g);
     return { state, primitives, ...explanation };
   }
@@ -121,9 +125,9 @@
     const bounds = current.primitives.filter(p => p.kind !== 'label').flatMap(p =>
       p.points.flatMap(point => p.radius ? [-1, 1].map(sign => point.map(v => v + sign * p.radius)) : [point]));
     const center = [0, 1, 2].map(axis =>
-      (Math.min(...bounds.map(p => p[axis])) + Math.max(...bounds.map(p => p[axis]))) / 2);
-    const radius = Math.max(.1, ...current.primitives.filter(p => p.kind !== 'label')
-      .flatMap(p => p.points.map(v => length(subtract(v, center)) + (p.radius || 0))));
+      (bounds.reduce((v,p)=>Math.min(v,p[axis]),Infinity) + bounds.reduce((v,p)=>Math.max(v,p[axis]),-Infinity)) / 2);
+    const radius = current.primitives.filter(p => p.kind !== 'label').reduce((r,p)=>
+      p.points.reduce((v,point)=>Math.max(v,length(subtract(point,center))+(p.radius||0)),r),.1);
     const root = element('section', { class: 'card lesson-model spatial-model',
       'data-renderer': 'spatial-3d', 'data-scenario': id, 'aria-labelledby': uid + '-title' });
     const heading = element('div', { class: 'model-heading-row' });
@@ -148,8 +152,8 @@
       const requestedScale = 175 / radius * camera.zoom;
       const extents = current.primitives.filter(p => p.kind !== 'label')
         .flatMap(p => p.points.map(point => ({ point: rotate(subtract(point, center), camera), radius: p.radius || 0 })));
-      const fitScale = Math.min(282 / Math.max(.1, ...extents.map(p => Math.abs(p.point[0]) + p.radius)),
-        192 / Math.max(.1, ...extents.map(p => Math.abs(p.point[1]) + p.radius)));
+      const fitScale = Math.min(282 / extents.reduce((v,p)=>Math.max(v,Math.abs(p.point[0])+p.radius),.1),
+        192 / extents.reduce((v,p)=>Math.max(v,Math.abs(p.point[1])+p.radius),.1));
       const scale = camera.zoom <= 1 ? Math.min(requestedScale, fitScale) : requestedScale;
       const project = p => { const r = rotate(subtract(p, center), camera); return [300 + r[0] * scale, 210 - r[1] * scale, r[2]]; };
       const group = element('g', {}, null, true);

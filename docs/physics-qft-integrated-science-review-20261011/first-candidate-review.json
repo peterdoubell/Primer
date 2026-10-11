@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-11T18:58:22.357688+00:00",
+  "reviewer": "Independent full-curriculum QFT fidelity auditor",
+  "decision": "NO-GO for first repair candidate pending complete subnormal transfer magnitude and u-channel disclosure; the geometric repairs pass scoped scientific review.",
+  "educational_model_go": false,
+  "original_no_go_preserved": {
+    "path": "docs/physics-qft-integrated-science-review-20261011/original-frozen-no-go.json",
+    "sha256": "4b991387991c3f5fb6aa76923728246df37d0932fc360dfb86b9ff689c04b8ba"
+  },
+  "candidate_pins": {
+    "web/physics-qft-lab.js": "930d825770ecdd263a262de97b245bd279d6769293c1d2905406807de4d7d6da",
+    "web/spatial-qft.js": "53d7c8dd42e8ee9eab60581903c884be562393e308c8be451df839fffe17625f",
+    "web/spatial-models.js": "d1b7ff2456c2bf171c3bb29769c4a1807795bdb518e502891593456bb6e35ea8",
+    "web/spatial-module-objects.js": "ca8cbf328cc1c38e3fc89826d72f47e0e72f3abb1fe6ffbb70889b923ea974fe",
+    "tools/check_physics_qft_integrated_geometry.js": "ff30da16df6c618910d3afee910354e8e69fb906bd13921262b5b6345fce1906"
+  },
+  "scope": "Additive audit of three integration corrections only. Goal/body/all ten quizzes are semantically unchanged from the reviewed frozen node 77a62ed6bd7b452c773744cc6f097d65a057993f20f191dbf6514bdfc006ed43. Historical science/reader receipts remain exact and scoped to their original bodies.",
+  "geometric_result": {
+    "singletonStates": 21,
+    "surfaceStates": 15,
+    "triangles": 203658,
+    "facetInteriorProbes": 1425606,
+    "maxObservedError": 0.009940233318527891,
+    "maxPrimitives": 47509,
+    "gateCases": 16,
+    "scatterStates": 60,
+    "maxTinyLogErrorDex": 0.1096625085812093
+  },
+  "universal_interpolation_proof": {
+    "decomposition": "sin(Az)cos(Bx) = [sin(Az+Bx)+sin(Az-Bx)]/2",
+    "barycentric_variance": "For triangle weights w_i and linear phase phi, phi(point)=sum w_i phi_i. Taylor remainder and |sin second derivative|<=1 give |sum w_i sin(phi_i)-sin(sum w_i phi_i)| <= Var_w(phi)/2 <= range(phi)^2/8.",
+    "full_controls": "A=n*pi for integer n=1..6, B=k_parallel*a in [0,50]. nx>=ceil(B/.2), nz>=ceil(A/.2), so every triangle phase range <= A/nz+B/nx <=.4. Averaging both harmonic bounds gives absolute normalized factor error <=.4^2/8=.02, excluding bounded Float64 roundoff. This derives the full-domain bound independently of sampled probes.",
+    "maximum_mesh": "nx<=250, nz<=95 => 47500 triangles. Actual maximum candidate has 47509 total engine primitives, below 50000."
+  },
+  "remaining_numerical_findings": [
+    {
+      "id": "qft-scattering-nonzero-underflow-classification",
+      "case": {
+        "angleDeg": 5e-322,
+        "momentumMeV": 1
+      },
+      "reported_log10_abs_t": -646.0103706949037,
+      "independent_log10_abs_t": -646.1200332034847,
+      "error_dex": 0.10966250858098192,
+      "cause": "A positive subnormal sin(theta/2) is logged despite significant rounding, bypassing the zero-only fallback."
+    },
+    {
+      "id": "qft-scattering-nonzero-underflow-classification",
+      "case": {
+        "angleDeg": 0,
+        "momentumMeV": 1e-200
+      },
+      "t": "exactly0",
+      "u": "mathematically-4e-400; silently printed0",
+      "required": "Symmetric u-channel below-Float64 disclosure in the scientific ledger."
+    }
+  ],
+  "browser_reader_approval": false,
+  "remaining_browser_requirement": "Root/release owner must execute and inspect actual maximum-mesh 1440px and390px readers, camera/state controls and coincident-neutral glyphs under these exact integrated runtime bodies.",
+  "historical_receipts_rebaselined": false,
+  "whole_continuum_qft_approved": false,
+  "clinical_approved": false,
+  "full_goal_complete": false,
+  "production_deployment_approved": false,
+  "live_handles": [],
+  "evidence": {
+    "docs/physics-qft-integrated-science-review-20261011/original-frozen-no-go.json": "4b991387991c3f5fb6aa76923728246df37d0932fc360dfb86b9ff689c04b8ba",
+    "docs/physics-qft-integrated-science-review-20261011/first-candidate-emission-result.json": "3a3f0cd59f22684ada4d9e46f1315277e2df2e10ad632884cab95366becc24b7",
+    "docs/physics-qft-integrated-science-review-20261011/independent-emission-check.js": "0d63ec0f4db0527fa86999169d715aa7f98aba403bf2390e2e9a9f0f0584bf93"
+  }
+}

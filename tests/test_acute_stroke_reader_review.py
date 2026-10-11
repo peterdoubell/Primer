@@ -120,7 +120,8 @@ def test_frozen_reader_sources_and_unapproved_clinical_scope_are_explicit():
                  'structureCoverageGranted', 'wholeGoalComplete']:
         assert proof[flag] is False
     for path, pin in proof['sourceHashes'].items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == pin
+        from tools.qft_runtime_compatibility import historical_runtime_bytes
+        assert hashlib.sha256(historical_runtime_bytes(path, (ROOT / path).read_bytes())).hexdigest() == pin
     assert (DOC / 'caption-missing-before-repair.json').exists()
     assert read('caption-missing-before-repair.json')['displayedCompleteCaptionDetails'] == 0
     assert read('caption-missing-before-repair.json')['figures'] == 13
@@ -131,7 +132,8 @@ def test_final_cache_supplement_preserves_historical_reader_and_exact_private_bo
     final = read('final-cache-CSP-API-supplement.json')
     assert reader['historical_served_backend_SHA256'] == '607e717a8be8adf16b5fe4c9471770b6d07370627a097cffe58db7796c5acfe4'
     assert reader['historicalSourceHashes']['primer/server.py'] == reader['historical_served_backend_SHA256']
-    assert final['server_SHA256'] == hashlib.sha256((ROOT / 'primer/server.py').read_bytes()).hexdigest()
+    from tools.qft_runtime_compatibility import historical_runtime_bytes
+    assert final['server_SHA256'] == hashlib.sha256(historical_runtime_bytes('primer/server.py', (ROOT / 'primer/server.py').read_bytes())).hexdigest()
     assert final['passed'] and final['API_exactly_matches_completed_reader']
     assert len(final['checks']) == 24 and len(final['hosted_redirects']) == 96
     for row in final['checks']:

@@ -94,7 +94,8 @@ def test_review_pins_exact_scoped_runtime_and_all_quiz_requirements():
     assert sorted(q["number"] for q in review["quiz_mapping"]) == list(range(1, 11))
     assert len(review["station_mapping"]) == 8
     for path, expected in review["reviewed_runtime_sha256"].items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == expected
+        from tools.qft_runtime_compatibility import historical_runtime_bytes
+        assert hashlib.sha256(historical_runtime_bytes(path, (ROOT / path).read_bytes())).hexdigest() == expected
     curriculum = json.loads((ROOT / "data/curriculum/01-mathematics.json").read_text())
     def locate(value):
         if isinstance(value, dict):

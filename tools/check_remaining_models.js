@@ -406,6 +406,7 @@ function collectRemainingModels() {
           'math-logic-lab': ['math.5.logic', 'math.5.logic.diagonal-models-proof'],
           'physics-maxwell-lab': ['phys.4.em-maxwell', 'phys.4.em-maxwell.fields-flux-radiation'],
           'physics-cosmology-lab': ['phys.5.gr-cosmo', 'phys.5.gr-cosmo.geometry-history'],
+          'physics-qft-lab': ['phys.5.qft', 'phys.5.qft.fields-observables'],
         }[media.renderer];
         if (fullLessonBinding) {
           assert.equal(lesson.id, fullLessonBinding[0]);
