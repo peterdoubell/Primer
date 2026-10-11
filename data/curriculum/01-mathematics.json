@@ -7126,11 +7126,11 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "A manifold is a space that looks locally like flat Euclidean space, even though it may be curved or twisted globally — a sphere's surface is the classic example. Explain why a single flat coordinate chart cannot cover the entire sphere without some kind of failure.",
-     "answer": "Any single chart must omit at least one point, or distort/duplicate coordinates there",
-     "explain": "This is a consequence of the sphere's global topology (its Euler characteristic and lack of a nonvanishing tangent vector field), not a failure of cleverness in choosing coordinates: no continuous, one-to-one flat coordinate map can cover the whole sphere (stereographic projection, the standard trick, always misses one point). This is exactly why manifolds are built from an ATLAS of overlapping charts rather than one global map, and why map projections of the Earth always distort or cut somewhere.",
+     "prompt": "A smooth manifold has local coordinate charts into Euclidean space, although its metric may be curved. Explain why a single valid coordinate chart cannot cover the whole sphere.",
+     "answer": "A single valid chart omits points; an atlas uses overlapping charts.",
+     "explain": "A coordinate chart maps its domain homeomorphically onto an open subset of ℝ². The whole sphere is compact, so such an image would also be compact; a nonempty open subset of ℝ² cannot be compact. Thus one chart cannot cover the sphere, even if distortion is allowed. Stereographic projection gives a chart only after one pole is removed; overlapping charts cover the whole sphere. Coordinates taking values in ℝ² do not make the sphere’s intrinsic metric flat.",
      "choices": [
-      "Any single chart must omit at least one point, or distort/duplicate coordinates there",
+      "A single valid chart omits points; an atlas uses overlapping charts.",
       "It cannot be done only because the sphere has finite area",
       "A single chart works fine; this is a common misconception",
       "It fails only for spheres, not for other curved surfaces"
@@ -7265,6 +7265,16 @@
      "instructions": "Compare spherical triangle area with angle excess as radius and meridian separation change.",
      "props": {
       "scenario": "math.5.diffgeo"
+     }
+    },
+    {
+     "id": "math.5.diffgeo-math-curvature-lab",
+     "kind": "model",
+     "renderer": "math-curvature-lab",
+     "title": "Metric, curvature and parallel transport",
+     "instructions": "Compare induced metrics and intrinsic curvature on plane, cylinder, sphere and embedded torus. Follow exact great-circle transport and distinguish chart seams from physical surface boundaries.",
+     "props": {
+      "scenario": "math.5.diffgeo.curvature-transport"
      }
     }
    ]

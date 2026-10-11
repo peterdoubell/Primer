@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def inputs():
     return [json.loads((ROOT/p).read_text()) for p in (
-        'docs/cervical-cancer-source-review/current-msk-audit.json',
+        'docs/native-source-presentation-review-20261011/current-msk-audit.json',
         'data/radiology/msk-structure-requirements.json',
         'data/radiology/msk-asset-evidence.json')]
 

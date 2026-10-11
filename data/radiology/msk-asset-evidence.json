@@ -64557,7 +64557,12 @@
         "triangles": 21700,
         "source_reconstruction_sha256": "c81137c9361ad3daef9b45c671f825783b79e31430d7e94fd58f442853fb382c",
         "source_case": "sub-03",
-        "open_source_endpoints": true
+        "open_source_endpoints": true,
+        "basis": "LPS",
+        "units": "millimetres",
+        "unit_meters": 0.001,
+        "display_mapping": "[L,P,S] → [L,S,−P]",
+        "source_coordinate_provenance": "Original Markups LPS controls and native CISS support; source-specific interpolation settings were not recorded."
       },
       "source": {
         "dataset": "Liu et al. lumbosacral MRI and annotations",
@@ -64593,14 +64598,15 @@
         "depicted_state": "unknown",
         "extent": "local",
         "unknowns": [
-          "Case-specific normality and complete anatomical boundaries have not been independently established."
+          "Case-specific normality and complete anatomical boundaries have not been independently established.",
+          "The primary publication reports a healthy adult volunteer cohort for the released data; independent normality, boundary accuracy and diagnosis of this individual case remain unestablished."
         ]
       },
       "limitations": "Partial source contour envelope. No complete conus, roots, CSF volume, dural wall thickness or compression interface is claimed. No requirement binding is assigned merely from the object name.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -64652,6 +64658,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Liu direct CISS/146 controls and exact saved open-loft candidates",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": false,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -64674,7 +64696,12 @@
         "triangles": 40980,
         "source_reconstruction_sha256": "c81137c9361ad3daef9b45c671f825783b79e31430d7e94fd58f442853fb382c",
         "source_case": "sub-03",
-        "open_source_endpoints": true
+        "open_source_endpoints": true,
+        "basis": "LPS",
+        "units": "millimetres",
+        "unit_meters": 0.001,
+        "display_mapping": "[L,P,S] → [L,S,−P]",
+        "source_coordinate_provenance": "Original Markups LPS controls and native CISS support; source-specific interpolation settings were not recorded."
       },
       "source": {
         "dataset": "Liu et al. lumbosacral MRI and annotations",
@@ -64710,14 +64737,15 @@
         "depicted_state": "unknown",
         "extent": "local",
         "unknowns": [
-          "Case-specific normality and complete anatomical boundaries have not been independently established."
+          "Case-specific normality and complete anatomical boundaries have not been independently established.",
+          "The primary publication reports a healthy adult volunteer cohort for the released data; independent normality, boundary accuracy and diagnosis of this individual case remain unestablished."
         ]
       },
       "limitations": "Partial source contour envelope. No complete conus, roots, CSF volume, dural wall thickness or compression interface is claimed. No requirement binding is assigned merely from the object name.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -64769,6 +64797,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Liu direct CISS/146 controls and exact saved open-loft candidates",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": false,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -64891,8 +64935,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -64944,6 +64988,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65012,8 +65072,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65065,6 +65125,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65133,8 +65209,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65186,6 +65262,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65254,8 +65346,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65307,6 +65399,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65375,8 +65483,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65428,6 +65536,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65496,8 +65620,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65549,6 +65673,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65617,8 +65757,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65670,6 +65810,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65738,8 +65894,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65791,6 +65947,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65859,8 +66031,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -65912,6 +66084,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -65980,8 +66168,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66033,6 +66221,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66101,8 +66305,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66154,6 +66358,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66222,8 +66442,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66275,6 +66495,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66343,8 +66579,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66396,6 +66632,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66464,8 +66716,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66517,6 +66769,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66585,8 +66853,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66638,6 +66906,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66706,8 +66990,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66759,6 +67043,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66827,8 +67127,8 @@
       "limitations": "Whole-vertebra labels T1–L5 only. Source voxel-scale approximations and T7/T12 segmentation features retained; no separately validated substructures, discs, ligaments or nerves. Independent of Liu MRI case; no cross-subject registration. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
@@ -66880,6 +67180,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {
@@ -66942,10 +67258,10 @@
       "limitations": "Native CT crops around all 17 labels with surrounding margin. CT windowing and overlays do not replace anatomical boundary review, whole-examination coverage or soft-tissue MRI. Stored slice spacing is 1.0 mm; source acquisition thickness is 1.5 mm. No effective anatomical-resolution claim is inferred.",
       "presentation_dependencies": {
         "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-        "web/app.js": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
-        "data/radiology/source-anatomy-references.json": "8861959d78acaf857aa2197dfb9c861cf540726036105e9c1c1f3f1b243c0577",
+        "web/app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
         "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
-        "web/anatomy/verse521/ct-reference.js": "e287d4f77eaefa99a849848611ea45fb69f7617cb588d3f3bd59190177003958",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
         "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
       },
       "shared_viewer_dependency_review": {
@@ -66996,6 +67312,22 @@
         "current_app_sha256": "911d86e91bb415ee6713c436c28f554e894d9416778dd2397571299b9bac83cb",
         "evidence_path": "docs/carotid-obstruction-source-review/shared-reader-registration-review.json",
         "other_source_display_numeric_speech_or_anatomical_approval_changed": false
+      },
+      "source_presentation_reconciliation_review": {
+        "reviewed_at": "2026-10-11",
+        "scope": "Original source bytes, native coordinates and bounded current reader presentation only",
+        "native_source_proof": "Fresh VerSe NIfTI CT/mask; every surface position/face and embedded source voxel checked",
+        "reader_proof": "Actual source references, selections, layers, camera labels, native WebGL buffer bytes, CT pixel/world/direction oracles, pointer membership and outside states at 1440/390",
+        "review_path": "docs/native-source-presentation-review-20261011/README.md",
+        "original_dependency_issues_preserved": true,
+        "source_bytes_changed": false,
+        "anatomical_approval_or_requirement_coverage_changed": false,
+        "author_specific_curve_settings_recovered": null,
+        "independent_review_path": "docs/native-source-presentation-independent-review-20261011.json",
+        "independent_review_sha256": "0dec10b8e29d08a8eb7ffd07c75d6f5dea8eace0bc48cc98b71a72bc6c831117",
+        "historical_issue_count": 2,
+        "clinical_approval": false,
+        "fine_anatomical_approval": false
       }
     },
     {

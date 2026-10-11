@@ -72,6 +72,73 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  define('curvature-surface','Metric and curvature on an embedded surface',
+    {surface:'torus',radius:1,major:3,a:0,b:0,normal:'outward',coverage:100},
+    [choice('surface','Surface',[['plane','Plane patch'],['cylinder','Circular cylinder'],['sphere','Round sphere'],['torus','Standard embedded torus']]),
+     range('radius','Radius r / plane patch half-width',.5,2,.25),range('major','Torus major radius R',3,6,.25),
+     range('a','Probe coordinate fraction a',-1,1,.1),range('b','Probe coordinate fraction b',-1,1,.1),
+     choice('normal','Unit normal',[['outward','Outward / plane +z'],['inward','Reversed normal']]),
+     range('coverage','Selected patch span',0,100,5,'%')],(s,g)=>{
+      const lab=window.PrimerMathCurvatureLab,kind=s.surface,r=s.radius,R=s.major,sign=s.normal==='outward'?1:-1;
+      const coordinate=(a,b)=>({u:kind==='plane'?r*a:Math.PI*a,v:kind==='sphere'?Math.PI*b/2:kind==='torus'?Math.PI*b:r*b,radius:r,major:R,normalSign:sign});
+      const local=lab.surfaceAt(kind,coordinate(s.a,s.b)),nu=24,nv=12,faces=[],cut=-1+2*s.coverage/100;
+      const knots=Array.from({length:nu+1},(_,i)=>-1+2*i/nu);
+      if(cut>-1&&cut<1&&!knots.includes(cut))knots.push(cut);
+      knots.sort((a,b)=>a-b);
+      for(let i=0;i<knots.length-1;i++)for(let j=0;j<nv;j++){
+        const a0=knots[i],a1=knots[i+1],b0=-1+2*j/nv,b1=-1+2*(j+1)/nv;
+        const corners=[[a0,b0],[a1,b0],[a1,b1],[a0,b1]].map(([a,b])=>lab.surfaceAt(kind,coordinate(a,b)).point);
+        const mid=lab.surfaceAt(kind,coordinate((a0+a1)/2,(b0+b1)/2)),selected=a1<=cut;
+        const color=mid.gaussian>0?g.colors.teal:mid.gaussian<0?g.colors.coral:g.colors.blue;
+        g.polygon(corners,color,{opacity:selected?.58:.13,curvature_kind:'surface_cell',uIndex:i,vIndex:j,gaussian:mid.gaussian,selected});
+        faces.push({indices:[i,j],parameters:{a0,a1,b0,b1},corners,gaussian:mid.gaussian,selected});
+      }
+      const glyphScale=.45*r,endpoint=vector=>local.point.map((x,i)=>x+glyphScale*vector[i]);
+      g.sphere(local.point,.035,g.colors.ink,{curvature_kind:'probe'});
+      g.line([local.point,endpoint(local.normal)],g.colors.ink,{width:3,curvature_kind:'normal',unitVector:local.normal});
+      g.label(endpoint(local.normal),'n');
+      if(local.regular)for(let i=0;i<2;i++){
+        const t=local.principalDirections[i];
+        g.line([local.point.map((x,j)=>x-glyphScale*t[j]),endpoint(t)],i?g.colors.gold:g.colors.plum,{width:2,curvature_kind:'principal_direction',index:i,unitVector:t,principal:local.principal[i]});
+        g.label(endpoint(t),'k'+(i+1));
+      }
+      const parameters=coordinate(0,0),u0=kind==='plane'?-r:-Math.PI,u1=kind==='plane'?r:Math.PI,v0=kind==='sphere'?-Math.PI/2:kind==='torus'?-Math.PI:-r,v1=-v0;
+      const patch={u0,u1:u0+(u1-u0)*s.coverage/100,v0,v1},integral=lab.patchIntegral(kind,parameters,patch);
+      const f=v=>Number(v.toPrecision(6));
+      return {...result(kind+': actual probe position ('+local.point.map(f).join(', ')+') length units; metric(E,F,G)=('+[local.metric.E,local.metric.F,local.metric.G].map(f).join(', ')+'). Principal curvatures '+local.principal.map(f).join(', ')+' per length; K='+f(local.gaussian)+' per length squared. Selected analytic area='+f(integral.area)+' length squared; integral K dA='+f(integral.curvatureIntegral)+'. '+(local.regular?'Coordinate principal directions are shown.':'At the sphere pole the angular chart fails, while the surface and intrinsic K remain smooth.'),
+        'Surface coordinates preserve their stated length units; the polygon mesh is a display approximation with 24 by 12 base parameter cells and an explicit patch-boundary split. Metric, normal, principal curvatures and integrals come from analytic surface derivatives, not polygon angles or screen measurements. Colours show analytic K at each cell midpoint (teal positive, coral negative, blue zero); opacity marks a parameter patch. Metric coefficients E,F,G belong to the actual (u,v) chart; a,b choose positions within its domain. For the plane, a/b map to x/r and y/r; cylinder a maps to angle/pi and b to height/r; sphere a maps to longitude/pi and b to latitude/(pi/2); torus a/b map to its two angles/pi. Angular seams identify the same physical surface; coordinate endpoints do not cut holes. The chosen normal reverses both signed principal curvatures under S=-Dn but leaves K unchanged. Normal and tangent glyph lengths and the probe dot are display aids. The cylinder is locally intrinsically flat; the embedded donut has signed curvature, unlike an abstract flat quotient torus. Closed-surface curvature identities, exact great-circle transport and chart-domain reasoning are in the associated activity. No spacetime curvature or patient geometry is inferred.',
+        [['Teal: positive analytic Gaussian curvature',g.colors.teal],['Coral: negative analytic Gaussian curvature',g.colors.coral],['Blue: zero Gaussian curvature',g.colors.blue]],g),
+        curvature:{state:s,local,faces,patch,integral,glyphScale}};
+    });
+
+  define('driven-hoop-state','Moving constraint, real power and virtual work',
+    {radius:1,mass:1,angle:45,rate:1,omega:4,phase:0},
+    [range('radius','Hoop radius R',.5,2,.25,'m'),range('mass','Bead mass',.5,2,.25,'kg'),
+     range('angle','Instantaneous θ from downward vertical',-180,180,15,'°'),
+     range('rate','Instantaneous θ rate',-3,3,.5,'rad/s'),range('omega','Prescribed angular speed Ω',-4,4,.5,'rad/s'),
+     range('phase','Instantaneous hoop orientation φ',0,360,30,'°')],(s,g)=>{
+      const theta=s.angle*Math.PI/180,phase=s.phase*Math.PI/180,m=window.PrimerPhysicsConstraintsLab.hoopSnapshot({mass:s.mass,radius:s.radius,gravity:9.8,theta,thetaRate:s.rate,driveOmega:s.omega,phase});
+      const wire=Array.from({length:97},(_,i)=>{const a=-Math.PI+2*Math.PI*i/96;return [s.radius*Math.sin(a)*Math.cos(phase),s.radius*Math.sin(a)*Math.sin(phase),-s.radius*Math.cos(a)];});
+      const display=p=>[p[0],p[2],-p[1]];
+      g.line(wire.map(display),g.colors.ink,{width:3,constraints_kind:'wire'});
+      g.sphere(display(m.position),.04*s.radius,g.colors.blue,{constraints_kind:'bead',physicalPosition:m.position});
+      const forceScale=.1,velocityScale=.2,virtualScale=.2,vector=(value,scale,color,kind,label)=>{
+        const tip=m.position.map((x,i)=>x+scale*value[i]);
+        g.line([display(m.position),display(tip)],color,{width:3,constraints_kind:kind,vector:value,scale});
+        if(Math.hypot(...value)>0){g.sphere(display(tip),.018,color,{constraints_kind:kind+'_tip'});if(label)g.label(display(tip),label);}
+        return {start:m.position,tip,vector:value,scale};
+      };
+      const glyphs={gravity:vector(m.gravityForce,forceScale,g.colors.coral,'gravity','mg'),
+        reaction:vector(m.reactionForce,forceScale,g.colors.gold,'reaction','R'),
+        velocity:vector(m.velocity,velocityScale,g.colors.teal,'velocity','v'),
+        virtual:vector(m.virtualThetaTangent,virtualScale,g.colors.plum,'virtual_theta',null)};
+      const f=v=>Number(v.toPrecision(7));
+      return {...result('Instantaneous valid hoop state: position ('+m.position.map(f).join(', ')+') m, θ rate='+s.rate+' rad/s, prescribed Ω='+s.omega+' rad/s. T='+f(m.T)+' J; V='+f(m.V)+' J; reduced H='+f(m.Hreduced)+' J; laboratory E='+f(m.Elab)+' J. E−H=Ωpφ='+f(s.omega*m.momentumPhi)+' J. Reaction·∂r/∂θ='+f(m.virtualWorkCoefficient)+' J per radian; reaction·velocity='+f(m.constraintPower)+' W, equal to drive power '+f(m.drivePower)+' W.',
+        'The wire and bead preserve metres in laboratory Cartesian axes with z upward. The viewer uses the rigid display basis (x,z,−y), placing laboratory z along its vertical axis without stretching positions or vectors. The short plum virtual-tangent glyph is identified by its legend. A polygonal line displays the exact circular wire through 97 sampled points. The bob dot and stroke widths are display aids, not physical bead size or wire thickness. θ, θ rate and hoop orientation select an instantaneous admissible state, not a timed trajectory. The associated activity separately calculates bounded trajectories and numerical convergence/work residuals. Gravity is 9.8 m/s²; V is zero at the bottom. Force arrows use 0.1 metre of drawing length per newton; velocity arrows 0.2 metre per m/s; the virtual tangent is drawn at 0.2 times ∂r/∂θ and represents an infinitesimal allowed variation, not a finite displacement. The ideal reaction has zero component along that virtual tangent but can deliver real power through the moving azimuthal constraint. For constant Ω, the autonomous reduced Hamiltonian differs from laboratory mechanical energy by Ωpφ. At Ω=0 the ideal fixed constraint supplies no power. Readout values are rounded and Cartesian dot products may retain floating-point residuals near zero. No energy drift, chaos or biological geometry is inferred from this static picture.',
+        [['Coral: gravity force',g.colors.coral],['Gold: ideal constraint reaction',g.colors.gold],['Teal: laboratory velocity',g.colors.teal],['Plum: allowed virtual tangent',g.colors.plum]],g),
+        constraints:{state:s,snapshot:m,wire,glyphs,displayFrame:[[1,0,0],[0,0,1],[0,-1,0]],scales:{forceScale,velocityScale,virtualScale}}};
+    });
+
   define('operator-coordinate-graph','Input and output coefficient graph',
     {operator:'shift',realization:'infinite',cutoff:4,position:'boundary',first:4,second:0,probe:'zero'},
     [choice('operator','Operator',[['shift','Right shift S'],['diagonal','Diagonal D']]),

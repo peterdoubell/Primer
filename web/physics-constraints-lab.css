@@ -1,0 +1,22 @@
+.physics-constraints-lab { min-width: 0; }
+.physics-constraints-lab .model-heading-row { flex-wrap: wrap; }
+.physics-constraints-lab .model-heading-row > button { flex-shrink: 0; }
+.physics-constraints-lab select, .physics-constraints-lab input[type=number] { box-sizing: border-box; width: 100%; min-width: 0; min-height: 42px; font: inherit; color: inherit; background: var(--paper,#f5efdf); border: 1px solid var(--line,#d5cfbf); border-radius: 6px; padding: 6px 8px; }
+.constraints-widget { min-width: 0; }
+.physics-constraints-lab [hidden] { display: none !important; }
+.physics-constraints-lab .constraints-number-control { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.constraints-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 18px 0; }
+.constraints-viewport { min-width: 0; overflow: auto; background: #f5efdf; border: 1px solid var(--line,#d5cfbf); border-radius: 10px; }
+.constraints-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans,sans-serif); }
+.physics-constraints-lab.is-enlarged .constraints-viewport svg { width: 720px; min-width: 720px; max-width: none; }
+.constraints-summary, .constraints-readout, .constraints-equation, .constraints-diagnostics, .constraints-sources, .constraints-assumptions { overflow-wrap: anywhere; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.constraints-summary { border-left: 3px solid #b98a2f; padding-left: 12px; }
+.constraints-diagnostics.is-unresolved { border: 2px solid #b96652; padding: 10px; }
+.constraints-ledger-region { overflow: auto; max-width: 100%; margin: 16px 0; }
+.constraints-ledger { width: 100%; min-width: 450px; border-collapse: collapse; }
+.constraints-ledger caption { text-align: left; margin: 8px 0; }
+.constraints-ledger th, .constraints-ledger td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line,#d5cfbf); }
+.constraints-assumptions > summary { cursor: pointer; }
+.constraints-viewport:focus-visible, .constraints-ledger-region:focus-visible, .physics-constraints-lab input:focus-visible, .physics-constraints-lab select:focus-visible, .physics-constraints-lab button:focus-visible { outline: 3px solid var(--accent,#317e78); outline-offset: 3px; }
+.constraints-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width:760px) { .constraints-panels, .physics-constraints-lab .concept-controls { grid-template-columns: minmax(0,1fr); } }

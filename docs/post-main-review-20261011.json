@@ -1,0 +1,556 @@
+{
+  "schema": "primer.post-main-review.v1",
+  "reviewedAtUtc": "2026-10-11T07:12:46+00:00",
+  "repository": "/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007",
+  "head": "b23ce55f4b11e56532b6908062ef0a6278a3a240",
+  "parent": "421390435be1b6c9c7a65be44cc4ca2b88b505f4",
+  "status": "passed",
+  "scope": "Post-main browser QA evidence and documentation handoff for the curvature and classical-constraints lesson routes. Existing completed route QA was audited without rerunning it.",
+  "qaOrigin": "Saved isolated authenticated local reader at http://127.0.0.1:8916, Chromium 151.0.7922.34",
+  "globalReaderStage": 2,
+  "productionVerified": false,
+  "sourceSha256": {
+    "app.js": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+    "lesson-models.js": "f527ece3c8f03dfbdefddfd2e0216554f5b7ad9ee3976d698ba0ac64cca83ee8",
+    "math-curvature-lab.css": "5b6890e6fe51b7c8ad9a4edc46aab690fc592354137d47349cf4821e6b43e91f",
+    "math-curvature-lab.js": "715efc56d12676454a2c873470ad5f2181a56bc22bb8cb15cfc0bb2738a929b0",
+    "physics-constraints-lab.css": "a0f1aff4aad7faf0c63038e5ec479d4b3b7a08e7dfa2fa2c12953282b27b2c0d",
+    "physics-constraints-lab.js": "ff1d79ba13f619a7e96acd035a916d053a583af24e5890e2e16852ef9a120d77",
+    "spatial-models.js": "b3d2e6dbb578e527da86fe221386456449cfcebd704cbdc06ab4c256cf0c63b6",
+    "spatial-module-objects.js": "3b45c9a0b0ee2a6d8f51632c5b6ba584be5cacc204eacc18313770e75618c74c",
+    "speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50",
+    "styles.css": "afbfab4349113e050c1ad2ddc4c5667d93bcc0b115afdda2a5c9056a3398183b"
+  },
+  "reviews": [
+    {
+      "id": "curvatureStandalone",
+      "route": "/#/node/math.5.diffgeo",
+      "proofRelativePath": "curvature/proof.json",
+      "passed": true,
+      "browserErrors": [],
+      "servedLocalAndCurrentSourceHashesMatch": true,
+      "viewports": [
+        {
+          "widthCssPixels": 1440,
+          "counts": {
+            "selectedStates": 19,
+            "nativeEndpoints": 28,
+            "speechCaptures": 6
+          },
+          "exactReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1194
+        },
+        {
+          "widthCssPixels": 390,
+          "counts": {
+            "selectedStates": 19,
+            "nativeEndpoints": 28,
+            "speechCaptures": 6
+          },
+          "exactReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1194
+        }
+      ]
+    },
+    {
+      "id": "curvature3D",
+      "route": "/#/node/math.5.diffgeo",
+      "proofRelativePath": "curvature/spatial-proof.json",
+      "passed": true,
+      "browserErrors": [],
+      "servedLocalAndCurrentSourceHashesMatch": true,
+      "viewports": [
+        {
+          "widthCssPixels": 1440,
+          "counts": {
+            "selectedStates": 66,
+            "nativeEndpoints": 40,
+            "speechCaptures": 11
+          },
+          "exactReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1185
+        },
+        {
+          "widthCssPixels": 390,
+          "counts": {
+            "selectedStates": 66,
+            "nativeEndpoints": 40,
+            "speechCaptures": 11
+          },
+          "exactReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1185
+        }
+      ]
+    },
+    {
+      "id": "physicsLab",
+      "route": "/#/node/phys.4.classical",
+      "proofRelativePath": "physics/proof.json",
+      "passed": true,
+      "browserErrors": [],
+      "servedLocalAndCurrentSourceHashesMatch": true,
+      "viewports": [
+        {
+          "widthCssPixels": 1440,
+          "counts": {
+            "modes": 8,
+            "rangeEndpoints": 98,
+            "numericEndpoints": 98,
+            "presets": 8,
+            "speechCaptures": 9
+          },
+          "exactReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1180
+        },
+        {
+          "widthCssPixels": 390,
+          "counts": {
+            "modes": 8,
+            "rangeEndpoints": 98,
+            "numericEndpoints": 98,
+            "presets": 8,
+            "speechCaptures": 9
+          },
+          "exactReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1180
+        }
+      ]
+    },
+    {
+      "id": "physicsDrivenHoop3D",
+      "route": "/#/node/phys.4.classical",
+      "proofRelativePath": "physics/proof.json",
+      "passed": true,
+      "viewports": [
+        {
+          "widthCssPixels": 1440,
+          "counts": {
+            "parameters": 6,
+            "nativeEndpoints": 12,
+            "cameraButtons": 6,
+            "speechCaptures": 3
+          },
+          "keyboardReset": true,
+          "modelButtonReset": true,
+          "viewButtonReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1164
+        },
+        {
+          "widthCssPixels": 390,
+          "counts": {
+            "parameters": 6,
+            "nativeEndpoints": 12,
+            "cameraButtons": 6,
+            "speechCaptures": 3
+          },
+          "keyboardReset": true,
+          "modelButtonReset": true,
+          "viewButtonReset": true,
+          "speechExact": true,
+          "maxSpeechChunkCharacters": 1164
+        }
+      ]
+    }
+  ],
+  "existingProofsPreserved": true,
+  "evidenceRoot": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace",
+  "evidenceFileCount": 58,
+  "evidenceScreenshotCount": 50,
+  "evidenceFiles": [
+    {
+      "relativePath": "curvature/1440-3D-default.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-3D-default.png",
+      "bytes": 126750,
+      "sha256": "ba7b412b281fd582928d64fd4e45b813c47c82ceb08c429a5250feb6eed0f5e4"
+    },
+    {
+      "relativePath": "curvature/1440-3D-inner.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-3D-inner.png",
+      "bytes": 126399,
+      "sha256": "3b9e3d0a8b4f01813a6a2c00bf8a8a4dbf5a4f8856df521c969aa75d28759a79"
+    },
+    {
+      "relativePath": "curvature/1440-3D-outer.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-3D-outer.png",
+      "bytes": 126750,
+      "sha256": "ba7b412b281fd582928d64fd4e45b813c47c82ceb08c429a5250feb6eed0f5e4"
+    },
+    {
+      "relativePath": "curvature/1440-3D-pole--1.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-3D-pole--1.png",
+      "bytes": 34552,
+      "sha256": "24919504da1ea7d99e46c19ad8280136cbacb3ff039b848bf463a9870d1a041f"
+    },
+    {
+      "relativePath": "curvature/1440-3D-pole-1.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-3D-pole-1.png",
+      "bytes": 34441,
+      "sha256": "8ab4166aeb4a2a9064d149dd3870a45355442228279f4dfbe1863e488ebad074"
+    },
+    {
+      "relativePath": "curvature/1440-3D-zero.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-3D-zero.png",
+      "bytes": 126476,
+      "sha256": "7fbf770155056a847a9f8cb897d389629589d2fee5c4ecbeb9a247b6124a8dfd"
+    },
+    {
+      "relativePath": "curvature/1440-closed-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-closed-K.png",
+      "bytes": 27483,
+      "sha256": "15b0022d2608bcfc31427fc9c132e883eb60b7a59cacc43ced8e78986d51b6c8"
+    },
+    {
+      "relativePath": "curvature/1440-closed-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-closed-surface.png",
+      "bytes": 66980,
+      "sha256": "6eac7f0233ded2dea21d4cdc47dbc29e9bf090593446616cff15a62e5da5fe08"
+    },
+    {
+      "relativePath": "curvature/1440-closed-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-closed-transport.png",
+      "bytes": 63579,
+      "sha256": "7a809be878fb7d75acd547d7f16204bcd317c8c02994722eea6a6f14d77c468a"
+    },
+    {
+      "relativePath": "curvature/1440-closed.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-closed.png",
+      "bytes": 380316,
+      "sha256": "aa3f1f42f4d9da95e87c19e97847a10c652c1689319383ab73dec1a3d29d3221"
+    },
+    {
+      "relativePath": "curvature/1440-default-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-default-K.png",
+      "bytes": 27483,
+      "sha256": "15b0022d2608bcfc31427fc9c132e883eb60b7a59cacc43ced8e78986d51b6c8"
+    },
+    {
+      "relativePath": "curvature/1440-default-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-default-surface.png",
+      "bytes": 66980,
+      "sha256": "6eac7f0233ded2dea21d4cdc47dbc29e9bf090593446616cff15a62e5da5fe08"
+    },
+    {
+      "relativePath": "curvature/1440-default-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-default-transport.png",
+      "bytes": 63798,
+      "sha256": "df408c40e7c595d37f927cb54e6d8622ea378f0577de627e4a374939b68b268a"
+    },
+    {
+      "relativePath": "curvature/1440-default.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-default.png",
+      "bytes": 380522,
+      "sha256": "e58c5b140608506d158c89f9ab303f33e9d756102ad27386dfbefbba6e11974a"
+    },
+    {
+      "relativePath": "curvature/1440-inner-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-inner-K.png",
+      "bytes": 27485,
+      "sha256": "d4221a4311838d601de268f61635cd57c1bd02eb1594b73d705a20d74fd97dd1"
+    },
+    {
+      "relativePath": "curvature/1440-inner-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-inner-surface.png",
+      "bytes": 66830,
+      "sha256": "e1ede9ac2a1b648f54a9c1c615f7881865f3842c77922e6e9ae3c8e16fb70fd4"
+    },
+    {
+      "relativePath": "curvature/1440-inner-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-inner-transport.png",
+      "bytes": 63798,
+      "sha256": "df408c40e7c595d37f927cb54e6d8622ea378f0577de627e4a374939b68b268a"
+    },
+    {
+      "relativePath": "curvature/1440-inner.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-inner.png",
+      "bytes": 380146,
+      "sha256": "681829a689d90b7b0c0e325788880a5f47a37aaf7f39bb8b54277294ea4401f0"
+    },
+    {
+      "relativePath": "curvature/1440-pole-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-pole-K.png",
+      "bytes": 21246,
+      "sha256": "4a89ac8b6c92f7fa0a300b387ece3b56c98fc2d479b42ffbe8f8552fa1689fc5"
+    },
+    {
+      "relativePath": "curvature/1440-pole-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-pole-surface.png",
+      "bytes": 43678,
+      "sha256": "45d9a1309c2ddebba1e60c38ecac02e8fa7810bf3352e90ffab4da0d91fcd5c5"
+    },
+    {
+      "relativePath": "curvature/1440-pole-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-pole-transport.png",
+      "bytes": 63804,
+      "sha256": "6bfc8a67a039a62402b72c35143eb804a7234f8d81ae4d4714a7c762cecae302"
+    },
+    {
+      "relativePath": "curvature/1440-pole.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/1440-pole.png",
+      "bytes": 350439,
+      "sha256": "b39d1178099170cfa861d52ac559d022a779ed4c606df05b84d7f9ddd29faec7"
+    },
+    {
+      "relativePath": "curvature/390-3D-default.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-3D-default.png",
+      "bytes": 33839,
+      "sha256": "5d8e203b28efaf7a6453135bb5e1a456943b963bfd08affaeece44bd7bbd90ef"
+    },
+    {
+      "relativePath": "curvature/390-3D-inner.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-3D-inner.png",
+      "bytes": 33700,
+      "sha256": "540b0cf9227eb61abb1ce428797389a829bd1f0297580fd79eaffabfd78b2ecc"
+    },
+    {
+      "relativePath": "curvature/390-3D-outer.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-3D-outer.png",
+      "bytes": 33839,
+      "sha256": "5d8e203b28efaf7a6453135bb5e1a456943b963bfd08affaeece44bd7bbd90ef"
+    },
+    {
+      "relativePath": "curvature/390-3D-pole--1.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-3D-pole--1.png",
+      "bytes": 8944,
+      "sha256": "57358842af16cd1b204c5a969b6a457d49b32acb4d54ade385e43c2395b69968"
+    },
+    {
+      "relativePath": "curvature/390-3D-pole-1.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-3D-pole-1.png",
+      "bytes": 8939,
+      "sha256": "b42c4f9c83a1c1594b0cca88575e79996293b26a557f930e6e326b3e88e0a28b"
+    },
+    {
+      "relativePath": "curvature/390-3D-zero.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-3D-zero.png",
+      "bytes": 33718,
+      "sha256": "ad9f9fe73e37217678a4a72453cf65aaa212f05b85983970baf95550164d4fb8"
+    },
+    {
+      "relativePath": "curvature/390-closed-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-closed-K.png",
+      "bytes": 18383,
+      "sha256": "03e51303b871f6f563f9754ae3d32fe3cc12b7d573cdd92bb35d817ba59890d7"
+    },
+    {
+      "relativePath": "curvature/390-closed-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-closed-surface.png",
+      "bytes": 45067,
+      "sha256": "5a4bbf3492e6f0106860a9be8b572b32a611d1a2ff4bb88ba690dcbfb7f86c6c"
+    },
+    {
+      "relativePath": "curvature/390-closed-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-closed-transport.png",
+      "bytes": 26363,
+      "sha256": "a02f19c22e31bab4fb87801303858acaaf3bb9b4d8b37b07a06161c569373fed"
+    },
+    {
+      "relativePath": "curvature/390-closed.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-closed.png",
+      "bytes": 111057,
+      "sha256": "5e3d862f082665bbfd2eac95f45ccbe35520b61dad93d360a7a27925bef5b451"
+    },
+    {
+      "relativePath": "curvature/390-default-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-default-K.png",
+      "bytes": 18383,
+      "sha256": "03e51303b871f6f563f9754ae3d32fe3cc12b7d573cdd92bb35d817ba59890d7"
+    },
+    {
+      "relativePath": "curvature/390-default-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-default-surface.png",
+      "bytes": 45067,
+      "sha256": "5a4bbf3492e6f0106860a9be8b572b32a611d1a2ff4bb88ba690dcbfb7f86c6c"
+    },
+    {
+      "relativePath": "curvature/390-default-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-default-transport.png",
+      "bytes": 26435,
+      "sha256": "271aa44ea2039b4ab1a3a60285e6d435cac3bad71770ff4fa8a1eb0d147160cd"
+    },
+    {
+      "relativePath": "curvature/390-default.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-default.png",
+      "bytes": 111120,
+      "sha256": "098a53a3420881c4025646d66a733b5790e215685756326fa0b9f70dceb60f4a"
+    },
+    {
+      "relativePath": "curvature/390-inner-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-inner-K.png",
+      "bytes": 18371,
+      "sha256": "ecc570cd5ef1d7ff37ff00dc874a8620180ed1b817ee017ce76914876dbff5a3"
+    },
+    {
+      "relativePath": "curvature/390-inner-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-inner-surface.png",
+      "bytes": 44910,
+      "sha256": "76bbc4d588e6229e096a0361166bc3b7b3b1dbd6e7a5a8b061021bd65f3ab11b"
+    },
+    {
+      "relativePath": "curvature/390-inner-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-inner-transport.png",
+      "bytes": 26435,
+      "sha256": "271aa44ea2039b4ab1a3a60285e6d435cac3bad71770ff4fa8a1eb0d147160cd"
+    },
+    {
+      "relativePath": "curvature/390-inner.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-inner.png",
+      "bytes": 110966,
+      "sha256": "7ad823090d82f50545e4a8fedc454f2d633a93ac87b8e5cedaf986dc5da5f808"
+    },
+    {
+      "relativePath": "curvature/390-pole-K.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-pole-K.png",
+      "bytes": 15753,
+      "sha256": "693ab2c41446a692e85f61ab3faccf73a0fb0ef693163579073082b0e3b29ee9"
+    },
+    {
+      "relativePath": "curvature/390-pole-surface.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-pole-surface.png",
+      "bytes": 27742,
+      "sha256": "1e8f11ae1238bfedd9f1ed51745113d09dab6d62eda439356790b4944c681a27"
+    },
+    {
+      "relativePath": "curvature/390-pole-transport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-pole-transport.png",
+      "bytes": 26969,
+      "sha256": "0dc9fd8952c028ed6ddbbb5619f5ab680d7007e9785cf82148abe21485a23a03"
+    },
+    {
+      "relativePath": "curvature/390-pole.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/390-pole.png",
+      "bytes": 92293,
+      "sha256": "48b24f2f38e46ece59678d506418bf329df4936b515eb8678d6974b3b696f4af"
+    },
+    {
+      "relativePath": "curvature/check-route.cjs",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/check-route.cjs",
+      "bytes": 11949,
+      "sha256": "c1976793162b7d34124b496a5a94d0df0f7aa053fc83d5b0b01850f36320377c"
+    },
+    {
+      "relativePath": "curvature/check-spatial.cjs",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/check-spatial.cjs",
+      "bytes": 10913,
+      "sha256": "f599ad24a39377be1b852c5dfe7db0c07aa7b51255b7391d2dccc346a6cc05dd"
+    },
+    {
+      "relativePath": "curvature/proof.json",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/proof.json",
+      "bytes": 550557,
+      "sha256": "8cbe918fd9db9069dfe7a2fd915e43f13ced594175f471b462209c7c61e7321e"
+    },
+    {
+      "relativePath": "curvature/spatial-proof.json",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/curvature/spatial-proof.json",
+      "bytes": 679027,
+      "sha256": "6b5c227f32ed9050c63d52a64c4837b763e0024b4a7ea6d4ec7b2f5f9d712c2e"
+    },
+    {
+      "relativePath": "physics/1440-double-viewport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/1440-double-viewport.png",
+      "bytes": 1456445,
+      "sha256": "9fe1580fe7c0f37dee948a448779956a169bf497ffda00f63b8f4ff821bddee7"
+    },
+    {
+      "relativePath": "physics/1440-driven-viewport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/1440-driven-viewport.png",
+      "bytes": 1486862,
+      "sha256": "18d97d47a7e8e4dfb9aa6d9f46517ea4872dcba44ba9be8cfe885c43e5ac6ae8"
+    },
+    {
+      "relativePath": "physics/1440-spatial-hoop-viewport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/1440-spatial-hoop-viewport.png",
+      "bytes": 1136274,
+      "sha256": "7b48acd635fbc1944a7b6cad8a8dc8e92761aa074d2523d0cf7e7ab92c5069d1"
+    },
+    {
+      "relativePath": "physics/390-double-viewport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/390-double-viewport.png",
+      "bytes": 346467,
+      "sha256": "25d2aae80dbb5149983b4d8efd564a43d520a5736f3926aac9c1d14d44a57b6d"
+    },
+    {
+      "relativePath": "physics/390-driven-viewport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/390-driven-viewport.png",
+      "bytes": 347380,
+      "sha256": "2d8bd6dd416af8c75a2a6a5299b4faa323738c1e4cf4cb38a7e7f8731b044fcf"
+    },
+    {
+      "relativePath": "physics/390-spatial-hoop-viewport.png",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/390-spatial-hoop-viewport.png",
+      "bytes": 441048,
+      "sha256": "8929e9ce5a92c9c7a3a70f4e984def5406145ec6ed81b5e649c74cf764abb4b9"
+    },
+    {
+      "relativePath": "physics/check-route.cjs",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/check-route.cjs",
+      "bytes": 8728,
+      "sha256": "fddba790420ad569fc7cf37f4a8e9e7f587e0afa2249a1e7fbb8904b01ecf18f"
+    },
+    {
+      "relativePath": "physics/check-spatial-route.cjs",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/check-spatial-route.cjs",
+      "bytes": 7257,
+      "sha256": "793e7f265c64f4b789adfc77af7e9a0d08300b7c1a44184ec5b0c7fbb3066082"
+    },
+    {
+      "relativePath": "physics/proof.json",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/physics/proof.json",
+      "bytes": 491782,
+      "sha256": "1aa1e3c0bc9ec826bd1a1bfcebd8391cd20add21f4c4f074e4f7b092287a5a7a"
+    },
+    {
+      "relativePath": "server.log",
+      "absolutePath": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/server.log",
+      "bytes": 47673,
+      "sha256": "3a60f727fae56406620f6804209aa41bdc49d592e190e1cb8cd78a075d5776d5"
+    }
+  ],
+  "visualAudit": {
+    "priorReview": "Completed route screenshot inspection was preserved from the interrupted owner review.",
+    "handoffInspection": [
+      "physics/1440-spatial-hoop-viewport.png",
+      "physics/390-spatial-hoop-viewport.png"
+    ],
+    "handoffFinding": "Upright hoop and R, v, mg labels are contained; mobile controls wrap within the viewport."
+  },
+  "runtimeCleanup": {
+    "serverAlreadyStopped": true,
+    "listener8916Absent": true,
+    "newServerStarted": false,
+    "removedFiles": [
+      {
+        "path": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/qa.db",
+        "bytes": 131072,
+        "sha256": "3a757366d36589e0c592053900ff15bc3dd4671fcb3dbfcb96361e1761ca498b",
+        "removed": true
+      },
+      {
+        "path": "/Users/peter/Documents/ChatGPT/Primer/.research/curvature-reader-qa-62msxhbx/post-main-20261011-ay1c5ace/backups/primer-20261011-090550.db",
+        "bytes": 131072,
+        "sha256": "c128fb25bea30aaf40641df4473018695012e87115f90c59287d7b90b388f7ee",
+        "removed": true
+      }
+    ],
+    "ownedBackupDirectoryRemoved": true,
+    "ownedDatabaseFilesAbsent": true
+  },
+  "limitations": [
+    "Local route evidence only; no authenticated production/deployment QA.",
+    "Speech captures verify exact current text and chunks, not acoustic intelligibility. Model speech uses global reader stage 2 on the advanced lesson routes; the host suppresses model speakers above that stage.",
+    "Checks are bounded to the supplied analytic surfaces and authored classical systems; they do not establish arbitrary-surface transport, general relativity, arbitrary central potentials, or completion of the wider fidelity objective.",
+    "Full-suite/release verification is owned by the parent task and is not repeated or claimed by this handoff."
+  ],
+  "mutations": [
+    "docs/post-main-review-20261011.md",
+    "docs/post-main-review-20261011.json",
+    "Removed owned disposable post-main qa.db and its single backup."
+  ]
+}
