@@ -129,6 +129,49 @@ const GLYPHS = {
   spark: '<path d="M12 3.4c.9 4.1 2.6 5.8 6.7 6.7-4.1.9-5.8 2.6-6.7 6.7-.9-4.1-2.6-5.8-6.7-6.7 4.1-.9 5.8-2.6 6.7-6.7z"/><path d="M18.2 15.4c.4 1.8 1.1 2.5 2.9 2.9-1.8.4-2.5 1.1-2.9 2.9-.4-1.8-1.1-2.5-2.9-2.9 1.8-.4 2.5-1.1 2.9-2.9z"/>',
   // A single stroke of certainty: the check, for "I know it".
   known: '<path d="M4.5 13l5 5L19.5 6.5"/>',
+  // ---- the marks the font used to supply ----
+  // Arrows for onward and back. The → typed into a label was the last font
+  // glyph doing an icon's job; drawn, it sits at the stroke weight of the
+  // marks beside it instead of whatever weight the face gives it.
+  onward: '<path d="M4.5 12h14.5M13.5 6.5L19 12l-5.5 5.5"/>',
+  backward: '<path d="M19.5 12H5M10.5 6.5L5 12l5.5 5.5"/>',
+  // Leaves the book: the outbound corner arrow.
+  outside: '<path d="M7 17L17 7M9 7h8v8"/>',
+  // Comes round again (refresh) and starts over (restart): one arc, two hands.
+  refresh: '<path d="M19.4 12.6a7.5 7.5 0 1 1-2.1-5.9"/><path d="M19.6 3.8v4.4h-4.4"/>',
+  restart: '<path d="M4.6 12.6a7.5 7.5 0 1 0 2.1-5.9"/><path d="M4.4 3.8v4.4h4.4"/>',
+  // Half a disc: begun, or slipped — partly there either way.
+  half: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/>',
+  halfAlt: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor" stroke="none"/>',
+  // An open diamond: assumed, not proved.
+  assumed: '<path d="M12 3.6l8.4 8.4-8.4 8.4L3.6 12z"/>',
+  // A star, outlined and filled, for the young reader's score.
+  star: '<path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/>',
+  starFill: '<path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" fill="currentColor"/>',
+  // ---- one mark per field, keyed d-<domain id> ----
+  // The curriculum's icons were Unicode characters (∑ ⚛ ⚗ ⚖ …), which every
+  // platform draws in a different face and weight, and two fields shared one.
+  // Each field now has its own drawn mark; a field without one falls back to
+  // its character, then to the spark.
+  'd-math': '<path d="M17.5 5H6.5l6 7-6 7h11"/>',
+  'd-language': '<path d="M12 21.2L7.2 11.6 12 2.8l4.8 8.8z"/><path d="M12 14.6V9.6"/><circle cx="12" cy="15.9" r="1.3"/>',
+  'd-physics': '<ellipse cx="12" cy="12" rx="9.2" ry="3.6"/><ellipse cx="12" cy="12" rx="9.2" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9.2" ry="3.6" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>',
+  'd-biology': '<path d="M12 21V11"/><path d="M12 11c0-4.6 3-7.2 8.2-7.2 0 5.1-3 7.2-8.2 7.2z"/><path d="M12 14.6c0-3.6-2.4-5.6-7.2-5.6 0 4 2.6 5.6 7.2 5.6z"/>',
+  'd-chemistry': '<path d="M9 3.5h6M10.4 3.5v5.4L5 18.4a1.5 1.5 0 0 0 1.3 2.1h11.4a1.5 1.5 0 0 0 1.3-2.1L13.6 8.9V3.5"/><path d="M7.6 14.6h8.8"/>',
+  'd-cs': '<path d="M8.5 7l-5 5 5 5M15.5 7l5 5-5 5"/><path d="M13.6 4.8l-3.2 14.4"/>',
+  'd-history': '<path d="M6.5 3.5h11M6.5 20.5h11"/><path d="M7.6 3.5c0 4.6 4.4 5.6 4.4 8.5s-4.4 3.9-4.4 8.5M16.4 3.5c0 4.6-4.4 5.6-4.4 8.5s4.4 3.9 4.4 8.5"/><path d="M10 18.6h4"/>',
+  'd-earth': '<circle cx="12" cy="12" r="5.6"/><path d="M5.9 14.6c-2.9 2.3-4 4.2-3 4.8 1.9 1.1 7.4-1.3 12-5.2s7.4-8.4 5.5-9.5c-1-.6-3.1.2-5.6 1.9"/>',
+  'd-arts': '<path d="M9 18V5.6l11-2.1v12.4"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.9" r="2.5"/><path d="M9 9.4l11-2.1"/>',
+  'd-mind': '<path d="M12 3.5v17M8.5 20.5h7"/><path d="M5.2 5.8v3.4a6.8 6.8 0 0 0 13.6 0V5.8"/>',
+  'd-radiology': '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 6v12"/><path d="M8.2 9c1.6 1 6 1 7.6 0M8 12.4c1.7 1 6.3 1 8 0M8.4 15.8c1.5.9 5.7.9 7.2 0"/>',
+  'd-engineering': '<path d="M18.7 10.2 L21.2 10.7 L21.2 13.3 L18.7 13.8 L18.0 15.4 L19.4 17.6 L17.6 19.4 L15.5 18.0 L13.8 18.7 L13.3 21.2 L10.7 21.2 L10.2 18.7 L8.6 18.0 L6.4 19.4 L4.6 17.6 L6.0 15.4 L5.3 13.8 L2.8 13.3 L2.8 10.7 L5.3 10.2 L6.0 8.5 L4.6 6.4 L6.4 4.6 L8.5 6.0 L10.2 5.3 L10.7 2.8 L13.3 2.8 L13.8 5.3 L15.5 6.0 L17.6 4.6 L19.4 6.4 L18.0 8.5z"/><circle cx="12" cy="12" r="3.2"/>',
+  'd-health': '<path d="M12 20.2s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.3a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/><path d="M6.8 12.6h2.6l1.3-2.3 2 4.1 1.3-1.8h3.2"/>',
+  'd-environment': '<path d="M2.8 19c3-3.6 6.2-3.6 9.2 0s6.2 3.6 9.2 0"/><path d="M12 15.8V7.4"/><path d="M12 10.4c-2.4 0-3.8-1.4-3.8-3.8 2.4 0 3.8 1.4 3.8 3.8zM12 10.4c2.4 0 3.8-1.4 3.8-3.8-2.4 0-3.8 1.4-3.8 3.8z"/>',
+  'd-design': '<circle cx="12" cy="4.6" r="1.7"/><path d="M11.1 6.2L5.6 20.5M12.9 6.2l5.5 14.3"/><path d="M7.4 15.6c3 1.4 6.2 1.4 9.2 0"/>',
+  'd-business': '<path d="M3.5 20.5h17"/><rect x="5.2" y="13.2" width="3.2" height="4.8" rx=".6"/><rect x="10.4" y="9.2" width="3.2" height="8.8" rx=".6"/><rect x="15.6" y="5.2" width="3.2" height="12.8" rx=".6"/>',
+  'd-civics': '<path d="M12 3.5v17M8 20.5h8M4.6 6.6h14.8"/><path d="M4.6 6.6L2.2 12.6a2.4 2.4 0 0 0 4.8 0zM19.4 6.6l-2.4 6a2.4 2.4 0 0 0 4.8 0z"/>',
+  'd-education': '<path d="M2.4 9.4L12 4.9l9.6 4.5L12 13.9z"/><path d="M6.4 11.3v4.4c1.7 1.6 3.5 2.3 5.6 2.3s3.9-.7 5.6-2.3v-4.4"/><path d="M21.6 9.4v5.2"/>',
+  'd-media': '<path d="M4 5.2h16v10.4h-8.6l-4.6 3.6v-3.6H4z"/><path d="M8 9.2h8M8 12.2h5"/>',
   // Its opposite: a crossed stroke, for the wrong verdict. Drawn so ✓ and ✗
   // share one weight instead of two fonts' ideas of a tick.
   wrong: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
@@ -162,7 +205,18 @@ function verdictMark(ok) {
 const domainById = id => S.domains.find(d => d.id === id) || { name: id, color: 'var(--edge)', icon: '' };
 // Authored domains ship their own character; the fallback has none, so it is
 // drawn in the book's own hand rather than borrowed from the running text.
-function domainMark(d, size) { return d.icon ? d.icon : glyph('spark', size || 15); }
+function domainMark(d, size) {
+  return GLYPHS['d-' + d.id] ? glyph('d-' + d.id, size || 15) : d.icon ? d.icon : glyph('spark', size || 15);
+}
+// A label with its drawn arrow. Fragments rather than arrays because el()
+// appends anything with a nodeType, and a fragment hands over its children.
+function frag(...kids) {
+  const f = document.createDocumentFragment();
+  kids.forEach(k => { if (k != null) f.append(k.nodeType ? k : document.createTextNode(k)); });
+  return f;
+}
+function onward(label) { return frag(label + ' ', glyph('onward', 16)); }
+function backward(label) { return frag(glyph('backward', 16), ' ' + label); }
 function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 /* ---------------- haptics ----------------
@@ -563,7 +617,7 @@ function renderOnboarding() {
         field('Your name', nameInput, 'ob-name'),
         el('div', { style: 'display:flex;gap:10px;align-items:center' },
           speakBtnAlways(() => 'Welcome, reader. This book will teach you everything. First, what is your name?'),
-          btn({ class: 'btn gold', style: 'flex:1', onclick: () => { if (!data.name.trim()) data.name = 'Reader'; step = 1; draw(); } }, 'Begin →')),
+          btn({ class: 'btn gold', style: 'flex:1', onclick: () => { if (!data.name.trim()) data.name = 'Reader'; step = 1; draw(); } }, onward('Begin'))),
       );
       setTimeout(() => nameInput.focus(), 30);
     } else if (step === 1) {
@@ -609,9 +663,9 @@ function renderOnboarding() {
   }
   function field(label, input, id) { const l = el('label', { class: 'field', for: id }); l.append(el('span', {}, label), input); return l; }
 function field2(label, out, input) { const l = el('label', { class: 'field' }); const head = el('span', { style: 'display:flex;justify-content:space-between' }, el('span', {}, label), out); l.append(head, input); return l; }
-  function navRow(back, next, nextLabel = 'Continue →') {
+  function navRow(back, next, nextLabel = onward('Continue')) {
     return el('div', { style: 'display:flex;gap:10px;margin-top:20px' },
-      btn({ class: 'btn ghost', onclick: back }, '← Back'),
+      btn({ class: 'btn ghost', onclick: back }, backward('Back')),
       btn({ class: 'btn gold', style: 'flex:1', onclick: next }, ...[].concat(nextLabel)));
   }
   // The frame story is written *about* the reader, so it needs a pronoun for
@@ -740,7 +794,7 @@ function offerPlacement(domains) {
           btn({ class: 'btn ghost', style: 'flex:1', onclick: close }, 'Skip for now'),
           btn({ class: 'btn gold', style: 'flex:1',
             onclick: () => { close(); runPlacement(only.id, S.stage, measuredAt(only.id) !== null); } },
-            'Check my level →')));
+            onward('Check my level'))));
         return;
       }
       const list = el('div', { class: 'placement-fields' });
@@ -877,7 +931,7 @@ async function runPlacement(domain, stage, recheck) {
           : 'The book has found where to open in ' + domainById(domain).name + ' — a little below ' + STAGE_NAMES[stage] + ', so the ground is solid under you. Nothing here was a check you could fail.')));
     if (r.suggest_stage != null && !r.settled) {
       splash.append(el('p', { class: 'muted' }, r.passed ? 'Let\'s try one level higher.' : 'Let\'s try one level down.'),
-        btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, 'Continue →'));
+        btn({ class: 'btn gold', onclick: () => { close(); runPlacement(domain, r.suggest_stage); } }, onward('Continue')));
     } else {
       splash.append(el('p', { class: 'result-msg' }, 'The book has placed you. You can re-check any time.'),
         btn({ class: 'btn gold', onclick: async () => { close(); S.state = await api.get('/api/state'); S.stage = Number.isFinite(S.state.profile.stage) ? S.state.profile.stage : 2; document.body.dataset.stage = S.stage; renderShell(); renderRoute(); } }, 'Open my book ', glyph('spark', 15)));
@@ -1499,7 +1553,7 @@ async function renderToday(page) {
     // a time that has already passed.
     t.pending.forEach(w => pr.append(btn({ class: 'req-chip pending-chip' + (w.open === false ? ' blocked' : ''),
       onclick: () => go('node', w.id) },
-      '◐ ' + w.title + ' · ' + (w.open === false
+      glyph('half', 14), ' ' + w.title + ' · ' + (w.open === false
         ? (w.blocked_by || 'waiting on earlier work')
         : (readyNow(w.ready_at) ? 'ready now' : 'ready ' + whenReady(w.ready_at))))));
     page.append(pr);
@@ -1509,7 +1563,7 @@ async function renderToday(page) {
   if (t.refresh && t.refresh.length) {
     page.append(sectionLabel('Worth refreshing'));
     const rr = el('div', { class: 'refresh-row' });
-    t.refresh.forEach(r => rr.append(btn({ class: 'req-chip', onclick: () => go('node', r.id) }, '↻ ' + r.title)));
+    t.refresh.forEach(r => rr.append(btn({ class: 'req-chip', onclick: () => go('node', r.id) }, glyph('refresh', 14), ' ' + r.title)));
     page.append(rr);
   }
 
@@ -1651,7 +1705,7 @@ function openStory(s, canAdvance, needs, onClose) {
           } catch (e) { close(); toast('The page would not turn just now — nothing is lost, and the chapter is still waiting. Try again in a moment.'); }
         } }, 'Turn the page ', glyph('spark', 15)));
       } else if (s.leads_to) {
-        controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); go('node', s.leads_to); } }, "Let's learn it →"));
+        controls.append(btn({ class: 'btn gold', style: 'flex:1', onclick: () => { close(); go('node', s.leads_to); } }, onward("Let's learn it")));
         if (needs) modal.append(el('p', { style: 'color:var(--gold-bright);font-family:var(--sans);font-size:13px;margin-top:12px' },
           needs.faded ? storyWaitingText(needs) : 'This page turns when you prove ' + storyWaitingText(needs) + '.'));
       } else {
@@ -1714,7 +1768,7 @@ function wireOutsideLinks(root) {
     link.dataset.outsideWired = '1';
     const host = link.getAttribute('data-primer-outside') || 'another site';
     if (!link.querySelector('.outside-mark')) {
-      link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, '↗'));
+      link.append(el('span', { class: 'outside-mark', 'aria-hidden': 'true' }, glyph('outside', 12)));
     }
     const said = link.getAttribute('aria-label') || link.textContent.trim();
     link.setAttribute('aria-label', said + ' — leaves the book, on ' + host);
@@ -1733,7 +1787,7 @@ function wireOutsideLinks(root) {
             btn({ class: 'btn gold', style: 'flex:1', onclick: () => {
               close();
               window.open(href, '_blank', 'noopener,noreferrer');
-            } }, 'Open ' + host + ' →')));
+            } }, onward('Open ' + host))));
       } });
     });
   });
@@ -2628,7 +2682,7 @@ async function renderRadiologyDesk(page, nodeId) {
   if (!S.radiologyFilter) S.radiologyFilter = { query: '', section: n.section };
   const detailedAnatomy = window.PrimerDetailedAnatomy?.supported(ref.spatial_model.family);
   page.append(el('nav', { class: 'rad-desk-backbar', 'aria-label': 'Reference navigation' },
-      btn({ class: 'btn ghost small rad-desk-back', onclick: () => go('radiology') }, '← Back to references'),
+      btn({ class: 'btn ghost small rad-desk-back', onclick: () => go('radiology') }, backward('Back to references')),
       el('span', { class: 'rad-desk-location' }, n.section + ' / ' + n.topic)),
     pagehead(n.modality + ' · ' + n.topic, n.title, n.goal),
     el('div', { class: 'rad-source-heading-list' }, el('span', {}, 'Radiology Assistant topics'),
@@ -3004,8 +3058,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const landmarkBox = el('div', { class: 'rad-walk-model', hidden: '' });
   const anatomyBox = el('div', { class: 'rad-walk-model', hidden: '' });
   visual.append(visualTitle, modeBar, visualNote, figureBox, landmarkBox, anatomyBox);
-  const previous = btn({ class: 'btn ghost', onclick: () => show(current - 1, true) }, '← Previous');
-  const next = btn({ class: 'btn', onclick: () => show(current + 1, true) }, 'Next →');
+  const previous = btn({ class: 'btn ghost', onclick: () => show(current - 1, true) }, backward('Previous'));
+  const next = btn({ class: 'btn', onclick: () => show(current + 1, true) }, onward('Next'));
   const nav = el('div', { class: 'rad-walk-nav' }, previous, progress, next);
   root.append(intro, el('nav', { class: 'rad-walk-stepper', 'aria-label': 'Reporting steps' }, stepper),
     el('div', { class: 'rad-walk-body' }, main, visual), nav, live);
@@ -3227,7 +3281,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     main.replaceChildren(el('p', { class: 'kicker' }, 'Step ' + (current + 1) + ' of ' + pages.length), heading, ...body.filter(Boolean));
     previous.disabled = current === 0;
     next.disabled = current === pages.length - 1;
-    next.textContent = current === pages.length - 2 ? 'Review report →' : 'Next →';
+    next.replaceChildren(onward(current === pages.length - 2 ? 'Review report' : 'Next'));
     refreshMarks();
     showVisual(false);
     root.dataset.step = String(current);
@@ -3283,9 +3337,13 @@ async function renderNode(page, nodeId) {
   const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));
   if (!n) return;
   const d = domainById(n.domain);
-  // pagehead's kicker is also its spoken text, so it stays a string: the
-  // fallback contributes no mark here rather than a character to mispronounce.
-  page.append(pagehead((d.icon ? d.icon + ' ' : '') + d.name + ' · ' + stageLabel(n.stage), n.title, n.goal || ''));
+  // pagehead's kicker is also its spoken text, so it stays a string — and the
+  // field's drawn mark is set into it afterwards, where it is seen but never
+  // read out as a character to mispronounce.
+  const nodeHead = pagehead(d.name + ' · ' + stageLabel(n.stage), n.title, n.goal || '');
+  const nodeKicker = nodeHead.querySelector('.kicker');
+  if (nodeKicker) nodeKicker.prepend(el('span', { class: 'kicker-mark', 'aria-hidden': 'true' }, domainMark(d, 14)), ' ');
+  page.append(nodeHead);
   page.append(el('nav', { class: 'lesson-pathway-links', 'aria-label': 'Explore this learning pathway' },
     el('a', { class: 'btn ghost small', href: hashFor('atlas', { domain: n.domain, stage: n.stage }) },
       glyph('path', 16), ' ', d.name, ' pathway'),
@@ -3312,7 +3370,7 @@ async function renderNode(page, nodeId) {
   }
   if (n.proven) {
     page.append(el('div', { class: 'card', style: 'border-color:var(--green);background:var(--tint-green)' },
-      el('b', { style: 'color:var(--green-ink)' }, n.music_grade ? '✓ Written-knowledge checks proved. Continue the practical, listening and composition work with musical feedback.' : '✓ You have proved this one. Revisit it any time, or push further in the Atlas.')));
+      el('b', { style: 'color:var(--green-ink)' }, glyph('known', 15), ' ', n.music_grade ? 'Written-knowledge checks proved. Continue the practical, listening and composition work with musical feedback.' : 'You have proved this one. Revisit it any time, or push further in the Atlas.')));
   } else if (n.mastered) {
     // Placement credit — honest about the difference.
     const d = n.mastery_detail || {};
@@ -3323,7 +3381,7 @@ async function renderNode(page, nodeId) {
       : ' Pass it ' + need + ' times, with a gap between passes, to prove it' +
         (d.passes ? ' — ' + d.passes + ' of ' + need + ' passes so far.' : '.');
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
-      el('b', {}, '◐ Assumed, not yet proved'), el('p', { class: 'muted', style: 'margin:6px 0 0' }, line)));
+      el('b', {}, glyph('half', 15), ' Assumed, not yet proved'), el('p', { class: 'muted', style: 'margin:6px 0 0' }, line)));
   }
   else if (!n.unlocked && n.unlock_requirements && n.unlock_requirements.length) {
     const box = el('div', { class: 'card' }, el('b', {}, glyph('lock', 16), ' Not yet open'), el('p', { class: 'muted', style: 'margin:4px 0 6px' }, 'To unlock this lesson:'));
@@ -3344,7 +3402,7 @@ async function renderNode(page, nodeId) {
     // mastery_detail nulls ready_at once it has elapsed, which means ready NOW.
     const ready = readyNow(md.ready_at);
     page.append(el('div', { class: 'card', style: 'border-color:var(--gold)' },
-      el('b', {}, '◐ You started this one — ' + md.passes + ' of ' + need + ' passes'),
+      el('b', {}, glyph('half', 15), ' You started this one — ' + md.passes + ' of ' + need + ' passes'),
       el('p', { class: 'muted', style: 'margin:6px 0 0' }, ready
         ? 'The waiting is over: ' + (need - md.passes) + ' more spaced passes will seal it.'
         : 'The passes sit a little apart, so the book can tell it stuck. The next can count after ' + whenReady(md.ready_at) + '.')));
@@ -3363,7 +3421,7 @@ async function renderNode(page, nodeId) {
            && (n.mastery_detail.attempts | 0) >= 2) {
     const tries = n.mastery_detail.attempts | 0;
     const card = el('div', { class: 'card', style: 'border-color:var(--accent-2)' },
-      el('b', {}, '◑ You have sat this one ' + tries + ' times'),
+      el('b', {}, glyph('halfAlt', 15), ' You have sat this one ' + tries + ' times'),
       el('p', { class: 'muted', style: 'margin:6px 0 10px' },
         'That is not a verdict on you — it is the book telling you this one wants a '
         + 'different approach before the next paper. Papers you have seen the answers '
@@ -3608,10 +3666,10 @@ function openLessonNavigator(data, articleTitle) {
       const next = here >= 0 && here + 1 < lessons.length ? lessons[here + 1] : null;
       if (previous) currentActions.append(btn({ class: 'btn ghost small',
         'aria-label': 'Previous lesson: ' + previous.title + ' — ' + lessonNavigationState(previous),
-        onclick: () => { close(); go('node', previous.id); } }, '← ' + previous.title));
+        onclick: () => { close(); go('node', previous.id); } }, backward(previous.title)));
       if (next) currentActions.append(btn({ class: 'btn ghost small',
         'aria-label': 'Next lesson: ' + next.title + ' — ' + lessonNavigationState(next),
-        onclick: () => { close(); go('node', next.id); } }, next.title + ' →'));
+        onclick: () => { close(); go('node', next.id); } }, onward(next.title)));
       modal.append(currentActions);
 
       const reading = el('section', { class: 'lesson-nav-readings', 'aria-labelledby': 'lesson-readings-title' },
@@ -3702,7 +3760,7 @@ async function renderReader(page, arg) {
   // and is withdrawn: the book does not ask questions no person wrote. Read
   // aloud and the tutor already cover "check what I just read".
   const bar = el('div', { class: 'reader-toolbar' },
-    btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, '← Back'),
+    btn({ class: 'btn ghost small', onclick: () => history.length > 1 ? history.back() : go(nodeId ? 'node' : 'today', nodeId) }, backward('Back')),
     nodeId ? btn({ class: 'btn gold small', onclick: () => startQuiz(nodeId) }, glyph('quill', 14), ' Quiz me on this') : null,
     readAloudControls());
   page.append(bar);
@@ -4572,7 +4630,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
         chosen.length = 0; tray.querySelectorAll('button').forEach(b => b.disabled = false); redraw();
         const first = tray.querySelector('.order-chip:not(:disabled)');
         if (first) first.focus();
-      } }, '↺ Start over');
+      } }, glyph('restart', 15), ' Start over');
       const redraw = () => {
         slot.innerHTML = '';
         chosen.forEach(v => slot.append(el('span', { class: 'order-chip placed' }, v)));
@@ -4655,7 +4713,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
             refresh(true);
           } },
           el('span', { class: 'tk-face', 'aria-hidden': 'true' }, String(it)),
-          el('span', { class: 'tk-mark', 'aria-hidden': 'true' }, '✓'));
+          el('span', { class: 'tk-mark', 'aria-hidden': 'true' }, glyph('known', 14)));
         tokens.push(t); tray.append(t);
       });
       if (confidenceRow) card.append(el('p', { class: 'muted', style: 'margin:2px 0 6px' }, 'How sure are you?'), confidenceRow);
@@ -4826,7 +4884,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     if (q.explain) tell(card, unmarked ? q.explain
                                        : (ok ? '✓ ' : 'The answer: ') + q.explain, true);
     const nextBtn = btn({ class: 'btn gold', style: 'width:100%;margin-top:16px', onclick: () => next(modal, close) },
-      i + 1 < questions.length ? 'Next →' : 'See results');
+      i + 1 < questions.length ? onward('Next') : 'See results');
     card.append(nextBtn);
     setTimeout(() => nextBtn.focus(), 20);   // disabling the choices must not blank focus
     if (ok && !young) toast(praise());
@@ -4861,7 +4919,10 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     // The splash is drawn before the submit returns, so it still opens on the
     // local tally — and is corrected the moment the server's own {right,total,
     // score} arrives, which it has always sent and nothing has ever read.
-    const starsFor = v => v >= 0.9 ? '★★★' : v >= 0.7 ? '★★☆' : v >= 0.4 ? '★☆☆' : '☆☆☆';
+    // Three drawn stars, filled to the score; the score itself is said in
+    // words beside them, so the row is decoration and hidden from the tree.
+    const starsFor = v => { const n = v >= 0.9 ? 3 : v >= 0.7 ? 2 : v >= 0.4 ? 1 : 0;
+      return frag(...[0, 1, 2].map(i => glyph(i < n ? 'starFill' : 'star', 34))); };
     const splash = el('div', { class: 'result-splash' });
     const starsEl = el('div', { class: 'stars', style: 'color:var(--gold)' }, starsFor(score));
     const scoreEl = young ? null : el('div', { class: 'score' }, Math.round(score * 100) + '%');
@@ -4871,7 +4932,7 @@ function runQuestions({ title, questions, nodeId, kind, stage, isRetry = false, 
     splash.append(tallyEl);
     const showServerScore = res => {
       if (!res || typeof res.score !== 'number') return;
-      starsEl.textContent = starsFor(res.score);
+      starsEl.replaceChildren(starsFor(res.score));
       if (scoreEl) scoreEl.textContent = Math.round(res.score * 100) + '%';
       const whole = Math.abs(res.right - Math.round(res.right)) < 0.01;
       tallyEl.textContent = whole
@@ -5268,7 +5329,7 @@ async function renderVisualGallery(page, selection = {}) {
           el('p', { class: 'math-image-goal' },
             el('span', {}, 'Lesson aim'), item.goal),
           btn({ class: 'btn ghost small math-image-lesson',
-            onclick: () => go('node', item.lesson_id) }, isImage ? 'Open lesson →' : 'Open model →')));
+            onclick: () => go('node', item.lesson_id) }, onward(isImage ? 'Open lesson' : 'Open model'))));
       card._visual = { domain: item.domain, stage: item.stage, kind: item.kind, renderer: item.renderer };
       card._visualSearch = [item.domain_name, item.lesson_title, item.goal, stageLabel(item.stage),
         item.alt, item.caption, item.title, item.instructions]
@@ -5432,7 +5493,7 @@ async function renderAtlas(page, selection = {}) {
           x.classList.remove('picked'); x.setAttribute('aria-checked', 'false'); x.setAttribute('tabindex', '-1'); });
         b.classList.add('picked'); b.setAttribute('aria-checked', 'true'); b.setAttribute('tabindex', '0');
         activeFilter = k; paint();
-      } }, label, el('span', { class: 'filter-mark' }, '✓ Showing'));
+      } }, label, el('span', { class: 'filter-mark' }, glyph('known', 12), ' Showing'));
     bar.append(b);
   });
   // Mounted empty, filled after it has landed in the document: a live region
@@ -5515,14 +5576,14 @@ async function renderAtlas(page, selection = {}) {
             : !n.unlocked ? 'locked'
             : pct > 0 ? pct + '% mastered'
             : 'open, not started');
-    if (n.faded) { marks.push('◐'); said.push('faded — proved once, and it has slipped since'); }
+    if (n.faded) { marks.push('half'); said.push('faded — proved once, and it has slipped since'); }
     if (n.assumed) {
-      marks.push('◇');
+      marks.push('assumed');
       said.push(n.assumed_stale ? 'assumed from your placement, and that credit has expired'
                                 : 'assumed from your placement, not yet proved');
     }
     if (n.access_basis === 'assumed_prerequisites') {
-      marks.push('◇'); said.push('open on assumed foundations');
+      marks.push('assumed'); said.push('open on assumed foundations');
     }
     if (frontier) said.push('the frontier of this field');
     if (cls === 'locked') said.push('open it to see what unlocks it');
@@ -5537,7 +5598,7 @@ async function renderAtlas(page, selection = {}) {
       'aria-label': said.join(' — '),
       onclick: () => { if (n.unlocked || n.mastered) go('node', n.id); else lockedPeek(n); } },
       n.title,
-      marks.length ? el('span', { class: 'dot-mark', 'aria-hidden': 'true' }, ' ' + marks.join('')) : null);
+      marks.length ? el('span', { class: 'dot-mark', 'aria-hidden': 'true' }, ...marks.map(m => glyph(m, 12))) : null);
   }
 
   function domainBlock(d, dnodes, i) {
@@ -5556,7 +5617,7 @@ async function renderAtlas(page, selection = {}) {
         frontierTile.focus({ preventScroll: true });
         frontierTile.scrollIntoView({ block: 'center',
           behavior: reducedMotion() ? 'auto' : 'smooth' });
-      } }, '→ My frontier');
+      } }, glyph('onward', 16), ' My frontier');
     block.append(el('div', { class: 'domain-head' },
       // Same daylight-hex lift as the lesson-card domain tag: themed via
       // --domain-lift so the ten curriculum colours survive the night palette.
@@ -5649,7 +5710,7 @@ function quickAccess(page, g) {
       el('span', { class: 'qa-n' }, String(sec.nodes.length)));
     wrap.append(sum);
     const rows = sec.nodes.map(n => {
-      const state = n.mastered ? ['mastered', '✓ mastered'] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
+      const state = n.mastered ? ['mastered', frag(glyph('known', 12), ' mastered')] : (n.unlocked ? ['available', 'open'] : ['locked', 'locked']);
       const row = el('div', { class: 'qa-row' });
       const referenceMeta = [];
       if (n.reference_count) referenceMeta.push(plural(n.reference_count, 'foundation article'));
@@ -5766,7 +5827,7 @@ function lockedPeek(n) {
     jumps.forEach(p => box.append(btn({ class: 'req-chip req-jump',
       onclick: () => { close(); go('node', p); } },
       'Master “' + byId.get(p).title + '”',
-      el('span', { class: 'go-mark', 'aria-hidden': 'true' }, '→'))));
+      el('span', { class: 'go-mark', 'aria-hidden': 'true' }, glyph('onward', 14)))));
     // Prose requirements with no lesson behind them — "Master 4 more Seedling
     // topics" is a statement about the stage gate, not a tile — stay inert.
     // The "Master “X”" strings the server writes are exactly the prereqs
@@ -6315,7 +6376,7 @@ async function renderJourney(page) {
       tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, 'Chapter ' + (it.number || '')), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, glyph('story', 15)), it.title || 'A chapter of your story')));
     } else {
       const d = it.domain ? domainById(it.domain) : { icon: '✓', name: '' };
-      tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, d.name || 'Mastered'), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, '✓'), it.title || it.node_id)));
+      tl.append(el('div', { class: 'tl-year' }, el('div', { class: 'yr' }, d.name || 'Mastered'), el('div', { class: 'ms' }, el('span', { class: 'jbadge' }, glyph('known', 15)), it.title || it.node_id)));
     }
   });
   page.append(tl);
@@ -6543,7 +6604,7 @@ async function renderLibrary(page) {
     const meta = el('div', { class: 'meta' }, el('b', {}, item.title),
       el('p', {}, String(item.blurb).replace(/\s*~[\d.]+\s*GB\.?\s*$/, '')));
     const right = el('div', {});
-    if (item.installed) right.append(el('span', { class: 'badge installed' }, '✓ On your shelf'));
+    if (item.installed) right.append(el('span', { class: 'badge installed' }, glyph('known', 12), ' On your shelf'));
     else if (item.download && item.download.status === 'downloading') {
       const pct = item.download.total ? Math.round(100 * item.download.bytes / item.download.total) : 0;
       right.append(el('span', { class: 'badge big' }, 'Copying in — ' + pct + '%'), el('div', { class: 'bar', style: 'width:120px;margin-top:6px' }, el('span', { style: `width:${pct}%` })));
