@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from tools.anatomy_sources import apply_native_source_presentation_review as application
+from tools.anatomy_sources.ui_refresh import advance
 
 ROOT = Path(__file__).resolve().parents[1]
 FOLDER = ROOT/'docs/native-source-presentation-review-20261011'
@@ -28,7 +29,9 @@ def test_applied_review_preserves_source_and_pending_anatomical_scope():
         preserved = {key: asset.get(key) for key in change['preserve_fields_exactly']}
         assert application.digest(preserved) == applied['preserved_field_fingerprints'][asset['id']]
         assert asset['presentation_dependencies'] == change['proposed_presentation_dependencies']
-        assert all(application.sha(ROOT/path) == value for path,value in asset['presentation_dependencies'].items())
+        # Reviewed hashes, followed through any recorded UI-only refresh of
+        # app.js/styles.css; every other dependency must match exactly.
+        assert all(application.sha(ROOT/path) == advance(path, value) for path,value in asset['presentation_dependencies'].items())
         review = asset['source_presentation_reconciliation_review']
         assert review['historical_issue_count'] == 2
         assert not review['clinical_approval'] and not review['fine_anatomical_approval']
