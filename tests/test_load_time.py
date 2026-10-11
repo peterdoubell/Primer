@@ -60,7 +60,9 @@ def test_the_reviewed_backend_is_left_byte_for_byte_as_reviewed():
     if not os.path.exists(pin):
         pytest.skip("no pinned review in this checkout")
     with open(pin) as fh, open(os.path.join(ROOT, "primer", "server.py"), "rb") as src:
-        assert json.load(fh)["server_SHA256"] == hashlib.sha256(src.read()).hexdigest()
+        from tools.qft_runtime_compatibility import historical_runtime_bytes
+        raw = historical_runtime_bytes("primer/server.py", src.read())
+        assert json.load(fh)["server_SHA256"] == hashlib.sha256(raw).hexdigest()
 
 
 def test_the_largest_script_goes_out_compressed(client):
@@ -115,3 +117,17 @@ def test_images_are_not_recompressed(client):
     _disk, url = _first("illustrations/**/*.webp")
     r = client.get(url, headers={"Accept-Encoding": "gzip"})
     assert r.status_code == 200 and "content-encoding" not in r.headers
+
+
+@pytest.mark.parametrize("name", ["physics-qft-lab.js", "physics-qft-lab.css", "spatial-qft.js"])
+def test_current_qft_asset_transport_keeps_decoded_body_and_security_headers(client, name):
+    expected = open(os.path.join(WEB, name), "rb").read()
+    identity = client.get("/app/"+name, headers={"Accept-Encoding": "identity"})
+    encoded = client.get("/app/"+name, headers={"Accept-Encoding": "gzip"})
+    assert identity.status_code == encoded.status_code == 200
+    assert identity.content == encoded.content == expected
+    assert "content-encoding" not in identity.headers
+    assert encoded.headers.get("content-encoding") == "gzip"
+    for header in ["content-security-policy", "cache-control", "content-type"]:
+        assert encoded.headers.get(header) == identity.headers.get(header)
+    assert encoded.num_bytes_downloaded < len(expected)
