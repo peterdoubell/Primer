@@ -3616,7 +3616,7 @@
      "kind": "choice",
      "prompt": "A double pendulum swings in a vertical plane: two rigid rods, two point bobs, all motion in that plane. How many generalized coordinates does a Lagrangian description need, and why?",
      "answer": "Two: the rods fix both lengths, leaving two angles free.",
-     "explain": "Two point masses in a plane start with four coordinates; each rigid rod is one constraint and removes one, leaving two. The generalized coordinates are the two angles, and the constraint forces in the rods never appear.",
+     "explain": "Two point masses in a plane start with four position coordinates. Each independent fixed rod-length constraint removes one, leaving two generalized angles. Ideal rod reactions do no net virtual work for allowed variations and are eliminated from the reduced Euler–Lagrange equations; they can still be calculated separately when their forces or individual energy exchanges are needed.",
      "choices": [
       "Four: each bob carries an x and a y coordinate of its own.",
       "Two: the rods fix both lengths, leaving two angles free.",
@@ -3652,7 +3652,7 @@
       "Both routes require the constraint force to be found.",
       "The Lagrangian route never needs the constraint force."
      ],
-     "explain": "Generalised coordinates already respect the constraint, so forces of constraint do no virtual work and drop out. That is the practical payoff of the Lagrangian formulation."
+     "explain": "The prescribed hoop rotation leaves one independent coordinate θ, so the reduced Lagrangian enforces the geometric constraint without solving explicitly for its ideal reaction force. That reaction does no virtual work for allowed θ variations at a fixed time. It can still deliver real power because the hoop moves: the drive can change the bead’s laboratory mechanical energy. A conserved reduced Hamiltonian need not equal that laboratory energy."
     },
     {
      "kind": "numeric",
@@ -3688,7 +3688,7 @@
       "Angular momentum is conserved but the energy is not.",
       "Nothing at all is conserved, because the motion is chaotic."
      ],
-     "explain": "No explicit time dependence gives a conserved Hamiltonian; the angles appear in the Lagrangian, so their conjugate momenta are not conserved. Chaos does not repeal conservation laws."
+     "explain": "For the ideal double pendulum with fixed pivot, workless fixed rods and gravity, the autonomous Lagrangian gives a conserved Hamiltonian equal to total mechanical energy. Both angles occur in L, so neither is cyclic and their individual conjugate momenta are not conserved. Chaos does not repeal energy conservation. Prescribed moving constraints or nonconservative forces require their own energy/work accounting."
     }
    ],
    "lesson_media": [
@@ -3710,6 +3710,16 @@
      "instructions": "Change the free-particle trial path to inspect stationary action; vary the energy of the separate oscillator phase-space orbit.",
      "props": {
       "scenario": "phys.4.classical"
+     }
+    },
+    {
+     "id": "phys.4.classical-physics-constraints-lab",
+     "kind": "model",
+     "renderer": "physics-constraints-lab",
+     "title": "Constraints, momentum and energy",
+     "instructions": "Compare analytic and converged numerical mechanics examples. Separate reduced Hamiltonian, laboratory energy, real drive power and workless virtual constraint reactions.",
+     "props": {
+      "scenario": "phys.4.classical.constraints-energy"
      }
     }
    ]

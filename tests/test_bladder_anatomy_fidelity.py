@@ -14,6 +14,7 @@ from primer.module_media import source_model_bindings
 from tools.check_msk_fidelity import audit, inspect_binding, requirements_for, validate_reporting_snapshots
 from tools.check_radiology_fidelity import digest
 from tools.anatomy_sources.package_hra_bladder import source
+from tools.anatomy_sources import review_bladder_model_delivery as delivery
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = ROOT / 'docs/bladder-anatomy-fidelity-review'
@@ -87,26 +88,41 @@ def test_all_original_meshes_normals_indices_and_source_defects_are_preserved(se
 
 def test_every_available_source_model_reaches_its_matching_lesson_with_exact_context():
     curr = Curriculum(); bindings = source_model_bindings()
-    proof = json.loads((PROOF / 'source-model-lesson-delivery-review.json').read_text())
+    proof = json.loads(delivery.CURRENT.read_text())
+    # Rebuild from actual delivered bytes, require every immutable historical
+    # digest after only the independently reviewed VerSe helper substitution.
+    assert proof == delivery.build_review()
     # Preserve the exact historical module scope. Subsequent source lessons have
     # their own source/transport tests; this proof cannot approve them retroactively.
     reviewed_ids = {row['module_id'] for row in proof['modules']}
     reviewed_bindings = {key: value for key, value in bindings.items() if key in reviewed_ids}
     assert set(reviewed_bindings) == {row['module_id'] for row in proof['modules']}
     assert len(reviewed_bindings) == proof['matching_lessons'] == 11 and proof['source_references'] == 16
-    fields = ['goal','learning_outcomes','lesson','reference','radiology_reference','visual_spec','lesson_media','model_family','model_context','practice','quiz','kid_text']
     for row in proof['modules']:
         node = curr.node(row['module_id']); _validate_lesson_media(node)
         model = next(m for m in node['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
         assert model['props']['source_references'] == bindings[node['id']]
-        historical_props = copy.deepcopy(model['props'])
-        historical_props['source_references'] = [s for s in historical_props['source_references'] if not s['atlas'].startswith('fedbca-')]
-        historical = copy.deepcopy({k: node.get(k) for k in fields})
-        next(m for m in historical['lesson_media'] if m.get('renderer') == 'radiology-anatomy')['props'] = historical_props
-        assert digest(historical_props) == row['model_props_sha256']
-        assert digest(historical) == row['complete_current_module_contract_sha256']
-        assert digest(historical_props['source_references']) == row['source_references_sha256']
+        contract, props = delivery.scoped_contract(node)
+        assert digest(props) == row['model_props_sha256']
+        assert digest(contract) == row['current_scoped_module_contract_sha256']
+        assert digest(props['source_references']) == row['source_references_sha256']
         assert not row['clinical_or_complete_anatomical_approval']
+
+
+@pytest.mark.parametrize('drift', ['population_note', 'caption', 'helper'])
+def test_delivery_renewal_rejects_changes_beyond_the_reviewed_helper(drift):
+    node = copy.deepcopy(Curriculum().node('rad.4.spine-imaging'))
+    row = next(r for r in json.loads(delivery.HISTORICAL.read_text())['modules'] if r['module_id'] == node['id'])
+    model = next(m for m in node['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
+    source = next(s for s in model['props']['source_references'] if s['id'] == 'verse521-bones')
+    if drift == 'population_note':
+        source['population_note'] = 'Registered to the current MRI patient'
+    elif drift == 'caption':
+        source['source_volume']['caption'] = 'Complete fine anatomical approval'
+    else:
+        source['source_volume']['script_sha256'] = '0' * 64
+    with pytest.raises(ValueError, match='drift|Unreviewed'):
+        delivery.checked_historical_contract(node, row)
 
 
 def test_source_model_props_cannot_borrow_another_case_or_invent_registration():

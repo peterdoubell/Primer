@@ -389,6 +389,7 @@ function collectRemainingModels() {
   const entries = [];
   const lessonIds = new Set();
   let measureEntries = 0, cycleEntries = 0, operatorEntries = 0, ensembleEntries = 0;
+  let curvatureEntries = 0, constraintsEntries = 0;
   let phaseEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
@@ -399,6 +400,14 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-curvature-lab' || media.renderer === 'physics-constraints-lab') {
+          const curvature = media.renderer === 'math-curvature-lab';
+          const lessonId = curvature ? 'math.5.diffgeo' : 'phys.4.classical';
+          const scenario = curvature ? 'math.5.diffgeo.curvature-transport' : 'phys.4.classical.constraints-energy';
+          if (media.kind !== 'model' || lesson.id !== lessonId || JSON.stringify(media.props) !== JSON.stringify({scenario})) throw new Error('invalid separately verified curvature/constraints binding');
+          if (curvature) curvatureEntries++; else constraintsEntries++;
+          continue;
+        }
         if (media.renderer === 'math-operator-lab' || media.renderer === 'physics-ensemble-lab') {
           const operator = media.renderer === 'math-operator-lab';
           const expectedLesson = operator ? 'math.5.functional' : 'phys.4.statmech';
@@ -482,6 +491,7 @@ function collectRemainingModels() {
   if (buoyancyEntries !== 1) throw new Error('expected one separately verified buoyancy model');
   if (measureEntries !== 1 || cycleEntries !== 1) throw new Error('expected one integration and one cycle model');
   if (operatorEntries !== 1 || ensembleEntries !== 1) throw new Error('expected one operator and one ensemble model');
+  if (curvatureEntries !== 1 || constraintsEntries !== 1) throw new Error('expected one curvature and one constraints model');
   if (phaseEntries !== 2) throw new Error('expected two separately verified phase models');
   if (numericalEntries !== 1) throw new Error('expected one separately verified numerical error model');
   if (thermalEntries !== 2) throw new Error('expected two separately verified thermal models');

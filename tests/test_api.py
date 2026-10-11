@@ -1200,11 +1200,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 831, 'items': 1392,
+        'models': 833, 'items': 1394,
     }
 
     expected_domain_counts = {
-        'math': (59, 122), 'language': (40, 61), 'physics': (39, 84),
+        'math': (59, 123), 'language': (40, 61), 'physics': (39, 85),
         'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
@@ -1359,8 +1359,13 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
                     'bio.1.plants-parts', 'bio.2.photosynthesis', 'bio.1.food-chains'):
         illustrated = client.get('/api/curriculum/node/' + node_id)
         assert illustrated.status_code == 200
-        assert [entry['kind'] for entry in authored_media(illustrated.json())] == [
-            'illustration', 'model']
+        media = authored_media(illustrated.json())
+        expected_kinds = ['illustration', 'model']
+        if node_id == 'math.5.diffgeo':
+            expected_kinds.append('model')
+            assert media[-1]['renderer'] == 'math-curvature-lab'
+            assert media[-1]['props'] == {'scenario': 'math.5.diffgeo.curvature-transport'}
+        assert [entry['kind'] for entry in media] == expected_kinds
         model = authored_media(illustrated.json())[1]
         assert model['renderer'] == 'concept-lab'
         assert model['props'] == {'scenario': node_id}

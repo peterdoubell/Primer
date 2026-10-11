@@ -14,6 +14,8 @@ context.window.PrimerPhysicsPhaseLab = require('../web/physics-phase-lab.js');
 context.window.PrimerPhysicsCycleLab = require('../web/physics-cycle-lab.js');
 context.window.PrimerMathOperatorLab = require('../web/math-operator-lab.js');
 context.window.PrimerPhysicsEnsembleLab = require('../web/physics-ensemble-lab.js');
+context.window.PrimerMathCurvatureLab = require('../web/math-curvature-lab.js');
+context.window.PrimerPhysicsConstraintsLab = require('../web/physics-constraints-lab.js');
 context.window.PrimerMathNumericalLab = require('../web/math-numerical-lab.js');
 context.window.PrimerMathConvergenceLab = require('../web/math-convergence-lab.js');
 require('../web/spatial-models.js');
