@@ -21,8 +21,10 @@
       --gold: #a9852f; --gold-ink: #7a5d13; --gold-bright: #c9a227;
       --accent: #7a3b2e; --edge: #8a7f62; --field: #fffdf6;
       --rule: #d8cba8; --shadow: rgba(60, 45, 20, 0.18); --focus: #1f5fbf;
-      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-      --sans: "Optima", "Segoe UI", -apple-system, system-ui, sans-serif;
+      /* The same single family as the book itself (see styles.css). */
+      --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --serif: var(--sans);
+      --mono: "SF Mono", ui-monospace, "JetBrains Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
     }
     * { box-sizing: border-box; }
     body {
@@ -44,13 +46,16 @@
       /* The faint ruled grain of a page, as on every other surface. */
       background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(180,150,90,0.05) 28px);
     }
-    .mark { font-size: 30px; text-align: center; line-height: 1; }
+    /* The book's own drawn mark (the same "story" glyph as the sidebar), not
+       an emoji that every platform paints in its own colours. */
+    .mark { text-align: center; line-height: 1; color: var(--gold-ink); }
+    .mark svg { display: inline-block; }
     h1 {
-      font-size: 30px; font-weight: 600; margin: 10px 0 4px;
-      text-align: center; letter-spacing: 0.3px;
+      font-size: 30px; font-weight: 650; margin: 10px 0 4px;
+      text-align: center; letter-spacing: -0.02em;
     }
     .sub {
-      font-family: var(--sans); font-size: 11px; letter-spacing: 2px;
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em;
       text-transform: uppercase; color: var(--gold-ink);
       text-align: center; margin: 0 0 22px;
     }
@@ -119,7 +124,7 @@
 </head>
 <body>
   <main>
-    <div class="mark" aria-hidden="true">📖</div>
+    <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5c3-1.2 6-1.2 9 0v13c-3-1.2-6-1.2-9 0z"/><path d="M21 5.5c-3-1.2-6-1.2-9 0v13c3-1.2 6-1.2 9 0z"/><path d="M12 3.6l.9-1.8.9 1.8 1.8.9-1.8.9-.9 1.8-.9-1.8-1.8-.9z"/></svg></div>
     <h1>The Primer</h1>
     <p class="sub">A living book of all knowledge</p>
     <hr class="rule">
