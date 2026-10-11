@@ -88,6 +88,78 @@
       },
       "clinical_approval": false,
       "fine_anatomical_approval": false
+    },
+    {
+      "id": "2026-10-11-engraved-icons-and-monochrome-palettes",
+      "date": "2026-10-11",
+      "change": "Original engraved icon set (every drawn glyph redrawn); Silvertone and Slate monochrome palettes and the four-palette reading-theme picker.",
+      "files": {
+        "web/app.js": {
+          "before": "b8f50d0f1261fdaf3c80faf5152ca191be4abcb8332ce1e8d2b1c7ee6ab09371",
+          "after": "4c88dab41f6e1e3d1b1b3c15721dc9d45eade4441fc6725df52a871e2464e563"
+        },
+        "web/styles.css": {
+          "before": "92a4a21196d52034f56d58eaf269aea11530cc8885bfdde1d28f529ef3c3d3e9",
+          "after": "628e8638cbcd18d57044c1bd979f71a6e28d564cdd2059fbe75d7c65ca98f9b6"
+        }
+      },
+      "app_js_changed_regions": [
+        "GLYPHS table: every glyph redrawn (same keys)",
+        "THEMES list, applyTheme and themeToggle: four palettes through a native <select>"
+      ],
+      "styles_css_changed_regions": [
+        "prefers-color-scheme dark block now applies only when no palette is chosen (:root:not([data-theme]))",
+        "Silvertone/Slate token blocks and monochrome overrides for field plates",
+        ".theme-control picker",
+        "tick mask path"
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "The 306-frame CT oracle comparison, pointer sampling and GPU-buffer checks of the reviewed proof."
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
     }
   ]
 }
