@@ -500,7 +500,7 @@ button { font-family: var(--sans); cursor: pointer; }
    and left the last control hard against the bottom edge at short heights. */
 .statrow { display: flex; flex-direction: column; gap: 6px; }
 #sidebar .stat {
-  font-family: var(--sans); font-size: 13px; color: var(--chrome-ink-dim);
+  font-family: var(--mono); font-size: 13px; line-height: 1.65; color: var(--chrome-ink-dim);
   background: rgba(0,0,0,0.2); border-radius: 8px; padding: 8px 10px;
   box-shadow: inset 0 1px 3px rgba(0,0,0,.25), 0 1px 0 var(--chrome-rule);
   display: flex; justify-content: space-between; gap: 10px;
@@ -3016,9 +3016,9 @@ body[data-stage="0"] .grade-row .grade-btn, body[data-stage="1"] .grade-row .gra
 .rad-report-editor {
   display: block; width: 100%; min-width: 0; min-height: 280px; resize: vertical;
   padding: 14px; border: 1px solid var(--edge); border-radius: 6px;
-  color: var(--ink); background: var(--paper-hi); font: 14px/1.65 var(--mono);
+  color: var(--ink); background: var(--paper-hi); font: 14px/var(--rad-line-height) var(--sans);
 }
-.rad-report-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.rad-report-actions { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); margin-top: var(--rad-control-gap); }
 .rad-report-status { min-height: 21px; margin: 10px 0 0; color: var(--ink-soft); font: 12px/1.6 var(--sans); }
 .rad-template-notes, .rad-template-sources { margin-top: 18px; font: 13px/1.6 var(--sans); }
 .rad-template-notes h4, .rad-template-sources h4 { margin: 0 0 6px; font-size: 13px; }
@@ -4539,6 +4539,16 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 }
 
 /* Radiology reporting reference — practical reference access alongside lessons. */
+:is(#page:has(.rad-reporting-desk), #page:has(.rad-desk-catalog), .radiology-reference) {
+  --sans: var(--mono);
+  --serif: var(--sans);
+  --rad-line-height: 1.65;
+  --rad-control-gap: 12px;
+  --rad-section-gap: 24px;
+  font-family: var(--sans);
+  line-height: var(--rad-line-height);
+}
+:is(#page:has(.rad-reporting-desk), #page:has(.rad-desk-catalog), .radiology-reference) :is(h2, h3, h4) { line-height: 1.35; }
 .rad-open-desk { margin: 0 0 20px; }
 .rad-reporting-desk { min-width: 0; width: 100%; max-width: 100%; }
 #page:has(.rad-reporting-desk), #page:has(.rad-desk-catalog) { min-width: 0; max-width: 100%; }
@@ -4554,13 +4564,17 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-desk-card-summary { color: var(--ink-soft); }
 .rad-desk-card-meta { margin-top: auto; padding-top: 8px; color: var(--ink-faint); font-size: 12px; }
 .rad-desk-revision { margin: -10px 0 20px; color: var(--ink-soft); font: 12px/1.5 var(--sans); }
-.rad-desk-tabs { display: flex; gap: 4px; min-width: 0; max-width: 100%; overflow-x: auto; border-bottom: 1px solid var(--edge); padding: 4px 0 8px; }
+.rad-desk-tabs { display: flex; gap: var(--rad-control-gap); min-width: 0; max-width: 100%; overflow-x: auto; border-bottom: 1px solid var(--edge); padding: 4px 4px 12px; }
 .rad-desk-tab { flex: 0 0 auto; padding: 11px 14px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: var(--ink-soft); font: 600 14px/1.3 var(--sans); cursor: pointer; }
 .rad-desk-tab[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.rad-desk-panel { padding: 24px 0; min-width: 0; }
+.rad-desk-panel { padding: var(--rad-section-gap) 0; min-width: 0; font-size: 15px; }
 .rad-desk-panel > :is(.rad-report-templates, .rad-key-images) { border: 0; padding: 0; background: none; }
 .rad-desk-panel .lesson-media { margin-top: 10px; }
-.rad-reporting-guide { font: 15px/1.65 var(--sans); }
+.rad-reporting-start > * { margin-block: 0; }
+.rad-reporting-start > * + * { margin-top: var(--rad-section-gap); }
+.rad-reporting-start > :is(h3, h4) { line-height: 1.35; }
+.rad-reporting-start > .rad-checklist-actions { margin-top: var(--rad-control-gap); }
+.rad-reporting-guide { font: 15px/var(--rad-line-height) var(--sans); }
 .rad-reporting-guide h3 { font-family: var(--serif); margin: 0 0 12px; }
 .rad-reporting-guide li + li { margin-top: 7px; }
 .rad-protocol { padding: 15px 18px; border: 1px solid var(--rule); border-radius: 7px; background: var(--paper-2); margin-bottom: 24px; }
@@ -4572,10 +4586,10 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-check-item span > span { display: block; margin-top: 4px; color: var(--ink-soft); }
 .rad-check-item:has(input:checked) { opacity: .75; }
 /* Wraps: three actions at a young reader's 20px type are wider than a phone. */
-.rad-checklist-actions { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 15px; margin-top: 18px; }
+.rad-checklist-actions { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--rad-control-gap); margin-top: 18px; }
 .rad-checklist-status { color: var(--ink-soft); font-size: 12px; }
 .rad-table-scroll { min-width: 0; max-width: 100%; overflow-x: auto; margin: 24px 0; }
-.rad-measurement-table { width: 100%; border-collapse: collapse; font: 14px/1.55 var(--sans); }
+.rad-measurement-table { width: 100%; border-collapse: collapse; font: 14px/var(--rad-line-height) var(--sans); }
 .rad-measurement-table caption { text-align: left; margin-bottom: 12px; font: 600 22px/1.35 var(--serif); }
 .rad-measurement-table :is(th, td) { padding: 12px 14px; text-align: left; vertical-align: top; border: 1px solid var(--rule); }
 .rad-measurement-table thead { background: var(--paper-2); }
@@ -4585,6 +4599,9 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-guide-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 28px 0; }
 .rad-guide-columns :is(ul, ol), .rad-escalation ul { padding-left: 21px; }
 .rad-escalation { padding: 22px; border: 1px solid var(--edge); border-radius: 8px; }
+.rad-escalation :is(h3, h4) { margin: 0 0 12px; line-height: 1.35; }
+.rad-escalation ul { margin: 0; }
+.rad-escalation li + li { margin-top: 8px; }
 .rad-desk-draft-note { color: var(--ink-faint); font-size: 12px; margin-top: 24px; }
 .rad-desk-source-list { padding-left: 20px; line-height: 1.7; }
 :is(.rad-desk-card, .rad-desk-tab, .rad-desk-panel, .rad-table-scroll):focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
@@ -4622,12 +4639,12 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-anatomy-illustration figcaption strong { display: block; color: var(--gold-ink); }
 
 /* Step-by-step reporting: stepper, guidance with report fields, and a visual column. */
-.rad-walk { min-width: 0; font: 15px/1.6 var(--sans); }
+.rad-walk { min-width: 0; font: 15px/var(--rad-line-height) var(--sans); }
 .rad-walk-intro { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px; margin-bottom: 18px; }
 .rad-walk-intro p { flex: 1 1 360px; margin: 0; color: var(--ink-soft); }
-.rad-walk-intro-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.rad-walk-intro-actions { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); }
 .rad-walk-stepper { min-width: 0; margin: 0 0 22px; overflow-x: auto; }
-.rad-walk-steps { display: flex; gap: 6px; margin: 0; padding: 2px 2px 8px; list-style: none; }
+.rad-walk-steps { display: flex; gap: var(--rad-control-gap); margin: 0; padding: 4px 4px 12px; list-style: none; }
 .rad-walk-steps li { flex: 0 0 auto; }
 .rad-walk-step { display: flex; align-items: center; gap: 8px; min-height: 44px; max-width: 220px; padding: 7px 12px 7px 8px; border: 1px solid var(--rule); border-radius: var(--r-ctl); background: var(--paper-2); color: var(--ink); cursor: pointer; font: 600 13px/1.3 var(--sans); text-align: left; }
 .rad-walk-step:hover { border-color: var(--gold); background: var(--paper-hi); }
@@ -4654,9 +4671,9 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-walk-report h4, .rad-walk-protocol h4, .rad-walk-route h4, .rad-walk-visual h4, .rad-walk-main .rad-escalation h4 { margin: 0 0 10px; font: 600 17px/1.35 var(--serif); }
 .rad-walk-field + .rad-walk-field { margin-top: 16px; }
 .rad-walk-field label { display: block; margin-bottom: 6px; color: var(--gold-ink); font: 600 12px/1.4 var(--sans); letter-spacing: .05em; }
-.rad-walk-editor { display: block; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px; background: var(--field); color: var(--ink); font: 14px/1.55 var(--mono); resize: vertical; }
+.rad-walk-editor { display: block; width: 100%; min-width: 0; padding: 10px 12px; border: 1px solid var(--edge); border-radius: 7px; background: var(--field); color: var(--ink); font: 14px/var(--rad-line-height) var(--sans); resize: vertical; }
 .rad-walk-editor:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-.rad-walk-field-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.rad-walk-field-actions { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); margin-top: var(--rad-control-gap); }
 .rad-walk-phrases { margin: 0 0 18px; }
 .rad-walk-phrases h5 { margin: 0 0 4px; font: 600 14px/1.4 var(--sans); }
 .rad-walk-hint { margin: 0 0 10px; color: var(--ink-soft); font-size: 13px; }
@@ -4678,7 +4695,7 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-walk-check p { margin: 6px 0 0; }
 .rad-walk-preview { background: var(--paper-hi); }
 .rad-walk-visual { min-width: 0; position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; padding: 16px; border: 1px solid var(--rule); border-radius: 10px; background: var(--paper-2); }
-.rad-walk-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.rad-walk-modes { display: flex; flex-wrap: wrap; gap: var(--rad-control-gap); margin-bottom: var(--rad-control-gap); }
 .rad-walk-mode { min-height: 40px; padding: 7px 12px; border: 1px solid var(--edge); border-radius: var(--r-ctl); background: var(--paper); color: var(--ink); cursor: pointer; font: 600 13px/1.3 var(--sans); }
 .rad-walk-mode[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--paper); }
 .rad-walk-visual-note { margin: 0 0 12px; color: var(--ink-soft); font-size: 12px; }
@@ -4788,8 +4805,8 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-quick-note { border-top: 1px solid var(--border, #777); padding-top: .8rem; font-size: .9rem; }
 .rad-quick-reference .rad-image-example img { width: 100%; height: auto; max-height: 360px; object-fit: contain; background: #fff; cursor: zoom-in; }
 @media (max-width: 1050px) { .rad-quick-branches { grid-template-columns: 1fr; } }
-.rad-reporting-sequence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2.5rem; padding-left: 1.5rem; }
-.rad-reporting-sequence > li { padding: .8rem; border-bottom: 1px solid var(--border, #777); }
+.rad-reporting-sequence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--rad-section-gap) 2.5rem; padding-left: 1.5rem; }
+.rad-reporting-sequence > li { min-width: 0; padding: .8rem; border-bottom: 1px solid var(--rule); }
 .rad-reporting-sequence > li::marker { font-weight: 700; }
 .rad-reporting-sequence p { margin: .5rem 0; }
 .rad-reporting-sequence summary { cursor: pointer; }
@@ -4896,9 +4913,9 @@ body[data-stage="0"] .btn.ghost, body[data-stage="1"] .btn.ghost {
     background: rgba(0,0,0,0.2); box-shadow: inset 0 1px 3px rgba(0,0,0,.25); overflow: hidden; }
   #sidebar .stat { border-radius: 0; background: none; box-shadow: none; align-items: center;
     border-top: 1px solid var(--chrome-rule); padding: 8px 11px;
-    font: 500 12px/1.3 var(--mono); letter-spacing: var(--track); text-transform: uppercase; }
+    font: 500 12px/1.65 var(--mono); letter-spacing: var(--track); text-transform: uppercase; }
   #sidebar .stat:first-child { border-top: 0; }
-  #sidebar .stat b { font: 600 13px/1.3 var(--mono); letter-spacing: 0; text-transform: none;
+  #sidebar .stat b { font: 600 13px/1.65 var(--mono); letter-spacing: 0; text-transform: none;
     display: inline-flex; align-items: center; gap: 4px; }
 }
 .navbtn { border-radius: var(--r-ctl); }
