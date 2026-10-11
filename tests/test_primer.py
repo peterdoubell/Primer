@@ -3354,14 +3354,17 @@ def test_the_two_night_palettes_cannot_drift_apart():
     import re
 
     css = _web("styles.css")
-    media = re.search(
-        r'@media \(prefers-color-scheme: dark\) \{\s*'
-        r':root:not\(\[data-theme="light"\]\) \{(.*?)\n  \}\n\}', css, re.S)
+    # Plain string slicing, not a lazy multi-line regex: the block is located
+    # by its exact opening and its two-level closing brace.
+    opening = '@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {'
+    assert opening in css, "the media-query night palette must exist"
+    start = css.index(opening) + len(opening)
+    media_block = css[start:css.index('\n  }\n}', start)]
     toggle = re.search(r':root\[data-theme="dark"\] \{(.*?)\n\}', css, re.S)
-    assert media and toggle, "both night-palette blocks must exist"
+    assert toggle, "the explicit night palette must exist"
 
     names = lambda block: set(re.findall(r"(--[a-z0-9-]+)\s*:", block))
-    in_media, in_toggle = names(media.group(1)), names(toggle.group(1))
+    in_media, in_toggle = names(media_block), names(toggle.group(1))
     assert in_media == in_toggle, "night palettes drifted: {}".format(
         sorted(in_media ^ in_toggle))
 

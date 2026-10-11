@@ -70,126 +70,133 @@ function el(tag, props = {}, ...kids) {
 function btn(props, ...kids) { return el('button', { type: 'button', ...props }, ...kids); }
 
 /* ---------------- drawn glyphs ----------------
-   Emoji were standing in for iconography: they render as a different picture
-   on every platform (and as full-colour cartoons beside a page of engraved
-   serif type), so the one part of the interface meant to be wordless was the
-   least controlled thing on screen. These are drawn instead — one stroke
-   weight, one geometry, inheriting currentColor so they gild in day mode and
-   phosphoresce at night. Each is a plain noun a child can name aloud, which
-   is the only test an icon in this book has to pass. */
+   The book's own plates, in the hand of its period: every mark is an engraved
+   pictogram of the sort a neo-Victorian primer would carry — compass rose,
+   reading glass, retort, pendulum, punched card, the rod of Asclepius — drawn
+   for this book alone on one 24-unit plate. Two weights only: the main line
+   (1.5) and a fine engraving line (0.85) for hatching, rules and detail, with
+   small inked gems where the Diamond Age would put them. Everything inherits
+   currentColor, so a mark gilds by day and phosphoresces at night, and each is
+   a plain noun a child can name aloud — the only test an icon here must pass. */
 const GLYPHS = {
-  // A sun clearing a horizon rule.
-  today: '<circle cx="12" cy="12" r="4.2"/><path d="M3 20h18"/><path d="M12 3.2v2M12 19v1.2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M3.2 12h2M18.8 12h2M5.2 18.8l1.4-1.4M17.4 6.6l1.4-1.4"/>',
-  // A compass rose: the whole map, oriented.
-  atlas: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
-  // Four framed plates: a gallery of explanations, not a second atlas.
-  gallery: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2"/><path d="M5.2 8.6l1.6-1.7 2 2.1M15.2 8.6l1.5-1.6 2.1 2M5.2 18.6l1.6-1.7 2 2.1M15.2 18.6l1.5-1.6 2.1 2"/>',
-  // Return: the loop that brings a thing back.
-  review: '<path d="M20 12a8 8 0 1 1-2.7-6"/><path d="M20 4v5h-5"/>',
-  // A lens over the page.
-  lookup: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4L21 21"/>',
-  // An open book with a spark rising from the gutter — the Primer itself.
-  story: '<path d="M3 5.5c3-1.2 6-1.2 9 0v13c-3-1.2-6-1.2-9 0z"/><path d="M21 5.5c-3-1.2-6-1.2-9 0v13c3-1.2 6-1.2 9 0z"/><path d="M12 3.6l.9-1.8.9 1.8 1.8.9-1.8.9-.9 1.8-.9-1.8-1.8-.9z"/>',
-  // The chronicle itself: a spine of days with the moments marked on it.
-  // (Distinct on purpose from `path`, which forks forward — this one only
-  // ever runs backward, and an earlier draft of it read as a capital A.)
-  journey: '<path d="M7 3.5v17"/><circle cx="7" cy="7" r="2"/><circle cx="7" cy="12.5" r="2"/><circle cx="7" cy="18" r="2"/><path d="M11.5 7h8M11.5 12.5h6M11.5 18h7"/>',
-  // A branching path: the plan, forking forward.
-  path: '<path d="M6 21V9"/><circle cx="6" cy="6" r="2.4"/><path d="M6 12h6a3 3 0 0 0 3-3V8"/><circle cx="15" cy="5.6" r="2.2"/><path d="M6 17h9a3 3 0 0 0 3-3v-1"/><circle cx="18" cy="10.6" r="2.2"/>',
-  // A flame, for the streak. Drawn rather than 🔥 so it sits at the same
-  // stroke weight as everything else on the line instead of shouting.
-  flame: '<path d="M12 2.8c.6 3.4 3 4.6 4.4 6.6a7 7 0 1 1-11.4 5.4c0-3 1.6-4.7 3-6.2.3 1 .9 1.8 1.7 2.3.5-3.4 1.3-6 2.3-8.1z"/><path d="M12 20a3.4 3.4 0 0 0 3.4-3.4c0-1.7-1.4-2.7-2.3-4-1 1.3-2.4 2.1-2.4 4A3.3 3.3 0 0 0 12 20z"/>',
-  // A speaker with one arc: read this aloud.
-  speak: '<path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M15.6 9.4a4 4 0 0 1 0 5.2"/><path d="M18 7a7.5 7.5 0 0 1 0 10"/>',
-  // The same speaker, struck through: the voice is off.
-  mute: '<path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M16 10l5 4M21 10l-5 4"/>',
-  // A nib: write it back in your own words.
-  quill: '<path d="M4 20s1.2-4.6 4.6-8S17 5 20 4c-.6 3.4-2.4 8.6-5.8 11.4S4 20 4 20z"/><path d="M9 15c1.6-2.4 3.6-4.2 6-5.6"/>',
-  // A closed padlock: not yet, rather than never.
-  lock: '<rect x="4.8" y="10.5" width="14.4" height="9.7" rx="2"/><path d="M8.2 10.5V7.8a3.8 3.8 0 0 1 7.6 0v2.7"/>',
-  // A crescent: a chapter set aside for later.
-  moon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.6 8.6 0 1 0 10.5 10.5z"/>',
-  // A target: aim, practice, calibration.
-  target: '<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1"/>',
-  // A die mid-roll: take me somewhere unplanned.
-  dice: '<rect x="4.2" y="4.2" width="15.6" height="15.6" rx="3.2"/><circle cx="9" cy="9" r="1.1"/><circle cx="15" cy="15" r="1.1"/><circle cx="15" cy="9" r="1.1"/><circle cx="9" cy="15" r="1.1"/>',
-  // A globe: the whole encyclopedia, not just your shelf.
-  globe: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12h17.2"/><path d="M12 3.4c2.4 2.4 3.6 5.4 3.6 8.6S14.4 18.2 12 20.6c-2.4-2.4-3.6-5.4-3.6-8.6S9.6 5.8 12 3.4z"/>',
-  // A laurel-less crown: the day is complete.
-  crown: '<path d="M4 17.5h16"/><path d="M4 8.5l3.4 3.2L12 5.8l4.6 5.9L20 8.5v6.2H4z"/>',
-  // Slabs on a shelf — archives, not paperbacks.
-  shelf: '<path d="M3 20h18"/><rect x="4.5" y="7" width="3.6" height="11"/><rect x="9.6" y="4.5" width="3.6" height="13.5"/><rect x="14.7" y="9" width="3.6" height="9"/>',
-  // A question mark, drawn — the young reader's "not sure". The 🤔 it
-  // replaces rendered as a full-colour cartoon amid engraved stroke icons,
-  // the same breach the padlock fix removed.
-  unsure: '<path d="M8.4 9.2a3.6 3.6 0 1 1 5.4 3.1c-1.1.7-1.8 1.5-1.8 2.9"/><circle cx="12" cy="18.8" r="0.9" fill="currentColor" stroke="none"/>',
-  // A four-point star, drawn. The unknown-domain tag used the typeface's
-  // '✦' — a text character standing in among stroke marks, which is the
-  // same one-geometry breach the emoji purge removed everywhere else.
-  spark: '<path d="M12 3.4c.9 4.1 2.6 5.8 6.7 6.7-4.1.9-5.8 2.6-6.7 6.7-.9-4.1-2.6-5.8-6.7-6.7 4.1-.9 5.8-2.6 6.7-6.7z"/><path d="M18.2 15.4c.4 1.8 1.1 2.5 2.9 2.9-1.8.4-2.5 1.1-2.9 2.9-.4-1.8-1.1-2.5-2.9-2.9 1.8-.4 2.5-1.1 2.9-2.9z"/>',
-  // A single stroke of certainty: the check, for "I know it".
-  known: '<path d="M4.5 13l5 5L19.5 6.5"/>',
-  // ---- the marks the font used to supply ----
-  // Arrows for onward and back. The → typed into a label was the last font
-  // glyph doing an icon's job; drawn, it sits at the stroke weight of the
-  // marks beside it instead of whatever weight the face gives it.
-  onward: '<path d="M4.5 12h14.5M13.5 6.5L19 12l-5.5 5.5"/>',
-  backward: '<path d="M19.5 12H5M10.5 6.5L5 12l5.5 5.5"/>',
-  // Leaves the book: the outbound corner arrow.
-  outside: '<path d="M7 17L17 7M9 7h8v8"/>',
-  // Comes round again (refresh) and starts over (restart): one arc, two hands.
-  refresh: '<path d="M19.4 12.6a7.5 7.5 0 1 1-2.1-5.9"/><path d="M19.6 3.8v4.4h-4.4"/>',
-  restart: '<path d="M4.6 12.6a7.5 7.5 0 1 0 2.1-5.9"/><path d="M4.4 3.8v4.4h4.4"/>',
-  // Half a disc: begun, or slipped — partly there either way.
+  // A sun clearing a hatched horizon, a gem at its zenith: today's reading.
+  today: '<path d="M2.8 17.6h18.4"/><path d="M6.8 17.6a5.2 5.2 0 0 1 10.4 0"/><path d="M12 6.6v2.6M5.7 9.4l1.7 1.7M18.3 9.4l-1.7 1.7M2.9 14.2h2.4M18.7 14.2h2.4"/><path stroke-width=".85" d="M6.2 20.3h11.6M9.2 22.6h5.6"/><path d="M12 3.3l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/>',
+  // A compass rose on a fine ring: the whole map of what can be learned.
+  atlas: '<circle cx="12" cy="12" r="7.6" stroke-width=".85"/><path d="M12.00 2.60 L13.70 10.30 L21.40 12.00 L13.70 13.70 L12.00 21.40 L10.30 13.70 L2.60 12.00 L10.30 10.30z"/><path stroke-width=".85" d="M12 2.6v18.8M2.6 12h18.8"/><path stroke-width=".85" d="M7.4 7.4l2.9 2.9M16.6 7.4l-2.9 2.9M7.4 16.6l2.9-2.9M16.6 16.6l-2.9-2.9"/><circle cx="12" cy="12" r="1.05" fill="currentColor" stroke="none"/>',
+  // A gem-cornered frame around a small landscape: the plates and pictures.
+  gallery: '<path d="M3.4 4.4h17.2v15.2H3.4z"/><path stroke-width=".85" d="M5.8 6.8h12.4v10.4H5.8z"/><path d="M7.4 15.6l3.2-3.9 2.3 2.6 1.6-1.8 2.4 3.1"/><circle cx="15.3" cy="9.6" r="1.25"/><path d="M3.4 3.5l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/><path d="M20.6 3.5l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/><path d="M3.4 18.7l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/><path d="M20.6 18.7l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/>',
+  // A deck of index cards, the front one ruled: the cards that come back.
+  review: '<path d="M7.6 5.6V4.4A1.4 1.4 0 0 1 9 3h9.6A1.4 1.4 0 0 1 20 4.4v11.2a1.4 1.4 0 0 1-1.4 1.4H17"/><path d="M4 8.4A1.4 1.4 0 0 1 5.4 7h10.2A1.4 1.4 0 0 1 17 8.4v11.2a1.4 1.4 0 0 1-1.4 1.4H5.4A1.4 1.4 0 0 1 4 19.6z"/><path stroke-width=".85" d="M7 11.4h7M7 14.2h7M7 17h4.2"/><path d="M14.2 16.4l0.64 0.8 -0.64 0.8 -0.64 -0.8 z" fill="currentColor" stroke="none"/>',
+  // A brass-collared reading glass with a glint on the lens.
+  lookup: '<circle cx="10" cy="10" r="6.2"/><path stroke-width=".85" d="M6.4 8.2a4 4 0 0 1 2.6-2.6"/><path d="M14.5 14.5l1.4 1.4"/><path stroke-width="2.6" d="M16.6 16.6l3.6 3.6"/><path stroke-width=".85" d="M14.7 16.9l2.2-2.2"/>',
+  // The Primer itself: open, ribboned, a spark above the gutter.
+  story: '<path d="M12 6.6C10 5.2 7 4.8 3.4 5.5v12.6c3.6-.7 6.6-.3 8.6 1.1"/><path d="M12 6.6c2-1.4 5-1.8 8.6-1.1v12.6c-3.6-.7-6.6-.3-8.6 1.1"/><path d="M12 6.6v12.6"/><path stroke-width=".85" d="M5.4 9c1.8-.3 3.6-.2 4.8.4M5.4 11.6c1.8-.3 3.6-.2 4.8.4M5.4 14.2c1.8-.3 3.6-.2 4.8.4M13.8 9.4c1.2-.6 3-.7 4.8-.4"/><path d="M15 18.4v3.4l1-.9 1 .9v-3.8"/><path d="M12 1.4l.6 1.3 1.3.6-1.3.6-.6 1.3-.6-1.3-1.3-.6 1.3-.6z" fill="currentColor" stroke="none"/>',
+  // A rolled scroll, ruled: the chronicle of what the reader has done.
+  journey: '<path d="M5 3.2h14a1.6 1.6 0 0 1 0 3.2H5a1.6 1.6 0 0 1 0-3.2z"/><path d="M5 17.6h14a1.6 1.6 0 0 1 0 3.2H5a1.6 1.6 0 0 1 0-3.2z"/><path d="M6.8 6.4v11.2M17.2 6.4v11.2"/><path stroke-width=".85" d="M9.4 9.4h5.2M9.4 12h5.2M9.4 14.6h3.4"/><path d="M15.6 13.9l0.56 0.7 -0.56 0.7 -0.56 -0.7 z" fill="currentColor" stroke="none"/>',
+  // A fingerpost: the plan forks forward from here.
+  path: '<path d="M12 3.6v17.4"/><path d="M8.6 21h6.8"/><path d="M12 5.4h6.6l2.2 2.2-2.2 2.2H12z"/><path d="M12 11.6H5.4l-2.2 2.2 2.2 2.2H12z"/><circle cx="12" cy="2.6" r="0.9" fill="currentColor" stroke="none"/><path stroke-width=".85" d="M14 7.6h3.4M7 13.8h3.4"/>',
+  // Banded spines on a shelf, one leaning: the reader's library.
+  shelf: '<path d="M2.4 20.6h19.2"/><path d="M4 6.2h3.6v14.4H4zM8.6 4h3.6v16.6H8.6z"/><path d="M13.2 20.6l3.4-13.8 3.4.8-3.4 13z"/><path stroke-width=".85" d="M4 9h3.6M4 17.8h3.6M8.6 7h3.6M8.6 17.6h3.6M15.7 10.2l3.3.8"/>',
+  // A cameo in a double oval: whose book this is.
+  account: '<ellipse cx="12" cy="12" rx="7.6" ry="9.6"/><ellipse cx="12" cy="12" rx="6.1" ry="8.1" stroke-width=".85"/><circle cx="12" cy="9.8" r="2.6"/><path d="M8.4 17.9c.8-2.4 2.1-3.6 3.6-3.6s2.8 1.2 3.6 3.6"/>',
+  // A speaking trumpet with its bell rim, sounding.
+  speak: '<path d="M3.2 10.2h3l8.6-5v13.6l-8.6-5h-3z"/><path d="M14.8 5.2c.9 0 1.6 3 1.6 6.8s-.7 6.8-1.6 6.8"/><path d="M19 9.3a3.8 3.8 0 0 1 0 5.4M21.1 7.2a6.8 6.8 0 0 1 0 9.6"/><path stroke-width=".85" d="M6.2 10.2v3.6"/>',
+  // The same trumpet, struck silent.
+  mute: '<path d="M3.2 10.2h3l8.6-5v13.6l-8.6-5h-3z"/><path d="M14.8 5.2c.9 0 1.6 3 1.6 6.8s-.7 6.8-1.6 6.8"/><path d="M18.4 9.6l4 4.8M22.4 9.6l-4 4.8"/><path stroke-width=".85" d="M6.2 10.2v3.6"/>',
+  // A sun of long and short rays: day reading.
+  sun: '<circle cx="12" cy="12" r="3.8"/><circle cx="12" cy="12" r="2" stroke-width=".85"/><path d="M12 2.2v3.4M12 18.4v3.4M2.2 12h3.4M18.4 12h3.4"/><path stroke-width=".85" d="M5.4 5.4l1.9 1.9M16.7 16.7l1.9 1.9M5.4 18.6l1.9-1.9M16.7 7.3l1.9-1.9"/>',
+  // A crescent with a star: night reading.
+  moon: '<path d="M19.6 14.8A8.4 8.4 0 0 1 9.2 4.4a8.5 8.5 0 1 0 10.4 10.4z"/><path stroke-width=".85" d="M10.4 9.4a5.6 5.6 0 0 0 4.2 6.6"/><path d="M17.4 3.4l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill="currentColor" stroke="none"/><circle cx="21" cy="8.4" r="0.6" fill="currentColor" stroke="none"/>',
+  // The spine with its ruled index, folding away.
+  panelClose: '<path d="M3.2 4.4h17.6v15.2H3.2z"/><path d="M8.6 4.4v15.2"/><path stroke-width=".85" d="M4.9 7.4h2M4.9 9.8h2M4.9 12.2h2"/><path d="M15.6 9.4L13 12l2.6 2.6"/>',
+  // The spine with its ruled index, opening out.
+  panelOpen: '<path d="M3.2 4.4h17.6v15.2H3.2z"/><path d="M8.6 4.4v15.2"/><path stroke-width=".85" d="M4.9 7.4h2M4.9 9.8h2M4.9 12.2h2"/><path d="M13 9.4l2.6 2.6-2.6 2.6"/>',
+  // A candle on its dish: the streak kept alight.
+  flame: '<path d="M12 2.8c1.9 2.3 2.8 3.8 2.8 5.3a2.8 2.8 0 0 1-5.6 0c0-1.5.9-3 2.8-5.3z"/><path stroke-width=".85" d="M12 6.4c.8 1 1.1 1.6 1.1 2.3a1.1 1.1 0 0 1-2.2 0c0-.7.3-1.3 1.1-2.3z"/><path d="M12 10.9v1.3"/><path d="M9.4 12.2h5.2v8.2H9.4z"/><path d="M5.8 20.4h12.4"/><path stroke-width=".85" d="M9.4 14.6c.8 0 .8 1.3 1.6 1.3M12.6 13.4v5.4"/>',
+  // A barbed quill with a cut nib: write it in your own words.
+  quill: '<path d="M20 3c-5.6 1-10 5.6-11.6 11.4l1.6 1.6C15.8 14.4 19.2 9 20 3z"/><path d="M20 3L5.2 17.8"/><path d="M6.6 16.4l-2.6 4.6 4.6-2.6"/><path stroke-width=".85" d="M15.4 8.6l1.9 1.3M13 11l1.9 1.2M10.8 13.4l1.6 1"/>',
+  // A padlock with a ruled plate: not yet, rather than never.
+  lock: '<path d="M8 10.6V7.8a4 4 0 0 1 8 0v2.8"/><path d="M5 10.6h14v10H5z"/><path stroke-width=".85" d="M6.6 12.2h10.8v6.8H6.6z"/><circle cx="12" cy="14.6" r="1.2" fill="currentColor" stroke="none"/><path d="M12 15.4v1.8"/>',
+  // A ringed target with a fletched arrow home: aim and calibration.
+  target: '<circle cx="12" cy="12.4" r="8.4"/><circle cx="12" cy="12.4" r="5.3"/><circle cx="12" cy="12.4" r="2.2" stroke-width=".85"/><path d="M12 12.4l7-7"/><path d="M17.2 3.6v2.6h2.6M19 1.8v2.6h2.6"/><circle cx="12" cy="12.4" r="0.9" fill="currentColor" stroke="none"/>',
+  // A die turned on its corner, pips on three faces: somewhere unplanned.
+  dice: '<path d="M12 3l8 4.2-8 4.2-8-4.2z"/><path d="M4 7.2v9.4l8 4.4v-9.6M20 7.2v9.4l-8 4.4"/><circle cx="12" cy="7.2" r="0.95" fill="currentColor" stroke="none"/><circle cx="6.4" cy="11.8" r="0.9" fill="currentColor" stroke="none"/><circle cx="9.6" cy="16.6" r="0.9" fill="currentColor" stroke="none"/><circle cx="14.4" cy="12.8" r="0.9" fill="currentColor" stroke="none"/><circle cx="16" cy="15.2" r="0.9" fill="currentColor" stroke="none"/><circle cx="17.6" cy="17.6" r="0.9" fill="currentColor" stroke="none"/>',
+  // A terrestrial globe in its meridian ring, on a stand.
+  globe: '<circle cx="11.6" cy="10" r="6.2"/><path stroke-width=".85" d="M5.4 10h12.4M11.6 3.8c-2 1.6-3 3.8-3 6.2s1 4.6 3 6.2M11.6 3.8c2 1.6 3 3.8 3 6.2s-1 4.6-3 6.2"/><path d="M18.4 3.6a8.6 8.6 0 0 1-12.2 12.2"/><path d="M11.6 18.6v2.4M7.8 21.2h7.6"/>',
+  // A jewelled crown: the day is complete.
+  crown: '<path d="M5.4 16L3.8 8.2l4.6 3.6L12 5.4l3.6 6.4 4.6-3.6L18.6 16z"/><path d="M5.4 16h13.2v2.8H5.4z"/><circle cx="3.8" cy="7.4" r="0.95" fill="currentColor" stroke="none"/><circle cx="12" cy="4.4" r="0.95" fill="currentColor" stroke="none"/><circle cx="20.2" cy="7.4" r="0.95" fill="currentColor" stroke="none"/><circle cx="9" cy="17.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="12" cy="17.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="15" cy="17.4" r="0.6" fill="currentColor" stroke="none"/>',
+  // A question set in a ruled cartouche: not sure yet.
+  unsure: '<circle cx="12" cy="12" r="8.8"/><circle cx="12" cy="12" r="7.2" stroke-width=".85"/><path d="M9.5 9.8a2.6 2.6 0 1 1 3.7 2.4c-.8.4-1.2 1-1.2 1.9v.5"/><circle cx="12" cy="16.8" r="0.85" fill="currentColor" stroke="none"/>',
+  // The four-point star of the Diamond Age, with a sparkle: something new.
+  spark: '<path d="M12 3c.8 5 3.2 7.6 8 9-4.8 1.4-7.2 4-8 9-.8-5-3.2-7.6-8-9 4.8-1.4 7.2-4 8-9z"/><path stroke-width=".85" d="M12 7.2v9.6M7.2 12h9.6"/><path d="M19.4 2.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z" fill="currentColor" stroke="none"/><circle cx="4.6" cy="19.6" r="0.7" fill="currentColor" stroke="none"/>',
+  // A single stroke of certainty.
+  known: '<path d="M4.4 12.9l4.8 4.8L19.8 6.4"/>',
+  // A saltire: not this one.
+  wrong: '<path d="M6.4 6.4l11.2 11.2M17.6 6.4L6.4 17.6"/>',
+  // A fletched arrow, onward.
+  onward: '<path d="M3.4 12h16.4M15 7.4l4.8 4.6-4.8 4.6"/><path stroke-width=".85" d="M7.6 12L5.4 9.2M7.6 12l-2.2 2.8M5.2 12L3 9.2M5.2 12L3 14.8"/>',
+  // A fletched arrow, back.
+  backward: '<path d="M20.6 12H4.2M9 7.4L4.2 12 9 16.6"/><path stroke-width=".85" d="M16.4 12l2.2-2.8M16.4 12l2.2 2.8M18.8 12l2.2-2.8M18.8 12l2.2 2.8"/>',
+  // An arrow leaving its frame: this goes outside the book.
+  outside: '<path d="M10.4 5.2H5.6A1.4 1.4 0 0 0 4.2 6.6v11.8a1.4 1.4 0 0 0 1.4 1.4h11.8a1.4 1.4 0 0 0 1.4-1.4v-4.8"/><path d="M11.2 12.8L20 4M14.4 4H20v5.6"/>',
+  // A sweep of the clock hand coming round again.
+  refresh: '<path d="M19.4 12.6a7.5 7.5 0 1 1-2.1-5.9"/><path d="M19.6 3.6v4.6H15"/><path stroke-width=".85" d="M12 8.4v3.6l2.4 1.6"/>',
+  // The clock hand swept back: start over.
+  restart: '<path d="M4.6 12.6a7.5 7.5 0 1 0 2.1-5.9"/><path d="M4.4 3.6v4.6H9"/><path stroke-width=".85" d="M12 8.4v3.6l-2.4 1.6"/>',
+  // A half-dark disc: begun, or slipped.
   half: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/>',
+  // The other half: sat, and not yet passed.
   halfAlt: '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor" stroke="none"/>',
-  // An open diamond: assumed, not proved.
-  assumed: '<path d="M12 3.6l8.4 8.4-8.4 8.4L3.6 12z"/>',
-  // A star, outlined and filled, for the young reader's score.
-  star: '<path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/>',
-  starFill: '<path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" fill="currentColor"/>',
-  // A model you work with your hands: three sliders, each set somewhere.
-  // Replaces the branching-path mark the gallery's model cards borrowed from
-  // "Your Path", which made every model look like a link to the plan.
-  interact: '<path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8.5" cy="7" r="2.2" fill="currentColor"/><circle cx="15" cy="12" r="2.2" fill="currentColor"/><circle cx="10.5" cy="17" r="2.2" fill="currentColor"/>',
-  // A model you turn in space: a cube with a turning arc under it.
-  cube: '<path d="M12 2.8l7.6 4.4v8.6L12 20.2l-7.6-4.4V7.2z"/><path d="M4.4 7.2L12 11.6l7.6-4.4M12 11.6v8.6"/><path d="M2.6 17.6c1.8 2.3 5.4 3.8 9.4 3.8s7.6-1.5 9.4-3.8"/>',
-  // The side panel, and which way it is about to move.
-  panelClose: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9 4.5v15"/><path d="M15.5 9.5L13 12l2.5 2.5"/>',
-  panelOpen: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9 4.5v15"/><path d="M13 9.5l2.5 2.5-2.5 2.5"/>',
-  // ---- one mark per field, keyed d-<domain id> ----
-  // The curriculum's icons were Unicode characters (∑ ⚛ ⚗ ⚖ …), which every
-  // platform draws in a different face and weight, and two fields shared one.
-  // Each field now has its own drawn mark; a field without one falls back to
-  // its character, then to the spark.
-  'd-math': '<path d="M17.5 5H6.5l6 7-6 7h11"/>',
-  'd-language': '<path d="M12 21.2L7.2 11.6 12 2.8l4.8 8.8z"/><path d="M12 14.6V9.6"/><circle cx="12" cy="15.9" r="1.3"/>',
-  'd-physics': '<ellipse cx="12" cy="12" rx="9.2" ry="3.6"/><ellipse cx="12" cy="12" rx="9.2" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9.2" ry="3.6" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>',
-  'd-biology': '<path d="M12 21V11"/><path d="M12 11c0-4.6 3-7.2 8.2-7.2 0 5.1-3 7.2-8.2 7.2z"/><path d="M12 14.6c0-3.6-2.4-5.6-7.2-5.6 0 4 2.6 5.6 7.2 5.6z"/>',
-  'd-chemistry': '<path d="M9 3.5h6M10.4 3.5v5.4L5 18.4a1.5 1.5 0 0 0 1.3 2.1h11.4a1.5 1.5 0 0 0 1.3-2.1L13.6 8.9V3.5"/><path d="M7.6 14.6h8.8"/>',
-  'd-cs': '<path d="M8.5 7l-5 5 5 5M15.5 7l5 5-5 5"/><path d="M13.6 4.8l-3.2 14.4"/>',
-  'd-history': '<path d="M6.5 3.5h11M6.5 20.5h11"/><path d="M7.6 3.5c0 4.6 4.4 5.6 4.4 8.5s-4.4 3.9-4.4 8.5M16.4 3.5c0 4.6-4.4 5.6-4.4 8.5s4.4 3.9 4.4 8.5"/><path d="M10 18.6h4"/>',
-  'd-earth': '<circle cx="12" cy="12" r="5.6"/><path d="M5.9 14.6c-2.9 2.3-4 4.2-3 4.8 1.9 1.1 7.4-1.3 12-5.2s7.4-8.4 5.5-9.5c-1-.6-3.1.2-5.6 1.9"/>',
-  'd-arts': '<path d="M9 18V5.6l11-2.1v12.4"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.9" r="2.5"/><path d="M9 9.4l11-2.1"/>',
-  'd-mind': '<path d="M12 3.5v17M8.5 20.5h7"/><path d="M5.2 5.8v3.4a6.8 6.8 0 0 0 13.6 0V5.8"/>',
-  'd-radiology': '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 6v12"/><path d="M8.2 9c1.6 1 6 1 7.6 0M8 12.4c1.7 1 6.3 1 8 0M8.4 15.8c1.5.9 5.7.9 7.2 0"/>',
-  'd-engineering': '<path d="M18.7 10.2 L21.2 10.7 L21.2 13.3 L18.7 13.8 L18.0 15.4 L19.4 17.6 L17.6 19.4 L15.5 18.0 L13.8 18.7 L13.3 21.2 L10.7 21.2 L10.2 18.7 L8.6 18.0 L6.4 19.4 L4.6 17.6 L6.0 15.4 L5.3 13.8 L2.8 13.3 L2.8 10.7 L5.3 10.2 L6.0 8.5 L4.6 6.4 L6.4 4.6 L8.5 6.0 L10.2 5.3 L10.7 2.8 L13.3 2.8 L13.8 5.3 L15.5 6.0 L17.6 4.6 L19.4 6.4 L18.0 8.5z"/><circle cx="12" cy="12" r="3.2"/>',
-  'd-health': '<path d="M12 20.2s-7.6-4.6-7.6-10.2A4.3 4.3 0 0 1 12 7.3a4.3 4.3 0 0 1 7.6 2.7c0 5.6-7.6 10.2-7.6 10.2z"/><path d="M6.8 12.6h2.6l1.3-2.3 2 4.1 1.3-1.8h3.2"/>',
-  'd-environment': '<path d="M2.8 19c3-3.6 6.2-3.6 9.2 0s6.2 3.6 9.2 0"/><path d="M12 15.8V7.4"/><path d="M12 10.4c-2.4 0-3.8-1.4-3.8-3.8 2.4 0 3.8 1.4 3.8 3.8zM12 10.4c2.4 0 3.8-1.4 3.8-3.8-2.4 0-3.8 1.4-3.8 3.8z"/>',
-  'd-design': '<circle cx="12" cy="4.6" r="1.7"/><path d="M11.1 6.2L5.6 20.5M12.9 6.2l5.5 14.3"/><path d="M7.4 15.6c3 1.4 6.2 1.4 9.2 0"/>',
-  'd-business': '<path d="M3.5 20.5h17"/><rect x="5.2" y="13.2" width="3.2" height="4.8" rx=".6"/><rect x="10.4" y="9.2" width="3.2" height="8.8" rx=".6"/><rect x="15.6" y="5.2" width="3.2" height="12.8" rx=".6"/>',
-  'd-civics': '<path d="M12 3.5v17M8 20.5h8M4.6 6.6h14.8"/><path d="M4.6 6.6L2.2 12.6a2.4 2.4 0 0 0 4.8 0zM19.4 6.6l-2.4 6a2.4 2.4 0 0 0 4.8 0z"/>',
-  'd-education': '<path d="M2.4 9.4L12 4.9l9.6 4.5L12 13.9z"/><path d="M6.4 11.3v4.4c1.7 1.6 3.5 2.3 5.6 2.3s3.9-.7 5.6-2.3v-4.4"/><path d="M21.6 9.4v5.2"/>',
-  'd-media': '<path d="M4 5.2h16v10.4h-8.6l-4.6 3.6v-3.6H4z"/><path d="M8 9.2h8M8 12.2h5"/>',
-  // Its opposite: a crossed stroke, for the wrong verdict. Drawn so ✓ and ✗
-  // share one weight instead of two fonts' ideas of a tick.
-  wrong: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
-  // A sun with eight short rays: day reading.
-  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/>',
-  // A fleuron: a chapter's closing ornament — two leaves off one stem.
-  fleuron: '<path d="M2 12h6M16 12h6"/><path d="M12 12c-2.6-1-4-3.4-3.2-6.4 2.8.6 4 3.2 3.2 6.4z"/><path d="M12 12c2.6 1 4 3.4 3.2 6.4-2.8-.6-4-3.2-3.2-6.4z"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/>',
-  // A head and shoulders: whose book this is.
-  account: '<circle cx="12" cy="8.6" r="3.4"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/>',
+  // A lozenge within a lozenge: assumed, not proved.
+  assumed: '<path d="M12 3.2l8.8 8.8-8.8 8.8L3.2 12z"/><path stroke-width=".85" d="M12 8.6l3.4 3.4-3.4 3.4L8.6 12z"/>',
+  // A star, outlined.
+  star: '<path d="M12.00 3.40 L14.29 9.44 L20.75 9.76 L15.71 13.81 L17.41 20.04 L12.00 16.50 L6.59 20.04 L8.29 13.81 L3.25 9.76 L9.71 9.44z"/>',
+  // A star, inked in.
+  starFill: '<path fill="currentColor" d="M12.00 3.40 L14.29 9.44 L20.75 9.76 L15.71 13.81 L17.41 20.04 L12.00 16.50 L6.59 20.04 L8.29 13.81 L3.25 9.76 L9.71 9.44z"/>',
+  // An instrument dial with its needle: a model you work by hand.
+  interact: '<circle cx="12" cy="13" r="8.4"/><path stroke-width=".85" d="M6.36 10.95L5.05 10.47M7.40 9.14L6.33 8.24M9.00 7.80L8.30 6.59M10.96 7.09L10.72 5.71M13.04 7.09L13.28 5.71M15.00 7.80L15.70 6.59M16.60 9.14L17.67 8.24M17.64 10.95L18.95 10.47"/><path d="M12 13l4.2-4.8"/><circle cx="12" cy="13" r="1.5"/><path stroke-width=".85" d="M7.4 18.2h9.2"/>',
+  // A cube with its shadow side hatched: a model you turn in space.
+  cube: '<path d="M12 3.2l7.6 4.4-7.6 4.4-7.6-4.4z"/><path d="M4.4 7.6v8.8l7.6 4.4v-8.8M19.6 7.6v8.8L12 20.8"/><path stroke-width=".85" d="M14.5 10.6v8.8M17 9.1v8.8"/>',
+  // A printer's hedera on its stem: the end of a chapter.
+  fleuron: '<path d="M12 18.4c-4-2.4-6.4-5-6.4-7.9a3.2 3.2 0 0 1 6.4-1 3.2 3.2 0 0 1 6.4 1c0 2.9-2.4 5.5-6.4 7.9z"/><path stroke-width=".85" d="M12 9.6v7"/><path d="M2 12h3.6M18.4 12H22"/><path stroke-width=".85" d="M3.4 12c0-1.4-1.4-1.6-1.8-.8M20.6 12c0-1.4 1.4-1.6 1.8-.8"/>',
+  // Euclid: a triangle inscribed in its circle.
+  'd-math': '<circle cx="12" cy="12.6" r="8.4" stroke-width=".85"/><path d="M12 4.2l7.3 12.6H4.7z"/><path stroke-width=".85" d="M12 4.2v12.6"/><circle cx="12" cy="4.2" r="1" fill="currentColor" stroke="none"/><circle cx="19.3" cy="16.8" r="1" fill="currentColor" stroke="none"/><circle cx="4.7" cy="16.8" r="1" fill="currentColor" stroke="none"/>',
+  // An inkwell and quill.
+  'd-language': '<path d="M6 14.2h9v5.6a1.4 1.4 0 0 1-1.4 1.4H7.4A1.4 1.4 0 0 1 6 19.8z"/><path d="M8 14.2v-1.8h5v1.8"/><path stroke-width=".85" d="M6 16.8h9"/><path d="M11.4 12.4L19.6 3"/><path d="M19.6 3c-3.2.6-5.6 2.8-6.7 5.6l1.3 1.3c2.8-1.1 4.8-3.6 5.4-6.9z"/>',
+  // A pendulum from a hatched beam, its arc dotted.
+  'd-physics': '<path d="M5.4 3.6h13.2"/><path stroke-width=".85" d="M7.2 3.6L5.8 2.2M10.2 3.6L8.8 2.2M13.2 3.6l-1.4-1.4M16.2 3.6l-1.4-1.4"/><path d="M12 3.6l3.7 12.4"/><circle cx="16.3" cy="18.3" r="2.4"/><path stroke-width="1.1" stroke-dasharray=".01 2" d="M6.9 17.7A15 15 0 0 0 13.6 18.9"/><circle cx="12" cy="3.6" r="0.9" fill="currentColor" stroke="none"/>',
+  // A botanical leaf with its veins.
+  'd-biology': '<path d="M4.8 19.2C4.8 10.2 10.4 4.4 19.6 4.4c0 9.2-5.8 14.8-14.8 14.8z"/><path d="M4.8 19.2L15.6 8.4"/><path stroke-width=".85" d="M8.4 15.6l-.2-3.8M8.4 15.6l3.8.2M11.4 12.6l-.2-3.6M11.4 12.6l3.6.2"/><path d="M4.8 19.2l-1.6 1.6"/>',
+  // A stoppered retort.
+  'd-chemistry': '<path d="M10.2 9.7A5 5 0 1 0 13.1 12.3"/><path d="M10.2 9.7C13 8.8 16.4 10.6 21.2 15"/><path d="M13.1 12.3c2.6.3 4.8 1.7 7.5 3.9"/><path d="M21.2 15l-.6 1.2"/><path stroke-width=".85" d="M4 15.6h9.2"/><path d="M7.4 9.7V7.8h2.4v1.6"/><circle cx="7.4" cy="17.4" r="0.6" fill="currentColor" stroke="none"/><circle cx="10" cy="18.2" r="0.5" fill="currentColor" stroke="none"/><path d="M4.4 21h8.4"/>',
+  // A punched card, after Jacquard and Babbage.
+  'd-cs': '<path d="M5 3h11l4 4v14H5z"/><path stroke-width=".85" d="M16 3v4h4"/><path stroke-width="1.5" d="M8 8.4v1.2"/><path stroke-width="1.5" d="M11 8.4v1.2"/><path stroke-width="1.5" d="M17 8.4v1.2"/><path stroke-width="1.5" d="M8 12.4v1.2"/><path stroke-width="1.5" d="M14 12.4v1.2"/><path stroke-width="1.5" d="M11 16.4v1.2"/><path stroke-width="1.5" d="M14 16.4v1.2"/><path stroke-width="1.5" d="M17 16.4v1.2"/><path stroke-width=".85" d="M7 20h4"/>',
+  // An hourglass in its posts.
+  'd-history': '<path d="M5.6 3h12.8M5.6 21h12.8"/><path stroke-width=".85" d="M7.4 3v18M16.6 3v18"/><path d="M8.8 4.2c0 4.4 3.2 5.6 3.2 7.8s-3.2 3.4-3.2 7.8M15.2 4.2c0 4.4-3.2 5.6-3.2 7.8s3.2 3.4 3.2 7.8"/><path stroke-width=".85" d="M10.2 7.4h3.6"/><path d="M9.8 19.6c.8-1.5 1.5-2.2 2.2-2.2s1.4.7 2.2 2.2z"/><path stroke-width=".85" stroke-dasharray=".01 1.4" d="M12 12.6v4"/>',
+  // A ringed planet, a moon and a star.
+  'd-earth': '<circle cx="12" cy="12" r="5.2"/><path stroke-width=".85" d="M7.2 10.6c2.6.7 6.4.5 9.4-.7"/><path d="M5.9 14.6c-2.9 2.3-4 4.2-3 4.8 1.9 1.1 7.4-1.3 12-5.2s7.4-8.4 5.5-9.5c-1-.6-3.1.2-5.6 1.9"/><circle cx="19.6" cy="18.4" r="1.1"/><path d="M4.4 3.2l.5 1.2 1.2.5-1.2.5-.5 1.2-.5-1.2-1.2-.5 1.2-.5z" fill="currentColor" stroke="none"/>',
+  // A lyre.
+  'd-arts': '<path d="M7.6 20C5.4 16.4 5.2 12.6 6.6 9.8c1-2 2-3 2-4.8M16.4 20c2.2-3.6 2.4-7.4 1-10.2-1-2-2-3-2-4.8"/><path d="M7 20h10"/><path d="M8.6 6.2h6.8"/><path stroke-width=".85" d="M10.4 6.2V20M12 6.2V20M13.6 6.2V20"/><path d="M8.6 5c0-1.2-1.4-1.6-1.9-.6M15.4 5c0-1.2 1.4-1.6 1.9-.6"/>',
+  // The lamp of learning.
+  'd-mind': '<path d="M3.8 13.6c0 2.2 3.4 3.6 7.6 3.6s7.6-1.4 7.6-3.6z"/><path d="M19 13.6l2.2-2"/><path d="M3.8 13.6c-1.6 0-2.2-2.4-.4-2.8"/><path d="M9.2 17.2l-.6 2.6h5.6l-.6-2.6"/><path d="M11.4 13.6v-1.6"/><circle cx="11.4" cy="11.2" r="0.8"/><path d="M21.4 11.2c-1-1.4-1.1-2.6-.1-4.4 1 1.8.9 3 .1 4.4z"/><path stroke-width=".85" d="M5.4 15.4c3.2 1 8.8 1 12 0"/>',
+  // A chest film on its lightbox clip.
+  'd-radiology': '<path d="M4 3.4h16v17.4H4z"/><path d="M10 3.4V2.4h4v1"/><path stroke-width="1.15" d="M12 6v12.8"/><path stroke-width=".85" d="M12 8.4c-1.8-.6-3.6-.2-5 1.2M12 8.4c1.8-.6 3.6-.2 5 1.2M12 11.2c-1.9-.6-3.8-.1-5.2 1.4M12 11.2c1.9-.6 3.8-.1 5.2 1.4M12 14c-1.8-.5-3.4 0-4.6 1.4M12 14c1.8-.5 3.4 0 4.6 1.4M7.6 6.4c1.6-.5 3-.6 4.4-.2M16.4 6.4c-1.6-.5-3-.6-4.4-.2"/>',
+  // A spoked gear.
+  'd-engineering': '<path d="M19.17 10.16 L21.68 10.47 L21.68 13.53 L19.17 13.84 L18.37 15.77 L19.93 17.76 L17.76 19.93 L15.77 18.37 L13.84 19.17 L13.53 21.68 L10.47 21.68 L10.16 19.17 L8.23 18.37 L6.24 19.93 L4.07 17.76 L5.63 15.77 L4.83 13.84 L2.32 13.53 L2.32 10.47 L4.83 10.16 L5.63 8.23 L4.07 6.24 L6.24 4.07 L8.23 5.63 L10.16 4.83 L10.47 2.32 L13.53 2.32 L13.84 4.83 L15.77 5.63 L17.76 4.07 L19.93 6.24 L18.37 8.23z"/><circle cx="12" cy="12" r="5.2" stroke-width=".85"/><circle cx="12" cy="12" r="1.9"/><path stroke-width=".85" d="M12 6.8v3.3M12 13.9v3.3M6.8 12h3.3M13.9 12h3.3"/>',
+  // The rod of Asclepius.
+  'd-health': '<path d="M12 2.8v18.4"/><path d="M9.8 21.2h4.4"/><path d="M14.4 5.6c-1.8-.8-4 .2-3.5 1.9.5 1.6 4 1.5 4.2 3.5.2 2-3.6 2.2-3.6 4.2 0 1.8 3 1.6 3.2 3.4"/><circle cx="14.9" cy="5.2" r="0.9" fill="currentColor" stroke="none"/><path stroke-width=".85" d="M15.8 5l1.2-.6"/>',
+  // A wheat sheaf.
+  'd-environment': '<path d="M12 21.2V8.6"/><path d="M12 8.6c-1.6-.4-2.4-1.6-2.4-3 1.6.4 2.4 1.6 2.4 3zM12 8.6c1.6-.4 2.4-1.6 2.4-3-1.6.4-2.4 1.6-2.4 3zM12 12c-1.6-.4-2.4-1.6-2.4-3 1.6.4 2.4 1.6 2.4 3zM12 12c1.6-.4 2.4-1.6 2.4-3-1.6.4-2.4 1.6-2.4 3zM12 15.4c-1.6-.4-2.4-1.6-2.4-3 1.6.4 2.4 1.6 2.4 3zM12 15.4c1.6-.4 2.4-1.6 2.4-3-1.6.4-2.4 1.6-2.4 3z"/><path d="M12 5.6c-.8-1-.8-2.4 0-3.4.8 1 .8 2.4 0 3.4z"/><path stroke-width=".85" d="M12 18.2c-2 0-3.6 1.2-4.4 3M12 18.2c2 0 3.6 1.2 4.4 3"/>',
+  // An Ionic column.
+  'd-design': '<path d="M4.8 5h14.4"/><path d="M6.6 5c-1.4 0-1.9 2.4-.2 2.8 1 .2 1.4-.6 1.2-1.2M17.4 5c1.4 0 1.9 2.4.2 2.8-1 .2-1.4-.6-1.2-1.2"/><path d="M7.6 7.4h8.8"/><path d="M8 7.4v11.6M16 7.4v11.6"/><path stroke-width=".85" d="M10.6 8.2v10.4M13.4 8.2v10.4"/><path d="M6.8 19h10.4M5.4 21.2h13.2"/>',
+  // A milled stack of coin.
+  'd-business': '<ellipse cx="12" cy="7" rx="6" ry="2.2"/><path d="M6 7v10c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2V7"/><path stroke-width=".85" d="M6 10.4c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2M6 13.8c0 1.2 2.7 2.2 6 2.2s6-1 6-2.2"/><path d="M12 6.1l0.72 0.9 -0.72 0.9 -0.72 -0.9 z" fill="currentColor" stroke="none"/>',
+  // The scales.
+  'd-civics': '<path d="M4.6 6.6h14.8M12 4.2v16.2M8.6 20.4h6.8"/><circle cx="12" cy="3.2" r="1" fill="currentColor" stroke="none"/><path stroke-width=".85" d="M4.6 6.6l-2 6M4.6 6.6l2 6M19.4 6.6l-2 6M19.4 6.6l2 6"/><path d="M2.2 12.6a2.4 2.4 0 0 0 4.8 0zM17 12.6a2.4 2.4 0 0 0 4.8 0z"/>',
+  // A mortarboard and tassel.
+  'd-education': '<path d="M2.4 9.4L12 5l9.6 4.4L12 13.8z"/><path d="M6.4 11.4v4.4c1.7 1.6 3.5 2.3 5.6 2.3s3.9-.7 5.6-2.3v-4.4"/><path stroke-width=".85" d="M12 9.4l7 2.2v4.8"/><path d="M19 16.4l-.9 2.4h1.8z"/>',
+  // A folded broadsheet.
+  'd-media': '<path d="M4 4.8h13.2v13.8a1.4 1.4 0 0 0 1.4 1.4H5.4A1.4 1.4 0 0 1 4 18.6z"/><path d="M17.2 8.4h2.6v10.2a1.4 1.4 0 0 1-2.6.7"/><path stroke-width="1.7" d="M6.6 7.8h8"/><path stroke-width=".85" d="M6.6 11h3.4M6.6 13.6h3.4M6.6 16.2h3.4M11.4 11h3.2M11.4 13.6h3.2M11.4 16.2h3.2"/>',
 };
 function glyph(name, size) {
   const s = size || 20;
@@ -576,8 +583,13 @@ async function boot() {
   // Ask once, after the book is on screen, if we do not actually know.
   setTimeout(askPronounsIfUnknown, 600);
 }
+// The reading palettes: value, the name the reader sees, its mark. Silvertone
+// and Slate are monochrome (no gilt, no tint) for readers who want the page
+// without the book's warmth.
+const THEMES = [['light', 'Day', 'sun'], ['dark', 'Night', 'moon'],
+  ['silvertone', 'Silvertone', 'half'], ['slate', 'Slate', 'halfAlt']];
 function applyTheme(theme) {
-  if (theme === 'dark' || theme === 'light') document.documentElement.setAttribute('data-theme', theme);
+  if (THEMES.some(([value]) => value === theme)) document.documentElement.setAttribute('data-theme', theme);
   else document.documentElement.removeAttribute('data-theme');
 }
 
@@ -1091,10 +1103,13 @@ function effectiveTheme() {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 function themeToggle() {
-  const b = btn({ id: 'theme-toggle', class: 'chrome-toggle', onclick: () => {
-    // Toggle relative to what the reader actually sees, so the first press
-    // always visibly changes the page (even when following the OS setting).
-    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+  // Four palettes are a choice, not a polarity, so the control is a real
+  // <select> under the toggle's face: native on every keyboard, screen reader
+  // and phone, named "Reading theme" with the current palette as its value.
+  const icon = el('span', { class: 'tt-icon', 'aria-hidden': 'true' });
+  const label = el('span', { class: 'tt-label', 'aria-hidden': 'true' });
+  const b = el('select', { id: 'theme-toggle', class: 'theme-select', 'aria-label': 'Reading theme', onchange: event => {
+    const next = event.target.value;
     applyTheme(next); localStorage.setItem('primer-theme', next);
     // Some engines don't fully invalidate custom properties on an attribute
     // change, so elements can keep the old theme's colours. Rebuilding the view
@@ -1120,23 +1135,16 @@ function themeToggle() {
       S.restoreFocus = 'theme-toggle';   // honoured once the view has rebuilt
       renderShell(); renderRoute();
     } else paint();
-  } }, el('span', { class: 'tt-icon', 'aria-hidden': 'true' }, glyph('moon', 15)), el('span', { class: 'tt-label' }, ''));
+  } }, ...THEMES.map(([value, name]) => el('option', { value }, name)));
   function paint() {
     const now = effectiveTheme();
-    b.querySelector('.tt-label').textContent = now === 'dark' ? 'Night' : 'Day';
-    b.querySelector('.tt-icon').replaceChildren(glyph(now === 'dark' ? 'moon' : 'sun', 15));
-    // The state has to live in the NAME. A fixed aria-label ("Switch between
-    // day and night reading") overrides the element's contents in the
-    // accessible-name computation, so the one word that says which mode is on
-    // — the visible 'Night'/'Day' right there in the button — never reached a
-    // screen reader at all, and the control announced identically in both
-    // states. Named rather than aria-pressed: a theme is not a pressed
-    // control, and a polarity has to be guessed to announce one.
-    b.setAttribute('aria-label', now === 'dark'
-      ? 'Night reading on — switch to day' : 'Day reading on — switch to night');
+    const [value, name, mark] = THEMES.find(([v]) => v === now) || THEMES[0];
+    b.value = value;
+    label.textContent = name;
+    icon.replaceChildren(glyph(mark, 15));
   }
   paint();
-  return b;
+  return el('div', { class: 'chrome-toggle theme-control', title: 'Reading theme' }, icon, label, b);
 }
 function accountToggle() {
   return btn({ id: 'account-toggle', class: 'chrome-toggle',
