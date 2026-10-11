@@ -391,6 +391,7 @@ function collectRemainingModels() {
   const lessonIds = new Set();
   let measureEntries = 0, cycleEntries = 0, operatorEntries = 0, ensembleEntries = 0;
   let curvatureEntries = 0, constraintsEntries = 0, complexEntries = 0, quantumEntries = 0;
+  let topologyEntries = 0, relativityEntries = 0;
   let phaseEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
@@ -401,6 +402,14 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-topology-lab' || media.renderer === 'physics-relativity-lab') {
+          const topology = media.renderer === 'math-topology-lab';
+          assert.equal(lesson.id, topology ? 'math.5.topology' : 'phys.4.relativity');
+          assert.equal(media.kind, 'model');
+          assert.deepEqual(media.props, {scenario: topology ? 'math.5.topology.opens-covers-surfaces' : 'phys.4.relativity.events-clocks'});
+          if(topology) topologyEntries++; else relativityEntries++;
+          continue;
+        }
         if (media.renderer === 'math-complex-lab' || media.renderer === 'physics-quantum-lab') {
           const complex = media.renderer === 'math-complex-lab';
           assert.equal(lesson.id, complex ? 'math.5.complex-analysis' : 'phys.4.quantum');
@@ -502,6 +511,7 @@ function collectRemainingModels() {
   if (operatorEntries !== 1 || ensembleEntries !== 1) throw new Error('expected one operator and one ensemble model');
   if (curvatureEntries !== 1 || constraintsEntries !== 1) throw new Error('expected one curvature and one constraints model');
   if (complexEntries !== 1 || quantumEntries !== 1) throw new Error('expected one complex and one quantum model');
+  assert.equal(topologyEntries,1);assert.equal(relativityEntries,1);
   if (phaseEntries !== 2) throw new Error('expected two separately verified phase models');
   if (numericalEntries !== 1) throw new Error('expected one separately verified numerical error model');
   if (thermalEntries !== 2) throw new Error('expected two separately verified thermal models');

@@ -6976,14 +6976,14 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "Stretching and bending may not change the number of holes running through an object. A sculptor starts with a ball of clay and pushes two holes right through it. Pick the object she can now reach without cutting or gluing.",
-     "answer": "A two-handled cup",
-     "explain": "Two holes through the clay give a surface of genus two. A doughnut and a one-handled mug each have a single hole and a dented ball has none, so only the two-handled cup matches. The count of holes is what deformation preserves.",
+     "prompt": "Treat the closed boundary surface of a clay solid as the object. A sculptor starts with a solid ball and makes two disjoint tunnels through it. Which closed boundary surface has the same genus and can be reached by a homeomorphism?",
+     "answer": "The closed boundary of a solid two-handled cup",
+     "explain": "Two disjoint through-tunnels give the connected, closed orientable boundary genus two. The boundaries of a solid doughnut and a solid one-handled mug have genus one, and a dented solid ball has genus zero. This concerns the closed material boundary, including the cup interior and rim, rather than an open surface with boundary.",
      "choices": [
-      "A doughnut with a single hole",
-      "A two-handled cup",
-      "A solid ball with a dent pressed in",
-      "A coffee mug with one handle"
+      "The closed boundary of a solid doughnut",
+      "The closed boundary of a solid two-handled cup",
+      "The closed boundary of a solid ball with a dent",
+      "The closed boundary of a solid one-handled mug"
      ]
     },
     {
@@ -7110,8 +7110,32 @@
      "props": {
       "scenario": "math.5.topology"
      }
+    },
+    {
+     "id": "math.5.topology.fidelity-lab",
+     "kind": "model",
+     "renderer": "math-topology-lab",
+     "title": "Open sets, compactness and actual surface invariants",
+     "instructions": "Explore seven exact topology stations. Use finite witnesses and infinite proof ledgers; inspect genuine triangulated surfaces and distinguish bijections from quotients.",
+     "props": {
+      "scenario": "math.5.topology.opens-covers-surfaces"
     }
-   ]
+    }
+   ],
+   "learning_outcomes": [
+    "Check topology axioms and continuity by exact open sets and preimages, without assigning a metric to the space.",
+    "Distinguish a continuous bijection, a quotient map and a homeomorphism; prove the compact-to-Hausdorff inverse theorem.",
+    "Give an infinite open cover with no finite subcover and identify why the same family fails to cover a closed interval.",
+    "Separate T1 from Hausdorff separation in the infinite cofinite real line.",
+    "Prove the sine-curve closure is connected and explain why a path from its branch to its limiting segment would contradict continuity.",
+    "Compute Euler characteristic from an actual closed orientable triangulation and identify which features an invertible deformation preserves."
+   ],
+   "lesson": {
+    "overview": "A topology specifies open sets and continuity without needing lengths or angles. Finite open-set calculations make the definitions inspectable; infinite covers and limit spaces require quantified arguments. A drawn surface can supply a genuine Euler-characteristic example, but a finite picture cannot establish compactness or connectedness of an infinite set.",
+    "worked_example": "On {a,b,c}, the proposed family containing the empty set, {a}, {b} and the whole set fails because {a,b} is missing. The identity from a discrete three-point space to an indiscrete three-point space is a continuous bijection whose inverse is discontinuous. For (0,1), the open sets (1/n,1), n≥2, form a cover; any finite subfamily leaves (0,1/N] uncovered, where N is its largest index. This family does not cover [0,1] in the first place.",
+    "activity": "Work through all seven stations. Check exact closure witnesses and preimages, select covers and separation conditions, inspect the sine curve with the unresolved infinite tail disclosed, count V−E+F on genus-zero through genus-three surfaces, and compare the half-open interval bijection with the closed interval quotient onto the circle. Separate each finite computation from the general proof it illustrates.",
+    "reflection": "A homeomorphism preserves open-set structure, incidence, compactness, connectedness and Euler characteristic, while an invertible stretch can change metric quantities. Compactness plus a Hausdorff target makes a continuous bijection a homeomorphism; a continuous surjection need not have an inverse. The limiting sine-curve segment is not joined by a path merely because a finite renderer draws nearby points."
+   }
   },
   {
    "id": "math.5.diffgeo",

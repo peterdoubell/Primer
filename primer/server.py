@@ -3532,7 +3532,7 @@ def app_shell():
                      "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css",
                      "math-ode-lab.js", "math-ode-lab.css", "math-eigenspace.js", "math-eigenspace.css",
                      "math-field-lab.js", "math-field-lab.css", "math-wave-lab.js", "math-wave-lab.css",
-                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "lesson-state.js", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
+                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "spatial-fidelity.js", "lesson-state.js", "math-topology-lab.js", "math-topology-lab.css", "physics-relativity-lab.js", "physics-relativity-lab.css", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3652,9 +3652,11 @@ def healthz():
     _source_anatomy_references()
     _source_motion_references()
     _source_study_references()
+    from .source_native_inspectors import references as native_inspectors
+    native_inspectors()
     return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives),
             "source_gallery_metadata_validated": True, "source_model_metadata_validated": True, "source_motion_metadata_validated": True,
-            "source_study_metadata_validated": True}
+            "source_study_metadata_validated": True, "source_native_inspector_metadata_validated": True}
 
 
 
@@ -3679,6 +3681,26 @@ async def source_study_delivery(study: str, asset: str, request: Request):
         return FileResponse(os.path.join(WEB_DIR, 'studies', row['id'], filename),
                             media_type='application/octet-stream', headers={'Cache-Control': 'no-cache'})
     return await app.state.source_static.get_response('studies/' + row['id'] + '/' + filename, request.scope)
+
+
+@app.api_route("/app/anatomy/brain-fine-massp2/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def native_brain_payload_delivery(asset: str, request: Request):
+    from .source_native_inspectors import delivery, PREFIX
+    src = PREFIX + asset
+    row = delivery()['files'].get(src)
+    if row is None:
+        # Inspector code, metadata and attribution remain authenticated app files.
+        if asset in {'reference.html', 'reference.js', 'manifest.json', 'ATTRIBUTION.md'}:
+            response = await app.state.source_static.get_response('anatomy/brain-fine-massp2/' + asset, request.scope)
+            if asset == 'reference.html':
+                host = delivery()['blob_hostname']
+                response.headers['Content-Security-Policy'] = CSP.replace("connect-src 'self';", "connect-src 'self' https://" + host + ";")
+            return response
+        return JSONResponse({'detail': 'Unknown native source payload'}, status_code=404)
+    if os.environ.get('VERCEL'):
+        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
+    # The selected path comes from the reviewed inventory, not arbitrary input.
+    return await app.state.source_static.get_response(src.removeprefix('/app/'), request.scope)
 
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)

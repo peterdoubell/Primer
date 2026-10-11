@@ -4210,7 +4210,7 @@
    "quiz": [
     {
      "kind": "numeric",
-     "prompt": "A muon has a proper lifetime of 2.0 microseconds. It travels at a speed where the Lorentz factor γ = 5. In the lab frame, how many microseconds does it live before decaying?",
+     "prompt": "A muon population has a mean proper lifetime of 2.0 microseconds. It travels at a speed where the Lorentz factor γ = 5. In the lab frame, how many microseconds is the mean lifetime?",
      "answer": "10",
      "explain": "Time dilation gives the lab-frame lifetime as γ times the proper time: 5 × 2.0 µs = 10 µs."
     },
@@ -4228,7 +4228,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "An astronaut is sealed in a small windowless capsule and feels a steady 9.8 newtons per kilogram pressing her to the floor. What can experiments done entirely inside the capsule tell her?",
+     "prompt": "Treat the gravitational field as uniform across a small windowless capsule and neglect tidal effects. An astronaut feels a steady 9.8 newtons per kilogram pressing her to the floor. What can local experiments in this approximation tell her?",
      "answer": "Nothing that tells gravity apart from steady acceleration.",
      "explain": "The equivalence principle says a uniform gravitational field and a uniformly accelerating frame are locally indistinguishable, and both balls fall together either way. Only tidal effects — the slight convergence of a real planet's field across the capsule — would betray it, and that is what the word 'locally' sets aside.",
      "choices": [
@@ -4246,7 +4246,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "A 20 m pole is carried at gamma = 2 through a 10 m barn. In the barn frame the contracted pole just fits with both doors briefly shut; in the pole frame the barn is only 5 m long and cannot possibly contain it. Resolve the apparent paradox.",
+     "prompt": "A 20 m pole is carried at gamma = 2 through a 10 m barn. Treat the door closings as simultaneous ideal events, followed by immediate reopening without striking the pole. In the barn frame the contracted pole just fits at those events; in the pole frame the barn is only 5 m long and cannot possibly contain it. Resolve the apparent paradox.",
      "answer": "The frames disagree about which of the two doors shut first.",
      "choices": [
       "The pole physically shrinks and stays shrunk after.",
@@ -4295,14 +4295,14 @@
     {
      "kind": "choice",
      "prompt": "A ring laser on a rotating platform times light going each way around the loop and finds the two arrival times differ. A student claims this refutes the constancy of the speed of light. Correct them.",
-     "answer": "In the rotating frame the two paths differ in length.",
+     "answer": "The beam splitter moves during flight; local light speed remains c.",
      "choices": [
-      "Rotation genuinely alters the local speed of light in the loop.",
-      "In the rotating frame the two paths differ in length.",
-      "The clocks, rather than the light, are at fault in this setup.",
-      "Relativity simply does not apply to any rotating apparatus."
+      "Rotation changes the local vacuum speed of light.",
+      "The beam splitter moves during flight; local light speed remains c.",
+      "The clocks are faulty because the beams must return together.",
+      "Relativity does not apply to rotating apparatus."
      ],
-     "explain": "The platform is not an inertial frame: while the light is in flight the beam splitter moves, so the co-rotating and counter-rotating beams cover unequal distances. Measured locally the speed of light is unchanged, which is why the Sagnac effect is used in navigation gyroscopes rather than treated as a refutation."
+     "explain": "In the inertial laboratory frame, the rotating beam splitter moves while both beams travel at c, so they travel different distances before catching it. Rotating coordinates are not globally Einstein-synchronized around the loop; a synchronization offset accounts for the unequal arrivals even though the coordinate circumference is the same in both directions. No local measurement of vacuum light speed is changed."
     }
    ],
    "lesson_media": [
@@ -4325,8 +4325,33 @@
      "props": {
       "scenario": "phys.4.relativity"
      }
+    },
+    {
+     "id": "phys.4.relativity.fidelity-lab",
+     "kind": "model",
+     "renderer": "physics-relativity-lab",
+     "title": "Events, clocks and relativistic measurement",
+     "instructions": "Explore eight calibrated relativity stations. Compare invariant intervals, simultaneity, proper measurements, gravity assumptions and rotating-detector light arrivals.",
+     "props": {
+      "scenario": "phys.4.relativity.events-clocks"
     }
-   ]
+    }
+   ],
+   "learning_outcomes": [
+    "Transform actual events and worldlines with Lorentz boosts, preserving the interval and distinguishing causal order from simultaneity.",
+    "Use proper lifetime and simultaneous endpoint measurements to compute time dilation and length contraction.",
+    "Resolve the barn-pole paradox with the same door events and worldlines in both frames.",
+    "Calculate velocity addition, total/rest/kinetic energy and momentum without using a changing rest mass.",
+    "Relate constant proper acceleration to rapidity, coordinate time and worldline shape while retaining the finite-speed and diverging-energy limits.",
+    "Compare gravitational and orbital clock rates with declared weak-field assumptions, and distinguish local equivalence from measurable finite-size tides.",
+    "Compute rotating-ring light arrival times from inertial intersections and explain the Sagnac synchronization offset without changing local c."
+   ],
+   "lesson": {
+    "overview": "Relativity compares events and clocks using explicit frames, units and measurement procedures. Lorentz transformations preserve the spacetime interval; simultaneity, coordinate duration and simultaneous rod length can change. General relativity also changes clock comparisons with gravitational potential, while local inertial measurements and finite-size tidal effects require different descriptions.",
+    "worked_example": "A 2.0 μs proper muon lifetime at γ=5 corresponds to 10 μs in the laboratory. A 10.0 m rest rod at γ=2.5 has laboratory length 4.0 m when its endpoints are measured simultaneously there. Oppositely travelling ships at ±0.5c relative to a station have relative speed 0.8c. For the assessed GPS estimates, +45 μs/day from gravity and −7 μs/day from motion give +38 μs/day; the clock convention must correct that gain.",
+    "activity": "Work through events, clocks, barn doors, energy and velocity, proper acceleration, gravitational clock comparisons, local equivalence and the rotating ring. Compare complete worldlines and exact event ledgers, then vary assumptions and use the assessed fixtures. Distinguish a coordinate time slice from a light signal and a local clock reading from a comparison convention.",
+    "reflection": "No inertial frame is privileged. Doors simultaneous in the barn frame have unequal times in the pole frame; neither frame supplies a permanent physical contraction. A clock at higher potential gains relative to a lower stationary clock under the stated model, but its motion contributes separately. A rotating detector can receive counter-propagating beams at different times even though every local vacuum measurement yields c. Finite drawings and weak-field examples do not establish a global gravitational solution."
+   }
   },
   {
    "id": "phys.4.solid-state",

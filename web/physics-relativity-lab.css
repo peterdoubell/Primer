@@ -1,0 +1,23 @@
+.physics-relativity-lab { min-width:0; }
+.physics-relativity-lab .model-heading-row { flex-wrap:wrap; }
+.physics-relativity-lab .model-heading-row > button { flex-shrink:0; }
+.physics-relativity-lab select, .physics-relativity-lab input[type=number] { box-sizing:border-box; width:100%; min-width:0; min-height:42px; font:inherit; color:inherit; background:var(--paper,#f5efdf); border:1px solid var(--line,#d5cfbf); border-radius:6px; padding:6px 8px; }
+.physics-relativity-lab [hidden] { display:none !important; }
+.relativity-widget { min-width:0; display:flex; flex-direction:column; gap:7px; }
+.physics-relativity-lab .relativity-number-control { display:flex; flex-direction:column; gap:6px; font-size:13px; }
+.relativity-panels { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
+.relativity-panel, .relativity-viewport { min-width:0; }
+.relativity-viewport { overflow:auto; background:#f5efdf; border:1px solid var(--line,#d5cfbf); border-radius:10px; }
+.relativity-viewport svg { display:block; width:100%; height:auto; font-family:var(--sans,sans-serif); }
+.physics-relativity-lab.is-enlarged .relativity-viewport svg { width:720px; min-width:720px; max-width:none; }
+.relativity-summary, .relativity-equation, .relativity-sources, .relativity-assumptions, .relativity-legend { overflow-wrap:anywhere; line-height:1.6; font-variant-numeric:tabular-nums; }
+.relativity-summary { border-left:3px solid #b98a2f; padding-left:12px; }
+.relativity-legend { font-size:12px; }
+.relativity-ledger-region { overflow:auto; max-width:100%; margin:16px 0; }
+.relativity-ledger { width:100%; min-width:440px; border-collapse:collapse; }
+.relativity-ledger caption { text-align:left; margin:8px 0; }
+.relativity-ledger th, .relativity-ledger td { text-align:left; padding:8px; border-bottom:1px solid var(--line,#d5cfbf); }
+.relativity-assumptions > summary { cursor:pointer; }
+.relativity-viewport:focus-visible, .relativity-ledger-region:focus-visible, .physics-relativity-lab input:focus-visible, .physics-relativity-lab select:focus-visible, .physics-relativity-lab button:focus-visible { outline:3px solid var(--accent,#317e78); outline-offset:3px; }
+.relativity-live { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media (max-width:760px) { .relativity-panels, .physics-relativity-lab .concept-controls { grid-template-columns:minmax(0,1fr); } }
