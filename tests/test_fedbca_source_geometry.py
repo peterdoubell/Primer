@@ -122,9 +122,12 @@ def test_both_source_arrays_are_required_even_when_hosted(monkeypatch):
 def test_every_current_case_model_prop_matches_its_full_current_delivery_proof():
     from primer.module_media import source_model_bindings
     from tools.check_radiology_fidelity import digest
+    from tools.anatomy_sources.renew_fedbca_delivery_review import build_current_delivery_review
     curr=Curriculum();proof=json.loads((PROOF/'current-source-delivery-review.json').read_text());bindings=source_model_bindings()
-    # The retained case-delivery proof precedes the separately reviewed Sella
-    # registration; its original contracts must remain exactly reproducible.
+    # Keep the reviewed case scope and exact historical proof. The renewal
+    # permits only the separately reviewed VerSe helper fingerprint change,
+    # and verifies every current local source byte against retained identities.
+    assert proof==build_current_delivery_review(curr,bindings)
     reviewed_ids={row['module_id'] for row in proof['modules']}
     reviewed_bindings={key:value for key,value in bindings.items() if key in reviewed_ids}
     assert set(reviewed_bindings)=={row['module_id'] for row in proof['modules']}
@@ -135,6 +138,58 @@ def test_every_current_case_model_prop_matches_its_full_current_delivery_proof()
         assert digest({k:node.get(k) for k in fields})==row['current_module_contract_sha256']
         assert digest(model['props'])==row['model_props_sha256']
         assert digest(bindings[node['id']])==row['source_references_sha256']
+
+
+@pytest.mark.parametrize('change',['model_props','source_context','helper'])
+def test_delivery_renewal_rejects_changes_outside_the_reviewed_helper_fingerprint(change):
+    import copy
+    from primer.module_media import source_model_bindings
+    from tools.anatomy_sources.renew_fedbca_delivery_review import build_current_delivery_review
+    current=Curriculum();nodes={row['module_id']:copy.deepcopy(current.node(row['module_id']))
+                              for row in json.loads((PROOF/'historical-source-delivery-review.json').read_text())['modules']}
+    bindings=copy.deepcopy(source_model_bindings());node=nodes['rad.4.spine-imaging']
+    props=next(m['props'] for m in node['lesson_media'] if m.get('renderer')=='radiology-anatomy')
+    if change=='model_props':
+        props['family']='unreviewed-family'
+    elif change=='source_context':
+        bindings[node['id']][0]['population_note']='Registered to another source case'
+        props['source_references']=copy.deepcopy(bindings[node['id']])
+    else:
+        bindings[node['id']][0]['source_volume']['script_sha256']='0'*64
+        props['source_references']=copy.deepcopy(bindings[node['id']])
+    class Snapshot:
+        def node(self,identifier):return nodes[identifier]
+    with pytest.raises(ValueError,match='Unreviewed|helper differs'):
+        build_current_delivery_review(Snapshot(),bindings)
+
+
+def test_delivery_renewal_rejects_changed_source_array_bytes(tmp_path):
+    import shutil
+    from primer.module_media import source_model_bindings
+    from tools.anatomy_sources.renew_fedbca_delivery_review import verified_source_files
+    source=next(s for s in source_model_bindings()['rad.5.bladder-virads'] if s['atlas']=='fedbca-center1-001')
+    folder=Path('web/anatomy/fedbca-center1-001')
+    shutil.copytree(ROOT/folder,tmp_path/folder)
+    (tmp_path/folder/'source-label.bin.gz').write_bytes(b'changed source labels')
+    with pytest.raises(ValueError,match='Reviewed source bytes changed'):
+        verified_source_files(tmp_path,[source])
+
+
+def test_delivery_renewal_requires_unblocked_independent_presentation_review(tmp_path):
+    import hashlib
+    import shutil
+    from tools.anatomy_sources.renew_fedbca_delivery_review import (
+        verified_helper_review,PRESENTATION_FOLDER,INDEPENDENT_REVIEW)
+    shutil.copytree(ROOT/PRESENTATION_FOLDER,tmp_path/PRESENTATION_FOLDER)
+    independent=json.loads((ROOT/INDEPENDENT_REVIEW).read_text())
+    independent['blockers']=['Unreviewed helper change']
+    path=tmp_path/INDEPENDENT_REVIEW;path.write_text(json.dumps(independent))
+    applied_path=tmp_path/PRESENTATION_FOLDER/'applied-presentation-review.json'
+    applied=json.loads(applied_path.read_text())
+    applied['independent_review_sha256']=hashlib.sha256(path.read_bytes()).hexdigest()
+    applied_path.write_text(json.dumps(applied))
+    with pytest.raises(ValueError,match='independent presentation review'):
+        verified_helper_review(tmp_path)
 
 
 def test_viewer_script_and_scalar_files_are_published_with_the_static_viewer():
