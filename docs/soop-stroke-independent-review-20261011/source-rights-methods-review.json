@@ -1,0 +1,131 @@
+{
+  "reviewed_at": "2026-10-11",
+  "pinned_root_tree": "a62344db73f18f384a95b452f4a1a423087e059b",
+  "fresh_recursive_tree": {
+    "url": "https://api.github.com/repos/OpenNeuroDatasets/ds004889/git/trees/a62344db73f18f384a95b452f4a1a423087e059b?recursive=1",
+    "status": 200,
+    "bytes": 6218011,
+    "sha256": "670a568787d4e3ee02de58aac22d89b0ab2d1246e85d27024679bb2fd286a7a3"
+  },
+  "tree_truncated": false,
+  "complete_tree_entries": 24898,
+  "term_file_candidates": [
+    {
+      "path": "README.md",
+      "git_blob": "899c6e82315966ad55bd76057dcf2b8f54e7eb89",
+      "bytes": 1465,
+      "sha256": "249074e63120210c2fe7fc781f61cf0a4c1e237d669d032939a41ed9e67eac0e",
+      "text": "# Stroke Outcome Optimization Project (SOOP)\n\n## Overview\n\nThis dataset includes anonymized images, behavioral measures and demographic details from a cohort of individuals from South Carolina with acute stroke. The fully BIDS-compatible dataset is fully anonymized, allowing public sharing which is vital for education and development of BIDS pipelines that are capable of processing clinical datasets. Along with its companion chronic [Aphasia Recovery Cohort (ARC)](https://openneuro.org/datasets/ds004512/), these features complement existing repositories of [acute](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10444746/ and [chronic](https://pubmed.ncbi.nlm.nih.gov/32310331/) stroke.\n\n## Data Contents\n* `participants.tsv` - List of subject IDs, demographic variables, and impairment measures. Note that many variables are [generalized](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html#approachmitigate) to meet [International Safe Harbor Privacy Principles](https://en.wikipedia.org/wiki/International_Safe_Harbor_Privacy_Principles).\n\n\n* `Subject Directories` - MRI data directories for each subject. Note that sequence protocols and diffusion derivative formula vary between individuals. See the individual BIDS JSON sidecars included with each image for specific details.\n  - `anat` - T1w and T2w-FLAIR anatomical images\n  - `dwi` - Diffusion weighted Trace and  apparent diffusion coefficient (ADC) images\n"
+    },
+    {
+      "path": "dataset_description.json",
+      "git_blob": "6e392bf16817093431bfca7bc9528d2c11297526",
+      "bytes": 320,
+      "sha256": "61bd63682eebecc7efa42e51e38e447af21bd49bc7b6a4415de03e2eca40a3b6",
+      "text": "{\n    \"Name\": \"Stroke Outcome Optimization Project (SOOP)\",\n    \"Authors\": [\n        \"Chris Rorden\",\n        \"John Absher\",\n        \"Roger Newman-Norlund\"\n    ],\n    \"BIDSVersion\": \"1.6.0\",\n    \"DatasetDOI\": \"doi:10.18112/openneuro.ds004889.v1.1.2\",\n    \"License\": \"CC0\",\n    \"Acknowledgements\": \"a\",\n    \"Funding\": []\n}"
+    }
+  ],
+  "all_actual_primary_term_files_fresh_Git_blob_verified": true,
+  "no_derivative_term_overrides_found_in_complete_tree": true,
+  "source_root_dataset_grant": "CC0",
+  "source_dataset_DOI": "doi:10.18112/openneuro.ds004889.v1.1.2",
+  "data_originals_and_lesion_derivatives_CC0_source_grant_supported": true,
+  "article_grant": "CC BY-NC-ND4.0; does not grant commercial reuse of article artwork",
+  "selected_original_source_members": [
+    {
+      "path": "sub-342/anat/sub-342_FLAIR.json",
+      "bytes": 1792,
+      "sha256": "a7a3fe56314b44509174dc9ab9a1d2efe77b489a5030b671721af5099cc08e0d",
+      "exact_source_Git_blob_verified": true
+    },
+    {
+      "path": "sub-342/anat/sub-342_FLAIR.nii.gz",
+      "bytes": 17198465,
+      "sha256": "b79cfb333c001c53a1334a88890172d642e15b2badd6390490c1b1724942ad32",
+      "annex_pointer_Git_blob": "256898d5d5f2e67d1d4b8cc02c0cb28cf3b247a7",
+      "annex_pointer_SHA256": "af569c1a6634b8a83f3d4c60764fab17b2d07546dbbb2c4abb53eb0c475f04e0",
+      "exact_source_size_and_SHA256_verified": true
+    },
+    {
+      "path": "sub-342/anat/sub-342_T1w.json",
+      "bytes": 1795,
+      "sha256": "1f1a19a7db441bd93bd0a974673cee12b80cda24434e5c21f5b858e4b122fe9f",
+      "exact_source_Git_blob_verified": true
+    },
+    {
+      "path": "sub-342/anat/sub-342_T1w.nii.gz",
+      "bytes": 33641626,
+      "sha256": "7cb91e39ce3c72b0529bd17388948203ddeed1bf0348641c4ffc357058c10c9b",
+      "annex_pointer_Git_blob": "e82d84b4f1063efa70cb3105e851001c97764f64",
+      "annex_pointer_SHA256": "5d2bd047cd552f7606a484203dc80a7d98cefce432502b2e3b69a7d4cb64ed2f",
+      "exact_source_size_and_SHA256_verified": true
+    },
+    {
+      "path": "sub-342/dwi/sub-342_rec-ADC_dwi.json",
+      "bytes": 1802,
+      "sha256": "5fb3dab1e43fac208dca6d4c3a2ee7078d1278a78a3a7d3055d03e5f461d0930",
+      "exact_source_Git_blob_verified": true
+    },
+    {
+      "path": "sub-342/dwi/sub-342_rec-ADC_dwi.nii.gz",
+      "bytes": 1061297,
+      "sha256": "1cfc932b002e0672b6cd4cf0d6a1ef1e94fe946824d9d3b1306ad8122c1f0da0",
+      "annex_pointer_Git_blob": "d92f44e8470356d33fdeee5f7434f2bd10ad02c5",
+      "annex_pointer_SHA256": "2248e1bd5f76adcb6a4b16511ceb7735440c67cd3495c16acc631b38f8bc7152",
+      "exact_source_size_and_SHA256_verified": true
+    },
+    {
+      "path": "sub-342/dwi/sub-342_rec-TRACE_dwi.json",
+      "bytes": 1739,
+      "sha256": "fd0ce9ffffd83e143165ef78bf1f919acae32740dbedb0804dbdea7d1f9966b9",
+      "exact_source_Git_blob_verified": true
+    },
+    {
+      "path": "sub-342/dwi/sub-342_rec-TRACE_dwi.nii.gz",
+      "bytes": 756397,
+      "sha256": "20eb8d2423fc637f4b411f5b5e17aec10d57205bf78716e6cb8ac33f88428cad",
+      "annex_pointer_Git_blob": "f81421dceec664f1ebc15cee8da70725e2e2adbe",
+      "annex_pointer_SHA256": "d5daf5ae1bf5cb576f403d9a4e4ff30b8b349b88a1021c3b5d68b42b56bc49fc",
+      "exact_source_size_and_SHA256_verified": true
+    },
+    {
+      "path": "derivatives/lesion_masks/sub-342/dwi/sub-342_space-TRACE_desc-lesionAcute_mask.nii.gz",
+      "bytes": 3179,
+      "sha256": "4920814e0d3923ecd6ce67f76d09a1041322b39db5604a7d486d900993e0ae28",
+      "annex_pointer_Git_blob": "b0fa1a2fda3538a6121b0cc8d0057e59869eedd1",
+      "annex_pointer_SHA256": "b6215e7a3c34a21a75d55fed8929bb26bd423c2c63f290975e2a6dc7507171da",
+      "exact_source_size_and_SHA256_verified": true
+    },
+    {
+      "path": "derivatives/lesion_masks/sub-342/dwi/sub-342_space-TRACE_desc-lesionChronic_mask.nii.gz",
+      "bytes": 3592,
+      "sha256": "bfbdc8ad485e52bf4f56f78bfdb1fc879b7e8c676f557d53cf504ad42c35bd48",
+      "annex_pointer_Git_blob": "85aa60954e6a840179b23ab088fb34de87ac725e",
+      "annex_pointer_SHA256": "3c3c7ad6dbe2a9f7625a5221ed8f598e55f092a2fd5650a91580334d03249510",
+      "exact_source_size_and_SHA256_verified": true
+    },
+    {
+      "path": "derivatives/lesion_masks/sub-342/dwi/sub-342_space-TRACE_desc-lesion_mask.nii.gz",
+      "bytes": 4365,
+      "sha256": "5f0b0eb3b85d46bb60f70a8aa24877e861d7f8eb0ab81827f4ad4964beff5d48",
+      "annex_pointer_Git_blob": "92acbbe17eac5f29ef97c41207367a54aadf989d",
+      "annex_pointer_SHA256": "4c8366257892f838edb44f0a900ce5e213c82988ed1b57006209900ac81c6366",
+      "exact_source_size_and_SHA256_verified": true
+    }
+  ],
+  "publication_XML_SHA256": "c5588d8b551b9ac1f96763a06053bf8e3aa5e9fd300eb1591f2e635baa0edc32",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "source_array_runtime_not_yet_reviewed": true,
+  "methods_summary": {
+    "rater_role": "Three source-trained neuroscientists; no independent clinical adjudication or named-anatomy approval established.",
+    "paper_drawing_sequence_wording": "Inconsistent T2w versus ADC wording, with files published in TRACE space. Preserve source-space labels rather than silently resolving by conjecture.",
+    "chronic_label_wording": "Paper description of chronic ADC appearance is not accepted as a universal diagnostic rule. The published acute/chronic names describe source annotations.",
+    "source_processing": "DICOM converted by dcm2niix; extended SPM12 defacing removes identifiable face/neck regions but scalp is retained. No evidence of new skull stripping.",
+    "timing": "Study scans within 30 days of admission, mostly early, is cohort information. Individual onset/acquisition/treatment timing not inferred.",
+    "selection_limits": "Initial cohort excludes some comorbidities/stroke subtypes; cannot prove all stroke-anatomy or variant coverage."
+  },
+  "source_integration_grant_only_approved": true,
+  "runtime_array_geometry_browser_review_complete": false,
+  "article_figures_for_commercial_redistribution_approved": false
+}

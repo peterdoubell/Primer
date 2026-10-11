@@ -22,6 +22,12 @@ context.window.PrimerMathTopologyLab = require('../web/math-topology-lab.js');
 context.window.PrimerPhysicsRelativityLab = require('../web/physics-relativity-lab.js');
 context.window.PrimerMathAlgebraLab = require('../web/math-algebra-lab.js');
 context.window.PrimerPhysicsQuantumInfoLab = require('../web/physics-quantum-info-lab.js');
+context.window.PrimerMathLogicLab = require('../web/math-logic-lab.js');
+context.window.PrimerPhysicsMaxwellLab = require('../web/physics-maxwell-lab.js');
+context.window.PrimerPhysicsCosmologyLab = require('../web/physics-cosmology-lab.js');
+require('../web/spatial-logic.js');
+require('../web/spatial-maxwell.js');
+require('../web/spatial-cosmology.js');
 require('../web/spatial-algebra.js');
 require('../web/spatial-quantum-information.js');
 require('../web/spatial-fidelity.js');
@@ -76,7 +82,7 @@ function verify(id,state={}) {
 for(const [family,id] of familyIds){
   const initial=verify(id);let minimum={},maximum={};
   for(const control of spatial.controls(id)){
-    const coordinated=['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry'].includes(family);
+    const coordinated=['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry'].includes(family);
     // Large batch/seed ranges have no useful million-state exhaustive sweep.
     // Their distributions and geometry have separate independent oracles.
     const values=control.options?control.options.map(o=>o.value):coordinated
@@ -111,8 +117,8 @@ for(const [family,id] of familyIds){
       // Inactive station parameters persist for the next station; they do not
       // fabricate geometry in the current station.
       for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
-      const field={'complex-function-domain':'complex','quantum-state-geometry':'quantum','topology-open-set-geometry':'topology','relativistic-event-geometry':'relativity','algebra-operation-geometry':'algebra','quantum-information-geometry':'quantumInfo'}[family];
-      const api={'complex-function-domain':window.PrimerMathComplexLab,'quantum-state-geometry':window.PrimerPhysicsQuantumLab,'topology-open-set-geometry':window.PrimerMathTopologyLab,'relativistic-event-geometry':window.PrimerPhysicsRelativityLab,'algebra-operation-geometry':window.PrimerMathAlgebraLab,'quantum-information-geometry':window.PrimerPhysicsQuantumInfoLab}[family];
+      const field={'complex-function-domain':'complex','quantum-state-geometry':'quantum','topology-open-set-geometry':'topology','relativistic-event-geometry':'relativity','algebra-operation-geometry':'algebra','quantum-information-geometry':'quantumInfo','logic-witness-geometry':'logic','maxwell-field-geometry':'maxwell','cosmology-chart-geometry':'cosmology'}[family];
+      const api={'complex-function-domain':window.PrimerMathComplexLab,'quantum-state-geometry':window.PrimerPhysicsQuantumLab,'topology-open-set-geometry':window.PrimerMathTopologyLab,'relativistic-event-geometry':window.PrimerPhysicsRelativityLab,'algebra-operation-geometry':window.PrimerMathAlgebraLab,'quantum-information-geometry':window.PrimerPhysicsQuantumInfoLab,'logic-witness-geometry':window.PrimerMathLogicLab,'maxwell-field-geometry':window.PrimerPhysicsMaxwellLab,'cosmology-chart-geometry':window.PrimerPhysicsCosmologyLab}[family];
       values.forEach((value,i)=>assert.deepEqual(versions[i][field].state,api.normalize({[control.key]:value})));
     } else if(family==='algebra-operation-geometry'&&control.key==='tableCode'&&initial.state.axiomsSystem!=='custom') {
       for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);

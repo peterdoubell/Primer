@@ -16,6 +16,7 @@ from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.anatomy_sources import integrate_myelopathy_sources as integration
 from tools.anatomy_sources import traumatic_registry_amendment as trauma_amendment
+from tools.anatomy_sources import stroke_registry_amendment as stroke_amendment
 from tools.check_msk_fidelity import audit,inspect_binding,requirements_for,validate_reporting_snapshots
 from tools.check_radiology_fidelity import digest
 from tools.msk_runtime_rights import license_issues,audit_reference_image_rights
@@ -180,6 +181,7 @@ def test_unrelated_json_values_and_references_keep_frozen_semantics(source):
  changes={r['id']:r for r in dependency['updated_assets']} if dependency else {}
  for file,expect in receipt['unrelated_data'].items():
   data=json.loads((ROOT/file).read_text());tokens=integration.unrelated_token_fingerprints((ROOT/file).read_text(),Path(file),ids)
+  data,tokens=stroke_amendment.restore_prior_view(file,data,tokens)
   data,tokens=trauma_amendment.restore_prior_view(file,data,tokens)
   if file.endswith('radiology-open-images.json'):data={k:v for k,v in data.items() if k!=INV}
   elif file.endswith('radiology-asset-evidence.json'):

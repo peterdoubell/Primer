@@ -71,4 +71,7 @@ def references():
         for field in ['title', 'caption', 'attribution', 'source_url', 'license', 'license_url']:
             if not isinstance(item.get(field), str) or not item[field].strip():
                 raise ValueError('Native source inspector lacks explicit provenance')
-    return {key: [data['inspectors'][identifier] for identifier in identifiers] for key, identifiers in data['bindings'].items()}
+    result = {key: [data['inspectors'][identifier] for identifier in identifiers] for key, identifiers in data['bindings'].items()}
+    from .stroke_native_inspectors import references as stroke_references
+    result.update(stroke_references())
+    return result

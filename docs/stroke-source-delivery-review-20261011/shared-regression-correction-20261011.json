@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "base_delivery_proof_sha256": "823a55bd53fc824b0f8858dba53017ffe65c4d593eebb345c1a6fd19bf5572be",
+  "preserved_initial_failed_observation": {
+    "result": "2 failed / 65 passed",
+    "failures": [
+      "Existing brain MEDIA instruction string changed by generalized shared wording; root asked to retain oldbrain wording and scope new wording to stroke",
+      "Static raster inventory had not yet been regenerated for CTP13; health correctly rejected missing reviewed metadata"
+    ],
+    "own_new_delivery_tests_passed": 50
+  },
+  "runtime_delivery_pins_unchanged": true,
+  "root_shared_repairs": {
+    "brain_native_lesson_instructions": "original MEDIA text restored; generalized wording scoped only to stroke",
+    "static_raster_inventory": "752 total entries, all13 CTP displays regenerated"
+  },
+  "repaired_shared_file_pins": {
+    "primer/module_media.py": "c561382a38b38d4c259e4a32a1a785e801d20d45ce69d2263f6b7ca56a64475f",
+    "data/radiology/radiology-static-rasters.json": "aeb73421ddbc9d4b23db5a449622fdf5867c25ac14f9e6ad91f37d5a78c1efdf"
+  },
+  "validation": {
+    "command": "python -m pytest tests/test_native_source_inspector_integration.py tests/test_source_blob_delivery.py tests/test_stroke_source_delivery.py -q",
+    "result": "70 passed in 15.66s",
+    "log": ".research/stroke-delivery-native-trauma-regression-20261011.log",
+    "log_sha256": "1fd6a2c0609db0dcb87147f1f121e0fdde75e93af9f4440ff9c159742556ff23"
+  },
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "structure_coverage_granted": false,
+  "whole_goal_complete": false
+}

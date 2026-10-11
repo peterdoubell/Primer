@@ -1,0 +1,342 @@
+{
+  "reporting": {
+    "protocol": [
+      "Confirm last-known-well, deficit and acquisition times; record noncontrast CT, arch-to-vertex CTA and perfusion or MRI components actually obtained.",
+      "For MRI, review DWI with ADC, FLAIR and susceptibility; assess perfusion motion, bolus and coverage before using maps."
+    ],
+    "checklist": [
+      {
+        "label": "Haemorrhage",
+        "detail": "Inspect parenchyma, subarachnoid spaces and extra-axial compartments before describing ischaemia."
+      },
+      {
+        "label": "Parenchyma",
+        "detail": "Localise early change or diffusion restriction by side, arterial territory and strategic structures."
+      },
+      {
+        "label": "Occlusion",
+        "detail": "Name artery and segment, tandem cervical disease and distal reconstitution."
+      },
+      {
+        "label": "Collaterals",
+        "detail": "State acquisition type, distribution and delay relative to the opposite side."
+      },
+      {
+        "label": "Tissue and complications",
+        "detail": "Report available core/delay estimates, mass effect, hydrocephalus and relevant alternative diagnoses."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "ASPECTS",
+        "method": "For an applicable MCA-territory examination, record modality, side and affected regions; score 10 minus affected regions.",
+        "pitfall": "Do not apply MCA ASPECTS to posterior circulation or treat a score as an independent treatment decision."
+      },
+      {
+        "name": "Perfusion volumes",
+        "method": "Record software, thresholds, estimated core and delayed tissue in mL, mismatch volume and ratio if valid.",
+        "pitfall": "Motion, poor bolus, truncation and reperfusion can invalidate estimates."
+      }
+    ],
+    "classification": {
+      "name": "ASPECTS",
+      "version": "10-region MCA score; name CT or DWI application",
+      "applicability": "Anterior-circulation ischaemic change in the MCA territory.",
+      "summary": "Record the affected regions with the score. Posterior circulation and perfusion use separate assessments; the score does not alone determine treatment."
+    },
+    "pitfalls": [
+      "A normal early CT does not exclude infarction.",
+      "Single-phase CTA may underrepresent delayed collateral filling; describe technique.",
+      "Treatment selection depends on the clinical pathway, not a standalone volume or time cutoff."
+    ],
+    "impression_prompts": [
+      "Is haemorrhage present, and where?",
+      "What artery is occluded and how much established injury is visible?",
+      "What critical limitation or urgent complication affects the next decision?"
+    ],
+    "escalation": [
+      "Immediately communicate acute haemorrhage, large-vessel occlusion or threatening mass effect to the stroke team with time and recipient."
+    ],
+    "template_sections": [
+      {
+        "heading": "BRAIN PARENCHYMA",
+        "body": "Acute ischaemic change: [absent / present / indeterminate]; side/territory [ ]. Involved structures [ ]. ASPECTS if applicable [__/10]; regions [ ]; modality [ ]."
+      },
+      {
+        "heading": "HAEMORRHAGE",
+        "body": "Intracranial blood: [absent / present]; compartment/site [ ]; extent [ ]. Haemorrhagic transformation [absent / petechial / haematoma / not applicable]."
+      },
+      {
+        "heading": "ARTERIAL FINDINGS",
+        "body": "Occlusion [none / artery and segment]; tandem lesion [ ]. Cervical arteries [ ]; distal reconstitution [ ]; relevant stenosis/dissection [ ]."
+      },
+      {
+        "heading": "COLLATERALS AND PERFUSION",
+        "body": "CTA phase [single / multiphase]; collateral description [ ]. Perfusion [not acquired / valid / limited]; software/thresholds [ ]; core __ mL; delayed tissue __ mL; mismatch [ ]."
+      },
+      {
+        "heading": "MASS EFFECT AND OTHER FINDINGS",
+        "body": "Midline shift __ mm; basal cisterns [ ]; ventricles [ ]; herniation [absent / specify]. Alternative explanation or incidental actionable finding [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Imaging in Acute Stroke",
+        "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/imaging-in-acute-stroke"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "report_templates": [
+    {
+      "id": "stroke-report",
+      "title": "CT AND MRI ACUTE STROKE",
+      "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+      "sections": [
+        {
+          "heading": "INDICATION",
+          "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+        },
+        {
+          "heading": "COMPARISON",
+          "body": "[None available / date and examination]. Relevant interval change: [ ]."
+        },
+        {
+          "heading": "TECHNIQUE AND QUALITY",
+          "body": "Confirm last-known-well, deficit and acquisition times; record noncontrast CT, arch-to-vertex CTA and perfusion or MRI components actually obtained.\nFor MRI, review DWI with ADC, FLAIR and susceptibility; assess perfusion motion, bolus and coverage before using maps.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+        },
+        {
+          "heading": "KEY IMAGES",
+          "body": "[IMG 1: Noncontrast brain finding; series __ image __]\n[IMG 2: Occlusion on CTA; series __ image __]\n[IMG 3: Perfusion/ collateral finding if acquired; series __ image __]"
+        },
+        {
+          "heading": "BRAIN PARENCHYMA",
+          "body": "Acute ischaemic change: [absent / present / indeterminate]; side/territory [ ]. Involved structures [ ]. ASPECTS if applicable [__/10]; regions [ ]; modality [ ]."
+        },
+        {
+          "heading": "HAEMORRHAGE",
+          "body": "Intracranial blood: [absent / present]; compartment/site [ ]; extent [ ]. Haemorrhagic transformation [absent / petechial / haematoma / not applicable]."
+        },
+        {
+          "heading": "ARTERIAL FINDINGS",
+          "body": "Occlusion [none / artery and segment]; tandem lesion [ ]. Cervical arteries [ ]; distal reconstitution [ ]; relevant stenosis/dissection [ ]."
+        },
+        {
+          "heading": "COLLATERALS AND PERFUSION",
+          "body": "CTA phase [single / multiphase]; collateral description [ ]. Perfusion [not acquired / valid / limited]; software/thresholds [ ]; core __ mL; delayed tissue __ mL; mismatch [ ]."
+        },
+        {
+          "heading": "MASS EFFECT AND OTHER FINDINGS",
+          "body": "Midline shift __ mm; basal cisterns [ ]; ventricles [ ]; herniation [absent / specify]. Alternative explanation or incidental actionable finding [ ]."
+        },
+        {
+          "heading": "IMPRESSION",
+          "body": "1. [Is haemorrhage present, and where?]\n2. [What artery is occluded and how much established injury is visible?]\n3. [What critical limitation or urgent complication affects the next decision?]"
+        },
+        {
+          "heading": "RECOMMENDATION AND COMMUNICATION",
+          "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+        }
+      ],
+      "notes": [
+        "Describe actual imaging findings and timing; automated perfusion maps need quality review and clinical correlation.",
+        "A normal early CT does not exclude infarction.",
+        "Single-phase CTA may underrepresent delayed collateral filling; describe technique.",
+        "Treatment selection depends on the clinical pathway, not a standalone volume or time cutoff."
+      ],
+      "sources": [
+        {
+          "title": "Imaging in Acute Stroke",
+          "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/imaging-in-acute-stroke"
+        }
+      ]
+    }
+  ],
+  "walkthrough": {
+    "reviewed_at": "2026-09-25",
+    "complete": true,
+    "template_id": "stroke-report",
+    "start": {
+      "sections": [
+        "INDICATION",
+        "COMPARISON",
+        "TECHNIQUE AND QUALITY",
+        "KEY IMAGES"
+      ],
+      "images": []
+    },
+    "steps": [
+      {
+        "label": "Parenchyma and ASPECTS",
+        "detail": "Look for early ischaemic change and localise it by side, territory and strategic structures; give ASPECTS when applicable.",
+        "sections": [
+          "BRAIN PARENCHYMA"
+        ],
+        "normal": {
+          "BRAIN PARENCHYMA": "No acute ischaemic change; ASPECTS 10."
+        },
+        "findings": [
+          "Loss of the insular ribbon and obscuration of the [left] lentiform nucleus; ASPECTS __ (regions [ ]).",
+          "Established hypoattenuation in the [right] MCA territory.",
+          "Restricted diffusion in the [ ] with low ADC (acute infarct)."
+        ],
+        "images": [
+          "stroke-image-1"
+        ],
+        "measurements": [
+          "ASPECTS"
+        ],
+        "landmark": "territories",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Narrow window width (about 30–40 HU) on non-contrast CT: insular ribbon, lentiform nucleus and cortex; DWI with ADC on MRI.",
+        "tip": "A normal early CT does not exclude infarction; subtle loss of grey–white differentiation needs a narrow window."
+      },
+      {
+        "label": "Haemorrhage",
+        "detail": "Exclude intracranial haemorrhage in every compartment before treatment decisions.",
+        "sections": [
+          "HAEMORRHAGE"
+        ],
+        "normal": {
+          "HAEMORRHAGE": "No intracranial haemorrhage."
+        },
+        "findings": [
+          "Acute intraparenchymal haemorrhage in the [ ].",
+          "Haemorrhagic transformation of the infarct [petechial / parenchymal haematoma].",
+          "Subarachnoid haemorrhage in the [ ]."
+        ],
+        "images": [],
+        "measurements": [],
+        "landmark": "deep",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Parenchyma, subarachnoid spaces, ventricles and extra-axial spaces on non-contrast CT or susceptibility MRI."
+      },
+      {
+        "label": "Arterial occlusion",
+        "detail": "Name the occluded artery and segment, tandem cervical disease and distal reconstitution.",
+        "sections": [
+          "ARTERIAL FINDINGS"
+        ],
+        "normal": {
+          "ARTERIAL FINDINGS": "No large-vessel occlusion; cervical and intracranial arteries patent."
+        },
+        "findings": [
+          "Occlusion of the [left] M1 segment of the MCA (dense MCA sign on non-contrast CT).",
+          "Tandem occlusion: [right] ICA origin and M1.",
+          "Basilar artery occlusion.",
+          "Cervical ICA dissection with tapered narrowing."
+        ],
+        "images": [
+          "stroke-image-2"
+        ],
+        "measurements": [],
+        "landmark": "territories",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "CTA from the arch to the vertex; dense artery sign on non-contrast CT.",
+        "tip": "Look at the cervical arteries too: a tandem ICA lesion changes the endovascular approach."
+      },
+      {
+        "label": "Collaterals and perfusion",
+        "detail": "Describe collateral filling and, when valid, perfusion core and hypoperfused tissue volumes with the software used.",
+        "sections": [
+          "COLLATERALS AND PERFUSION"
+        ],
+        "normal": {
+          "COLLATERALS AND PERFUSION": "Perfusion not acquired."
+        },
+        "findings": [
+          "Good collaterals: filling of more than half of the territory with a one-phase delay.",
+          "Poor collaterals with minimal filling.",
+          "Perfusion ([software], thresholds [ ]): core __ mL, hypoperfused tissue __ mL, mismatch volume __ mL."
+        ],
+        "images": [
+          "stroke-image-3"
+        ],
+        "measurements": [
+          "Perfusion volumes"
+        ],
+        "landmark": "territories",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Multiphase CTA for delayed collateral filling; perfusion maps checked for motion, bolus and coverage.",
+        "tip": "Single-phase CTA underestimates delayed collaterals; treatment selection follows the clinical pathway, not a single number."
+      },
+      {
+        "label": "Mass effect and alternative findings",
+        "detail": "Report oedema, midline shift, cisterns, hydrocephalus and any alternative diagnosis.",
+        "sections": [
+          "MASS EFFECT AND OTHER FINDINGS"
+        ],
+        "normal": {
+          "MASS EFFECT AND OTHER FINDINGS": "No mass effect; no alternative cause for the symptoms."
+        },
+        "findings": [
+          "Malignant oedema with __ mm midline shift and effacement of the basal cisterns.",
+          "Cerebellar infarct compressing the fourth ventricle with early hydrocephalus.",
+          "Stroke mimic: [tumour / subdural haematoma]."
+        ],
+        "images": [],
+        "measurements": [],
+        "landmark": "ventricles",
+        "parts": [
+          "FJ1814",
+          "FJ1767",
+          "FJ1730",
+          "FJ1731"
+        ],
+        "look": "Midline, basal cisterns and fourth ventricle (for cerebellar infarcts)."
+      }
+    ],
+    "finish": {
+      "sections": [
+        "IMPRESSION",
+        "RECOMMENDATION AND COMMUNICATION"
+      ]
+    },
+    "spatial_model": {
+      "id": "radiology-model-rad.4.stroke",
+      "title": "Acute Stroke Imaging · 3D landmarks",
+      "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Relate medial, lateral and posterior cerebral territories to the section; vascular borders vary and are approximate.",
+      "scenario": "radiology-reference:rad.4.stroke",
+      "family": "brain",
+      "focus": [
+        "territories"
+      ],
+      "reporting_aim": "Relate medial, lateral and posterior cerebral territories to the section; vascular borders vary and are approximate."
+    }
+  },
+  "reading": [
+    {
+      "id": "ra-50b1e6d8a691",
+      "title": "Imaging in Acute Stroke",
+      "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/imaging-in-acute-stroke",
+      "section": "Neuroradiology",
+      "topic": "Brain Ischemia",
+      "module_id": "rad.4.stroke",
+      "headings": [
+        "Introduction",
+        "CT Early signs of ischemia",
+        "Hypo attenuating brain tissue",
+        "Obscuration of the lentiform nucleus",
+        "Insular Ribbon sign",
+        "Dense MCA sign",
+        "Hemorrhagic infarcts",
+        "CTA and CT Perfusion",
+        "MRI",
+        "Diffusion Weighted Imaging (DWI)",
+        "Perfusion MR Imaging"
+      ]
+    }
+  ]
+}

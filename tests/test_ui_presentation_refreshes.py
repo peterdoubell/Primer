@@ -33,7 +33,12 @@ def test_only_the_two_shared_ui_files_are_refreshable_and_nothing_is_approved():
     for step in ledger['refreshes']:
         assert set(step['files']) <= set(ledger['refreshable_paths'])
         assert not step['clinical_approval'] and not step['fine_anatomical_approval']
-        assert step['native_presentation_code_touched'] is False
+        if step['id']=='2026-10-11-source-case-citation-wrapper':
+            proof=ui_refresh.validate_source_case_citation_refresh(step)
+            assert step['native_presentation_code_touched'] is True
+            assert proof['native_decoder_mesh_CT_renderer_code_touched'] is False
+        else:
+            assert step['native_presentation_code_touched'] is False
 
 
 def test_every_refresh_left_the_native_files_exactly_as_reviewed():
@@ -66,3 +71,26 @@ def test_an_unrecorded_hash_does_not_advance():
     ledger = ui_refresh.load()
     assert ui_refresh.advance('web/app.js', '0' * 64, ledger) == '0' * 64
     assert ui_refresh.advance('web/radiology-detailed-anatomy.js', '0' * 64, ledger) == '0' * 64
+
+
+def test_only_exact_citation_wrapper_delta_can_use_the_explicit_native_ui_scope():
+    import copy
+    import pytest
+    step=next(s for s in ui_refresh.load()['refreshes'] if s['id']=='2026-10-11-source-case-citation-wrapper')
+    proof=ui_refresh.validate_source_case_citation_refresh(step)
+    assert proof['native_presentation_code_touched'] is True
+    assert proof['app_bytes_outside_changed_function_identical']
+    assert len(proof['uterine_compatibility_amendments'])==2
+    for key,value in [
+        ('id','unreviewed-wrapper'),
+        ('native_decoder_mesh_CT_renderer_code_touched',True),
+        ('native_presentation_change_scope','mesh_or_image_renderer'),
+        ('new_explicit_metadata_field','arbitrary_schema_alias'),
+        ('clinical_approval',True),
+    ]:
+        changed=copy.deepcopy(step);changed[key]=value
+        with pytest.raises(ValueError,match='scope'):ui_refresh.validate_source_case_citation_refresh(changed)
+    changed=copy.deepcopy(step);changed['files']['web/app.js']['after']='0'*64
+    with pytest.raises(ValueError,match='scope'):ui_refresh.validate_source_case_citation_refresh(changed)
+    changed=copy.deepcopy(step);changed['guarded_paths_sha256']['web/radiology-detailed-anatomy.js']='0'*64
+    with pytest.raises(ValueError,match='guarded'):ui_refresh.validate_source_case_citation_refresh(changed)

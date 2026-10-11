@@ -8516,5 +8516,211 @@
         ]
       }
     ]
+  },
+  "ra.acute-stroke": {
+  "reporting": {
+    "protocol": [
+      "Record actual onset/last-known-well, deficit, examination times, prior treatment and comparison; identify every NCCT, CTA/MRA, perfusion, MRI or venographic component actually acquired with coverage and quality.",
+      "Review NCCT for haemorrhage and parenchymal change; review actual arch-to-vertex vascular coverage/phase and each target segment. MRI requires DWI with ADC, FLAIR and susceptibility as acquired. Venous suspicion requires appropriate actual venographic assessment rather than dense blood alone.",
+      "Check source perfusion motion, bolus, temporal sampling, truncation, coverage and processing before using estimates. Protocol/order and selection imaging follow the current clinical pathway and should avoid unnecessary reperfusion delay."
+    ],
+    "checklist": [
+      {
+        "label": "Haemorrhage",
+        "detail": "Assess each actually acquired parenchymal, subarachnoid, ventricular and extra-axial bleeding compartment, side/site and extent; distinguish haemorrhagic transformation and unassessed limits."
+      },
+      {
+        "label": "Parenchyma",
+        "detail": "Localise each acute or uncertain change by side, actual structure and vascular or venous distribution; describe applicable modality-specific MCA ASPECTS regions and separate prior injury or artefact."
+      },
+      {
+        "label": "Occlusion",
+        "detail": "Assess each actually acquired arterial segment, occlusion extent, reconstitution, tandem cervical disease, stenosis/dissection and variants; assess venous findings on appropriate venography when acquired."
+      },
+      {
+        "label": "Collaterals",
+        "detail": "Describe actual acquisition phases, collateral spatial extent and relative delay; retain coverage/flow/processing limitations before describing software-defined perfusion estimates."
+      },
+      {
+        "label": "Tissue and complications",
+        "detail": "Assess each actual injury/estimated tissue region, oedema, shift, cisterns, ventricular obstruction, herniation, comparison and alternative diagnosis without inferring viability or current-patient findings from source examples."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "ASPECTS",
+        "method": "On an applicable MCA-territory source examination record CT or DWI modality, side, each of the ten assessed regions and acute change; score 10 minus affected regions. Retain old lesions, artefacts and unassessed regions.",
+        "pitfall": "MCA ASPECTS is not a posterior circulation score, exact core volume, tissue viability assay or independent treatment rule."
+      },
+      {
+        "name": "Perfusion volumes",
+        "method": "Only when acquisition/processing is adequate, record software/version, thresholds/units, estimated core and delayed region volumes in mL, mismatch volume and ratio with actual scope and uncertainty.",
+        "pitfall": "Static colour maps are not numerical source maps. Motion, bolus, delay, truncation, coverage and platform effects can invalidate estimates; predicted core does not mean wholly irreversible tissue."
+      },
+      {
+        "name": "Vascular calibre and extent",
+        "method": "Name the actual vessel/segment, proximal/distal lesion extent, native calibrated measurement plane, stenosis convention/reference vessel and luminal/wall findings actually resolved.",
+        "pitfall": "Do not infer vessel patency from missing acquisition, a generic mesh, a dense vessel or apparent absence on a single phase. Flow, bolus and variant anatomy can mimic occlusion."
+      },
+      {
+        "name": "Midline shift and ventricular effect",
+        "method": "Measure current-study shift in mm with direction, stated anatomical level and ideal-midline method; assess each acquired ventricular/cisternal compartment and obstruction/effacement.",
+        "pitfall": "Selected publication slices do not establish complete extent, patient calibration, a current shift measurement or hydrocephalus."
+      }
+    ],
+    "classification": {
+      "name": "ASPECTS",
+      "version": "Ten-region MCA assessment; specify NCCT or DWI application",
+      "applicability": "An applicable MCA-territory examination, with actual side, regions and acquisition stated.",
+      "summary": "Name each affected and unassessed region with the score; keep posterior circulation and perfusion separate. Treatment selection uses the actual clinical pathway."
+    },
+    "pitfalls": [
+      "Normal early CT or an initially negative DWI does not exclude clinically consistent stroke; small/posterior lesions and acquisition limits require context.",
+      "DWI/ADC/FLAIR evolution varies. DWI–FLAIR mismatch is selection context, not an exact onset clock or an automatic treatment decision.",
+      "Predicted core and delayed tissue are imaging/processing estimates; low CBF, diffusion restriction and hypoattenuation do not prove wholly irreversible tissue.",
+      "Single-phase CTA can miss delayed filling. Collateral status does not justify avoidable delay or independently exclude reperfusion assessment.",
+      "Arterial and venous infarction can both be haemorrhagic. Dense sinus or nonterritorial injury raises a venous question; actual CTV/MRV and the clinical pathway establish the assessment.",
+      "Source cases, next-day DWI, motion/reprocessing plots and separate source patients are teaching context. They neither register to one another nor autofill the current patient report."
+    ],
+    "impression_prompts": [
+      "State each actual haemorrhage or ischaemic/uncertain lesion with side/site, extent and acquisition limitations.",
+      "State each actual target arterial or venous finding, tissue/collateral estimates and urgent complication; distinguish acquired findings from unassessed questions.",
+      "Communicate the actual time-sensitive imaging question to the stroke team using current clinical/time/imaging eligibility; source scores or estimates alone do not determine treatment."
+    ],
+    "escalation": [
+      "Promptly communicate acute haemorrhage, target-vessel occlusion, suspected significant venous thrombosis or threatening oedema/herniation with actual finding, limits, recipient and time."
+    ],
+    "template_sections": [
+      {
+        "heading": "BRAIN PARENCHYMA",
+        "body": "Each actual lesion/change: [side, structure, distribution, extent and uncertainty]. Prior injury/artefact: [ ]. Applicable ASPECTS: [modality, side, regions assessed/affected/unassessed, __/10]. MRI sequences/timepoint and limits: [ ]."
+      },
+      {
+        "heading": "HAEMORRHAGE",
+        "body": "Each actual collection: [compartment, side/site, extent]. Haemorrhagic transformation: [ ]. Acquired susceptibility/CT coverage and unresolved limits: [ ]."
+      },
+      {
+        "heading": "ARTERIAL FINDINGS",
+        "body": "Each arterial lesion: [vessel/segment, proximal/distal extent, reconstitution and acquisition phase/quality]. Tandem cervical disease, stenosis convention/calibre and resolved dissection findings: [ ]. Variants/access coverage: [ ]. Venous question and actual CTV/MRV/venous findings if acquired: [ ]; unassessed venous extent: [ ]."
+      },
+      {
+        "heading": "COLLATERALS AND PERFUSION",
+        "body": "Actual CTA phases/coverage: [ ]. Collateral filling extent and relative delay: [ ]. Perfusion acquisition and quality: [ ]. Software/version, thresholds/units: [ ]. Estimated core __ mL; delayed region __ mL; mismatch volume/ratio [ ]; validity and unassessed extent: [ ]."
+      },
+      {
+        "heading": "MASS EFFECT AND OTHER FINDINGS",
+        "body": "Oedema/swelling by site: [ ]. Shift __ mm toward [ ], at [level], using [method]. Each cisternal/ventricular effect or obstruction: [ ]. Herniation route: [ ]. Actual comparable prior/timepoint: [ ]. Alternative diagnosis and remaining uncertainty: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Imaging in Acute Stroke",
+        "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/imaging-in-acute-stroke"
+      },
+      {
+        "title": "Cerebral CTP acute stroke and mimic source pictorial review (2023)",
+        "url": "https://doi.org/10.3390/diagnostics13030447"
+      },
+      {
+        "title": "AHA/ASA guideline for early management of acute ischaemic stroke (2026)",
+        "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513"
+      },
+      {
+        "title": "AHA cerebral venous thrombosis scientific statement (2024)",
+        "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000456"
+      }
+    ],
+    "reviewed_at": "2026-10-11"
+  },
+  "reading": [
+    {
+      "id": "ra-50b1e6d8a691",
+      "title": "Imaging in Acute Stroke",
+      "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/imaging-in-acute-stroke",
+      "section": "Neuroradiology",
+      "topic": "Brain Ischemia",
+      "module_id": "rad.4.stroke",
+      "headings": [
+        "Introduction",
+        "CT Early signs of ischemia",
+        "Hypo attenuating brain tissue",
+        "Obscuration of the lentiform nucleus",
+        "Insular Ribbon sign",
+        "Dense MCA sign",
+        "Hemorrhagic infarcts",
+        "CTA and CT Perfusion",
+        "MRI",
+        "Diffusion Weighted Imaging (DWI)",
+        "Perfusion MR Imaging"
+      ]
+    },
+    {
+      "id": "stroke-ctp2023",
+      "title": "Cerebral CTP acute stroke and mimic source pictorial review (2023)",
+      "url": "https://doi.org/10.3390/diagnostics13030447",
+      "headings": [
+        "CT and CTP source cases",
+        "Posterior fossa and inflow disease",
+        "Mimics and acquisition artefacts",
+        "Published source processing limits"
+      ]
+    },
+    {
+      "id": "stroke-AHA-ASA2026",
+      "title": "AHA/ASA guideline for early management of acute ischaemic stroke (2026)",
+      "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513",
+      "headings": [
+        "Brain and vascular imaging",
+        "Actual time and clinical eligibility",
+        "Predicted core and reperfusion selection"
+      ]
+    },
+    {
+      "id": "stroke-AHA-CVT2024",
+      "title": "AHA cerebral venous thrombosis scientific statement (2024)",
+      "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000456",
+      "headings": [
+        "Venous imaging and diagnostic limits",
+        "Venous infarction and haemorrhage",
+        "Confirmed diagnosis and clinical management"
+      ]
+    }
+  ],
+  "additional_sources": [
+    {
+      "title": "Cerebral CTP acute stroke and mimic source pictorial review (2023)",
+      "url": "https://doi.org/10.3390/diagnostics13030447"
+    },
+    {
+      "title": "AHA/ASA guideline for early management of acute ischaemic stroke (2026)",
+      "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513"
+    },
+    {
+      "title": "AHA cerebral venous thrombosis scientific statement (2024)",
+      "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000456"
+    }
+  ],
+  "key_images": [],
+  "suppress_visual_fallback": true,
+  "overview": "Assess the actually acquired stroke examination by haemorrhage, source-resolved tissue, arterial/venous findings, collateral/perfusion technique and complications. Keep source examples, estimated tissue and unassessed questions separate from the current patient.",
+  "learning_points": [
+    "Record actual acquisition coverage, timing and limitations before interpreting tissue or vessels.",
+    "Read each actual lesion and applicable ASPECTS region; a generic brain label does not supply complete territory anatomy.",
+    "Name each actual vessel/segment and distinguish acquired lumen/wall findings from unassessed arterial or venous questions.",
+    "Interpret perfusion/collateral estimates with technique, processing and clinical context; avoid deterministic viability or clock claims.",
+    "Use complete licensed source artwork as context; different patients and next-day MRI remain unregistered examples."
+  ],
+  "spatial_model": {
+    "id": "radiology-model-rad.4.stroke",
+    "title": "CT and MRI acute stroke · spatial orientation",
+    "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Relate medial, lateral and posterior cerebral territories to the section; vascular borders vary and are approximate.",
+    "scenario": "radiology-reference:rad.4.stroke",
+    "family": "brain",
+    "focus": [
+      "territories"
+    ],
+    "reporting_aim": "Relate medial, lateral and posterior cerebral territories to the section; vascular borders vary and are approximate.",
+    "population_note": "Gross source anatomy for orientation only. The generic model does not supply complete patient-specific vascular, venous, ASPECTS, lesion or fine-structure geometry; named reporting coverage remains unverified."
   }
+}
 }

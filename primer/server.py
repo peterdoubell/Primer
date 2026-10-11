@@ -414,7 +414,8 @@ CSP = (
     "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; "
     "img-src 'self' data: https://radiologyassistant.nl/assets/ "
     "https://radiologyassistant.nl/img/ https://upload.wikimedia.org/wikipedia/commons/ "
-    "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/; "
+    "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/ "
+    "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/acute-stroke/; "
     "connect-src 'self'; object-src 'none'; "
     "base-uri 'none'; frame-ancestors 'none'; form-action 'self'"
 )
@@ -3533,7 +3534,7 @@ def app_shell():
                      "review-game.js", "review-game.css", "prenatal-sequence.js", "prenatal-sequence.css",
                      "math-ode-lab.js", "math-ode-lab.css", "math-eigenspace.js", "math-eigenspace.css",
                      "math-field-lab.js", "math-field-lab.css", "math-wave-lab.js", "math-wave-lab.css",
-                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "spatial-fidelity.js", "spatial-quantum-information.js", "spatial-algebra.js", "lesson-state.js", "math-topology-lab.js", "math-topology-lab.css", "math-algebra-lab.js", "math-algebra-lab.css", "physics-quantum-info-lab.js", "physics-quantum-info-lab.css", "physics-relativity-lab.js", "physics-relativity-lab.css", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
+                     "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "spatial-fidelity.js", "spatial-quantum-information.js", "spatial-algebra.js", "spatial-logic.js", "spatial-maxwell.js", "spatial-cosmology.js", "math-logic-lab.js", "math-logic-lab.css", "physics-maxwell-lab.js", "physics-maxwell-lab.css", "physics-cosmology-lab.js", "physics-cosmology-lab.css", "lesson-state.js", "math-topology-lab.js", "math-topology-lab.css", "math-algebra-lab.js", "math-algebra-lab.css", "physics-quantum-info-lab.js", "physics-quantum-info-lab.css", "physics-relativity-lab.js", "physics-relativity-lab.css", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3661,11 +3662,13 @@ def healthz():
         raster_inventory = json.load(source)['files']
     atlas = _structure_atlases()
     validate_raster_bindings([row for rows in atlas.values() for row in rows], raster_inventory)
+    from .stroke_source_delivery import validate_raster_bindings as validate_stroke_rasters
+    validate_stroke_rasters([row for rows in atlas.values() for row in rows], raster_inventory)
     validate_context_documents(radiology_catalog.detail(curr, radiology_catalog.resolve('ra.ct-traumatic-haemorrhage'))['radiology_reference']['source_context_documents'])
     return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives),
             "source_gallery_metadata_validated": True, "source_model_metadata_validated": True, "source_motion_metadata_validated": True,
             "source_study_metadata_validated": True, "source_native_inspector_metadata_validated": True,
-            "source_blob_metadata_validated": True}
+            "source_blob_metadata_validated": True, "source_stroke_metadata_validated": True}
 
 
 
@@ -3710,6 +3713,26 @@ async def native_brain_payload_delivery(asset: str, request: Request):
         return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
     # The selected path comes from the reviewed inventory, not arbitrary input.
     return await app.state.source_static.get_response(src.removeprefix('/app/'), request.scope)
+
+
+@app.api_route("/app/anatomy/soop-stroke-sub342/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def native_stroke_payload_delivery(asset: str, request: Request):
+    from .stroke_source_delivery import delivery, NATIVE_PREFIX, NATIVE_BLOB_PREFIX
+    from .stroke_native_inspectors import references
+    references()
+    src = NATIVE_PREFIX + asset
+    row = delivery()['files'].get(src)
+    if row is None:
+        if asset in {'reference.html', 'reference.js', 'manifest.json'}:
+            response = await app.state.source_static.get_response('anatomy/soop-stroke-sub342/' + asset, request.scope)
+            response.headers['Cache-Control'] = 'private, no-store'
+            if asset == 'reference.html':
+                response.headers['Content-Security-Policy'] = CSP.replace("connect-src 'self';", "connect-src 'self' " + NATIVE_BLOB_PREFIX + ";")
+            return response
+        return JSONResponse({'detail': 'Unknown native stroke source file'}, status_code=404)
+    if os.environ.get('VERCEL'):
+        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
+    return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')), media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
 
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
@@ -3781,6 +3804,18 @@ async def publication_blob_delivery(asset: str, request: Request):
     if os.environ.get('VERCEL'):
         return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
     return await app.state.source_static.get_response(src.removeprefix('/app/'), request.scope)
+
+
+@app.api_route("/app/reference-media/radiology-open/acute-stroke/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def stroke_publication_blob_delivery(asset: str, request: Request):
+    from .stroke_source_delivery import delivery, PUBLICATION_PREFIX
+    src = PUBLICATION_PREFIX + asset
+    row = delivery()['files'].get(src)
+    if row is None:
+        return JSONResponse({'detail': 'Unknown original stroke publication asset'}, status_code=404)
+    if os.environ.get('VERCEL'):
+        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
+    return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')), media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
 
 
 @app.api_route("/app/reference-media/radiology-open/{asset}", methods=["GET", "HEAD"], include_in_schema=False)

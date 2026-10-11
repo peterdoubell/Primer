@@ -23,7 +23,10 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     _validate_lesson_media(node)
     assert [m for m in node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [MEDIA]
     assert all(not any(m['kind'] == 'source-native-inspectors' for m in n['lesson_media'])
-               for n in curriculum.nodes.values() if n['id'] != node['id'])
+               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke'})
+    stroke = curriculum.node('rad.4.stroke')
+    stroke_inspector, = [m for m in stroke['lesson_media'] if m['kind'] == 'source-native-inspectors']
+    assert stroke_inspector['investigation_ids'] == ['ra.acute-stroke']
     ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve('ra.brain-anatomy'))['radiology_reference']
     inspector, = ref['source_native_inspectors']
     assert inspector['bound_source_ids'] == ['massp2-subcortical-reference']

@@ -487,7 +487,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     })
     with_models = {
         nid: node for nid, node in curr.nodes.items()
-        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab'})
+        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab'})
                for item in node.get('lesson_media', []))
     }
     assert set(with_models) == set(expected)
@@ -496,7 +496,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert node['stage'] == expected[nid][0], nid
         base_media = [entry for entry in node['lesson_media']
                       if entry['kind'] in {'illustration', 'model'} and (entry.get('renderer') == expected[nid][1]
-                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'physics-phase-lab'})]
+                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-phase-lab'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]
@@ -579,7 +579,7 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
         'phys.4.fluids': 'venturi-flow-lab',
     }
     for nid, node in physics.items():
-        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'physics-phase-lab'}]
+        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-phase-lab'}]
         assert [item['kind'] for item in base_media] == [
             'illustration', 'model'], nid
         plate, model = base_media
@@ -4854,7 +4854,9 @@ def test_named_theorems_are_defined_where_they_are_used():
         ("chi-squared", lambda e: "residuals" in e.lower() and "degrees of freedom" in e.lower()),
         ("squeeze theorem", lambda e: "trapped between" in e.lower()),
         ("sylow", lambda e: "prime" in e.lower() and "divides" in e.lower()),
-        ("second incompleteness", lambda e: "cannot prove its own consistency" in e.lower()),
+        ("second incompleteness", lambda e: "cannot prove its own consistency" in e.lower()
+         or ("excludes a proof of the standard con(pa) sentence" in e.lower()
+             and "inside consistent pa" in e.lower())),
         ("rice's theorem", lambda e: "non-trivial property" in e.lower()),
         ("de moivre's theorem", lambda e: "multiplies its angle" in e.lower() or "multiplies the angle" in e.lower()),
         ("master theorem", lambda e: "n^(log_b a)" in e or "n^(log_2" in e),
