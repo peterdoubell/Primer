@@ -78,6 +78,9 @@
   }
   if (window.PrimerQuantumInformationSpatialFamily) families['quantum-information-geometry'] = window.PrimerQuantumInformationSpatialFamily;
   if (window.PrimerAlgebraSpatialFamily) families['algebra-operation-geometry'] = window.PrimerAlgebraSpatialFamily;
+  if (window.PrimerLogicSpatialFamily) families['logic-witness-geometry'] = window.PrimerLogicSpatialFamily;
+  if (window.PrimerMaxwellSpatialFamily) families['maxwell-field-geometry'] = window.PrimerMaxwellSpatialFamily;
+  if (window.PrimerCosmologySpatialFamily) families['cosmology-chart-geometry'] = window.PrimerCosmologySpatialFamily;
 
   const cqNum=(v,d,a,b)=>(typeof v==='number'||typeof v==='string'&&v.trim()!=='')&&Number.isFinite(Number(v))?Math.max(a,Math.min(b,Number(v))):d;
   const cqFmt=v=>Number.isFinite(v)?Number(v.toPrecision(6)).toString():String(v);

@@ -1993,12 +1993,13 @@ function sourceStudyReference(asset, { createElement = el, sourceLink = radiolog
 }
 
 function sourceNativeInspector(asset) {
+  const sourceCase = Boolean(asset.publication_url);
   return el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
-    radiologySourceLink('Original MRI templates', asset.source_url), ' · ',
-    radiologySourceLink('Original probabilistic atlas', asset.atlas_source_url), ' · ',
-    radiologySourceLink(asset.license, asset.license_url));
+    radiologySourceLink(sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url), ' · ',
+    radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url), ' · ',
+    radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
 }
 
 function sourceContextDocuments(documents, createElement = el) {

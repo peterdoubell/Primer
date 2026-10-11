@@ -1200,11 +1200,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 840, 'items': 1401,
+        'models': 844, 'items': 1405,
     }
 
     expected_domain_counts = {
-        'math': (59, 127), 'language': (40, 61), 'physics': (39, 88),
+        'math': (59, 128), 'language': (40, 61), 'physics': (39, 91),
         'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
@@ -1373,6 +1373,10 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
             expected_kinds.append('model')
             assert media[-1]['renderer'] == 'math-complex-lab'
             assert media[-1]['props'] == {'scenario': 'math.5.complex-analysis.holomorphy-contours'}
+        if node_id == 'math.5.logic':
+            expected_kinds.append('model')
+            assert media[-1]['renderer'] == 'math-logic-lab'
+            assert media[-1]['props'] == {'scenario': 'math.5.logic.diagonal-models-proof'}
         assert [entry['kind'] for entry in media] == expected_kinds
         model = authored_media(illustrated.json())[1]
         assert model['renderer'] == 'concept-lab'

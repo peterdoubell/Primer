@@ -1,0 +1,52 @@
+{
+  "reviewed_at": "2026-10-11",
+  "scope": "Only exact original source captions made available under the actual reader metadata field on the13 independently approved CTP records",
+  "caption_amendment_SHA256": "bcba087d7928bbcac5f84656682a790c90fc2c2a1069846ff0c84e472919425c",
+  "new_runtime_data_receipt_SHA256": "f8886487564858609476d87c6c50221af2d4563b7b8b144c09a00e0c1ad2d761",
+  "all13_primary_caption_bindings_exact": true,
+  "only_source_caption_full_field_added": true,
+  "source_pixels_or_original_caption_changed": false,
+  "other_four_data_files_and_all_unrelated_tokens_unchanged": true,
+  "frozen_old_source_and_guard_evidence": {
+    "runtime-data-integration-20261011.json": "af4b98a3e40d2158c425abce296ff18569c45414518dec31f7cfe2063ca7ced3",
+    "stroke-registry-additive-amendment-20261011.json": "c8e9d7ee4f023314e1a6e5901db2e9247694ea12b56339c5771c32043f961d36",
+    "stroke-historical-guard-validation-20261011.json": "3fe6bf0f1793ff9dda8d418d673cbcc79ee24c3ce3541289bfbcea4fc1139dd9",
+    "ctp-final-integration-proposal.json": "df1debaec552d12bbb9af778cdd2ac7a2c9e7597fea2b70071986504afabe368",
+    "independent-review.json": "4af86b0db18667fd1b5af5e3c8244e7654828d4b2c0cfa5584de1b2f9deecde4"
+  },
+  "targeted_validation": {
+    "passed": 68,
+    "elapsed_seconds": 29.98,
+    "log": ".research/stroke-caption-addition-targeted-20261011.log"
+  },
+  "explicit_missing_caption_negative_validation": {
+    "passed": 9,
+    "elapsed_seconds": 0.4
+  },
+  "native_ISLES_publication_approved": false,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "authenticated_reader_rerun_owned_by": "soop_native_stroke",
+  "files": {
+    "data/radiology/radiology-open-images.json": {
+      "sha256": "9fb6a06036ad0a421d53b32c3c7553c8bc5783f18fde5da0d7f96c8d46fd02b2",
+      "bytes": 3836586
+    },
+    "tools/anatomy_sources/integrate_acute_stroke_sources.py": {
+      "sha256": "e4e1d087dcfab98b870202611dfd78b5ddd526cf9bfc270dce4b1c6f3827bfd7",
+      "bytes": 34302
+    },
+    "tools/anatomy_sources/repair_acute_stroke_captions.py": {
+      "sha256": "1d10ed56aac4d5c66bc8cd0c8c9299ebfee52f6318fdb76dd7499fbff4239f9b",
+      "bytes": 7497
+    },
+    "tools/anatomy_sources/stroke_registry_amendment.py": {
+      "sha256": "1fdae5b07abaf20a9c81df17686ecf5bf2d3f04322a16413aab9d5922e47e89b",
+      "bytes": 8546
+    },
+    "tests/test_acute_stroke_captions.py": {
+      "sha256": "0ae1f57480a1183e5cca7440dac291bd445b896ee13a1a6e46520df06075ef92",
+      "bytes": 4023
+    }
+  }
+}

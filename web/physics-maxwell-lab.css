@@ -1,0 +1,27 @@
+.physics-maxwell-lab { min-width:0; }
+.physics-maxwell-lab .model-heading-row { flex-wrap:wrap; }
+.physics-maxwell-lab .model-heading-row > button { flex-shrink:0; }
+.physics-maxwell-lab select, .physics-maxwell-lab input[type=number] { box-sizing:border-box; width:100%; min-width:0; min-height:44px; font:inherit; color:inherit; background:var(--paper,#f5efdf); border:1px solid var(--line,#d5cfbf); border-radius:6px; padding:6px 8px; }
+.physics-maxwell-lab [hidden] { display:none !important; }
+.maxwell-widget { min-width:0; display:flex; flex-direction:column; gap:7px; }
+.physics-maxwell-lab .maxwell-number-control { display:flex; flex-direction:column; gap:6px; font-size:13px; }
+.maxwell-panels { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
+.maxwell-panel, .maxwell-viewport { min-width:0; }
+.maxwell-viewport { overflow:auto; background:#f5efdf; border:1px solid var(--line,#d5cfbf); border-radius:10px; }
+.maxwell-viewport svg { display:block; width:100%; height:auto; font-family:var(--sans,sans-serif); }
+.physics-maxwell-lab.is-enlarged .maxwell-viewport svg { width:720px; min-width:720px; max-width:none; }
+.maxwell-summary, .maxwell-equation, .maxwell-sources, .maxwell-assumptions, .maxwell-legend { overflow-wrap:anywhere; line-height:1.6; font-variant-numeric:tabular-nums; }
+.maxwell-summary { border-left:3px solid #b98a2f; padding-left:12px; }
+.maxwell-legend { font-size:12px; }
+.maxwell-ledger-region { overflow:auto; max-width:100%; margin:16px 0; }
+.maxwell-ledger { width:100%; min-width:440px; border-collapse:collapse; }
+.maxwell-ledger caption { text-align:left; margin:8px 0; }
+.maxwell-ledger th, .maxwell-ledger td { text-align:left; padding:8px; border-bottom:1px solid var(--line,#d5cfbf); }
+.maxwell-assumptions > summary { cursor:pointer; }
+.maxwell-viewport:focus-visible, .maxwell-ledger-region:focus-visible, .physics-maxwell-lab input:focus-visible, .physics-maxwell-lab select:focus-visible, .physics-maxwell-lab button:focus-visible { outline:3px solid var(--accent,#317e78); outline-offset:3px; }
+.maxwell-live { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media (max-width:760px) { .maxwell-panels, .physics-maxwell-lab .concept-controls { grid-template-columns:minmax(0,1fr); } }
+
+.physics-maxwell-lab button { min-height:44px; }
+
+.spatial-model[data-scenario="phys.4.em-maxwell.fields-flux-radiation"] input, .spatial-model[data-scenario="phys.4.em-maxwell.fields-flux-radiation"] select, .spatial-model[data-scenario="phys.4.em-maxwell.fields-flux-radiation"] button { min-height:44px; }

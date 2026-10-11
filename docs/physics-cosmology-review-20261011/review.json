@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-11",
+  "node": "phys.5.gr-cosmo",
+  "scenario": "phys.5.gr-cosmo.geometry-history",
+  "author": "cosmology_full_lesson",
+  "scope": "Authored eight-station lab, original quantitative diagrams, exact-data spatial adapter and independent numerical oracles. Root independently reviews shared integration and spatial mapping. No clinical, certification, whole-program or production approval.",
+  "files": {
+    "web/physics-cosmology-lab.js": {
+      "bytes": 58041,
+      "sha256": "c8263d281cc9e0bd5dc20daa3caa7ec91af2becb52f964f482ea8b38251e05d1"
+    },
+    "web/physics-cosmology-lab.css": {
+      "bytes": 2547,
+      "sha256": "34ba728a1bf758d93ec728a5a0101e725fd9000bbeafed0d63bc24e618ac7eb8"
+    },
+    "web/spatial-cosmology.js": {
+      "bytes": 9693,
+      "sha256": "676435f6c75247f60501e02c6b570bc036f12419414a73eb94206a1608b6377c"
+    },
+    "tools/check_physics_cosmology_lab.js": {
+      "bytes": 11250,
+      "sha256": "4188f1841a890a69fcc181a3b9cb921a1846158e58b21ca89110522b36d7bd13"
+    },
+    "tests/test_physics_cosmology_lab.py": {
+      "bytes": 9474,
+      "sha256": "8e8fb66c842c60183e98d014fb17bd29f5d5b7f0a132f04b1a769fe5c1ebed86"
+    }
+  },
+  "stations": [
+    "geometry",
+    "expansion",
+    "horizons",
+    "redshift",
+    "causality",
+    "blackhole",
+    "inflation",
+    "distances"
+  ],
+  "blackhole_views": [
+    "radius",
+    "lensing",
+    "infall",
+    "cones"
+  ],
+  "quiz_coverage": {
+    "1": "causality: conserved-source caveat, weak-field D/c",
+    "2": "redshift: reciprocal same-time proper recession rates, observational distinction",
+    "3": "redshift: exact Planck spectrum, temperature/wavelength scaling",
+    "4": "blackhole radius: r_s proportional to mass, precise nominal conversions and quiz rounding",
+    "5": "blackhole lensing: GR leading-order bending and half-strength reference",
+    "6": "inflation: primordial tilt/running, inference and transfer-function limitations",
+    "7": "redshift: 7000/H0 low-z inverse distance",
+    "8": "redshift: 500nm(1+z) including600nm at z=.2",
+    "9": "blackhole infall and cones: finite proper/regular EF crossing, delayed fading outgoing signals",
+    "10": "distances: curved luminosity distance, flux/magnitude comparison, decelerating dimming counterexample"
+  },
+  "numerical_checks": {
+    "javascript": "PASS:371 analytic fixtures;134 mounted states;518 SVG curves;230 selected physical-event markers;35 draft/blur/Enter/Escape controls",
+    "python": "PASS:7 tests with SciPy/independent quadrature and ODE methods",
+    "python_scope": [
+      "25 FLRW age/acceleration/horizon states including integral endpoints",
+      "5 tensor pressure/conservation/Ricci-trace states",
+      "20 curved distance/reciprocity/flux states",
+      "18 radial infall proper/EF/Schwarzschild-time states",
+      "4 solve_ivp null-ray comparisons",
+      "1932 primordial spectral-power rows",
+      "closed turnaround,bounce,Milne/open-vacuum and flat-de-Sitter origin distinction",
+      "positive dimming with q0=.15 counterexample"
+    ]
+  },
+  "browser_proof": "docs/physics-cosmology-review-20261011/browser-proof.json",
+  "browser_summary": {
+    "passed": true,
+    "widths": [
+      {
+        "width": 1440,
+        "stations": 8,
+        "bhViews": 4,
+        "numericStates": 86,
+        "rangeStates": 86,
+        "exactDrafts": 43,
+        "keyboardStates": 43,
+        "presets": 16,
+        "speechStates": 342
+      },
+      {
+        "width": 390,
+        "stations": 8,
+        "bhViews": 4,
+        "numericStates": 86,
+        "rangeStates": 86,
+        "exactDrafts": 43,
+        "keyboardStates": 43,
+        "presets": 16,
+        "speechStates": 342
+      }
+    ],
+    "screenshots": 22,
+    "errors": [],
+    "all_handles_closed": true
+  },
+  "visual_inspection": {
+    "final_representatives": [
+      "390-geometry.png",
+      "1440-horizons.png",
+      "390-inflation.png",
+      "1440-distances.png"
+    ],
+    "automated_all": "All22 captures/station/views were checked for document overflow, clipped SVG text, missing active labels, complete speech and unit ledger.",
+    "repair": "Actual log-power extent now resolves the small primordial tilt; the earlier forced-zero visual was preserved in ignored research evidence."
+  },
+  "limitations": [
+    "Fixed dust/radiation/constant-Lambda FLRW contents, not a recombination/neutrino/structure solver",
+    "No arbitrary Einstein-equation numerical-relativity solution",
+    "Coordinate-origin ages distinguished from physical Big-Bang singularities",
+    "No contracting recollapse branch or crunch-time event-horizon model",
+    "Schwarzschild nonrotating uncharged isolated vacuum; E=1 radial infall only",
+    "First-order weak-field ideal lens; finite ray window and separate displacement units",
+    "Primordial statistics not CMB angular power spectrum or observed sky",
+    "Supernova curves are theoretical, no invented data or likelihood",
+    "Exact flat FLRW Cartesian geometry only for computed OmegaK===0",
+    "Horizon angular radii are labelled radial-distance diagrams, not curved-space metric embeddings",
+    "Charts have source units, declared gains and log-panel offsets; chart depth is layout only",
+    "Source values and finite windows are retained; tiny float64 or pixel-unresolved distinctions disclosed"
+  ],
+  "broader_goal_complete": false,
+  "curriculum_review": {
+    "inspected_node": "phys.5.gr-cosmo",
+    "authored_goal_preserved": true,
+    "all10_assessment_topics_preserved": true,
+    "modified_questions_reviewed": [
+      1,
+      2,
+      6,
+      9,
+      10
+    ],
+    "scientific_result": "Consistent with the specified quantitative lesson; remaining Q7 low-z and Q5 weak-field PPN wording precisions communicated to root for shared-file integration. Q3 blackbody statement checked against NASA/FIRAS and Fixsen2009; unbounded superlative removal recommended.",
+    "shared_files_edited_by_this_author": false
+  },
+  "review_markdown": {
+    "path": "docs/physics-cosmology-fidelity-review.md",
+    "sha256": "bd430e9d84585a6046c74103fe461ca920b8ecdf85b57e24e34d30c8f0482ad6"
+  }
+}

@@ -11,6 +11,7 @@ from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.anatomy_sources import integrate_traumatic_haemorrhage_sources as integration
 from tools.anatomy_sources import traumatic_registry_amendment as registry_amendment
+from tools.anatomy_sources import stroke_registry_amendment as stroke_amendment
 from tools.check_msk_fidelity import audit,requirements_for,validate_reporting_snapshots,inspect_binding
 from tools.check_radiology_fidelity import digest
 from tools.msk_runtime_rights import license_issues
@@ -155,7 +156,9 @@ def test_unrelated_value_tokens_and_nontraumatic_source_contract_are_preserved(s
     *_,rows,assets,receipt=state
     ids={r['id'] for r in rows}
     for path in integration.DATA_PATHS:
-        actual=integration.unrelated_tokens((ROOT/path).read_text(),path,ids)
+        raw=(ROOT/path).read_text()
+        actual=integration.unrelated_tokens(raw,path,ids)
+        _,actual=stroke_amendment.restore_prior_view(path,json.loads(raw),actual)
         assert actual==receipt['unrelated_token_fingerprints'][str(path)]
     assert receipt['all_unrelated_JSON_value_tokens_unchanged']
     assert receipt['nontraumatic_effective_reference_unchanged']
@@ -192,11 +195,13 @@ def test_reporting_changes_cannot_reuse_a_stale_fine_structure_snapshot(state):
 
 
 def test_exact_canonical_format_amendment_preserves_all_source_contract_values(state):
-    record=registry_amendment.validate_format_amendment()
+    path=ROOT/'data/radiology/reporting-steps/neuroradiology.json'
+    restored=stroke_amendment.restore_prior_step_raw(path.read_text())
+    record=registry_amendment.validate_format_amendment(raw=restored)
     assert record['semantic_values_unchanged']
     assert record['all_unrelated_value_tokens_byte_identical']
     assert record['before_raw_file_SHA256']!=record['after_raw_file_SHA256']
     assert record['source_trauma_field_before_value_token_SHA256']!=record['source_trauma_field_after_value_token_SHA256']
     ids={row['id'] for row in state[5]}
-    actual=integration.unrelated_tokens((ROOT/record['path']).read_text(),Path(record['path']),ids)
+    actual=integration.unrelated_tokens(restored,Path(record['path']),ids)
     assert actual==record['unrelated_value_token_fingerprints']

@@ -1,0 +1,55 @@
+{
+  "reviewed_at": "2026-10-11",
+  "amendment_sha256": "c8e9d7ee4f023314e1a6e5901db2e9247694ea12b56339c5771c32043f961d36",
+  "current_data_receipt_sha256": "af4b98a3e40d2158c425abce296ff18569c45414518dec31f7cfe2063ca7ced3",
+  "final_current_quiz_sha256": "ae2f5a81eecf12d2127681642de877a8f15cb3851f185b4d5ea497a5f03f1bc3",
+  "targeted_validation": {
+    "passed": 59,
+    "elapsed_seconds": 30.21,
+    "log": ".research/stroke-historical-bridge-targeted-20261011.log"
+  },
+  "preserved_inflight_observations": [
+    {
+      "passed": 38,
+      "failed": 1,
+      "cause": "Current-quiz hash changed during final parent grader edits; exact stale dependency guard rejected the in-flight snapshot."
+    },
+    {
+      "passed": 44,
+      "failed": 15,
+      "cause": "Same parent grader update changed current-quiz/curriculum receipt pins; exact guards rejected unpublished draft bridge."
+    }
+  ],
+  "original_historical_reviews_rebaselined": false,
+  "unchanged_current_nonstroke_contracts": 135,
+  "all_original_historical_semantic_raw_and_canonical_assertions_remain": true,
+  "native_ISLES_publication_approved": false,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "files": {
+    "tools/anatomy_sources/stroke_registry_amendment.py": {
+      "sha256": "84e40c6039f2f367af0f2cf1ce90c2d449e50b339e370fa8fad6092b43b048d4",
+      "bytes": 5556
+    },
+    "tools/anatomy_sources/traumatic_registry_amendment.py": {
+      "sha256": "bcb426fe391d41929c8171281a3451f5df11e7870741ec772a87849fe8144d38",
+      "bytes": 5948
+    },
+    "tests/test_stroke_registry_amendment.py": {
+      "sha256": "f1d1dd8164e20db9894667ace4ed8cf404e45203d3889db9721ab0b67196c454",
+      "bytes": 6560
+    },
+    "tests/test_traumatic_haemorrhage_integration.py": {
+      "sha256": "df3a9e8afad0d21a0f087705123a5d103a70a2a1e8746e7843c189392940c484",
+      "bytes": 13731
+    },
+    "tests/test_myelopathy_source_integration.py": {
+      "sha256": "f663b8d431f8547d4043f531b380e4cf716c6299e5cb2d778937f928b47109e9",
+      "bytes": 19836
+    },
+    "tests/test_acute_stroke_integration.py": {
+      "sha256": "df9ce08d2ca291e303f88cd441dc5828d18f6d431f80fb37cd989a9582dd66b8",
+      "bytes": 8714
+    }
+  }
+}

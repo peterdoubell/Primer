@@ -161,6 +161,9 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-probability-lab",
     "math-convergence-lab",
     "math-numerical-lab",
+    "math-logic-lab",
+    "physics-maxwell-lab",
+    "physics-cosmology-lab",
     "physics-buoyancy-lab",
     "physics-thermal-lab",
     "physics-phase-lab",
@@ -409,6 +412,15 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "math-topology-lab":
                 if node.get("id") != "math.5.topology" or props != {"scenario": "math.5.topology.opens-covers-surfaces"}:
                     raise ValueError("{} math-topology-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-logic-lab":
+                if node.get("id") != "math.5.logic" or props != {"scenario": "math.5.logic.diagonal-models-proof"}:
+                    raise ValueError("{} math-logic-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-maxwell-lab":
+                if node.get("id") != "phys.4.em-maxwell" or props != {"scenario": "phys.4.em-maxwell.fields-flux-radiation"}:
+                    raise ValueError("{} physics-maxwell-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-cosmology-lab":
+                if node.get("id") != "phys.5.gr-cosmo" or props != {"scenario": "phys.5.gr-cosmo.geometry-history"}:
+                    raise ValueError("{} physics-cosmology-lab has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "math-algebra-lab":
                 if node.get("id") != "math.5.abstract" or props != {"scenario": "math.5.abstract.groups-rings-fields"}:
                     raise ValueError("{} math-algebra-lab has an unknown or cross-lesson scenario".format(node.get("id")))

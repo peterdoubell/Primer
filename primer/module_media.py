@@ -109,7 +109,9 @@ def attach_module_media(node):
         if native_ids:
             media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',
                           'title': 'Native source anatomy inspection',
-                          'instructions': 'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.',
+                          'instructions': ('Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
+                                           if node['id'] == 'rad.4.stroke' else
+                                           'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.'),
                           'investigation_ids': native_ids})
         from . import radiology_catalog
         studies = radiology_catalog._source_study_references()
@@ -130,7 +132,7 @@ def attach_module_media(node):
         })
     elif (not any(item.get("renderer") == "spatial-3d" for item in media)
           or (model_bindings().get(node["id"], {}).get("family") in {
-              "topology-open-set-geometry", "relativistic-event-geometry"}
+              "topology-open-set-geometry", "relativistic-event-geometry", "maxwell-field-geometry"}
               and not any(item.get("props", {}).get("scenario") == "module." + node["id"] for item in media))):
         record = model_bindings().get(node["id"])
         if not record:

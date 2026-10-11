@@ -30,7 +30,7 @@ assert.equal(entries.length, expected.length, 'Every spatial scene must be reach
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'physics-phase-lab'].includes(item.renderer)).length,
+  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-phase-lab'].includes(item.renderer)).length,
   70, 'The 70 existing lesson models must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');
@@ -278,3 +278,13 @@ for (const direction of ['lateral', 'anterior']) {
   near(centre[1], -.08);
 }
 console.log('Verified radiology section, obliquity and fragment-position invariants.');
+
+for (const [renderer, nodeId, scenario] of [
+  ['math-logic-lab','math.5.logic','math.5.logic.diagonal-models-proof'],
+  ['physics-maxwell-lab','phys.4.em-maxwell','phys.4.em-maxwell.fields-flux-radiation'],
+  ['physics-cosmology-lab','phys.5.gr-cosmo','phys.5.gr-cosmo.geometry-history']]) {
+  const dedicated = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === renderer).map(item => ({node,item})));
+  assert.equal(dedicated.length, 1, renderer + ': exactly one full lesson binding');
+  assert.equal(dedicated[0].node.id, nodeId);
+  assert.deepEqual(dedicated[0].item.props, {scenario});
+}

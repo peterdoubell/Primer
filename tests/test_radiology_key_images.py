@@ -111,6 +111,7 @@ def test_browser_policy_allows_the_curated_image_paths_only(tmp_path, monkeypatc
         "'self'", 'data:', 'https://radiologyassistant.nl/assets/',
         'https://radiologyassistant.nl/img/', 'https://upload.wikimedia.org/wikipedia/commons/',
         'https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/',
+        'https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/acute-stroke/',
     }
     assert "connect-src 'self'" in CSP
 

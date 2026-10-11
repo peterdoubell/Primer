@@ -101,11 +101,14 @@ def restore_prior_view(path, data, tokens):
     return data, tokens
 
 
-def validate_format_amendment():
+def validate_format_amendment(*, raw=None):
     """Approve the exact canonical formatting while retaining every JSON value."""
     review = reviewed_amendment()
     record = review['format_amendment']
-    raw = (ROOT / PATHS[3]).read_text(encoding='utf-8')
+    # A caller may supply the exact in-memory pre-addition comparison view.
+    # Full original raw/semantic hashes and canonical format remain mandatory.
+    if raw is None:
+        raw = (ROOT / PATHS[3]).read_text(encoding='utf-8')
     data = json.loads(raw)
     if (_sha(raw.encode()) != record['after_raw_file_SHA256']
             or digest(data) != record['before_and_after_full_semantic_SHA256']
