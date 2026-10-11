@@ -71,7 +71,7 @@ def test_shared_lesson_groups_reviewed_sources_and_never_loads_held_ra_thumbnail
     auth=('reader','test-only-secret')
     lesson=client.get('/api/curriculum/node/rad.5.uterine-mr',auth=auth).json()
     gallery=next(m for m in lesson['lesson_media'] if m['kind']=='source-gallery')
-    assert gallery['investigation_ids']==['ra.mri-endometriosis','ra.mri-cervical-cancer']
+    assert gallery['investigation_ids']==['ra.mri-endometriosis','ra.mri-cervical-cancer','ra.mri-endometrial-cancer']
     sources={r['src']:r for r in CONTRACT}
     for image in lesson['radiology_reference']['key_images']:
         assert image['src'] in sources

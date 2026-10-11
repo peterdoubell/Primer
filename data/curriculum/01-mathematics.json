@@ -7288,7 +7288,7 @@
      "kind": "choice",
      "prompt": "A Hilbert space is a complete inner-product space. Which of the following is an example?",
      "answer": "The square-integrable functions L^2",
-     "explain": "L^2 has an inner product and is complete; the sup-norm space is a Banach space but lacks a compatible inner product.",
+     "explain": "L², with functions identified almost everywhere, is a complete inner-product space. C[0,1] with the supremum norm is Banach but that norm does not come from an inner product. Polynomials with the same norm are incomplete: their uniformly convergent sequences can have non-polynomial limits.",
      "choices": [
       "Polynomials with the sup norm on [0,1]",
       "Continuous functions with the sup norm",
@@ -7300,7 +7300,7 @@
      "kind": "choice",
      "prompt": "Linear algebra results lean on finite dimension in ways that are easy to miss. In an infinite-dimensional normed space, pick the familiar fact that still holds.",
      "answer": "A spanning set still determines the map",
-     "explain": "Continuity of every linear map, compactness of the closed unit ball, and the rank-nullity consequence that injective forces surjective all fail once the dimension is infinite. Linearity itself is untouched: every vector is a finite combination of spanning vectors, so the map's values there still fix it everywhere.",
+     "explain": "An algebraic spanning set determines a linear map because every vector is a finite linear combination of its members. An orthonormal basis in a Hilbert space instead has dense finite span; determination on the whole space then uses continuity for bounded maps. In infinite dimensions, arbitrary linear maps need not be continuous, the closed unit ball need not be compact, and injectivity need not imply surjectivity.",
      "choices": [
       "Every linear map on the space is continuous",
       "The closed unit ball is compact",
@@ -7417,6 +7417,16 @@
      "instructions": "Compare optimal Fourier coefficients with a perturbed approximation and its L² error.",
      "props": {
       "scenario": "math.5.functional"
+     }
+    },
+    {
+     "id": "math.5.functional-math-operator-lab",
+     "kind": "model",
+     "renderer": "math-operator-lab",
+     "title": "Operators, spectra and truncation",
+     "instructions": "Compare the unilateral shift and a compact diagonal operator. Keep hidden coordinates, projected inputs and exact spectral probes in the calculation.",
+     "props": {
+      "scenario": "math.5.functional.operators-truncation"
      }
     }
    ]
