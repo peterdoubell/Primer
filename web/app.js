@@ -1992,11 +1992,20 @@ function sourceStudyReference(asset, { createElement = el, sourceLink = radiolog
     sourceLink('Source dataset', asset.source_url), ' · ', sourceLink(asset.license, asset.license_url));
 }
 
+function sourceNativeInspector(asset) {
+  return el('section', { class: 'rad-protocol source-native-inspector' },
+    el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
+    el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
+    radiologySourceLink('Original MRI templates', asset.source_url), ' · ',
+    radiologySourceLink('Original probabilistic atlas', asset.atlas_source_url), ' · ',
+    radiologySourceLink(asset.license, asset.license_url));
+}
+
 function lessonSourceGallery(item, { loadReference = id => api.get('/api/radiology/modules/' + encodeURIComponent(id)),
-  createElement = el, createButton = btn, renderFigure = sourceAtlasFigure, renderStudy = sourceStudyReference,
+  createElement = el, createButton = btn, renderFigure = sourceAtlasFigure, renderStudy = sourceStudyReference, renderInspector = sourceNativeInspector,
   wirePictures = attachPictureHandlers } = {}) {
-  const studyMode = item.kind === 'source-studies';
-  const label = studyMode ? 'source studies' : 'source figures';
+  const studyMode = item.kind === 'source-studies', nativeMode = item.kind === 'source-native-inspectors';
+  const label = nativeMode ? 'native source inspections' : studyMode ? 'source studies' : 'source figures';
   const status = createElement('p', { role: 'status', 'aria-live': 'polite' });
   const groups = new Map();
   const gallery = createElement('section', { class: 'card lesson-source-gallery', 'aria-label': item.title },
@@ -2009,11 +2018,11 @@ function lessonSourceGallery(item, { loadReference = id => api.get('/api/radiolo
     results.forEach((result, index) => {
       if (result.status !== 'fulfilled') return;
       const reference = result.value;
-      const figures = reference.radiology_reference?.[studyMode ? 'source_study_references' : 'structure_atlas'];
+      const figures = reference.radiology_reference?.[nativeMode ? 'source_native_inspectors' : studyMode ? 'source_study_references' : 'structure_atlas'];
       if (!Array.isArray(figures) || !figures.length || reference.id !== missing[index]) return;
       const section = createElement('details', {}, createElement('summary', {}, reference.title + ' · ' + figures.length + ' source references'));
       section.append(createElement('a', { href: '#radiology/' + encodeURIComponent(reference.id) }, 'Open reporting reference'));
-      for (const figure of figures) section.append(studyMode ? renderStudy(figure) : renderFigure(figure));
+      for (const figure of figures) section.append(nativeMode ? renderInspector(figure) : studyMode ? renderStudy(figure) : renderFigure(figure));
       groups.set(missing[index], section);
       wirePictures(section);
     });
@@ -2034,7 +2043,7 @@ function renderLessonMedia(items) {
   const media = el('div', { class: 'lesson-media' });
   let imageCount = 0;
   items.forEach(item => {
-    if (item && ['source-gallery', 'source-studies'].includes(item.kind)) {
+    if (item && ['source-gallery', 'source-studies', 'source-native-inspectors'].includes(item.kind)) {
       media.append(lessonSourceGallery(item));
       return;
     }
@@ -2784,7 +2793,8 @@ async function renderRadiologyDesk(page, nodeId) {
     ['guide', 'Checklist', panel => panel.append(renderReportingGuide(guide, n.id))],
     ...(ref.annotated_anatomy_links?.length ? [['anatomy', 'Annotated anatomy', panel => panel.append(renderAnnotatedAnatomy(ref))]] : []),
     ['template', 'Report template', panel => panel.append(templates)],
-    ['images', studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+    ['images', ref.source_native_inspectors?.length ? 'Images and native source' : studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+      (ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
       studyReferences.forEach(asset => panel.append(sourceStudyReference(asset)));
       motionReferences.forEach(asset => panel.append(sourceMotionReference(asset)));
       referenceImages.forEach(asset => panel.append(sourceReferenceFigure(asset)));
@@ -2824,6 +2834,9 @@ async function renderRadiologyDesk(page, nodeId) {
           }) : window.PrimerRadiologyReferenceModels?.render(ref.spatial_model);
           host.replaceChildren(model || el('p', { role: 'status' }, 'The anatomy reference could not load.'));
           if (source?.source_image) host.append(sourceReferenceFigure(source.source_image));
+          for (const inspector of ref.source_native_inspectors || []) {
+            if (source && inspector.bound_source_ids.includes(source.id)) host.append(sourceNativeInspector(inspector));
+          }
           if (source?.source_volume) {
             const volume = source.source_volume;
             const sourceLink = el('a', { href: volume.src, target: '_blank', rel: 'noopener noreferrer' }, volume.title);

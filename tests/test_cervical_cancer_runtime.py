@@ -99,23 +99,35 @@ def test_scoped_walkthrough_uses_original_ids_and_unfilled_assessment_prompts(cl
 
 
 def test_actual_browser_checked_all_figures_prompts_and_native_reference_on_both_routes():
-    review=json.loads((EVIDENCE/'browser-integration-review.json').read_text())
-    assert review['all_requested_routes_and_viewports_passed']
-    assert review['app_js_sha256']==sha((ROOT/'web/app.js').read_bytes())
-    assert review['source_contract_sha256']==sha((EVIDENCE/'source-figure-contract.json').read_bytes())
-    assert {(r['route'],r['viewport']['width']) for r in review['results']}=={
-        ('reporting',1440),('reporting',390),('lesson',1440),('lesson',390)}
-    for result in review['results']:
-        assert result['complete_cervical_figure_count']==32
-        assert result['all_native_image_response_hashes_match']
-        assert result['book_heading_preserves_figure_3_1']
-        assert result['source_case_modality_staging_limits_visible']
-        assert result['enlarged_originals_and_native_size_control_verified']
-        assert result['no_held_remote_ra_images']
-        assert result['native_reference_mesh_count']==54 and result['native_reference_uncropped']
-        assert result['native_reference_is_independent_and_unregistered']
-        assert result['page_errors']==[] and result['failed_requests']==[]
-        assert not result['horizontal_overflow']
-        if result['route']=='reporting':
-            assert result['assessment_step_count']==8 and result['only_source_matched_step_images']
-            assert result['assessment_prompts_do_not_assert_normality']
+    # Preserve the original source review; bridge only this exact app revision.
+    historical_raw=(EVIDENCE/'browser-integration-review.json').read_bytes()
+    amendment_raw=(EVIDENCE/'browser-compatibility-amendment-20261011.json').read_bytes()
+    assert sha(historical_raw)=='d17017bb0a017711f349fe9d068450fa1969a0c6a07267195047b04d6f477073'
+    assert sha(amendment_raw)=='521a75e89c385a389a787298f3b84844e2ff2a07f156ccd37b228a47a8ee12ae'
+    historical=json.loads(historical_raw);amendment=json.loads(amendment_raw)
+    assert amendment['historical_review_sha256']==sha(historical_raw)
+    assert amendment['historical_app_js_sha256']==historical['app_js_sha256']=='4c88dab41f6e1e3d1b1b3c15721dc9d45eade4441fc6725df52a871e2464e563'
+    assert amendment['app_js_sha256']==sha((ROOT/'web/app.js').read_bytes())=='be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f'
+    assert amendment['historical_approval_scope_unchanged'] and not amendment['supersedes_historical_review']
+    assert amendment['authenticated_reader'] and amendment['disposable_database_and_backups']
+    assert not amendment['persistent_browser_profile_used'] and not amendment['production_or_deployment_verification']
+    assert amendment['unchanged_native_manifest_sha256']==sha((ROOT/'web/anatomy/hra-female-pelvis-v1.10/manifest.json').read_bytes())
+    for review in [historical,amendment]:
+        assert review['all_requested_routes_and_viewports_passed']
+        assert review['source_contract_sha256']==sha((EVIDENCE/'source-figure-contract.json').read_bytes())
+        assert {(r['route'],r['viewport']['width']) for r in review['results']}=={
+            ('reporting',1440),('reporting',390),('lesson',1440),('lesson',390)}
+        for result in review['results']:
+            assert result['complete_cervical_figure_count']==32
+            assert result['all_native_image_response_hashes_match']
+            assert result['book_heading_preserves_figure_3_1']
+            assert result['source_case_modality_staging_limits_visible']
+            assert result['enlarged_originals_and_native_size_control_verified']
+            assert result['no_held_remote_ra_images']
+            assert result['native_reference_mesh_count']==54 and result['native_reference_uncropped']
+            assert result['native_reference_is_independent_and_unregistered']
+            assert result['page_errors']==[] and result['failed_requests']==[]
+            assert not result['horizontal_overflow']
+            if result['route']=='reporting':
+                assert result['assessment_step_count']==8 and result['only_source_matched_step_images']
+                assert result['assessment_prompts_do_not_assert_normality']

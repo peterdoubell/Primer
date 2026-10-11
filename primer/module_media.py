@@ -102,6 +102,16 @@ def attach_module_media(node):
     if node.get("radiology_reference"):
         attach_source_gallery(node)
         from . import radiology_catalog
+        from .source_native_inspectors import references as native_inspectors
+        inspectors = native_inspectors()
+        native_ids = [i['id'] for i in radiology_catalog.catalogue()['investigations']
+                      if i['module_id'] == node['id'] and inspectors.get(i['id'])]
+        if native_ids:
+            media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',
+                          'title': 'Native source anatomy inspection',
+                          'instructions': 'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.',
+                          'investigation_ids': native_ids})
+        from . import radiology_catalog
         studies = radiology_catalog._source_study_references()
         identifiers = [i['id'] for i in radiology_catalog.catalogue()['investigations']
                        if i['module_id'] == node['id'] and studies.get(i['id'])]
@@ -118,7 +128,10 @@ def attach_module_media(node):
             "instructions": reference["instructions"],
             "props": radiology_model_props(node),
         })
-    elif not any(item.get("renderer") == "spatial-3d" for item in media):
+    elif (not any(item.get("renderer") == "spatial-3d" for item in media)
+          or (model_bindings().get(node["id"], {}).get("family") in {
+              "topology-open-set-geometry", "relativistic-event-geometry"}
+              and not any(item.get("props", {}).get("scenario") == "module." + node["id"] for item in media))):
         record = model_bindings().get(node["id"])
         if not record:
             raise ValueError("Missing module 3D binding: " + node["id"])

@@ -168,6 +168,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-operator-lab", "physics-ensemble-lab",
     "math-curvature-lab", "physics-constraints-lab",
     "math-complex-lab", "physics-quantum-lab",
+    "math-topology-lab", "physics-relativity-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
@@ -319,7 +320,7 @@ def _validate_lesson_media(node: Dict) -> None:
                                    for key in ("heading", "label", "detail"))):
                         raise ValueError("{} illustration {} has an invalid description item".format(
                             node.get("id"), media_id))
-        elif kind in {"source-gallery", "source-studies"}:
+        elif kind in {"source-gallery", "source-studies", "source-native-inspectors"}:
             if set(entry) != {"id", "kind", "title", "instructions", "investigation_ids"}:
                 raise ValueError("{} source gallery has unexpected fields".format(node.get("id")))
             text(entry, "title")
@@ -330,12 +331,15 @@ def _validate_lesson_media(node: Dict) -> None:
                     or len(set(identifiers)) != len(identifiers)):
                 raise ValueError("Source gallery needs explicit unique investigation bindings")
             from . import radiology_catalog
+            from .source_native_inspectors import references as native_inspectors
+            source_sets = (radiology_catalog._structure_atlases() if kind == 'source-gallery'
+                           else radiology_catalog._source_study_references() if kind == 'source-studies'
+                           else native_inspectors())
             for identifier in identifiers:
                 investigation = radiology_catalog.resolve(identifier)
                 if (not investigation or investigation['id'] != identifier
                         or investigation['module_id'] != node.get('id')
-                        or not (radiology_catalog._structure_atlases() if kind == 'source-gallery'
-                                else radiology_catalog._source_study_references()).get(identifier)):
+                        or not source_sets.get(identifier)):
                     raise ValueError("Source gallery has an unknown or cross-lesson binding")
         elif kind == "model":
             if set(entry) != model_keys:
@@ -402,6 +406,12 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "physics-constraints-lab":
                 if node.get("id") != "phys.4.classical" or props != {"scenario": "phys.4.classical.constraints-energy"}:
                     raise ValueError("{} physics-constraints-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-topology-lab":
+                if node.get("id") != "math.5.topology" or props != {"scenario": "math.5.topology.opens-covers-surfaces"}:
+                    raise ValueError("{} math-topology-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "physics-relativity-lab":
+                if node.get("id") != "phys.4.relativity" or props != {"scenario": "phys.4.relativity.events-clocks"}:
+                    raise ValueError("{} physics-relativity-lab has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "math-complex-lab":
                 if node.get("id") != "math.5.complex-analysis" or props != {"scenario": "math.5.complex-analysis.holomorphy-contours"}:
                     raise ValueError("{} math-complex-lab has an unknown or cross-lesson scenario".format(node.get("id")))

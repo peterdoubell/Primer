@@ -1,5 +1,5 @@
 {
-  "purpose": "Shared front-end files (web/app.js, web/styles.css) are bound by hash into independently reviewed radiology presentation records — the native source presentation contract and its reader proof (docs/native-source-presentation-review-20261011/). A change to those files that leaves every native presentation file byte-identical is recorded here as a UI-only refresh, and checks that compare the reviewed hashes with the current files follow this chain (tools/anatomy_sources/ui_refresh.py). A refresh never re-opens, repeats or extends a review: the reviewed contract, its reader proof (306 CT frames, 204 pointer samples, GPU buffers) and every approval field stay exactly as reviewed and bound to the files they were taken against. A change to any guarded file is not refreshable and needs the full review.",
+  "purpose": "Shared front-end files (web/app.js, web/styles.css) are bound by hash into independently reviewed radiology presentation records \u2014 the native source presentation contract and its reader proof (docs/native-source-presentation-review-20261011/). A change to those files that leaves every native presentation file byte-identical is recorded here as a UI-only refresh, and checks that compare the reviewed hashes with the current files follow this chain (tools/anatomy_sources/ui_refresh.py). A refresh never re-opens, repeats or extends a review: the reviewed contract, its reader proof (306 CT frames, 204 pointer samples, GPU buffers) and every approval field stay exactly as reviewed and bound to the files they were taken against. A change to any guarded file is not refreshable and needs the full review.",
   "refreshable_paths": [
     "web/app.js",
     "web/styles.css"
@@ -20,7 +20,7 @@
     {
       "id": "2026-10-11-side-panel-and-model-marks",
       "date": "2026-10-11",
-      "change": "PR #128 — side-panel fold to an icon rail; gallery model marks; the Radiology reference nav mark.",
+      "change": "PR #128 \u2014 side-panel fold to an icon rail; gallery model marks; the Radiology reference nav mark.",
       "files": {
         "web/app.js": {
           "before": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
@@ -225,6 +225,69 @@
       },
       "clinical_approval": false,
       "fine_anatomical_approval": false
+    },
+    {
+      "id": "2026-10-11-native-brain-source-inspector-links",
+      "date": "2026-10-11",
+      "change": "Adds the separately reviewed source-native brain inspector to its matching lesson and reporting source; other native viewers retain their original code and source bytes.",
+      "files": {
+        "web/app.js": {
+          "before": "4c88dab41f6e1e3d1b1b3c15721dc9d45eade4441fc6725df52a871e2464e563",
+          "after": "be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f"
+        }
+      },
+      "app_js_changed_regions": [
+        "sourceNativeInspector source link/credits component",
+        "lessonSourceGallery dedicated native inspector mode",
+        "brain source inspection link in Images and matching 3D source only"
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "The original 306-frame CT/pointer/GPU proof remains bound to its original assets; this is a scoped reader compatibility refresh."
+      }
     }
   ]
 }

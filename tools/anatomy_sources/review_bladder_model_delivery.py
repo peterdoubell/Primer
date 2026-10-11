@@ -37,6 +37,9 @@ def scoped_contract(node):
 def checked_historical_contract(node, row):
     """Permit only the independently reviewed VerSe script transport amendment."""
     contract, props = scoped_contract(node)
+    from .brain_native_delivery_amendment import restored_historical_contract
+    contract = restored_historical_contract(contract, node['id'])
+    props = next(m for m in contract['lesson_media'] if m.get('renderer') == 'radiology-anatomy')['props']
     # The source models keep their historical review. The separately reviewed
     # myelopathy gallery is an additive lesson reference, not model approval.
     if node['id'] == 'rad.4.spine-imaging':
@@ -63,6 +66,8 @@ def build_review():
     if sha(HISTORICAL) != HISTORICAL_SHA:
         raise ValueError('Immutable historical delivery evidence changed')
     historical = json.loads(HISTORICAL.read_text())
+    from .brain_native_delivery_amendment import separate_review
+    native_review = separate_review()
     if sha(ROOT / 'docs/myelopathy-independent-source-review-20261011.json') != 'ac775f60d6011bca10099a6607da02e4d99ea9489e9868ff0cf3948c60cba1b1':
         raise ValueError('Separate myelopathy source review changed')
     applied_path = presentation.FOLDER / 'applied-presentation-review.json'
@@ -129,6 +134,7 @@ def build_review():
                 'review': 'docs/myelopathy-independent-source-review-20261011.json',
                 'review_sha256': 'ac775f60d6011bca10099a6607da02e4d99ea9489e9868ff0cf3948c60cba1b1',
                 'source_models_or_historical_approval_extended': False},
+            'separate_additive_native_inspector': native_review,
             'matching_lessons': len(modules), 'source_references': historical['source_references'],
             'verified_current_files': dict(sorted(files.items())), 'modules': modules,
             'clinical_approval': False, 'fine_anatomical_approval': False,

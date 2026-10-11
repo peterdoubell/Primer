@@ -1,0 +1,127 @@
+{
+  "investigation_id": "ra.brain-anatomy",
+  "module_id": "rad.5.brain-anatomy",
+  "source_contract_sha256": "8c853e0cb3407b77b35275edde2dea545fc4713b60ce77378d8e513ec0d94d8f",
+  "reporting_checklist": [
+    {
+      "index": 0,
+      "label": "Surface",
+      "detail": "Name lobe, gyrus/sulcus and cortical versus subcortical position."
+    },
+    {
+      "index": 1,
+      "label": "Deep structures",
+      "detail": "Check basal ganglia, thalamus, internal capsule and corpus callosum."
+    },
+    {
+      "index": 2,
+      "label": "Posterior fossa",
+      "detail": "Localise midbrain, pons, medulla, cerebellar hemisphere and peduncles."
+    },
+    {
+      "index": 3,
+      "label": "Spaces",
+      "detail": "Trace ventricles, cisterns, extra-axial spaces and midline relationships."
+    },
+    {
+      "index": 4,
+      "label": "Supply",
+      "detail": "Distinguish arterial territories, border zones and venous drainage without assuming fixed boundaries."
+    }
+  ],
+  "target_requirements": [
+    {
+      "source_model_id": "massp2-gpi-l",
+      "source_label_id": 9,
+      "structure_id": "brain.left_lentiform",
+      "part_id": "brain.left_lentiform.globus_pallidus_internal",
+      "required_part_name": "Globus pallidus internal",
+      "representations_required": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "fidelity_advance": "All native source MRI planes and exact complete model intersections inspectable; raw source values and probabilities retained",
+      "clinical_approval": false,
+      "fine_coverage_approval": false
+    },
+    {
+      "source_model_id": "massp2-gpi-r",
+      "source_label_id": 10,
+      "structure_id": "brain.right_lentiform",
+      "part_id": "brain.right_lentiform.globus_pallidus_internal",
+      "required_part_name": "Globus pallidus internal",
+      "representations_required": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "fidelity_advance": "All native source MRI planes and exact complete model intersections inspectable; raw source values and probabilities retained",
+      "clinical_approval": false,
+      "fine_coverage_approval": false
+    },
+    {
+      "source_model_id": "massp2-gpe-l",
+      "source_label_id": 11,
+      "structure_id": "brain.left_lentiform",
+      "part_id": "brain.left_lentiform.globus_pallidus_external",
+      "required_part_name": "Globus pallidus external",
+      "representations_required": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "fidelity_advance": "All native source MRI planes and exact complete model intersections inspectable; raw source values and probabilities retained",
+      "clinical_approval": false,
+      "fine_coverage_approval": false
+    },
+    {
+      "source_model_id": "massp2-gpe-r",
+      "source_label_id": 12,
+      "structure_id": "brain.right_lentiform",
+      "part_id": "brain.right_lentiform.globus_pallidus_external",
+      "required_part_name": "Globus pallidus external",
+      "representations_required": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "fidelity_advance": "All native source MRI planes and exact complete model intersections inspectable; raw source values and probabilities retained",
+      "clinical_approval": false,
+      "fine_coverage_approval": false
+    },
+    {
+      "source_model_id": "massp2-put-l",
+      "source_label_id": 38,
+      "structure_id": "brain.left_lentiform",
+      "part_id": "brain.left_lentiform.putamen",
+      "required_part_name": "Putamen",
+      "representations_required": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "fidelity_advance": "All native source MRI planes and exact complete model intersections inspectable; raw source values and probabilities retained",
+      "clinical_approval": false,
+      "fine_coverage_approval": false
+    },
+    {
+      "source_model_id": "massp2-put-r",
+      "source_label_id": 39,
+      "structure_id": "brain.right_lentiform",
+      "part_id": "brain.right_lentiform.putamen",
+      "required_part_name": "Putamen",
+      "representations_required": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "fidelity_advance": "All native source MRI planes and exact complete model intersections inspectable; raw source values and probabilities retained",
+      "clinical_approval": false,
+      "fine_coverage_approval": false
+    }
+  ],
+  "all_other_requirements_preserved": true,
+  "source_assets_create_no_clinical_coverage_credit": true,
+  "runtime_shared_registry_changes_by_generator": false
+}

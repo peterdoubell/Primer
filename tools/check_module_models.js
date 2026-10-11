@@ -18,6 +18,9 @@ context.window.PrimerMathCurvatureLab = require('../web/math-curvature-lab.js');
 context.window.PrimerPhysicsConstraintsLab = require('../web/physics-constraints-lab.js');
 context.window.PrimerMathComplexLab = require('../web/math-complex-lab.js');
 context.window.PrimerPhysicsQuantumLab = require('../web/physics-quantum-lab.js');
+context.window.PrimerMathTopologyLab = require('../web/math-topology-lab.js');
+context.window.PrimerPhysicsRelativityLab = require('../web/physics-relativity-lab.js');
+require('../web/spatial-fidelity.js');
 context.window.PrimerMathNumericalLab = require('../web/math-numerical-lab.js');
 context.window.PrimerMathConvergenceLab = require('../web/math-convergence-lab.js');
 require('../web/spatial-models.js');
@@ -69,7 +72,7 @@ function verify(id,state={}) {
 for(const [family,id] of familyIds){
   const initial=verify(id);let minimum={},maximum={};
   for(const control of spatial.controls(id)){
-    const coordinated=['complex-function-domain','quantum-state-geometry'].includes(family);
+    const coordinated=['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry'].includes(family);
     // Large batch/seed ranges have no useful million-state exhaustive sweep.
     // Their distributions and geometry have separate independent oracles.
     const values=control.options?control.options.map(o=>o.value):coordinated
@@ -104,8 +107,11 @@ for(const [family,id] of familyIds){
       // Inactive station parameters persist for the next station; they do not
       // fabricate geometry in the current station.
       for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
-      const api=family==='complex-function-domain'?window.PrimerMathComplexLab:window.PrimerPhysicsQuantumLab;
-      values.forEach((value,i)=>assert.deepEqual(family==='complex-function-domain'?versions[i].complex.state:versions[i].quantum.state,api.normalize({[control.key]:value})));
+      const field={'complex-function-domain':'complex','quantum-state-geometry':'quantum','topology-open-set-geometry':'topology','relativistic-event-geometry':'relativity'}[family];
+      const api={'complex-function-domain':window.PrimerMathComplexLab,'quantum-state-geometry':window.PrimerPhysicsQuantumLab,'topology-open-set-geometry':window.PrimerMathTopologyLab,'relativistic-event-geometry':window.PrimerPhysicsRelativityLab}[family];
+      values.forEach((value,i)=>assert.deepEqual(versions[i][field].state,api.normalize({[control.key]:value})));
+    } else if(family==='topology-open-set-geometry'&&control.key==='familyMask') {
+      assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)));
     } else if(family==='quantum-state-geometry'&&control.key==='n'&&initial.state.wellState==='superposition') {
       for(const scene of versions){assert.deepEqual(scene.primitives,initial.primitives);assert.equal(scene.quantum.current.coefficients.length,2);}
       values.forEach((value,i)=>assert.equal(versions[i].state.n,Math.round(value)));

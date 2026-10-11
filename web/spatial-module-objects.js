@@ -72,6 +72,11 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  if (window.PrimerFidelitySpatialFamilies) {
+    families['topology-open-set-geometry'] = window.PrimerFidelitySpatialFamilies.topology;
+    families['relativistic-event-geometry'] = window.PrimerFidelitySpatialFamilies.relativity;
+  }
+
   const cqNum=(v,d,a,b)=>(typeof v==='number'||typeof v==='string'&&v.trim()!=='')&&Number.isFinite(Number(v))?Math.max(a,Math.min(b,Number(v))):d;
   const cqFmt=v=>Number.isFinite(v)?Number(v.toPrecision(6)).toString():String(v);
   function cqColor(phase){

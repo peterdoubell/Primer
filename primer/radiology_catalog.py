@@ -1073,6 +1073,10 @@ def detail(curriculum, item):
     ref['source_motion_references'] = copy.deepcopy(_source_motion_references().get(item['id'], []))
     ref['source_study_references'] = copy.deepcopy(_source_study_references().get(item['id'], []))
     ref['annotated_anatomy_links'] = copy.deepcopy(annotated_anatomy_links().get(item['id'], []))
+    from .source_native_inspectors import references as native_inspectors
+    inspectors = native_inspectors().get(item['id'], [])
+    if inspectors:
+        ref['source_native_inspectors'] = copy.deepcopy(inspectors)
     ref['investigation'] = copy.deepcopy(item)
     if item['id'] == 'ra.hrct-lung':
         ref['quick_reference'] = _read('hrct-quick-reference.json')

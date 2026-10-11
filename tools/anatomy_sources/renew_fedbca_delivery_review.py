@@ -49,7 +49,8 @@ def historical_descriptor(value):
 
 def historical_module_contract(contract, module_id):
     """Restore only the separately reviewed shared spine gallery addition."""
-    result = historical_descriptor(contract)
+    from .brain_native_delivery_amendment import restored_historical_contract
+    result = historical_descriptor(restored_historical_contract(contract, module_id))
     if module_id == 'rad.4.spine-imaging':
         galleries = [item for item in result['lesson_media'] if item.get('kind') == 'source-gallery']
         if (len(galleries) != 1
@@ -151,6 +152,8 @@ def build_current_delivery_review(curriculum=None, bindings=None, root=ROOT):
     curriculum = curriculum or Curriculum()
     bindings = bindings if bindings is not None else source_model_bindings()
     gallery_review = verified_gallery_review(root)
+    from .brain_native_delivery_amendment import separate_review
+    native_review = separate_review(root)
     result = copy.deepcopy(retained)
     sources = []
     for previous, row in zip(retained['modules'], result['modules']):
@@ -182,6 +185,7 @@ def build_current_delivery_review(curriculum=None, bindings=None, root=ROOT):
         'reviewed_helper_commit': '5f18cb107987f65c6a12c6f893a4146e3a79ae94',
         'native_presentation_review': verified_helper_review(root),
         'separate_additive_gallery_scope': gallery_review,
+        'separate_additive_native_inspector': native_review,
         'permitted_descriptor_change': {
             'source_id': 'verse521-bones', 'field': 'source_volume.script_sha256',
             'previous_sha256': OLD_HELPER_SHA256, 'current_sha256': CURRENT_HELPER_SHA256,
