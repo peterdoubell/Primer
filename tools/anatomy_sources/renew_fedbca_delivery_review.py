@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Renew source delivery hashes only for the reviewed VerSe display helper change."""
+"""Renew delivery hashes for the reviewed helper and separate additive source gallery."""
 import argparse
 import copy
 import gzip
@@ -19,6 +19,8 @@ CURRENT_HELPER_SHA256 = '30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef7
 NATIVE_CONTRACT_SHA256 = '87c50f17631398d9d558b1b7c2065a7e53e9ecb9d47c39473ddc586b279f0a63'
 PRESENTATION_FOLDER = Path('docs/native-source-presentation-review-20261011')
 INDEPENDENT_REVIEW = Path('docs/native-source-presentation-independent-review-20261011.json')
+GALLERY_REVIEW = Path('docs/myelopathy-independent-source-review-20261011.json')
+GALLERY_REVIEW_SHA256 = 'ac775f60d6011bca10099a6607da02e4d99ea9489e9868ff0cf3948c60cba1b1'
 CONTRACT_FIELDS = ('goal', 'learning_outcomes', 'lesson', 'reference', 'radiology_reference',
                    'visual_spec', 'lesson_media', 'model_family', 'model_context', 'practice',
                    'quiz', 'kid_text')
@@ -43,6 +45,27 @@ def historical_descriptor(value):
 
     restore(result)
     return result
+
+
+def historical_module_contract(contract, module_id):
+    """Restore only the separately reviewed shared spine gallery addition."""
+    result = historical_descriptor(contract)
+    if module_id == 'rad.4.spine-imaging':
+        galleries = [item for item in result['lesson_media'] if item.get('kind') == 'source-gallery']
+        if (len(galleries) != 1
+                or galleries[0]['investigation_ids'] != ['ra.thoracolumbar-fractures', 'ra.mri-myelopathy']):
+            raise ValueError('Unreviewed shared spine source-gallery scope')
+        galleries[0]['investigation_ids'] = ['ra.thoracolumbar-fractures']
+    return result
+
+
+def verified_gallery_review(root):
+    """Pin the independent source review without extending source model approval."""
+    if hashlib.sha256((root / GALLERY_REVIEW).read_bytes()).hexdigest() != GALLERY_REVIEW_SHA256:
+        raise ValueError('Separate myelopathy source review changed')
+    return {'module_id': 'rad.4.spine-imaging', 'investigation_id': 'ra.mri-myelopathy',
+            'review': GALLERY_REVIEW.as_posix(), 'review_sha256': GALLERY_REVIEW_SHA256,
+            'source_models_or_historical_approval_extended': False}
 
 
 def verified_source_files(root, sources):
@@ -127,6 +150,7 @@ def build_current_delivery_review(curriculum=None, bindings=None, root=ROOT):
         raise ValueError('Retained delivery scope changed')
     curriculum = curriculum or Curriculum()
     bindings = bindings if bindings is not None else source_model_bindings()
+    gallery_review = verified_gallery_review(root)
     result = copy.deepcopy(retained)
     sources = []
     for previous, row in zip(retained['modules'], result['modules']):
@@ -138,7 +162,10 @@ def build_current_delivery_review(curriculum=None, bindings=None, root=ROOT):
             raise ValueError('Current model props differ from delivered source bindings')
         for value, field in ((contract, 'current_module_contract_sha256'),
                              (model['props'], 'model_props_sha256'), (refs, 'source_references_sha256')):
-            if digest(historical_descriptor(value)) != previous[field]:
+            historical_value = (historical_module_contract(value, row['module_id'])
+                                if field == 'current_module_contract_sha256'
+                                else historical_descriptor(value))
+            if digest(historical_value) != previous[field]:
                 raise ValueError('Unreviewed module/props/source descriptor change: ' + row['module_id'])
             row[field] = digest(value)
         if [ref['id'] for ref in refs] != previous['source_reference_ids']:
@@ -154,12 +181,13 @@ def build_current_delivery_review(curriculum=None, bindings=None, root=ROOT):
         'historical_source_commit': 'd0088d593ad8d56b0d3c1d03bc0da08451ffa63d',
         'reviewed_helper_commit': '5f18cb107987f65c6a12c6f893a4146e3a79ae94',
         'native_presentation_review': verified_helper_review(root),
+        'separate_additive_gallery_scope': gallery_review,
         'permitted_descriptor_change': {
             'source_id': 'verse521-bones', 'field': 'source_volume.script_sha256',
             'previous_sha256': OLD_HELPER_SHA256, 'current_sha256': CURRENT_HELPER_SHA256,
             'path': 'web/anatomy/verse521/ct-reference.js',
         },
-        'basis': 'Every retained full module contract, model props and source binding reproduces its historical digest after restoring only the reviewed VerSe helper fingerprint. Local source manifests, model payloads, images, volume viewers, scripts and complete scalar arrays match their descriptor identities.',
+        'basis': 'Every retained full module contract, model props and source binding reproduces its historical digest after restoring only the reviewed VerSe helper fingerprint and the independently reviewed additive myelopathy gallery reference in the shared spine lesson. The gallery does not extend historical source model approval. Local source manifests, model payloads, images, volume viewers, scripts and complete scalar arrays match their descriptor identities.',
         'new_browser_or_clinical_review_claimed': False,
         'clinical_approval': False,
         'fine_anatomical_approval': False,

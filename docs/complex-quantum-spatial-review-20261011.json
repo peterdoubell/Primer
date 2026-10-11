@@ -569,5 +569,12 @@
     "c6": {
       "reciprocal_integrands_have_no_zero_locus": true
     }
+  },
+  "post_audit_owner_cleanup": {
+    "path": "web/spatial-models.js",
+    "independent_review_sha256": "025f49beb5663c305f138ddf2bd6347ad9b5d6ff41478644c5c8d18bd4035afb",
+    "current_sha256": "7062c3e9126ada243852e47f8152554cafdca0497885c7fb68fd75d0d5a32280",
+    "change": "Removed a duplicate optionEnabled check from the invalid numeric-draft branch. Numeric inputs have no options; calculation, projection and geometry code are unchanged.",
+    "verification": "Current exact source is covered by final reader smoke and full regression/CI; the independent review remains bound to its recorded original hash."
   }
 }

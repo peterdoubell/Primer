@@ -23,7 +23,13 @@ def test_every_field_has_a_continuous_pathway(curriculum):
 
 
 def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
-    nodes = [node for node in curriculum.nodes.values() if node.get('lesson')]
+    # This expansion has authored generic model contexts. Dedicated scientific
+    # lessons have their own curriculum and numerical regression contracts.
+    nodes = [node for node in curriculum.nodes.values()
+             if node.get('lesson') and node.get('model_family')]
+    assert {node['id'] for node in curriculum.nodes.values()
+            if node.get('lesson') and not node.get('model_family')} == {
+        'math.5.complex-analysis', 'phys.4.quantum'}
     assert len(nodes) == 106
     for node in nodes:
         _validate_authored_lesson(node)

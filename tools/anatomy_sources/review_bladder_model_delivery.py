@@ -37,6 +37,13 @@ def scoped_contract(node):
 def checked_historical_contract(node, row):
     """Permit only the independently reviewed VerSe script transport amendment."""
     contract, props = scoped_contract(node)
+    # The source models keep their historical review. The separately reviewed
+    # myelopathy gallery is an additive lesson reference, not model approval.
+    if node['id'] == 'rad.4.spine-imaging':
+        gallery = next(m for m in contract['lesson_media'] if m.get('kind') == 'source-gallery')
+        if gallery['investigation_ids'] != ['ra.thoracolumbar-fractures', 'ra.mri-myelopathy']:
+            raise ValueError('Unreviewed shared spine source-gallery scope')
+        gallery['investigation_ids'] = ['ra.thoracolumbar-fractures']
     for source in props['source_references']:
         if source['id'] == 'verse521-bones':
             if source['source_volume']['script_sha256'] != CURRENT_HELPER_SHA:
@@ -56,6 +63,8 @@ def build_review():
     if sha(HISTORICAL) != HISTORICAL_SHA:
         raise ValueError('Immutable historical delivery evidence changed')
     historical = json.loads(HISTORICAL.read_text())
+    if sha(ROOT / 'docs/myelopathy-independent-source-review-20261011.json') != 'ac775f60d6011bca10099a6607da02e4d99ea9489e9868ff0cf3948c60cba1b1':
+        raise ValueError('Separate myelopathy source review changed')
     applied_path = presentation.FOLDER / 'applied-presentation-review.json'
     applied = json.loads(applied_path.read_text())
     independent = json.loads(presentation.INDEPENDENT.read_text())
@@ -115,6 +124,11 @@ def build_review():
             'native_presentation_independent_review_sha256': sha(presentation.INDEPENDENT),
             'allowed_descriptor_amendment': {'module_id': 'rad.4.spine-imaging', 'source_id': 'verse521-bones',
                                            'field': 'source_volume.script_sha256', **changes[0]},
+            'separate_additive_gallery_scope': {
+                'module_id': 'rad.4.spine-imaging', 'investigation_id': 'ra.mri-myelopathy',
+                'review': 'docs/myelopathy-independent-source-review-20261011.json',
+                'review_sha256': 'ac775f60d6011bca10099a6607da02e4d99ea9489e9868ff0cf3948c60cba1b1',
+                'source_models_or_historical_approval_extended': False},
             'matching_lessons': len(modules), 'source_references': historical['source_references'],
             'verified_current_files': dict(sorted(files.items())), 'modules': modules,
             'clinical_approval': False, 'fine_anatomical_approval': False,

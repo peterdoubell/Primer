@@ -75,7 +75,7 @@ node tools/check_physics_quantum_lab.js
 The focused JS check verifies 315 analytic states, 82 mounted states and 168
 unit-labelled SVG curves, including every available station, exact fixtures,
 invalid values, control endpoints, count ledgers, energy repeats, keyboard
-drafts, reset, speech and scoped controls. The seven Python tests pass and
+drafts, reset, speech and scoped controls. The eight Python tests pass and
 inspect production CommonJS output directly; they do not reuse the JS checker
 as their reference. Trigonometric amplitude comparisons allow `1e-11` absolute
 roundoff at the most rapidly rotating n=6 phase endpoints. Scientific
@@ -101,6 +101,19 @@ of each of the quantum and complex labs, verifies source exclusion and peer
 echo suppression, checks cross-lesson isolation, and prunes disconnected views.
 The combined focused Python suite passed ten tests in 12.32 seconds after these
 hooks and the display fixes; quantum calculations were unchanged.
+
+Release review found and repaired a correlated energy-projection eligibility
+gap. A prepared eigenstate can project only onto its own n. In the two-state
+preparation, n=1 requires mix<1 and n=2 requires mix>0; all other or
+zero-probability requested outcomes restore the unprojected preparation. The
+`preparedEnergyProbability` API exposes this support, and the 3D inspection menu
+disables unsupported outcomes. Actual ideal measurement and immediate repeats
+at the assessed n=3/n=4 fixtures remain valid. The focused suite now passes
+eleven tests (11.54 seconds); an independent Born-overlap oracle and sixty
+specified outcome-probability cases verify support, negative requests and
+mounted supported repeats. Earlier complete browser state counts below are
+historical; the affected release reader cases and final sources are pinned
+separately.
 
 The [actual quantum reader proof](/Users/peter/Documents/ChatGPT/Primer/.research/complex-quantum-owner-qa-20261011-_2wfb64z/quantum-proof.json)
 uses a fresh private database, separate backups, the scientific Python 3.12
@@ -131,8 +144,28 @@ Ten station viewport captures were retained. The reviewer visually inspected
 [mobile barrier](/Users/peter/Documents/ChatGPT/Primer/.research/complex-quantum-owner-qa-20261011-_2wfb64z/quantum-390-barrier-viewport.png)
 and [mobile photon dispersion](/Users/peter/Documents/ChatGPT/Primer/.research/complex-quantum-owner-qa-20261011-_2wfb64z/quantum-390-photon-viewport.png).
 The plots and units remain in frame, finite-bin markers are visible, and mobile
-panels stack above an internally scrollable ledger. Shared 3D reader controls,
-synchronization and camera evidence are recorded separately after integration.
+panels stack above an internally scrollable ledger.
+
+The [historical shared quantum reader proof](/Users/peter/Documents/ChatGPT/Primer/.research/complex-quantum-owner-qa-20261011-_2wfb64z/quantum-shared-proof.json)
+verified both widths, 72 spatial control states, eleven lab/measurement/batch
+cases, seventeen camera cases, current speech, full-state synchronization,
+source/peer echo suppression, and exact reset. Nondefault scientific state and
+camera tests distinguish preservation from accidental reset. That complete
+batch preceded the projection eligibility repair. The
+[bounded release projection proof](/Users/peter/Documents/ChatGPT/Primer/.research/complex-quantum-owner-qa-20261011-_2wfb64z/quantum-projection-release-proof.json)
+replays only fifteen affected cases at each width: impossible eigen/endpoint
+outcomes normalize to none and have disabled native options; valid mixed
+outcomes, n=3/n=4 measurements/repeats and core↔3D synchronization remain valid.
+Thirty-six current speaker captures, derived SVG bounds and all eleven
+loaded/served/local hashes passed with zero runtime errors. The complete
+historical batches were preserved and were not repeated for this repair.
+
+The [final post-main reader smoke](/Users/peter/Documents/ChatGPT/Primer/.research/complex-quantum-owner-qa-20261011-_2wfb64z/post-main-reader-proof.json),
+after main integration at `a96e36b`, opens both lessons in four fresh
+desktop/mobile contexts. Desktop panel folding/unfolding, supported fixtures,
+core↔3D controls, current speech and derived SVG bounds pass. All eleven
+browser-loaded/local source hashes match the frozen runtime, with zero errors.
+The private server was stopped after the proofs and documents were frozen.
 
 ## Primary references
 

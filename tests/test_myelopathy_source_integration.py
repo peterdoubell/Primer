@@ -214,12 +214,18 @@ with TestClient(server.app) as client:
   assert int(head.headers['content-length'])==expect['bytes'] and head.content==b''
   if expect['pdf']:assert get.headers['content-type'].startswith('application/pdf')
  for method in [client.get,client.head]:assert method('/app/reference-media/radiology-open/unknown-source.pdf',follow_redirects=False).status_code==404
+ # The real app intentionally blocks an unconfigured production database.
+ # Exercise this source handler's redirect contract in a minimal ASGI app;
+ # production DB/auth fail-closed protections are tested independently.
+ from fastapi import FastAPI
+ delivery=FastAPI();delivery.add_api_route('/app/reference-media/radiology-open/{asset}',server.radiology_image_delivery,methods=['GET','HEAD'])
  os.environ['VERCEL']='1'
- for url,expect in requests.items():
-  for method in [client.get,client.head]:
-   response=method(url+'?download=source',follow_redirects=False)
-   assert response.status_code==307 and response.headers['location']=='/source-media/'+url.removeprefix('/app/')+'?download=source'
- for method in [client.get,client.head]:assert method('/app/reference-media/radiology-open/unknown-source.pdf',follow_redirects=False).status_code==404
+ with TestClient(delivery) as delivery_client:
+  for url,expect in requests.items():
+   for method in [delivery_client.get,delivery_client.head]:
+    response=method(url+'?download=source',follow_redirects=False)
+    assert response.status_code==307 and response.headers['location']=='/source-media/'+url.removeprefix('/app/')+'?download=source'
+  for method in [delivery_client.get,delivery_client.head]:assert method('/app/reference-media/radiology-open/unknown-source.pdf',follow_redirects=False).status_code==404
 print('27 source image/PDF GET+HEAD routes, exact bytes/MIME, static redirects and unknown rejection verified')
 """
  run=subprocess.run([sys.executable,'-c',script],cwd=ROOT,input=json.dumps(requests),env=env,capture_output=True,text=True,timeout=60)

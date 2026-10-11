@@ -125,7 +125,7 @@ def test_every_current_case_model_prop_matches_its_full_current_delivery_proof()
     from tools.anatomy_sources.renew_fedbca_delivery_review import build_current_delivery_review
     curr=Curriculum();proof=json.loads((PROOF/'current-source-delivery-review.json').read_text());bindings=source_model_bindings()
     # Keep the reviewed case scope and exact historical proof. The renewal
-    # permits only the separately reviewed VerSe helper fingerprint change,
+    # permits only the reviewed helper and separate additive spine gallery,
     # and verifies every current local source byte against retained identities.
     assert proof==build_current_delivery_review(curr,bindings)
     reviewed_ids={row['module_id'] for row in proof['modules']}
@@ -140,8 +140,8 @@ def test_every_current_case_model_prop_matches_its_full_current_delivery_proof()
         assert digest(bindings[node['id']])==row['source_references_sha256']
 
 
-@pytest.mark.parametrize('change',['model_props','source_context','helper'])
-def test_delivery_renewal_rejects_changes_outside_the_reviewed_helper_fingerprint(change):
+@pytest.mark.parametrize('change',['model_props','source_context','helper','gallery_scope','gallery_caption'])
+def test_delivery_renewal_rejects_changes_outside_the_reviewed_amendments(change):
     import copy
     from primer.module_media import source_model_bindings
     from tools.anatomy_sources.renew_fedbca_delivery_review import build_current_delivery_review
@@ -154,6 +154,10 @@ def test_delivery_renewal_rejects_changes_outside_the_reviewed_helper_fingerprin
     elif change=='source_context':
         bindings[node['id']][0]['population_note']='Registered to another source case'
         props['source_references']=copy.deepcopy(bindings[node['id']])
+    elif change=='gallery_scope':
+        next(m for m in node['lesson_media'] if m.get('kind')=='source-gallery')['investigation_ids'].append('ra.mri-bladder')
+    elif change=='gallery_caption':
+        next(m for m in node['lesson_media'] if m.get('kind')=='source-gallery')['caption']='Unreviewed source model approval'
     else:
         bindings[node['id']][0]['source_volume']['script_sha256']='0'*64
         props['source_references']=copy.deepcopy(bindings[node['id']])
@@ -161,6 +165,14 @@ def test_delivery_renewal_rejects_changes_outside_the_reviewed_helper_fingerprin
         def node(self,identifier):return nodes[identifier]
     with pytest.raises(ValueError,match='Unreviewed|helper differs'):
         build_current_delivery_review(Snapshot(),bindings)
+
+
+def test_delivery_renewal_rejects_changed_independent_gallery_review(tmp_path):
+    from tools.anatomy_sources.renew_fedbca_delivery_review import verified_gallery_review,GALLERY_REVIEW
+    path=tmp_path/GALLERY_REVIEW;path.parent.mkdir(parents=True)
+    path.write_bytes((ROOT/GALLERY_REVIEW).read_bytes()+b'\n')
+    with pytest.raises(ValueError,match='myelopathy source review changed'):
+        verified_gallery_review(tmp_path)
 
 
 def test_delivery_renewal_rejects_changed_source_array_bytes(tmp_path):
