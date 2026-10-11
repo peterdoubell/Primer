@@ -402,6 +402,13 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'math-algebra-lab' || media.renderer === 'physics-quantum-info-lab') {
+          const algebra = media.renderer === 'math-algebra-lab';
+          assert.equal(lesson.id, algebra ? 'math.5.abstract' : 'phys.5.quantum-info');
+          assert.equal(media.kind, 'model');
+          assert.deepEqual(media.props, {scenario: algebra ? 'math.5.abstract.groups-rings-fields' : 'phys.5.quantum-info.qubits-circuits-resources'});
+          continue;
+        }
         if (media.renderer === 'math-topology-lab' || media.renderer === 'physics-relativity-lab') {
           const topology = media.renderer === 'math-topology-lab';
           assert.equal(lesson.id, topology ? 'math.5.topology' : 'phys.4.relativity');

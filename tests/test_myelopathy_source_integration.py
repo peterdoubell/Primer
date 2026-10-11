@@ -15,6 +15,7 @@ import pytest
 from primer.curriculum import Curriculum
 from primer import radiology_catalog as catalog
 from tools.anatomy_sources import integrate_myelopathy_sources as integration
+from tools.anatomy_sources import traumatic_registry_amendment as trauma_amendment
 from tools.check_msk_fidelity import audit,inspect_binding,requirements_for,validate_reporting_snapshots
 from tools.check_radiology_fidelity import digest
 from tools.msk_runtime_rights import license_issues,audit_reference_image_rights
@@ -179,6 +180,7 @@ def test_unrelated_json_values_and_references_keep_frozen_semantics(source):
  changes={r['id']:r for r in dependency['updated_assets']} if dependency else {}
  for file,expect in receipt['unrelated_data'].items():
   data=json.loads((ROOT/file).read_text());tokens=integration.unrelated_token_fingerprints((ROOT/file).read_text(),Path(file),ids)
+  data,tokens=trauma_amendment.restore_prior_view(file,data,tokens)
   if file.endswith('radiology-open-images.json'):data={k:v for k,v in data.items() if k!=INV}
   elif file.endswith('radiology-asset-evidence.json'):
    data={**data,'assets':[copy.deepcopy(a) for a in data['assets'] if a['id'] not in ids]}
@@ -231,3 +233,47 @@ print('27 source image/PDF GET+HEAD routes, exact bytes/MIME, static redirects a
  run=subprocess.run([sys.executable,'-c',script],cwd=ROOT,input=json.dumps(requests),env=env,capture_output=True,text=True,timeout=60)
  assert run.returncode==0,run.stdout+run.stderr
  assert '27 source image/PDF' in run.stdout
+
+
+@pytest.mark.parametrize('file,mutation',[
+ ('data/radiology/radiology-open-images.json','source_caption'),
+ ('data/radiology/radiology-asset-evidence.json','cross_investigation'),
+ ('data/radiology/non-msk-structure-requirements.json','clinical_promotion'),
+ ('data/radiology/non-msk-structure-requirements.json','duplicate_scope'),
+ ('data/radiology/reporting-steps/neuroradiology.json','patient_finding'),
+])
+def test_exact_trauma_additive_amendment_rejects_modified_or_cross_scope_values(source,file,mutation):
+ ids={r['id'] for r in source[1]};raw=(ROOT/file).read_text()
+ data=json.loads(raw);tokens=integration.unrelated_token_fingerprints(raw,Path(file),ids)
+ inv=trauma_amendment.INVESTIGATION
+ if mutation=='source_caption':data[inv][0]['caption']+=' Unreviewed source claim.'
+ elif mutation=='cross_investigation':
+  asset=next(a for a in data['assets'] if a['id'].startswith('open-traumatic-'))
+  asset['investigation_ids']=['ra.intracranial-haemorrhage']
+ elif mutation=='clinical_promotion':
+  item=next(i for i in data['investigations'] if i['investigation_id']==inv);item['clinical_approval']=True
+ elif mutation=='duplicate_scope':data['scope']['catalog_investigation_ids'].append(inv)
+ else:data['investigations'][inv]['steps'][0]['normal']['EXTRA-AXIAL BLOOD']='No haemorrhage.'
+ with pytest.raises(ValueError):trauma_amendment.restore_prior_view(file,data,tokens)
+
+
+def test_trauma_amendment_preserves_unrelated_changes_for_the_existing_historical_guard(source):
+ file='data/radiology/radiology-open-images.json';raw=(ROOT/file).read_text();data=json.loads(raw)
+ ids={r['id'] for r in source[1]};tokens=integration.unrelated_token_fingerprints(raw,Path(file),ids)
+ unrelated=next(k for k in data if k not in {INV,trauma_amendment.INVESTIGATION})
+ data[unrelated][0]['caption']+=' Unreviewed unrelated source claim.'
+ restored,_=trauma_amendment.restore_prior_view(file,data,tokens)
+ restored.pop(INV,None)
+ receipt=json.loads((FOLDER/'integration-receipt.json').read_text())
+ assert digest(restored)!=receipt['unrelated_data'][file]['unrelated_semantic_sha256']
+ assert restored[unrelated][0]['caption'].endswith('Unreviewed unrelated source claim.')
+
+
+def test_trauma_amendment_rejects_value_token_drift_and_unreviewed_paths(source):
+ file='data/radiology/reporting-steps/neuroradiology.json';raw=(ROOT/file).read_text();data=json.loads(raw)
+ ids={r['id'] for r in source[1]};tokens=integration.unrelated_token_fingerprints(raw,Path(file),ids)
+ tokens['walkthrough:'+trauma_amendment.INVESTIGATION]='0'*64
+ with pytest.raises(ValueError,match='raw value token'):
+  trauma_amendment.restore_prior_view(file,data,tokens)
+ with pytest.raises(ValueError,match='Unreviewed historical registry path'):
+  trauma_amendment.restore_prior_view('data/radiology/other-case.json',data,tokens)

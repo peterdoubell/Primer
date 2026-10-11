@@ -2001,6 +2001,22 @@ function sourceNativeInspector(asset) {
     radiologySourceLink(asset.license, asset.license_url));
 }
 
+function sourceContextDocuments(documents, createElement = el) {
+  const section = createElement('section', { class: 'rad-protocol source-context-documents' },
+    createElement('h3', {}, 'Original reporting documents'),
+    createElement('p', {}, 'These publications and their original examples support the reporting definitions. They do not supply the current patient’s acquisitions or register different source cases to one another.'));
+  for (const document of documents) {
+    const format = document.src.split('.').at(-1).toUpperCase();
+    section.append(createElement('p', {},
+      createElement('a', { href: document.src, target: '_blank', rel: 'noopener noreferrer' }, document.title + ' · ' + format),
+      ' · ' + (document.bytes / 1048576).toFixed(2) + ' MB'));
+    section.append(createElement('p', { class: 'rad-image-credit' }, document.attribution));
+    section.append(createElement('a', { href: document.source_url, target: '_blank', rel: 'noopener noreferrer' }, 'Original publication'), ' · ',
+      createElement('a', { href: document.license_url, target: '_blank', rel: 'noopener noreferrer' }, document.license));
+  }
+  return section;
+}
+
 function lessonSourceGallery(item, { loadReference = id => api.get('/api/radiology/modules/' + encodeURIComponent(id)),
   createElement = el, createButton = btn, renderFigure = sourceAtlasFigure, renderStudy = sourceStudyReference, renderInspector = sourceNativeInspector,
   wirePictures = attachPictureHandlers } = {}) {
@@ -2023,6 +2039,8 @@ function lessonSourceGallery(item, { loadReference = id => api.get('/api/radiolo
       const section = createElement('details', {}, createElement('summary', {}, reference.title + ' · ' + figures.length + ' source references'));
       section.append(createElement('a', { href: '#radiology/' + encodeURIComponent(reference.id) }, 'Open reporting reference'));
       for (const figure of figures) section.append(nativeMode ? renderInspector(figure) : studyMode ? renderStudy(figure) : renderFigure(figure));
+      if (!studyMode && !nativeMode && reference.radiology_reference.source_context_documents?.length)
+        section.append(sourceContextDocuments(reference.radiology_reference.source_context_documents, createElement));
       groups.set(missing[index], section);
       wirePictures(section);
     });
@@ -2795,6 +2813,7 @@ async function renderRadiologyDesk(page, nodeId) {
     ['template', 'Report template', panel => panel.append(templates)],
     ['images', ref.source_native_inspectors?.length ? 'Images and native source' : studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
       (ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
+      if (ref.source_context_documents?.length) panel.append(sourceContextDocuments(ref.source_context_documents));
       studyReferences.forEach(asset => panel.append(sourceStudyReference(asset)));
       motionReferences.forEach(asset => panel.append(sourceMotionReference(asset)));
       referenceImages.forEach(asset => panel.append(sourceReferenceFigure(asset)));

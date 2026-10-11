@@ -5220,9 +5220,9 @@
    "quiz": [
     {
      "kind": "choice",
-     "prompt": "Two qubits are prepared in a maximally entangled state. Alice measures her qubit and gets a definite result. What is true about Bob's qubit?",
+     "prompt": "Alice and Bob share the Bell state (|00〉+|11〉)/√2. Alice measures in the computational basis and gets a definite result. Before any classical message, what is true?",
      "answer": "Their outcomes are now correlated, but no message has been sent.",
-     "explain": "Alice's outcome is random, so Bob's own statistics are unchanged and nothing is signalled. The correlation appears only when the two lists of results are compared over a classical channel, and it holds in a matched basis, not in every basis.",
+     "explain": "Alice’s outcome is random. Conditional on her result, Bob has the matching computational-basis state, but without that information his reduced state remains I/2. Bob’s local statistics cannot reveal Alice’s result or measurement choice; correlations are compared through a classical channel.",
      "choices": [
       "Bob's qubit takes the same value as Alice's in any basis he picks.",
       "Bob instantly receives a signal Alice chose, faster than light.",
@@ -5244,9 +5244,9 @@
     },
     {
      "kind": "choice",
-     "prompt": "Three qubits are prepared in an equal superposition of all eight basis states. A student says the register therefore holds all eight numbers at once, so a single measurement will read them all out. Assess the claim.",
+     "prompt": "A freshly prepared three-qubit register is in an equal superposition of all eight computational basis states. A student says a single computational-basis measurement will read all eight numbers. Assess the claim.",
      "answer": "Wrong: a measurement returns one of the eight, chosen at random.",
-     "explain": "The amplitudes really do describe all eight states, but measurement collapses the register to one three-bit string and repeating gives a fresh random one. Useful algorithms make the amplitudes interfere so the wanted answer becomes likely: the speed-up comes from interference, not from reading everything out at once.",
+     "explain": "A single computational-basis measurement returns one three-bit string with probability 1/8. Repeating that same measurement on the collapsed register returns the same string; a new random draw requires fresh preparation. Algorithms use interference to change outcome probabilities, rather than reading all amplitudes in one measurement.",
      "choices": [
       "Right: that parallelism is where the quantum speed-up comes from.",
       "Wrong: three qubits can only ever hold three of the eight states.",
@@ -5256,9 +5256,9 @@
     },
     {
      "kind": "numeric",
-     "prompt": "Describing the state of an n-qubit register takes 2 to the power n complex amplitudes. Give the number of complex amplitudes needed for 10 qubits.",
+     "prompt": "A pure 10-qubit register is described in the computational basis. How many complex amplitudes does its state vector contain?",
      "answer": "1024",
-     "explain": "2 to the tenth is 1024. The exponential growth is why classical simulation of a few dozen qubits already strains large computers."
+     "explain": "The computational basis has 2^10=1024 states. A pure-state vector therefore has 1024 complex amplitudes, subject to normalization and an unobservable common phase. A general mixed state instead requires a density-operator description."
     },
     {
      "kind": "choice",
@@ -5274,7 +5274,7 @@
     },
     {
      "kind": "choice",
-     "prompt": "A team runs Grover's algorithm on an unstructured database of a million entries and reports needing about a thousand queries, against roughly five hundred thousand for the best classical search. Assess the speed-up.",
+     "prompt": "Assume an ideal query oracle for one marked item in an unstructured database of a million entries. A team describes Grover search as using on the order of a thousand oracle queries, versus on the order of five hundred thousand classical queries on average. Assess the scaling claim.",
      "answer": "Right: a quadratic speed-up is exactly what Grover gives.",
      "choices": [
       "Right: a quadratic speed-up is exactly what Grover gives.",
@@ -5282,19 +5282,19 @@
       "Wrong: quantum search gives no advantage at all.",
       "Right, but the advantage disappears for large sets."
      ],
-     "explain": "Grover needs about the square root of N queries, and the square root of a million is a thousand. The gain is real but only quadratic, unlike Shor's exponential advantage."
+     "explain": "With one marked item and an ideal oracle, Grover search uses Θ(√N) queries: the first probability maximum is near (π/4)√N, about 785 for a million items. The comparison is a quadratic query advantage. Oracle construction, data access, gate costs and hardware errors are separate; no unconditional exponential classical lower bound is asserted for other algorithms."
     },
     {
      "kind": "numeric",
-     "prompt": "How many complex amplitudes are needed to describe the state of a 12-qubit register?",
+     "prompt": "A pure 12-qubit register is described in the computational basis. How many complex amplitudes does its state vector contain?",
      "answer": "4096",
-     "explain": "2 to the power 12 = 4096 amplitudes."
+     "explain": "The computational basis has 2^12=4096 states. A pure-state vector therefore has 4096 complex amplitudes, subject to normalization and an unobservable common phase. A general mixed state instead requires a density-operator description."
     },
     {
      "kind": "numeric",
-     "prompt": "Grover's algorithm needs roughly the square root of N queries for an unstructured search of N items. Roughly how many queries for N = 1e8?",
+     "prompt": "In the ideal one-marked-item query model, Grover search scales on the order of √N queries. Give √N for N=1e8.",
      "answer": "10000",
-     "explain": "The square root of 1e8 is 1e4, about 10000 queries."
+     "explain": "√(10⁸)=10⁴=10000 sets the query scale; the first probability maximum is near (π/4)√N rather than exactly √N. This excludes oracle construction and hardware costs."
     },
     {
      "kind": "choice",
@@ -5318,7 +5318,7 @@
       "Nine qubits cannot represent enough states for the task.",
       "The noise averages away if the circuit is run many times over."
      ],
-     "explain": "With a per-gate error of e, coherence survives roughly 1/e gates — about 200 here, which is the scale at which the output degrades. Beyond that a fault-tolerant encoding is needed; repetition alone does not undo coherent errors."
+     "explain": "The observed output degradation is consistent with accumulated circuit errors, which extra measurement shots alone do not remove. Under independent per-gate error occurrences with p=0.005, the no-error probability is (1−p)^g, about 0.367 after 200 gates. That is not a universal coherence time or output fidelity: the channel, circuit, observable and error correction determine their behavior. The per-gate percentage alone cannot establish a completely random output."
     }
    ],
    "prereqs": [
@@ -5346,8 +5346,32 @@
      "props": {
       "scenario": "phys.5.quantum-info"
      }
+    },
+    {
+     "id": "phys.5.quantum-info.fidelity-lab",
+     "kind": "model",
+     "renderer": "physics-quantum-info-lab",
+     "title": "Qubits, circuits and quantum resources",
+     "instructions": "Inspect actual amplitudes, reduced states, measurement branches and circuit operations. Compare teleportation, Grover amplification and declared noise channels with their assumptions.",
+     "props": {
+      "scenario": "phys.5.quantum-info.qubits-circuits-resources"
     }
-   ]
+    }
+   ],
+   "learning_outcomes": [
+    "Represent normalized pure qubit states, gate operations and computational-basis register amplitudes, while distinguishing mixed states and global phase.",
+    "Compute joint and reduced Bell-state statistics and separate conditional state updates from faster-than-light signalling.",
+    "Demonstrate why a basis-copying gate fails to clone an arbitrary unknown superposition.",
+    "Track the full teleportation circuit, all four Bell outcomes and the two classical bits needed for Bob’s correction.",
+    "Apply actual Grover oracle and diffusion operations, compare query scaling and identify overshoot and oracle-cost assumptions.",
+    "Calculate a declared noise channel and distinguish error-occurrence probabilities, output distributions and physical state fidelity."
+   ],
+   "lesson": {
+    "overview": "Quantum information uses complex amplitudes, gates, measurement and entanglement as computational resources. An n-qubit pure register has 2ⁿ computational-basis amplitudes, but one measurement yields one outcome. Density operators describe mixtures and local states of entangled systems; no measurement of one subsystem supplies a controllable remote signal.",
+    "worked_example": "Applying H to |0〉 and a controlled-X to |00〉 prepares (|00〉+|11〉)/√2. Its two local reduced states are I/2. A controlled-X copies either computational-basis label into a blank target, but on a superposition it produces entanglement rather than two arbitrary identical qubits. Teleportation yields four equally likely Bell outcomes, each requiring the corresponding Pauli correction after two classical bits arrive.",
+    "activity": "Explore qubit gates and phases, pure registers and fresh versus repeated measurement, Bell reductions, cloning, the complete teleportation protocol, Grover amplification and explicit noise channels. Compare exact amplitudes, probabilities and physically equivalent states. Use small-register simulation to inspect actual operations and separately labelled analytic query models for large searches.",
+    "reflection": "Global phase is unobservable, relative phase can affect interference, and entanglement does not replace a classical communication channel. Grover’s query scaling is conditional on an ideal oracle and does not count data loading or error correction. A per-gate error rate does not uniquely determine coherence or output quality; the stated channel and circuit must support any quantitative conclusion."
+   }
   },
   {
    "id": "phys.5.frontier",

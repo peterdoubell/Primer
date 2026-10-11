@@ -270,20 +270,41 @@ def test_recorded_actual_browser_appearance_cannot_be_reused_after_source_change
 
 def test_actual_reader_browser_retains_every_original_and_nine_unfilled_areas():
     proof,rows=artifacts()
-    # Preserve the original source review; bridge only this exact app revision.
+    # Preserve both prior reviews; bridge only this exact app revision.
     historical_raw=(EVIDENCE/'browser-integration-review.json').read_bytes()
     amendment_raw=(EVIDENCE/'browser-compatibility-amendment-20261011.json').read_bytes()
+    current_raw=(EVIDENCE/'browser-compatibility-amendment-algebra-trauma-20261011.json').read_bytes()
+    assert sha(current_raw)=='8f048b16048e9f1c83a0e01eb7b487d26ccded97af09fdf5152b99388ac405b1'
     assert sha(historical_raw)=='eb09ba589f99e695d833aa0cd5d29c232b313a986652b93390eea633842799a5'
     assert sha(amendment_raw)=='0571958acfe92cc2750580a8daee68b7109a728530f230365225e01dfbcffcd2'
-    historical=json.loads(historical_raw);amendment=json.loads(amendment_raw)
+    historical=json.loads(historical_raw);amendment=json.loads(amendment_raw);current=json.loads(current_raw)
     assert amendment['historical_review_sha256']==sha(historical_raw)
     assert amendment['historical_app_js_sha256']==historical['app_js_sha256']=='4c88dab41f6e1e3d1b1b3c15721dc9d45eade4441fc6725df52a871e2464e563'
-    assert amendment['app_js_sha256']==sha((ROOT/'web/app.js').read_bytes())=='be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f'
+    assert amendment['app_js_sha256']=='be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f'
+    assert current['app_js_sha256']==sha((ROOT/'web/app.js').read_bytes())=='a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d'
+    assert current['historical_review_sha256']==sha(historical_raw)
+    assert current['historical_app_js_sha256']==historical['app_js_sha256']
+    assert current['previous_compatibility_amendment_sha256']==sha(amendment_raw)
+    assert current['previous_compatibility_app_js_sha256']==amendment['app_js_sha256']
+    assert current['historical_approval_scope_unchanged'] and not current['supersedes_historical_review']
+    assert not current['supersedes_previous_compatibility_amendment']
+    assert current['authenticated_reader'] and current['disposable_database_and_backups']
+    assert not current['persistent_browser_profile_used'] and not current['production_or_deployment_verification']
+    assert current['browser_and_contexts_closed'] and current['server_shutdown_owned_by_parent']
+    assert current['unchanged_native_manifest_sha256']==sha((ROOT/'web/anatomy/hra-female-pelvis-v1.10/manifest.json').read_bytes())
+    assert current['reviewed_visual_capture_count']==sum(len(r['screenshots']) for r in current['results'])
+    for result in current['results']:
+        assert result['served_app_js_sha256']==current['app_js_sha256']
+        assert result['served_detailed_anatomy_js_sha256']==current['detailed_anatomy_js_sha256']
+        assert result['source_context_documents_absent'] and result['api_source_context_documents_absent']
+        assert result['source_context_document_checks']
+        assert all(check['document_count']==0 for check in result['source_context_document_checks'])
+        assert all(s['file'].startswith('algebra-trauma-20261011-') for s in result['screenshots'])
     assert amendment['historical_approval_scope_unchanged'] and not amendment['supersedes_historical_review']
     assert amendment['authenticated_reader'] and amendment['disposable_database_and_backups']
     assert not amendment['persistent_browser_profile_used'] and not amendment['production_or_deployment_verification']
     assert amendment['unchanged_native_manifest_sha256']==sha((ROOT/'web/anatomy/hra-female-pelvis-v1.10/manifest.json').read_bytes())
-    for review in [historical,amendment]:
+    for review in [historical,amendment,current]:
         assert review['all_requested_routes_and_viewports_passed'] and review['owned_isolated_qa_server']
         assert review['source_contract_sha256']==sha((EVIDENCE/'source-figure-contract.json').read_bytes())
         assert review['detailed_anatomy_js_sha256']==sha((ROOT/'web/radiology-detailed-anatomy.js').read_bytes())
