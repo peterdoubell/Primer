@@ -3351,25 +3351,43 @@ def test_the_two_night_palettes_cannot_drift_apart():
     Both blocks read from the --dk-* definitions in :root, so this also checks
     that every night value has a single source rather than a literal.
     """
-    import re
-
     css = _web("styles.css")
-    # Plain string slicing, not a lazy multi-line regex: the block is located
-    # by its exact opening and its two-level closing brace.
-    opening = '@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {'
-    assert opening in css, "the media-query night palette must exist"
-    start = css.index(opening) + len(opening)
-    media_block = css[start:css.index('\n  }\n}', start)]
-    toggle = re.search(r':root\[data-theme="dark"\] \{(.*?)\n\}', css, re.S)
-    assert toggle, "the explicit night palette must exist"
 
-    names = lambda block: set(re.findall(r"(--[a-z0-9-]+)\s*:", block))
-    in_media, in_toggle = names(media_block), names(toggle.group(1))
+    def palette_block(opening, closing):
+        assert opening in css, "the night palette block must exist"
+        start = css.index(opening) + len(opening)
+        end = css.find(closing, start)
+        assert end >= start, "the palette block must close"
+        return css[start:end]
+
+    def names(block):
+        # Split comments and declarations once. Each input character is read
+        # a bounded number of times; repeated dashes/braces cannot backtrack.
+        comment_parts = block.split("/*")
+        plain = [comment_parts[0]]
+        for part in comment_parts[1:]:
+            _, closed, rest = part.partition("*/")
+            assert closed, "palette comments must close"
+            plain.append(rest)
+        result = set()
+        alphabet = "abcdefghijklmnopqrstuvwxyz0123456789-"
+        for declaration in "".join(plain).split(";"):
+            name, colon, _ = declaration.partition(":")
+            name = name.strip()
+            if (colon and name.startswith("--") and len(name) > 2
+                    and all(character in alphabet for character in name[2:])):
+                result.add(name)
+        return result
+
+    media_block = palette_block(
+        '@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {',
+        '\n  }\n}')
+    toggle_block = palette_block(':root[data-theme="dark"] {', '\n}')
+    in_media, in_toggle = names(media_block), names(toggle_block)
     assert in_media == in_toggle, "night palettes drifted: {}".format(
         sorted(in_media ^ in_toggle))
 
-    root = re.search(r"^:root \{(.*?)\n\}", css, re.S | re.M).group(1)
-    sources = names(root)
+    sources = names(palette_block(':root {', '\n}'))
     missing = sorted(v for v in in_media if "--dk-" + v[2:] not in sources)
     assert not missing, "night values with no --dk-* source: {}".format(missing)
 
