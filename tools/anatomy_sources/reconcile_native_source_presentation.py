@@ -14,6 +14,10 @@ import zlib
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
+try:
+    from tools.anatomy_sources.ui_refresh import advance as ui_refreshed
+except ImportError:  # run as a script from its own directory
+    from ui_refresh import advance as ui_refreshed
 REVIEW = ROOT / 'docs/native-source-presentation-review-20261011'
 NATIVE_CACHE = ROOT / '.research/native-source-presentation-20261011'
 VERSE_MASTER = NATIVE_CACHE / 'verse-master'
@@ -245,8 +249,11 @@ def proposed_contract(liu_proof, reader_proof):
         assert sum(len(p['slices']) for level in row['ct'] for p in level['planes']) == 153
         assert sum(len(p['pointers']) for level in row['ct'] for p in level['planes']) == 102
         assert all(p['outside'] for level in row['ct'] for p in level['planes'])
+    # app.js and styles.css may have moved on through a recorded UI-only
+    # refresh (data/radiology/ui-presentation-refreshes.json); every native
+    # file must still be byte-identical to what the proof served.
     for name, expected in browser['served'].items():
-        assert sha((ROOT / name).read_bytes()) == expected, 'Reader proof is stale: ' + name
+        assert sha((ROOT / name).read_bytes()) == ui_refreshed(name, expected), 'Reader proof is stale: ' + name
     evidence = json.loads((ROOT / 'data/radiology/msk-asset-evidence.json').read_text())
     by_id = {a['id']: a for a in evidence['assets']}
     amendments = []
