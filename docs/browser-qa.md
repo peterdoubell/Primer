@@ -16,10 +16,13 @@ temporary directory for every run:
 - `check_detailed_anatomy.cjs`
 - `check_content_resilience.cjs`
 - `check_concept_browser.cjs`
-- `check_cervical_browser.cjs` — re-runs the cervical-cancer browser integration review.
-  `tests/test_cervical_cancer_runtime.py` pins that record to the sha256 of
-  `web/app.js`, so any change to app.js needs this run; it writes `review.json`
-  for `docs/cervical-cancer-source-review/browser-integration-review.json`.
+- `check_source_review_browser.cjs URL MODULE` — re-runs a radiology module's
+  browser integration review (`MODULE` is `cervical` or `endometrial`). Their
+  tests pin `docs/<module>-cancer-source-review/browser-integration-review.json`
+  to the sha256 of `web/app.js` (and `web/radiology-detailed-anatomy.js`), so a
+  change to either file needs this run for every module; it writes `review.json`
+  and the screenshots (the endometrial record's screenshots are committed
+  beside it).
 
 They print `EVIDENCE_DIRECTORY=<absolute path>` before starting the browser. Read
 that line to find screenshots and result reports. No command-line value controls

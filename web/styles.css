@@ -4561,7 +4561,8 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-check-item span > strong { display: block; }
 .rad-check-item span > span { display: block; margin-top: 4px; color: var(--ink-soft); }
 .rad-check-item:has(input:checked) { opacity: .75; }
-.rad-checklist-actions { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 18px; }
+/* Wraps: three actions at a young reader's 20px type are wider than a phone. */
+.rad-checklist-actions { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 15px; margin-top: 18px; }
 .rad-checklist-status { color: var(--ink-soft); font-size: 12px; }
 .rad-table-scroll { min-width: 0; max-width: 100%; overflow-x: auto; margin: 24px 0; }
 .rad-measurement-table { width: 100%; border-collapse: collapse; font: 14px/1.55 var(--sans); }
