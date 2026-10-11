@@ -19,6 +19,13 @@
   --shadow: rgba(48, 22, 18, 0.2);
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --sans: "Optima", "Segoe UI", -apple-system, system-ui, sans-serif;
+  /* The instrument face. The serif is the book's voice and the sans its
+     captions; this third face is reserved for what the book *measures* —
+     indices, counts, statuses, running heads — set uppercase and tracked, the
+     way a catalogue card or a launcher states a fact. System faces only: the
+     book has to open offline, and every platform ships a good mono. */
+  --mono: "SF Mono", ui-monospace, "JetBrains Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --track: 0.12em;
   --focus: #1f5fbf;
   --paper-hi: #faf5ee;
   --field: #fffaf3;
@@ -42,9 +49,13 @@
      card, sheet — nudged a hair rounder, which is where a corner stops reading
      as machined and starts reading as continuous. (Absorbed from PR #3, which
      said this first and then sat unmerged while the file moved under it.) */
-  --r-ctl: 10px;          /* buttons, inputs, choices, nav pills, tiles */
-  --r-card: 14px;         /* cards, quest items, the tutor's replies */
-  --r-sheet: 18px;        /* modals and full panels */
+  --r-ctl: 5px;           /* buttons, inputs, choices, nav pills, tiles */
+  --r-card: 6px;          /* cards, quest items, the tutor's replies */
+  --r-sheet: 10px;        /* modals and full panels */
+  /* Machined, not pillowed: the corners tightened when the book took on its
+     instrument grammar (ruled grids, indexed cards, tracked labels), because a
+     ruled table with 14px corners reads as a stack of cushions. The two
+     youngest stages keep the softer set — see the body[data-stage] rule. */
   /* One motion scale, and one spring for every press and pop. The old eases
      were flat and all slightly different; the spring overshoots by a hair and
      settles, which is what makes a control feel sprung rather than animated.
@@ -513,7 +524,7 @@ button { font-family: var(--sans); cursor: pointer; }
 }
 @keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
 .pagehead { border-bottom: 2px solid var(--rule); padding-bottom: 12px; margin-bottom: 24px; }
-.pagehead .kicker { font-family: var(--sans); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-ink); font-weight: 700; }
+.pagehead .kicker { font-family: var(--mono); font-size: 12.5px; text-transform: uppercase; letter-spacing: var(--track); color: var(--gold-ink); font-weight: 600; }
 .pagehead h2 { font-size: 34px; margin: 4px 0 0; font-weight: 500; }
 .pagehead p { color: var(--ink-soft); margin: 6px 0 0; font-size: 15px; }
 .dropcap::first-letter {
@@ -544,12 +555,17 @@ button { font-family: var(--sans); cursor: pointer; }
    tactile half of the hover lift, without which a card feels like glass. */
 .lesson-card:active { transform: translateY(-1px) scale(.995);
   box-shadow: 0 3px 8px var(--shadow); transition-duration: .06s; }
-.lesson-card .domain-tag { font-family: var(--sans); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--on-fill); padding: 2px 8px; border-radius: 20px; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+/* A machined plate in the domain's colour (the fill is inline, from the
+   curriculum), set in the instrument face. */
+.lesson-card .domain-tag { font: 600 12.5px/1.3 var(--mono); letter-spacing: var(--track); text-transform: uppercase;
+  color: var(--on-fill); padding: 3px 8px; border-radius: 3px; display: inline-block; max-width: 100%; overflow-wrap: anywhere;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(0,0,0,.18); }
 /* Metadata wraps as a pair; neither label can paint over its neighbour. */
 .lesson-meta { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 6px 10px; margin-bottom: 10px; }
 .lesson-card > .speak-btn { display: flex; margin: 8px 0 0 auto; }
 .lesson-card .goal { color: var(--ink-soft); font-size: 14px; }
-.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font-family: var(--sans); font-size: 12px; color: var(--ink-faint); }
+.lesson-card .stagepill { flex: none; margin-left: auto; white-space: nowrap; font: 500 12px/1.25 var(--mono);
+  letter-spacing: var(--track); text-transform: uppercase; color: var(--ink-faint); }
 
 /* ---------- lesson plates and manipulatives ----------
    Authored pictures and executable explanations share one visual chapter,
@@ -2239,7 +2255,12 @@ button { font-family: var(--sans); cursor: pointer; }
    as leaf catching the light. The band is a second background layer, so the
    themed fill underneath still turns to phosphor at night. */
 .btn.gold { background: var(--leather-grain), var(--gilt), var(--btn-gold-fill); color: var(--btn-gold-ink); }
-.btn.ghost { background: transparent; color: var(--link); border: 1.5px solid var(--link); box-shadow: none; }
+.btn.ghost { background: transparent; color: var(--link); border: 1px solid currentColor; box-shadow: none;
+  font-family: var(--mono); font-weight: 600; text-transform: uppercase; letter-spacing: var(--track); }
+/* Lit from inside rather than lifted: an outline control has no body to
+   raise, so hover fills it faintly with its own ink. currentColor keeps that
+   right on every surface — paper, chrome, and the gold-inked story modal. */
+.btn.ghost:hover { background: color-mix(in srgb, currentColor 10%, transparent); filter: none; }
 .btn.small { padding: 6px 12px; font-size: 13px; }
 .btn:disabled { opacity: 0.5; cursor: default; }
 
@@ -2277,8 +2298,8 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
   box-shadow: 0 1px 4px var(--shadow), var(--glow-strong); cursor: pointer; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
-  font-family: var(--sans); font-size: 13px; padding: 7px 13px; border-radius: 20px;
-  border: 1.5px solid var(--rule); background: var(--field); color: var(--ink-soft);
+  font-family: var(--sans); font-size: 13px; padding: 7px 13px; border-radius: var(--r-ctl);
+  border: 1px solid var(--edge); background: var(--field); color: var(--ink-soft);
   user-select: none; box-shadow: var(--emboss);
   transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast),
               box-shadow var(--dur-fast), transform var(--dur-base) var(--spring);
@@ -2286,7 +2307,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 
 .chip:hover { transform: translateY(-1px); }
 /* A chosen chip is pressed in, not lit up: the lit edge inverts to a shaded
    one and the lift comes off, so "on" is a state the finger can read. */
-.chip.on { background: var(--link); color: var(--on-fill); border-color: var(--link);
+.chip.on { background: var(--ink); color: var(--on-fill); border-color: var(--ink);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.28); transform: none; }
 
 /* ---------- reader ---------- */
@@ -3416,6 +3437,11 @@ h3 > .card-open { font: inherit; color: inherit; }
 .quest-item.excused .tick { color: var(--muted); border-style: dashed; }
 .quest-item .qt { font-family: var(--sans); font-size: 14px; }
 .quest-item .qt b { display: block; font-size: 15px; color: var(--ink); }
+/* The step's status — "0 of 1 · about 9 min" — is the bare text after the
+   bold label, so the instrument face is set on the line and the label is put
+   back in the book's sans. */
+.quest-item .qt { font: 500 13px/1.45 var(--mono); color: var(--ink-soft); }
+.quest-item .qt b { font-family: var(--sans); margin-bottom: 2px; }
 .quest-crown { text-align: center; font-family: var(--sans); color: var(--gold-ink); font-weight: 700; margin-top: 4px; }
 
 /* ---------------- a day with a bottom, and a day with a tomorrow ----------
@@ -3700,10 +3726,10 @@ body[data-stage="5"] .badge { background: none; border: 1px solid currentColor;
 body[data-stage="5"] .domain-tag {
   background: none !important; color: var(--ink-soft);
   border-left: 3px solid; padding-left: 7px; border-radius: 0;
-  font-weight: 600; letter-spacing: .05em;
+  font-weight: 600; letter-spacing: .05em; box-shadow: none;
 }
 body[data-stage="5"] .seal, body[data-stage="5"] .jbadge { display: none; }
-body[data-stage="5"] .kicker { font-size: 11.5px; letter-spacing: .14em; }
+body[data-stage="5"] .kicker { font-size: 12px; letter-spacing: .14em; }
 body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 
 /* Feedback region: on the page from the start, written into as the reader
@@ -3789,7 +3815,10 @@ body[data-stage="5"] .lesson-card h3 { font-size: 16px; }
 /* The small door is a secondary action in a sentence, not a stage-sized
    primary: the per-stage .btn floors (min-height 44–52px) made it the
    loudest thing on the row. Kept at a comfortable 36px touch height. */
-body .pace-row .btn.small { min-height: 36px; padding: 6px 14px; font-size: 14px; }
+body .pace-row .btn.small { min-height: 34px; padding: 5px 12px; font-size: 14px; }
+/* In the instrument face the same words run a third wider, and this is the
+   control that was already called too big: smaller type, tighter tracking. */
+body .pace-row .btn.ghost.small { font-size: 12.5px; letter-spacing: .06em; }
 
 /* ---------------- the world coming and going ---------------- */
 /* Not an alarm. A slip of paper laid across the top of the book saying where
@@ -4059,10 +4088,15 @@ kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
 /* ---------------- running heads ---------------- */
 .section-label {
   display: flex; align-items: center; gap: 12px;
-  margin: 30px 0 10px; font-size: 13px; font-family: var(--sans);
-  letter-spacing: .1em; text-transform: uppercase; color: var(--gold-ink);
-  font-weight: 700;
+  margin: 30px 0 12px; font-size: 13px; font-family: var(--mono);
+  letter-spacing: var(--track); text-transform: uppercase; color: var(--gold-ink);
+  font-weight: 600; counter-increment: running-head;
 }
+/* Each running head is numbered down the page — 01 / LESSONS, 02 / WAITING —
+   so a long view has a table of contents the eye can count. */
+#page { counter-reset: running-head; }
+.section-label > span:first-child::before {
+  content: counter(running-head, decimal-leading-zero) " / "; color: var(--ink-faint); font-weight: 500; }
 /* The rule runs to the margin and fades, so it frames the section without
    boxing it in. */
 .section-label::after {
@@ -4076,12 +4110,14 @@ kbd.key-hint { font-family: var(--sans); font-size: 11.5px; font-weight: 700;
    buried in a settings page: the frame story uses it on every page. */
 .pronoun-line { font-family: var(--sans); font-size: 13.5px; color: var(--ink-faint);
   margin: -6px 0 14px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.pronoun-swap { font-family: var(--sans); font-size: 13.5px; padding: 3px 10px;
-  border-radius: 20px; border: 1px solid var(--edge); background: transparent;
+.pronoun-swap { font-family: var(--mono); font-size: 13px; padding: 5px 12px;
+  border-radius: var(--r-ctl) 0 0 var(--r-ctl); border: 1px solid var(--edge); background: transparent;
   color: var(--ink-soft); cursor: pointer; }
-.pronoun-swap:hover { border-color: var(--gold); color: var(--ink); }
-.pronoun-swap.on { background: var(--tint-gold); border-color: var(--gold);
-  color: var(--ink); font-weight: 700; }
+/* Two halves of one switch, not two pills: the second butts up against the
+   first (cancelling the row's gap) and only the outer corners are rounded. */
+.pronoun-swap + .pronoun-swap { margin-left: -7px; border-radius: 0 var(--r-ctl) var(--r-ctl) 0; }
+.pronoun-swap:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.pronoun-swap.on { background: var(--ink); border-color: var(--ink); color: var(--on-fill); font-weight: 700; }
 
 /* ---------------- the picture, opened ----------------
    render.py rewrites every link it cannot resolve into `<a href="#">`, and
@@ -4762,3 +4798,96 @@ body[data-stage="1"] .physics-visual-summary { font-size: 16px; }
 .rad-ct-stack-slider input { flex: 1; min-width: 0; }
 .rad-ct-stack:fullscreen { overflow: auto; background: var(--paper, #202124); color: var(--ink, #ddd); padding: 1rem; }
 .rad-ct-stack:fullscreen .rad-ct-stack-stage { height: 72vh; }
+
+/* ---------------- the instrument grammar ----------------
+   Borrowed from launcher and catalogue design: what the book measures is set
+   in the tracked mono face, collections sit in ruled grids that share their
+   hairlines, and each item in a set carries an index plate in its domain's
+   colour. The paper, the gilt and the night phosphor are untouched — this is
+   a typographic and structural layer over them, built only from existing
+   tokens so the two dark blocks are unchanged. */
+.kicker { font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+  letter-spacing: var(--track); text-transform: uppercase; }
+/* The two youngest stages keep round corners and a friendly face on their
+   secondary buttons: tracked capitals are a fact-sheet voice, and a five-year-
+   old's book should not sound like one. */
+body[data-stage="0"], body[data-stage="1"] { --r-ctl: 10px; --r-card: 14px; --r-sheet: 18px; }
+body[data-stage="0"] .btn.ghost, body[data-stage="1"] .btn.ghost {
+  font-family: var(--sans); text-transform: none; letter-spacing: normal; }
+
+/* Ruled grids. A grid of lesson cards shares one hairline instead of
+   floating apart with a gutter: each cell draws all four edges and overlaps
+   its neighbours by a pixel (negative margin), which keeps a single line
+   wherever the grid wraps and needs no knowledge of the column count. Keyed
+   on :has(), so an engine without it simply keeps the gapped cards. The cell
+   edge is still --edge, so the control keeps its 3:1 boundary. */
+.grid.auto:has(> .lesson-card) { gap: 0; padding: 0 1px 1px 0; counter-reset: lesson-index; }
+.grid.auto:has(> .lesson-card) > .card { margin: 0 -1px -1px 0; border-radius: 0;
+  box-shadow: var(--surface-relief); counter-increment: lesson-index; }
+.grid.auto:has(> .lesson-card) > .card:first-child { border-top-left-radius: var(--r-card); }
+.grid.auto:has(> .lesson-card) > .card:last-child { border-bottom-right-radius: var(--r-card); }
+/* A ruled cell cannot lift out of its row without tearing the line, so hover
+   lights the cell from its top edge in gilt and the press sinks it instead. */
+.grid.auto:has(> .lesson-card) > .lesson-card:hover { transform: none; z-index: 1;
+  box-shadow: inset 0 3px 0 var(--gold), var(--surface-relief); }
+.grid.auto:has(> .lesson-card) > .lesson-card:active { transform: none;
+  box-shadow: inset 0 3px 0 var(--gold), inset 0 2px 8px var(--shadow); }
+.grid.auto:has(> .lesson-card) > .card:focus-within { z-index: 2; }
+
+/* The lesson card's header strip: domain plate and stage, ruled off from the
+   body by a hairline that runs edge to edge (the card clips it). In a ruled
+   grid the plate also carries the card's index — 01, 02 — the way a launcher
+   numbers its slots. */
+.lesson-card > .lesson-meta { position: relative; align-items: center;
+  gap: 8px 10px; padding-bottom: 12px; margin-bottom: 14px; }
+.lesson-card > .lesson-meta::after { content: ""; position: absolute; left: -60px; right: -60px; bottom: 0;
+  height: 1px; background: var(--paper-edge); }
+.grid.auto:has(> .lesson-card) .lesson-meta .domain-tag::before {
+  content: counter(lesson-index, decimal-leading-zero);
+  margin-right: 8px; padding-right: 8px; font-weight: 700; letter-spacing: .04em;
+  border-right: 1px solid color-mix(in srgb, currentColor 45%, transparent); }
+/* The stage reads off the right margin when it fits and drops beneath the
+   plate when it does not; a label too long for its own line is cut with an
+   ellipsis (the full text is on its title). */
+.lesson-card > .lesson-meta .stagepill { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+/* The quest as one ruled panel of steps rather than four loose tiles. */
+.quest { gap: 0; padding: 0 1px 1px 0; }
+.quest-item { margin: 0 -1px -1px 0; border-width: 1px; border-radius: 0; }
+.quest-item:first-child { border-top-left-radius: var(--r-card); }
+.quest-item:last-child { border-bottom-right-radius: var(--r-card); }
+/* A finished step draws its whole outline over its neighbours' hairlines,
+   with a bar of green across the top like a lit indicator. */
+.quest-item.done { position: relative; z-index: 1;
+  box-shadow: inset 0 3px 0 var(--green), inset 0 2px 4px var(--surface-shade); }
+
+/* The sidebar's record as a ruled ledger: one inset block, key and value per
+   line, keys in tracked mono. Wide screens only — the narrow layout lays the
+   stats out as a row of separate chips and keeps that. */
+#sidebar .brand .sub { font-family: var(--mono); letter-spacing: var(--track); }
+@media (min-width: 901px) {
+  .statrow { gap: 0; border: 1px solid var(--chrome-rule); border-radius: var(--r-ctl);
+    background: rgba(0,0,0,0.2); box-shadow: inset 0 1px 3px rgba(0,0,0,.25); overflow: hidden; }
+  #sidebar .stat { border-radius: 0; background: none; box-shadow: none; align-items: center;
+    border-top: 1px solid var(--chrome-rule); padding: 8px 11px;
+    font: 500 12px/1.3 var(--mono); letter-spacing: var(--track); text-transform: uppercase; }
+  #sidebar .stat:first-child { border-top: 0; }
+  #sidebar .stat b { font: 600 13px/1.3 var(--mono); letter-spacing: 0; text-transform: none;
+    display: inline-flex; align-items: center; gap: 4px; }
+}
+.navbtn { border-radius: var(--r-ctl); }
+.req-chip { border-radius: var(--r-ctl); }
+
+/* The Atlas filters as one segmented strip, the launcher's tab row: the
+   options butt together on a shared edge, and the chosen one is filled
+   solid — inverted — instead of tinted. The "✓ Showing" mark stays as the
+   second, non-colour carrier of the choice. Hover is restated for the picked
+   option because the ghost hover would otherwise wash its fill out. */
+.atlas-filters { gap: 8px 0; }
+.atlas-filters .filter-opt { border-radius: 0; margin-left: -1px; }
+.atlas-filters .filter-opt:first-child { margin-left: 0; border-radius: var(--r-ctl) 0 0 var(--r-ctl); }
+.atlas-filters .filter-opt:last-child { border-radius: 0 var(--r-ctl) var(--r-ctl) 0; }
+.atlas-filters .filter-opt:focus-visible { position: relative; z-index: 1; }
+.atlas-filters .filter-opt.picked, .atlas-filters .filter-opt.picked:hover {
+  background: var(--link); border-color: var(--link); color: var(--on-fill); }
+.atlas-filters .filter-opt.picked .filter-mark { color: var(--on-fill); font-family: var(--mono); letter-spacing: .06em; }
