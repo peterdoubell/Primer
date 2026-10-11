@@ -148,6 +148,15 @@ const GLYPHS = {
   // A star, outlined and filled, for the young reader's score.
   star: '<path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/>',
   starFill: '<path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" fill="currentColor"/>',
+  // A model you work with your hands: three sliders, each set somewhere.
+  // Replaces the branching-path mark the gallery's model cards borrowed from
+  // "Your Path", which made every model look like a link to the plan.
+  interact: '<path d="M4 7h16M4 12h16M4 17h16"/><circle cx="8.5" cy="7" r="2.2" fill="currentColor"/><circle cx="15" cy="12" r="2.2" fill="currentColor"/><circle cx="10.5" cy="17" r="2.2" fill="currentColor"/>',
+  // A model you turn in space: a cube with a turning arc under it.
+  cube: '<path d="M12 2.8l7.6 4.4v8.6L12 20.2l-7.6-4.4V7.2z"/><path d="M4.4 7.2L12 11.6l7.6-4.4M12 11.6v8.6"/><path d="M2.6 17.6c1.8 2.3 5.4 3.8 9.4 3.8s7.6-1.5 9.4-3.8"/>',
+  // The side panel, and which way it is about to move.
+  panelClose: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9 4.5v15"/><path d="M15.5 9.5L13 12l2.5 2.5"/>',
+  panelOpen: '<rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M9 4.5v15"/><path d="M13 9.5l2.5 2.5-2.5 2.5"/>',
   // ---- one mark per field, keyed d-<domain id> ----
   // The curriculum's icons were Unicode characters (∑ ⚛ ⚗ ⚖ …), which every
   // platform draws in a different face and weight, and two fields shared one.
@@ -941,6 +950,43 @@ async function runPlacement(domain, stage, recheck) {
 }
 
 /* ---------------- shell ---------------- */
+// The side panel folds to a rail of icons so the page can take the width —
+// for reading, mostly. Wide screens only (the narrow layout already tucks the
+// panel behind its Menu button). The choice is the reader's and is kept on
+// this device; the attribute lives on <html> so a rebuilt shell keeps it.
+const SPINE_KEY = 'primer-spine';
+function spineFolded() {
+  try { return localStorage.getItem(SPINE_KEY) === 'folded'; } catch (e) { return false; }
+}
+function setSpineFolded(folded, { remember = true, resize = true } = {}) {
+  document.documentElement.dataset.spine = folded ? 'folded' : 'open';
+  if (remember) { try { localStorage.setItem(SPINE_KEY, folded ? 'folded' : 'open'); } catch (e) { /* kept for this visit only */ } }
+  const toggle = $('#spine-toggle');
+  if (toggle) {
+    const name = folded ? 'Show the side panel' : 'Hide the side panel';
+    toggle.setAttribute('aria-expanded', String(!folded));
+    toggle.setAttribute('aria-label', name);
+    toggle.title = name + ' (' + (/Mac|iP(hone|ad|od)/.test(navigator.platform) ? '⌘' : 'Ctrl') + ' \\)';
+    toggle.replaceChildren(glyph(folded ? 'panelOpen' : 'panelClose', 18));
+  }
+  // Folded, the labels are hidden from sight (never from the accessibility
+  // tree), so each icon says its name on hover.
+  document.querySelectorAll('#sidebar .navbtn').forEach(b => {
+    if (folded) b.title = b.querySelector('.label').textContent; else b.removeAttribute('title');
+  });
+  // Canvases and measured layouts size themselves on resize; the page just
+  // changed width without the window changing, so tell them.
+  if (resize) setTimeout(() => window.dispatchEvent(new Event('resize')), 260);
+}
+// Guarded: tests load this file in Node against a stub document.
+if (document.documentElement) document.documentElement.dataset.spine = spineFolded() ? 'folded' : 'open';
+document.addEventListener('keydown', event => {
+  if ((event.metaKey || event.ctrlKey) && !event.altKey && event.key === '\\'
+      && $('#spine-toggle') && matchMedia('(min-width: 901px)').matches) {
+    event.preventDefault();
+    setSpineFolded(document.documentElement.dataset.spine !== 'folded');
+  }
+});
 function setSidebarExpanded(expanded, restoreFocus = false) {
   const sidebar = $('#sidebar'), toggle = $('#navigation-toggle');
   if (!sidebar || !toggle) return;
@@ -959,13 +1005,15 @@ function renderShell() {
   // Icons are deliberately distinct — four near-identical book glyphs are no
   // help to a child who cannot read the labels.
   const nav = [['today', 'today', 'Today'], ['atlas', 'atlas', 'The Atlas'],
-    ['radiology', 'lookup', 'Radiology reference'],
+    ['radiology', 'd-radiology', 'Radiology reference'],
     ['math-images', 'gallery', 'Visual Gallery'], ['review', 'review', 'Review'],
     ['library-search', 'lookup', 'Look Up'], ['story', 'story', 'Your Story'], ['journey', 'journey', 'Journey'],
     ['roadmap', 'path', 'Your Path'], ['library', 'shelf', 'The Shelf']];
   const sidebar = el('nav', { id: 'sidebar', 'aria-label': 'Main' },
     el('div', { class: 'brand' }, el('div', { class: 'mark', 'aria-hidden': 'true' }, glyph('story', 34)), el('h1', {}, 'The Primer'),
       el('div', { class: 'sub' }, p.title || p.stage_name),
+      btn({ id: 'spine-toggle', 'aria-controls': 'sidebar',
+        onclick: () => setSpineFolded(document.documentElement.dataset.spine !== 'folded') }),
       btn({ id: 'navigation-toggle', 'aria-expanded': 'false',
         'aria-controls': 'primary-nav navigation-stats reading-settings',
         onclick: () => setSidebarExpanded(sidebar.dataset.navOpen !== 'true') }, 'Menu')),
@@ -1030,6 +1078,7 @@ function renderShell() {
   const skip = btn({ class: 'skip-link', onclick: () => { const m = $('#page'); if (m) { m.setAttribute('tabindex', '-1'); m.focus(); } } }, 'Skip to content');
   $('#root').append(skip, book);
   setSidebarExpanded(navigationWasOpen);
+  setSpineFolded(spineFolded(), { remember: false, resize: false });
   // The shell was just rebuilt from nothing; if the world is still away, the
   // band must come back with it — this is the only path that can restore it
   // for a reader who opened the book already offline.
@@ -5312,8 +5361,14 @@ async function renderVisualGallery(page, selection = {}) {
           visual.append(longDescription.node);
         }
       } else {
+        // What kind of model it is (sliders to work, or a solid to turn) in
+        // the field's colour, with the field's own mark set into the ring.
         visual = el('div', { class: 'visual-model-preview' },
-          el('div', { class: 'visual-model-mark', 'aria-hidden': 'true' }, glyph('path', 34)),
+          el('div', { class: 'visual-model-mark', 'aria-hidden': 'true',
+            // The gallery's own field list carries no colour; the curriculum's does.
+            style: `--dc:color-mix(in srgb, ${(domainById(domain.id) || domain).color || 'var(--gold)'}, white var(--domain-lift, 0%))` },
+            glyph(isSpatialModel(item) ? 'cube' : 'interact', 34),
+            el('span', { class: 'visual-model-field' }, domainMark(domain, 14))),
           el('div', {}, el('h5', {}, item.title), el('p', {}, item.instructions)));
       }
       const card = el('article', { class: 'card math-image-card',
