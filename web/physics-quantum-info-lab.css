@@ -1,0 +1,23 @@
+.physics-quantum-info-lab [hidden] { display:none !important; }
+.quantum-info-widget { min-width:0; display:flex; flex-direction:column; gap:7px; }
+.physics-quantum-info-lab .quantum-info-number-control { display:flex; flex-direction:column; gap:6px; font-size:13px; }
+.quantum-info-panels { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:18px 0; }
+.quantum-info-panel, .quantum-info-viewport { min-width:0; }
+.quantum-info-viewport { overflow:auto; background:#f5efdf; border:1px solid var(--line,#d5cfbf); border-radius:10px; }
+.quantum-info-viewport svg { display:block; width:100%; height:auto; font-family:var(--sans,sans-serif); }
+.physics-quantum-info-lab.is-enlarged .quantum-info-viewport svg { width:720px; min-width:720px; max-width:none; }
+.quantum-info-summary, .quantum-info-equation, .quantum-info-sources, .quantum-info-assumptions, .quantum-info-legend, .quantum-info-amplitude-detail { overflow-wrap:anywhere; line-height:1.6; font-variant-numeric:tabular-nums; }
+.quantum-info-summary { border-left:3px solid #b98a2f; padding-left:12px; }
+.quantum-info-legend { font-size:12px; }
+.quantum-info-ledger-region { overflow:auto; max-width:100%; margin:16px 0; }
+.quantum-info-ledger { width:100%; min-width:440px; border-collapse:collapse; }
+.quantum-info-ledger caption { text-align:left; margin:8px 0; }
+.quantum-info-ledger th, .quantum-info-ledger td { text-align:left; padding:8px; border-bottom:1px solid var(--line,#d5cfbf); }
+.quantum-info-assumptions > summary, .quantum-info-amplitude-detail > summary { cursor:pointer; }
+.quantum-info-viewport:focus-visible, .quantum-info-ledger-region:focus-visible, .physics-quantum-info-lab input:focus-visible, .physics-quantum-info-lab select:focus-visible, .physics-quantum-info-lab button:focus-visible { outline:3px solid var(--accent,#317e78); outline-offset:3px; }
+.quantum-info-live { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media (max-width:760px) { .quantum-info-panels, .physics-quantum-info-lab .concept-controls { grid-template-columns:minmax(0,1fr); } }
+
+.physics-quantum-info-lab input,
+.physics-quantum-info-lab select,
+.physics-quantum-info-lab button { min-height: 44px; }

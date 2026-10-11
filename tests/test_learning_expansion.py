@@ -29,7 +29,8 @@ def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
              if node.get('lesson') and node.get('model_family')]
     assert {node['id'] for node in curriculum.nodes.values()
             if node.get('lesson') and not node.get('model_family')} == {
-        'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity'}
+        'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity',
+        'math.5.abstract', 'phys.5.quantum-info'}
     assert len(nodes) == 106
     for node in nodes:
         _validate_authored_lesson(node)

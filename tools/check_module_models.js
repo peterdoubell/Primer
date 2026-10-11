@@ -20,6 +20,10 @@ context.window.PrimerMathComplexLab = require('../web/math-complex-lab.js');
 context.window.PrimerPhysicsQuantumLab = require('../web/physics-quantum-lab.js');
 context.window.PrimerMathTopologyLab = require('../web/math-topology-lab.js');
 context.window.PrimerPhysicsRelativityLab = require('../web/physics-relativity-lab.js');
+context.window.PrimerMathAlgebraLab = require('../web/math-algebra-lab.js');
+context.window.PrimerPhysicsQuantumInfoLab = require('../web/physics-quantum-info-lab.js');
+require('../web/spatial-algebra.js');
+require('../web/spatial-quantum-information.js');
 require('../web/spatial-fidelity.js');
 context.window.PrimerMathNumericalLab = require('../web/math-numerical-lab.js');
 context.window.PrimerMathConvergenceLab = require('../web/math-convergence-lab.js');
@@ -72,7 +76,7 @@ function verify(id,state={}) {
 for(const [family,id] of familyIds){
   const initial=verify(id);let minimum={},maximum={};
   for(const control of spatial.controls(id)){
-    const coordinated=['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry'].includes(family);
+    const coordinated=['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry'].includes(family);
     // Large batch/seed ranges have no useful million-state exhaustive sweep.
     // Their distributions and geometry have separate independent oracles.
     const values=control.options?control.options.map(o=>o.value):coordinated
@@ -103,13 +107,20 @@ for(const [family,id] of familyIds){
       const visible=verify(id,{position:'first'});
       const visibleVersions=values.map(value=>verify(id,{position:'first',second:value}));
       assert.ok(visibleVersions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(visible.primitives)),family+': second changes visible coefficients when k = 1');
-    } else if(coordinated && control.visibleWhen && !Object.entries(control.visibleWhen).every(([key,allowed])=>allowed.includes(initial.state[key]))) {
+    } else if(coordinated && ((control.visibleWhen && !Object.entries(control.visibleWhen).every(([key,allowed])=>allowed.includes(initial.state[key]))) || (control.visibleWhenAny && !control.visibleWhenAny.some(group=>Object.entries(group).every(([key,allowed])=>allowed.includes(initial.state[key])))))) {
       // Inactive station parameters persist for the next station; they do not
       // fabricate geometry in the current station.
       for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
-      const field={'complex-function-domain':'complex','quantum-state-geometry':'quantum','topology-open-set-geometry':'topology','relativistic-event-geometry':'relativity'}[family];
-      const api={'complex-function-domain':window.PrimerMathComplexLab,'quantum-state-geometry':window.PrimerPhysicsQuantumLab,'topology-open-set-geometry':window.PrimerMathTopologyLab,'relativistic-event-geometry':window.PrimerPhysicsRelativityLab}[family];
+      const field={'complex-function-domain':'complex','quantum-state-geometry':'quantum','topology-open-set-geometry':'topology','relativistic-event-geometry':'relativity','algebra-operation-geometry':'algebra','quantum-information-geometry':'quantumInfo'}[family];
+      const api={'complex-function-domain':window.PrimerMathComplexLab,'quantum-state-geometry':window.PrimerPhysicsQuantumLab,'topology-open-set-geometry':window.PrimerMathTopologyLab,'relativistic-event-geometry':window.PrimerPhysicsRelativityLab,'algebra-operation-geometry':window.PrimerMathAlgebraLab,'quantum-information-geometry':window.PrimerPhysicsQuantumInfoLab}[family];
       values.forEach((value,i)=>assert.deepEqual(versions[i][field].state,api.normalize({[control.key]:value})));
+    } else if(family==='algebra-operation-geometry'&&control.key==='tableCode'&&initial.state.axiomsSystem!=='custom') {
+      for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
+      const custom=values.map(value=>verify(id,{axiomsSystem:'custom',tableCode:value}));
+      assert.ok(custom.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(custom[0].primitives)));
+    } else if(family==='algebra-operation-geometry'&&control.key==='sylowStep') {
+      for(const scene of versions)assert.deepEqual(scene.primitives,initial.primitives);
+      values.forEach((value,i)=>assert.deepEqual(versions[i].algebra.state,window.PrimerMathAlgebraLab.normalize({sylowStep:value})));
     } else if(family==='topology-open-set-geometry'&&control.key==='familyMask') {
       assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(initial.primitives)));
     } else if(family==='quantum-state-geometry'&&control.key==='n'&&initial.state.wellState==='superposition') {

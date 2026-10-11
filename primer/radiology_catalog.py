@@ -989,6 +989,11 @@ def detail(curriculum, item):
     override = copy.deepcopy(_overrides().get(item['id'], {}))
     for key, value in override.items():
         ref[key] = value
+    if 'source_context_documents' in ref:
+        if item['id'] != 'ra.ct-traumatic-haemorrhage':
+            raise ValueError('Source-context documents have an unreviewed investigation binding')
+        from .source_blob_delivery import validate_context_documents
+        validate_context_documents(ref['source_context_documents'])
     walkthrough_model = _step_model(item, _steps()['investigations'].get(item['id'], {})) or copy.deepcopy(ref['spatial_model'])
     model_binding = _read('investigation-model-bindings.json', {}).get(item['id'])
     has_source_binding = bool(model_binding)

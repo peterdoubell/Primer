@@ -1200,11 +1200,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 838, 'items': 1399,
+        'models': 840, 'items': 1401,
     }
 
     expected_domain_counts = {
-        'math': (59, 126), 'language': (40, 61), 'physics': (39, 87),
+        'math': (59, 127), 'language': (40, 61), 'physics': (39, 88),
         'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
@@ -1350,8 +1350,12 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
         physics = client.get('/api/curriculum/node/' + node_id)
         assert physics.status_code == 200
         payload = physics.json()
-        assert [entry['kind'] for entry in authored_media(payload)] == [
-            'illustration', 'model']
+        expected_kinds = ['illustration', 'model']
+        if node_id == 'phys.5.quantum-info':
+            expected_kinds.append('model')
+            assert authored_media(payload)[-1]['renderer'] == 'physics-quantum-info-lab'
+            assert authored_media(payload)[-1]['props'] == {'scenario': 'phys.5.quantum-info.qubits-circuits-resources'}
+        assert [entry['kind'] for entry in authored_media(payload)] == expected_kinds
         assert all('answer' not in question for question in payload.get('quiz', []))
     for node_id in ('math.0.compare', 'math.2.decimals', 'math.3.slope',
                     'math.4.diff-calc', 'math.5.frontier', 'math.5.diffgeo',

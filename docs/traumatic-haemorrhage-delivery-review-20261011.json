@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "reviewer": "Independent traumatic-haemorrhage delivery reviewer",
+  "decision": "BACKEND_AND_METADATA_DELIVERY_GO",
+  "backend_metadata_delivery_approved": true,
+  "investigation_id": "ra.ct-traumatic-haemorrhage",
+  "module_id": "rad.5.intracranial-haemorrhage",
+  "original_source_fidelity_review_SHA256": "73a9979a40c7407728cdf223c3cbd6b7a3326ffae75d4292abddc6606f33f6d8",
+  "original_source_fidelity_review_unchanged": true,
+  "baseline_HEAD": "053931600da4b7e111b0b87ec521c650d1628621",
+  "reviewed_file_SHA256": {
+    "primer/source_blob_delivery.py": "018e6e042ff9b51459afe3b529d298bfce6962e6acc561b5beb8f86d149923c5",
+    "primer/server.py": "4653f7b871e598b06f8a2601f12bb1a17589c70d243cc3a89e64307a5f22c07f",
+    "primer/radiology_catalog.py": "f0dd76a325682456bbfae06c614d4942dd114ca8103a2aad91d7dbd177ea60dd",
+    "data/radiology/source-blob-delivery.json": "b633f4ae33b0a41357b06881447df805ef3b24ff61bdc5d37409e75a34a6f818",
+    "data/radiology/radiology-open-images.json": "d1df7e9b529f92afd575de8071e4df0cd0a3dd96014c8d2db12027a5c1c0699c",
+    "data/radiology/radiology-static-rasters.json": "663f54d219f8c07e1bbb7f3c726a17a96f609e2ae3d5032b5335b8047aba1a21",
+    "data/radiology/radiology-asset-evidence.json": "575495cd80f48100c19f1dc0a62ff050eb23b91ca448606b8e0ca94f2a301048",
+    "data/radiology/investigation-overrides-non-msk.json": "0a8f2ceb2b6515564be6c9681a7a244ca1902cc499befadadda2d19be04ff3db",
+    "vercel.json": "6f15fc80d7b207deeda187ea99a888121c64ccef9d4a378a8d81befb62bccf39",
+    ".vercelignore": "ccf4ec024059ca6c2afd72d5289047592d242f0426fb8ebcb5f5ddfcdf9eeeaf"
+  },
+  "public_original_files": 34,
+  "public_original_bytes": 38875353,
+  "registry_fingerprint": "b633f4ae33b0a41357b06881447df805ef3b24ff61bdc5d37409e75a34a6f818",
+  "immutable_registry_fingerprint_required_in_hosted_and_local_runtime": true,
+  "literal_independent_source_review_fingerprint_required": true,
+  "actual_ASGI_runtime": {
+    "passed": true,
+    "requests": 371,
+    "test_groups": 12,
+    "all_34_local_GET_HEAD_originals_exact": true,
+    "all_34_full_hosted_app_GET_HEAD_redirects_exact": true,
+    "unauthenticated_private_source_API_client_paths_401": true,
+    "hosted_missing_authentication_configuration_503": true,
+    "unknown_nested_trailing_encoded_source_paths_404": true,
+    "query_strings_do_not_change_source_identity_or_redirect_target": true,
+    "Host_headers_cannot_bypass_raw_scope_auth_gate": true,
+    "specific_asset_path_route_before_generic_and_static": true,
+    "health_blob_metadata_display_context_checks_pass": true,
+    "CSP_img_src_only_exact_trauma_Blob_prefix": true,
+    "CSP_script_src_self_preserved": true,
+    "CSP_connect_src_self_preserved_except_existing_brain_reference_HTML_exact_host_exception": true
+  },
+  "independent_metadata_fixtures": {
+    "negative_fixtures_rejected": 75,
+    "incorrectly_accepted": [],
+    "hosted_exact_metadata_without_local_sources_accepted": true,
+    "local_missing_originals_rejected": true,
+    "hosted_present_corrupt_originals_rejected": true,
+    "exact_display_bindings_checked": 15,
+    "fixed_NINDS_document_ID_to_original_file_bindings_checked": 3,
+    "document_clinical_patient_registration_and_fine_approval_promotion_rejected": true
+  },
+  "independent_investigation_scope": {
+    "actual_API_requests": 6,
+    "detail_negative_fixtures_rejected": 5,
+    "only_trauma_case_has_three_context_documents": true,
+    "brain_anatomy_and_acute_stroke_cases_have_no_context_documents": true,
+    "cross_investigation_document_injection_rejected": true
+  },
+  "edge_configuration": {
+    "exact_public_original_redirect_routes": 34,
+    "status": 307,
+    "targets_match_full_reviewed_packet": true,
+    "new_exact_routes_precede_existing_source_fallback": true,
+    "negative_paths_do_not_match_new_public_redirects": [
+      "/api/state",
+      "/app/index.html",
+      "/source-media/data/radiology/source-blob-delivery.json",
+      "/source-media/reference-media/radiology-open/traumatic-haemorrhage/unknown.pdf",
+      "/source-media/reference-media/radiology-open/traumatic-haemorrhage/centertbi-2024-fig1.png/",
+      "/source-media/reference-media/radiology-open/traumatic-haemorrhage/nested/centertbi-2024-fig1.png"
+    ],
+    "cache_control_only_public_source_routes": "public, max-age=31536000, immutable",
+    "raw_source_folder_excluded_from_Vercel_upload": true,
+    "raw_source_folder_excluded_from_python_bundle": true,
+    "public_source_routes_do_not_add_API_or_client_auth_exemptions": true
+  },
+  "preservation_against_baseline": {
+    "data/radiology/radiology-open-images.json": {
+      "changed_case_keys": [
+        "ra.ct-traumatic-haemorrhage"
+      ],
+      "all_existing_rows_preserved": true,
+      "new_display_rows": 15
+    },
+    "data/radiology/investigation-overrides-non-msk.json": {
+      "changed_case_keys": [
+        "ra.ct-traumatic-haemorrhage"
+      ],
+      "all_other_cases_preserved": true
+    },
+    "data/radiology/radiology-static-rasters.json": {
+      "all_existing_rasters_preserved": true,
+      "registered_rasters": 739,
+      "new_display_rasters": 15
+    },
+    "data/radiology/radiology-asset-evidence.json": {
+      "all_existing_evidence_rows_preserved": true,
+      "new_assets": 15,
+      "every_new_asset_empty_coverage_pending_anatomy": true
+    }
+  },
+  "external_Blob_HTTP_evidence": {
+    "source": "Root-owned fresh HTTP verification; this reviewer independently cross-checked its final source URLs, byte counts, hashes, statuses and registry fingerprint against the frozen 34-file packet. Network downloads were not redundantly repeated in this backend review. Separate reader QA checks ordinary-browser Blob delivery.",
+    "original_receipt_path": "/Users/peter/Documents/ChatGPT/Primer/.research/primer-traumatic-blob-http-proof-20261011.json",
+    "original_receipt_SHA256": "9eced24d1f913ee8b79c3487076fc8d04c87a78b430b0d3826627056ea513751",
+    "preserved_copy": ".research/traumatic-haemorrhage-independent-20261011/delivery-refreshed-owner-HTTP-receipt.json",
+    "files_verified": 34,
+    "decoded_response_bytes_verified": 38875353,
+    "all_response_statuses": 200,
+    "CORS_all_files": "*",
+    "outer_Content_Encoding_retained_in_receipt": true,
+    "body_SHA_checked_after_decoding_outer_transport": true,
+    "production_deployment_claimed": false
+  },
+  "initial_findings_and_repairs": [
+    {
+      "finding": "Three NINDS IDs could be rebound to a repeated wrong CENTER-TBI image while retaining NINDS source attribution.",
+      "repair": "Each fixed document ID now binds its exact reviewed original filename and payload contract.",
+      "bounded_negative_review_passed": true
+    },
+    {
+      "finding": "Document rows could promote clinical/current-patient/registration/fine-coverage claims.",
+      "repair": "Six explicit clinical/registration/fine flags reject all values other than false.",
+      "bounded_negative_review_passed": true
+    },
+    {
+      "finding": "Hosted metadata lacked a checked independent-review fingerprint/full reviewed-packet fingerprint.",
+      "repair": "Immutable raw registry SHA256 binds every original path/hash/URL/byte/MIME/license/role; literal independent source-review SHA256 also required.",
+      "bounded_negative_review_passed": true
+    },
+    {
+      "finding": "Original NINDS Table 1 JPEG was labeled as an encoded PDF stream.",
+      "repair": "Role corrected to source_document, preserving original URL and payload bytes.",
+      "bounded_negative_review_passed": true
+    },
+    {
+      "finding": "Trailing source filenames bypassed the specific handler and reached authenticated local StaticFiles.",
+      "repair": "The fixed registry route now uses {asset:path} ahead of generic/static handling, rejecting every unknown nested or trailing variant in both local and hosted app.",
+      "bounded_negative_review_passed": true
+    }
+  ],
+  "clinical_approval": false,
+  "commercial_clinical_grade_complete": false,
+  "fine_structure_coverage_granted": false,
+  "native_patient_registration_verified": false,
+  "patient_specific_3D_approved": false,
+  "authenticated_browser_reader_UI_verified_by_this_review": false,
+  "production_merged_or_deployed_verified_by_this_review": false,
+  "limitations": [
+    "This approves the reviewed backend/source metadata and configuration, not a live production deployment. Exact staged/uploaded/deployed commit evidence remains the release pipeline responsibility.",
+    "Hosted validation without local originals proves the immutable reviewed metadata contract; the fresh HTTP receipt and separate browser QA provide remote-byte/runtime evidence.",
+    "Source preservation, image color conversion, rights and clinical limits remain governed by the untouched original independent source review. No clinical coverage, calibrated HU/spacing, native acquisition, patient registration, segmentation or 3D surface is supplied by delivery.",
+    "Other mathematics/physics artifacts, reader controls and global radiology completeness are outside this bounded review."
+  ],
+  "proofs": [
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/run_delivery_runtime.py",
+      "SHA256": "ced0aad850f6e24c553f21b9f50a0c4e80b1749fd80fbd5262a89a36b20630bf"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/delivery-independent-runtime-proof.json",
+      "SHA256": "fa5b5df10e1cd3d265820a7d0c5ecfcf6329cf1a2e2158c6e14edab70777f947"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/run_delivery_metadata.py",
+      "SHA256": "b5f570ff7035d36e1ee0930d5e0745ebf94a26b3916e4bcac96adab485f37cb0"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/delivery-independent-metadata-proof.json",
+      "SHA256": "b430c06078348400ff251827cf2f0e34f077baa40dbf01b4156b1f8d490d3ba9"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/run_delivery_scope.py",
+      "SHA256": "f70679a3afcbf2c543ff8326962bb0e7fcea1e8001d197f7c65d7b53f21ca366"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/delivery-independent-investigation-scope-proof.json",
+      "SHA256": "6fcc1a0bad07d008e2d8870f06e91e0a73c4ed3f55feb199d8dfcb3fc833e589"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/delivery-refreshed-owner-HTTP-receipt.json",
+      "SHA256": "9eced24d1f913ee8b79c3487076fc8d04c87a78b430b0d3826627056ea513751"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/delivery-initial-negative-fixtures.json",
+      "SHA256": "fe6e240ae09a00d998b9ff965ebad090453aa3f8b8720051c5fbb985d04b0f5c"
+    },
+    {
+      "path": ".research/traumatic-haemorrhage-independent-20261011/delivery-independent-runtime-trailing-path-failure.log",
+      "SHA256": "6337da9e81790d9450b7857d34f39c98ea7f771189246e446f6767beae1c6ad3"
+    }
+  ],
+  "production_credentials_used": false,
+  "owned_production_data_writes": false,
+  "root_source_code_or_data_edits_by_this_reviewer": false,
+  "owned_servers_browser_handles_remaining": 0
+}

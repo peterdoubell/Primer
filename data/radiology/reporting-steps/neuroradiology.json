@@ -862,113 +862,151 @@
       "steps": [
         {
           "label": "Extra-axial haemorrhage",
-          "detail": "Distinguish epidural, subdural and subarachnoid haemorrhage.",
+          "detail": "Assess each epidural, subdural and subarachnoid collection by actual side, site, extent, density pattern and relation to sutures/dural reflections.",
           "sections": [
             "EXTRA-AXIAL BLOOD"
           ],
-          "look": "Brain window and a wider subdural window; epidural is biconvex and limited by sutures; subdural is crescentic and crosses sutures.",
-          "normal": "No extra-axial haemorrhage.",
+          "look": "Brain, wider subdural and bone windows; each convexity, interhemispheric/tentorial and posterior-fossa compartment; preserve actual suture and meningeal relationships.",
+          "normal": {
+            "EXTRA-AXIAL BLOOD": "Extra-axial compartments [__]; each side/site and collection thickness in mm [__]; distribution, sutures/dural reflections and unassessed extent [__]."
+          },
           "findings": [
-            "Biconvex epidural haematoma over the [right temporal] convexity, __ mm thick, with an overlying fracture.",
-            "Crescentic acute subdural haematoma over the [left] convexity, __ mm thick.",
-            "Traumatic subarachnoid haemorrhage in the [ ] sulci."
+            "[Compartment] collection at [side/site], __ mm thick on [plane/level]; distribution and suture/dural-fold relation [ ].",
+            "SAH distribution in actual [sulci/fissures/cisterns] [ ]; unassessed extent [ ]."
           ],
           "images": [
-            "intracranial-haemorrhage-image-1"
+            "open-traumatic-centertbi-2024-fig2-panel-1"
           ],
           "measurements": [
             "Haematoma and shift"
           ],
           "landmark": "meninges",
-          "parts": [
-            "FMA67292",
-            "FMA61819"
-          ],
-          "tip": "An epidural haematoma does not cross sutures; a subdural haematoma does not cross the midline."
+          "parts": [],
+          "tip": "EDH is usually limited by sutural attachment but can cross dural folds or the midline, and suture diastasis/fracture can alter its boundaries. SDH commonly crosses sutures and follows dural reflections; assess morphology and the actual full distribution.",
+          "original_normal_report_statement": "No extra-axial haemorrhage.",
+          "clinical_approval": false
         },
         {
           "label": "Parenchymal injury",
-          "detail": "Assess contusions, intraparenchymal haematoma and oedema.",
+          "detail": "Assess every contusion, intraparenchymal haemorrhage, oedema/swelling and CT-visible traumatic axonal and/or microvascular injury; state CT sensitivity limits.",
           "sections": [
             "PARENCHYMAL INJURY"
           ],
-          "look": "Frontal and temporal poles and inferior surfaces (coup and contrecoup sites).",
-          "normal": "No contusion or intraparenchymal haemorrhage.",
+          "look": "All acquired cerebral surfaces/white matter, deep structures, corpus callosum, cerebellum and brainstem. MRI FLAIR/SWI source panels are separate adjuncts, never CT-visible evidence.",
+          "normal": {
+            "PARENCHYMAL INJURY": "Each contusion/haematoma and location [__]; oedema/swelling [__]; possible traumatic axonal and/or microvascular injury [__]; CT limits and MRI if acquired [__]."
+          },
           "findings": [
-            "Haemorrhagic contusions of the [inferior frontal / anterior temporal] lobes.",
-            "Petechial haemorrhages at the grey–white junction and corpus callosum (diffuse axonal injury pattern)."
+            "Contusion/haematoma at [side/site] with extent [ ] and oedema/swelling [ ].",
+            "CT-visible punctate injury at [site] [ ]; possible TAMVI and unassessed nonhaemorrhagic injury [ ]."
           ],
           "landmark": "territories",
-          "parts": [
-            "FMA67292",
-            "FMA61819"
+          "parts": [],
+          "tip": "A normal CT does not exclude nonhaemorrhagic traumatic injury. CT-visible microbleeds do not establish axonal histology; MRI, if acquired, is interpreted separately for traumatic axonal and/or microvascular injury (TAMVI).",
+          "original_normal_report_statement": "No contusion or intraparenchymal haemorrhage.",
+          "images": [
+            "open-traumatic-centertbi-2024-fig2-panel-2",
+            "open-traumatic-centertbi-2024-fig7"
           ],
-          "tip": "Contusions often enlarge on early follow-up CT."
+          "measurements": [
+            "Lesion extent and interval change"
+          ],
+          "clinical_approval": false
         },
         {
           "label": "Ventricles",
-          "detail": "Identify intraventricular blood and ventricular obstruction.",
+          "detail": "Assess blood in each ventricular horn/ventricle, ventricular calibre, effacement/displacement and actual CSF-pathway obstruction or hydrocephalus.",
           "sections": [
             "VENTRICLES"
           ],
-          "look": "Occipital horns for layering blood; ventricular size.",
-          "normal": "No intraventricular haemorrhage; ventricles normal.",
+          "look": "Each lateral ventricular horn, third and fourth ventricle; actually imaged connections/outlets and compression versus enlargement.",
+          "normal": {
+            "VENTRICLES": "Intraventricular blood by each horn/ventricle [__]; ventricular calibre and obstruction [__]; unassessed CSF pathways [__]."
+          },
           "findings": [
-            "Intraventricular blood layering in the occipital horns.",
-            "Early hydrocephalus."
+            "Blood in [each actual horn/ventricle] [ ]; calibre and CSF-pathway obstruction/hydrocephalus [ ]."
           ],
           "landmark": "ventricles",
-          "parts": [
-            "FJ1814",
-            "FJ1767",
-            "FJ1730",
-            "FJ1731"
-          ]
+          "parts": [],
+          "original_normal_report_statement": "No intraventricular haemorrhage; ventricles normal.",
+          "images": [
+            "open-traumatic-centertbi-2024-fig2-panel-1",
+            "open-traumatic-centertbi-2024-fig2-panel-2"
+          ],
+          "tip": "A selected source slice is not a complete ventricular/CSF examination. Do not infer hydrocephalus or an occlusion from an unassessed pathway.",
+          "measurements": [
+            "Ventricular calibre and obstruction"
+          ],
+          "clinical_approval": false
         },
         {
           "label": "Mass effect",
-          "detail": "Measure midline shift and assess the basal cisterns and herniation.",
+          "detail": "Assess the midline at a stated level/method, basal cisterns, each suspected herniation route and secondary brainstem injury.",
           "sections": [
             "MASS EFFECT"
           ],
-          "look": "Midline shift at the level of the septum pellucidum; ambient and quadrigeminal cisterns.",
-          "normal": "No midline shift; basal cisterns patent.",
+          "look": "Septum pellucidum at a stated level, falx reference, ambient/quadrigeminal and other basal cisterns, tentorial hiatus, uncus/parahippocampal structures and posterior fossa/foramen magnum as acquired.",
+          "normal": {
+            "MASS EFFECT": "Midline shift in mm, direction, stated level and method [__]; cisterns [__]; each suspected herniation route/secondary brainstem injury [__]; uncertainty [__]."
+          },
           "findings": [
-            "Midline shift of __ mm to the [left].",
-            "Effaced basal cisterns with uncal herniation.",
-            "Duret haemorrhage in the pons (secondary to descending herniation)."
+            "Midline shift __ mm toward [ ], at [level] using [method].",
+            "Cisternal compression/effacement [ ]; suspected herniation route/secondary brainstem finding [ ]; uncertainty [ ]."
           ],
           "measurements": [
             "Haematoma and shift"
           ],
           "landmark": "ventricles",
-          "parts": [
-            "FJ1814",
-            "FJ1767",
-            "FJ1730",
-            "FJ1731"
-          ]
+          "parts": [],
+          "original_normal_report_statement": "No midline shift; basal cisterns patent.",
+          "images": [
+            "open-traumatic-centertbi-2024-fig2-panel-1",
+            "open-traumatic-centertbi-2024-fig2-panel-2",
+            "open-traumatic-centertbi-2024-fig9"
+          ],
+          "tip": "Secondary brainstem haemorrhage in descending herniation is a serious source-described Duret context; imaging alone does not establish mechanism or inevitable outcome.",
+          "clinical_approval": false
         },
         {
           "label": "Skull and comparison",
-          "detail": "Review skull and skull-base fractures, pneumocephalus and interval change.",
+          "detail": "Assess skull/skull-base fractures, suture/canal involvement, pneumocephalus/scalp injury and comparable interval change.",
           "sections": [
             "BONE AND COMPARISON"
           ],
-          "look": "Bone window with multiplanar and 3D reformats.",
-          "normal": "No skull fracture or pneumocephalus.",
+          "look": "Calvarium, skull-base bone windows/MPR, sutures, middle meningeal grooves/carotid canals and associated scalp/air; comparable current/prior reconstructions.",
+          "normal": {
+            "BONE AND COMPARISON": "Each skull/skull-base fracture and suture/canal involvement [__]; pneumocephalus/scalp injury [__]; comparable prior study/timepoint and interval change [__]."
+          },
           "findings": [
-            "Fracture of the [right temporal] bone crossing the middle meningeal groove.",
-            "Skull-base fracture with pneumocephalus.",
-            "Increase in contusion size since [time]."
+            "Fracture at [site] with [pattern] and suture/canal relation [ ]; pneumocephalus/scalp injury [ ].",
+            "Since [actual examination/date/time], comparable lesion/ventricular/mass-effect change [ ]; plane/reconstruction limits [ ]."
           ],
           "landmark": "meninges",
-          "parts": [
-            "FMA67292",
-            "FMA61819"
-          ]
+          "parts": [],
+          "original_normal_report_statement": "No skull fracture or pneumocephalus.",
+          "images": [
+            "open-traumatic-centertbi-2024-fig2-panel-1",
+            "open-traumatic-centertbi-2024-fig3",
+            "open-traumatic-centertbi-2024-fig2-panel-2"
+          ],
+          "tip": "Source serial panels are the source patient, not the reader patient. Density, slice plane and reconstruction differences can mimic growth; CT may miss nonhaemorrhagic injury.",
+          "measurements": [
+            "Lesion extent and interval change"
+          ],
+          "clinical_approval": false
         }
-      ]
+      ],
+      "walkthrough_reviewed_at": "2026-10-11",
+      "start": {
+        "images": [
+          "open-traumatic-centertbi-2024-fig2-panel-1",
+          "open-traumatic-centertbi-2024-fig2-panel-2"
+        ],
+        "module_illustrations": false
+      },
+      "preset_mode": "assessment-prompts",
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
     },
     "ra.intracranial-haemorrhage": {
       "steps": [

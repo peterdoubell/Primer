@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "scope": "exact_additive_trauma_registry_and_format_compatibility_only",
+  "investigation_id": "ra.ct-traumatic-haemorrhage",
+  "baseline_commit": "053931600da4b7e111b0b87ec521c650d1628621",
+  "pinned_originals_SHA256": {
+    "docs/myelopathy-published-source-review-20261011/integration-receipt.json": "d5b18ec31752c598b8647f6331c6f7c95ec690a24496f3c5d09229c740281dfa",
+    "docs/myelopathy-published-source-review-20261011/registry-additive-dependency-review.json": "ef80c64cf3cef377be8fdea608c988f1ab832e300551638af3feae46cc768a17",
+    "docs/traumatic-haemorrhage-independent-review-20261011.json": "73a9979a40c7407728cdf223c3cbd6b7a3326ffae75d4292abddc6606f33f6d8",
+    "docs/traumatic-haemorrhage-runtime-integration-20261011.json": "74011150424cf8ba56a7ea16c142910ff5810120859f62298b229fe8156be4bd",
+    "docs/traumatic-haemorrhage-delivery-review-20261011.json": "e5904005af824669df3c65576064cab35c00136cf82a6d5de78a64a8ad969e9e",
+    "data/radiology/source-blob-delivery.json": "b633f4ae33b0a41357b06881447df805ef3b24ff61bdc5d37409e75a34a6f818"
+  },
+  "files": {
+    "data/radiology/radiology-open-images.json": {
+      "baseline_file_SHA256": "c7a6583e2a588c24fc421ab5fb055e9f5d59f1077ac7b3104e21799e548ad290",
+      "baseline_file_semantic_SHA256": "f8b9003d2f26faf2cb826f8a3a923ad48388ac1cb3bcc8b22b4717650ea6f3f6",
+      "operation": "remove_exact_new_trauma_image_collection",
+      "key": "ra.ct-traumatic-haemorrhage",
+      "prior_present": false,
+      "current_semantic_SHA256": "9fea15c26951444a9ee5b2cff00ec1b5c361ffd89b3638c600afc0b3f46f151f",
+      "current_value_token_SHA256": "8656105ad13e5c8615a56e09e0a38fff3099ea90cea49b5ae631affd65ef05d0",
+      "historical_token_key": "image_collection:ra.ct-traumatic-haemorrhage",
+      "image_ids": [
+        "open-traumatic-centertbi-2024-fig1",
+        "open-traumatic-centertbi-2024-fig10",
+        "open-traumatic-centertbi-2024-fig11",
+        "open-traumatic-centertbi-2024-fig12",
+        "open-traumatic-centertbi-2024-fig13",
+        "open-traumatic-centertbi-2024-fig14",
+        "open-traumatic-centertbi-2024-fig2-panel-1",
+        "open-traumatic-centertbi-2024-fig2-panel-2",
+        "open-traumatic-centertbi-2024-fig3",
+        "open-traumatic-centertbi-2024-fig4",
+        "open-traumatic-centertbi-2024-fig5",
+        "open-traumatic-centertbi-2024-fig6",
+        "open-traumatic-centertbi-2024-fig7",
+        "open-traumatic-centertbi-2024-fig8",
+        "open-traumatic-centertbi-2024-fig9"
+      ]
+    },
+    "data/radiology/radiology-asset-evidence.json": {
+      "baseline_file_SHA256": "8943063998f8c98ec01b6513d808e596bbbac7ed370b4bf36b440a714678d055",
+      "baseline_file_semantic_SHA256": "93595a09d268a1ef665c5539de4f4b5f1e929f376ed3c97c5b4966c5103c57b5",
+      "operation": "remove_exact_new_trauma_asset_rows",
+      "added_assets": [
+        {
+          "id": "open-traumatic-centertbi-2024-fig1",
+          "current_semantic_SHA256": "db804612ead3970f2b4406b0ce04120edac4f79a430b15b531039ff2ea809530",
+          "current_value_token_SHA256": "847894693fa7c796ee5fae29b5786c456fcc542faa94fcfb66a756fff3d6edf9",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig1"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig2-panel-1",
+          "current_semantic_SHA256": "63f5730c6ae44158b0279955e3eccdc3563c4026d236feef7895c7c259af0fa7",
+          "current_value_token_SHA256": "93de71d8b93228dcd08903c089b2de2377ab0fe91599c78187a217c3fb0a498a",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig2-panel-1"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig2-panel-2",
+          "current_semantic_SHA256": "ce58e9e6a499c6030a63f5455cdd315c544fa05a779ea376e3a9b2f71b5c3475",
+          "current_value_token_SHA256": "2262e73b2b35511d840591cf9d1ffd68cc4bccdc18d54aa46d23021272b43f0c",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig2-panel-2"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig3",
+          "current_semantic_SHA256": "c9a072c5123b505a75cb6ca7e41a351415afe9f8284888af6f62e80542f1897b",
+          "current_value_token_SHA256": "ef1954dc96dafdc4d2e518ed75281605c3c452adbb21400bcf514b30596e35a2",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig3"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig4",
+          "current_semantic_SHA256": "25012def8d379d34c91c3d8286256442b34117a5868c3e151f99d06a7b1e34c8",
+          "current_value_token_SHA256": "3bd664a3c5cc66b07f0fd19c1a9062219337c8e5afac592dd832b3e3ceb3e3d6",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig4"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig5",
+          "current_semantic_SHA256": "4d259527baa2c0e9befe4335f78f07222b2ba195d856188c65abce35ce0ae18e",
+          "current_value_token_SHA256": "8579de387fc19f6815e5033e7efe05689133db425396d8bee50f3de0cf079195",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig5"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig6",
+          "current_semantic_SHA256": "a8676f5b969fd4f6a6620bbae897be32baeb1a9aae01aace4088d8e12c1c4e5c",
+          "current_value_token_SHA256": "7c44129cc14a83e3783fb1fe0ca32820b1715ca93a2605b7a95736d9175734c4",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig6"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig7",
+          "current_semantic_SHA256": "b369d51cf03e9ef1ac708fe5c324a6737d8b1b454c45ec4dade00092f40a16ce",
+          "current_value_token_SHA256": "75d77d812bc5d3af382f74a0a603ff16cdc0709a3fbfebcf634ceec54aae9ba6",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig7"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig8",
+          "current_semantic_SHA256": "493fccffe7a0425af18c4c72d6afaad3722e755583c371b01f794743975f397e",
+          "current_value_token_SHA256": "64c1213f7714dcf3b1b8e9f8da2cf2a4a88088c88051890936e09b0d45163ddd",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig8"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig9",
+          "current_semantic_SHA256": "bc9f4e23204a62ac7264671d7deee58fcab88eb29392f55f1ab207d801193fb2",
+          "current_value_token_SHA256": "e7877d211557376042f3c3e05eaf78d7dac82101caa97ad874bb3500e0efdc2b",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig9"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig10",
+          "current_semantic_SHA256": "3235f8cced18c2f746ad90632e0b2d0f508f5f3f05a2f5d66c191ab555a532cf",
+          "current_value_token_SHA256": "bed75da96aa117e0f6dc21622e3f66d0d67d5702303d0eb3f3b9677244573d2b",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig10"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig11",
+          "current_semantic_SHA256": "29afdc4ef9dc6e255ffe75d48420c2a0f5e928b197b6847b7b55882643db9fc9",
+          "current_value_token_SHA256": "979045ab9f4952fc1bc8ea6752b1113154c0e57ec67aaaf6de37fff939de488a",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig11"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig12",
+          "current_semantic_SHA256": "2c91801ce592a60e118b945657519a5701acda297c3c97f33ca52967df8b2eed",
+          "current_value_token_SHA256": "a1a1d36919d0c6325231aaac9c60192d1ef4021cb408c19bc4edff8992e7aee3",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig12"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig13",
+          "current_semantic_SHA256": "6090c28f5b753d1946fb93892cd9a65e4d3c0bf773366718782945065ebf4de0",
+          "current_value_token_SHA256": "1867ecbff0629af32ae017e7343649031977a7f5555565e3b45cc2ac731f92a4",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig13"
+        },
+        {
+          "id": "open-traumatic-centertbi-2024-fig14",
+          "current_semantic_SHA256": "caa423f61102a6fdbe19cc316b01be05d85fb2d36d34bc7f5db503b4a8d3515b",
+          "current_value_token_SHA256": "6fcbf208bed5d3b94b1c7aef939d0f1828c5ae62862f1247e199c5f83bc2c392",
+          "historical_token_key": "assets:open-traumatic-centertbi-2024-fig14"
+        }
+      ],
+      "prior_present": false
+    },
+    "data/radiology/non-msk-structure-requirements.json": {
+      "baseline_file_SHA256": "f26e6b23ba1bb35537a73b21eefbda111990daa3a5df04e451800d2837e61f82",
+      "baseline_file_semantic_SHA256": "51f17e43eccd0bd990b89e6546af6321075828f09ac604c0abbfe9277857c710",
+      "operation": "remove_exact_new_trauma_requirement_item_and_scope_ID",
+      "investigation_id": "ra.ct-traumatic-haemorrhage",
+      "current_semantic_SHA256": "f401300b0fb615ed9eedb6e1175cdca6aa859e40ad27a97e94e5cd98fa7777f1",
+      "current_value_token_SHA256": "8bb7563ac046c667c514ccb0c9c7065c4d44a4847e163572732b327e478f24f5",
+      "historical_token_key": "investigations:ra.ct-traumatic-haemorrhage",
+      "scope_historical_token_key": "catalog_id:ra.ct-traumatic-haemorrhage",
+      "scope_value_token_SHA256": "76922a5c3eeb0c5369cc5636d6d08f0db304a67694b46e4e3beb678c1d110022",
+      "prior_present": false,
+      "named_requirement_groups": 335,
+      "representation_obligations_floor": 10884
+    },
+    "data/radiology/reporting-steps/neuroradiology.json": {
+      "baseline_file_SHA256": "29f467b749f15f776cc6c2267712db3e57468576b742b3888033a22a7ea8f79c",
+      "baseline_file_semantic_SHA256": "1621201c059099e57e45ebb1400b9c663a2b7033bdd86766f77eff048127f915",
+      "operation": "restore_exact_prior_trauma_walkthrough",
+      "key": "ra.ct-traumatic-haemorrhage",
+      "prior_value": {
+        "steps": [
+          {
+            "label": "Extra-axial haemorrhage",
+            "detail": "Distinguish epidural, subdural and subarachnoid haemorrhage.",
+            "sections": [
+              "EXTRA-AXIAL BLOOD"
+            ],
+            "look": "Brain window and a wider subdural window; epidural is biconvex and limited by sutures; subdural is crescentic and crosses sutures.",
+            "normal": "No extra-axial haemorrhage.",
+            "findings": [
+              "Biconvex epidural haematoma over the [right temporal] convexity, __ mm thick, with an overlying fracture.",
+              "Crescentic acute subdural haematoma over the [left] convexity, __ mm thick.",
+              "Traumatic subarachnoid haemorrhage in the [ ] sulci."
+            ],
+            "images": [
+              "intracranial-haemorrhage-image-1"
+            ],
+            "measurements": [
+              "Haematoma and shift"
+            ],
+            "landmark": "meninges",
+            "parts": [
+              "FMA67292",
+              "FMA61819"
+            ],
+            "tip": "An epidural haematoma does not cross sutures; a subdural haematoma does not cross the midline."
+          },
+          {
+            "label": "Parenchymal injury",
+            "detail": "Assess contusions, intraparenchymal haematoma and oedema.",
+            "sections": [
+              "PARENCHYMAL INJURY"
+            ],
+            "look": "Frontal and temporal poles and inferior surfaces (coup and contrecoup sites).",
+            "normal": "No contusion or intraparenchymal haemorrhage.",
+            "findings": [
+              "Haemorrhagic contusions of the [inferior frontal / anterior temporal] lobes.",
+              "Petechial haemorrhages at the grey–white junction and corpus callosum (diffuse axonal injury pattern)."
+            ],
+            "landmark": "territories",
+            "parts": [
+              "FMA67292",
+              "FMA61819"
+            ],
+            "tip": "Contusions often enlarge on early follow-up CT."
+          },
+          {
+            "label": "Ventricles",
+            "detail": "Identify intraventricular blood and ventricular obstruction.",
+            "sections": [
+              "VENTRICLES"
+            ],
+            "look": "Occipital horns for layering blood; ventricular size.",
+            "normal": "No intraventricular haemorrhage; ventricles normal.",
+            "findings": [
+              "Intraventricular blood layering in the occipital horns.",
+              "Early hydrocephalus."
+            ],
+            "landmark": "ventricles",
+            "parts": [
+              "FJ1814",
+              "FJ1767",
+              "FJ1730",
+              "FJ1731"
+            ]
+          },
+          {
+            "label": "Mass effect",
+            "detail": "Measure midline shift and assess the basal cisterns and herniation.",
+            "sections": [
+              "MASS EFFECT"
+            ],
+            "look": "Midline shift at the level of the septum pellucidum; ambient and quadrigeminal cisterns.",
+            "normal": "No midline shift; basal cisterns patent.",
+            "findings": [
+              "Midline shift of __ mm to the [left].",
+              "Effaced basal cisterns with uncal herniation.",
+              "Duret haemorrhage in the pons (secondary to descending herniation)."
+            ],
+            "measurements": [
+              "Haematoma and shift"
+            ],
+            "landmark": "ventricles",
+            "parts": [
+              "FJ1814",
+              "FJ1767",
+              "FJ1730",
+              "FJ1731"
+            ]
+          },
+          {
+            "label": "Skull and comparison",
+            "detail": "Review skull and skull-base fractures, pneumocephalus and interval change.",
+            "sections": [
+              "BONE AND COMPARISON"
+            ],
+            "look": "Bone window with multiplanar and 3D reformats.",
+            "normal": "No skull fracture or pneumocephalus.",
+            "findings": [
+              "Fracture of the [right temporal] bone crossing the middle meningeal groove.",
+              "Skull-base fracture with pneumocephalus.",
+              "Increase in contusion size since [time]."
+            ],
+            "landmark": "meninges",
+            "parts": [
+              "FMA67292",
+              "FMA61819"
+            ]
+          }
+        ]
+      },
+      "prior_semantic_SHA256": "32e78e7a9becbb63d00f104a8a265e4c32a893e9fb80221734ab6e135a0c9fe5",
+      "prior_value_token_SHA256": "50bc12adbc8d3c714d23b242542b2f28acdc1511006c8f779b0382f88704d3b8",
+      "current_semantic_SHA256": "bbcfe26977bf4e9e5b63bdb0534cd461d107f6755666b48464701547cee8e5fd",
+      "current_value_token_SHA256": "3a23abcc7efb6aab54ced72dbc6fe4b2cd14567a7dca0895564d59c89692c363",
+      "historical_token_key": "walkthrough:ra.ct-traumatic-haemorrhage"
+    }
+  },
+  "format_amendment": {
+    "path": "data/radiology/reporting-steps/neuroradiology.json",
+    "before_raw_file_SHA256": "48a2a558b729cb66a380036ee2b007371101c6225b21628e2e5f9cefda86a7c5",
+    "after_raw_file_SHA256": "ba5b69034b584dc23ffa7de4b0ec48d4592d3dd3363dc4d023cad271a2065c29",
+    "before_and_after_full_semantic_SHA256": "babbf3ddac7a4d7c04d38f2e789868efdaf03c0a7c2f3a27c8b623d1a8a3b937",
+    "source_trauma_field_before_value_token_SHA256": "01752335a79dde2f41910ba4ce564e0419d3e3d576a672b4328bb33ef0bdd986",
+    "source_trauma_field_after_value_token_SHA256": "3a23abcc7efb6aab54ced72dbc6fe4b2cd14567a7dca0895564d59c89692c363",
+    "all_unrelated_value_tokens_byte_identical": true,
+    "unrelated_value_token_fingerprints": {
+      "top:reviewed_at": "a9b0a25ae5ed68d53f6571c0cb4e497bbf15ffb85b6d8fe3cd9950d7cf06f1bc",
+      "top:section": "c414250d030475b3004353629a25461512add0eb2d7c4f92771ad64dcd7d2583",
+      "ra.brain-anatomy": "1079aa210ac3ad80d202eeb54e5655b6879ca3fd9766f791eca12d3c3eed1950",
+      "ra.acute-stroke": "f2cf3fb0c1d88f77b94657a5df0193e0759cdfa466ce087a73867c05759ff2d6",
+      "ra.mri-brain-tumours": "972fdba25827d1ae13244f9166c9cd809ecfb8e4a35881da8f0da18ed30263c9",
+      "ra.carotid-obstruction": "32287571d169fca97a01b23aa9f4a8ba964301e1334ba36faff1fc42919d6127",
+      "ra.mri-dementia": "a2a8c58a0325e0f499219bb5d9d1494d95d79b0f3d2f538ce6eb68bfe2afb793",
+      "ra.mri-cns-enhancement": "ff2ea8335d43a5524370feb5887e45b5365d7d1b09c03a0f3b71c8c445314c7d",
+      "ra.mri-epilepsy": "ccb0a48ff1738467ad4fa47a19253ba747cd975d055ff9ca0b3563a7e9589e9e",
+      "ra.intracranial-haemorrhage": "5e3680c1bc0074e4b4207837c56ae4f3f41b72deb42eb53f68ad5b7b5fd0c2ba",
+      "ra.mri-ms": "22f49b8384bde7b91a65b9ddea231d46c68b4e0af01ace1a197929909ac5ca93",
+      "ra.mri-sella": "e8a6f7a364cfd31ddd0364c469ec171bc661760820947011ec71872fb0c107c6",
+      "ra.venous-sinus-thrombosis": "000df2315ac00dac8b3b253b96ba62eeb1cbe04fb9c46742df2e7ee117ce1291",
+      "ra.cervical-spine-injury": "d38cb53bf3f4c430f3fa892a233ecf4e40847ac16dd0af13215d79657b6c6ff1",
+      "ra.mri-lumbar-disc": "f3473f26c2fadf6e5ba6144dd1f4cacdf2600ae2901779772d89a4a050746109",
+      "ra.mri-myelopathy": "1983d527e9c1646c2c6d3f2125c0f1853571e90c0faede41ec4dd89344bb6a51",
+      "ra.thoracolumbar-injury": "2d1660ee8d513acdcacce46eedb2d984277c085f8ab3206f058ba9a8ec6acbbe",
+      "ra.intracranial-hypotension": "9f1833fbe7743ad545e9dcbc7e759ac9d01d6681349b9707943bc9f5f8444836"
+    },
+    "canonical_serialization": "json.dumps(data, indent=2, ensure_ascii=False) + newline",
+    "semantic_values_unchanged": true
+  },
+  "approved_added_image_ids": [
+    "open-traumatic-centertbi-2024-fig1",
+    "open-traumatic-centertbi-2024-fig10",
+    "open-traumatic-centertbi-2024-fig11",
+    "open-traumatic-centertbi-2024-fig12",
+    "open-traumatic-centertbi-2024-fig13",
+    "open-traumatic-centertbi-2024-fig14",
+    "open-traumatic-centertbi-2024-fig2-panel-1",
+    "open-traumatic-centertbi-2024-fig2-panel-2",
+    "open-traumatic-centertbi-2024-fig3",
+    "open-traumatic-centertbi-2024-fig4",
+    "open-traumatic-centertbi-2024-fig5",
+    "open-traumatic-centertbi-2024-fig6",
+    "open-traumatic-centertbi-2024-fig7",
+    "open-traumatic-centertbi-2024-fig8",
+    "open-traumatic-centertbi-2024-fig9"
+  ],
+  "added_image_count": 15,
+  "added_asset_count": 15,
+  "added_requirement_groups": 335,
+  "added_representation_obligations_floor": 10884,
+  "historical_unrelated_semantic_and_value_token_checks_remain_required": true,
+  "historical_asset_presentation_dependency_restoration_remains_required": true,
+  "original_frozen_source_and_delivery_reviews_unchanged": true,
+  "original_34_public_source_files_unchanged": true,
+  "no_global_rebaseline_or_guard_skip": true,
+  "clinical_approval": false,
+  "fine_structure_coverage_granted": false,
+  "native_patient_registration_verified": false,
+  "patient_specific_3D_approved": false
+}

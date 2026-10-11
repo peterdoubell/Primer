@@ -4852,82 +4852,229 @@
     }
   },
   "ra.ct-traumatic-haemorrhage": {
-    "reporting": {
-      "reviewed_at": "2026-09-23",
-      "protocol": [
-        "Review noncontrast head CT with brain and bone reconstructions; compare prior trauma imaging if available."
-      ],
-      "checklist": [
-        {
-          "label": "Extra-Axial Blood",
-          "detail": "Distinguish epidural, subdural and subarachnoid compartments."
-        },
-        {
-          "label": "Parenchymal Injury",
-          "detail": "Assess contusions and visible intraparenchymal haemorrhage."
-        },
-        {
-          "label": "Ventricles",
-          "detail": "Identify intraventricular blood and ventricular obstruction."
-        },
-        {
-          "label": "Mass Effect",
-          "detail": "Assess midline, cisterns and herniation signs."
-        },
-        {
-          "label": "Bone And Comparison",
-          "detail": "Review skull and skull base fractures and interval change."
-        }
-      ],
-      "measurements": [
-        {
-          "name": "Haematoma and shift",
-          "method": "Measure collection thickness perpendicular to the skull and midline shift at a stated level.",
-          "pitfall": "Different planes can mimic interval growth."
-        }
-      ],
-      "classification": null,
-      "criteria_table": null,
-      "pitfalls": [
-        "A normal CT does not exclude nonhaemorrhagic traumatic brain injury; contusions can evolve on follow-up."
-      ],
-      "impression_prompts": [
-        "Traumatic bleeding compartments, mass effect and associated injury.",
-        "State the dominant abnormality, relevant extent and examination limitations."
-      ],
-      "escalation": [
-        "Immediately communicate significant acute haemorrhage, herniation or worsening mass effect."
-      ],
-      "template_sections": [
-        {
-          "heading": "EXTRA-AXIAL BLOOD",
-          "body": "Epidural: [ ]. Subdural side/thickness: [ ]. Subarachnoid distribution: [ ]."
-        },
-        {
-          "heading": "PARENCHYMAL INJURY",
-          "body": "Contusions/haematomas: [ ]. Oedema: [ ]."
-        },
-        {
-          "heading": "VENTRICLES",
-          "body": "Intraventricular blood: [ ]. Ventricular calibre: [ ]."
-        },
-        {
-          "heading": "MASS EFFECT",
-          "body": "Midline shift: [ ] mm. Basal cisterns: [ ]. Herniation concern: [ ]."
-        },
-        {
-          "heading": "BONE AND COMPARISON",
-          "body": "Fractures: [ ]. Pneumocephalus: [ ]. Interval change: [ ]."
-        }
-      ],
-      "sources": [
-        {
-          "title": "Radiology Assistant — Traumatic Intracranial Hemorrhage",
-          "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage"
-        }
+  "reporting": {
+    "reviewed_at": "2026-10-11",
+    "protocol": [
+      "Review the actually acquired noncontrast head CT from skull base/foramen magnum through vertex in brain, wider subdural and bone windows, with multiplanar reconstructions if available.",
+      "Record acquisition coverage, reconstruction thickness/kernel, motion/beam hardening and diagnostic limitations; compare the actual prior examination and timepoint. MRI or vascular imaging, if acquired, has a separate role."
+    ],
+    "checklist": [
+      {
+        "label": "Extra-Axial Blood",
+        "detail": "Assess each epidural, subdural and subarachnoid collection by actual side, site, extent, density pattern and relation to sutures/dural reflections."
+      },
+      {
+        "label": "Parenchymal Injury",
+        "detail": "Assess every contusion, intraparenchymal haemorrhage, oedema/swelling and CT-visible traumatic axonal and/or microvascular injury; state CT sensitivity limits."
+      },
+      {
+        "label": "Ventricles",
+        "detail": "Assess blood in each ventricular horn/ventricle, ventricular calibre, effacement/displacement and actual CSF-pathway obstruction or hydrocephalus."
+      },
+      {
+        "label": "Mass Effect",
+        "detail": "Assess the midline at a stated level/method, basal cisterns, each suspected herniation route and secondary brainstem injury."
+      },
+      {
+        "label": "Bone And Comparison",
+        "detail": "Assess skull/skull-base fractures, suture/canal involvement, pneumocephalus/scalp injury and comparable interval change."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Haematoma and shift",
+        "method": "On the calibrated current study, measure each extra-axial collection thickness perpendicular to the adjacent skull and midline shift in mm with side/direction, a stated level (for example septum pellucidum at foramen of Monro) and a stated method.",
+        "pitfall": "Perpendicular ideal-midline and A/2−B methods can differ. Uncalibrated publication PNGs or source centimetre calipers do not supply patient measurements; use comparable levels/planes for follow-up."
+      },
+      {
+        "name": "Lesion extent and interval change",
+        "method": "Record each actual lesion and its extent in calibrated planes with native units, examination dates/times and comparable reconstruction; use volume only with a stated validated acquisition/method.",
+        "pitfall": "Source serial panels are the source patient, not the reader patient. Density, slice plane and reconstruction differences can mimic growth; CT may miss nonhaemorrhagic injury."
+      },
+      {
+        "name": "Ventricular calibre and obstruction",
+        "method": "Assess each actually imaged ventricular compartment, CSF outlet/pathway and calibre on the current study; state compression versus enlargement and the location of a suspected obstruction.",
+        "pitfall": "A selected source slice is not a complete ventricular/CSF examination. Do not infer hydrocephalus or an occlusion from an unassessed pathway."
+      }
+    ],
+    "classification": null,
+    "criteria_table": null,
+    "pitfalls": [
+      "EDH is usually limited by sutural attachment but can cross dural folds or the midline, and suture diastasis/fracture can alter its boundaries. SDH commonly crosses sutures and follows dural reflections; assess morphology and the actual full distribution.",
+      "Acute blood can be relatively isodense with severe anaemia or admixture; mixed density alone does not prove active arterial extravasation or establish haemorrhage age.",
+      "A normal CT does not exclude nonhaemorrhagic traumatic injury. CT-visible microbleeds do not establish axonal histology; MRI, if acquired, is interpreted separately for traumatic axonal and/or microvascular injury (TAMVI).",
+      "Published CT/MRI examples are different or unregistered source cases unless the original caption explicitly establishes a relation. Cohort outcome/statistical plots do not predict the current patient.",
+      "Secondary brainstem haemorrhage in descending herniation is a serious source-described Duret context; imaging alone does not establish mechanism or inevitable outcome."
+    ],
+    "impression_prompts": [
+      "State each actually observed bleeding compartment/lesion, side, site and extent, then mass effect, ventricular obstruction and associated bone injury.",
+      "State relevant interval change, examination limitations and any unassessed CT/MRI/vascular question; source examples never become patient findings."
+    ],
+    "escalation": [
+      "Immediately communicate significant acute haemorrhage, herniation or worsening mass effect."
+    ],
+    "template_sections": [
+      {
+        "heading": "EXTRA-AXIAL BLOOD",
+        "body": "Each collection: [compartment, side/site, distribution and thickness __ mm]. Density pattern: [ ]. Suture/dural-reflection relation: [ ]. Unassessed extent: [ ]."
+      },
+      {
+        "heading": "PARENCHYMAL INJURY",
+        "body": "Each contusion/haematoma: [side/site, extent and density]. Oedema/swelling: [ ]. Possible TAMVI/CT limitations: [ ]. MRI if actually acquired: [ ]."
+      },
+      {
+        "heading": "VENTRICLES",
+        "body": "Blood by horn/ventricle: [ ]. Calibre/effacement/displacement: [ ]. CSF-pathway obstruction/hydrocephalus: [ ]. Unassessed pathways: [ ]."
+      },
+      {
+        "heading": "MASS EFFECT",
+        "body": "Midline shift: [ ] mm toward [ ], at [level], using [method]. Basal cisterns: [ ]. Herniation route/secondary brainstem injury: [ ]. Uncertainty: [ ]."
+      },
+      {
+        "heading": "BONE AND COMPARISON",
+        "body": "Each skull/skull-base fracture: [site, pattern, suture/canal involvement]. Pneumocephalus/scalp injury: [ ]. Prior examination/date/time and comparable interval change: [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Radiology Assistant — Traumatic Intracranial Hemorrhage",
+        "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage"
+      },
+      {
+        "title": "CENTER-TBI pictorial review of acute traumatic brain injury (2024)",
+        "url": "https://doi.org/10.1089/neu.2023.0553"
+      },
+      {
+        "title": "NINDS imaging working-group recommendations and illustrated CDE appendix (2025)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12409119/"
+      }
+    ]
+  },
+  "reading": [
+    {
+      "id": "ra-596788760d1c",
+      "title": "Traumatic Intracranial Hemorrhage",
+      "url": "https://radiologyassistant.nl/neuroradiology/hemorrhage/traumatic-intracranial-haemorrhage",
+      "section": "Neuroradiology",
+      "topic": "Hemorrhage",
+      "module_id": "rad.5.intracranial-haemorrhage",
+      "headings": [
+        "Localization of hemorrhage",
+        "Anatomy of the meninges",
+        "Traumatic hemorrhage",
+        "Epidural hematoma",
+        "Subdural hematoma",
+        "Subarachnoid hemorrhage",
+        "Diffuse Axonal Injury",
+        "Duret hemorrhage"
+      ]
+    },
+    {
+      "id": "trauma-centertbi-2024",
+      "title": "CENTER-TBI pictorial review of acute traumatic brain injury (2024)",
+      "url": "https://doi.org/10.1089/neu.2023.0553",
+      "headings": [
+        "Skull and extra-axial injury",
+        "Parenchymal and ventricular injury",
+        "Mass effect and source measurement methods",
+        "Study and source limitations"
+      ]
+    },
+    {
+      "id": "trauma-ninds-2025",
+      "title": "NINDS imaging working-group recommendations and illustrated CDE appendix (2025)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12409119/",
+      "headings": [
+        "Updated imaging definitions",
+        "Traumatic axonal and/or microvascular injury",
+        "Source imaging limitations",
+        "Proposed reporting template"
       ]
     }
-  },
+  ],
+  "additional_sources": [
+    {
+      "title": "CENTER-TBI pictorial review of acute traumatic brain injury (2024)",
+      "url": "https://doi.org/10.1089/neu.2023.0553"
+    },
+    {
+      "title": "NINDS imaging working-group recommendations and illustrated CDE appendix (2025)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12409119/"
+    }
+  ],
+  "key_images": [],
+  "suppress_visual_fallback": true,
+  "source_context_documents": [
+    {
+      "id": "traumatic-ninds-2025-original-publication",
+      "kind": "source-document",
+      "title": "NINDS imaging working group recommendations (2025)",
+      "src": "/app/reference-media/radiology-open/traumatic-haemorrhage/ninds-2025-original-publication.pdf",
+      "local_path": "web/reference-media/radiology-open/traumatic-haemorrhage/ninds-2025-original-publication.pdf",
+      "mime_type": "application/pdf",
+      "bytes": 676266,
+      "sha256": "3ce9d893e1983522cb5c1b33751e19de92c89757a05bd6973fbd52403bafdc3f",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12409119/",
+      "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12409119.1/PMC12409119.1.pdf?md5=2900125578eb3955f1bd891f27430a37",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Christine L. Mac Donald, Esther L. Yuh, Thijs Vande Vyvere, Brian L. Edlow, Lucia M. Li, Andrew R. Mayer, Pratik Mukherjee, Virginia F.J. Newcombe, Elisabeth A. Wilde, Inga K. Koerte, Deborah Yurgelun-Todd, Yu-Chien Wu, Ann-Christine Duhaime, Hibah O. Awwad, Kristen Dams-O’Connor, Adele Doperalski, Andrew I.R. Maas, Michael A. McCrea, Nsini Umoh, Geoffrey T. Manley. Neuroimaging Characterization of Acute Traumatic Brain Injury with Focus on Frontline Clinicians: Recommendations from the 2024 National Institute of Neurological Disorders and Stroke Traumatic Brain Injury Classification and Nomenclature Initiative Imaging Working Group. DOI 10.1089/neu.2025.0079. © The Author(s) 2025. CC BY4. Unchanged original; acknowledged TRACK-TBI/MGH sources and Palmieri et al. borrowed-figure credit remain in the source appendix.",
+      "unchanged_original": true,
+      "clinical_approval": false,
+      "fine_structure_coverage_granted": false,
+      "current_patient_findings": false,
+      "patient_registration_verified": false
+    },
+    {
+      "id": "traumatic-ninds-2025-original-supplementary-appendix",
+      "kind": "source-document",
+      "title": "NINDS imaging common data elements: original illustrated appendix (2025)",
+      "src": "/app/reference-media/radiology-open/traumatic-haemorrhage/ninds-2025-original-supplementary-appendix.docx",
+      "local_path": "web/reference-media/radiology-open/traumatic-haemorrhage/ninds-2025-original-supplementary-appendix.docx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "bytes": 13602885,
+      "sha256": "0dbd2e0521778071a2838cf38531f4769799b9d199e1cdfd7370f3422ac45492",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12409119/",
+      "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12409119.1/neu.2025.0079_supplementary_appendix.docx?md5=58ca66ee2fb6c1408a98cac396205078",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Christine L. Mac Donald, Esther L. Yuh, Thijs Vande Vyvere, Brian L. Edlow, Lucia M. Li, Andrew R. Mayer, Pratik Mukherjee, Virginia F.J. Newcombe, Elisabeth A. Wilde, Inga K. Koerte, Deborah Yurgelun-Todd, Yu-Chien Wu, Ann-Christine Duhaime, Hibah O. Awwad, Kristen Dams-O’Connor, Adele Doperalski, Andrew I.R. Maas, Michael A. McCrea, Nsini Umoh, Geoffrey T. Manley. Neuroimaging Characterization of Acute Traumatic Brain Injury with Focus on Frontline Clinicians: Recommendations from the 2024 National Institute of Neurological Disorders and Stroke Traumatic Brain Injury Classification and Nomenclature Initiative Imaging Working Group. DOI 10.1089/neu.2025.0079. © The Author(s) 2025. CC BY4. Unchanged original; acknowledged TRACK-TBI/MGH sources and Palmieri et al. borrowed-figure credit remain in the source appendix.",
+      "unchanged_original": true,
+      "clinical_approval": false,
+      "fine_structure_coverage_granted": false,
+      "current_patient_findings": false,
+      "patient_registration_verified": false
+    },
+    {
+      "id": "traumatic-ninds-2025-proposed-template-original",
+      "kind": "source-document",
+      "title": "Proposed neuroimaging reporting template (NINDS, 2025)",
+      "src": "/app/reference-media/radiology-open/traumatic-haemorrhage/ninds-2025-proposed-template-original.jpg",
+      "local_path": "web/reference-media/radiology-open/traumatic-haemorrhage/ninds-2025-proposed-template-original.jpg",
+      "mime_type": "image/jpeg",
+      "bytes": 124681,
+      "sha256": "8f84bb88da08d9f588efb52ac15c3d3118202a87227d372960190cf9977ee9ea",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12409119/",
+      "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12409119.1/neu.2025.0079_figure1.jpg?md5=2dee333834462bcf79ba82a29e21da23",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Christine L. Mac Donald, Esther L. Yuh, Thijs Vande Vyvere, Brian L. Edlow, Lucia M. Li, Andrew R. Mayer, Pratik Mukherjee, Virginia F.J. Newcombe, Elisabeth A. Wilde, Inga K. Koerte, Deborah Yurgelun-Todd, Yu-Chien Wu, Ann-Christine Duhaime, Hibah O. Awwad, Kristen Dams-O’Connor, Adele Doperalski, Andrew I.R. Maas, Michael A. McCrea, Nsini Umoh, Geoffrey T. Manley. Neuroimaging Characterization of Acute Traumatic Brain Injury with Focus on Frontline Clinicians: Recommendations from the 2024 National Institute of Neurological Disorders and Stroke Traumatic Brain Injury Classification and Nomenclature Initiative Imaging Working Group. DOI 10.1089/neu.2025.0079. © The Author(s) 2025. CC BY4. Unchanged original; acknowledged TRACK-TBI/MGH sources and Palmieri et al. borrowed-figure credit remain in the source appendix.",
+      "unchanged_original": true,
+      "clinical_approval": false,
+      "fine_structure_coverage_granted": false,
+      "current_patient_findings": false,
+      "patient_registration_verified": false
+    }
+  ],
+  "overview": "Assess the current acquired trauma CT by bleeding compartment, parenchymal injury, ventricles, mass effect and skull/skull-base injury. Preserve actual side/site, measurement method, comparison and examination limits.",
+  "learning_points": [
+    "Localise each traumatic collection before interpreting its cause; sutures and dural reflections are useful relationships with relevant exceptions.",
+    "Review all actual cerebral, cerebellar and brainstem regions for injury and oedema; CT does not exclude nonhaemorrhagic injury.",
+    "Assess each ventricular compartment, basal cistern and herniation route; use calibrated current-study measurements with stated units, level and method.",
+    "Review bone windows, skull-base canals and associated air/scalp injury, then compare like-for-like prior acquisitions.",
+    "Complete original source figures and NINDS documents are teaching references. Different patients, MRI adjuncts and cohort statistics retain separate roles."
+  ]
+},
   "ra.intracranial-haemorrhage": {
     "reporting": {
       "reviewed_at": "2026-09-23",

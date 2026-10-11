@@ -76,6 +76,8 @@
     families['topology-open-set-geometry'] = window.PrimerFidelitySpatialFamilies.topology;
     families['relativistic-event-geometry'] = window.PrimerFidelitySpatialFamilies.relativity;
   }
+  if (window.PrimerQuantumInformationSpatialFamily) families['quantum-information-geometry'] = window.PrimerQuantumInformationSpatialFamily;
+  if (window.PrimerAlgebraSpatialFamily) families['algebra-operation-geometry'] = window.PrimerAlgebraSpatialFamily;
 
   const cqNum=(v,d,a,b)=>(typeof v==='number'||typeof v==='string'&&v.trim()!=='')&&Number.isFinite(Number(v))?Math.max(a,Math.min(b,Number(v))):d;
   const cqFmt=v=>Number.isFinite(v)?Number(v.toPrecision(6)).toString():String(v);

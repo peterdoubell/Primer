@@ -288,6 +288,68 @@
         ],
         "not_repeated": "The original 306-frame CT/pointer/GPU proof remains bound to its original assets; this is a scoped reader compatibility refresh."
       }
+    },
+    {
+      "id": "2026-10-11-traumatic-source-document-links",
+      "date": "2026-10-11",
+      "change": "Add scoped original reporting-document links to traumatic haemorrhage reporting and its source gallery.",
+      "files": {
+        "web/app.js": {
+          "before": "be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f",
+          "after": "a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d"
+        }
+      },
+      "app_js_changed_regions": [
+        "sourceContextDocuments",
+        "lessonSourceGallery scoped source documents",
+        "reporting image source documents"
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "native_reader_smoke": {
+        "passed": true,
+        "proof_path": ".research/trauma-reader-qa-20261011-1bxn1eoo/native-reader-smoke.json",
+        "proof_sha256": "192bfb09eca412f4d673c68c9a510f3313c84090557459e48a0c3a6a276703f9",
+        "scope": "Bounded current reader compatibility; preserves the earlier native frame/GPU and source review scope.",
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          }
+        ]
+      }
     }
   ]
 }

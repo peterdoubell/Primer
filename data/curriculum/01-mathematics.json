@@ -6702,7 +6702,7 @@
       "normal",
       "cyclic"
      ],
-     "explain": "Sylow's theorems say that for a prime p dividing |G|, a subgroup of the largest possible p-power order always exists, and the number of such subgroups divides the remaining (non-p) part of |G| while also leaving remainder 1 when divided by p. Applied here: the count of order-5 subgroups must divide 3 and be 1 more than a multiple of 5, so it is 1; the same counting makes the order-3 subgroup unique too. A unique subgroup of a given order is automatically normal, and a product of normal subgroups of coprime order is cyclic, so every group of order 15 is Z/15."
+     "explain": "Sylow counting gives n₅ dividing 3 with n₅ ≡ 1 mod 5, and n₃ dividing 5 with n₃ ≡ 1 mod 3, hence both counts are one. The subgroups are normal and each is cyclic because its order is prime. Their intersection is trivial, and their commutators lie in that intersection, so they commute. Their product has 15 elements, and the product of generators has order 15. Coprime orders and normality alone would not make arbitrary factors cyclic."
     },
     {
      "kind": "choice",
@@ -6798,8 +6798,33 @@
      "props": {
       "scenario": "math.5.abstract"
      }
+    },
+    {
+     "id": "math.5.abstract.fidelity-lab",
+     "kind": "model",
+     "renderer": "math-algebra-lab",
+     "title": "Exact groups, rings and field embeddings",
+     "instructions": "Explore complete finite operation tables, actual permutations and algebraic proof ledgers. Preserve the hypotheses for infinite domains, quotients and embeddings.",
+     "props": {
+      "scenario": "math.5.abstract.groups-rings-fields"
     }
-   ]
+    }
+   ],
+   "learning_outcomes": [
+    "Check a named operation against group axioms and distinguish a finite calculation from a statement about an infinite domain.",
+    "Compute element orders, cyclic subgroups and cosets; use Lagrange’s theorem and distinguish C₄ from the Klein four-group.",
+    "Compose actual permutations and recover their cycle orders, including every order-four element of S₄.",
+    "Calculate units, zero divisors and linear congruence solutions in modular rings; state why a prime modulus gives a field.",
+    "Distinguish an injective integer homomorphism from an automorphism using its exact image and inverse domain.",
+    "Apply Sylow constraints to order 15 and justify the commuting cyclic prime-order factors.",
+    "Test normality and quotient operations, and explain the ideal/kernel argument for a unital field embedding into a nonzero ring."
+   ],
+   "lesson": {
+    "overview": "Abstract algebra studies operations and maps through the structure they preserve. Finite groups and modular rings provide exact, inspectable examples. Integer and rational groups require arguments about all elements; a finite window of a table cannot establish their infinite-domain axioms.",
+    "worked_example": "C₄ has an element of order four, whereas every nonidentity element of C₂ × C₂ has order two. In Z/12Z, the equation 3x=0 has exactly the solutions 0, 4 and 8; a nonzero factor cannot be cancelled in that ring. The homomorphism n↦3n on Z is injective but its image is 3Z, so its inverse is defined on 3Z rather than all of Z.",
+    "activity": "Compare exact group operations, subgroup cosets, permutation compositions, modular units and congruences, integer maps, Sylow constraints, normal quotients and field kernels. Check all ten assessed examples. Separate an enumerated finite witness from a general theorem, and read the hypotheses before accepting an inverse, cancellation or quotient multiplication.",
+    "reflection": "Equal cardinality does not imply isomorphism. A homomorphism preserves operations but may fail to be injective or surjective; a quotient group requires a normal subgroup. A field has only the zero ideal and the whole field, so a unital homomorphism to a nonzero ring has zero kernel and is injective. The order-15 conclusion additionally uses the cyclicity of both prime-order Sylow factors."
+   }
   },
   {
    "id": "math.5.measure",

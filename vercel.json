@@ -5,7 +5,7 @@
       "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
-        "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz}"
+        "excludeFiles": "{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**}"
       }
     },
     {
@@ -102,6 +102,278 @@
     }
   ],
   "routes": [
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig1\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/0f8f891c93dadb57243279bbaa3c5b3d7e87c4aef0c97587bd2493736b566e09/centertbi-2024-fig1-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig1\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/9f1e28b58cd38d434ced89e982c1e04c60ff18f6a5cc891dcef156b0a0f2ac49/centertbi-2024-fig1.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig10\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/95886af4ba18251494c06d13bac7170e3e9a44a2df4a27b52da0736cff55b5fe/centertbi-2024-fig10-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig10\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/4730531d9fdaa1e7ffb25ce9238459da0509f2f7248d09781393810b3db05ba4/centertbi-2024-fig10.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig11\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/5139705b25bb7316530c9fbc8179553f0fd5ec47ecd5c6e5a303f5afc03336e2/centertbi-2024-fig11-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig11\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/e3f24e46667de2a4ed020c46cde1669bfcd610a48b6af6a0579c1db85c70480f/centertbi-2024-fig11.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig12\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/0dbd2defbb85e7dd253afe1b71d5f6ddacf20e452fd4fe675d349701da1dfa74/centertbi-2024-fig12-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig12\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/e0c4257d09855e4282df4f9e00781096c7f5c752c2660943c42b9fe8f8a58b18/centertbi-2024-fig12.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig13\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/456c2e7a8c602fd4489233c88406fd26999be7c23965d3b1551be5d2bb90b0c5/centertbi-2024-fig13-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig13\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/2ad6db45cf074fc371dbc50304c92f158bfd356c02a8e079dd7d781a68f43657/centertbi-2024-fig13.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig14\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/cc85259c11e29548ba4231a99b93b6e51fe5a65ef174b2658e9a23425a345c43/centertbi-2024-fig14-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig14\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/dc4309838df2d726a74eeb462a5a9e7ddd1375c5ab890be4ef6d8193f5547c20/centertbi-2024-fig14.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig2\\-panel\\-1\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/0e386b9108ddb89f1cb89c22891816e819dac37e0bcd2828e37eb959842aa2f1/centertbi-2024-fig2-panel-1-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig2\\-panel\\-1\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/24fcb46a2f49fbf417255d82eedfd8b59ee496fe3b04475f0f7c6e885d483e47/centertbi-2024-fig2-panel-1.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig2\\-panel\\-2\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/24496846f432842f4097953c6f857a1a71e732cc26fc951d2d48896002ce8073/centertbi-2024-fig2-panel-2-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig2\\-panel\\-2\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/265c78a0506d5d3da97eef50b1271c6d417ea7fa45c495cf31253d5798394121/centertbi-2024-fig2-panel-2.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig3\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/23eac6c38d4cef932c539c6cbab65716f393e53fd8f7cd20e4e30d574332b320/centertbi-2024-fig3-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig3\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/03ef11e559ef23e6131b429ffd04171c3de3e4dd3221ca692acfc3203ef7f1d9/centertbi-2024-fig3.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig4\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/49449f141235e1b7e9bd0137fcb91f5b04961852f593911e1682a38b31f41793/centertbi-2024-fig4-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig4\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/27126ab4822195225d9d0abff4ed70e090d4700c7651febdfdf6e6ad06e55c77/centertbi-2024-fig4.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig5\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/158f09d5c4650aa2b6ba100df17a108ce1091e6cc16c7e9773e236064699c1ac/centertbi-2024-fig5-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig5\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/7f215a9db720abb4eac1074f9c846565479139e69dd46517f392b7c8f4daa059/centertbi-2024-fig5.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig6\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/991fac2837d543ea602e55616e3a5ea1825444c9ed0c7ce27730dec9d5850201/centertbi-2024-fig6-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig6\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/27e688fc7800b0551726fb269cb95312185f0b56a6bb58808e30b1d6aff98934/centertbi-2024-fig6.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig7\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/3e6653d6a16300ed776721a8706272fa94e35da9db16cd864a6a139e3ff46ace/centertbi-2024-fig7-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig7\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/78d450abead34fb4d292bdab7f9d2367d6419595804f501091cb7d99e905aada/centertbi-2024-fig7.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig8\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/b42edb440ffa6f2b4f04763afa93fd52868c06b22f3251e2df9b190c36d02508/centertbi-2024-fig8-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig8\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/4348a71b18cf724865076c24fb2d06ec62be47c73768e028ce044c3a60b2cc38/centertbi-2024-fig8.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig9\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/63b38b550903ec5867d6ce2bbe3e8cddd095f21102f4ddf0b81d09476614e547/centertbi-2024-fig9-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/centertbi\\-2024\\-fig9\\.png$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/caedb58fdcb3caef5835b9f79dddb298c0bfe7bf68078150cbb9d95aaa34b4a6/centertbi-2024-fig9.png",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/ninds\\-2025\\-original\\-publication\\.pdf$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/3ce9d893e1983522cb5c1b33751e19de92c89757a05bd6973fbd52403bafdc3f/ninds-2025-original-publication.pdf",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/ninds\\-2025\\-original\\-supplementary\\-appendix\\.docx$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/0dbd2e0521778071a2838cf38531f4769799b9d199e1cdfd7370f3422ac45492/ninds-2025-original-supplementary-appendix.docx",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/ninds\\-2025\\-proposed\\-template\\-original\\.jpg$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/8f84bb88da08d9f588efb52ac15c3d3118202a87227d372960190cf9977ee9ea/ninds-2025-proposed-template-original.jpg",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/source\\-media/reference\\-media/radiology\\-open/traumatic\\-haemorrhage/vande\\-vyvere\\-2024\\-original\\-publication\\.pdf$",
+      "dest": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-original/traumatic-haemorrhage/5f9dd9f79dc0ca55d1c465dc3dfcbee2eda5d3631d59770789e3685b68f2250b/vande-vyvere-2024-original-publication.pdf",
+      "status": 307,
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
     {
       "src": "/source-media/studies/(.*\\.bin\\.gz)",
       "dest": "/web/studies/$1",

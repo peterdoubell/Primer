@@ -226,7 +226,9 @@
     function refresh(announce, fromShared = false) {
       current = build(id, current.state);
       parameterControls.forEach(({ input, output, control, label }) => {
-        const visible = !control.visibleWhen || Object.entries(control.visibleWhen).every(([key, values]) => values.includes(current.state[key]));
+        const matches = conditions => Object.entries(conditions).every(([key, values]) => values.includes(current.state[key]));
+        const visible = (!control.visibleWhen || matches(control.visibleWhen)) &&
+          (!control.visibleWhenAny || control.visibleWhenAny.some(matches));
         label.hidden = !visible;
         label.style.display = visible ? '' : 'none';
         input.disabled = !visible;
