@@ -3356,7 +3356,7 @@ def test_the_two_night_palettes_cannot_drift_apart():
     css = _web("styles.css")
     media = re.search(
         r'@media \(prefers-color-scheme: dark\) \{\s*'
-        r':root:not\(\[data-theme="light"\]\) \{(.*?)\n  \}\n\}', css, re.S)
+        r':root:not\(\[data-theme\]\) \{(.*?)\n  \}\n\}', css, re.S)
     toggle = re.search(r':root\[data-theme="dark"\] \{(.*?)\n\}', css, re.S)
     assert media and toggle, "both night-palette blocks must exist"
 

@@ -71,9 +71,9 @@ const nodes = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/curriculu
       await model.screenshot({ path: path.join(out, 'doppler-' + width + '.png'), style: '#sidebar { visibility:hidden; }' });
     }
     const theme = page.locator('#theme-toggle');
-    const beforeTheme = await theme.getAttribute('aria-label');
-    await theme.click();
-    assert.notEqual(await theme.getAttribute('aria-label'), beforeTheme);
+    const beforeTheme = await theme.inputValue();
+    await theme.selectOption(beforeTheme === 'dark' ? 'light' : 'dark');
+    assert.notEqual(await page.locator('#theme-toggle').inputValue(), beforeTheme);
     await model.screenshot({ path: path.join(out, 'doppler-alternate-mobile.png'), style: '#sidebar { visibility:hidden; }' });
     await page.locator('.lesson-illustration img').click();
     assert.ok(await page.locator('[role="dialog"]').isVisible());
