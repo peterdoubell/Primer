@@ -15,7 +15,7 @@ from primer import pulmonary_source_delivery as source, pulmonary_native_inspect
 from tools.build_pulmonary_delivery_metadata import registry as build_registry
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = 'bca576f8d03c5a6ed3c49ea7c7370bde7fb7327e'
+from tools.pulmonary_release_baselines import read_baseline
 
 
 @pytest.fixture(autouse=True)
@@ -158,8 +158,7 @@ def test_exact_metadata_generation_and_only_reviewed_public_redirects():
     assert barrier_index < generic_index
     for asset in [*source.AUTHORED_FILES, 'original-ct/00000430.dcm', 'nested/reference.html']:
         assert not any(re.fullmatch(route['src'], '/source-media/anatomy/lidc-idri-0525/' + asset) for route in redirects)
-    base = json.loads(subprocess.run(['git', 'show', BASE + ':vercel.json'], cwd=ROOT,
-                                   check=True, capture_output=True).stdout)
+    base = json.loads(read_baseline('vercel.json'))
     assert routes[481:] == base['routes']
     assert config['builds'][1:] == base['builds'][1:]
     assert config['builds'][0]['config']['excludeFiles'].startswith(base['builds'][0]['config']['excludeFiles'][:-1] + ',')
@@ -177,7 +176,7 @@ def test_old_source_registries_and_bindings_are_preserved():
     for path in ['data/radiology/native-source-delivery.json', 'data/radiology/native-source-inspectors.json',
                  'data/radiology/acute-stroke-source-delivery.json', 'data/radiology/soop-native-inspector.json',
                  'primer/stroke_source_delivery.py', 'primer/stroke_native_inspectors.py']:
-        historical = subprocess.run(['git', 'show', BASE + ':' + path], cwd=ROOT, check=True, capture_output=True).stdout
+        historical = read_baseline(path)
         assert (ROOT / path).read_bytes() == historical
     combined.references.cache_clear()
     refs = combined.references()

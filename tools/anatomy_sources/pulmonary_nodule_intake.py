@@ -94,7 +94,9 @@ def main():
             candidates.append(dict(patient=s['PatientID'], images=s['ImageCount'], bytes=s['FileSize'],
                                    uid=x['series_uid'], texture=sorted(v for v in texture if v),
                                    calcification=sorted(v for v in calc if v), xml=x['xml_name']))
-    print(json.dumps(dict(xml_files=len(xml), ct_series=len(series), candidates=sorted(candidates, key=lambda x: x['patient'])[:45]), indent=2))
+    # Source identifiers and annotation content stay in the private intake
+    # inventories. Terminal diagnostics report only aggregate counts.
+    print(json.dumps(dict(xml_files=len(xml), ct_series=len(series), candidate_count=len(candidates)), indent=2))
 
 
 if __name__ == '__main__':

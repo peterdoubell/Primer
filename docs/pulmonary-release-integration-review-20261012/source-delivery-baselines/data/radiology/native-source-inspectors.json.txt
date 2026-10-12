@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "inspectors": {
+    "massp2-native-lentiform": {
+      "id": "massp2-native-lentiform",
+      "title": "Inspect native population MRI, labels and probabilities",
+      "src": "/app/anatomy/brain-fine-massp2/reference.html",
+      "sha256": "b745aa93b173aa25eacd37f64a82bb1b971e678f5801cf65121b4b75e5e0fbb3",
+      "script_sha256": "e29faee80874aefafcee4d7bf572573ceac6f88ffaa6716ab48186f1242d0a97",
+      "manifest_url": "/app/anatomy/brain-fine-massp2/manifest.json",
+      "manifest_sha256": "a8ccb6f7fbd86433200c2fb74fcf5f9204aded8ac071599af9c1959f7dd65492",
+      "bound_source_ids": [
+        "massp2-subcortical-reference"
+      ],
+      "caption": "Inspect all native planes through the six full putamen and pallidal source selections, with all three median/IQR contrasts and separate atlas probabilities. These are adult population templates: MRI from 105 subjects and atlas labels from 97. Their declared source grids correspond without resampling; patient registration, clinical boundaries and fine laminae remain unverified.",
+      "attribution": "Bazin, Forstmann, Alkemade, Miletic and Isherwood. MASSP 2.0 lifespan atlas v2 and AHEAD quantitative MRI templates v3. CC BY 4.0. Adaptation: lossless native regional crop, exact source-label encoding, display windows and direct unchanged-model sections.",
+      "source_url": "https://doi.org/10.21942/uva.19646364.v3",
+      "atlas_source_url": "https://doi.org/10.21942/uva.27291579.v2",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "independent_source_review": "docs/brain-fine-independent-review-20261011.json",
+      "independent_source_review_sha256": "96373ba15c914a45e7afc99f58f5e1b7f3c58ea7aa67a234935adb65f0f54af1",
+      "runtime_binding_added": true
+    }
+  },
+  "bindings": {
+    "ra.brain-anatomy": [
+      "massp2-native-lentiform"
+    ]
+  }
+}
