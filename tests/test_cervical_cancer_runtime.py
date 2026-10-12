@@ -115,7 +115,9 @@ def test_actual_browser_checked_all_figures_prompts_and_native_reference_on_both
     assert amendment['historical_app_js_sha256']==historical['app_js_sha256']=='4c88dab41f6e1e3d1b1b3c15721dc9d45eade4441fc6725df52a871e2464e563'
     assert amendment['app_js_sha256']=='be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f'
     assert previous['app_js_sha256']=='a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d'
-    assert current['app_js_sha256']==sha((ROOT/'web/app.js').read_bytes())=='d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0'
+    from tools.anatomy_sources.pulmonary_ui_compatibility import restore_previous_app
+    # The prior receipt still binds d77 exactly; undo only the three recorded pulmonary functions.
+    assert current['app_js_sha256']==sha(restore_previous_app().encode())=='d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0'
     assert current['historical_review_sha256']==sha(historical_raw)
     assert current['historical_app_js_sha256']==historical['app_js_sha256']
     assert previous['previous_compatibility_amendment_sha256']==sha(amendment_raw)
@@ -198,3 +200,124 @@ def test_actual_browser_checked_all_figures_prompts_and_native_reference_on_both
                 assert result['assessment_prompts_do_not_assert_normality']
 
         assert not review['clinical_approval'] and not review['every_structure_approved'] and not review['fine_3D_tissue_layers_approved'] and not review['patient_registration_verified']
+
+
+
+def test_pulmonary_source_only_amendment_preserves_current_legacy_browser_evidence():
+    from tools.anatomy_sources import pulmonary_ui_compatibility as bridge
+    raw=(EVIDENCE/'browser-compatibility-amendment-pulmonary-source-only-20261011.json').read_bytes()
+    assert sha(raw)=='cf85b38d7ef86b046eedccca91b1cab8b59b98ffb27e23c1fe3c98ac38fae78e'
+    amendment=json.loads(raw)
+    assert amendment['schema_version']==1
+    assert amendment['app_js_sha256']==bridge.AFTER==sha((ROOT/'web/app.js').read_bytes())
+    assert amendment['previous_app_js_sha256']==bridge.BEFORE==sha(bridge.restore_previous_app().encode())
+    assert amendment['native_presentation_change_scope']=='pulmonary_source_only_mounting'
+    assert amendment['historical_approval_scope_unchanged'] is True
+    for field in ['clinical_approval','fine_anatomical_approval','structure_coverage_granted',
+                  'current_patient_registration','every_structure_approved','fine_3D_tissue_layers_approved',
+                  'patient_registration_verified','whole_goal_complete','supersedes_historical_review',
+                  'supersedes_previous_compatibility_amendment','supersedes_any_historical_receipt',
+                  'historical_capture_reconstruction_or_replacement','production_or_deployment_verification',
+                  'native_decoder_mesh_CT_renderer_code_touched',
+                  'server_restart_or_shutdown_performed_by_amendment_agent']:
+        assert amendment[field] is False
+    for filename,digest in amendment['preserved_historical_receipts_sha256'].items():
+        assert sha((EVIDENCE/filename).read_bytes())==digest
+    assert len(amendment['preserved_historical_receipts_sha256'])==4
+    previous=json.loads((EVIDENCE/'browser-compatibility-amendment-stroke-source-case-20261011.json').read_bytes())
+    assert amendment['previous_compatibility_amendment_sha256']==sha((EVIDENCE/'browser-compatibility-amendment-stroke-source-case-20261011.json').read_bytes())
+    assert amendment['unchanged_native_manifest_sha256']==previous['unchanged_native_manifest_sha256']==sha((ROOT/'web/anatomy/hra-female-pelvis-v1.10/manifest.json').read_bytes())
+    inverse=amendment['exact_app_inverse']
+    assert inverse['path']==bridge.DELTA and inverse['sha256']==bridge.DELTA_SHA
+    assert sha((ROOT/inverse['helper_path']).read_bytes())==inverse['helper_sha256']
+    assert inverse['changed_functions']==['sourceNativeInspector','renderRadiologyDesk','renderReportWalkthrough']
+    assert inverse['app_bytes_outside_changed_functions_identical'] is True
+    assert inverse['reconstructed_previous_app_sha256']==bridge.BEFORE
+    delta=json.loads((ROOT/bridge.DELTA).read_bytes())
+    assert amendment['guarded_paths_sha256']==delta['guarded_paths_sha256']
+    assert amendment['native_reader_smoke']==delta['native_reader_smoke']
+    assert sha((ROOT/amendment['native_reader_smoke']['path']).read_bytes())==amendment['native_reader_smoke']['sha256']
+    for path,digest in amendment['guarded_paths_sha256'].items():
+        assert sha((ROOT/path).read_bytes())==digest
+    browser_record=amendment['browser_review']
+    assert browser_record['path']=='docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/review.json'
+    browser_raw=(ROOT/browser_record['path']).read_bytes()
+    assert sha(browser_raw)==browser_record['sha256']
+    browser=json.loads(browser_raw)
+    assert browser['all_requested_routes_and_viewports_passed'] is True and browser['owned_isolated_qa_server'] is True
+    assert browser['app_js_sha256']==bridge.AFTER
+    assert browser['source_contract_sha256']==amendment['source_contract_sha256']==sha((EVIDENCE/'source-figure-contract.json').read_bytes())
+    assert browser['detailed_anatomy_js_sha256']==amendment['detailed_anatomy_js_sha256']==sha((ROOT/'web/radiology-detailed-anatomy.js').read_bytes())
+    assert {(row['route'],row['viewport']['width']) for row in browser['results']}=={('reporting',1440),('reporting',390),('lesson',1440),('lesson',390)}
+    original_rows=json.loads((EVIDENCE/'source-figure-contract.json').read_bytes())['structure_atlas']
+    originals={row['id']:row for row in original_rows}
+    manifest=json.loads((ROOT/'web/anatomy/hra-female-pelvis-v1.10/manifest.json').read_bytes())
+    parts={row['file']:row for row in manifest['parts'].values()}
+    for result in browser['results']:
+        assert result['served_app_js_sha256']==bridge.AFTER
+        assert result['served_detailed_anatomy_js_sha256']==amendment['detailed_anatomy_js_sha256']
+        assert result['complete_cervical_figure_count']==32
+        assert result['all_native_image_response_hashes_match'] is True
+        assert {row['id'] for row in result['image_responses']}==set(originals)
+        for response in result['image_responses']:
+            original=originals[response['id']]
+            body=(ROOT/'web'/original['src'].removeprefix('/app/')).read_bytes()
+            assert response['status']==200 and response['src']==original['src']
+            assert response['sha256']==original['sha256']==sha(body) and response['bytes']==len(body)
+        assert all(row['complete'] and row['source_caption_full_matches'] and row['case_modality_limits_visible'] and row['display_filter']=='none' for row in result['figure_checks'])
+        assert result['source_case_modality_staging_limits_visible'] is True
+        assert result['enlarged_originals_and_native_size_control_verified'] is True and result['no_held_remote_ra_images'] is True
+        assert all(row['native_size_control'] and row['original'] for row in result['enlarged'])
+        assert result['native_reference_viewer_count']==1 and result['native_reference_mesh_count']==54
+        assert result['all54_source_objects_GPU_drawn'] is True and result['native_reference_uncropped'] is True
+        assert result['native_reference_is_independent_and_unregistered'] is True
+        assert len(result['mesh_responses'])==54 and {row['path'] for row in result['mesh_responses']}==set(parts)
+        for response in result['mesh_responses']:
+            part=parts[response['path']]
+            assert response['status']==200 and response['sha256']==part['decoded_sha256']
+            assert response['vertices']==part['vertices'] and response['triangles']==part['triangles']
+        native=result['native_reference']
+        assert native['native_y_up'] is True and native['cropped']=='false' and len(native['draw_calls'])==54
+        assert sum(row['count'] for row in native['draw_calls'])==293490*3
+        assert result['source_labels_nonoverlap'] is True and native['labelRects']['vertical_overlap_pixels']==0
+        assert result['page_errors']==[] and result['failed_requests']==[] and result['horizontal_overflow'] is False
+        if result['route']=='reporting':
+            assert result['assessment_step_count']==8 and result['only_source_matched_step_images'] is True
+            assert result['assessment_prompts_do_not_assert_normality'] is True
+            assert result['assessment']['all_prompts_unfilled'] is True and result['assessment']['assembled_report_has_all_sections'] is True
+    assert amendment['capture_count']==16==sum(len(row['screenshots']) for row in browser['results'])
+    assert amendment['capture_file_hashes_verified'] is True
+    expected_captures=[{'path':str(Path(browser_record['path']).parent/shot['file']),'sha256':shot['sha256']} for row in browser['results'] for shot in row['screenshots']]
+    assert amendment['screenshots']==expected_captures
+    for capture in amendment['screenshots']:
+        assert sha((ROOT/capture['path']).read_bytes())==capture['sha256']
+    for field in ['clinical_approval','every_structure_approved','fine_3D_tissue_layers_approved','patient_registration_verified','production_or_deployment_verification']:
+        assert browser[field] is False
+
+
+
+@pytest.mark.parametrize('change',['extra_app_bytes','unscoped_case','extra_native_function'])
+def test_pulmonary_inverse_cannot_accept_any_unreviewed_app_change(change):
+    from tools.anatomy_sources import pulmonary_ui_compatibility as bridge
+    app=(ROOT/'web/app.js').read_text()
+    if change=='extra_app_bytes':app+='\n// Unreviewed bytes outside the recorded functions.\n'
+    elif change=='unscoped_case':app=app.replace('lidc-idri-0525','another-source-case',1)
+    else:app+='\nfunction unreviewedNativeRenderer() {}\n'
+    with pytest.raises(ValueError,match='Unreviewed'):
+        bridge.restore_previous_app(app)
+
+
+@pytest.mark.parametrize('field,value',[
+    ('native_presentation_change_scope','arbitrary_renderer'),
+    ('native_decoder_mesh_CT_renderer_code_touched',True),
+    ('native_presentation_code_touched',False),
+    ('clinical_approval',True),('fine_anatomical_approval',True),
+    ('reopens_or_extends_any_review',True),
+])
+def test_pulmonary_refresh_cannot_rebase_or_extend_the_historical_scope(field,value):
+    import copy
+    from tools.anatomy_sources import pulmonary_ui_compatibility as bridge,ui_refresh
+    step=copy.deepcopy(next(row for row in ui_refresh.load()['refreshes'] if row['id']==bridge.REFRESH_ID))
+    step[field]=value
+    with pytest.raises(ValueError,match='scope'):
+        bridge.validate_refresh(step)

@@ -56,7 +56,11 @@ def test_every_slot_is_backed_by_one_curated_figure():
     nodes = [node for node in curriculum.nodes.values()
              if node['domain'] == 'radiology' and node['id'].startswith('rad.')]
     images = [image for node in nodes for image in node['radiology_reference']['key_images']]
-    assert len(images) == 295  # Three uncleared Sella slots are replaced by its licensed source gallery.
+    # Sella's three removed slots and pulmonary's three placeholders have
+    # independently reviewed source galleries; pulmonary supplies full native planes.
+    assert len(images) == 292
+    from tools.pulmonary_reference_contract import assert_native_pulmonary_reference
+    assert_native_pulmonary_reference(curriculum.node('rad.4.pulmonary-nodule')['radiology_reference'])
     assert len({image['id'] for image in images}) == len(images)
     for node in nodes:
         entries = node['radiology_reference']['key_images']

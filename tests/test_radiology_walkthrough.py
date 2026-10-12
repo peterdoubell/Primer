@@ -121,6 +121,10 @@ def test_step_landmarks_and_mesh_parts_exist(references):
     for identifier, ref in references.items():
         model = ref['walkthrough']['spatial_model']
         steps = ref['walkthrough']['steps']
+        if identifier == 'ra.ct-pulmonary-nodules':
+            from tools.pulmonary_reference_contract import assert_native_pulmonary_reference
+            assert_native_pulmonary_reference(ref)
+            continue
         assert model['family'] in families, identifier
         assert model['focus'][0] == steps[0]['landmark'] or not model['scenario'].startswith('radiology-investigation:')
         region = radiology_catalog.mesh_region(model['family'])
@@ -244,6 +248,9 @@ def test_step_files_are_canonical_and_cover_each_specialty():
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
 def test_walkthrough_helpers_and_step_models_build(references):
     served = [{'id': identifier, 'model': ref['walkthrough']['spatial_model'],
+               'source_native_inspectors': ref.get('source_native_inspectors', []),
+               'key_images': ref['key_images'],
+               'parts': [step['parts'] for step in ref['walkthrough']['steps']],
                'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}
               for identifier, ref in references.items()]
     result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js')],
@@ -252,8 +259,25 @@ def test_walkthrough_helpers_and_step_models_build(references):
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
     assert report == {'investigations': 136, 'corrected': len(CORRECTED),
-                      'builds': report['builds'], 'status': 'passed'}
+                      'builds': report['builds'], 'nativeCompanions': 1, 'status': 'passed'}
     assert report['builds'] >= 136
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
+@pytest.mark.parametrize('mutation', ['ordinary_native_flag', 'missing_native_binding'])
+def test_native_walkthrough_allowance_rejects_unknown_or_missing_source(references, mutation):
+    served = [{'id': identifier, 'model': copy.deepcopy(ref['walkthrough']['spatial_model']),
+               'source_native_inspectors': copy.deepcopy(ref.get('source_native_inspectors', [])),
+               'key_images': ref['key_images'], 'parts': [step['parts'] for step in ref['walkthrough']['steps']],
+               'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}
+              for identifier, ref in references.items()]
+    if mutation == 'ordinary_native_flag':
+        next(row for row in served if row['id'] != 'ra.ct-pulmonary-nodules')['model']['source_native_only'] = True
+    else:
+        next(row for row in served if row['id'] == 'ra.ct-pulmonary-nodules')['source_native_inspectors'] = []
+    result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js')],
+                            input=json.dumps(served), cwd=ROOT, capture_output=True, text=True, timeout=60)
+    assert result.returncode != 0 and 'AssertionError' in result.stderr
 
 
 def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_gallery_into_intro(references):

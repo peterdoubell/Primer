@@ -419,6 +419,76 @@
       }
     ]
   }
-}
+},
+    {
+      "id": "2026-10-11-pulmonary-source-only-mounting",
+      "date": "2026-10-11",
+      "change": "Pulmonary-only source CT/annotation inline mounting and suppression of generic lobe/part highlights; all other source routes retain previous behaviour.",
+      "files": {
+        "web/app.js": {
+          "before": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+          "after": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc"
+        }
+      },
+      "app_js_changed_regions": [
+        "sourceNativeInspector: exact CT-case labels and opt-in same-origin inline viewer",
+        "renderRadiologyDesk: source-only model tab",
+        "renderReportWalkthrough: pulmonary-only source mode and accurate intro"
+      ],
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "pulmonary_source_only_mounting",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "scoped_compatibility_amendment": {
+        "path": "docs/pulmonary-nodule-integration-review-20261011/bounded-app-source-only-delta.json",
+        "sha256": "7ab2a9eb1fe06acd5407a05f738e8fddba9f64221e72c669c955e78e94edb76f"
+      },
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "Historical full native CT/pointer/GPU proofs remain bound to their original files. This bounded actual reader replay does not extend any approval."
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false
+    }
   ]
 }

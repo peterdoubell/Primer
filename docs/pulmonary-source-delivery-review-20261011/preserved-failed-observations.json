@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "observations": [
+    {
+      "scope": "initial checker invocation",
+      "command": "python3 tools/check_pulmonary_delivery.py --output docs/pulmonary-source-delivery-review-20261011/local-asgi-proof.json",
+      "failure": "ModuleNotFoundError: No module named primer",
+      "cause": "Checker entry point omitted its repository sys.path; harness only, no source change",
+      "status": "harness import path repaired"
+    },
+    {
+      "scope": "first full-app local ASGI check",
+      "session_id": 80659,
+      "exit_code": 1,
+      "failure": "AssertionError at initial 401/cache-control conjunction",
+      "status": "harness cache expectation repaired",
+      "cause": "Existing outer access challenge uses Cache-Control: no-store; the harness initially required private, no-store, which applies to authenticated source routes"
+    },
+    {
+      "scope": "first targeted suite",
+      "session_id": 56820,
+      "exit_code": 1,
+      "result": "74 passed, 1 failed",
+      "failure": "Only full-app checker repeated initial unauthorized cache-header mismatch",
+      "source_changes_required": false
+    }
+  ],
+  "source_expectations_rebaselined": false
+}

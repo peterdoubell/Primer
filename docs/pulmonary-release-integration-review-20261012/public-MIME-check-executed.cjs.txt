@@ -1,0 +1,8 @@
+'use strict';
+const fs=require('node:fs'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const dir='.research/pulmonary-release-current-reader-20261012',plan=JSON.parse(fs.readFileSync(dir+'/upload-plan.json')),published=JSON.parse(fs.readFileSync(dir+'/publisher-progress-resumed.json'));
+assert.equal(published.complete,true);assert.equal(published.objects.length,480);assert.equal(published.source_bytes_verified,370135064);
+const proof={public_HEAD_MIME_CORS_only:true,files:[],complete:false},out=dir+'/actual-public-MIME-proof.json';let next=0;
+function save(){fs.writeFileSync(out,JSON.stringify(proof,null,2)+'\n');}
+async function worker(){while(next<plan.files.length){const row=plan.files[next++];const response=await fetch(row.url,{method:'HEAD',signal:AbortSignal.timeout(60000)});const observed={src:row.src,url:row.url,status:response.status,content_type:response.headers.get('content-type'),CORS:response.headers.get('access-control-allow-origin')};assert.equal(response.status,200);assert.equal(observed.content_type.split(';')[0].trim(),row.content_type);assert.equal(observed.CORS,'*');proof.files.push(observed);save();}}
+(async()=>{await Promise.all(Array.from({length:6},worker));assert.equal(proof.files.length,480);proof.complete=true;save();console.log(JSON.stringify({public_HEAD_files:480,MIME_exact:true,CORS_exact:true,sha256:crypto.createHash('sha256').update(fs.readFileSync(out)).digest('hex')}));})().catch(e=>{proof.complete=false;proof.failure={type:e.name,message:e.message};save();console.error(JSON.stringify(proof.failure));process.exitCode=1;});

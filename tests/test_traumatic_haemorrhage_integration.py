@@ -12,6 +12,7 @@ from primer import radiology_catalog as catalog
 from tools.anatomy_sources import integrate_traumatic_haemorrhage_sources as integration
 from tools.anatomy_sources import traumatic_registry_amendment as registry_amendment
 from tools.anatomy_sources import stroke_registry_amendment as stroke_amendment
+from tools.pulmonary_data_compatibility import restore_prior_view
 from tools.check_msk_fidelity import audit,requirements_for,validate_reporting_snapshots,inspect_binding
 from tools.check_radiology_fidelity import digest
 from tools.msk_runtime_rights import license_issues
@@ -158,7 +159,8 @@ def test_unrelated_value_tokens_and_nontraumatic_source_contract_are_preserved(s
     for path in integration.DATA_PATHS:
         raw=(ROOT/path).read_text()
         actual=integration.unrelated_tokens(raw,path,ids)
-        _,actual=stroke_amendment.restore_prior_view(path,json.loads(raw),actual)
+        data,actual=restore_prior_view(path,json.loads(raw),actual)
+        _,actual=stroke_amendment.restore_prior_view(path,data,actual)
         assert actual==receipt['unrelated_token_fingerprints'][str(path)]
     assert receipt['all_unrelated_JSON_value_tokens_unchanged']
     assert receipt['nontraumatic_effective_reference_unchanged']

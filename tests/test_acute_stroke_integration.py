@@ -11,6 +11,7 @@ from tools.anatomy_sources import integrate_acute_stroke_sources as integration
 from tools.check_msk_fidelity import audit,requirements_for,validate_reporting_snapshots,inspect_binding
 from tools.check_radiology_fidelity import digest
 from tools.msk_runtime_rights import license_issues
+from tools.pulmonary_data_compatibility import restore_prior_view, restore_prior_contracts
 ROOT=Path(__file__).resolve().parents[1];INV=integration.INV
 
 @pytest.fixture(scope='module')
@@ -94,8 +95,10 @@ def test_every_named_scope_and_current_quiz_remains_unfulfilled(state):
 def test_all_unrelated_values_and_effective_nonstroke_reports_are_unchanged(state):
     c,ref,inventory,scope,rows,assets,receipt=state;ids={r['id'] for r in rows}
     for p in integration.DATA_PATHS:
-        assert integration.unrelated_tokens((ROOT/p).read_text(),p,ids)==receipt['unrelated_token_fingerprints'][str(p)]
-    assert integration.nonstroke_contracts(c)==receipt['nonstroke_effective_contract_digests']
+        raw=(ROOT/p).read_text()
+        _,tokens=restore_prior_view(p,json.loads(raw),integration.unrelated_tokens(raw,p,ids))
+        assert tokens==receipt['unrelated_token_fingerprints'][str(p)]
+    assert restore_prior_contracts(integration.nonstroke_contracts(c))==receipt['nonstroke_effective_contract_digests']
     assert receipt['nonstroke_effective_contracts_unchanged']==135==len(catalog.catalogue()['investigations'])-1
     assert receipt['all_unrelated_JSON_value_tokens_unchanged'] is True
 

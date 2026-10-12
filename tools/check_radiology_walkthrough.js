@@ -7,6 +7,7 @@
 // Browser verification remains necessary for layout, focus and the mesh viewer.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path'), crypto = require('node:crypto');
 // Fixed shipped modules with inert event registration; no real reader or route.
 globalThis.window = { addEventListener() {} };
 globalThis.document = { addEventListener() {} };
@@ -63,9 +64,32 @@ assert.equal(wrapper.landmarks('__proto__'), null);
 
 const served = JSON.parse(fs.readFileSync(0, 'utf8'));
 assert.ok(Array.isArray(served) && served.length === 136, 'All investigations are checked');
-let registered = 0, builds = 0;
+let registered = 0, builds = 0, nativeCompanions = 0;
 for (const entry of served) {
   const model = entry.model;
+  if (model.source_native_only || entry.id === 'ra.ct-pulmonary-nodules') {
+    assert.equal(entry.id, 'ra.ct-pulmonary-nodules', 'Native allowance has one exact source binding');
+    assert.equal(model.source_native_only, true);
+    assert.equal(model.scenario, 'radiology-reference:rad.4.pulmonary-nodule');
+    assert.equal(model.id, 'radiology-model-rad.4.pulmonary-nodule');
+    assert.equal(model.family, 'thorax'); assert.deepEqual(model.focus, ['native-source']);
+    assert.deepEqual(entry.key_images, []);
+    assert.ok(entry.landmarks.every(v => v === 'native-source'));
+    assert.ok(entry.parts.every(v => Array.isArray(v) && v.length === 0));
+    const registry = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/radiology/pulmonary-native-inspector.json')));
+    const expected = registry.inspectors['lidc-idri-0525-native'];
+    assert.deepEqual(entry.source_native_inspectors, [expected]);
+    const raw = fs.readFileSync(path.join(__dirname, '../web/anatomy/lidc-idri-0525/manifest.json'));
+    assert.equal(crypto.createHash('sha256').update(raw).digest('hex'), expected.manifest_sha256);
+    const manifest = JSON.parse(raw);
+    assert.deepEqual(manifest.ct.shape, [512, 512, 429]);
+    assert.equal(manifest.ct.source_samples, 112459776); assert.equal(manifest.ct.chunks.length, 7);
+    assert.equal(manifest.annotations.length, 8); assert.equal(manifest.xml_marks.length, 33);
+    assert.equal(manifest.annotations.reduce((n, a) => n + a.mesh.triangles, 0), 12568);
+    for (const flag of ['clinical_approval', 'fine_anatomical_approval', 'structure_coverage_granted',
+                       'current_patient_registration', 'whole_goal_complete']) assert.equal(expected[flag], false);
+    nativeCompanions++; continue;
+  }
   if (model.scenario.startsWith('radiology-investigation:')) {
     assert.equal(model.scenario, 'radiology-investigation:' + entry.id);
     assert.equal(wrapper.ensure(model), model.scenario, entry.id + ': corrected scene registers');
@@ -85,4 +109,5 @@ for (const entry of served) {
     builds++;
   }
 }
-console.log(JSON.stringify({ investigations: served.length, corrected: registered, builds, status: 'passed' }, null, 2));
+assert.equal(nativeCompanions, 1);
+console.log(JSON.stringify({ investigations: served.length, corrected: registered, builds, nativeCompanions, status: 'passed' }, null, 2));

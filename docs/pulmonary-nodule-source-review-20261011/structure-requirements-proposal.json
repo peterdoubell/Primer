@@ -1,0 +1,4171 @@
+{
+  "schema_version": 1,
+  "investigation_id": "ra.ct-pulmonary-nodules",
+  "module_id": "rad.4.pulmonary-nodule",
+  "title": "Pulmonary nodules: whole reporting and13-question conditional structure draft",
+  "source_contract_definition": "Exact current effective reporting/report_templates/walkthrough/reading snapshot at base main; proposals are separate and do not overwrite historical contract.",
+  "source_contract_sha256": "e029b4fdd292efa3638f4f7868bf993ea2e4f6195c921ebce13653f6d98aceb8",
+  "shared_curriculum_quiz_sha256": "c8d6acf6a66bd97d13bdb33dabc7f3e2ea5603208d861a5227e8fe3dcd68ab77",
+  "scope_status": "conditional_whole_module_draft_requires_thoracic_radiologist_review_and_actual_site_instantiation",
+  "required_representations": [
+    "image",
+    "schematic",
+    "model"
+  ],
+  "modality_scope": [
+    "complete_native_thin_section_CT",
+    "all_actual_reconstruction_kernels",
+    "genuine_prior_CT_when_supplied",
+    "PET_CT_if_actually_acquired"
+  ],
+  "reporting_checklist": [
+    {
+      "label": "Eligibility",
+      "detail": "Check age, immune status, cancer history and screening context."
+    },
+    {
+      "label": "Nodule type",
+      "detail": "Distinguish solid, pure ground glass and part-solid."
+    },
+    {
+      "label": "Morphology",
+      "detail": "Assess margins, fat, calcium, perifissural shape and cystic change."
+    },
+    {
+      "label": "Measurement",
+      "detail": "Document location, mean diameter or consistent volume, and solid component."
+    },
+    {
+      "label": "Growth",
+      "detail": "Use comparable reconstructions and identify the most suspicious lesion in multiple nodules."
+    }
+  ],
+  "reporting_template_sections": [
+    {
+      "heading": "PATHWAY",
+      "body": "Context: [incidental / screening / known malignancy / other]. Age/risk: [ ]. Exclusions: [ ]."
+    },
+    {
+      "heading": "NODULE INVENTORY",
+      "body": "ID/lobe/segment: [ ]. Type: [solid / pure ground glass / part-solid]. Series/image: [ ]."
+    },
+    {
+      "heading": "SIZE AND MORPHOLOGY",
+      "body": "Long/short axes: [ ]/[ ] mm; mean: [ ] mm. Solid component: [ ] mm. Margins/fat/calcium: [ ]."
+    },
+    {
+      "heading": "INTERVAL CHANGE",
+      "body": "Prior date: [ ]. Previous size/volume: [ ]. Growth: [none / present / uncertain]. Reconstruction comparability: [ ]."
+    },
+    {
+      "heading": "ASSESSMENT",
+      "body": "Most suspicious nodule: [ ]. Benign-pattern evidence: [ ]. Applicable guideline/version and recommendation rationale: [ ]."
+    }
+  ],
+  "structures": [
+    {
+      "id": "pulmonary.right.lung",
+      "name": "right lung parenchyma",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Required for nodule localization and background-risk assessment; not automatically labelled by nodule masks.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.lung.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.lung.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.lung.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.lung.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.lung.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.lung.part-6",
+          "name": "apex-to-base actually acquired extent"
+        },
+        {
+          "id": "pulmonary.right.lung.part-7",
+          "name": "pleural and hilar interfaces"
+        },
+        {
+          "id": "pulmonary.right.lung.part-8",
+          "name": "dependent aeration and background emphysema/fibrosis"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.pleura",
+      "name": "right visceral pleural interface",
+      "tissue_class": "pleura",
+      "laterality": "right",
+      "conditional_scope": "Every actual interface relevant to a reported juxtapleural nodule.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.pleura.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.pleura.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.pleura.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.pleura.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.pleura.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.pleura.part-6",
+          "name": "costal mediastinal and diaphragmatic surfaces where visible"
+        },
+        {
+          "id": "pulmonary.right.pleura.part-7",
+          "name": "subpleural nodule contact and attachment versus mere proximity"
+        },
+        {
+          "id": "pulmonary.right.pleura.part-8",
+          "name": "pleural indentation or retraction if actually present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.lung",
+      "name": "left lung parenchyma",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Required for nodule localization and background-risk assessment; not automatically labelled by nodule masks.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.lung.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.lung.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.lung.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.lung.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.lung.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.lung.part-6",
+          "name": "apex-to-base actually acquired extent"
+        },
+        {
+          "id": "pulmonary.left.lung.part-7",
+          "name": "pleural and hilar interfaces"
+        },
+        {
+          "id": "pulmonary.left.lung.part-8",
+          "name": "dependent aeration and background emphysema/fibrosis"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.pleura",
+      "name": "left visceral pleural interface",
+      "tissue_class": "pleura",
+      "laterality": "left",
+      "conditional_scope": "Every actual interface relevant to a reported juxtapleural nodule.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.pleura.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.pleura.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.pleura.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.pleura.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.pleura.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.pleura.part-6",
+          "name": "costal mediastinal and diaphragmatic surfaces where visible"
+        },
+        {
+          "id": "pulmonary.left.pleura.part-7",
+          "name": "subpleural nodule contact and attachment versus mere proximity"
+        },
+        {
+          "id": "pulmonary.left.pleura.part-8",
+          "name": "pleural indentation or retraction if actually present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.upper",
+      "name": "right upper lobe",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Required wherever lobe is reported; separate complete source geometry/labels are still missing.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.upper.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.upper.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.upper.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.upper.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.upper.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.upper.part-6",
+          "name": "complete true lobe extent"
+        },
+        {
+          "id": "pulmonary.right.upper.part-7",
+          "name": "true lobar fissural boundaries and incomplete-fissure limits"
+        },
+        {
+          "id": "pulmonary.right.upper.part-8",
+          "name": "hilar/lobar bronchovascular continuity"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.middle",
+      "name": "right middle lobe",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Required wherever lobe is reported; separate complete source geometry/labels are still missing.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.middle.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.middle.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.middle.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.middle.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.middle.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.middle.part-6",
+          "name": "complete true lobe extent"
+        },
+        {
+          "id": "pulmonary.right.middle.part-7",
+          "name": "true lobar fissural boundaries and incomplete-fissure limits"
+        },
+        {
+          "id": "pulmonary.right.middle.part-8",
+          "name": "hilar/lobar bronchovascular continuity"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.lower",
+      "name": "right lower lobe",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Required wherever lobe is reported; separate complete source geometry/labels are still missing.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.lower.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.lower.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.lower.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.lower.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.lower.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.lower.part-6",
+          "name": "complete true lobe extent"
+        },
+        {
+          "id": "pulmonary.right.lower.part-7",
+          "name": "true lobar fissural boundaries and incomplete-fissure limits"
+        },
+        {
+          "id": "pulmonary.right.lower.part-8",
+          "name": "hilar/lobar bronchovascular continuity"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.upper",
+      "name": "left upper lobe including lingula",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Required wherever lobe is reported; separate complete source geometry/labels are still missing.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.upper.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.upper.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.upper.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.upper.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.upper.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.upper.part-6",
+          "name": "complete true lobe extent"
+        },
+        {
+          "id": "pulmonary.left.upper.part-7",
+          "name": "true lobar fissural boundaries and incomplete-fissure limits"
+        },
+        {
+          "id": "pulmonary.left.upper.part-8",
+          "name": "hilar/lobar bronchovascular continuity"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.lower",
+      "name": "left lower lobe",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Required wherever lobe is reported; separate complete source geometry/labels are still missing.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.lower.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.lower.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.lower.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.lower.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.lower.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.lower.part-6",
+          "name": "complete true lobe extent"
+        },
+        {
+          "id": "pulmonary.left.lower.part-7",
+          "name": "true lobar fissural boundaries and incomplete-fissure limits"
+        },
+        {
+          "id": "pulmonary.left.lower.part-8",
+          "name": "hilar/lobar bronchovascular continuity"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.oblique_fissure",
+      "name": "right oblique fissure",
+      "tissue_class": "pleura",
+      "laterality": "right",
+      "conditional_scope": "Primary fissures required for localization; accessory variant only where actually present.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.oblique_fissure.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.oblique_fissure.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.oblique_fissure.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.oblique_fissure.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.oblique_fissure.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.oblique_fissure.part-6",
+          "name": "complete visible fissural plane and unresolved parts"
+        },
+        {
+          "id": "pulmonary.right.oblique_fissure.part-7",
+          "name": "true junction with adjacent lobes"
+        },
+        {
+          "id": "pulmonary.right.oblique_fissure.part-8",
+          "name": "actual nodule attachment morphology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.horizontal_fissure",
+      "name": "right horizontal fissure",
+      "tissue_class": "pleura",
+      "laterality": "right",
+      "conditional_scope": "Primary fissures required for localization; accessory variant only where actually present.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-6",
+          "name": "complete visible fissural plane and unresolved parts"
+        },
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-7",
+          "name": "true junction with adjacent lobes"
+        },
+        {
+          "id": "pulmonary.right.horizontal_fissure.part-8",
+          "name": "actual nodule attachment morphology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.oblique_fissure",
+      "name": "left oblique fissure",
+      "tissue_class": "pleura",
+      "laterality": "left",
+      "conditional_scope": "Primary fissures required for localization; accessory variant only where actually present.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.oblique_fissure.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.oblique_fissure.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.oblique_fissure.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.oblique_fissure.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.oblique_fissure.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.oblique_fissure.part-6",
+          "name": "complete visible fissural plane and unresolved parts"
+        },
+        {
+          "id": "pulmonary.left.oblique_fissure.part-7",
+          "name": "true junction with adjacent lobes"
+        },
+        {
+          "id": "pulmonary.left.oblique_fissure.part-8",
+          "name": "actual nodule attachment morphology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.accessory_fissure",
+      "name": "every actual accessory fissure or variant",
+      "tissue_class": "pleura",
+      "laterality": "variable",
+      "conditional_scope": "Primary fissures required for localization; accessory variant only where actually present.",
+      "required_parts": [
+        {
+          "id": "pulmonary.accessory_fissure.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.accessory_fissure.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.accessory_fissure.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.accessory_fissure.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.accessory_fissure.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.accessory_fissure.part-6",
+          "name": "complete visible fissural plane and unresolved parts"
+        },
+        {
+          "id": "pulmonary.accessory_fissure.part-7",
+          "name": "true junction with adjacent lobes"
+        },
+        {
+          "id": "pulmonary.accessory_fissure.part-8",
+          "name": "actual nodule attachment morphology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S1",
+      "name": "right S1 apical upper segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S1.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S1.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S1.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S1.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S1.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S1.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S1.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S1.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B1",
+      "name": "right B1 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B1.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B1.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B1.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B1.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B1.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B1.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B1.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B1.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S2",
+      "name": "right S2 posterior upper segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S2.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S2.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S2.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S2.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S2.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S2.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S2.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S2.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B2",
+      "name": "right B2 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B2.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B2.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B2.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B2.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B2.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B2.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B2.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B2.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S3",
+      "name": "right S3 anterior upper segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S3.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S3.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S3.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S3.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S3.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S3.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S3.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S3.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B3",
+      "name": "right B3 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B3.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B3.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B3.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B3.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B3.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B3.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B3.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B3.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S4",
+      "name": "right S4 lateral middle segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S4.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S4.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S4.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S4.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S4.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S4.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S4.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S4.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B4",
+      "name": "right B4 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B4.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B4.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B4.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B4.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B4.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B4.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B4.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B4.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S5",
+      "name": "right S5 medial middle segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S5.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S5.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S5.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S5.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S5.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S5.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S5.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S5.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B5",
+      "name": "right B5 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B5.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B5.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B5.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B5.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B5.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B5.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B5.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B5.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S6",
+      "name": "right S6 superior lower segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S6.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S6.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S6.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S6.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S6.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S6.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S6.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S6.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B6",
+      "name": "right B6 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B6.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B6.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B6.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B6.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B6.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B6.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B6.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B6.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S7",
+      "name": "right S7 medial basal segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S7.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S7.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S7.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S7.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S7.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S7.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S7.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S7.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B7",
+      "name": "right B7 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B7.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B7.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B7.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B7.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B7.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B7.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B7.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B7.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S8",
+      "name": "right S8 anterior basal segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S8.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S8.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S8.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S8.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S8.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S8.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S8.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S8.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B8",
+      "name": "right B8 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B8.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B8.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B8.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B8.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B8.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B8.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B8.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B8.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S9",
+      "name": "right S9 lateral basal segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S9.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S9.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S9.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S9.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S9.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S9.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S9.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S9.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B9",
+      "name": "right B9 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B9.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B9.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B9.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B9.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B9.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B9.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B9.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B9.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.S10",
+      "name": "right S10 posterior basal segment",
+      "tissue_class": "lung",
+      "laterality": "right",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.S10.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.S10.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.S10.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.S10.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.S10.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.S10.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.right.S10.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.right.S10.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.right.B10",
+      "name": "right B10 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "right",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.right.B10.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.right.B10.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.right.B10.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.right.B10.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.right.B10.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.right.B10.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.right.B10.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.right.B10.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S1",
+      "name": "left S1 apical upper variant segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S1.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S1.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S1.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S1.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S1.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S1.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S1.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S1.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B1",
+      "name": "left B1 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B1.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B1.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B1.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B1.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B1.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B1.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B1.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B1.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S2",
+      "name": "left S2 posterior upper variant segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S2.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S2.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S2.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S2.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S2.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S2.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S2.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S2.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B2",
+      "name": "left B2 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B2.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B2.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B2.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B2.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B2.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B2.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B2.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B2.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S3",
+      "name": "left S3 anterior upper segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S3.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S3.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S3.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S3.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S3.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S3.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S3.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S3.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B3",
+      "name": "left B3 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B3.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B3.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B3.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B3.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B3.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B3.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B3.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B3.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S4",
+      "name": "left S4 superior lingular segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S4.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S4.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S4.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S4.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S4.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S4.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S4.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S4.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B4",
+      "name": "left B4 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B4.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B4.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B4.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B4.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B4.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B4.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B4.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B4.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S5",
+      "name": "left S5 inferior lingular segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S5.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S5.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S5.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S5.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S5.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S5.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S5.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S5.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B5",
+      "name": "left B5 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B5.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B5.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B5.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B5.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B5.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B5.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B5.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B5.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S6",
+      "name": "left S6 superior lower segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S6.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S6.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S6.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S6.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S6.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S6.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S6.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S6.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B6",
+      "name": "left B6 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B6.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B6.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B6.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B6.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B6.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B6.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B6.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B6.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S7",
+      "name": "left S7 medial basal variant segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S7.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S7.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S7.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S7.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S7.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S7.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S7.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S7.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B7",
+      "name": "left B7 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B7.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B7.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B7.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B7.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B7.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B7.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B7.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B7.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S8",
+      "name": "left S8 anterior basal variant segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S8.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S8.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S8.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S8.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S8.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S8.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S8.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S8.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B8",
+      "name": "left B8 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B8.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B8.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B8.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B8.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B8.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B8.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B8.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B8.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S9",
+      "name": "left S9 lateral basal segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S9.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S9.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S9.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S9.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S9.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S9.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S9.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S9.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B9",
+      "name": "left B9 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B9.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B9.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B9.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B9.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B9.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B9.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B9.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B9.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S10",
+      "name": "left S10 posterior basal segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Instantiate only for actual supplied anatomy and reported segment; left apicoposterior/anteromedial combined variants must not be forced into distinct pseudo-boundaries.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S10.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S10.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S10.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S10.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S10.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S10.part-6",
+          "name": "actual segmental extent inferred only from supported bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S10.part-7",
+          "name": "segmental bronchus and vascular continuity"
+        },
+        {
+          "id": "pulmonary.left.S10.part-8",
+          "name": "interface and uncertainty against neighbouring segments"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.B10",
+      "name": "left B10 supplying bronchial branch",
+      "tissue_class": "airway",
+      "laterality": "left",
+      "conditional_scope": "Needed where reported segment or airway relationship depends on this resolved branch; no invented universal bronchial tree.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.B10.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.B10.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.B10.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.B10.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.B10.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.B10.part-6",
+          "name": "patent lumen versus partial-volume/nonvisualized portion"
+        },
+        {
+          "id": "pulmonary.left.B10.part-7",
+          "name": "true branching origin and continuity"
+        },
+        {
+          "id": "pulmonary.left.B10.part-8",
+          "name": "nodule-adjacent airway relationship if present"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S1+2",
+      "name": "left combined apicoposterior segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Conditional actual combined anatomical variant; not additive anatomy forced on every case.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S1+2.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S1+2.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S1+2.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S1+2.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S1+2.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S1+2.part-6",
+          "name": "actual combined bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S1+2.part-7",
+          "name": "resolved segmental extent and shared boundaries"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.left.S7+8",
+      "name": "left combined anteromedial basal segment",
+      "tissue_class": "lung",
+      "laterality": "left",
+      "conditional_scope": "Conditional actual combined anatomical variant; not additive anatomy forced on every case.",
+      "required_parts": [
+        {
+          "id": "pulmonary.left.S7+8.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.left.S7+8.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.left.S7+8.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.left.S7+8.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.left.S7+8.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.left.S7+8.part-6",
+          "name": "actual combined bronchovascular anatomy"
+        },
+        {
+          "id": "pulmonary.left.S7+8.part-7",
+          "name": "resolved segmental extent and shared boundaries"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.entire",
+      "name": "every actual whole nodule",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.entire.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.entire.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.entire.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.entire.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.entire.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.entire.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.entire.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.entire.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.solid",
+      "name": "solid nodule and its external boundary",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.solid.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.solid.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.solid.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.solid.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.solid.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.solid.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.solid.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.solid.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.ground_glass",
+      "name": "pure ground-glass opacity extent and preserved underlying structures",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.ground_glass.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.ground_glass.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.ground_glass.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.ground_glass.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.ground_glass.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.ground_glass.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.ground_glass.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.ground_glass.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.part_solid",
+      "name": "part-solid opacity and separate dense and ground-glass extents",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.part_solid.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.part_solid.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.part_solid.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.part_solid.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.part_solid.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.part_solid.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.part_solid.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.part_solid.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.solid_component",
+      "name": "each actual dense component in a part-solid nodule",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.solid_component.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.solid_component.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.solid_component.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.solid_component.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.solid_component.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.solid_component.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.solid_component.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.solid_component.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.margin",
+      "name": "smooth lobulated or spiculated external nodule margin",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.margin.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.margin.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.margin.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.margin.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.margin.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.margin.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.margin.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.margin.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.fat",
+      "name": "every verified intranodular macroscopic-fat focus",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.fat.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.fat.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.fat.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.fat.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.fat.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.fat.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.fat.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.fat.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.calcification",
+      "name": "every actual calcific focus and its distribution",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.calcification.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.calcification.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.calcification.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.calcification.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.calcification.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.calcification.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.calcification.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.calcification.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.perifissural",
+      "name": "typical perifissural or juxtapleural whole morphology",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.perifissural.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.perifissural.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.perifissural.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.perifissural.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.perifissural.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.perifissural.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.perifissural.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.perifissural.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.cystic",
+      "name": "actual cyst wall cavity/bubble-like lucencies and adjacent nodularity",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.cystic.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.cystic.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.cystic.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.cystic.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.cystic.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.cystic.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.cystic.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.cystic.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.airway_contact",
+      "name": "actual nodule-airway interface and internal air bronchogram",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.airway_contact.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.airway_contact.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.airway_contact.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.airway_contact.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.airway_contact.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.airway_contact.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.airway_contact.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.airway_contact.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.vascular_contact",
+      "name": "actual nodule-vessel interface and traversing vessels",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.vascular_contact.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.pleural_contact",
+      "name": "actual nodule-pleural/fissural interface and retraction",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.pleural_contact.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.prior_extent",
+      "name": "every genuine matched prior nodule and morphology",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.prior_extent.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.prior_extent.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.prior_extent.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.prior_extent.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.prior_extent.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.prior_extent.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.prior_extent.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.prior_extent.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.nodule.PET_extent",
+      "name": "actual correlated PET nodule uptake distribution when acquired",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.nodule.PET_extent.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.nodule.PET_extent.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.nodule.PET_extent.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.nodule.PET_extent.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.nodule.PET_extent.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.nodule.PET_extent.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.nodule.PET_extent.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.nodule.PET_extent.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.background.emphysema",
+      "name": "actual background emphysema relevant to risk and measurement",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.background.emphysema.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.background.emphysema.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.background.emphysema.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.background.emphysema.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.background.emphysema.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.background.emphysema.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.background.emphysema.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.background.emphysema.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.background.fibrosis",
+      "name": "actual background fibrosis/scar relevant to risk and measurement",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.background.fibrosis.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.background.fibrosis.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.background.fibrosis.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.background.fibrosis.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.background.fibrosis.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.background.fibrosis.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.background.fibrosis.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.background.fibrosis.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.background.atelectasis",
+      "name": "actual adjacent atelectasis or dependent change affecting measurement",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.background.atelectasis.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.background.atelectasis.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.background.atelectasis.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.background.atelectasis.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.background.atelectasis.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.background.atelectasis.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.background.atelectasis.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.background.atelectasis.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.background.infection",
+      "name": "actual infectious or inflammatory pattern relevant to the excluded pathway",
+      "tissue_class": "nodule_or_conditional_background",
+      "laterality": "variable",
+      "conditional_scope": "Conditional per actual nodule/feature/modality/timepoint. Separate reader marks remain separate; no pooled inferred consensus.",
+      "required_parts": [
+        {
+          "id": "pulmonary.background.infection.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.background.infection.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.background.infection.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.background.infection.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.background.infection.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.background.infection.part-6",
+          "name": "every actual component and native boundary"
+        },
+        {
+          "id": "pulmonary.background.infection.part-7",
+          "name": "precise diagnostic morphology at true source resolution"
+        },
+        {
+          "id": "pulmonary.background.infection.part-8",
+          "name": "no source-defined cell surface interpreted as histology"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.calcification.diffuse",
+      "name": "actual diffuse calcification pattern",
+      "tissue_class": "calcification",
+      "laterality": "variable",
+      "conditional_scope": "Required where this pattern is taught or reported; a source ordinal calcification score alone does not supply expert-verified morphology.",
+      "required_parts": [
+        {
+          "id": "pulmonary.calcification.diffuse.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.calcification.diffuse.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.calcification.diffuse.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.calcification.diffuse.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.calcification.diffuse.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.calcification.diffuse.part-6",
+          "name": "all genuine calcific components and native distribution"
+        },
+        {
+          "id": "pulmonary.calcification.diffuse.part-7",
+          "name": "relationship to nodule boundary and noncalcified component"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.calcification.central",
+      "name": "actual central calcification pattern",
+      "tissue_class": "calcification",
+      "laterality": "variable",
+      "conditional_scope": "Required where this pattern is taught or reported; a source ordinal calcification score alone does not supply expert-verified morphology.",
+      "required_parts": [
+        {
+          "id": "pulmonary.calcification.central.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.calcification.central.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.calcification.central.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.calcification.central.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.calcification.central.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.calcification.central.part-6",
+          "name": "all genuine calcific components and native distribution"
+        },
+        {
+          "id": "pulmonary.calcification.central.part-7",
+          "name": "relationship to nodule boundary and noncalcified component"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.calcification.laminated",
+      "name": "actual laminated calcification pattern",
+      "tissue_class": "calcification",
+      "laterality": "variable",
+      "conditional_scope": "Required where this pattern is taught or reported; a source ordinal calcification score alone does not supply expert-verified morphology.",
+      "required_parts": [
+        {
+          "id": "pulmonary.calcification.laminated.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.calcification.laminated.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.calcification.laminated.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.calcification.laminated.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.calcification.laminated.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.calcification.laminated.part-6",
+          "name": "all genuine calcific components and native distribution"
+        },
+        {
+          "id": "pulmonary.calcification.laminated.part-7",
+          "name": "relationship to nodule boundary and noncalcified component"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.calcification.popcorn",
+      "name": "actual popcorn calcification pattern",
+      "tissue_class": "calcification",
+      "laterality": "variable",
+      "conditional_scope": "Required where this pattern is taught or reported; a source ordinal calcification score alone does not supply expert-verified morphology.",
+      "required_parts": [
+        {
+          "id": "pulmonary.calcification.popcorn.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.calcification.popcorn.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.calcification.popcorn.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.calcification.popcorn.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.calcification.popcorn.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.calcification.popcorn.part-6",
+          "name": "all genuine calcific components and native distribution"
+        },
+        {
+          "id": "pulmonary.calcification.popcorn.part-7",
+          "name": "relationship to nodule boundary and noncalcified component"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "pulmonary.calcification.eccentric_or_stippled",
+      "name": "actual eccentric or stippled calcification pattern",
+      "tissue_class": "calcification",
+      "laterality": "variable",
+      "conditional_scope": "Required where this pattern is taught or reported; a source ordinal calcification score alone does not supply expert-verified morphology.",
+      "required_parts": [
+        {
+          "id": "pulmonary.calcification.eccentric_or_stippled.part-1",
+          "name": "complete actual source extent and unassessed limits"
+        },
+        {
+          "id": "pulmonary.calcification.eccentric_or_stippled.part-2",
+          "name": "all resolved external boundaries and interfaces"
+        },
+        {
+          "id": "pulmonary.calcification.eccentric_or_stippled.part-3",
+          "name": "true source coordinates and component topology"
+        },
+        {
+          "id": "pulmonary.calcification.eccentric_or_stippled.part-4",
+          "name": "all actual site/laterality/timepoint instances"
+        },
+        {
+          "id": "pulmonary.calcification.eccentric_or_stippled.part-5",
+          "name": "acquisition and reconstruction resolution limitations"
+        },
+        {
+          "id": "pulmonary.calcification.eccentric_or_stippled.part-6",
+          "name": "all genuine calcific components and native distribution"
+        },
+        {
+          "id": "pulmonary.calcification.eccentric_or_stippled.part-7",
+          "name": "relationship to nodule boundary and noncalcified component"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "coverage_status": "required_not_verified",
+      "image_bindings": [],
+      "schematic_bindings": [],
+      "model_bindings": [],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    }
+  ],
+  "non_anatomical_report_dependencies": [
+    "age and eligibility/exclusions",
+    "actual cancer/immune/screening context",
+    "individual risk/preferences/comorbidity",
+    "quality and reconstruction comparability",
+    "actual dates and elapsed interval",
+    "calibrated HU, linear/volume convention and software version",
+    "complete correct single/multiple solid/subsolid guideline branch and rationale"
+  ],
+  "scope_review_flags": [
+    "Every actual nodule/neighbor/variant/timepoint requires explicit instantiation; this is a known minimum, not a fixed complete denominator.",
+    "Full native CT source is present but unlabelled anatomy is not approved representation coverage.",
+    "All source binary nodule masks represent released annotations, not clinician-approved true tissue boundaries.",
+    "No real follow-up, PET, histology or complete example-bank diagnostic-morphology coverage exists for this source case."
+  ],
+  "runtime_integrated": false,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "structure_coverage_granted": false,
+  "named_requirement_groups": 79,
+  "named_required_parts_floor": 625,
+  "representation_obligations_floor": 1875,
+  "verified_representation_obligations": 0,
+  "unresolved_instantiated_denominator": true
+}

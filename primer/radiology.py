@@ -86,6 +86,9 @@ def _reporting_catalog(nodes):
     for identifier in identifiers:
         validate_reporting_guide(references[identifier])
         model = models[identifier]
+        if 'source_native_only' in model and (identifier != 'rad.4.pulmonary-nodule'
+                or model['source_native_only'] is not True):
+            raise ValueError('Native-only model requires its reviewed pulmonary source binding')
         if model.get("scenario") != "radiology-reference:" + identifier or any(
                 not isinstance(model.get(key), str) or not model[key].strip()
                 for key in ("id", "title", "instructions", "family")):
@@ -314,6 +317,16 @@ def attach_references(nodes):
             placeholder.update(copy.deepcopy(asset))
             if reference["reading"] and not placeholder.get("source_url"):
                 placeholder["source_url"] = reference["reading"][0]["url"]
+        if reference['spatial_model'].get('source_native_only') is True:
+            # This reviewed case supplies actual CT/reader masks in its native
+            # inspector; legacy remote slots and generic lobes imply no coverage.
+            from .source_native_inspectors import references as native_inspectors
+            inspectors = native_inspectors().get('ra.ct-pulmonary-nodules')
+            if node['id'] != 'rad.4.pulmonary-nodule' or not inspectors:
+                raise ValueError('Native-only pulmonary lesson lacks its registered source')
+            reference['source_native_only'] = True
+            reference['source_native_inspectors'] = copy.deepcopy(inspectors)
+            reference['key_images'] = []
         validate_reference(reference)
         node["radiology_reference"] = reference
         node["reference_count"] = len(reference["reading"])

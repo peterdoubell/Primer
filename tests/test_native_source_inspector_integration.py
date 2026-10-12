@@ -23,7 +23,13 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     _validate_lesson_media(node)
     assert [m for m in node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [MEDIA]
     assert all(not any(m['kind'] == 'source-native-inspectors' for m in n['lesson_media'])
-               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke'})
+               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule'})
+    pulmonary = curriculum.node('rad.4.pulmonary-nodule')
+    pulmonary_media, = [m for m in pulmonary['lesson_media'] if m['kind'] == 'source-native-inspectors']
+    assert pulmonary_media['investigation_ids'] == ['ra.ct-pulmonary-nodules']
+    pulmonary_model = next(m for m in pulmonary['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
+    assert pulmonary_model['props']['source_native_only'] is True
+    assert [m['id'] for m in pulmonary_model['props']['native_inspectors']] == ['lidc-idri-0525-native']
     stroke = curriculum.node('rad.4.stroke')
     stroke_inspector, = [m for m in stroke['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert stroke_inspector['investigation_ids'] == ['ra.acute-stroke']

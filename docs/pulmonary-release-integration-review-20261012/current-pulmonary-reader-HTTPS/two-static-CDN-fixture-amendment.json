@@ -1,0 +1,28 @@
+{
+  "prior_runner": 56571,
+  "exit_code": 1,
+  "completed_reader_rows": 1,
+  "failed_requests": [
+    "/source-media/illustrations/forest/radiology/rad-4-pulmonary-nodule-800.webp",
+    "/source-media/illustrations/forest/radiology/rad-4-pulmonary-nodule-1600.webp"
+  ],
+  "actual_Blob_RGB_GPU_row_passed": true,
+  "cause": "Isolated ASGI fixture does not implement the separate @vercel/static source-media rewrite.",
+  "repair": "Emulate only the two fixed existing static WebP paths from exact working Git bytes, validated against explicit current Vercel rewrite/build entries; all other requests remain original wrapped API.",
+  "static_fixture_rows": [
+    {
+      "public_path": "/source-media/illustrations/forest/radiology/rad-4-pulmonary-nodule-800.webp",
+      "git_path": "web/illustrations/forest/radiology/rad-4-pulmonary-nodule-800.webp",
+      "sha256": "c70c13e46f30eeece68f213f710a01a98a1a2d134b81ddb98e00fb1b92a99d23"
+    },
+    {
+      "public_path": "/source-media/illustrations/forest/radiology/rad-4-pulmonary-nodule-1600.webp",
+      "git_path": "web/illustrations/forest/radiology/rad-4-pulmonary-nodule-1600.webp",
+      "sha256": "1c2d5f6731843ba81a971597bae01bde1af0f0633c1b8cdd48660c47fee92bf6"
+    }
+  ],
+  "server_18543_pid": 45560,
+  "stop_signal": "SIGTERM",
+  "product_changed": false,
+  "actual_Vercel_CDN_verified": false
+}

@@ -57,6 +57,13 @@ def radiology_model_props(node):
     sources = source_model_bindings().get(node['id'])
     if sources:
         props['source_references'] = copy.deepcopy(sources)
+    if reference.get('source_native_only') is True:
+        from .source_native_inspectors import references as native_inspectors
+        inspectors = native_inspectors().get('ra.ct-pulmonary-nodules')
+        if node['id'] != 'rad.4.pulmonary-nodule' or not inspectors:
+            raise ValueError('Native-only model lacks its exact pulmonary source')
+        props['source_native_only'] = True
+        props['native_inspectors'] = copy.deepcopy(inspectors)
     return props
 
 
@@ -108,9 +115,12 @@ def attach_module_media(node):
                       if i['module_id'] == node['id'] and inspectors.get(i['id'])]
         if native_ids:
             media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',
-                          'title': 'Native source anatomy inspection',
+                          'title': ('Native source CT and separate nodule models'
+                                    if node['id'] == 'rad.4.pulmonary-nodule' else 'Native source anatomy inspection'),
                           'instructions': ('Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
                                            if node['id'] == 'rad.4.stroke' else
+                                           'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'
+                                           if node['id'] == 'rad.4.pulmonary-nodule' else
                                            'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.'),
                           'investigation_ids': native_ids})
         from . import radiology_catalog

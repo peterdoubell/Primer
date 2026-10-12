@@ -1566,92 +1566,134 @@
   },
   "rad.4.pulmonary-nodule": {
     "protocol": [
-      "Use thin sections of 1.5 mm or less and compare all available prior CTs.",
-      "Choose the incidental, screening or known-malignancy pathway before proposing follow-up."
+      "Use the complete acquired thorax with contiguous thin reconstructed sections at most 1.5 mm, typically 1 mm, and explicit coverage/quality limitations. Record nominal reconstructed section thickness separately from reconstruction centre spacing and pixel spacing. Record acquisition collimation only when independently documented; do not infer it from DICOM SliceThickness.",
+      "Use suitable lung windows and actual multiplanar reconstructions to distinguish nodule/linear scar and solid/subsolid components; retain the actual source reconstructions and kernel.",
+      "Measure verified fat or calcium on the thinnest available nonsharpened series with a small ROI, excluding air/edge partial-volume contamination. A single point value is insufficient.",
+      "Compare all available original prior studies, including early baseline; document dates, reconstruction/software compatibility and uncertainty. A current source example is not an invented prior examination.",
+      "Declare incidental/screening/oncology/infectious context, eligibility and exclusions before applying a named current guideline. Distinguish single/multiple and solid/pure-ground-glass/part-solid pathways.",
+      "Document each nodule ID/site/series/image, total/solid-component measurement, margins, verified fat/calcification, relevant pleural/airway/vascular relationships and actual interval change. Reader scores are not histological diagnoses."
     ],
     "checklist": [
       {
         "label": "Eligibility",
-        "detail": "Check age, immune status, cancer history and screening context."
+        "detail": "Record actual indication, age, immune status, cancer history, screening context, relevant risk/comorbidity and guideline exclusions before a follow-up decision."
       },
       {
         "label": "Nodule type",
-        "detail": "Distinguish solid, pure ground glass and part-solid."
+        "detail": "Inventory every actual nodule by ID, side/lobe/segment where supported, source series/image and solid/pure-ground-glass/part-solid appearance; retain unassessed localization or morphology."
       },
       {
         "label": "Morphology",
-        "detail": "Assess margins, fat, calcium, perifissural shape and cystic change."
+        "detail": "Describe actual whole-nodule and dense-component boundaries, margins, verified fat/calcium pattern and pleural/fissural/airway/vascular interfaces. CT appearance and reader ratings are not histology."
       },
       {
         "label": "Measurement",
-        "detail": "Document location, mean diameter or consistent volume, and solid component."
+        "detail": "Record actual same-plane long/short axes, rounded mean diameter and separate dense-component dimensions; use consistent validated volumetry and software where appropriate. Distinguish point HU from a verified small intranodular ROI."
       },
       {
         "label": "Growth",
-        "detail": "Use comparable reconstructions and identify the most suspicious lesion in multiple nodules."
+        "detail": "Review genuine original comparison studies, technical compatibility and actual interval; identify each new or changing component and the most suspicious nodule without inventing a prior from a source example."
       }
     ],
     "measurements": [
       {
         "name": "Mean diameter",
-        "method": "Average long and perpendicular short axes in the plane of greatest dimension; report mm.",
-        "pitfall": "Thick sections can create false ground-glass components."
+        "method": "On thin reconstructed images use the plane showing largest dimensions, average long and perpendicular short axes on the same image and record the nearest whole mm. Record actual source plane and uncertainty.",
+        "pitfall": "Source SR maximal axial outside-contour diameter is not the Fleischner mean-caliper measurement; thick or incompatible reconstructions and partial volume can alter apparent morphology/size."
       },
       {
         "name": "Solid component",
-        "method": "Measure separately in a part-solid nodule on a consistent technique.",
-        "pitfall": "Whole-nodule stability does not negate growth of the solid component."
+        "method": "Measure each actual dense component separately on comparable thin-section lung-window images; record total size, component size, source plane and technical limitations.",
+        "pitfall": "Whole-nodule stability does not negate dense-component growth; CT density is not proof of histological invasion."
+      },
+      {
+        "name": "Intranodular attenuation ROI",
+        "method": "When measuring suspected fat or calcium, use the thinnest available nonsharpened source CT series and a small ROI within the actual nodule, excluding adjacent air, edges and artefact; record mean/range, source calibration and limitations.",
+        "pitfall": "A native point HU readout or edge-contaminated negative value does not establish intranodular macroscopic fat, a hamartoma or a clinical diagnosis."
+      },
+      {
+        "name": "Interval size or volume change",
+        "method": "Reopen actual prior images, remeasure comparable anatomy and record dates, elapsed time, reconstruction/kernel compatibility and method/software version. State uncertainty where growth cannot be established.",
+        "pitfall": "This LIDC source supplies one examination; deidentified dates, reader disagreements and separate masks are not longitudinal growth or patient registration."
       }
     ],
     "classification": {
       "name": "Incidental pulmonary nodule framework",
       "version": "Fleischner Society 2017",
       "applicability": "Adults ≥35 with incidental nodules, excluding screening, immunocompromise and known cancer.",
-      "summary": "Select the relevant solid or subsolid, single or multiple nodule table and integrate risk; do not apply one size rule to all nodules."
+      "summary": "Use the applicable single/multiple and solid/pure-ground-glass/part-solid pathway and actual risk/context. Screening uses its current programme system; known malignancy/immunocompromise and other exclusions require the actual clinical pathway. Guidelines and source annotations do not automatically determine a patient recommendation."
     },
     "pitfalls": [
-      "Fleischner guidance does not cover screening, patients under 35, immunocompromise or known primary cancer.",
-      "A smooth perifissural nodule requires the complete benign morphology, not fissural proximity alone."
+      "Fleischner 2017 applies to qualifying incidental nodules in adults 35 or older, excluding screening, immunocompromise and known primary cancer. Do not mix Fleischner, BTS and Lung-RADS thresholds.",
+      "Complete typical benign perifissural morphology matters; fissural proximity alone is insufficient. Apparent fat requires a verified intranodular ROI on appropriate source reconstructions.",
+      "Negative FDG PET does not reliably exclude malignancy in a pure-ground-glass or low-uptake lesion; morphology, size, actual interval change and clinical context remain necessary.",
+      "Persistence, reader malignancy ratings, a dense component and a source binary mask do not establish histology or guaranteed biological behaviour.",
+      "DICOM SliceThickness records nominal reconstructed thickness; acquired collimation, true tissue resolution and registration must not be inferred from the voxel grid.",
+      "LIDC-IDRI-0525 is one independent source case. Its 33 marks/eight separate released masks and source SR metrics neither autofill the current report nor label every lobe, segment, airway, vessel or diagnostic morphology."
     ],
     "impression_prompts": [
-      "Identify nodule type, site, size and change.",
-      "Name the selected pathway and why it applies.",
-      "Give an individualised follow-up statement only after checking risk and guideline category."
+      "Describe every actual nodule with supported site, morphology, total/dense-component measurement and uncertainty.",
+      "State genuine comparison findings and reconstruction/method compatibility, or explicitly state that no comparable prior was supplied.",
+      "Identify the most suspicious nodule and give an individualized recommendation only after recording eligibility, risk, the exact guideline/version/category and rationale."
     ],
     "escalation": [],
     "template_sections": [
       {
         "heading": "PATHWAY",
-        "body": "Context: [incidental / screening / known malignancy / other]. Age/risk: [ ]. Exclusions: [ ]."
+        "body": "Actual context: [incidental / screening / oncology / infection or other]. Age, immune status, cancer history, symptoms, risk/comorbidity and preferences: [ ]. Guideline eligibility/exclusions and selected pathway/version: [ ]."
       },
       {
         "heading": "NODULE INVENTORY",
-        "body": "ID/lobe/segment: [ ]. Type: [solid / pure ground glass / part-solid]. Series/image: [ ]."
+        "body": "Every actual nodule ID: [ ]. Side/lobe/segment and localization limits: [ ]. Source series/image: [ ]. Appearance: [solid / pure ground glass / part-solid / uncertain]; unresolved extent or limits: [ ]."
       },
       {
         "heading": "SIZE AND MORPHOLOGY",
-        "body": "Long/short axes: [ ]/[ ] mm; mean: [ ] mm. Solid component: [ ] mm. Margins/fat/calcium: [ ]."
+        "body": "Actual largest-dimension source plane: [ ]. Long/short axes: [ ]/[ ] mm; rounded mean: [ ] mm. Total/each dense-component size: [ ]. Validated volume/software/version if used: [ ]. Margins and actual pleural/fissural/airway/vascular relations: [ ]. Verified ROI fat/calcium distribution and method/limits: [ ]."
       },
       {
         "heading": "INTERVAL CHANGE",
-        "body": "Prior date: [ ]. Previous size/volume: [ ]. Growth: [none / present / uncertain]. Reconstruction comparability: [ ]."
+        "body": "Genuine prior date and source examination: [ ]. Remeasured previous/current total/dense-component size or volume: [ ]. Method, software/version, thickness/kernel and other comparability: [ ]. Change: [none demonstrated / present / uncertain / not assessable]; elapsed interval and limits: [ ]."
       },
       {
         "heading": "ASSESSMENT",
-        "body": "Most suspicious nodule: [ ]. Benign-pattern evidence: [ ]. Applicable guideline/version and recommendation rationale: [ ]."
+        "body": "Most suspicious actual nodule and reason: [ ]. Benign-pattern evidence and uncertainty: [ ]. Applicable single/multiple and solid/subsolid guideline/version/category: [ ]. Individualized recommendation, timeframe, rationale and communication if needed: [ ]."
       }
     ],
     "sources": [
       {
-        "title": "Radiology Assistant — Fleischner 2017 guideline",
-        "url": "https://radiologyassistant.nl/chest/plumonary-nodules/fleischner-2017-guideline"
+        "title": "MacMahon et al. Fleischner Society incidental pulmonary nodule guidance,2017 (corrected version)",
+        "url": "https://doi.org/10.1148/radiol.2017161659"
       },
       {
-        "title": "Radiology Assistant — Pulmonary nodule - Benign versus Malignant",
-        "url": "https://radiologyassistant.nl/chest/solitary-pulmonary-nodule/benign-versus-malignant"
+        "title": "Bankier et al. Recommendations for Measuring Pulmonary Nodules at CT,2017",
+        "url": "https://doi.org/10.1148/radiol.2017162894"
+      },
+      {
+        "title": "Callister et al. BTS pulmonary-nodule guidance,2015 with published correction",
+        "url": "https://doi.org/10.1136/thoraxjnl-2015-207168"
+      },
+      {
+        "title": "ACR Lung-RADS v2022 current screening reference",
+        "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/Lung-RADS"
+      },
+      {
+        "title": "Original LIDC-IDRI CT data and source annotations",
+        "url": "https://doi.org/10.7937/K9/TCIA.2015.LO9QL9SX"
+      },
+      {
+        "title": "Standardized LIDC DICOM SEG/SR source data",
+        "url": "https://doi.org/10.7937/TCIA.2018.h7umfurq"
+      },
+      {
+        "title": "Armato et al. original LIDC reader methods",
+        "url": "https://doi.org/10.1118/1.3528204"
+      },
+      {
+        "title": "Fedorov et al. standardized DICOM re-encoding methods",
+        "url": "https://doi.org/10.1002/mp.14445"
       }
     ],
-    "reviewed_at": "2026-09-23"
+    "reviewed_at": "2026-10-11"
   },
   "rad.5.aorta": {
     "protocol": [
