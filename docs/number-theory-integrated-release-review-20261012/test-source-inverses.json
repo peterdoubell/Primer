@@ -1,0 +1,63 @@
+{
+  "scope": "Only fixed tested-source correspondence additions; all historical arithmetic/semantic/oracle assertions retained",
+  "math_candidate": "1d9f3428a4cc3fe4fc58d7288b7ea9b1bdb9d3ad",
+  "files": {
+    "tests/test_math_number_theory_lab.py": {
+      "baseline_sha256": "14fc5f11dd7e5e53c17e1bc9afae0bdbbb88f6e47a3385accb7ef4428e7f5304",
+      "current_sha256": "eed859f3f841cde91530b1122f111e3f5bffa6dac0028491f4764d4a05351ad7",
+      "baseline_copy": "docs/number-theory-integrated-release-review-20261012/inert-math-oracle-source/tests/test_math_number_theory_lab.py.txt",
+      "bytes": 40594,
+      "changes": [
+        {
+          "before": "",
+          "after": "from tools.number_theory_runtime_compatibility import math_product_bytes, math_test_bytes\n"
+        },
+        {
+          "before": "",
+          "after": "        source = math_test_bytes(path,math_product_bytes(path,source))\n"
+        }
+      ]
+    },
+    "tests/test_number_theory_diagrams.py": {
+      "baseline_sha256": "7b68b6536b10e1da81e1dfb0d42c1a89e5d5ce0391d335f7e4f94c4770a3ae01",
+      "current_sha256": "ae5dd6bf136635844e66b4fe11869db60ad1f5d1d3b0461718fae6b28f08e2da",
+      "baseline_copy": "docs/number-theory-integrated-release-review-20261012/inert-math-oracle-source/tests/test_number_theory_diagrams.py.txt",
+      "bytes": 51807,
+      "changes": [
+        {
+          "before": "",
+          "after": "from tools.number_theory_runtime_compatibility import math_product_bytes, math_test_bytes\n"
+        },
+        {
+          "before": "        source=(ROOT/path).read_bytes()\n",
+          "after": "        source=math_product_bytes(path,(ROOT/path).read_bytes())\n"
+        },
+        {
+          "before": "    current=(ROOT/r[\"oracle_source\"][\"path\"]).read_bytes()\n",
+          "after": "    current=math_test_bytes(r[\"oracle_source\"][\"path\"],(ROOT/r[\"oracle_source\"][\"path\"]).read_bytes())\n"
+        }
+      ]
+    },
+    "tests/test_number_theory_diagram_viewport.py": {
+      "baseline_sha256": "a971965fa6c02afd4f3134a8767cb3c6abb8bd350d82ed1e3c5a2927a2ed32c5",
+      "current_sha256": "7dd2c72306d331f0f26935c48ccfda230ce56cebed99664b94c98bb2817e7684",
+      "baseline_copy": "docs/number-theory-integrated-release-review-20261012/inert-math-oracle-source/tests/test_number_theory_diagram_viewport.py.txt",
+      "bytes": 9137,
+      "changes": [
+        {
+          "before": "",
+          "after": "from tools.number_theory_runtime_compatibility import math_product_bytes, math_test_bytes\n"
+        },
+        {
+          "before": "        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == digest, path\n",
+          "after": "        assert hashlib.sha256(math_product_bytes(path,(ROOT / path).read_bytes())).hexdigest() == digest, path\n"
+        },
+        {
+          "before": "    assert hashlib.sha256(Path(__file__).read_bytes()).hexdigest() == review[\"viewport_oracle_sha256\"]\n",
+          "after": "    assert hashlib.sha256(math_test_bytes('tests/test_number_theory_diagram_viewport.py',Path(__file__).read_bytes())).hexdigest() == review[\"viewport_oracle_sha256\"]\n"
+        }
+      ]
+    }
+  },
+  "historical_approval_extended": false
+}

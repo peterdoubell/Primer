@@ -1,0 +1,1983 @@
+{
+  "status": "prototype_for_visual_review",
+  "errors": [],
+  "states": [
+    {
+      "mode": "division",
+      "nodes": 28,
+      "edges": 27,
+      "pages": 1,
+      "shown": [
+        {
+          "id": "a",
+          "label": "a = 17"
+        },
+        {
+          "id": "q",
+          "label": "q = 3"
+        },
+        {
+          "id": "m",
+          "label": "m = 5"
+        },
+        {
+          "id": "r",
+          "label": "r = 2"
+        },
+        {
+          "id": "qm",
+          "label": "q×m = 15"
+        },
+        {
+          "id": "multiply",
+          "label": "Multiply q by m"
+        },
+        {
+          "id": "sum",
+          "label": "Add the nonnegative remainder"
+        },
+        {
+          "id": "order",
+          "label": "15 ≤ 17 < 20"
+        },
+        {
+          "id": "group0",
+          "label": "Group 1: 5 unit dots"
+        },
+        {
+          "id": "unit0-0",
+          "label": "One unit"
+        },
+        {
+          "id": "unit0-1",
+          "label": "One unit"
+        },
+        {
+          "id": "unit0-2",
+          "label": "One unit"
+        },
+        {
+          "id": "unit0-3",
+          "label": "One unit"
+        },
+        {
+          "id": "unit0-4",
+          "label": "One unit"
+        },
+        {
+          "id": "group1",
+          "label": "Group 2: 5 unit dots"
+        },
+        {
+          "id": "unit1-0",
+          "label": "One unit"
+        },
+        {
+          "id": "unit1-1",
+          "label": "One unit"
+        },
+        {
+          "id": "unit1-2",
+          "label": "One unit"
+        },
+        {
+          "id": "unit1-3",
+          "label": "One unit"
+        },
+        {
+          "id": "unit1-4",
+          "label": "One unit"
+        },
+        {
+          "id": "group2",
+          "label": "Group 3: 5 unit dots"
+        },
+        {
+          "id": "unit2-0",
+          "label": "One unit"
+        },
+        {
+          "id": "unit2-1",
+          "label": "One unit"
+        },
+        {
+          "id": "unit2-2",
+          "label": "One unit"
+        },
+        {
+          "id": "unit2-3",
+          "label": "One unit"
+        },
+        {
+          "id": "unit2-4",
+          "label": "One unit"
+        },
+        {
+          "id": "remunit0",
+          "label": "One leftover unit"
+        },
+        {
+          "id": "remunit1",
+          "label": "One leftover unit"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "q",
+          "to": "multiply",
+          "relation": "multiply_operand",
+          "label": "q groups / signed multiplier"
+        },
+        {
+          "id": "e1",
+          "from": "m",
+          "to": "multiply",
+          "relation": "multiply_operand",
+          "label": "m units per complete group"
+        },
+        {
+          "id": "e2",
+          "from": "multiply",
+          "to": "qm",
+          "relation": "multiply_result",
+          "label": "q×m=15"
+        },
+        {
+          "id": "e3",
+          "from": "qm",
+          "to": "sum",
+          "relation": "sum_operand",
+          "label": "Complete-group contribution"
+        },
+        {
+          "id": "e4",
+          "from": "r",
+          "to": "sum",
+          "relation": "sum_operand",
+          "label": "0≤r<m"
+        },
+        {
+          "id": "e5",
+          "from": "sum",
+          "to": "a",
+          "relation": "division_reconstruction",
+          "label": "a=q×m+r"
+        },
+        {
+          "id": "e6",
+          "from": "order",
+          "to": "a",
+          "relation": "division_interval",
+          "label": "This signed interval selects the unique quotient and remainder"
+        },
+        {
+          "id": "e7",
+          "from": "group0",
+          "to": "qm",
+          "relation": "counted_group",
+          "label": "Exactly m units in this group"
+        },
+        {
+          "id": "e8",
+          "from": "unit0-0",
+          "to": "group0",
+          "relation": "member",
+          "label": "One unit in complete group 1"
+        },
+        {
+          "id": "e9",
+          "from": "unit0-1",
+          "to": "group0",
+          "relation": "member",
+          "label": "One unit in complete group 1"
+        },
+        {
+          "id": "e10",
+          "from": "unit0-2",
+          "to": "group0",
+          "relation": "member",
+          "label": "One unit in complete group 1"
+        },
+        {
+          "id": "e11",
+          "from": "unit0-3",
+          "to": "group0",
+          "relation": "member",
+          "label": "One unit in complete group 1"
+        },
+        {
+          "id": "e12",
+          "from": "unit0-4",
+          "to": "group0",
+          "relation": "member",
+          "label": "One unit in complete group 1"
+        },
+        {
+          "id": "e13",
+          "from": "group1",
+          "to": "qm",
+          "relation": "counted_group",
+          "label": "Exactly m units in this group"
+        },
+        {
+          "id": "e14",
+          "from": "unit1-0",
+          "to": "group1",
+          "relation": "member",
+          "label": "One unit in complete group 2"
+        },
+        {
+          "id": "e15",
+          "from": "unit1-1",
+          "to": "group1",
+          "relation": "member",
+          "label": "One unit in complete group 2"
+        },
+        {
+          "id": "e16",
+          "from": "unit1-2",
+          "to": "group1",
+          "relation": "member",
+          "label": "One unit in complete group 2"
+        },
+        {
+          "id": "e17",
+          "from": "unit1-3",
+          "to": "group1",
+          "relation": "member",
+          "label": "One unit in complete group 2"
+        },
+        {
+          "id": "e18",
+          "from": "unit1-4",
+          "to": "group1",
+          "relation": "member",
+          "label": "One unit in complete group 2"
+        },
+        {
+          "id": "e19",
+          "from": "group2",
+          "to": "qm",
+          "relation": "counted_group",
+          "label": "Exactly m units in this group"
+        },
+        {
+          "id": "e20",
+          "from": "unit2-0",
+          "to": "group2",
+          "relation": "member",
+          "label": "One unit in complete group 3"
+        },
+        {
+          "id": "e21",
+          "from": "unit2-1",
+          "to": "group2",
+          "relation": "member",
+          "label": "One unit in complete group 3"
+        },
+        {
+          "id": "e22",
+          "from": "unit2-2",
+          "to": "group2",
+          "relation": "member",
+          "label": "One unit in complete group 3"
+        },
+        {
+          "id": "e23",
+          "from": "unit2-3",
+          "to": "group2",
+          "relation": "member",
+          "label": "One unit in complete group 3"
+        },
+        {
+          "id": "e24",
+          "from": "unit2-4",
+          "to": "group2",
+          "relation": "member",
+          "label": "One unit in complete group 3"
+        },
+        {
+          "id": "e25",
+          "from": "remunit0",
+          "to": "r",
+          "relation": "remainder_member",
+          "label": "One leftover unit"
+        },
+        {
+          "id": "e26",
+          "from": "remunit1",
+          "to": "r",
+          "relation": "remainder_member",
+          "label": "One leftover unit"
+        }
+      ]
+    },
+    {
+      "mode": "product",
+      "nodes": 7,
+      "edges": 8,
+      "pages": 1,
+      "shown": [
+        {
+          "id": "a",
+          "label": "a = 17"
+        },
+        {
+          "id": "b",
+          "label": "b = 8"
+        },
+        {
+          "id": "ra",
+          "label": "a mod m = 2"
+        },
+        {
+          "id": "rb",
+          "label": "b mod m = 3"
+        },
+        {
+          "id": "P",
+          "label": "a×b = 136"
+        },
+        {
+          "id": "RP",
+          "label": "(a mod m)×(b mod m) = 6"
+        },
+        {
+          "id": "result",
+          "label": "Common remainder = 1"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "a",
+          "to": "ra",
+          "relation": "reduce_mod",
+          "label": "Reduce a modulo 5"
+        },
+        {
+          "id": "e1",
+          "from": "b",
+          "to": "rb",
+          "relation": "reduce_mod",
+          "label": "Reduce b modulo 5"
+        },
+        {
+          "id": "e2",
+          "from": "a",
+          "to": "P",
+          "relation": "multiply_operand",
+          "label": "Original multiplication"
+        },
+        {
+          "id": "e3",
+          "from": "b",
+          "to": "P",
+          "relation": "multiply_operand",
+          "label": "Original multiplication"
+        },
+        {
+          "id": "e4",
+          "from": "ra",
+          "to": "RP",
+          "relation": "multiply_operand",
+          "label": "Multiply canonical representatives"
+        },
+        {
+          "id": "e5",
+          "from": "rb",
+          "to": "RP",
+          "relation": "multiply_operand",
+          "label": "Multiply canonical representatives"
+        },
+        {
+          "id": "e6",
+          "from": "P",
+          "to": "result",
+          "relation": "reduce_mod",
+          "label": "Original product mod 5"
+        },
+        {
+          "id": "e7",
+          "from": "RP",
+          "to": "result",
+          "relation": "reduce_mod",
+          "label": "Reduced product mod 5"
+        }
+      ]
+    },
+    {
+      "mode": "gcd",
+      "nodes": 12,
+      "edges": 12,
+      "pages": 1,
+      "shown": [
+        {
+          "id": "euclida",
+          "label": "a = 48"
+        },
+        {
+          "id": "euclidb",
+          "label": "b = 36"
+        },
+        {
+          "id": "euclidg",
+          "label": "gcd(a,b) = 12"
+        },
+        {
+          "id": "euclidw",
+          "label": "1×(48) + -1×(36) = 12"
+        },
+        {
+          "id": "euclidr0",
+          "label": "r0 = 48"
+        },
+        {
+          "id": "euclidr1",
+          "label": "r1 = 36"
+        },
+        {
+          "id": "euclidr2",
+          "label": "r2 = 12"
+        },
+        {
+          "id": "eucliddiv0",
+          "label": "48 = 1×36 + 12"
+        },
+        {
+          "id": "euclidcomb0",
+          "label": "1×(48) + -1×(36) = 12"
+        },
+        {
+          "id": "euclidr3",
+          "label": "r3 = 0"
+        },
+        {
+          "id": "eucliddiv1",
+          "label": "36 = 3×12 + 0"
+        },
+        {
+          "id": "euclidcomb1",
+          "label": "-3×(48) + 4×(36) = 0"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "euclida",
+          "to": "euclidw",
+          "relation": "bezout_term",
+          "label": "Multiply original a by x=1"
+        },
+        {
+          "id": "e1",
+          "from": "euclidb",
+          "to": "euclidw",
+          "relation": "bezout_term",
+          "label": "Multiply original b by y=-1"
+        },
+        {
+          "id": "e2",
+          "from": "euclidw",
+          "to": "euclidg",
+          "relation": "bezout_sum",
+          "label": "The signed sum equals the gcd"
+        },
+        {
+          "id": "e3",
+          "from": "euclidr0",
+          "to": "eucliddiv0",
+          "relation": "division_dividend",
+          "label": "Divide 48 by 36"
+        },
+        {
+          "id": "e4",
+          "from": "euclidr1",
+          "to": "eucliddiv0",
+          "relation": "division_divisor",
+          "label": "Quotient q=1; 0≤remainder<divisor"
+        },
+        {
+          "id": "e5",
+          "from": "eucliddiv0",
+          "to": "euclidr2",
+          "relation": "remainder",
+          "label": "A−qB=12"
+        },
+        {
+          "id": "e6",
+          "from": "euclidcomb0",
+          "to": "euclidr2",
+          "relation": "back_substitution",
+          "label": "Signed original-input Bézout combination"
+        },
+        {
+          "id": "e7",
+          "from": "euclidr1",
+          "to": "eucliddiv1",
+          "relation": "division_dividend",
+          "label": "Divide 36 by 12"
+        },
+        {
+          "id": "e8",
+          "from": "euclidr2",
+          "to": "eucliddiv1",
+          "relation": "division_divisor",
+          "label": "Quotient q=3; 0≤remainder<divisor"
+        },
+        {
+          "id": "e9",
+          "from": "eucliddiv1",
+          "to": "euclidr3",
+          "relation": "remainder",
+          "label": "A−qB=0"
+        },
+        {
+          "id": "e10",
+          "from": "euclidcomb1",
+          "to": "euclidr3",
+          "relation": "back_substitution",
+          "label": "Signed original-input Bézout combination"
+        },
+        {
+          "id": "e11",
+          "from": "euclidr2",
+          "to": "euclidg",
+          "relation": "last_nonzero_remainder",
+          "label": "Last nonzero remainder is 12"
+        }
+      ]
+    },
+    {
+      "mode": "inverse",
+      "nodes": 17,
+      "edges": 19,
+      "pages": 1,
+      "shown": [
+        {
+          "id": "euclida",
+          "label": "a = 3"
+        },
+        {
+          "id": "euclidb",
+          "label": "b = 7"
+        },
+        {
+          "id": "euclidg",
+          "label": "gcd(a,b) = 1"
+        },
+        {
+          "id": "euclidw",
+          "label": "-2×(3) + 1×(7) = 1"
+        },
+        {
+          "id": "euclidr0",
+          "label": "r0 = 3"
+        },
+        {
+          "id": "euclidr1",
+          "label": "r1 = 7"
+        },
+        {
+          "id": "euclidr2",
+          "label": "r2 = 3"
+        },
+        {
+          "id": "eucliddiv0",
+          "label": "3 = 0×7 + 3"
+        },
+        {
+          "id": "euclidcomb0",
+          "label": "1×(3) + 0×(7) = 3"
+        },
+        {
+          "id": "euclidr3",
+          "label": "r3 = 1"
+        },
+        {
+          "id": "eucliddiv1",
+          "label": "7 = 2×3 + 1"
+        },
+        {
+          "id": "euclidcomb1",
+          "label": "-2×(3) + 1×(7) = 1"
+        },
+        {
+          "id": "euclidr4",
+          "label": "r4 = 0"
+        },
+        {
+          "id": "eucliddiv2",
+          "label": "3 = 3×1 + 0"
+        },
+        {
+          "id": "euclidcomb2",
+          "label": "7×(3) + -3×(7) = 0"
+        },
+        {
+          "id": "condition",
+          "label": "gcd(a,m) =1: inverse exists"
+        },
+        {
+          "id": "inverse",
+          "label": "Canonical inverse = 5"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "euclida",
+          "to": "euclidw",
+          "relation": "bezout_term",
+          "label": "Multiply original a by x=-2"
+        },
+        {
+          "id": "e1",
+          "from": "euclidb",
+          "to": "euclidw",
+          "relation": "bezout_term",
+          "label": "Multiply original b by y=1"
+        },
+        {
+          "id": "e2",
+          "from": "euclidw",
+          "to": "euclidg",
+          "relation": "bezout_sum",
+          "label": "The signed sum equals the gcd"
+        },
+        {
+          "id": "e3",
+          "from": "euclidr0",
+          "to": "eucliddiv0",
+          "relation": "division_dividend",
+          "label": "Divide 3 by 7"
+        },
+        {
+          "id": "e4",
+          "from": "euclidr1",
+          "to": "eucliddiv0",
+          "relation": "division_divisor",
+          "label": "Quotient q=0; 0≤remainder<divisor"
+        },
+        {
+          "id": "e5",
+          "from": "eucliddiv0",
+          "to": "euclidr2",
+          "relation": "remainder",
+          "label": "A−qB=3"
+        },
+        {
+          "id": "e6",
+          "from": "euclidcomb0",
+          "to": "euclidr2",
+          "relation": "back_substitution",
+          "label": "Signed original-input Bézout combination"
+        },
+        {
+          "id": "e7",
+          "from": "euclidr1",
+          "to": "eucliddiv1",
+          "relation": "division_dividend",
+          "label": "Divide 7 by 3"
+        },
+        {
+          "id": "e8",
+          "from": "euclidr2",
+          "to": "eucliddiv1",
+          "relation": "division_divisor",
+          "label": "Quotient q=2; 0≤remainder<divisor"
+        },
+        {
+          "id": "e9",
+          "from": "eucliddiv1",
+          "to": "euclidr3",
+          "relation": "remainder",
+          "label": "A−qB=1"
+        },
+        {
+          "id": "e10",
+          "from": "euclidcomb1",
+          "to": "euclidr3",
+          "relation": "back_substitution",
+          "label": "Signed original-input Bézout combination"
+        },
+        {
+          "id": "e11",
+          "from": "euclidr2",
+          "to": "eucliddiv2",
+          "relation": "division_dividend",
+          "label": "Divide 3 by 1"
+        },
+        {
+          "id": "e12",
+          "from": "euclidr3",
+          "to": "eucliddiv2",
+          "relation": "division_divisor",
+          "label": "Quotient q=3; 0≤remainder<divisor"
+        },
+        {
+          "id": "e13",
+          "from": "eucliddiv2",
+          "to": "euclidr4",
+          "relation": "remainder",
+          "label": "A−qB=0"
+        },
+        {
+          "id": "e14",
+          "from": "euclidcomb2",
+          "to": "euclidr4",
+          "relation": "back_substitution",
+          "label": "Signed original-input Bézout combination"
+        },
+        {
+          "id": "e15",
+          "from": "euclidr3",
+          "to": "euclidg",
+          "relation": "last_nonzero_remainder",
+          "label": "Last nonzero remainder is 1"
+        },
+        {
+          "id": "e16",
+          "from": "euclidg",
+          "to": "condition",
+          "relation": "inverse_iff_coprime",
+          "label": "Inverse exists if and only if gcd=1"
+        },
+        {
+          "id": "e17",
+          "from": "euclidw",
+          "to": "inverse",
+          "relation": "reduce_bezout",
+          "label": "Reduce Bézout x=-2 modulo 7"
+        },
+        {
+          "id": "e18",
+          "from": "inverse",
+          "to": "condition",
+          "relation": "inverse_verification",
+          "label": "3×5 mod 7 = 1"
+        }
+      ]
+    },
+    {
+      "mode": "powers",
+      "nodes": 61,
+      "edges": 60,
+      "pages": 3,
+      "shown": [
+        {
+          "id": "powerResult",
+          "label": "2^100 mod 7 = 2"
+        },
+        {
+          "id": "powerInvariant",
+          "label": "accumulator × factor^remaining ≡ original power"
+        },
+        {
+          "id": "acc0",
+          "label": "Accumulator before = 1"
+        },
+        {
+          "id": "factor0",
+          "label": "Factor = 2"
+        },
+        {
+          "id": "remaining0",
+          "label": "Remaining exponent = 100"
+        },
+        {
+          "id": "conditional0",
+          "label": "Even bit: keep accumulator"
+        },
+        {
+          "id": "after0",
+          "label": "Accumulator after = 1"
+        },
+        {
+          "id": "square0",
+          "label": "Square and reduce modulo 7"
+        },
+        {
+          "id": "squared0",
+          "label": "Next factor = 4"
+        },
+        {
+          "id": "half0",
+          "label": "floor(remaining/2) = 50"
+        },
+        {
+          "id": "acc1",
+          "label": "Accumulator before = 1"
+        },
+        {
+          "id": "factor1",
+          "label": "Factor = 4"
+        },
+        {
+          "id": "remaining1",
+          "label": "Remaining exponent = 50"
+        },
+        {
+          "id": "conditional1",
+          "label": "Even bit: keep accumulator"
+        },
+        {
+          "id": "after1",
+          "label": "Accumulator after = 1"
+        },
+        {
+          "id": "square1",
+          "label": "Square and reduce modulo 7"
+        },
+        {
+          "id": "squared1",
+          "label": "Next factor = 2"
+        },
+        {
+          "id": "half1",
+          "label": "floor(remaining/2) = 25"
+        },
+        {
+          "id": "acc2",
+          "label": "Accumulator before = 1"
+        },
+        {
+          "id": "factor2",
+          "label": "Factor = 2"
+        },
+        {
+          "id": "remaining2",
+          "label": "Remaining exponent = 25"
+        },
+        {
+          "id": "conditional2",
+          "label": "Multiply and reduce modulo 7"
+        },
+        {
+          "id": "after2",
+          "label": "Accumulator after = 2"
+        },
+        {
+          "id": "square2",
+          "label": "Square and reduce modulo 7"
+        },
+        {
+          "id": "squared2",
+          "label": "Next factor = 4"
+        },
+        {
+          "id": "half2",
+          "label": "floor(remaining/2) = 12"
+        },
+        {
+          "id": "acc3",
+          "label": "Accumulator before = 2"
+        },
+        {
+          "id": "factor3",
+          "label": "Factor = 4"
+        },
+        {
+          "id": "remaining3",
+          "label": "Remaining exponent = 12"
+        },
+        {
+          "id": "conditional3",
+          "label": "Even bit: keep accumulator"
+        },
+        {
+          "id": "after3",
+          "label": "Accumulator after = 2"
+        },
+        {
+          "id": "square3",
+          "label": "Square and reduce modulo 7"
+        },
+        {
+          "id": "squared3",
+          "label": "Next factor = 2"
+        },
+        {
+          "id": "half3",
+          "label": "floor(remaining/2) = 6"
+        },
+        {
+          "id": "acc4",
+          "label": "Accumulator before = 2"
+        },
+        {
+          "id": "factor4",
+          "label": "Factor = 2"
+        },
+        {
+          "id": "remaining4",
+          "label": "Remaining exponent = 6"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "acc0",
+          "to": "conditional0",
+          "relation": "even_bit_bypass",
+          "label": "No multiply at an even bit"
+        },
+        {
+          "id": "e1",
+          "from": "conditional0",
+          "to": "after0",
+          "relation": "conditional_accumulator",
+          "label": "Accumulator unchanged"
+        },
+        {
+          "id": "e2",
+          "from": "factor0",
+          "to": "square0",
+          "relation": "square_operand",
+          "label": "Use this factor twice"
+        },
+        {
+          "id": "e3",
+          "from": "square0",
+          "to": "squared0",
+          "relation": "square_reduce",
+          "label": "2² mod 7=4"
+        },
+        {
+          "id": "e4",
+          "from": "remaining0",
+          "to": "half0",
+          "relation": "halve_exponent",
+          "label": "Remove the least significant binary bit"
+        },
+        {
+          "id": "e5",
+          "from": "after0",
+          "to": "acc1",
+          "relation": "next_accumulator",
+          "label": "Pass accumulator to next binary step"
+        },
+        {
+          "id": "e6",
+          "from": "squared0",
+          "to": "factor1",
+          "relation": "next_factor",
+          "label": "Pass squared factor to next binary step"
+        },
+        {
+          "id": "e7",
+          "from": "half0",
+          "to": "remaining1",
+          "relation": "next_exponent",
+          "label": "Pass halved exponent to next step"
+        },
+        {
+          "id": "e8",
+          "from": "acc1",
+          "to": "conditional1",
+          "relation": "even_bit_bypass",
+          "label": "No multiply at an even bit"
+        },
+        {
+          "id": "e9",
+          "from": "conditional1",
+          "to": "after1",
+          "relation": "conditional_accumulator",
+          "label": "Accumulator unchanged"
+        },
+        {
+          "id": "e10",
+          "from": "factor1",
+          "to": "square1",
+          "relation": "square_operand",
+          "label": "Use this factor twice"
+        },
+        {
+          "id": "e11",
+          "from": "square1",
+          "to": "squared1",
+          "relation": "square_reduce",
+          "label": "4² mod 7=2"
+        },
+        {
+          "id": "e12",
+          "from": "remaining1",
+          "to": "half1",
+          "relation": "halve_exponent",
+          "label": "Remove the least significant binary bit"
+        },
+        {
+          "id": "e13",
+          "from": "after1",
+          "to": "acc2",
+          "relation": "next_accumulator",
+          "label": "Pass accumulator to next binary step"
+        },
+        {
+          "id": "e14",
+          "from": "squared1",
+          "to": "factor2",
+          "relation": "next_factor",
+          "label": "Pass squared factor to next binary step"
+        },
+        {
+          "id": "e15",
+          "from": "half1",
+          "to": "remaining2",
+          "relation": "next_exponent",
+          "label": "Pass halved exponent to next step"
+        },
+        {
+          "id": "e16",
+          "from": "acc2",
+          "to": "conditional2",
+          "relation": "multiply_operand",
+          "label": "Accumulator participates in multiplication"
+        },
+        {
+          "id": "e17",
+          "from": "factor2",
+          "to": "conditional2",
+          "relation": "multiply_operand",
+          "label": "Multiply by the current factor"
+        },
+        {
+          "id": "e18",
+          "from": "conditional2",
+          "to": "after2",
+          "relation": "conditional_accumulator",
+          "label": "1×2 mod 7=2"
+        },
+        {
+          "id": "e19",
+          "from": "factor2",
+          "to": "square2",
+          "relation": "square_operand",
+          "label": "Use this factor twice"
+        },
+        {
+          "id": "e20",
+          "from": "square2",
+          "to": "squared2",
+          "relation": "square_reduce",
+          "label": "2² mod 7=4"
+        },
+        {
+          "id": "e21",
+          "from": "remaining2",
+          "to": "half2",
+          "relation": "halve_exponent",
+          "label": "Remove the least significant binary bit"
+        },
+        {
+          "id": "e22",
+          "from": "after2",
+          "to": "acc3",
+          "relation": "next_accumulator",
+          "label": "Pass accumulator to next binary step"
+        },
+        {
+          "id": "e23",
+          "from": "squared2",
+          "to": "factor3",
+          "relation": "next_factor",
+          "label": "Pass squared factor to next binary step"
+        },
+        {
+          "id": "e24",
+          "from": "half2",
+          "to": "remaining3",
+          "relation": "next_exponent",
+          "label": "Pass halved exponent to next step"
+        },
+        {
+          "id": "e25",
+          "from": "acc3",
+          "to": "conditional3",
+          "relation": "even_bit_bypass",
+          "label": "No multiply at an even bit"
+        },
+        {
+          "id": "e26",
+          "from": "conditional3",
+          "to": "after3",
+          "relation": "conditional_accumulator",
+          "label": "Accumulator unchanged"
+        },
+        {
+          "id": "e27",
+          "from": "factor3",
+          "to": "square3",
+          "relation": "square_operand",
+          "label": "Use this factor twice"
+        },
+        {
+          "id": "e28",
+          "from": "square3",
+          "to": "squared3",
+          "relation": "square_reduce",
+          "label": "4² mod 7=2"
+        },
+        {
+          "id": "e29",
+          "from": "remaining3",
+          "to": "half3",
+          "relation": "halve_exponent",
+          "label": "Remove the least significant binary bit"
+        },
+        {
+          "id": "e30",
+          "from": "after3",
+          "to": "acc4",
+          "relation": "next_accumulator",
+          "label": "Pass accumulator to next binary step"
+        },
+        {
+          "id": "e31",
+          "from": "squared3",
+          "to": "factor4",
+          "relation": "next_factor",
+          "label": "Pass squared factor to next binary step"
+        },
+        {
+          "id": "e32",
+          "from": "half3",
+          "to": "remaining4",
+          "relation": "next_exponent",
+          "label": "Pass halved exponent to next step"
+        }
+      ]
+    },
+    {
+      "mode": "primes",
+      "nodes": 18,
+      "edges": 20,
+      "pages": 1,
+      "shown": [
+        {
+          "id": "factorn",
+          "label": "n = 84"
+        },
+        {
+          "id": "factorpower0",
+          "label": "2^2 = 4"
+        },
+        {
+          "id": "factorleaf0-0",
+          "label": "Prime factor = 2"
+        },
+        {
+          "id": "factorleaf0-1",
+          "label": "Prime factor = 2"
+        },
+        {
+          "id": "factorpower1",
+          "label": "3^1 = 3"
+        },
+        {
+          "id": "factorleaf1-0",
+          "label": "Prime factor = 3"
+        },
+        {
+          "id": "factorpower2",
+          "label": "7^1 = 7"
+        },
+        {
+          "id": "factorleaf2-0",
+          "label": "Prime factor = 7"
+        },
+        {
+          "id": "primeProduct",
+          "label": "Product of listed primes = 210"
+        },
+        {
+          "id": "euclidN",
+          "label": "Product + 1 = 211"
+        },
+        {
+          "id": "listedPrime0",
+          "label": "Listed prime = 2"
+        },
+        {
+          "id": "listedPrime1",
+          "label": "Listed prime = 3"
+        },
+        {
+          "id": "listedPrime2",
+          "label": "Listed prime = 5"
+        },
+        {
+          "id": "listedPrime3",
+          "label": "Listed prime = 7"
+        },
+        {
+          "id": "newFactorn",
+          "label": "N = 211"
+        },
+        {
+          "id": "newFactorpower0",
+          "label": "211^1 = 211"
+        },
+        {
+          "id": "newFactorleaf0-0",
+          "label": "Prime factor = 211"
+        },
+        {
+          "id": "unlisted0",
+          "label": "Prime 211 is absent from the listed primes"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "factorpower0",
+          "to": "factorn",
+          "relation": "factor_product",
+          "label": "Multiply prime-power factors to recover 84"
+        },
+        {
+          "id": "e1",
+          "from": "factorleaf0-0",
+          "to": "factorpower0",
+          "relation": "repeated_prime_factor",
+          "label": "One of 2 copies of prime 2"
+        },
+        {
+          "id": "e2",
+          "from": "factorleaf0-1",
+          "to": "factorpower0",
+          "relation": "repeated_prime_factor",
+          "label": "One of 2 copies of prime 2"
+        },
+        {
+          "id": "e3",
+          "from": "factorpower1",
+          "to": "factorn",
+          "relation": "factor_product",
+          "label": "Multiply prime-power factors to recover 84"
+        },
+        {
+          "id": "e4",
+          "from": "factorleaf1-0",
+          "to": "factorpower1",
+          "relation": "repeated_prime_factor",
+          "label": "One of 1 copies of prime 3"
+        },
+        {
+          "id": "e5",
+          "from": "factorpower2",
+          "to": "factorn",
+          "relation": "factor_product",
+          "label": "Multiply prime-power factors to recover 84"
+        },
+        {
+          "id": "e6",
+          "from": "factorleaf2-0",
+          "to": "factorpower2",
+          "relation": "repeated_prime_factor",
+          "label": "One of 1 copies of prime 7"
+        },
+        {
+          "id": "e7",
+          "from": "primeProduct",
+          "to": "euclidN",
+          "relation": "add_one",
+          "label": "N=P+1"
+        },
+        {
+          "id": "e8",
+          "from": "listedPrime0",
+          "to": "primeProduct",
+          "relation": "prime_product",
+          "label": "Multiply each listed prime once"
+        },
+        {
+          "id": "e9",
+          "from": "euclidN",
+          "to": "listedPrime0",
+          "relation": "not_divisible_by_listed_prime",
+          "label": "N mod 2 = 1"
+        },
+        {
+          "id": "e10",
+          "from": "listedPrime1",
+          "to": "primeProduct",
+          "relation": "prime_product",
+          "label": "Multiply each listed prime once"
+        },
+        {
+          "id": "e11",
+          "from": "euclidN",
+          "to": "listedPrime1",
+          "relation": "not_divisible_by_listed_prime",
+          "label": "N mod 3 = 1"
+        },
+        {
+          "id": "e12",
+          "from": "listedPrime2",
+          "to": "primeProduct",
+          "relation": "prime_product",
+          "label": "Multiply each listed prime once"
+        },
+        {
+          "id": "e13",
+          "from": "euclidN",
+          "to": "listedPrime2",
+          "relation": "not_divisible_by_listed_prime",
+          "label": "N mod 5 = 1"
+        },
+        {
+          "id": "e14",
+          "from": "listedPrime3",
+          "to": "primeProduct",
+          "relation": "prime_product",
+          "label": "Multiply each listed prime once"
+        },
+        {
+          "id": "e15",
+          "from": "euclidN",
+          "to": "listedPrime3",
+          "relation": "not_divisible_by_listed_prime",
+          "label": "N mod 7 = 1"
+        },
+        {
+          "id": "e16",
+          "from": "newFactorpower0",
+          "to": "newFactorn",
+          "relation": "factor_product",
+          "label": "Multiply prime-power factors to recover 211"
+        },
+        {
+          "id": "e17",
+          "from": "newFactorleaf0-0",
+          "to": "newFactorpower0",
+          "relation": "repeated_prime_factor",
+          "label": "One of 1 copies of prime 211"
+        },
+        {
+          "id": "e18",
+          "from": "euclidN",
+          "to": "newFactorn",
+          "relation": "same_integer",
+          "label": "Factor the actual product-plus-one integer"
+        },
+        {
+          "id": "e19",
+          "from": "newFactorpower0",
+          "to": "unlisted0",
+          "relation": "unlisted_prime_divisor",
+          "label": "A prime divisor of N cannot divide both P and P+1"
+        }
+      ]
+    },
+    {
+      "mode": "lemma",
+      "nodes": 9,
+      "edges": 7,
+      "pages": 1,
+      "shown": [
+        {
+          "id": "a",
+          "label": "a = 2"
+        },
+        {
+          "id": "b",
+          "label": "b = 3"
+        },
+        {
+          "id": "ab",
+          "label": "ab = 6"
+        },
+        {
+          "id": "divisor",
+          "label": "d = 6"
+        },
+        {
+          "id": "ra",
+          "label": "a mod d = 2"
+        },
+        {
+          "id": "rp",
+          "label": "ab mod d = 0"
+        },
+        {
+          "id": "rb",
+          "label": "b mod d = 3"
+        },
+        {
+          "id": "primeHypothesis",
+          "label": "d is composite"
+        },
+        {
+          "id": "lemmaConclusion",
+          "label": "Counterexample: d|ab, d∤a, d∤b"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "a",
+          "to": "ab",
+          "relation": "multiply_operand",
+          "label": "Multiply the selected factors"
+        },
+        {
+          "id": "e1",
+          "from": "b",
+          "to": "ab",
+          "relation": "multiply_operand",
+          "label": "Multiply the selected factors"
+        },
+        {
+          "id": "e2",
+          "from": "a",
+          "to": "ra",
+          "relation": "divisibility_test",
+          "label": "Nonzero remainder: d does not divide this integer"
+        },
+        {
+          "id": "e3",
+          "from": "ab",
+          "to": "rp",
+          "relation": "divisibility_test",
+          "label": "Remainder 0: d divides this integer"
+        },
+        {
+          "id": "e4",
+          "from": "b",
+          "to": "rb",
+          "relation": "divisibility_test",
+          "label": "Nonzero remainder: d does not divide this integer"
+        },
+        {
+          "id": "e5",
+          "from": "divisor",
+          "to": "primeHypothesis",
+          "relation": "prime_hypothesis",
+          "label": "Prime divisor is the theorem hypothesis"
+        },
+        {
+          "id": "e6",
+          "from": "primeHypothesis",
+          "to": "lemmaConclusion",
+          "relation": "lemma_scope",
+          "label": "The prime-divisor theorem cannot be invoked for composite d"
+        }
+      ]
+    },
+    {
+      "mode": "totient",
+      "nodes": 68,
+      "edges": 47,
+      "pages": 6,
+      "shown": [
+        {
+          "id": "classes",
+          "label": "All residue classes 0≤a<n = 20"
+        },
+        {
+          "id": "survivors0",
+          "label": "Survivors after excluding 2 = 10"
+        },
+        {
+          "id": "excludePrime0",
+          "label": "Distinct prime = 2"
+        },
+        {
+          "id": "removed0",
+          "label": "Remove 10 surviving multiples of 2"
+        },
+        {
+          "id": "survivors1",
+          "label": "Survivors after excluding 5 = 8"
+        },
+        {
+          "id": "excludePrime1",
+          "label": "Distinct prime = 5"
+        },
+        {
+          "id": "removed1",
+          "label": "Remove 2 surviving multiples of 5"
+        },
+        {
+          "id": "phi",
+          "label": "φ(n): final unit count = 8"
+        },
+        {
+          "id": "class0",
+          "label": "Residue class = 0"
+        },
+        {
+          "id": "classGcd0",
+          "label": "gcd(a,n) = 20"
+        },
+        {
+          "id": "unit0",
+          "label": "Nonunit: excluded"
+        },
+        {
+          "id": "class1",
+          "label": "Residue class = 1"
+        },
+        {
+          "id": "classGcd1",
+          "label": "gcd(a,n) = 1"
+        },
+        {
+          "id": "unit1",
+          "label": "Unit: belongs to U(n)"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "classes",
+          "to": "removed0",
+          "relation": "exclude_multiples",
+          "label": "Remove actual currently surviving multiples"
+        },
+        {
+          "id": "e1",
+          "from": "excludePrime0",
+          "to": "removed0",
+          "relation": "divisor_filter",
+          "label": "Test divisibility by this distinct prime"
+        },
+        {
+          "id": "e2",
+          "from": "removed0",
+          "to": "survivors0",
+          "relation": "survivor_count",
+          "label": "20−10=10"
+        },
+        {
+          "id": "e3",
+          "from": "survivors0",
+          "to": "removed1",
+          "relation": "exclude_multiples",
+          "label": "Remove actual currently surviving multiples"
+        },
+        {
+          "id": "e4",
+          "from": "excludePrime1",
+          "to": "removed1",
+          "relation": "divisor_filter",
+          "label": "Test divisibility by this distinct prime"
+        },
+        {
+          "id": "e5",
+          "from": "removed1",
+          "to": "survivors1",
+          "relation": "survivor_count",
+          "label": "10−2=8"
+        },
+        {
+          "id": "e6",
+          "from": "survivors1",
+          "to": "phi",
+          "relation": "totient_count",
+          "label": "Final survivors are exactly the units"
+        },
+        {
+          "id": "e7",
+          "from": "class0",
+          "to": "classGcd0",
+          "relation": "gcd_classification",
+          "label": "Compute gcd(0,20)"
+        },
+        {
+          "id": "e8",
+          "from": "classGcd0",
+          "to": "unit0",
+          "relation": "unit_iff_gcd_one",
+          "label": "gcd>1: no inverse"
+        },
+        {
+          "id": "e9",
+          "from": "class1",
+          "to": "classGcd1",
+          "relation": "gcd_classification",
+          "label": "Compute gcd(1,20)"
+        },
+        {
+          "id": "e10",
+          "from": "classGcd1",
+          "to": "unit1",
+          "relation": "unit_iff_gcd_one",
+          "label": "gcd=1: inverse exists"
+        }
+      ]
+    },
+    {
+      "mode": "theorem",
+      "nodes": 31,
+      "edges": 17,
+      "pages": 3,
+      "shown": [
+        {
+          "id": "coprime",
+          "label": "gcd(a,n)=1 ⇒ unit permutation"
+        },
+        {
+          "id": "unitProduct",
+          "label": "Product of units modulo n = 12"
+        },
+        {
+          "id": "imageProduct",
+          "label": "Product of images modulo n = 12"
+        },
+        {
+          "id": "cancel",
+          "label": "Cancel the invertible unit product"
+        },
+        {
+          "id": "euler",
+          "label": "a^φ(n) mod n = 1"
+        },
+        {
+          "id": "fermatHypothesis",
+          "label": "n is prime: φ(n)=n−1"
+        },
+        {
+          "id": "fermat",
+          "label": "a^(n−1) mod n = 1"
+        },
+        {
+          "id": "unitSource0",
+          "label": "u in U(n) = 1"
+        },
+        {
+          "id": "unitImage0",
+          "label": "a×u mod n = 5"
+        },
+        {
+          "id": "unitSource1",
+          "label": "u in U(n) = 2"
+        },
+        {
+          "id": "unitImage1",
+          "label": "a×u mod n = 10"
+        },
+        {
+          "id": "unitSource2",
+          "label": "u in U(n) = 3"
+        },
+        {
+          "id": "unitImage2",
+          "label": "a×u mod n = 2"
+        },
+        {
+          "id": "unitSource3",
+          "label": "u in U(n) = 4"
+        },
+        {
+          "id": "unitImage3",
+          "label": "a×u mod n = 7"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "coprime",
+          "to": "imageProduct",
+          "relation": "permutation_hypothesis",
+          "label": "Multiplication by a bijects the complete unit set"
+        },
+        {
+          "id": "e1",
+          "from": "unitProduct",
+          "to": "cancel",
+          "relation": "unit_product_invertible",
+          "label": "Every factor is a unit, so their product is invertible"
+        },
+        {
+          "id": "e2",
+          "from": "imageProduct",
+          "to": "cancel",
+          "relation": "product_equality",
+          "label": "Permuted unit product equals original unit product"
+        },
+        {
+          "id": "e3",
+          "from": "cancel",
+          "to": "euler",
+          "relation": "euler_cancellation",
+          "label": "Cancel P from a^φ(n)P≡P"
+        },
+        {
+          "id": "e4",
+          "from": "fermatHypothesis",
+          "to": "fermat",
+          "relation": "fermat_specialization",
+          "label": "Euler specializes to exponent n−1"
+        },
+        {
+          "id": "e5",
+          "from": "unitSource0",
+          "to": "unitImage0",
+          "relation": "unit_multiplication",
+          "label": "1×5 mod 13 = 5"
+        },
+        {
+          "id": "e6",
+          "from": "unitSource1",
+          "to": "unitImage1",
+          "relation": "unit_multiplication",
+          "label": "2×5 mod 13 = 10"
+        },
+        {
+          "id": "e7",
+          "from": "unitSource2",
+          "to": "unitImage2",
+          "relation": "unit_multiplication",
+          "label": "3×5 mod 13 = 2"
+        },
+        {
+          "id": "e8",
+          "from": "unitSource3",
+          "to": "unitImage3",
+          "relation": "unit_multiplication",
+          "label": "4×5 mod 13 = 7"
+        }
+      ]
+    },
+    {
+      "mode": "rsa",
+      "nodes": 20,
+      "edges": 21,
+      "pages": 1,
+      "shown": [
+        {
+          "id": "rsaN",
+          "label": "Public modulus n = 187"
+        },
+        {
+          "id": "rsaE",
+          "label": "Public exponent e = 7"
+        },
+        {
+          "id": "rsaValidity",
+          "label": "Mathematical toy assumptions satisfied"
+        },
+        {
+          "id": "rsaFactorn",
+          "label": "Factor public n = 187"
+        },
+        {
+          "id": "rsaFactorpower0",
+          "label": "11^1 = 11"
+        },
+        {
+          "id": "rsaFactorleaf0-0",
+          "label": "Prime factor = 11"
+        },
+        {
+          "id": "rsaFactorpower1",
+          "label": "17^1 = 17"
+        },
+        {
+          "id": "rsaFactorleaf1-0",
+          "label": "Prime factor = 17"
+        },
+        {
+          "id": "rsaPhi",
+          "label": "φ(n)=(p−1)(q−1) = 160"
+        },
+        {
+          "id": "rsaD",
+          "label": "Recovered private exponent = 23"
+        },
+        {
+          "id": "rsaMessage",
+          "label": "Message M = 42"
+        },
+        {
+          "id": "rsaCipher",
+          "label": "C=M^e mod n = 15"
+        },
+        {
+          "id": "rsaRecovered",
+          "label": "C^d mod n = 42"
+        },
+        {
+          "id": "rsaPrimeMessage0",
+          "label": "M mod 11 = 9"
+        },
+        {
+          "id": "rsaPrimeBranch0",
+          "label": "Nonzero residue: Fermat reduces exponent ed"
+        },
+        {
+          "id": "rsaPrimeClear0",
+          "label": "Recovered M mod 11 = 9"
+        },
+        {
+          "id": "rsaPrimeMessage1",
+          "label": "M mod 17 = 8"
+        },
+        {
+          "id": "rsaPrimeBranch1",
+          "label": "Nonzero residue: Fermat reduces exponent ed"
+        },
+        {
+          "id": "rsaPrimeClear1",
+          "label": "Recovered M mod 17 = 8"
+        },
+        {
+          "id": "rfcBounds",
+          "label": "RFC public-key parameter bounds met"
+        }
+      ],
+      "relations": [
+        {
+          "id": "e0",
+          "from": "rsaN",
+          "to": "rsaValidity",
+          "relation": "rsa_domain",
+          "label": "Distinct primes, coprime exponent and 0≤M<n are required"
+        },
+        {
+          "id": "e1",
+          "from": "rsaFactorpower0",
+          "to": "rsaFactorn",
+          "relation": "factor_product",
+          "label": "Multiply prime-power factors to recover 187"
+        },
+        {
+          "id": "e2",
+          "from": "rsaFactorleaf0-0",
+          "to": "rsaFactorpower0",
+          "relation": "repeated_prime_factor",
+          "label": "One of 1 copies of prime 11"
+        },
+        {
+          "id": "e3",
+          "from": "rsaFactorpower1",
+          "to": "rsaFactorn",
+          "relation": "factor_product",
+          "label": "Multiply prime-power factors to recover 187"
+        },
+        {
+          "id": "e4",
+          "from": "rsaFactorleaf1-0",
+          "to": "rsaFactorpower1",
+          "relation": "repeated_prime_factor",
+          "label": "One of 1 copies of prime 17"
+        },
+        {
+          "id": "e5",
+          "from": "rsaN",
+          "to": "rsaFactorn",
+          "relation": "factor_public_modulus",
+          "label": "Trial factoring uses public n"
+        },
+        {
+          "id": "e6",
+          "from": "rsaFactorn",
+          "to": "rsaPhi",
+          "relation": "rsa_totient",
+          "label": "Distinct prime factors give the actual totient"
+        },
+        {
+          "id": "e7",
+          "from": "rsaE",
+          "to": "rsaD",
+          "relation": "rsa_inverse_operand",
+          "label": "Invert e modulo φ(n)"
+        },
+        {
+          "id": "e8",
+          "from": "rsaPhi",
+          "to": "rsaD",
+          "relation": "rsa_private_inverse",
+          "label": "7×23 ≡ 1 mod 160"
+        },
+        {
+          "id": "e9",
+          "from": "rsaMessage",
+          "to": "rsaCipher",
+          "relation": "rsa_encrypt",
+          "label": "Exact modular exponentiation"
+        },
+        {
+          "id": "e10",
+          "from": "rsaD",
+          "to": "rsaRecovered",
+          "relation": "rsa_decrypt_key",
+          "label": "Use the recovered private exponent"
+        },
+        {
+          "id": "e11",
+          "from": "rsaCipher",
+          "to": "rsaRecovered",
+          "relation": "rsa_decrypt",
+          "label": "Exact modular exponentiation"
+        },
+        {
+          "id": "e12",
+          "from": "rsaMessage",
+          "to": "rsaPrimeMessage0",
+          "relation": "reduce_mod_prime",
+          "label": "Classify message separately at this prime"
+        },
+        {
+          "id": "e13",
+          "from": "rsaPrimeMessage0",
+          "to": "rsaPrimeBranch0",
+          "relation": "rsa_nonzero_fermat_branch",
+          "label": "p does not divide M; use Fermat modulo p"
+        },
+        {
+          "id": "e14",
+          "from": "rsaPrimeBranch0",
+          "to": "rsaPrimeClear0",
+          "relation": "rsa_prime_correctness",
+          "label": "Encrypted/decrypted residue equals original message residue"
+        },
+        {
+          "id": "e15",
+          "from": "rsaPrimeClear0",
+          "to": "rsaRecovered",
+          "relation": "rsa_crt_reconstruction",
+          "label": "Agreement modulo distinct p and q implies agreement modulo pq"
+        },
+        {
+          "id": "e16",
+          "from": "rsaMessage",
+          "to": "rsaPrimeMessage1",
+          "relation": "reduce_mod_prime",
+          "label": "Classify message separately at this prime"
+        },
+        {
+          "id": "e17",
+          "from": "rsaPrimeMessage1",
+          "to": "rsaPrimeBranch1",
+          "relation": "rsa_nonzero_fermat_branch",
+          "label": "p does not divide M; use Fermat modulo p"
+        },
+        {
+          "id": "e18",
+          "from": "rsaPrimeBranch1",
+          "to": "rsaPrimeClear1",
+          "relation": "rsa_prime_correctness",
+          "label": "Encrypted/decrypted residue equals original message residue"
+        },
+        {
+          "id": "e19",
+          "from": "rsaPrimeClear1",
+          "to": "rsaRecovered",
+          "relation": "rsa_crt_reconstruction",
+          "label": "Agreement modulo distinct p and q implies agreement modulo pq"
+        },
+        {
+          "id": "e20",
+          "from": "rsaValidity",
+          "to": "rfcBounds",
+          "relation": "mathematics_vs_rfc",
+          "label": "Mathematical round-trip validity is distinct from RFC conformity or security"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+.math-number-theory-lab { overflow:hidden; }
+.math-number-theory-lab select { width:100%; min-height:44px; }
+.nt-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0; }
+.nt-controls label { display:flex; flex-direction:column; gap:6px; min-width:0; }
+.nt-controls label[hidden] { display:none; }
+.nt-controls input { width:100%; min-width:0; min-height:44px; font:inherit; padding:8px; }
+.nt-controls small { overflow-wrap:anywhere; line-height:1.4; }
+.nt-controls input[aria-invalid=true] { border:2px solid #ab463b; }
+.nt-actions { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+.nt-readout { font-size:1.1em; overflow-wrap:anywhere; }
+.nt-panels { display:grid; gap:16px; }
+.nt-table-scroll { overflow:auto; max-height:430px; padding:4px; border:1px solid var(--line,#d5cfbf); border-radius:8px; }
+.nt-table-scroll table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; }
+.nt-table-scroll caption { text-align:left; padding:8px; font-weight:650; }
+.nt-table-scroll th,.nt-table-scroll td { text-align:left; padding:8px; border-bottom:1px solid var(--line,#d5cfbf); vertical-align:top; }
+.nt-table-scroll th { font-weight:600; }
+.math-number-theory-lab.is-enlarged .nt-table-scroll { max-height:700px; }
+.math-number-theory-lab.is-enlarged table { font-size:1.15em; }
+.nt-proof { padding-left:24px; }
+.nt-proof li { margin-bottom:8px; }
+.nt-ledger { max-height:450px; overflow:auto; font-size:.82em; }
+.nt-live:empty { display:none; }
+.nt-sources { font-size:.86em; }
+@media(max-width:600px) { .nt-controls { grid-template-columns:1fr; } .nt-table-scroll { max-height:330px; } .nt-table-scroll th,.nt-table-scroll td { padding:7px; } }
+
+.nt-panel h4 { margin:0 0 8px; overflow-wrap:anywhere; }
+.nt-table-scroll caption { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.nt-panels { grid-template-columns:minmax(0,1fr); min-width:0; }
+.nt-panel { min-width:0; }
+.nt-panel h4 { white-space:normal; }
+.nt-table-scroll { max-width:100%; }

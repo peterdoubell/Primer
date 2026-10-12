@@ -6060,6 +6060,7 @@
       if (item.props?.scenario?.startsWith('module.')) {
         if (!window.PrimerModuleObjects || !window.PrimerModuleObjects.ensure(item)) return null;
       }
+      if (item.props?.scenario === 'module.math.4.numtheory' && window.PrimerNumberTheoryDiagrams) return window.PrimerNumberTheoryDiagrams.renderSpatial(item, hooks);
       return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;
     },
     'radiology-anatomy': (item, hooks) => {
@@ -6128,6 +6129,7 @@
     'physics-relativity-lab': (item, hooks) => window.PrimerPhysicsRelativityLab?.render(item, hooks) || null,
     'math-algebra-lab': (item, hooks) => window.PrimerMathAlgebraLab?.render(item, hooks) || null,
     'math-logic-lab': (item, hooks) => window.PrimerMathLogicLab?.render(item, hooks) || null,
+    'math-number-theory-lab': (item, hooks) => window.PrimerNumberTheoryDiagrams?.render(item, hooks) || window.PrimerMathNumberTheoryLab?.render(item, hooks) || null,
     'physics-maxwell-lab': (item, hooks) => window.PrimerPhysicsMaxwellLab?.render(item, hooks) || null,
     'physics-cosmology-lab': (item, hooks) => window.PrimerPhysicsCosmologyLab?.render(item, hooks) || null,
     'physics-qft-lab': (item, hooks) => window.PrimerPhysicsQftLab?.render(item, hooks) || null,
@@ -6187,7 +6189,7 @@
       const result = RENDERERS[rendererName](item, hooks);
       if (!result) return result;
       // These renderers own their responsive viewport and camera controls.
-      if (['physics-qft-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      if (['physics-qft-lab', 'math-number-theory-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
       for (const picture of result.querySelectorAll('svg')) {
         if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
         const viewport = picture.parentNode;

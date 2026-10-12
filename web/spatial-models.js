@@ -258,6 +258,10 @@
       if (announce && !fromShared && spec.linkedStateKey) window.PrimerLessonStateBus?.publish(spec.linkedStateKey, root, current.state);
     }
     spec.controls.forEach(control => {
+      const exactIntegerControl = id === 'module.math.4.numtheory' && spec.familyId === 'number-theory-exact-traces'
+        && spec.linkedStateKey === 'math.4.numtheory' && control.exactInteger === true
+        && window.PrimerMathNumberTheoryLab?.controls.some(c => c.key === control.key
+          && c.min === control.min && c.max === control.max && c.exactInteger === true);
       const label = element('label', { class: 'spatial-parameter', for: uid + '-' + control.key });
       const title = element('span', {}, control.label);
       let input, output;
@@ -270,19 +274,25 @@
         input = element('input', { id: uid + '-' + control.key, type: 'range', min: control.min,
           max: control.max, step: control.preserveExact ? 'any' : control.step, 'data-parameter': control.key });
         if (control.numericInput) {
-          input.type = 'number';
+          input.type = exactIntegerControl ? 'text' : 'number';
           input.style.width = '100%'; input.style.minWidth = '0'; input.style.minHeight = '42px';
         }
       }
       const update = () => {
-        if (control.numericInput && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {
+        if (exactIntegerControl && !control.integerValidator?.(input.value)) {
+          input.setAttribute('aria-invalid', 'true');
+          status.textContent = 'Enter an exact integer from ' + control.min + ' to ' + control.max + '. The last accepted state is retained.';
+          return;
+        }
+        input.removeAttribute('aria-invalid');
+        if (control.numericInput && !exactIntegerControl && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {
           input.value = current.state[control.key];
           return;
         }
         // Native selects stringify values; recover the authored number/string type.
         current.state[control.key] = control.options
           ? (control.options.find(option => String(option.value) === input.value)?.value ?? input.value)
-          : Number(input.value);
+          : exactIntegerControl ? input.value : Number(input.value);
         refresh(true);
       };
       input.addEventListener(control.options || control.numericInput ? 'change' : 'input', update);

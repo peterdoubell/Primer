@@ -1,0 +1,134 @@
+...............................F.......F                                 [100%]
+=================================== FAILURES ===================================
+_ test_even_forged_new_hash_cannot_hide_unrelated_semantic_change[data/module-models.json] _
+
+relative = 'data/module-models.json'
+current = b'{"version": 1, "models": [{"node_id": "math.0.counting", "family": "unit-blocks", "title": "An unrelated changed les...keholders and oversight; a single model cannot resolve competing rights or unequal error costs.", "mode": "context"}]}'
+
+    def historical_runtime_bytes(relative, current):
+        """Preserve only the exact PR134/current-QFT artifact pairs named below.
+    
+        Original receipts prove historical bytes. Current science/reader proofs
+        separately validate the new behavior; this helper grants no approval.
+        """
+        try:
+>           current=restore_main_runtime_bytes(relative,current)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tools/qft_runtime_compatibility.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tools/pulmonary_runtime_compatibility.py:15: in restore_main_runtime_bytes
+    raw=pulmonary_product_bytes(relative,raw)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tools/number_theory_runtime_compatibility.py:39: in pulmonary_product_bytes
+    return product_view(relative,raw,'pulmonary_views')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'data/module-models.json'
+raw = b'{"version": 1, "models": [{"node_id": "math.0.counting", "family": "unit-blocks", "title": "An unrelated changed les...keholders and oversight; a single model cannot resolve competing rights or unequal error costs.", "mode": "context"}]}'
+view = 'pulmonary_views'
+
+    def product_view(relative,raw,view):
+        evidence=(ROOT/PRODUCT_PROOF).read_bytes()
+        if hashlib.sha256(evidence).hexdigest()!=PRODUCT_SHA256:
+            raise ValueError('Number theory union inverse evidence changed')
+        proof=json.loads(evidence)
+        if view not in {'pulmonary_views','math_views'}:
+            raise ValueError('Unknown historical union view')
+        row=proof[view].get(relative)
+        if row is None:
+            return raw
+        digest=hashlib.sha256(raw).hexdigest()
+        if digest==row['baseline_sha256']:
+            return raw
+        if digest!=row['current_sha256']:
+>           raise ValueError('Unreviewed number theory union byte change')
+E           ValueError: Unreviewed number theory union byte change
+
+tools/number_theory_runtime_compatibility.py:26: ValueError
+
+The above exception was the direct cause of the following exception:
+
+path = 'data/module-models.json'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10b562e40>
+
+    @pytest.mark.parametrize('path', ['data/curriculum/03-physics.json', 'data/module-models.json'])
+    def test_even_forged_new_hash_cannot_hide_unrelated_semantic_change(path, monkeypatch):
+        value = json.loads((ROOT/path).read_text())
+        key = 'nodes' if 'curriculum/' in path else 'models'
+        identity = 'id' if key == 'nodes' else 'node_id'
+        row = next(row for row in value[key] if row[identity] != 'phys.5.qft')
+        row['title'] = 'An unrelated changed lesson'
+        raw = json.dumps(value).encode()
+        revised = copy.deepcopy(compatibility.FILES[path])
+        revised['current_sha256'] = hashlib.sha256(raw).hexdigest()
+        monkeypatch.setitem(compatibility.FILES, path, revised)
+        with pytest.raises(ValueError, match='Unrelated physics/binding change'):
+>           compatibility.historical_runtime_bytes(path, raw)
+
+tests/test_qft_runtime_compatibility.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'data/module-models.json'
+current = b'{"version": 1, "models": [{"node_id": "math.0.counting", "family": "unit-blocks", "title": "An unrelated changed les...keholders and oversight; a single model cannot resolve competing rights or unequal error costs.", "mode": "context"}]}'
+
+    def historical_runtime_bytes(relative, current):
+        """Preserve only the exact PR134/current-QFT artifact pairs named below.
+    
+        Original receipts prove historical bytes. Current science/reader proofs
+        separately validate the new behavior; this helper grants no approval.
+        """
+        try:
+            current=restore_main_runtime_bytes(relative,current)
+        except ValueError as error:
+>           raise ValueError("Unreviewed QFT compatibility byte change: "+str(error)) from error
+E           ValueError: Unreviewed QFT compatibility byte change: Unreviewed number theory union byte change
+
+tools/qft_runtime_compatibility.py:20: ValueError
+
+During handling of the above exception, another exception occurred:
+
+path = 'data/module-models.json'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10b562e40>
+
+    @pytest.mark.parametrize('path', ['data/curriculum/03-physics.json', 'data/module-models.json'])
+    def test_even_forged_new_hash_cannot_hide_unrelated_semantic_change(path, monkeypatch):
+        value = json.loads((ROOT/path).read_text())
+        key = 'nodes' if 'curriculum/' in path else 'models'
+        identity = 'id' if key == 'nodes' else 'node_id'
+        row = next(row for row in value[key] if row[identity] != 'phys.5.qft')
+        row['title'] = 'An unrelated changed lesson'
+        raw = json.dumps(value).encode()
+        revised = copy.deepcopy(compatibility.FILES[path])
+        revised['current_sha256'] = hashlib.sha256(raw).hexdigest()
+        monkeypatch.setitem(compatibility.FILES, path, revised)
+>       with pytest.raises(ValueError, match='Unrelated physics/binding change'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E        Regex: 'Unrelated physics/binding change'
+E        Input: 'Unreviewed QFT compatibility byte change: Unreviewed number theory union byte change'
+
+tests/test_qft_runtime_compatibility.py:39: AssertionError
+_________ test_module_model_geometry_bindings_controls_and_invariants __________
+
+    @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
+    def test_module_model_geometry_bindings_controls_and_invariants():
+        result = subprocess.run(
+            ['node', str(ROOT / 'tools/check_module_models.js')],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+        assert result.returncode == 0, result.stdout + result.stderr
+>       assert '462 lesson bindings, 62 object families' in result.stdout
+E       AssertionError: assert '462 lesson bindings, 62 object families' in 'Verified 462 lesson bindings, 63 object families, 410 geometric controls and 16830 deterministic finite builds; quantitative geometry invariants passed.\n'
+E        +  where 'Verified 462 lesson bindings, 63 object families, 410 geometric controls and 16830 deterministic finite builds; quantitative geometry invariants passed.\n' = CompletedProcess(args=['node', '/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/tools/check..., 410 geometric controls and 16830 deterministic finite builds; quantitative geometry invariants passed.\n', stderr='').stdout
+
+tests/test_module_models.py:22: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_qft_runtime_compatibility.py::test_even_forged_new_hash_cannot_hide_unrelated_semantic_change[data/module-models.json]
+FAILED tests/test_module_models.py::test_module_model_geometry_bindings_controls_and_invariants
+2 failed, 38 passed in 66.55s (0:01:06)

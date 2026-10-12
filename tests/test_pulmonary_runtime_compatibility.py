@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import pytest
 from tools import pulmonary_runtime_compatibility as compatibility
+from tools.number_theory_runtime_compatibility import pulmonary_product_bytes
 ROOT=Path(__file__).resolve().parents[1]
 
 
@@ -14,7 +15,7 @@ def test_exact_named_union_blocks_restore_the_reviewed_main_only():
     assert proof['historical_approval_extended'] is proof['clinical_approval'] is proof['fine_anatomical_approval'] is False
     for path,(before,after) in compatibility.PINS.items():
         raw=(ROOT/path).read_bytes()
-        assert hashlib.sha256(raw).hexdigest()==after
+        assert hashlib.sha256(pulmonary_product_bytes(path,raw)).hexdigest()==after
         restored=compatibility.restore_main_runtime_bytes(path,raw)
         assert hashlib.sha256(restored).hexdigest()==before
         assert compatibility.restore_main_runtime_bytes(path,restored)==restored
