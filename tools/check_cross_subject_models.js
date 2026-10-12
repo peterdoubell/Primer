@@ -50,6 +50,7 @@ class Element {
     if (key === 'checked') this.checked = true;
   }
   getAttribute(key) { return this.attributes.has(key) ? this.attributes.get(key) : null; }
+  removeAttribute(key) { this.attributes.delete(key); }
   set className(value) { this.setAttribute('class', value); }
   get className() { return this.getAttribute('class') || ''; }
   append(...children) { this.children.push(...children.map(child => child && child.nodeType ? child : new TextNode(child))); }
@@ -66,6 +67,9 @@ class Element {
     (this.listeners.get(type) || []).forEach(listener => listener.call(this, event));
   }
 }
+const attributeProbe = new Element('input');
+attributeProbe.setAttribute('aria-invalid', 'true'); attributeProbe.removeAttribute('aria-invalid');
+assert.equal(attributeProbe.getAttribute('aria-invalid'), null);
 const document = {
   createElement: tag => new Element(tag),
   createElementNS: (_namespace, tag) => new Element(tag),
@@ -1191,13 +1195,13 @@ const entries = nodes.flatMap(node => (node.lesson_media || [])
   .filter(item => item.kind === 'model').map(item => ({ node, item })));
 const crossEntries = entries.filter(({ node, item }) =>
   CROSS_SPATIAL.includes(node.id) && item.renderer === 'spatial-3d' || item.renderer === 'concept-lab');
-equal(crossEntries.map(({ node }) => node.id).sort(), [...CROSS_SPATIAL, ...CONCEPTS].sort(),
-  'Exactly the registered cross-subject lessons must bind the models');
+equal(crossEntries.map(({ node }) => node.id).sort(), [...CROSS_SPATIAL, ...CONCEPTS.filter(id => id !== 'math.4.numtheory')].sort(),
+  'Legacy concept bindings remain exact except the separately verified full number-theory replacement');
 for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
-assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab'].includes(item.renderer)).length,
+assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'physics-phase-lab'].includes(item.renderer)).length,
   70, 'All 70 earlier lesson models remain reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-ode-lab').length,
   1, 'The separately checked second-order ODE activity remains reachable');
@@ -1897,7 +1901,8 @@ for (const [renderer, nodeId, scenario] of [
   ['math-logic-lab','math.5.logic','math.5.logic.diagonal-models-proof'],
   ['physics-maxwell-lab','phys.4.em-maxwell','phys.4.em-maxwell.fields-flux-radiation'],
   ['physics-cosmology-lab','phys.5.gr-cosmo','phys.5.gr-cosmo.geometry-history'],
-  ['physics-qft-lab','phys.5.qft','phys.5.qft.fields-observables']]) {
+  ['physics-qft-lab','phys.5.qft','phys.5.qft.fields-observables'],
+  ['math-number-theory-lab','math.4.numtheory','math.4.numtheory.exact-integers']]) {
   const dedicated = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === renderer).map(item => ({node,item})));
   assert.equal(dedicated.length, 1, renderer + ': exactly one full lesson binding');
   assert.equal(dedicated[0].node.id, nodeId);

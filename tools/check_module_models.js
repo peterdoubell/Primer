@@ -25,6 +25,10 @@ context.window.PrimerPhysicsQftLab = require('../web/physics-qft-lab.js');
 require('../web/spatial-qft.js');
 context.window.PrimerPhysicsQuantumInfoLab = require('../web/physics-quantum-info-lab.js');
 context.window.PrimerMathLogicLab = require('../web/math-logic-lab.js');
+context.window.PrimerMathNumberTheoryLab = require('../web/math-number-theory-lab.js');
+context.window.PrimerNumberTheoryDiagrams = require('../web/number-theory-diagrams.js');
+require('../web/spatial-number-theory.js');
+require('../web/spatial-number-theory-relations.js');
 context.window.PrimerPhysicsMaxwellLab = require('../web/physics-maxwell-lab.js');
 context.window.PrimerPhysicsCosmologyLab = require('../web/physics-cosmology-lab.js');
 require('../web/spatial-logic.js');
@@ -60,7 +64,14 @@ for(const binding of manifest.models) {
   assert.equal(objects.ensure({...item,props:{...item.props,context:'changed after registration'}}),false);
   if(!familyIds.has(binding.family)) familyIds.set(binding.family,item.props.scenario);
   const scene=spatial.build(item.props.scenario);
-  assert.ok(scene.readout.startsWith(binding.context));
+  if(binding.family==='number-theory-exact-traces') {
+    assert.equal(binding.node_id,'math.4.numtheory');
+    assert.equal(item.props.lesson,'Number Theory'); assert.equal(binding.mode,'model');
+    assert.ok(scene.readout.startsWith(binding.context));
+    assert.ok(scene.readout.includes(window.PrimerMathNumberTheoryLab.build(scene.state).readout));
+    assert.equal(objects.ensure({...item,props:{...item.props,scenario:'module.math.5.logic'}}),false);
+    assert.equal(objects.ensure({...item,props:{...item.props,lesson:'Other lesson'}}),false);
+  } else assert.ok(scene.readout.startsWith(binding.context));
   if(binding.mode==='context') assert.ok(scene.note.startsWith('Physical study context for “'+item.props.lesson+'”.'));
 }
 assert.deepEqual([...familyIds.keys()].sort(),[...objects.families].sort());
@@ -83,6 +94,29 @@ function verify(id,state={}) {
 }
 for(const [family,id] of familyIds){
   const initial=verify(id);let minimum={},maximum={};
+  if(family==='number-theory-exact-traces') {
+    assert.equal(id,'module.math.4.numtheory');
+    const lab=window.PrimerMathNumberTheoryLab,diagrams=window.PrimerNumberTheoryDiagrams;
+    for(const control of spatial.controls(id)) {
+      const mode=control.visibleWhen?.mode?.[0]||lab.initial.mode;
+      const values=control.options?control.options.map(o=>o.value):control.key==='diagramPage'?[0,1,5000,10000]:
+        [String(control.min),String(BigInt(control.min)+BigInt(control.step)),String((BigInt(control.min)+BigInt(control.max))/2n),String(control.max)];
+      for(const value of values) {
+        const scene=verify(id,{mode,[control.key]:value});
+        const expected=diagrams.windowGraph(diagrams.graph(scene.state),scene.state.diagramPage);
+        assert.deepEqual(scene.numberTheoryRelations.window.nodes,expected.nodes);
+        assert.deepEqual(scene.numberTheoryRelations.window.edges,expected.edges);
+        assert.equal(scene.primitives.filter(p=>p.nt_relation_kind==='node').length,expected.nodes.length);
+        assert.equal(scene.primitives.filter(p=>p.nt_relation_kind==='edge').length,expected.edges.length);
+      }
+      if(!control.options)for(const value of [NaN,Infinity,-Infinity,'not an integer']) {
+        const scene=verify(id,{mode,[control.key]:value});
+        assert.deepEqual(scene.state,diagrams.normalize({mode,[control.key]:value}));
+      }
+      controls++;
+    }
+    continue;
+  }
   for(const control of spatial.controls(id)){
     const coordinated=['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);
     // Large batch/seed ranges have no useful million-state exhaustive sweep.

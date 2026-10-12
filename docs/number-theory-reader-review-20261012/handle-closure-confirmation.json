@@ -1,0 +1,36 @@
+{
+  "task": "number-theory",
+  "all_task_servers_closed": true,
+  "servers": [
+    {
+      "pid": 44066,
+      "port": 62955,
+      "pidAlive": false,
+      "portAccepting": false,
+      "server_terminal_exit_code": 130,
+      "signal": "Task-owned Ctrl-C requested after completed QA"
+    },
+    {
+      "pid": 44347,
+      "port": 63007,
+      "pidAlive": false,
+      "portAccepting": false,
+      "server_terminal_exit_code": 130,
+      "signal": "Task-owned Ctrl-C requested after completed QA"
+    }
+  ],
+  "browser_checks": [
+    {
+      "check": "number theory final",
+      "terminal_exit_code": 0,
+      "receipt": "docs/number-theory-reader-review-20261012/final-browser/browser-closed.json"
+    },
+    {
+      "check": "QFT current shared engine",
+      "terminal_exit_code": 0,
+      "method": "Existing pinned checker finally awaited browser.close(); terminal completion exit0 confirmed after it returned."
+    }
+  ],
+  "historical_receipt_note": "The two original running launchers wrote serverRunReturned=true in finally on KeyboardInterrupt. This field was overbroad; the terminal exits were130. SocketClosed and independent pid/port checks establish closure. The current launcher separates normal return from interruption. Original receipt bytes are preserved.",
+  "live_handles": []
+}

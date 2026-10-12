@@ -89,8 +89,24 @@ def test_current_scientific_sources_reconcile_with_frozen_independent_scope():
     assert text.count(change['new_literal']) == 1
     assert digest(text.replace(change['new_literal'], change['old_literal']).encode()) == change['previous_adapter_sha256'] == review['pins']['web/spatial-qft.js']['sha256']
     current = json.loads((ROOT/bridge['current_scientific_amendment']['path']).read_text())
+    inverse_path = ROOT/'docs/number-theory-shared-runtime-amendment-20261012.json'
+    inverse = json.loads(inverse_path.read_text())
+    assert set(inverse['files']) == {'web/spatial-models.js', 'web/spatial-module-objects.js'}
+    assert inverse['original_receipt']['path'] == bridge['current_scientific_amendment']['path']
+    assert digest((ROOT/inverse['original_receipt']['path']).read_bytes()) == inverse['original_receipt']['sha256']
     for path, pin in current['current_pins'].items():
-        assert digest((ROOT/path).read_bytes()) == pin
+        source = (ROOT/path).read_bytes()
+        if path in inverse['files']:
+            change = inverse['files'][path]
+            assert digest(source) == change['current_sha256']
+            restored = source.decode()
+            for replacement in change['inverse_replacements']:
+                assert replacement['occurrences'] == 1
+                assert restored.count(replacement['new_literal']) == 1
+                restored = restored.replace(replacement['new_literal'], replacement['old_literal'], 1)
+            assert digest(restored.encode()) == change['historical_sha256'] == pin
+        else:
+            assert digest(source) == pin
     assert current['educational_scientific_go'] and not current['browser_reader_approval']
     node = next(n for n in json.loads((ROOT/'data/curriculum/03-physics.json').read_text())['nodes'] if n['id']=='phys.5.qft')
     canonical = json.dumps(node, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()

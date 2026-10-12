@@ -80,6 +80,7 @@
   if (window.PrimerQftSpatialFamily) families['qft-observable-geometry'] = window.PrimerQftSpatialFamily;
   if (window.PrimerAlgebraSpatialFamily) families['algebra-operation-geometry'] = window.PrimerAlgebraSpatialFamily;
   if (window.PrimerLogicSpatialFamily) families['logic-witness-geometry'] = window.PrimerLogicSpatialFamily;
+  if (window.PrimerNumberTheorySpatialFamily) families['number-theory-exact-traces'] = window.PrimerNumberTheorySpatialFamily;
   if (window.PrimerMaxwellSpatialFamily) families['maxwell-field-geometry'] = window.PrimerMaxwellSpatialFamily;
   if (window.PrimerCosmologySpatialFamily) families['cosmology-chart-geometry'] = window.PrimerCosmologySpatialFamily;
 
@@ -929,6 +930,8 @@
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')
+        && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;
     if (!['model','context'].includes(p.mode) || typeof p.context !== 'string' || typeof p.lesson !== 'string') return false;
     const binding = JSON.stringify([p.family,p.mode,p.context,p.lesson]);
     if (registered.has(p.scenario)) return registered.get(p.scenario) === binding;

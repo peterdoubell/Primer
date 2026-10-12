@@ -6062,7 +6062,7 @@
       "id": "math.4.numtheory",
       "title": "Number Theory",
       "stage": 4,
-      "goal": "Primes, congruences, and why they guard your secrets.",
+      "goal": "Use exact congruences, prime-divisor theorems and algorithmic witnesses; explain the arithmetic and limits of toy RSA.",
       "articles": [
         "Number theory",
         "Modular arithmetic"
@@ -6126,7 +6126,7 @@
             "Encryption, which could no longer scramble the message",
             "Nothing, since the modulus was public from the start"
           ],
-          "explain": "Factoring the public modulus n recovers the secret primes p and q, hence (p - 1)(q - 1) and the private exponent. Generating keys and encrypting messages would still work exactly as before; what is lost is the secrecy of the private key, which is the whole of the security."
+          "explain": "Factoring the public modulus n recovers the secret primes p and q, hence (p − 1)(q − 1) and a private exponent by modular inversion. Key generation and encryption can still run, but someone with those factors can recover a working private key. This is a sufficient attack; it does not prove that every way of inverting RSA is equivalent to factoring, and real encryption schemes also require suitable encodings and implementations."
         },
         {
           "kind": "numeric",
@@ -6182,16 +6182,34 @@
           "height": 1000
         },
         {
-          "id": "math.4.numtheory.model",
+          "id": "math.4.numtheory.full-model",
           "kind": "model",
-          "renderer": "concept-lab",
-          "title": "Euclid’s algorithm and Bézout’s identity",
-          "instructions": "Follow remainder divisions and verify an integer combination for the gcd.",
+          "renderer": "math-number-theory-lab",
+          "title": "Number theory: exact integers, hypotheses and witnesses",
+          "instructions": "Investigate every assessed calculation with exact integer controls. Follow actual quotient partitions, division and Bézout chains, binary operation circuits, prime-factor trees, unit maps and a deliberately insecure RSA round trip. Use diagram pages to reach every labeled node, exact relation and witness; rotate the same mathematical dependency graph in 3D. Layout distances do not measure integer magnitude or proof strength.",
           "props": {
-            "scenario": "math.4.numtheory"
+            "scenario": "math.4.numtheory.exact-integers"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Use unique nonnegative remainders to define congruence for positive and negative integers.",
+        "Reduce multiplication modulo n without losing exact integer precision.",
+        "Follow Euclid’s divisions and verify signed Bézout coefficients, including zero inputs.",
+        "Decide inverse existence using coprimality and compute a canonical inverse.",
+        "Compute huge powers by square-and-multiply and distinguish cycles from transient prefixes.",
+        "Factor bounded integers exactly and explain Euclid’s quantified proof of infinitely many primes.",
+        "Check Euclid’s prime-divisor hypothesis and give the composite counterexample 6 dividing 2×3.",
+        "Count units and derive φ(n) from distinct prime factors.",
+        "Check every hypothesis of Euler’s and Fermat’s theorems before using their conclusions.",
+        "Recover a toy RSA private exponent by factoring its public modulus and explain why this arithmetic is insecure."
+      ],
+      "lesson": {
+        "overview": "Number theory studies integers and the structure of their divisibility. Congruence a≡b mod n means n divides a−b; for n>0 each class has a unique representative 0≤r<n. Addition and multiplication respect these classes. Euclid’s remainder divisions preserve the common divisors and produce a Bézout identity ax+ny=gcd(a,n). That identity explains exactly when modular division is possible: a has an inverse modulo n if and only if gcd(a,n)=1. The lab uses exact BigInt arithmetic and decimal strings, including integers beyond JavaScript’s safe Number range.",
+        "worked_example": "17=3×5+2 gives 17 mod 5=2, while (7×8) mod 5=(2×3) mod 5=1. Euclid computes 48=1×36+12 and 36=3×12+0, so gcd(48,36)=12 and 48−36=12. The identity −2×3+7=1 gives inverse 5 for 3 modulo 7. Powers of 2 modulo 7 cycle 1,2,4, so 2^100≡2; powers of 7 modulo 10 cycle 1,7,9,3, so 7^2023 has final digit 3. The units below 20 are 1,3,7,9,11,13,17,19, hence φ(20)=8. Since 13 is prime and 13 does not divide 5, Fermat gives 5^12≡1 mod 13.",
+        "activity": "Use all ten investigations. Enter a negative integer for division, verify both routes for residue multiplication, and inspect every Euclid and binary-exponentiation row. Compare an invertible and noninvertible residue. Factor a number, then inspect product-plus-one for a finite list of primes: the constructed number need not itself be prime, but none of the listed primes divides it. Set divisor 6 and factors 2,3 to refute the composite version of Euclid’s lemma, then read the prime-case Bézout proof. Compare Euler at base 3 modulo 20 with the failed coprimality case base 2, and test a composite modulus that happens to pass a Fermat congruence. In toy RSA, p=11, q=17, e=7 gives n=187, φ(n)=160 and d=23; message 42 encrypts to 15 and decrypts to 42. Factor the public n and follow recovery of that same private exponent. Try a message divisible by p: the modulo-prime argument still establishes the round trip.",
+        "reflection": "A finite exact trace verifies the selected calculation. General statements require the quantified arguments and their hypotheses: a prime dividing a product, a coprime Euler base, or a prime Fermat modulus. One composite counterexample can refute a universal generalization; one successful congruence cannot certify primality. RSA factoring supplies a working private exponent, but arbitrary RSA inversion has not been shown equivalent to factoring. The tiny deterministic unpadded RSA lab is educational arithmetic and explicitly insecure; no production cryptographic security follows from its diagram or round trip."
+      }
     },
     {
       "id": "math.4.analysis",

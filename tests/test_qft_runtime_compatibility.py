@@ -27,7 +27,10 @@ def test_current_byte_mutation_cannot_reuse_historical_approval(path):
 
 @pytest.mark.parametrize('path', ['data/curriculum/03-physics.json', 'data/module-models.json'])
 def test_even_forged_new_hash_cannot_hide_unrelated_semantic_change(path, monkeypatch):
-    value = json.loads((ROOT/path).read_text())
+    # Reach the original semantic guard after the separately tested outer
+    # integration byte gates have normalized their exact approved additions.
+    accepted = compatibility.restore_main_runtime_bytes(path, (ROOT/path).read_bytes())
+    value = json.loads(accepted)
     key = 'nodes' if 'curriculum/' in path else 'models'
     identity = 'id' if key == 'nodes' else 'node_id'
     row = next(row for row in value[key] if row[identity] != 'phys.5.qft')
@@ -36,5 +39,6 @@ def test_even_forged_new_hash_cannot_hide_unrelated_semantic_change(path, monkey
     revised = copy.deepcopy(compatibility.FILES[path])
     revised['current_sha256'] = hashlib.sha256(raw).hexdigest()
     monkeypatch.setitem(compatibility.FILES, path, revised)
+    monkeypatch.setattr(compatibility, 'restore_main_runtime_bytes', lambda relative, body: body)
     with pytest.raises(ValueError, match='Unrelated physics/binding change'):
         compatibility.historical_runtime_bytes(path, raw)

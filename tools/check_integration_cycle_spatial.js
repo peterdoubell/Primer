@@ -129,6 +129,7 @@ class Element {
     this.classList = { toggle: (name, force) => { const values = new Set((this.attributes.class || '').split(/\s+/).filter(Boolean)); if (force) values.add(name); else values.delete(name); this.attributes.class = [...values].join(' '); } };
   }
   setAttribute(k, v) { this.attributes[k] = String(v); }
+  removeAttribute(k) { delete this.attributes[k]; }
   append(...children) { this.children.push(...children); }
   prepend(...children) { this.children.unshift(...children); }
   replaceChildren(...children) { this.children = children; }
@@ -140,6 +141,9 @@ class Element {
   fire(name) { (this.events[name] || []).forEach(fn => fn({ target: this })); }
   all() { return [this, ...this.children.filter(c => c.nodeType === 1).flatMap(c => c.all())]; }
 }
+const attributeProbe = new Element('input');
+attributeProbe.setAttribute('aria-invalid', 'true'); attributeProbe.removeAttribute('aria-invalid');
+assert.equal(Object.hasOwn(attributeProbe.attributes, 'aria-invalid'), false);
 global.document = { createElement: tag => new Element(tag), createElementNS: (_, tag) => new Element(tag), createTextNode: value => new Text(value) };
 for (const [modelItem, id, check] of [[measureItem, measureId, checkMeasure], [cycleItem, cycleId, checkCycle]]) {
   const root = objects.render(modelItem), input = key => root.all().find(el => el.attributes['data-parameter'] === key);

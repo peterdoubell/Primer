@@ -1,0 +1,37 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_current_scientific_sources_reconcile_with_frozen_independent_scope ____
+
+    def test_current_scientific_sources_reconcile_with_frozen_independent_scope():
+        review = json.loads((ROOT/'docs/physics-qft-independent-review-20261011.json').read_text())
+        amendment = json.loads((ROOT/'docs/physics-qft-independent-amendment-20261011.json').read_text())
+        bridge_path = ROOT/'docs/physics-qft-integrated-reader-review-20261011/historical-source-compatibility-amendment.json'
+        bridge = json.loads(bridge_path.read_text())
+        digest = lambda value: hashlib.sha256(value).hexdigest()
+        for record in [bridge['original_review'], bridge['original_amendment'], bridge['current_scientific_amendment']]:
+            assert digest((ROOT/record['path']).read_bytes()) == record['sha256']
+        assert digest((ROOT/amendment['original_review']['path']).read_bytes()) == amendment['original_review']['sha256']
+        for file in ['web/physics-qft-lab.js', 'web/spatial-qft.js', 'tools/check_physics_qft_independent.js']:
+            row = bridge['source_history'][file]
+            historical = (ROOT/row['historical_copy']).read_bytes()
+            expected = amendment['readout_change']['current_adapter_sha256'] if file == 'web/spatial-qft.js' else review['pins'][file]['sha256']
+            assert digest(historical) == row['historical_sha256'] == expected
+            assert digest((ROOT/file).read_bytes()) == row['current_sha256']
+        for file in ['web/physics-qft-lab.css', 'web/illustrations/forest/physics/phys-5-qft-1600.webp']:
+            assert digest((ROOT/file).read_bytes()) == review['pins'][file]['sha256']
+        text = (ROOT/bridge['source_history']['web/spatial-qft.js']['historical_copy']).read_text()
+        change = amendment['readout_change']
+        assert text.count(change['new_literal']) == 1
+        assert digest(text.replace(change['new_literal'], change['old_literal']).encode()) == change['previous_adapter_sha256'] == review['pins']['web/spatial-qft.js']['sha256']
+        current = json.loads((ROOT/bridge['current_scientific_amendment']['path']).read_text())
+        for path, pin in current['current_pins'].items():
+>           assert digest((ROOT/path).read_bytes()) == pin
+E           AssertionError: assert '3fec71f2b3d9...25e9d2a5431c3' == 'd16b25a18d59...b4ecee0e20136'
+E             
+E             - d16b25a18d59a79cb5d9f94c5573c486f19d01099d7ced70d74b4ecee0e20136
+E             + 3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3
+
+tests/test_physics_qft_lab.py:93: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_physics_qft_lab.py::test_current_scientific_sources_reconcile_with_frozen_independent_scope
+1 failed in 0.24s

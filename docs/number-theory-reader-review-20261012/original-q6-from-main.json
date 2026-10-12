@@ -1,0 +1,12 @@
+{
+  "kind": "choice",
+  "prompt": "RSA rests on a gap: multiplying two large primes is easy, while factoring their product is hard. Suppose someone publishes a fast factoring algorithm. Work out which part of the scheme collapses.",
+  "answer": "The private key, which is recoverable from the public modulus",
+  "choices": [
+    "Key generation, which relies on producing two large primes quickly",
+    "The private key, which is recoverable from the public modulus",
+    "Encryption, which could no longer scramble the message",
+    "Nothing, since the modulus was public from the start"
+  ],
+  "explain": "Factoring the public modulus n recovers the secret primes p and q, hence (p - 1)(q - 1) and the private exponent. Generating keys and encrypting messages would still work exactly as before; what is lost is the secrecy of the private key, which is the whole of the security."
+}

@@ -1,0 +1,37 @@
+{
+  "scope": "Bounded current working-oracle adaptation of superseded viewport corner/height and exact source pins only. All original mathematical graph, relation, source-body, endpoint, shape and projection assertions remain. Immutable49feoracle and d75receipt are preserved; new32-case viewport oracle independently accepts current card behavior.",
+  "original_fixture": "docs/number-theory-viewport-delta-independent-review-20261012/test_number_theory_diagrams.before.py",
+  "original_sha256": "49fe15e0765a804a5e3b17e4a6a454f58f40614b9ec7854ecaf28a17f62023d5",
+  "current_sha256": "7b68b6536b10e1da81e1dfb0d42c1a89e5d5ce0391d335f7e4f94c4770a3ae01",
+  "inverse_replacements": [
+    {
+      "old_literal": "  this.clientHeight=400;this.clientWidth=390;this.scrollHeight=2000;this.scrollWidth=1050;\n",
+      "new_literal": "  this.clientHeight=400;this.clientWidth=390;this._scrollHeight=2000;this.scrollWidth=1050;\n"
+    },
+    {
+      "old_literal": "",
+      "new_literal": " get scrollHeight(){if((this.attributes.class||'').includes('nt-semantic-viewport')){const svg=this.querySelector('svg');return Number(svg?.getAttribute('viewBox')?.split(' ')[3])||this._scrollHeight;}return this._scrollHeight;}\n set scrollHeight(v){this._scrollHeight=v;}\n"
+    },
+    {
+      "old_literal": "const afterScroll=left.getDiagramState();\n",
+      "new_literal": "const afterScroll=left.getDiagramState(),scrollView=capture(left).view,scrollMetrics=[viewport.clientWidth,viewport.clientHeight];\n"
+    },
+    {
+      "old_literal": " beforeScroll,afterScroll,scrollEnd,scrollHome,reset,other,camera,original:original.primitives,cameraAfter,\n",
+      "new_literal": " beforeScroll,afterScroll,scrollEnd,scrollHome,scrollView,scrollMetrics,reset,other,camera,original:original.primitives,cameraAfter,\n"
+    },
+    {
+      "old_literal": "    assert data[\"beforeScroll\"]==data[\"afterScroll\"] and data[\"scrollEnd\"]==[660,1600] and data[\"scrollHome\"]==[0,0]\n",
+      "new_literal": "    assert data[\"beforeScroll\"] == data[\"afterScroll\"]\n    # Home/End now reveal real cards rather than the superseded empty SVG corner.\n    v = data[\"scrollView\"]\n    xy = positions(v)\n    cards = [(n, xy[n[\"id\"]], n[\"cardHeight\"]) for n in v[\"nodes\"]]\n    last = max(cards, key=lambda row: row[1][1] + row[2] / 2)\n    first = min(cards, key=lambda row: (row[1][1] - row[2] / 2, row[1][0]))\n    width, height = data[\"scrollMetrics\"]\n    for (n, (x, y), h), (left, top) in [(last, data[\"scrollEnd\"]), (first, data[\"scrollHome\"])]:\n        half_width = 7 if n[\"kind\"] == \"unit_dot\" else 92\n        assert left <= x - half_width and x + half_width <= left + width\n        assert top <= y - h / 2 and y + h / 2 <= top + height\n"
+    },
+    {
+      "old_literal": "",
+      "new_literal": "    delta=json.loads((ROOT/\"docs/number-theory-viewport-delta-independent-review-20261012.json\").read_text())\n"
+    },
+    {
+      "old_literal": "        assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest\n    assert hashlib.sha256((ROOT/r[\"oracle_source\"][\"path\"]).read_bytes()).hexdigest()==r[\"oracle_source\"][\"sha256\"]\n",
+      "new_literal": "        source=(ROOT/path).read_bytes()\n        if path == \"web/number-theory-diagrams.js\":\n            assert hashlib.sha256(source).hexdigest()==delta[\"current_diagram_source_sha256\"]\n            restored=source.decode()\n            for change in delta[\"source_delta_inverse_replacements\"]:\n                assert restored.count(change[\"new_literal\"])==1\n                restored=restored.replace(change[\"new_literal\"],change[\"old_literal\"],1)\n            assert hashlib.sha256(restored.encode()).hexdigest()==digest\n        else:\n            assert hashlib.sha256(source).hexdigest()==digest\n    assert hashlib.sha256((ROOT/delta[\"preserved_fixture\"][\"path\"]).read_bytes()).hexdigest()==r[\"oracle_source\"][\"sha256\"]\n    amendment=json.loads((ROOT/\"docs/number-theory-semantic-oracle-viewport-amendment-20261012.json\").read_text())\n    current=(ROOT/r[\"oracle_source\"][\"path\"]).read_bytes()\n    assert hashlib.sha256(current).hexdigest()==amendment[\"current_sha256\"]\n    restored=current.decode()\n    for change in amendment[\"inverse_replacements\"]:\n        assert restored.count(change[\"new_literal\"])==1\n        restored=restored.replace(change[\"new_literal\"],change[\"old_literal\"],1)\n    assert hashlib.sha256(restored.encode()).hexdigest()==r[\"oracle_source\"][\"sha256\"]\n"
+    }
+  ],
+  "whole_goal_complete": false
+}

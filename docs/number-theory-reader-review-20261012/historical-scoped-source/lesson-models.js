@@ -1,0 +1,6207 @@
+/* The Primer's small, local lesson manipulatives.
+   These models explain an idea; they never call the API or award mastery. */
+(function () {
+  'use strict';
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  let nextModelId = 0;
+
+  function node(tag, attrs = {}, ...children) {
+    const out = document.createElement(tag);
+    for (const [key, value] of Object.entries(attrs)) {
+      if (value == null || value === false) continue;
+      if (key === 'class') out.className = value;
+      else if (key.startsWith('on') && typeof value === 'function') out.addEventListener(key.slice(2), value);
+      else if (value === true) out.setAttribute(key, '');
+      else out.setAttribute(key, value);
+    }
+    for (const child of children) {
+      if (child == null) continue;
+      out.append(child.nodeType ? child : document.createTextNode(child));
+    }
+    return out;
+  }
+
+  function svgNode(tag, attrs = {}) {
+    const out = document.createElementNS(SVG_NS, tag);
+    for (const [key, value] of Object.entries(attrs)) out.setAttribute(key, value);
+    return out;
+  }
+
+  function svgText(value, attrs = {}) {
+    const out = svgNode('text', attrs);
+    out.textContent = value;
+    return out;
+  }
+
+  function modelFrame(item, hooks) {
+    const serial = ++nextModelId;
+    const titleId = 'lesson-model-title-' + serial;
+    const instructionsId = 'lesson-model-instructions-' + serial;
+    const root = node('section', {
+      class: 'card lesson-model',
+      'aria-labelledby': titleId,
+      'aria-describedby': instructionsId,
+      'data-renderer': item.renderer,
+    });
+    const canvas = node('div', { class: 'model-canvas' });
+    const controls = node('div', { class: 'model-controls' });
+    const readout = node('p', { class: 'model-readout' });
+    // This starts empty so a screen reader hears it only after the reader acts.
+    const status = node('p', {
+      class: 'model-status', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true',
+    });
+    const heading = node('div', { class: 'model-heading-row' },
+      node('h3', { id: titleId }, item.title));
+    root.append(
+      heading,
+      node('p', { id: instructionsId, class: 'model-instructions' }, item.instructions),
+      canvas, controls, readout, status,
+    );
+    if (hooks && typeof hooks.speakButton === 'function') {
+      const spokenText = () => {
+        const stepLabels = [...root.querySelectorAll('[data-model-speak]')]
+          .map(label => label.getAttribute('data-model-speak-text') ||
+            label.getAttribute('aria-label') || label.textContent.trim()).filter(Boolean);
+        const controlsText = [...new Set([...root.querySelectorAll('button:not(.speak-btn), input[type="range"]')]
+          .map(control => control.getAttribute('aria-label') || control.getAttribute('aria-valuetext') ||
+            control.textContent.trim()).filter(Boolean))];
+        return [item.title, item.instructions,
+          stepLabels.length ? 'Current steps: ' + stepLabels.join(', ') + '.' : '',
+          controlsText.length ? 'Controls: ' + controlsText.join(', ') + '.' : '',
+          readout.textContent, status.textContent].filter(Boolean).join(' ');
+      };
+      heading.prepend(hooks.speakButton(spokenText, 'Read this activity aloud'));
+    }
+    return { root, canvas, controls, readout, status };
+  }
+
+  function clampNumber(value, low, high, fallback) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? Math.max(low, Math.min(high, parsed)) : fallback;
+  }
+
+  function renderCounter(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const total = Math.round(clampNumber((item.props || {}).total, 1, 20, 10));
+    const counted = new Set();
+    let mixed = false;
+    const tray = node('div', {
+      class: 'model-counter-scene', role: 'group',
+      'aria-label': total + ' pebbles. Touch each pebble once as you count.',
+    });
+    const pebbles = [];
+
+    function refreshPebbles() {
+      pebbles.forEach((pebble, index) => {
+        const isCounted = counted.has(index);
+        pebble.classList.toggle('is-counted', isCounted);
+        pebble.setAttribute('aria-pressed', isCounted ? 'true' : 'false');
+        pebble.setAttribute('aria-label', 'Pebble ' + (index + 1) +
+          (isCounted ? ', already counted' : ', not counted yet'));
+      });
+      frame.readout.textContent = counted.size + ' of ' + total + ' pebbles touched.';
+    }
+
+    for (let index = 0; index < total; index += 1) {
+      const pebble = node('button', {
+        type: 'button', class: 'model-pebble', 'aria-pressed': 'false',
+        'aria-label': 'Pebble ' + (index + 1) + ', not counted yet',
+        onclick: () => {
+          if (counted.has(index)) {
+            frame.status.textContent = 'That pebble already has its one number word.';
+            return;
+          }
+          counted.add(index);
+          refreshPebbles();
+          frame.status.textContent = counted.size === total
+            ? 'You touched every pebble once. The last number tells how many are in the whole set: ' + total + '.'
+            : 'Counted ' + counted.size + '. Choose a pebble that has not been touched yet.';
+        },
+      }, node('span', { class: 'pebble-surface', 'aria-hidden': 'true' }));
+      pebble.style.setProperty('--pebble-index', index);
+      pebbles.push(pebble);
+      tray.append(pebble);
+    }
+
+    const mixButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        mixed = !mixed;
+        tray.classList.toggle('is-mixed', mixed);
+        mixButton.textContent = mixed ? 'Line them up' : 'Mix the same ' + total;
+        frame.status.textContent = 'The same ' + total + ' pebbles moved. Their places changed; how many there are did not.';
+      },
+    }, 'Mix the same ' + total);
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        counted.clear();
+        mixed = false;
+        tray.classList.remove('is-mixed');
+        mixButton.textContent = 'Mix the same ' + total;
+        refreshPebbles();
+        frame.status.textContent = 'Ready to count again. Give each pebble one number word.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('counter-canvas');
+    frame.canvas.append(tray);
+    frame.controls.append(node('div', { class: 'model-button-row counter-button-row' }, mixButton, resetButton));
+    refreshPebbles();
+    return frame.root;
+  }
+
+  const SHAPES = {
+    circle: { label: 'Circle', sides: 'one curved edge', corners: 0 },
+    triangle: { label: 'Triangle', sides: '3 straight sides', corners: 3 },
+    square: { label: 'Square', sides: '4 equal straight sides', corners: 4 },
+  };
+
+  function renderShapeExplorer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let selected = 'circle';
+    let markCorners = false;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 320 260', class: 'shape-model-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const optionRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose a shape' });
+    const optionButtons = {};
+    const cornerButton = node('button', { type: 'button', class: 'btn small', 'aria-pressed': 'false' }, 'Show corners');
+
+    function drawShape(announce) {
+      picture.replaceChildren();
+      picture.append(svgNode('rect', { x: 18, y: 18, width: 284, height: 224, rx: 18, class: 'shape-model-field' }));
+      let shape;
+      let corners = [];
+      if (selected === 'circle') {
+        shape = svgNode('circle', { cx: 160, cy: 130, r: 82, class: 'model-shape-line' });
+      } else if (selected === 'triangle') {
+        shape = svgNode('polygon', { points: '160,35 56,215 264,215', class: 'model-shape-line' });
+        corners = [[160, 35], [56, 215], [264, 215]];
+      } else {
+        shape = svgNode('rect', { x: 62, y: 32, width: 196, height: 196, rx: 2, class: 'model-shape-line' });
+        corners = [[62, 32], [258, 32], [258, 228], [62, 228]];
+      }
+      picture.append(shape);
+      if (markCorners) {
+        corners.forEach(([cx, cy]) => picture.append(svgNode('circle', { cx, cy, r: 9, class: 'shape-corner' })));
+      }
+      Object.entries(optionButtons).forEach(([name, button]) => {
+        const active = name === selected;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const facts = SHAPES[selected];
+      frame.readout.textContent = facts.label + ' · ' + facts.sides + ' · ' + facts.corners +
+        (facts.corners === 1 ? ' corner' : ' corners');
+      if (announce) {
+        frame.status.textContent = facts.label + ': ' + facts.sides + ' and ' + facts.corners +
+          (facts.corners === 1 ? ' corner.' : ' corners.');
+      }
+    }
+
+    Object.entries(SHAPES).forEach(([name, facts]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selected = name; drawShape(true); },
+      }, facts.label);
+      optionButtons[name] = button;
+      optionRow.append(button);
+    });
+    cornerButton.addEventListener('click', () => {
+      markCorners = !markCorners;
+      cornerButton.setAttribute('aria-pressed', markCorners ? 'true' : 'false');
+      cornerButton.textContent = markCorners ? 'Hide corners' : 'Show corners';
+      drawShape(false);
+      frame.status.textContent = selected === 'circle'
+        ? 'A circle has no corners to mark. Its edge curves all the way around.'
+        : (markCorners ? 'Corner marks are on.' : 'Corner marks are off.') + ' Count where two sides meet.';
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = 'circle'; markCorners = false;
+        cornerButton.setAttribute('aria-pressed', 'false');
+        cornerButton.textContent = 'Show corners';
+        drawShape(false);
+        frame.status.textContent = 'Back to the circle.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('shape-canvas');
+    frame.canvas.append(picture);
+    frame.controls.append(optionRow, node('div', { class: 'model-button-row' }, cornerButton, resetButton));
+    drawShape(false);
+    return frame.root;
+  }
+
+  function renderShadowLab(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const start = Math.round(clampNumber(props.start_position, 0, 100, 45));
+    let lampOn = true;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 640 280', class: 'shadow-model-svg science-diagram', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const field = svgNode('rect', { x: 8, y: 8, width: 624, height: 264, rx: 18, class: 'shadow-model-field' });
+    const table = svgNode('line', { x1: 24, y1: 220, x2: 98, y2: 220, class: 'shadow-table-line' });
+    const glow = svgNode('circle', { cx: 60, cy: 140, r: 32, class: 'shadow-lamp-glow' });
+    const lamp = svgNode('g', { class: 'shadow-lamp' });
+    lamp.append(
+      svgNode('circle', { cx: 60, cy: 140, r: 13 }),
+      svgNode('line', { x1: 60, y1: 153, x2: 60, y2: 210 }),
+      svgNode('line', { x1: 40, y1: 218, x2: 80, y2: 218 }),
+    );
+    const topRay = svgNode('line', { class: 'shadow-ray' });
+    const bottomRay = svgNode('line', { class: 'shadow-ray' });
+    const blocker = svgNode('g', { class: 'shadow-blocker' });
+    // A plain opaque card keeps the projection honest: its top and bottom are
+    // exactly the two boundary points used to calculate the cast rectangle.
+    blocker.append(svgNode('rect', { x: -16, y: 100, width: 32, height: 80, rx: 0,
+      'data-shadow-blocker': 'true' }));
+    const screen = svgNode('rect', { x: 584, y: 8, width: 24, height: 264, rx: 0, class: 'shadow-screen' });
+    const shadow = svgNode('rect', { x: 584, width: 18, rx: 0, class: 'shadow-cast' });
+    picture.append(field, glow, topRay, bottomRay, table, screen, shadow, lamp, blocker);
+
+    const sliderId = 'shadow-position-' + nextModelId;
+    const slider = node('input', {
+      id: sliderId, type: 'range', min: 0, max: 100, step: 1, value: start,
+      'aria-valuetext': start + ' of 100, about halfway',
+    });
+    const sliderLabel = node('label', { class: 'model-slider', for: sliderId },
+      node('span', { class: 'model-slider-title' }, 'Move the blocker'), slider,
+      node('span', { class: 'model-slider-ends', 'aria-hidden': 'true' },
+        node('span', {}, 'Near lamp'), node('span', {}, 'Near screen')),
+    );
+    // This is an action button rather than a persistent toggle control, so its
+    // changing label supplies the complete instruction without a conflicting
+    // pressed/not-pressed announcement.
+    const lampButton = node('button', { type: 'button', class: 'btn small' }, 'Turn lamp off');
+
+    function positionWords(value) {
+      if (value < 34) return 'nearer the lamp';
+      if (value > 66) return 'nearer the screen';
+      return 'about halfway';
+    }
+
+    function updateShadow(announce) {
+      const value = Number(slider.value);
+      const objectX = 245 + value * 2.25;
+      const sourceX = 60;
+      const sourceY = 140;
+      const screenX = 584;
+      const frontX = objectX - 16;
+      const scale = (screenX - sourceX) / (frontX - sourceX);
+      const top = sourceY - 40 * scale;
+      const height = 80 * scale;
+      const size = height > 180 ? 'large' : height > 130 ? 'medium-sized' : 'small';
+      blocker.setAttribute('transform', 'translate(' + objectX + ' 0)');
+      topRay.setAttribute('x1', sourceX); topRay.setAttribute('y1', sourceY);
+      topRay.setAttribute('x2', screenX); topRay.setAttribute('y2', top);
+      bottomRay.setAttribute('x1', sourceX); bottomRay.setAttribute('y1', sourceY);
+      bottomRay.setAttribute('x2', screenX); bottomRay.setAttribute('y2', top + height);
+      shadow.setAttribute('y', top);
+      shadow.setAttribute('height', height);
+      [glow, topRay, bottomRay, shadow].forEach(part => { part.style.display = lampOn ? '' : 'none'; });
+      picture.classList.toggle('is-lamp-off', !lampOn);
+      slider.style.setProperty('--range-fill', value + '%');
+      const place = positionWords(value);
+      slider.setAttribute('aria-valuetext', value + ' of 100, ' + place);
+      frame.readout.textContent = lampOn
+        ? 'Lamp on · blocker ' + place + ' · ' + size + ' shadow. The card is 80 coordinate units tall; its shadow is ' +
+          height.toFixed(2) + ' units tall, a magnification of ' + scale.toFixed(3) + '.'
+        : 'Lamp off · no cast shadow';
+      if (announce) {
+        frame.status.textContent = lampOn
+          ? 'The blocker is ' + place + ', so its shadow on the screen is ' + size + '.'
+          : 'The lamp is off. With no light reaching the screen, this setup makes no shadow.';
+      }
+    }
+
+    slider.addEventListener('input', () => updateShadow(true));
+    lampButton.addEventListener('click', () => {
+      lampOn = !lampOn;
+      lampButton.textContent = lampOn ? 'Turn lamp off' : 'Turn lamp on';
+      updateShadow(true);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        lampOn = true; slider.value = String(start);
+        lampButton.textContent = 'Turn lamp off';
+        updateShadow(false);
+        frame.status.textContent = 'The lamp and blocker are back where they started.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('shadow-canvas');
+    frame.canvas.append(picture, node('p', { class: 'spatial-note' },
+      'The lamp is an ideal point source at its centre. Boundary rays touch the near face of the opaque card; all lengths share one scale. A real extended lamp can make soft shadow edges, which this model does not calculate.'));
+    frame.controls.append(sliderLabel, node('div', { class: 'model-button-row' }, lampButton, resetButton));
+    updateShadow(false);
+    return frame.root;
+  }
+
+  function runPackBag(order) {
+    let bagOpen = false;
+    let bookInside = false;
+    let carried = false;
+    for (let index = 0; index < order.length; index += 1) {
+      const command = order[index];
+      let problem = '';
+      if (command === 'open') {
+        if (bagOpen) problem = 'the bag is already open';
+        else bagOpen = true;
+      } else if (command === 'book') {
+        if (!bagOpen) problem = 'the bag is closed, so the book cannot go in';
+        else if (bookInside) problem = 'the book is already inside';
+        else bookInside = true;
+      } else if (command === 'close') {
+        if (!bagOpen) problem = 'the bag is already closed';
+        else bagOpen = false;
+      } else if (command === 'carry') {
+        if (bagOpen) problem = 'the bag is still open';
+        else if (!bookInside) problem = 'the book is not inside yet';
+        else carried = true;
+      } else {
+        problem = 'that instruction is not part of this task';
+      }
+      if (problem) {
+        return {
+          progress: index,
+          success: false,
+          message: 'Step ' + (index + 1) + ' could not run: ' + problem + '.',
+        };
+      }
+    }
+    return carried && bookInside && !bagOpen
+      ? { progress: order.length, success: true,
+        message: 'It worked. Each step prepared the next one, and the bag is ready to carry.' }
+      : { progress: order.length, success: false,
+        message: 'Those steps ran, but the packed bag is not ready to carry yet.' };
+  }
+
+  function renderSequenceRunner(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const steps = [
+      { id: 'open', label: 'Open the bag' },
+      { id: 'book', label: 'Put the book in' },
+      { id: 'close', label: 'Close the bag' },
+      { id: 'carry', label: 'Carry the bag' },
+    ];
+    const byId = Object.fromEntries(steps.map(step => [step.id, step]));
+    const startOrder = ['close', 'open', 'carry', 'book'];
+    let order = startOrder.slice();
+    const list = node('ol', { class: 'model-sequence-list', 'aria-label': 'Steps to put in order' });
+    const rows = {};
+    const track = node('div', { class: 'sequence-track', 'aria-hidden': 'true' });
+    const tiles = [];
+    for (let index = 0; index < 4; index += 1) {
+      const tile = node('span', { class: 'sequence-tile' });
+      tiles.push(tile); track.append(tile);
+    }
+    const marker = node('span', { class: 'sequence-beetle' });
+    const goal = node('span', { class: 'sequence-goal' });
+    track.append(marker, goal);
+
+    function paintProgress(progress) {
+      tiles.forEach((tile, index) => tile.classList.toggle('is-passed', index < progress));
+      marker.style.left = (4 + progress * 21.5) + '%';
+      frame.readout.textContent = progress === 4
+        ? 'All four steps ran in order. The packed bag is ready.'
+        : progress === 0 ? 'The runner is waiting at the start.'
+          : progress + ' of 4 steps ran before the sequence stopped.';
+    }
+
+    function refreshList() {
+      order.forEach((id, index) => {
+        const row = rows[id];
+        row.earlier.disabled = index === 0;
+        row.later.disabled = index === order.length - 1;
+        list.append(row.element);
+      });
+      paintProgress(0);
+    }
+
+    function move(id, delta) {
+      const from = order.indexOf(id);
+      const to = from + delta;
+      if (to < 0 || to >= order.length) return;
+      [order[from], order[to]] = [order[to], order[from]];
+      refreshList();
+      // Re-appending an existing row preserves its state but some engines
+      // release focus while moving it. Put focus back on the same action, or
+      // on its counterpart when the action has just reached that edge.
+      const own = delta < 0 ? rows[id].earlier : rows[id].later;
+      const counterpart = delta < 0 ? rows[id].later : rows[id].earlier;
+      (own.disabled ? counterpart : own).focus();
+      frame.status.textContent = 'Moved “' + byId[id].label + '” ' + (delta < 0 ? 'earlier' : 'later') +
+        '. Run the steps when the order looks right.';
+    }
+
+    steps.forEach(step => {
+      const earlier = node('button', {
+        type: 'button', class: 'btn ghost small model-move',
+        'aria-label': 'Move ' + step.label + ' earlier',
+        onclick: () => move(step.id, -1),
+      }, 'Earlier');
+      const later = node('button', {
+        type: 'button', class: 'btn ghost small model-move',
+        'aria-label': 'Move ' + step.label + ' later',
+        onclick: () => move(step.id, 1),
+      }, 'Later');
+      const element = node('li', { class: 'sequence-step', 'data-step-id': step.id },
+        node('span', { class: 'sequence-step-label', 'data-model-speak': true }, step.label),
+        node('span', { class: 'sequence-step-controls' }, earlier, later));
+      rows[step.id] = { element, earlier, later };
+    });
+
+    const runButton = node('button', {
+      type: 'button', class: 'btn gold', onclick: () => {
+        const result = runPackBag(order);
+        paintProgress(result.progress);
+        frame.status.textContent = result.message;
+      },
+    }, 'Run the steps');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost', onclick: () => {
+        order = startOrder.slice();
+        refreshList();
+        frame.status.textContent = 'The steps are mixed up again.';
+      },
+    }, 'Mix them again');
+
+    frame.canvas.classList.add('sequence-canvas');
+    frame.canvas.append(track);
+    frame.controls.append(list, node('div', { class: 'model-button-row' }, runButton, resetButton));
+    refreshList();
+    return frame.root;
+  }
+
+  function renderMakeTen(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const first = Math.round(clampNumber(props.first, 1, 9, 8));
+    const second = Math.round(clampNumber(props.second, 1, 9, 5));
+    let moved = 0;
+    let swapped = false;
+    const board = node('div', { class: 'make-ten-scene', 'aria-hidden': 'true' });
+    const tenFrame = node('div', { class: 'make-ten-frame' });
+    const bank = node('div', { class: 'make-ten-bank' });
+    board.append(tenFrame, bank);
+
+    function values() {
+      return swapped
+        ? { base: second, add: first, baseClass: 'is-green', addClass: 'is-blue' }
+        : { base: first, add: second, baseClass: 'is-blue', addClass: 'is-green' };
+    }
+
+    const moveButton = node('button', { type: 'button', class: 'btn small' }, 'Move one into the ten-frame');
+    const swapButton = node('button', { type: 'button', class: 'btn ghost small' }, 'Swap addends');
+    const resetButton = node('button', { type: 'button', class: 'btn ghost small' }, 'Reset');
+
+    function refresh(announce) {
+      const current = values();
+      const needed = 10 - current.base;
+      const left = current.add - moved;
+      tenFrame.replaceChildren();
+      bank.replaceChildren();
+      for (let index = 0; index < 10; index += 1) {
+        let counterClass = '';
+        if (index < current.base) counterClass = current.baseClass;
+        else if (index < current.base + moved) counterClass = current.addClass;
+        tenFrame.append(node('span', { class: 'make-ten-cell' },
+          counterClass ? node('span', { class: 'make-ten-counter ' + counterClass }) : null));
+      }
+      for (let index = 0; index < left; index += 1) {
+        bank.append(node('span', { class: 'make-ten-counter ' + current.addClass }));
+      }
+      moveButton.disabled = moved >= needed;
+      frame.readout.textContent = moved >= needed
+        ? current.base + ' + ' + current.add + ' = 10 + ' + left + ' = ' + (current.base + current.add) + '.'
+        : current.base + ' + ' + current.add + ' = ' + (current.base + current.add) +
+          '. The ten-frame has ' + (current.base + moved) + '; ' + left + ' counters are waiting.';
+      if (announce) {
+        frame.status.textContent = moved >= needed
+          ? 'The ten-frame is full. ' + left + ' counters remain, so the total is ten plus ' + left + '.'
+          : 'Moved one counter. The frame now holds ' + (current.base + moved) + '.';
+      }
+    }
+
+    moveButton.addEventListener('click', () => {
+      const current = values();
+      if (moved < 10 - current.base) moved += 1;
+      refresh(true);
+    });
+    swapButton.addEventListener('click', () => {
+      swapped = !swapped;
+      moved = 0;
+      refresh(false);
+      const current = values();
+      frame.status.textContent = 'The addends swapped places: ' + current.base + ' + ' + current.add +
+        '. Their total is still ' + (current.base + current.add) + '.';
+    });
+    resetButton.addEventListener('click', () => {
+      swapped = false;
+      moved = 0;
+      refresh(false);
+      frame.status.textContent = 'The counters are back at the start. Fill the friendly ten again.';
+    });
+
+    frame.canvas.classList.add('make-ten-canvas');
+    frame.canvas.append(board);
+    frame.controls.append(node('div', { class: 'model-button-row' }, moveButton, swapButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const LIGHT_PATHS = {
+    prism: {
+      label: 'Prism',
+      readout: 'Prism · white light bends and spreads into a continuous range of colours.',
+      status: 'A prism separates colours already present in white light; it does not paint the light.',
+    },
+    mirror: {
+      label: 'Mirror',
+      readout: 'Mirror · incoming and reflected light leave at matching angles.',
+      status: 'A smooth mirror sends reflected light in an orderly direction. An eye sees the image only when that light reaches it.',
+    },
+    toy: {
+      label: 'Toy',
+      readout: 'Toy · light scatters in many directions, and a small part reaches the eye.',
+      status: 'An ordinary object is visible when light from a source reflects from it into an eye.',
+    },
+  };
+
+  function renderLightPaths(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let selected = 'prism';
+    let spectralChoice = 0;
+    // SCHOTT N-BK7 tabulated refractive indices, not an invented colour fan.
+    // A finite set of wavelength samples stands in for continuous white light.
+    const spectra = [
+      { name: 'red', wavelength: 706.5, index: 1.51289, color: '#d95842' },
+      { name: 'orange', wavelength: 643.8, index: 1.51472, color: '#e79732' },
+      { name: 'yellow', wavelength: 589.3, index: 1.51673, color: '#e8c94d' },
+      { name: 'green', wavelength: 546.1, index: 1.51872, color: '#6fae66' },
+      { name: 'cyan', wavelength: 486.1, index: 1.52238, color: '#4f8fbd' },
+      { name: 'blue', wavelength: 435.8, index: 1.52668, color: '#5b6daf' },
+      { name: 'violet', wavelength: 404.7, index: 1.53024, color: '#755a9d' },
+    ];
+    const wavelengthName = choice => choice === 0 ? 'white light (seven sampled lines)' :
+      spectra[choice - 1].name + ' · ' + spectra[choice - 1].wavelength + ' nm';
+    const picture = svgNode('svg', {
+      viewBox: '0 0 640 280', class: 'light-path-svg science-diagram', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const optionButtons = {};
+    const optionRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose what light meets' });
+    const wavelengthId = 'lesson-spectrum-' + nextModelId;
+    const wavelengthOutput = node('output', { for: wavelengthId });
+    const wavelengthInput = node('input', { id: wavelengthId, type: 'range', min: 0, max: 7, step: 1,
+      value: 0, 'aria-label': 'Prism light', oninput: event => {
+        spectralChoice = Number(event.currentTarget.value); draw(false);
+      }, onchange: () => draw(true) });
+    const wavelengthControl = node('label', { class: 'model-slider', for: wavelengthId },
+      node('span', { class: 'model-slider-title' }, 'Prism light'), wavelengthOutput, wavelengthInput,
+      node('span', { class: 'model-slider-ends' }, node('span', {}, 'white'), node('span', {}, 'red → violet')));
+
+    function prismRay(sample) {
+      const normalAngle = Math.atan2(50, 164);
+      const insideAngle = normalAngle - Math.asin(Math.sin(normalAngle) / sample.index);
+      const insideSlope = Math.tan(insideAngle);
+      const entry = [295, 140];
+      const exitX = (140 - insideSlope * 295 - 58 + 164 / 50 * 320) / (164 / 50 - insideSlope);
+      const exit = [exitX, 140 + insideSlope * (exitX - 295)];
+      const outsideAngle = Math.asin(sample.index * Math.sin(insideAngle + normalAngle)) - normalAngle;
+      const screen = [604, exit[1] + Math.tan(outsideAngle) * (604 - exit[0])];
+      return { entry, exit, screen, outsideAngle };
+    }
+
+    function lampParts() {
+      return [
+        svgNode('circle', { cx: 64, cy: 140, r: 25, class: 'light-source-glow' }),
+        svgNode('circle', { cx: 64, cy: 140, r: 11, class: 'light-source' }),
+        svgNode('line', { x1: 64, y1: 151, x2: 64, y2: 222, class: 'light-stand' }),
+      ];
+    }
+
+    function whiteRay(x1, y1, x2, y2) {
+      const geometry = { x1, y1, x2, y2 };
+      return [
+        svgNode('line', { ...geometry, class: 'light-white-ray-outline' }),
+        svgNode('line', { ...geometry, class: 'light-white-ray' }),
+      ];
+    }
+
+    function draw(announce) {
+      picture.replaceChildren();
+      picture.append(svgNode('rect', { x: 8, y: 8, width: 624, height: 264, rx: 18, class: 'light-path-field' }));
+      lampParts().forEach(part => picture.append(part));
+      if (selected === 'prism') {
+        picture.append(svgNode('polygon', { points: '320,58 270,222 370,222', class: 'light-prism' }),
+          ...whiteRay(64, 140, 295, 140),
+          svgNode('rect', { x: 604, y: 38, width: 16, height: 214, rx: 4, class: 'light-screen' }));
+        const displayed = spectralChoice === 0 ? spectra : [spectra[spectralChoice - 1]];
+        displayed.forEach(sample => {
+          const ray = prismRay(sample);
+          [['internal', ray.entry, ray.exit], ['outgoing', ray.exit, ray.screen]].forEach(([role, first, last]) => {
+            picture.append(svgNode('line', { x1: first[0], y1: first[1], x2: last[0], y2: last[1],
+              stroke: sample.color, 'stroke-width': spectralChoice ? 4 : 1.5,
+              'data-optical-segment': role, 'data-optical-wavelength': sample.wavelength,
+              'data-optical-index': sample.index }));
+          });
+        });
+        picture.append(svgText('Small spread is physically to scale', { x: 320, y: 25,
+          'text-anchor': 'middle', fill: 'currentColor', 'font-size': 16 }));
+      } else if (selected === 'mirror') {
+        picture.append(
+          ...whiteRay(64, 140, 320, 220),
+          svgNode('line', { x1: 320, y1: 220, x2: 576, y2: 140, class: 'light-reflected-ray' }),
+          svgNode('line', { x1: 224, y1: 220, x2: 416, y2: 220, class: 'light-mirror' }),
+          svgNode('line', { x1: 320, y1: 164, x2: 320, y2: 262, class: 'light-normal' }),
+          svgNode('path', { d: 'M558 140 Q576 124 594 140 Q576 156 558 140 Z', class: 'light-eye' }),
+          svgNode('circle', { cx: 576, cy: 140, r: 5, class: 'light-pupil' }));
+      } else {
+        picture.append(
+          ...whiteRay(64, 140, 304, 140),
+          svgNode('rect', { x: 304, y: 98, width: 76, height: 84, rx: 17, class: 'light-toy' }),
+          svgNode('line', { x1: 304, y1: 140, x2: 184, y2: 68, class: 'light-reflected-ray' }),
+          svgNode('line', { x1: 304, y1: 140, x2: 118, y2: 160, class: 'light-scatter-ray' }),
+          svgNode('line', { x1: 304, y1: 140, x2: 190, y2: 240, class: 'light-scatter-ray' }),
+          svgNode('path', { d: 'M166 68 Q184 52 202 68 Q184 84 166 68 Z', class: 'light-eye' }),
+          svgNode('circle', { cx: 184, cy: 68, r: 5, class: 'light-pupil' }));
+      }
+      Object.entries(optionButtons).forEach(([name, button]) => {
+        const active = name === selected;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      wavelengthControl.hidden = selected !== 'prism';
+      wavelengthInput.value = String(spectralChoice);
+      wavelengthInput.setAttribute('aria-valuetext', wavelengthName(spectralChoice));
+      wavelengthOutput.textContent = wavelengthName(spectralChoice);
+      if (selected === 'prism') {
+        const displayed = spectralChoice === 0 ? spectra : [spectra[spectralChoice - 1]];
+        frame.readout.textContent = 'Prism · ' + wavelengthName(spectralChoice) +
+          '. Incoming, internal and outgoing segments join at both faces and obey Snell’s law with air index 1. ' +
+          displayed.map(sample => sample.wavelength + ' nm: n=' + sample.index + ', deviation ' +
+            (prismRay(sample).outsideAngle * 180 / Math.PI).toFixed(3) + '°').join('; ') +
+          '. Indices are tabulated SCHOTT N-BK7 values. Seven rays approximate continuous white light; colours and equal line weights are display cues, not a measured spectrum. Fresnel reflections, absorption and diffraction are omitted.';
+      } else frame.readout.textContent = LIGHT_PATHS[selected].readout;
+      if (announce) frame.status.textContent = LIGHT_PATHS[selected].status;
+    }
+
+    Object.entries(LIGHT_PATHS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selected = name; draw(true); },
+      }, detail.label);
+      optionButtons[name] = button;
+      optionRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = 'prism';
+        spectralChoice = 0;
+        draw(false);
+        frame.status.textContent = 'Back to the prism and white light.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('light-path-canvas');
+    frame.canvas.append(picture);
+    frame.canvas.append(node('p', { class: 'spatial-note' },
+      'Prism: a fixed ideal ray geometry with ', node('a', { href: 'https://media.schott.com/api/public/content/41e799d0bf874807a0bb8e702fbb75b5?v=54856406',
+        target: '_blank', rel: 'noopener noreferrer' }, 'SCHOTT N-BK7 refractive-index data'),
+      '. Mirror: equal angles to its normal. Toy: illustrative diffuse rays leave the illuminated face; their directions do not encode a scattering probability distribution.'));
+    frame.controls.append(optionRow, wavelengthControl, node('div', { class: 'model-button-row' }, resetButton));
+    draw(false);
+    return frame.root;
+  }
+
+  function traceJamSandwich(included) {
+    let bread = false;
+    let jam = false;
+    let closed = false;
+    let served = false;
+    const ranStepIds = [];
+    const commands = ['bread', 'jam', 'close', 'serve'];
+    for (let index = 0; index < commands.length; index += 1) {
+      const command = commands[index];
+      if (!included.has(command)) continue;
+      let problem = '';
+      if (command === 'bread') bread = true;
+      else if (command === 'jam') {
+        if (!bread) problem = 'there is no bread to spread jam on';
+        else jam = true;
+      } else if (command === 'close') {
+        if (!bread) problem = 'there are no bread slices to put together';
+        else if (!jam) problem = 'the jam step was left out';
+        else closed = true;
+      } else if (command === 'serve') {
+        if (!closed) problem = 'the sandwich is not put together yet';
+        else served = true;
+      }
+      if (problem) return { ranStepIds, stoppedAt: index, success: false,
+        message: 'Step ' + (index + 1) + ' stopped: ' + problem + '.' };
+      ranStepIds.push(command);
+    }
+    return served && jam
+      ? { ranStepIds, stoppedAt: null, success: true,
+        message: 'The algorithm worked: every necessary step ran in a usable order.' }
+      : { ranStepIds, stoppedAt: null, success: false,
+        message: 'The listed steps finished, but they did not produce a served jam sandwich.' };
+  }
+
+  function renderAlgorithmTracer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const steps = [
+      { id: 'bread', label: 'Get two bread slices' },
+      { id: 'jam', label: 'Spread jam on one slice' },
+      { id: 'close', label: 'Put the slices together' },
+      { id: 'serve', label: 'Serve the sandwich' },
+    ];
+    const included = new Set(steps.map(step => step.id));
+    const list = node('ol', { class: 'algorithm-step-list', 'aria-label': 'Sandwich algorithm steps' });
+    const track = node('div', { class: 'algorithm-track', 'aria-hidden': 'true' });
+    const tiles = [];
+    const buttons = {};
+    steps.forEach(() => {
+      const tile = node('span', { class: 'algorithm-tile' });
+      tiles.push(tile);
+      track.append(tile);
+    });
+
+    function selectionSummary() {
+      const leftOut = steps.filter(step => !included.has(step.id)).map(step => step.label);
+      return included.size + ' of 4 necessary steps ' + (included.size === 1 ? 'is' : 'are') + ' included. ' +
+        (leftOut.length ? 'Left out: ' + leftOut.join('; ') + '.' : 'No steps are left out.');
+    }
+
+    function resetProgress() {
+      tiles.forEach((tile, index) => {
+        tile.classList.remove('is-passed');
+        tile.classList.toggle('is-omitted', !included.has(steps[index].id));
+      });
+      frame.readout.textContent = selectionSummary();
+    }
+
+    steps.forEach((step, index) => {
+      const toggle = node('button', {
+        type: 'button', class: 'btn ghost small algorithm-toggle',
+        'aria-label': 'Include step: ' + step.label, 'aria-pressed': 'true',
+        onclick: () => {
+          if (included.has(step.id)) included.delete(step.id);
+          else included.add(step.id);
+          const active = included.has(step.id);
+          toggle.setAttribute('aria-pressed', active ? 'true' : 'false');
+          toggle.textContent = active ? 'Included' : 'Left out';
+          resetProgress();
+          frame.status.textContent = 'Step ' + (index + 1) + ', “' + step.label + '”, is now ' +
+            (active ? 'included.' : 'left out. Run the algorithm to see the consequence.');
+        },
+      }, 'Included');
+      buttons[step.id] = toggle;
+      list.append(node('li', { class: 'algorithm-step' },
+        node('span', { class: 'algorithm-step-label', 'data-model-speak': true }, step.label), toggle));
+    });
+
+    const runButton = node('button', {
+      type: 'button', class: 'btn gold', onclick: () => {
+        const result = traceJamSandwich(included);
+        tiles.forEach((tile, index) => tile.classList.toggle('is-passed', result.ranStepIds.includes(steps[index].id)));
+        const ranCount = result.ranStepIds.length;
+        frame.readout.textContent = result.success
+          ? 'All four included steps ran. The jam sandwich is served. No steps are left out.'
+          : ranCount + ' included ' + (ranCount === 1 ? 'step ran. ' : 'steps ran. ') +
+            (result.stoppedAt == null ? 'The algorithm ended incomplete. ' :
+              'Step ' + (result.stoppedAt + 1) + ' stopped. ') + selectionSummary();
+        frame.status.textContent = result.message;
+      },
+    }, 'Run the algorithm');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost', onclick: () => {
+        steps.forEach(step => {
+          included.add(step.id);
+          buttons[step.id].setAttribute('aria-pressed', 'true');
+          buttons[step.id].textContent = 'Included';
+        });
+        resetProgress();
+        frame.status.textContent = 'All four necessary steps are included again.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('algorithm-canvas');
+    frame.canvas.append(track);
+    frame.controls.append(list, node('div', { class: 'model-button-row' }, runButton, resetButton));
+    resetProgress();
+    return frame.root;
+  }
+
+  const LIFE_CYCLES = {
+    frog: {
+      label: 'Frog',
+      stages: [
+        ['Eggs', 'Jelly-coated eggs develop underwater.'],
+        ['Tadpole', 'A legless tadpole swims with its tail.'],
+        ['Froglet', 'A froglet has four legs and a shrinking tail.'],
+        ['Adult frog', 'An adult has no tail; adults can produce the next eggs.'],
+      ],
+      change: 'Frogs undergo metamorphosis: their body form changes greatly as they develop.',
+    },
+    butterfly: {
+      label: 'Butterfly',
+      stages: [
+        ['Egg', 'An adult lays an egg on a suitable plant.'],
+        ['Caterpillar', 'The feeding larva grows and sheds its skin.'],
+        ['Chrysalis', 'Inside the pupa, the body reorganises.'],
+        ['Adult butterfly', 'The winged adult can lay eggs for a new generation.'],
+      ],
+      change: 'Butterflies also undergo metamorphosis, including a pupal chrysalis stage.',
+    },
+    dog: {
+      label: 'Dog',
+      stages: [
+        ['Newborn puppy', 'A newborn is small and depends on its mother.'],
+        ['Growing puppy', 'Its body and proportions change gradually.'],
+        ['Young dog', 'The young dog continues growing and learning.'],
+        ['Adult dog', 'Adults can produce puppies for a new generation.'],
+      ],
+      change: 'Dogs grow gradually without metamorphosis, but every generation still has a life cycle.',
+    },
+  };
+
+  function lifeStageGraphic(species, index) {
+    const picture = svgNode('svg', {
+      viewBox: '0 0 150 88', class: 'life-stage-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    picture.append(svgNode('path', { d: 'M12 73 Q75 68 138 73', class: 'science-ground-line' }));
+    const add = (tag, attrs) => picture.append(svgNode(tag, attrs));
+    if (species === 'frog' && index === 0) {
+      [[54, 42], [72, 34], [90, 42], [64, 54], [83, 55], [102, 54]].forEach(([cx, cy]) => {
+        add('circle', { cx, cy, r: 12, class: 'life-egg-jelly' });
+        add('circle', { cx, cy, r: 4, class: 'life-egg-center' });
+      });
+      add('path', { d: 'M18 65 Q42 53 61 66 M95 67 Q119 50 139 62', class: 'life-water-line' });
+    } else if (species === 'frog' && index === 1) {
+      add('ellipse', { cx: 57, cy: 43, rx: 28, ry: 18, class: 'life-animal-fill' });
+      add('circle', { cx: 48, cy: 38, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M82 44 C112 30 127 42 136 27 C132 54 111 66 82 51', class: 'life-animal-line' });
+    } else if (species === 'frog' && index === 2) {
+      add('ellipse', { cx: 73, cy: 43, rx: 31, ry: 19, class: 'life-animal-fill' });
+      add('circle', { cx: 58, cy: 37, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M45 51 L27 68 L48 63 M84 55 L105 72 L119 70 M101 43 C122 36 131 42 140 33', class: 'life-limb-line' });
+    } else if (species === 'frog') {
+      add('ellipse', { cx: 76, cy: 42, rx: 34, ry: 22, class: 'life-animal-fill' });
+      add('ellipse', { cx: 57, cy: 31, rx: 16, ry: 12, class: 'life-animal-fill' });
+      add('circle', { cx: 51, cy: 27, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M49 53 L25 71 L53 65 M92 55 L115 72 L137 68 M48 47 L30 54 M98 45 L121 52', class: 'life-limb-line' });
+    } else if (species === 'butterfly' && index === 0) {
+      add('path', { d: 'M25 69 C54 31 94 24 132 18 C103 50 72 68 25 69 Z', class: 'life-leaf-fill' });
+      add('path', { d: 'M28 66 C62 49 94 35 128 20', class: 'life-leaf-vein' });
+      add('ellipse', { cx: 81, cy: 43, rx: 8, ry: 11, class: 'life-egg-jelly' });
+    } else if (species === 'butterfly' && index === 1) {
+      [43, 57, 71, 85, 99].forEach((cx, part) => add('circle', {
+        cx, cy: 49 - (part % 2) * 3, r: 12, class: 'life-animal-fill',
+      }));
+      add('circle', { cx: 106, cy: 43, r: 3, class: 'life-animal-eye' });
+      add('path', { d: 'M106 34 Q111 23 119 27 M102 34 Q101 23 94 25', class: 'life-limb-line' });
+    } else if (species === 'butterfly' && index === 2) {
+      add('path', { d: 'M75 14 L75 26', class: 'life-limb-line' });
+      add('path', { d: 'M62 26 Q75 18 88 26 L85 62 Q75 76 65 62 Z', class: 'life-chrysalis' });
+      add('path', { d: 'M66 39 Q75 44 85 38 M65 50 Q75 56 85 49', class: 'life-chrysalis-line' });
+    } else if (species === 'butterfly') {
+      add('path', { d: 'M73 45 C50 10 18 14 27 47 C34 68 57 66 73 52 Z', class: 'life-wing is-left' });
+      add('path', { d: 'M77 45 C100 10 132 14 123 47 C116 68 93 66 77 52 Z', class: 'life-wing is-right' });
+      add('ellipse', { cx: 75, cy: 49, rx: 5, ry: 23, class: 'life-animal-line-fill' });
+      add('path', { d: 'M72 29 Q63 18 58 22 M78 29 Q87 18 92 22', class: 'life-limb-line' });
+    } else {
+      const scales = [0.58, 0.75, 0.9, 1];
+      const scale = scales[index];
+      const group = svgNode('g', { transform: 'translate(75 68) scale(' + scale + ') translate(-75 -68)' });
+      const dog = (tag, attrs) => group.append(svgNode(tag, attrs));
+      dog('path', { d: 'M45 37 Q64 25 96 32 L112 43 L105 61 L91 61 L87 72 L77 72 L73 58 L55 58 L50 72 L40 72 L40 52 Q28 46 24 35', class: 'life-animal-fill' });
+      dog('path', { d: 'M94 33 Q104 15 116 26 L112 43 M25 36 Q13 28 18 18', class: 'life-limb-line' });
+      dog('circle', { cx: 104, cy: 30, r: 3, class: 'life-animal-eye' });
+      picture.append(group);
+    }
+    return picture;
+  }
+
+  function renderLifeCycle(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let species = 'frog';
+    let stageIndex = 0;
+    const markerId = 'life-cycle-arrow-' + nextModelId;
+    const routePicture = svgNode('svg', {
+      viewBox: '0 0 640 360', class: 'life-cycle-route-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const defs = svgNode('defs');
+    const marker = svgNode('marker', {
+      id: markerId, viewBox: '0 0 10 10', refX: 8, refY: 5,
+      markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse',
+    });
+    marker.append(svgNode('path', { d: 'M0 0 L10 5 L0 10 Z', class: 'science-arrowhead' }));
+    defs.append(marker);
+    routePicture.append(defs, svgNode('path', {
+      d: 'M170 75 H470 Q555 75 555 160 V200 Q555 285 470 285 H170 Q85 285 85 200 V160 Q85 75 170 75',
+      class: 'life-cycle-route-line', 'marker-end': 'url(#' + markerId + ')',
+    }));
+    const cycle = node('ol', { class: 'life-cycle-ring', 'aria-label': 'Stages in the selected life cycle' });
+    const scene = node('div', { class: 'life-cycle-scene' }, routePicture, cycle);
+    const speciesButtons = {};
+    const speciesRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose an animal' });
+
+    function refresh(announce) {
+      const detail = LIFE_CYCLES[species];
+      cycle.replaceChildren();
+      detail.stages.forEach(([label, description], index) => {
+        const active = index === stageIndex;
+        cycle.append(node('li', {
+          class: 'life-cycle-stage', 'aria-current': active ? 'step' : null,
+        }, node('button', {
+          type: 'button', class: 'life-cycle-stage-card' + (active ? ' is-current' : ''),
+          'aria-pressed': active ? 'true' : 'false',
+          'aria-label': detail.label + ', stage ' + (index + 1) + ': ' + label + '. ' + description,
+          onclick: () => {
+            stageIndex = index;
+            refresh(false);
+            frame.status.textContent = label + '. ' + description;
+          },
+        }, node('span', { class: 'life-cycle-number', 'aria-hidden': 'true' }, String(index + 1)),
+        lifeStageGraphic(species, index),
+        node('span', { class: 'life-cycle-stage-copy', 'data-model-speak': true }, label))));
+      });
+      Object.entries(speciesButtons).forEach(([name, button]) => {
+        const active = name === species;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const current = detail.stages[stageIndex];
+      frame.readout.textContent = detail.label + ' · stage ' + (stageIndex + 1) + ' of 4 · ' +
+        current[0] + '. ' + current[1] + ' ' + detail.change;
+      if (announce) {
+        frame.status.textContent = current[0] + '. ' + current[1] +
+          (stageIndex === 3 ? ' The cycle continues into a new generation.' : ' Next comes ' + detail.stages[stageIndex + 1][0] + '.');
+      }
+    }
+
+    Object.entries(LIFE_CYCLES).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          species = name;
+          stageIndex = 0;
+          refresh(false);
+          frame.status.textContent = detail.label + ' selected. This diagram starts with ' + detail.stages[0][0] + '.';
+        },
+      }, detail.label);
+      speciesButtons[name] = button;
+      speciesRow.append(button);
+    });
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const previous = stageIndex;
+        stageIndex = (stageIndex + 1) % 4;
+        refresh(false);
+        const detail = LIFE_CYCLES[species];
+        const current = detail.stages[stageIndex];
+        const newBeginning = species === 'frog' ? 'egg cluster' : species === 'dog' ? 'puppy' : 'egg';
+        frame.status.textContent = previous === 3
+          ? 'Adults reproduce and a new ' + newBeginning +
+            ' begins the next generation. The adult does not turn back into the young stage.'
+          : current[0] + '. ' + current[1] +
+            (stageIndex === 3 ? ' The next transition is reproduction into a new generation.'
+              : ' Next comes ' + detail.stages[stageIndex + 1][0] + '.');
+      },
+    }, 'Next stage');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        species = 'frog';
+        stageIndex = 0;
+        refresh(false);
+        frame.status.textContent = 'Back to frog eggs, where this diagram starts.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('life-cycle-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(speciesRow, node('div', { class: 'model-button-row' }, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderFractionEquivalence(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const numerator = Math.round(clampNumber(props.numerator, 1, 7, 2));
+    const denominator = Math.round(clampNumber(props.denominator, 2, 8, 3));
+    const maxFactor = Math.round(clampNumber(props.max_factor, 2, 4, 4));
+    let factor = 1;
+    const board = node('div', { class: 'fraction-equivalence-board', 'aria-hidden': 'true' });
+    const reference = node('div', { class: 'fraction-row' },
+      node('b', {}, 'Original whole'), node('div', { class: 'fraction-bar' }));
+    const transformed = node('div', { class: 'fraction-row' },
+      node('b', {}, 'Same whole, split again'), node('div', { class: 'fraction-bar' }));
+    const equation = node('div', { class: 'fraction-equation' });
+    const factorButtons = {};
+    const optionRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose how many pieces replace each original part',
+    });
+
+    function fillBar(bar, shaded, parts) {
+      bar.replaceChildren();
+      bar.style.setProperty('--fraction-parts', parts);
+      for (let index = 0; index < parts; index += 1) {
+        bar.append(node('span', { class: 'fraction-piece' + (index < shaded ? ' is-shaded' : '') }));
+      }
+    }
+
+    function refresh(announce) {
+      const newNumerator = numerator * factor;
+      const newDenominator = denominator * factor;
+      fillBar(reference.lastElementChild, numerator, denominator);
+      fillBar(transformed.lastElementChild, newNumerator, newDenominator);
+      equation.textContent = numerator + '/' + denominator + ' = ' + newNumerator + '/' + newDenominator;
+      Object.entries(factorButtons).forEach(([value, button]) => {
+        const active = Number(value) === factor;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      frame.readout.textContent = numerator + '/' + denominator + ' = ' + newNumerator + '/' + newDenominator +
+        '. That is ' + numerator + ' over ' + denominator + ' equals ' + newNumerator + ' over ' + newDenominator +
+        '. The whole and shaded amount stay the same; only the number and names of equal pieces change.';
+      if (announce) {
+        frame.status.textContent = factor === 1
+          ? 'Back to the original equal parts. Both bars name the same fraction in the same way.'
+          : 'Each original part was split into ' + factor + ' equal pieces. The shaded amount did not change.';
+      }
+    }
+
+    for (let value = 1; value <= maxFactor; value += 1) {
+      const label = value === 1 ? 'Original' : 'Split each part into ' + value;
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { factor = value; refresh(true); },
+      }, label);
+      factorButtons[value] = button;
+      optionRow.append(button);
+    }
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        factor = 1;
+        refresh(false);
+        frame.status.textContent = 'The bars are back to the original partition.';
+      },
+    }, 'Reset');
+
+    board.append(reference, transformed, equation);
+    frame.canvas.classList.add('fraction-equivalence-canvas');
+    frame.canvas.append(board);
+    frame.controls.append(optionRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const FIRST_TEN_ELEMENTS = [null,
+    { symbol: 'H', name: 'hydrogen' }, { symbol: 'He', name: 'helium' },
+    { symbol: 'Li', name: 'lithium' }, { symbol: 'Be', name: 'beryllium' },
+    { symbol: 'B', name: 'boron' }, { symbol: 'C', name: 'carbon' },
+    { symbol: 'N', name: 'nitrogen' }, { symbol: 'O', name: 'oxygen' },
+    { symbol: 'F', name: 'fluorine' }, { symbol: 'Ne', name: 'neon' },
+  ];
+
+  function renderAtomElementBuilder(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      protons: Math.round(clampNumber(props.protons, 1, 10, 6)),
+      neutrons: Math.round(clampNumber(props.neutrons, 0, 12, 6)),
+      electrons: Math.round(clampNumber(props.electrons, 0, 10, 6)),
+    };
+    const values = { ...authored };
+    const scene = node('div', { class: 'atom-builder-scene', 'aria-hidden': 'true' });
+    const atom = node('div', { class: 'atom-diagram' });
+    const nucleus = node('div', { class: 'atom-nucleus' });
+    const symbol = node('strong', { class: 'atom-symbol' });
+    const sceneLabel = node('span', { class: 'atom-scene-label' }, 'Schematic bookkeeping model · not to scale');
+    const steppers = {};
+
+    function chargeValue() {
+      return values.protons - values.electrons;
+    }
+
+    function chargeText() {
+      const charge = chargeValue();
+      if (charge === 0) return 'neutral atom';
+      return (charge > 0 ? '+' + charge : '−' + Math.abs(charge)) + ' ion';
+    }
+
+    function draw() {
+      const element = FIRST_TEN_ELEMENTS[values.protons];
+      atom.querySelectorAll('.atom-electron').forEach(electron => electron.remove());
+      nucleus.replaceChildren();
+      for (let index = 0; index < values.protons; index += 1) {
+        nucleus.append(node('span', { class: 'nuclear-particle is-proton' }, 'p'));
+      }
+      for (let index = 0; index < values.neutrons; index += 1) {
+        nucleus.append(node('span', { class: 'nuclear-particle is-neutron' }, 'n'));
+      }
+      for (let index = 0; index < values.electrons; index += 1) {
+        const inner = index < 2;
+        const place = inner ? index : index - 2;
+        const count = inner ? Math.min(values.electrons, 2) : Math.max(values.electrons - 2, 1);
+        const electron = node('span', { class: 'atom-electron' });
+        electron.style.setProperty('--electron-angle', (360 * place / count) + 'deg');
+        electron.style.setProperty('--electron-radius', inner ? '68px' : '91px');
+        atom.append(electron);
+      }
+      symbol.textContent = element.symbol;
+      Object.entries(steppers).forEach(([kind, controls]) => {
+        const low = kind === 'protons' ? 1 : 0;
+        const high = kind === 'neutrons' ? 12 : 10;
+        controls.value.textContent = String(values[kind]);
+        controls.remove.disabled = values[kind] <= low;
+        controls.add.disabled = values[kind] >= high;
+      });
+      frame.readout.textContent = element.name[0].toUpperCase() + element.name.slice(1) + ' (' + element.symbol + ') · ' +
+        values.protons + ' protons · ' + values.neutrons + ' neutrons · ' + values.electrons +
+        ' electrons · mass number ' + (values.protons + values.neutrons) + ' · ' + chargeText() +
+        '. Proton count defines the element. The rings organize electron counts; they are not paths that electrons orbit. ' +
+        'This schematic bookkeeping model does not predict whether a nucleus or ion is stable.';
+    }
+
+    function change(kind, amount) {
+      const before = FIRST_TEN_ELEMENTS[values.protons];
+      values[kind] += amount;
+      draw();
+      const after = FIRST_TEN_ELEMENTS[values.protons];
+      if (kind === 'protons') {
+        frame.status.textContent = 'The proton count changed, so the element changed from ' + before.name + ' to ' +
+          after.name + '. This is a hypothetical nuclear change, not an ordinary chemical reaction.';
+      } else if (kind === 'neutrons') {
+        frame.status.textContent = 'The neutron count changed. It is still ' + after.name + ', now with mass number ' +
+          (values.protons + values.neutrons) + '.';
+      } else {
+        frame.status.textContent = 'The electron count changed. It is still ' + after.name + ', now a ' + chargeText() + '.';
+      }
+    }
+
+    function stepper(kind, label) {
+      const singular = label.endsWith('s') ? label.slice(0, -1).toLowerCase() : label.toLowerCase();
+      const remove = node('button', {
+        type: 'button', class: 'btn ghost small', 'aria-label': 'Remove one ' + singular,
+        onclick: () => change(kind, -1),
+      }, '−');
+      const add = node('button', {
+        type: 'button', class: 'btn ghost small', 'aria-label': 'Add one ' + singular,
+        onclick: () => change(kind, 1),
+      }, '+');
+      const value = node('output', { class: 'atom-stepper-value', 'aria-label': label + ' count' });
+      steppers[kind] = { remove, add, value };
+      return node('div', { class: 'atom-stepper' }, node('b', {}, label),
+        node('div', { class: 'atom-stepper-buttons' }, remove, value, add));
+    }
+
+    atom.append(node('span', { class: 'atom-shell is-inner' }),
+      node('span', { class: 'atom-shell is-outer' }), nucleus, symbol);
+    scene.append(atom, sceneLabel);
+    const neutralButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        values.electrons = values.protons;
+        draw();
+        frame.status.textContent = 'Electrons now equal protons, so the atom is electrically neutral.';
+      },
+    }, 'Make neutral');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        Object.assign(values, authored);
+        draw();
+        const element = FIRST_TEN_ELEMENTS[authored.protons];
+        frame.status.textContent = 'The particle counts are back at the authored ' + element.name + '-' +
+          (authored.protons + authored.neutrons) + ' example.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('atom-builder-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(node('div', { class: 'atom-stepper-grid' },
+      stepper('protons', 'Protons'), stepper('neutrons', 'Neutrons'), stepper('electrons', 'Electrons')),
+    node('div', { class: 'model-button-row' }, neutralButton, resetButton));
+    draw();
+    return frame.root;
+  }
+
+  const CELL_SPECIMENS = {
+    onion: {
+      label: 'Onion bulb epidermis', className: 'is-onion',
+      structures: ['Cell wall', 'Cell membrane', 'Cytoplasm', 'Stained nucleus'],
+      description: 'Cell walls and stained nuclei are visible; chloroplasts are not expected in bulb epidermis.',
+    },
+    leaf: {
+      label: 'Green leaf', className: 'is-leaf',
+      structures: ['Cell wall', 'Cell membrane', 'Cytoplasm', 'Chloroplasts', 'Nucleus'],
+      description: 'Cell walls and many chloroplasts are visible in these photosynthetic cells.',
+    },
+    cheek: {
+      label: 'Cheek', className: 'is-cheek',
+      structures: ['Cell membrane', 'Cytoplasm', 'Stained nucleus'],
+      description: 'Flattened irregular cells have membranes and nuclei, but no cell walls or chloroplasts.',
+    },
+  };
+
+  function renderCellMicroscope(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredSpecimen = CELL_SPECIMENS[props.start_specimen] ? props.start_specimen : 'onion';
+    const authoredMagnification = [40, 100, 400].includes(Number(props.start_magnification))
+      ? Number(props.start_magnification) : 100;
+    let specimen = authoredSpecimen;
+    let magnification = authoredMagnification;
+    let contrast = false;
+    let labels = false;
+    const clipId = 'microscope-field-clip-' + nextModelId;
+    const field = svgNode('svg', {
+      viewBox: '0 0 760 400', class: 'science-diagram microscope-field',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const fieldNote = node('span', { class: 'microscope-field-note' },
+      'Schematic field and representative-cell inset · relative field width, not a calibrated scale');
+    const legend = node('div', {
+      class: 'microscope-legend', role: 'list', 'aria-label': 'Structures present in this specimen',
+    });
+    const specimenButtons = {};
+    const magnificationButtons = {};
+    const specimenRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose a specimen' });
+    const magnificationRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose total magnification',
+    });
+    const views = {
+      40: { columns: 7, rows: 6, phrase: 'many small apparent cells', width: 'wide field' },
+      100: { columns: 4, rows: 4, phrase: 'several medium apparent cells', width: 'medium field' },
+      400: { columns: 2, rows: 2, phrase: 'a few large apparent cells', width: 'narrow field' },
+    };
+
+    function appendSpecimenCell(parent, name, x, y, width, height, index, representative) {
+      const group = svgNode('g', { class: 'microscope-cell is-' + name });
+      const inset = representative ? ' is-representative' : '';
+      if (name === 'cheek') {
+        group.append(svgNode('ellipse', {
+          cx: x + width / 2, cy: y + height / 2,
+          rx: width * .46, ry: height * .39,
+          transform: 'rotate(' + (index % 2 ? 8 : -7) + ' ' + (x + width / 2) + ' ' + (y + height / 2) + ')',
+          class: 'cell-membrane-shape' + inset,
+        }));
+      } else {
+        group.append(svgNode('rect', {
+          x, y, width, height, rx: name === 'leaf' ? 13 : 4,
+          class: 'cell-wall-shape' + inset,
+        }), svgNode('rect', {
+          x: x + Math.max(3, width * .045), y: y + Math.max(3, height * .055),
+          width: width - Math.max(6, width * .09), height: height - Math.max(6, height * .11),
+          rx: name === 'leaf' ? 10 : 3, class: 'cell-membrane-shape' + inset,
+        }));
+      }
+      if (name === 'leaf') {
+        group.append(svgNode('ellipse', {
+          cx: x + width * .53, cy: y + height * .53,
+          rx: width * .25, ry: height * .28, class: 'cell-vacuole-shape' + inset,
+        }));
+        [[.25, .26], [.72, .24], [.23, .68], [.75, .69], [.52, .18], [.49, .78]].forEach(([px, py]) => {
+          group.append(svgNode('ellipse', {
+            cx: x + width * px, cy: y + height * py,
+            rx: Math.max(2, width * .055), ry: Math.max(1.5, height * .035),
+            class: 'cell-chloroplast-shape' + inset,
+          }));
+        });
+      }
+      group.append(svgNode('ellipse', {
+        cx: x + width * (name === 'leaf' ? .35 : .53), cy: y + height * .52,
+        rx: Math.max(3.5, width * .09), ry: Math.max(3.5, height * .1),
+        class: 'cell-nucleus-shape' + inset,
+      }));
+      parent.append(group);
+    }
+
+    function addCallout(group, label, x1, y1, x2, y2, anchor) {
+      group.append(svgNode('line', { x1, y1, x2, y2, class: 'science-callout-line' }),
+        svgNode('circle', { cx: x1, cy: y1, r: 4, class: 'science-callout-dot' }),
+        svgText(label, { x: x2 + (anchor === 'end' ? -7 : 7), y: y2 + 4,
+          class: 'science-diagram-label', 'text-anchor': anchor }));
+    }
+
+    function refresh(announce) {
+      const detail = CELL_SPECIMENS[specimen];
+      const view = views[magnification];
+      field.replaceChildren();
+      field.setAttribute('class', 'science-diagram microscope-field ' + detail.className +
+        (contrast ? ' has-contrast' : ''));
+      const defs = svgNode('defs');
+      const clip = svgNode('clipPath', { id: clipId });
+      clip.append(svgNode('circle', { cx: 205, cy: 194, r: 166 }));
+      defs.append(clip);
+      const fieldGroup = svgNode('g', { 'clip-path': 'url(#' + clipId + ')' });
+      fieldGroup.append(svgNode('rect', { x: 30, y: 18, width: 350, height: 352, class: 'microscope-field-paper' }));
+      const cellWidth = 350 / view.columns;
+      const cellHeight = 352 / view.rows;
+      let cellIndex = 0;
+      for (let rowIndex = 0; rowIndex < view.rows; rowIndex += 1) {
+        for (let columnIndex = 0; columnIndex < view.columns; columnIndex += 1) {
+          const stagger = specimen === 'cheek' && rowIndex % 2 ? cellWidth * .18 : 0;
+          appendSpecimenCell(fieldGroup, specimen,
+            25 + columnIndex * cellWidth + stagger, 18 + rowIndex * cellHeight,
+            cellWidth * (specimen === 'cheek' ? .88 : 1),
+            cellHeight * (specimen === 'cheek' ? .82 : 1), cellIndex, false);
+          cellIndex += 1;
+        }
+      }
+      field.append(defs, fieldGroup,
+        svgNode('circle', { cx: 205, cy: 194, r: 170, class: 'microscope-field-ring' }),
+        svgText(detail.label, { x: 205, y: 389, class: 'science-diagram-title', 'text-anchor': 'middle' }),
+        svgText(magnification + '× · ' + view.width, {
+          x: 205, y: 30, class: 'science-diagram-badge', 'text-anchor': 'middle',
+        }),
+        svgNode('rect', { x: 420, y: 42, width: 310, height: 306, rx: 18, class: 'science-inset-panel' }),
+        svgText('REPRESENTATIVE CELL', { x: 575, y: 72, class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      const representative = svgNode('g');
+      appendSpecimenCell(representative, specimen, 500, 112, 150, 142, 0, true);
+      field.append(representative);
+      if (labels) {
+        const callouts = svgNode('g', { class: 'microscope-callouts' });
+        if (specimen !== 'cheek') {
+          addCallout(callouts, 'cell wall', 501, 118, 466, 92, 'end');
+          addCallout(callouts, 'cell membrane', 507, 127, 455, 143, 'end');
+        } else {
+          addCallout(callouts, 'cell membrane', 505, 132, 459, 111, 'end');
+        }
+        addCallout(callouts, 'nucleus', specimen === 'leaf' ? 552 : 579, 183, 688, 147, 'start');
+        addCallout(callouts, 'cytoplasm', 618, 215, 690, 231, 'start');
+        if (specimen === 'leaf') {
+          addCallout(callouts, 'chloroplast', 610, 149, 687, 102, 'start');
+          addCallout(callouts, 'vacuole', 581, 193, 687, 190, 'start');
+        }
+        field.append(callouts);
+      } else {
+        field.append(svgText('Turn on labels to connect names to structures.', {
+          x: 575, y: 302, class: 'science-diagram-note', 'text-anchor': 'middle',
+        }));
+      }
+      legend.replaceChildren(...detail.structures.map(structure => node('span', { role: 'listitem' }, structure)));
+      legend.hidden = !labels;
+      Object.entries(specimenButtons).forEach(([name, button]) => {
+        const active = name === specimen;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      Object.entries(magnificationButtons).forEach(([value, button]) => {
+        const active = Number(value) === magnification;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      contrastButton.setAttribute('aria-pressed', contrast ? 'true' : 'false');
+      contrastButton.textContent = contrast ? 'Restore contrast' : 'Improve contrast';
+      labelsButton.setAttribute('aria-pressed', labels ? 'true' : 'false');
+      labelsButton.textContent = labels ? 'Hide structure labels' : 'Show structure labels';
+      frame.readout.textContent = detail.label + ' · ' + magnification + '× total magnification · contrast ' +
+        (contrast ? 'improved' : 'unchanged') + '. This schematic shows ' + view.phrase + '. ' + detail.description +
+        ' Structures present in this specimen: ' + detail.structures.join(', ') + '. ' +
+        (specimen === 'cheek' ? 'The animal cell has a membrane but no cell wall. ' :
+          'The plant cell wall is drawn outside its cell membrane. ') +
+        'Higher magnification enlarges the image and narrows the field; it does not make cells grow or guarantee more detail.';
+      if (announce) frame.status.textContent = detail.label + ' selected. ' + detail.description;
+    }
+
+    Object.entries(CELL_SPECIMENS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { specimen = name; refresh(true); },
+      }, detail.label.replace(' epidermis', ''));
+      specimenButtons[name] = button;
+      specimenRow.append(button);
+    });
+    [40, 100, 400].forEach(value => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          magnification = value;
+          refresh(false);
+          frame.status.textContent = 'The image is now shown at ' + value +
+            ' times total magnification. Apparent size changed and the field narrowed; actual cell size did not.';
+        },
+      }, value + '×');
+      magnificationButtons[value] = button;
+      magnificationRow.append(button);
+    });
+    const contrastButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': 'false', onclick: () => {
+        contrast = !contrast;
+        refresh(false);
+        frame.status.textContent = contrast
+          ? 'Contrast is stronger, so existing boundaries stand out. No new structure or size was created.'
+          : 'Contrast is back to its original level.';
+      },
+    }, 'Improve contrast');
+    const labelsButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => {
+        labels = !labels;
+        refresh(false);
+        frame.status.textContent = labels ? 'Leader lines now connect names to the representative cell.' :
+          'The structure labels are hidden; the full list remains in the readout.';
+      },
+    }, 'Show structure labels');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        specimen = authoredSpecimen;
+        magnification = authoredMagnification;
+        contrast = false;
+        labels = false;
+        refresh(false);
+        frame.status.textContent = 'The microscope is back to the authored specimen and magnification.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('cell-microscope-canvas');
+    frame.canvas.append(node('div', { class: 'cell-microscope-scene' },
+      node('div', { class: 'science-diagram-scroll' }, field), fieldNote, legend));
+    frame.controls.append(specimenRow, magnificationRow,
+      node('div', { class: 'model-button-row' }, contrastButton, labelsButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const COUNTEREXAMPLE_STATES = {
+    forward: {
+      readout: 'Forward claim: all squares are rectangles. Every square has four right angles, so every square belongs inside the rectangle family.',
+      status: 'The forward claim follows from the definitions: a square meets every requirement for a rectangle.',
+    },
+    reverse: {
+      readout: 'Reversed claim to test: all rectangles are squares. The first claim did not promise this reverse direction. Look for a rectangle without four equal sides.',
+      status: 'Reversing “all squares are rectangles” makes a new claim. It needs its own test.',
+    },
+    counterexample: {
+      readout: 'Counterexample found: the long shape has four right angles, so it is a rectangle, but its sides are not all equal, so it is not a square. One counterexample disproves the reversed universal claim.',
+      status: 'The long non-square rectangle disproves “all rectangles are squares.” It does not change the true forward claim.',
+    },
+  };
+
+  function renderCounterexampleLab(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let state = 'forward';
+    const scene = node('div', { class: 'counterexample-scene is-forward', 'aria-hidden': 'true' });
+    const rectangleSet = node('div', { class: 'counterexample-rectangle-set' });
+    const squareSet = node('div', { class: 'counterexample-square-set' });
+    for (let index = 0; index < 4; index += 1) squareSet.append(node('span', { class: 'logic-square' }));
+    const longRectangle = node('span', { class: 'logic-long-rectangle' });
+    rectangleSet.append(squareSet, longRectangle);
+    scene.append(rectangleSet);
+    const stateButtons = {};
+    const stateRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose a reasoning step' });
+
+    function refresh(announce) {
+      scene.className = 'counterexample-scene is-' + state;
+      Object.entries(stateButtons).forEach(([name, button]) => {
+        const active = name === state;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      frame.readout.textContent = COUNTEREXAMPLE_STATES[state].readout;
+      if (announce) frame.status.textContent = COUNTEREXAMPLE_STATES[state].status;
+    }
+
+    [['forward', 'Follow the forward claim'], ['reverse', 'Test the reverse'],
+      ['counterexample', 'Reveal the counterexample']].forEach(([name, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { state = name; refresh(true); },
+      }, label);
+      stateButtons[name] = button;
+      stateRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        state = 'forward';
+        refresh(false);
+        frame.status.textContent = 'Back to the true forward claim: all squares are rectangles.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('counterexample-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(stateRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderIntegerNumberLine(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const supplied = item.props && typeof item.props === 'object' && !Array.isArray(item.props)
+      ? item.props : {};
+    const authoredDefaults = { min: -12, max: 12, startValue: -2, startDelta: -7 };
+    const keys = ['min', 'max', 'start_value', 'start_delta'];
+    const suppliedIsValid = Object.keys(supplied).length === keys.length && keys.every(key =>
+      Object.prototype.hasOwnProperty.call(supplied, key) && Number.isInteger(supplied[key])) &&
+      supplied.min === -12 && supplied.max === 12 &&
+      supplied.start_value === -2 && supplied.start_delta === -7 &&
+      supplied.min < supplied.max &&
+      supplied.start_value >= supplied.min && supplied.start_value <= supplied.max &&
+      supplied.start_value + supplied.start_delta >= supplied.min &&
+      supplied.start_value + supplied.start_delta <= supplied.max;
+    const authored = suppliedIsValid ? {
+      min: supplied.min, max: supplied.max,
+      startValue: supplied.start_value, startDelta: supplied.start_delta,
+    } : authoredDefaults;
+    let value = authored.startValue;
+    let delta = authored.startDelta;
+
+    const graphic = svgNode('svg', {
+      viewBox: '0 0 760 210', class: 'integer-number-line-svg',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const currentText = node('span', { class: 'integer-number-line-key-value' });
+    const moveText = node('span', { class: 'integer-number-line-key-value' });
+    const destinationText = node('span', { class: 'integer-number-line-key-value' });
+    const key = node('div', { class: 'integer-number-line-key' },
+      node('div', { class: 'integer-number-line-key-item is-current' },
+        node('span', { class: 'integer-number-line-key-symbol', 'aria-hidden': 'true' }, '■'),
+        node('strong', {}, 'Current'), currentText),
+      node('div', { class: 'integer-number-line-key-item is-move' },
+        node('span', { class: 'integer-number-line-key-symbol', 'aria-hidden': 'true' }, '→'),
+        node('strong', {}, 'Signed move'), moveText),
+      node('div', { class: 'integer-number-line-key-item is-destination' },
+        node('span', { class: 'integer-number-line-key-symbol', 'aria-hidden': 'true' }, '●'),
+        node('strong', {}, 'Destination'), destinationText));
+    const scene = node('div', {
+      class: 'integer-number-line-scene', role: 'group',
+      'aria-label': 'Integer number line with textual current position, signed move, and destination',
+    }, graphic, key);
+
+    function formatInteger(number) {
+      return number < 0 ? '−' + Math.abs(number) : String(number);
+    }
+    function formatMove(number) {
+      return number > 0 ? '+' + number : formatInteger(number);
+    }
+    function moveWords(number) {
+      if (number < 0) return Math.abs(number) + ' units left';
+      if (number > 0) return number + ' units right';
+      return '0 units; stay in place';
+    }
+    function svgText(valueToShow, attrs) {
+      const label = svgNode('text', attrs);
+      label.textContent = valueToShow;
+      return label;
+    }
+    function mapValue(number) {
+      return 45 + (number - authored.min) * 670 / (authored.max - authored.min);
+    }
+    function destination() {
+      return value + delta;
+    }
+    function drawNumberLine() {
+      const target = destination();
+      const startX = mapValue(value);
+      const endX = mapValue(target);
+      graphic.replaceChildren();
+      graphic.append(
+        svgNode('rect', {
+          x: 12, y: 10, width: 736, height: 190, rx: 14,
+          class: 'integer-number-line-field',
+        }),
+        svgText('← smaller', { x: 45, y: 34, class: 'integer-number-line-direction', 'text-anchor': 'start' }),
+        svgText('greater →', { x: 715, y: 34, class: 'integer-number-line-direction', 'text-anchor': 'end' }),
+        svgNode('line', { x1: 35, y1: 140, x2: 725, y2: 140, class: 'integer-number-line-axis' }),
+        svgNode('polygon', { points: '35,140 48,132 48,148', class: 'integer-number-line-axis-head' }),
+        svgNode('polygon', { points: '725,140 712,132 712,148', class: 'integer-number-line-axis-head' }),
+      );
+
+      for (let tick = authored.min; tick <= authored.max; tick += 1) {
+        const x = mapValue(tick);
+        const major = tick === authored.min || tick === authored.max || tick % 3 === 0;
+        graphic.append(svgNode('line', {
+          x1: x, y1: major ? 124 : 131, x2: x, y2: major ? 157 : 150,
+          class: 'integer-number-line-tick' + (tick === 0 ? ' is-zero' : ''),
+        }));
+        if (major) {
+          graphic.append(svgText(formatInteger(tick), {
+            x, y: 181, class: 'integer-number-line-tick-label', 'text-anchor': 'middle',
+          }));
+        }
+      }
+
+      if (delta === 0) {
+        graphic.append(
+          svgNode('polygon', {
+            points: startX + ',128 ' + (startX + 11) + ',140 ' + startX + ',152 ' +
+              (startX - 11) + ',140',
+            class: 'integer-number-line-same-marker',
+          }),
+          svgText('S = E', {
+            x: startX, y: 120, class: 'integer-number-line-marker-label', 'text-anchor': 'middle',
+          }),
+        );
+      } else {
+        const direction = Math.sign(delta);
+        const arrowStart = startX + direction * 10;
+        const arrowEnd = endX - direction * 12;
+        graphic.append(
+          svgNode('line', { x1: startX, y1: 130, x2: startX, y2: 94, class: 'integer-number-line-guide' }),
+          svgNode('line', { x1: endX, y1: 130, x2: endX, y2: 94, class: 'integer-number-line-guide' }),
+          svgNode('line', { x1: arrowStart, y1: 82, x2: arrowEnd, y2: 82, class: 'integer-number-line-move' }),
+          svgNode('polygon', {
+            points: arrowEnd + ',82 ' + (arrowEnd - direction * 13) + ',73 ' +
+              (arrowEnd - direction * 13) + ',91',
+            class: 'integer-number-line-move-head',
+          }),
+          svgNode('rect', {
+            x: startX - 8, y: 132, width: 16, height: 16,
+            class: 'integer-number-line-current-marker',
+          }),
+          svgNode('circle', {
+            cx: endX, cy: 140, r: 10,
+            class: 'integer-number-line-destination-marker',
+          }),
+          svgText('S', {
+            x: startX, y: 125, class: 'integer-number-line-marker-label', 'text-anchor': 'middle',
+          }),
+          svgText('E', {
+            x: endX, y: 125, class: 'integer-number-line-marker-label', 'text-anchor': 'middle',
+          }),
+        );
+      }
+    }
+
+    const deltaSlider = node('input', {
+      type: 'range', step: 1, value: delta,
+      'aria-label': 'Choose a signed move',
+      oninput: event => {
+        delta = Number(event.target.value);
+        refresh(true);
+      },
+    });
+    const lowEnd = node('span');
+    const highEnd = node('span');
+    const sliderLabel = node('label', { class: 'model-slider integer-number-line-slider' },
+      node('span', { class: 'model-slider-title' }, 'Choose a signed move'),
+      deltaSlider,
+      node('span', { class: 'model-slider-ends' }, lowEnd, highEnd));
+    const decreaseButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Decrease the signed move by 1',
+      onclick: () => { delta -= 1; refresh(true); },
+    }, '−1');
+    const increaseButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Increase the signed move by 1',
+      onclick: () => { delta += 1; refresh(true); },
+    }, '+1');
+    const applyButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const from = value;
+        const applied = delta;
+        value += delta;
+        delta = 0;
+        refresh(false);
+        frame.status.textContent = 'Applied ' + formatMove(applied) + ': ' + formatInteger(from) +
+          ' + (' + formatMove(applied) + ') = ' + formatInteger(value) +
+          '. The current position is now ' + formatInteger(value) + '.';
+      },
+    }, 'Apply move');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        value = authored.startValue;
+        delta = authored.startDelta;
+        refresh(false);
+        frame.status.textContent = 'Reset to the authored start: current position −2 with signed move −7.';
+      },
+    }, 'Reset');
+
+    function refresh(announce) {
+      const moveMin = authored.min - value;
+      const moveMax = authored.max - value;
+      delta = Math.max(moveMin, Math.min(moveMax, delta));
+      const target = destination();
+      deltaSlider.min = String(moveMin);
+      deltaSlider.max = String(moveMax);
+      deltaSlider.value = String(delta);
+      deltaSlider.setAttribute('aria-valuetext', 'Signed move ' + formatMove(delta) +
+        ': ' + moveWords(delta) + ', from ' + formatInteger(value) + ' to ' + formatInteger(target));
+      lowEnd.textContent = formatMove(moveMin) + ' to ' + formatInteger(authored.min);
+      highEnd.textContent = formatMove(moveMax) + ' to ' + formatInteger(authored.max);
+      decreaseButton.disabled = delta <= moveMin;
+      increaseButton.disabled = delta >= moveMax;
+      applyButton.disabled = delta === 0;
+      currentText.textContent = formatInteger(value);
+      moveText.textContent = formatMove(delta) + ' (' + moveWords(delta) + ')';
+      destinationText.textContent = formatInteger(target);
+      drawNumberLine();
+
+      let comparison;
+      if (target === value) {
+        comparison = 'The current position and destination are equal.';
+      } else if (target > value) {
+        comparison = formatInteger(target) + ' is farther right than ' + formatInteger(value) +
+          ', so ' + formatInteger(target) + ' is greater.';
+      } else {
+        comparison = formatInteger(value) + ' is farther right than ' + formatInteger(target) +
+          ', so ' + formatInteger(value) + ' is greater.';
+      }
+      frame.readout.textContent = 'Current position: ' + formatInteger(value) +
+        '. Signed move: ' + formatMove(delta) + ', meaning ' + moveWords(delta) +
+        '. Destination: ' + formatInteger(target) + '. Farther right is greater. ' + comparison +
+        ' Absolute value: |' + formatInteger(target) + '| = ' + Math.abs(target) +
+        ', the destination’s distance from zero.';
+      if (announce) {
+        frame.status.textContent = 'Signed move ' + formatMove(delta) + ' means move ' +
+          moveWords(delta) + ', from ' + formatInteger(value) + ' to ' + formatInteger(target) + '.';
+      }
+    }
+
+    frame.canvas.classList.add('integer-number-line-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(sliderLabel,
+      node('div', { class: 'model-button-row integer-number-line-buttons' },
+        decreaseButton, increaseButton, applyButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderFunctionComposition(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      fSlope: Math.round(clampNumber(props.f_slope, -3, 3, 2)) || 2,
+      fIntercept: Math.round(clampNumber(props.f_intercept, -5, 5, 0)),
+      gSlope: Math.round(clampNumber(props.g_slope, -3, 3, 1)) || 1,
+      gIntercept: Math.round(clampNumber(props.g_intercept, -5, 5, -1)),
+      xMin: Math.round(clampNumber(props.x_min, -8, 7, -5)),
+      xMax: Math.round(clampNumber(props.x_max, -7, 8, 5)),
+      startX: Math.round(clampNumber(props.start_x, -8, 8, 5)),
+    };
+    if (authored.xMin >= authored.xMax) {
+      authored.xMin = -5;
+      authored.xMax = 5;
+    }
+    authored.startX = Math.max(authored.xMin, Math.min(authored.xMax, authored.startX));
+    let x = authored.startX;
+    let order = 'f-then-g';
+    const pipeline = node('div', { class: 'function-pipeline', 'aria-hidden': 'true' });
+    const graph = svgNode('svg', {
+      viewBox: '0 0 560 250', class: 'function-graph', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const scene = node('div', { class: 'function-composition-scene' }, pipeline, graph);
+    const orderButtons = {};
+    const orderRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose the order of the two functions',
+    });
+
+    function f(value) { return authored.fSlope * value + authored.fIntercept; }
+    function g(value) { return authored.gSlope * value + authored.gIntercept; }
+    function result(value, selectedOrder) {
+      return selectedOrder === 'f-then-g' ? g(f(value)) : f(g(value));
+    }
+    function signed(value) {
+      if (value === 0) return '';
+      return value > 0 ? ' + ' + value : ' − ' + Math.abs(value);
+    }
+    function formula(name, slope, intercept) {
+      const coefficient = slope === 1 ? '' : slope === -1 ? '−' : String(slope);
+      return name + '(x) = ' + coefficient + 'x' + signed(intercept);
+    }
+    function drawGraph() {
+      graph.replaceChildren();
+      graph.append(svgNode('rect', { x: 28, y: 16, width: 504, height: 206, rx: 12, class: 'function-graph-field' }));
+      const sampleOutputs = [];
+      for (let value = authored.xMin; value <= authored.xMax; value += 1) {
+        sampleOutputs.push(result(value, 'f-then-g'), result(value, 'g-then-f'));
+      }
+      const yMin = Math.floor(Math.min(0, ...sampleOutputs)) - 1;
+      const yMax = Math.ceil(Math.max(0, ...sampleOutputs)) + 1;
+      const mapX = value => 44 + (value - authored.xMin) * 472 / (authored.xMax - authored.xMin);
+      const mapY = value => 210 - (value - yMin) * 182 / (yMax - yMin);
+      for (let index = 0; index <= 8; index += 1) {
+        const gx = 44 + index * 59;
+        graph.append(svgNode('line', { x1: gx, y1: 28, x2: gx, y2: 210, class: 'function-grid-line' }));
+      }
+      for (let index = 0; index <= 6; index += 1) {
+        const gy = 28 + index * (182 / 6);
+        graph.append(svgNode('line', { x1: 44, y1: gy, x2: 516, y2: gy, class: 'function-grid-line' }));
+      }
+      if (authored.xMin <= 0 && authored.xMax >= 0) {
+        graph.append(svgNode('line', { x1: mapX(0), y1: 28, x2: mapX(0), y2: 210, class: 'function-axis' }));
+      }
+      if (yMin <= 0 && yMax >= 0) {
+        graph.append(svgNode('line', { x1: 44, y1: mapY(0), x2: 516, y2: mapY(0), class: 'function-axis' }));
+      }
+      const orders = ['f-then-g', 'g-then-f'];
+      orders.forEach(candidate => {
+        graph.append(svgNode('line', {
+          x1: mapX(authored.xMin), y1: mapY(result(authored.xMin, candidate)),
+          x2: mapX(authored.xMax), y2: mapY(result(authored.xMax, candidate)),
+          class: 'function-composition-line' + (candidate === order ? ' is-selected' : ' is-comparison'),
+        }));
+      });
+      graph.append(svgNode('circle', {
+        cx: mapX(x), cy: mapY(result(x, order)), r: 7, class: 'function-current-point',
+      }));
+    }
+    function refresh(announce) {
+      const firstName = order === 'f-then-g' ? 'f' : 'g';
+      const secondName = order === 'f-then-g' ? 'g' : 'f';
+      const firstValue = order === 'f-then-g' ? f(x) : g(x);
+      const finalValue = result(x, order);
+      const comparisonOrder = order === 'f-then-g' ? 'g-then-f' : 'f-then-g';
+      const comparisonValue = result(x, comparisonOrder);
+      pipeline.replaceChildren(
+        node('span', { class: 'function-value-card' }, String(x)),
+        node('span', { class: 'function-arrow' }, '→'),
+        node('span', { class: 'function-machine-card' }, firstName),
+        node('span', { class: 'function-value-card' }, String(firstValue)),
+        node('span', { class: 'function-arrow' }, '→'),
+        node('span', { class: 'function-machine-card' }, secondName),
+        node('span', { class: 'function-value-card is-result' }, String(finalValue)),
+      );
+      Object.entries(orderButtons).forEach(([name, button]) => {
+        const active = name === order;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      slider.value = String(x);
+      slider.setAttribute('aria-valuetext', 'Input x equals ' + x);
+      drawGraph();
+      const expression = order === 'f-then-g' ? 'g(f(' + x + '))' : 'f(g(' + x + '))';
+      const comparisonExpression = order === 'f-then-g' ? 'f(g(' + x + '))' : 'g(f(' + x + '))';
+      frame.readout.textContent = formula('f', authored.fSlope, authored.fIntercept) + '; ' +
+        formula('g', authored.gSlope, authored.gIntercept) + '. Selected order: apply ' + firstName +
+        ', then ' + secondName + '. ' + expression + ' = ' + finalValue + '; the other order gives ' +
+        comparisonExpression + ' = ' + comparisonValue +
+        '. Composition is not commutative in general: changing the order can change the output.';
+      if (announce) {
+        frame.status.textContent = 'Applied ' + firstName + ' first and ' + secondName +
+          ' second. The final output is ' + finalValue + '.';
+      }
+    }
+
+    [['f-then-g', 'Apply f, then g'], ['g-then-f', 'Apply g, then f']].forEach(([name, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { order = name; refresh(true); },
+      }, label);
+      orderButtons[name] = button;
+      orderRow.append(button);
+    });
+    const slider = node('input', {
+      type: 'range', min: authored.xMin, max: authored.xMax, step: 1, value: x,
+      'aria-label': 'Input x', oninput: event => { x = Number(event.target.value); refresh(false); },
+    });
+    const sliderLabel = node('label', { class: 'model-slider' },
+      node('span', { class: 'model-slider-title' }, 'Choose the input'), slider,
+      node('span', { class: 'model-slider-ends' },
+        node('span', {}, String(authored.xMin)), node('span', {}, String(authored.xMax))));
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        x = authored.startX;
+        order = 'f-then-g';
+        refresh(false);
+        frame.status.textContent = 'The input and function order are back to their authored starting values.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('function-composition-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(orderRow, sliderLabel, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const CARDIOPULMONARY_ROUTE = [
+    {
+      name: 'Venae cavae to right atrium', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'Systemic veins return blood from the body to the right atrium.',
+    },
+    {
+      name: 'Right ventricle', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'The right ventricle receives that blood and pumps it toward the lungs.',
+    },
+    {
+      name: 'Pulmonary artery', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'The pulmonary artery carries blood away from the heart to the lungs.',
+    },
+    {
+      name: 'Lung capillaries', state: 'Oxygen level rises', className: 'is-changing',
+      detail: 'Oxygen diffuses from alveolar air into blood down a partial-pressure gradient.',
+    },
+    {
+      name: 'Pulmonary veins', state: 'Higher-oxygen blood', className: 'is-higher',
+      detail: 'Pulmonary veins carry blood from the lungs toward the left atrium.',
+    },
+    {
+      name: 'Left atrium', state: 'Higher-oxygen blood', className: 'is-higher',
+      detail: 'The left atrium receives the pulmonary venous return.',
+    },
+    {
+      name: 'Left ventricle', state: 'Higher-oxygen blood', className: 'is-higher',
+      detail: 'The left ventricle pumps blood into the systemic circulation.',
+    },
+    {
+      name: 'Aorta and body capillaries', state: 'Oxygen is delivered', className: 'is-changing',
+      detail: 'The aorta distributes blood; at tissue capillaries, oxygen moves into tissues.',
+    },
+    {
+      name: 'Systemic veins', state: 'Lower-oxygen blood', className: 'is-lower',
+      detail: 'Systemic veins collect the return flow and lead back to the venae cavae.',
+    },
+  ];
+
+  const CARDIOPULMONARY_GEOMETRY = [
+    { d: 'M646 306 C574 365 438 365 365 248', x: 520, y: 354, short: 'Vena cava → right atrium' },
+    { d: 'M365 248 C355 274 354 302 373 326', x: 354, y: 290, short: 'Right ventricle' },
+    { d: 'M373 326 C303 293 285 214 332 151', x: 300, y: 236, short: 'Pulmonary artery' },
+    { d: 'M332 151 C343 82 385 61 400 115 C415 61 457 82 468 151', x: 400, y: 76, short: 'Lung capillaries' },
+    { d: 'M468 151 C515 214 497 293 427 248', x: 500, y: 216, short: 'Pulmonary veins' },
+    { d: 'M427 248 C446 270 446 294 427 326', x: 446, y: 286, short: 'Left atrium' },
+    { d: 'M427 326 C493 349 571 334 629 270', x: 526, y: 342, short: 'Left ventricle' },
+    { d: 'M629 270 C665 233 683 225 686 250', x: 659, y: 238, short: 'Aorta → body capillaries' },
+    { d: 'M686 250 C689 278 675 292 646 306', x: 694, y: 287, short: 'Systemic veins' },
+  ];
+
+  function renderCirculationRoute(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredStep = Math.round(clampNumber(props.start_step, 0, CARDIOPULMONARY_ROUTE.length - 1, 0));
+    const authoredOxygen = props.show_oxygenation !== false;
+    let step = authoredStep;
+    let showOxygen = authoredOxygen;
+    const markerId = 'circulation-arrow-' + nextModelId;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 800 430', class: 'science-diagram circulation-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const route = node('ol', {
+      class: 'circulation-route', 'aria-label': 'Cardiopulmonary circulation route in order',
+    });
+
+    function refresh(announce) {
+      picture.replaceChildren();
+      const defs = svgNode('defs');
+      const marker = svgNode('marker', {
+        id: markerId, viewBox: '0 0 10 10', refX: 8, refY: 5,
+        markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse',
+      });
+      marker.append(svgNode('path', { d: 'M0 0 L10 5 L0 10 Z', class: 'science-arrowhead' }));
+      defs.append(marker);
+      picture.append(defs, svgNode('rect', {
+        x: 10, y: 10, width: 780, height: 410, rx: 20, class: 'science-diagram-field',
+      }));
+      const lungs = svgNode('g', { class: 'circulation-organ is-lungs' });
+      lungs.append(
+        svgNode('path', { d: 'M390 69 C356 47 316 74 310 133 C306 172 326 193 365 178 C385 170 393 144 393 108 Z' }),
+        svgNode('path', { d: 'M410 69 C444 47 484 74 490 133 C494 172 474 193 435 178 C415 170 407 144 407 108 Z' }),
+        svgNode('path', { d: 'M400 47 V112 M400 84 L365 107 M400 84 L435 107', class: 'circulation-airway' }),
+      );
+      const heart = svgNode('g', { class: 'circulation-heart' });
+      heart.append(svgNode('path', {
+        d: 'M400 228 C369 202 326 219 330 267 C334 315 370 349 400 374 C430 349 466 315 470 267 C474 219 431 202 400 228 Z',
+        class: 'circulation-heart-outline',
+      }), svgNode('path', { d: 'M400 230 V357 M343 275 H457', class: 'circulation-heart-septum' }),
+      svgText('RA', { x: 370, y: 265, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+      svgText('LA', { x: 430, y: 265, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+      svgText('RV', { x: 370, y: 316, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+      svgText('LV', { x: 430, y: 316, class: 'science-diagram-label', 'text-anchor': 'middle' }));
+      const tissues = svgNode('g', { class: 'circulation-tissues' });
+      tissues.append(svgNode('rect', { x: 628, y: 180, width: 118, height: 145, rx: 50 }),
+        ...[[658, 217], [700, 211], [675, 255], [716, 272], [656, 292]].map(([cx, cy]) =>
+          svgNode('circle', { cx, cy, r: 12 })),
+        svgText('BODY TISSUES', { x: 687, y: 345, class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      picture.append(lungs, heart, tissues,
+        svgText('LUNGS · GAS EXCHANGE', { x: 400, y: 34, class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      CARDIOPULMONARY_GEOMETRY.forEach((geometry, index) => {
+        const stateClass = CARDIOPULMONARY_ROUTE[index].className;
+        picture.append(svgNode('path', {
+          d: geometry.d,
+          class: 'circulation-vessel ' + (showOxygen ? stateClass + ' ' : 'is-neutral ') +
+            (index === step ? 'is-current' : ''),
+          'marker-end': 'url(#' + markerId + ')',
+        }));
+        picture.append(svgNode('circle', {
+          cx: geometry.x, cy: geometry.y, r: index === step ? 17 : 13,
+          class: 'circulation-station-marker ' + (index === step ? 'is-current' : ''),
+        }), svgText(String(index + 1), {
+          x: geometry.x, y: geometry.y + 5, class: 'circulation-station-number', 'text-anchor': 'middle',
+        }));
+      });
+      const activeGeometry = CARDIOPULMONARY_GEOMETRY[step];
+      picture.append(svgNode('rect', { x: 28, y: 28, width: 244, height: 58, rx: 12, class: 'science-inset-panel' }),
+        svgText('STEP ' + (step + 1) + ' OF ' + CARDIOPULMONARY_ROUTE.length, {
+          x: 46, y: 51, class: 'science-diagram-kicker',
+        }), svgText(activeGeometry.short, { x: 46, y: 73, class: 'science-diagram-label' }),
+        svgText(showOxygen ? 'dashed = lower O₂ · double = higher O₂ · dotted = exchange' :
+          'oxygen overlay hidden · direction remains visible', {
+          x: 400, y: 405, class: 'science-diagram-note', 'text-anchor': 'middle',
+        }));
+      route.replaceChildren();
+      CARDIOPULMONARY_ROUTE.forEach((station, index) => {
+        const current = index === step;
+        route.append(node('li', {
+          class: 'circulation-station ' + (showOxygen ? station.className + ' ' : '') +
+            (current ? 'is-current' : ''),
+          'aria-current': current ? 'step' : null,
+        }, node('button', {
+          type: 'button', class: 'circulation-station-button', 'aria-pressed': current ? 'true' : 'false',
+          'aria-label': 'Step ' + (index + 1) + ': ' + station.name + '. ' + station.state,
+          onclick: () => { step = index; refresh(true); },
+        }, node('span', { class: 'circulation-step-number', 'aria-hidden': 'true' }, String(index + 1)),
+        node('span', { class: 'circulation-station-copy' },
+          node('strong', { 'data-model-speak': true }, CARDIOPULMONARY_GEOMETRY[index].short),
+          showOxygen ? node('small', {}, station.state) : null))));
+      });
+      oxygenButton.setAttribute('aria-pressed', showOxygen ? 'true' : 'false');
+      oxygenButton.textContent = showOxygen ? 'Hide diagram oxygen cues' : 'Show diagram oxygen cues';
+      const station = CARDIOPULMONARY_ROUTE[step];
+      const next = CARDIOPULMONARY_ROUTE[(step + 1) % CARDIOPULMONARY_ROUTE.length];
+      frame.readout.textContent = 'Step ' + (step + 1) + ' of ' + CARDIOPULMONARY_ROUTE.length + ': ' +
+        station.name + '. ' + station.state + '. ' + station.detail + ' Next: ' + next.name +
+        '. This schematic route follows one complete circuit. Arteries carry blood away from the heart and veins carry ' +
+        'blood toward it, regardless of oxygen level.';
+      if (announce) frame.status.textContent = 'Now tracing ' + station.name + '. ' + station.detail;
+    }
+
+    const backButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = (step + CARDIOPULMONARY_ROUTE.length - 1) % CARDIOPULMONARY_ROUTE.length;
+        refresh(true);
+      },
+    }, 'Previous stop');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const completed = step === CARDIOPULMONARY_ROUTE.length - 1;
+        step = (step + 1) % CARDIOPULMONARY_ROUTE.length;
+        refresh(false);
+        frame.status.textContent = completed
+          ? 'The circuit is complete and continues at the right side of the heart.'
+          : 'Now tracing ' + CARDIOPULMONARY_ROUTE[step].name + '. ' + CARDIOPULMONARY_ROUTE[step].detail;
+      },
+    }, 'Next stop');
+    const oxygenButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': String(showOxygen), onclick: () => {
+        showOxygen = !showOxygen;
+        refresh(false);
+        frame.status.textContent = showOxygen
+          ? 'Diagram oxygen cues are shown with words and border patterns.'
+          : 'Diagram oxygen cues are hidden; the full state remains in the text readout.';
+      },
+    }, 'Hide diagram oxygen cues');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = authoredStep;
+        showOxygen = authoredOxygen;
+        refresh(false);
+        frame.status.textContent = 'The route is back to its authored starting stop.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('circulation-route-canvas');
+    frame.canvas.append(node('div', { class: 'science-diagram-scroll' }, picture), route);
+    frame.controls.append(node('div', { class: 'model-button-row' },
+      backButton, nextButton, oxygenButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const ALLELE_CROSSES = {
+    heterozygous: { label: 'Pp × Pp', first: 'Pp', second: 'Pp' },
+    'test-cross': { label: 'Pp × pp', first: 'Pp', second: 'pp' },
+    'pure-lines': { label: 'PP × pp', first: 'PP', second: 'pp' },
+  };
+
+  function renderAlleleSegregation(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredCross = ALLELE_CROSSES[props.start_cross] ? props.start_cross : 'heterozygous';
+    let selectedCross = authoredCross;
+    let stage = 0;
+    const markerId = 'allele-flow-arrow-' + nextModelId;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 820 510', class: 'science-diagram allele-segregation-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const summary = node('p', { class: 'allele-cross-summary', 'data-model-speak': true });
+    const caveat = node('p', { class: 'biology-model-caveat' },
+      'Teaching boundary: one autosomal locus with complete dominance. Expected ratios describe many independent offspring; they do not promise the outcome of a small family, and most traits are influenced by many genes and environment.');
+    const crossButtons = {};
+    const crossRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Choose a pea-flower cross' });
+
+    function genotype(first, second) {
+      if (first === second) return first + second;
+      return first === first.toUpperCase() ? first + second : second + first;
+    }
+
+    function countLabels(values, order) {
+      const counts = {};
+      values.forEach(value => { counts[value] = (counts[value] || 0) + 1; });
+      return order.filter(value => counts[value]).map(value => counts[value] + '/4 ' + value).join(' · ');
+    }
+
+    function parentGraphic(group, x, title, genes) {
+      group.append(svgNode('rect', { x: x - 92, y: 45, width: 184, height: 120, rx: 18,
+        class: 'science-inset-panel' }),
+      svgText(title, { x, y: 69, class: 'science-diagram-kicker', 'text-anchor': 'middle' }),
+      svgText(genes, { x, y: 91, class: 'science-diagram-label', 'text-anchor': 'middle' }));
+      genes.split('').forEach((allele, index) => {
+        const chromosomeX = x - 35 + index * 70;
+        group.append(svgNode('path', {
+          d: 'M' + (chromosomeX - 13) + ' 105 L' + (chromosomeX + 13) + ' 147 M' +
+            (chromosomeX + 13) + ' 105 L' + (chromosomeX - 13) + ' 147',
+          class: 'allele-chromosome ' + (allele === allele.toUpperCase() ? 'is-dominant' : 'is-recessive'),
+        }), svgNode('circle', { cx: chromosomeX, cy: 126, r: 13,
+          class: 'allele-locus ' + (allele === allele.toUpperCase() ? 'is-dominant' : 'is-recessive') }),
+        svgText(allele, { x: chromosomeX, y: 131, class: 'allele-symbol', 'text-anchor': 'middle' }));
+      });
+    }
+
+    function refresh(announce) {
+      const cross = ALLELE_CROSSES[selectedCross];
+      const firstGametes = cross.first.split('');
+      const secondGametes = cross.second.split('');
+      const offspring = [
+        genotype(firstGametes[0], secondGametes[0]), genotype(firstGametes[1], secondGametes[0]),
+        genotype(firstGametes[0], secondGametes[1]), genotype(firstGametes[1], secondGametes[1]),
+      ];
+      const purple = offspring.filter(value => value.includes('P')).length;
+      const white = offspring.length - purple;
+      const genotypeRatio = countLabels(offspring, ['PP', 'Pp', 'pp']);
+      picture.replaceChildren();
+      const defs = svgNode('defs');
+      const marker = svgNode('marker', { id: markerId, viewBox: '0 0 10 10', refX: 8, refY: 5,
+        markerWidth: 7, markerHeight: 7, orient: 'auto-start-reverse' });
+      marker.append(svgNode('path', { d: 'M0 0 L10 5 L0 10 Z', class: 'science-arrowhead' }));
+      defs.append(marker);
+      picture.append(defs, svgNode('rect', { x: 10, y: 10, width: 800, height: 490, rx: 20,
+        class: 'science-diagram-field' }));
+      const parents = svgNode('g');
+      parentGraphic(parents, 240, 'PARENT 1 · HOMOLOGOUS PAIR', cross.first);
+      parentGraphic(parents, 580, 'PARENT 2 · HOMOLOGOUS PAIR', cross.second);
+      picture.append(parents, svgText('Each gamete receives one allele when homologs separate.', {
+        x: 410, y: 191, class: 'science-diagram-note', 'text-anchor': 'middle',
+      }));
+      if (stage >= 1) {
+        const gametes = [[280, firstGametes[0]], [360, firstGametes[1]],
+          [460, secondGametes[0]], [540, secondGametes[1]]];
+        picture.append(svgNode('line', { x1: 240, y1: 165, x2: 280, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }),
+        svgNode('line', { x1: 240, y1: 165, x2: 360, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }),
+        svgNode('line', { x1: 580, y1: 165, x2: 460, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }),
+        svgNode('line', { x1: 580, y1: 165, x2: 540, y2: 218,
+          class: 'allele-flow-line', 'marker-end': 'url(#' + markerId + ')' }));
+        gametes.forEach(([x, allele]) => picture.append(svgNode('circle', { cx: x, cy: 244, r: 26,
+          class: 'allele-gamete ' + (allele === allele.toUpperCase() ? 'is-dominant' : 'is-recessive') }),
+        svgText(allele, { x, y: 251, class: 'allele-symbol is-large', 'text-anchor': 'middle' })));
+        picture.append(svgText('gametes from parent 1', { x: 320, y: 285, class: 'science-diagram-small', 'text-anchor': 'middle' }),
+          svgText('gametes from parent 2', { x: 500, y: 285, class: 'science-diagram-small', 'text-anchor': 'middle' }));
+      } else {
+        picture.append(svgText('Choose “Separate alleles” to form gametes.', {
+          x: 410, y: 248, class: 'science-diagram-label', 'text-anchor': 'middle',
+        }));
+      }
+      const gridX = 297;
+      const gridY = 320;
+      picture.append(svgText('2 × 2 PUNNETT SQUARE', { x: 410, y: 312,
+        class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      if (stage >= 2) {
+        firstGametes.forEach((allele, index) => picture.append(svgText(allele, {
+          x: gridX + 80 + index * 92, y: gridY + 26, class: 'allele-symbol is-large', 'text-anchor': 'middle',
+        })));
+        secondGametes.forEach((allele, index) => picture.append(svgText(allele, {
+          x: gridX + 24, y: gridY + 76 + index * 72, class: 'allele-symbol is-large', 'text-anchor': 'middle',
+        })));
+        [[0, 0, offspring[0]], [1, 0, offspring[1]], [0, 1, offspring[2]], [1, 1, offspring[3]]]
+          .forEach(([column, rowIndex, value]) => {
+            const x = gridX + 42 + column * 92;
+            const y = gridY + 39 + rowIndex * 72;
+            picture.append(svgNode('rect', { x, y, width: 92, height: 72,
+              class: 'allele-offspring-cell ' + (value.includes('P') ? 'is-purple' : 'is-white') }),
+            svgText(value, { x: x + 46, y: y + 43, class: 'allele-genotype', 'text-anchor': 'middle' }));
+          });
+        picture.append(svgText('Genotypes: ' + genotypeRatio, { x: 540, y: 379, class: 'science-diagram-label' }),
+          svgText('Phenotypes: ' + purple + '/4 purple · ' + white + '/4 white', {
+            x: 540, y: 411, class: 'science-diagram-label',
+          }), svgText('P is dominant to p in this teaching cross.', {
+            x: 540, y: 443, class: 'science-diagram-note',
+          }));
+      } else {
+        picture.append(svgNode('rect', { x: gridX + 42, y: gridY + 39, width: 184, height: 144, rx: 12,
+          class: 'allele-punnett-placeholder' }),
+        svgText(stage === 0 ? 'gametes first' : 'combine gametes', {
+          x: gridX + 134, y: gridY + 116, class: 'science-diagram-label', 'text-anchor': 'middle',
+        }));
+      }
+      Object.entries(crossButtons).forEach(([name, button]) => {
+        const active = name === selectedCross;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      separateButton.disabled = stage !== 0;
+      combineButton.disabled = stage !== 1;
+      summary.textContent = stage < 2
+        ? cross.label + '. ' + (stage === 0 ? 'Two alleles are paired in each parent.' :
+          'The alleles have separated into gametes; the two copies do not travel together.')
+        : cross.label + ' gives expected genotypes ' + genotypeRatio + ' and phenotypes ' +
+          purple + '/4 purple, ' + white + '/4 white under complete dominance.';
+      frame.readout.textContent = summary.textContent + ' Each square is one equally likely combination of one gamete from each parent. ' +
+        'These are expected probabilities across many independent offspring, not a guaranteed sequence or family result. ' +
+        'This bounded model covers one autosomal pea-flower locus with complete dominance; polygenic, linked, sex-linked and environmentally influenced inheritance can behave differently.';
+      if (announce) frame.status.textContent = stage === 0 ? cross.label + ' selected.' :
+        stage === 1 ? 'Alleles separated: each gamete carries one allele.' :
+          'Gametes combined into four equally likely Punnett-square cells.';
+    }
+
+    Object.entries(ALLELE_CROSSES).forEach(([name, cross]) => {
+      const button = node('button', { type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selectedCross = name; stage = 0; refresh(true); } }, cross.label);
+      crossButtons[name] = button;
+      crossRow.append(button);
+    });
+    const separateButton = node('button', { type: 'button', class: 'btn small', onclick: () => {
+      stage = 1; refresh(true);
+    } }, 'Separate alleles');
+    const combineButton = node('button', { type: 'button', class: 'btn small', onclick: () => {
+      stage = 2; refresh(true);
+    } }, 'Combine gametes');
+    const resetButton = node('button', { type: 'button', class: 'btn ghost small', onclick: () => {
+      selectedCross = authoredCross;
+      stage = 0;
+      refresh(false);
+      frame.status.textContent = 'The authored cross and paired parental alleles are restored.';
+    } }, 'Reset');
+    frame.canvas.classList.add('allele-segregation-canvas');
+    frame.canvas.append(node('div', { class: 'science-diagram-scroll' }, picture), summary, caveat);
+    frame.controls.append(crossRow, node('div', { class: 'model-button-row' },
+      separateButton, combineButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const TRUTH_OPERATORS = {
+    and: { label: 'AND', apply: (p, q) => p && q,
+      rule: 'AND is true only when both propositions are true.' },
+    or: { label: 'OR', apply: (p, q) => p || q,
+      rule: 'Inclusive OR is true when at least one proposition is true.' },
+    implies: { label: 'IMPLIES', apply: (p, q) => !p || q,
+      rule: 'Material implication is false only when the first proposition is true and the second is false.' },
+  };
+
+  function renderTruthTable(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      operator: TRUTH_OPERATORS[props.start_operator] ? props.start_operator : 'implies',
+      p: props.start_p !== false,
+      q: props.start_q === true,
+    };
+    let operator = authored.operator;
+    let p = authored.p;
+    let q = authored.q;
+    const table = node('table', { class: 'truth-table' });
+    const operatorButtons = {};
+    const operatorRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose a logical operator',
+    });
+
+    function truth(value) { return value ? 'True' : 'False'; }
+    function refresh(announce) {
+      const detail = TRUTH_OPERATORS[operator];
+      table.replaceChildren(
+        node('caption', {}, detail.label + ' truth table'),
+        node('thead', {}, node('tr', {},
+          node('th', { scope: 'col' }, 'P'), node('th', { scope: 'col' }, 'Q'),
+          node('th', { scope: 'col' }, detail.label))),
+        node('tbody', {}, ...[[true, true], [true, false], [false, true], [false, false]].map(([rowP, rowQ]) => {
+          const current = rowP === p && rowQ === q;
+          return node('tr', { class: current ? 'is-current' : '', 'aria-current': current ? 'true' : null },
+            node('td', {}, truth(rowP)), node('td', {}, truth(rowQ)),
+            node('td', { class: detail.apply(rowP, rowQ) ? 'is-true' : 'is-false' },
+              truth(detail.apply(rowP, rowQ))));
+        })),
+      );
+      Object.entries(operatorButtons).forEach(([name, button]) => {
+        const active = name === operator;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      pButton.setAttribute('aria-pressed', p ? 'true' : 'false');
+      pButton.textContent = 'P is ' + truth(p);
+      qButton.setAttribute('aria-pressed', q ? 'true' : 'false');
+      qButton.textContent = 'Q is ' + truth(q);
+      const result = detail.apply(p, q);
+      frame.readout.textContent = 'P is ' + truth(p) + '; Q is ' + truth(q) + '. P ' + detail.label +
+        ' Q is ' + truth(result) + '. ' + detail.rule +
+        ' A truth table checks every possible truth-value pair; it does not decide whether P or Q is factually true.';
+      if (announce) frame.status.textContent = 'The highlighted row now evaluates to ' + truth(result) + '.';
+    }
+
+    Object.entries(TRUTH_OPERATORS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { operator = name; refresh(true); },
+      }, detail.label);
+      operatorButtons[name] = button;
+      operatorRow.append(button);
+    });
+    const pButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': String(p), onclick: () => {
+        p = !p;
+        refresh(true);
+      },
+    }, 'P is ' + truth(p));
+    const qButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': String(q), onclick: () => {
+        q = !q;
+        refresh(true);
+      },
+    }, 'Q is ' + truth(q));
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        operator = authored.operator;
+        p = authored.p;
+        q = authored.q;
+        refresh(false);
+        frame.status.textContent = 'The operator and proposition values are back to their authored settings.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('truth-table-canvas');
+    frame.canvas.append(table);
+    frame.controls.append(operatorRow, node('div', { class: 'model-button-row' }, pButton, qButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const STRUCTURE_SHAPES = ['is-square', 'is-circle', 'is-triangle', 'is-diamond', 'is-hexagon'];
+
+  function renderStackQueue(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authored = {
+      mode: props.start_mode === 'queue' ? 'queue' : 'stack',
+      capacity: Math.round(clampNumber(props.capacity, 3, 8, 6)),
+      count: Math.round(clampNumber(props.initial_count, 0, 8, 3)),
+    };
+    authored.count = Math.min(authored.capacity, authored.count);
+    let mode = authored.mode;
+    let nextSerial = authored.count + 1;
+    let items = Array.from({ length: authored.count }, (_, index) => makeItem(index + 1));
+    let lastAction = 'No operation yet.';
+    const scene = node('div', { class: 'stack-queue-scene', 'aria-hidden': 'true' });
+    const modeButtons = {};
+    const modeRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose a data structure',
+    });
+
+    function makeItem(serial) {
+      return {
+        serial,
+        label: 'item ' + serial,
+        symbol: String.fromCharCode(65 + ((serial - 1) % 26)),
+        shape: STRUCTURE_SHAPES[(serial - 1) % STRUCTURE_SHAPES.length],
+      };
+    }
+    function refresh(announce) {
+      const nextRemoval = items.length ? (mode === 'stack' ? items[items.length - 1] : items[0]) : null;
+      scene.className = 'stack-queue-scene is-' + mode;
+      scene.replaceChildren(
+        node('span', { class: 'structure-marker is-remove' }, mode === 'stack' ? 'remove top' : 'remove front'),
+        node('div', { class: 'structure-track' }, ...items.map(entry =>
+          node('span', { class: 'structure-token ' + entry.shape }, entry.symbol))),
+        node('span', { class: 'structure-marker is-add' }, mode === 'stack' ? 'add at top' : 'add at rear'),
+      );
+      Object.entries(modeButtons).forEach(([name, button]) => {
+        const active = name === mode;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      addButton.disabled = items.length >= authored.capacity;
+      removeButton.disabled = items.length === 0;
+      const orderText = items.length ? items.map(entry => entry.label).join(', ') : 'empty';
+      const rule = mode === 'stack'
+        ? 'A stack is last-in, first-out: add and remove at the top.'
+        : 'A queue is first-in, first-out: add at the rear and remove at the front.';
+      frame.readout.textContent = (mode === 'stack' ? 'Stack' : 'Queue') + ' · ' + items.length + ' of ' +
+        authored.capacity + ' places used · oldest-to-newest order: ' + orderText + '. ' + rule +
+        (nextRemoval ? ' Next removal: ' + nextRemoval.label + '. ' : ' There is nothing to remove. ') + lastAction;
+      if (announce) frame.status.textContent = lastAction;
+    }
+
+    [['stack', 'Stack'], ['queue', 'Queue']].forEach(([name, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false', onclick: () => {
+          mode = name;
+          lastAction = 'The same items remain in order; insertion and removal now follow the ' +
+            label.toLowerCase() + ' rule.';
+          refresh(true);
+        },
+      }, label);
+      modeButtons[name] = button;
+      modeRow.append(button);
+    });
+    const addButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const added = makeItem(nextSerial);
+        nextSerial += 1;
+        items.push(added);
+        lastAction = (mode === 'stack' ? 'Pushed ' : 'Enqueued ') + added.label +
+          (mode === 'stack' ? ' at the top.' : ' at the rear.');
+        refresh(true);
+      },
+    }, 'Add item');
+    const removeButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const removed = mode === 'stack' ? items.pop() : items.shift();
+        lastAction = (mode === 'stack' ? 'Popped ' : 'Dequeued ') + removed.label +
+          (mode === 'stack' ? ', the newest item.' : ', the oldest item.');
+        refresh(true);
+      },
+    }, 'Remove next');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        mode = authored.mode;
+        nextSerial = authored.count + 1;
+        items = Array.from({ length: authored.count }, (_, index) => makeItem(index + 1));
+        lastAction = 'No operation yet.';
+        refresh(false);
+        frame.status.textContent = 'The structure is back to its authored items and mode.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('stack-queue-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(modeRow, node('div', { class: 'model-button-row' }, addButton, removeButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const MATRIX_TRANSFORMS = {
+    identity: {
+      label: 'Identity', matrix: [[1, 0], [0, 1]], determinant: 1,
+    },
+    'x-stretch': {
+      label: 'Stretch x by 2', matrix: [[2, 0], [0, 1]], determinant: 2,
+    },
+    'x-shear': {
+      label: 'Shear x by y', matrix: [[1, 1], [0, 1]], determinant: 1,
+    },
+    'y-reflection': {
+      label: 'Reflect across x-axis', matrix: [[1, 0], [0, -1]], determinant: -1,
+    },
+    'x-projection': {
+      label: 'Project onto x-axis', matrix: [[1, 0], [0, 0]], determinant: 0,
+    },
+  };
+
+  function renderMatrixTransform(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredTransform = MATRIX_TRANSFORMS[props.start_transform] ? props.start_transform : 'x-shear';
+    let selected = authoredTransform;
+    const eigenspace = window.PrimerMathEigenspace?.create();
+    let gridExtent = 2;
+    const original = svgNode('svg', {
+      viewBox: '0 0 300 280', class: 'matrix-grid', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const transformed = svgNode('svg', {
+      viewBox: '0 0 300 280', class: 'matrix-grid', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const transformButtons = {};
+    const transformRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose a matrix transformation',
+    });
+
+    function applyMatrix(matrix, point) {
+      return [
+        matrix[0][0] * point[0] + matrix[0][1] * point[1],
+        matrix[1][0] * point[0] + matrix[1][1] * point[1],
+      ];
+    }
+    function drawGrid(svg, matrix) {
+      svg.replaceChildren();
+      const scale = 116 / gridExtent;
+      const map = point => [150 + point[0] * scale, 140 - point[1] * scale];
+      const segment = (from, to, className) => {
+        const start = map(applyMatrix(matrix, from));
+        const end = map(applyMatrix(matrix, to));
+        svg.append(svgNode('line', {
+          x1: start[0], y1: start[1], x2: end[0], y2: end[1], class: className,
+        }));
+      };
+      const arrow = (point, className) => {
+        const start = map([0, 0]);
+        const end = map(applyMatrix(matrix, point));
+        svg.append(svgNode('line', {
+          x1: start[0], y1: start[1], x2: end[0], y2: end[1], class: className,
+        }));
+        svg.append(svgNode('circle', { cx: end[0], cy: end[1], r: 5, class: className + '-tip' }));
+      };
+      svg.append(svgNode('rect', { x: 8, y: 8, width: 284, height: 264, rx: 14, class: 'matrix-grid-field' }));
+      // Both panels keep the same Cartesian scale; all transformed corners fit.
+      // The stronger axis lines below are the images of the original grid axes.
+      svg.append(svgNode('line', { x1: 28, y1: 140, x2: 272, y2: 140, stroke: '#aaa', 'stroke-dasharray': '3 4' }),
+        svgNode('line', { x1: 150, y1: 18, x2: 150, y2: 260, stroke: '#aaa', 'stroke-dasharray': '3 4' }));
+      [-gridExtent, 0, gridExtent].forEach(value => {
+        const [x] = map([value, 0]), [, y] = map([0, value]);
+        svg.append(svgText(String(value), { x, y: 269, 'text-anchor': 'middle', fill: 'currentColor', 'font-size': 12 }),
+          svgText(String(value), { x: 20, y: y + 4, 'text-anchor': 'middle', fill: 'currentColor', 'font-size': 12 }));
+      });
+      for (let grid = -2; grid <= 2; grid += 1) {
+        segment([grid, -2], [grid, 2], grid === 0 ? 'matrix-axis-line' : 'matrix-grid-line');
+        segment([-2, grid], [2, grid], grid === 0 ? 'matrix-axis-line' : 'matrix-grid-line');
+      }
+      const square = [[0, 0], [1, 0], [1, 1], [0, 1]].map(point => {
+        const mapped = map(applyMatrix(matrix, point));
+        return mapped[0] + ',' + mapped[1];
+      }).join(' ');
+      svg.append(svgNode('polygon', { points: square, class: 'matrix-unit-square' }));
+      arrow([1, 0], 'matrix-basis-one');
+      arrow([0, 1], 'matrix-basis-two');
+      arrow([1, 1], 'matrix-vector-v');
+    }
+    function formatMatrix(matrix) {
+      return '[[' + matrix[0].join(', ') + '], [' + matrix[1].join(', ') + ']]';
+    }
+    function formatVector(vector) {
+      return '(' + vector.join(', ') + ')';
+    }
+    function refresh(announce) {
+      const detail = MATRIX_TRANSFORMS[selected];
+      eigenspace?.setMatrix(detail.matrix, detail.label);
+      const corners = [[-2, -2], [-2, 2], [2, -2], [2, 2]];
+      gridExtent = Math.max(2, ...corners.flatMap(p => applyMatrix(detail.matrix, p).map(Math.abs)));
+      const image = applyMatrix(detail.matrix, [1, 1]);
+      drawGrid(original, MATRIX_TRANSFORMS.identity.matrix);
+      drawGrid(transformed, detail.matrix);
+      Object.entries(transformButtons).forEach(([name, button]) => {
+        const active = name === selected;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const invertibility = detail.determinant === 0
+        ? 'The plane collapses to a line, so the map is not invertible.'
+        : 'The determinant is nonzero, so the map is invertible.';
+      const orientation = detail.determinant < 0
+        ? 'The negative sign reverses orientation. '
+        : detail.determinant > 0 ? 'Orientation is preserved. ' : '';
+      frame.readout.textContent = 'A = ' + formatMatrix(detail.matrix) + '. v = (1, 1) maps to Av = ' +
+        formatVector(image) + '. det(A) = ' + detail.determinant + ', so signed area is multiplied by ' +
+        detail.determinant + ' and ordinary area by ' + Math.abs(detail.determinant) + '. ' + orientation + invertibility +
+        ' The two grid panels share the same coordinate scale, from −' + gridExtent + ' to ' + gridExtent +
+        ' on each axis. Pale dashed axes are the fixed Cartesian reference; strong axes belong to the original grid and its image.';
+      if (announce) frame.status.textContent = detail.label + ' selected. ' + invertibility;
+    }
+
+    Object.entries(MATRIX_TRANSFORMS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selected = name; refresh(true); },
+      }, detail.label);
+      transformButtons[name] = button;
+      transformRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = authoredTransform;
+        eigenspace?.reset();
+        refresh(false);
+        frame.status.textContent = 'The matrix is back to the authored starting transform.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('matrix-transform-canvas');
+    frame.canvas.append(node('div', { class: 'matrix-transform-scene' },
+      node('div', { class: 'matrix-panel' }, node('strong', { 'data-model-speak': true }, 'Original plane'), original),
+      node('span', { class: 'matrix-map-arrow', 'aria-hidden': 'true' }, '→'),
+      node('div', { class: 'matrix-panel' }, node('strong', { 'data-model-speak': true }, 'Transformed plane'), transformed)));
+    if (eigenspace) frame.canvas.append(eigenspace.element);
+    frame.controls.append(transformRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const VENTURI_THROATS = {
+    'full-area': { label: 'Full area', area: 4, ratio: 1, speed: 1, drop: 0 },
+    'half-area': { label: 'Half area', area: 2, ratio: 0.5, speed: 2, drop: 1.5 },
+    'quarter-area': { label: 'Quarter area', area: 1, ratio: 0.25, speed: 4, drop: 7.5 },
+  };
+
+  function renderVenturiFlow(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredThroat = VENTURI_THROATS[props.start_throat] ? props.start_throat : 'half-area';
+    let selected = authoredThroat;
+    const diagram = svgNode('svg', {
+      viewBox: '0 0 640 270', class: 'venturi-diagram science-diagram', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const throatButtons = {};
+    const throatRow = node('div', {
+      class: 'model-option-row', role: 'group', 'aria-label': 'Choose the throat cross-sectional area',
+    });
+    const metrics = node('div', { class: 'venturi-metrics' });
+
+    function drawVenturi(detail) {
+      diagram.replaceChildren();
+      const center = 202;
+      const wideHalf = 40;
+      const throatHalf = wideHalf * Math.sqrt(detail.ratio);
+      const top = 'M48,' + (center - wideHalf) + ' L206,' + (center - wideHalf) +
+        ' L276,' + (center - throatHalf) + ' L364,' + (center - throatHalf) +
+        ' L434,' + (center - wideHalf) + ' L592,' + (center - wideHalf);
+      const bottom = 'M48,' + (center + wideHalf) + ' L206,' + (center + wideHalf) +
+        ' L276,' + (center + throatHalf) + ' L364,' + (center + throatHalf) +
+        ' L434,' + (center + wideHalf) + ' L592,' + (center + wideHalf);
+      const fluid = top + ' L592,' + (center + wideHalf) + ' L434,' + (center + wideHalf) +
+        ' L364,' + (center + throatHalf) + ' L276,' + (center + throatHalf) +
+        ' L206,' + (center + wideHalf) + ' L48,' + (center + wideHalf) + ' Z';
+      diagram.append(svgNode('path', { d: fluid, class: 'venturi-fluid' }));
+      diagram.append(svgNode('path', { d: top, class: 'venturi-wall' }));
+      diagram.append(svgNode('path', { d: bottom, class: 'venturi-wall' }));
+      [[112, 20], [320, 20 * detail.speed], [490, 20]].forEach(([x, length], index) => {
+        diagram.append(svgNode('line', {
+          x1: x - length / 2, y1: center, x2: x + length / 2, y2: center,
+          class: index === 1 ? 'venturi-flow-arrow is-throat' : 'venturi-flow-arrow',
+          'data-venturi-speed': index === 1 ? 'throat' : index === 0 ? 'inlet' : 'outlet',
+        }));
+        diagram.append(svgNode('polygon', {
+          points: (x + length / 2) + ',' + center + ' ' + (x + length / 2 - 10) + ',' +
+            (center - 6) + ' ' + (x + length / 2 - 10) + ',' + (center + 6),
+          class: index === 1 ? 'venturi-arrowhead is-throat' : 'venturi-arrowhead',
+        }));
+      });
+      // Open standpipes have h=P_g/(ρg), measured above the same centreline
+      // datum. The head panel uses one common metres scale; the pipe below is
+      // magnified separately so millimetre radii remain visible.
+      const headBase = 128, headScale = 60;
+      [[120, 16.5, center - wideHalf], [320, 16.5 - detail.drop, center - throatHalf],
+        [520, 16.5, center - wideHalf]].forEach(([x, pressure, tubeTop], index) => {
+        const head = pressure / 9.81;
+        const y = headBase - headScale * head;
+        diagram.append(svgNode('line', { x1: x, y1: tubeTop, x2: x, y2: 20, class: 'venturi-tap' }));
+        diagram.append(svgNode('line', {
+          x1: x, y1: headBase, x2: x, y2: y, class: index === 1 ? 'venturi-column is-throat' : 'venturi-column',
+          'data-venturi-head': index === 1 ? 'throat' : index === 0 ? 'inlet' : 'outlet',
+        }));
+        diagram.append(svgNode('circle', {
+          cx: x, cy: y, r: 5, class: index === 1 ? 'venturi-column-cap is-throat' : 'venturi-column-cap',
+        }));
+        diagram.append(svgText(head.toFixed(3) + ' m', { x: x + 12, y: y + 4,
+          fill: 'currentColor', 'font-size': 15 }));
+        diagram.append(svgNode('path', { d: 'M' + (x - 5) + ',149 L' + (x + 5) + ',143',
+          stroke: 'currentColor', 'stroke-width': 2, fill: 'none' }));
+      });
+      diagram.append(svgNode('line', { x1: 74, y1: headBase, x2: 580, y2: headBase,
+        stroke: 'currentColor', 'stroke-dasharray': '3 4', 'stroke-width': 1 }),
+        svgText('head 0 m', { x: 16, y: headBase + 5, fill: 'currentColor', 'font-size': 13 }),
+        svgText('Circular radius ∝ √area; common speed-arrow scale', {
+          x: 48, y: 262, fill: 'currentColor', 'font-size': 15 }));
+    }
+    function metric(label, value) {
+      return node('div', { class: 'venturi-metric' }, node('small', {}, label), node('strong', {}, value));
+    }
+    function refresh(announce) {
+      const detail = VENTURI_THROATS[selected];
+      drawVenturi(detail);
+      Object.entries(throatButtons).forEach(([name, button]) => {
+        const active = name === selected;
+        button.classList.toggle('is-selected', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      metrics.replaceChildren(
+        metric('Wide section', '4 cm² · 1 m/s'),
+        metric('Throat', detail.area + ' cm² · ' + detail.speed + ' m/s'),
+        metric('Ideal pressure drop', detail.drop + ' kPa'),
+      );
+      frame.readout.textContent = 'For this steady, horizontal, incompressible-water model with negligible viscosity and other losses, volume flow rate Q = 400 cm³/s. Continuity gives v = Q/A: the 4 cm² wide section moves at 1 m/s, and the ' +
+        detail.area + ' cm² throat moves at ' + detail.speed + ' m/s. For horizontal ideal water flow, Bernoulli gives a throat pressure drop of ' +
+        detail.drop + ' kPa relative to the wide section. Water density is 1000 kg/m³ and g=9.81 m/s². The inlet gauge pressure is fixed at 16.5 kPa; open standpipe heights h=P_g/(ρg) are ' +
+        (16.5 / 9.81).toFixed(3) + ' m at the inlet/outlet and ' + ((16.5 - detail.drop) / 9.81).toFixed(3) +
+        ' m at the throat. Head heights share a centreline datum and a common scale in the upper panel; the circular-pipe radius uses a separate magnified scale below the marked breaks. Real viscous flow loses energy, so downstream pressure recovery is not perfect.';
+      if (announce) frame.status.textContent = detail.label + ' selected: throat speed ' + detail.speed +
+        ' m/s and ideal pressure drop ' + detail.drop + ' kPa.';
+    }
+
+    Object.entries(VENTURI_THROATS).forEach(([name, detail]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => { selected = name; refresh(true); },
+      }, detail.label + ' (' + detail.area + ' cm²)');
+      throatButtons[name] = button;
+      throatRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = authoredThroat;
+        refresh(false);
+        frame.status.textContent = 'The throat is back to its authored starting area.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('venturi-flow-canvas');
+    frame.canvas.append(node('div', { class: 'venturi-scene' }, diagram, metrics));
+    frame.controls.append(throatRow, node('div', { class: 'model-button-row' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const GENE_EXPRESSION_STEPS = [
+    'Gene off', 'Gene on', 'Pre-mRNA transcribed', 'RNA processed', 'Mature mRNA exported',
+    'AUG translated: Met', 'GAA translated: Glu', 'UUU translated: Phe', 'UAA read: stop and release',
+  ];
+
+  function renderGeneExpression(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredStage = props.start_gene_state === 'on' ? 1 : 0;
+    let stage = authoredStage;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 820 390', class: 'science-diagram gene-expression-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const progress = node('ol', { class: 'gene-expression-progress', 'aria-label': 'Gene expression stages' });
+    const DNA = '5′-ATG GAA TTT TAA-3′';
+    const RNA = '5′-AUG GAA UUU UAA-3′';
+    const codons = ['AUG', 'GAA', 'UUU', 'UAA'];
+    const aminoAcids = ['Met', 'Glu', 'Phe'];
+
+    function refresh(announce) {
+      const translated = Math.max(0, Math.min(3, stage - 4));
+      const stopRead = stage === 8;
+      progress.replaceChildren(...GENE_EXPRESSION_STEPS.map((label, index) => node('li', {
+        class: index < stage ? 'is-complete' : index === stage ? 'is-current' : '',
+        'aria-current': index === stage ? 'step' : null,
+      }, label)));
+      picture.replaceChildren(svgNode('rect', {
+        x: 10, y: 10, width: 800, height: 370, rx: 20, class: 'science-diagram-field',
+      }), svgNode('path', {
+        d: 'M26 36 H386 Q410 36 410 62 V328 Q410 354 386 354 H26 Z',
+        class: 'gene-nuclear-envelope',
+      }), svgText('NUCLEUS', { x: 46, y: 62, class: 'science-diagram-kicker' }),
+      svgText('CYTOPLASM', { x: 444, y: 62, class: 'science-diagram-kicker' }),
+      svgNode('rect', { x: 398, y: 160, width: 24, height: 70, rx: 10,
+        class: 'gene-nuclear-pore ' + (stage >= 4 ? 'is-active' : '') }),
+      svgText('nuclear pore', { x: 410, y: 247, class: 'science-diagram-note', 'text-anchor': 'middle' }));
+
+      const dna = svgNode('g', { class: 'gene-dna-helix ' + (stage >= 1 ? 'is-active' : '') });
+      dna.append(svgNode('path', { d: 'M62 112 C104 78 147 146 190 112 C233 78 276 146 320 112', class: 'gene-dna-strand' }),
+        svgNode('path', { d: 'M62 112 C104 146 147 78 190 112 C233 146 276 78 320 112', class: 'gene-dna-strand is-template' }));
+      [74, 96, 118, 140, 162, 184, 206, 228, 250, 272, 294, 316].forEach((x, index) => {
+        const offset = Math.sin(index * Math.PI / 2.8) * 17;
+        dna.append(svgNode('line', { x1: x, y1: 112 - offset, x2: x, y2: 112 + offset, class: 'gene-base-pair' }));
+      });
+      dna.append(svgText('coding DNA · ' + DNA, { x: 190, y: 158, class: 'science-diagram-label', 'text-anchor': 'middle' }),
+        svgNode('rect', { x: 128, y: 83, width: 83, height: 58, rx: 8,
+          class: 'gene-active-region ' + (stage >= 1 ? 'is-on' : 'is-off') }),
+        svgText(stage >= 1 ? 'gene on' : 'gene off', { x: 170, y: 78,
+          class: 'science-diagram-badge', 'text-anchor': 'middle' }));
+      picture.append(dna);
+
+      if (stage >= 2 && stage < 4) {
+        picture.append(svgNode('ellipse', { cx: 225, cy: 201, rx: 34, ry: 21, class: 'gene-polymerase' }),
+          svgText('RNA polymerase', { x: 225, y: 205, class: 'science-diagram-small', 'text-anchor': 'middle' }),
+          svgNode('path', { d: 'M248 210 C279 225 299 229 332 246', class: 'gene-rna-line' }));
+        const transcriptLabel = stage === 2 ? 'pre-mRNA · exon — intron — exon' : 'processed RNA · cap — coding region — poly(A)';
+        picture.append(svgText(transcriptLabel, { x: 201, y: 272,
+          class: 'science-diagram-label', 'text-anchor': 'middle' }));
+        if (stage === 2) {
+          picture.append(svgNode('rect', { x: 72, y: 286, width: 78, height: 22, rx: 7, class: 'gene-exon' }),
+            svgNode('rect', { x: 150, y: 286, width: 86, height: 22, rx: 7, class: 'gene-intron' }),
+            svgNode('rect', { x: 236, y: 286, width: 92, height: 22, rx: 7, class: 'gene-exon' }));
+        } else {
+          picture.append(svgNode('circle', { cx: 75, cy: 297, r: 13, class: 'gene-rna-cap' }),
+            svgNode('rect', { x: 88, y: 286, width: 200, height: 22, rx: 7, class: 'gene-exon' }),
+            svgNode('path', { d: 'M288 297 q15 -18 29 0 q14 18 28 0', class: 'gene-polya-tail' }));
+        }
+      }
+
+      if (stage >= 4) {
+        const mRnaY = 210;
+        picture.append(svgNode('path', { d: 'M438 ' + mRnaY + ' H774', class: 'gene-rna-line is-mature' }),
+          svgNode('circle', { cx: 438, cy: mRnaY, r: 12, class: 'gene-rna-cap' }),
+          svgNode('path', { d: 'M774 210 q10 -17 20 0', class: 'gene-polya-tail' }),
+          svgText('mature mRNA · ' + RNA, { x: 606, y: 184,
+            class: 'science-diagram-label', 'text-anchor': 'middle' }));
+        codons.forEach((codon, index) => {
+          const x = 470 + index * 76;
+          picture.append(svgNode('rect', { x, y: 219, width: 64, height: 38, rx: 8,
+            class: 'gene-codon ' + (index < translated || (index === 3 && stopRead) ? 'is-read' : '') }),
+          svgText(codon, { x: x + 32, y: 244, class: 'gene-codon-label', 'text-anchor': 'middle' }));
+        });
+        const ribosomeIndex = Math.min(3, Math.max(0, stage - 5));
+        const ribosomeX = 502 + ribosomeIndex * 76;
+        picture.append(svgNode('ellipse', { cx: ribosomeX, cy: 211, rx: 51, ry: 29,
+          class: 'gene-ribosome ' + (stopRead ? 'is-releasing' : '') }),
+        svgText(stopRead ? 'release' : 'ribosome', { x: ribosomeX, y: 215,
+          class: 'science-diagram-small', 'text-anchor': 'middle' }));
+        for (let index = 0; index < translated; index += 1) {
+          const x = 512 + index * 48;
+          picture.append(svgNode('path', { d: 'M' + x + ' 287 v-34 m-10 0 q10 -18 20 0', class: 'gene-trna' }),
+            svgNode('circle', { cx: x, cy: 302, r: 14, class: 'gene-amino-acid' }),
+            svgText(aminoAcids[index], { x, y: 307, class: 'science-diagram-small', 'text-anchor': 'middle' }));
+          if (index) picture.append(svgNode('line', { x1: x - 34, y1: 302, x2: x - 14, y2: 302, class: 'gene-peptide-bond' }));
+        }
+        picture.append(svgText(translated ? 'growing peptide · ' + aminoAcids.slice(0, translated).join('–') +
+          (stopRead ? ' · released' : '') : 'ribosome positioned; no amino acids joined yet', {
+          x: 606, y: 346, class: 'science-diagram-label', 'text-anchor': 'middle',
+        }));
+      } else {
+        picture.append(svgText('No mature mRNA in the cytoplasm yet.', {
+          x: 610, y: 212, class: 'science-diagram-note', 'text-anchor': 'middle',
+        }));
+      }
+      geneButton.disabled = stage !== 0;
+      transcribeButton.disabled = stage !== 1;
+      processButton.disabled = stage !== 2;
+      exportButton.disabled = stage !== 3;
+      translateButton.disabled = stage < 4 || stage >= 8;
+      translateButton.textContent = stage === 7 ? 'Read stop codon' : 'Translate next codon';
+      const currentCodon = stage >= 5 ? codons[Math.min(3, stage - 5)] : 'none yet';
+      const currentPeptide = translated ? aminoAcids.slice(0, translated).join('–') : 'none yet';
+      frame.readout.textContent = 'Step ' + (stage + 1) + ' of ' + GENE_EXPRESSION_STEPS.length + ': ' +
+        GENE_EXPRESSION_STEPS[stage] + '. Coding DNA ' + DNA + '; mRNA ' + RNA + '; product Met–Glu–Phe, then stop. ' +
+        'The mRNA matches the coding DNA strand except that U replaces T; RNA polymerase reads the opposite template strand. ' +
+        'Current codon: ' + currentCodon + '; current peptide: ' + currentPeptide + '. DNA remains in the nucleus, RNA is processed before export, and translation occurs in the cytoplasm. ' +
+        'The on/off switch and pre-mRNA are schematic. The fixed translated coding region omits untranslated regions and regulatory complexity.';
+      if (announce) frame.status.textContent = GENE_EXPRESSION_STEPS[stage] + '.';
+    }
+
+    const geneButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 1; refresh(true); },
+    }, 'Switch gene on');
+    const transcribeButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 2; refresh(true); },
+    }, 'Transcribe');
+    const processButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 3; refresh(true); },
+    }, 'Process RNA');
+    const exportButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = 4; refresh(true); },
+    }, 'Export mature mRNA');
+    const translateButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => { stage = Math.min(8, stage + 1); refresh(true); },
+    }, 'Translate next codon');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        stage = authoredStage;
+        refresh(false);
+        frame.status.textContent = 'Gene expression is back to its authored starting state.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('gene-expression-canvas');
+    frame.canvas.append(node('div', { class: 'gene-expression-scene science-diagram-scroll' }, picture), progress);
+    frame.controls.append(node('div', { class: 'model-button-row' },
+      geneButton, transcribeButton, processButton, exportButton, translateButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const TCP_TRACE_EVENTS = [
+    {
+      title: 'Ready to send', ack: 'No ACK yet',
+      detail: 'Four one-byte teaching segments are queued at the sender.',
+    },
+    {
+      title: 'Segment 1 received', ack: 'ACK 2',
+      detail: 'The receiver accepts segment 1 and cumulatively acknowledges the next expected teaching segment, 2.',
+    },
+    {
+      title: 'Segment 2 lost', ack: 'ACK remains 2',
+      detail: 'Segment 2 is dropped in the network, so the receiver still expects 2.',
+    },
+    {
+      title: 'Segment 3 buffered', ack: 'Duplicate ACK 2 · 1 of 2',
+      detail: 'Segment 3 arrives out of order. The receiver buffers it and repeats ACK 2 because the gap remains.',
+    },
+    {
+      title: 'Segment 4 buffered', ack: 'Duplicate ACK 2 · 2 of 2',
+      detail: 'Segment 4 also arrives out of order and is buffered. A second duplicate ACK 2 is sent.',
+    },
+    {
+      title: 'Retransmission timeout', ack: 'Still ACK 2',
+      detail: 'Only two duplicate acknowledgements arrived. In this simplified classic scenario that is not the three needed for fast retransmit, so the sender waits for its retransmission timer.',
+    },
+    {
+      title: 'Segment 2 retransmitted', ack: 'ACK 2 until receipt',
+      detail: 'The sender retransmits the missing segment 2 after the timeout.',
+    },
+    {
+      title: 'Gap filled; stream released', ack: 'ACK 5',
+      detail: 'Segment 2 arrives, making segments 1 through 4 contiguous. The receiver releases the ordered stream and acknowledges the next expected teaching segment, 5.',
+    },
+  ];
+
+  function renderTcpPacketTracer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    let step = 0;
+    const scene = node('div', { class: 'tcp-trace-scene' });
+    const eventList = node('ol', { class: 'tcp-event-list', 'aria-label': 'TCP transfer events' });
+    const packetTrack = node('div', { class: 'tcp-packet-track', 'aria-hidden': 'true' });
+    const ackBadge = node('strong', { class: 'tcp-ack-badge', 'data-model-speak': true });
+
+    function packetState(number) {
+      if (number === 1) return step >= 1 ? 'is-delivered' : 'is-sender';
+      if (number === 2) {
+        if (step >= 7) return 'is-delivered';
+        if (step === 6) return 'is-retransmitting';
+        if (step >= 2) return 'is-lost';
+        return 'is-sender';
+      }
+      if (number === 3) {
+        if (step >= 7) return 'is-delivered';
+        if (step >= 3) return 'is-buffered';
+        return 'is-sender';
+      }
+      if (step >= 7) return 'is-delivered';
+      if (step >= 4) return 'is-buffered';
+      return 'is-sender';
+    }
+    function refresh(announce) {
+      const event = TCP_TRACE_EVENTS[step];
+      packetTrack.replaceChildren(...[1, 2, 3, 4].map(number => node('span', {
+        class: 'tcp-packet tcp-packet-' + number + ' ' + packetState(number),
+      }, String(number))));
+      eventList.replaceChildren(...TCP_TRACE_EVENTS.map((entry, index) => node('li', {
+        class: index < step ? 'is-complete' : index === step ? 'is-current' : '',
+        'aria-current': index === step ? 'step' : null,
+      }, entry.title)));
+      ackBadge.textContent = event.ack;
+      scene.replaceChildren(
+        node('div', { class: 'tcp-endpoint-row' },
+          node('span', {}, 'Sender'), node('span', {}, 'Network / receiver'), node('span', {}, 'Application')),
+        packetTrack,
+        node('div', { class: 'tcp-ack-row' }, node('span', {}, 'Receiver response'), ackBadge),
+      );
+      backButton.disabled = step === 0;
+      nextButton.disabled = step === TCP_TRACE_EVENTS.length - 1;
+      nextButton.textContent = step === 4 ? 'Advance to timeout' : step === 5 ? 'Retransmit segment 2' : 'Send next event';
+      frame.readout.textContent = 'Event ' + (step + 1) + ' of ' + TCP_TRACE_EVENTS.length + ': ' + event.title + '. ' +
+        event.detail + ' ' + event.ack + '. The labels 1–4 are pedagogical one-byte sequence positions; real TCP segments usually carry many bytes, sequence and acknowledgement numbers count byte positions, and an ACK names the next byte expected.';
+      if (announce) frame.status.textContent = event.title + '. ' + event.ack + '.';
+    }
+
+    const backButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => { step = Math.max(0, step - 1); refresh(true); },
+    }, 'Previous event');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        step = Math.min(TCP_TRACE_EVENTS.length - 1, step + 1);
+        refresh(true);
+      },
+    }, 'Next event');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = 0;
+        refresh(false);
+        frame.status.textContent = 'The trace is back before the first send.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('tcp-packet-canvas');
+    frame.canvas.append(scene, eventList);
+    frame.controls.append(node('div', { class: 'model-button-row' }, backButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderHeatEquation(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const cellCount = Math.round(clampNumber(props.cells, 9, 9, 9));
+    const hotIndex = Math.round(clampNumber(props.hot_cell, 4, 4, 4)) - 1;
+    const rate = clampNumber(props.diffusion_percent, 20, 20, 20) / 100;
+    const maxSteps = Math.round(clampNumber(props.max_steps, 10, 10, 10));
+    const history = [];
+    const initial = Array(cellCount).fill(0);
+    initial[hotIndex] = 100;
+    history.push(initial);
+    for (let count = 0; count < maxSteps; count += 1) {
+      const old = history[history.length - 1];
+      const next = old.map((value, index) => {
+        const left = index === 0 ? old[index] : old[index - 1];
+        const right = index === old.length - 1 ? old[index] : old[index + 1];
+        return value + rate * (left - 2 * value + right);
+      });
+      history.push(next);
+    }
+    let step = 0;
+    const strip = node('div', { class: 'heat-cell-grid', 'aria-hidden': 'true' });
+    const metrics = node('div', { class: 'heat-equation-metrics' });
+
+    function number(value) {
+      return Math.abs(value) < 0.0005 ? '0.00' : value.toFixed(2);
+    }
+    function refresh(announce) {
+      const values = history[step];
+      const total = values.reduce((sum, value) => sum + value, 0);
+      const maximum = Math.max(...values);
+      strip.replaceChildren(...values.map((value, index) => {
+        const fill = node('span', { class: 'heat-cell-fill' });
+        fill.style.height = Math.max(4, value) + '%';
+        return node('span', { class: 'heat-cell ' + (index === hotIndex ? 'is-origin' : '') },
+          fill, node('small', {}, String(index + 1)));
+      }));
+      metrics.replaceChildren(
+        node('span', {}, node('small', {}, 'Step'), node('strong', { 'data-model-speak': true }, step + ' / ' + maxSteps)),
+        node('span', {}, node('small', {}, 'Total'), node('strong', {}, number(total))),
+        node('span', {}, node('small', {}, 'Maximum'), node('strong', {}, number(maximum))),
+      );
+      previousButton.disabled = step === 0;
+      nextButton.disabled = step === maxSteps;
+      frame.readout.textContent = 'Cell temperature excesses: [' + values.map(number).join(', ') + ']. ' +
+        'This dimensionless forward-Euler teaching model uses simultaneous updates, insulated no-flux boundaries, and r = 0.20. ' +
+        'Because r ≤ 0.50 the one-dimensional stencil is stable here, and total heat is conserved at 100. ' +
+        'It approximates diffusion on a grid; it is not an exact continuum solution or a claim of finite physical propagation speed.';
+      if (announce) frame.status.textContent = 'Diffusion step ' + step + '. Maximum ' + number(maximum) +
+        '; conserved total ' + number(total) + '.';
+    }
+
+    const previousButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = Math.max(0, step - 1);
+        refresh(true);
+      },
+    }, 'Previous step');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        step = Math.min(maxSteps, step + 1);
+        refresh(true);
+      },
+    }, 'Diffuse one step');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        step = 0;
+        refresh(false);
+        frame.status.textContent = 'The insulated strip is back to one hot fourth cell.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('heat-equation-canvas');
+    frame.canvas.append(node('div', { class: 'heat-equation-scene' }, strip, metrics));
+    frame.controls.append(node('div', { class: 'model-button-row' }, previousButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const COMPLEXITY_CERTIFICATE_CLAUSES = [
+    { label: 'A ∨ ¬B ∨ D', terms: [['A', true], ['B', false], ['D', true]] },
+    { label: '¬A ∨ C', terms: [['A', false], ['C', true]] },
+    { label: 'B ∨ ¬C ∨ D', terms: [['B', true], ['C', false], ['D', true]] },
+    { label: '¬D ∨ A', terms: [['D', false], ['A', true]] },
+  ];
+
+  function renderComplexityCertificate(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const startN = Math.round(clampNumber(props.start_n, 4, 20, 4));
+    const maxN = Math.round(clampNumber(props.max_n, startN, 20, 20));
+    let n = startN;
+    let assignment = { A: true, B: true, C: true, D: true };
+    const growth = node('div', { class: 'complexity-growth-list' });
+    const certificate = node('div', { class: 'complexity-certificate-scene' });
+    const clauseList = node('ol', { class: 'complexity-certificate-list', 'aria-label': 'Clause results' });
+    const variableRow = node('div', { class: 'model-option-row', role: 'group', 'aria-label': 'Proposed Boolean certificate' });
+    const variableButtons = {};
+    const nControl = node('input', {
+      type: 'range', min: startN, max: maxN, step: 1, value: n,
+      'aria-label': 'Input size n',
+      oninput: event => { n = Number(event.target.value); refresh(false); },
+    });
+
+    function clauseResult(clause) {
+      return clause.terms.some(([name, positive]) => positive ? assignment[name] : !assignment[name]);
+    }
+    function growthRow(label, count, className) {
+      const bar = node('span', { class: 'complexity-growth-bar ' + className });
+      const scale = Math.max(4, Math.min(100, Math.log2(count + 1) / maxN * 100));
+      bar.style.width = scale + '%';
+      return node('div', { class: 'complexity-growth-row' },
+        node('span', { class: 'complexity-growth-label' }, label),
+        node('span', { class: 'complexity-growth-track', 'aria-hidden': 'true' }, bar),
+        node('strong', {}, count.toLocaleString('en-US')));
+    }
+    function refresh(announce) {
+      const linear = n;
+      const square = n * n;
+      const exponential = Math.pow(2, n);
+      nControl.value = String(n);
+      nControl.setAttribute('aria-valuetext', 'n equals ' + n + '. Linear ' + linear +
+        ', square ' + square + ', two to the n ' + exponential.toLocaleString('en-US') + '.');
+      growth.replaceChildren(
+        growthRow('n', linear, 'is-linear'),
+        growthRow('n²', square, 'is-square'),
+        growthRow('2ⁿ', exponential, 'is-exponential'),
+      );
+      Object.entries(variableButtons).forEach(([name, button]) => {
+        const value = assignment[name];
+        button.textContent = name + ' = ' + (value ? 'True' : 'False');
+        button.setAttribute('aria-pressed', value ? 'true' : 'false');
+        button.classList.toggle('is-selected', value);
+      });
+      const results = COMPLEXITY_CERTIFICATE_CLAUSES.map(clauseResult);
+      clauseList.replaceChildren(...COMPLEXITY_CERTIFICATE_CLAUSES.map((clause, index) => node('li', {
+        class: results[index] ? 'is-true' : 'is-false',
+      }, node('span', {}, '(' + clause.label + ')'), node('strong', {}, results[index] ? 'True' : 'False'))));
+      const allTrue = results.every(Boolean);
+      frame.readout.textContent = 'At n = ' + n + ': n = ' + linear.toLocaleString('en-US') +
+        ', n² = ' + square.toLocaleString('en-US') + ', and 2ⁿ = ' + exponential.toLocaleString('en-US') + '. ' +
+        'The bars share a logarithmic display scale, while the written counts are exact. These are representative growth functions: polynomial examples do not prove that every problem has a polynomial algorithm. ' +
+        'Checking this supplied certificate takes work proportional to the displayed formula size; finding one is a different task. ' +
+        'The proposed assignment currently makes ' + results.filter(Boolean).length + ' of 4 clauses true. P versus NP remains open.';
+      if (announce) frame.status.textContent = 'Certificate changed: ' + results.filter(Boolean).length +
+        ' of 4 clauses are true; the whole formula is ' + (allTrue ? 'satisfied.' : 'not satisfied.');
+    }
+
+    ['A', 'B', 'C', 'D'].forEach(name => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'true', onclick: () => {
+          assignment[name] = !assignment[name];
+          refresh(true);
+        },
+      }, name + ' = True');
+      variableButtons[name] = button;
+      variableRow.append(button);
+    });
+    const verifyButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        const passed = COMPLEXITY_CERTIFICATE_CLAUSES.filter(clauseResult).length;
+        frame.status.textContent = 'Verification complete: ' + passed + ' of 4 clauses are true. ' +
+          (passed === 4 ? 'This supplied assignment satisfies the formula.' : 'This assignment is not a certificate for satisfiability.');
+      },
+    }, 'Verify supplied certificate');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        n = startN;
+        assignment = { A: true, B: true, C: true, D: true };
+        refresh(false);
+        frame.status.textContent = 'The chart and satisfying supplied certificate are reset.';
+      },
+    }, 'Reset');
+    certificate.append(
+      node('p', { class: 'complexity-formula', 'data-model-speak': true },
+        '(A ∨ ¬B ∨ D) ∧ (¬A ∨ C) ∧ (B ∨ ¬C ∨ D) ∧ (¬D ∨ A)'),
+      variableRow, clauseList,
+    );
+    frame.canvas.classList.add('complexity-certificate-canvas');
+    frame.canvas.append(node('div', { class: 'complexity-model-scene' }, growth, certificate));
+    frame.controls.append(node('label', { class: 'model-range-control' },
+      node('span', {}, 'Compare growth at input size n'), nControl),
+    node('div', { class: 'model-button-row' }, verifyButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderMorphogenGradient(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const cellCount = Math.round(clampNumber(props.cells, 11, 11, 11));
+    const source = clampNumber(props.source, 100, 100, 100);
+    const authoredDecay = clampNumber(props.decay_percent, 5, 40, 20);
+    const authoredLow = clampNumber(props.low_threshold, 10, 50, 30);
+    const authoredHigh = clampNumber(props.high_threshold, 50, 90, 65);
+    let decayPercent = authoredDecay;
+    let lowThreshold = authoredLow;
+    let highThreshold = authoredHigh;
+    let selected = 0;
+    let flat = false;
+    const picture = svgNode('svg', {
+      viewBox: '0 0 800 390', class: 'science-diagram morphogen-gradient-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    const legend = node('div', { class: 'morphogen-fate-legend', role: 'list',
+      'aria-label': 'Cell fate counts by threshold band' });
+    const inspectControl = node('input', {
+      type: 'range', min: 1, max: cellCount, step: 1, value: 1,
+      'aria-label': 'Inspect a cell', oninput: event => {
+        selected = Number(event.target.value) - 1;
+        refresh(false);
+      },
+    });
+    const decayOutput = node('output', { class: 'biology-slider-value' });
+    const lowOutput = node('output', { class: 'biology-slider-value' });
+    const highOutput = node('output', { class: 'biology-slider-value' });
+    const decayControl = node('input', {
+      type: 'range', min: 5, max: 40, step: 5, value: decayPercent,
+      'aria-label': 'Signal loss at each cell in percent',
+      oninput: event => { decayPercent = Number(event.target.value); flat = false; refresh(false); },
+      onchange: () => { frame.status.textContent = 'Signal loss is now ' + decayPercent +
+        '% per cell. Watch where the curve crosses each threshold.'; },
+    });
+    const lowControl = node('input', {
+      type: 'range', min: 10, max: 50, step: 5, value: lowThreshold,
+      'aria-label': 'Low fate threshold',
+      oninput: event => { lowThreshold = Math.min(Number(event.target.value), highThreshold - 10); refresh(false); },
+      onchange: () => { frame.status.textContent = 'The low threshold is now ' + lowThreshold +
+        '. Cells can change fate without changing concentration.'; },
+    });
+    const highControl = node('input', {
+      type: 'range', min: 50, max: 90, step: 5, value: highThreshold,
+      'aria-label': 'High fate threshold',
+      oninput: event => { highThreshold = Math.max(Number(event.target.value), lowThreshold + 10); refresh(false); },
+      onchange: () => { frame.status.textContent = 'The high threshold is now ' + highThreshold +
+        '. The high-fate boundary moves where the curve crosses it.'; },
+    });
+
+    function concentrations() {
+      const retention = 1 - decayPercent / 100;
+      return Array.from({ length: cellCount }, (_, index) => flat ? 50 : source * Math.pow(retention, index));
+    }
+    function fate(value) {
+      if (value >= highThreshold) return { key: 'high', label: 'High-threshold fate' };
+      if (value >= lowThreshold) return { key: 'middle', label: 'Middle-band fate' };
+      return { key: 'low', label: 'Below-threshold fate' };
+    }
+    function refresh(announce) {
+      const values = concentrations();
+      const fates = values.map(fate);
+      const counts = ['high', 'middle', 'low'].map(key => fates.filter(item => item.key === key).length);
+      const plot = { left: 70, right: 750, top: 42, bottom: 244 };
+      const xAt = index => plot.left + index * (plot.right - plot.left) / (cellCount - 1);
+      const yAt = value => plot.bottom - Math.max(0, Math.min(110, value)) / 110 * (plot.bottom - plot.top);
+      picture.replaceChildren(svgNode('rect', { x: 10, y: 10, width: 780, height: 370, rx: 20,
+        class: 'science-diagram-field' }),
+      svgNode('rect', { x: plot.left, y: plot.top, width: plot.right - plot.left,
+        height: yAt(highThreshold) - plot.top, class: 'morphogen-band fate-high' }),
+      svgNode('rect', { x: plot.left, y: yAt(highThreshold), width: plot.right - plot.left,
+        height: yAt(lowThreshold) - yAt(highThreshold), class: 'morphogen-band fate-middle' }),
+      svgNode('rect', { x: plot.left, y: yAt(lowThreshold), width: plot.right - plot.left,
+        height: plot.bottom - yAt(lowThreshold), class: 'morphogen-band fate-low' }),
+      svgNode('line', { x1: plot.left, y1: plot.bottom, x2: plot.right, y2: plot.bottom,
+        class: 'science-axis' }),
+      svgNode('line', { x1: plot.left, y1: plot.top, x2: plot.left, y2: plot.bottom,
+        class: 'science-axis' }),
+      svgText('signal concentration', { x: 25, y: 145, class: 'science-diagram-kicker',
+        transform: 'rotate(-90 25 145)', 'text-anchor': 'middle' }),
+      svgText('cell position away from source →', { x: 410, y: 276,
+        class: 'science-diagram-kicker', 'text-anchor': 'middle' }));
+      [0, 25, 50, 75, 100].forEach(value => {
+        const y = yAt(value);
+        picture.append(svgNode('line', { x1: plot.left - 5, y1: y, x2: plot.right, y2: y,
+          class: 'science-grid-line' }), svgText(String(value), { x: plot.left - 11, y: y + 4,
+          class: 'science-diagram-small', 'text-anchor': 'end' }));
+      });
+      [[highThreshold, 'high threshold ' + highThreshold, 'fate-high'],
+        [lowThreshold, 'low threshold ' + lowThreshold, 'fate-low']].forEach(([value, label, className]) => {
+        const y = yAt(value);
+        picture.append(svgNode('line', { x1: plot.left, y1: y, x2: plot.right, y2: y,
+          class: 'morphogen-threshold ' + className }),
+        svgText(label, { x: plot.right - 8, y: y - 7, class: 'science-diagram-label', 'text-anchor': 'end' }));
+      });
+      const points = values.map((value, index) => xAt(index).toFixed(1) + ',' + yAt(value).toFixed(1)).join(' ');
+      picture.append(svgNode('polyline', { points, class: 'morphogen-curve' }));
+      values.forEach((value, index) => {
+        const x = xAt(index);
+        const y = yAt(value);
+        picture.append(svgNode('line', { x1: x, y1: y, x2: x, y2: 327,
+          class: 'morphogen-cell-guide' + (index === selected ? ' is-selected' : '') }),
+        svgNode('circle', { cx: x, cy: y, r: index === selected ? 8 : 5,
+          class: 'morphogen-curve-point' + (index === selected ? ' is-selected' : '') }),
+        svgNode('circle', { cx: x, cy: 327, r: index === selected ? 22 : 18,
+          class: 'morphogen-cell fate-' + fates[index].key + (index === selected ? ' is-selected' : '') }),
+        svgText(String(index + 1), { x, y: 332, class: 'morphogen-cell-number', 'text-anchor': 'middle' }));
+      });
+      picture.append(svgNode('rect', { x: 70, y: 349, width: 680, height: 24, rx: 12,
+        class: 'morphogen-source-ramp' }),
+      svgText('localized source ' + source, { x: 76, y: 367, class: 'science-diagram-label' }),
+      svgText(flat ? 'flat signal 50' : decayPercent + '% loss per cell', {
+        x: 742, y: 367, class: 'science-diagram-label', 'text-anchor': 'end',
+      }));
+      legend.replaceChildren(
+        node('span', { class: 'fate-high', role: 'listitem' }, node('strong', {}, 'High'),
+          ' ≥ ' + highThreshold + ' · ' + counts[0] + ' cells'),
+        node('span', { class: 'fate-middle', role: 'listitem' }, node('strong', {}, 'Middle'),
+          ' ' + lowThreshold + '–<' + highThreshold + ' · ' + counts[1] + ' cells'),
+        node('span', { class: 'fate-low', role: 'listitem' }, node('strong', {}, 'Low'),
+          ' < ' + lowThreshold + ' · ' + counts[2] + ' cells'),
+      );
+      inspectControl.value = String(selected + 1);
+      inspectControl.setAttribute('aria-valuetext', 'Cell ' + (selected + 1) + ', concentration ' +
+        values[selected].toFixed(2) + ', ' + fates[selected].label + '.');
+      flattenButton.setAttribute('aria-pressed', flat ? 'true' : 'false');
+      flattenButton.textContent = flat ? 'Restore gradient' : 'Flatten to 50';
+      decayControl.value = String(decayPercent);
+      lowControl.value = String(lowThreshold);
+      highControl.value = String(highThreshold);
+      lowControl.max = String(highThreshold - 10);
+      highControl.min = String(lowThreshold + 10);
+      decayControl.setAttribute('aria-valuetext', decayPercent + ' percent signal loss per cell');
+      lowControl.setAttribute('aria-valuetext', 'Low threshold ' + lowThreshold);
+      highControl.setAttribute('aria-valuetext', 'High threshold ' + highThreshold);
+      decayOutput.textContent = decayPercent + '%';
+      lowOutput.textContent = String(lowThreshold);
+      highOutput.textContent = String(highThreshold);
+      frame.readout.textContent = 'Cell ' + (selected + 1) + ' has model concentration ' +
+        values[selected].toFixed(3) + ' and the ' + fates[selected].label + '. ' +
+        (flat ? 'Every cell has the same 50-unit signal, so every cell shares the ' + fates[0].label + '. ' :
+          'The profile is ' + source + ' × ' + (1 - decayPercent / 100).toFixed(2) + '^i for zero-based position i; classification uses unrounded values. ') +
+        'The ' + highThreshold + ' and ' + lowThreshold + ' cutoffs are illustrative thresholds in an idealized static one-dimensional model. ' +
+        'Current regions contain ' + counts[0] + ' high, ' + counts[1] + ' middle and ' + counts[2] + ' low cells. ' +
+        'The authored baseline is 100 × 0.80^i. Real developmental fate can depend on exposure history, receptors, noise, feedback and other signals.';
+      if (announce) frame.status.textContent = flat ?
+        'The signal is flat at 50: fate now follows the current thresholds, with ' + counts[0] + ' high, ' +
+          counts[1] + ' middle and ' + counts[2] + ' low cells.' :
+        'The decaying gradient is restored: ' + counts[0] + ' high, ' + counts[1] + ' middle and ' + counts[2] + ' low cells.';
+    }
+
+    const flattenButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-pressed': 'false', onclick: () => {
+        flat = !flat;
+        refresh(true);
+      },
+    }, 'Flatten to 50');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        selected = 0;
+        flat = false;
+        decayPercent = authoredDecay;
+        lowThreshold = authoredLow;
+        highThreshold = authoredHigh;
+        refresh(false);
+        frame.status.textContent = 'The original gradient and first selected cell are restored.';
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('morphogen-gradient-canvas');
+    frame.canvas.append(node('div', { class: 'morphogen-gradient-scene' },
+      node('div', { class: 'science-diagram-scroll' }, picture), legend));
+    frame.controls.append(node('label', { class: 'model-range-control' },
+      node('span', {}, 'Inspect cell 1–11'), inspectControl),
+    node('div', { class: 'biology-control-grid' },
+      node('label', { class: 'model-range-control' },
+        node('span', {}, 'Signal loss per cell'), decayControl, decayOutput),
+      node('label', { class: 'model-range-control' },
+        node('span', {}, 'Low threshold'), lowControl, lowOutput),
+      node('label', { class: 'model-range-control' },
+        node('span', {}, 'High threshold'), highControl, highOutput)),
+    node('div', { class: 'model-button-row' }, flattenButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  const CT_REFERENCE_INSERTS = [
+    { label: 'Air reference', hu: -1000 },
+    { label: 'Low-density foam', hu: -700 },
+    { label: 'Fat-equivalent polymer', hu: -100 },
+    { label: 'Water', hu: 0 },
+    { label: 'Soft-tissue-equivalent resin', hu: 40 },
+    { label: 'Dense mineral insert', hu: 1000 },
+  ];
+
+  function renderCtWindow(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const authoredLevel = clampNumber(props.level, 40, 40, 40);
+    const authoredWidth = clampNumber(props.width, 400, 400, 400);
+    let level = authoredLevel;
+    let width = authoredWidth;
+    const insertGrid = node('div', { class: 'ct-phantom-grid' });
+    const rangeSummary = node('div', { class: 'ct-window-range', 'data-model-speak': true });
+    const levelControl = node('input', {
+      type: 'range', min: -1000, max: 1000, step: 10, value: level,
+      'aria-label': 'Window level', oninput: event => { level = Number(event.target.value); refresh(false); },
+    });
+    const widthControl = node('input', {
+      type: 'range', min: 2, max: 2000, step: 2, value: width,
+      'aria-label': 'Window width', oninput: event => { width = Number(event.target.value); refresh(false); },
+    });
+
+    function windowValue(hu) {
+      const lower = level - 0.5 - (width - 1) / 2;
+      const upper = level - 0.5 + (width - 1) / 2;
+      if (width <= 1) return hu <= level - 0.5 ? 0 : 255;
+      if (hu <= lower) return 0;
+      if (hu > upper) return 255;
+      return Math.max(0, Math.min(255,
+        ((hu - (level - 0.5)) / (width - 1) + 0.5) * 255));
+    }
+    function refresh(announce) {
+      const lower = level - 0.5 - (width - 1) / 2;
+      const upper = level - 0.5 + (width - 1) / 2;
+      const blackThrough = Math.floor(lower);
+      const whiteFrom = Math.ceil(upper);
+      insertGrid.replaceChildren(...CT_REFERENCE_INSERTS.map(insert => {
+        const output = windowValue(insert.hu);
+        const swatch = node('span', { class: 'ct-insert-swatch', 'aria-hidden': 'true' });
+        swatch.style.background = 'rgb(' + output.toFixed(3) + ', ' + output.toFixed(3) + ', ' + output.toFixed(3) + ')';
+        return node('div', { class: 'ct-insert' }, swatch,
+          node('span', {}, node('strong', {}, insert.label), node('small', {}, insert.hu + ' HU → ' + Math.round(output) + ' / 255')));
+      }));
+      rangeSummary.textContent = 'Level ' + level + ' · Width ' + width +
+        ' · black through ' + blackThrough + ' HU · white from ' + whiteFrom + ' HU';
+      levelControl.value = String(level);
+      widthControl.value = String(width);
+      levelControl.setAttribute('aria-valuetext', 'Window level ' + level + ' Hounsfield units');
+      widthControl.setAttribute('aria-valuetext', 'Window width ' + width + ' Hounsfield units');
+      frame.readout.textContent = 'DICOM LINEAR VOI with MONOCHROME2 maps low output to black and high output to white. ' +
+        'Its linear branch uses width − 1 and level − 0.5: at level ' + level + ' and width ' + width +
+        ', integer values through ' + blackThrough + ' HU are black and values from ' + whiteFrom + ' HU are white. ' +
+        'Windowing changes only the display mapping, not stored HU or the acquisition. This is a synthetic phantom teaching display, not patient data and not a diagnosis.';
+      if (announce) frame.status.textContent = 'Window reset to level ' + level + ' and width ' + width + '.';
+    }
+
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        level = authoredLevel;
+        width = authoredWidth;
+        refresh(true);
+      },
+    }, 'Reset');
+    frame.canvas.classList.add('ct-window-canvas');
+    frame.canvas.append(node('div', { class: 'ct-window-scene' },
+      node('p', { class: 'ct-phantom-label' }, 'Synthetic HU reference phantom'), insertGrid, rangeSummary));
+    frame.controls.append(
+      node('label', { class: 'model-range-control' }, node('span', {}, 'Window level'), levelControl),
+      node('label', { class: 'model-range-control' }, node('span', {}, 'Window width'), widthControl),
+      node('div', { class: 'model-button-row' }, resetButton),
+    );
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderAlphabetExplorer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const examples = [
+      ['A', 'apple', '🍎'], ['B', 'ball', '⚽'], ['C', 'cat', '🐈'],
+      ['D', 'dog', '🐕'], ['E', 'egg', '🥚'], ['F', 'fish', '🐟'],
+      ['G', 'goat', '🐐'], ['H', 'hat', '🎩'], ['I', 'ice', '🧊'],
+      ['J', 'juice', '🧃'], ['K', 'kite', '🪁'], ['L', 'leaf', '🍃'],
+      ['M', 'moon', '🌙'], ['N', 'nest', '🪺'], ['O', 'octopus', '🐙'],
+      ['P', 'pig', '🐖'], ['Q', 'queen', '♛'], ['R', 'rabbit', '🐇'],
+      ['S', 'sun', '☀'], ['T', 'turtle', '🐢'], ['U', 'umbrella', '☂'],
+      ['V', 'van', '🚐'], ['W', 'whale', '🐋'], ['X', 'x-ray', '🩻'],
+      ['Y', 'yarn', '🧶'], ['Z', 'zebra', '🦓'],
+    ].map(([letter, word, symbol]) => ({ letter, word, symbol }));
+    const requested = String((item.props || {}).start_letter || 'A');
+    const authored = { index: Math.max(0, examples.findIndex(entry => entry.letter === requested)) };
+    let index = authored.index;
+    const capital = node('strong', { class: 'alphabet-focus-capital', 'data-model-speak': true });
+    const lowercase = node('span', { class: 'alphabet-focus-lowercase', 'data-model-speak': true });
+    const symbol = node('span', { class: 'alphabet-focus-symbol', 'aria-hidden': 'true' });
+    const word = node('strong', { class: 'alphabet-focus-word', 'data-model-speak': true });
+    const note = node('p', { class: 'alphabet-sound-note' });
+    const focus = node('div', { class: 'alphabet-focus' },
+      node('div', { class: 'alphabet-letter-pair' }, capital, lowercase),
+      node('div', { class: 'alphabet-example' }, symbol,
+        node('span', {}, node('small', {}, 'One common example'), word)),
+      note);
+    const grid = node('div', {
+      class: 'alphabet-letter-grid', role: 'group', 'aria-label': 'Choose one of 26 English letters',
+    });
+    const letterButtons = examples.map((entry, entryIndex) => {
+      const button = node('button', {
+        type: 'button', class: 'alphabet-letter-button',
+        'aria-label': 'Letter ' + entry.letter + ', ' + (entryIndex + 1) + ' of 26',
+        'aria-pressed': 'false',
+        onclick: () => {
+          index = entryIndex;
+          refresh(true);
+        },
+      }, entry.letter);
+      grid.append(button);
+      return button;
+    });
+    const scene = node('div', { class: 'alphabet-explorer-scene' }, focus, grid);
+    const previousButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-label': 'Previous letter', onclick: () => {
+        index = Math.max(0, index - 1);
+        refresh(true);
+      },
+    }, 'Previous');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Next letter', onclick: () => {
+        index = Math.min(examples.length - 1, index + 1);
+        refresh(true);
+      },
+    }, 'Next');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        index = authored.index;
+        refresh(true, 'Back to the authored starting letter.');
+      },
+    }, 'Reset');
+
+    function refresh(announce, message) {
+      const entry = examples[index];
+      capital.textContent = entry.letter;
+      lowercase.textContent = entry.letter.toLowerCase();
+      symbol.textContent = entry.symbol;
+      word.textContent = entry.word;
+      note.textContent = entry.letter + ' can begin ' + entry.word + '. This is one common example, not the only sound: English letters can represent more than one sound in different words.';
+      letterButtons.forEach((button, buttonIndex) => {
+        const selected = buttonIndex === index;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      previousButton.disabled = index === 0;
+      nextButton.disabled = index === examples.length - 1;
+      frame.readout.textContent = entry.letter + ' and ' + entry.letter.toLowerCase() +
+        ' — letter ' + (index + 1) + ' of 26. One common example: ' + entry.word + '.';
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('alphabet-explorer-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(node('div', { class: 'model-button-row alphabet-nav-row' },
+      previousButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderInclusiveFamilyTimeline(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const authored = { mode: 'day', index: 1 };
+    let mode = authored.mode;
+    let index = authored.index;
+    const stories = {
+      day: [
+        { label: 'Yesterday', tense: 'Already happened', detail: 'The child and an older caregiver found a wooden rabbit in a keepsake box.' },
+        { label: 'Today', tense: 'Happening now', detail: 'They look at an old photograph and share the rabbit’s story together.' },
+        { label: 'Tomorrow', tense: 'Has not happened yet', detail: 'They plan to add a new drawing and its story to the album.' },
+      ],
+      family: [
+        { label: 'Long ago', tense: 'Earlier in the family story', detail: 'The older caregiver was a child and held the same wooden rabbit.' },
+        { label: 'Today', tense: 'Now', detail: 'The caregiver shares the keepsake and an old memory with the child.' },
+        { label: 'Later', tense: 'A future part of the story', detail: 'Today’s drawing and memory can become part of the family history too.' },
+      ],
+    };
+    const track = node('ol', {
+      class: 'family-timeline-track', 'aria-label': 'Earlier to later timeline',
+    });
+    const timeButtons = [0, 1, 2].map(timeIndex => {
+      const button = node('button', {
+        type: 'button', class: 'family-timeline-card', 'aria-pressed': 'false',
+        'aria-label': 'Choose timeline position ' + (timeIndex + 1), onclick: () => {
+          index = timeIndex;
+          refresh(true);
+        },
+      });
+      track.append(node('li', {}, button));
+      return button;
+    });
+    const guardrail = node('p', { class: 'family-timeline-note' },
+      'Families can be biological, adoptive, foster, blended, or chosen. This fictional family is one example, and the activity asks for no names, dates, or personal information.');
+    const scene = node('div', { class: 'family-timeline-scene' }, track, guardrail);
+    const dayModeButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-pressed': 'true', onclick: () => {
+        mode = 'day';
+        refresh(true, 'Showing yesterday, today, and tomorrow.');
+      },
+    }, 'Three days');
+    const familyModeButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => {
+        mode = 'family';
+        refresh(true, 'Showing a longer fictional family story.');
+      },
+    }, 'Family history');
+    const previousButton = node('button', {
+      type: 'button', class: 'btn ghost small', 'aria-label': 'Earlier on the timeline', onclick: () => {
+        index = Math.max(0, index - 1);
+        refresh(true);
+      },
+    }, 'Earlier');
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Later on the timeline', onclick: () => {
+        index = Math.min(2, index + 1);
+        refresh(true);
+      },
+    }, 'Later');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        mode = authored.mode;
+        index = authored.index;
+        refresh(true, 'Back to the authored starting point: today.');
+      },
+    }, 'Reset');
+
+    function refresh(announce, message) {
+      const entries = stories[mode];
+      timeButtons.forEach((button, buttonIndex) => {
+        const entry = entries[buttonIndex];
+        const selected = buttonIndex === index;
+        button.replaceChildren(
+          node('strong', { 'data-model-speak': true }, entry.label),
+          node('small', {}, entry.tense),
+          node('span', {}, entry.detail));
+        button.classList.toggle('is-current', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        button.setAttribute('aria-label', entry.label + '. ' + entry.tense + '. ' + entry.detail);
+      });
+      dayModeButton.classList.toggle('is-selected', mode === 'day');
+      familyModeButton.classList.toggle('is-selected', mode === 'family');
+      dayModeButton.setAttribute('aria-pressed', mode === 'day' ? 'true' : 'false');
+      familyModeButton.setAttribute('aria-pressed', mode === 'family' ? 'true' : 'false');
+      previousButton.disabled = index === 0;
+      nextButton.disabled = index === 2;
+      const current = entries[index];
+      frame.readout.textContent = current.label + ' — ' + current.tense + '. ' + current.detail;
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('family-timeline-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(
+      node('div', { class: 'model-button-row family-timeline-mode', role: 'group', 'aria-label': 'Choose timeline scale' },
+        dayModeButton, familyModeButton),
+      node('div', { class: 'model-button-row family-timeline-nav' },
+        previousButton, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderDayNightRotation(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const hours = [0, 6, 12, 18];
+    const descriptions = {
+      0: { label: 'Midnight', detail: 'This place faces away from the Sun and is deep in night.' },
+      6: { label: 'Sunrise', detail: 'This place is crossing from the dark half into daylight.' },
+      12: { label: 'Noon', detail: 'This place faces the Sun most directly in this model.' },
+      18: { label: 'Sunset', detail: 'This place is crossing from daylight into the dark half.' },
+    };
+    const requestedHour = Number((item.props || {}).start_hour);
+    const authored = { index: Math.max(0, hours.indexOf(requestedHour)) };
+    const stepHours = 6;
+    let index = authored.index;
+    const observer = node('span', { class: 'day-night-observer', 'aria-hidden': 'true' });
+    const earth = node('div', { class: 'day-night-earth', 'aria-hidden': 'true' }, observer);
+    const stage = node('div', { class: 'day-night-stage', role: 'img' },
+      node('div', { class: 'day-night-sun', 'aria-hidden': 'true' }),
+      node('div', { class: 'day-night-beam', 'aria-hidden': 'true' }), earth,
+      node('span', { class: 'day-night-turn-arrow', 'aria-hidden': 'true' }, '↺'));
+    const timeRow = node('div', {
+      class: 'day-night-time-row', role: 'group', 'aria-label': 'Choose a local solar time',
+    });
+    const timeButtons = hours.map((hour, hourIndex) => {
+      const description = descriptions[hour];
+      const button = node('button', {
+        type: 'button', class: 'day-night-time-button', 'aria-pressed': 'false',
+        'aria-label': String(hour).padStart(2, '0') + ':00, ' + description.label, onclick: () => {
+          index = hourIndex;
+          refresh(true);
+        },
+      }, node('strong', {}, String(hour).padStart(2, '0') + ':00'),
+      node('small', {}, description.label));
+      timeRow.append(button);
+      return button;
+    });
+    const caveat = node('p', { class: 'day-night-note' },
+      'Earth rotates eastward once per day. This teaching view shows an equinox at the equator, so sunrise and sunset are near 06:00 and 18:00; latitude and season change those times. The Moon can appear during the day. Stars are still present in daylight, but scattered sunlight hides most of them.');
+    const scene = node('div', { class: 'day-night-rotation-scene' }, stage, timeRow, caveat);
+    const nextButton = node('button', {
+      type: 'button', class: 'btn small', 'aria-label': 'Turn Earth ahead by six hours', onclick: () => {
+        const nextHour = (hours[index] + stepHours) % 24;
+        index = hours.indexOf(nextHour);
+        refresh(true);
+      },
+    }, 'Turn 6 hours');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        index = authored.index;
+        refresh(true, 'Back to the authored starting time.');
+      },
+    }, 'Reset');
+
+    function refresh(announce, message) {
+      const hour = hours[index];
+      const angle = 15 * (hour - 12);
+      const radians = angle * Math.PI / 180;
+      const x = 50 - 42 * Math.cos(radians);
+      const y = 50 + 42 * Math.sin(radians);
+      observer.style.setProperty('--observer-x', x.toFixed(2) + '%');
+      observer.style.setProperty('--observer-y', y.toFixed(2) + '%');
+      timeButtons.forEach((button, buttonIndex) => {
+        const selected = buttonIndex === index;
+        button.classList.toggle('is-current', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      const description = descriptions[hour];
+      stage.setAttribute('aria-label', String(hour).padStart(2, '0') + ':00, ' +
+        description.label + '. ' + description.detail + ' Earth rotates eastward while the Sun stays fixed.');
+      frame.readout.textContent = String(hour).padStart(2, '0') + ':00 — ' +
+        description.label + '. ' + description.detail;
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('day-night-rotation-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(node('div', { class: 'model-button-row day-night-nav' }, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderClassroomPaintMixer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const paints = {
+      red: { label: 'Red', color: '#b64b42' },
+      yellow: { label: 'Yellow', color: '#dfbd38' },
+      blue: { label: 'Blue', color: '#496e9d' },
+      white: { label: 'White', color: '#f4ecda' },
+    };
+    const recipes = {
+      'blue+red': { label: 'Purple', color: '#765a87' },
+      'blue+white': { label: 'Light blue', color: '#9eb8cf' },
+      'blue+yellow': { label: 'Green', color: '#708b4d' },
+      'red+white': { label: 'Pink', color: '#dba3a0' },
+      'red+yellow': { label: 'Orange', color: '#cc783b' },
+      'white+yellow': { label: 'Pale yellow', color: '#eadb91' },
+    };
+    const requestedFirst = (item.props || {}).start_first;
+    const requestedSecond = (item.props || {}).start_second;
+    const authored = {
+      first: paints[requestedFirst] ? requestedFirst : 'blue',
+      second: paints[requestedSecond] ? requestedSecond : 'yellow',
+    };
+    let first = authored.first;
+    let second = authored.second;
+    const firstChip = node('span', { class: 'paint-source-chip' });
+    const plus = node('strong', { class: 'paint-plus', 'aria-hidden': 'true' }, '+');
+    const secondChip = node('span', { class: 'paint-source-chip' });
+    const resultBowl = node('div', { class: 'paint-result-bowl', 'data-model-speak': true });
+    const scene = node('div', { class: 'paint-mixer-scene' },
+      node('div', { class: 'paint-source-row' }, firstChip, plus, secondChip), resultBowl,
+      node('p', { class: 'paint-mixer-note' },
+        'These are approximate classroom paint recipes for equal parts. Real pigments, brands, and amounts vary. Paint absorbs light; a colored screen instead combines additive light, so its mixing rules are different.'));
+    const selectors = { first: [], second: [] };
+
+    function selector(name, label) {
+      const group = node('div', { class: 'paint-selector' }, node('strong', {}, label));
+      const row = node('div', {
+        class: 'paint-selector-row', role: 'group', 'aria-label': label,
+      });
+      Object.entries(paints).forEach(([key, paint]) => {
+        const button = node('button', {
+          type: 'button', class: 'paint-choice', 'aria-pressed': 'false',
+          'aria-label': label + ': ' + paint.label, onclick: () => {
+            if (name === 'first') first = key;
+            else second = key;
+            refresh(true);
+          },
+        }, node('span', {
+          class: 'paint-choice-swatch paint-' + key, 'aria-hidden': 'true',
+          style: '--paint-color:' + paint.color,
+        }), paint.label);
+        selectors[name].push({ key, button });
+        row.append(button);
+      });
+      group.append(row);
+      return group;
+    }
+
+    const selectorPair = node('div', { class: 'paint-selector-pair' },
+      selector('first', 'First paint'), selector('second', 'Second paint'));
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        first = authored.first;
+        second = authored.second;
+        refresh(true, 'Back to the authored ' + paints[authored.first].label.toLowerCase() +
+          ' and ' + paints[authored.second].label.toLowerCase() + ' recipe.');
+      },
+    }, 'Reset');
+
+    function mixedPaint() {
+      if (first === second) return { label: paints[first].label, color: paints[first].color };
+      return recipes[[first, second].sort().join('+')];
+    }
+
+    function refresh(announce, message) {
+      const mixed = mixedPaint();
+      firstChip.textContent = paints[first].label;
+      firstChip.style.setProperty('--paint-color', paints[first].color);
+      secondChip.textContent = paints[second].label;
+      secondChip.style.setProperty('--paint-color', paints[second].color);
+      resultBowl.style.setProperty('--paint-color', mixed.color);
+      resultBowl.textContent = mixed.label;
+      resultBowl.setAttribute('aria-label', 'Approximate equal-parts result: ' + mixed.label);
+      Object.entries(selectors).forEach(([name, entries]) => entries.forEach(({ key, button }) => {
+        const selected = key === (name === 'first' ? first : second);
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      }));
+      frame.readout.textContent = 'Equal parts ' + paints[first].label.toLowerCase() + ' and ' +
+        paints[second].label.toLowerCase() + ' make an approximate ' + mixed.label.toLowerCase() +
+        ' with this classroom-paint recipe.';
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    frame.canvas.classList.add('paint-mixer-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(selectorPair,
+      node('div', { class: 'model-button-row paint-mixer-nav' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderReadingPath(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const phases = [
+      {
+        id: 'sounds', label: 'Sounds', kicker: 'Start with the sounds',
+        spoken: 'In cat, listen for the first sound in cup, the short a sound in map, and the first sound in top.',
+        readout: 'Look from left to right through c, a, t. Say the first sound in cup, the short a sound in map, then the first sound in top.',
+      },
+      {
+        id: 'blend', label: 'Blend', kicker: 'Slide the sounds together',
+        spoken: 'Blend the first sound in cup, the short a sound in map, and the first sound in top smoothly into cat.',
+        readout: 'Keep those three sounds moving without a long pause until they become cat.',
+      },
+      {
+        id: 'sentence', label: 'Sentence', kicker: 'Read the whole thought',
+        spoken: 'The cat sat. The capital T starts the sentence and the full stop ends it.',
+        readout: 'Read the words from left to right: “The cat sat.” Together they make one complete thought.',
+      },
+      {
+        id: 'meaning', label: 'Meaning', kicker: 'Make meaning from the words',
+        spoken: 'The sentence says that a cat is the one that sat.',
+        readout: 'Reading is more than naming words. “The cat sat.” tells who did something and what happened.',
+      },
+    ];
+    const byId = Object.fromEntries(phases.map(detail => [detail.id, detail]));
+    const validScenario = props.scenario === 'simple-english-cat-sat';
+    const requestedPhase = props.start_phase;
+    const authoredPhase = validScenario && typeof requestedPhase === 'string' &&
+      Object.prototype.hasOwnProperty.call(byId, requestedPhase) ? requestedPhase : 'sounds';
+    let phase = authoredPhase;
+    const stage = node('div', { class: 'reading-path-stage' });
+    const scene = node('div', { class: 'reading-path-scene' }, stage,
+      node('p', { class: 'reading-path-note', 'data-model-speak': true },
+        'This is one simple English example read from left to right. Blending is one reading strategy, not the only support: “the” is a high-frequency irregular word, accents can differ, other scripts use other directions, and readers may use audio, braille, assistive technology, or other supports.'));
+    const phaseButtons = {};
+    const phaseRow = node('div', {
+      class: 'model-option-row reading-path-phase-row', role: 'group',
+      'aria-label': 'Choose a reading step',
+    });
+
+    function phasePicture(detail) {
+      const focus = node('div', {
+        class: 'reading-path-focus', 'data-model-speak': true,
+        'data-model-speak-text': detail.spoken,
+      });
+      if (detail.id === 'sounds') {
+        focus.append(node('div', { class: 'reading-path-symbols' },
+          node('span', {}, 'c'), node('span', {}, 'a'), node('span', {}, 't')),
+        node('p', {}, '/k/ · short a · /t/'));
+      } else if (detail.id === 'blend') {
+        focus.append(node('div', { class: 'reading-path-symbols is-blended' },
+          node('span', {}, 'c'), node('span', {}, 'a'), node('span', {}, 't')),
+        node('p', {}, '/k/—short a—/t/  →  cat'));
+      } else if (detail.id === 'sentence') {
+        focus.append(node('div', { class: 'reading-path-word-row' },
+          node('span', { class: 'reading-path-word' }, 'The'),
+          node('span', { class: 'reading-path-word' }, 'cat'),
+          node('span', { class: 'reading-path-word' }, 'sat'),
+          node('span', { class: 'reading-path-word is-stop' }, '.')));
+      } else {
+        focus.append(node('div', { class: 'reading-path-word-row is-meaning' },
+          node('span', { class: 'reading-path-word is-who' }, 'Who?  The cat.'),
+          node('span', { class: 'reading-path-word is-action' }, 'Did what?  Sat.')));
+      }
+      return focus;
+    }
+
+    const nextButton = node('button', { type: 'button', class: 'btn small' }, 'Next reading step');
+    const resetButton = node('button', { type: 'button', class: 'btn ghost small' }, 'Reset');
+
+    function refresh(announce, message) {
+      const detail = byId[phase];
+      const index = phases.findIndex(candidate => candidate.id === phase);
+      stage.className = 'reading-path-stage is-' + phase;
+      stage.setAttribute('data-phase', phase);
+      stage.replaceChildren(
+        node('p', { class: 'reading-path-kicker' }, detail.kicker), phasePicture(detail));
+      Object.entries(phaseButtons).forEach(([id, button]) => {
+        const selected = id === phase;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      nextButton.disabled = index === phases.length - 1;
+      frame.readout.textContent = 'Step ' + (index + 1) + ' of ' + phases.length + '. ' + detail.readout;
+      if (announce) frame.status.textContent = message || detail.spoken;
+    }
+
+    phases.forEach(detail => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          phase = detail.id;
+          refresh(true, detail.label + ' step selected. ' + detail.spoken);
+        },
+      }, detail.label);
+      phaseButtons[detail.id] = button;
+      phaseRow.append(button);
+    });
+    nextButton.addEventListener('click', () => {
+      const index = phases.findIndex(candidate => candidate.id === phase);
+      if (index < phases.length - 1) phase = phases[index + 1].id;
+      refresh(true);
+    });
+    resetButton.addEventListener('click', () => {
+      phase = authoredPhase;
+      refresh(false);
+      frame.status.textContent = 'Back to the authored ' + byId[authoredPhase].label.toLowerCase() + ' step.';
+    });
+
+    frame.canvas.classList.add('reading-path-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(phaseRow,
+      node('div', { class: 'model-button-row reading-path-nav' }, nextButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderTimelineOrder(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const events = [
+      {
+        id: 'opened', year: 1910, label: 'Library opened',
+        detail: 'The fictional River Street Library opened its doors.',
+      },
+      {
+        id: 'reading-room', year: 1950, label: 'Reading room added',
+        detail: 'A new children’s reading room was added.',
+      },
+      {
+        id: 'roof-restored', year: 1995, label: 'Roof restored',
+        detail: 'Workers restored the old roof.',
+      },
+    ];
+    const byId = Object.fromEntries(events.map(event => [event.id, event]));
+    const requestedOrder = Array.isArray(props.start_order) ? props.start_order : [];
+    const validOrder = props.scenario === 'fictional-library-three-dates' &&
+      requestedOrder.length === events.length && new Set(requestedOrder).size === events.length &&
+      requestedOrder.every(id => typeof id === 'string' &&
+        Object.prototype.hasOwnProperty.call(byId, id));
+    const authoredOrder = validOrder
+      ? requestedOrder.slice() : ['roof-restored', 'opened', 'reading-room'];
+    let order = authoredOrder.slice();
+    const list = node('ol', {
+      class: 'timeline-order-list',
+      'aria-label': 'Fictional library events to order by date',
+    });
+    const rows = {};
+    const track = node('div', { class: 'timeline-order-track', 'aria-hidden': 'true' });
+    const scene = node('div', { class: 'timeline-order-scene' },
+      node('div', { class: 'timeline-order-axis', 'aria-hidden': 'true' },
+        node('span', {}, 'Earlier'), node('span', {}, 'Later')), track,
+      node('p', { class: 'timeline-order-note', 'data-model-speak': true },
+        'This is a fictional timeline. This English-language example puts earlier dates on the left and later dates on the right; other timeline layouts can differ. Real historians check dates against sources before ordering events.'));
+
+    function chronological() {
+      return order.every((id, index) => index === 0 || byId[order[index - 1]].year < byId[id].year);
+    }
+
+    function refreshList() {
+      order.forEach((id, index) => {
+        const row = rows[id];
+        row.earlier.disabled = index === 0;
+        row.later.disabled = index === order.length - 1;
+        row.position.textContent = 'Position ' + (index + 1) + ' of ' + order.length;
+        row.eventSpeech.setAttribute('data-model-speak-text', byId[id].year + '. ' +
+          byId[id].label + '. ' + byId[id].detail + ' Position ' +
+          (index + 1) + ' of ' + order.length + '.');
+        list.append(row.element);
+      });
+      track.replaceChildren(...order.map(id => {
+        const event = byId[id];
+        return node('span', { class: 'timeline-order-visual-card' },
+          node('strong', {}, String(event.year)), node('small', {}, event.label));
+      }));
+      const sorted = chronological();
+      scene.classList.toggle('is-chronological', sorted);
+      frame.readout.textContent = 'Current order: ' + order.map(id => {
+        const event = byId[id];
+        return event.year + ', ' + event.label.toLowerCase();
+      }).join('; ') + '. ' + (sorted
+        ? 'The dates now increase from earlier to later.'
+        : 'Compare the dates and move the smallest year toward Earlier.');
+    }
+
+    function move(id, delta) {
+      const from = order.indexOf(id);
+      const to = from + delta;
+      if (to < 0 || to >= order.length) return;
+      [order[from], order[to]] = [order[to], order[from]];
+      refreshList();
+      const own = delta < 0 ? rows[id].earlier : rows[id].later;
+      const counterpart = delta < 0 ? rows[id].later : rows[id].earlier;
+      (own.disabled ? counterpart : own).focus();
+      frame.status.textContent = 'Moved “' + byId[id].label + '” ' +
+        (delta < 0 ? 'earlier' : 'later') + '. Its date is ' + byId[id].year + '.';
+    }
+
+    events.forEach(event => {
+      const earlier = node('button', {
+        type: 'button', class: 'btn ghost small model-move',
+        'aria-label': 'Move ' + event.year + ', ' + event.label + ', earlier',
+        onclick: () => move(event.id, -1),
+      }, 'Earlier');
+      const later = node('button', {
+        type: 'button', class: 'btn ghost small model-move',
+        'aria-label': 'Move ' + event.year + ', ' + event.label + ', later',
+        onclick: () => move(event.id, 1),
+      }, 'Later');
+      const position = node('small', { class: 'timeline-order-position' });
+      const eventSpeech = node('span', {
+        class: 'timeline-order-event', 'data-model-speak': true,
+      },
+      node('strong', { class: 'timeline-order-date' }, String(event.year)),
+      node('span', { class: 'timeline-order-copy' },
+        node('span', {}, event.label), node('small', {}, event.detail), position));
+      const element = node('li', { class: 'timeline-order-item', 'data-event-id': event.id },
+        eventSpeech,
+        node('span', { class: 'timeline-order-moves' }, earlier, later));
+      rows[event.id] = { element, earlier, later, position, eventSpeech };
+    });
+
+    const checkButton = node('button', {
+      type: 'button', class: 'btn gold small', onclick: () => {
+        frame.status.textContent = chronological()
+          ? 'The timeline is chronological: 1910, then 1950, then 1995.'
+          : 'The timeline is not chronological yet. Find the smallest date and move it toward Earlier.';
+      },
+    }, 'Check the order');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        order = authoredOrder.slice();
+        refreshList();
+        frame.status.textContent = 'The fictional event cards are back in their authored mixed order.';
+      },
+    }, 'Reset');
+    const reorderGroup = node('div', {
+      class: 'timeline-order-controls', role: 'group',
+      'aria-label': 'Order the fictional library events',
+    }, list);
+
+    frame.canvas.classList.add('timeline-order-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(reorderGroup,
+      node('div', { class: 'model-button-row timeline-order-nav' }, checkButton, resetButton));
+    refreshList();
+    return frame.root;
+  }
+
+  function renderSeasonsTilt(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const positions = [
+      {
+        id: 'march-equinox', label: 'March equinox', x: 182, y: 140,
+        north: 'astronomical spring', south: 'astronomical autumn',
+        light: 'Neither hemisphere tilts toward the Sun, so day and night are about equal in length.',
+      },
+      {
+        id: 'june-solstice', label: 'June solstice', x: 260, y: 338,
+        north: 'temperate summer', south: 'temperate winter',
+        light: 'The north tilts toward the Sun for longer days and more direct sunlight; the south tilts away for shorter days and more slanted sunlight.',
+      },
+      {
+        id: 'september-equinox', label: 'September equinox', x: 458, y: 260,
+        north: 'astronomical autumn', south: 'astronomical spring',
+        light: 'Neither hemisphere tilts toward the Sun, so day and night are about equal in length.',
+      },
+      {
+        id: 'december-solstice', label: 'December solstice', x: 380, y: 62,
+        north: 'temperate winter', south: 'temperate summer',
+        light: 'The south tilts toward the Sun for longer days and more direct sunlight; the north tilts away for shorter days and more slanted sunlight.',
+      },
+    ];
+    const byId = Object.fromEntries(positions.map(position => [position.id, position]));
+    const hemisphereLabels = { north: 'Northern Hemisphere', south: 'Southern Hemisphere' };
+    const validScenario = props.scenario === 'earth-tilt-four-positions';
+    const requestedPosition = props.start_position;
+    const requestedHemisphere = props.start_hemisphere;
+    const authoredPosition = validScenario && typeof requestedPosition === 'string' &&
+      Object.prototype.hasOwnProperty.call(byId, requestedPosition)
+      ? requestedPosition : 'june-solstice';
+    const authoredHemisphere = validScenario && typeof requestedHemisphere === 'string' &&
+      Object.prototype.hasOwnProperty.call(hemisphereLabels, requestedHemisphere)
+      ? requestedHemisphere : 'north';
+    let position = authoredPosition;
+    let hemisphere = authoredHemisphere;
+    const diagram = svgNode('svg', {
+      viewBox: '0 0 640 400', class: 'seasons-orbit-diagram',
+      'aria-hidden': 'true', focusable: 'false',
+    });
+    diagram.append(
+      svgNode('circle', { cx: 320, cy: 200, r: 150, class: 'seasons-orbit' }),
+      svgNode('circle', { cx: 320, cy: 200, r: 35, class: 'seasons-sun' }));
+    const earthGroups = {};
+    positions.forEach(detail => {
+      const group = svgNode('g', { class: 'seasons-earth-position' });
+      group.append(
+        svgNode('circle', { cx: detail.x, cy: detail.y, r: 25, class: 'seasons-earth' }),
+        svgNode('line', {
+          x1: detail.x - 18, y1: detail.y + 42,
+          x2: detail.x + 18, y2: detail.y - 42,
+          class: 'seasons-axis',
+        }));
+      earthGroups[detail.id] = group;
+      diagram.append(group);
+    });
+    const scene = node('div', { class: 'seasons-tilt-scene' }, diagram,
+      node('p', { class: 'seasons-tilt-note', 'data-model-speak': true },
+        'All four Earth axes stay parallel in this not-to-scale teaching view. Earth’s distance from the Sun does not cause the seasons; axial tilt changes daylight length and sunlight angle, and the two hemispheres have opposite seasons.'),
+      node('p', { class: 'seasons-temperate-note', 'data-model-speak': true },
+        'The familiar four-season labels fit many temperate regions. Places near the equator and in other climates can have different seasonal patterns.'));
+    const positionButtons = {};
+    const positionRow = node('div', {
+      class: 'model-option-row seasons-position-row', role: 'group',
+      'aria-label': 'Choose a key position in Earth’s orbit',
+    });
+    const hemisphereButtons = {};
+    const hemisphereRow = node('div', {
+      class: 'model-option-row seasons-hemisphere-row', role: 'group',
+      'aria-label': 'Choose a hemisphere to follow',
+    });
+
+    function refresh(announce, message) {
+      const detail = byId[position];
+      const other = hemisphere === 'north' ? 'south' : 'north';
+      Object.entries(positionButtons).forEach(([id, button]) => {
+        const selected = id === position;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        earthGroups[id].classList.toggle('is-selected', selected);
+      });
+      Object.entries(hemisphereButtons).forEach(([id, button]) => {
+        const selected = id === hemisphere;
+        button.classList.toggle('is-selected', selected);
+        button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      });
+      frame.readout.textContent = detail.label + '. ' + hemisphereLabels[hemisphere] +
+        ': ' + detail[hemisphere] + '. ' + hemisphereLabels[other] +
+        ' has the opposite season, ' + detail[other] + '. ' + detail.light;
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    positions.forEach(detail => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          position = detail.id;
+          refresh(true);
+        },
+      }, detail.label);
+      positionButtons[detail.id] = button;
+      positionRow.append(button);
+    });
+    Object.entries(hemisphereLabels).forEach(([id, label]) => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          hemisphere = id;
+          refresh(true, label + ' selected. It has ' + byId[position][id] +
+            ' at the ' + byId[position].label.toLowerCase() + '.');
+        },
+      }, label.replace(' Hemisphere', ''));
+      hemisphereButtons[id] = button;
+      hemisphereRow.append(button);
+    });
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        position = authoredPosition;
+        hemisphere = authoredHemisphere;
+        refresh(false);
+        frame.status.textContent = 'Back to the authored ' + byId[authoredPosition].label +
+          ' and ' + hemisphereLabels[authoredHemisphere] + '.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('seasons-tilt-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(positionRow, hemisphereRow,
+      node('div', { class: 'model-button-row seasons-tilt-nav' }, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderArtElementsComposer(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const props = item.props || {};
+    const details = {
+      line: { label: 'Line', explanation: 'lines make paths, edges, and movement' },
+      shape: { label: 'Shape', explanation: 'closed and implied areas make shapes' },
+      color: { label: 'Color', explanation: 'named colors distinguish areas without carrying meaning alone' },
+      texture: { label: 'Texture', explanation: 'marks suggest how a surface might feel' },
+      pattern: { label: 'Pattern', explanation: 'repeated marks create a pattern' },
+    };
+    const elementOrder = Object.keys(details);
+    const requestedElements = Array.isArray(props.start_elements) ? props.start_elements : [];
+    const validElements = props.scenario === 'garden-five-elements' && requestedElements.length > 0 &&
+      new Set(requestedElements).size === requestedElements.length &&
+      requestedElements.every(id => typeof id === 'string' &&
+        Object.prototype.hasOwnProperty.call(details, id));
+    const authoredElements = validElements ? requestedElements.slice() : ['line', 'shape'];
+    let activeElements = new Set(authoredElements);
+    const layers = {
+      line: node('div', { class: 'art-element-layer art-layer-line', 'aria-hidden': 'true' },
+        node('span', { class: 'art-line-stem' }), node('span', { class: 'art-line-stem' }),
+        node('span', { class: 'art-line-stem' })),
+      shape: node('div', { class: 'art-element-layer art-layer-shape', 'aria-hidden': 'true' },
+        node('span', { class: 'art-shape-petal' }), node('span', { class: 'art-shape-petal' }),
+        node('span', { class: 'art-shape-petal' }), node('span', { class: 'art-shape-center' })),
+      color: node('div', { class: 'art-element-layer art-layer-color', 'aria-hidden': 'true' },
+        node('span', { class: 'art-color-wash is-first' }),
+        node('span', { class: 'art-color-wash is-second' })),
+      texture: node('div', { class: 'art-element-layer art-layer-texture', 'aria-hidden': 'true' },
+        node('span', { class: 'art-texture-patch' })),
+      pattern: node('div', { class: 'art-element-layer art-layer-pattern', 'aria-hidden': 'true' },
+        ...Array.from({ length: 7 }, () => node('span', { class: 'art-pattern-mark' }))),
+    };
+    const board = node('div', { class: 'art-composition-board', 'aria-hidden': 'true' },
+      ...elementOrder.map(id => layers[id]));
+    const summary = node('p', { class: 'art-elements-summary', 'data-model-speak': true });
+    const scene = node('div', { class: 'art-elements-scene' }, board, summary,
+      node('p', { class: 'art-elements-note', 'data-model-speak': true },
+        'These five visual tools are useful, not an exhaustive rulebook. Artists combine many other choices. Visual texture suggests touch but does not make the screen feel rough, and labels, shapes, line styles, and patterns keep color from being the sole signal. Color meanings can differ between people and cultures.'));
+    const buttons = {};
+    const elementRow = node('div', {
+      class: 'model-option-row art-elements-row', role: 'group',
+      'aria-label': 'Choose visual elements for the composition',
+    });
+
+    function refresh(announce, message) {
+      elementOrder.forEach(id => {
+        const active = activeElements.has(id);
+        layers[id].hidden = !active;
+        layers[id].classList.toggle('is-active', active);
+        buttons[id].classList.toggle('is-selected', active);
+        buttons[id].setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const active = elementOrder.filter(id => activeElements.has(id));
+      board.classList.toggle('is-empty', active.length === 0);
+      board.setAttribute('data-active-count', String(active.length));
+      summary.textContent = active.length
+        ? 'Showing ' + active.map(id => details[id].label.toLowerCase()).join(', ') + '.'
+        : 'The board is empty. Choose a visual element to add a layer.';
+      frame.readout.textContent = active.length
+        ? active.map(id => details[id].label + ': ' + details[id].explanation + '.').join(' ')
+        : 'No layers are active. The visual idea changes as line, shape, color, texture, and pattern are added.';
+      if (announce) frame.status.textContent = message || frame.readout.textContent;
+    }
+
+    elementOrder.forEach(id => {
+      const button = node('button', {
+        type: 'button', class: 'btn small model-option', 'aria-pressed': 'false',
+        onclick: () => {
+          if (activeElements.has(id)) activeElements.delete(id);
+          else activeElements.add(id);
+          refresh(true, details[id].label + ' layer ' +
+            (activeElements.has(id) ? 'added: ' : 'removed: ') + details[id].explanation + '.');
+        },
+      }, details[id].label);
+      buttons[id] = button;
+      elementRow.append(button);
+    });
+    const showAllButton = node('button', {
+      type: 'button', class: 'btn small', onclick: () => {
+        activeElements = new Set(elementOrder);
+        refresh(true, 'All five visual element layers are showing together.');
+      },
+    }, 'Show all five');
+    const clearButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        activeElements.clear();
+        refresh(true, 'The composition board is clear. Choose an element to begin again.');
+      },
+    }, 'Clear board');
+    const resetButton = node('button', {
+      type: 'button', class: 'btn ghost small', onclick: () => {
+        activeElements = new Set(authoredElements);
+        refresh(false);
+        frame.status.textContent = 'Back to the authored ' + authoredElements.map(id =>
+          details[id].label.toLowerCase()).join(' and ') + ' layers.';
+      },
+    }, 'Reset');
+
+    frame.canvas.classList.add('art-elements-canvas');
+    frame.canvas.append(scene);
+    frame.controls.append(elementRow,
+      node('div', { class: 'model-button-row art-elements-nav' },
+        showAllButton, clearButton, resetButton));
+    refresh(false);
+    return frame.root;
+  }
+
+  /* Physics concept lab ---------------------------------------------------
+     Thirty-six lesson-bound scenarios share this rendering grammar, not a
+     generic answer widget. Each scenario owns its independent variables,
+     calculation, readout, scientific boundary, and visible SVG state. */
+  function physicsControl(key, label, min, max, step, start, unit, low, high) {
+    return { key, label, min, max, step, start, unit, low, high };
+  }
+
+  function physicsFixed(value, digits = 1) {
+    const safe = Number.isFinite(value) ? value : 0;
+    return safe.toFixed(digits).replace(/\.0$/, '');
+  }
+
+  function physicsScientific(value) { return value.toExponential(3); }
+
+  function physicsChoose(n, k) {
+    if (k < 0 || k > n) return 0;
+    let result = 1;
+    for (let index = 1; index <= Math.min(k, n - k); index += 1) {
+      result = result * (n - index + 1) / index;
+    }
+    return Math.round(result);
+  }
+
+  function physicsGraphPoints(fn, count = 60) {
+    return Array.from({ length: count + 1 }, (_, index) => {
+      const x = index / count;
+      return [x, Math.max(0, Math.min(1, fn(x)))];
+    });
+  }
+
+  function physicsSeededRandom(seed) {
+    let value = (seed >>> 0) || 0x6d2b79f5;
+    return () => {
+      value ^= value << 13;
+      value ^= value >>> 17;
+      value ^= value << 5;
+      return (value >>> 0) / 4294967296;
+    };
+  }
+
+  function physicsWellHistogram(stateNumber, sampleCount, binCount = 20) {
+    const counts = Array(binCount).fill(0);
+    const random = physicsSeededRandom(0x9e3779b9 ^ Math.imul(stateNumber, 0x85ebca6b));
+    let accepted = 0;
+    let trial = 0;
+    while (accepted < sampleCount && trial < sampleCount * 64) {
+      const x = random();
+      const gate = random();
+      if (gate <= Math.sin(stateNumber * Math.PI * x) ** 2) {
+        counts[Math.min(binCount - 1, Math.floor(x * binCount))] += 1;
+        accepted += 1;
+      }
+      trial += 1;
+    }
+    if (accepted !== sampleCount) throw new Error('Quantum sampler did not produce the full requested sample.');
+    return counts;
+  }
+
+  function physicsDeterministicCount(probability, sampleCount, seed) {
+    const random = physicsSeededRandom(0x517cc1b7 ^ Math.imul(Math.round(seed * 1000), 0x45d9f3b));
+    let count = 0;
+    for (let index = 0; index < sampleCount; index += 1) {
+      if (random() < probability) count += 1;
+    }
+    return count;
+  }
+
+  function physicsBellSample(correlation, sampleCount, setting) {
+    const random = physicsSeededRandom(0x7352ac91 ^ Math.imul(setting + 1, 0x45d9f3b));
+    let same = 0, alicePlus = 0, bobPlus = 0;
+    for (let pair = 0; pair < sampleCount; pair += 1) {
+      const alice = random() < .5 ? 1 : -1;
+      const matches = random() < (1 + correlation) / 2;
+      const bob = matches ? alice : -alice;
+      same += Number(matches); alicePlus += Number(alice === 1); bobPlus += Number(bob === 1);
+    }
+    return { same, alicePlus, bobPlus, correlation: 2 * same / sampleCount - 1 };
+  }
+
+  function physicsDecayTimes(count, realization) {
+    const random = physicsSeededRandom(0x2468ace1 ^ Math.imul(realization, 0x45d9f3b));
+    // An open-interval uniform variate avoids an artificial decay at t=0 or
+    // an infinite time. One sampled lifetime persists as the time control moves.
+    return Array.from({ length: count }, () =>
+      -Math.log(random() + .5 / 4294967296) / Math.LN2).sort((a, b) => a - b);
+  }
+
+  function physicsSvgText(x, y, value, className = 'physics-svg-label', anchor = 'middle') {
+    const textNode = svgNode('text', { x, y, class: className, 'text-anchor': anchor });
+    textNode.textContent = value;
+    return textNode;
+  }
+
+  function physicsArrow(svg, arrowId, x1, y1, x2, y2, className = 'physics-svg-accent') {
+    svg.append(svgNode('line', {
+      x1, y1, x2, y2, class: 'physics-svg-line ' + className,
+      'marker-end': 'url(#' + arrowId + ')',
+    }));
+  }
+
+  function physicsCurvePath(points, left = 88, top = 34, width = 560, height = 205) {
+    return points.map((point, index) => {
+      const x = left + Math.max(0, Math.min(1, point[0])) * width;
+      const y = top + (1 - Math.max(0, Math.min(1, point[1]))) * height;
+      return (index ? 'L' : 'M') + physicsFixed(x, 2) + ' ' + physicsFixed(y, 2);
+    }).join(' ');
+  }
+
+  function drawPhysicsGraph(svg, visual) {
+    const plotWidth = visual.phaseOrbit != null ? 350 : 560;
+    const plotRight = 88 + plotWidth;
+    svg.append(
+      svgNode('line', { x1: 82, y1: 244, x2: plotRight + 12, y2: 244, class: 'physics-svg-axis' }),
+      svgNode('line', { x1: 82, y1: 244, x2: 82, y2: 26, class: 'physics-svg-axis' }),
+      physicsSvgText(plotRight + 12, visual.xTicks ? 292 : 274, visual.xLabel || 'input', 'physics-svg-small', 'end'),
+      physicsSvgText(92, 30, visual.yLabel || 'response', 'physics-svg-small', 'start'),
+    );
+    // Curves and markers share these calibrated plot coordinates.  Tick labels
+    // state the physical scale rather than suggesting that all graphs are 0–1.
+    (visual.xTicks || []).forEach(tick => {
+      const x = 88 + tick[0] * plotWidth;
+      svg.append(
+        svgNode('line', { x1: x, y1: 239, x2: x, y2: 248, class: 'physics-svg-axis' }),
+        physicsSvgText(x, 265, tick[1], 'physics-svg-small'),
+      );
+    });
+    (visual.yTicks || []).forEach(tick => {
+      const y = 239 - tick[0] * 205;
+      svg.append(
+        svgNode('line', { x1: 75, y1: y, x2: 88, y2: y, class: 'physics-svg-axis' }),
+        physicsSvgText(70, y + 5, tick[1], 'physics-svg-small', 'end'),
+      );
+    });
+    if (visual.threshold != null) {
+      const x = 88 + visual.threshold * plotWidth;
+      svg.append(
+        svgNode('line', { x1: x, y1: 239, x2: x, y2: 145, class: 'physics-svg-guide' }),
+        physicsSvgText(x + 12, 126, visual.thresholdLabel, 'physics-svg-small', 'start'),
+      );
+    }
+    if (visual.histogram) {
+      const fraction = visual.histogramFraction || 1;
+      const barWidth = plotWidth * fraction / visual.histogram.length;
+      const gap = visual.histogramGap == null ? 2 : visual.histogramGap;
+      visual.histogram.forEach((height, index) => {
+        const bounded = Math.max(0, Math.min(1, height));
+        svg.append(svgNode('rect', {
+          x: 88 + index * barWidth + gap / 2, y: 239 - bounded * 205,
+          width: Math.max(1, barWidth - gap), height: bounded * 205,
+          class: 'physics-svg-histogram', 'data-physics-count': visual.histogramCounts?.[index],
+          'data-physics-density-max': visual.densityMax,
+        }));
+      });
+    }
+    if (visual.wellLength != null) {
+      const wall = 88 + plotWidth * visual.wellLength / 2;
+      svg.append(svgNode('line', { x1: wall, x2: wall, y1: 239, y2: 34,
+        class: 'physics-svg-guide', 'data-physics-wall': visual.wellLength }));
+    }
+    (visual.curves || []).forEach((curve, index) => {
+      svg.append(svgNode('path', {
+        d: physicsCurvePath(curve.points, 88, 34, plotWidth),
+        class: 'physics-svg-curve physics-curve-' + (curve.tone || (index ? 'secondary' : 'primary')),
+      }));
+      if (curve.label) {
+        svg.append(physicsSvgText(plotRight, 48 + index * 22, curve.label,
+          'physics-svg-small physics-text-' + (curve.tone || (index ? 'secondary' : 'primary')), 'end'));
+      }
+    });
+    (visual.scatter || []).forEach(point => {
+      const x = 88 + Math.max(0, Math.min(1, point[0])) * plotWidth;
+      const y = 34 + (1 - Math.max(0, Math.min(1, point[1]))) * 205;
+      svg.append(svgNode('circle', { cx: x, cy: y, r: 7, class: 'physics-svg-data-point' }));
+    });
+    if (visual.incidentPhotons) {
+      for (let index = 0; index < Math.min(12, visual.incidentPhotons); index += 1) {
+        svg.append(svgNode('circle', { cx: 110 + index * 24, cy: 66, r: 6,
+          class: 'physics-svg-photon' }));
+      }
+      svg.append(physicsSvgText(110, 91, 'incident photons', 'physics-svg-small', 'start'));
+    }
+    if (visual.marker) {
+      const x = 88 + Math.max(0, Math.min(1, visual.marker[0])) * plotWidth;
+      const y = 34 + (1 - Math.max(0, Math.min(1, visual.marker[1]))) * 205;
+      svg.append(
+        svgNode('line', { x1: x, y1: 239, x2: x, y2: y, class: 'physics-svg-guide' }),
+        svgNode('circle', { cx: x, cy: y, r: visual.markerRadius || 9, class: 'physics-svg-marker' }),
+      );
+    }
+    if (visual.phaseOrbit != null) {
+      const scale = Math.max(0.2, Math.min(1, visual.phaseOrbit));
+      svg.append(
+        svgNode('rect', { x: 470, y: 112, width: 170, height: 108, rx: 10,
+          class: 'physics-svg-inset' }),
+        svgNode('line', { x1: 495, y1: 166, x2: 617, y2: 166, class: 'physics-svg-guide' }),
+        svgNode('line', { x1: 556, y1: 131, x2: 556, y2: 201, class: 'physics-svg-guide' }),
+        svgNode('ellipse', { cx: 556, cy: 166, rx: 61 * scale, ry: 35 * scale,
+          class: 'physics-svg-phase-orbit' }),
+        physicsSvgText(556, 84, 'Separate oscillator', 'physics-svg-small'),
+        physicsSvgText(556, 108, 'constant-H orbit', 'physics-svg-small'),
+        physicsSvgText(556, 244, 'q: −2…2 m', 'physics-svg-small'),
+        physicsSvgText(556, 269, 'p: −2…2 kg m/s', 'physics-svg-small'),
+      );
+    }
+    if (visual.measurement) {
+      const x = 88 + Math.max(0, Math.min(1, visual.measurement.x)) * plotWidth;
+      const center = Math.max(0, Math.min(1, visual.measurement.y));
+      const error = Math.max(0, Math.min(1, visual.measurement.error || 0));
+      const y = 34 + (1 - center) * 205;
+      const top = 34 + (1 - Math.min(1, center + error)) * 205;
+      const bottom = 34 + (1 - Math.max(0, center - error)) * 205;
+      svg.append(
+        svgNode('line', { x1: x, y1: top, x2: x, y2: bottom,
+          class: 'physics-svg-measurement-error' }),
+        svgNode('line', { x1: x - 10, y1: top, x2: x + 10, y2: top,
+          class: 'physics-svg-measurement-error' }),
+        svgNode('line', { x1: x - 10, y1: bottom, x2: x + 10, y2: bottom,
+          class: 'physics-svg-measurement-error' }),
+        svgNode('circle', { cx: x, cy: y, r: 10, class: 'physics-svg-measurement' }),
+      );
+    }
+  }
+
+  function drawPhysicsVector(svg, visual, arrowId) {
+    if (visual.vertical) {
+      svg.append(
+        svgNode('line', { x1: 80, y1: 226, x2: 640, y2: 226, class: 'physics-svg-ground' }),
+        svgNode('rect', { x: 300, y: 115, width: 120, height: 88, rx: 13, class: 'physics-svg-object' }),
+        physicsSvgText(360, 166, visual.object || 'system', 'physics-svg-label'),
+      );
+      const up = 70 * Math.max(0, Math.min(1, visual.up || 0));
+      const down = 70 * Math.max(0, Math.min(1, visual.down || 0));
+      if (up > 1) physicsArrow(svg, arrowId, 360, 115, 360, 115 - up, 'physics-svg-teal');
+      if (down > 1) physicsArrow(svg, arrowId, 360, 203, 360, 203 + down, 'physics-svg-coral');
+      svg.append(
+        physicsSvgText(382, 82, visual.upLabel || 'upward', 'physics-svg-small', 'start'),
+        physicsSvgText(382, 235, visual.downLabel || 'downward', 'physics-svg-small', 'start'),
+        physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+      );
+      return;
+    }
+    svg.append(
+      svgNode('line', { x1: 76, y1: 222, x2: 644, y2: 222, class: 'physics-svg-ground' }),
+      svgNode('rect', { x: 300, y: 120, width: 120, height: 82, rx: 13, class: 'physics-svg-object' }),
+      physicsSvgText(360, 168, visual.object || 'system', 'physics-svg-label'),
+    );
+    const left = 184 * Math.max(0, Math.min(1, visual.left || 0));
+    const right = 184 * Math.max(0, Math.min(1, visual.right || 0));
+    if (left > 1) physicsArrow(svg, arrowId, 300, 160, 300 - left, 160, 'physics-svg-coral');
+    if (right > 1) physicsArrow(svg, arrowId, 420, 160, 420 + right, 160, 'physics-svg-teal');
+    svg.append(
+      physicsSvgText(left > 1 ? 292 - left / 2 : 245, 130,
+        visual.leftLabel || 'left', 'physics-svg-small'),
+      physicsSvgText(right > 1 ? 428 + right / 2 : 475, 130,
+        visual.rightLabel || 'right', 'physics-svg-small'),
+      physicsSvgText(360, 270, visual.note || '', 'physics-svg-note'),
+    );
+    const response = Math.max(-1, Math.min(1, visual.response || 0));
+    if (Math.abs(response) > 0.01) {
+      physicsArrow(svg, arrowId, 360, 232, 360 + response * 150, 232,
+        response > 0 ? 'physics-svg-teal' : 'physics-svg-coral');
+    }
+  }
+
+  function drawPhysicsTransfer(svg, visual, arrowId) {
+    const leftLevel = Math.max(0, Math.min(1, visual.left || 0));
+    const rightLevel = Math.max(0, Math.min(1, visual.right || 0));
+    const tanks = [[112, leftLevel, visual.leftLabel || 'A'], [448, rightLevel, visual.rightLabel || 'B']];
+    tanks.forEach(([x, level, label], index) => {
+      svg.append(
+        svgNode('rect', { x, y: 58, width: 160, height: 170, rx: 15, class: 'physics-svg-tank' }),
+        svgNode('rect', { x: x + 8, y: 220 - level * 150, width: 144,
+          height: level * 150, rx: 9, class: index ? 'physics-svg-fill-blue' : 'physics-svg-fill-coral' }),
+        physicsSvgText(x + 80, 45, label, 'physics-svg-label'),
+      );
+    });
+    if ((visual.direction || 0) > 0.02) {
+      physicsArrow(svg, arrowId, 292, 142, 428, 142, 'physics-svg-gold');
+    } else if ((visual.direction || 0) < -0.02) {
+      physicsArrow(svg, arrowId, 428, 142, 292, 142, 'physics-svg-gold');
+    } else {
+      svg.append(svgNode('line', { x1: 302, y1: 142, x2: 418, y2: 142, class: 'physics-svg-guide' }));
+    }
+    if (visual.mechanism === 'conduction') {
+      for (let x = 300; x <= 420; x += 24) {
+        svg.append(svgNode('circle', { cx: x, cy: 178, r: 6, class: 'physics-svg-particle is-active' }));
+      }
+    } else if (visual.mechanism === 'convection') {
+      svg.append(svgNode('path', { d: 'M322 195 C295 165 305 105 350 98 C405 88 430 140 402 183',
+        class: 'physics-svg-curve physics-curve-primary', 'marker-end': 'url(#' + arrowId + ')' }));
+    } else if (visual.mechanism === 'radiation') {
+      const ray = [];
+      for (let index = 0; index <= 40; index += 1) {
+        const x = 295 + index * 3.2;
+        ray.push((index ? 'L' : 'M') + x + ' ' + (188 + 10 * Math.sin(index * .9)));
+      }
+      svg.append(svgNode('path', { d: ray.join(' '), class: 'physics-svg-curve physics-curve-secondary' }));
+    }
+    if (visual.rate != null) {
+      svg.append(
+        svgNode('rect', { x: 300, y: 218, width: 120, height: 10, rx: 5, class: 'physics-svg-gauge-track' }),
+        svgNode('rect', { x: 300, y: 218, width: 120 * Math.max(0, Math.min(1, visual.rate)),
+          height: 10, rx: 5, class: 'physics-svg-gauge-fill' }),
+      );
+    }
+    svg.append(
+      physicsSvgText(360, 118, visual.arrowLabel || 'transfer', 'physics-svg-small'),
+      physicsSvgText(360, 270, visual.note || '', 'physics-svg-note'),
+    );
+  }
+
+  function drawPhysicsWave(svg, visual) {
+    function pathFor(cycles, amplitude, mid, phase = 0) {
+      const points = [];
+      for (let index = 0; index <= 120; index += 1) {
+        const t = index / 120;
+        points.push([70 + t * 580, mid - amplitude * Math.sin(Math.PI * 2 * cycles * t + phase)]);
+      }
+      return points.map((point, index) => (index ? 'L' : 'M') +
+        physicsFixed(point[0], 2) + ' ' + physicsFixed(point[1], 2)).join(' ');
+    }
+    const normalizedAmplitude = visual.amplitude == null
+      ? 0.4 : Math.max(0, Math.min(1, visual.amplitude));
+    svg.append(svgNode('line', { x1: 65, y1: 135, x2: 655, y2: 135, class: 'physics-svg-guide' }));
+    svg.append(svgNode('path', {
+      d: pathFor(visual.cycles || 2, 80 * normalizedAmplitude, 135),
+      class: 'physics-svg-curve physics-curve-primary',
+    }));
+    if (visual.orthogonalFields) {
+      const cycles = visual.cycles || 2;
+      const amplitude = normalizedAmplitude;
+      // Four depth samples per cycle preserve sign changes as frequency rises.
+      const depthSamples = Math.max(20, Math.ceil(cycles * 4));
+      for (let index = 0; index <= depthSamples; index += 1) {
+        const phase = Math.sin(Math.PI * 2 * cycles * index / depthSamples);
+        const cx = 70 + index * 580 / depthSamples;
+        const radius = 3 + Math.abs(phase) * (4 + 12 * amplitude);
+        svg.append(svgNode('circle', { cx, cy: 216, r: radius,
+          class: 'physics-svg-field-depth' }));
+        if (phase > 0.12) {
+          svg.append(svgNode('circle', { cx, cy: 216, r: Math.max(1.5, radius * .22),
+            class: 'physics-svg-field-dot' }));
+        } else if (phase < -0.12) {
+          const arm = Math.max(2, radius * .48);
+          svg.append(
+            svgNode('line', { x1: cx - arm, y1: 216 - arm, x2: cx + arm, y2: 216 + arm,
+              class: 'physics-svg-field-cross' }),
+            svgNode('line', { x1: cx - arm, y1: 216 + arm, x2: cx + arm, y2: 216 - arm,
+              class: 'physics-svg-field-cross' }),
+          );
+        }
+      }
+      svg.append(physicsSvgText(70, 244, 'B: dot out / cross in', 'physics-svg-small', 'start'));
+    } else if (visual.secondCycles) {
+      svg.append(svgNode('path', {
+        d: pathFor(visual.secondCycles, 80 * (visual.secondAmplitude == null
+          ? 0.4 : Math.max(0, Math.min(1, visual.secondAmplitude))), 215,
+          visual.secondPhase || 0),
+        class: 'physics-svg-curve physics-curve-secondary',
+      }));
+    }
+    for (let index = 0; index < Math.min(12, visual.tokens || 0); index += 1) {
+      svg.append(svgNode('circle', { cx: 92 + index * 42, cy: 52, r: 9,
+        class: 'physics-svg-particle is-active' }));
+    }
+    svg.append(
+      physicsSvgText(70, 40, visual.label || 'wave state', 'physics-svg-label', 'start'),
+      physicsSvgText(650, 272, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsInterference(svg, visual) {
+    const amplitude = visual.amplitude;
+    const phase = visual.phase;
+    function trace(mid, fn, tone, role) {
+      const points = Array.from({ length: 121 }, (_, index) => {
+        const x = index / 120;
+        return [70 + 580 * x, mid - 22 * amplitude / 10 * fn(6 * Math.PI * x)];
+      });
+      svg.append(svgNode('path', {
+        d: points.map((point, index) => (index ? 'L' : 'M') +
+          physicsFixed(point[0], 2) + ' ' + physicsFixed(point[1], 2)).join(' '),
+        class: 'physics-svg-curve physics-curve-' + tone,
+        'data-physics-trace': role,
+      }));
+    }
+    svg.append(
+      svgNode('line', { x1: 65, y1: 92, x2: 655, y2: 92, class: 'physics-svg-guide' }),
+      svgNode('line', { x1: 65, y1: 220, x2: 655, y2: 220, class: 'physics-svg-guide' }),
+      physicsSvgText(70, 35, 'Contributions: A sin θ and A sin(θ + φ)', 'physics-svg-label', 'start'),
+      physicsSvgText(70, 167, 'Resultant = contribution 1 + contribution 2', 'physics-svg-label', 'start'),
+      physicsSvgText(650, 135, 'θ: 0 → 6π; amplitude in units', 'physics-svg-small', 'end'),
+    );
+    [[70, '+10'], [92, '0'], [114, '−10'], [176, '+20'], [220, '0'], [264, '−20']].forEach(([y, value]) => {
+      svg.append(
+        svgNode('line', { x1: 63, y1: y, x2: 70, y2: y, class: 'physics-svg-axis' }),
+        physicsSvgText(60, y + 5, value, 'physics-svg-small', 'end'),
+      );
+    });
+    trace(92, theta => Math.sin(theta), 'primary', 'contribution-1');
+    trace(92, theta => Math.sin(theta + phase), 'secondary', 'contribution-2');
+    trace(220, theta => Math.sin(theta) + Math.sin(theta + phase), 'primary', 'resultant');
+    svg.append(physicsSvgText(650, 293, visual.note, 'physics-svg-note', 'end'));
+  }
+
+  function drawPhysicsQft(svg, visual) {
+    const mode = [];
+    for (let index = 0; index <= 80; index += 1) {
+      const x = 70 + index * 4.2;
+      const y = 140 - 52 * Math.sin(4 * Math.PI * index / 80);
+      mode.push((index ? 'L' : 'M') + physicsFixed(x, 2) + ' ' + physicsFixed(y, 2));
+    }
+    svg.append(
+      svgNode('line', { x1: 65, y1: 140, x2: 410, y2: 140, class: 'physics-svg-guide' }),
+      svgNode('path', { d: mode.join(' '), class: 'physics-svg-curve physics-curve-primary' }),
+      physicsSvgText(238, 55, 'one spatial mode function u(x)', 'physics-svg-label'),
+      physicsSvgText(238, 207, 'mode shape, not a classical field value', 'physics-svg-small'),
+    );
+    for (let index = 0; index < Math.min(6, visual.occupation || 0); index += 1) {
+      svg.append(svgNode('circle', { cx: 150 + index * 36, cy: 245, r: 9,
+        class: 'physics-svg-particle is-active' }));
+    }
+    const energyScale = 198 / 34;
+    svg.append(svgNode('line', { x1: 475, y1: 257, x2: 650, y2: 257,
+      class: 'physics-svg-guide', 'data-qft-zero': 'true' }));
+    [0, 8, 16, 24, 32].forEach(energy => svg.append(physicsSvgText(695, 262 - energyScale * energy,
+      String(energy), 'physics-svg-small', 'end')));
+    for (let number = 0; number <= 6; number += 1) {
+      const y = 257 - (number + .5) * visual.frequency * energyScale;
+      svg.append(svgNode('line', { x1: 475, y1: y, x2: 650, y2: y,
+        class: number === visual.occupation ? 'physics-svg-qft-level is-selected' : 'physics-svg-qft-level',
+        'data-qft-level': number }));
+      if (number === 0 || number === 6 || number === visual.occupation) {
+        svg.append(physicsSvgText(462, y + 6, 'n=' + number, 'physics-svg-small', 'end'));
+      }
+    }
+    svg.append(
+      physicsSvgText(562, 30, 'E/ℏ (s⁻¹)', 'physics-svg-small'),
+      physicsSvgText(562, 54, 'energy ladder', 'physics-svg-label'),
+      physicsSvgText(650, 286, 'Vacuum level E₀/ℏ = ω/2 > 0', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsParticles(svg, visual) {
+    svg.append(svgNode('rect', { x: 78, y: 42, width: 564, height: 205, rx: 15,
+      class: 'physics-svg-chamber' }));
+    const count = Math.max(8, Math.min(40, visual.count || 24));
+    if (visual.coexistence) {
+      const phases = visual.coexistence === 'solid-liquid'
+        ? ['solid', 'liquid'] : ['liquid', 'gas'];
+      svg.append(
+        svgNode('line', { x1: 360, y1: 52, x2: 360, y2: 237, class: 'physics-svg-guide' }),
+        physicsSvgText(220, 70, phases[0], 'physics-svg-small'),
+        physicsSvgText(500, 70, phases[1], 'physics-svg-small'),
+      );
+      for (let index = 0; index < count; index += 1) {
+        const rightSide = index >= count / 2;
+        const local = index % Math.ceil(count / 2);
+        let x;
+        let y;
+        if (!rightSide && phases[0] === 'solid') {
+          x = 125 + (local % 4) * 62;
+          y = 99 + Math.floor(local / 4) * 40;
+        } else if (!rightSide) {
+          x = 104 + ((local * 83) % 230);
+          y = 100 + ((local * 47) % 116);
+        } else if (phases[1] === 'liquid') {
+          x = 385 + ((local * 83) % 230);
+          y = 100 + ((local * 47) % 116);
+        } else {
+          x = 384 + ((local * 107) % 236);
+          y = 84 + ((local * 71) % 138);
+        }
+        svg.append(svgNode('circle', { cx: x, cy: y, r: 7,
+          class: 'physics-svg-particle' }));
+        // Coexisting phases share one temperature; latent heat changes phase
+        // fraction/configuration, not the particles' mean kinetic-energy cue.
+        const phaseEnergy = Math.max(0, Math.min(1, visual.energy || 0));
+        const angle = (index * 2.31) % (Math.PI * 2);
+        const speed = 3 + 10 * phaseEnergy;
+        svg.append(svgNode('line', { x1: x, y1: y,
+          x2: x - Math.cos(angle) * speed, y2: y - Math.sin(angle) * speed,
+          class: 'physics-svg-motion-mark' }));
+      }
+      svg.append(
+        physicsSvgText(95, 28, visual.label || 'coexisting phases', 'physics-svg-label', 'start'),
+        physicsSvgText(630, 274, visual.note || '', 'physics-svg-note', 'end'),
+      );
+      return;
+    }
+    const order = Math.max(0, Math.min(1, visual.order || 0));
+    const spread = Math.max(0.12, Math.min(1, visual.spread || 0.5));
+    for (let index = 0; index < count; index += 1) {
+      const column = index % 8;
+      const row = Math.floor(index / 8);
+      const gridX = 120 + column * 68;
+      const gridY = 82 + row * 48;
+      const looseX = 95 + ((index * 97) % 520);
+      const looseY = 62 + ((index * 67) % 165);
+      const x = order * gridX + (1 - order) * (360 + (looseX - 360) * spread);
+      const y = order * gridY + (1 - order) * (145 + (looseY - 145) * spread);
+      svg.append(svgNode('circle', {
+        cx: x, cy: y, r: 7,
+        class: index < (visual.active || 0) ? 'physics-svg-particle is-active' : 'physics-svg-particle',
+      }));
+      if ((visual.energy || 0) > 0.08) {
+        const angle = (index * 2.31) % (Math.PI * 2);
+        const speed = 3 + 10 * visual.energy;
+        svg.append(svgNode('line', { x1: x, y1: y, x2: x - Math.cos(angle) * speed,
+          y2: y - Math.sin(angle) * speed, class: 'physics-svg-motion-mark' }));
+      }
+    }
+    svg.append(
+      physicsSvgText(95, 28, visual.label || 'particle state', 'physics-svg-label', 'start'),
+      physicsSvgText(630, 274, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsEnsemble(svg, visual) {
+    if (visual.bars) {
+      const max = Math.max(...visual.bars, 1);
+      visual.bars.forEach((value, index) => {
+        const width = 460 / visual.bars.length;
+        const height = value / max * 155;
+        const x = 128 + index * width;
+        svg.append(
+          svgNode('rect', { x, y: 224 - height, width: width - 12, height,
+            class: index === visual.highlight ? 'physics-svg-bar is-highlighted' : 'physics-svg-bar' }),
+          physicsSvgText(x + (width - 12) / 2, 248,
+            visual.barLabels ? visual.barLabels[index] : String(index), 'physics-svg-small'),
+        );
+      });
+    } else {
+      const shown = Math.max(16, Math.min(128, visual.total || 64));
+      const active = Math.round(shown * Math.max(0, Math.min(1, visual.fraction || 0)));
+      for (let index = 0; index < shown; index += 1) {
+        const x = 126 + (index % 16) * 31;
+        const y = 55 + Math.floor(index / 16) * 26;
+        svg.append(svgNode('circle', { cx: x, cy: y, r: 6,
+          class: index < active ? 'physics-svg-particle is-active' : 'physics-svg-particle is-faded' }));
+      }
+    }
+    svg.append(
+      physicsSvgText(90, 32, visual.label || 'ensemble', 'physics-svg-label', 'start'),
+      physicsSvgText(630, 274, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsSpacetime(svg, visual) {
+    const timeMax = visual.timeMax || 24;
+    const scale = 210 / timeMax;
+    const beta = visual.beta;
+    const project = (space, time) => [360 + scale * space, 258 - scale * time];
+    svg.append(
+      svgNode('line', { x1: 360, y1: 258, x2: 360, y2: 28, class: 'physics-svg-axis' }),
+      svgNode('line', { x1: 82, y1: 258, x2: 650, y2: 258, class: 'physics-svg-axis' }),
+      svgNode('line', { x1: 360, y1: 258, x2: 150, y2: 48, class: 'physics-svg-light' }),
+      svgNode('line', { x1: 360, y1: 258, x2: 570, y2: 48, class: 'physics-svg-light' }),
+      physicsSvgText(650, 235, 'x/c (μs)', 'physics-svg-small', 'end'),
+      physicsSvgText(372, 35, 't (μs)', 'physics-svg-small', 'start'),
+    );
+    [0, .25, .5, .75, 1].forEach(fraction => {
+      const time = timeMax * fraction;
+      const [, y] = project(0, time);
+      svg.append(physicsSvgText(346, y + 5, physicsFixed(time, 0), 'physics-svg-small', 'end'));
+    });
+    [-1, -.5, 0, .5, 1].forEach(fraction => {
+      const [x] = project(timeMax * fraction, 0);
+      svg.append(physicsSvgText(x, 282, physicsFixed(timeMax * fraction, 0), 'physics-svg-small'));
+    });
+    const topX = 360 + beta * 210;
+    svg.append(svgNode('line', { x1: 360, y1: 258, x2: topX, y2: 48,
+      class: 'physics-svg-worldline', 'data-physics-role': 'clock-worldline' }));
+    if (visual.simultaneity) {
+      // All points on this slice have the selected moving-frame clock time:
+      // t' = γ(t − βx/c) = τ. Clip its physical coordinates to the fixed view.
+      const gamma = 1 / Math.sqrt(1 - beta ** 2);
+      const intercept = visual.properTime / gamma;
+      let left = -timeMax, right = timeMax;
+      if (beta !== 0) {
+        const crossings = [-intercept / beta, (timeMax - intercept) / beta].sort((a, b) => a - b);
+        left = Math.max(left, crossings[0]);
+        right = Math.min(right, crossings[1]);
+      }
+      const first = project(left, intercept + beta * left);
+      const second = project(right, intercept + beta * right);
+      svg.append(svgNode('line', { x1: first[0], y1: first[1], x2: second[0], y2: second[1],
+        class: 'physics-svg-simultaneity', 'data-physics-role': 'simultaneity-slice' }));
+    }
+    if (visual.coordinateTime != null) {
+      const event = project(beta * visual.coordinateTime, visual.coordinateTime);
+      svg.append(svgNode('circle', { cx: event[0], cy: event[1], r: 9,
+        class: 'physics-svg-marker', 'data-physics-role': 'clock-event' }));
+    }
+    svg.append(physicsSvgText(100, 28, 'Moving clock', 'physics-svg-label', 'start'));
+  }
+
+  function drawPhysicsCircuit(svg, visual) {
+    const closed = visual.closed !== false;
+    const current = Math.max(0, Math.min(1, visual.current || 0));
+    svg.append(
+      svgNode('path', { d: closed
+        ? 'M120 130 V75 H600 V225 H534 M466 225 H120 V165'
+        : 'M120 130 V75 H315 M390 75 H600 V225 H534 M466 225 H120 V165', class: 'physics-svg-circuit' }),
+      svgNode('line', { x1: 105, y1: 130, x2: 135, y2: 130, class: 'physics-svg-battery' }),
+      svgNode('line', { x1: 112, y1: 165, x2: 128, y2: 165, class: 'physics-svg-battery' }),
+      physicsSvgText(94, 135, '+', 'physics-svg-small'),
+      svgNode('circle', { cx: 500, cy: 225, r: 34, class: current ? 'physics-svg-bulb is-on' : 'physics-svg-bulb' }),
+      physicsSvgText(500, 232, 'load', 'physics-svg-small'),
+    );
+    if (!closed) {
+      svg.append(svgNode('line', { x1: 315, y1: 75, x2: 380, y2: 35, class: 'physics-svg-switch' }));
+    }
+    svg.append(
+      svgNode('rect', { x: 190, y: 120, width: 340 * current, height: 25, rx: 8,
+        class: 'physics-svg-current', 'data-current-gauge': 'true' }),
+      physicsSvgText(360, 112, visual.meter || 'current', 'physics-svg-label'),
+      physicsSvgText(190, 169, '0 A', 'physics-svg-small', 'start'),
+      physicsSvgText(530, 169, '12 A', 'physics-svg-small', 'end'),
+      physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsField(svg, visual, arrowId) {
+    svg.append(
+      svgNode('rect', { x: 85, y: 103, width: 170, height: 90, rx: 12,
+        class: 'physics-svg-magnet' }),
+      svgNode('line', { x1: 170, y1: 103, x2: 170, y2: 193, class: 'physics-svg-divider' }),
+      physicsSvgText(128, 158, visual.flipped ? 'S' : 'N', 'physics-svg-label'),
+      physicsSvgText(212, 158, visual.flipped ? 'N' : 'S', 'physics-svg-label'),
+    );
+    const coilCount = Math.max(2, Math.min(8, visual.coilTurns || 6));
+    for (let index = 0; index < coilCount; index += 1) {
+      svg.append(svgNode('ellipse', { cx: 520 + index * 12, cy: 148, rx: 45, ry: 88,
+        class: 'physics-svg-coil' }));
+    }
+    const strength = Math.max(-1, Math.min(1, visual.strength || 0));
+    if (Math.abs(strength) > 0.03) {
+      physicsArrow(svg, arrowId, strength > 0 ? 275 : 430, 148,
+        strength > 0 ? 420 : 280, 148, 'physics-svg-teal');
+    }
+    svg.append(
+      physicsSvgText(360, 78, visual.label || 'field interaction', 'physics-svg-label'),
+      physicsSvgText(360, 245, visual.meter || '', 'physics-svg-note'),
+      physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+    );
+  }
+
+  function drawPhysicsBands(svg, visual) {
+    const gap = 40 * visual.gap;
+    const edge = 70;
+    const fermiY = edge - 40 * visual.fermi;
+    svg.append(
+      svgNode('rect', { x: 100, y: 25, width: 390, height: 45, rx: 0, class: 'physics-svg-band upper' }),
+      svgNode('rect', { x: 100, y: edge + gap, width: 390, height: 45, rx: 0, class: 'physics-svg-band lower' }),
+      svgNode('line', { x1: 100, x2: 490, y1: edge, y2: edge, class: 'physics-svg-axis', 'data-band-edge': 'conduction' }),
+      svgNode('line', { x1: 100, x2: 490, y1: edge + gap, y2: edge + gap, class: 'physics-svg-axis', 'data-band-edge': 'valence' }),
+      svgNode('line', { x1: 100, x2: 490, y1: fermiY, y2: fermiY,
+        class: 'physics-svg-simultaneity', 'data-band-fermi': 'true' }),
+      physicsSvgText(295, 56, 'conduction band', 'physics-svg-label'),
+      physicsSvgText(295, edge + gap + 32, 'valence band', 'physics-svg-label'),
+      physicsSvgText(95, edge + 5, '0', 'physics-svg-small', 'end'),
+      physicsSvgText(95, edge + gap + 5, '−' + physicsFixed(visual.gap, 1), 'physics-svg-small', 'end'),
+      physicsSvgText(95, 25, 'E (eV)', 'physics-svg-small', 'end'),
+      physicsSvgText(512, 52, 'charge neutrality', 'physics-svg-small', 'start'),
+      physicsSvgText(512, 98, 'log₁₀ n = ' + physicsFixed(Math.log10(visual.electrons), 2), 'physics-svg-small', 'start'),
+      physicsSvgText(512, 132, 'log₁₀ p = ' + physicsFixed(Math.log10(visual.holes), 2), 'physics-svg-small', 'start'),
+      physicsSvgText(512, 178, 'EF = ' + physicsFixed(visual.fermi, 3) + ' eV', 'physics-svg-small', 'start'),
+      physicsSvgText(512, 212, 'n,p in cm⁻³', 'physics-svg-small', 'start'),
+    );
+    svg.append(physicsSvgText(660, 294, 'Dashed EF; common energy scale', 'physics-svg-small', 'end'));
+  }
+
+  function drawPhysicsLedger(svg, visual, arrowId) {
+    const segments = visual.segments || [];
+    const total = segments.reduce((sum, segment) => sum + Math.max(0, segment.value), 0) || 1;
+    let cursor = 90;
+    segments.forEach((segment, index) => {
+      const width = 540 * Math.max(0, segment.value) / total;
+      svg.append(svgNode('rect', { x: cursor, y: 106, width, height: 80,
+        class: 'physics-svg-ledger physics-ledger-' + (index % 4) }));
+      if (width > 52) svg.append(physicsSvgText(cursor + width / 2, 151,
+        segment.label, 'physics-svg-small'));
+      cursor += width;
+    });
+    svg.append(
+      physicsSvgText(90, 70, visual.label || 'conserved total', 'physics-svg-label', 'start'),
+      physicsSvgText(630, 225, visual.equation || '', 'physics-svg-note', 'end'),
+      physicsSvgText(630, 276, visual.note || '', 'physics-svg-note', 'end'),
+    );
+    if (visual.arrow) physicsArrow(svg, arrowId, 160, 230, 560, 230, 'physics-svg-teal');
+  }
+
+  function drawPhysicsEngine(svg, visual, arrowId) {
+    svg.append(
+      svgNode('rect', { x: 210, y: 28, width: 300, height: 55, rx: 11, class: 'physics-svg-reservoir hot' }),
+      physicsSvgText(360, 63, visual.hotLabel, 'physics-svg-label'),
+      svgNode('rect', { x: 280, y: 120, width: 160, height: 64, rx: 13, class: 'physics-svg-engine' }),
+      physicsSvgText(360, 160, 'engine', 'physics-svg-label'),
+      svgNode('rect', { x: 210, y: 224, width: 300, height: 48, rx: 11, class: 'physics-svg-reservoir cold' }),
+      physicsSvgText(360, 255, visual.coldLabel, 'physics-svg-label'),
+    );
+    // Every shaft uses 24 SVG units per 100 J. Direction identifies a pathway;
+    // shaft width, not differently scaled arrow length, represents energy.
+    const flow = (role, energy, x, y, length, horizontal, className) => {
+      const width = 24 * energy / 100;
+      svg.append(svgNode('rect', {
+        x: horizontal ? x : x - width / 2, y: horizontal ? y - width / 2 : y,
+        width: horizontal ? length - 8 : width, height: horizontal ? width : length - 8,
+        class: 'physics-svg-flow ' + className, 'data-physics-flow': role,
+        style: 'fill:var(' + (role === 'work' ? '--green-ink' : '--gold-ink') + ');stroke:none',
+      }));
+      const tip = horizontal
+        ? [[x + length - 8, y - width], [x + length, y], [x + length - 8, y + width]]
+        : [[x - width, y + length - 8], [x, y + length], [x + width, y + length - 8]];
+      svg.append(svgNode('polygon', { points: tip.map(point => point.join(',')).join(' '),
+        style: 'fill:var(' + (role === 'work' ? '--green-ink' : '--gold-ink') + ');stroke:none' }));
+    };
+    flow('input', 100, 360, 86, 30, false, 'hot');
+    flow('rejected', visual.coldHeat, 360, 188, 32, false, 'cold');
+    flow('work', visual.work, 445, 152, 165, true, 'work');
+    svg.append(
+      physicsSvgText(392, 105, 'Q_h = 100 J', 'physics-svg-small', 'start'),
+      physicsSvgText(392, 214, 'Q_c ≥ ' + physicsFixed(visual.coldHeat, 1) + ' J', 'physics-svg-small', 'start'),
+      physicsSvgText(520, 132, 'W ≤ ' + physicsFixed(visual.work, 1) + ' J', 'physics-svg-small'),
+      physicsSvgText(70, 293, 'Reversible limit; common shaft-width scale', 'physics-svg-small', 'start'),
+    );
+  }
+
+  function renderPhysicsGraphic(svg, visual, arrowId) {
+    const defs = svgNode('defs');
+    const marker = svgNode('marker', {
+      id: arrowId, markerWidth: 9, markerHeight: 9, refX: 8, refY: 4.5,
+      orient: 'auto', markerUnits: 'strokeWidth',
+    });
+    marker.append(svgNode('path', { d: 'M0,0 L9,4.5 L0,9 z', class: 'physics-svg-arrowhead' }));
+    defs.append(marker);
+    svg.replaceChildren(defs, svgNode('rect', { x: 3, y: 3, width: 714, height: 294,
+      rx: 16, class: 'physics-svg-field' }));
+    const kind = visual.kind || 'graph';
+    if (kind === 'vector') drawPhysicsVector(svg, visual, arrowId);
+    else if (kind === 'transfer') drawPhysicsTransfer(svg, visual, arrowId);
+    else if (kind === 'wave') drawPhysicsWave(svg, visual);
+    else if (kind === 'interference') drawPhysicsInterference(svg, visual);
+    else if (kind === 'particles') drawPhysicsParticles(svg, visual);
+    else if (kind === 'ensemble') drawPhysicsEnsemble(svg, visual);
+    else if (kind === 'spacetime') drawPhysicsSpacetime(svg, visual);
+    else if (kind === 'circuit') drawPhysicsCircuit(svg, visual);
+    else if (kind === 'field') drawPhysicsField(svg, visual, arrowId);
+    else if (kind === 'bands') drawPhysicsBands(svg, visual);
+    else if (kind === 'ledger') drawPhysicsLedger(svg, visual, arrowId);
+    else if (kind === 'engine') drawPhysicsEngine(svg, visual, arrowId);
+    else if (kind === 'qft') drawPhysicsQft(svg, visual);
+    else drawPhysicsGraph(svg, visual);
+  }
+
+  const PHYSICS_SCENARIOS = Object.freeze({
+    'phys.0.push-pull': {
+      controls: [physicsControl('right', 'Rightward push', 0, 10, 1, 7, 'N', 'no right push', '10 N right')],
+      caveat: 'The cart model treats both horizontal pushes as steady and combines only forces on the cart.',
+      compute(state) {
+        const left = 4;
+        const net = state.right - left;
+        const motion = Math.abs(net) < 0.01 ? 'no acceleration' :
+          'acceleration ' + (net > 0 ? 'right' : 'left');
+        return {
+          readout: 'Left push = 4 N; right push = ' + state.right + ' N; net force = ' +
+            physicsFixed(net, 0) + ' N, so the cart has ' + motion + '.',
+          visual: { kind: 'vector', object: 'cart', left: left / 10, right: state.right / 10,
+            leftLabel: '4 N', rightLabel: state.right + ' N', note: 'net = ' + physicsFixed(net, 0) + ' N' },
+        };
+      },
+    },
+    'phys.0.hot-cold': {
+      controls: [physicsControl('time', 'Contact time', 0, 6, 0.5, 0, 'min', 'just touching', 'six minutes')],
+      caveat: 'This ideal pair is insulated, has equal heat capacity, and loses no energy to the room.',
+      compute(state) {
+        const difference = 60 * Math.exp(-state.time / 1.8);
+        const hot = 50 + difference / 2;
+        const cold = 50 - difference / 2;
+        return {
+          readout: 'After ' + physicsFixed(state.time, 1) + ' min: hot object = ' +
+            physicsFixed(hot, 1) + ' °C, cold object = ' + physicsFixed(cold, 1) +
+            ' °C. Their temperature gap is ' + physicsFixed(difference, 1) + ' °C.',
+          visual: { kind: 'transfer', left: hot / 100, right: cold / 100,
+            direction: difference / 60, leftLabel: 'hot ' + physicsFixed(hot, 0) + ' °C',
+            rightLabel: 'cold ' + physicsFixed(cold, 0) + ' °C', arrowLabel: 'energy hot → cold',
+            note: difference < 3 ? 'nearly at equilibrium' : 'gap shrinks with time' },
+        };
+      },
+    },
+    'phys.1.motion': {
+      controls: [
+        physicsControl('friction', 'Surface friction', 0, 8, 1, 3, 'N', 'smooth ice', 'rough sand'),
+        physicsControl('time', 'Elapsed time', 0, 8, .2, 6.2, 's', 'launch', 'eight seconds'),
+      ],
+      caveat: 'The 2 kg cart starts at 4 m/s. Kinetic friction is constant while it moves; after stopping there is no applied horizontal force, so it stays at rest. The lost kinetic energy enters thermal stores of cart and surface. Air drag and rotation are omitted.',
+      compute(state) {
+        const stop = state.friction === 0 ? Infinity : 16 / state.friction;
+        const stopTime = state.friction === 0 ? Infinity : 8 / state.friction;
+        const positionAt = time => {
+          const movingTime = Math.min(time, stopTime);
+          return 4 * movingTime - state.friction * movingTime ** 2 / 4;
+        };
+        const points = physicsGraphPoints(x => positionAt(8 * x) / 32);
+        const position = positionAt(state.time);
+        const speed = Math.max(0, 4 - state.friction * state.time / 2);
+        const kinetic = speed ** 2;
+        const thermal = state.friction * position;
+        return {
+          readout: 'At t = ' + physicsFixed(state.time, 1) + ' s, x = ' + physicsFixed(position, 3) +
+            ' m and v = ' + physicsFixed(speed, 3) + ' m/s. Kinetic energy ' + physicsFixed(kinetic, 3) +
+            ' J + thermal gain ' + physicsFixed(thermal, 3) + ' J = initial 16 J. ' +
+            (state.friction === 0 ? 'No friction: the speed remains 4 m/s.' :
+              'Stopping time ' + physicsFixed(stopTime, 3) + ' s; stopping distance ' + physicsFixed(stop, 3) + ' m.'),
+          visual: { kind: 'graph', xLabel: 'time (s)', yLabel: 'position (m)',
+            xTicks: [[0, '0'], [.25, '2'], [.5, '4'], [.75, '6'], [1, '8']],
+            yTicks: [[0, '0'], [.5, '16'], [1, '32']],
+            curves: [{ points, label: state.friction + ' N kinetic friction', tone: 'primary' }],
+            marker: [state.time / 8, position / 32],
+            note: 't = ' + physicsFixed(state.time, 1) + ' s: x = ' + physicsFixed(position, 3) +
+              ' m; v = ' + physicsFixed(speed, 3) + ' m/s' },
+        };
+      },
+    },
+    'phys.1.machines': {
+      controls: [physicsControl('length', 'Ramp length for a 1 m rise', 1, 5, 0.5, 3, 'm', 'steep and short', 'long and shallow')],
+      caveat: 'The ideal calculation ignores friction; a real ramp needs extra work that becomes thermal energy.',
+      compute(state) {
+        const weight = 100;
+        const force = weight / state.length;
+        const markerX = (state.length - 1) / 4;
+        const curve = physicsGraphPoints(x => 1 / (1 + 4 * x));
+        return {
+          readout: 'Raising a 100 N load by 1 m along a ' + physicsFixed(state.length, 1) +
+            ' m ideal ramp needs ' + physicsFixed(force, 1) + ' N over more distance; work remains 100 J.',
+          visual: { kind: 'graph', xLabel: 'ramp length', yLabel: 'ideal force',
+            curves: [{ points: curve, label: 'force = weight × height / length', tone: 'primary' }],
+            marker: [markerX, force / 100],
+            note: physicsFixed(state.length, 1) + ' m ramp → ' + physicsFixed(force, 1) + ' N; work = 100 J' },
+        };
+      },
+    },
+    'phys.1.magnets': {
+      controls: [physicsControl('angle', 'Turn the second magnet', 0, 180, 15, 0, '°', 'opposite poles face', 'like poles face')],
+      caveat: 'The traces are qualitative end-to-end dipole orientation indices, not exact force or torque laws for finite bar magnets.',
+      compute(state) {
+        const interaction = Math.cos(state.angle * Math.PI / 180);
+        const turning = Math.abs(Math.sin(state.angle * Math.PI / 180));
+        const axialWord = Math.abs(interaction) < 0.15 ? 'little axial pull or push' :
+          interaction > 0 ? 'axial attraction' : 'axial repulsion';
+        const turningWord = turning > 0.8 ? 'strong turning tendency' :
+          turning > 0.25 ? 'moderate turning tendency' : 'little turning tendency';
+        const axialCurve = physicsGraphPoints(x => (1 + Math.cos(x * Math.PI)) / 2);
+        const turningCurve = physicsGraphPoints(x => Math.abs(Math.sin(x * Math.PI)));
+        return {
+          readout: 'At ' + state.angle + '°, axial pull/push orientation index = ' +
+            physicsFixed(interaction, 2) + ' and turning index = ' + physicsFixed(turning, 2) +
+            ': ' + axialWord + ' with ' + turningWord + '.',
+          visual: { kind: 'graph', xLabel: 'rotation 0° → 180°', yLabel: 'scaled orientation response',
+            curves: [
+              { points: axialCurve, label: 'axial index −1…+1 (mapped)', tone: 'primary' },
+              { points: turningCurve, label: 'turning index |sin θ|', tone: 'secondary' },
+            ],
+            marker: [state.angle / 180, (1 + interaction) / 2],
+            note: state.angle + '° → ' + axialWord + '; ' + turningWord },
+        };
+      },
+    },
+    'phys.1.sound': {
+      controls: [
+        physicsControl('frequency', 'Frequency', 100, 900, 50, 300, 'Hz', 'low pitch', 'high pitch'),
+        physicsControl('amplitude', 'Amplitude', 1, 10, 1, 4, 'units', 'quiet', 'loud'),
+      ],
+      caveat: 'The curve graphs air-pressure variation over time, not sideways air motion. Real instruments contain many frequencies and loudness also depends on hearing sensitivity.',
+      compute(state) {
+        return {
+          readout: state.frequency + ' Hz sets the pitch while amplitude ' + state.amplitude +
+            ' sets the wave height and relative intensity ' + (state.amplitude ** 2) + '. The controls are independent.',
+          visual: { kind: 'wave', cycles: state.frequency / 100,
+            amplitude: state.amplitude / 10,
+            label: 'air-pressure trace: ' + state.frequency + ' Hz; amplitude ' + state.amplitude,
+            note: 'intensity ∝ amplitude² = ' + (state.amplitude ** 2) },
+        };
+      },
+    },
+    'phys.1.energy': {
+      controls: [physicsControl('progress', 'Transfer progress', 0, 100, 5, 35, '%', 'stored', 'dispersed as heat and sound')],
+      caveat: 'The three displayed stores are bookkeeping; heating and sound are transfer pathways, and the surroundings must be included for the total to close.',
+      compute(state) {
+        const gravitational = Math.max(0, 100 - state.progress * 2);
+        const kinetic = state.progress <= 50 ? state.progress * 2 : Math.max(0, 200 - state.progress * 2);
+        const thermal = 100 - gravitational - kinetic;
+        return {
+          readout: 'Energy account: gravitational store ' + gravitational + ', kinetic store ' + kinetic +
+            ', thermal stores after transfer ' + thermal + '. Heating and sound are pathways; the total is 100 units.',
+          visual: { kind: 'ledger', label: '100-unit energy account', segments: [
+            { label: 'gravitational ' + gravitational, value: gravitational },
+            { label: 'kinetic ' + kinetic, value: kinetic },
+            { label: 'thermal ' + thermal, value: thermal },
+          ], equation: gravitational + ' + ' + kinetic + ' + ' + thermal + ' = 100',
+          note: 'stores change; transfers move energy', arrow: true },
+        };
+      },
+    },
+    'phys.2.forces': {
+      controls: [
+        physicsControl('applied', 'Applied force', 0, 14, 1, 9, 'N', 'no push', '14 N push'),
+        physicsControl('friction', 'Friction', 0, 10, 1, 4, 'N', 'smooth', 'strong friction'),
+      ],
+      caveat: 'The crate is already moving right, so a larger leftward friction force can slow it; static friction from rest is not modeled.',
+      compute(state) {
+        const net = state.applied - state.friction;
+        const acceleration = net / 2;
+        return {
+          readout: 'For a 2 kg crate initially moving right, net force = ' + state.applied + ' − ' + state.friction +
+            ' = ' + physicsFixed(net, 0) + ' N and acceleration = ' + physicsFixed(acceleration, 1) + ' m/s².',
+          visual: { kind: 'vector', object: '2 kg moving →', left: state.friction / 14,
+            right: state.applied / 14, leftLabel: state.friction + ' N friction',
+            rightLabel: state.applied + ' N push', response: acceleration / 7,
+            note: 'ΣF = ' + physicsFixed(net, 0) + ' N' },
+        };
+      },
+    },
+    'phys.2.gravity': {
+      controls: [
+        physicsControl('field', 'Gravitational field', 1.6, 24.8, 0.2, 9.8, 'N/kg', 'Moon-like', 'strong field'),
+        physicsControl('mass', 'Mass', 1, 20, 1, 10, 'kg', '1 kg', '20 kg'),
+      ],
+      caveat: 'A uniform field is a local approximation; orbital gravity changes with distance from the attracting body.',
+      compute(state) {
+        const weight = state.mass * state.field;
+        const curve = physicsGraphPoints(x => state.mass / 20 * x);
+        const markerX = state.field / 24.8;
+        return {
+          readout: 'Mass stays ' + state.mass + ' kg. In a ' + physicsFixed(state.field, 1) +
+            ' N/kg field, weight W = mg = ' + physicsFixed(weight, 1) + ' N.',
+          visual: { kind: 'graph', xLabel: 'field strength g', yLabel: 'weight for fixed mass',
+            curves: [{ points: curve, label: 'W = mg', tone: 'primary' }],
+            marker: [markerX, state.mass / 20 * markerX],
+            note: state.mass + ' kg × ' + physicsFixed(state.field, 1) + ' N/kg = ' + physicsFixed(weight, 1) + ' N' },
+        };
+      },
+    },
+    'phys.2.electricity': {
+      controls: [
+        physicsControl('voltage', 'Battery voltage', 1, 12, 1, 6, 'V', '1 V', '12 V'),
+        physicsControl('resistance', 'Resistance', 1, 20, 1, 6, 'Ω', '1 Ω', '20 Ω'),
+        { ...physicsControl('closed', 'Switch', 0, 1, 1, 1, '', 'open', 'closed'), names: ['open', 'closed'] },
+      ],
+      caveat: 'Ohm’s law here assumes an ideal battery and an ohmic resistor at constant temperature.',
+      compute(state) {
+        const current = state.closed ? state.voltage / state.resistance : 0;
+        return {
+          readout: state.closed ? 'Closed circuit: I = V/R = ' + state.voltage + '/' + state.resistance +
+            ' = ' + physicsFixed(current, 2) + ' A; load power V × I = ' + physicsFixed(state.voltage * current, 2) +
+            ' W.' : 'Open circuit: the broken path makes current and load power zero.',
+          visual: { kind: 'circuit', closed: Boolean(state.closed),
+            current: current / 12, meter: physicsFixed(current, 2) + ' A',
+            note: state.closed ? 'complete path' : 'open switch breaks the path' },
+        };
+      },
+    },
+    'phys.2.heat': {
+      controls: [
+        { ...physicsControl('mechanism', 'Transfer mechanism', 0, 2, 1, 0, '', 'conduction', 'radiation'),
+          names: ['conduction', 'convection', 'radiation'] },
+        physicsControl('difference', 'Temperature difference', 5, 80, 5, 30, '°C', 'small gap', 'large gap'),
+      ],
+      caveat: 'The pathway motifs are qualitative; geometry and material coefficients determine absolute rates, so this model does not rank mechanisms.',
+      compute(state) {
+        const names = ['conduction', 'convection', 'radiation'];
+        const dependence = state.mechanism === 2
+          ? 'Radiative exchange depends on T_hot⁴ − T_cold⁴ using absolute temperatures in kelvin; ΔT alone does not set it.'
+          : 'In this fixed example, a larger temperature gap increases the transfer rate.';
+        return {
+          readout: names[state.mechanism] + ' selected with a ' + state.difference +
+            ' °C temperature gap. ' + dependence +
+            ' This display does not rank absolute rates across mechanisms.',
+          visual: { kind: 'transfer', left: 0.5 + state.difference / 200,
+            right: 0.5 - state.difference / 200, direction: 1,
+            leftLabel: 'hot side', rightLabel: 'cold side', arrowLabel: names[state.mechanism],
+            mechanism: names[state.mechanism],
+            note: 'mechanism changes how energy travels' },
+        };
+      },
+    },
+    'phys.2.waves': {
+      controls: [
+        physicsControl('frequency', 'Frequency', 1, 8, 0.5, 3, 'Hz', 'low frequency', 'high frequency'),
+        physicsControl('amplitude', 'Amplitude', 1, 10, 1, 4, 'cm', 'small amplitude', 'large amplitude'),
+      ],
+      caveat: 'The medium fixes wave speed at 12 m/s in this model; changing the medium would change that constraint.',
+      compute(state) {
+        const wavelength = 12 / state.frequency;
+        return {
+          readout: 'At fixed speed 12 m/s, f = ' + physicsFixed(state.frequency, 1) +
+            ' Hz gives λ = ' + physicsFixed(wavelength, 2) + ' m. Amplitude ' + state.amplitude +
+            ' cm changes energy, not speed.',
+          visual: { kind: 'wave', cycles: state.frequency, amplitude: state.amplitude / 10,
+            label: 'v = fλ = 12 m/s', note: 'λ = ' + physicsFixed(wavelength, 2) + ' m' },
+        };
+      },
+    },
+    'phys.2.matter': {
+      controls: [physicsControl('temperature', 'Temperature', -30, 150, 5, 25, '°C', 'cold solid', 'hot gas')],
+      caveat: 'This is water at 1 atm. At 0 °C or 100 °C two phases can coexist while latent heat changes their fractions at fixed temperature.',
+      compute(state) {
+        const atMelting = state.temperature === 0;
+        const atBoiling = state.temperature === 100;
+        const phase = state.temperature < 0 ? 'solid' : atMelting ? 'solid + liquid coexistence' :
+          state.temperature < 100 ? 'liquid' : atBoiling ? 'liquid + gas coexistence' : 'gas';
+        const order = state.temperature < 0 ? 1 : atMelting ? 0.62 :
+          state.temperature < 100 ? 0.25 : atBoiling ? 0.1 : 0;
+        const spread = state.temperature < 0 ? 0.22 : atMelting ? 0.4 :
+          state.temperature < 100 ? 0.55 : atBoiling ? 0.78 : 1;
+        const boundaryNote = atMelting || atBoiling
+          ? 'At this coexistence temperature, latent heat changes the phase fractions.'
+          : 'Particle identity is unchanged; spacing and freedom of motion differ.';
+        return {
+          readout: 'At ' + state.temperature + ' °C in this water model, the state is ' + phase +
+            '. ' + boundaryNote,
+          visual: { kind: 'particles', count: 32, order, spread,
+            coexistence: atMelting ? 'solid-liquid' : atBoiling ? 'liquid-gas' : null,
+            energy: (state.temperature + 30) / 180, label: phase + ' particle model',
+            note: atMelting || atBoiling ? 'phase fraction is not fixed by temperature alone' :
+              phase === 'gas' ? 'widely spaced and compressible' :
+              phase === 'liquid' ? 'neighbors rearrange' : 'ordered neighbors vibrate' },
+        };
+      },
+    },
+    'phys.2.units': {
+      controls: [
+        physicsControl('resolution', 'Instrument resolution', 0.1, 2, 0.1, 0.5, 'mm', 'fine scale', 'coarse scale'),
+        physicsControl('repeats', 'Repeated readings', 1, 25, 1, 5, '', 'one reading', '25 readings'),
+        physicsControl('calibration', 'Shared calibration uncertainty', 0, 1, 0.05, 0.3, 'mm', 'known calibration', '1 mm standard uncertainty'),
+      ],
+      caveat: 'Independent read-off errors are uniform over ±resolution/2 and independent of the 1.2 mm single-reading random term. Both average with N; the shared calibration standard uncertainty remains. This independence assumption can fail when every repeat rounds to the same display value. All displayed uncertainties are standard uncertainties, not guaranteed error bounds.',
+      compute(state) {
+        const independentVariance = 1.2 ** 2 + state.resolution ** 2 / 12;
+        const uncertaintyFor = n => Math.sqrt(independentVariance / n + state.calibration ** 2);
+        const uncertainty = uncertaintyFor(state.repeats);
+        const curve = physicsGraphPoints(x => {
+          const n = 1 + 24 * x;
+          return uncertaintyFor(n) / 2;
+        });
+        return {
+          readout: state.repeats + ' readings at ' + physicsFixed(state.resolution, 1) +
+            ' mm resolution with shared calibration uncertainty ' + physicsFixed(state.calibration, 2) +
+            ' mm give u_c = √[(1.2² + resolution²/12)/N + u_cal²] = ' + physicsFixed(uncertainty, 3) + ' mm.',
+          visual: { kind: 'graph', xLabel: 'repeat count N', yLabel: 'standard uncertainty (mm)',
+            xTicks: [[0, '1'], [9 / 24, '10'], [19 / 24, '20'], [1, '25']],
+            yTicks: [[0, '0'], [0.5, '1'], [1, '2']],
+            curves: [{ points: curve, label: 'independent errors average; calibration remains', tone: 'primary' }],
+            marker: [(state.repeats - 1) / 24, uncertainty / 2],
+            note: state.repeats + ' readings at ' + physicsFixed(state.resolution, 1) +
+              ' mm resolution → u_c ' + physicsFixed(uncertainty, 3) + ' mm; calibration floor ' + physicsFixed(state.calibration, 2) + ' mm' },
+        };
+      },
+    },
+    'phys.3.mechanics': {
+      controls: [
+        physicsControl('force', 'Net force', -20, 20, 1, 10, 'N', '20 N left', '20 N right'),
+        physicsControl('mass', 'Mass', 1, 10, 1, 2, 'kg', '1 kg', '10 kg'),
+      ],
+      caveat: 'This point-mass model uses an inertial frame and a constant net force; internal rotation and deformation are omitted.',
+      compute(state) {
+        const acceleration = state.force / state.mass;
+        return {
+          readout: 'Newton’s second law gives a = F/m = ' + state.force + '/' + state.mass +
+            ' = ' + physicsFixed(acceleration, 2) + ' m/s². Zero net force would preserve velocity, not force rest.',
+          visual: { kind: 'vector', object: state.mass + ' kg',
+            left: Math.max(0, -state.force) / 20, right: Math.max(0, state.force) / 20,
+            leftLabel: state.force < 0 ? Math.abs(state.force) + ' N' : '0 N',
+            rightLabel: state.force > 0 ? state.force + ' N' : '0 N', response: acceleration / 20,
+            note: 'a = ' + physicsFixed(acceleration, 2) + ' m/s²' },
+        };
+      },
+    },
+    'phys.3.energy-work': {
+      controls: [physicsControl('restitution', 'Collision elasticity', 0, 1, 0.05, 0.6, '', 'sticks together', 'perfectly elastic')],
+      caveat: 'The calculation uses equal masses, one initially stationary, one-dimensional motion, and no external impulse.',
+      compute(state) {
+        const first = (1 - state.restitution) / 2 * 4;
+        const second = (1 + state.restitution) / 2 * 4;
+        const kineticFraction = (1 + state.restitution ** 2) / 2;
+        const lost = 100 * (1 - kineticFraction);
+        return {
+          readout: 'Momentum remains 4m in model units. Final speeds are ' + physicsFixed(first, 2) +
+            ' and ' + physicsFixed(second, 2) + ' m/s; ' + physicsFixed(lost, 1) +
+            '% of initial kinetic energy becomes internal energy.',
+          visual: { kind: 'ledger', label: 'initial kinetic energy = 100%', segments: [
+            { label: 'final KE ' + physicsFixed(100 - lost, 0) + '%', value: 100 - lost },
+            { label: 'internal ' + physicsFixed(lost, 0) + '%', value: lost },
+          ], equation: 'momentum before = momentum after',
+          note: state.restitution === 1 ? 'elastic: KE also conserved' : 'momentum conserved; KE redistributed', arrow: true },
+        };
+      },
+    },
+    'phys.3.em': {
+      controls: [
+        physicsControl('velocity', 'Magnet velocity', -5, 5, 0.5, 2, 'm/s', 'withdraw fast', 'insert fast'),
+        physicsControl('turns', 'Coil turns', 10, 100, 10, 50, '', '10 turns', '100 turns'),
+      ],
+      caveat: 'The proportional flux-gradient model holds geometry fixed and omits coil resistance and magnetic saturation.',
+      compute(state) {
+        const emf = -state.turns * state.velocity * 0.02;
+        return {
+          readout: 'With ' + state.turns + ' turns and velocity ' + physicsFixed(state.velocity, 1) +
+            ' m/s, induced emf is ' + physicsFixed(emf, 2) + ' V. Reversing motion reverses polarity; stopping makes it zero.',
+          visual: { kind: 'field', strength: state.velocity / 5, flipped: false,
+            coilTurns: 2 + Math.round(state.turns / 20),
+            label: state.velocity === 0 ? 'unchanged flux' : 'changing magnetic flux',
+            meter: 'emf = ' + physicsFixed(emf, 2) + ' V',
+            note: 'Faraday: emf = −N dΦ/dt' },
+        };
+      },
+    },
+    'phys.3.optics-waves': {
+      controls: [
+        physicsControl('difference', 'Path difference', 0, 2, 0.05, 0.5, 'λ', 'equal paths', 'two wavelengths'),
+        physicsControl('amplitude', 'Each-wave amplitude', 1, 10, 1, 5, 'units', 'small', 'large'),
+      ],
+      caveat: 'These coherent, equal-frequency, equal-amplitude contributions meet at one detector; the horizontal coordinate is phase, not an image of a two-slit pattern. Normalized intensity is the time average of the squared resultant divided by its constructive value. Finite slit width and detector geometry are omitted.',
+      compute(state) {
+        const intensity = Math.cos(Math.PI * state.difference) ** 2;
+        const word = intensity > 0.9 ? 'constructive' : intensity < 0.1 ? 'destructive' : 'partial';
+        return {
+          readout: 'Path difference ' + physicsFixed(state.difference, 2) + ' λ gives normalized intensity ' +
+            physicsFixed(intensity, 2) + ': ' + word + ' interference. Each-wave amplitude ' +
+            state.amplitude + ' gives resultant peak amplitude ' +
+            physicsFixed(2 * state.amplitude * Math.abs(Math.cos(Math.PI * state.difference)), 2) +
+            '. Increasing both contributions changes absolute intensity without moving the phase maxima.',
+          visual: { kind: 'interference', amplitude: state.amplitude,
+            phase: 2 * Math.PI * state.difference,
+            note: 'φ = ' + physicsFixed(2 * state.difference, 2) + 'π; I/Imax = cos²(φ/2) = ' + physicsFixed(intensity, 2) },
+        };
+      },
+    },
+    'phys.3.thermo': {
+      controls: [
+        physicsControl('hot', 'Hot reservoir', 400, 1000, 25, 600, 'K', '400 K', '1000 K'),
+        physicsControl('cold', 'Cold reservoir', 200, 390, 10, 300, 'K', '200 K', '390 K'),
+      ],
+      caveat: 'Carnot efficiency is a reversible upper bound; finite-rate heat flow and friction make real engines less efficient.',
+      compute(state) {
+        const eta = 1 - state.cold / state.hot;
+        const work = 100 * eta;
+        return {
+          readout: 'For T_hot = ' + state.hot + ' K and T_cold = ' + state.cold +
+            ' K, η_Carnot = 1 − T_cold/T_hot = ' + physicsFixed(eta * 100, 1) +
+            '%. At least ' + physicsFixed(100 - work, 1) + ' J of each 100 J must be rejected.',
+          visual: { kind: 'engine', hotLabel: state.hot + ' K hot reservoir',
+            coldLabel: state.cold + ' K cold reservoir', work, coldHeat: 100 - work,
+            note: 'Carnot ceiling ' + physicsFixed(eta * 100, 1) + '%; reject at least ' +
+              physicsFixed(100 - work, 1) + ' J' },
+        };
+      },
+    },
+    'phys.3.nuclear': {
+      controls: [
+        physicsControl('halves', 'Elapsed half-lives', 0, 6, .25, 2, '', 'start', 'six half-lives'),
+        physicsControl('initial', 'Starting nuclei', 32, 128, 32, 128, '', '32 nuclei', '128 nuclei'),
+        physicsControl('realization', 'Mock realization', 1, 8, 1, 1, '', 'sample 1', 'sample 8'),
+      ],
+      caveat: 'Independent exponential lifetimes are sampled once for each reproducible mock realization. Fractional expected counts are ensemble averages, while one sample always contains an integer number of undecayed nuclei. The error bar is one theoretical standard deviation of the sample fraction, clipped to its physical 0–1 support; it is not a guaranteed range or a confidence interval. Daughter decay and detector efficiency are omitted.',
+      compute(state) {
+        const probability = 0.5 ** state.halves;
+        const expected = state.initial * probability;
+        const times = physicsDecayTimes(state.initial, state.realization);
+        const observed = times.filter(time => time > state.halves).length;
+        let remaining = state.initial;
+        const sample = [[0, 1]];
+        times.filter(time => time <= 6).forEach(time => {
+          sample.push([time / 6, remaining / state.initial]);
+          remaining -= 1;
+          sample.push([time / 6, remaining / state.initial]);
+        });
+        sample.push([1, remaining / state.initial]);
+        const standardDeviation = Math.sqrt(state.initial * probability * (1 - probability));
+        return {
+          readout: 'After ' + physicsFixed(state.halves, 2) + ' half-lives, expected N = ' + state.initial +
+            ' × 2⁻ᵗ = ' + physicsFixed(expected, 3) + ' nuclei; standard deviation = ' +
+            physicsFixed(standardDeviation, 3) + '. Mock realization ' + state.realization +
+            ' contains ' + observed + ' undecayed nuclei. Moving time retains the same sampled lifetimes.',
+          visual: { kind: 'graph', xLabel: 'elapsed half-lives', yLabel: 'undecayed fraction',
+            xTicks: [[0, '0'], [1 / 3, '2'], [2 / 3, '4'], [1, '6']],
+            yTicks: [[0, '0'], [.5, '0.5'], [1, '1']],
+            curves: [{ points: physicsGraphPoints(x => 2 ** (-6 * x)), label: 'ensemble expectation', tone: 'primary' },
+              { points: sample, label: 'mock sample ' + state.realization, tone: 'secondary' }],
+            marker: [state.halves / 6, probability],
+            measurement: { x: state.halves / 6, y: observed / state.initial, error: standardDeviation / state.initial },
+            note: physicsFixed(expected, 3) + ' expected; mock sample ' + state.realization + ': ' + observed + ' undecayed' },
+        };
+      },
+    },
+    'phys.3.relativity-intro': {
+      controls: [physicsControl('beta', 'Relative speed v/c', 0, 0.95, 0.05, 0.6, 'c', 'at rest', '0.95 c')],
+      caveat: 'The clocks are inertial and compare intervals between the same two events; acceleration during turnaround is not modeled.',
+      compute(state) {
+        const gamma = 1 / Math.sqrt(1 - state.beta ** 2);
+        return {
+          readout: 'At v = ' + physicsFixed(state.beta, 2) + ' c, γ = ' + physicsFixed(gamma, 3) +
+            '. A 1.00 μs proper-time tick spans ' + physicsFixed(gamma, 3) + ' μs in this frame.',
+          visual: { kind: 'spacetime', beta: state.beta,
+            timeMax: 4, properTime: 1, coordinateTime: gamma,
+            label: 'moving clock worldline',
+            note: 'γ = ' + physicsFixed(gamma, 3) },
+        };
+      },
+    },
+    'phys.3.modern': {
+      controls: [
+        physicsControl('frequency', 'Light frequency', 3, 10, 0.25, 6, '×10¹⁴ Hz', 'infrared', 'ultraviolet'),
+        physicsControl('intensity', 'Photon arrival-rate scale', 1, 10, 1, 4, '', 'few photons', 'many photons'),
+      ],
+      caveat: 'The example metal has work function φ = 2.15 eV. Planck’s constant and elementary charge use exact SI values; the display rounds calculated results. The arrival-rate control means photon flux, not fixed optical power. Collection efficiency above threshold is constant and electron energy loss before detection is omitted.',
+      compute(state) {
+        const planckPerFrequencyUnit = 6.62607015e-34 / 1.602176634e-19 * 1e14;
+        const workFunction = 2.15;
+        const threshold = workFunction / planckPerFrequencyUnit;
+        const thresholdX = (threshold - 3) / 7;
+        const kineticFor = frequency => planckPerFrequencyUnit * frequency - workFunction;
+        const kinetic = Math.max(0, kineticFor(state.frequency));
+        const count = state.frequency >= threshold ? state.intensity * 10 : 0;
+        const curve = Array.from({ length: 61 }, (_, index) => {
+          const x = thresholdX + (1 - thresholdX) * index / 60;
+          return [x, Math.max(0, kineticFor(3 + 7 * x)) / 2];
+        });
+        const markerX = (state.frequency - 3) / 7;
+        return {
+          readout: state.frequency < threshold
+            ? 'Frequency is below the threshold: no electrons emerge, even at photon arrival-rate scale ' + state.intensity + '.'
+            : 'Above f₀ = ' + physicsFixed(threshold, 4) + ' ×10¹⁴ Hz, K_max = hf − φ = ' +
+              physicsFixed(kinetic, 3) + ' eV and stopping-potential magnitude = ' + physicsFixed(kinetic, 3) +
+              ' V; photon arrival-rate scale ' + state.intensity +
+              ' gives a relative electron count of ' + count + ' without changing K_max.',
+          visual: { kind: 'graph', xLabel: 'frequency (×10¹⁴ Hz)', yLabel: 'K_max (eV)',
+            xTicks: [[0, '3'], [2 / 7, '5'], [4 / 7, '7'], [1, '10']],
+            yTicks: [[0, '0'], [.5, '1'], [1, '2']],
+            threshold: thresholdX, thresholdLabel: 'f₀ = ' + physicsFixed(threshold, 3),
+            curves: [{ points: curve, tone: 'primary' }],
+            marker: state.frequency >= threshold ? [markerX, kinetic / 2] : null,
+            incidentPhotons: state.intensity,
+            note: state.frequency >= threshold ? count + ' relative electrons; K_max ' +
+              physicsFixed(kinetic, 2) + ' eV' : 'below threshold: incident photons but no emission' },
+        };
+      },
+    },
+    'phys.4.classical': {
+      controls: [
+        physicsControl('deviation', 'Trial-path deformation ε', -1, 1, 0.05, 0.45, 'm', 'bend below', 'bend above'),
+        physicsControl('energy', 'Separate oscillator energy', 0.5, 2, 0.1, 1, 'J', 'small orbit', 'large orbit'),
+      ],
+      caveat: 'The graph is a free 1 kg particle with L = ½m q̇², endpoints q(0)=0 m and q(1 s)=1 m, and trial paths q(t)=t+ε sin(πt) in these units. This positive quadratic action has a minimum; general stationary actions can be maxima or saddles. The inset is a separate oscillator with m=1 kg and k=1 N/m; it is not the free-particle path.',
+      compute(state) {
+        // Integrating ½m[1 + επ cos(πt)]² from 0 to 1 s gives
+        // S = 0.5 + π²ε²/4 J s: the cross term vanishes at fixed endpoints.
+        const deltaAction = state.deviation ** 2 * Math.PI ** 2 / 4;
+        const physical = physicsGraphPoints(x => (x + 1) / 3);
+        const trial = physicsGraphPoints(x => (x + state.deviation * Math.sin(Math.PI * x) + 1) / 3);
+        const amplitude = Math.sqrt(2 * state.energy);
+        return {
+          readout: 'The free-particle trial deformation ε = ' + physicsFixed(state.deviation, 2) +
+            ' m gives S = 0.500 + π²ε²/4 = ' + physicsFixed(.5 + deltaAction, 3) +
+            ' J s and ΔS = ' + physicsFixed(deltaAction, 3) +
+            ' J s. The separate oscillator at E = ' + physicsFixed(state.energy, 1) +
+            ' J has q_max = ' + physicsFixed(amplitude, 3) + ' m and p_max = ' +
+            physicsFixed(amplitude, 3) + ' kg m/s.',
+          visual: { kind: 'graph', xLabel: 'time (s)', yLabel: 'free-particle q (m)',
+            xTicks: [[0, '0'], [.5, '0.5'], [1, '1']],
+            yTicks: [[0, '−1'], [1 / 3, '0'], [2 / 3, '1'], [1, '2']], curves: [
+            { points: physical, label: 'free path: δS = 0', tone: 'primary' },
+            { points: trial, label: 'selected trial path', tone: 'secondary' },
+          ], marker: [0.5, trial[Math.floor(trial.length / 2)][1]],
+          phaseOrbit: Math.sqrt(state.energy / 2),
+          note: 'free-particle ΔS = ' + physicsFixed(deltaAction, 3) + ' J s; separate oscillator E = ' +
+            physicsFixed(state.energy, 1) + ' J' },
+        };
+      },
+    },
+    'phys.4.em-maxwell': {
+      controls: [
+        physicsControl('frequency', 'Frequency', 1, 10, 0.5, 4, 'GHz', '1 GHz', '10 GHz'),
+        physicsControl('amplitude', 'Electric-field amplitude', 1, 10, 1, 5, 'units', 'weak field', 'strong field'),
+      ],
+      caveat: 'The display is a monochromatic plane wave in vacuum; sources, finite beams, and material dispersion are omitted.',
+      compute(state) {
+        const wavelength = 0.3 / state.frequency;
+        return {
+          readout: 'At ' + physicsFixed(state.frequency, 1) + ' GHz, λ = c/f = ' +
+            physicsFixed(wavelength, 3) + ' m. E and B remain in phase and perpendicular; electric-field amplitude ' +
+            state.amplitude + ' sets the wave intensity scale.',
+          visual: { kind: 'wave', cycles: state.frequency,
+            amplitude: state.amplitude / 10, orthogonalFields: true,
+            label: 'E vertical; B through the page',
+            note: 'E ⟂ B ⟂ travel; c = fλ; λ = ' + physicsFixed(wavelength, 3) + ' m' },
+        };
+      },
+    },
+    'phys.4.quantum': {
+      controls: [
+        physicsControl('state', 'Box energy state n', 1, 5, 1, 2, '', 'ground state', 'n = 5'),
+        physicsControl('samples', 'Detection samples', 16, 128, 16, 64, '', '16 samples', '128 samples'),
+        physicsControl('length', 'Well length L', .5, 2, .25, 1, 'nm', '0.5 nm', '2 nm'),
+      ],
+      caveat: 'One electron is confined by ideal infinite walls. The density integrates to one; histogram area is exactly one for all requested seeded detections. The physical x-axis stays at 0–2 nm and the density axis rescales explicitly to retain every count. These eigenstates do not model spin, tunnelling, superpositions or measurement collapse.',
+      compute(state) {
+        const counts = physicsWellHistogram(state.state, state.samples);
+        const binWidth = state.length / counts.length;
+        const density = counts.map(count => count / (state.samples * binWidth));
+        const densityMax = Math.max(2 / state.length, ...density) * 1.05;
+        const probability = Array.from({ length: 121 }, (_, index) => {
+          const fraction = index / 120;
+          return [fraction * state.length / 2, 2 / state.length * Math.sin(state.state * Math.PI * fraction) ** 2 / densityMax];
+        });
+        probability.push([1, 0]);
+        const energy = 6.62607015e-34 ** 2 * state.state ** 2 /
+          (8 * 9.1093837139e-31 * (state.length * 1e-9) ** 2 * 1.602176634e-19);
+        return {
+          readout: 'State n = ' + state.state + ' has ' + (state.state - 1) +
+            ' interior nodes. For L = ' + physicsFixed(state.length, 2) +
+            ' nm, electron E_n = h²n²/(8mL²) = ' + physicsFixed(energy, 6) +
+            ' eV. Density |ψ|² = (2/L) sin²(nπx/L) has unit integral. All ' + state.samples +
+            ' seeded detections are counted; each bar density is count/(N × bin width).',
+          visual: { kind: 'graph', xLabel: 'position x (nm)', yLabel: '|ψ|² (nm⁻¹)',
+            xTicks: [[0, '0'], [.5, '1'], [1, '2']],
+            yTicks: [[0, '0'], [.5, physicsFixed(densityMax / 2, 2)], [1, physicsFixed(densityMax, 2)]],
+            curves: [{ points: probability, tone: 'primary' }],
+            histogram: density.map(value => value / densityMax), histogramCounts: counts,
+            histogramFraction: state.length / 2, histogramGap: 0, densityMax, wellLength: state.length,
+            note: 'Curve: Born density; bars: all ' + state.samples + ' detections; E_n=' + physicsFixed(energy, 6) + ' eV' },
+        };
+      },
+    },
+    'phys.4.statmech': {
+      controls: [physicsControl('heads', 'Heads in four coins', 0, 4, 1, 2, '', 'zero heads', 'four heads')],
+      caveat: 'All 16 coin microstates are equally likely here; interacting particles can have unequal energies and correlations.',
+      compute(state) {
+        const multiplicity = physicsChoose(4, state.heads);
+        const entropy = Math.log(multiplicity);
+        return {
+          readout: state.heads + ' heads can occur in Ω = C(4,' + state.heads + ') = ' +
+            multiplicity + ' microstates, so S/k = ln Ω = ' + physicsFixed(entropy, 3) + '.',
+          visual: { kind: 'ensemble', bars: [1, 4, 6, 4, 1], barLabels: ['0', '1', '2', '3', '4'],
+            highlight: state.heads, label: 'macrostate multiplicities 1 : 4 : 6 : 4 : 1',
+            note: 'more compatible microstates → greater entropy' },
+        };
+      },
+    },
+    'phys.4.relativity': {
+      controls: [
+        physicsControl('beta', 'Frame speed v/c', -0.9, 0.9, 0.05, 0.6, 'c', '0.9 c left', '0.9 c right'),
+        physicsControl('proper', 'Proper-time interval', 1, 10, 0.5, 4, 'μs', '1 μs', '10 μs'),
+      ],
+      caveat: 'The Lorentz transformation connects inertial frames; gravity and acceleration require additional treatment.',
+      compute(state) {
+        const gamma = 1 / Math.sqrt(1 - state.beta ** 2);
+        const coordinate = gamma * state.proper;
+        return {
+          readout: 'For β = ' + physicsFixed(state.beta, 2) + ', γ = ' + physicsFixed(gamma, 3) +
+            '. Proper time ' + physicsFixed(state.proper, 1) + ' μs spans ' + physicsFixed(coordinate, 2) +
+            ' μs in this frame; the light cone and spacetime interval stay invariant.',
+          visual: { kind: 'spacetime', beta: state.beta, simultaneity: true,
+            timeMax: 24, properTime: state.proper, coordinateTime: coordinate,
+            label: 'worldline and frame simultaneity slice',
+            note: 'marker: t = ' + physicsFixed(coordinate, 2) + ' μs; slice t′ = ' +
+              physicsFixed(state.proper, 1) + ' μs; t² − (x/c)² = ' + physicsFixed(state.proper ** 2, 2) + ' μs²' },
+        };
+      },
+    },
+    'phys.4.solid-state': {
+      controls: [
+        physicsControl('gap', 'Band gap', 0.5, 4, 0.1, 1.1, 'eV', '0.5 eV', '4 eV'),
+        physicsControl('temperature', 'Temperature', 100, 800, 25, 300, 'K', 'cold', 'hot'),
+        physicsControl('doping', 'Net ionized dopants', -100, 100, 5, 20, '×10¹⁴ cm⁻³', 'p-type acceptors', 'n-type donors'),
+      ],
+      caveat: 'This hypothetical symmetric parabolic-band semiconductor has Nc=Nv=10¹⁹(T/300)^(3/2) cm⁻³. Dopants are assumed fully ionized and nondegenerate throughout the chosen range, with fixed gap and effective masses. It is not a calibrated silicon model; freeze-out, mobility, gap temperature-dependence, junctions and degenerate statistics are omitted. Densities are shown logarithmically, not as misleading electron-dot counts.',
+      compute(state) {
+        const thermalEnergy = 1.380649e-23 / 1.602176634e-19 * state.temperature;
+        const states = 1e19 * (state.temperature / 300) ** 1.5;
+        const intrinsic = states * Math.exp(-state.gap / (2 * thermalEnergy));
+        const dopants = state.doping * 1e14;
+        const majority = (Math.abs(dopants) + Math.hypot(dopants, 2 * intrinsic)) / 2;
+        const minority = intrinsic ** 2 / majority;
+        const electrons = dopants >= 0 ? majority : minority;
+        const holes = dopants >= 0 ? minority : majority;
+        const fermi = thermalEnergy * Math.log(electrons / states);
+        return {
+          readout: 'At ' + state.temperature + ' K with E_g=' + physicsFixed(state.gap, 1) +
+            ' eV, n_i=' + physicsScientific(intrinsic) + ' cm⁻³. Net donors minus acceptors=' +
+            physicsScientific(dopants) + ' cm⁻³; n=' + physicsScientific(electrons) + ', p=' +
+            physicsScientific(holes) + ' cm⁻³. Charge neutrality n−p=N_D−N_A and mass action np=n_i² both hold. EF=' +
+            physicsFixed(fermi, 6) + ' eV relative to Ec=0. ' +
+            (dopants > 0 ? 'Electrons are majority carriers.' : dopants < 0 ? 'Holes are majority carriers.' : 'Intrinsic: n=p.'),
+          visual: { kind: 'bands', gap: state.gap, electrons, holes, fermi,
+            note: 'n−p = net ionized dopants; np = n_i²; EF=' + physicsFixed(fermi, 3) + ' eV' },
+        };
+      },
+    },
+    'phys.4.particles': {
+      controls: [{ ...physicsControl('channel', 'Candidate decay channel', 0, 2, 1, 0, '',
+        'complete beta decay', 'free proton proposal'),
+        names: ['n → p + e⁻ + antineutrino', 'n → p + e⁻', 'p → n + positron'] }],
+      caveat: 'A full decay audit also checks energy, momentum, spin, and every relevant flavor quantum number.',
+      compute(state) {
+        const channels = [
+          { name: 'n → p + e⁻ + antineutrino', q: true, b: true, l: true, allowed: true },
+          { name: 'n → p + e⁻', q: true, b: true, l: false, allowed: false },
+          { name: 'p → n + positron', q: true, b: true, l: false, allowed: false },
+        ];
+        const selected = channels[state.channel];
+        return {
+          readout: selected.name + ': electric charge ' + (selected.q ? 'balances' : 'fails') +
+            ', baryon number ' + (selected.b ? 'balances' : 'fails') + ', and lepton number ' +
+            (selected.l ? 'balances' : 'fails') + '. This ledger ' + (selected.allowed ? 'passes' : 'rejects the channel') + '.',
+          visual: { kind: 'ledger', label: selected.name, segments: [
+            { label: 'charge ' + (selected.q ? '✓' : '×'), value: selected.q ? 1 : .42 },
+            { label: 'baryon ' + (selected.b ? '✓' : '×'), value: selected.b ? 1 : .42 },
+            { label: 'lepton ' + (selected.l ? '✓' : '×'), value: selected.l ? 1 : .42 },
+          ], equation: selected.allowed ? 'required additive numbers balance' : 'one failed law is enough to reject',
+          note: selected.allowed ? 'ledger passes these three checks' : 'ledger fails: missing required products' },
+        };
+      },
+    },
+    'phys.4.experiment': {
+      controls: [
+        physicsControl('bias', 'Calibration offset', -5, 5, 0.5, 1, 'units', 'negative bias', 'positive bias'),
+        physicsControl('noise', 'Random scatter', 0, 5, 0.5, 1.5, 'units', 'precise', 'noisy'),
+        { ...physicsControl('outlier', 'Outlier', 0, 1, 1, 0, '', 'absent', 'present'), names: ['absent', 'present'] },
+      ],
+      caveat: 'The fixed irregular residual sequence makes comparisons reproducible. Points outside the plotting window clip visually, but diagnostics use raw values; real residuals also require independence checks and domain knowledge.',
+      compute(state) {
+        const predicted = physicsGraphPoints(x => 0.12 + 0.72 * x);
+        const fixedResiduals = [-.72, .18, .83, -.31, .44, -.91, .06, .67, -.48,
+          .29, -.12, .94, -.63, .38, -.25, .55, -.81, .11];
+        const rawObserved = fixedResiduals.map((residual, index) => {
+          const x = (index + 1) / (fixedResiduals.length + 1);
+          const outlier = state.outlier && index === 11 ? .28 : 0;
+          return [x, 0.12 + 0.72 * x + state.bias / 16 + state.noise / 20 * residual + outlier];
+        });
+        const residuals = rawObserved.map(point => point[1] - (0.12 + 0.72 * point[0]));
+        const meanResidual = residuals.reduce((sum, residual) => sum + residual, 0) / residuals.length;
+        const residualScatter = Math.sqrt(residuals.reduce((sum, residual) =>
+          sum + (residual - meanResidual) ** 2, 0) / residuals.length);
+        return {
+          readout: 'Offset ' + physicsFixed(state.bias, 1) + ', scatter ' + physicsFixed(state.noise, 1) +
+            ', outlier ' + (state.outlier ? 'present' : 'absent') + ' produce mean residual ' +
+            physicsFixed(meanResidual, 3) + ' and residual scatter ' + physicsFixed(residualScatter, 3) +
+            ' plot units. Averaging independent repeats can reduce random uncertainty; calibration bias remains.',
+          visual: { kind: 'graph', xLabel: 'controlled input', yLabel: 'instrument reading',
+            curves: [{ points: predicted, label: 'calibrated expectation', tone: 'primary' }],
+            scatter: rawObserved,
+            note: 'mean residual ' + physicsFixed(meanResidual, 3) + '; scatter ' +
+              physicsFixed(residualScatter, 3) + '; outlier ' + (state.outlier ? 'shown' : 'absent') },
+        };
+      },
+    },
+    'phys.5.qft': {
+      controls: [
+        physicsControl('quanta', 'Excitation number n', 0, 6, 1, 2, '', 'vacuum state', 'six quanta'),
+        physicsControl('frequency', 'Mode frequency', 1, 5, 0.25, 2, 'rad/s', 'low frequency', 'high frequency'),
+      ],
+      caveat: 'This is one free bosonic mode; a number state has no definite classical field amplitude. Fermionic occupations and interacting fields differ.',
+      compute(state) {
+        const energy = (state.quanta + 0.5) * state.frequency;
+        return {
+          readout: 'For one free bosonic mode with n = ' + state.quanta + ' and ω = ' + physicsFixed(state.frequency, 2) +
+            ' rad/s, E/ℏ = (n + 1/2)ω = ' + physicsFixed(energy, 2) + ' s⁻¹. Even n = 0 retains zero-point energy in this oscillator Hamiltonian; subtracting a reference vacuum energy changes the zero, not the level spacing.',
+          visual: { kind: 'qft', occupation: state.quanta, frequency: state.frequency,
+            energy, note: 'spacing ∝ ω; selected level n=' + state.quanta },
+        };
+      },
+    },
+    'phys.5.gr-cosmo': {
+      controls: [physicsControl('scale', 'Observed scale factor a', 0.5, 2, 0.05, 1, '', 'emission epoch', 'twice today’s scale')],
+      caveat: 'The homogeneous scale-factor model applies on cosmological scales, not to gravitationally bound atoms, people, or galaxies.',
+      compute(state) {
+        const emittedScale = 0.5;
+        const wavelength = 500 * state.scale / emittedScale;
+        const redshift = state.scale / emittedScale - 1;
+        return {
+          readout: 'Light emitted at a = 0.50 with λ = 500 nm is observed at a = ' +
+            physicsFixed(state.scale, 2) + ' with λ = ' + physicsFixed(wavelength, 0) +
+            ' nm and redshift z = ' + physicsFixed(redshift, 2) + '.',
+          visual: { kind: 'wave', cycles: Math.max(1, 7 / (state.scale / emittedScale)),
+            amplitude: 0.45, label: 'wavelength stretches with scale factor',
+            note: 'λ stretches with a; expansion has no center' },
+        };
+      },
+    },
+    'phys.5.condensed': {
+      controls: [
+        physicsControl('temperature', 'Temperature', 0.5, 10, 0.5, 5, 'K', '0.5 K', '10 K'),
+        physicsControl('field', 'Applied magnetic field', 0, 100, 5, 30, 'mT', 'no field', '100 mT'),
+      ],
+      caveat: 'This lead-like bulk type-I teaching model uses Tc = 7.2 K and Hc(0) = 80 mT, and makes the field transition abrupt. Demagnetization can create an intermediate state; real samples add shape and history effects.',
+      compute(state) {
+        const critical = 7.2;
+        const criticalField = state.temperature < critical
+          ? 80 * (1 - (state.temperature / critical) ** 2) : 0;
+        const inMeissnerState = state.temperature < critical && state.field < criticalField;
+        const order = inMeissnerState ? Math.sqrt(1 - state.temperature / critical) : 0;
+        const curve = physicsGraphPoints(x => {
+          const temp = 10 * x;
+          const hc = temp < critical ? 80 * (1 - (temp / critical) ** 2) : 0;
+          return temp < critical && state.field < hc ? Math.sqrt(1 - temp / critical) : 0;
+        });
+        return {
+          readout: 'In the lead-like type-I example, at ' + physicsFixed(state.temperature, 1) +
+            ' K with Tc = 7.2 K, order-parameter index = ' + physicsFixed(order, 3) +
+            '. Hc(T) ≈ ' + physicsFixed(criticalField, 1) + ' mT, so applied field ' + state.field + ' mT' +
+            (inMeissnerState ? ' remains in the Meissner regime.' :
+              ' drives or leaves the sample normal; the ideal field transition is abrupt.'),
+          visual: { kind: 'graph', xLabel: 'temperature', yLabel: 'superconducting order',
+            curves: [{ points: curve, label: 'bulk order; jump where H = Hc(T)', tone: 'primary' }],
+            marker: [state.temperature / 10, order],
+            note: physicsFixed(state.temperature, 1) + ' K, H=' + state.field + ' mT: ' +
+              (inMeissnerState ? 'Meissner state' : 'normal state') },
+        };
+      },
+    },
+    'phys.5.quantum-info': {
+      controls: [
+        physicsControl('angle', 'Bob setting angle θ', 0, 90, 5, 45, '°', 'same Bob settings', '90 degrees'),
+        physicsControl('trials', 'Pairs per setting', 32, 256, 32, 128, '', '32 per setting', '256 per setting'),
+        physicsControl('visibility', 'Singlet visibility', 0, 1, .05, 1, '', 'white noise', 'pure singlet'),
+      ],
+      caveat: 'Four independent mock samples use spin-singlet correlations mixed with isotropic white noise. Alice uses 0°/90° and Bob uses θ/−θ. The local bound assumes local outcomes and independent setting choices; a finite mock fluctuation above it is not an experimental Bell proof. The reported standard deviation applies to signed S, not |S|. Detector loopholes, gates, algorithms and teleportation are omitted.',
+      compute(state) {
+        const angle = state.angle * Math.PI / 180;
+        const correlations = [-Math.cos(angle), -Math.cos(angle), -Math.sin(angle), Math.sin(angle)].map(e => state.visibility * e);
+        const samples = correlations.map((e, index) => physicsBellSample(e, state.trials, index));
+        const sum = values => values[0] + values[1] + values[2] - values[3];
+        const theory = sum(correlations), observed = sum(samples.map(sample => sample.correlation));
+        const deviation = Math.sqrt(correlations.reduce((total, e) => total + (1 - e ** 2) / state.trials, 0));
+        const curve = physicsGraphPoints(x => (4 - 2 * state.visibility *
+          (Math.cos(x * Math.PI / 2) + Math.sin(x * Math.PI / 2))) / 8);
+        return {
+          readout: 'Alice A0=0°, A1=90°; Bob B0=' + state.angle + '°, B1=−' + state.angle +
+            '°. E00,E01,E10,E11 theory: ' + correlations.map(e => physicsFixed(e, 6)).join(', ') +
+            '. S=E00+E01+E10−E11=' + physicsFixed(theory, 6) + '; |S|=' + physicsFixed(Math.abs(theory), 6) +
+            ' versus local bound 2. ' + state.trials + ' pairs for each setting give mock S=' + physicsFixed(observed, 6) +
+            ', theoretical standard deviation ' + physicsFixed(deviation, 6) + '. Mock E00,E01,E10,E11: ' +
+            samples.map(sample => physicsFixed(sample.correlation, 6)).join(', ') + '. Mock local + counts (Alice/Bob): ' +
+            samples.map(sample => sample.alicePlus + '/' + sample.bobPlus).join(', ') +
+            '. Theoretical local marginals remain 50/50 for all settings and visibility, so neither observer can signal.',
+          visual: { kind: 'graph', xLabel: 'Bob angle θ (degrees)', yLabel: 'signed CHSH S',
+            xTicks: [[0, '0'], [.5, '45'], [1, '90']],
+            yTicks: [[0, '−4'], [.25, '−2'], [.5, '0'], [.75, '2'], [1, '4']],
+            curves: [{ points: curve, label: 'four-setting theory', tone: 'primary' },
+              { points: [[0,.25],[1,.25]], tone: 'secondary' },
+              { points: [[0,.75],[1,.75]], tone: 'secondary' }],
+            marker: [state.angle / 90, (theory + 4) / 8],
+            measurement: { x: state.angle / 90, y: (observed + 4) / 8, error: deviation / 8 },
+            note: 'Dashed local bounds ±2; theory |S|=' + physicsFixed(Math.abs(theory), 3) + '; mock S=' + physicsFixed(observed, 3) },
+        };
+      },
+    },
+    'phys.5.frontier': {
+      controls: [
+        physicsControl('halo', 'Halo contribution', 0, 100, 5, 65, '%', 'visible matter only', 'strong halo'),
+        physicsControl('baryons', 'Visible-mass scale', 50, 150, 5, 100, '%', 'low visible mass', 'high visible mass'),
+      ],
+      caveat: 'The plotted interval samples the outer disk and excludes the galactic center. Rotation curves alone do not uniquely identify dark matter; distance, gas, stellar mass, geometry, and alternative dynamics matter.',
+      compute(state) {
+        const observed = physicsGraphPoints(() => 0.72);
+        const predictionFn = x => {
+          const baryonSpeed = Math.sqrt(state.baryons / 100) * 0.78 / Math.sqrt(1 + 3.5 * x);
+          const haloSpeed = Math.sqrt(state.halo / 100) * 0.62 * Math.sqrt(1 - Math.exp(-4 * x));
+          return Math.max(0, Math.min(1, Math.sqrt(baryonSpeed ** 2 + haloSpeed ** 2)));
+        };
+        const predicted = physicsGraphPoints(predictionFn);
+        const residual = Math.sqrt(predicted.reduce((sum, point) => sum + (point[1] - 0.72) ** 2, 0) / predicted.length);
+        return {
+          readout: 'Visible-mass scale ' + state.baryons + '% plus halo contribution ' + state.halo +
+            '% gives rotation-curve RMS mismatch ' + physicsFixed(residual, 3) +
+            '. Lower mismatch improves this fit but does not prove a unique model.',
+          visual: { kind: 'graph', xLabel: 'outer-disk radius', yLabel: 'orbital speed', curves: [
+            { points: observed, label: 'synthetic flat observation', tone: 'primary' },
+            { points: predicted, label: 'selected model prediction', tone: 'secondary' },
+          ], marker: [0.82, predictionFn(0.82)],
+          note: 'component squared speeds add; RMS mismatch ' + physicsFixed(residual, 3) },
+        };
+      },
+    },
+  });
+
+  function formatPhysicsControl(control, value) {
+    if (control.names) return control.names[Math.round(value)] || String(value);
+    const digits = (String(control.step).split('.')[1] || '').length;
+    return physicsFixed(value, digits) + (control.unit ? ' ' + control.unit : '');
+  }
+
+  function renderPhysicsConceptLab(item, hooks) {
+    const scenarioId = item && item.props && item.props.scenario;
+    if (!Object.prototype.hasOwnProperty.call(PHYSICS_SCENARIOS, scenarioId)) return null;
+    const scenario = PHYSICS_SCENARIOS[scenarioId];
+    const frame = modelFrame(item, hooks);
+    const serial = nextModelId;
+    const arrowId = 'physics-arrow-' + serial;
+    const state = {};
+    const inputs = {};
+    const outputs = {};
+    scenario.controls.forEach(control => { state[control.key] = control.start; });
+    const svg = svgNode('svg', {
+      viewBox: '0 0 720 300', class: 'physics-concept-svg', 'aria-hidden': 'true', focusable: 'false',
+    });
+    const summary = node('p', { class: 'physics-visual-summary', 'data-model-speak': true });
+
+    function refresh(announce, sourceLabel) {
+      const result = scenario.compute({ ...state });
+      renderPhysicsGraphic(svg, result.visual, arrowId);
+      summary.textContent = result.visual.note || result.visual.label || 'The model state changed.';
+      frame.readout.textContent = result.readout + ' Model boundary: ' + scenario.caveat;
+      scenario.controls.forEach(control => {
+        const formatted = formatPhysicsControl(control, state[control.key]);
+        inputs[control.key].setAttribute('aria-valuetext', formatted);
+        outputs[control.key].textContent = formatted;
+        const fill = (state[control.key] - control.min) / (control.max - control.min) * 100;
+        inputs[control.key].style.setProperty('--range-fill', physicsFixed(fill, 1) + '%');
+      });
+      if (announce) frame.status.textContent = (sourceLabel ? sourceLabel + '. ' : '') + result.readout;
+    }
+
+    const sliderGroup = node('div', { class: 'physics-control-grid' });
+    scenario.controls.forEach(control => {
+      const sliderId = 'physics-control-' + serial + '-' + control.key;
+      const input = node('input', {
+        id: sliderId, type: 'range', min: control.min, max: control.max, step: control.step,
+        value: control.start, 'aria-label': control.label,
+        oninput: event => {
+          state[control.key] = Number(event.currentTarget.value);
+          refresh(false);
+        },
+        onchange: event => {
+          state[control.key] = Number(event.currentTarget.value);
+          refresh(true, control.label + ' is ' + formatPhysicsControl(control, state[control.key]));
+        },
+      });
+      inputs[control.key] = input;
+      const valueOutput = node('output', { class: 'physics-slider-value', for: sliderId },
+        formatPhysicsControl(control, control.start));
+      outputs[control.key] = valueOutput;
+      sliderGroup.append(node('label', { class: 'model-slider physics-slider', for: sliderId },
+        node('span', { class: 'physics-slider-heading' },
+          node('span', { class: 'model-slider-title' }, control.label), valueOutput), input,
+        node('span', { class: 'model-slider-ends' },
+          node('span', {}, control.low), node('span', {}, control.high))));
+    });
+
+    const presetRow = node('div', { class: 'model-button-row physics-preset-row' },
+      node('button', { type: 'button', class: 'btn ghost small', onclick: () => {
+        scenario.controls.forEach(control => {
+          state[control.key] = control.start;
+          inputs[control.key].value = String(control.start);
+        });
+        refresh(true, 'Reset to the authored starting state');
+      } }, 'Reset'));
+
+    frame.canvas.classList.add('physics-concept-canvas');
+    frame.canvas.append(node('div', { class: 'physics-svg-scroll' }, svg), summary);
+    frame.controls.append(sliderGroup, presetRow);
+    refresh(false);
+    return frame.root;
+  }
+
+  function renderDopplerAngle(item, hooks) {
+    const frame = modelFrame(item, hooks);
+    const state = { angle: 45, correction: 45, speed: 60 };
+    const initial = { ...state }, inputs = {}, outputs = {};
+    const svg = svgNode('svg', { viewBox: '0 0 640 280', role: 'img',
+      'aria-label': 'A horizontal vessel with a movable ultrasound beam and a separate angle-correction line' });
+    svg.classList.add('radiology-angle-svg');
+    const label = (x, y, text, color = 'currentColor') => {
+      const t = svgNode('text', { x, y, fill: color, 'font-size': 26 });
+      t.textContent = text; svg.append(t);
+    };
+    const line = (x1, y1, x2, y2, color, dash) => svg.append(svgNode('line', {
+      x1, y1, x2, y2, stroke: color, 'stroke-width': 4,
+      ...(dash ? { 'stroke-dasharray': '8 6' } : {}),
+    }));
+    frame.canvas.append(svg);
+    function refresh(announce = false) {
+      const radians = a => a * Math.PI / 180;
+      const cosine = state.angle === 90 ? 0 : Math.cos(radians(state.angle));
+      const shift = 2 * 5000000 * (state.speed / 100) * cosine / 1540;
+      const estimated = cosine === 0 ? null : state.speed * cosine / Math.cos(radians(state.correction));
+      svg.replaceChildren();
+      svg.append(svgNode('rect', { x: 25, y: 170, width: 590, height: 66, rx: 30,
+        fill: 'var(--paper-2)', stroke: 'var(--accent-2)', 'stroke-width': 2 }));
+      line(320, 203, 565, 203, 'var(--accent-2)');
+      line(565, 203, 548, 191, 'var(--accent-2)');
+      line(565, 203, 548, 215, 'var(--accent-2)');
+      // Both angles are measured to the same horizontal flow axis. The solid
+      // beam changes acquisition; the dashed line changes only reconstruction.
+      line(320, 203, 320 + 180 * Math.cos(radians(state.angle)),
+        203 - 180 * Math.sin(radians(state.angle)), 'var(--gold)');
+      line(320, 203, 320 + 150 * Math.cos(radians(state.correction)),
+        203 - 150 * Math.sin(radians(state.correction)), 'var(--accent-2)', true);
+      label(25, 30, 'Solid: beam ' + state.angle + '°');
+      label(25, 60, 'Dashed: correction ' + state.correction + '°');
+      label(25, 268, 'True flow → ' + state.speed + ' cm/s');
+      for (const key of Object.keys(inputs)) {
+        const unit = key === 'speed' ? ' cm/s' : '°';
+        outputs[key].textContent = state[key] + unit;
+        inputs[key].setAttribute('aria-valuetext', state[key] + unit);
+      }
+      const readout = 'Frequency-shift magnitude: ' + shift.toFixed(0) + ' Hz. ' +
+        (estimated === null ? 'At 90° the model detects no Doppler shift despite ongoing flow; velocity cannot be recovered from this signal.' :
+          'Angle-corrected estimate: ' + estimated.toFixed(1) + ' cm/s, versus true speed ' + state.speed +
+          ' cm/s (' + ((estimated / state.speed - 1) * 100).toFixed(1) + '% error).');
+      frame.readout.textContent = readout;
+      if (announce) frame.status.textContent = readout;
+    }
+    for (const [key, title, min, max] of [
+      ['angle', 'Beam-to-flow angle', 0, 90],
+      ['correction', 'Assumed correction angle', 0, 85],
+      ['speed', 'True flow speed', 10, 200],
+    ]) {
+      const input = node('input', { type: 'range', min, max, step: 1,
+        value: state[key], 'aria-label': title,
+        oninput: event => { state[key] = clampNumber(event.target.value, min, max, initial[key]); refresh(true); },
+      });
+      inputs[key] = input; outputs[key] = node('output');
+      frame.controls.append(node('label', { class: 'radiology-angle-control' }, title, input, outputs[key]));
+    }
+    const set = values => { Object.assign(state, values); for (const key of Object.keys(inputs)) inputs[key].value = state[key]; refresh(true); };
+    frame.controls.append(node('div', { class: 'radiology-angle-actions' },
+      node('button', { type: 'button', class: 'btn ghost small', onclick: () => set({ correction: Math.min(state.angle, 85) }) }, 'Match angle (up to 85°)'),
+      node('button', { type: 'button', class: 'btn ghost small', onclick: () => set(initial) }, 'Reset')));
+    frame.root.append(node('p', { class: 'model-instructions' },
+      'Ideal single-speed flow: |Δf| = 2 f₀ v cos θ / c. Fixed f₀ = 5 MHz and c = 1540 m/s. '+
+      'Changing correction does not change the acquired shift. High angles amplify angle-setting error. '+
+      'No aliasing, noise, sample-volume or spectral broadening is simulated. Not a clinical velocity calculator.'),
+      node('a', { href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC5024856/', target: '_blank', rel: 'noopener noreferrer' },
+        'Source: RBC motion and the basis of ultrasound Doppler instrumentation'));
+    refresh();
+    return frame.root;
+  }
+
+  const RENDERERS = Object.freeze({
+    'spatial-3d': (item, hooks) => {
+      if (item.props?.scenario?.startsWith('module.')) {
+        if (!window.PrimerModuleObjects || !window.PrimerModuleObjects.ensure(item)) return null;
+      }
+      return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;
+    },
+    'radiology-anatomy': (item, hooks) => {
+      const family = item.props?.family;
+      if (item.props?.source_references?.length) {
+        const host = node('div', { class: 'lesson-native-anatomy' });
+        const select = node('select', { 'aria-label': 'Original anatomy source' });
+        const view = node('div');
+        item.props.source_references.forEach((source, i) => select.append(node('option', { value: String(i) }, source.label)));
+        function show() {
+          view.querySelector('.detailed-anatomy')?.dispose();
+          const source = item.props.source_references[Number(select.value)];
+          const anatomy = window.PrimerDetailedAnatomy?.render({ family: source.family, atlas: source.atlas,
+            initialLayer: source.initial_layer, initialCropped: source.initial_cropped, populationNote: source.population_note });
+          view.replaceChildren(anatomy || node('p', { role: 'status' }, 'This original anatomy reference could not load.'));
+          if (source.source_image) {
+            const image = source.source_image;
+            view.append(node('figure', {}, node('img', { src: image.src, alt: image.alt,
+              width: image.width, height: image.height, loading: 'lazy', style: 'max-width:100%;height:auto' }),
+              node('figcaption', {}, image.caption, node('p', {}, image.attribution))));
+          }
+          if (source.source_volume) {
+            const volume = source.source_volume;
+            const link = node('a', { href: volume.src, target: '_blank', rel: 'noopener noreferrer' }, volume.title);
+            anatomy?.addEventListener('anatomy-selection', event => {
+              const ids = event.detail.partIds;
+              const level = ids.length === 1 ? volume.level_by_part?.[ids[0]] : null;
+              link.href = volume.src + (level ? '?level=' + encodeURIComponent(level) : '');
+            });
+            view.append(node('p', {}, link),
+              node('p', {}, volume.caption));
+          }
+        }
+        select.addEventListener('change', show);
+        host.append(node('label', {}, 'Original anatomy source ', select), view);
+        show();
+        return host;
+      }
+      if (window.PrimerDetailedAnatomy?.supported(family)) {
+        const anatomy = window.PrimerDetailedAnatomy.render({ family });
+        return node('div', { class: 'lesson-native-anatomy' },
+          item.instructions ? node('p', { class: 'model-instructions' }, item.instructions) : null,
+          anatomy);
+      }
+      const reference = window.PrimerRadiologyReferenceModels;
+      return reference ? reference.render(reference.specification(item.props?.node_id), hooks) : null;
+    },
+    'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
+    'math-ode-lab': (item, hooks) => window.PrimerMathODELab?.render(item, hooks) || null,
+    'math-field-lab': (item, hooks) => window.PrimerMathFieldLab?.render(item, hooks) || null,
+    'physics-phase-lab': (item, hooks) => window.PrimerPhysicsPhaseLab?.render(item, hooks) || null,
+    'math-measure-lab': (item, hooks) => window.PrimerMathMeasureLab?.render(item, hooks) || null,
+    'physics-cycle-lab': (item, hooks) => window.PrimerPhysicsCycleLab?.render(item, hooks) || null,
+    'math-operator-lab': (item, hooks) => window.PrimerMathOperatorLab?.render(item, hooks) || null,
+    'physics-ensemble-lab': (item, hooks) => window.PrimerPhysicsEnsembleLab?.render(item, hooks) || null,
+    'math-curvature-lab': (item, hooks) => window.PrimerMathCurvatureLab?.render(item, hooks) || null,
+    'physics-constraints-lab': (item, hooks) => window.PrimerPhysicsConstraintsLab?.render(item, hooks) || null,
+    'math-topology-lab': (item, hooks) => window.PrimerMathTopologyLab?.render(item, hooks) || null,
+    'physics-relativity-lab': (item, hooks) => window.PrimerPhysicsRelativityLab?.render(item, hooks) || null,
+    'math-algebra-lab': (item, hooks) => window.PrimerMathAlgebraLab?.render(item, hooks) || null,
+    'math-logic-lab': (item, hooks) => window.PrimerMathLogicLab?.render(item, hooks) || null,
+    'math-number-theory-lab': (item, hooks) => window.PrimerMathNumberTheoryLab?.render(item, hooks) || null,
+    'physics-maxwell-lab': (item, hooks) => window.PrimerPhysicsMaxwellLab?.render(item, hooks) || null,
+    'physics-cosmology-lab': (item, hooks) => window.PrimerPhysicsCosmologyLab?.render(item, hooks) || null,
+    'physics-qft-lab': (item, hooks) => window.PrimerPhysicsQftLab?.render(item, hooks) || null,
+    'physics-quantum-info-lab': (item, hooks) => window.PrimerPhysicsQuantumInfoLab?.render(item, hooks) || null,
+    'math-complex-lab': (item, hooks) => window.PrimerMathComplexLab?.render(item, hooks) || null,
+    'physics-quantum-lab': (item, hooks) => window.PrimerPhysicsQuantumLab?.render(item, hooks) || null,
+    'physics-thermal-lab': (item, hooks) => window.PrimerPhysicsThermalLab?.render(item, hooks) || null,
+    'physics-buoyancy-lab': (item, hooks) => window.PrimerPhysicsBuoyancyLab?.render(item, hooks) || null,
+    'math-numerical-lab': (item, hooks) => window.PrimerMathNumericalLab?.render(item, hooks) || null,
+    'math-convergence-lab': (item, hooks) => window.PrimerMathConvergenceLab?.render(item, hooks) || null,
+    'math-wave-lab': (item, hooks) => window.PrimerMathWaveLab?.render(item, hooks) || null,
+    'math-probability-lab': (item, hooks) => window.PrimerMathProbabilityLab?.render(item, hooks) || null,
+    'music-listening-lab': item => window.PrimerMusic ? window.PrimerMusic.render(item) : null,
+    'prenatal-sequence': (item, hooks) => window.PrimerPrenatalSequence ? window.PrimerPrenatalSequence.render(item, hooks) : null,
+    'doppler-angle-lab': renderDopplerAngle,
+    counter: renderCounter,
+    'shape-explorer': renderShapeExplorer,
+    'shadow-lab': renderShadowLab,
+    'sequence-runner': renderSequenceRunner,
+    'make-ten': renderMakeTen,
+    'light-paths': renderLightPaths,
+    'algorithm-tracer': renderAlgorithmTracer,
+    'life-cycle': renderLifeCycle,
+    'fraction-equivalence-lab': renderFractionEquivalence,
+    'atom-element-builder': renderAtomElementBuilder,
+    'cell-microscope': renderCellMicroscope,
+    'counterexample-lab': renderCounterexampleLab,
+    'integer-number-line-lab': renderIntegerNumberLine,
+    'function-composition-lab': renderFunctionComposition,
+    'circulation-route-lab': renderCirculationRoute,
+    'allele-segregation-lab': renderAlleleSegregation,
+    'truth-table-lab': renderTruthTable,
+    'stack-queue-lab': renderStackQueue,
+    'matrix-transform-lab': renderMatrixTransform,
+    'venturi-flow-lab': renderVenturiFlow,
+    'gene-expression-stepper': renderGeneExpression,
+    'tcp-packet-tracer': renderTcpPacketTracer,
+    'heat-equation-lab': renderHeatEquation,
+    'complexity-certificate-lab': renderComplexityCertificate,
+    'morphogen-gradient-lab': renderMorphogenGradient,
+    'ct-window-lab': renderCtWindow,
+    'alphabet-explorer': renderAlphabetExplorer,
+    'inclusive-family-timeline': renderInclusiveFamilyTimeline,
+    'day-night-rotation-lab': renderDayNightRotation,
+    'classroom-paint-mixer': renderClassroomPaintMixer,
+    'reading-path-lab': renderReadingPath,
+    'timeline-order-lab': renderTimelineOrder,
+    'seasons-tilt-lab': renderSeasonsTilt,
+    'art-elements-composer': renderArtElementsComposer,
+    'physics-concept-lab': renderPhysicsConceptLab,
+  });
+
+  window.PrimerLessonModels = Object.freeze({
+    render(item, hooks) {
+      const rendererName = item && item.renderer;
+      if (!Object.prototype.hasOwnProperty.call(RENDERERS, rendererName)) return null;
+      const result = RENDERERS[rendererName](item, hooks);
+      if (!result) return result;
+      // These renderers own their responsive viewport and camera controls.
+      if (['physics-qft-lab', 'math-number-theory-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;
+      for (const picture of result.querySelectorAll('svg')) {
+        if (!picture.classList.contains('science-diagram') && !picture.classList.contains('physics-concept-svg')) continue;
+        const viewport = picture.parentNode;
+        const width = Number((picture.getAttribute('viewBox') || '').split(/\s+/)[2]) || 820;
+        viewport.classList.add('model-diagram-viewport');
+        viewport.setAttribute('tabindex', '0');
+        viewport.setAttribute('role', 'region');
+        viewport.setAttribute('aria-label', 'Diagram viewport; enlarge for fine detail and scroll horizontally');
+        let enlarged = false;
+        const toggle = node('button', { type: 'button', class: 'btn ghost small', 'aria-pressed': 'false' }, 'Enlarge diagram');
+        toggle.addEventListener('click', () => {
+          enlarged = !enlarged;
+          picture.setAttribute('style', enlarged ? 'width:' + width + 'px;min-width:' + width + 'px;max-width:none' : '');
+          toggle.setAttribute('aria-pressed', String(enlarged));
+          toggle.textContent = enlarged ? 'Fit whole diagram' : 'Enlarge diagram';
+        });
+        result.querySelector('.model-heading-row').append(toggle);
+      }
+      return result;
+    },
+    supported: Object.freeze(Object.keys(RENDERERS)),
+  });
+}());

@@ -480,6 +480,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     })
     expected['math.4.analysis'] = (4, 'math-convergence-lab')
     expected['math.5.numerical'] = (5, 'math-numerical-lab')
+    expected['math.4.numtheory'] = (4, 'math-number-theory-lab')
     expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
