@@ -31,7 +31,10 @@ def test_all_modules_have_reviewed_reporting_content_and_a_3d_companion(curricul
         assert len(guide['pitfalls']) >= 2, node['id']
         assert len(guide['impression_prompts']) >= 3, node['id']
         assert any(item['kind'] == 'illustration' for item in node['lesson_media'])
-        if node['id'] == 'rad.5.sella':
+        if node['id'] == 'rad.4.pulmonary-nodule':
+            from tools.pulmonary_reference_contract import assert_native_pulmonary_reference
+            assert_native_pulmonary_reference(ref)
+        elif node['id'] == 'rad.5.sella':
             from primer.radiology_catalog import detail, resolve
             sources = detail(curriculum, resolve('ra.mri-sella'))['radiology_reference']['structure_atlas']
             assert len(sources) == 20 and all(image['src'] and image['license'] == 'CC BY 4.0' for image in sources)

@@ -1,0 +1,41 @@
+........................................................................ [ 27%]
+........................................................................ [ 54%]
+........................................................................ [ 82%]
+...........................................F..                           [100%]
+=================================== FAILURES ===================================
+________________ test_walkthrough_helpers_and_step_models_build ________________
+
+references = {'ra.abdominal-wall-hernias': {'additional_sources': [], 'annotated_anatomy_links': [], 'investigation': {'article_ids...nt metastases → IV', 'Histology + endocrine assessment'], ...}], 'cancer_staging_reviewed_at': '2026-10-09', ...}, ...}
+
+    @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
+    def test_walkthrough_helpers_and_step_models_build(references):
+        served = [{'id': identifier, 'model': ref['walkthrough']['spatial_model'],
+                   'source_native_inspectors': ref.get('source_native_inspectors', []),
+                   'key_images': ref['key_images'],
+                   'parts': [step['parts'] for step in ref['walkthrough']['steps']],
+                   'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}
+                  for identifier, ref in references.items()]
+        result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js')],
+                                input=json.dumps(served), cwd=ROOT, capture_output=True, text=True,
+                                timeout=60, check=False)
+        assert result.returncode == 0, result.stdout + result.stderr
+        report = json.loads(result.stdout)
+>       assert report == {'investigations': 136, 'corrected': len(CORRECTED),
+                          'builds': report['builds'], 'status': 'passed'}
+E       AssertionError: assert {'builds': 38...ions': 1, ...} == {'builds': 38...us': 'passed'}
+E         
+E         Omitting 4 identical items, use -vv to show
+E         Left contains 1 more item:
+E         {'nativeCompanions': 1}
+E         Use -v to get more diff
+
+tests/test_radiology_walkthrough.py:261: AssertionError
+=============================== warnings summary ===============================
+tests/test_radiology_reference.py::test_api_sends_reports_only_for_opened_lesson_and_never_sends_quiz_keys
+  /Users/peter/Documents/ChatGPT/Primer/.research/runtime-grade-py312-20261008/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_radiology_walkthrough.py::test_walkthrough_helpers_and_step_models_build
+1 failed, 261 passed, 1 warning in 47.33s

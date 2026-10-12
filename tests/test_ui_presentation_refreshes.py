@@ -37,6 +37,11 @@ def test_only_the_two_shared_ui_files_are_refreshable_and_nothing_is_approved():
             proof=ui_refresh.validate_source_case_citation_refresh(step)
             assert step['native_presentation_code_touched'] is True
             assert proof['native_decoder_mesh_CT_renderer_code_touched'] is False
+        elif step['id']=='2026-10-11-pulmonary-source-only-mounting':
+            from tools.anatomy_sources.pulmonary_ui_compatibility import validate_refresh
+            proof=validate_refresh(step)
+            assert step['native_presentation_code_touched'] is True
+            assert proof['app_bytes_outside_changed_functions_identical'] is True
         else:
             assert step['native_presentation_code_touched'] is False
 

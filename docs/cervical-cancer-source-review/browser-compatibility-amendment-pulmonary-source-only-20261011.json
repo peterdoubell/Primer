@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-11",
+  "scope": "Bounded compatibility of pre-existing cervical reader after pulmonary source-only shared-app changes",
+  "app_js_sha256": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+  "previous_app_js_sha256": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+  "previous_compatibility_amendment_sha256": "cf1ec022686dec946225097f525effe362823515168fda4ad704a5caa91ff555",
+  "preserved_historical_receipts_sha256": {
+    "browser-integration-review.json": "d17017bb0a017711f349fe9d068450fa1969a0c6a07267195047b04d6f477073",
+    "browser-compatibility-amendment-20261011.json": "521a75e89c385a389a787298f3b84844e2ff2a07f156ccd37b228a47a8ee12ae",
+    "browser-compatibility-amendment-algebra-trauma-20261011.json": "e7c8b28d6b7bd20383456ebdefe871bf1392e1d369bd494bbe2181c716b2391c",
+    "browser-compatibility-amendment-stroke-source-case-20261011.json": "cf1ec022686dec946225097f525effe362823515168fda4ad704a5caa91ff555"
+  },
+  "exact_app_inverse": {
+    "path": "docs/pulmonary-nodule-integration-review-20261011/bounded-app-source-only-delta.json",
+    "sha256": "7ab2a9eb1fe06acd5407a05f738e8fddba9f64221e72c669c955e78e94edb76f",
+    "helper_path": "tools/anatomy_sources/pulmonary_ui_compatibility.py",
+    "helper_sha256": "6b7fd6a58b90c5f4fe73421b189b568da819b4331e4ac8665c478dee6f1eefe0",
+    "changed_functions": [
+      "sourceNativeInspector",
+      "renderRadiologyDesk",
+      "renderReportWalkthrough"
+    ],
+    "app_bytes_outside_changed_functions_identical": true,
+    "reconstructed_previous_app_sha256": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0"
+  },
+  "guarded_paths_sha256": {
+    "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+    "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+    "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+    "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+    "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+  },
+  "browser_review": {
+    "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/review.json",
+    "sha256": "f643fd8af08048ffbee9be7a44895643bdb7478f388f5be7f262e3d3064b5455"
+  },
+  "native_reader_smoke": {
+    "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/native/native-reader-smoke.json",
+    "sha256": "42b81c1de71115f3dbc482fd6a6a169f966b2a3b983adf4cbd2431bfbe65116d"
+  },
+  "source_contract_sha256": "3507bb32e0d1063267f28aa0b00ba8dbd90a9adda1ca92e12b402ad8ede1084d",
+  "unchanged_native_manifest_sha256": "ca947cc1bf39e165708d2a634e1acbe847629b90d14a89b6f38a4f6ccfbcc776",
+  "detailed_anatomy_js_sha256": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+  "source_case_and_modality_limits_retained": true,
+  "native_presentation_change_scope": "pulmonary_source_only_mounting",
+  "native_decoder_mesh_CT_renderer_code_touched": false,
+  "all_requested_routes_and_viewports_passed": true,
+  "owned_isolated_qa_server": true,
+  "production_or_deployment_verification": false,
+  "server_shutdown_owned_by_parent": true,
+  "server_restart_or_shutdown_performed_by_amendment_agent": false,
+  "screenshots": [
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-1440-normal-uterus-2018-fig3-1.png",
+      "sha256": "058d3044edda29611634104eb9b005f377a623f95a345da456d66968f9e14a25"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-1440-pmc10605640-fig11.png",
+      "sha256": "6c496ae4b9fa5be3661df43763deab809836e74376db6e99ee6ed5cc0256cd6d"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-1440-pmc10886638-fig4.png",
+      "sha256": "fb8bcee01516224cb0f3bb06926ed8bc975dc8e81ba4836ccdff9f8fdafe1469"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-1440-native-hra.png",
+      "sha256": "35795c65145bb04ac44d02a7de9da15783e4f04370cccd5eef92bd03574955d6"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-390-normal-uterus-2018-fig3-1.png",
+      "sha256": "74f2375ac95449199f028fefdbb9e2a5f90a64eff8152fe507ffc1cea44b7805"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-390-pmc10605640-fig11.png",
+      "sha256": "93f7afa442e0b42a4a08efc30b3daceea83ea2eb5318d9bbdc4f797aba107bc5"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-390-pmc10886638-fig4.png",
+      "sha256": "f75d63cca5ce7f6a9010084ef7a9b8307c42b163f3ce3b75824279b817dee60d"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-reporting-390-native-hra.png",
+      "sha256": "2adeac0375c7bc928018504e8e2c1c24cd27abdd820fcbb135ddb6f0267bc14d"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-1440-normal-uterus-2018-fig3-1.png",
+      "sha256": "5040d69d92bc845ef38aff5ffe7c4c5a0dbed405d1f260580880392bf1200c69"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-1440-pmc10605640-fig11.png",
+      "sha256": "901a97dcf2d0c0bdb247df863681ec75e9ab0699e3328669fa66045ca0095774"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-1440-pmc10886638-fig4.png",
+      "sha256": "66c545b8b12c77c0b4053c815903b21c0af827f4f9eee7e10a3413aabc9afa1e"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-1440-native-hra.png",
+      "sha256": "0110cc9537fc97d389910a19fe026f3dc0bad3368b961e12cce7dd25c0538b2f"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-390-normal-uterus-2018-fig3-1.png",
+      "sha256": "86292f83599dd51ef0ae9a16c5e19e2a1be0836ac42b85bd90ce11f2f0f552f9"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-390-pmc10605640-fig11.png",
+      "sha256": "c2ca822bd0ccb4f9b2630d26bc3d4877281fe2fc5071144c10a90ee3cd3f07b6"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-390-pmc10886638-fig4.png",
+      "sha256": "942a538578ed28b32b5667f1a6c3013540dde7ace6b272c5d7a35ec11ceaccdd"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/cervical/runtime-lesson-390-native-hra.png",
+      "sha256": "5c101a622343622d9c6d3b381d3eb0dcfc78cf50b265eb6331b79bca03df4837"
+    }
+  ],
+  "capture_count": 16,
+  "capture_file_hashes_verified": true,
+  "visual_inspection_scope": "Capture file hashes and runtime observations validated here; parent separately owns actual PNG inspection and final integration review. No visual approval is granted by this receipt.",
+  "results_summary": [
+    {
+      "route": "reporting",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "complete_figure_count": 32,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": 8,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    },
+    {
+      "route": "reporting",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "complete_figure_count": 32,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": 8,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    },
+    {
+      "route": "lesson",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "complete_figure_count": 32,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": null,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    },
+    {
+      "route": "lesson",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "complete_figure_count": 32,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": null,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    }
+  ],
+  "historical_approval_scope_unchanged": true,
+  "supersedes_historical_review": false,
+  "supersedes_previous_compatibility_amendment": false,
+  "supersedes_any_historical_receipt": false,
+  "historical_capture_reconstruction_or_replacement": false,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "structure_coverage_granted": false,
+  "current_patient_registration": false,
+  "every_structure_approved": false,
+  "fine_3D_tissue_layers_approved": false,
+  "patient_registration_verified": false,
+  "whole_goal_complete": false,
+  "historical_missing_capture_files": [
+    "runtime-reporting-1440-normal-uterus-2018-fig3-1.png",
+    "runtime-reporting-1440-pmc10605640-fig11.png",
+    "runtime-reporting-1440-pmc10886638-fig4.png",
+    "runtime-reporting-1440-native-hra.png",
+    "runtime-reporting-390-normal-uterus-2018-fig3-1.png",
+    "runtime-reporting-390-pmc10605640-fig11.png",
+    "runtime-reporting-390-pmc10886638-fig4.png",
+    "runtime-reporting-390-native-hra.png",
+    "runtime-lesson-1440-normal-uterus-2018-fig3-1.png",
+    "runtime-lesson-1440-pmc10605640-fig11.png",
+    "runtime-lesson-1440-pmc10886638-fig4.png",
+    "runtime-lesson-1440-native-hra.png",
+    "runtime-lesson-390-normal-uterus-2018-fig3-1.png",
+    "runtime-lesson-390-pmc10605640-fig11.png",
+    "runtime-lesson-390-pmc10886638-fig4.png",
+    "runtime-lesson-390-native-hra.png"
+  ],
+  "historical_missing_capture_count": 16
+}

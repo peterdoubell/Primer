@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "investigation_id": "ra.ct-pulmonary-nodules",
+  "current_effective_contract_sha256": "e029b4fdd292efa3638f4f7868bf993ea2e4f6195c921ebce13653f6d98aceb8",
+  "proposed_protocol": [
+    "Use the complete acquired thorax with contiguous thin sections at most 1.5 mm, typically 1 mm, and explicit coverage/quality limitations. Record acquired thickness separately from reconstruction interval and pixel spacing.",
+    "Use suitable lung windows and actual multiplanar reconstructions to distinguish nodule/linear scar and solid/subsolid components; retain the actual source reconstructions and kernel.",
+    "Measure verified fat or calcium on the thinnest available nonsharpened series with a small ROI, excluding air/edge partial-volume contamination. A single point value is insufficient.",
+    "Compare all available original prior studies, including early baseline; document dates, reconstruction/software compatibility and uncertainty. A current source example is not an invented prior examination.",
+    "Declare incidental/screening/oncology/infectious context, eligibility and exclusions before applying a named current guideline. Distinguish single/multiple and solid/pure-ground-glass/part-solid pathways.",
+    "Document each nodule ID/site/series/image, total/solid-component measurement, margins, verified fat/calcification, relevant pleural/airway/vascular relationships and actual interval change. Reader scores are not histological diagnoses."
+  ],
+  "proposed_walkthrough_steps": [
+    {
+      "label": "Pathway",
+      "detail": "Choose the incidental, screening or known-malignancy pathway and check exclusions.",
+      "sections": [
+        "PATHWAY"
+      ],
+      "normal": {},
+      "findings": [
+        "Incidental nodule in a patient aged __ without cancer or immunosuppression: Fleischner 2017 applies.",
+        "Screening context: the programme protocol applies, not Fleischner.",
+        "Known malignancy: follow the oncology context, not Fleischner."
+      ],
+      "measurements": [],
+      "parts": [],
+      "look": "Referral context: age, cancer history, immune status and screening programme.",
+      "tip": "Fleischner guidance does not apply to screening, patients under 35, immunocompromise or known cancer.",
+      "anatomy_note": "Actual named structure fidelity remains unverified; these fields are assessment prompts and do not bind generic lobe geometry."
+    },
+    {
+      "label": "Nodule type and location",
+      "detail": "Record location and whether each nodule is solid, pure ground glass or part-solid.",
+      "sections": [
+        "NODULE INVENTORY"
+      ],
+      "normal": {
+        "NODULE INVENTORY": "No pulmonary nodule."
+      },
+      "findings": [
+        "Solid nodule in the [right upper lobe] (series __ image __).",
+        "Pure ground-glass nodule in the [ ].",
+        "Part-solid nodule in the [ ]."
+      ],
+      "measurements": [],
+      "parts": [],
+      "look": "Thin sections (1.5 mm or less); lung windows.",
+      "anatomy_note": "Actual named structure fidelity remains unverified; these fields are assessment prompts and do not bind generic lobe geometry."
+    },
+    {
+      "label": "Size and morphology",
+      "detail": "Measure mean diameter or volume and assess margins, fat, calcification and perifissural shape.",
+      "sections": [
+        "SIZE AND MORPHOLOGY"
+      ],
+      "normal": {},
+      "findings": [
+        "Solid nodule, mean diameter __ mm, [smooth / lobulated / spiculated].",
+        "Benign calcification pattern ([diffuse / central / laminated / popcorn]).",
+        "Intranodular fat (hamartoma).",
+        "Perifissural nodule: smooth, triangular or lentiform, attached to the fissure."
+      ],
+      "measurements": [
+        "Mean diameter",
+        "Solid component"
+      ],
+      "parts": [],
+      "look": "Average of long and short axes in the plane of maximal dimension; bone window for calcification.",
+      "tip": "A perifissural nodule needs the complete benign morphology, not only proximity to a fissure.",
+      "anatomy_note": "Actual named structure fidelity remains unverified; these fields are assessment prompts and do not bind generic lobe geometry."
+    },
+    {
+      "label": "Interval change",
+      "detail": "Compare with prior CT using comparable reconstructions.",
+      "sections": [
+        "INTERVAL CHANGE"
+      ],
+      "normal": {
+        "INTERVAL CHANGE": "No prior imaging."
+      },
+      "findings": [
+        "Stable since [date] (__ years).",
+        "Growth from __ to __ mm since [date].",
+        "New solid component in a previously pure ground-glass nodule."
+      ],
+      "measurements": [],
+      "parts": [],
+      "look": "Same slice thickness and kernel; volumetry when available.",
+      "anatomy_note": "Actual named structure fidelity remains unverified; these fields are assessment prompts and do not bind generic lobe geometry."
+    },
+    {
+      "label": "Assessment and recommendation",
+      "detail": "Identify the most suspicious nodule and give a recommendation with the guideline and its rationale.",
+      "sections": [
+        "ASSESSMENT"
+      ],
+      "normal": {},
+      "findings": [
+        "For an eligible incidental solitary solid nodule under 6 mm: no routine follow-up at low risk; optional 12 month CT at high risk, adjusted for morphology/context.",
+        "For an eligible incidental solitary solid 6–8 mm nodule: initial CT 6–12 months; later 18–24 month assessment depends on risk and stability.",
+        "For qualifying multiple solid nodules with at least one 6 mm nodule: initial CT 3–6 months; assess the most suspicious nodule and the applicable later follow-up branch.",
+        "For qualifying solitary pure ground-glass nodules at least 6 mm: initial CT 6–12 months, then every 2 years until 5 years if persistent and appropriate.",
+        "For qualifying solitary part-solid nodules at least 6 mm overall: initial CT 3–6 months; persistent dense-component size, growth and morphology can warrant further evaluation.",
+        "Screening, known malignancy, immunocompromise, young adults and alternative causes require their actual pathway; do not combine Fleischner/BTS/Lung-RADS thresholds."
+      ],
+      "measurements": [],
+      "parts": [],
+      "look": "Apply the chosen guideline to the most suspicious nodule.",
+      "anatomy_note": "Actual named structure fidelity remains unverified; these fields are assessment prompts and do not bind generic lobe geometry."
+    }
+  ],
+  "proposed_additional_primary_sources": [
+    {
+      "title": "MacMahon et al. Fleischner Society incidental pulmonary nodule guidance,2017 (corrected version)",
+      "url": "https://doi.org/10.1148/radiol.2017161659"
+    },
+    {
+      "title": "Bankier et al. Recommendations for Measuring Pulmonary Nodules at CT,2017",
+      "url": "https://doi.org/10.1148/radiol.2017162894"
+    },
+    {
+      "title": "Callister et al. BTS pulmonary-nodule guidance,2015 with published correction",
+      "url": "https://doi.org/10.1136/thoraxjnl-2015-207168"
+    },
+    {
+      "title": "ACR Lung-RADS v2022 current screening reference",
+      "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/Lung-RADS"
+    }
+  ],
+  "reporting_fields_are_unfilled_prompts": true,
+  "original_reference_preserved_in_snapshot": true,
+  "clinical_approval": false,
+  "structure_coverage_granted": false,
+  "runtime_integrated": false
+}

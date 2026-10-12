@@ -7,6 +7,7 @@ import pytest
 from tools.anatomy_sources import integrate_acute_stroke_sources as integration
 from tools.anatomy_sources import repair_acute_stroke_captions as repair
 from tools.anatomy_sources import stroke_registry_amendment as bridge
+from tools.pulmonary_data_compatibility import restore_main_raw
 ROOT=Path(__file__).resolve().parents[1]
 
 
@@ -25,8 +26,8 @@ def test_the_added_field_is_the_only_change_and_frozen_evidence_stays_exact():
  for old,new in zip(before,after):
   check=copy.deepcopy(new);assert check.pop('source_caption_full')==old['original_caption'];assert check==old
  for path,h in a['frozen_original_evidence_SHA256'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==h
- for path,h in a['other_four_data_files_SHA256_unchanged'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==h
- assert hashlib.sha256((ROOT/'data/curriculum/11-radiology.json').read_bytes()).hexdigest()==a['current_quiz_file_SHA256']
+ for path,h in a['other_four_data_files_SHA256_unchanged'].items():assert hashlib.sha256(restore_main_raw(path,(ROOT/path).read_bytes())).hexdigest()==h
+ assert hashlib.sha256(restore_main_raw('data/curriculum/11-radiology.json',(ROOT/'data/curriculum/11-radiology.json').read_bytes())).hexdigest()==a['current_quiz_file_SHA256']
  assert a['source_pixels_or_original_caption_changed'] is False and a['clinical_approval'] is False
 
 

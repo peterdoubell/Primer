@@ -50,7 +50,11 @@ def test_msk_filter_contains_only_source_msk_investigations(curriculum):
 def test_every_investigation_has_its_own_source_gallery(curriculum):
     for item in radiology_catalog.catalogue()['investigations']:
         ref = radiology_catalog.detail(curriculum, item)['radiology_reference']
-        assert ref['key_images'] or ref.get('structure_atlas'), item['id']
+        if item['id'] == 'ra.ct-pulmonary-nodules':
+            from tools.pulmonary_reference_contract import assert_native_pulmonary_reference
+            assert_native_pulmonary_reference(ref)
+        else:
+            assert ref['key_images'] or ref.get('structure_atlas'), item['id']
         for figure in ref.get('structure_atlas', []):
             assert figure.get('src') and figure.get('source_url'), (item['id'], figure.get('id'))
         allowed = {a['url'].rstrip('/') for a in ref['reading']}

@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 from tools.check_radiology_fidelity import digest
 from tools.anatomy_sources.integrate_myelopathy_sources import member,object_members
+from tools.pulmonary_data_compatibility import restore_main_raw
 ROOT=Path(__file__).resolve().parents[2]
 AMENDMENT=ROOT/'docs/acute-stroke-source-review-20261011/stroke-registry-additive-amendment-20261011.json'
 AMENDMENT_SHA256='c8e9d7ee4f023314e1a6e5901db2e9247694ea12b56339c5771c32043f961d36'
@@ -53,7 +54,7 @@ def caption_comparison_amendment(original):
   if sha((ROOT/path).read_bytes())!=expected:raise ValueError('Frozen caption source/dependency changed: '+path)
  for path,expected in [(c['primary_XML_path'],c['primary_XML_SHA256']),(c['current_data_receipt_path'],c['current_data_receipt_SHA256'])]:
   if sha((ROOT/path).read_bytes())!=expected:raise ValueError('Caption current source/receipt changed: '+path)
- if sha((ROOT/'data/curriculum/11-radiology.json').read_bytes())!=c['current_quiz_file_SHA256']:raise ValueError('Frozen current quiz changed during caption repair')
+ if sha(restore_main_raw('data/curriculum/11-radiology.json',(ROOT/'data/curriculum/11-radiology.json').read_bytes()))!=c['current_quiz_file_SHA256']:raise ValueError('Frozen current quiz changed during caption repair')
  before,after=c['before_image_rows'],c['caption_complete_image_rows']
  if len(before)!=13 or len(after)!=13 or [r['id'] for r in after]!=original['approved_image_ids']:raise ValueError('Exact caption row selection changed')
  for a,b in zip(before,after):

@@ -353,6 +353,10 @@ def _overrides():
     for override in overrides.values():
         if 'reporting' in override:
             validate_reporting_guide(override['reporting'])
+    for identifier, override in overrides.items():
+        if 'source_native_only' in override and (identifier != 'ra.ct-pulmonary-nodules'
+                or override['source_native_only'] is not True):
+            raise ValueError('Native-only reference requires its reviewed pulmonary source binding')
     return overrides
 
 
@@ -1082,6 +1086,9 @@ def detail(curriculum, item):
     inspectors = native_inspectors().get(item['id'], [])
     if inspectors:
         ref['source_native_inspectors'] = copy.deepcopy(inspectors)
+    if ref.get('source_native_only') is True and (item['id'] != 'ra.ct-pulmonary-nodules'
+            or not inspectors or ref['key_images'] or ref['source_anatomy_references']):
+        raise ValueError('Native-only pulmonary reference has a missing source or unreviewed fallback')
     ref['investigation'] = copy.deepcopy(item)
     if item['id'] == 'ra.hrct-lung':
         ref['quick_reference'] = _read('hrct-quick-reference.json')

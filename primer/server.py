@@ -3668,7 +3668,8 @@ def healthz():
     return {"ok": True, "nodes": len(curr.nodes), "archives": len(wiki.archives),
             "source_gallery_metadata_validated": True, "source_model_metadata_validated": True, "source_motion_metadata_validated": True,
             "source_study_metadata_validated": True, "source_native_inspector_metadata_validated": True,
-            "source_blob_metadata_validated": True, "source_stroke_metadata_validated": True}
+            "source_blob_metadata_validated": True, "source_stroke_metadata_validated": True,
+            "source_pulmonary_metadata_validated": True}
 
 
 
@@ -3733,6 +3734,38 @@ async def native_stroke_payload_delivery(asset: str, request: Request):
     if os.environ.get('VERCEL'):
         return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
     return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')), media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
+
+
+@app.api_route("/app/anatomy/lidc-idri-0525/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def native_pulmonary_payload_delivery(asset: str, request: Request):
+    from .pulmonary_source_delivery import (AUTHORED_FILES, BLOB_PREFIX, PREFIX,
+                                            delivery, expected_files, validate_local_file)
+    from .pulmonary_native_inspectors import references
+    src = PREFIX + asset
+    # Authorisation has already run in the outer guard. Compare the raw ASGI
+    # path as well as the decoded identifier: encoded separators, aliases and
+    # traversal must not turn into a legitimate source selection.
+    if (request.scope.get('raw_path', b'') != src.encode('ascii', errors='replace')
+            or asset not in AUTHORED_FILES and asset not in expected_files()):
+        return JSONResponse({'detail': 'Unknown native pulmonary source file'}, status_code=404,
+                            headers={'Cache-Control': 'private, no-store'})
+    references()
+    if asset in AUTHORED_FILES:
+        response = await app.state.source_static.get_response('anatomy/lidc-idri-0525/' + asset, request.scope)
+        response.headers['Cache-Control'] = 'private, no-store'
+        if asset == 'reference.html':
+            response.headers['Content-Security-Policy'] = CSP.replace(
+                "connect-src 'self';", "connect-src 'self' " + BLOB_PREFIX + ";"
+            ).replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+        return response
+    row = delivery()['files'][src]
+    # Check a selected local file again even when metadata has been cached.
+    # A present corrupt file must never silently fall back to the hosted copy.
+    validate_local_file(src, row)
+    if os.environ.get('VERCEL'):
+        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
+    return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')),
+                        media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
 
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)

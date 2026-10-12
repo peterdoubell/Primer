@@ -1994,12 +1994,27 @@ function sourceStudyReference(asset, { createElement = el, sourceLink = radiolog
 
 function sourceNativeInspector(asset) {
   const sourceCase = Boolean(asset.publication_url);
-  return el('section', { class: 'rad-protocol source-native-inspector' },
+  const nativeCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';
+  const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
-    radiologySourceLink(sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url), ' · ',
+    radiologySourceLink(nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url), ' · ',
     radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
+  if (nativeCT) {
+    section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
+    const host = el('div', { class: 'source-native-inline-host' });
+    let frame = null;
+    const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
+      if (frame) { frame.remove(); frame = null; toggle.textContent = 'Inspect source CT and models inline'; toggle.setAttribute('aria-expanded', 'false'); return; }
+      frame = el('iframe', { src: asset.src, title: asset.title, loading: 'lazy',
+        sandbox: 'allow-scripts allow-same-origin allow-popups allow-downloads',
+        style: 'display:block;width:100%;height:850px;border:1px solid var(--border);border-radius:8px' });
+      host.replaceChildren(frame); toggle.textContent = 'Close source viewer'; toggle.setAttribute('aria-expanded', 'true');
+    } }, 'Inspect source CT and models inline');
+    section.append(el('p', {}, toggle), host);
+  }
+  return section;
 }
 
 function sourceContextDocuments(documents, createElement = el) {
@@ -2839,7 +2854,11 @@ async function renderRadiologyDesk(page, nodeId) {
       if (illustrations) panel.append(el('details', { class: 'rad-protocol' },
         el('summary', {}, 'Reporting checklist overview'), illustrations));
     }],
-    ['model', detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
+    ['model', ref.source_native_only ? 'Native source models' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
+      if (ref.source_native_only) {
+        (ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
+        return;
+      }
       if (ref.source_anatomy_references?.length) {
         const host = el('div', { class: 'rad-anatomy-model-host' });
         const reference = el('select', { 'aria-label': 'Anatomy reference' });
@@ -3103,6 +3122,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const landmarks = (window.PrimerRadiologyReferenceModels && window.PrimerRadiologyReferenceModels.landmarks(walk.spatial_model.family)) || {};
   const meshFamily = window.PrimerDetailedAnatomy?.supported(walk.spatial_model.family) ? walk.spatial_model.family : null;
   const overview = walk.spatial_model.focus[0];
+  const sourceOnly = ref.source_native_only === true;
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
@@ -3118,7 +3138,9 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const live = el('p', { class: 'rad-walk-live', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' });
   const say = text => { live.textContent = ''; setTimeout(() => { if (root.isConnected) live.textContent = text; }, 30); };
   const intro = el('div', { class: 'rad-walk-intro' },
-    el('p', {}, 'Work through the examination in this order. Each step says where to look and what to describe, links the figures and 3D anatomy for that step, and offers phrases with blanks for your findings. Your text builds the report as you go.'),
+    el('p', {}, sourceOnly
+      ? 'Work through the actual examination fields in this order. Keep patient observations and unassessed limits in the report. The complete independent source CT and separate original annotations remain available throughout for inspection; they do not fill or highlight the current patient’s structures.'
+      : 'Work through the examination in this order. Each step says where to look and what to describe, links the figures and 3D anatomy for that step, and offers phrases with blanks for your findings. Your text builds the report as you go.'),
     el('div', { class: 'rad-walk-intro-actions' },
       btn({ class: 'btn small', onclick: startNormal }, assessmentPresets ? 'Insert assessment prompts' : 'Start from normal statements'),
       btn({ class: 'btn ghost small', onclick: clearAll }, 'Restore all prompts')));
@@ -3135,7 +3157,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const main = el('div', { class: 'rad-walk-main' });
   const visual = el('aside', { class: 'rad-walk-visual', 'aria-labelledby': uid + '-visual-title' });
   const visualTitle = el('h4', { id: uid + '-visual-title' }, 'Visual aids');
-  const modes = [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : [])];
+  const modes = sourceOnly ? [['native', 'Native source']] : [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : [])];
   const modeButtons = new Map();
   const modeBar = el('div', { class: 'rad-walk-modes', role: 'group', 'aria-label': 'Choose a visual aid' },
     ...modes.map(([key, label]) => {
@@ -3326,6 +3348,16 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   }
   function showVisual(announce) {
     const page = pages[current];
+    if (sourceOnly) {
+      figureBox.hidden = false; landmarkBox.hidden = true; anatomyBox.hidden = true;
+      modeButtons.get('native')?.setAttribute('aria-pressed', 'true');
+      if (!figureBox.querySelector('.source-native-inspector')) {
+        figureBox.replaceChildren(...(ref.source_native_inspectors || []).map(asset => sourceNativeInspector(asset)));
+      }
+      visualNote.textContent = page.step?.anatomy_note || 'One complete source CT and separate original reader annotations. No generic lobe or part highlight is assigned, and no current-patient observation is filled from this source case.';
+      if (announce) say('Showing native source for ' + page.label + '.');
+      return;
+    }
     const list = page.images.map(id => figures.get(id)).filter(Boolean);
     // Orientation: figures no step claims and the module's original reporting diagram.
     const extras = page.kind === 'start' && walk.start.module_illustrations !== false ? [

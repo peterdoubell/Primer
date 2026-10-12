@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_each_named_current_and_historical_pair_has_exact_recorded_bytes():
     for path, row in compatibility.FILES.items():
         current = (ROOT/path).read_bytes()
-        assert hashlib.sha256(current).hexdigest() == row['current_sha256']
+        assert hashlib.sha256(compatibility.restore_main_runtime_bytes(path,current)).hexdigest() == row['current_sha256']
         old = compatibility.historical_runtime_bytes(path, current)
         assert hashlib.sha256(old).hexdigest() == row['baseline_sha256']
     assert compatibility.historical_runtime_bytes('unknown-file', b'unrelated') == b'unrelated'

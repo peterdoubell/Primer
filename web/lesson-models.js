@@ -6063,6 +6063,13 @@
       return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;
     },
     'radiology-anatomy': (item, hooks) => {
+      if (item.props?.source_native_only) {
+        return node('section', { class: 'lesson-native-anatomy' },
+          ...item.props.native_inspectors.map(asset => node('section', {},
+            node('h3', {}, node('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
+            node('p', {}, asset.caption), node('p', {}, asset.attribution),
+            node('a', { href: asset.license_url, target: '_blank', rel: 'noopener noreferrer' }, asset.license))));
+      }
       const family = item.props?.family;
       if (item.props?.source_references?.length) {
         const host = node('div', { class: 'lesson-native-anatomy' });

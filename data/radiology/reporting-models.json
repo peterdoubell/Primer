@@ -199,14 +199,15 @@
   },
   "rad.4.pulmonary-nodule": {
     "id": "radiology-model-rad.4.pulmonary-nodule",
-    "title": "The Incidental Pulmonary Nodule · 3D landmarks",
-    "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Localise the lobe and relationship to a fissure or pleura; nodule size and follow-up are not inferred here.",
+    "title": "Native CT and separate original nodule models",
+    "instructions": "Inspect the complete source CT and all separate released reader masks in the native source viewer. No generic lobe geometry or current-patient anatomical coverage is assigned.",
     "scenario": "radiology-reference:rad.4.pulmonary-nodule",
     "family": "thorax",
     "focus": [
-      "lobes"
+      "native-source"
     ],
-    "reporting_aim": "Localise the lobe and relationship to a fissure or pleura; nodule size and follow-up are not inferred here."
+    "reporting_aim": "Complete source-case inspection with explicit unresolved reporting-structure fidelity.",
+    "source_native_only": true
   },
   "rad.5.aorta": {
     "id": "radiology-model-rad.5.aorta",

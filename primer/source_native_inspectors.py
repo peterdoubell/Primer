@@ -74,4 +74,6 @@ def references():
     result = {key: [data['inspectors'][identifier] for identifier in identifiers] for key, identifiers in data['bindings'].items()}
     from .stroke_native_inspectors import references as stroke_references
     result.update(stroke_references())
+    from .pulmonary_native_inspectors import references as pulmonary_references
+    result.update(pulmonary_references())
     return result

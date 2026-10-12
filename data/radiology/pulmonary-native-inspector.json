@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_proposal_sha256": "95e54b8da2e07885e473245ef9815ef14e360621fa9ef0abf9e4cff6afcc514d",
+  "independent_source_review_sha256": "bbfee4f5cb3be1466884c6900006f924a2634c25f589e5a110ed1914b2c42734",
+  "inspectors": {
+    "lidc-idri-0525-native": {
+      "id": "lidc-idri-0525-native",
+      "title": "Inspect complete source CT and separate original nodule annotations",
+      "src": "/app/anatomy/lidc-idri-0525/reference.html",
+      "sha256": "966b4376280e12105d48a65b1c2c65f656b065247b14353a4b97247ff680d166",
+      "script_sha256": "dcdd38c3eb1234b70c233b1cd739beaa9e6b4752c4576ee1671c6f4b2c8d3da5",
+      "manifest_url": "/app/anatomy/lidc-idri-0525/manifest.json",
+      "manifest_sha256": "e9c1a47e9c3a7e8e5ad441c5e66c45fbb32e136908aebd2e7a640faf60290c31",
+      "bound_source_ids": [
+        "lidc-idri-0525"
+      ],
+      "investigation_id": "ra.ct-pulmonary-nodules",
+      "module_id": "rad.4.pulmonary-nodule",
+      "caption": "One released LIDC-IDRI source CT study, LIDC-IDRI-0525: all 429 original CT sections, all 33 original XML marks from four reading sessions, and eight separate released SEG and SR annotation pairs. Inspect exact stored values and source-calibrated HU, original contours, and complete sampling-cell boundaries. Reader assessments and contour metrics are source annotations, not verified histology or Fleischner mean caliper measurements. Reconstructed slice thickness differs from reconstruction centre spacing; acquired collimation is unverified. Source dates do not establish longitudinal growth. Normal lobe, segment, airway and vascular coverage and clinical tissue boundaries remain unverified.",
+      "attribution": "Armato et al., LIDC-IDRI, TCIA, DOI 10.7937/K9/TCIA.2015.LO9QL9SX; Fedorov et al., standardized LIDC annotations, TCIA, DOI 10.7937/TCIA.2018.h7umfurq. CC BY 3.0. Original DICOM, XML, source license and released annotation archives unchanged; lossless complete-array transport and literal sampling-cell boundary display added. Retain dataset citations, license link and this modification description in downstream reuse.",
+      "source_url": "https://doi.org/10.7937/K9/TCIA.2015.LO9QL9SX",
+      "annotation_source_url": "https://doi.org/10.7937/TCIA.2018.h7umfurq",
+      "license": "CC BY 3.0",
+      "license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "independent_source_review": "docs/pulmonary-nodule-independent-review-20261011/independent-review.json",
+      "independent_source_review_sha256": "bbfee4f5cb3be1466884c6900006f924a2634c25f589e5a110ed1914b2c42734",
+      "runtime_binding_added": true,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "structure_coverage_granted": false,
+      "current_patient_registration": false,
+      "whole_goal_complete": false,
+      "modality": "CT",
+      "publication_url": "https://doi.org/10.1002/mp.14445"
+    }
+  },
+  "bindings": {
+    "ra.ct-pulmonary-nodules": [
+      "lidc-idri-0525-native"
+    ]
+  }
+}

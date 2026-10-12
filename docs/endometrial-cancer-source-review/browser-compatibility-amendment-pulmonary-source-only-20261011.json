@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-11",
+  "scope": "Bounded compatibility of pre-existing endometrial reader after pulmonary source-only shared-app changes",
+  "app_js_sha256": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+  "previous_app_js_sha256": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+  "previous_compatibility_amendment_sha256": "973279ee5d5c3a0067dee71fef8ed62fea9c2d5287f397c8fd792e24b2db5f79",
+  "preserved_historical_receipts_sha256": {
+    "browser-integration-review.json": "eb09ba589f99e695d833aa0cd5d29c232b313a986652b93390eea633842799a5",
+    "browser-compatibility-amendment-20261011.json": "0571958acfe92cc2750580a8daee68b7109a728530f230365225e01dfbcffcd2",
+    "browser-compatibility-amendment-algebra-trauma-20261011.json": "8f048b16048e9f1c83a0e01eb7b487d26ccded97af09fdf5152b99388ac405b1",
+    "browser-compatibility-amendment-stroke-source-case-20261011.json": "973279ee5d5c3a0067dee71fef8ed62fea9c2d5287f397c8fd792e24b2db5f79"
+  },
+  "exact_app_inverse": {
+    "path": "docs/pulmonary-nodule-integration-review-20261011/bounded-app-source-only-delta.json",
+    "sha256": "7ab2a9eb1fe06acd5407a05f738e8fddba9f64221e72c669c955e78e94edb76f",
+    "helper_path": "tools/anatomy_sources/pulmonary_ui_compatibility.py",
+    "helper_sha256": "6b7fd6a58b90c5f4fe73421b189b568da819b4331e4ac8665c478dee6f1eefe0",
+    "changed_functions": [
+      "sourceNativeInspector",
+      "renderRadiologyDesk",
+      "renderReportWalkthrough"
+    ],
+    "app_bytes_outside_changed_functions_identical": true,
+    "reconstructed_previous_app_sha256": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0"
+  },
+  "guarded_paths_sha256": {
+    "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+    "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+    "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+    "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+    "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+  },
+  "browser_review": {
+    "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/review.json",
+    "sha256": "59cd7a5ee46a595b24e0dcb8f326361faf12cfcd7865a882d1f71b95b558924d"
+  },
+  "native_reader_smoke": {
+    "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/native/native-reader-smoke.json",
+    "sha256": "42b81c1de71115f3dbc482fd6a6a169f966b2a3b983adf4cbd2431bfbe65116d"
+  },
+  "source_contract_sha256": "4863d5cdbc3c69e94f2c2768cec6193468f0e90dc2b745c15b8aae376326794f",
+  "unchanged_native_manifest_sha256": "ca947cc1bf39e165708d2a634e1acbe847629b90d14a89b6f38a4f6ccfbcc776",
+  "detailed_anatomy_js_sha256": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+  "source_case_and_modality_limits_retained": true,
+  "native_presentation_change_scope": "pulmonary_source_only_mounting",
+  "native_decoder_mesh_CT_renderer_code_touched": false,
+  "all_requested_routes_and_viewports_passed": true,
+  "owned_isolated_qa_server": true,
+  "production_or_deployment_verification": false,
+  "server_shutdown_owned_by_parent": true,
+  "server_restart_or_shutdown_performed_by_amendment_agent": false,
+  "screenshots": [
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-1440-pmc11119523-fig18.png",
+      "sha256": "f8a4c4f774a1009d591b1ea3424a6482744b9edbf7e64eb43087f5c2d7b24a6d"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-1440-esr2026-fig5.png",
+      "sha256": "42b7d211f81bc618032e455f3e8a82358fe1ff9467c6ba0d7e22259b934332ac"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-1440-pmc11119523-fig5.png",
+      "sha256": "eb43a9bd630c49ad9b422b72a589c2f7002aa999e30bba9e84c46e23f5559265"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-1440-pmc7643338-fig3.png",
+      "sha256": "214f4a06486e3b5262396e46b6db47758ab206df82c06fd3c12b0f89e406444f"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-1440-native-hra.png",
+      "sha256": "35795c65145bb04ac44d02a7de9da15783e4f04370cccd5eef92bd03574955d6"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-390-pmc11119523-fig18.png",
+      "sha256": "d054470ef6a6a7fa6b819c01e9a125250e0c86df61d105faa972edcf62f8222b"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-390-esr2026-fig5.png",
+      "sha256": "de7ea4570b0dd02f54248a1a997ca2041eae094fb42c16e08de94399c2297373"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-390-pmc11119523-fig5.png",
+      "sha256": "c2dc4ebfc5cdd347eafab1fc6ef24d7857c58c1c2a13fc284a7062c0c26d8031"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-390-pmc7643338-fig3.png",
+      "sha256": "5222b6d41340c9e121021b2541339972105d1303b04d6ebb40c63c2ac83ba836"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-reporting-390-native-hra.png",
+      "sha256": "2a084c2c934d098e25a9b4a6d11c0eba1a2ca108d7a743bd913b26c0702ca8ac"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-1440-pmc11119523-fig18.png",
+      "sha256": "2b6f8fdb72730cab4f793ba64dc348f3f8c08e7d2f592df70a611e1273a5d33f"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-1440-pmc11119523-fig5.png",
+      "sha256": "53cd1a303107c1bc499ee925e42cd22f82d204a6b859a04945ba2320579ce1da"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-1440-pmc7643338-fig3.png",
+      "sha256": "fccd529306110fe5e846de06c0256b49fb05bd254b0f2439f742adff7e0e6aea"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-1440-esr2026-fig5.png",
+      "sha256": "8ee8a6ed5367988ead6695687049e9d6f98798250598de5f5b2b53a961312e51"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-1440-native-hra.png",
+      "sha256": "12e9cabbf9f4d66599053e07c39678c62e181e76adbc1b36de9cf00100e38703"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-390-pmc11119523-fig18.png",
+      "sha256": "e34b83933a3e76608790a3e92d32ad2e0f570b68838bb1ab2616bc15c112c336"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-390-pmc11119523-fig5.png",
+      "sha256": "ed16fd556760835dfd0498aeddfb33318d7fa19a182a66818da6cac2229c99d2"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-390-pmc7643338-fig3.png",
+      "sha256": "477ffa0960fa3fcf70101c98589d78fec656e740b80ff7aeeb7aa3bc55c06a14"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-390-esr2026-fig5.png",
+      "sha256": "acbe9cdb1466c445f24f7c098220fb8e081f5943062d81b163ba0b9cb3efbfce"
+    },
+    {
+      "path": "docs/pulmonary-nodule-integration-review-20261011/compatibility-browser/endometrial/runtime-lesson-390-native-hra.png",
+      "sha256": "9eac7b79925d2a8e5cbe14947078a027dc871b120e377fb6ac1cd82d859d3657"
+    }
+  ],
+  "capture_count": 20,
+  "capture_file_hashes_verified": true,
+  "visual_inspection_scope": "Capture file hashes and runtime observations validated here; parent separately owns actual PNG inspection and final integration review. No visual approval is granted by this receipt.",
+  "results_summary": [
+    {
+      "route": "reporting",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "complete_figure_count": 36,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": 9,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    },
+    {
+      "route": "reporting",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "complete_figure_count": 36,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": 9,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    },
+    {
+      "route": "lesson",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "complete_figure_count": 36,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": null,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    },
+    {
+      "route": "lesson",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      },
+      "complete_figure_count": 36,
+      "mesh_count": 54,
+      "GPU_draw_count": 54,
+      "triangles_drawn": 293490,
+      "all_original_response_hashes_match": true,
+      "unfilled_reporting_area_count": null,
+      "page_errors": [],
+      "failed_requests": [],
+      "horizontal_overflow": false
+    }
+  ],
+  "historical_approval_scope_unchanged": true,
+  "supersedes_historical_review": false,
+  "supersedes_previous_compatibility_amendment": false,
+  "supersedes_any_historical_receipt": false,
+  "historical_capture_reconstruction_or_replacement": false,
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "structure_coverage_granted": false,
+  "current_patient_registration": false,
+  "every_structure_approved": false,
+  "fine_3D_tissue_layers_approved": false,
+  "patient_registration_verified": false,
+  "whole_goal_complete": false
+}

@@ -1,0 +1,9 @@
+# Pulmonary source-only UI compatibility — 11 October 2026
+
+The current shared app (`7e67a08f…`) differs from the preceding `d77de3b2…` app in exactly three recorded functions: `sourceNativeInspector`, `renderRadiologyDesk` and `renderReportWalkthrough`. The strict inverse restores the exact prior whole-file hash. The changes add pulmonary source-case mounting and source-only handling; the pixel decoder, mesh/CT renderer and seven guarded native paths remain unchanged.
+
+The new cervical browser proof covers reporting and the shared lesson at 1440 and 390 pixels. It retains all 32 complete source figures with exact response hashes, source/case/modality limits and native-size controls. Each route/width retains the independent uncropped HRA reference, all 54 original decoded mesh hashes, Y-up display, 54 GPU draws and 293,490 triangles. Reporting retains 8 unfilled assessment areas. Runtime errors, failed requests and horizontal overflow are absent.
+
+This amendment pins the unchanged raw browser receipt, its 16 actual capture files, the unchanged source contract and native manifest, and all four earlier receipt hashes. Capture-file hashes and machine runtime observations were independently checked here; the parent separately owns visual PNG inspection and final integration approval. Native-size dialogs may show a scrollable portion of the full image; exact full original image bodies and dimensions are checked separately.
+
+No earlier receipt or historical capture is replaced, reconstructed or superseded. The previously recorded sixteen missing original cervical captures remain missing; current captures do not fill that historical evidence gap. No clinical, fine-anatomical, coverage or current-patient approval is granted. This is local isolated QA, not production or deployment verification. The browser/server lifecycle belongs to the parent QA task; no server was started, restarted or stopped for this amendment.
