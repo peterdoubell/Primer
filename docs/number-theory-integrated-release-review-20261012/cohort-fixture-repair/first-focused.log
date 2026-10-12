@@ -1,0 +1,187 @@
+F............                                                            [100%]
+=================================== FAILURES ===================================
+_____________ test_cross_subject_model_invariants_and_interactions _____________
+
+    @pytest.mark.skipif(shutil.which("node") is None, reason="Node.js is required")
+    def test_cross_subject_model_invariants_and_interactions():
+        result = subprocess.run(
+            ["node", str(ROOT / "tools" / "check_cross_subject_models.js")],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: COVER math.0.compare
+E         COVER math.0.patterns
+E         COVER math.0.numbers20
+E         COVER math.1.subtraction
+E         COVER math.1.place-value
+E         COVER math.1.multiplication
+E         COVER math.1.division
+E         COVER math.1.measurement
+E         COVER math.1.time
+E         COVER math.1.fractions-intro
+E         COVER math.2.decimals
+E         COVER math.2.percent
+E         COVER math.2.order-ops
+E         COVER math.2.primes
+E         COVER math.2.ratio
+E         COVER math.2.exponents
+E         COVER math.2.coordinates
+E         COVER math.2.data
+E         COVER math.2.prealgebra
+E         COVER math.3.linear
+E         COVER math.3.slope
+E         COVER math.3.systems
+E         COVER math.3.quadratics
+E         COVER math.3.polynomials
+E         COVER math.3.euclid
+E         COVER math.3.trig
+E         COVER math.3.expo-logs
+E         COVER math.3.sequences
+E         COVER math.3.probability
+E         COVER math.3.statistics
+E         COVER math.3.precalc
+E         COVER math.4.diff-calc
+E         COVER math.4.int-calc
+E         COVER math.4.diffeq
+E         COVER math.4.discrete
+E         COVER math.4.analysis
+E         COVER math.4.prob-theory
+E         COVER math.4.complex
+E         COVER math.5.abstract
+E         COVER math.5.measure
+E         COVER math.5.diffgeo
+E         COVER math.5.functional
+E         COVER math.5.complex-analysis
+E         COVER math.5.logic
+E         COVER math.5.numerical
+E         COVER math.5.frontier
+E         COVER lang.0.phonics
+E         COVER lang.0.rhymes
+E         COVER lang.0.stories
+E         COVER lang.0.speaking
+E         COVER lang.1.spelling
+E         COVER lang.1.vocabulary
+E         COVER lang.1.sentences
+E         COVER lang.1.handwriting
+E         COVER lang.1.childrens-lit
+E         COVER lang.1.writing-stories
+E         COVER lang.1.dictionary
+E         COVER lang.2.grammar
+E         COVER lang.2.paragraphs
+E         COVER lang.2.poetry
+E         COVER lang.2.novels
+E         COVER lang.2.research
+E         COVER lang.2.etymology
+E         COVER lang.2.speaking
+E         COVER lang.4.linguistics
+E         COVER bio.0.living
+E         COVER bio.0.animals
+E         COVER bio.0.plants
+E         COVER bio.0.body
+E         COVER bio.0.seasons
+E         COVER bio.1.habitats
+E         COVER bio.1.food-chains
+E         COVER bio.1.plants-parts
+E         COVER bio.1.human-body
+E         COVER bio.1.health
+E         COVER bio.2.classification
+E         COVER bio.2.photosynthesis
+E         COVER bio.2.digestion
+E         COVER bio.2.reproduction
+E         COVER bio.2.ecosystems
+E         COVER bio.2.microbes
+E         COVER bio.3.evolution
+E         COVER bio.3.ecology
+E         COVER bio.3.microbiology
+E         COVER bio.3.botany
+E         COVER bio.4.biochem
+E         COVER bio.4.genomics
+E         COVER bio.4.neuro
+E         COVER bio.4.evo-bio
+E         COVER bio.4.physiology
+E         COVER bio.4.ethology
+E         COVER bio.5.systems-bio
+E         COVER bio.5.immunology
+E         COVER bio.5.comp-bio
+E         COVER bio.5.frontier
+E         COVER chem.0.materials
+E         COVER chem.0.mixing
+E         COVER chem.0.water-states
+E         COVER chem.1.matter
+E         COVER chem.1.changes
+E         COVER chem.1.materials-props
+E         COVER chem.2.mixtures
+E         COVER chem.2.reactions-intro
+E         COVER chem.2.acids
+E         COVER chem.2.periodic
+E         COVER chem.3.atomic-structure
+E         COVER chem.3.bonding
+E         COVER chem.3.stoichiometry
+E         COVER chem.3.reactions
+E         COVER chem.3.gases
+E         COVER chem.3.energy
+E         COVER chem.3.organic-intro
+E         COVER chem.4.physical
+E         COVER chem.4.inorganic
+E         COVER chem.4.analytical
+E         COVER chem.4.electrochem
+E         COVER chem.5.biochem
+E         COVER chem.5.materials
+E         COVER chem.5.compchem
+E         COVER chem.5.frontier
+E         COVER cs.0.sorting
+E         COVER cs.0.patterns
+E         COVER cs.1.binary
+E         COVER cs.1.blocks
+E         COVER cs.1.parts
+E         COVER cs.2.programming
+E         COVER cs.2.data-types
+E         COVER cs.2.functions
+E         COVER cs.2.debugging
+E         COVER cs.2.internet
+E         COVER cs.2.bigo-intro
+E         COVER cs.3.algorithms
+E         COVER cs.3.oop
+E         COVER cs.3.web
+E         COVER cs.3.databases
+E         COVER cs.3.hardware
+E         COVER cs.3.versioncontrol
+E         COVER cs.4.algorithms-adv
+E         COVER cs.4.theory
+E         COVER cs.4.os
+E         COVER cs.4.databases-adv
+E         COVER cs.4.ml
+E         COVER cs.4.security
+E         COVER cs.4.systems
+E         COVER cs.5.deep-learning
+E         COVER cs.5.distributed
+E         COVER cs.5.pl-theory
+E         /Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/web/spatial-models.js:287
+E                 input.removeAttribute('aria-invalid');
+E                       ^
+E         
+E         TypeError: input.removeAttribute is not a function
+E             at Element.update (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/web/spatial-models.js:287:15)
+E             at /Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/tools/check_cross_subject_models.js:66:67
+E             at Array.forEach (<anonymous>)
+E             at Element.dispatch (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/tools/check_cross_subject_models.js:66:38)
+E             at Object.<anonymous> (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/tools/check_cross_subject_models.js:1560:47)
+E             at Module._compile (node:internal/modules/cjs/loader:1854:14)
+E             at Object..js (node:internal/modules/cjs/loader:1985:10)
+E             at Module.load (node:internal/modules/cjs/loader:1577:32)
+E             at Module._load (node:internal/modules/cjs/loader:1379:12)
+E             at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+E         
+E         Node.js v24.17.0
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/tools/check...al/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n\nNode.js v24.17.0\n").returncode
+
+tests/test_cross_subject_models.py:40: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_cross_subject_models.py::test_cross_subject_model_invariants_and_interactions
+1 failed, 12 passed in 16.36s
