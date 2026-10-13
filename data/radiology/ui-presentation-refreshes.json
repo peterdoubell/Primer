@@ -352,74 +352,74 @@
       }
     },
     {
-  "id": "2026-10-11-source-case-citation-wrapper",
-  "date": "2026-10-11",
-  "change": "Source citation wrapper: explicit publication_url selects source-dataset, publication/methods and data-licence labels; existing atlas/MRI template fallback unchanged.",
-  "files": {
-    "web/app.js": {
-      "before": "a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d",
-      "after": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0"
-    }
-  },
-  "app_js_changed_regions": [
-    "sourceNativeInspector source citation wrapper only"
-  ],
-  "native_presentation_code_touched": true,
-  "native_presentation_change_scope": "source_citation_wrapper_only",
-  "native_decoder_mesh_CT_renderer_code_touched": false,
-  "old_atlas_citation_fallback_unchanged": true,
-  "new_explicit_metadata_field": "publication_url",
-  "guarded_paths_sha256": {
-    "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
-    "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
-    "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
-    "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
-    "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
-    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
-    "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
-  },
-  "clinical_approval": false,
-  "fine_anatomical_approval": false,
-  "reopens_or_extends_any_review": false,
-  "scoped_compatibility_amendment": {
-    "path": "docs/native-source-presentation-review-20261011/source-case-citation-compatibility-amendment-20261011.json",
-    "sha256": "d239b53fef9d8456387dfb6fd628e20afdcd8a962d09cde455782d8ebec4d8b4"
-  },
-  "native_reader_smoke": {
-    "passed": true,
-    "proof_path": ".research/native-ui-case-citations-20261011/native-reader-smoke.json",
-    "proof_sha256": "ad324efc604620ac528b467be4a3925cf1f8f750a6bd9e8aca942564430dc5bf",
-    "scope": "Actual VerSe/Liu current authenticated-reader compatibility; original306-frame/pointer/GPU approval scope not extended.",
-    "rows": [
-      {
-        "width": 1440,
-        "verse_meshes": 17,
-        "levels_linking_their_own_ct_reference": 17,
-        "liu_meshes": 2,
-        "liu_ct_links_after_switch": 0,
-        "native_files_served_identical_to_reviewed": true,
-        "served_app_js_is_current": true,
-        "served_styles_css_is_current": true,
-        "page_errors": [],
-        "failed_requests": [],
-        "horizontal_overflow": false
+      "id": "2026-10-11-source-case-citation-wrapper",
+      "date": "2026-10-11",
+      "change": "Source citation wrapper: explicit publication_url selects source-dataset, publication/methods and data-licence labels; existing atlas/MRI template fallback unchanged.",
+      "files": {
+        "web/app.js": {
+          "before": "a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d",
+          "after": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0"
+        }
       },
-      {
-        "width": 390,
-        "verse_meshes": 17,
-        "levels_linking_their_own_ct_reference": 17,
-        "liu_meshes": 2,
-        "liu_ct_links_after_switch": 0,
-        "native_files_served_identical_to_reviewed": true,
-        "served_app_js_is_current": true,
-        "served_styles_css_is_current": true,
-        "page_errors": [],
-        "failed_requests": [],
-        "horizontal_overflow": false
+      "app_js_changed_regions": [
+        "sourceNativeInspector source citation wrapper only"
+      ],
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "source_citation_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "old_atlas_citation_fallback_unchanged": true,
+      "new_explicit_metadata_field": "publication_url",
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "scoped_compatibility_amendment": {
+        "path": "docs/native-source-presentation-review-20261011/source-case-citation-compatibility-amendment-20261011.json",
+        "sha256": "d239b53fef9d8456387dfb6fd628e20afdcd8a962d09cde455782d8ebec4d8b4"
+      },
+      "native_reader_smoke": {
+        "passed": true,
+        "proof_path": ".research/native-ui-case-citations-20261011/native-reader-smoke.json",
+        "proof_sha256": "ad324efc604620ac528b467be4a3925cf1f8f750a6bd9e8aca942564430dc5bf",
+        "scope": "Actual VerSe/Liu current authenticated-reader compatibility; original306-frame/pointer/GPU approval scope not extended.",
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          }
+        ]
       }
-    ]
-  }
-},
+    },
     {
       "id": "2026-10-11-pulmonary-source-only-mounting",
       "date": "2026-10-11",
@@ -525,11 +525,84 @@
       }
     },
     {
-      "id": "2026-10-13-thoracic-curated-source-viewer",
+      "id": "2026-10-13-radiology-image-presentation",
+      "date": "2026-10-13",
+      "change": "Remove histology figures from radiology presentation and show larger, selectable original MRI examples for bladder staging. Source records and original files remain unchanged.",
       "files": {
         "web/app.js": {
           "before": "69189a56aced8f418531721c981bc36a5eae5a08dfda019289a9cc8a8ca4ca28",
-          "after": "c4b96032051886c803b0d5eb3d24bc6fd5aeffb5c6e8e24c1bd7dda4552bc51a"
+          "after": "f9753958f03a65a08cfbe9d4dfb8b80e72513761381a8fda342aabeefb11ad27"
+        },
+        "web/styles.css": {
+          "before": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660",
+          "after": "677085893dee6d4d95b3573e2f1dc07944760d5782b1ff266791fd2ff51f508c"
+        }
+      },
+      "app_js_changed_regions": [
+        "Presentation-only histology/mixed-panel filtering of radiology references and walkthrough image links.",
+        "Bladder staging MRI example selector, original sequence labels and image dimensions.",
+        "Catalogue image labels reflect the curated presentation."
+      ],
+      "styles_css_changed_regions": [
+        "Bladder MRI example grid, selected-score controls and uncropped image sizing."
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-13",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ]
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "scoped_compatibility_amendment": {
+        "path": "docs/radiology-image-presentation-review-20261013/exact-app-delta.json",
+        "sha256": "49f734e2f296cf383a52261954d5c236423878cb56c9405e7a14f2bf07ddd1b5"
+      }
+    },
+    {
+      "id": "2026-10-13-thoracic-curated-source-viewer",
+      "files": {
+        "web/app.js": {
+          "before": "f9753958f03a65a08cfbe9d4dfb8b80e72513761381a8fda342aabeefb11ad27",
+          "after": "be779e23c49d7673838e7758200dac4f528742685e7ff46aaa9d73999b826b66"
         }
       },
       "native_presentation_code_touched": true,
@@ -549,11 +622,11 @@
       },
       "scoped_compatibility_amendment": {
         "path": "docs/thoracic-native-anatomy-review-20261013/integration/runtime-inverse.json",
-        "sha256": "8b7f5a015287ae2665c1c9d49b14ce814f54840c2a6bc83eed192c81d022c0c6"
+        "sha256": "671f77153747ed5f239fa0d0888d6c8ecd99ab5fa861c1e2cec9e5bc97a6a1e7"
       },
       "curated_source_reader_smoke": {
         "path": "docs/thoracic-native-anatomy-review-20261013/integration/local-reader-proof.json",
-        "sha256": "195559754e81280db70b2291e90d4d017863c3afde8af4e7ef44dadbe3cf772e"
+        "sha256": "31c92d9a4dd8cd8411741c77f24501ccc319ccbbee383595b0175f90151d0e04"
       }
     }
   ]

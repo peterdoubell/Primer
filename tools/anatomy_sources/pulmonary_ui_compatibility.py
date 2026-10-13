@@ -24,6 +24,8 @@ def restore_previous_app(app=None):
         or any(proof[k] is not False for k in ['clinical_approval','fine_anatomical_approval','extends_any_historical_approval'])):
         raise ValueError('Pulmonary UI bridge leaves its exact reviewed scope')
     app=(ROOT/'web/app.js').read_text() if app is None else app
+    from .radiology_presentation_compatibility import restore_presentation_app
+    app=restore_presentation_app(app)
     if sha(app.encode())!=AFTER:
         from tools.thoracic_motion_ui_compatibility import restore_previous_motion_ui
         app=restore_previous_motion_ui(app)

@@ -15,6 +15,8 @@ def historical_runtime_bytes(relative, current):
     separately validate the new behavior; this helper grants no approval.
     """
     from tools.thoracic_data_compatibility import restore_raw
+    from tools.anatomy_sources.radiology_presentation_compatibility import restore_presentation_bytes
+    current = restore_presentation_bytes(relative, current)
     current=restore_raw(relative,current,allow_historical=True)
     try:
         current=restore_main_runtime_bytes(relative,current)

@@ -58,6 +58,8 @@ def validate_source_case_citation_refresh(step):
     if sha(raw) != fingerprint: raise ValueError('Citation compatibility evidence changed')
     proof = json.loads(raw)
     app = (ROOT / 'web/app.js').read_text()
+    from .radiology_presentation_compatibility import restore_presentation_app
+    app = restore_presentation_app(app)
     # A later exact, separately checked case-only bridge may retain this
     # historical wrapper proof. Roll back only its three recorded functions.
     from .pulmonary_ui_compatibility import AFTER as pulmonary_after, restore_previous_app

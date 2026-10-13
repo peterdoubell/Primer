@@ -25,6 +25,8 @@ def reviewed():
 
 
 def restore_raw(path, raw, *, allow_historical=False):
+    from tools.anatomy_sources.radiology_presentation_compatibility import restore_presentation_bytes
+    raw = restore_presentation_bytes(str(path), raw)
     row = reviewed()['files'].get(str(path))
     if row is None or sha(raw) == row['before_sha256']:
         return raw

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/thoracic-native-anatomy-review-20261013/integration/runtime-inverse.json'
-PROOF_SHA = '8b7f5a015287ae2665c1c9d49b14ce814f54840c2a6bc83eed192c81d022c0c6'
+PROOF_SHA = '671f77153747ed5f239fa0d0888d6c8ecd99ab5fa861c1e2cec9e5bc97a6a1e7'
 
 
 def reviewed():

@@ -15,9 +15,44 @@ function toSignIn() {
 }
 
 const api = {
-  async get(path) { const r = await fetch(path); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
+  async get(path) { const r = await fetch(path); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return radiologyPresentation(await r.json()); },
   async post(path, body) { const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body || {}) }); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },
 };
+
+// Presentation policy: source records stay intact, but radiology views show no
+// histology, microscopy slides, or publisher figures containing those panels.
+function histologyFigure(asset) {
+  if (!asset || typeof asset !== 'object' || !asset.src) return false;
+  const context = asset.source_context || {};
+  const types = [asset.modality, asset.image_type, asset.kind,
+    ...Object.values(context.panel_types || {}),
+    ...(asset.ancillary_panels || []).map(panel => panel.kind)];
+  return types.some(type => /histolog|histopath|photomicrograph/i.test(type || ''))
+    || /histolog|histopath|photomicrograph|original-microscopy/i.test([asset.id, asset.src].join(' '));
+}
+
+function withoutHistologyFigures(value) {
+  if (Array.isArray(value)) return value.filter(item => !histologyFigure(item)).map(withoutHistologyFigures);
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(Object.entries(value)
+    .filter(([, item]) => !histologyFigure(item))
+    .map(([key, item]) => [key, withoutHistologyFigures(item)]));
+}
+
+function radiologyPresentation(data) {
+  if (!data || typeof data !== 'object') return data;
+  if (Array.isArray(data)) return data.map(radiologyPresentation);
+  if (data.radiology_reference) {
+    const ref = data.radiology_reference = withoutHistologyFigures(data.radiology_reference);
+    data.lesson_media = withoutHistologyFigures(data.lesson_media);
+    const visible = new Set([...(ref.key_images || []), ...(ref.structure_atlas || [])].map(image => image.id));
+    if (ref.walkthrough) for (const step of [ref.walkthrough.start, ...(ref.walkthrough.steps || [])]) {
+      if (step && step.images) step.images = step.images.filter(id => visible.has(id));
+    }
+  }
+  for (const key of ['nodes', 'node', 'modules', 'results']) if (data[key]) data[key] = radiologyPresentation(data[key]);
+  return data;
+}
 
 const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null,
   visualGallery: null, restoreFocus: null, readerTitle: null };
@@ -2576,6 +2611,7 @@ function renderCancerStaging(n, { openTab, usePrompts } = {}) {
     body.replaceChildren(el('h4', {}, system.title),
       el('p', { class: 'rad-classification-version' }, system.version + ' · Reviewed ' + system.reviewed_at),
       el('p', {}, system.scope));
+    if (system.clinical_examples?.length) body.append(renderBladderStagingExamples(system));
     const search = el('input', { type: 'search', class: 'rad-desk-search',
       placeholder: 'Find a category, structure or reporting feature…', 'aria-label': 'Filter staging table' });
     const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
@@ -2624,7 +2660,7 @@ function renderCancerStaging(n, { openTab, usePrompts } = {}) {
   selector.addEventListener('change', show); show();
   if (ref.annotated_anatomy_links?.length) root.append(renderAnnotatedAnatomy(ref));
   const examples = ref.key_images.filter(image => image.image_type === 'clinical').slice(0, 3);
-  if (examples.length) {
+  if (examples.length && !systems.some(system => system.clinical_examples?.length)) {
     const images = el('details', { class: 'rad-staging-examples' },
       el('summary', {}, 'Illustrative clinical reporting examples'),
       el('p', {}, 'Independent source cases illustrate reporting features. Read the case caption alongside the staging criteria.'));
@@ -2637,6 +2673,35 @@ function renderCancerStaging(n, { openTab, usePrompts } = {}) {
     root.append(images); attachPictureHandlers(images);
   }
   if (openTab) root.append(btn({ class: 'btn ghost small', onclick: () => openTab('images') }, 'View all reference images'));
+  return root;
+}
+
+function renderBladderStagingExamples(system) {
+  const root = el('section', { class: 'rad-bladder-examples', 'aria-label': 'Bladder MRI staging examples' },
+    el('h3', {}, 'Compare published bladder MRI examples'),
+    el('p', {}, 'Choose a VI-RADS score to inspect the original MRI panels. These source examples illustrate imaging likelihood; they do not establish a pathological TNM stage.'));
+  const controls = el('div', { class: 'rad-report-actions', role: 'group', 'aria-label': 'Choose a VI-RADS example' });
+  const gallery = el('div', { class: 'rad-bladder-case', 'aria-live': 'polite' });
+  const buttons = system.clinical_examples.map((example, index) => {
+    const button = btn({ class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => show(index) }, 'VI-RADS ' + example.score);
+    controls.append(button);
+    return button;
+  });
+  root.append(controls, gallery);
+  function show(index) {
+    const example = system.clinical_examples[index];
+    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    gallery.replaceChildren(el('h4', {}, example.title),
+      el('div', { class: 'rad-bladder-case-grid' }, ...example.figures.map(figure =>
+        el('figure', { class: 'rad-image-example' },
+          el('img', { src: figure.src, alt: figure.alt, loading: 'lazy', decoding: 'async', referrerpolicy: 'no-referrer',
+            width: figure.width, height: figure.height,
+            dataset: { fullSrc: figure.src, sourceFigure: 'true' } }),
+          el('figcaption', {}, figure.label)))),
+      el('p', {}, radiologySourceLink('Radiology Assistant · original case and sequence descriptions', example.source_url)));
+    attachPictureHandlers(gallery);
+  }
+  show(0);
   return root;
 }
 
@@ -2744,7 +2809,7 @@ async function renderRadiologyDesk(page, nodeId) {
         el('span', { class: 'rad-desk-card-meta' },
           (n.step_count ? plural(n.step_count, 'step') + ' · ' : '') +
           (n.classification ? n.classification + ' · ' : '') +
-          (n.image_count ? n.image_count + ' images' : 'Source cases') + ' · Diagrams' +
+          (n.image_count ? 'Reference images' : 'Source cases') + ' · Diagrams' +
           (window.PrimerDetailedAnatomy?.supported(n.model_family) ? ' · Anatomical 3D' : '')));
       list.append(card);
       return { card, section: n.section, text: [n.title, n.summary, n.section, n.classification, ...n.topics].join(' ').toLowerCase() };
@@ -6842,7 +6907,7 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // Node QA imports the same functions without starting a reader session. Browser
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,
+  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard,
     walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime, lessonSourceGallery, sourceStudyReference, referenceFrameIndex });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
