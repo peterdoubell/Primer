@@ -1201,7 +1201,7 @@ for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
-assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'physics-phase-lab'].includes(item.renderer)).length,
+assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab'].includes(item.renderer)).length,
   70, 'All 70 earlier lesson models remain reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-ode-lab').length,
   1, 'The separately checked second-order ODE activity remains reachable');
@@ -1902,7 +1902,8 @@ for (const [renderer, nodeId, scenario] of [
   ['physics-maxwell-lab','phys.4.em-maxwell','phys.4.em-maxwell.fields-flux-radiation'],
   ['physics-cosmology-lab','phys.5.gr-cosmo','phys.5.gr-cosmo.geometry-history'],
   ['physics-qft-lab','phys.5.qft','phys.5.qft.fields-observables'],
-  ['math-number-theory-lab','math.4.numtheory','math.4.numtheory.exact-integers']]) {
+  ['math-number-theory-lab','math.4.numtheory','math.4.numtheory.exact-integers'],
+  ['math-systems-lab','math.3.systems','math.3.systems.general-form']]) {
   const dedicated = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === renderer).map(item => ({node,item})));
   assert.equal(dedicated.length, 1, renderer + ': exactly one full lesson binding');
   assert.equal(dedicated[0].node.id, nodeId);

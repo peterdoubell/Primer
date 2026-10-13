@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import pytest
 from tools import number_theory_runtime_compatibility as bridge
+from tools.systems_runtime_compatibility import previous_runtime_bytes
 ROOT=Path(__file__).resolve().parents[1]
 
 
@@ -12,7 +13,7 @@ def test_every_fixed_product_inverse_is_exact_and_idempotent(view):
     proof=json.loads((ROOT/bridge.PRODUCT_PROOF).read_bytes())
     for path,row in proof[view].items():
         raw=(ROOT/path).read_bytes();restored=bridge.product_view(path,raw,view)
-        assert hashlib.sha256(raw).hexdigest()==row['current_sha256']
+        assert hashlib.sha256(previous_runtime_bytes(path,raw)).hexdigest()==row['current_sha256']
         assert hashlib.sha256(restored).hexdigest()==row['baseline_sha256']
         assert bridge.product_view(path,restored,view)==restored
         with pytest.raises(ValueError,match='Unreviewed'):bridge.product_view(path,raw+b'changed',view)

@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+from tools.systems_runtime_compatibility import previous_runtime_bytes
 ROOT=Path(__file__).resolve().parents[1]
 PRODUCT_PROOF='docs/number-theory-integrated-release-review-20261012/shared-product-inverses.json'
 PRODUCT_SHA256='f7cd4dab45b9dc2c78797029aaf062cead49c2802eafe5db699a328134e4e98b'
@@ -10,6 +11,7 @@ TEST_SHA256='c134d177e4ab33a6a23a4adb6b3fe8b7041cef7d78684db3f102b0ab20390b94'
 
 
 def product_view(relative,raw,view):
+    raw=previous_runtime_bytes(relative,raw)
     evidence=(ROOT/PRODUCT_PROOF).read_bytes()
     if hashlib.sha256(evidence).hexdigest()!=PRODUCT_SHA256:
         raise ValueError('Number theory union inverse evidence changed')

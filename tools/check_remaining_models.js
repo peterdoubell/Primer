@@ -392,7 +392,7 @@ function collectRemainingModels() {
   let measureEntries = 0, cycleEntries = 0, operatorEntries = 0, ensembleEntries = 0;
   let curvatureEntries = 0, constraintsEntries = 0, complexEntries = 0, quantumEntries = 0;
   let topologyEntries = 0, relativityEntries = 0;
-  let numberTheoryEntries = 0;
+  let numberTheoryEntries = 0, systemsEntries = 0;
   let phaseEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
@@ -409,12 +409,14 @@ function collectRemainingModels() {
           'physics-cosmology-lab': ['phys.5.gr-cosmo', 'phys.5.gr-cosmo.geometry-history'],
           'physics-qft-lab': ['phys.5.qft', 'phys.5.qft.fields-observables'],
           'math-number-theory-lab': ['math.4.numtheory', 'math.4.numtheory.exact-integers'],
+          'math-systems-lab': ['math.3.systems', 'math.3.systems.general-form'],
         }[media.renderer];
         if (fullLessonBinding) {
           assert.equal(lesson.id, fullLessonBinding[0]);
           assert.equal(media.kind, 'model');
           assert.deepEqual(media.props, {scenario: fullLessonBinding[1]});
           if (media.renderer === 'math-number-theory-lab') numberTheoryEntries++;
+          if (media.renderer === 'math-systems-lab') systemsEntries++;
           continue;
         }
         if (media.renderer === 'math-algebra-lab' || media.renderer === 'physics-quantum-info-lab') {
@@ -526,6 +528,7 @@ function collectRemainingModels() {
     }
   }
   assert.equal(numberTheoryEntries, 1, 'exactly one separately verified full number-theory binding');
+  assert.equal(systemsEntries, 1, 'exactly one separately verified general-form systems binding');
   if (odeEntries !== 1) throw new Error('expected exactly one separately verified second-order ODE binding, found ' + odeEntries);
   if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
   if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');

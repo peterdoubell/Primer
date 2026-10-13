@@ -1,0 +1,66 @@
+{
+  "base_commit": "4df5367723ef2e0a0983af682a2f3038690a7a66",
+  "scope": "Exactly the Systems general-form renderer/asset/validator/media additions; historical review scope remains historical",
+  "files": {
+    "primer/curriculum.py": {
+      "before_sha256": "b1bb47374010b5cd4ec8802049f6368467b0a05fb671f289140ce4d869da2343",
+      "current_sha256": "ef71f0a15d09f0a16ebae5cc6f2e2f363f790da5e8ef4cfbf59a34639e18aa24",
+      "changes": [
+        {
+          "before": "",
+          "after": "    \"math-systems-lab\",\n"
+        },
+        {
+          "before": "",
+          "after": "            elif renderer == \"math-systems-lab\":\n                if node.get(\"id\") != \"math.3.systems\" or props != {\"scenario\": \"math.3.systems.general-form\"}:\n                    raise ValueError(\"Systems lab must bind the original systems lesson and its general-form scenario\")\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "02090c4b545359b8fb28f807896c89ae50bcfb49c6f9ae0b0c559eadd69b7fc6",
+      "current_sha256": "d8c27e09c1666d934ab39c372f26a4c45f306862ec920f40afcd7357fdb7b6c1",
+      "changes": [
+        {
+          "before": "                     \"math-probability-lab.js\", \"math-probability-lab.css\", \"speech-chunks.js\", \"physics-buoyancy-lab.js\", \"physics-buoyancy-lab.css\", \"physics-thermal-lab.js\", \"physics-thermal-lab.css\", \"physics-phase-lab.js\", \"physics-phase-lab.css\", \"math-measure-lab.js\", \"math-measure-lab.css\", \"physics-cycle-lab.js\", \"physics-cycle-lab.css\", \"math-operator-lab.js\", \"math-operator-lab.css\", \"physics-ensemble-lab.js\", \"physics-ensemble-lab.css\", \"math-curvature-lab.js\", \"math-curvature-lab.css\", \"physics-constraints-lab.js\", \"physics-constraints-lab.css\", \"spatial-fidelity.js\", \"spatial-quantum-information.js\", \"spatial-algebra.js\", \"spatial-logic.js\", \"spatial-number-theory.js\", \"math-number-theory-lab.js\", \"math-number-theory-lab.css\", \"number-theory-diagrams.js\", \"number-theory-diagrams.css\", \"spatial-number-theory-relations.js\", \"spatial-maxwell.js\", \"spatial-cosmology.js\", \"math-logic-lab.js\", \"math-logic-lab.css\", \"physics-maxwell-lab.js\", \"physics-maxwell-lab.css\", \"physics-cosmology-lab.js\", \"physics-cosmology-lab.css\", \"lesson-state.js\", \"math-topology-lab.js\", \"math-topology-lab.css\", \"math-algebra-lab.js\", \"math-algebra-lab.css\", \"physics-qft-lab.js\", \"physics-qft-lab.css\", \"spatial-qft.js\", \"physics-quantum-info-lab.js\", \"physics-quantum-info-lab.css\", \"physics-relativity-lab.js\", \"physics-relativity-lab.css\", \"math-complex-lab.js\", \"math-complex-lab.css\", \"physics-quantum-lab.js\", \"physics-quantum-lab.css\", \"math-convergence-lab.js\", \"math-convergence-lab.css\", \"math-numerical-lab.js\", \"math-numerical-lab.css\"):\n",
+          "after": "                     \"math-probability-lab.js\", \"math-probability-lab.css\", \"speech-chunks.js\", \"physics-buoyancy-lab.js\", \"physics-buoyancy-lab.css\", \"physics-thermal-lab.js\", \"physics-thermal-lab.css\", \"physics-phase-lab.js\", \"physics-phase-lab.css\", \"math-measure-lab.js\", \"math-measure-lab.css\", \"physics-cycle-lab.js\", \"physics-cycle-lab.css\", \"math-operator-lab.js\", \"math-operator-lab.css\", \"physics-ensemble-lab.js\", \"physics-ensemble-lab.css\", \"math-curvature-lab.js\", \"math-curvature-lab.css\", \"physics-constraints-lab.js\", \"physics-constraints-lab.css\", \"spatial-fidelity.js\", \"spatial-quantum-information.js\", \"spatial-algebra.js\", \"spatial-logic.js\", \"spatial-number-theory.js\", \"math-systems-lab.js\", \"math-systems-lab.css\", \"math-number-theory-lab.js\", \"math-number-theory-lab.css\", \"number-theory-diagrams.js\", \"number-theory-diagrams.css\", \"spatial-number-theory-relations.js\", \"spatial-maxwell.js\", \"spatial-cosmology.js\", \"math-logic-lab.js\", \"math-logic-lab.css\", \"physics-maxwell-lab.js\", \"physics-maxwell-lab.css\", \"physics-cosmology-lab.js\", \"physics-cosmology-lab.css\", \"lesson-state.js\", \"math-topology-lab.js\", \"math-topology-lab.css\", \"math-algebra-lab.js\", \"math-algebra-lab.css\", \"physics-qft-lab.js\", \"physics-qft-lab.css\", \"spatial-qft.js\", \"physics-quantum-info-lab.js\", \"physics-quantum-info-lab.css\", \"physics-relativity-lab.js\", \"physics-relativity-lab.css\", \"math-complex-lab.js\", \"math-complex-lab.css\", \"physics-quantum-lab.js\", \"physics-quantum-lab.css\", \"math-convergence-lab.js\", \"math-convergence-lab.css\", \"math-numerical-lab.js\", \"math-numerical-lab.css\"):\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "9b9889fe9959d754b55e66b5ff041a05bfeaa293eaf12f6e12384760d638718d",
+      "current_sha256": "1f2e0a773d8e9f5dea1f1001f2c41bf82087e33fdff74c1cede0b137320d9f46",
+      "changes": [
+        {
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/math-systems-lab.css\">\n"
+        },
+        {
+          "before": "",
+          "after": "  <script src=\"/app/math-systems-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "d214a8ceb36c797758d72ef62fda18a0ccd964d5b297ef0f094cb33faada2782",
+      "current_sha256": "6d601e74bcd2cc52433d0a2b89fba8baeb1abe46ebc6305cbf73f351be39b26c",
+      "changes": [
+        {
+          "before": "",
+          "after": "    'math-systems-lab': (item, hooks) => window.PrimerMathSystemsLab?.render(item, hooks) || null,\n"
+        }
+      ]
+    },
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "22e72a36850f61ee9e392c9097d53012121de530c8ec2ab9413467798005e9e5",
+      "current_sha256": "01a28ef358fd66fc06873cb3d23d18592c7651c3a443062f7bb969996a27cedc",
+      "changes": [
+        {
+          "before": "",
+          "after": "          }\n        },\n        {\n          \"id\": \"math.3.systems.general-form.model\",\n          \"kind\": \"model\",\n          \"renderer\": \"math-systems-lab\",\n          \"title\": \"Exact systems: equations, elimination and residual surfaces\",\n          \"instructions\": \"Explore all ten original question examples, then change general-form integer coefficients. The 2D plot shows zero sets; the 3D surfaces show equation residuals. Row reduction determines the solution set exactly.\",\n          \"props\": {\n            \"scenario\": \"math.3.systems.general-form\"\n"
+        }
+      ]
+    }
+  },
+  "historical_approval_extended": false,
+  "whole_goal_complete": false
+}
