@@ -14,6 +14,8 @@ def historical_runtime_bytes(relative, current):
     Original receipts prove historical bytes. Current science/reader proofs
     separately validate the new behavior; this helper grants no approval.
     """
+    from tools.anatomy_sources.radiology_presentation_compatibility import restore_presentation_bytes
+    current = restore_presentation_bytes(relative, current)
     try:
         current=restore_main_runtime_bytes(relative,current)
     except ValueError as error:
