@@ -34,6 +34,9 @@ def test_all_nine_preserved_exports_match_original_recorded_hashes_and_topology(
     assert len(rows) == 9 and sum(len(f) for _,_,_,f in rows) == 156160
     assert audit['source_scene_sha256'] == manifest['source_scene_sha256']
     assert not manifest['clinical_approval'] and not manifest['runtime_promoted']
+    license_bytes = (REVIEW/manifest['license_evidence']['file']).read_bytes()
+    assert hashlib.sha256(license_bytes).hexdigest() == manifest['license_evidence']['compressed_sha256']
+    assert hashlib.sha256(gzip.decompress(license_bytes)).hexdigest() == manifest['license_evidence']['original_sha256']
     for record, obj, world, faces in rows:
         measured = next(r for r in audit['rows'] if r['name'] == obj['name'])
         points, remap = np.unique(world, axis=0, return_inverse=True)

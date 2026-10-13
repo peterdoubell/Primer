@@ -16,6 +16,6 @@ All three evaluated caval segments have 24 boundary edges. Their geometry is cur
 
 The existing 12-object BodyParts3D module remains a separate curated source. These Z-Anatomy exports must not be fitted into that coordinate frame or counted as missing anatomy merely because a name matches.
 
-Source and derivative data: [Z-Anatomy](https://github.com/Z-Anatomy/Models-of-human-anatomy), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The complete supplied license is retained in `License.txt`. This review changes neither clinical approval nor the whole-Primer fidelity objective.
+Source and derivative data: [Z-Anatomy](https://github.com/Z-Anatomy/Models-of-human-anatomy), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The complete supplied license is retained byte-for-byte in `License.txt.gz`. This review changes neither clinical approval nor the whole-Primer fidelity objective.
 
 Reproduce from the repository root with `python tools/anatomy_sources/audit_zanatomy_thorax.py` and `python tools/anatomy_sources/render_zanatomy_thorax_review.py` (NumPy and Matplotlib required). Run `python -m pytest tests/test_zanatomy_thoracic_candidate.py -q` to verify preserved bytes, source-coordinate topology and the explicit coverage hold.
