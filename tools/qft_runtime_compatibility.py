@@ -14,6 +14,8 @@ def historical_runtime_bytes(relative, current):
     Original receipts prove historical bytes. Current science/reader proofs
     separately validate the new behavior; this helper grants no approval.
     """
+    from tools.thoracic_data_compatibility import restore_raw
+    current=restore_raw(relative,current,allow_historical=True)
     try:
         current=restore_main_runtime_bytes(relative,current)
     except ValueError as error:

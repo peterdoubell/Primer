@@ -33,6 +33,8 @@ def reviewed():
 
 def restore_main_raw(path, raw):
     path = str(path)
+    from tools.thoracic_data_compatibility import restore_raw
+    raw = restore_raw(path, raw, allow_historical=True)
     if path not in PATHS:
         return raw
     record = reviewed()['files'][path]
@@ -64,6 +66,8 @@ def _exact(value, tokens, record):
 def restore_prior_view(path, data, tokens):
     """Remove only exact pulmonary additions; preserve unrelated caller drift."""
     path = str(path)
+    from tools.thoracic_data_compatibility import restore_view
+    data, tokens = restore_view(path, data, tokens)
     data, tokens = copy.deepcopy(data), dict(tokens)
     if path not in {REQUIREMENTS, OVERRIDE}:
         return data, tokens
@@ -85,6 +89,8 @@ def restore_prior_view(path, data, tokens):
 
 
 def restore_prior_contracts(contracts):
+    from tools.thoracic_data_compatibility import restore_contract_hashes
+    contracts = restore_contract_hashes(contracts)
     record = reviewed()['nonstroke_contract']
     if sha((ROOT / record['prior_receipt_path']).read_bytes()) != record['prior_receipt_sha256']:
         raise ValueError('Frozen nonstroke contract evidence changed')

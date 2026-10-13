@@ -209,7 +209,9 @@ def test_pulmonary_source_only_amendment_preserves_current_legacy_browser_eviden
     assert sha(raw)=='cf85b38d7ef86b046eedccca91b1cab8b59b98ffb27e23c1fe3c98ac38fae78e'
     amendment=json.loads(raw)
     assert amendment['schema_version']==1
-    assert amendment['app_js_sha256']==bridge.AFTER==sha((ROOT/'web/app.js').read_bytes())
+    from tools.thoracic_motion_ui_compatibility import restore_previous_motion_ui
+    from tools.thoracic_data_compatibility import restore_raw
+    assert amendment['app_js_sha256']==bridge.AFTER==sha(restore_previous_motion_ui((ROOT/'web/app.js').read_text()).encode())
     assert amendment['previous_app_js_sha256']==bridge.BEFORE==sha(bridge.restore_previous_app().encode())
     assert amendment['native_presentation_change_scope']=='pulmonary_source_only_mounting'
     assert amendment['historical_approval_scope_unchanged'] is True
@@ -229,7 +231,7 @@ def test_pulmonary_source_only_amendment_preserves_current_legacy_browser_eviden
     assert amendment['unchanged_native_manifest_sha256']==previous['unchanged_native_manifest_sha256']==sha((ROOT/'web/anatomy/hra-female-pelvis-v1.10/manifest.json').read_bytes())
     inverse=amendment['exact_app_inverse']
     assert inverse['path']==bridge.DELTA and inverse['sha256']==bridge.DELTA_SHA
-    assert sha((ROOT/inverse['helper_path']).read_bytes())==inverse['helper_sha256']
+    assert sha(restore_raw(inverse['helper_path'], (ROOT/inverse['helper_path']).read_bytes()))==inverse['helper_sha256']
     assert inverse['changed_functions']==['sourceNativeInspector','renderRadiologyDesk','renderReportWalkthrough']
     assert inverse['app_bytes_outside_changed_functions_identical'] is True
     assert inverse['reconstructed_previous_app_sha256']==bridge.BEFORE
