@@ -122,8 +122,11 @@ def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
     assert allowed.status_code == 200
     assert allowed.json()["counts"] == {
         "lessons": 558, "illustrations": 561,
-        "models": 845, "items": 1406,
+        "models": 846, "items": 1407,
     }
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'math-systems-lab'] == [
+        ('math.3.systems', 'math.3.systems.general-form.model')]
     assert allowed.headers["vary"] == "Authorization, Cookie"
 
 

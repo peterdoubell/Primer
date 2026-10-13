@@ -6129,6 +6129,7 @@
     'physics-relativity-lab': (item, hooks) => window.PrimerPhysicsRelativityLab?.render(item, hooks) || null,
     'math-algebra-lab': (item, hooks) => window.PrimerMathAlgebraLab?.render(item, hooks) || null,
     'math-logic-lab': (item, hooks) => window.PrimerMathLogicLab?.render(item, hooks) || null,
+    'math-systems-lab': (item, hooks) => window.PrimerMathSystemsLab?.render(item, hooks) || null,
     'math-number-theory-lab': (item, hooks) => window.PrimerNumberTheoryDiagrams?.render(item, hooks) || window.PrimerMathNumberTheoryLab?.render(item, hooks) || null,
     'physics-maxwell-lab': (item, hooks) => window.PrimerPhysicsMaxwellLab?.render(item, hooks) || null,
     'physics-cosmology-lab': (item, hooks) => window.PrimerPhysicsCosmologyLab?.render(item, hooks) || null,
