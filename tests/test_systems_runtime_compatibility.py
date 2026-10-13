@@ -10,7 +10,8 @@ def test_every_named_addition_restores_only_its_exact_previous_bytes():
     proof=json.loads((ROOT/bridge.PROOF).read_bytes())
     assert set(proof['files'])=={'primer/curriculum.py','primer/server.py','web/index.html','web/lesson-models.js','data/curriculum/01-mathematics.json'}
     for path,row in proof['files'].items():
-        raw=(ROOT/path).read_bytes();assert hashlib.sha256(raw).hexdigest()==row['current_sha256']
+        from tools.thoracic_native_runtime_compatibility import previous_runtime_bytes as before_native
+        raw=before_native(path,(ROOT/path).read_bytes());assert hashlib.sha256(raw).hexdigest()==row['current_sha256']
         restored=bridge.previous_runtime_bytes(path,raw);assert hashlib.sha256(restored).hexdigest()==row['before_sha256']
         assert bridge.previous_runtime_bytes(path,restored)==restored
         assert bridge.previous_runtime_bytes(path,raw+b'changed')==raw+b'changed'

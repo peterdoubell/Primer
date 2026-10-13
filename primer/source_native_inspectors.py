@@ -76,4 +76,6 @@ def references():
     result.update(stroke_references())
     from .pulmonary_native_inspectors import references as pulmonary_references
     result.update(pulmonary_references())
+    from .thoracic_native_inspectors import references as thoracic_references
+    result.update(thoracic_references())
     return result

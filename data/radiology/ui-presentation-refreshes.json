@@ -523,6 +523,38 @@
         "passed": true,
         "cases": 24
       }
+    },
+    {
+      "id": "2026-10-13-thoracic-curated-source-viewer",
+      "files": {
+        "web/app.js": {
+          "before": "69189a56aced8f418531721c981bc36a5eae5a08dfda019289a9cc8a8ca4ca28",
+          "after": "c4b96032051886c803b0d5eb3d24bc6fd5aeffb5c6e8e24c1bd7dda4552bc51a"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "thoracic_curated_source_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/thoracic-native-anatomy-review-20261013/integration/runtime-inverse.json",
+        "sha256": "8b7f5a015287ae2665c1c9d49b14ce814f54840c2a6bc83eed192c81d022c0c6"
+      },
+      "curated_source_reader_smoke": {
+        "path": "docs/thoracic-native-anatomy-review-20261013/integration/local-reader-proof.json",
+        "sha256": "195559754e81280db70b2291e90d4d017863c3afde8af4e7ef44dadbe3cf772e"
+      }
     }
   ]
 }

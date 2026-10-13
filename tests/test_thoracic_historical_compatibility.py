@@ -61,7 +61,7 @@ def test_changed_raw_value_token_or_effective_contract_is_rejected():
 @pytest.mark.parametrize('field,value', [('clinical_approval', True), ('native_decoder_mesh_CT_renderer_code_touched', True), ('native_presentation_change_scope', 'all_rendering')])
 def test_ui_refresh_cannot_extend_clinical_or_native_geometry_approval(field, value):
     ledger = json.loads((ROOT / 'data/radiology/ui-presentation-refreshes.json').read_text())
-    step = copy.deepcopy(ledger['refreshes'][-1])
+    step = copy.deepcopy(next(row for row in ledger['refreshes'] if row['id'] == '2026-10-13-source-motion-frame-status'))
     validate_refresh(step)
     step[field] = value
     with pytest.raises(ValueError, match='scope'):

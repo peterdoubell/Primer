@@ -41,6 +41,11 @@ def test_every_original_face_and_authored_normal_survives_transport():
         error = float(np.abs(position.astype(float)-vertices).max())
         assert error == part['max_position_conversion_error_source_mm'] and error < .00006
         assert not part['geometry_altered_beyond_measured_float32_transport']
+        original_cross = np.cross(vertices[faces[:,1]]-vertices[faces[:,0]], vertices[faces[:,2]]-vertices[faces[:,0]])
+        transported = position.astype(float)
+        transport_cross = np.cross(transported[faces[:,1]]-transported[faces[:,0]], transported[faces[:,2]]-transported[faces[:,0]])
+        assert np.all(np.linalg.norm(transport_cross, axis=1) > 0)
+        assert np.all(np.sum(original_cross * transport_cross, axis=1) > 0)
 
 
 def test_original_license_and_mapping_evidence_are_retained():

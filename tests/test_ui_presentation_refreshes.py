@@ -45,6 +45,9 @@ def test_only_the_two_shared_ui_files_are_refreshable_and_nothing_is_approved():
         elif step['id']=='2026-10-13-source-motion-frame-status':
             from tools.thoracic_motion_ui_compatibility import validate_refresh
             assert len(validate_refresh(step)['rows']) == 24
+        elif step['id']=='2026-10-13-thoracic-curated-source-viewer':
+            from tools.thoracic_native_runtime_compatibility import validate_refresh
+            assert len(validate_refresh(step)['rows']) == 4
         else:
             assert step['native_presentation_code_touched'] is False
 
@@ -55,6 +58,10 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
         assert step['guarded_paths_sha256'] == {path: bound[path] for path in ledger['guarded_paths']}
         if step['id']=='2026-10-13-source-motion-frame-status':
             from tools.thoracic_motion_ui_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
+        if step['id']=='2026-10-13-thoracic-curated-source-viewer':
+            from tools.thoracic_native_runtime_compatibility import validate_refresh
             validate_refresh(step)
             continue
         smoke = step['native_reader_smoke']

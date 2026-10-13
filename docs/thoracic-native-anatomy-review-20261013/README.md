@@ -16,7 +16,7 @@ The diaphragm contains four exact-position nonmanifold edges, each approximately
 
 Producer M forms are preserved separately and do not establish independently acquired left/right anatomy. No patient registration, ultrasound-to-model registration, functional valve/diaphragm motion, clinical measurement or anatomical completeness is inferred.
 
-The actual reporting requirement remains broader: pleural and pericardial tissue/space interfaces, lung/consolidation/bronchial context, ribs and superficial tissue, chambers, IVC and other acquired findings still need complete source correspondence. These 12 objects do not satisfy those missing structures. They remain outside the deployed module until integration and verification are complete.
+The actual reporting requirement remains broader: pleural and pericardial tissue/space interfaces, lung/consolidation/bronchial context, ribs and superficial tissue, chambers, IVC and other acquired findings still need complete source correspondence. These 12 objects do not satisfy those missing structures. The original package above remains the frozen source review. A separate runtime copy is now integrated locally into the reporting reference and shared lesson; production release and clinical validation remain pending.
 
 Reproduce the package from the retained acquisition folder:
 
@@ -29,3 +29,9 @@ python tools/anatomy_sources/package_thoracic_original_sources.py \
 BodyParts3D, Copyright 2008 Database Center for Life Science (DBCLS). The upstream 4.3 source and geometric transport adaptation use [CC BY-SA 2.1 Japan](https://creativecommons.org/licenses/by-sa/2.1/jp/). The separate archive 4.0 CC BY 4.0 grant is not applied. Source: [BodyParts3D](https://lifesciencedb.jp/bp3d/).
 
 Verification: `python -m pytest tests/test_thoracic_original_geometry.py -q` compares every source coordinate, authored normal and face against the transported arrays and re-derives all four source topology events. With Playwright and Chromium available, `node tools/check_thoracic_source_geometry.cjs` verifies actual GPU uploads and draw calls for each object and assembly at desktop/mobile widths; start the local server above first.
+
+## Local module integration
+
+The reporting reference offers the original source viewer in its model tab and walkthrough, while retaining all 16 clinical figure groups, six cine clips and unassessed report choices. The lesson model slot uses the curated source viewer rather than procedural thorax geometry. The viewer identifies its source as curated 3D anatomy, not native MRI or CT.
+
+The dedicated delivery registry binds all 28 files. Authenticated desktop/mobile checks cover both lesson and reporting routes and compare every returned resource with its expected stored or HTTP-decoded bytes. Original paths outside the registry and encoded aliases are rejected. Hosted payloads are excluded from the function bundle and delivered through the existing static-source route. The shared-file inverse preserves historical radiology and mathematics evidence without extending approval.
