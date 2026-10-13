@@ -18159,7 +18159,8 @@
         "reporting": {
           "protocol": [
             "Extend the abdominal examination to the lung bases, pleura, pericardium (subxiphoid window) and the chest wall at the site of maximal tenderness, using curvilinear and high-frequency probes.",
-            "Record patient position and the regions examined; ultrasound only shows lung that reaches the pleural surface."
+            "Record patient position and the regions examined; ultrasound only shows lung that reaches the pleural surface.",
+            "Record which sites and views were adequate, limited or not assessed. Do not transfer source-case labels, measurements or normal findings into the current report."
           ],
           "checklist": [
             {
@@ -18211,23 +18212,23 @@
           "template_sections": [
             {
               "heading": "LUNG BASES",
-              "body": "Consolidation [absent / right / left lower lobe]; air bronchograms [dynamic / static / absent]; size __ mm; parapneumonic change [ ]."
+              "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Consolidation [absent / right / left lower lobe]; air bronchograms [dynamic / static / absent]; size __ mm; parapneumonic change [ ]."
             },
             {
               "heading": "PLEURA",
-              "body": "Pleural fluid [none / side, depth __ mm, anechoic / complex / septated]; lung sliding [present / absent]; pleural thickening [ ]."
+              "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Pleural fluid [none / side, depth __ mm, anechoic / complex / septated]; lung sliding [present / absent]; pleural thickening [ ]."
             },
             {
               "heading": "PERIPHERAL LUNG LESIONS",
-              "body": "Pleural-based hypoechoic lesions [none / number, shape, size __ mm, location]; vascularity [ ]."
+              "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Pleural-based hypoechoic lesions [none / number, shape, size __ mm, location]; vascularity [ ]."
             },
             {
               "heading": "PERICARDIUM",
-              "body": "Pericardial effusion [none / __ mm, distribution]; tamponade features [none / right ventricular diastolic collapse / plethoric IVC / not assessed]."
+              "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Pericardial effusion [none / __ mm, distribution]; tamponade features [none / right ventricular diastolic collapse / plethoric IVC / not assessed]."
             },
             {
               "heading": "CHEST WALL AND RIBS",
-              "body": "Site of maximal tenderness [ ]; rib cortical discontinuity or step [ ]; haematoma [ ]; other chest-wall finding [ ]."
+              "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Site of maximal tenderness [ ]; rib cortical discontinuity or step [ ]; haematoma [ ]; other chest-wall finding [ ]."
             }
           ],
           "sources": [
@@ -18236,7 +18237,7 @@
               "url": "https://radiologyassistant.nl/abdomen/chest-radiology-for-abdominal-radiologists/chest-radiology-for-abdominal-radiologists"
             }
           ],
-          "reviewed_at": "2026-09-25"
+          "reviewed_at": "2026-10-13"
         },
         "report_templates": [
           {
@@ -18254,7 +18255,7 @@
               },
               {
                 "heading": "TECHNIQUE AND QUALITY",
-                "body": "Extend the abdominal examination to the lung bases, pleura, pericardium (subxiphoid window) and the chest wall at the site of maximal tenderness, using curvilinear and high-frequency probes.\nRecord patient position and the regions examined; ultrasound only shows lung that reaches the pleural surface.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
+                "body": "Extend the abdominal examination to the lung bases, pleura, pericardium (subxiphoid window) and the chest wall at the site of maximal tenderness, using curvilinear and high-frequency probes.\nRecord patient position and the regions examined; ultrasound only shows lung that reaches the pleural surface.\nRecord which sites and views were adequate, limited or not assessed. Do not transfer source-case labels, measurements or normal findings into the current report.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ]."
               },
               {
                 "heading": "KEY IMAGES",
@@ -18262,23 +18263,23 @@
               },
               {
                 "heading": "LUNG BASES",
-                "body": "Consolidation [absent / right / left lower lobe]; air bronchograms [dynamic / static / absent]; size __ mm; parapneumonic change [ ]."
+                "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Consolidation [absent / right / left lower lobe]; air bronchograms [dynamic / static / absent]; size __ mm; parapneumonic change [ ]."
               },
               {
                 "heading": "PLEURA",
-                "body": "Pleural fluid [none / side, depth __ mm, anechoic / complex / septated]; lung sliding [present / absent]; pleural thickening [ ]."
+                "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Pleural fluid [none / side, depth __ mm, anechoic / complex / septated]; lung sliding [present / absent]; pleural thickening [ ]."
               },
               {
                 "heading": "PERIPHERAL LUNG LESIONS",
-                "body": "Pleural-based hypoechoic lesions [none / number, shape, size __ mm, location]; vascularity [ ]."
+                "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Pleural-based hypoechoic lesions [none / number, shape, size __ mm, location]; vascularity [ ]."
               },
               {
                 "heading": "PERICARDIUM",
-                "body": "Pericardial effusion [none / __ mm, distribution]; tamponade features [none / right ventricular diastolic collapse / plethoric IVC / not assessed]."
+                "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Pericardial effusion [none / __ mm, distribution]; tamponade features [none / right ventricular diastolic collapse / plethoric IVC / not assessed]."
               },
               {
                 "heading": "CHEST WALL AND RIBS",
-                "body": "Site of maximal tenderness [ ]; rib cortical discontinuity or step [ ]; haematoma [ ]; other chest-wall finding [ ]."
+                "body": "Assessment [adequate / limited / not assessed]; sites/views and limitations [ ]. Site of maximal tenderness [ ]; rib cortical discontinuity or step [ ]; haematoma [ ]; other chest-wall finding [ ]."
               },
               {
                 "heading": "IMPRESSION",
@@ -18312,7 +18313,8 @@
               "TECHNIQUE AND QUALITY",
               "KEY IMAGES"
             ],
-            "images": []
+            "images": [],
+            "module_illustrations": false
           },
           "steps": [
             {
@@ -18321,14 +18323,18 @@
               "sections": [
                 "LUNG BASES"
               ],
-              "normal": {
-                "LUNG BASES": "Normal aerated lung bases with A-lines; no consolidation."
-              },
+              "normal": {},
               "findings": [
-                "[Right / left] lower-lobe consolidation __ mm with dynamic air bronchograms, compatible with pneumonia.",
-                "Parapneumonic consolidation with an adjacent small effusion."
+                "At [side and site], peripheral consolidation measures [ ] mm in [planes]; bronchial echoes [dynamic / static / absent / not assessed].",
+                "Lung bases [assessed sites / incompletely assessed / not assessed]; limitations [ ]."
               ],
-              "images": [],
+              "images": [
+                "open-thoracic-us-pmc9956010-fig29",
+                "open-thoracic-us-pmc9956010-fig30",
+                "open-thoracic-us-pmc9956010-fig31",
+                "open-thoracic-us-pmc9956010-fig32",
+                "open-thoracic-us-pmc11460009-fig4"
+              ],
               "measurements": [
                 "Lesion size"
               ],
@@ -18343,15 +18349,17 @@
               "sections": [
                 "PLEURA"
               ],
-              "normal": {
-                "PLEURA": "No pleural effusion; lung sliding present."
-              },
+              "normal": {},
               "findings": [
-                "[Right / left] pleural effusion, depth __ mm, [anechoic / complex / septated].",
-                "Absent lung sliding at [ ]; pneumothorax should be considered."
+                "At [side and site], pleural fluid [not seen / present / indeterminate / not assessed]; depth [ ] mm in [position]; appearance [anechoic / complex / septated / not characterised].",
+                "At [site], sliding [present / absent / indeterminate / not assessed]. Absence alone is not specific for pneumothorax."
               ],
               "images": [
-                "pleura-image-2"
+                "open-thoracic-us-pmc9956010-fig29",
+                "open-thoracic-us-pmc9956010-fig31",
+                "open-thoracic-us-pmc11460009-fig1",
+                "open-thoracic-us-pmc11460009-fig2",
+                "open-thoracic-us-pmc11460009-fig4"
               ],
               "measurements": [
                 "Fluid depth"
@@ -18366,13 +18374,14 @@
               "sections": [
                 "PERIPHERAL LUNG LESIONS"
               ],
-              "normal": {
-                "PERIPHERAL LUNG LESIONS": "No pleural-based lung lesion."
-              },
+              "normal": {},
               "findings": [
-                "[Number] pleural-based, wedge-shaped hypoechoic lesions of __ mm in the [ ], suspicious for pulmonary infarcts; CT pulmonary angiography recommended."
+                "At [side and site], pleural-based lesion(s) [number and shape], measuring [ ] mm in [planes]. Morphology is nonspecific; further assessment depends on clinical probability.",
+                "Peripheral lesions [not seen at assessed sites / assessment limited / not assessed]; this does not exclude pulmonary embolism."
               ],
-              "images": [],
+              "images": [
+                "open-thoracic-us-pmc9409643-fig2"
+              ],
               "measurements": [
                 "Lesion size"
               ],
@@ -18387,20 +18396,27 @@
               "sections": [
                 "PERICARDIUM"
               ],
-              "normal": {
-                "PERICARDIUM": "No pericardial effusion."
-              },
+              "normal": {},
               "findings": [
-                "Pericardial effusion, __ mm, [circumferential / localised].",
-                "Right ventricular diastolic collapse with a plethoric inferior vena cava: tamponade physiology."
+                "Pericardial fluid [not seen in assessed views / present / indeterminate / not assessed]; views [ ]; depth [ ] mm and distribution [ ].",
+                "Chamber collapse [observed with documented cardiac timing / not observed / indeterminate / not assessed]; IVC and respiratory findings [ ]; ventilation context [ ]. Correlate urgently with clinical status if tamponade is suspected."
               ],
-              "images": [],
+              "images": [
+                "open-thoracic-us-pmc8207801-fig1",
+                "open-thoracic-us-pmc5401877-fig3",
+                "open-thoracic-us-pmc5401877-fig4",
+                "open-thoracic-us-pmc5401877-fig7",
+                "open-thoracic-us-pmc5401877-fig8",
+                "open-thoracic-us-pmc5401877-fig11",
+                "open-thoracic-us-pmc5401877-fig13"
+              ],
               "measurements": [
                 "Fluid depth"
               ],
               "landmark": "heart",
               "parts": [],
-              "look": "Subxiphoid view of the heart; inferior vena cava for plethora."
+              "look": "Subxiphoid view of the heart; inferior vena cava for plethora.",
+              "tip": "Chamber motion requires cardiac timing. IVC appearance depends on respiration, ventilation and pressure context; no single image establishes tamponade."
             },
             {
               "label": "Chest wall and ribs",
@@ -18408,13 +18424,13 @@
               "sections": [
                 "CHEST WALL AND RIBS"
               ],
-              "normal": {
-                "CHEST WALL AND RIBS": "No rib fracture or chest-wall abnormality at the site of tenderness."
-              },
+              "normal": {},
               "findings": [
-                "Cortical step in the [ ] rib with an adjacent haematoma, compatible with a fracture."
+                "At the symptomatic [side and rib/site], superficial cortex [continuous / step or discontinuity / incompletely seen / not assessed]; adjacent hematoma [ ]; acquisition limitations [ ]."
               ],
-              "images": [],
+              "images": [
+                "open-thoracic-us-pmc9956010-fig4"
+              ],
               "measurements": [],
               "landmark": "pleura",
               "parts": [],
@@ -18457,27 +18473,695 @@
           }
         ]
       },
-      "reporting_contract_sha256": "44807ebb0bddb6e21e90d26ee8bf07cb22bf0e70a85da946c3f5ae29c535bf0c",
+      "reporting_contract_sha256": "05fd1e1a464e3ec91f1b25a3e788a12a61a91c50a2e34c385134934f07e79730",
       "structure_inventory": null,
       "structure_inventory_sha256": null,
       "structure_expansion_status": "required_not_yet_expanded",
       "observed_visual_descriptors": {
-        "key_images": [
+        "key_images": [],
+        "structure_atlas": [
           {
-            "id": "pleura-image-2",
-            "label": "IMG 2: Pleural abnormality or loculation",
-            "description": "Placeholder for pleural abnormality or loculation. Record the series/image reference and annotate the feature being demonstrated.",
-            "src": "https://radiologyassistant.nl/assets/1-pneumonia-3-1739985842.jpg",
-            "alt": "Ultrasound example demonstrates pleural fluid with adjacent pulmonary consolidation.",
-            "caption": "Ultrasound example demonstrates pleural fluid with adjacent pulmonary consolidation.",
-            "source_url": "https://radiologyassistant.nl/abdomen/chest-radiology-for-abdominal-radiologists/chest-radiology-for-abdominal-radiologists",
-            "source_title": "Thoracic Ultrasound in Acute Abdomen",
-            "attribution": "The Radiology Assistant; article authors and figure credits are available in the linked source.",
-            "image_type": "clinical",
-            "reviewed_at": "2026-09-23"
+            "id": "open-thoracic-us-pmc9956010-fig4",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 4,
+            "src": "/app/reference-media/radiology-open/thoracic-us-diagnostics-13-00767-g004.jpg",
+            "sha256": "c70222541eee95f09f36403d9ecf029e2d7bb5b47aa51b39d42bf7bd5edc6618",
+            "width": 769,
+            "height": 467,
+            "source_url": "https://doi.org/10.3390/diagnostics13040767",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956010/#diagnostics-13-00767-f004",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9956010.1/diagnostics-13-00767-g004.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 4: Rib cortical injury and adjacent hematoma. Published fracture and healing examples; visible superficial cortex only.",
+            "alt": "Original Figure 4: Rib cortical injury and adjacent hematoma. Published fracture and healing examples; visible superficial cortex only.",
+            "limits": "Published fracture and healing examples; visible superficial cortex only. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "visible rib cortex",
+              "adjacent soft tissue hematoma",
+              "healing callus"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Ehsan Safai Zadeh, Christian G\u00f6rg, Helmut Prosch, Rudolf Horn, Christian Jenssen, Christoph Frank Dietrich. The Role of Thoracic Ultrasound for Diagnosis of Diseases of the Chest Wall, the Mediastinum, and the Diaphragm\u2014Narrative Review and Pictorial Essay. DOI 10.3390/diagnostics13040767. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc9956010-fig29",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 29,
+            "src": "/app/reference-media/radiology-open/thoracic-us-diagnostics-13-00767-g029.jpg",
+            "sha256": "5f2270a573a8715cf21d88ecb4a624b396c85477be65b686968fbdb7fd9be7d8",
+            "width": 739,
+            "height": 215,
+            "source_url": "https://doi.org/10.3390/diagnostics13040767",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956010/#diagnostics-13-00767-f029",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9956010.1/diagnostics-13-00767-g029.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 29: Diaphragm acoustic windows. Right and left windows; these panels are not a registered bilateral volume.",
+            "alt": "Original Figure 29: Diaphragm acoustic windows. Right and left windows; these panels are not a registered bilateral volume.",
+            "limits": "Right and left windows; these panels are not a registered bilateral volume. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "right hemidiaphragm",
+              "left hemidiaphragm",
+              "liver and spleen windows"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Ehsan Safai Zadeh, Christian G\u00f6rg, Helmut Prosch, Rudolf Horn, Christian Jenssen, Christoph Frank Dietrich. The Role of Thoracic Ultrasound for Diagnosis of Diseases of the Chest Wall, the Mediastinum, and the Diaphragm\u2014Narrative Review and Pictorial Essay. DOI 10.3390/diagnostics13040767. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc9956010-fig30",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 30,
+            "src": "/app/reference-media/radiology-open/thoracic-us-diagnostics-13-00767-g030.jpg",
+            "sha256": "2770090163a7e14b57b382eec5a0a0d0aa14f5675ce09de0dc386bf2405bc863",
+            "width": 758,
+            "height": 397,
+            "source_url": "https://doi.org/10.3390/diagnostics13040767",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956010/#diagnostics-13-00767-f030",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9956010.1/diagnostics-13-00767-g030.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 30: Beam-dependent diaphragm appearance. Apparent discontinuity requires alternative insonation; no rupture diagnosis from one panel.",
+            "alt": "Original Figure 30: Beam-dependent diaphragm appearance. Apparent discontinuity requires alternative insonation; no rupture diagnosis from one panel.",
+            "limits": "Apparent discontinuity requires alternative insonation; no rupture diagnosis from one panel. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "diaphragm interface"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Ehsan Safai Zadeh, Christian G\u00f6rg, Helmut Prosch, Rudolf Horn, Christian Jenssen, Christoph Frank Dietrich. The Role of Thoracic Ultrasound for Diagnosis of Diseases of the Chest Wall, the Mediastinum, and the Diaphragm\u2014Narrative Review and Pictorial Essay. DOI 10.3390/diagnostics13040767. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc9956010-fig31",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 31,
+            "src": "/app/reference-media/radiology-open/thoracic-us-diagnostics-13-00767-g031.jpg",
+            "sha256": "b931372e42f74dfc043f280f7431fa17a1d7187eb421a9125546690dbb24d68c",
+            "width": 744,
+            "height": 391,
+            "source_url": "https://doi.org/10.3390/diagnostics13040767",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956010/#diagnostics-13-00767-f031",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9956010.1/diagnostics-13-00767-g031.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 31: Diaphragm and adjacent fluid. Published respiratory phase comparison; no new fluid volume measurement.",
+            "alt": "Original Figure 31: Diaphragm and adjacent fluid. Published respiratory phase comparison; no new fluid volume measurement.",
+            "limits": "Published respiratory phase comparison; no new fluid volume measurement. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "diaphragm",
+              "pleural and abdominal fluid spaces"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Ehsan Safai Zadeh, Christian G\u00f6rg, Helmut Prosch, Rudolf Horn, Christian Jenssen, Christoph Frank Dietrich. The Role of Thoracic Ultrasound for Diagnosis of Diseases of the Chest Wall, the Mediastinum, and the Diaphragm\u2014Narrative Review and Pictorial Essay. DOI 10.3390/diagnostics13040767. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc9956010-fig32",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 32,
+            "src": "/app/reference-media/radiology-open/thoracic-us-diagnostics-13-00767-g032.jpg",
+            "sha256": "57ec8cae9c70b5f418ef019dd9cdc7151a84a4326596c3c58154c8c17af38de7",
+            "width": 752,
+            "height": 351,
+            "source_url": "https://doi.org/10.3390/diagnostics13040767",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956010/#diagnostics-13-00767-f032",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9956010.1/diagnostics-13-00767-g032.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 32: Diaphragm M-mode examples. Source traces preserve time axes; not a new patient excursion measurement.",
+            "alt": "Original Figure 32: Diaphragm M-mode examples. Source traces preserve time axes; not a new patient excursion measurement.",
+            "limits": "Source traces preserve time axes; not a new patient excursion measurement. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "diaphragm M-mode trace"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Ehsan Safai Zadeh, Christian G\u00f6rg, Helmut Prosch, Rudolf Horn, Christian Jenssen, Christoph Frank Dietrich. The Role of Thoracic Ultrasound for Diagnosis of Diseases of the Chest Wall, the Mediastinum, and the Diaphragm\u2014Narrative Review and Pictorial Essay. DOI 10.3390/diagnostics13040767. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc11460009-fig1",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 1,
+            "src": "/app/reference-media/radiology-open/thoracic-us-13054_2024_5102_Fig1_HTML.jpg",
+            "sha256": "b9501a882a6d7c8f8a5e9b6ca758a7cf6215ecb16614e7219a14f6eac1bed257",
+            "width": 797,
+            "height": 529,
+            "source_url": "https://doi.org/10.1186/s13054-024-05102-y",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11460009/#Fig1",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11460009.1/13054_2024_5102_Fig1_HTML.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 1: B-line artifact example. Artifacts are observations, not segmented anatomical structures.",
+            "alt": "Original Figure 1: B-line artifact example. Artifacts are observations, not segmented anatomical structures.",
+            "limits": "Artifacts are observations, not segmented anatomical structures. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "pleural echo line"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Michael Beshara, Edward A Bittner, Alberto Goffi, Lorenzo Berra, Marvin G Chang. Nuts and bolts of lung ultrasound: utility, scanning techniques, protocols, and findings in common pathologies. DOI 10.1186/s13054-024-05102-y. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc11460009-fig2",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 2,
+            "src": "/app/reference-media/radiology-open/thoracic-us-13054_2024_5102_Fig2_HTML.jpg",
+            "sha256": "ea1cfb2847b2d6d1382d407c3ee67cf355a3aebede9cf196ce8dfc0b00049c93",
+            "width": 797,
+            "height": 585,
+            "source_url": "https://doi.org/10.1186/s13054-024-05102-y",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11460009/#Fig2",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11460009.1/13054_2024_5102_Fig2_HTML.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 2: Pleural line and M-mode example. Static M-mode example; absent sliding alone is not specific for pneumothorax.",
+            "alt": "Original Figure 2: Pleural line and M-mode example. Static M-mode example; absent sliding alone is not specific for pneumothorax.",
+            "limits": "Static M-mode example; absent sliding alone is not specific for pneumothorax. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "chest wall",
+              "pleural echo line"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Michael Beshara, Edward A Bittner, Alberto Goffi, Lorenzo Berra, Marvin G Chang. Nuts and bolts of lung ultrasound: utility, scanning techniques, protocols, and findings in common pathologies. DOI 10.1186/s13054-024-05102-y. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc11460009-fig4",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 4,
+            "src": "/app/reference-media/radiology-open/thoracic-us-13054_2024_5102_Fig4_HTML.jpg",
+            "sha256": "dabe984a603f285aacd0b6de9a35a371ca5b0f8b294b0716f4420fe5d0771fa8",
+            "width": 597,
+            "height": 879,
+            "source_url": "https://doi.org/10.1186/s13054-024-05102-y",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11460009/#Fig4",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC11460009.1/13054_2024_5102_Fig4_HTML.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 4: Consolidation border and pleural fluid. A still does not establish dynamic air bronchograms.",
+            "alt": "Original Figure 4: Consolidation border and pleural fluid. A still does not establish dynamic air bronchograms.",
+            "limits": "A still does not establish dynamic air bronchograms. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "peripheral consolidated lung",
+              "pleural fluid"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Michael Beshara, Edward A Bittner, Alberto Goffi, Lorenzo Berra, Marvin G Chang. Nuts and bolts of lung ultrasound: utility, scanning techniques, protocols, and findings in common pathologies. DOI 10.1186/s13054-024-05102-y. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc9409643-fig2",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 2,
+            "src": "/app/reference-media/radiology-open/thoracic-us-jcm-11-04916-g002.jpg",
+            "sha256": "6d15187906abdee86e5675bde8e6a6aa47d4e559b2a23af0a3685f1046c8b686",
+            "width": 716,
+            "height": 426,
+            "source_url": "https://doi.org/10.3390/jcm11164916",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9409643/#jcm-11-04916-f002",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC9409643.1/jcm-11-04916-g002.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 2: Peripheral subpleural lesions. Morphology alone neither diagnoses nor excludes pulmonary embolism.",
+            "alt": "Original Figure 2: Peripheral subpleural lesions. Morphology alone neither diagnoses nor excludes pulmonary embolism.",
+            "limits": "Morphology alone neither diagnoses nor excludes pulmonary embolism. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "subpleural lesion",
+              "adjacent pleural surface"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Giulia Gagno, Laura Padoan, Stefano D\u2019Errico, Elisa Baratella, Davide Radaelli, Alessandra Lucia Fluca, Alessandro Pierri, Milijana Janjusevic, Elena Aleksova Noveska, Maria Assunta Cova, Roberto Copetti, Franco Cominotto, Gianfranco Sinagra, Aneta Aleksova. Pulmonary Embolism Presenting with Pulmonary Infarction: Update and Practical Review of Literature Data. DOI 10.3390/jcm11164916. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc8207801-fig1",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 1,
+            "src": "/app/reference-media/radiology-open/thoracic-us-12871_2021_1385_Fig1_HTML.jpg",
+            "sha256": "9424af0ddd984c8097b885a5e1831825b5c9088e14ae3031dd7869154ea50f88",
+            "width": 709,
+            "height": 606,
+            "source_url": "https://doi.org/10.1186/s12871-021-01385-8",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8207801/#Fig1",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC8207801.1/12871_2021_1385_Fig1_HTML.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 1: Pericardial effusion case panels. Measurements and temporal changes belong to the published case.",
+            "alt": "Original Figure 1: Pericardial effusion case panels. Measurements and temporal changes belong to the published case.",
+            "limits": "Measurements and temporal changes belong to the published case. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "pericardial fluid",
+              "cardiac chambers"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Qian Zhang, Difen Wang, Ying Liu. Mediastinal effusion due to pericardiocentesis with cardiac tamponade: a case report. DOI 10.1186/s12871-021-01385-8. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc5401877-fig3",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 3,
+            "src": "/app/reference-media/radiology-open/thoracic-us-fped-05-00079-g003.jpg",
+            "sha256": "1155ec3b8c0f564d685e62991d5bcf2982a7225aad37688797ffa3338ae6867f",
+            "width": 664,
+            "height": 273,
+            "source_url": "https://doi.org/10.3389/fped.2017.00079",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5401877/#F3",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5401877.1/fped-05-00079-g003.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 3: Pericardial fluid in long axis and M-mode. Qualitative source example; no threshold transferred to another population.",
+            "alt": "Original Figure 3: Pericardial fluid in long axis and M-mode. Qualitative source example; no threshold transferred to another population.",
+            "limits": "Qualitative source example; no threshold transferred to another population. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "pericardial fluid",
+              "left ventricle"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Alejandro P\u00e9rez-Casares, Sergi Cesar, Laia Brunet-Garcia, Joan Sanchez-de-Toledo. Echocardiographic Evaluation of Pericardial Effusion and Cardiac Tamponade. DOI 10.3389/fped.2017.00079. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc5401877-fig4",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 4,
+            "src": "/app/reference-media/radiology-open/thoracic-us-fped-05-00079-g004.jpg",
+            "sha256": "23bc11cf45ef4e5d709702e3a6a60b4a9fedbff29d4c4f2312e4db7edd13bf15",
+            "width": 661,
+            "height": 162,
+            "source_url": "https://doi.org/10.3389/fped.2017.00079",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5401877/#F4",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5401877.1/fped-05-00079-g004.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 4: Complementary cardiac views. Different views provide context; no 3D registration is available.",
+            "alt": "Original Figure 4: Complementary cardiac views. Different views provide context; no 3D registration is available.",
+            "limits": "Different views provide context; no 3D registration is available. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "pericardial fluid",
+              "cardiac chambers"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Alejandro P\u00e9rez-Casares, Sergi Cesar, Laia Brunet-Garcia, Joan Sanchez-de-Toledo. Echocardiographic Evaluation of Pericardial Effusion and Cardiac Tamponade. DOI 10.3389/fped.2017.00079. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc5401877-fig7",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 7,
+            "src": "/app/reference-media/radiology-open/thoracic-us-fped-05-00079-g007.jpg",
+            "sha256": "b60897c38afc1a07ae7a879ad4df801861eccd6c88a4d0e5dd11ad8bebbd53ce",
+            "width": 767,
+            "height": 305,
+            "source_url": "https://doi.org/10.3389/fped.2017.00079",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5401877/#F7",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5401877.1/fped-05-00079-g007.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 7: Right atrial collapse and timing trace. Source caption timing requires specialist review; no duration rule is implemented.",
+            "alt": "Original Figure 7: Right atrial collapse and timing trace. Source caption timing requires specialist review; no duration rule is implemented.",
+            "limits": "Source caption timing requires specialist review; no duration rule is implemented. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "right atrium",
+              "right ventricle",
+              "pericardial fluid"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Alejandro P\u00e9rez-Casares, Sergi Cesar, Laia Brunet-Garcia, Joan Sanchez-de-Toledo. Echocardiographic Evaluation of Pericardial Effusion and Cardiac Tamponade. DOI 10.3389/fped.2017.00079. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc5401877-fig8",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 8,
+            "src": "/app/reference-media/radiology-open/thoracic-us-fped-05-00079-g008.jpg",
+            "sha256": "d703385fec24e01dc00822caa23a1537ac83346aa168ab34a9e5d33a5ea03115",
+            "width": 767,
+            "height": 310,
+            "source_url": "https://doi.org/10.3389/fped.2017.00079",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5401877/#F8",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5401877.1/fped-05-00079-g008.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 8: Chamber collapse source examples. Preserve ECG context; static panels do not independently establish tamponade.",
+            "alt": "Original Figure 8: Chamber collapse source examples. Preserve ECG context; static panels do not independently establish tamponade.",
+            "limits": "Preserve ECG context; static panels do not independently establish tamponade. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "right ventricular wall",
+              "atria",
+              "pericardial fluid"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Alejandro P\u00e9rez-Casares, Sergi Cesar, Laia Brunet-Garcia, Joan Sanchez-de-Toledo. Echocardiographic Evaluation of Pericardial Effusion and Cardiac Tamponade. DOI 10.3389/fped.2017.00079. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc5401877-fig11",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 11,
+            "src": "/app/reference-media/radiology-open/thoracic-us-fped-05-00079-g011.jpg",
+            "sha256": "4b733cded97c2b0053ee25443cd2070e2ba162b9c6d5bc2979d1a8e7b054da54",
+            "width": 767,
+            "height": 263,
+            "source_url": "https://doi.org/10.3389/fped.2017.00079",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5401877/#F11",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5401877.1/fped-05-00079-g011.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 11: IVC and respiratory trace. Interpretation requires ventilation and pressure context; no automatic diagnosis.",
+            "alt": "Original Figure 11: IVC and respiratory trace. Interpretation requires ventilation and pressure context; no automatic diagnosis.",
+            "limits": "Interpretation requires ventilation and pressure context; no automatic diagnosis. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "inferior vena cava"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Alejandro P\u00e9rez-Casares, Sergi Cesar, Laia Brunet-Garcia, Joan Sanchez-de-Toledo. Echocardiographic Evaluation of Pericardial Effusion and Cardiac Tamponade. DOI 10.3389/fped.2017.00079. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved."
+          },
+          {
+            "id": "open-thoracic-us-pmc5401877-fig13",
+            "kind": "clinical-image",
+            "modality": "Ultrasound",
+            "figure_number": 13,
+            "src": "/app/reference-media/radiology-open/thoracic-us-fped-05-00079-g013.jpg",
+            "sha256": "9f8cbbd6d209e4e73dfdcee570f944c3dff49676d563e6da4159d8252f8cb3f1",
+            "width": 708,
+            "height": 182,
+            "source_url": "https://doi.org/10.3389/fped.2017.00079",
+            "figure_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5401877/#F13",
+            "asset_source_url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC5401877.1/fped-05-00079-g013.jpg",
+            "source_context": {
+              "setting": "in_vivo",
+              "laterality": "not_reported",
+              "population": {
+                "life_stage": "not_reported"
+              },
+              "extent": "local",
+              "depicted_state": "published_case_examples",
+              "current_patient_registered": false,
+              "full_native_series_and_calibration_verified": false,
+              "clinical_function_or_pressure_independently_verified": false,
+              "complete_tissue_or_branch_geometry_verified": false,
+              "flat_rendering_is_actual_3D_model": false,
+              "selected_panels": [
+                "B",
+                "C"
+              ],
+              "panel_types": {
+                "A": "Schematic",
+                "B": "Ultrasound",
+                "C": "Ultrasound"
+              },
+              "panel_states": {
+                "A": "conceptual_respiratory_inflow",
+                "B": "source_mitral_Doppler",
+                "C": "source_tricuspid_Doppler"
+              }
+            },
+            "image_state": "published_case_examples",
+            "caption": "Original Figure 13: Valve inflow and respiratory variation. Original diagram and Doppler panels; no automatic measurement or adult threshold.",
+            "alt": "Original Figure 13: Valve inflow and respiratory variation. Original diagram and Doppler panels; no automatic measurement or adult threshold.",
+            "limits": "Original diagram and Doppler panels; no automatic measurement or adult threshold. Source images do not provide complete anatomy, a registered 3D volume or independent clinical approval.",
+            "structures_visible": [
+              "mitral inflow Doppler",
+              "tricuspid inflow Doppler"
+            ],
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "attribution": "Alejandro P\u00e9rez-Casares, Sergi Cesar, Laia Brunet-Garcia, Joan Sanchez-de-Toledo. Echocardiographic Evaluation of Pericardial Effusion and Cardiac Tamponade. DOI 10.3389/fped.2017.00079. CC BY 4.0. Original complete deposited figure preserved without pixel modification.",
+            "source_background": "white",
+            "rights_reviewed_on": "2026-10-13",
+            "rights_review": "Article grant and selected figure captions checked; no separate third-party credit for this figure. Original attribution and labels preserved.",
+            "clinical_panels": [
+              "B",
+              "C"
+            ],
+            "contains_schematic_panels": true,
+            "schematic_panels": [
+              "A"
+            ],
+            "schematic_structures_visible": [
+              "illustrated mitral and tricuspid respiratory inflow patterns"
+            ]
           }
         ],
-        "structure_atlas": [],
         "anatomical_illustrations": null,
         "spatial_model": {
           "id": "radiology-model-rad.5.pleura",
@@ -175491,6 +176175,15 @@
             "height": 1000
           },
           {
+            "id": "module-source-figures-rad.5.pleura",
+            "kind": "source-gallery",
+            "title": "Original source figures",
+            "instructions": "Read the complete source captions and case context. Published imaging, drawings, specimens and processed displays retain their separate evidence roles. Selected figures do not replace a complete examination or establish every anatomical boundary.",
+            "investigation_ids": [
+              "ra.thoracic-ultrasound"
+            ]
+          },
+          {
             "id": "module-anatomy-rad.5.pleura",
             "kind": "model",
             "renderer": "radiology-anatomy",
@@ -175668,7 +176361,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "50257bebae9cb043474670a593840dd35157edf0d7b5dbd25aa150fa96288168",
+      "module_contract_sha256": "303560ea63784cc367ce667b18f4ecb6ef752a48d5aa57d08750293ed77b30af",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

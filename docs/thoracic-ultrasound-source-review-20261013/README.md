@@ -13,8 +13,14 @@ The preparation tool fails on missing or mismatched media and never silently dow
 
 `evidence/motion-verification.json` records all 1,630 decoded YUV frame hashes and original/derived presentation times. VP9 derivatives preserve every decoded plane; WebM timestamp quantization is below 0.5 ms. This does not prove original acquisition frame timing or RGB display colorimetry. The frame slider requests an exported timestamp: browser seeking is explicitly approximate.
 
-Source attribution appears with every selected item. PMC5401877 states CC BY without a version in its deposited license paragraph; the manifest preserves that distinction. Third-party permission assets from PMC11460009 and noncommercial media from PMC9356263 are excluded. Full cine/privacy review and specialist review remain pending. No clinical diagnosis, current-patient measurement, segmentation, or cross-case 3D registration is inferred from these examples.
+Source attribution appears with every selected item. PMC5401877 states CC BY without a version in its deposited license paragraph; its publisher copyright hyperlink was subsequently verified to target CC BY 4.0 (see the retained link evidence). Third-party permission assets from PMC11460009 and noncommercial media from PMC9356263 are excluded. Full cine/privacy review and specialist review remain pending. No clinical diagnosis, current-patient measurement, segmentation, or cross-case 3D registration is inferred from these examples.
 
 Next integration work must map reviewed structures to original pixels, preserve the existing assessment state and acquisition limitations, provide missing dynamic bronchogram and complex pleural-fluid examples, and supply faithful schematics/3D with their own provenance. The five-step inventory in `requirements.json` distinguishes anatomical parts from artifacts and conditional observations.
 
 Original JATS evidence is stored as deterministic gzip; the manifest JATS checksum refers to decompressed original bytes. This preserves publisher whitespace unchanged.
+
+## Module integration
+
+All 16 original figure groups are registered as reference images in `ra.thoracic-ultrasound` and assigned to its five reporting steps. Unreviewed legacy fallback imagery is suppressed for this investigation. Normal-result shortcuts are removed; reporting templates require assessment adequacy and preserve not-assessed choices. Figure 13 keeps its illustrative panel separate from its two Doppler panels. Existing generic 3D orientation is not credited as anatomical coverage. Cine remains in the local review library pending full motion/privacy review and a transport contract that accurately represents the lossless YUV proof.
+
+Authenticated local reader checks exercised all five steps at 1440 and 390 pixels, loaded all 16 images at each width, and compared all delivered image bodies with their packaged original bytes. No browser exceptions were observed. Full CI, production delivery, structure-specific annotations, and clinical validation remain outstanding.
