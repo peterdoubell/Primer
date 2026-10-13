@@ -489,6 +489,79 @@
       "clinical_approval": false,
       "fine_anatomical_approval": false,
       "reopens_or_extends_any_review": false
+    },
+    {
+      "id": "2026-10-13-radiology-image-presentation",
+      "date": "2026-10-13",
+      "change": "Remove histology figures from radiology presentation and show larger, selectable original MRI examples for bladder staging. Source records and original files remain unchanged.",
+      "files": {
+        "web/app.js": {
+          "before": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+          "after": "9410279e01f5813df22b50c661081f1933ed2626643af02db0f9ddd5071c699d"
+        },
+        "web/styles.css": {
+          "before": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660",
+          "after": "677085893dee6d4d95b3573e2f1dc07944760d5782b1ff266791fd2ff51f508c"
+        }
+      },
+      "app_js_changed_regions": [
+        "Presentation-only histology/mixed-panel filtering of radiology references and walkthrough image links.",
+        "Bladder staging MRI example selector, original sequence labels and image dimensions.",
+        "Catalogue image labels reflect the curated presentation."
+      ],
+      "styles_css_changed_regions": [
+        "Bladder MRI example grid, selected-score controls and uncropped image sizing."
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-13",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ]
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "scoped_compatibility_amendment": {
+        "path": "docs/radiology-image-presentation-review-20261013/exact-app-delta.json",
+        "sha256": "64bda55657dc74eda70deea5bb948089831b34fcc3d2406cd75ea27938a45802"
+      }
     }
   ]
 }

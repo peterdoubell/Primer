@@ -22,8 +22,9 @@ os.environ.setdefault("PRIMER_CONTENT_DIR", "/tmp/content")
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from primer.compression import TextCompression  # noqa: E402
+from primer.startup_assets import StartupAssets  # noqa: E402
 from primer.server import app as book  # noqa: E402
 
 # Compressed here rather than inside primer/server.py: reviewed radiology
 # records pin that file's hash, and this is transport, not the book.
-app = TextCompression(book)
+app = TextCompression(StartupAssets(book, os.path.join(os.path.dirname(os.path.dirname(__file__)), "web")))

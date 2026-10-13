@@ -1,0 +1,52 @@
+{
+  "before_app_sha256": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+  "after_app_sha256": "9410279e01f5813df22b50c661081f1933ed2626643af02db0f9ddd5071c699d",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_any_historical_approval": false,
+  "native_decoder_mesh_CT_renderer_code_touched": false,
+  "changes": [
+    {
+      "start": 800,
+      "end": 1034,
+      "before": "  async get(path) { const r = await fetch(path); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return r.json(); },\n",
+      "after": "  async get(path) { const r = await fetch(path); if (r.status === 401) return toSignIn(), new Promise(() => {}); if (!r.ok) throw await r.json().catch(() => ({ error: r.statusText })); return radiologyPresentation(await r.json()); },\n"
+    },
+    {
+      "start": 1352,
+      "end": 3220,
+      "before": "",
+      "after": "\n// Presentation policy: source records stay intact, but radiology views show no\n// histology, microscopy slides, or publisher figures containing those panels.\nfunction histologyFigure(asset) {\n  if (!asset || typeof asset !== 'object' || !asset.src) return false;\n  const context = asset.source_context || {};\n  const types = [asset.modality, asset.image_type, asset.kind,\n    ...Object.values(context.panel_types || {}),\n    ...(asset.ancillary_panels || []).map(panel => panel.kind)];\n  return types.some(type => /histolog|histopath|photomicrograph/i.test(type || ''))\n    || /histolog|histopath|photomicrograph|original-microscopy/i.test([asset.id, asset.src].join(' '));\n}\n\nfunction withoutHistologyFigures(value) {\n  if (Array.isArray(value)) return value.filter(item => !histologyFigure(item)).map(withoutHistologyFigures);\n  if (!value || typeof value !== 'object') return value;\n  return Object.fromEntries(Object.entries(value)\n    .filter(([, item]) => !histologyFigure(item))\n    .map(([key, item]) => [key, withoutHistologyFigures(item)]));\n}\n\nfunction radiologyPresentation(data) {\n  if (!data || typeof data !== 'object') return data;\n  if (Array.isArray(data)) return data.map(radiologyPresentation);\n  if (data.radiology_reference) {\n    const ref = data.radiology_reference = withoutHistologyFigures(data.radiology_reference);\n    data.lesson_media = withoutHistologyFigures(data.lesson_media);\n    const visible = new Set([...(ref.key_images || []), ...(ref.structure_atlas || [])].map(image => image.id));\n    if (ref.walkthrough) for (const step of [ref.walkthrough.start, ...(ref.walkthrough.steps || [])]) {\n      if (step && step.images) step.images = step.images.filter(id => visible.has(id));\n    }\n  }\n  for (const key of ['nodes', 'node', 'modules', 'results']) if (data[key]) data[key] = radiologyPresentation(data[key]);\n  return data;\n}\n"
+    },
+    {
+      "start": 163750,
+      "end": 163843,
+      "before": "",
+      "after": "    if (system.clinical_examples?.length) body.append(renderBladderStagingExamples(system));\n"
+    },
+    {
+      "start": 166788,
+      "end": 166874,
+      "before": "  if (examples.length) {\n",
+      "after": "  if (examples.length && !systems.some(system => system.clinical_examples?.length)) {\n"
+    },
+    {
+      "start": 167821,
+      "end": 169576,
+      "before": "",
+      "after": "  return root;\n}\n\nfunction renderBladderStagingExamples(system) {\n  const root = el('section', { class: 'rad-bladder-examples', 'aria-label': 'Bladder MRI staging examples' },\n    el('h3', {}, 'Compare published bladder MRI examples'),\n    el('p', {}, 'Choose a VI-RADS score to inspect the original MRI panels. These source examples illustrate imaging likelihood; they do not establish a pathological TNM stage.'));\n  const controls = el('div', { class: 'rad-report-actions', role: 'group', 'aria-label': 'Choose a VI-RADS example' });\n  const gallery = el('div', { class: 'rad-bladder-case', 'aria-live': 'polite' });\n  const buttons = system.clinical_examples.map((example, index) => {\n    const button = btn({ class: 'btn ghost small', 'aria-pressed': 'false', onclick: () => show(index) }, 'VI-RADS ' + example.score);\n    controls.append(button);\n    return button;\n  });\n  root.append(controls, gallery);\n  function show(index) {\n    const example = system.clinical_examples[index];\n    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));\n    gallery.replaceChildren(el('h4', {}, example.title),\n      el('div', { class: 'rad-bladder-case-grid' }, ...example.figures.map(figure =>\n        el('figure', { class: 'rad-image-example' },\n          el('img', { src: figure.src, alt: figure.alt, loading: 'lazy', decoding: 'async', referrerpolicy: 'no-referrer',\n            width: figure.width, height: figure.height,\n            dataset: { fullSrc: figure.src, sourceFigure: 'true' } }),\n          el('figcaption', {}, figure.label)))),\n      el('p', {}, radiologySourceLink('Radiology Assistant · original case and sequence descriptions', example.source_url)));\n    attachPictureHandlers(gallery);\n  }\n  show(0);\n"
+    },
+    {
+      "start": 176538,
+      "end": 176620,
+      "before": "          (n.image_count ? n.image_count + ' images' : 'Source cases') + ' · Diagrams' +\n",
+      "after": "          (n.image_count ? 'Reference images' : 'Source cases') + ' · Diagrams' +\n"
+    },
+    {
+      "start": 424586,
+      "end": 424723,
+      "before": "  module.exports = Object.freeze({ attachPictureHandlers, pictureCaptionElement, reportingGuard,\n",
+      "after": "  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard,\n"
+    }
+  ]
+}
