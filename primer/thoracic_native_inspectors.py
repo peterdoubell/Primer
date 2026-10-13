@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PREFIX = '/app/anatomy/bp3d-thoracic-4.3/'
 REGISTRY = ROOT / 'data/radiology/thoracic-native-inspector.json'
-REGISTRY_SHA256 = 'bb50872977be596fc9a98dec24f114e0dfb0c49ae80aefe6f05270d464e37ae0'
+REGISTRY_SHA256 = '576e1bda42da642dabc4f249cdb6211ccc70faffa17a880c85e5ebd66318d601'
 AUTHORED = frozenset({'reference.html', 'reference.js', 'manifest.json', 'LICENSE.html'})
 PARTS = frozenset({'FJ1451','FJ1451M','FJ1454','FJ1454M','FJ1455','FJ1455M','FJ2420','FJ2421','FJ2432','FJ2433','FJ2436','FJ3131'})
 

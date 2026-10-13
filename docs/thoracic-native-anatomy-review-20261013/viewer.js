@@ -95,10 +95,14 @@ function selectedParts(id) {
   return manifest.parts.filter(p=>p.id===id);
 }
 async function choose(id) {
-  const request=++generation; canvas.dataset.ready='false'; status.textContent='Loading original source transport…';
+  const request=++generation; canvas.dataset.ready='false'; canvas.dataset.error='false'; canvas.hidden=true;
+  document.querySelector('#retry').hidden=true; document.querySelector('#original').hidden=true;
+  document.querySelector('#evidence').textContent=''; document.querySelector('#selection-context').textContent='Loading the selected source…';
+  status.textContent='Loading original source transport…';
+  try {
   const parts=selectedParts(id); if (!parts.length) throw Error('Unknown source selection');
   const meshes=await Promise.all(parts.map(load)); if (request!==generation) return;
-  visible=meshes; azimuth=0;elevation=-.9;distance=4;draw();
+  visible=meshes; canvas.hidden=false; azimuth=0;elevation=-.9;distance=4;draw();
   document.querySelector('#selection-context').textContent = id==='all' || id==='intercostals'
     ? 'Intercostal muscle surfaces are included; rib bones, lungs and pleural layers remain unavailable in this assembly.'
     : id==='valves' || parts.every(p=>!p.id.startsWith('FJ145') && p.id!=='FJ3131')
@@ -110,6 +114,12 @@ async function choose(id) {
   if (parts.length===1) {original.href=parts[0].source_obj;original.textContent='Unchanged original OBJ (gzip) · '+parts[0].id;}
   status.textContent=parts.length+' source object(s) · all '+Number(canvas.dataset.faces).toLocaleString()+' source faces · common original coordinates · assembly unapproved';
   canvas.dataset.selection=id; canvas.dataset.ready='true';
+  } catch (error) {
+    if (request!==generation) return;
+    canvas.hidden=true; canvas.dataset.error='true'; status.textContent=error.message;
+    document.querySelector('#selection-context').textContent='The selected source is unavailable. No previous geometry is displayed as this selection.';
+    document.querySelector('#retry').hidden=false;
+  }
 }
 function reset(){azimuth=0;elevation=-.9;distance=4;draw();}
 canvas.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);canvas.focus();});
@@ -118,6 +128,7 @@ for(const event of ['pointerup','pointercancel'])canvas.addEventListener(event,(
 canvas.addEventListener('wheel',e=>{e.preventDefault();distance=Math.max(2,Math.min(12,distance+e.deltaY*.005));draw();},{passive:false});
 canvas.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-','='].includes(e.key))return;e.preventDefault();if(e.key==='ArrowLeft')azimuth-=.15;if(e.key==='ArrowRight')azimuth+=.15;if(e.key==='ArrowUp')elevation-=.15;if(e.key==='ArrowDown')elevation+=.15;if(['+','='].includes(e.key))distance=Math.max(2,distance-.2);if(e.key==='-')distance=Math.min(12,distance+.2);draw();});
 document.querySelector('#fit').onclick=reset;
+document.querySelector('#retry').onclick=()=>choose(select.value);
 for(const button of document.querySelectorAll('[data-camera]'))button.onclick=()=>{azimuth=button.dataset.camera==='yz'?-Math.PI/2:0;elevation=button.dataset.camera==='xy'?0:-Math.PI/2;draw();};
 select.onchange=()=>choose(select.value).catch(e=>{status.textContent=e.message;canvas.dataset.error='true';});
 window.addEventListener('resize',draw);
