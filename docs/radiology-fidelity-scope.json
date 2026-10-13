@@ -22682,7 +22682,30 @@
           }
         ],
         "source_study_references": [],
-        "source_native_inspectors": null
+        "source_native_inspectors": [
+          {
+            "id": "bp3d-thoracic-original-surfaces",
+            "modality": "Curated 3D anatomy",
+            "title": "Original diaphragm, intercostal muscles and valve leaflets",
+            "src": "/app/anatomy/bp3d-thoracic-4.3/reference.html",
+            "manifest_url": "/app/anatomy/bp3d-thoracic-4.3/manifest.json",
+            "sha256": "5ae9380a5bc2118f3fa526a69c37bccd7b37ee5b08a0b0f3ada95a41d0489943",
+            "script_sha256": "3a1bdbeb77c93f9cb0b74793ee3f23895218a6bedf616cc164a8acaf10d5e942",
+            "manifest_sha256": "bf300f93dcf56ae9aa579180fe5d15dfa77c0552c90c785d2559480f2cdd111a",
+            "caption": "Inspect 12 original curated anatomy objects and source assemblies. All 649,480 faces are retained. Pleura, pericardium, ribs, lungs, chambers and other required context remain incomplete. The diaphragm retains four tiny original topology anomalies. These surfaces are independent of the published ultrasound cases.",
+            "attribution": "BodyParts3D, Copyright 2008 Database Center for Life Science (DBCLS). Geometric transport adaptation remains CC BY-SA 2.1 Japan.",
+            "source_url": "https://lifesciencedb.jp/bp3d/",
+            "license": "CC BY-SA 2.1 Japan",
+            "license_url": "https://creativecommons.org/licenses/by-sa/2.1/jp/",
+            "bound_source_ids": [
+              "bp3d-thoracic-original-surfaces"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "complete_reporting_anatomy_approved": false
+          }
+        ]
       },
       "clinical_approval": false
     },
@@ -179689,14 +179712,48 @@
             ]
           },
           {
+            "id": "module-native-inspectors-rad.5.pleura",
+            "kind": "source-native-inspectors",
+            "title": "Original curated thoracic anatomy",
+            "instructions": "Inspect original diaphragm, intercostal and valve-leaflet source surfaces. These curated models are not registered to the ultrasound examples; required anatomy remains incomplete.",
+            "investigation_ids": [
+              "ra.thoracic-ultrasound"
+            ]
+          },
+          {
             "id": "module-anatomy-rad.5.pleura",
             "kind": "model",
             "renderer": "radiology-anatomy",
-            "title": "Pleura \u00b7 3D landmarks",
-            "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Follow the outer pleural envelope and diaphragmatic bases when describing pleural extent.",
+            "title": "Original curated thoracic anatomy",
+            "instructions": "Inspect the original source surfaces and their explicit missing-anatomy limits.",
             "props": {
               "node_id": "rad.5.pleura",
-              "family": "thorax"
+              "family": "thorax",
+              "source_native_only": true,
+              "native_inspectors": [
+                {
+                  "id": "bp3d-thoracic-original-surfaces",
+                  "modality": "Curated 3D anatomy",
+                  "title": "Original diaphragm, intercostal muscles and valve leaflets",
+                  "src": "/app/anatomy/bp3d-thoracic-4.3/reference.html",
+                  "manifest_url": "/app/anatomy/bp3d-thoracic-4.3/manifest.json",
+                  "sha256": "5ae9380a5bc2118f3fa526a69c37bccd7b37ee5b08a0b0f3ada95a41d0489943",
+                  "script_sha256": "3a1bdbeb77c93f9cb0b74793ee3f23895218a6bedf616cc164a8acaf10d5e942",
+                  "manifest_sha256": "bf300f93dcf56ae9aa579180fe5d15dfa77c0552c90c785d2559480f2cdd111a",
+                  "caption": "Inspect 12 original curated anatomy objects and source assemblies. All 649,480 faces are retained. Pleura, pericardium, ribs, lungs, chambers and other required context remain incomplete. The diaphragm retains four tiny original topology anomalies. These surfaces are independent of the published ultrasound cases.",
+                  "attribution": "BodyParts3D, Copyright 2008 Database Center for Life Science (DBCLS). Geometric transport adaptation remains CC BY-SA 2.1 Japan.",
+                  "source_url": "https://lifesciencedb.jp/bp3d/",
+                  "license": "CC BY-SA 2.1 Japan",
+                  "license_url": "https://creativecommons.org/licenses/by-sa/2.1/jp/",
+                  "bound_source_ids": [
+                    "bp3d-thoracic-original-surfaces"
+                  ],
+                  "clinical_approval": false,
+                  "fine_anatomical_approval": false,
+                  "current_patient_registration": false,
+                  "complete_reporting_anatomy_approved": false
+                }
+              ]
             }
           }
         ],
@@ -179866,7 +179923,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "303560ea63784cc367ce667b18f4ecb6ef752a48d5aa57d08750293ed77b30af",
+      "module_contract_sha256": "d35c9219ae2244550620ef5b7d4ba4ea86398ba0586774639f6ee15f0b8973b6",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

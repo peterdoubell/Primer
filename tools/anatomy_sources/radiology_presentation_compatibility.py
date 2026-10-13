@@ -12,6 +12,8 @@ HELPER_BEFORE = FILES[HELPER_PATH]['before']
 
 
 def restore_presentation_bytes(relative, raw):
+    from tools.thoracic_native_runtime_compatibility import previous_runtime_bytes
+    raw = previous_runtime_bytes(relative, raw, allow_older=True)
     row = FILES.get(relative)
     sha = lambda value: hashlib.sha256(value).hexdigest()
     if not row or sha(raw) != row['after']:

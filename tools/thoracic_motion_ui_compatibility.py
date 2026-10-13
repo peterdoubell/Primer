@@ -10,6 +10,8 @@ AFTER = '69189a56aced8f418531721c981bc36a5eae5a08dfda019289a9cc8a8ca4ca28'
 
 
 def restore_previous_motion_ui(app):
+    from tools.thoracic_native_runtime_compatibility import previous_runtime_bytes
+    app=previous_runtime_bytes('web/app.js',app.encode(),allow_older=True).decode()
     from tools.anatomy_sources.radiology_presentation_compatibility import restore_presentation_app
     app = restore_presentation_app(app)
     raw = (ROOT / PROOF).read_bytes()
