@@ -133,7 +133,12 @@ def parse_mp4_contract(source):
     refs, _, ref_flags = _full(data, dref)
     if ref_flags or len(refs) < 8 or struct.unpack_from(">I", refs, 4)[0] != 1:
         raise ValueError("Ambiguous media data references")
-    reference = _one(_boxes(data, dref[1] + 8, dref[2]), b"url ")
+    references = _boxes(data, dref[1] + 8, dref[2])
+    # QuickTime uses an empty, self-contained alias for embedded JPEG samples.
+    # An alias with payload or without the self-contained bit remains external.
+    if len(references) != 1 or references[0][0] not in {b"url ", b"alis"}:
+        raise ValueError("Unsupported media data reference")
+    reference = references[0]
     url_payload, _, url_flags = _full(data, reference)
     if url_flags != 1 or len(url_payload) != 4:
         raise ValueError("External media data references are unsupported")
@@ -144,7 +149,7 @@ def parse_mp4_contract(source):
     if description_flags or len(description) < 8 or struct.unpack_from(">I", description, 4)[0] != 1:
         raise ValueError("Ambiguous visual sample descriptions")
     entries = _boxes(data, stsd[1] + 8, stsd[2])
-    if len(entries) != 1 or entries[0][0] not in {b"mp4v", b"avc1", b"avc3", b"hvc1", b"hev1", b"vp09", b"av01"}:
+    if len(entries) != 1 or entries[0][0] not in {b"mp4v", b"avc1", b"avc3", b"hvc1", b"hev1", b"vp09", b"av01", b"jpeg"}:
         raise ValueError("Unsupported visual sample description")
     sample = data[entries[0][1]:entries[0][2]]
     if len(sample) < 78 or struct.unpack_from(">H", sample, 6)[0] != 1:
@@ -385,7 +390,8 @@ def parse_avi_contract(source):
     if rect!=(0,0,width,height):raise ValueError('Cropped or scaled AVI stream unsupported')
     if format_[2]-format_[1]!=40:raise ValueError('Unsupported AVI bitmap format')
     size,w,signed_h,planes,bits,compression=struct.unpack_from('<IiiHH4s',data,format_[1])
-    if size!=40 or w!=width or signed_h!=height or planes!=1 or bits!=16 or compression not in {b'CRAM',b'MSVC'}:raise ValueError('AVI source codec/bitmap dimensions differ')
+    if size!=40 or w!=width or signed_h!=height or planes!=1 or (compression,bits) not in {(b'CRAM',16),(b'MSVC',16),(b'MP42',24)}:raise ValueError('AVI source codec/bitmap dimensions differ')
+    allowed_flags={0,0x10} if compression==b'MP42' else {0x10}
     movie=movies[0];packets=_riff_chunks(data,movie[1]+4,movie[2])
     frames=[r for r in packets if r[0] in {b'00db',b'00dc'}]
     if len(frames)!=total or any(r[0] not in {b'00db',b'00dc',b'JUNK'} for r in packets) or any(r[1]==r[2] for r in frames):raise ValueError('AVI frame chunks/count/track differ')
@@ -393,7 +399,7 @@ def parse_avi_contract(source):
     if index[2]-index[1]!=total*16:raise ValueError('AVI index count differs')
     for i,frame in enumerate(frames):
         tag,flags,offset,size=struct.unpack_from('<4sIII',data,index[1]+i*16)
-        if tag!=frame[0] or flags!=0x10 or movie[1]+offset!=frame[1]-8 or size!=frame[2]-frame[1]:raise ValueError('AVI index does not bind original ordered frames')
+        if tag!=frame[0] or flags not in allowed_flags or (i==0 and flags!=0x10) or movie[1]+offset!=frame[1]-8 or size!=frame[2]-frame[1]:raise ValueError('AVI index does not bind original ordered frames')
     return {'width':width,'height':height,'frames':total,'pts_seconds':[i*scale/rate for i in range(total)]}
 
 

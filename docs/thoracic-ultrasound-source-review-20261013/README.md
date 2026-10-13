@@ -21,6 +21,14 @@ Original JATS evidence is stored as deterministic gzip; the manifest JATS checks
 
 ## Module integration
 
-All 16 original figure groups are registered as reference images in `ra.thoracic-ultrasound` and assigned to its five reporting steps. Unreviewed legacy fallback imagery is suppressed for this investigation. Normal-result shortcuts are removed; reporting templates require assessment adequacy and preserve not-assessed choices. Figure 13 keeps its illustrative panel separate from its two Doppler panels. Existing generic 3D orientation is not credited as anatomical coverage. Cine remains in the local review library pending full motion/privacy review and a transport contract that accurately represents the lossless YUV proof.
+All 16 original figure groups are registered as reference images in `ra.thoracic-ultrasound` and assigned to its five reporting steps. Unreviewed legacy fallback imagery is suppressed for this investigation. Normal-result shortcuts are removed; reporting templates require assessment adequacy and preserve not-assessed choices. Figure 13 keeps its illustrative panel separate from its two Doppler panels. Existing generic 3D orientation is not credited as anatomical coverage. All six cine clips are now delivered as separate source references with links to unchanged original files. Their transport contract explicitly verifies YUV samples and does not claim RGB display equivalence. Sampled temporal/overlay review is retained; full frame-by-frame clinical review remains pending.
 
 Authenticated local reader checks exercised all five steps at 1440 and 390 pixels, loaded all 16 images at each width, and compared all delivered image bodies with their packaged original bytes. No browser exceptions were observed. Full CI, production delivery, structure-specific annotations, and clinical validation remain outstanding.
+
+## Cine delivery verification
+
+The six original containers and lossless VP9 derivatives are included in runtime assets. All 1,630 original and derivative frames were decoded again and compared with SHA-256 hashes of their YUV samples. Original and transport timestamps are parsed from container bytes, independently of the earlier FFprobe export. QuickTime embedded JPEG and MP42 AVI support is bounded to self-contained media, matching dimensions, one video track and a verified sample index. External references and unsupported codecs are rejected.
+
+Three cardiac source exports repeat recorded content; scanner clock resets are disclosed. Four originals omit color range, while their browser transports declare limited range: no display colorimetry equivalence is claimed. Both distinctions are visible with the clips. Playback uses presented-frame timestamps where supported; clock-based fallback is labeled approximate. Authenticated browser checks covered six clips, two widths and both callback modes (24 cases), including playback and first/middle/last seeking.
+
+The exact motion UI inverse preserves the earlier pulmonary UI audit without accepting unrelated app changes. Complete clinical assessment, anatomical correspondence, schematic/3D coverage and production release remain outstanding.
