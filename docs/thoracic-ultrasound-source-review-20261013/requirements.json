@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "investigation_id": "ra.thoracic-ultrasound",
+  "status": "draft_source_to_structure_inventory",
+  "clinical_approval": false,
+  "complete": false,
+  "acquisition_context": [
+    "side and anatomical site",
+    "probe and orientation",
+    "patient position",
+    "depth, gain and focus",
+    "respiratory and ventilation state",
+    "ECG or valve timing where relevant",
+    "adequacy and unassessed regions"
+  ],
+  "representation_policy": {
+    "image": "Native source pixels with reviewed structure identification required. Presence of a figure is insufficient.",
+    "schematic": "Faithful source-informed relationships; illustrative scale and simplifications explicit.",
+    "model": "Independent anatomical provenance and reviewed parts required; never infer a volume from unrelated 2D cases.",
+    "artifacts": "A-lines, B-lines, shadows, mirror and curtain phenomena are observations/physics, not additional anatomical parts."
+  },
+  "assessment_policy": "Unassessed and inadequate acquisitions remain distinct from normal. Source cases do not prepopulate patient findings.",
+  "steps": [
+    {
+      "index": 0,
+      "title": "Lung bases",
+      "required_structures": [
+        {
+          "name": "right basal lung",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "left basal lung",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "right hemidiaphragm",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "left hemidiaphragm",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "right and left costophrenic recesses",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "liver acoustic window",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "spleen acoustic window",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        }
+      ],
+      "conditional_structures": [
+        "consolidated peripheral parenchyma",
+        "consolidation\u2013aerated lung boundary",
+        "air-filled or fluid-filled bronchial branches within consolidation"
+      ],
+      "functional_evidence": [
+        "breathing-linked diaphragm motion",
+        "dynamic versus static bronchial echoes"
+      ],
+      "gaps": [
+        "Dynamic bronchogram cine absent; central lung is not excluded by peripheral examples."
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Pleura",
+      "required_structures": [
+        {
+          "name": "chest wall\u2013pleural interface",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "parietal pleura",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "visceral pleura",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "pleural space",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        }
+      ],
+      "conditional_structures": [
+        "free or loculated fluid",
+        "septa and echogenic debris",
+        "compressed adjacent lung"
+      ],
+      "functional_evidence": [
+        "pleural sliding at each assessed site",
+        "fluid movement with breathing"
+      ],
+      "gaps": [
+        "Composite pleural echo does not resolve every histological layer.",
+        "Complex pleural-fluid examples and source-corresponding boundaries remain missing."
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Peripheral lung lesions",
+      "required_structures": [
+        {
+          "name": "pleural contact surface",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "adjacent visible lung and pleura",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        }
+      ],
+      "conditional_structures": [
+        "lesion base and apex",
+        "lesion border",
+        "internal echogenic foci",
+        "adjacent fluid",
+        "vascular signal if Doppler acquired"
+      ],
+      "functional_evidence": [
+        "two-plane lesion assessment",
+        "Doppler only with documented settings and acquisition"
+      ],
+      "gaps": [
+        "Peripheral lesion morphology cannot establish or exclude PE.",
+        "Paired orthogonal planes from a single lesion are not yet provided."
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Pericardium",
+      "required_structures": [
+        {
+          "name": "pericardial space",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "right atrial wall and cavity",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "right ventricular free wall and cavity",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "left atrium",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "left ventricle",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "interventricular septum",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "mitral valve",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "tricuspid valve",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "descending thoracic aorta landmark",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "IVC and right atrial junction",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        }
+      ],
+      "conditional_structures": [
+        "pericardial fluid distribution",
+        "fibrin or loculation",
+        "epicardial fat differential",
+        "hepatic veins when venous Doppler is indicated"
+      ],
+      "functional_evidence": [
+        "ECG or valve-timed chamber motion",
+        "IVC respiratory change with ventilation context",
+        "valve inflow respiratory variation if Doppler acquired"
+      ],
+      "gaps": [
+        "Source populations and ventilation context must not be assumed.",
+        "No single still establishes tamponade.",
+        "Pericardial fat, descending aorta and hepatic vein coverage need reviewed source mapping."
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Chest wall and ribs",
+      "required_structures": [
+        {
+          "name": "skin",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "subcutaneous tissue",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "intercostal musculature",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        },
+        {
+          "name": "superficial rib cortex at symptomatic site",
+          "image": "unverified",
+          "schematic": "missing",
+          "model": "missing"
+        }
+      ],
+      "conditional_structures": [
+        "cortical step or discontinuity",
+        "adjacent hematoma",
+        "healing callus"
+      ],
+      "functional_evidence": [
+        "targeted scan at maximal tenderness",
+        "orthogonal assessment where feasible"
+      ],
+      "gaps": [
+        "Rib shadows hide deeper structures; no posterior cortex is inferred.",
+        "Per-site and laterality completeness remains unproven."
+      ]
+    }
+  ]
+}
