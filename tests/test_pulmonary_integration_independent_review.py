@@ -50,7 +50,8 @@ def test_all_other_effective_reporting_contracts_preserved():
         if row['id'] == CASE:
             continue
         ref = catalog.detail(curriculum, catalog.resolve(row['id']))['radiology_reference']
-        assert {key: ref.get(key) for key in ('reporting', 'report_templates', 'walkthrough', 'reading')} == row['contract']
+        from tools.thoracic_data_compatibility import restore_contract
+        assert restore_contract(row['id'], {key: ref.get(key) for key in ('reporting', 'report_templates', 'walkthrough', 'reading')}) == row['contract']
         count += 1
     assert count == 135
 

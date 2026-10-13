@@ -2388,15 +2388,16 @@ function sourceMotionReference(asset) {
   const slider = el('input', { type: 'range', min: 1, max: asset.frames, step: 1, value: 1,
     'aria-label': 'Published movie frame' });
   const status = el('output', { 'aria-live': 'polite', style: 'flex-basis:100%;white-space:normal;overflow-wrap:anywhere' });
+  const hasPresentedFrameCallback = typeof video.requestVideoFrameCallback === 'function';
   let ordinal = 0, requested = null;
   const previous = btn({ class: 'btn ghost small', onclick: () => seek((requested ?? ordinal) - 1) }, 'Previous frame');
   const next = btn({ class: 'btn ghost small', onclick: () => seek((requested ?? ordinal) + 1) }, 'Next frame');
-  function update(index) {
+  function update(index, presented = false) {
     requested = null;
     ordinal = Math.max(0, Math.min(asset.frames - 1, index)); slider.value = String(ordinal + 1);
     previous.disabled = ordinal === 0; next.disabled = ordinal === asset.frames - 1;
-    status.textContent = 'Published frame ' + (ordinal + 1) + ' of ' + asset.frames
-      + ' · source movie time ' + asset.source_pts_seconds[ordinal].toFixed(3) + ' s · ' + asset.modality + ' source movie';
+    status.textContent = (presented ? 'Exported frame ' : 'Approximate exported frame ') + (ordinal + 1) + ' of ' + asset.frames
+      + ' · exported movie time ' + asset.source_pts_seconds[ordinal].toFixed(3) + ' s · ' + asset.modality + ' source movie';
   }
   function nearest(time) {
     let index = 0;
@@ -2411,13 +2412,18 @@ function sourceMotionReference(asset) {
     video.currentTime = asset.transport_pts_seconds[requested] + 0.001;
   }
   slider.addEventListener('input', () => seek(Number(slider.value) - 1));
-  if (video.requestVideoFrameCallback) {
-    const displayFrame = (now, metadata) => { update(nearest(metadata.mediaTime)); video.requestVideoFrameCallback(displayFrame); };
+  if (hasPresentedFrameCallback) {
+    const displayFrame = (now, metadata) => {
+      if (!video.isConnected) return;
+      const index = nearest(metadata.mediaTime);
+      update(index, Math.abs(asset.transport_pts_seconds[index] - metadata.mediaTime) <= 0.001);
+      video.requestVideoFrameCallback(displayFrame);
+    };
     video.requestVideoFrameCallback(displayFrame);
   } else {
     video.addEventListener('timeupdate', () => update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)));
   }
-  video.addEventListener('seeked', () => { if (video.readyState >= 2) update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)); });
+  video.addEventListener('seeked', () => { if (!hasPresentedFrameCallback && video.readyState >= 2) update(sourceMotionFrameAtTime(asset.transport_pts_seconds, video.currentTime)); });
   video.addEventListener('error', () => { status.textContent = 'The source movie could not load. Open the original source below.'; });
   previous.disabled = true;
   status.textContent = 'Loading published source movie…';

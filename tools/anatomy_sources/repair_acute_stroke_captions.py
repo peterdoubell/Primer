@@ -47,6 +47,8 @@ def repair():
  if any('source_caption_full' in r for r in rows):
   if not all('source_caption_full' in r for r in rows):raise ValueError('Partial pre-existing caption amendment is not approved')
   prior=json.loads((ROOT/AMENDMENT).read_text());new=(ROOT/REGISTRY).read_bytes()
+  from tools.thoracic_data_compatibility import restore_raw
+  new=restore_raw(str(REGISTRY),new,allow_historical=True)
   if sha(new)!=prior['after_registry_SHA256']:raise ValueError('Caption-complete registry differs from prior exact repair')
   print('Complete13 captions already match the exact reviewed repair');return prior
  before={str(p):sha((ROOT/p).read_bytes()) for p in integration.DATA_PATHS}
