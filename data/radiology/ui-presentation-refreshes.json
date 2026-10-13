@@ -491,13 +491,47 @@
       "reopens_or_extends_any_review": false
     },
     {
+      "id": "2026-10-13-source-motion-frame-status",
+      "files": {
+        "web/app.js": {
+          "before": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+          "after": "69189a56aced8f418531721c981bc36a5eae5a08dfda019289a9cc8a8ca4ca28"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "sourceMotionReference_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/thoracic-ultrasound-source-review-20261013/evidence/motion-ui-delta.json",
+        "sha256": "feccbddf1b4a8e1f8949086d8739484690fec0c24b60936e70387b0465684dfe"
+      },
+      "motion_reader_smoke": {
+        "path": "docs/thoracic-ultrasound-source-review-20261013/evidence/motion-browser-proof.json",
+        "sha256": "ce0f5041d741a762da40d37d554e4f3bf35b107f16301b1cbd9331654591117f",
+        "passed": true,
+        "cases": 24
+      }
+    },
+    {
       "id": "2026-10-13-radiology-image-presentation",
       "date": "2026-10-13",
       "change": "Remove histology figures from radiology presentation and show larger, selectable original MRI examples for bladder staging. Source records and original files remain unchanged.",
       "files": {
         "web/app.js": {
-          "before": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
-          "after": "9410279e01f5813df22b50c661081f1933ed2626643af02db0f9ddd5071c699d"
+          "before": "69189a56aced8f418531721c981bc36a5eae5a08dfda019289a9cc8a8ca4ca28",
+          "after": "f9753958f03a65a08cfbe9d4dfb8b80e72513761381a8fda342aabeefb11ad27"
         },
         "web/styles.css": {
           "before": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660",
@@ -560,7 +594,7 @@
       "fine_anatomical_approval": false,
       "scoped_compatibility_amendment": {
         "path": "docs/radiology-image-presentation-review-20261013/exact-app-delta.json",
-        "sha256": "64bda55657dc74eda70deea5bb948089831b34fcc3d2406cd75ea27938a45802"
+        "sha256": "49f734e2f296cf383a52261954d5c236423878cb56c9405e7a14f2bf07ddd1b5"
       }
     }
   ]

@@ -1,0 +1,16 @@
+{
+  "path": "tools/thoracic_motion_ui_compatibility.py",
+  "before": "12484a5157adc9bce082084bb8de0004038195b13cb9f79e2b92319c46fe56a8",
+  "after": "c55e09f2f09a23e8c9f3e74f1e33a7da6a18acdf7cf7f782146ccf336119912e",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_any_historical_approval": false,
+  "changes": [
+    {
+      "start": 537,
+      "end": 677,
+      "before": "",
+      "after": "    from tools.anatomy_sources.radiology_presentation_compatibility import restore_presentation_app\n    app = restore_presentation_app(app)\n"
+    }
+  ]
+}
