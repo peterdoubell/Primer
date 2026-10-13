@@ -163,6 +163,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-numerical-lab",
     "math-logic-lab",
     "math-number-theory-lab",
+    "math-systems-lab",
     "physics-maxwell-lab",
     "physics-cosmology-lab",
     "physics-buoyancy-lab",
@@ -413,6 +414,9 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "math-topology-lab":
                 if node.get("id") != "math.5.topology" or props != {"scenario": "math.5.topology.opens-covers-surfaces"}:
                     raise ValueError("{} math-topology-lab has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "math-systems-lab":
+                if node.get("id") != "math.3.systems" or props != {"scenario": "math.3.systems.general-form"}:
+                    raise ValueError("Systems lab must bind the original systems lesson and its general-form scenario")
             elif renderer == "math-number-theory-lab":
                 if node.get("id") != "math.4.numtheory" or props != {"scenario": "math.4.numtheory.exact-integers"}:
                     raise ValueError("{} math-number-theory-lab has an unknown or cross-lesson scenario".format(node.get("id")))
