@@ -35,13 +35,13 @@
     },
     "primer/source_native_inspectors.py": {
       "before_sha256": "4a0d5a7c94c9a99aedf1afb1314fd0ec0c565de8accd0cad8186fcd50c77b3f5",
-      "after_sha256": "0dc4a881284bc559a8dd556dbe05d88d7667bf467a52a89a48a63f9a35301b8a",
+      "after_sha256": "e737f32999b24fb0ba3479ec3d8ee24faf7f6787043b8f96b8a74ba4316719fe",
       "changes": [
         {
           "start": 80,
           "end": 83,
           "before": "",
-          "after": "    from .thoracic_lung_native import references as lung_references\n    for identifier, entries in lung_references().items():\n        result.setdefault(identifier, []).extend(entries)\n"
+          "after": "    from .thoracic_lung_native import references as lung_references\n    for identifier, entries in lung_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
         }
       ]
     },

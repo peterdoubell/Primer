@@ -80,5 +80,5 @@ def references():
     result.update(thoracic_references())
     from .thoracic_lung_native import references as lung_references
     for identifier, entries in lung_references().items():
-        result.setdefault(identifier, []).extend(entries)
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

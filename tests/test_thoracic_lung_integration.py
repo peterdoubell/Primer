@@ -9,6 +9,15 @@ ROOT=Path(__file__).resolve().parents[1]
 REVIEW=ROOT/'docs/thoracic-lung-source-review-s0028'
 
 
+def test_combining_sources_does_not_mutate_cached_curated_bindings():
+    from primer import source_native_inspectors as combined
+    from primer.thoracic_native_inspectors import references as curated
+    for _ in range(3):
+        combined.references.cache_clear()
+        assert len(combined.references()['ra.thoracic-ultrasound']) == 2
+        assert [i['id'] for i in curated()['ra.thoracic-ultrasound']] == ['bp3d-thoracic-original-surfaces']
+
+
 def test_curated_and_ct_sources_coexist_without_replacing_images_or_report_fields():
     c=Curriculum();ref=detail(c,resolve('ra.thoracic-ultrasound'))['radiology_reference']
     assert [i['id'] for i in ref['source_native_inspectors']]==['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native']
