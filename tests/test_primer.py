@@ -675,8 +675,10 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'fusion of light nuclei and fission of heavy nuclei',
         'mean residual',
         'residual scatter',
-        'axial pull/push orientation index',
-        'turning index',
+        'axial fz =',
+        'torque τy =',
+        'positions and orientations are prescribed snapshots, not free motion',
+        'finite bar geometry, induced magnetization and close-contact forces are not solved',
     ):
         assert boundary in all_physics, boundary
 
@@ -2270,7 +2272,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '35 scenarios, 67 independently exercised controls' in result.stdout
+    assert '35 scenarios, 68 independently exercised controls' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')

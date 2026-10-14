@@ -26,7 +26,9 @@ def test_authenticated_reader_evidence_matches_the_current_renderer():
     assert not proof['errors'] and proof['production_verified'] is False
     assert {(r['id'], r['width']) for r in proof['rows']} == {
         (i, w) for i in ['phys.1.machines', 'phys.1.sound', 'phys.2.waves'] for w in [1440, 390]}
-    digest = hashlib.sha256((ROOT / 'web/lesson-models.js').read_bytes()).hexdigest()
+    from tools.physics_dipole_runtime_compatibility import before_dipole_bytes
+    raw = before_dipole_bytes('web/lesson-models.js', (ROOT / 'web/lesson-models.js').read_bytes())
+    digest = hashlib.sha256(raw).hexdigest()
     assert all(r['served_renderer_sha256'] == digest and r['text_and_body_bounds_passed'] for r in proof['rows'])
     assert sum(r['checked_states'] for r in proof['rows']) == 44
 
