@@ -38,3 +38,7 @@ python -m http.server 8772 --bind 127.0.0.1 --directory docs/thoracic-lung-sourc
 Open `http://127.0.0.1:8772/`. `viewer-browser-proof.json` covers 90 desktop/mobile source-slice and label states, original array hashes, sampled display pixels, source-plane corners and failed-load recovery. `viewer-gpu-proof.json` verifies all ten per-lobe/width GPU uploads and source draw counts. These prove software/source correspondence, not anatomical correctness or clinical approval. Whole-volume review remains necessary.
 
 Prepare display buffers with `python tools/anatomy_sources/package_thoracic_lung_viewer.py`. With Playwright/Chromium available, reproduce browser checks using `node tools/check_thoracic_lung_volume.cjs` and `node tools/check_thoracic_lung_gpu.cjs` while the local server is running. Run `python -m pytest tests/test_thoracic_lung_candidate.py tests/test_thoracic_lung_viewer.py -q` for original-array, surface and transport checks.
+
+## Local module integration
+
+A separate runtime copy is now connected to the thoracic ultrasound reporting reference and shared lesson alongside the original curated surfaces. It preserves the source case identity and is independent of the published ultrasound examples. Every resource has a pinned file identity; unregistered and encoded source paths are rejected. Source decoding verifies both stored gzip and HTTP-decoded representations. Original clinical examples and unassessed report fields remain intact. Full CI and hosted release verification are pending; no clinical or complete-anatomy approval is granted.
