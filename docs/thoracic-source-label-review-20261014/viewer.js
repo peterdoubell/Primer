@@ -17,7 +17,7 @@ function choose(location){
 }
 async function show(){
   const request=++generation;const row=inventory.images[Number($('figure').value)];window.SourceLabelReview=null;
-  $('original').hidden=$('locator').hidden=$('detail').hidden=true;$('locations').replaceChildren();$('status').textContent='Checking original figure bytes…';
+  $('original').hidden=$('detail').hidden=true;$('locator').setAttribute('hidden','');$('retry').hidden=true;$('locations').replaceChildren();$('status').textContent='Checking original figure bytes…';
   try{
     const response=await fetch(row.file);if(!response.ok)throw Error('Original source unavailable');
     const bytes=await response.arrayBuffer();if(await sha(bytes)!==row.sha256)throw Error('Original figure hash differs');
@@ -31,8 +31,8 @@ async function show(){
     const a=document.createElement('a');a.href=row.source_url;a.textContent=row.source_id+' · source article and figure caption';
     const license=document.createElement('a');license.href=row.source_metadata.license_url;license.textContent=row.source_metadata.license;
     $('credit').replaceChildren(document.createTextNode(row.source_metadata.authors.join(', ')+' · '+row.source_metadata.title+' · '),a,document.createTextNode(' · '),license,document.createTextNode(' · Original figure unmodified; locator interface and pixel inset are additions.'));
-    $('original').hidden=$('detail').hidden=false;$('locator').hidden=!$('overlay').checked;choose(row.locations[0]);
-  }catch(error){if(request===generation)$('status').textContent=error.message;}
+    $('original').hidden=$('detail').hidden=false;$('locator').toggleAttribute('hidden',!$('overlay').checked);choose(row.locations[0]);
+  }catch(error){if(request===generation){$('status').textContent=error.message;$('retry').hidden=false;}}
 }
-$('figure').onchange=show;$('overlay').onchange=()=>{$('locator').hidden=!$('overlay').checked;};
-(async()=>{inventory=await (await fetch('manifest.json')).json();for(const [i,row] of inventory.images.entries())$('figure').append(new Option(row.title,i));await show();})().catch(error=>{$('status').textContent=error.message;});
+$('retry').onclick=show;$('figure').onchange=show;$('overlay').onchange=()=>{$('locator').toggleAttribute('hidden',!$('overlay').checked);};
+(async()=>{inventory=await (await fetch('manifest.json')).json();for(const [i,row] of inventory.images.entries())$('figure').append(new Option(row.title,i));const requested=new URLSearchParams(location.search).get('figure');if(requested){const index=inventory.images.findIndex(row=>row.id===requested);if(index<0)throw Error('Unknown original source figure');$('figure').value=String(index);}await show();})().catch(error=>{$('status').textContent=error.message;});

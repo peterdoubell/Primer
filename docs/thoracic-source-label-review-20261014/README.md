@@ -10,4 +10,4 @@ Original sources and JATS/license evidence remain in `docs/thoracic-ultrasound-s
 
 Actual browser evidence covers all 27 locators at 1440 and 390 pixels (54 cases). Native decoded crop RGBA values exactly match their source-image regions in the same browser. Measured overlay client coordinates match the original-pixel transforms, and body overflow checks pass. A failed-source test verifies that stale images are hidden. These are display-correspondence checks, not independent clinical review.
 
-This companion is not yet integrated into the production reporting module. Remaining anatomy, schematics, 3D, acquisition adequacy and full clinical validation obligations remain open.
+This branch binds the companion to the six matching source figure cards in reporting and the shared lesson. Four authenticated route/viewport cases exercised all 27 locators each and verified all nine delivered file bodies. Production release remains pending. Remaining anatomy, schematics, 3D, acquisition adequacy and full clinical validation obligations remain open.

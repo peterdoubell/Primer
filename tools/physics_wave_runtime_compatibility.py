@@ -6,6 +6,8 @@ PROOF="docs/physics-calibrated-wave-review-20261014/runtime-inverse.json"
 PROOF_SHA="f1f925cb726d003708b19dea3899618e6f730af32b370929aaa77a9ea44508be"
 
 def before_wave_bytes(path,raw,allow_older=False):
+    from tools.thoracic_label_runtime_compatibility import before_label_bytes
+    raw=before_label_bytes(path,raw,allow_older=True)
     if path!='web/lesson-models.js':return raw
     encoded=(ROOT/PROOF).read_bytes()
     if hashlib.sha256(encoded).hexdigest()!=PROOF_SHA:raise ValueError('Physics inverse evidence changed')

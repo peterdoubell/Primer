@@ -2405,6 +2405,21 @@ function sourceAtlasFigure(asset, { onExploreSource, createElement = el, sourceL
       sourceLink(derived ? 'Source dataset' : 'Source article', asset.source_url), ' · ',
       sourceLink(nativeVolume ? 'Source volume record' : derived ? 'Source geometry' : tableArtwork ? 'Original table' : 'Original figure', asset.figure_url), ' · ',
       sourceLink(asset.license, asset.license_url)));
+  if (asset.source_label_locator) {
+    const locator = asset.source_label_locator;
+    figure.dataset.sourceLabelFigure = locator.figure_id;
+    const details = createElement('details', { class: 'rad-source-label-locator' },
+      createElement('summary', {}, 'Inspect original image labels and marked observations'),
+      createElement('p', {}, 'Publisher annotation locations and native pixel insets. Boxes are not tissue boundaries; signal panels do not identify valve leaflet morphology.'));
+    let loaded = false;
+    details.addEventListener('toggle', () => {
+      if (!details.open || loaded) return;
+      loaded = true;
+      details.append(createElement('iframe', { src: locator.src, title: 'Original image label correspondence',
+        loading: 'lazy', style: 'width:100%;height:760px;border:1px solid currentColor;display:block' }));
+    });
+    figure.append(details);
+  }
   if (derived && onExploreSource) figure.append(btn({ class: 'btn ghost small',
     onclick: () => onExploreSource(asset) }, 'Explore this source knee in 3D'));
   if (asset.source_caption_full && asset.source_caption_full !== asset.caption) {
