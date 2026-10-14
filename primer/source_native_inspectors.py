@@ -81,4 +81,7 @@ def references():
     from .thoracic_lung_native import references as lung_references
     for identifier, entries in lung_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .thoracic_basal_context import references as basal_references
+    for identifier, entries in basal_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

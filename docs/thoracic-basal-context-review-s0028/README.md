@@ -12,4 +12,4 @@ Open `index.html` through a local HTTP server to inspect every source-index CT p
 
 Verification: 126 display cases, all seven source arrays at two viewport widths, affine plane corners, load-failure recovery and 14 actual GPU-buffer/draw-count cases. Browser proofs include implementation hashes. Automated tests independently reconstruct every interface and display buffer.
 
-Clinical anatomy, HU calibration, independent patient orientation and normal-atlas approval remain unverified. This companion is not yet bound into the production module. Existing production lung and curated anatomy viewers remain in place.
+Clinical anatomy, HU calibration, independent patient orientation and normal-atlas approval remain unverified. This companion is bound to thoracic reporting and its shared lesson in this branch, alongside the existing lung and curated anatomy viewers. Production deployment remains pending. Authenticated reader checks passed for all 21 resources at desktop/mobile widths, with existing clinical figures, cine and unassessed report choices preserved.

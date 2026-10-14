@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "source_case": "s0028",
+  "source_triangles": 486984,
+  "bindings": {
+    "ra.thoracic-ultrasound": [
+      "totalseg-s0028-basal-context"
+    ]
+  },
+  "inspectors": {
+    "totalseg-s0028-basal-context": {
+      "id": "totalseg-s0028-basal-context",
+      "modality": "CT",
+      "title": "Matching CT, lung bases, liver and spleen source context",
+      "src": "/app/anatomy/totalseg-s0028-basal-context/index.html",
+      "manifest_url": "/app/anatomy/totalseg-s0028-basal-context/viewer-manifest.json",
+      "sha256": "2ea12b34832a84e18223e0413f4d1e5bd9045e60e06969b265e39a7391f01132",
+      "manifest_sha256": "22021b435ec4aedc61ab4e6b8dea3e0a513d99e38e2492bf54bcec8ba9f6d8f6",
+      "caption": "Inspect the complete same-case CT and seven unchanged source labels with 486,984 interface triangles. Liver and spleen provide basal lung context, not ultrasound registration, diaphragm tissue identity or breathing-linked motion. Detached two-voxel liver and one-voxel spleen label components are retained and need anatomical review; they are not identified accessory organs.",
+      "attribution": "Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0028. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original voxel transport, 0.5 label-interface extraction, source-value display and centred review buffers; no smoothing, component deletion or source fitting.",
+      "source_url": "https://zenodo.org/records/22688904",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "bound_source_ids": [
+        "totalseg-s0028-basal-context"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    }
+  },
+  "files": {
+    "basal-source-correspondence.png": {
+      "sha256": "ed7067fb613790be550abd2e2462ceac2b24e141685a815a3d4b0c8ca073b41e",
+      "bytes": 608142
+    },
+    "index.html": {
+      "sha256": "2ea12b34832a84e18223e0413f4d1e5bd9045e60e06969b265e39a7391f01132",
+      "bytes": 4074
+    },
+    "originals/ct.nii.gz": {
+      "sha256": "d11b8acbf137277d157930f7d0cb3a5f259364a5e5af18dafcd3cac0ecf4168c",
+      "bytes": 39394458
+    },
+    "originals/liver.nii.gz": {
+      "sha256": "10549818924d105f875a75ed70b7107e6bb8af0dcbb21c3aaa6d05a0d2caee4e",
+      "bytes": 206328
+    },
+    "originals/lung_lower_lobe_left.nii.gz": {
+      "sha256": "f58c971a64526b5c764975a4796efb6334a407da188d90e035c73d3fe5483ed6",
+      "bytes": 190831
+    },
+    "originals/lung_lower_lobe_right.nii.gz": {
+      "sha256": "d1928da02bdd9038a262a24038e76c0e0f0e9b50c25e4143052e7e58cee9038d",
+      "bytes": 196032
+    },
+    "originals/lung_middle_lobe_right.nii.gz": {
+      "sha256": "7aea32f3cfd6a4d0cb88f2b6fe3720b0766cce2f699cbad0d1726bfab1fa243c",
+      "bytes": 166541
+    },
+    "originals/lung_upper_lobe_left.nii.gz": {
+      "sha256": "a1f65922aafbed62a56fada553d7201f763caac28781ac78e5e17d57f9fd029c",
+      "bytes": 189224
+    },
+    "originals/lung_upper_lobe_right.nii.gz": {
+      "sha256": "62a5f5fcfda0bb98456a513170a64d762b67cbb5d14735398af7156f44d898a6",
+      "bytes": 180014
+    },
+    "originals/spleen.nii.gz": {
+      "sha256": "9572a5ec13640611ba60f2f9d673c9c2802ed9516ff56657357ba329be722e97",
+      "bytes": 160820
+    },
+    "surface-review.js": {
+      "sha256": "58e62e01399782af103d26872267d2a08305a9635bc67688653313d97b32797b",
+      "bytes": 8419
+    },
+    "surfaces/liver-review-buffer.bin.gz": {
+      "sha256": "c6e668d601c9cc10aed3bd9af7aea2dba0b0b33875cb86c92e03286b39734a44",
+      "bytes": 712750
+    },
+    "surfaces/lung_lower_lobe_left-review-buffer.bin.gz": {
+      "sha256": "2d81d49b827f9a14f8679f79f43ae292bf6cfd698bd40e2aff37562628f914bf",
+      "bytes": 469599
+    },
+    "surfaces/lung_lower_lobe_right-review-buffer.bin.gz": {
+      "sha256": "7b3a3321c7f5c651ce51cc4f17f1d5383abad3c0ac46d5e042e9ff7c2fed6df2",
+      "bytes": 538385
+    },
+    "surfaces/lung_middle_lobe_right-review-buffer.bin.gz": {
+      "sha256": "b909f63213f72186b287e051d1972df439966f862f9578522a56973e916960a5",
+      "bytes": 229444
+    },
+    "surfaces/lung_upper_lobe_left-review-buffer.bin.gz": {
+      "sha256": "5cb508315e799a1d2f143e13ee991408d6060a4f77d20cdd82bd6fbc4373a0e4",
+      "bytes": 463286
+    },
+    "surfaces/lung_upper_lobe_right-review-buffer.bin.gz": {
+      "sha256": "95b7caf94f5c3dcac3302a13b719820ed1f1f2887ee2ff5f694f56bb5382e314",
+      "bytes": 395165
+    },
+    "surfaces/spleen-review-buffer.bin.gz": {
+      "sha256": "b345dfedf478da6f9e123632e3736a8e3e688ef88a20009c21add193301809dc",
+      "bytes": 102669
+    },
+    "viewer-manifest.json": {
+      "sha256": "22021b435ec4aedc61ab4e6b8dea3e0a513d99e38e2492bf54bcec8ba9f6d8f6",
+      "bytes": 9793
+    },
+    "viewer.css": {
+      "sha256": "0327e7a5fa6ec1fd087f950bd9772f3a6252b515ccd5ff1b8790fd49b24115c2",
+      "bytes": 1031
+    },
+    "volume-review.js": {
+      "sha256": "e6ef57a91e05ba504713a90d5ffcbd3524bc0d1fce2c1f5717bd30dff97e744c",
+      "bytes": 5705
+    }
+  }
+}

@@ -73,6 +73,7 @@ def package(source, output):
     html = html.replace('Selected lobe', 'Selected source organ').replace('All five lobes', 'All seven source parts')
     html = html.replace('by these five labels', 'by these seven labels')
     html = html.replace('<p id="scope"></p>', '<p>The liver and spleen labels provide same-case anatomical context for basal lung assessment. They do not establish an ultrasound acoustic path, organ motion, diaphragm identity or a current-patient finding. A label interface is not a tissue capsule. The original liver label includes a detached two-voxel component, and the spleen label a detached one-voxel component under face connectivity. Both are retained and need anatomical review; they are not identified as accessory organs.</p><p id="scope"></p>')
+    html = html.replace('<p>Jakob Wasserthal', '<details><summary>Matching CT planes and label boundaries</summary><img src="basal-source-correspondence.png" alt="Six original CT index planes with unchanged lung, liver and spleen label boundaries and source fragment coordinates" style="max-width:100%;height:auto"><p>Full source planes at native pitch; white rings mark the retained label fragments. This is source correspondence, not identified tissue layers.</p></details><p>Jakob Wasserthal')
     (output / 'index.html').write_text(html)
     proof['pairwise_context_overlap_voxels'] = []
     import nibabel as nib
