@@ -24,3 +24,17 @@ python -m pytest tests/test_thoracic_lung_candidate.py -q
 ```
 
 Source and image/geometry adaptation: Jakob Wasserthal, [TotalSegmentator dataset v3.0.0](https://zenodo.org/records/22688904), DOI 10.5281/zenodo.22688904, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Source pixels are unchanged; the figure applies a documented display window and overlays original label contours. The dataset includes varied clinical conditions and does not supply a normality guarantee for this use.
+
+## Full-volume correspondence viewer
+
+The standalone `index.html` now exposes every original source-index slice in all three planes, reversible original label overlays and same-case 3D label interfaces. The 3D source-plane outline is calculated from the same affine as the displayed CT plane. Objects remain in their source coordinates. Display normals are derived from retained interface triangles, and centred Float32 transport reproduces every source surface position exactly for this case. A failed load clears stale imagery/geometry and offers retry.
+
+Serve from the repository root:
+
+```sh
+python -m http.server 8772 --bind 127.0.0.1 --directory docs/thoracic-lung-source-review-s0028
+```
+
+Open `http://127.0.0.1:8772/`. `viewer-browser-proof.json` covers 90 desktop/mobile source-slice and label states, original array hashes, sampled display pixels, source-plane corners and failed-load recovery. `viewer-gpu-proof.json` verifies all ten per-lobe/width GPU uploads and source draw counts. These prove software/source correspondence, not anatomical correctness or clinical approval. Whole-volume review remains necessary.
+
+Prepare display buffers with `python tools/anatomy_sources/package_thoracic_lung_viewer.py`. With Playwright/Chromium available, reproduce browser checks using `node tools/check_thoracic_lung_volume.cjs` and `node tools/check_thoracic_lung_gpu.cjs` while the local server is running. Run `python -m pytest tests/test_thoracic_lung_candidate.py tests/test_thoracic_lung_viewer.py -q` for original-array, surface and transport checks.
