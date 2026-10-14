@@ -6,6 +6,8 @@ PROOF="docs/physics-dipole-orientation-review-20261014/runtime-inverse.json"
 PROOF_SHA="163f4eff460cdc5d8e26de8ebc3be3facaa0a596fe686ab82cbc672f0aaa8a98"
 
 def before_dipole_bytes(path,raw,allow_older=False):
+    from tools.math_growth_runtime_compatibility import before_growth_bytes
+    raw=before_growth_bytes(path,raw,allow_older=allow_older)
     if path!='web/lesson-models.js':return raw
     encoded=(ROOT/PROOF).read_bytes()
     if hashlib.sha256(encoded).hexdigest()!=PROOF_SHA:raise ValueError('Physics inverse evidence changed')

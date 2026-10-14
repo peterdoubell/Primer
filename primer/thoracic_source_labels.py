@@ -8,7 +8,7 @@ from urllib.parse import urlencode
 
 ROOT = Path(__file__).resolve().parents[1]
 PREFIX = '/app/source-labels/thoracic/'
-REGISTRY_SHA = 'a477565e10641bc50ecb29d5777b7921316c9ba0f26f06996af17eed22f07418'
+REGISTRY_SHA = '282f6231f48e97e7ab4638f5c7c5bcedf23e4583f15d2fd1eb5078509d11574e'
 
 
 @lru_cache(maxsize=1)
@@ -42,7 +42,7 @@ def references():
     manifest = json.loads(validate_file('manifest.json').read_text())
     if (manifest.get('investigation_id') != 'ra.thoracic-ultrasound'
             or len(manifest.get('images', [])) != 6
-            or sum(len(r['locations']) for r in manifest['images']) != 27
+            or sum(len(r['locations']) for r in manifest['images']) != 31
             or any(manifest.get(k) is not False for k in ['clinical_approval', 'structure_coverage_granted',
                                                         'three_dimensional_registration', 'original_images_modified'])):
         raise ValueError('Source-label correspondence scope changed')
