@@ -1,0 +1,245 @@
+{
+  "curriculum_sha256": "f57ab18d5a4657547b7f9bdaf725bad6486d109be640fe5acc683e3759f62d4c",
+  "scope": "Authenticated actual lesson reader on isolated loopback synthetic fixture",
+  "url": "http://127.0.0.1:52651",
+  "production_verified": false,
+  "source_hashes": {
+    "web/concept-models.js": "19120fc3f47460743d54d571a877929e4d1d9432542bb88cfbee35157d139d10",
+    "web/styles.css": "677085893dee6d4d95b3573e2f1dc07944760d5782b1ff266791fd2ff51f508c",
+    "web/lesson-models.js": "a815b5c92ebd3293f9145750592736d77435d5f76505b040c8c5d46a1c5de485",
+    "web/app.js": "5ed44bcf329222450e46a4547c1ce7ed1308bb6c49d5c096f34315f4c988f614"
+  },
+  "startup_bundles": {
+    "startup.css": {
+      "sha256": "97818a1e26c192815a63ce540983a47f1355bc350a0d17ad5112ae9b09d4d3f4",
+      "bytes": 378947,
+      "current_source_bytes_equal": true
+    },
+    "startup.js": {
+      "sha256": "bf067213eb26e4a940c7432c65d3c40ff75ff86401c0aac521573537b1adfd3d",
+      "bytes": 2830391,
+      "current_source_bytes_equal": true
+    }
+  },
+  "reader_cases": [
+    {
+      "id": "math.3.sequences",
+      "width": 1440,
+      "route": "/app/#/node/math.3.sequences",
+      "title": "Terms, partial sums and infinite series",
+      "instructions": "Compare terms and partial sums using signed or fractional ratios. Change the term count and inspect convergent infinite sums and their remaining tails.",
+      "states": [
+        {
+          "index": 0,
+          "state": {
+            "mode": "geometric",
+            "first": -4,
+            "step": -0.75,
+            "count": 24
+          },
+          "readout": "Multiply by r = -0.75 each time. First term -4, term N = 0.00535142. Sum of the first 24 terms S_N = -2.28342. The infinite series converges to -2.28571. Signed remaining sum after N terms = -0.00229347. The terms themselves tend to 0.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 1,
+          "state": {
+            "mode": "geometric",
+            "first": 4,
+            "step": 1,
+            "count": 24
+          },
+          "readout": "Multiply by r = 1 each time. First term 4, term N = 4. Sum of the first 24 terms S_N = 96. The infinite series diverges: its partial sums have no finite limit. The terms themselves tend to 4.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 2,
+          "state": {
+            "mode": "geometric",
+            "first": 1,
+            "step": 0.25,
+            "count": 24
+          },
+          "readout": "Multiply by r = 0.25 each time. First term 1, term N = 1.4211e-14. Sum of the first 24 terms S_N = 1.33333. The infinite series converges to 1.33333. Signed remaining sum after N terms = 4.7370e-15. The terms themselves tend to 0.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 3,
+          "state": {
+            "mode": "geometric",
+            "first": 0,
+            "step": -4,
+            "count": 24
+          },
+          "readout": "Multiply by r = -4 each time. First term 0, term N = 0. Sum of the first 24 terms S_N = 0. The infinite series converges to 0. Signed remaining sum after N terms = 0. The terms themselves tend to 0.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        }
+      ],
+      "reset_passed": true,
+      "keyboard_passed": true,
+      "page_errors": []
+    },
+    {
+      "id": "math.3.expo-logs",
+      "width": 1440,
+      "route": "/app/#/node/math.3.expo-logs",
+      "title": "Exponential growth, decay and logarithmic inverses",
+      "instructions": "Compare growth and decay with fractional or negative exponents. Exchange graph coordinates to inspect the inverse, and see why base 1 has no logarithm.",
+      "states": [
+        {
+          "index": 0,
+          "state": {
+            "base": 0.5,
+            "exponent": 0.5
+          },
+          "readout": "0.5^(0.5) = approximately 0.707107. log base 0.5 of this value = 0.5. The points (0.5, 0.707107) and (0.707107, 0.5) exchange coordinates.",
+          "label_count": 16,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 1,
+          "state": {
+            "base": 1,
+            "exponent": -0.5
+          },
+          "readout": "1^(-0.5) = approximately 1. Base 1 gives 1 for every exponent. An inverse cannot recover a unique exponent, so log base 1 is undefined.",
+          "label_count": 16,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 2,
+          "state": {
+            "base": 5,
+            "exponent": 3
+          },
+          "readout": "5^(3) = 125. log base 5 of this value = 3. The points (3, 125) and (125, 3) exchange coordinates. The selected point pair is outside the displayed coordinate window; its values are still calculated.",
+          "label_count": 16,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        }
+      ],
+      "reset_passed": true,
+      "keyboard_passed": true,
+      "page_errors": []
+    },
+    {
+      "id": "math.3.sequences",
+      "width": 390,
+      "route": "/app/#/node/math.3.sequences",
+      "title": "Terms, partial sums and infinite series",
+      "instructions": "Compare terms and partial sums using signed or fractional ratios. Change the term count and inspect convergent infinite sums and their remaining tails.",
+      "states": [
+        {
+          "index": 0,
+          "state": {
+            "mode": "geometric",
+            "first": -4,
+            "step": -0.75,
+            "count": 24
+          },
+          "readout": "Multiply by r = -0.75 each time. First term -4, term N = 0.00535142. Sum of the first 24 terms S_N = -2.28342. The infinite series converges to -2.28571. Signed remaining sum after N terms = -0.00229347. The terms themselves tend to 0.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 1,
+          "state": {
+            "mode": "geometric",
+            "first": 4,
+            "step": 1,
+            "count": 24
+          },
+          "readout": "Multiply by r = 1 each time. First term 4, term N = 4. Sum of the first 24 terms S_N = 96. The infinite series diverges: its partial sums have no finite limit. The terms themselves tend to 4.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 2,
+          "state": {
+            "mode": "geometric",
+            "first": 1,
+            "step": 0.25,
+            "count": 24
+          },
+          "readout": "Multiply by r = 0.25 each time. First term 1, term N = 1.4211e-14. Sum of the first 24 terms S_N = 1.33333. The infinite series converges to 1.33333. Signed remaining sum after N terms = 4.7370e-15. The terms themselves tend to 0.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 3,
+          "state": {
+            "mode": "geometric",
+            "first": 0,
+            "step": -4,
+            "count": 24
+          },
+          "readout": "Multiply by r = -4 each time. First term 0, term N = 0. Sum of the first 24 terms S_N = 0. The infinite series converges to 0. Signed remaining sum after N terms = 0. The terms themselves tend to 0.",
+          "label_count": 13,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        }
+      ],
+      "reset_passed": true,
+      "keyboard_passed": true,
+      "page_errors": []
+    },
+    {
+      "id": "math.3.expo-logs",
+      "width": 390,
+      "route": "/app/#/node/math.3.expo-logs",
+      "title": "Exponential growth, decay and logarithmic inverses",
+      "instructions": "Compare growth and decay with fractional or negative exponents. Exchange graph coordinates to inspect the inverse, and see why base 1 has no logarithm.",
+      "states": [
+        {
+          "index": 0,
+          "state": {
+            "base": 0.5,
+            "exponent": 0.5
+          },
+          "readout": "0.5^(0.5) = approximately 0.707107. log base 0.5 of this value = 0.5. The points (0.5, 0.707107) and (0.707107, 0.5) exchange coordinates.",
+          "label_count": 16,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 1,
+          "state": {
+            "base": 1,
+            "exponent": -0.5
+          },
+          "readout": "1^(-0.5) = approximately 1. Base 1 gives 1 for every exponent. An inverse cannot recover a unique exponent, so log base 1 is undefined.",
+          "label_count": 16,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        },
+        {
+          "index": 2,
+          "state": {
+            "base": 5,
+            "exponent": 3
+          },
+          "readout": "5^(3) = 125. log base 5 of this value = 3. The points (3, 125) and (125, 3) exchange coordinates. The selected point pair is outside the displayed coordinate window; its values are still calculated.",
+          "label_count": 16,
+          "calibrated_values_passed": true,
+          "page_overflow": false
+        }
+      ],
+      "reset_passed": true,
+      "keyboard_passed": true,
+      "page_errors": []
+    }
+  ],
+  "errors": []
+}

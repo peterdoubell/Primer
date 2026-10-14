@@ -14,7 +14,7 @@ ORIGINAL = ROOT / 'docs/thoracic-ultrasound-source-review-20261013'
 def test_every_locator_uses_an_unchanged_original_source_and_bounded_pixel_rect():
     manifest = json.loads((REVIEW / 'manifest.json').read_text())
     assert len(manifest['images']) == 6
-    assert sum(len(r['locations']) for r in manifest['images']) == 27
+    assert sum(len(r['locations']) for r in manifest['images']) == 31
     assert manifest['clinical_approval'] is manifest['structure_coverage_granted'] is False
     assert manifest['three_dimensional_registration'] is manifest['original_images_modified'] is False
     original_manifest = json.loads((ORIGINAL / 'manifest.json').read_text())
@@ -43,7 +43,7 @@ def test_actual_browser_crops_and_coordinates_cover_every_locator_at_both_widths
     expected = {(w, r['id'], loc['id']) for w in [1440, 390]
                 for r in manifest['images'] for loc in r['locations']}
     assert {(r['width'], r['image'], r['location']) for r in proof['rows']} == expected
-    assert len(proof['rows']) == 54 and not proof['errors']
+    assert len(proof['rows']) == 62 and not proof['errors']
     assert proof['failed_source_hides_previous_image']
     assert all(r['native_decoded_crop_pixels_exact'] and r['locator_coordinates_match_original_pixels'] for r in proof['rows'])
     for name, digest in proof['implementation_sha256'].items():
@@ -56,3 +56,17 @@ def test_locator_and_inflow_limits_are_visible_to_the_reader():
     assert 'not a tissue boundary' in html
     assert 'Signal panels do not identify valve leaflet morphology' in html
     assert 'current-patient diagnosis' in html
+
+
+def test_expanded_reader_evidence_matches_current_delivery_and_preserves_original_review():
+    proof = json.loads((REVIEW / 'expansion/local-reader-proof.json').read_text())
+    expected = {(route, width) for route in ['reporting', 'lesson'] for width in [1440, 390]}
+    assert {(r['route'], r['width']) for r in proof['rows']} == expected
+    assert all(r['figures'] == 6 and r['locators'] == 31 and not r['errors'] for r in proof['rows'])
+    delivery = json.loads((ROOT / 'data/radiology/thoracic-source-label-delivery.json').read_text())
+    assert {r['name'] for r in proof['bodies']} == set(delivery['files'])
+    assert all(r['stored_sha256'] == r['received_sha256'] == delivery['files'][r['name']]['sha256']
+               for r in proof['bodies'])
+    assert proof['clinical_approval'] is proof['production_verified'] is False
+    historical = json.loads((REVIEW / 'integration/local-reader-proof.json').read_text())
+    assert all(r['locators'] == 27 for r in historical['rows'])

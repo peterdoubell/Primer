@@ -10,6 +10,8 @@
   const record = value => value !== null && typeof value === 'object' && !Array.isArray(value);
   const numberText = value => String(Number(value.toFixed(2)));
   const smallLengthText = value => value !== 0 && value < .01 ? value.toExponential(2) : numberText(value);
+  const mathValueText = value => value !== 0 && (Math.abs(value) < .001 || Math.abs(value) >= 100000)
+    ? value.toExponential(4) : String(Number(value.toPrecision(6)));
   const truthText = value => value ? 'true' : 'false';
   const phrase = (label, ...children) => ({ label, children });
   const bracket = tree => typeof tree === 'string' ? tree :
@@ -2630,34 +2632,61 @@
     },
     'math.3.expo-logs': {
       title: 'Exponentials and logarithms undo each other',
-      instructions: 'Choose a base and an exponent. Follow the forward map and then use the logarithm to recover the exponent.',
-      initial: { base: 2, exponent: 3 },
-      controls: [{ key: 'base', label: 'Base b', min: 2, max: 5, step: 1 },
-        { key: 'exponent', label: 'Exponent x', min: -3, max: 3, step: 1 }],
+      instructions: 'Compare growth and decay bases. Change a fractional or negative exponent, then exchange the coordinates to find the logarithm. Inspect why base 1 has no logarithmic inverse.',
+      initial: { base: 2, exponent: 1 },
+      controls: [{ key: 'base', label: 'Positive base b (1 has no logarithmic inverse)', min: .25, max: 5, step: .25 },
+        { key: 'exponent', label: 'Exponent x', min: -3, max: 3, step: .25 }],
       calculate(s) {
-        const value = s.base ** s.exponent, exact = s.exponent < 0 ? '1/' + s.base ** -s.exponent : String(value);
-        return { data: { value, exact, recovered: Math.log(value) / Math.log(s.base),
+        const value = s.base ** s.exponent, invertible = s.base !== 1;
+        const recovered = invertible ? Math.log(value) / Math.log(s.base) : null;
+        const gcd = (a, b) => b ? gcd(b, a % b) : a;
+        let exact = null;
+        if (Number.isInteger(s.exponent)) {
+          const divisor = gcd(s.base * 4, 4), numerator = s.base * 4 / divisor, denominator = 4 / divisor;
+          const n = Math.abs(s.exponent), top = (s.exponent < 0 ? denominator : numerator) ** n,
+            bottom = (s.exponent < 0 ? numerator : denominator) ** n;
+          exact = bottom === 1 ? String(top) : top + '/' + bottom;
+        }
+        const shown = exact === null ? 'approximately ' + mathValueText(value) : exact;
+        const visiblePoint = s.exponent >= -3 && s.exponent <= 5 && value >= -3 && value <= 5;
+        return { data: { value, exact, recovered, invertible, visiblePoint,
           table: Array.from({ length: 7 }, (_, i) => ({ exponent: i - 3, value: s.base ** (i - 3) })) },
-          readout: s.base + '^(' + s.exponent + ') = ' + exact + '. log base ' + s.base + ' of ' + exact + ' = ' + s.exponent + '.',
-          note: 'A logarithm asks which exponent produces a positive number. Negative exponents give reciprocals, not negative outputs. Exponent zero gives 1. Valid real logarithm bases are positive and not 1; this activity uses bases 2–5.',
-          legend: [{ label: 'Blue: exponent to value', color: colors.blue }, { label: 'Teal: value back to exponent', color: colors.teal }], sources: [] };
+          readout: s.base + '^(' + s.exponent + ') = ' + shown + '. ' +
+            (invertible ? 'log base ' + s.base + ' of this value = ' + s.exponent + '. The points (' + s.exponent + ', ' + mathValueText(value) + ') and (' + mathValueText(value) + ', ' + s.exponent + ') exchange coordinates.' : 'Base 1 gives 1 for every exponent. An inverse cannot recover a unique exponent, so log base 1 is undefined.') +
+            (visiblePoint ? '' : ' The selected point pair is outside the displayed coordinate window; its values are still calculated.'),
+          note: 'The exponential bˣ grows for b>1 and decays for 0<b<1. Its logarithmic inverse exists only for b>0, b≠1 and has positive input. Negative exponents give reciprocals; fractional exponents need not be integers. Integer-exponent outputs here are exact rational expressions; other outputs are rounded to six significant figures (scientific labels use five). Both graph axes use the same scale, from −3 to 5, so exchanging coordinates reflects across y=x. Curves are finite piecewise-linear samples at exponent spacing 1/64; their selected values are calculated directly. Portions outside the window are clipped, not flattened. The graph does not model a particular population, half-life or changing growth rate.',
+          legend: [{ label: 'Blue: y = bˣ', color: colors.blue }, { label: 'Teal: y = logᵦ(x), when defined', color: colors.teal }, { label: 'Dashed: reflection line y = x', color: colors.gold }],
+          sources: [{ label: 'OpenStax: graphs of logarithmic functions', url: 'https://openstax.org/books/precalculus-2e/pages/4-4-graphs-of-logarithmic-functions' }] };
       },
     },
     'math.3.sequences': {
-      title: 'Add a difference or multiply a ratio',
-      instructions: 'Compare arithmetic and geometric sequences. Change the first term, the repeated operation and the number of terms.',
+      title: 'Terms and partial sums are different sequences',
+      instructions: 'Use a signed difference or ratio, including a fraction. Compare each term with its partial sum. Change the number of terms and examine when the infinite series has a finite sum.',
       initial: { mode: 'arithmetic', first: 2, step: 2, count: 6 },
       controls: [{ key: 'mode', label: 'Sequence rule', options: [{ value: 'arithmetic', label: 'Arithmetic: add' }, { value: 'geometric', label: 'Geometric: multiply' }] },
-        { key: 'first', label: 'First term', min: 1, max: 4, step: 1 },
-        { key: 'step', label: 'Difference or ratio', min: 1, max: 4, step: 1 },
-        { key: 'count', label: 'Number of terms', min: 1, max: 6, step: 1 }],
+        { key: 'first', label: 'First term a₁', min: -4, max: 4, step: 1 },
+        { key: 'step', label: 'Difference d or ratio r', min: -4, max: 4, step: .25 },
+        { key: 'count', label: 'Number of terms N', min: 1, max: 24, step: 1 }],
       calculate(s) {
         const values = Array.from({ length: s.count }, (_, i) => s.mode === 'arithmetic' ? s.first + i * s.step : s.first * s.step ** i);
-        const sum = values.reduce((a, b) => a + b, 0);
-        return { data: { values, sum, maximum: Math.max(...values) },
-          readout: (s.mode === 'arithmetic' ? 'Add ' : 'Multiply by ') + s.step + ' each time: ' + values.join(', ') + '. Sum of these ' + s.count + ' terms = ' + sum + '.',
-          note: 'Arithmetic: aₙ = a₁ + (n − 1)d. Geometric: aₙ = a₁r^(n − 1). A sequence lists terms; a series adds them. Only positive first terms and positive differences/ratios are explored here. The vertical scale adjusts to the largest term; compare numeric values, not heights across different settings.',
-          legend: [{ label: 'Blue points: individual terms', color: colors.blue }, { label: 'Teal: successive-term connections', color: colors.teal }], sources: [] };
+        let sum = 0;
+        const partialSums = values.map(value => (sum += value));
+        const converges = s.mode === 'geometric' ? s.first === 0 || Math.abs(s.step) < 1 : s.first === 0 && s.step === 0;
+        const infiniteSum = converges ? s.first === 0 ? 0 : s.first / (1 - s.step) : null;
+        // Compute the signed remaining sum directly; subtraction S∞−S_N
+        // would erase a small nonzero tail once the displayed sum rounds.
+        const remainder = converges ? s.first === 0 ? 0 : s.first * s.step ** s.count / (1 - s.step) : null;
+        const sequenceLimit = s.mode === 'arithmetic' ? s.step === 0 ? s.first : null :
+          s.first === 0 || Math.abs(s.step) < 1 ? 0 : s.step === 1 ? s.first : null;
+        const zeroSeries = s.first === 0 && (s.mode === 'geometric' || s.step === 0);
+        const conclusion = converges ? 'The infinite series converges to ' + mathValueText(infiniteSum) + '. Signed remaining sum after N terms = ' + mathValueText(remainder) + '.' :
+          'The infinite series diverges: its partial sums have no finite limit.';
+        return { data: { values, partialSums, sum, maximum: Math.max(...values), converges, infiniteSum, remainder, sequenceLimit, zeroSeries },
+          readout: (s.mode === 'arithmetic' ? 'Add d = ' : 'Multiply by r = ') + s.step + ' each time. First term ' + s.first + ', term N = ' + mathValueText(values.at(-1)) + '. Sum of the first ' + s.count + ' terms S_N = ' + mathValueText(sum) + '. ' + conclusion +
+            (sequenceLimit === null ? ' The term sequence also has no finite limit.' : ' The terms themselves tend to ' + mathValueText(sequenceLimit) + '.'),
+          note: 'Arithmetic terms: aₙ=a₁+(n−1)d, with S_N=N(a₁+a_N)/2. Geometric terms: a₁ is given and aₙ₊₁=r aₙ, including r=0; S_N=a₁(1−rᴺ)/(1−r) for r≠1 and N a₁ for r=1. For nonzero a₁, an infinite geometric series converges exactly when |r|<1. The all-zero series converges for every r. A constant nonzero term sequence has a limit but its series diverges. A negative ratio alternates signs; a negative difference makes an arithmetic sequence decrease. Dots at integer n are the sequences; connecting segments only guide the eye. Both terms and partial sums share the labelled vertical scale, which adjusts with the controls. Rounded or visually merged points do not prove equality to a limit. Arbitrary recursive rules and non-geometric convergence tests are outside this activity.',
+          legend: [{ label: 'Blue: term aₙ', color: colors.blue }, { label: 'Teal: partial sum Sₙ', color: colors.teal }, { label: 'Dashed gold: infinite sum, when it exists', color: colors.gold }],
+          sources: [{ label: 'OpenStax: geometric sequences', url: 'https://openstax.org/books/precalculus-2e/pages/11-3-geometric-sequences' }, { label: 'OpenStax: series and their notations', url: 'https://openstax.org/books/precalculus-2e/pages/11-4-series-and-their-notations' }] };
       },
     },
     'math.3.systems': {
@@ -5948,31 +5977,72 @@
       label(svg, 210, 309, 'cos θ = ' + numberText(d.cosine) + ' · sin θ = ' + numberText(d.sine), { 'font-size': 21 });
       label(svg, 210, 338, 'tan θ: ' + (d.tangent === null ? 'undefined' : numberText(d.tangent)), { 'font-size': 18 });
     } else if (id === 'math.3.expo-logs') {
-      label(svg, 210, 29, 'Base ' + s.base + ': two inverse maps', { 'font-size': 24 });
-      const row = (y, left, right, operation, color) => {
-        [75, 345].forEach(x => svg.append(svgElement('rect', { x: x - 53, y: y - 28, width: 106, height: 56, rx: 8, fill: colors.paper, stroke: color, 'stroke-width': 2 })));
-        line(svg, 134, y, 282, y, { stroke: color, 'stroke-width': 2 });
-        line(svg, 271, y - 5, 282, y, { stroke: color }); line(svg, 271, y + 5, 282, y, { stroke: color });
-        label(svg, 75, y + 8, left, { 'font-size': 23 }); label(svg, 345, y + 8, right, { 'font-size': 23 });
-        label(svg, 210, y - 15, operation, { 'font-size': 18 });
+      const low = -3, high = 5, unit = 28, px = x => 94 + (x - low) * unit, py = y => 288 - (y - low) * unit;
+      const clipSegment = (x1, y1, x2, y2, attrs) => {
+        let lo = 0, hi = 1;
+        for (const [a, b] of [[x1, x2], [y1, y2]]) {
+          if (a === b) { if (a < low || a > high) return; }
+          else {
+            const bounds = [(low - a) / (b - a), (high - a) / (b - a)].sort((x, y) => x - y);
+            lo = Math.max(lo, bounds[0]); hi = Math.min(hi, bounds[1]);
+          }
+        }
+        if (lo <= hi) line(svg, px(x1 + (x2 - x1) * lo), py(y1 + (y2 - y1) * lo),
+          px(x1 + (x2 - x1) * hi), py(y1 + (y2 - y1) * hi), attrs);
       };
-      row(102, String(s.exponent), d.exact, s.base + ' to this power', colors.blue);
-      row(207, d.exact, String(s.exponent), 'log base ' + s.base, colors.teal);
-      label(svg, 210, 276, 'x → bˣ → logᵦ(bˣ) = x', { 'font-size': 23 });
-      label(svg, 210, 323, s.exponent < 0 ? 'Negative exponent → positive reciprocal' : s.exponent === 0 ? 'Every allowed base to power 0 gives 1' : 'Multiply the base ' + s.exponent + ' times', { 'font-size': 17 });
+      label(svg, 210, 27, s.base === 1 ? 'Base 1: no logarithmic inverse' : 'Base ' + s.base + ': ' + (s.base < 1 ? 'decay and its inverse' : 'growth and its inverse'), { 'font-size': 20 });
+      for (let n = low; n <= high; n++) {
+        line(svg, px(n), py(low), px(n), py(high), { opacity: .12 });
+        line(svg, px(low), py(n), px(high), py(n), { opacity: .12 });
+        if (n % 2 !== 0 || n === 0) {
+          label(svg, px(n), 305, String(n), { 'font-size': 11 });
+          label(svg, 78, py(n) + 4, String(n), { 'font-size': 11 });
+        }
+      }
+      line(svg, px(low), py(0), px(high), py(0)); line(svg, px(0), py(low), px(0), py(high));
+      label(svg, 337, py(0) + 4, 'x', { 'font-size': 13 }); label(svg, px(0), 51, 'y', { 'font-size': 13 });
+      line(svg, px(low), py(low), px(high), py(high), { stroke: colors.gold, 'stroke-dasharray': '5 4', opacity: .65 });
+      for (let i = 0; i < 512; i++) {
+        const x1 = low + i / 64, x2 = low + (i + 1) / 64, y1 = s.base ** x1, y2 = s.base ** x2;
+        clipSegment(x1, y1, x2, y2, { stroke: colors.blue, 'stroke-width': 2.5, 'data-exponential-segment': i });
+        if (d.invertible) clipSegment(y1, x1, y2, x2, { stroke: colors.teal, 'stroke-width': 2.5, 'data-logarithmic-segment': i });
+      }
+      if (d.visiblePoint) {
+        svg.append(svgElement('circle', { cx: px(s.exponent), cy: py(d.value), r: 4, fill: colors.blue, 'data-exponential-point': 'true' }));
+        if (d.invertible) {
+          line(svg, px(s.exponent), py(d.value), px(d.value), py(s.exponent), { stroke: colors.coral, 'stroke-dasharray': '3 4', 'stroke-width': 1.3 });
+          svg.append(svgElement('circle', { cx: px(d.value), cy: py(s.exponent), r: 4, fill: colors.teal, 'data-logarithmic-point': 'true' }));
+        }
+      }
+      label(svg, 210, 333, !d.invertible ? 'Every x maps to 1; x cannot be recovered' : d.visiblePoint ?
+        '(' + s.exponent + ', ' + mathValueText(d.value) + ') ↔ (' + mathValueText(d.value) + ', ' + s.exponent + ')' :
+        'Selected point pair outside this window', { 'font-size': 16 });
     } else {
-      const px = i => 63 + i * 59, py = v => 260 - v * 150 / d.maximum;
-      label(svg, 210, 28, s.mode === 'arithmetic' ? 'Same difference: +' + s.step : 'Same ratio: ×' + s.step, { 'font-size': 24 });
-      line(svg, 40, 260, 380, 260); line(svg, 40, 90, 40, 260);
-      label(svg, 24, 264, '0', { 'font-size': 12 });
-      d.values.forEach((value, i) => {
-        label(svg, px(i), 65, String(value), { 'font-size': 16 });
-        if (i) line(svg, px(i - 1), py(d.values[i - 1]), px(i), py(value), { stroke: colors.teal, 'stroke-width': 2 });
-        line(svg, px(i), 260, px(i), py(value), { stroke: colors.blue, opacity: .25 });
-        svg.append(svgElement('circle', { cx: px(i), cy: py(value), r: 5, fill: colors.blue }));
-        label(svg, px(i), 286, 'n=' + (i + 1), { 'font-size': 14 });
+      const values = [0, ...d.values, ...d.partialSums, ...(d.converges ? [d.infiniteSum] : [])];
+      const extent = Math.max(...values) - Math.min(...values), pad = extent === 0 ? 1 : extent * .08;
+      const low = Math.min(...values) - pad, high = Math.max(...values) + pad;
+      const px = n => 94 + (n - 1) * 276 / 23, py = value => 257 - (value - low) * 183 / (high - low);
+      label(svg, 210, 27, s.mode === 'arithmetic' ? 'Arithmetic: d = ' + s.step : 'Geometric: r = ' + s.step, { 'font-size': 23 });
+      [low, (low + high) / 2, high].forEach(value => {
+        line(svg, 94, py(value), 370, py(value), { opacity: .15 });
+        label(svg, 84, py(value) + 4, mathValueText(value), { 'font-size': 12, 'text-anchor': 'end' });
       });
-      label(svg, 210, 331, 'Sum of ' + s.count + ' terms = ' + d.sum, { 'font-size': 23 });
+      line(svg, 94, py(0), 370, py(0), { 'stroke-width': 1 });
+      line(svg, 94, 74, 94, 257, { 'stroke-width': 1 });
+      line(svg, 94, 257, 370, 257, { 'stroke-width': 1 });
+      [1, 6, 12, 18, 24].forEach(n => label(svg, px(n), 275, String(n), { 'font-size': 11 }));
+      label(svg, 387, 275, 'n', { 'font-size': 13 }); label(svg, 210, 56, 'Terms and partial sums: same vertical scale', { 'font-size': 14 });
+      if (d.converges) line(svg, 94, py(d.infiniteSum), 370, py(d.infiniteSum), { stroke: colors.gold, 'stroke-width': 2, 'stroke-dasharray': '6 4', 'data-infinite-sum-line': d.infiniteSum });
+      for (const [sequence, color, name] of [[d.values, colors.blue, 'term'], [d.partialSums, colors.teal, 'partial-sum']]) {
+        sequence.forEach((value, i) => {
+          if (i) line(svg, px(i), py(sequence[i - 1]), px(i + 1), py(value), { stroke: color, 'stroke-width': 1.3, opacity: .6 });
+          svg.append(svgElement('circle', { cx: px(i + 1), cy: py(value), r: name === 'term' ? 3.5 : 2.4, fill: color,
+            'data-sequence-point': name, 'data-index': i + 1, 'data-value': value }));
+        });
+      }
+      label(svg, 210, 307, 'a_N = ' + mathValueText(d.values.at(-1)) + ' · S_N = ' + mathValueText(d.sum), { 'font-size': 17 });
+      label(svg, 210, 337, d.converges ? 'Infinite sum = ' + mathValueText(d.infiniteSum) +
+        ' · tail = ' + mathValueText(d.remainder) : 'Infinite series: no finite sum', { 'font-size': 15 });
     }
   }
 
