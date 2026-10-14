@@ -124,13 +124,16 @@ def attach_module_media(node):
             media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',
                           'title': ('Native source CT and separate nodule models'
                                     if node['id'] == 'rad.4.pulmonary-nodule' else
+                                    'Original CT cardiac source anatomy' if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else
                                     'Original curated thoracic anatomy' if node['id'] == 'rad.5.pleura' else 'Native source anatomy inspection'),
                           'instructions': ('Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
                                            if node['id'] == 'rad.4.stroke' else
                                            'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'
                                            if node['id'] == 'rad.4.pulmonary-nodule' else
-                                           'Inspect original curated surfaces and a separate same-case CT/lobe source. Neither source is registered to the ultrasound examples; required anatomy remains incomplete.'
+                                           'Inspect original curated surfaces and separate CT sources for lung, basal-organ and LV-myocardium/chamber context. The v1 cardiac and v3 lung images remain distinct, and no source is registered to the ultrasound examples; required anatomy remains incomplete.'
                                            if node['id'] == 'rad.5.pleura' else
+                                           'Inspect the original v1 cardiac CT, LV-myocardium label and four chamber regions in matching source planes and complete source-derived interfaces. This CT context does not supply MRI signal, coronary arteries, masses, RV/atrial walls, valves or pericardium; function, normality and current-patient registration remain unverified.'
+                                           if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else
                                            'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.'),
                           'investigation_ids': native_ids})
         from . import radiology_catalog

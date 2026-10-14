@@ -2032,17 +2032,18 @@ function sourceNativeInspector(asset) {
   const noduleCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';
   const lungCT = asset.id === 'totalseg-s0028-lung-native' && asset.modality === 'CT';
   const basalCT = asset.id === 'totalseg-s0028-basal-context' && asset.modality === 'CT';
-  const nativeCT = noduleCT || lungCT || basalCT;
+  const cardiacCT = asset.id === 'totalseg-v1-s0028-cardiac-native' && asset.modality === 'CT';
+  const nativeCT = noduleCT || lungCT || basalCT || cardiacCT;
   const curatedSurface = asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy';
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
     radiologySourceLink(curatedSurface ? 'Original curated surface dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
-    ...(curatedSurface || lungCT || basalCT ? [] : [' · ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
+    ...(curatedSurface || lungCT || basalCT || cardiacCT ? [] : [' · ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
   if (nativeCT || curatedSurface) {
     if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
-    const openLabel = curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const openLabel = cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
     const host = el('div', { class: 'source-native-inline-host' });
     let frame = null;
     const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
@@ -2855,6 +2856,7 @@ async function renderRadiologyDesk(page, nodeId) {
   if (!n) return;
   const ref = n.radiology_reference, guide = ref.reporting;
   const motionReferences = ref.source_motion_references || [];
+  const cardiacContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'totalseg-v1-s0028-cardiac-native');
   const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));
   const studyReferences = ref.source_study_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
@@ -2946,11 +2948,12 @@ async function renderRadiologyDesk(page, nodeId) {
       if (illustrations) panel.append(el('details', { class: 'rad-protocol' },
         el('summary', {}, 'Reporting checklist overview'), illustrations));
     }],
-    ['model', curatedModels.length ? 'Original source models' : ref.source_native_only ? 'Native source models' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
+    ['model', curatedModels.length ? 'Original source models' : cardiacContext.length ? '3D anatomy and original CT context' : ref.source_native_only ? 'Native source models' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {
       if (ref.source_native_only || curatedModels.length) {
-        (curatedModels.length ? curatedModels : ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
+        (curatedModels.length ? [...curatedModels, ...cardiacContext] : ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
         return;
       }
+      cardiacContext.forEach(asset => panel.append(sourceNativeInspector(asset)));
       if (ref.source_anatomy_references?.length) {
         const host = el('div', { class: 'rad-anatomy-model-host' });
         const reference = el('select', { 'aria-label': 'Anatomy reference' });
@@ -3215,8 +3218,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const meshFamily = window.PrimerDetailedAnatomy?.supported(walk.spatial_model.family) ? walk.spatial_model.family : null;
   const overview = walk.spatial_model.focus[0];
   const sourceOnly = ref.source_native_only === true;
-  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
-  const curatedSurface = sourceModels.length > 0;
+  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
+  const curatedSurface = sourceModels.some(asset => asset.id !== 'totalseg-v1-s0028-cardiac-native');
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
@@ -3251,7 +3254,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const main = el('div', { class: 'rad-walk-main' });
   const visual = el('aside', { class: 'rad-walk-visual', 'aria-labelledby': uid + '-visual-title' });
   const visualTitle = el('h4', { id: uid + '-visual-title' }, 'Visual aids');
-  const modes = sourceOnly ? [['native', 'Native source']] : curatedSurface ? [['figures', 'Figures'], ['source-surfaces', 'Original 3D sources']] : [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : [])];
+  const modes = sourceOnly ? [['native', 'Native source']] : curatedSurface ? [['figures', 'Figures'], ['source-surfaces', 'Original 3D sources']] : [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : []), ...(sourceModels.length ? [['source-surfaces', 'Original CT context']] : [])];
   const modeButtons = new Map();
   const modeBar = el('div', { class: 'rad-walk-modes', role: 'group', 'aria-label': 'Choose a visual aid' },
     ...modes.map(([key, label]) => {
@@ -3473,7 +3476,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
       visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
     } else if (mode === 'source-surfaces') {
       if (!anatomyBox.querySelector('.source-native-inspector')) anatomyBox.replaceChildren(...sourceModels.map(sourceNativeInspector));
-      visualNote.textContent = 'Original curated surfaces and a separate CT/lobe source in their own coordinates. Reporting anatomy remains incomplete; these sources are independent of the ultrasound examples and the current patient.';
+      visualNote.textContent = curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Original cardiac CT and LV-myocardium/chamber interfaces in their source coordinates. Coronary arteries, masses, RV/atrial walls, valves, pericardium, MRI tissue signal and quantitative function remain absent or unverified; this source does not fill current-patient findings.';
     } else if (mode === 'landmark') {
       if (!landmarkModel && window.PrimerRadiologyReferenceModels) {
         landmarkModel = window.PrimerRadiologyReferenceModels.render(walk.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
