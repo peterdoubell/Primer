@@ -15,6 +15,8 @@ def reviewed():
 
 
 def before_basal_bytes(path,raw,allow_older=False):
+    from tools.physics_wave_runtime_compatibility import before_wave_bytes
+    raw=before_wave_bytes(path,raw,allow_older=True)
     row=reviewed()['files'].get(path)
     if row is None or hashlib.sha256(raw).hexdigest()==row['before_sha256']:return raw
     if hashlib.sha256(raw).hexdigest()!=row['after_sha256']:
