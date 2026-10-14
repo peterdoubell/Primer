@@ -3822,6 +3822,21 @@ async def thoracic_basal_delivery(asset: str, request: Request):
     return response
 
 
+@app.api_route("/app/source-labels/thoracic/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def thoracic_source_label_delivery(asset: str, request: Request):
+    from .thoracic_source_labels import PREFIX, registry, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:
+        return JSONResponse({'detail': 'Unknown source-label asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('source-labels/thoracic/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("img-src 'self' data: ", "img-src 'self' data: blob: ")
+    return response
+
+
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     allowed = {"bodyparts3d", "hra-female-pelvis-v1.10", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}

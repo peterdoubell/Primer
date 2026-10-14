@@ -1,0 +1,55 @@
+{
+  "base_commit": "3f87f67b910fa461136fd0235e31ada8b0460ee2",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "files": {
+    "primer/server.py": {
+      "before_sha256": "8d1e720a397cb7d42376fe310f179d1cf3429dabdfa059a8e1bbf59c23168b88",
+      "after_sha256": "65ad9ec60b4b5c843edee5383f67172242ddc25885d36ef946c5bf0efbb2e4c5",
+      "changes": [
+        {
+          "start": 3824,
+          "end": 3839,
+          "before": "",
+          "after": "@app.api_route(\"/app/source-labels/thoracic/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def thoracic_source_label_delivery(asset: str, request: Request):\n    from .thoracic_source_labels import PREFIX, registry, references, validate_file\n    src = PREFIX + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:\n        return JSONResponse({'detail': 'Unknown source-label asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(asset)\n    response = await app.state.source_static.get_response('source-labels/thoracic/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\").replace(\"img-src 'self' data: \", \"img-src 'self' data: blob: \")\n    return response\n\n\n"
+        }
+      ]
+    },
+    "primer/radiology_catalog.py": {
+      "before_sha256": "d8b7c6a6d504540f5ffcb650648d90fcbd1cf4fae0f930bf4e59956b1c5a7138",
+      "after_sha256": "ce452b17638149658aa25a4f21008948c4572595a4c438fa65ddad38546f9290",
+      "changes": [
+        {
+          "start": 1080,
+          "end": 1082,
+          "before": "",
+          "after": "    from .thoracic_source_labels import bind_images as bind_source_labels\n    bind_source_labels(item['id'], ref['structure_atlas'])\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "69b7f6380644d036b49db0d659de65d48e8ba05d135681b5f2740c6263fb97b7",
+      "after_sha256": "5ed44bcf329222450e46a4547c1ce7ed1308bb6c49d5c096f34315f4c988f614",
+      "changes": [
+        {
+          "start": 2407,
+          "end": 2422,
+          "before": "",
+          "after": "  if (asset.source_label_locator) {\n    const locator = asset.source_label_locator;\n    figure.dataset.sourceLabelFigure = locator.figure_id;\n    const details = createElement('details', { class: 'rad-source-label-locator' },\n      createElement('summary', {}, 'Inspect original image labels and marked observations'),\n      createElement('p', {}, 'Publisher annotation locations and native pixel insets. Boxes are not tissue boundaries; signal panels do not identify valve leaflet morphology.'));\n    let loaded = false;\n    details.addEventListener('toggle', () => {\n      if (!details.open || loaded) return;\n      loaded = true;\n      details.append(createElement('iframe', { src: locator.src, title: 'Original image label correspondence',\n        loading: 'lazy', style: 'width:100%;height:760px;border:1px solid currentColor;display:block' }));\n    });\n    figure.append(details);\n  }\n"
+        }
+      ]
+    },
+    "tools/physics_wave_runtime_compatibility.py": {
+      "before_sha256": "9ab50f659088e00f43ba8ec48a68937e01a52a4a0116e4f1e0165bd052e9c1cd",
+      "after_sha256": "a23c9f2f4c9d378d90173267f7324709db8084d3cd7f33f9cb0cd9257965d329",
+      "changes": [
+        {
+          "start": 8,
+          "end": 10,
+          "before": "",
+          "after": "    from tools.thoracic_label_runtime_compatibility import before_label_bytes\n    raw=before_label_bytes(path,raw,allow_older=True)\n"
+        }
+      ]
+    }
+  }
+}

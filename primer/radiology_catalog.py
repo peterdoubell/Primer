@@ -1078,6 +1078,8 @@ def detail(curriculum, item):
         selected.append(copy.deepcopy(image))
     ref['key_images'] = selected
     ref['structure_atlas'] = copy.deepcopy(_structure_atlases().get(item['id'], []))
+    from .thoracic_source_labels import bind_images as bind_source_labels
+    bind_source_labels(item['id'], ref['structure_atlas'])
     ref['source_anatomy_references'] = copy.deepcopy(_source_anatomy_references().get(item['id'], []))
     ref['source_motion_references'] = copy.deepcopy(_source_motion_references().get(item['id'], []))
     ref['source_study_references'] = copy.deepcopy(_source_study_references().get(item['id'], []))
