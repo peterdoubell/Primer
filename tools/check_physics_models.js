@@ -898,6 +898,36 @@ function checkPhysicsFidelity(renderer, models) {
       }
     });
   }
+  audit('point dipoles have signed forces consistent with a field-energy gradient', () => {
+    const lab = scenario('phys.1.magnets');
+    const field = (x,y,z) => {const R=Math.hypot(x,y,z), n=[x/R,y/R,z/R];return n.map((v,i)=>1e-7/R**3*(3*n[2]*v-(i===2?1:0)));};
+    for (const r of [.08,.1,.12,.14,.16,.18,.2]) for (let degrees=0;degrees<=180;degrees+=15) {
+      lab.set('Dipole separation',r);lab.set('Turn the second magnet',degrees);
+      const theta=degrees*Math.PI/180,m=[Math.sin(theta),0,Math.cos(theta)];
+      const energy=(x,y,z)=>-field(x,y,z).reduce((sum,v,i)=>sum+m[i]*v,0);
+      const h=r*1e-5, fx=-(energy(h,0,r)-energy(-h,0,r))/(2*h)*1000;
+      const fz=-(energy(0,0,r+h)-energy(0,0,r-h))/(2*h)*1000;
+      const B=field(0,0,r), torque=(m[2]*B[0]-m[0]*B[2])*1000;
+      const text=lab.readout();
+      for(const [name,value,precision] of [['Fz',fz,3],['Fx',fx,3],['τy',torque,4],['U',energy(0,0,r)*1000,4]]) {
+        const match=text.match(new RegExp(name+' = (-?\\d+(?:\\.\\d+)?)'));
+        if(!match)throw Error('missing signed dipole quantity '+name);
+        requireClose(Number(match[1]),value,.5*10**(-precision)+1e-7,'field-derived '+name);
+      }
+      const markerNode=marker(lab.svg());
+      requireClose((Number(markerNode.getAttribute('cx'))-88)/560*180,degrees,1e-10,'selected tilt');
+      requireClose((239-Number(markerNode.getAttribute('cy')))/174*30-15,fz,1e-7,'signed axial marker');
+      const traces=curves(lab.svg());
+      for(let index=0;index<2;index++)for(const [px,py] of points(traces[index])) {
+        const angle=(px-88)/560*Math.PI, moment=[Math.sin(angle),0,Math.cos(angle)];
+        const U=(x,y,z)=>-field(x,y,z).reduce((sum,v,i)=>sum+moment[i]*v,0);
+        const expected=index===0?-(U(0,0,r+h)-U(0,0,r-h))/(2*h)*1000:-(U(h,0,r)-U(-h,0,r))/(2*h)*1000;
+        const rounding=.005/174*30+15*Math.PI*.005/560+1e-7;
+        requireClose((239-py)/174*30-15,expected,rounding,'entire field-gradient force curve');
+      }
+      if(degrees===90){requireClose(fz,0,1e-10,'orthogonal axial force');if(!(fx>0&&torque<0))throw Error('orthogonal sideways force and torque missing');}
+    }
+  });
   return { failures, checks };
 }
 
@@ -934,7 +964,7 @@ function main() {
   }, 0);
   console.log('Physics model DOM smoke check passed: ' + models.length +
     ' scenarios, ' + controls + ' independently exercised controls; ' + fidelity.checks +
-    ' equation/geometry assertions across seventeen targeted scenarios.');
+    ' equation/geometry assertions across eighteen targeted scenarios.');
 }
 
 try {

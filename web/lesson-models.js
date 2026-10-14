@@ -4425,6 +4425,8 @@
   function drawPhysicsGraph(svg, visual) {
     const plotWidth = visual.phaseOrbit != null ? 350 : 560;
     const plotRight = 88 + plotWidth;
+    const plotTop = visual.legendAbove ? 65 : 34;
+    const plotHeight = 239 - plotTop;
     svg.append(
       svgNode('line', { x1: 82, y1: 244, x2: plotRight + 12, y2: 244, class: 'physics-svg-axis' }),
       svgNode('line', { x1: 82, y1: 244, x2: 82, y2: 26, class: 'physics-svg-axis' }),
@@ -4441,7 +4443,7 @@
       );
     });
     (visual.yTicks || []).forEach(tick => {
-      const y = 239 - tick[0] * 205;
+      const y = 239 - tick[0] * plotHeight;
       svg.append(
         svgNode('line', { x1: 75, y1: y, x2: 88, y2: y, class: 'physics-svg-axis' }),
         physicsSvgText(70, y + 5, tick[1], 'physics-svg-small', 'end'),
@@ -4475,11 +4477,11 @@
     }
     (visual.curves || []).forEach((curve, index) => {
       svg.append(svgNode('path', {
-        d: physicsCurvePath(curve.points, 88, 34, plotWidth),
+        d: physicsCurvePath(curve.points, 88, plotTop, plotWidth, plotHeight),
         class: 'physics-svg-curve physics-curve-' + (curve.tone || (index ? 'secondary' : 'primary')),
       }));
       if (curve.label) {
-        svg.append(physicsSvgText(plotRight, 48 + index * 22, curve.label,
+        svg.append(physicsSvgText(visual.legendAbove && !index ? plotRight-180 : plotRight, visual.legendAbove ? 30 : 48 + index * 22, curve.label,
           'physics-svg-small physics-text-' + (curve.tone || (index ? 'secondary' : 'primary')), 'end'));
       }
     });
@@ -4497,7 +4499,7 @@
     }
     if (visual.marker) {
       const x = 88 + Math.max(0, Math.min(1, visual.marker[0])) * plotWidth;
-      const y = 34 + (1 - Math.max(0, Math.min(1, visual.marker[1]))) * 205;
+      const y = plotTop + (1 - Math.max(0, Math.min(1, visual.marker[1]))) * plotHeight;
       svg.append(
         svgNode('line', { x1: x, y1: 239, x2: x, y2: y, class: 'physics-svg-guide' }),
         svgNode('circle', { cx: x, cy: y, r: visual.markerRadius || 9, class: 'physics-svg-marker' }),
@@ -5178,28 +5180,38 @@
       },
     },
     'phys.1.magnets': {
-      controls: [physicsControl('angle', 'Turn the second magnet', 0, 180, 15, 0, '°', 'opposite poles face', 'like poles face')],
-      caveat: 'The traces are qualitative end-to-end dipole orientation indices, not exact force or torque laws for finite bar magnets.',
+      controls: [
+        physicsControl('angle', 'Turn the second magnet', 0, 180, 15, 0, '°', 'parallel moments', 'opposite moments'),
+        physicsControl('distance', 'Dipole separation', .08, .2, .02, .1, 'm', '0.08 m apart', '0.20 m apart'),
+      ],
+      caveat: 'Two ideal fixed-magnitude point dipoles in vacuum, each 1 A m². The first is at the origin with its moment along +z; the second is held at (0,0,r), tilted from +z toward +x. Positions and orientations are prescribed snapshots, not free motion. Positive Fz points away from the first dipole; negative Fz attracts. Torque is the signed y component. At 90° axial force vanishes but sideways force and torque remain. At 180° torque vanishes at an unstable orientation. The model uses the textbook approximation μ0/(4π)=10⁻⁷ N/A². Finite bar geometry, induced magnetization and close-contact forces are not solved.',
       compute(state) {
-        const interaction = Math.cos(state.angle * Math.PI / 180);
-        const turning = Math.abs(Math.sin(state.angle * Math.PI / 180));
-        const axialWord = Math.abs(interaction) < 0.15 ? 'little axial pull or push' :
-          interaction > 0 ? 'axial attraction' : 'axial repulsion';
-        const turningWord = turning > 0.8 ? 'strong turning tendency' :
-          turning > 0.25 ? 'moderate turning tendency' : 'little turning tendency';
-        const axialCurve = physicsGraphPoints(x => (1 + Math.cos(x * Math.PI)) / 2);
-        const turningCurve = physicsGraphPoints(x => Math.abs(Math.sin(x * Math.PI)));
+        const theta = state.angle * Math.PI / 180;
+        const sine = state.angle === 0 || state.angle === 180 ? 0 : Math.sin(theta);
+        const cosine = state.angle === 90 ? 0 : Math.cos(theta);
+        const C = 1e-7, r = state.distance;
+        const forceScale = 3 * C / r ** 4 * 1000;
+        const axial = -2 * forceScale * cosine;
+        const transverse = forceScale * sine;
+        const torque = -2 * C / r ** 3 * sine * 1000;
+        const energy = -2 * C / r ** 3 * cosine * 1000;
+        const axialCurve = physicsGraphPoints(x => .5 - 2 * forceScale * Math.cos(Math.PI*x) / 30);
+        const transverseCurve = physicsGraphPoints(x => .5 + forceScale * Math.sin(Math.PI*x) / 30);
         return {
-          readout: 'At ' + state.angle + '°, axial pull/push orientation index = ' +
-            physicsFixed(interaction, 2) + ' and turning index = ' + physicsFixed(turning, 2) +
-            ': ' + axialWord + ' with ' + turningWord + '.',
-          visual: { kind: 'graph', xLabel: 'rotation 0° → 180°', yLabel: 'scaled orientation response',
+          readout: 'At θ = ' + state.angle + '° and r = ' + physicsFixed(r, 2) +
+            ' m: axial Fz = ' + physicsFixed(axial, 3) + ' mN; sideways Fx = ' +
+            physicsFixed(transverse, 3) + ' mN; torque τy = ' + physicsFixed(torque, 4) +
+            ' mN m; interaction energy U = ' + physicsFixed(energy, 4) +
+            ' mJ. The marker selects Fz; both force curves use the same signed scale.',
+          visual: { kind: 'graph', xLabel: 'tilt θ (degrees)', yLabel: 'force (mN)', legendAbove: true,
+            xTicks: [[0, '0'], [.5, '90'], [1, '180']],
+            yTicks: [[0, '−15'], [.5, '0'], [1, '+15']],
             curves: [
-              { points: axialCurve, label: 'axial index −1…+1 (mapped)', tone: 'primary' },
-              { points: turningCurve, label: 'turning index |sin θ|', tone: 'secondary' },
+              { points: axialCurve, label: 'Fz · axial', tone: 'primary' },
+              { points: transverseCurve, label: 'Fx · sideways', tone: 'secondary' },
             ],
-            marker: [state.angle / 180, (1 + interaction) / 2],
-            note: state.angle + '° → ' + axialWord + '; ' + turningWord },
+            marker: [state.angle / 180, .5 + axial / 30],
+            note: 'r = ' + physicsFixed(r, 2) + ' m; marker: Fz = ' + physicsFixed(axial, 3) + ' mN' },
         };
       },
     },
