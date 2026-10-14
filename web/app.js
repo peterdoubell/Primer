@@ -2031,17 +2031,18 @@ function sourceNativeInspector(asset) {
   const sourceCase = Boolean(asset.publication_url);
   const noduleCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';
   const lungCT = asset.id === 'totalseg-s0028-lung-native' && asset.modality === 'CT';
-  const nativeCT = noduleCT || lungCT;
+  const basalCT = asset.id === 'totalseg-s0028-basal-context' && asset.modality === 'CT';
+  const nativeCT = noduleCT || lungCT || basalCT;
   const curatedSurface = asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy';
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit' }, asset.attribution),
     radiologySourceLink(curatedSurface ? 'Original curated surface dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
-    ...(curatedSurface || lungCT ? [] : [' · ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
+    ...(curatedSurface || lungCT || basalCT ? [] : [' · ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
   if (nativeCT || curatedSurface) {
     if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
-    const openLabel = curatedSurface ? 'Inspect original surfaces inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const openLabel = curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
     const host = el('div', { class: 'source-native-inline-host' });
     let frame = null;
     const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
@@ -2839,7 +2840,7 @@ async function renderRadiologyDesk(page, nodeId) {
   if (!n) return;
   const ref = n.radiology_reference, guide = ref.reporting;
   const motionReferences = ref.source_motion_references || [];
-  const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' || asset.id === 'totalseg-s0028-lung-native');
+  const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));
   const studyReferences = ref.source_study_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
   const atlasSchematics = (ref.structure_atlas || []).filter(item => item.kind === 'schematic' || item.contains_schematic_panels);
@@ -3199,7 +3200,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const meshFamily = window.PrimerDetailedAnatomy?.supported(walk.spatial_model.family) ? walk.spatial_model.family : null;
   const overview = walk.spatial_model.focus[0];
   const sourceOnly = ref.source_native_only === true;
-  const sourceModels = (ref.source_native_inspectors || []).filter(asset => asset.id === 'totalseg-s0028-lung-native' || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
+  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
   const curatedSurface = sourceModels.length > 0;
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
