@@ -15,7 +15,7 @@ def test_reference_and_shared_lesson_preserve_clinical_images_and_cine():
     curriculum = Curriculum()
     ref = detail(curriculum, resolve('ra.thoracic-ultrasound'))['radiology_reference']
     assert len(ref['structure_atlas']) == 16 and len(ref['source_motion_references']) == 6
-    assert len(ref['source_native_inspectors']) == 1
+    assert len(ref['source_native_inspectors']) == 2
     item = ref['source_native_inspectors'][0]
     assert item['modality'] == 'Curated 3D anatomy'
     assert item['clinical_approval'] is item['fine_anatomical_approval'] is False
@@ -26,7 +26,7 @@ def test_reference_and_shared_lesson_preserve_clinical_images_and_cine():
     assert 'curated' in media[0]['instructions'] and 'probabilities' not in media[0]['instructions']
     models = [m for m in curriculum.node('rad.5.pleura')['lesson_media'] if m['kind'] == 'model']
     assert len(models) == 1 and models[0]['props']['source_native_only'] is True
-    assert models[0]['props']['native_inspectors'] == [item]
+    assert models[0]['props']['native_inspectors'] == ref['source_native_inspectors']
 
 
 def test_all_source_payloads_remain_identical_to_reviewed_originals_and_transports():

@@ -18,6 +18,8 @@ def reviewed():
 
 
 def previous_runtime_bytes(path, raw, allow_older=False):
+    from tools.thoracic_lung_runtime_compatibility import before_lung_bytes
+    raw=before_lung_bytes(path,raw,allow_older=True)
     row = reviewed()['files'].get(path)
     if row is None or hashlib.sha256(raw).hexdigest() == row['before_sha256']:
         return raw

@@ -60,7 +60,7 @@ def radiology_model_props(node):
     if node['id'] == 'rad.5.pleura':
         if reference.get('family') != 'thorax':
             raise ValueError('Curated thoracic model requires its exact thorax binding')
-        from .thoracic_native_inspectors import references as thoracic_references
+        from .source_native_inspectors import references as thoracic_references
         props['source_native_only'] = True
         props['native_inspectors'] = copy.deepcopy(thoracic_references()['ra.thoracic-ultrasound'])
         return props
@@ -129,7 +129,7 @@ def attach_module_media(node):
                                            if node['id'] == 'rad.4.stroke' else
                                            'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'
                                            if node['id'] == 'rad.4.pulmonary-nodule' else
-                                           'Inspect original diaphragm, intercostal and valve-leaflet source surfaces. These curated models are not registered to the ultrasound examples; required anatomy remains incomplete.'
+                                           'Inspect original curated surfaces and a separate same-case CT/lobe source. Neither source is registered to the ultrasound examples; required anatomy remains incomplete.'
                                            if node['id'] == 'rad.5.pleura' else
                                            'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.'),
                           'investigation_ids': native_ids})

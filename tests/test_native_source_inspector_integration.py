@@ -29,7 +29,7 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     assert thoracic_media['investigation_ids'] == ['ra.thoracic-ultrasound']
     thoracic_model = next(m for m in thoracic['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
     assert thoracic_model['props']['source_native_only'] is True
-    assert [m['id'] for m in thoracic_model['props']['native_inspectors']] == ['bp3d-thoracic-original-surfaces']
+    assert [m['id'] for m in thoracic_model['props']['native_inspectors']] == ['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native']
     pulmonary = curriculum.node('rad.4.pulmonary-nodule')
     pulmonary_media, = [m for m in pulmonary['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert pulmonary_media['investigation_ids'] == ['ra.ct-pulmonary-nodules']

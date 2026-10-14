@@ -1,0 +1,409 @@
+{
+  "source_scene_sha256": "9f08a17ea0115fed80b2a73ecdf0a1bc2ab2f6956f37c593ce23d513ea35afcd",
+  "source_unchanged": true,
+  "scripts_enabled": false,
+  "clinical_approval": false,
+  "scene_units": {
+    "system": "METRIC",
+    "scale_length": 1.0
+  },
+  "objects": [
+    {
+      "name": "Inferior vena cava (abdominal part)",
+      "type": "CURVE",
+      "parent": "Inferior vena cava (thoracic part)",
+      "children": [
+        "Common iliac vein.l",
+        "Common iliac vein.r",
+        "Left renal vein",
+        "Lumbar veins.l",
+        "Lumbar veins.r",
+        "Right renal vein",
+        "Right testicular vein"
+      ],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.018514670431613922,
+        0.02886742167174816,
+        0.14302033185958862
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.010248586535453796
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          -0.02284175716340542
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.102294921875
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Inferior vena cava (thoracic part)",
+      "type": "CURVE",
+      "parent": "Systemic veins.g",
+      "children": [
+        "Hepatic veins",
+        "Inferior vena cava (abdominal part)"
+      ],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.02594117633998394,
+        0.03385277837514877,
+        0.0927824079990387
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.01337917149066925
+        ],
+        [
+          0.0,
+          1.0,
+          -1.4210854715202004e-14,
+          -0.01475154422223568
+        ],
+        [
+          0.0,
+          1.4210854715202004e-14,
+          1.0,
+          1.2067323923110962
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Lateral caval nodes",
+      "type": "MESH",
+      "parent": "Right lumbar nodes.g",
+      "children": [],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.0925978273153305,
+        0.05394286289811134,
+        0.06782551109790802
+      ],
+      "matrix_world": [
+        [
+          -0.26183268427848816,
+          -0.8196703791618347,
+          0.97446608543396,
+          -0.007049344014376402
+        ],
+        [
+          0.9504576325416565,
+          -0.7878560423851013,
+          -0.4073220491409302,
+          -0.03206421062350273
+        ],
+        [
+          0.8473911881446838,
+          0.6304141283035278,
+          0.7579606771469116,
+          1.1130797863006592
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Lateral pericardial nodes",
+      "type": "MESH",
+      "parent": "Mediastinal lymph nodes.g",
+      "children": [],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.028141921386122704,
+        0.0047812918201088905,
+        0.034734372049570084
+      ],
+      "matrix_world": [
+        [
+          -0.6723760962486267,
+          -0.37097489833831787,
+          1.048946738243103,
+          0.033943794667720795
+        ],
+        [
+          -0.4137592613697052,
+          1.2210807800292969,
+          0.16663247346878052,
+          -0.02127821370959282
+        ],
+        [
+          -1.0328189134597778,
+          -0.2476704716682434,
+          -0.7496304512023926,
+          1.2853983640670776
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Pleura",
+      "type": "MESH",
+      "parent": "Thoracic cavity.g",
+      "children": [],
+      "modifiers": [
+        {
+          "name": "Subdivision",
+          "type": "SUBSURF",
+          "levels": 1,
+          "render_levels": 2,
+          "subdivision_type": "CATMULL_CLARK"
+        },
+        {
+          "name": "Solidify:2layers",
+          "type": "SOLIDIFY",
+          "thickness": 0.00019999999494757503,
+          "offset": 1.0,
+          "use_even_offset": false,
+          "use_rim": true,
+          "use_rim_only": false,
+          "solidify_mode": "EXTRUDE",
+          "thickness_clamp": 0.0
+        },
+        {
+          "name": "Solidify:thickness",
+          "type": "SOLIDIFY",
+          "thickness": 9.999999747378752e-05,
+          "offset": 0.0,
+          "use_even_offset": false,
+          "use_rim": true,
+          "use_rim_only": false,
+          "solidify_mode": "EXTRUDE",
+          "thickness_clamp": 0.0
+        }
+      ],
+      "driver_expressions": [],
+      "dimensions": [
+        0.26335591077804565,
+        0.2640058100223541,
+        0.18821683526039124
+      ],
+      "matrix_world": [
+        [
+          5.0,
+          0.0,
+          0.0,
+          0.001142885535955429
+        ],
+        [
+          0.0,
+          -8.146034247147327e-07,
+          -4.999999523162842,
+          -0.16630125045776367
+        ],
+        [
+          0.0,
+          4.999999523162842,
+          -8.146034247147327e-07,
+          1.3257375955581665
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Precaval nodes",
+      "type": "MESH",
+      "parent": "Right lumbar nodes.g",
+      "children": [],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.0924292728304863,
+        0.05599283054471016,
+        0.06569955497980118
+      ],
+      "matrix_world": [
+        [
+          0.261832594871521,
+          0.8196703195571899,
+          -0.9744662642478943,
+          -0.007049344014376402
+        ],
+        [
+          0.7727103233337402,
+          -0.8930186629295349,
+          -0.5435389876365662,
+          -0.03206421062350273
+        ],
+        [
+          -1.0121067762374878,
+          -0.4697414040565491,
+          -0.6670689582824707,
+          1.1130797863006592
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Prepericardial nodes",
+      "type": "MESH",
+      "parent": "Mediastinal lymph nodes.g",
+      "children": [],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.031690508127212524,
+        0.010506014339625835,
+        0.02668682485818863
+      ],
+      "matrix_world": [
+        [
+          -0.6723760962486267,
+          -0.37097489833831787,
+          1.048946738243103,
+          -0.02105204574763775
+        ],
+        [
+          -0.4137592613697052,
+          1.2210807800292969,
+          0.16663247346878052,
+          -0.021278223022818565
+        ],
+        [
+          -1.0328189134597778,
+          -0.2476704716682434,
+          -0.7496304512023926,
+          1.3936737775802612
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Retrocaval nodes",
+      "type": "MESH",
+      "parent": "Right lumbar nodes.g",
+      "children": [],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.08331401646137238,
+        0.05245022103190422,
+        0.06027048081159592
+      ],
+      "matrix_world": [
+        [
+          0.261832594871521,
+          0.8196703195571899,
+          -0.9744662642478943,
+          -0.007049348205327988
+        ],
+        [
+          0.7727103233337402,
+          -0.8930186629295349,
+          -0.5435389876365662,
+          -0.012461204081773758
+        ],
+        [
+          -1.0121067762374878,
+          -0.4697414040565491,
+          -0.6670689582824707,
+          1.1096025705337524
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "Superior vena cava",
+      "type": "CURVE",
+      "parent": "Systemic veins.g",
+      "children": [
+        "Azygos vein",
+        "Left brachiocephalic vein",
+        "Right brachiocephalic vein",
+        "Union of brachiocephalic veins.g"
+      ],
+      "modifiers": [],
+      "driver_expressions": [],
+      "dimensions": [
+        0.02491682954132557,
+        0.02703140489757061,
+        0.03767337277531624
+      ],
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.015537023544311523
+        ],
+        [
+          0.0,
+          1.0,
+          -1.4210854715202004e-14,
+          -0.020514532923698425
+        ],
+        [
+          0.0,
+          1.4210854715202004e-14,
+          1.0,
+          1.3578448295593262
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ]
+}

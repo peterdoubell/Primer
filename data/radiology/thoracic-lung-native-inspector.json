@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "bindings": {
+    "ra.thoracic-ultrasound": [
+      "totalseg-s0028-lung-native"
+    ]
+  },
+  "inspectors": {
+    "totalseg-s0028-lung-native": {
+      "id": "totalseg-s0028-lung-native",
+      "modality": "CT",
+      "title": "Original s0028 CT, five lung labels and matching surfaces",
+      "src": "/app/anatomy/totalseg-s0028-lungs/index.html",
+      "manifest_url": "/app/anatomy/totalseg-s0028-lungs/viewer-manifest.json",
+      "sha256": "1b1571da331c414ffb96c693c3cd210390dabe7169c62f4fa08e4f337ab3e336",
+      "manifest_sha256": "71a57e66350813c685cfd1fdedafb8edf0396eb506c8f742dac2845ad7a9c3d0",
+      "caption": "Inspect all original CT planes and five unchanged same-case lung labels with 351,784 matching label-interface triangles. The source metadata states no_pathology; anatomical accuracy and normal-atlas approval remain unverified. These CT data do not register the other ultrasound examples or supply pleural/pericardial tissue layers.",
+      "attribution": "Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0028. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original voxel transport, 0.5 label-interface extraction, source-value display and centred review buffers; no smoothing, component deletion or source fitting.",
+      "source_url": "https://zenodo.org/records/22688904",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "bound_source_ids": [
+        "totalseg-s0028-lung-native"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    }
+  },
+  "files": {
+    "index.html": {
+      "sha256": "1b1571da331c414ffb96c693c3cd210390dabe7169c62f4fa08e4f337ab3e336",
+      "bytes": 3108
+    },
+    "originals/ct.nii.gz": {
+      "sha256": "d11b8acbf137277d157930f7d0cb3a5f259364a5e5af18dafcd3cac0ecf4168c",
+      "bytes": 39394458
+    },
+    "originals/lung_lower_lobe_left.nii.gz": {
+      "sha256": "f58c971a64526b5c764975a4796efb6334a407da188d90e035c73d3fe5483ed6",
+      "bytes": 190831
+    },
+    "originals/lung_lower_lobe_right.nii.gz": {
+      "sha256": "d1928da02bdd9038a262a24038e76c0e0f0e9b50c25e4143052e7e58cee9038d",
+      "bytes": 196032
+    },
+    "originals/lung_middle_lobe_right.nii.gz": {
+      "sha256": "7aea32f3cfd6a4d0cb88f2b6fe3720b0766cce2f699cbad0d1726bfab1fa243c",
+      "bytes": 166541
+    },
+    "originals/lung_upper_lobe_left.nii.gz": {
+      "sha256": "a1f65922aafbed62a56fada553d7201f763caac28781ac78e5e17d57f9fd029c",
+      "bytes": 189224
+    },
+    "originals/lung_upper_lobe_right.nii.gz": {
+      "sha256": "62a5f5fcfda0bb98456a513170a64d762b67cbb5d14735398af7156f44d898a6",
+      "bytes": 180014
+    },
+    "surface-review.js": {
+      "sha256": "4d33e851f5ab3f2e3b6f91afbcc37100b21e54bcdd3a221442eb6782a5edf9b6",
+      "bytes": 8395
+    },
+    "surfaces/lung_lower_lobe_left-review-buffer.bin.gz": {
+      "sha256": "1b878c6a753532e8f960a3f585b6b0877df2edbe62de9ebdc3cf9be2d23d7795",
+      "bytes": 469748
+    },
+    "surfaces/lung_lower_lobe_right-review-buffer.bin.gz": {
+      "sha256": "be89cb30ca5b38d5d47c8bc689fe5892a27e23d0d9d983f933f3db653d708dcf",
+      "bytes": 538081
+    },
+    "surfaces/lung_middle_lobe_right-review-buffer.bin.gz": {
+      "sha256": "9e015b1a5fce27db07b6763f6282389015950a89f4e16f2b4d8b6a54150eac16",
+      "bytes": 229211
+    },
+    "surfaces/lung_upper_lobe_left-review-buffer.bin.gz": {
+      "sha256": "6b9dafb7d3e0a626eef3fc49c62ffd673e0ed79082f2bcad59a7bdefddb81e38",
+      "bytes": 461609
+    },
+    "surfaces/lung_upper_lobe_right-review-buffer.bin.gz": {
+      "sha256": "57b55245aa3252977dcdecbdf05c646f1f0e197fa46585a8b19cc307de5ed7f8",
+      "bytes": 394158
+    },
+    "viewer-manifest.json": {
+      "sha256": "71a57e66350813c685cfd1fdedafb8edf0396eb506c8f742dac2845ad7a9c3d0",
+      "bytes": 7362
+    },
+    "viewer.css": {
+      "sha256": "0327e7a5fa6ec1fd087f950bd9772f3a6252b515ccd5ff1b8790fd49b24115c2",
+      "bytes": 1031
+    },
+    "volume-review.js": {
+      "sha256": "9bc7b87ed079929fe795f4a0fd128271f3bb2ff4d1687611bf73088ca6f06768",
+      "bytes": 5657
+    }
+  },
+  "source_case": "s0028",
+  "source_triangles": 351784
+}

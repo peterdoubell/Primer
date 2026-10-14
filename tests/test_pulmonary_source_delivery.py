@@ -161,8 +161,9 @@ def test_exact_metadata_generation_and_only_reviewed_public_redirects():
     base = json.loads(read_baseline('vercel.json'))
     assert routes[481:] == base['routes']
     thoracic = {'src': 'web/anatomy/bp3d-thoracic-4.3/{transport,originals}/**', 'use': '@vercel/static'}
-    assert config['builds'][-1] == thoracic
-    assert config['builds'][1:-1] == base['builds'][1:]
+    lung = {'src': 'web/anatomy/totalseg-s0028-lungs/{originals,surfaces}/**', 'use': '@vercel/static'}
+    assert config['builds'][-2:] == [thoracic, lung]
+    assert config['builds'][1:-2] == base['builds'][1:]
     assert config['builds'][0]['config']['excludeFiles'].startswith(base['builds'][0]['config']['excludeFiles'][:-1] + ',')
     ignored = (ROOT / '.vercelignore').read_text()
     patterns = [line for line in ignored.splitlines() if line.startswith('web/anatomy/lidc-idri-0525/')]
@@ -188,7 +189,8 @@ def test_old_source_registries_and_bindings_are_preserved():
     assert refs['ra.acute-stroke'] == stroke_references()['ra.acute-stroke']
     assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'}
     from primer.thoracic_native_inspectors import references as thoracic_references
-    assert refs['ra.thoracic-ultrasound'] == thoracic_references()['ra.thoracic-ultrasound']
+    from primer.thoracic_lung_native import references as lung_references
+    assert refs['ra.thoracic-ultrasound'] == [*thoracic_references()['ra.thoracic-ultrasound'], *lung_references()['ra.thoracic-ultrasound']]
 
 
 def test_thin_hosted_metadata_cannot_accept_present_wrong_or_absent_local_source(tmp_path, monkeypatch):

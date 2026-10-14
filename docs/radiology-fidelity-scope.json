@@ -22704,6 +22704,28 @@
             "fine_anatomical_approval": false,
             "current_patient_registration": false,
             "complete_reporting_anatomy_approved": false
+          },
+          {
+            "id": "totalseg-s0028-lung-native",
+            "modality": "CT",
+            "title": "Original s0028 CT, five lung labels and matching surfaces",
+            "src": "/app/anatomy/totalseg-s0028-lungs/index.html",
+            "manifest_url": "/app/anatomy/totalseg-s0028-lungs/viewer-manifest.json",
+            "sha256": "1b1571da331c414ffb96c693c3cd210390dabe7169c62f4fa08e4f337ab3e336",
+            "manifest_sha256": "71a57e66350813c685cfd1fdedafb8edf0396eb506c8f742dac2845ad7a9c3d0",
+            "caption": "Inspect all original CT planes and five unchanged same-case lung labels with 351,784 matching label-interface triangles. The source metadata states no_pathology; anatomical accuracy and normal-atlas approval remain unverified. These CT data do not register the other ultrasound examples or supply pleural/pericardial tissue layers.",
+            "attribution": "Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0028. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original voxel transport, 0.5 label-interface extraction, source-value display and centred review buffers; no smoothing, component deletion or source fitting.",
+            "source_url": "https://zenodo.org/records/22688904",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "bound_source_ids": [
+              "totalseg-s0028-lung-native"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false
           }
         ]
       },
@@ -179715,7 +179737,7 @@
             "id": "module-native-inspectors-rad.5.pleura",
             "kind": "source-native-inspectors",
             "title": "Original curated thoracic anatomy",
-            "instructions": "Inspect original diaphragm, intercostal and valve-leaflet source surfaces. These curated models are not registered to the ultrasound examples; required anatomy remains incomplete.",
+            "instructions": "Inspect original curated surfaces and a separate same-case CT/lobe source. Neither source is registered to the ultrasound examples; required anatomy remains incomplete.",
             "investigation_ids": [
               "ra.thoracic-ultrasound"
             ]
@@ -179751,6 +179773,28 @@
                   "clinical_approval": false,
                   "fine_anatomical_approval": false,
                   "current_patient_registration": false,
+                  "complete_reporting_anatomy_approved": false
+                },
+                {
+                  "id": "totalseg-s0028-lung-native",
+                  "modality": "CT",
+                  "title": "Original s0028 CT, five lung labels and matching surfaces",
+                  "src": "/app/anatomy/totalseg-s0028-lungs/index.html",
+                  "manifest_url": "/app/anatomy/totalseg-s0028-lungs/viewer-manifest.json",
+                  "sha256": "1b1571da331c414ffb96c693c3cd210390dabe7169c62f4fa08e4f337ab3e336",
+                  "manifest_sha256": "71a57e66350813c685cfd1fdedafb8edf0396eb506c8f742dac2845ad7a9c3d0",
+                  "caption": "Inspect all original CT planes and five unchanged same-case lung labels with 351,784 matching label-interface triangles. The source metadata states no_pathology; anatomical accuracy and normal-atlas approval remain unverified. These CT data do not register the other ultrasound examples or supply pleural/pericardial tissue layers.",
+                  "attribution": "Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0028. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original voxel transport, 0.5 label-interface extraction, source-value display and centred review buffers; no smoothing, component deletion or source fitting.",
+                  "source_url": "https://zenodo.org/records/22688904",
+                  "license": "CC BY 4.0",
+                  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                  "bound_source_ids": [
+                    "totalseg-s0028-lung-native"
+                  ],
+                  "clinical_approval": false,
+                  "fine_anatomical_approval": false,
+                  "current_patient_registration": false,
+                  "normal_anatomical_atlas_approval": false,
                   "complete_reporting_anatomy_approved": false
                 }
               ]
@@ -179923,7 +179967,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "d35c9219ae2244550620ef5b7d4ba4ea86398ba0586774639f6ee15f0b8973b6",
+      "module_contract_sha256": "0808b6ff21df08597c8c28dd4ba39ff377bc576d44b1bcd96e4e7fa4d1043d51",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

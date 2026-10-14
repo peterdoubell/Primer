@@ -63,7 +63,9 @@ def test_every_original_storage_value_scaling_and_complete_dimension_is_retained
         q, qcode = source.header.get_qform(coded=True)
         s, scode = source.header.get_sform(coded=True)
         assert int(qcode) == row['qform_code'] and int(scode) == row['sform_code']
-        assert (q is None and row['qform'] is None) or np.array_equal(q, row['qform'])
+        # Quaternion reconstruction can differ at float64 rounding precision
+        # across NumPy versions; source bytes and the stored sform remain exact.
+        assert (q is None and row['qform'] is None) or np.allclose(q, row['qform'], rtol=0, atol=1e-12)
         assert (s is None and row['sform'] is None) or np.array_equal(s, row['sform'])
         total += stored.size
     assert total == 160204800
