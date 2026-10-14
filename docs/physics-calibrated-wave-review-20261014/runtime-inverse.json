@@ -1,0 +1,94 @@
+{
+  "base_commit": "9c2971f38c8345409c51f6ceb0409ba48de6d956",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "path": "web/lesson-models.js",
+  "before_sha256": "6d601e74bcd2cc52433d0a2b89fba8baeb1abe46ebc6305cbf73f351be39b26c",
+  "after_sha256": "fb1fab1a42ab9025d33ffae4e128378f889883ca99b69c8d326ce19c0bce61bb",
+  "changes": [
+    {
+      "start": 4630,
+      "end": 4633,
+      "before": "      for (let index = 0; index <= 120; index += 1) {\n        const t = index / 120;\n",
+      "after": "      const samples = visual.calibrated ? Math.max(120, Math.ceil(cycles * 64)) : 120;\n      for (let index = 0; index <= samples; index += 1) {\n        const t = index / samples;\n"
+    },
+    {
+      "start": 4638,
+      "end": 4640,
+      "before": "",
+      "after": "    const mid = visual.calibrated ? 145 : 135;\n    const scale = visual.calibrated ? 65 : 80;\n"
+    },
+    {
+      "start": 4642,
+      "end": 4643,
+      "before": "    svg.append(svgNode('line', { x1: 65, y1: 135, x2: 655, y2: 135, class: 'physics-svg-guide' }));\n",
+      "after": "    svg.append(svgNode('line', { x1: 65, y1: mid, x2: 655, y2: mid, class: 'physics-svg-guide' }));\n"
+    },
+    {
+      "start": 4644,
+      "end": 4645,
+      "before": "      d: pathFor(visual.cycles || 2, 80 * normalizedAmplitude, 135),\n",
+      "after": "      d: pathFor(visual.cycles || 2, scale * normalizedAmplitude, mid, visual.calibrated ? visual.phase || 0 : 0),\n"
+    },
+    {
+      "start": 4647,
+      "end": 4662,
+      "before": "",
+      "after": "    if (visual.calibrated) {\n      svg.append(svgNode('line', { x1: 64, y1: mid+scale, x2: 64, y2: mid-scale, class: 'physics-svg-axis' }));\n      for (const [fraction, label] of visual.xTicks) {\n        const x = 70 + fraction * 580;\n        svg.append(svgNode('line', { x1: x, y1: mid-4, x2: x, y2: mid+5, class: 'physics-svg-axis' }),\n          physicsSvgText(x, 240, label, 'physics-svg-small'));\n      }\n      for (const [fraction, label] of visual.yTicks) {\n        const y = mid - fraction * scale;\n        svg.append(svgNode('line', { x1: 59, y1: y, x2: 70, y2: y, class: 'physics-svg-axis' }),\n          physicsSvgText(54, y+5, label, 'physics-svg-small', 'end'));\n      }\n      svg.append(physicsSvgText(70, 270, visual.xLabel, 'physics-svg-small', 'start'),\n        physicsSvgText(70, 20, visual.yLabel, 'physics-svg-small', 'start'));\n    }\n"
+    },
+    {
+      "start": 4700,
+      "end": 4701,
+      "before": "      physicsSvgText(70, 40, visual.label || 'wave state', 'physics-svg-label', 'start'),\n",
+      "after": "      physicsSvgText(70, visual.calibrated ? 50 : 40, visual.label || 'wave state', 'physics-svg-label', 'start'),\n"
+    },
+    {
+      "start": 5161,
+      "end": 5162,
+      "before": "      caveat: 'The ideal calculation ignores friction; a real ramp needs extra work that becomes thermal energy.',\n",
+      "after": "      caveat: 'The load moves at constant speed with the applied force parallel to the path, so kinetic energy does not change. Friction is omitted; a real ramp needs extra work that becomes thermal energy. Length 1 m for a 1 m rise is the vertical limiting path.',\n"
+    },
+    {
+      "start": 5170,
+      "end": 5173,
+      "before": "          visual: { kind: 'graph', xLabel: 'ramp length', yLabel: 'ideal force',\n",
+      "after": "          visual: { kind: 'graph', xLabel: 'ramp length (m)', yLabel: 'ideal force (N)',\n            xTicks: [[0, '1'], [.25, '2'], [.5, '3'], [.75, '4'], [1, '5']],\n            yTicks: [[0, '0'], [.5, '50'], [1, '100']],\n"
+    },
+    {
+      "start": 5210,
+      "end": 5211,
+      "before": "      caveat: 'The curve graphs air-pressure variation over time, not sideways air motion. Real instruments contain many frequencies and loudness also depends on hearing sensitivity.',\n",
+      "after": "      caveat: 'The curve shows a single-frequency pressure perturbation at one fixed point over 10 ms, in arbitrary pressure units. It is not sideways air motion. The intensity index is relative to amplitude 1 in a fixed linear medium, not watts per square metre. Real instruments contain many frequencies and loudness also depends on hearing sensitivity.',\n"
+    },
+    {
+      "start": 5217,
+      "end": 5220,
+      "before": "",
+      "after": "            calibrated: true, xLabel: 'time (ms)', yLabel: 'pressure perturbation (arbitrary units)',\n            xTicks: [[0, '0'], [.25, '2.5'], [.5, '5'], [.75, '7.5'], [1, '10']],\n            yTicks: [[-1, '\u221210'], [0, '0'], [1, '10']],\n"
+    },
+    {
+      "start": 5330,
+      "end": 5331,
+      "before": "",
+      "after": "        physicsControl('time', 'Snapshot time', 0, 2, .05, 0, 's', 'initial snapshot', 'two seconds'),\n"
+    },
+    {
+      "start": 5332,
+      "end": 5333,
+      "before": "      caveat: 'The medium fixes wave speed at 12 m/s in this model; changing the medium would change that constraint.',\n",
+      "after": "      caveat: 'A sinusoidal transverse wave propagates rightward in a uniform, linear, loss-free medium at 12 m/s: y(x,t)=A sin[2\u03c0f(x/12\u2212t)]. The graph covers 0\u201312 m at the selected time. Material points oscillate transversely; they do not travel with the pattern. Horizontal metres and vertical centimetres use different declared scales; the visible slope is not a physical string angle. Boundary reflections and dispersion are omitted.',\n"
+    },
+    {
+      "start": 5338,
+      "end": 5339,
+      "before": "            ' cm changes energy, not speed.',\n",
+      "after": "            ' cm changes energy, not speed. Snapshot t = ' + physicsFixed(state.time, 2) + ' s; the pattern travels rightward.',\n"
+    },
+    {
+      "start": 5340,
+      "end": 5345,
+      "before": "            label: 'v = f\u03bb = 12 m/s', note: '\u03bb = ' + physicsFixed(wavelength, 2) + ' m' },\n",
+      "after": "            calibrated: true, phase: -2 * Math.PI * state.frequency * state.time,\n            xLabel: 'position x (m)', yLabel: 'transverse displacement y (cm)',\n            xTicks: [[0, '0'], [.25, '3'], [.5, '6'], [.75, '9'], [1, '12']],\n            yTicks: [[-1, '\u221210'], [0, '0'], [1, '10']],\n            label: 'v = f\u03bb = 12 m/s', note: 't = ' + physicsFixed(state.time, 2) + ' s; \u03bb = ' + physicsFixed(wavelength, 2) + ' m' },\n"
+    }
+  ]
+}

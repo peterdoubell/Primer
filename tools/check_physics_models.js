@@ -293,6 +293,8 @@ function alternateValue(input) {
   if (![start, minimum, maximum].every(Number.isFinite) || minimum === maximum) {
     throw new Error('invalid range control bounds');
   }
+  // A travelling wave can repeat exactly at the time-range endpoints.
+  if (input.getAttribute('aria-label') === 'Snapshot time') return minimum + Number(input.step);
   return Math.abs(start - minimum) > Number.EPSILON ? minimum : maximum;
 }
 
@@ -854,6 +856,48 @@ function checkPhysicsFidelity(renderer, models) {
       }
     }
   });
+  audit('ideal ramp uses metres and newtons on one shared curve scale', () => {
+    const lab = scenario('phys.1.machines');
+    for (let length = 1; length <= 5; length += .5) {
+      lab.set('Ramp length for a 1 m rise', length);
+      for (const [px, py] of points(curves(lab.svg())[0])) {
+        const L = 1 + 4*(px-88)/560;
+        requireClose((239-py)/205*100, 100/L, .005/205*100 + 100*(4*.005/560)/Math.max(1,L-4*.005/560)**2 + 1e-10, 'entire F=Wh/L curve');
+      }
+      const m = marker(lab.svg());
+      requireClose(1+4*(Number(m.getAttribute('cx'))-88)/560, length, 1e-12, 'selected length in metres');
+      requireClose((239-Number(m.getAttribute('cy')))/205*100, 100/length, 1e-12, 'selected force in newtons');
+      requireClose(length*(239-Number(m.getAttribute('cy')))/205*100, 100, 1e-10, 'displayed force times distance equals Wh');
+      if (!lab.svg().textContent.includes('ramp length (m)') || !lab.svg().textContent.includes('ideal force (N)')) throw Error('ramp physical axes missing');
+    }
+  });
+  for (const [id, sound] of [['phys.1.sound', true], ['phys.2.waves', false]]) {
+    audit(id+' has calibrated continuous-wave coordinates', () => {
+      const lab = scenario(id);
+      const frequencies = sound ? [100, 150, 300, 550, 900] : [1, 1.5, 3, 4.5, 8];
+      for (const frequency of frequencies) for (const amplitude of [1, 4, 10]) for (const time of sound ? [0] : [0, .05, .3, 1.25, 2]) {
+        lab.set('Frequency', frequency); lab.set('Amplitude', amplitude);
+        if (!sound) lab.set('Snapshot time', time);
+        const trace = points(curves(lab.svg())[0]);
+        if (trace.length-1 < (sound ? frequency*.01 : frequency)*64) throw Error('insufficient curve samples');
+        for (const [px, py] of trace) {
+          const horizontal = (px-70)/580*(sound ? .01 : 12);
+          const expected = amplitude*Math.sin(2*Math.PI*frequency*(sound ? horizontal : horizontal/12-time));
+          // Both rendered coordinates are rounded to 0.01 SVG px.
+          const tolerance = .005/6.5 + amplitude*2*Math.PI*frequency*.005/580*(sound ? .01 : 1) + 1e-10;
+          requireClose((145-py)/6.5, expected, tolerance, 'every plotted pressure/displacement sample');
+        }
+        const axis = sound ? 'time (ms)' : 'position x (m)';
+        if (!lab.svg().textContent.includes(axis)) throw Error('wave physical horizontal axis missing');
+      }
+      if (!sound) {
+        lab.set('Frequency', 3); lab.set('Amplitude', 4); lab.set('Snapshot time', 0);
+        const first = points(curves(lab.svg())[0]); lab.set('Snapshot time', 2);
+        const last = points(curves(lab.svg())[0]);
+        first.forEach((p,i) => requireClose(last[i][1], p[1], .011, 'six complete periods restore the wave shape'));
+      }
+    });
+  }
   return { failures, checks };
 }
 
@@ -890,7 +934,7 @@ function main() {
   }, 0);
   console.log('Physics model DOM smoke check passed: ' + models.length +
     ' scenarios, ' + controls + ' independently exercised controls; ' + fidelity.checks +
-    ' equation/geometry assertions across fourteen targeted scenarios.');
+    ' equation/geometry assertions across seventeen targeted scenarios.');
 }
 
 try {
