@@ -4628,20 +4628,38 @@
   function drawPhysicsWave(svg, visual) {
     function pathFor(cycles, amplitude, mid, phase = 0) {
       const points = [];
-      for (let index = 0; index <= 120; index += 1) {
-        const t = index / 120;
+      const samples = visual.calibrated ? Math.max(120, Math.ceil(cycles * 64)) : 120;
+      for (let index = 0; index <= samples; index += 1) {
+        const t = index / samples;
         points.push([70 + t * 580, mid - amplitude * Math.sin(Math.PI * 2 * cycles * t + phase)]);
       }
       return points.map((point, index) => (index ? 'L' : 'M') +
         physicsFixed(point[0], 2) + ' ' + physicsFixed(point[1], 2)).join(' ');
     }
+    const mid = visual.calibrated ? 145 : 135;
+    const scale = visual.calibrated ? 65 : 80;
     const normalizedAmplitude = visual.amplitude == null
       ? 0.4 : Math.max(0, Math.min(1, visual.amplitude));
-    svg.append(svgNode('line', { x1: 65, y1: 135, x2: 655, y2: 135, class: 'physics-svg-guide' }));
+    svg.append(svgNode('line', { x1: 65, y1: mid, x2: 655, y2: mid, class: 'physics-svg-guide' }));
     svg.append(svgNode('path', {
-      d: pathFor(visual.cycles || 2, 80 * normalizedAmplitude, 135),
+      d: pathFor(visual.cycles || 2, scale * normalizedAmplitude, mid, visual.calibrated ? visual.phase || 0 : 0),
       class: 'physics-svg-curve physics-curve-primary',
     }));
+    if (visual.calibrated) {
+      svg.append(svgNode('line', { x1: 64, y1: mid+scale, x2: 64, y2: mid-scale, class: 'physics-svg-axis' }));
+      for (const [fraction, label] of visual.xTicks) {
+        const x = 70 + fraction * 580;
+        svg.append(svgNode('line', { x1: x, y1: mid-4, x2: x, y2: mid+5, class: 'physics-svg-axis' }),
+          physicsSvgText(x, 240, label, 'physics-svg-small'));
+      }
+      for (const [fraction, label] of visual.yTicks) {
+        const y = mid - fraction * scale;
+        svg.append(svgNode('line', { x1: 59, y1: y, x2: 70, y2: y, class: 'physics-svg-axis' }),
+          physicsSvgText(54, y+5, label, 'physics-svg-small', 'end'));
+      }
+      svg.append(physicsSvgText(70, 270, visual.xLabel, 'physics-svg-small', 'start'),
+        physicsSvgText(70, 20, visual.yLabel, 'physics-svg-small', 'start'));
+    }
     if (visual.orthogonalFields) {
       const cycles = visual.cycles || 2;
       const amplitude = normalizedAmplitude;
@@ -4680,7 +4698,7 @@
         class: 'physics-svg-particle is-active' }));
     }
     svg.append(
-      physicsSvgText(70, 40, visual.label || 'wave state', 'physics-svg-label', 'start'),
+      physicsSvgText(70, visual.calibrated ? 50 : 40, visual.label || 'wave state', 'physics-svg-label', 'start'),
       physicsSvgText(650, 272, visual.note || '', 'physics-svg-note', 'end'),
     );
   }
@@ -5141,7 +5159,7 @@
     },
     'phys.1.machines': {
       controls: [physicsControl('length', 'Ramp length for a 1 m rise', 1, 5, 0.5, 3, 'm', 'steep and short', 'long and shallow')],
-      caveat: 'The ideal calculation ignores friction; a real ramp needs extra work that becomes thermal energy.',
+      caveat: 'The load moves at constant speed with the applied force parallel to the path, so kinetic energy does not change. Friction is omitted; a real ramp needs extra work that becomes thermal energy. Length 1 m for a 1 m rise is the vertical limiting path.',
       compute(state) {
         const weight = 100;
         const force = weight / state.length;
@@ -5150,7 +5168,9 @@
         return {
           readout: 'Raising a 100 N load by 1 m along a ' + physicsFixed(state.length, 1) +
             ' m ideal ramp needs ' + physicsFixed(force, 1) + ' N over more distance; work remains 100 J.',
-          visual: { kind: 'graph', xLabel: 'ramp length', yLabel: 'ideal force',
+          visual: { kind: 'graph', xLabel: 'ramp length (m)', yLabel: 'ideal force (N)',
+            xTicks: [[0, '1'], [.25, '2'], [.5, '3'], [.75, '4'], [1, '5']],
+            yTicks: [[0, '0'], [.5, '50'], [1, '100']],
             curves: [{ points: curve, label: 'force = weight × height / length', tone: 'primary' }],
             marker: [markerX, force / 100],
             note: physicsFixed(state.length, 1) + ' m ramp → ' + physicsFixed(force, 1) + ' N; work = 100 J' },
@@ -5188,13 +5208,16 @@
         physicsControl('frequency', 'Frequency', 100, 900, 50, 300, 'Hz', 'low pitch', 'high pitch'),
         physicsControl('amplitude', 'Amplitude', 1, 10, 1, 4, 'units', 'quiet', 'loud'),
       ],
-      caveat: 'The curve graphs air-pressure variation over time, not sideways air motion. Real instruments contain many frequencies and loudness also depends on hearing sensitivity.',
+      caveat: 'The curve shows a single-frequency pressure perturbation at one fixed point over 10 ms, in arbitrary pressure units. It is not sideways air motion. The intensity index is relative to amplitude 1 in a fixed linear medium, not watts per square metre. Real instruments contain many frequencies and loudness also depends on hearing sensitivity.',
       compute(state) {
         return {
           readout: state.frequency + ' Hz sets the pitch while amplitude ' + state.amplitude +
             ' sets the wave height and relative intensity ' + (state.amplitude ** 2) + '. The controls are independent.',
           visual: { kind: 'wave', cycles: state.frequency / 100,
             amplitude: state.amplitude / 10,
+            calibrated: true, xLabel: 'time (ms)', yLabel: 'pressure perturbation (arbitrary units)',
+            xTicks: [[0, '0'], [.25, '2.5'], [.5, '5'], [.75, '7.5'], [1, '10']],
+            yTicks: [[-1, '−10'], [0, '0'], [1, '10']],
             label: 'air-pressure trace: ' + state.frequency + ' Hz; amplitude ' + state.amplitude,
             note: 'intensity ∝ amplitude² = ' + (state.amplitude ** 2) },
         };
@@ -5305,16 +5328,21 @@
       controls: [
         physicsControl('frequency', 'Frequency', 1, 8, 0.5, 3, 'Hz', 'low frequency', 'high frequency'),
         physicsControl('amplitude', 'Amplitude', 1, 10, 1, 4, 'cm', 'small amplitude', 'large amplitude'),
+        physicsControl('time', 'Snapshot time', 0, 2, .05, 0, 's', 'initial snapshot', 'two seconds'),
       ],
-      caveat: 'The medium fixes wave speed at 12 m/s in this model; changing the medium would change that constraint.',
+      caveat: 'A sinusoidal transverse wave propagates rightward in a uniform, linear, loss-free medium at 12 m/s: y(x,t)=A sin[2πf(x/12−t)]. The graph covers 0–12 m at the selected time. Material points oscillate transversely; they do not travel with the pattern. Horizontal metres and vertical centimetres use different declared scales; the visible slope is not a physical string angle. Boundary reflections and dispersion are omitted.',
       compute(state) {
         const wavelength = 12 / state.frequency;
         return {
           readout: 'At fixed speed 12 m/s, f = ' + physicsFixed(state.frequency, 1) +
             ' Hz gives λ = ' + physicsFixed(wavelength, 2) + ' m. Amplitude ' + state.amplitude +
-            ' cm changes energy, not speed.',
+            ' cm changes energy, not speed. Snapshot t = ' + physicsFixed(state.time, 2) + ' s; the pattern travels rightward.',
           visual: { kind: 'wave', cycles: state.frequency, amplitude: state.amplitude / 10,
-            label: 'v = fλ = 12 m/s', note: 'λ = ' + physicsFixed(wavelength, 2) + ' m' },
+            calibrated: true, phase: -2 * Math.PI * state.frequency * state.time,
+            xLabel: 'position x (m)', yLabel: 'transverse displacement y (cm)',
+            xTicks: [[0, '0'], [.25, '3'], [.5, '6'], [.75, '9'], [1, '12']],
+            yTicks: [[-1, '−10'], [0, '0'], [1, '10']],
+            label: 'v = fλ = 12 m/s', note: 't = ' + physicsFixed(state.time, 2) + ' s; λ = ' + physicsFixed(wavelength, 2) + ' m' },
         };
       },
     },

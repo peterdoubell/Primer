@@ -654,7 +654,8 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'photographed trajectories',
         'faster-than-light signalling',
         'without a center',
-        'air-pressure variation over time, not sideways air motion',
+        'pressure perturbation at one fixed point over 10 ms',
+        'not sideways air motion',
         'heating and sound are transfer pathways',
         'two phases can coexist',
         'one free bosonic mode',
@@ -2269,7 +2270,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '35 scenarios, 66 independently exercised controls' in result.stdout
+    assert '35 scenarios, 67 independently exercised controls' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
