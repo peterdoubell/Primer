@@ -23,13 +23,13 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     _validate_lesson_media(node)
     assert [m for m in node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [MEDIA]
     assert all(not any(m['kind'] == 'source-native-inspectors' for m in n['lesson_media'])
-               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule', 'rad.5.pleura'})
+               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule', 'rad.5.pleura', 'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'})
     thoracic = curriculum.node('rad.5.pleura')
     thoracic_media, = [m for m in thoracic['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert thoracic_media['investigation_ids'] == ['ra.thoracic-ultrasound']
     thoracic_model = next(m for m in thoracic['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
     assert thoracic_model['props']['source_native_only'] is True
-    assert [m['id'] for m in thoracic_model['props']['native_inspectors']] == ['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native','totalseg-s0028-basal-context']
+    assert [m['id'] for m in thoracic_model['props']['native_inspectors']] == ['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native','totalseg-s0028-basal-context','totalseg-v1-s0028-cardiac-native']
     pulmonary = curriculum.node('rad.4.pulmonary-nodule')
     pulmonary_media, = [m for m in pulmonary['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert pulmonary_media['investigation_ids'] == ['ra.ct-pulmonary-nodules']
