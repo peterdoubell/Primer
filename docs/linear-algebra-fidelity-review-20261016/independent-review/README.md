@@ -32,3 +32,7 @@ Add `--write-proof` to refresh the named renderer receipts/screenshots. The veri
 `renderer-review.json` holds the source identity, each checked state and verification outcome. Complete raw snapshots are stored losslessly as `renderer-snapshots.json.gz`, with compressed and decoded SHA-256/length recorded in that receipt. Decode with Python `gzip.decompress`, verify both identities, then parse the JSON array. These are archival observations, not executable runtime resources.
 
 The default commands print results and do not overwrite proof files. `final-review.json` pins the source, checker files and final evidence. Browser observations are bounded acceptance evidence, not a claim to have sampled every rational input.
+
+## Checker-only CodeQL refresh
+
+The independent Python input grammar now uses a bounded linear ASCII scan in place of the flagged backtracking regex. The 80-character bound, signed integer/fraction and decimal/scientific grammar, exponent range and rational limits are preserved. Existing 272 numerical requests passed again; all 158 archived standalone snapshots produced exactly the same full verification result with the new checker. The existing rational fixtures were also replayed directly through the new parser. `checker-refresh/proof.json` records the prior/new checker identities and unchanged source/snapshot hashes; `checker-refresh/original-final-review.json` preserves the preceding final index. No browser rerun or product source change was needed for this checker-only update.

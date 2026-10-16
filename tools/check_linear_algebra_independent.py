@@ -2,7 +2,7 @@
 from pathlib import Path
 from fractions import Fraction as F
 from itertools import permutations, combinations, product
-import argparse, cmath, hashlib, json, math, re, subprocess, sys
+import argparse, cmath, hashlib, json, math, subprocess, sys
 
 if not __debug__: raise RuntimeError('Assertions must remain enabled.')
 ROOT=Path(__file__).resolve().parents[1]
@@ -97,9 +97,29 @@ def snapshot_oracle(snapshot):
         if isinstance(value,bool) or not isinstance(value,(str,int,float)): raise ValueError('Invalid rational type')
         text=str(value).strip()
         if not text or len(text)>80:raise ValueError('Invalid input length')
-        if not re.fullmatch(r'[+-]?\d+/[+-]?\d+',text):
-            match=re.fullmatch(r'[+-]?\d+(?:\.\d*)?(?:[eE]([+-]?\d+))?',text)
-            if not match or abs(int(match.group(1) or 0))>12:raise ValueError('Outside declared input grammar')
+        # A single bounded scan preserves the product's ASCII grammar without
+        # backtracking. The length bound above also bounds integer conversion.
+        size=len(text);index=1 if text[0] in '+-' else 0
+        start=index
+        while index<size and '0'<=text[index]<='9':index+=1
+        if index==start:raise ValueError('Outside declared input grammar')
+        if index<size and text[index]=='/':
+            index+=1
+            if index<size and text[index] in '+-':index+=1
+            start=index
+            while index<size and '0'<=text[index]<='9':index+=1
+            if index==start or index!=size:raise ValueError('Outside declared input grammar')
+        else:
+            if index<size and text[index]=='.':
+                index+=1
+                while index<size and '0'<=text[index]<='9':index+=1
+            if index<size and text[index] in 'eE':
+                index+=1;start=index
+                if index<size and text[index] in '+-':index+=1
+                digits=index
+                while index<size and '0'<=text[index]<='9':index+=1
+                if index==digits or abs(int(text[start:index]))>12:raise ValueError('Outside declared input grammar')
+            if index!=size:raise ValueError('Outside declared input grammar')
         value=q(value)
         if value.denominator>10**12 or abs(value)>limit: raise ValueError('Outside declared rational domain')
         return value
