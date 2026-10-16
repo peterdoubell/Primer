@@ -6018,6 +6018,9 @@
     frame.canvas.append(node('div', { class: 'physics-svg-scroll' }, svg), summary);
     frame.controls.append(sliderGroup, presetRow);
     refresh(false);
+    if (scenarioId === 'phys.3.optics-waves' && window.PrimerConceptModels?.optics) {
+      frame.root.append(window.PrimerConceptModels.optics.render());
+    }
     return frame.root;
   }
 

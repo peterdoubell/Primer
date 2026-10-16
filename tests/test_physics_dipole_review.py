@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from tools.physics_dipole_runtime_compatibility import before_dipole_bytes
+from tools.optics_runtime_compatibility import before_optics_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/physics-dipole-orientation-review-20261014'
@@ -24,7 +25,7 @@ def test_reader_evidence_covers_current_authored_corners_and_resets():
     proof = json.loads((REVIEW / 'reader-proof.json').read_text())
     assert {(r['id'], r['width']) for r in proof['rows']} == {('phys.1.magnets', 1440), ('phys.1.magnets', 390)}
     assert not proof['errors'] and proof['production_verified'] is False
-    digest = hashlib.sha256((ROOT / 'web/lesson-models.js').read_bytes()).hexdigest()
+    digest = hashlib.sha256(before_optics_bytes('web/lesson-models.js', (ROOT / 'web/lesson-models.js').read_bytes())).hexdigest()
     assert all(r['served_renderer_sha256'] == digest and r['controls'] == 2 and r['checked_states'] == 17 for r in proof['rows'])
 
 
