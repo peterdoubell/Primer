@@ -6264,6 +6264,78 @@
       : 'No outgoing arrows', { 'font-size': 20 });
   }
 
+  // Side names are opposite the corresponding capital-letter vertices.
+  const triangleModes = Object.freeze({SSS:['a','b','c'], SAS:['b','c','A'], ASA:['A','B','c'], SSA:['a','b','A']});
+  function solveTriangle(mode, raw) {
+    const keys=triangleModes[mode];
+    if(!keys) return {error:'Choose SSS, SAS, ASA or SSA.',solutions:[]};
+    const v={};
+    for(const key of keys){
+      const token=raw?.[key];
+      const n=typeof token==='number'?token:typeof token==='string'&&token.trim()!==''?Number(token):NaN;
+      const angle=key===key.toUpperCase();
+      if(!Number.isFinite(n)||n<.1||n>(angle?179.9:1000))return {error:angle?'Angles must be 0.1–179.9 degrees.':'Lengths must be 0.1–1000 in a common unit.',solutions:[]};
+      v[key]=n;
+    }
+    const rad=Math.PI/180, candidates=[];
+    if(mode==='SSS') candidates.push(v);
+    if(mode==='SAS') candidates.push({b:v.b,c:v.c,a:Math.hypot(v.b-v.c,2*Math.sqrt(v.b*v.c)*Math.sin(v.A*rad/2))});
+    if(mode==='ASA'){
+      const C=180-v.A-v.B;
+      if(C<=0)return {error:'A + B must be less than 180°.',solutions:[]};
+      candidates.push({a:v.c*Math.sin(v.A*rad)/Math.sin(C*rad),b:v.c*Math.sin(v.B*rad)/Math.sin(C*rad),c:v.c});
+    }
+    if(mode==='SSA'){
+      const ratio=v.b*Math.sin(v.A*rad)/v.a;
+      if(ratio<=1+8*Number.EPSILON){
+        const B=Math.asin(Math.abs(ratio-1)<=8*Number.EPSILON?1:Math.min(1,ratio))/rad;
+        for(const angle of [B,180-B]){
+          const C=180-v.A-angle;
+          if(C>1e-10&&!candidates.some(t=>Math.abs(t.B-angle)<1e-10))candidates.push({a:v.a,b:v.b,c:v.a*Math.sin(C*rad)/Math.sin(v.A*rad),B:angle});
+        }
+      }
+    }
+    const solutions=[];
+    for(const {a,b,c} of candidates){
+      const [x,y,z]=[a,b,c].sort((p,q)=>q-p);
+      if(!(z>x-y))continue;
+      // Kahan's rearrangement of Heron's formula avoids cancellation for thin triangles.
+      const area=Math.sqrt((x+(y+z))*(z-(x-y))*(z+(x-y))*(x+(y-z)))/4;
+      const angles=[Math.atan2(4*area,b*b+c*c-a*a),Math.atan2(4*area,a*a+c*c-b*b),Math.atan2(4*area,a*a+b*b-c*c)].map(t=>t/rad);
+      const cx=b*Math.cos(angles[0]*rad),cy=2*area/c;
+      solutions.push({a,b,c,A:angles[0],B:angles[1],C:angles[2],area,vertices:[[0,0],[c,0],[cx,cy]]});
+    }
+    return {mode,known:v,solutions,error:solutions.length?'':'No nondegenerate triangle satisfies these measurements.'};
+  }
+  function renderTriangleLab(){
+    const triElement=(tag,attrs={},...children)=>{const node=element(tag,attrs);for(const child of children)node.append(typeof child==='object'?child:document.createTextNode(String(child)));return node;};
+    const root=triElement('section',{'data-triangle-lab':'',class:'card'});
+    const heading=triElement('h3',{},'Solve a triangle: lengths, angles and ambiguity');
+    const intro=triElement('p',{},'Sides a, b and c are opposite vertices A, B and C. All lengths use the same unit; angles are in degrees. Both solutions use the same drawing scale. Reflections are congruent and are not counted separately.');
+    const mode=triElement('select',{'aria-label':'Triangle measurements'});
+    for(const [key,label] of Object.entries({SSS:'SSS · three sides',SAS:'SAS · included angle',ASA:'ASA · two angles and included side',SSA:'SSA · opposite angle, possibly two triangles'}))mode.append(triElement('option',{value:key},label));
+    const controls=triElement('div',{class:'model-controls',style:'display:flex;flex-wrap:wrap;gap:12px'}),status=triElement('p',{role:'status','aria-live':'polite'}),output=triElement('div'),examples=triElement('div',{class:'model-button-row'});
+    let currentMode='SSS',values={a:3,b:4,c:5,A:30,B:60};
+    const presets=[['3–4–5 right triangle','SSS',{a:3,b:4,c:5}],['Two solutions','SSA',{a:6,b:8,A:35}],['One solution at tangency','SSA',{a:5,b:10,A:30}],['No solution','SSA',{a:4,b:10,A:30}],['Included angle','SAS',{b:10,c:12,A:30}],['Two angles','ASA',{A:50,B:30,c:10}]];
+    for(const [label,m,v] of presets){const button=triElement('button',{type:'button',class:'btn ghost small'},label);button.addEventListener('click',()=>{currentMode=m;values={...values,...v};mode.value=m;setup();});examples.append(button);}
+    mode.addEventListener('change',()=>{currentMode=mode.value;setup();});
+    function setup(){controls.replaceChildren();for(const key of triangleModes[currentMode]){const angle=key===key.toUpperCase(),input=triElement('input',{type:'number',min:.1,max:angle?179.9:1000,step:'any',value:values[key],'aria-label':'Triangle '+key,style:'display:block;width:9em;max-width:100%'});input.addEventListener('input',()=>{values[key]=input.value;refresh();});controls.append(triElement('label',{},key+(angle?' (degrees)':' (length)'),input));}refresh();}
+    function refresh(){const result=solveTriangle(currentMode,values);root.setAttribute('data-triangle-state',JSON.stringify({mode:currentMode,values}));status.textContent=result.error||result.solutions.length+' noncongruent triangle'+(result.solutions.length===1?'':'s')+'. Displayed values are rounded; geometry uses unrounded values.';output.replaceChildren();
+      const points=result.solutions.flatMap(s=>s.vertices),xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);
+      const left=Math.min(0,...xs),right=Math.max(0,...xs),top=Math.max(0,...ys),scale=Math.min(420/(right-left||1),260/(top||1));
+      result.solutions.forEach((s,i)=>{const plot=svgElement('svg',{viewBox:'0 0 540 380',role:'img','aria-label':'Triangle solution '+(i+1),'data-triangle-plot':i});plot.style.width='100%';plot.style.maxWidth='650px';const screen=s.vertices.map(([x,y])=>[60+(x-left)*scale,310-y*scale]);plot.append(svgElement('polygon',{points:screen.map(p=>p.join(',')).join(' '),fill:colors.teal,'fill-opacity':.12,stroke:colors.ink,'stroke-width':2}));
+        screen.forEach(([x,y],j)=>plot.append(svgElement('text',{x:x+(j===0?-18:j===1?8:0),y:y+(j===2?-12:24),'font-size':18},['A','B','C'][j])));
+        for(const [j,k,name] of [[1,2,'a'],[2,0,'b'],[0,1,'c']]){const dx=screen[k][0]-screen[j][0],dy=screen[k][1]-screen[j][1],length=Math.hypot(dx,dy),x=(screen[j][0]+screen[k][0])/2-20*dy/length,y=(screen[j][1]+screen[k][1])/2+20*dx/length;plot.append(svgElement('text',{x,y:y+5,'font-size':20,'text-anchor':'middle',fill:colors.blue},name));}
+        const table=triElement('table',{},triElement('caption',{},'Solution '+(i+1)));for(const key of ['a','b','c','A','B','C','area'])table.append(triElement('tr',{},triElement('th',{scope:'row'},key),triElement('td',{},mathValueText(s[key])+(key.length===1&&key===key.toUpperCase()?'°':key==='area'?' square units':''))));
+        const viewport=triElement('div',{style:'max-width:100%;overflow:auto',tabindex:0,role:'region','aria-label':'Triangle '+(i+1)+' diagram; scroll when enlarged'},plot);
+        const enlarge=triElement('button',{type:'button',class:'btn ghost small','aria-pressed':'false'},'Enlarge triangle '+(i+1));
+        enlarge.addEventListener('click',()=>{const on=enlarge.getAttribute('aria-pressed')!=='true';enlarge.setAttribute('aria-pressed',String(on));plot.style.width=on?'650px':'100%';plot.style.minWidth=on?'650px':'';enlarge.textContent=(on?'Fit':'Enlarge')+' triangle '+(i+1);});
+        output.append(triElement('figure',{style:'margin:16px 0'},enlarge,viewport,triElement('figcaption',{},'Equal horizontal and vertical scale: '+mathValueText(scale)+' drawing units per length unit.')),table);
+      });
+    }
+    root.append(heading,intro,mode,controls,examples,status,output,triElement('p',{},'Sine rule: a/sin(A) = b/sin(B) = c/sin(C). Cosine rule: a² = b² + c² − 2bc cos(A). For SSA, test both B = arcsin(b sin(A)/a) and 180° − B; keep only positive remaining angles. A straight-line, zero-area configuration is not a triangle.'),triElement('a',{href:'https://openstax.org/books/precalculus/pages/8-1-non-right-triangles-law-of-sines',target:'_blank',rel:'noopener'},'OpenStax: sine rule and ambiguous triangles'));setup();root.getTriangleModel=()=>solveTriangle(currentMode,values);return root;
+  }
+
   function render(item, hooks = {}) {
     if (!record(item) || !record(item.props) || Object.keys(item.props).length !== 1 ||
         !own(item.props, 'scenario') || typeof item.props.scenario !== 'string' || !own(specs, item.props.scenario)) return null;
@@ -6520,10 +6592,11 @@
     if (preview) root.append(preview);
     root.append(controls, buttons, legend, detail, readout, note, sourceRow, status);
     refresh(false);
+    if (id === 'math.3.trig') root.append(renderTriangleLab());
     return root;
   }
 
-  window.PrimerConceptModels = Object.freeze({ render, build, supported,
+  window.PrimerConceptModels = Object.freeze({ render, build, supported, solveTriangle,
     controls(id) { return typeof id === 'string' && own(specs, id) ? specs[id].controls : emptyControls; },
   });
 }());
