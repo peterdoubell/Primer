@@ -1,0 +1,86 @@
+{
+  "module_id": "phys.4.experiment",
+  "goal": "Uncertainty, error analysis, and how physics is actually tested.",
+  "curriculum_sha256": "1b84924ecc6ace5ffdadacef0db97ebf4ec18a8fb8dc8b2f1bf7c88447a33edf",
+  "all_module_concepts_complete": false,
+  "whole_goal_complete": false,
+  "replacement_scope": "Root integrates workbench as replacement for this module's legacy fixed-expectation clipped graph, retaining media ID/title/image.",
+  "assessment_map": [
+    {
+      "quiz_index_zero_based": 0,
+      "prompt": "Two independent measurements are added: x = 3.0 ± 0.3 and y = 4.0 ± 0.4, with independent random uncertainties combined in quadrature. What is the uncertainty in x + y? Give your answer to one decimal place.",
+      "station": "standard propagation",
+      "representation": "Independent voltage sum preset gives 0.5 V for u(A)=0.3 V and u(B)=0.4 V.",
+      "status": "illustrated_with_declared_independence"
+    },
+    {
+      "quiz_index_zero_based": 1,
+      "prompt": "A voltmeter reads 0.20 V high on every reading, because it was never zeroed. A student measures a cell on open circuit as 1.52 V and again under load as 1.28 V, and reports the drop as the difference between them. How is that reported drop affected?",
+      "station": "standard propagation",
+      "representation": "Shared offset cancellation preset gives equal correlated input uncertainties and the 0.24 V difference.",
+      "status": "illustrated_for_exactly_shared_offset_only"
+    },
+    {
+      "quiz_index_zero_based": 2,
+      "prompt": "A student takes many repeated readings of the same quantity and averages them. This procedure most directly reduces the effect of...",
+      "station": "repeat budget",
+      "representation": "Independent scatter falls as 1/sqrt(n); shared calibration and shared-resolution terms persist.",
+      "status": "illustrated_under_explicit_repeatability_assumptions"
+    },
+    {
+      "quiz_index_zero_based": 3,
+      "prompt": "A pendulum period is measured as 2.00 s with a 1.0 percent uncertainty, and g is obtained from a relation in which g varies as 1 over T squared. Give the percentage uncertainty in g.",
+      "station": "standard propagation",
+      "representation": "Pendulum g=4*pi^2*L/T^2 preset isolates 1% period uncertainty giving 2% first-order relative g uncertainty.",
+      "status": "illustrated_with_small_angle_ideal_pendulum_limits"
+    },
+    {
+      "quiz_index_zero_based": 4,
+      "prompt": "A team reports a new particle at 3.1 standard deviations above background, while a rival team using a comparable detector sees nothing there. Advise on how to read the situation.",
+      "station": null,
+      "representation": "No significance/discovery or multi-search probability calculator; existing explanation requires the separate proposal review.",
+      "status": "uncovered_instructional_caveat"
+    },
+    {
+      "quiz_index_zero_based": 5,
+      "prompt": "Two laboratories measure the same constant. Lab A reports 1.652 plus or minus 0.001 and lab B reports 1.641 plus or minus 0.002, so the stated intervals do not overlap. Give the most likely explanation.",
+      "station": "standard propagation, bounded intervals",
+      "representation": "Difference variance and covariance are available, but intervals alone do not diagnose bias or determine coverage. Existing assessment requires the separate proposal review.",
+      "status": "partial_unresolved_instructional_caveat"
+    },
+    {
+      "quiz_index_zero_based": 6,
+      "prompt": "Five readings of one quantity are 4.8, 5.0, 5.1, 4.9 and 5.2. What is their mean?",
+      "station": "repeat budget",
+      "representation": "Explicit 4.8,5.0,5.1,4.9,5.2 V example has mean5 V; sample SD and conditional SEM are shown separately.",
+      "status": "illustrated_fixed_dataset"
+    },
+    {
+      "quiz_index_zero_based": 7,
+      "prompt": "Independent measurements of length L and time t have relative standard uncertainties u(L)/L = 1.0% and u(t)/t = 2.0%. For speed v = L/t, use first-order uncertainty propagation to find the relative standard uncertainty u(v)/v as a percentage. Give the percentage to one decimal place.",
+      "station": "standard propagation, bounded intervals",
+      "representation": "Independent 1%/2% ratio preset gives sqrt(5)% standard uncertainty. Separate bound station gives exact asymmetric range and first-order estimate.",
+      "status": "corrected_and_illustrated"
+    },
+    {
+      "quiz_index_zero_based": 8,
+      "prompt": "A group fits a model to 40 data points and obtains a reduced chi-squared of 0.02. What should they suspect first?",
+      "station": "fit and residuals",
+      "representation": "Supplied sigma controls chi-square, 10 degrees of freedom for a free two-parameter line; small-reduced-chi-square preset and alternative interpretations are explicit.",
+      "status": "illustrated_conditional_statistic_not_unique_diagnosis"
+    },
+    {
+      "quiz_index_zero_based": 9,
+      "prompt": "A student averages 400 readings, achieving excellent precision, yet the result sits ten standard errors from the accepted value. What is the likely explanation?",
+      "station": "repeat budget, fit and residuals",
+      "representation": "400-reading uncorrected-bias preset and free-intercept absorption show precise values/good residuals can conceal a common offset.",
+      "status": "illustrated_known_synthetic_offset"
+    }
+  ],
+  "remaining_scope": [
+    "Discovery significance, nuisance/background modelling, multiple searches and replication/sensitivity require separate instruction; no p-values or hypothesis probabilities are computed.",
+    "Interlaboratory compatibility does not follow from overlap alone; the current quiz5 diagnosis remains an unresolved proposed correction.",
+    "No general nonlinear probability propagation, uncertainty in x, correlated-observation generalized least squares, unknown-variance confidence intervals, or fitted-model selection claims.",
+    "Synthetic residuals demonstrate calculations; they are not measured data or proof of stochastic assumptions."
+  ]
+}

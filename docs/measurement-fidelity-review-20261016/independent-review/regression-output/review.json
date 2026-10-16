@@ -1,0 +1,99 @@
+{
+  "sourceSHA256": "8a1d68588bb9689146a5673c1d2f7f7b4fad10213f53c10f47c4d1c35bd537af",
+  "pureAPIPrefixSHA256": "9a9f9efa39e812044b0b943df79b13e8eb7f2b69d44fcdc4c4dd31dd5142a40e",
+  "checks": [
+    {
+      "area": "propagation",
+      "result": "pass",
+      "method": "Independent complex-step sensitivity and covariance quadratic form, including exact common/anticorrelated cancellation and signed covariance terms",
+      "cases": 60
+    },
+    {
+      "area": "intervals",
+      "result": "pass",
+      "method": "Rational endpoint extrema derived from monotonicity, negative/zero-crossing voltage intervals, positive length/time ratio and inverse-square domains",
+      "cases": 18,
+      "interpretation": "Negative length/time are rejected by the declared physical model; the API does not claim general signed division."
+    },
+    {
+      "area": "invalid inputs",
+      "result": "pass",
+      "cases": 14,
+      "method": "Zero-crossing/time-floor bounds, negative physical domains, rank deficiency and zero sigma are rejected; unrepresentable tiny-spacing fits explicitly request x rescaling"
+    },
+    {
+      "area": "repeat budget",
+      "result": "pass",
+      "cases": 36,
+      "method": "Gauss-Legendre integration of uniform rounding error and independent/shared averaging response vectors; correction changes signed expectation but not uncertainty"
+    },
+    {
+      "area": "weighted known-sigma fitting",
+      "result": "pass",
+      "cases": 17,
+      "method": "Exact rational design normal equations and covariance inversion; predictions, residuals, chi square, rank/hat leverage and fixed-reference degrees of freedom"
+    },
+    {
+      "area": "no silent residual rescaling",
+      "result": "pass",
+      "method": "Residual amplitude changed64-fold leaves known-sigma covariance identical while chi square changes4096-fold; sigma4-fold scales covariance16-fold and chi square by1/16"
+    },
+    {
+      "area": "synthetic fit meaning",
+      "result": "pass",
+      "method": "All12 fixed observations remain; common offset is absorbed by free intercept; synthetic notes distinguish fixed residual design from empirical randomness"
+    }
+  ],
+  "initial_defect": {
+    "description": "Rounded large x mean was reused to center tiny valid x separations, violating translation invariance and producing leverage>1.",
+    "fixture": "tools/check_measurement_independent.py: subulp-mean-origin fixtures",
+    "corrected_in_reviewed_source": true,
+    "expected_fitted": [
+      0.8888888888888888,
+      2.2222222222222223,
+      3.5555555555555554
+    ],
+    "expected_chi_square": 0.1111111111111111
+  },
+  "remaining_actionable_scientific_defects": [],
+  "renderer_verified_by_this_review": false,
+  "allPassed": true,
+  "finalDisposition": "accepted_for_checked_scientific_APIs_and_declared_domains",
+  "tiny_spacing_defect": {
+    "corrected_in_reviewed_source": true,
+    "fixtures": [
+      {
+        "id": "unrepresentable-covariance-1e-155",
+        "error": {
+          "name": "RangeError",
+          "message": "The x spread cannot represent a finite, reliable parameter covariance; rescale the x coordinates."
+        }
+      },
+      {
+        "id": "unrepresentable-covariance-1e-160",
+        "error": {
+          "name": "RangeError",
+          "message": "The x spread cannot represent a finite, reliable parameter covariance; rescale the x coordinates."
+        }
+      }
+    ],
+    "resolution": "Explicit RangeError requests rescaling x before subnormal moments or non-finite parameter covariance are returned.",
+    "nonfinite_results_returned": false
+  },
+  "frozen_source_before_and_after_sha256": "8a1d68588bb9689146a5673c1d2f7f7b4fad10213f53c10f47c4d1c35bd537af",
+  "primary_references": [
+    {
+      "url": "https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-appendix-law-propagation-uncertainty",
+      "scope": "Sensitivity/covariance, independent-repeat mean and rectangular distribution variance"
+    },
+    {
+      "url": "https://www.nist.gov/pml/nist-technical-note-1297/nist-tn-1297-5-combined-standard-uncertainty",
+      "scope": "Recognized systematic correction and its uncertainty are distinct from error"
+    },
+    {
+      "url": "https://www.itl.nist.gov/div898/handbook/pmd/section4/pmd432.htm",
+      "scope": "Weighted quadratic residual criterion and correlated parameter estimates"
+    }
+  ],
+  "requestCount": 145
+}

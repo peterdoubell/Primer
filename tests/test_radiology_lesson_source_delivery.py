@@ -35,7 +35,10 @@ def test_every_existing_source_reader_is_attached_once_to_its_matching_lesson(cu
             assert len(ids) == len(set(ids))
             actual[node['id']] = ids
             _validate_lesson_media(node)
-    assert len(actual) == 55 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
+    assert len(actual) == 56 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
+    from tools.epilepsy_figure_runtime_compatibility import FIGURES
+    assert actual['rad.5.epilepsy-mri'] == ['ra.mri-epilepsy']
+    assert {figure['id'] for figure in atlas['ra.mri-epilepsy']} == FIGURES
     assert set(actual['rad.5.cardiac-masses-devices']) == {
         'ra.cardiovascular-devices', 'ra.cardiac-masses', 'ra.ct-cardiovascular-pearls'}
     assert actual['rad.5.uterine-mr'] == ['ra.mri-endometriosis', 'ra.mri-cervical-cancer', 'ra.mri-endometrial-cancer']

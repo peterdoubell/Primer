@@ -175,12 +175,14 @@ def test_hippunfold_semantic_inverse_removes_only_exact_companions_and_reviewed_
     import pytest
     from primer.curriculum import Curriculum
     from tools import hippunfold_runtime_compatibility as bridge
+    from tools.epilepsy_figure_runtime_compatibility import before_figure_lesson_fields
     from tools.check_radiology_fidelity import digest
     curriculum = Curriculum()
     fields = ['goal', 'learning_outcomes', 'lesson', 'reference', 'radiology_reference', 'visual_spec',
               'lesson_media', 'model_family', 'model_context', 'practice', 'quiz', 'kid_text']
     for identifier, row in bridge.reviewed()['lessons'].items():
         current = {key: curriculum.node(identifier).get(key) for key in fields}
+        current = before_figure_lesson_fields(identifier, current)
         assert digest(current) == row['after_contract_sha256']
         original = copy.deepcopy(current)
         restored = bridge.before_hippunfold_lesson_fields(identifier, current)
@@ -207,8 +209,9 @@ def test_hippunfold_data_and_contract_inverse_keeps_unrelated_drift_visible():
     import copy
     import pytest
     from tools import hippunfold_runtime_compatibility as bridge
+    from tools.epilepsy_figure_runtime_compatibility import before_figure_bytes
     for path, row in bridge.reviewed()['data_values'].items():
-        data = json.loads((ROOT / path).read_bytes())
+        data = json.loads(before_figure_bytes(path, (ROOT / path).read_bytes()))
         tokens = {row['token_key']: row['after_raw_token_sha256'], 'unrelated': 'f' * 64}
         data['unrelated'] = 'preserved'
         original = copy.deepcopy(data)
