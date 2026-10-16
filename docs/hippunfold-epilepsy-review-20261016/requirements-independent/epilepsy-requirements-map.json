@@ -1,0 +1,1194 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-16T11:05:05.594241+00:00",
+  "investigation_id": "ra.mri-epilepsy",
+  "module_id": "rad.5.epilepsy-mri",
+  "title": "MRI epilepsy — independent draft structure and representation requirements",
+  "clinical_validation_status": "draft_requires_epilepsy_neuroradiologist_review",
+  "clinical_approval": false,
+  "whole_module_complete": false,
+  "source_contract_sha256": "3256b93cbef7e6a7d6acda0ffa2238c9d21b16616ea9d1bcef3fb9b6489eb6ce",
+  "snapshot_current_contract_match": true,
+  "scope_module_contract_sha256": "c20b9c4623571b5179dcdbf09db115fd119b96ef44ae6e76380acd421fa02e91",
+  "required_representations": [
+    "image",
+    "schematic",
+    "model"
+  ],
+  "counting_policy": "Groups are reporting tasks, not additive completeness units. Do not multiply laterality × image/schematic/model × source class into a completion percentage. Some tasks require temporal/clinical evidence that no static 3D model can establish.",
+  "sources": [
+    {
+      "id": "ilae-harness-2019",
+      "kind": "primary_professional_consensus",
+      "title": "Bernasconi et al. Recommendations for the use of structural MRI in the care of patients with epilepsy",
+      "doi": "10.1111/epi.15612",
+      "url": "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy",
+      "reviewed_locations": [
+        "Table 1; sections 2.2.2, 2.3, 2.3.1, 2.3.2, 2.4.1; Figures 1–4"
+      ],
+      "access": "Official ILAE URL read as 15-page PDF with web tool; direct urllib fetch 403 is preserved in acquisition receipt.",
+      "evidence_summary": "HARNESS uses whole-brain isotropic T1/FLAIR and hippocampus-perpendicular high-resolution T2. Morphology, signal, architecture, cortex and relevant electroclinical information must be assessed. Fornix and mammillary atrophy can accompany hippocampal sclerosis. Quantitative interpretation needs appropriate correction and controls."
+    },
+    {
+      "id": "hippunfold-dataset-7007362",
+      "kind": "primary_dataset_description",
+      "title": "DeKraker and Khan. HippUnfold HCP-YA Training Data v1.0.0",
+      "doi": "10.5281/zenodo.7007362",
+      "url": "https://zenodo.org/records/7007362",
+      "reviewed_locations": [
+        "Dataset description, eight-value lookup table, file inventory, license metadata"
+      ],
+      "evidence_summary": "Training tissue labels with T1w, T2w and mean b1000 in upsampled 0.3-mm hippocampal boxes; source-named left is mirrored. Archive metadata does not provide FLAIR, complete brain coverage or epilepsy pathology diagnoses.",
+      "source_snapshot_sha256": "1b276b3cf6282be533a99dbc988ec5f41987ed5655d48cb4d335eab6b49ee7f4"
+    },
+    {
+      "id": "hippunfold-method-2022",
+      "kind": "primary_methods_research",
+      "title": "DeKraker et al. Automated hippocampal unfolding for morphometry and subfield segmentation with HippUnfold",
+      "doi": "10.7554/eLife.77945",
+      "url": "https://elifesciences.org/articles/77945",
+      "full_text_mirror": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9831605/fullTextXML",
+      "reviewed_locations": [
+        "Introduction; Discussion limitations; Materials and methods > HippUnfold detailed pipeline > preprocessing, tissue class segmentation and subfield segmentation; generalizability"
+      ],
+      "evidence_summary": "Tissue classes support unfolding boundaries. Subfields are a later atlas-based parcellation. The cropped oblique images undergo affine registration, resampling and left mirroring. Resolution and segmentation limitations remain; the paper’s separate surgical case is not evidence that this HCP training subject has epilepsy.",
+      "source_snapshot_sha256": "dceda7881f8f06f26fe2d591e95b7e983199187ddd274475772e8bc73de0e148"
+    },
+    {
+      "id": "hcp-acquisition-2013",
+      "kind": "primary_methods_research",
+      "title": "Glasser et al. The minimal preprocessing pipelines for the Human Connectome Project",
+      "doi": "10.1016/j.neuroimage.2013.04.127",
+      "url": "https://www.freesurfer.net/pub/articles/2013/2013_-_Glasser_et_al._-_NeuroImage.pdf",
+      "reviewed_locations": [
+        "Structural acquisitions and PreFreeSurfer description"
+      ],
+      "evidence_summary": "HCP-YA structural T1w/T2w were acquired at 0.7-mm isotropic resolution. The later 0.3-mm training grid is resampling, not proof of new acquired detail."
+    },
+    {
+      "id": "ilae-fcd-2022",
+      "kind": "primary_professional_consensus",
+      "title": "Najm et al. The ILAE consensus classification of focal cortical dysplasia: an update",
+      "doi": "10.1111/epi.17301",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9545778/",
+      "reviewed_locations": [
+        "MRI phenotype; integrated multi-layer reporting; Table 1"
+      ],
+      "evidence_summary": "MRI reporting describes lesion location, extent, sulcogyral morphology, thickness, grey-white interface and signal. Transmantle signal predicts a likely subtype; it does not replace integrated classification or histology."
+    },
+    {
+      "id": "encephalocele-coexistence-2023",
+      "kind": "primary_retrospective_clinical_study",
+      "title": "Tsalouchidou et al. Temporal encephaloceles and coexisting epileptogenic lesions",
+      "doi": "10.1002/epi4.12674",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9977755/",
+      "reviewed_locations": [
+        "Abstract, Methods, Discussion"
+      ],
+      "evidence_summary": "Temporal encephaloceles may coexist with other potentially relevant lesions and may be incidental. Their presence cannot establish seizure causality or justify stopping the whole-brain search."
+    },
+    {
+      "id": "encephalocele-detection-2018",
+      "kind": "primary_retrospective_clinical_study",
+      "title": "Campbell et al. Detection and Characteristics of Temporal Encephaloceles in Patients with Refractory Epilepsy",
+      "doi": "10.3174/ajnr.A5704",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7410551/",
+      "reviewed_locations": [
+        "PubMed abstract; high-resolution T2 detection result"
+      ],
+      "evidence_summary": "Dedicated review with a high-resolution T2 sequence improves recognition of subtle temporal encephaloceles. A hippocampal crop does not demonstrate the middle cranial fossa floor or the herniation relationship."
+    },
+    {
+      "id": "periictal-2001",
+      "kind": "primary_retrospective_clinical_case_series",
+      "title": "Kim et al. Transient MR signal changes in patients with generalized tonicoclonic seizure or status epilepticus: periictal diffusion-weighted imaging",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11415912/",
+      "reviewed_locations": [
+        "PubMed abstract; study of peri-ictal MRI and follow-up"
+      ],
+      "evidence_summary": "Peri-ictal cortical/hippocampal signal and diffusion abnormalities can change on follow-up. A static anatomy segmentation is not evidence of an enduring lesion or a seizure mechanism."
+    },
+    {
+      "id": "ilae-infants-2026",
+      "kind": "primary_professional_evidence_based_recommendation",
+      "title": "Winston et al. Recommendations for structural MRI in infants with first afebrile seizure or new onset epilepsy",
+      "doi": "10.1002/epi.70205",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41894169/",
+      "reviewed_locations": [
+        "Published abstract and ILAE publication listing"
+      ],
+      "evidence_summary": "For infants aged 1–24 months, MRI is conditionally recommended, with very low-certainty evidence. Available studies did not establish the accuracy or yield of individual protocol choices. Do not present an adult HCP demonstrator as validation of an infant protocol."
+    }
+  ],
+  "reporting_checklist": [
+    {
+      "index": 0,
+      "label": "Hippocampi",
+      "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+    },
+    {
+      "index": 1,
+      "label": "Cortical development",
+      "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+    },
+    {
+      "index": 2,
+      "label": "Dual pathology",
+      "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+    },
+    {
+      "index": 3,
+      "label": "Other substrates",
+      "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+    },
+    {
+      "index": 4,
+      "label": "Concordance",
+      "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+    }
+  ],
+  "reporting_template_sections": [
+    {
+      "heading": "MESIAL TEMPORAL STRUCTURES",
+      "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+    },
+    {
+      "heading": "CORTEX AND MIGRATION",
+      "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+    },
+    {
+      "heading": "FOCAL LESIONS",
+      "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ × __ × __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+    },
+    {
+      "heading": "SKULL BASE AND DUAL PATHOLOGY",
+      "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+    },
+    {
+      "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+      "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+    }
+  ],
+  "structures": [
+    {
+      "id": "epilepsy.hippocampal_extent",
+      "name": "Hippocampal extent, shape and orientation",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.hippocampal_extent.head",
+          "name": "Head and digitations"
+        },
+        {
+          "id": "epilepsy.hippocampal_extent.body",
+          "name": "Body"
+        },
+        {
+          "id": "epilepsy.hippocampal_extent.tail",
+          "name": "Tail"
+        },
+        {
+          "id": "epilepsy.hippocampal_extent.long_axis",
+          "name": "Long axis and relation to coronal plane"
+        },
+        {
+          "id": "epilepsy.hippocampal_extent.bilateral_comparison",
+          "name": "Bilateral comparison in true source orientation"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Both sides over the complete hippocampal extent; distinguish source-named hemisphere from actual spatial/display orientation. Never mirror or translate a crop into patient-native location without the required transforms.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        }
+      ],
+      "reporting_template_sections": [
+        "MESIAL TEMPORAL STRUCTURES"
+      ],
+      "walkthrough_step_indices": [
+        0
+      ],
+      "source_ids": [
+        "ilae-harness-2019",
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ],
+      "representation_acceptance": {
+        "image": "Matched T1/T2/FLAIR source images, entire head–tail coverage, documented planes, motion and resolution; label diagnostic limitations.",
+        "schematic": "Explain the head/body/tail and the perpendicular acquisition/reformat plane on anatomically faithful source geometry.",
+        "model": "Source-derived boundaries at documented resolution, accurate coordinate transforms and independent bilateral alignment; no invented digitations or smoothed-away islands."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "partial_candidate",
+        "classes": [
+          1,
+          8
+        ],
+        "scope": "Source-derived hippocampal tissue geometry within each provided crop; full clinical orientation/extent, true bilateral native relationship and morphology remain unproven."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.hippocampal_internal",
+      "name": "Hippocampal internal architecture",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.hippocampal_internal.srlm",
+          "name": "SRLM / internal dark band"
+        },
+        {
+          "id": "epilepsy.hippocampal_internal.dg",
+          "name": "Dentate gyrus granule-cell layer as defined by source"
+        },
+        {
+          "id": "epilepsy.hippocampal_internal.ca",
+          "name": "Cornu Ammonis regions"
+        },
+        {
+          "id": "epilepsy.hippocampal_internal.subiculum",
+          "name": "Subiculum and transition to medial temporal cortex"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Teach tissue-class boundaries separately from inferred subfield borders. Do not call label 1 CA1–CA4 or call the DG label the complete DG/hilus/CA4. Do not invent histologic layers unresolved by the MRI.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        }
+      ],
+      "reporting_template_sections": [
+        "MESIAL TEMPORAL STRUCTURES"
+      ],
+      "walkthrough_step_indices": [
+        0
+      ],
+      "source_ids": [
+        "ilae-harness-2019",
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ],
+      "representation_acceptance": {
+        "image": "High-resolution coronal T2 through head, body and tail with matched unlabelled view; show architecture preservation versus loss in independently diagnosed examples.",
+        "schematic": "Show the folded ribbon and dark-band relation; label histology-derived or atlas-inferred borders as such.",
+        "model": "Keep the exact source label definitions and uncertainty; separate any later subfield atlas from the eight tissue labels and verify it independently."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "partial_candidate",
+        "classes": [
+          1,
+          2,
+          8
+        ],
+        "scope": "Can display GM, SRLM and DG-labelled source regions. CA1–CA4/subiculum are not supplied classes; full internal-architecture normality is not established."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.mesial_temporal_context",
+      "name": "Adjacent mesial temporal anatomy",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.mesial_temporal_context.amygdala",
+          "name": "Amygdala"
+        },
+        {
+          "id": "epilepsy.mesial_temporal_context.hata",
+          "name": "Hippocampal-amygdalar transition"
+        },
+        {
+          "id": "epilepsy.mesial_temporal_context.entorhinal",
+          "name": "Entorhinal cortex"
+        },
+        {
+          "id": "epilepsy.mesial_temporal_context.parahippocampal",
+          "name": "Parahippocampal cortex/gyrus"
+        },
+        {
+          "id": "epilepsy.mesial_temporal_context.temporal_horn",
+          "name": "Temporal horn"
+        },
+        {
+          "id": "epilepsy.mesial_temporal_context.collateral_white_matter",
+          "name": "Collateral/adjacent temporal white matter"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Context must support the report and curriculum legacy template without relabelling a transition or boundary class as the complete parent organ.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        }
+      ],
+      "reporting_template_sections": [
+        "MESIAL TEMPORAL STRUCTURES"
+      ],
+      "walkthrough_step_indices": [
+        0
+      ],
+      "source_ids": [
+        "ilae-harness-2019",
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ],
+      "representation_acceptance": {
+        "image": "Source images that identify these structures and their boundaries in registered planes.",
+        "schematic": "Faithful relational anatomy with explicitly partial source extent.",
+        "model": "Independently defined amygdala, cortical regions, temporal horn and white-matter context when claimed; HATA is not whole amygdala, and MTLC is not the whole temporal cortex."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "partial_boundary_context_only",
+        "classes": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "scope": "HATA and MTLC give limited local boundary context. Pial and IndGris are unfolding labels; none establishes the complete adjacent structures."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.limbic_efferents",
+      "name": "Fornices and mammillary bodies",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.limbic_efferents.fimbria_fornix",
+          "name": "Fimbria/fornix pathway and bilateral fornices"
+        },
+        {
+          "id": "epilepsy.limbic_efferents.mammillary",
+          "name": "Right and left mammillary bodies"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "The report explicitly calls for fornices and mammillary bodies; depict anatomy and a real, documented atrophy example when teaching that finding.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        }
+      ],
+      "reporting_template_sections": [
+        "MESIAL TEMPORAL STRUCTURES"
+      ],
+      "walkthrough_step_indices": [
+        0
+      ],
+      "source_ids": [
+        "ilae-harness-2019"
+      ],
+      "representation_acceptance": {
+        "image": "Registered source images with sufficient coverage/resolution to compare each side; avoid a normal claim from absence of a mask.",
+        "schematic": "Show the hippocampus–fimbria/fornix–mammillary relationship; distinguish schematic pathway from traced tractography.",
+        "model": "Separate source-backed structures, if presented in 3D; no credit from IndGris or a generic brain envelope."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_supplied",
+        "classes": [],
+        "scope": "No fornix or mammillary-body classes; cropped images do not establish complete pathway coverage."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.hippocampal_sclerosis",
+      "name": "Sclerosis, signal and asymmetry assessment",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.hippocampal_sclerosis.atrophy",
+          "name": "Volume loss/asymmetry"
+        },
+        {
+          "id": "epilepsy.hippocampal_sclerosis.signal",
+          "name": "T2/FLAIR signal change"
+        },
+        {
+          "id": "epilepsy.hippocampal_sclerosis.architecture_loss",
+          "name": "Loss of internal architecture"
+        },
+        {
+          "id": "epilepsy.hippocampal_sclerosis.orientation_variant",
+          "name": "Orientation/malrotation versus disease"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Separate anatomy reference, processed-grid volume and validated native clinical volumetry. No pathology or normality diagnosis may be inferred from this training labelmap.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 0,
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        }
+      ],
+      "reporting_template_sections": [
+        "MESIAL TEMPORAL STRUCTURES"
+      ],
+      "walkthrough_step_indices": [
+        0
+      ],
+      "source_ids": [
+        "ilae-harness-2019",
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ],
+      "representation_acceptance": {
+        "image": "Independently diagnosed sclerosis examples with side-matched T1/T2/FLAIR and controls; provenance, diagnostic basis and image visibility reviewed.",
+        "schematic": "Connect the actually visible sign to the image, avoiding an unexplained colour-coded disease proxy.",
+        "model": "If pathological 3D is claimed, segment the demonstrated pathological case and preserve registration; a generic shrinking slider is explicitly schematic only."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_diagnostic",
+        "classes": [
+          1,
+          2,
+          8
+        ],
+        "scope": "Source-grid counts/morphology are measurable after geometry review. No FLAIR, native transforms/head-size normalization, age-reference interpretation or diagnosis for this subject is established."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.cortical_ribbon",
+      "name": "Whole-brain cortical development and dysplasia",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.cortical_ribbon.cortical_thickness",
+          "name": "Cortical thickness"
+        },
+        {
+          "id": "epilepsy.cortical_ribbon.sulcogyral",
+          "name": "Gyri, sulci and bottom-of-sulcus location"
+        },
+        {
+          "id": "epilepsy.cortical_ribbon.junction",
+          "name": "Grey-white junction"
+        },
+        {
+          "id": "epilepsy.cortical_ribbon.subcortical_white",
+          "name": "Subcortical white matter"
+        },
+        {
+          "id": "epilepsy.cortical_ribbon.transmantle",
+          "name": "Cortex-to-ventricle transmantle abnormality"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Review lobe by lobe and bilateral whole-brain coverage; a local MTLC mask cannot satisfy cortical review. Use imaging-pattern language rather than asserting histologic subtype.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 1,
+          "label": "Cortical development",
+          "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "checklist_index": 2,
+          "label": "Dual pathology",
+          "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+        }
+      ],
+      "reporting_template_sections": [
+        "CORTEX AND MIGRATION",
+        "SKULL BASE AND DUAL PATHOLOGY"
+      ],
+      "walkthrough_step_indices": [
+        1,
+        3
+      ],
+      "source_ids": [
+        "ilae-fcd-2022",
+        "ilae-harness-2019"
+      ],
+      "representation_acceptance": {
+        "image": "Co-registered high-resolution whole-brain T1 and FLAIR/T2 with confirmed lesion/normal comparisons; demonstrate thickness, junction and signal at the same location.",
+        "schematic": "Show ribbon, white matter and ventricle relationship without representing a generic cone as patient pathology.",
+        "model": "Source-derived lesion and surrounding cortex/white matter when claimed; retain lesion extent and bottom-of-sulcus detail at documented resolution."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_supplied",
+        "classes": [
+          3
+        ],
+        "scope": "MTLC is only a cropped boundary class; there is no whole cortical ribbon, dysplasia mask or transmantle class."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.migration",
+      "name": "Migration and gyral malformations",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.migration.heterotopia_periventricular",
+          "name": "Periventricular/subependymal nodular heterotopia"
+        },
+        {
+          "id": "epilepsy.migration.heterotopia_subcortical",
+          "name": "Subcortical heterotopic grey matter"
+        },
+        {
+          "id": "epilepsy.migration.polymicrogyria",
+          "name": "Polymicrogyria and abnormal cortical folding"
+        },
+        {
+          "id": "epilepsy.migration.ventricle_relation",
+          "name": "Ventricular and white-matter relationship"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Represent the named reportable abnormalities with their actual grey-matter signal and spatial relationships, not merely a marker on a hemisphere.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 1,
+          "label": "Cortical development",
+          "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "checklist_index": 2,
+          "label": "Dual pathology",
+          "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+        }
+      ],
+      "reporting_template_sections": [
+        "CORTEX AND MIGRATION"
+      ],
+      "walkthrough_step_indices": [
+        1
+      ],
+      "source_ids": [
+        "ilae-harness-2019"
+      ],
+      "representation_acceptance": {
+        "image": "Confirmed examples on appropriate contrasts and planes with the surrounding cortex and ventricle visible.",
+        "schematic": "Trace the actual relevant grey matter and relationships on source-derived anatomy.",
+        "model": "If modeled, use lesion-specific labelled source geometry; no claim from a smooth whole-brain proxy."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_supplied",
+        "classes": [],
+        "scope": "The eight tissue classes do not identify heterotopia or polymicrogyria."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.focal_lesion",
+      "name": "Focal lesions and acquired substrates",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.focal_lesion.cortical_tumour",
+          "name": "Cortically based tumour, including taught DNET/ganglioglioma patterns"
+        },
+        {
+          "id": "epilepsy.focal_lesion.vascular",
+          "name": "Vascular lesion/cavernoma and haemosiderin relationship"
+        },
+        {
+          "id": "epilepsy.focal_lesion.gliosis",
+          "name": "Gliosis"
+        },
+        {
+          "id": "epilepsy.focal_lesion.encephalomalacia",
+          "name": "Encephalomalacia/prior injury"
+        },
+        {
+          "id": "epilepsy.focal_lesion.extent",
+          "name": "Three-plane lesion extent and adjacent anatomy"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "The finding list and report ask for these lesion classes. Source tissue labels cannot substitute for disease examples or susceptibility/enhancement data.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 3,
+          "label": "Other substrates",
+          "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        }
+      ],
+      "reporting_template_sections": [
+        "FOCAL LESIONS",
+        "SKULL BASE AND DUAL PATHOLOGY"
+      ],
+      "walkthrough_step_indices": [
+        2,
+        3
+      ],
+      "source_ids": [
+        "ilae-harness-2019"
+      ],
+      "representation_acceptance": {
+        "image": "Documented examples with T1/T2/FLAIR and susceptibility; contrast when indicated/acquired, dimension calibration and diagnosis basis.",
+        "schematic": "Illustrate source-visible features, compartment and surrounding structures; distinguish MRI signal from histology.",
+        "model": "Model source-defined lesion extent when 3D is offered, retaining adjacency and uncertainty; do not repurpose source Cyst label as DNET or another lesion."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_supplied",
+        "classes": [
+          7
+        ],
+        "scope": "Cyst is an unfolding tissue class, not evidence of tumour, vascular malformation, gliosis or injury."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.skull_base",
+      "name": "Temporal skull base and encephalocele",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.skull_base.temporal_pole",
+          "name": "Temporal pole/inferior temporal parenchyma"
+        },
+        {
+          "id": "epilepsy.skull_base.middle_fossa",
+          "name": "Middle cranial fossa floor and defect"
+        },
+        {
+          "id": "epilepsy.skull_base.herniated_tissue",
+          "name": "Herniated tissue and neck"
+        },
+        {
+          "id": "epilepsy.skull_base.csf_meninges",
+          "name": "CSF/meningeal relationship"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "The representation must show the herniation relative to the skull-base defect, and preserve the possibility that the finding is incidental or coexists with another lesion.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 2,
+          "label": "Dual pathology",
+          "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Other substrates",
+          "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        }
+      ],
+      "reporting_template_sections": [
+        "SKULL BASE AND DUAL PATHOLOGY"
+      ],
+      "walkthrough_step_indices": [
+        3
+      ],
+      "source_ids": [
+        "encephalocele-detection-2018",
+        "encephalocele-coexistence-2023"
+      ],
+      "representation_acceptance": {
+        "image": "High-resolution T2 and multiplanar source images covering the fossa floor; corroborating bone information only when independently available.",
+        "schematic": "Show the actual defect, neck and brain/CSF relationship; no free-floating label.",
+        "model": "Source-backed adjacent temporal parenchyma and skull base, with any uncertainty in the bony margin explicit."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_supplied",
+        "classes": [],
+        "scope": "A hippocampal training crop and Pial class do not establish skull-base coverage or an encephalocele."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.dual_pathology",
+      "name": "Whole-brain search and dual pathology",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.dual_pathology.index_lesion",
+          "name": "First detected lesion"
+        },
+        {
+          "id": "epilepsy.dual_pathology.second_lesion",
+          "name": "Independent second potentially relevant lesion"
+        },
+        {
+          "id": "epilepsy.dual_pathology.contralateral_brain",
+          "name": "Contralateral hemisphere and remainder of brain"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Finding hippocampal sclerosis or encephalocele must not terminate the search. Do not infer prevalence or causation from a single demonstrator.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 2,
+          "label": "Dual pathology",
+          "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+        },
+        {
+          "checklist_index": 3,
+          "label": "Other substrates",
+          "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Concordance",
+          "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+        }
+      ],
+      "reporting_template_sections": [
+        "SKULL BASE AND DUAL PATHOLOGY",
+        "ACUTE AND ELECTROCLINICAL CORRELATION"
+      ],
+      "walkthrough_step_indices": [
+        3,
+        4
+      ],
+      "source_ids": [
+        "encephalocele-coexistence-2023",
+        "ilae-harness-2019"
+      ],
+      "representation_acceptance": {
+        "image": "Whole-brain case coverage and documented coexisting lesions with electroclinical context; distinguish two lesions from two views of one lesion.",
+        "schematic": "Localize both actual lesions in the same source anatomy when available, otherwise keep cases separate.",
+        "model": "3D must preserve true case identity/registration; never combine unrelated cases into a claimed single patient."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_supplied",
+        "classes": [],
+        "scope": "Two hippocampal boxes cannot establish a negative whole-brain search or dual pathology."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    },
+    {
+      "id": "epilepsy.periictal",
+      "name": "Peri-ictal change and acute alternatives",
+      "tissue_class": "reportable_anatomy_or_pathologic_entity",
+      "required_parts": [
+        {
+          "id": "epilepsy.periictal.cortical_change",
+          "name": "Cortical swelling/signal change"
+        },
+        {
+          "id": "epilepsy.periictal.hippocampal_change",
+          "name": "Hippocampal swelling/signal change"
+        },
+        {
+          "id": "epilepsy.periictal.diffusion",
+          "name": "Diffusion/ADC relationship"
+        },
+        {
+          "id": "epilepsy.periictal.timeline",
+          "name": "Timing and evolution on follow-up"
+        }
+      ],
+      "laterality": "bilateral_or_lesion_specific_as_applicable",
+      "modality_scope": [
+        "MRI"
+      ],
+      "condition": "Keep transient change distinct from fixed structural lesions; source DWI b1000 alone is not an ADC map or a diagnosis.",
+      "requirement_basis": "current_effective_reporting_contract_and_primary_source_review",
+      "report_refs": [
+        {
+          "checklist_index": 3,
+          "label": "Other substrates",
+          "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        },
+        {
+          "checklist_index": 4,
+          "label": "Concordance",
+          "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+        }
+      ],
+      "reporting_template_sections": [
+        "ACUTE AND ELECTROCLINICAL CORRELATION"
+      ],
+      "walkthrough_step_indices": [
+        4
+      ],
+      "source_ids": [
+        "periictal-2001"
+      ],
+      "representation_acceptance": {
+        "image": "Documented acute/follow-up sequences with timing and clinically adjudicated differential, DWI and ADC where diffusion is taught.",
+        "schematic": "Explain location and temporal evolution using the documented imaging; label any process animation as schematic.",
+        "model": "A static anatomy model can provide context only; it cannot establish transient physiology or causality."
+      },
+      "hippunfold_7007362_credit": {
+        "status": "not_supplied",
+        "classes": [],
+        "scope": "No timeline, clinical diagnosis, FLAIR, ADC or longitudinal pathology is supplied for subject 101006."
+      },
+      "current_evidence_status": "unverified_for_full_reporting_task",
+      "clinical_approval": false
+    }
+  ],
+  "hippunfold_class_claim_boundaries": [
+    {
+      "source_value": 1,
+      "abbreviation": "GM",
+      "source_class": "Hippocampal grey matter",
+      "limited_credit": "Cropped labelled hippocampal ribbon",
+      "must_not_claim": "Not a CA1–CA4/subiculum parcellation or complete clinical hippocampal-volume convention.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    },
+    {
+      "source_value": 2,
+      "abbreviation": "SRLM",
+      "source_class": "SRLM / dark band",
+      "limited_credit": "Labelled internal-band spatial relation",
+      "must_not_claim": "Not proof that every lamina is independently resolved, that architecture is normal, or that signal is pathological.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    },
+    {
+      "source_value": 3,
+      "abbreviation": "MTLC",
+      "source_class": "Entorhinal/parahippocampal neocortex class",
+      "limited_credit": "Local cortex boundary context",
+      "must_not_claim": "Not separate complete entorhinal/parahippocampal segmentations or a whole-brain cortical-dysplasia survey.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    },
+    {
+      "source_value": 4,
+      "abbreviation": "Pial",
+      "source_class": "Pial surface class",
+      "limited_credit": "A boundary label used in the unfolding framework",
+      "must_not_claim": "Not a complete meningeal model, skull-base surface, or CSF-pathway assessment.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    },
+    {
+      "source_value": 5,
+      "abbreviation": "HATA",
+      "source_class": "Hippocampal-amygdalar transition area",
+      "limited_credit": "Anterior transition boundary context",
+      "must_not_claim": "Not the complete amygdala or independent nuclei.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    },
+    {
+      "source_value": 6,
+      "abbreviation": "IndGris",
+      "source_class": "Indusium griseum",
+      "limited_credit": "Posterior unfolding boundary context",
+      "must_not_claim": "Not fimbria, fornix or mammillary bodies.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    },
+    {
+      "source_value": 7,
+      "abbreviation": "Cyst",
+      "source_class": "Cysts source class",
+      "limited_credit": "Source-labelled cyst spaces",
+      "must_not_claim": "Not a tumour, a lesion diagnosis, clinical benignity, or all cystic epilepsy substrates.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    },
+    {
+      "source_value": 8,
+      "abbreviation": "DG",
+      "source_class": "Dentate gyrus source class",
+      "limited_credit": "Granule-cell-layer/end-point label in the method",
+      "must_not_claim": "Not the complete dentate gyrus, hilus/CA4, or histologic pathology.",
+      "source_ids": [
+        "hippunfold-dataset-7007362",
+        "hippunfold-method-2022"
+      ]
+    }
+  ],
+  "validation_gates": [
+    {
+      "id": "source-provenance",
+      "required": "Pin exact files, archive member, source version, license and integrity; retain dataset class definitions."
+    },
+    {
+      "id": "source-coordinates",
+      "required": "Independently prove image/label alignment and left mirroring for this version; preserve source coordinates and registration. Until recovered, do not call the paired crops native bilateral anatomy."
+    },
+    {
+      "id": "source-resolution",
+      "required": "Disclose acquired 0.7-mm HCP resolution versus upsampled 0.3-mm storage grid. Upsampling does not resolve new anatomy."
+    },
+    {
+      "id": "volume-claim",
+      "required": "Show processed-grid class volumes only as processed-grid research quantities. Native patient volumetry needs inverse affine/Jacobian treatment, a declared hippocampal boundary convention, segmentation QA, head-size correction and appropriate reference norms. Do not turn a count into an atrophy diagnosis."
+    },
+    {
+      "id": "geometry-integrity",
+      "required": "Independent voxel-to-mesh coverage, interfaces, topology and in-image overlays. Closedness, triangle count and finite buffers prove technical properties only, not biological truth."
+    },
+    {
+      "id": "pathology-evidence",
+      "required": "Each named reportable finding requires inspectable, appropriately licensed and independently diagnosed clinical images; overlays and models must be explicitly linked to the same case/sequence."
+    },
+    {
+      "id": "full-reader-evidence",
+      "required": "Verify report and lesson reader in desktop/mobile, unlabelled/labelled images, original source comparison, true orientation, legible anatomy, and all source fetches. UI presence never equals clinical fidelity."
+    },
+    {
+      "id": "specialist-review",
+      "required": "Document neuroradiologist/epilepsy imaging review of visibility, boundaries, pathology, language and limitations. No current specialist approval is claimed."
+    }
+  ],
+  "current_contract_findings": [
+    {
+      "id": "no-inventory",
+      "severity": "scope_gap",
+      "evidence": "scope.json has structure_inventory null and required_not_yet_expanded for this investigation."
+    },
+    {
+      "id": "image-slots-not-complete",
+      "severity": "evidence_gap",
+      "evidence": "Current descriptors contain three remote image slots; no source_native_inspectors and no structure_atlas. Skull-base/dual-pathology and electroclinical steps have no images. Presence of remote examples does not prove rights, image visibility or every required structure."
+    },
+    {
+      "id": "third-image-context-limitation",
+      "severity": "context_review_not_misidentification",
+      "evidence": "The Focal lesions step retains a correctly identified FCD image. FCD is itself a focal structural lesion, so the broad binding is defensible; the specific tumour/cavernoma/scar examples are not illustrated by that image. Retain binding and accurate caption; an optional contextual tip may clarify its role. See epilepsy-minimal-corrections-proposal.json."
+    },
+    {
+      "id": "fcd-tip-certainty",
+      "severity": "clinical_language_review",
+      "evidence": "Current tip says transmantle signal indicates FCD IIb. The ILAE 2022 consensus uses probabilistic imaging prediction; wording should avoid equating an imaging sign with confirmed histologic subtype."
+    },
+    {
+      "id": "legacy-technique",
+      "severity": "contract_reconciliation",
+      "evidence": "Module legacy reference.template offers 3-D / coronal oblique FLAIR while current reporting protocol specifically requires isotropic 3D FLAIR. Reconcile learner-visible versions without weakening HARNESS."
+    },
+    {
+      "id": "normal-language",
+      "severity": "source_claim_review",
+      "evidence": "Walkthrough normal phrases are report templates, not evidence this HCP training subject or any atlas mesh has normal diagnostic anatomy."
+    }
+  ],
+  "next_actions": [
+    "Complete independent left/right image-label coordinate review before any clinical runtime binding of 7007362.",
+    "If integrated, label the source as an upsampled, atlas-registered, mirrored HCP training tissue demonstrator; expose exact class limitations and preserve original image comparison.",
+    "Acquire exact native transforms or change any proposed native-volume/asymmetry claim to processed-grid research measurements.",
+    "Expand the actual epilepsy structure inventory from these draft reporting groups with specialist-reviewed boundaries and image visibility.",
+    "Supply source-backed fornix/mammillary, amygdala and whole-brain/skull-base anatomy; do not award coverage from transition/boundary labels.",
+    "Clarify the retained FCD image role in the focal-lesion step and add source-licensed diagnostic examples for the currently uncovered report tasks, including dual pathology and peri-ictal evolution.",
+    "Review FCD language and reconcile all current lesson/report versions, then validate the full report-to-image-to-model learner flow."
+  ],
+  "non_anatomical_requirements": [
+    {
+      "id": "acquisition-quality",
+      "contract_refs": [
+        "reporting.protocol",
+        "TECHNIQUE AND QUALITY"
+      ],
+      "requirement": "Record the actual T1/FLAIR/T2 acquisition, coverage, plane, source resolution and motion limitations; distinguish acquired resolution from display upsampling. Adapt age-specific teaching without claiming the adult training source validates infants.",
+      "source_ids": [
+        "ilae-harness-2019",
+        "hcp-acquisition-2013",
+        "ilae-infants-2026"
+      ],
+      "hippunfold_status": "A cropped resampled T2 pair alone is not a HARNESS exam."
+    },
+    {
+      "id": "electroclinical-context",
+      "contract_refs": [
+        "Concordance",
+        "ACUTE AND ELECTROCLINICAL CORRELATION",
+        "IMPRESSION"
+      ],
+      "requirement": "Use supplied EEG/semiology and timing with explicit laterality and concordance/discordance/not-assessable state. A visual or 3D lesion location cannot independently prove epileptogenicity.",
+      "source_ids": [
+        "ilae-harness-2019",
+        "encephalocele-coexistence-2023"
+      ],
+      "hippunfold_status": "No EEG, semiology, timing or relevant clinical interpretation for 101006 supplied."
+    },
+    {
+      "id": "dimensions-and-asymmetry",
+      "contract_refs": [
+        "reporting.measurements",
+        "MESIAL TEMPORAL STRUCTURES",
+        "FOCAL LESIONS"
+      ],
+      "requirement": "Lesion dimensions need calibrated spatial data and stated planes; clinical asymmetry needs validated segmentation, native-space treatment and appropriate reference data. Cropped-grid counts may be shown only under that precise label.",
+      "source_ids": [
+        "ilae-harness-2019",
+        "hippunfold-method-2022"
+      ],
+      "hippunfold_status": "Source-grid class counts are not a normative volumetry report or whole-hippocampus boundary convention."
+    },
+    {
+      "id": "normal-and-acute-statements",
+      "contract_refs": [
+        "reporting.pitfalls",
+        "reporting.escalation",
+        "IMPRESSION",
+        "RECOMMENDATION AND COMMUNICATION"
+      ],
+      "requirement": "Retain normal-MRI limitations and clinical escalation fields. Do not certify absence of disease from atlas images, absence of labels or a generic model. Acute haemorrhage, infarction, encephalitis or dangerous mass effect require separately supported clinical examples and appropriate communication context.",
+      "source_ids": [
+        "ilae-harness-2019",
+        "periictal-2001"
+      ],
+      "hippunfold_status": "No individual diagnostic normality, negative whole-brain study or acute triage evidence."
+    }
+  ],
+  "assessment_trace": [
+    {
+      "quiz_index": 0,
+      "prompt": "A 24-year-old with drug-resistant focal seizures is referred to a surgical programme. The only imaging is a 1.5T study with 5 mm axial T2 and FLAIR and 5 mm axial T1, reported as normal two years ago. What do you arrange?",
+      "requirement_ids": [
+        "acquisition-quality"
+      ]
+    },
+    {
+      "quiz_index": 1,
+      "prompt": "A routine two-dimensional FLAIR is acquired at 1.0 mm by 1.0 mm in-plane with 5 mm slices. The 3D FLAIR of an epilepsy protocol is 1.0 mm isotropic. By what factor is the voxel volume of the routine sequence larger? Answer as a number to one decimal place.",
+      "requirement_ids": [
+        "acquisition-quality"
+      ]
+    },
+    {
+      "quiz_index": 2,
+      "prompt": "A radiographer asks you to specify the three core sequences of the HARNESS-MRI epilepsy protocol. Describe them in one or two sentences, including the geometry that matters.",
+      "requirement_ids": [
+        "acquisition-quality"
+      ]
+    },
+    {
+      "quiz_index": 3,
+      "prompt": "A coronal T2 shows a small right hippocampus with increased FLAIR signal and loss of the normal internal digitations, and the right temporal horn is dilated. Which additional finding on the same study would most support the diagnosis you are considering?",
+      "requirement_ids": [
+        "epilepsy.hippocampal_sclerosis",
+        "epilepsy.mesial_temporal_context",
+        "epilepsy.limbic_efferents"
+      ]
+    },
+    {
+      "quiz_index": 4,
+      "prompt": "Describe the transmantle sign in one or two sentences, and say what its presence tells you about the underlying lesion.",
+      "requirement_ids": [
+        "epilepsy.cortical_ribbon"
+      ]
+    },
+    {
+      "quiz_index": 5,
+      "prompt": "A 22-year-old has had focal seizures with impaired awareness since childhood. MRI shows a cortically based, multicystic bubbly lesion in the left temporal lobe with a bright FLAIR rim, no surrounding oedema, no enhancement, and gentle scalloping of the inner table of the skull. What is the lesion and how should the report frame it?",
+      "requirement_ids": [
+        "epilepsy.focal_lesion",
+        "epilepsy.skull_base"
+      ]
+    },
+    {
+      "quiz_index": 6,
+      "prompt": "A 19-year-old with focal seizures has MRI showing smooth ovoid nodules lining both lateral ventricles. The nodules follow grey matter signal exactly on T1, T2 and FLAIR, do not enhance, and show no blooming on susceptibility imaging. What do you conclude and advise?",
+      "requirement_ids": [
+        "epilepsy.migration"
+      ]
+    },
+    {
+      "quiz_index": 7,
+      "prompt": "Arrange these investigations in the order a presurgical epilepsy programme would usually deploy them for a patient whose first MRI was reported as normal.",
+      "requirement_ids": [
+        "acquisition-quality",
+        "electroclinical-context"
+      ]
+    },
+    {
+      "quiz_index": 8,
+      "prompt": "You are planning the dedicated coronal T2 stack. The hippocampus measures 4.0 cm along its long axis and you will use 2 mm slices with no interslice gap. How many slices are needed to cover it end to end? Answer as a whole number.",
+      "requirement_ids": [
+        "epilepsy.hippocampal_extent",
+        "acquisition-quality"
+      ]
+    },
+    {
+      "quiz_index": 9,
+      "prompt": "A 27-year-old with focal seizures has a 12 mm lesion at the right frontal grey and white matter junction with a mixed-signal popcorn core and a complete dark rim on T2, blooming on gradient echo, with no oedema. A cousin had seizures and a brain haemorrhage. What do you add to the study and why?",
+      "requirement_ids": [
+        "epilepsy.focal_lesion",
+        "epilepsy.dual_pathology"
+      ]
+    },
+    {
+      "quiz_index": 10,
+      "prompt": "Describe how polymicrogyria appears on a millimetric 3D T1 and name the associated finding that often accompanies it.",
+      "requirement_ids": [
+        "epilepsy.migration"
+      ]
+    },
+    {
+      "quiz_index": 11,
+      "prompt": "A 31-year-old with drug-resistant frontal lobe epilepsy has a full HARNESS protocol reported as normal. Scalp EEG and semiology both point to the right frontal lobe. What is the most useful next imaging step?",
+      "requirement_ids": [
+        "electroclinical-context",
+        "epilepsy.cortical_ribbon"
+      ]
+    }
+  ],
+  "scope_limits": "This draft expands the effective report, legacy template and current assessment obligations. Linked reading headings are context, not evidence that every listed disease is illustrated. Additional diseases/infant teaching require case-specific source and specialist review; nothing here establishes whole-module approval."
+}

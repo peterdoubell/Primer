@@ -23,7 +23,24 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     _validate_lesson_media(node)
     assert [m for m in node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [MEDIA]
     assert all(not any(m['kind'] == 'source-native-inspectors' for m in n['lesson_media'])
-               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule', 'rad.5.pleura', 'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'})
+               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule', 'rad.5.pleura', 'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices', 'rad.5.epilepsy-mri', 'rad.5.dementia'})
+    from primer import hippunfold_reference as hippocampal
+    from tools.hippunfold_runtime_compatibility import reviewed
+    expected_companions = {'rad.5.epilepsy-mri': 'ra.mri-epilepsy', 'rad.5.dementia': 'ra.mri-dementia'}
+    registered = hippocampal.references()
+    assert set(registered) == set(expected_companions.values())
+    manifest = json.loads(hippocampal.validate_file('manifest.json').read_bytes())
+    assert manifest['case'] == '101006' and manifest['shape'] == [128, 256, 128]
+    for lesson_id, investigation_id in expected_companions.items():
+        companion_node = curriculum.node(lesson_id)
+        _validate_lesson_media(companion_node)
+        companions = [m for m in companion_node['lesson_media'] if m['kind'] == 'source-native-inspectors']
+        assert companions == reviewed()['lessons'][lesson_id]['added_media']
+        assert companions[0]['id'] == 'module-native-inspectors-' + lesson_id
+        assert companions[0]['investigation_ids'] == [investigation_id]
+        companion_ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve(investigation_id))['radiology_reference']
+        assert companion_ref['source_native_inspectors'] == registered[investigation_id]
+        assert [asset['id'] for asset in registered[investigation_id]] == [hippocampal.IDENTIFIER]
     thoracic = curriculum.node('rad.5.pleura')
     thoracic_media, = [m for m in thoracic['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert thoracic_media['investigation_ids'] == ['ra.thoracic-ultrasound']

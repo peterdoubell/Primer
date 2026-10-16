@@ -166,9 +166,13 @@ def test_exact_metadata_generation_and_only_reviewed_public_redirects():
     cardiac = {'src': 'web/anatomy/totalseg-v1-s0028-cardiac/{originals,surfaces}/**', 'use': '@vercel/static'}
     walls = {'src': 'web/anatomy/bp3d-cardiac-4.3/{originals,transport}/**', 'use': '@vercel/static'}
     comparisons = {'src': 'web/reference-media/cardiac-comparisons-2020/images/**', 'use': '@vercel/static'}
-    assert config['builds'][-6:] == [thoracic, lung, basal, cardiac, walls, comparisons]
-    assert config['builds'][1:-6] == base['builds'][1:]
-    assert config['builds'][0]['config']['excludeFiles'].startswith(base['builds'][0]['config']['excludeFiles'][:-1] + ',')
+    # Compare the earlier build inventory after reversing only the byte-pinned
+    # HippUnfold static/exclusion addition. Current pulmonary routes above remain exact.
+    from tools.hippunfold_runtime_compatibility import before_hippunfold_bytes
+    previous_builds = json.loads(before_hippunfold_bytes('vercel.json', (ROOT / 'vercel.json').read_bytes()))['builds']
+    assert previous_builds[-6:] == [thoracic, lung, basal, cardiac, walls, comparisons]
+    assert previous_builds[1:-6] == base['builds'][1:]
+    assert previous_builds[0]['config']['excludeFiles'].startswith(base['builds'][0]['config']['excludeFiles'][:-1] + ',')
     ignored = (ROOT / '.vercelignore').read_text()
     patterns = [line for line in ignored.splitlines() if line.startswith('web/anatomy/lidc-idri-0525/')]
     assert all(not any(Path('web/anatomy/lidc-idri-0525/' + filename).match(pattern) for pattern in patterns)
@@ -193,7 +197,14 @@ def test_old_source_registries_and_bindings_are_preserved():
     assert refs['ra.acute-stroke'] == stroke_references()['ra.acute-stroke']
     from primer.cardiac_native_inspector import references as cardiac_references, BINDINGS as cardiac_bindings
     from primer.cardiac_wall_context import references as wall_references
-    assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings
+    from primer import hippunfold_reference as hippocampal
+    assert hippocampal.BINDINGS == {'ra.mri-epilepsy', 'ra.mri-dementia'}
+    registered = hippocampal.references()  # Validates the pinned registry, manifest and source inventory.
+    assert set(registered) == hippocampal.BINDINGS
+    assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
+    for identifier, expected in registered.items():
+        assert refs[identifier] == expected
+        assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
     from primer.thoracic_native_inspectors import references as thoracic_references
     from primer.thoracic_lung_native import references as lung_references
     from primer.thoracic_basal_context import references as basal_references

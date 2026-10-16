@@ -109717,7 +109717,32 @@
         "source_anatomy_references": [],
         "source_motion_references": [],
         "source_study_references": [],
-        "source_native_inspectors": null
+        "source_native_inspectors": [
+          {
+            "id": "hippunfold-hcp101006-registered-reference",
+            "modality": "Registered T2 MRI and categorical surfaces",
+            "coordinate_context": "published-registered-training-grid",
+            "title": "Published hippocampal T2 MRI and source-label surfaces",
+            "src": "/app/anatomy/hippunfold-hcp101006-registered/index.html",
+            "manifest_url": "/app/anatomy/hippunfold-hcp101006-registered/manifest.json",
+            "sha256": "5754022a9c43af33f767f155cf99e1f159b85458390b721f71423575873460ca",
+            "manifest_sha256": "d8c1452b2c011abcd49406b693137e9217e1c7b3d2fed9268ae4851bcd876c4a",
+            "caption": "Explore matched T2 crops and eight research label classes from the published HippUnfold HCP-YA case 101006. Both supplied hemisphere files retain every source sample and all 472,392 categorical boundary triangles. These registered, resampled training grids support hippocampal context; they do not establish native volume or asymmetry, normality, pathology, patient laterality, CA subfields or complete reporting anatomy.",
+            "attribution": "Jordan DeKraker and Ali R. Khan. HippUnfold HCP-YA Training Data v1.0.0, case 101006. DOI 10.5281/zenodo.7007362. CC BY 4.0. Adaptations: lossless value transport, display windowing and exact categorical voxel-cell boundaries; no additional mirroring, smoothing, component deletion or anatomical fitting.",
+            "source_url": "https://zenodo.org/records/7007362",
+            "publication_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9831605/",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "bound_source_ids": [
+              "hippunfold-hcp101006-registered-reference"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false
+          }
+        ]
       },
       "clinical_approval": false
     },
@@ -110382,7 +110407,7 @@
                 "FMA61819"
               ],
               "look": "3D T1 and 3D FLAIR in all planes; compare with the other hemisphere.",
-              "tip": "The transmantle sign \u2014 a funnel of FLAIR signal from the cortex towards the ventricle \u2014 indicates focal cortical dysplasia type IIb."
+              "tip": "A funnel-shaped T2/FLAIR abnormality extending from the cortex towards the ventricle supports focal cortical dysplasia type II, most often IIb; imaging does not establish the histological subtype."
             },
             {
               "label": "Focal lesions",
@@ -110512,7 +110537,7 @@
           }
         ]
       },
-      "reporting_contract_sha256": "3256b93cbef7e6a7d6acda0ffa2238c9d21b16616ea9d1bcef3fb9b6489eb6ce",
+      "reporting_contract_sha256": "1bfdcfc655301a3ddd3a93e05ad4dd835c4a45dce2ed5b7ab6bd2a2e20b3d147",
       "structure_inventory": null,
       "structure_inventory_sha256": null,
       "structure_expansion_status": "required_not_yet_expanded",
@@ -110574,7 +110599,32 @@
         "source_anatomy_references": [],
         "source_motion_references": [],
         "source_study_references": [],
-        "source_native_inspectors": null
+        "source_native_inspectors": [
+          {
+            "id": "hippunfold-hcp101006-registered-reference",
+            "modality": "Registered T2 MRI and categorical surfaces",
+            "coordinate_context": "published-registered-training-grid",
+            "title": "Published hippocampal T2 MRI and source-label surfaces",
+            "src": "/app/anatomy/hippunfold-hcp101006-registered/index.html",
+            "manifest_url": "/app/anatomy/hippunfold-hcp101006-registered/manifest.json",
+            "sha256": "5754022a9c43af33f767f155cf99e1f159b85458390b721f71423575873460ca",
+            "manifest_sha256": "d8c1452b2c011abcd49406b693137e9217e1c7b3d2fed9268ae4851bcd876c4a",
+            "caption": "Explore matched T2 crops and eight research label classes from the published HippUnfold HCP-YA case 101006. Both supplied hemisphere files retain every source sample and all 472,392 categorical boundary triangles. These registered, resampled training grids support hippocampal context; they do not establish native volume or asymmetry, normality, pathology, patient laterality, CA subfields or complete reporting anatomy.",
+            "attribution": "Jordan DeKraker and Ali R. Khan. HippUnfold HCP-YA Training Data v1.0.0, case 101006. DOI 10.5281/zenodo.7007362. CC BY 4.0. Adaptations: lossless value transport, display windowing and exact categorical voxel-cell boundaries; no additional mirroring, smoothing, component deletion or anatomical fitting.",
+            "source_url": "https://zenodo.org/records/7007362",
+            "publication_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9831605/",
+            "license": "CC BY 4.0",
+            "license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "bound_source_ids": [
+              "hippunfold-hcp101006-registered-reference"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false
+          }
+        ]
       },
       "clinical_approval": false
     },
@@ -161051,6 +161101,15 @@
             "height": 1000
           },
           {
+            "id": "module-native-inspectors-rad.5.dementia",
+            "kind": "source-native-inspectors",
+            "title": "Registered hippocampal MRI and source surfaces",
+            "instructions": "Compare the published registered T2 crops, eight research label classes and complete categorical voxel-cell surfaces. These upsampled training grids do not establish native volume, normality, pathology or complete reporting anatomy.",
+            "investigation_ids": [
+              "ra.mri-dementia"
+            ]
+          },
+          {
             "id": "module-anatomy-rad.5.dementia",
             "kind": "model",
             "renderer": "radiology-anatomy",
@@ -161213,7 +161272,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "9a8b03dbaa82fbce74461af26968a70ecfb261bb1dc54e3f8ff8e8b4a1424ed1",
+      "module_contract_sha256": "fcb3fbec8ccc8db96fa11888dcb1fb142b910db5ce0e9c6f452ee066b86225b1",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false
@@ -161748,7 +161807,7 @@
           "approach": [
             {
               "step": "Run a dedicated epilepsy protocol, not a routine brain",
-              "detail": "T1 for cortical thickness and the grey-white interface, FLAIR for cortical and subcortical hyperintensity, T2* or SWI for haemoglobin breakdown products."
+              "detail": "Use millimetric isotropic 3D T1 for morphology, millimetric isotropic 3D FLAIR for signal, and high-resolution coronal T2 perpendicular to the hippocampal long axes for hippocampal internal architecture. Add susceptibility and other sequences for the clinical question."
             },
             {
               "step": "Start at the hippocampi",
@@ -161774,7 +161833,7 @@
             "Missing focal cortical dysplasia because you looked for a mass. The findings are blurring of the grey-white interface, abnormal cortical thickness and the transmantle sign.",
             "Calling subependymal heterotopia a lesion of the ventricle wall. It is normal grey matter in the wrong place, and it follows cortex on every sequence."
           ],
-          "template": "TECHNIQUE\nDedicated epilepsy MRI protocol, not a routine brain study: volumetric T1 for cortical thickness and the grey-white interface, [3-D / coronal oblique] FLAIR perpendicular to the hippocampal long axis, T2, and T2* or SWI. [\u00b1 contrast.] Seizure semiology and EEG localisation: [ ].\n\nFINDINGS\nHippocampi (coronal, side-by-side comparison):\n  Volume: right [ ], left [ ]. Internal architecture: right [preserved / lost], left [preserved / lost].\n  T2/FLAIR signal: right [normal / raised], left [normal / raised].\n  Temporal horn: [symmetric / dilated on the [side]]. Collateral white matter and fornix: [ ].\nCortical ribbon (walk lobe by lobe):\n  Grey-white interface: [crisp throughout / blurred at [site]].\n  Cortical thickness: [normal / abnormally thick at [site]].\n  Transmantle sign: [absent / present at [site]].\nHeterotopic grey matter: [absent / subependymal / subcortical, at [site]].\nGyral pattern: [normal / polymicrogyria at [site] / other malformation].\nCortical tumour: [absent / cortically based lesion at [site], [n] mm \u2014 consider DNET or ganglioglioma].\nT2*/SWI: [no blood products / cavernoma at [site], [n] mm / other haemosiderin].\nRemainder of the brain, including the contralateral side: [ ].\n\nIMPRESSION\n1. [No epileptogenic lesion identified on a dedicated protocol / lesion identified: name and site.]\n2. [Concordance with the seizure semiology and EEG localisation, or the lack of it.]\n3. [Recommendation: epilepsy surgery MDT, repeat at higher field or with post-processing, functional imaging.]"
+          "template": "TECHNIQUE\nDedicated epilepsy MRI protocol, not a routine brain study: millimetric isotropic 3D T1 and 3D FLAIR, plus high-in-plane-resolution coronal T2 perpendicular to the hippocampal long axes, without interslice gaps. Additional T2* or SWI [ ]; contrast [not acquired / acquired, indication: __]. Seizure semiology and EEG localisation: [ ].\n\nFINDINGS\nHippocampi (coronal, side-by-side comparison):\n  Volume: right [ ], left [ ]. Internal architecture: right [preserved / lost], left [preserved / lost].\n  T2/FLAIR signal: right [normal / raised], left [normal / raised].\n  Temporal horn: [symmetric / dilated on the [side]]. Collateral white matter and fornix: [ ].\nCortical ribbon (walk lobe by lobe):\n  Grey-white interface: [crisp throughout / blurred at [site]].\n  Cortical thickness: [normal / abnormally thick at [site]].\n  Transmantle sign: [absent / present at [site]].\nHeterotopic grey matter: [absent / subependymal / subcortical, at [site]].\nGyral pattern: [normal / polymicrogyria at [site] / other malformation].\nCortical tumour: [absent / cortically based lesion at [site], [n] mm \u2014 consider DNET or ganglioglioma].\nT2*/SWI: [no blood products / cavernoma at [site], [n] mm / other haemosiderin].\nRemainder of the brain, including the contralateral side: [ ].\n\nIMPRESSION\n1. [No epileptogenic lesion identified on a dedicated protocol / lesion identified: name and site.]\n2. [Concordance with the seizure semiology and EEG localisation, or the lack of it.]\n3. [Recommendation: epilepsy surgery MDT, repeat at higher field or with post-processing, functional imaging.]"
         },
         "radiology_reference": {
           "overview": "Design and read a dedicated epilepsy MRI, find the lesions a routine brain study hides, and know what to do next when the protocol comes back negative.",
@@ -162075,6 +162134,15 @@
             "height": 1000
           },
           {
+            "id": "module-native-inspectors-rad.5.epilepsy-mri",
+            "kind": "source-native-inspectors",
+            "title": "Registered hippocampal MRI and source surfaces",
+            "instructions": "Compare the published registered T2 crops, eight research label classes and complete categorical voxel-cell surfaces. These upsampled training grids do not establish native volume, normality, pathology or complete reporting anatomy.",
+            "investigation_ids": [
+              "ra.mri-epilepsy"
+            ]
+          },
+          {
             "id": "module-anatomy-rad.5.epilepsy-mri",
             "kind": "model",
             "renderer": "radiology-anatomy",
@@ -162139,14 +162207,14 @@
           {
             "kind": "short",
             "prompt": "Describe the transmantle sign in one or two sentences, and say what its presence tells you about the underlying lesion.",
-            "answer": "It is a funnel-shaped band of T2 and FLAIR hyperintensity tapering from thickened, blurred cortex down to the ventricular surface, and it indicates a focal cortical dysplasia, characteristically the ILAE type IIb form with balloon cells.",
+            "answer": "A funnel-shaped band of T2/FLAIR hyperintensity extends from abnormal cortex towards the ventricular surface. It supports focal cortical dysplasia type II, most often IIb, but MRI does not demonstrate balloon cells or establish the histological subtype.",
             "keywords": [
               "funnel",
               "flair",
               "ventricular",
               "cortical"
             ],
-            "explain": "The sign traces the path abnormal cells took during radial migration, so it runs the full thickness of the mantle from the cortical surface to the ventricular ependyma, widest at the cortex and narrowing as it descends. On isotropic 3D FLAIR it is often the only unequivocal abnormality, which is why that sequence is a protocol core. Look for its companions in the same place: cortical thickening, blurring of the grey and white matter junction, an abnormal sulcal or gyral configuration, and sometimes a deep unusually oriented sulcus at the epicentre. Its value is practical rather than descriptive. A transmantle sign identifies a discrete, resectable target with a good chance of seizure freedom, and it turns an MRI-negative patient into an MRI-positive one, which changes both the surgical decision and the odds quoted to the patient.",
+            "explain": "Follow the subcortical T2/FLAIR hyperintensity towards the ventricular surface and inspect the corresponding cortex on high-resolution T1. Assess cortical thickness, the grey-white junction and sulcogyral morphology in the same location. The transmantle pattern supports FCD type II, most often IIb, but does not demonstrate balloon cells or establish a histopathological subtype. Describe the lesion location and extent and relate them to the supplied electroclinical findings. Presurgical decisions require the full epilepsy evaluation.",
             "ephemeral": false
           },
           {
@@ -162238,7 +162306,7 @@
         ],
         "kid_text": ""
       },
-      "module_contract_sha256": "c20b9c4623571b5179dcdbf09db115fd119b96ef44ae6e76380acd421fa02e91",
+      "module_contract_sha256": "0366763df3db68f1c8a8d9ff4c9be76146e34e465debbbab1873ec9186ae7be7",
       "existing_msk_scope_note": null,
       "reconciliation_status": "requires_explicit_module_review",
       "clinical_approval": false

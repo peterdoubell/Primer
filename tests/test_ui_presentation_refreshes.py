@@ -63,6 +63,9 @@ def test_only_the_two_shared_ui_files_are_refreshable_and_nothing_is_approved():
         elif step['id']=='2026-10-16-cardiac-wall-context':
             from tools.cardiac_wall_runtime_compatibility import validate_refresh
             assert len(validate_refresh(step)['rows']) == 16
+        elif step['id']=='2026-10-16-hippunfold-registered-reference':
+            from tools.hippunfold_runtime_compatibility import validate_refresh
+            assert len(validate_refresh(step)['cases']) == 16
         else:
             assert step['native_presentation_code_touched'] is False
 
@@ -97,6 +100,10 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
             continue
         if step['id']=='2026-10-16-cardiac-wall-context':
             from tools.cardiac_wall_runtime_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
+        if step['id']=='2026-10-16-hippunfold-registered-reference':
+            from tools.hippunfold_runtime_compatibility import validate_refresh
             validate_refresh(step)
             continue
         smoke = step['native_reader_smoke']
@@ -148,3 +155,98 @@ def test_only_exact_citation_wrapper_delta_can_use_the_explicit_native_ui_scope(
     with pytest.raises(ValueError,match='scope'):ui_refresh.validate_source_case_citation_refresh(changed)
     changed=copy.deepcopy(step);changed['guarded_paths_sha256']['web/radiology-detailed-anatomy.js']='0'*64
     with pytest.raises(ValueError,match='guarded'):ui_refresh.validate_source_case_citation_refresh(changed)
+
+
+def test_hippunfold_inverse_rejects_unrecorded_bytes_and_recovers_every_base_file():
+    import pytest
+    from tools import hippunfold_runtime_compatibility as bridge
+    for path, row in bridge.reviewed()['files'].items():
+        raw = (ROOT / path).read_bytes()
+        restored = bridge.before_hippunfold_bytes(path, raw)
+        assert hashlib.sha256(restored).hexdigest() == row['before_sha256']
+        assert bridge.before_hippunfold_bytes(path, restored) == restored
+        with pytest.raises(ValueError, match='Unreviewed'):
+            bridge.before_hippunfold_bytes(path, raw + b'\n')
+    assert bridge.before_hippunfold_bytes('unknown', b'unchanged') == b'unchanged'
+
+
+def test_hippunfold_semantic_inverse_removes_only_exact_companions_and_reviewed_fields():
+    import copy
+    import pytest
+    from primer.curriculum import Curriculum
+    from tools import hippunfold_runtime_compatibility as bridge
+    from tools.check_radiology_fidelity import digest
+    curriculum = Curriculum()
+    fields = ['goal', 'learning_outcomes', 'lesson', 'reference', 'radiology_reference', 'visual_spec',
+              'lesson_media', 'model_family', 'model_context', 'practice', 'quiz', 'kid_text']
+    for identifier, row in bridge.reviewed()['lessons'].items():
+        current = {key: curriculum.node(identifier).get(key) for key in fields}
+        assert digest(current) == row['after_contract_sha256']
+        original = copy.deepcopy(current)
+        restored = bridge.before_hippunfold_lesson_fields(identifier, current)
+        assert current == original and digest(restored) == row['before_contract_sha256']
+        assert bridge.before_hippunfold_lesson_fields(identifier, restored) == restored
+        changed = copy.deepcopy(current)
+        changed['unrelated'] = 'retain'
+        assert bridge.before_hippunfold_lesson_fields(identifier, changed)['unrelated'] == 'retain'
+        changed = copy.deepcopy(current)
+        next(m for m in changed['lesson_media'] if m['id'] == row['added_media'][0]['id'])['clinical_approval'] = True
+        with pytest.raises(ValueError, match='Unreviewed'):
+            bridge.before_hippunfold_lesson_fields(identifier, changed)
+        for alteration in row['clinical_fields']:
+            changed = copy.deepcopy(current)
+            target = changed
+            for key in alteration['path'][:-1]:
+                target = target[key]
+            target[alteration['path'][-1]] += ' unreviewed change'
+            with pytest.raises(ValueError, match='Unreviewed'):
+                bridge.before_hippunfold_lesson_fields(identifier, changed)
+
+
+def test_hippunfold_data_and_contract_inverse_keeps_unrelated_drift_visible():
+    import copy
+    import pytest
+    from tools import hippunfold_runtime_compatibility as bridge
+    for path, row in bridge.reviewed()['data_values'].items():
+        data = json.loads((ROOT / path).read_bytes())
+        tokens = {row['token_key']: row['after_raw_token_sha256'], 'unrelated': 'f' * 64}
+        data['unrelated'] = 'preserved'
+        original = copy.deepcopy(data)
+        restored, old_tokens = bridge.restore_prior_view(path, data, tokens)
+        assert data == original and restored['unrelated'] == 'preserved'
+        assert old_tokens['unrelated'] == 'f' * 64 and tokens[row['token_key']] == row['after_raw_token_sha256']
+        assert restored['investigations'][row['investigation_id']] == row['before']
+        assert old_tokens[row['token_key']] == row['before_raw_token_sha256']
+        for invalid in ['semantics', 'token']:
+            changed, bad_tokens = copy.deepcopy(data), dict(tokens)
+            if invalid == 'semantics':
+                changed['investigations'][row['investigation_id']]['unreviewed'] = True
+            else:
+                bad_tokens[row['token_key']] = '0' * 64
+            with pytest.raises(ValueError, match='Unreviewed'):
+                bridge.restore_prior_view(path, changed, bad_tokens)
+    records = bridge.reviewed()['contracts']
+    contracts = {key: row['after_sha256'] for key, row in records.items()} | {'unrelated': 'f' * 64}
+    assert bridge.restore_prior_contracts(contracts) == {key: row['before_sha256'] for key, row in records.items()} | {'unrelated': 'f' * 64}
+    for key in records:
+        bad = dict(contracts)
+        bad[key] = '0' * 64
+        with pytest.raises(ValueError, match='Unreviewed'):
+            bridge.restore_prior_contracts(bad)
+
+
+def test_hippunfold_refresh_cannot_extend_approval_or_substitute_reader_evidence():
+    import copy
+    import pytest
+    from tools import hippunfold_runtime_compatibility as bridge
+    step = next(row for row in ui_refresh.load()['refreshes']
+                if row['id'] == '2026-10-16-hippunfold-registered-reference')
+    assert len(bridge.validate_refresh(step)['cases']) == 16
+    for field, value in [('clinical_approval', True), ('fine_anatomical_approval', True),
+                         ('reopens_or_extends_any_review', True), ('existing_reporting_guides_retained', False),
+                         ('native_decoder_mesh_CT_renderer_code_touched', True),
+                         ('hippunfold_reader_smoke', {'path': bridge.READER_PROOF, 'sha256': '0' * 64})]:
+        changed = copy.deepcopy(step)
+        changed[field] = value
+        with pytest.raises(ValueError, match='scope'):
+            bridge.validate_refresh(changed)

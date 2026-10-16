@@ -1,0 +1,29 @@
+# Independent coordinate and transport review
+
+Research only. No product binding, native-patient orientation claim, clinical validation, diagnosis, or native hippocampal volumetry is established.
+
+## What is established
+
+The four selected files are original members identified by the parent acquisition proofs of [HippUnfold HCP-YA Training Data v1.0.0, Zenodo 7007362](https://zenodo.org/records/7007362), not raw scanner data. The source says the grid is upsampled to 0.3 mm. The [methods](https://pmc.ncbi.nlm.nih.gov/articles/PMC9831605/) describe bias correction, affine atlas registration, coronal-oblique resampling/cropping, and sagittal left mirroring. The dataset prose says left labels are already mirrored. These statements must be retained as source provenance, not converted into an extra unverified transformation.
+
+The actual selected source image and label grids are exactly equal per provided filename side: 128×256×128, LAS stored orientation, matching sform and qform, matching image/label affine, approximately 0.3 mm grid pitch. The L crop's voxel-center x coordinates are all negative; the R crop's are positive. Header codes do not undo registration or prove native patient orientation. The L label's medial temporal cortex class occupies the opposite index-side from the R class, and selected unmodified overlays agree visually with the corresponding images; the prior visual comparison shows that an additional array x flip displaces those contours. These observations support preserving the supplied pair, not independently validating every label boundary.
+
+`array-coordinate-proof.json` independently checks all **16,777,216 image/label samples**. T2 Float64 → little-endian Float32 → gzip → restored Float64 is bit-exact for every source sample. Labels Float64 → Uint8 → gzip → restored Float64 are also bit-exact, with classes 0–8. All samples are finite, error is zero, and no source samples are clipped or removed. Fortran transport order is explicit: `i + nx*(j + ny*k)`. Decoded payload SHA256 identities and all affine entries are recorded.
+
+## Version-specific code evidence and remaining uncertainty
+
+Dataset version v1.0.0 does **not** imply software version v1.0.0. The article links software [Zenodo 7063098](https://zenodo.org/records/7063098), whose metadata identifies **HippUnfold 1.2.0**, published 2022-09-08. Its Git tag resolves to `aad27a64e6d1649f7313b72c1cedb7245f88bfe6`; individual original source files are saved here with that pinned revision.
+
+At that revision, [preproc_t2.smk lines 447–473](https://github.com/khanlab/hippunfold/blob/aad27a64e6d1649f7313b72c1cedb7245f88bfe6/hippunfold/workflow/rules/preproc_t2.smk#L447-L473) explicitly creates a **separate** `hemi-Lflip` image from `hemi-L` using `c3d -flip x`. `preproc_seg.smk` similarly creates separate flipped labels. [nnunet.smk lines 147–174](https://github.com/khanlab/hippunfold/blob/aad27a64e6d1649f7313b72c1cedb7245f88bfe6/hippunfold/workflow/rules/nnunet.smk#L147-L174) explicitly unflips the `Lflip` segmentation. The older software v1.0.0 (`d12cdec59fc04e3217dad626e9df39e9f333c305`, 2022-01-19) uses the same separate-stage convention. Thus a pipeline-stage mirroring operation exists and must not be silently applied twice.
+
+The available code and archive metadata do **not** supply an unambiguous exporter script mapping these exact four training archive members to the L versus Lflip pipeline stage. Their names/headers cannot independently settle that historical export detail. Do not declare the documentation erroneous; do not impose an extra flip based only on its prose. Preserve source arrays and affines, identify them as **provided L/R filenames in registered coronal-oblique source grids**, and keep source-world coordinates distinct from native-patient coordinates. Never fuse these crops with another atlas by assuming their affine is native-space registration.
+
+## Reporting support
+
+This source can support inspection of the published T2 signal and author-defined categorical anatomy in the selected registered crops: hippocampal grey matter, SRLM/dark band, medial temporal neocortex (entorhinal or parahippocampal), pial surface class, HATA, indusium griseum, cyst class, and dentate gyrus. It permits exact image-label correspondence and source-defined shape inspection. The source labels are semi-automatically generated with heavy manual supervision under the authors' protocol; they are not independent clinical truth for Primer.
+
+It does not provide CA1/CA2/CA3/subiculum subfield labels, whole hippocampal biological surfaces, individual normality certification, FLAIR, native 3D T1, diffusion/ADC, susceptibility, contrast findings, age-adjusted disease norms, pathological sclerosis examples, validated native volume/asymmetry, standard MTA grading planes, complete fornices/mammillary bodies, complete cortex/skull base, or whole-brain alternative/dual pathology. Consequently it cannot complete either epilepsy or dementia reporting modules. The current epilepsy contract additionally requires hippocampal volume/signal/architecture, fornices/mammillary bodies, cortex/migration, focal lesions, skull-base dual pathology and electroclinical concordance. Dementia additionally requires regional/global atrophy, T1 MTA, vascular burden, microbleeds/siderosis and treatable mimics. These requirements remain independently outstanding.
+
+## Viewer constraints
+
+The research inspector should retain all samples/classes/voxel-cell contacts and components, name the representation as categorical voxel-cell boundaries, keep the original NIfTI affine as provenance, label all views by index planes, and distinguish exact data preservation from clinical accuracy. No smoothing, anatomical fitting, manual repair, extra sagittal mirroring or native clinical measurement is authorized by this review.

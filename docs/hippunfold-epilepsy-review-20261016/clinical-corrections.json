@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "implemented_utc": "2026-10-16T11:18:21.327396+00:00",
+  "investigation_id": "ra.mri-epilepsy",
+  "module_id": "rad.5.epilepsy-mri",
+  "scope": "Five evidence-backed clinical wording and protocol corrections. No asset, structure-coverage, or whole-module approval claim.",
+  "clinical_approval": false,
+  "source_proposal_sha256": "6dc16620bd01c6ac750c6411ffa5abbc19ee378f2ce0a4524023c6a326c8a8b4",
+  "changes": [
+    {
+      "id": "transmantle-walkthrough-tip",
+      "relative_file": "data/radiology/reporting-steps/neuroradiology.json",
+      "json_pointer": "/investigations/ra.mri-epilepsy/steps/1/tip",
+      "stable_selector": "investigations[ra.mri-epilepsy].steps[label=Cortex and neuronal migration].tip",
+      "before": "The transmantle sign — a funnel of FLAIR signal from the cortex towards the ventricle — indicates focal cortical dysplasia type IIb.",
+      "after": "A funnel-shaped T2/FLAIR abnormality extending from the cortex towards the ventricle supports focal cortical dysplasia type II, most often IIb; imaging does not establish the histological subtype.",
+      "rationale": "Replace a definite subtype statement with the probabilistic imaging interpretation used by the ILAE FCD consensus. Preserve the visible cortex-to-ventricle pattern.",
+      "source_ids": [
+        "ilae-fcd-2022",
+        "ilae-harness-2019"
+      ],
+      "replacement_encoding": "UTF-8 JSON string token; json.dumps(value, ensure_ascii=False)",
+      "before_token_sha256": "a223d6aa9c4a523253a4ff7a772d6bc3e2a1066df6ef80d411a29ad24d36d3c3",
+      "after_token_sha256": "ca701fc0431354e5a632bf933a05268152d404599630ff9b25a7031c8598a1aa",
+      "before_occurrences": 1,
+      "after_occurrences": 1
+    },
+    {
+      "id": "transmantle-quiz-answer",
+      "relative_file": "data/curriculum/11-radiology.json",
+      "json_pointer": "/nodes/42/quiz/4/answer",
+      "stable_selector": "nodes[id=rad.5.epilepsy-mri].quiz[prompt=Describe the transmantle sign in one or two sentences, and say what its presence tells you about the underlying lesion.].answer",
+      "before": "It is a funnel-shaped band of T2 and FLAIR hyperintensity tapering from thickened, blurred cortex down to the ventricular surface, and it indicates a focal cortical dysplasia, characteristically the ILAE type IIb form with balloon cells.",
+      "after": "A funnel-shaped band of T2/FLAIR hyperintensity extends from abnormal cortex towards the ventricular surface. It supports focal cortical dysplasia type II, most often IIb, but MRI does not demonstrate balloon cells or establish the histological subtype.",
+      "rationale": "Keep answer and walkthrough consistent; retain the association with IIb without treating balloon-cell histology as an MRI observation. Existing grading keywords remain present.",
+      "source_ids": [
+        "ilae-fcd-2022"
+      ],
+      "replacement_encoding": "UTF-8 JSON string token; json.dumps(value, ensure_ascii=False)",
+      "before_token_sha256": "3421732a1a3f8b2b3e1c21c9412c11404739b6e68726b734e166828a388c6d47",
+      "after_token_sha256": "7b9d378f057eb567d353cd73ea9466117e090d9cee84b06204d4554a211f5955",
+      "before_occurrences": 1,
+      "after_occurrences": 1
+    },
+    {
+      "id": "transmantle-quiz-explanation",
+      "relative_file": "data/curriculum/11-radiology.json",
+      "json_pointer": "/nodes/42/quiz/4/explain",
+      "stable_selector": "nodes[id=rad.5.epilepsy-mri].quiz[prompt=Describe the transmantle sign in one or two sentences, and say what its presence tells you about the underlying lesion.].explain",
+      "before": "The sign traces the path abnormal cells took during radial migration, so it runs the full thickness of the mantle from the cortical surface to the ventricular ependyma, widest at the cortex and narrowing as it descends. On isotropic 3D FLAIR it is often the only unequivocal abnormality, which is why that sequence is a protocol core. Look for its companions in the same place: cortical thickening, blurring of the grey and white matter junction, an abnormal sulcal or gyral configuration, and sometimes a deep unusually oriented sulcus at the epicentre. Its value is practical rather than descriptive. A transmantle sign identifies a discrete, resectable target with a good chance of seizure freedom, and it turns an MRI-negative patient into an MRI-positive one, which changes both the surgical decision and the odds quoted to the patient.",
+      "after": "Follow the subcortical T2/FLAIR hyperintensity towards the ventricular surface and inspect the corresponding cortex on high-resolution T1. Assess cortical thickness, the grey-white junction and sulcogyral morphology in the same location. The transmantle pattern supports FCD type II, most often IIb, but does not demonstrate balloon cells or establish a histopathological subtype. Describe the lesion location and extent and relate them to the supplied electroclinical findings. Presurgical decisions require the full epilepsy evaluation.",
+      "rationale": "The current explanation infers a specific migration mechanism and then resectability/seizure outcome directly from the sign. Replace those claims with visible features, likely subtype, lesion localization and electroclinical integration; the cited consensus supports those narrower statements.",
+      "source_ids": [
+        "ilae-fcd-2022",
+        "ilae-harness-2019"
+      ],
+      "replacement_encoding": "UTF-8 JSON string token; json.dumps(value, ensure_ascii=False)",
+      "before_token_sha256": "76714118737635376160d6a5dbb0d4ede646469b93e808ec3276b6e09f8f0d42",
+      "after_token_sha256": "cb4c00a478c2a5b1684c7996383438b1ce94761077671aed7b6579e7be4dc09e",
+      "before_occurrences": 1,
+      "after_occurrences": 1
+    },
+    {
+      "id": "harness-legacy-template-technique",
+      "relative_file": "data/curriculum/11-radiology.json",
+      "json_pointer": "/nodes/42/reference/template",
+      "stable_selector": "nodes[id=rad.5.epilepsy-mri].reference.template",
+      "before": "TECHNIQUE\nDedicated epilepsy MRI protocol, not a routine brain study: volumetric T1 for cortical thickness and the grey-white interface, [3-D / coronal oblique] FLAIR perpendicular to the hippocampal long axis, T2, and T2* or SWI. [± contrast.] Seizure semiology and EEG localisation: [ ].\n\nFINDINGS\nHippocampi (coronal, side-by-side comparison):\n  Volume: right [ ], left [ ]. Internal architecture: right [preserved / lost], left [preserved / lost].\n  T2/FLAIR signal: right [normal / raised], left [normal / raised].\n  Temporal horn: [symmetric / dilated on the [side]]. Collateral white matter and fornix: [ ].\nCortical ribbon (walk lobe by lobe):\n  Grey-white interface: [crisp throughout / blurred at [site]].\n  Cortical thickness: [normal / abnormally thick at [site]].\n  Transmantle sign: [absent / present at [site]].\nHeterotopic grey matter: [absent / subependymal / subcortical, at [site]].\nGyral pattern: [normal / polymicrogyria at [site] / other malformation].\nCortical tumour: [absent / cortically based lesion at [site], [n] mm — consider DNET or ganglioglioma].\nT2*/SWI: [no blood products / cavernoma at [site], [n] mm / other haemosiderin].\nRemainder of the brain, including the contralateral side: [ ].\n\nIMPRESSION\n1. [No epileptogenic lesion identified on a dedicated protocol / lesion identified: name and site.]\n2. [Concordance with the seizure semiology and EEG localisation, or the lack of it.]\n3. [Recommendation: epilepsy surgery MDT, repeat at higher field or with post-processing, functional imaging.]",
+      "after": "TECHNIQUE\nDedicated epilepsy MRI protocol, not a routine brain study: millimetric isotropic 3D T1 and 3D FLAIR, plus high-in-plane-resolution coronal T2 perpendicular to the hippocampal long axes, without interslice gaps. Additional T2* or SWI [ ]; contrast [not acquired / acquired, indication: __]. Seizure semiology and EEG localisation: [ ].\n\nFINDINGS\nHippocampi (coronal, side-by-side comparison):\n  Volume: right [ ], left [ ]. Internal architecture: right [preserved / lost], left [preserved / lost].\n  T2/FLAIR signal: right [normal / raised], left [normal / raised].\n  Temporal horn: [symmetric / dilated on the [side]]. Collateral white matter and fornix: [ ].\nCortical ribbon (walk lobe by lobe):\n  Grey-white interface: [crisp throughout / blurred at [site]].\n  Cortical thickness: [normal / abnormally thick at [site]].\n  Transmantle sign: [absent / present at [site]].\nHeterotopic grey matter: [absent / subependymal / subcortical, at [site]].\nGyral pattern: [normal / polymicrogyria at [site] / other malformation].\nCortical tumour: [absent / cortically based lesion at [site], [n] mm — consider DNET or ganglioglioma].\nT2*/SWI: [no blood products / cavernoma at [site], [n] mm / other haemosiderin].\nRemainder of the brain, including the contralateral side: [ ].\n\nIMPRESSION\n1. [No epileptogenic lesion identified on a dedicated protocol / lesion identified: name and site.]\n2. [Concordance with the seizure semiology and EEG localisation, or the lack of it.]\n3. [Recommendation: epilepsy surgery MDT, repeat at higher field or with post-processing, functional imaging.]",
+      "rationale": "The current alternative permits an anisotropic coronal FLAIR in place of HARNESS 3D FLAIR and assigns the perpendicular geometry to FLAIR while leaving T2 unspecified. Assign isotropic 3D geometry to T1/FLAIR and the perpendicular high-resolution coronal acquisition to T2. Retain the rest of the report unchanged.",
+      "source_ids": [
+        "ilae-harness-2019"
+      ],
+      "replacement_encoding": "UTF-8 JSON string token; json.dumps(value, ensure_ascii=False)",
+      "before_token_sha256": "1efa562e63c816cee77339a75f0708d885f2ce7f67db9262f5a2d4d9a0985a3d",
+      "after_token_sha256": "998f6d5cb953ad9a1ea382a6ea1622aba1f077eb63fd7c7a117c3fc292883345",
+      "before_occurrences": 1,
+      "after_occurrences": 1
+    },
+    {
+      "id": "harness-legacy-approach",
+      "relative_file": "data/curriculum/11-radiology.json",
+      "json_pointer": "/nodes/42/reference/approach/0/detail",
+      "stable_selector": "nodes[id=rad.5.epilepsy-mri].reference.approach[step=Run a dedicated epilepsy protocol, not a routine brain].detail",
+      "before": "T1 for cortical thickness and the grey-white interface, FLAIR for cortical and subcortical hyperintensity, T2* or SWI for haemoglobin breakdown products.",
+      "after": "Use millimetric isotropic 3D T1 for morphology, millimetric isotropic 3D FLAIR for signal, and high-resolution coronal T2 perpendicular to the hippocampal long axes for hippocampal internal architecture. Add susceptibility and other sequences for the clinical question.",
+      "rationale": "This summary of the protocol currently omits the dedicated coronal T2 component. Keep the protocol summary aligned with the corrected template and already-correct effective reporting protocol.",
+      "source_ids": [
+        "ilae-harness-2019"
+      ],
+      "replacement_encoding": "UTF-8 JSON string token; json.dumps(value, ensure_ascii=False)",
+      "before_token_sha256": "41152fc3067a2a79bceba48457dfc8bb7236d38ab296b5adc226a875bd36d6d1",
+      "after_token_sha256": "ddc6f1ba5bc7bdf225b7fbe11ab8dcf4a30429b74b93a5283564ec624aad4c5d",
+      "before_occurrences": 1,
+      "after_occurrences": 1
+    }
+  ],
+  "files": [
+    {
+      "relative_file": "data/radiology/reporting-steps/neuroradiology.json",
+      "before_sha256": "aac69f56602e3e1a2e3e617bd472665869356bc844457564af04240031aa51ef",
+      "after_sha256": "e20d293c40069e696e98a05014bbf3bf1dad9f2d565a55cdbffb98b679fedf43",
+      "before_bytes": 97993,
+      "after_bytes": 98053,
+      "changed_json_pointers": [
+        "/investigations/ra.mri-epilepsy/steps/1/tip"
+      ],
+      "exact_inverse_recovers_original_bytes": true
+    },
+    {
+      "relative_file": "data/curriculum/11-radiology.json",
+      "before_sha256": "f5aee2a0f21c02023005ccdc0d4d24eabed61c5158b0d2af1523622998302d57",
+      "after_sha256": "1abdaa39641e7daf7bb92b572a702131cbc61839631cd80db42500acdc8533ab",
+      "before_bytes": 2773878,
+      "after_bytes": 2773762,
+      "changed_json_pointers": [
+        "/nodes/42/quiz/4/answer",
+        "/nodes/42/quiz/4/explain",
+        "/nodes/42/reference/approach/0/detail",
+        "/nodes/42/reference/template"
+      ],
+      "exact_inverse_recovers_original_bytes": true
+    }
+  ],
+  "sources": [
+    {
+      "id": "ilae-fcd-2022",
+      "title": "Najm et al. ILAE consensus classification of focal cortical dysplasia update",
+      "doi": "10.1111/epi.17301",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9545778/",
+      "local_full_text": "fcd-2022.xml",
+      "local_full_text_sha256": "2f96518ec56b4d8543757431bcd6b7c0879847ec5f0360db974c870a53d5f0a3",
+      "passages": [
+        {
+          "location": "Neuroimaging; XML sec id epi17301-sec-0015, paragraph 2",
+          "short_verbatim_excerpt": "indicates most likely FCDIIb",
+          "passage_paraphrase": "The paper describes T2/FLAIR transmantle signal as an MRI feature predicting the most likely FCD subtype, alongside cortical and grey-white-interface abnormalities."
+        },
+        {
+          "location": "Layer 3: Integration of neuroimaging findings; XML sec id epi17301-sec-0028, paragraph 1; Layer 4: Integrated diagnosis",
+          "passage_paraphrase": "MRI can predict a subtype and should report location/extent; the proposed classification integrates imaging with other diagnostic layers rather than using one imaging sign as tissue confirmation."
+        }
+      ]
+    },
+    {
+      "id": "ilae-harness-2019",
+      "title": "Bernasconi et al. ILAE structural MRI recommendations / HARNESS",
+      "doi": "10.1111/epi.15612",
+      "url": "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy",
+      "access_note": "Official 15-page PDF reviewed through web tool; direct download 403 is preserved in source-acquisition.json.",
+      "passages": [
+        {
+          "location": "Printed p1058 (PDF page 5), section 2.2.2, 3D T1 and 3D FLAIR paragraphs; Table 1",
+          "short_verbatim_excerpt": "isotropic millimetric voxel resolution",
+          "passage_paraphrase": "The T1 and FLAIR acquisitions are isotropic 3D sequences, with 1-mm voxels and no gaps; the protocol provides whole-brain coverage and multiplanar review."
+        },
+        {
+          "location": "Printed p1059 (PDF page 6), high-in-plane-resolution 2D coronal T2 paragraph; Figure 2 on printed p1060",
+          "short_verbatim_excerpt": "perpendicular to the long axis",
+          "passage_paraphrase": "The coronal T2 plane is planned across the hippocampal long axis with submillimetric in-plane sampling; the example is 0.4 × 0.4 × 2 mm without gaps."
+        },
+        {
+          "location": "Printed p1059, section 2.3; printed p1061, section 2.3.2",
+          "passage_paraphrase": "Review integrates MRI with supplied electroclinical localization. The transmantle signal directs inspection of the cortical lesion and underlying white matter."
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "deep_json_diff_exactly_five_paths": true,
+    "other_fields_unchanged": true,
+    "quiz_prompt_kind_and_keywords_unchanged": true,
+    "quiz_keywords": [
+      "funnel",
+      "flair",
+      "ventricular",
+      "cortical"
+    ],
+    "all_grading_keywords_present_in_answer": true,
+    "template_findings_and_impression_byte_identical": true,
+    "image_binding_unchanged": [
+      "epilepsy-mri-image-3"
+    ],
+    "image_metadata_file_sha256": "9ed71d45b43dceaaa5a3ff1152017bad15cdd9d1f651f29a2fa35df34a144103",
+    "image_caption_unchanged": "Focal cortical dysplasia compared across T1, T2 and FLAIR sequences.",
+    "image_src_unchanged": "https://radiologyassistant.nl/img/containers/main/role-of-mri-in-epilepsy/a509797acb16d0_8.jpg/6f46fdc0f5bb5e5152947ab03d6d547d.jpg",
+    "optional_sixth_change_applied": false,
+    "browser_rendering_status": "Not performed by this correction-only task; integration verification is separate."
+  }
+}

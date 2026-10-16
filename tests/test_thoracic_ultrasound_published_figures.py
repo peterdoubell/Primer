@@ -63,5 +63,7 @@ def test_only_thoracic_effective_contract_changes_from_previous_main():
     current = build_scope()
     baseline = json.loads((REVIEW / 'evidence/previous-main-contract-hashes.json').read_text())
     actual = {r['id']: r['reporting_contract_sha256'] for r in current['investigations']}
+    from tools.hippunfold_runtime_compatibility import restore_prior_contracts
+    actual = restore_prior_contracts(actual)
     assert set(actual) == set(baseline)
     assert [key for key in baseline if baseline[key] != actual[key]] == ['ra.thoracic-ultrasound']

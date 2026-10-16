@@ -1,0 +1,3419 @@
+{
+  "sourceRecord": "https://zenodo.org/records/7007362",
+  "sourceVersion": "v1.0.0",
+  "case": "101006",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "scope": "Provided registered/resampled coronal-oblique source grids, no native-patient diagnosis or volumetry",
+  "shape": [
+    128,
+    256,
+    128
+  ],
+  "storageOrder": "F",
+  "labels": [
+    "Background",
+    "Hippocampal grey matter",
+    "SRLM / dark band",
+    "Entorhinal / parahippocampal context",
+    "Source pial boundary",
+    "HATA transition class",
+    "Posterior boundary context",
+    "Cyst source class",
+    "DG granule / endpoint class"
+  ],
+  "colors": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      232,
+      112,
+      98
+    ],
+    [
+      254,
+      212,
+      95
+    ],
+    [
+      92,
+      182,
+      245
+    ],
+    [
+      169,
+      136,
+      226
+    ],
+    [
+      234,
+      134,
+      193
+    ],
+    [
+      85,
+      211,
+      184
+    ],
+    [
+      244,
+      245,
+      247
+    ],
+    [
+      148,
+      209,
+      104
+    ]
+  ],
+  "hemispheres": [
+    {
+      "name": "L",
+      "arrays": [
+        {
+          "modality": "T2w",
+          "file": "L-T2w.bin.gz",
+          "dtype": "<f4",
+          "sourceFile": "101006_hemi-L_T2w.nii.gz",
+          "sourceSHA256": "67a974790cb7863ac8b45b7a01999ff62aa8aece1f054aa53a3c29339a958f63",
+          "gzipSHA256": "b12f57006a3c93e75bf57de7f5b6135cecadfd1b93ee24299f9a2e73d88997e9",
+          "decodedSHA256": "047da6d24e499e929987358472c2160dd30e8bb145099e095f1612bd13cf13db",
+          "byteLength": 16777216
+        },
+        {
+          "modality": "lbl",
+          "file": "L-lbl.bin.gz",
+          "dtype": "u1",
+          "sourceFile": "101006_hemi-L_lbl.nii.gz",
+          "sourceSHA256": "aa02cdf0582ce9d073320e3cca92663c7cba5601614be3246fc9e0d691b6c94b",
+          "gzipSHA256": "17d83d3d222cf0e1e9c36e6cb9f8bf10684e0435eb25894dc817b441b3b77b4a",
+          "decodedSHA256": "9ea4ebaf6fad2cf3a84ec5cb7fd53c373cbb65bcde05e2c6ad07fd6f0fe766d8",
+          "byteLength": 4194304
+        }
+      ],
+      "affine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "name": "R",
+      "arrays": [
+        {
+          "modality": "T2w",
+          "file": "R-T2w.bin.gz",
+          "dtype": "<f4",
+          "sourceFile": "101006_hemi-R_T2w.nii.gz",
+          "sourceSHA256": "994abdd676c2d4ee80572276912013bbf24e4a91091e70410fde9ffc87b0ba52",
+          "gzipSHA256": "7ab0cff6e8abcade39ac4f2950eaf2806c01aa0c2e5a44124bc9198de7fcb2ca",
+          "decodedSHA256": "942412d294a7b0b9b1cad7896cfe820c7a4a5afda9ef8d4acb1f02b6f3350b31",
+          "byteLength": 16777216
+        },
+        {
+          "modality": "lbl",
+          "file": "R-lbl.bin.gz",
+          "dtype": "u1",
+          "sourceFile": "101006_hemi-R_lbl.nii.gz",
+          "sourceSHA256": "79860c65a9071ef55ae899b28410b5b67f1d17c10f6abfde80932404bdf16aa7",
+          "gzipSHA256": "5229ccc92524454bf7f2e9b9cce32ff0420961d64b44ae630474dd993a6e05e6",
+          "decodedSHA256": "e4ac984aef5e32c374e2709b92264a57d79a08faafd9d8e89cdd837cc1f1bce1",
+          "byteLength": 4194304
+        }
+      ],
+      "affine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "meshSchema": {
+    "byteOrder": "little-endian",
+    "headerBytes": 16,
+    "magic": "HVX1",
+    "header": "ASCII[4] magic, uint32 vertexCount, uint32 triangleCount, uint32 reservedZero",
+    "positions": "float32[vertexCount*3], source voxel-index coordinates (half integers), 12*vertexCount bytes",
+    "indices": "uint32[triangleCount*3], 12*triangleCount bytes",
+    "winding": "Outward AFTER applying original source affine. Source index affine has negative determinant; source-index cross products alone have opposite handedness.",
+    "normalOracle": "For each world-space triangle, normalize(cross(P1-P0,P2-P0)); flat per-face normal. Equivalently normalize(sourceVoxelOutwardRowVector @ inverse(affine3x3)). Do not average normals for categorical voxel-cell display.",
+    "GPUProofRequirement": "Compare decoded full source positions and ordered face indices against positionByteSHA256/indexByteSHA256, then independently apply affine/camera transforms to inspect actual uploaded GPU buffers. Transport proof alone does not prove rendered buffers."
+  },
+  "meshes": [
+    {
+      "sourceHemisphereName": "L",
+      "label": 1,
+      "file": "101006-L-label-1.mesh.gz",
+      "gzipSHA256": "d711eab46186462ab36b5d0ff255f86f0f477f49152166d62940cdf8da4c2b87",
+      "decodedSHA256": "082dd301e5f0f0a1a1982fc8227ca9b7ee7f23c77021689702404c3324cc3bfa",
+      "vertexCount": 50275,
+      "triangleCount": 101928,
+      "positionByteSHA256": "761cef0e73096fbe678376fa03618d26f924ea7b47d32c0f5875a56d79d87286",
+      "indexByteSHA256": "35e4fbcf88aa5d09930e0d97d930e09c335449bc3434059d6235e3629acd8a3d",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 727,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        200,
+        119,
+        408
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 0,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 0,
+      "MCExactDuplicateTriangleSets": 0,
+      "MCExactDuplicateTriangles": [],
+      "byteLength": 1826452
+    },
+    {
+      "sourceHemisphereName": "L",
+      "label": 2,
+      "file": "101006-L-label-2.mesh.gz",
+      "gzipSHA256": "fa877945698bad0332824b90cdae8820389317469625b46837be3a1ccca87def",
+      "decodedSHA256": "8ca5b5448ec59e138ef15ea906cda69db8581e5c4af58dde1d687b372b8915fb",
+      "vertexCount": 23967,
+      "triangleCount": 49480,
+      "positionByteSHA256": "2c74a68cded22cf455a238951ee01a63bbdadb69cd9944e8345796d05c966a42",
+      "indexByteSHA256": "a02280b84b9b470dbddf0e604340433d0f5c847d0f318e553257ff3ec61a4ee3",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 755,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        243,
+        205,
+        307
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 54,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 54,
+      "MCExactDuplicateTriangleSets": 36,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            2759,
+            3247
+          ],
+          "voxelCorners": [
+            [
+              47.0,
+              156.0,
+              68.5
+            ],
+            [
+              47.0,
+              156.5,
+              68.0
+            ],
+            [
+              47.0,
+              156.5,
+              69.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3227,
+            3245
+          ],
+          "voxelCorners": [
+            [
+              47.0,
+              156.0,
+              68.5
+            ],
+            [
+              47.5,
+              156.0,
+              68.0
+            ],
+            [
+              47.5,
+              156.0,
+              69.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            2758,
+            3248
+          ],
+          "voxelCorners": [
+            [
+              47.0,
+              156.5,
+              68.0
+            ],
+            [
+              47.0,
+              157.0,
+              68.5
+            ],
+            [
+              47.0,
+              156.5,
+              69.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3231,
+            3791
+          ],
+          "voxelCorners": [
+            [
+              48.0,
+              155.0,
+              68.5
+            ],
+            [
+              48.0,
+              155.5,
+              68.0
+            ],
+            [
+              48.0,
+              155.5,
+              69.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3228,
+            3244
+          ],
+          "voxelCorners": [
+            [
+              47.5,
+              156.0,
+              68.0
+            ],
+            [
+              47.5,
+              156.0,
+              69.0
+            ],
+            [
+              48.0,
+              156.0,
+              68.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3230,
+            3792
+          ],
+          "voxelCorners": [
+            [
+              48.0,
+              155.5,
+              68.0
+            ],
+            [
+              48.0,
+              156.0,
+              68.5
+            ],
+            [
+              48.0,
+              155.5,
+              69.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3777,
+            3794
+          ],
+          "voxelCorners": [
+            [
+              48.0,
+              155.5,
+              68.0
+            ],
+            [
+              48.5,
+              155.0,
+              68.0
+            ],
+            [
+              48.5,
+              156.0,
+              68.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3785,
+            3786
+          ],
+          "voxelCorners": [
+            [
+              48.5,
+              155.0,
+              68.0
+            ],
+            [
+              48.5,
+              156.0,
+              68.0
+            ],
+            [
+              49.0,
+              155.5,
+              68.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3783,
+            4355
+          ],
+          "voxelCorners": [
+            [
+              49.0,
+              155.0,
+              67.5
+            ],
+            [
+              49.0,
+              155.5,
+              67.0
+            ],
+            [
+              49.0,
+              155.5,
+              68.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            3782,
+            4356
+          ],
+          "voxelCorners": [
+            [
+              49.0,
+              155.5,
+              67.0
+            ],
+            [
+              49.0,
+              156.0,
+              67.5
+            ],
+            [
+              49.0,
+              155.5,
+              68.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            4341,
+            4358
+          ],
+          "voxelCorners": [
+            [
+              49.0,
+              155.5,
+              67.0
+            ],
+            [
+              49.5,
+              155.0,
+              67.0
+            ],
+            [
+              49.5,
+              156.0,
+              67.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            4349,
+            4350
+          ],
+          "voxelCorners": [
+            [
+              49.5,
+              155.0,
+              67.0
+            ],
+            [
+              49.5,
+              156.0,
+              67.0
+            ],
+            [
+              50.0,
+              155.5,
+              67.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            14743,
+            14759
+          ],
+          "voxelCorners": [
+            [
+              64.0,
+              69.0,
+              61.5
+            ],
+            [
+              64.5,
+              69.0,
+              61.0
+            ],
+            [
+              64.5,
+              69.0,
+              62.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            14744,
+            14767
+          ],
+          "voxelCorners": [
+            [
+              64.5,
+              69.0,
+              61.0
+            ],
+            [
+              64.5,
+              69.0,
+              62.0
+            ],
+            [
+              65.0,
+              69.0,
+              61.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            34617,
+            34634
+          ],
+          "voxelCorners": [
+            [
+              80.0,
+              125.5,
+              49.0
+            ],
+            [
+              80.5,
+              125.0,
+              49.0
+            ],
+            [
+              80.5,
+              126.0,
+              49.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            34625,
+            34626
+          ],
+          "voxelCorners": [
+            [
+              80.5,
+              125.0,
+              49.0
+            ],
+            [
+              80.5,
+              126.0,
+              49.0
+            ],
+            [
+              81.0,
+              125.5,
+              49.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36476,
+            36503
+          ],
+          "voxelCorners": [
+            [
+              81.0,
+              162.0,
+              43.5
+            ],
+            [
+              81.5,
+              162.0,
+              43.0
+            ],
+            [
+              81.5,
+              162.0,
+              44.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36498,
+            36506
+          ],
+          "voxelCorners": [
+            [
+              81.0,
+              162.5,
+              44.0
+            ],
+            [
+              81.5,
+              162.0,
+              44.0
+            ],
+            [
+              81.5,
+              163.0,
+              44.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36504,
+            36535
+          ],
+          "voxelCorners": [
+            [
+              81.0,
+              163.0,
+              44.5
+            ],
+            [
+              81.5,
+              163.0,
+              44.0
+            ],
+            [
+              81.5,
+              163.0,
+              45.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36481,
+            37837
+          ],
+          "voxelCorners": [
+            [
+              82.0,
+              161.0,
+              43.5
+            ],
+            [
+              82.0,
+              161.5,
+              43.0
+            ],
+            [
+              82.0,
+              162.0,
+              43.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36482,
+            37836
+          ],
+          "voxelCorners": [
+            [
+              82.0,
+              161.0,
+              43.5
+            ],
+            [
+              82.0,
+              162.0,
+              43.5
+            ],
+            [
+              82.0,
+              161.5,
+              44.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36484,
+            36495
+          ],
+          "voxelCorners": [
+            [
+              81.5,
+              162.0,
+              43.0
+            ],
+            [
+              81.5,
+              162.0,
+              44.0
+            ],
+            [
+              82.0,
+              162.0,
+              43.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36497,
+            36507
+          ],
+          "voxelCorners": [
+            [
+              81.5,
+              162.0,
+              44.0
+            ],
+            [
+              82.0,
+              162.5,
+              44.0
+            ],
+            [
+              81.5,
+              163.0,
+              44.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            37834,
+            37842
+          ],
+          "voxelCorners": [
+            [
+              82.0,
+              161.5,
+              44.0
+            ],
+            [
+              82.5,
+              161.0,
+              44.0
+            ],
+            [
+              82.5,
+              162.0,
+              44.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36509,
+            37869
+          ],
+          "voxelCorners": [
+            [
+              82.0,
+              162.0,
+              44.5
+            ],
+            [
+              82.0,
+              162.5,
+              44.0
+            ],
+            [
+              82.0,
+              163.0,
+              44.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36510,
+            37868
+          ],
+          "voxelCorners": [
+            [
+              82.0,
+              162.0,
+              44.5
+            ],
+            [
+              82.0,
+              163.0,
+              44.5
+            ],
+            [
+              82.0,
+              162.5,
+              45.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            37840,
+            37871
+          ],
+          "voxelCorners": [
+            [
+              82.0,
+              162.0,
+              44.5
+            ],
+            [
+              82.5,
+              162.0,
+              44.0
+            ],
+            [
+              82.5,
+              162.0,
+              45.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            36512,
+            36527
+          ],
+          "voxelCorners": [
+            [
+              81.5,
+              163.0,
+              44.0
+            ],
+            [
+              81.5,
+              163.0,
+              45.0
+            ],
+            [
+              82.0,
+              163.0,
+              44.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            37833,
+            37843
+          ],
+          "voxelCorners": [
+            [
+              82.5,
+              161.0,
+              44.0
+            ],
+            [
+              83.0,
+              161.5,
+              44.0
+            ],
+            [
+              82.5,
+              162.0,
+              44.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            37848,
+            37863
+          ],
+          "voxelCorners": [
+            [
+              82.5,
+              162.0,
+              44.0
+            ],
+            [
+              82.5,
+              162.0,
+              45.0
+            ],
+            [
+              83.0,
+              162.0,
+              44.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            41223,
+            42659
+          ],
+          "voxelCorners": [
+            [
+              86.0,
+              133.0,
+              51.5
+            ],
+            [
+              86.0,
+              133.5,
+              51.0
+            ],
+            [
+              86.0,
+              134.0,
+              51.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            41224,
+            42658
+          ],
+          "voxelCorners": [
+            [
+              86.0,
+              133.0,
+              51.5
+            ],
+            [
+              86.0,
+              134.0,
+              51.5
+            ],
+            [
+              86.0,
+              133.5,
+              52.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42656,
+            42664
+          ],
+          "voxelCorners": [
+            [
+              86.0,
+              133.5,
+              52.0
+            ],
+            [
+              86.5,
+              133.0,
+              52.0
+            ],
+            [
+              86.5,
+              134.0,
+              52.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42655,
+            42665
+          ],
+          "voxelCorners": [
+            [
+              86.5,
+              133.0,
+              52.0
+            ],
+            [
+              87.0,
+              133.5,
+              52.0
+            ],
+            [
+              86.5,
+              134.0,
+              52.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            48124,
+            48132
+          ],
+          "voxelCorners": [
+            [
+              91.0,
+              124.5,
+              48.0
+            ],
+            [
+              91.5,
+              124.0,
+              48.0
+            ],
+            [
+              91.5,
+              125.0,
+              48.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            48123,
+            48133
+          ],
+          "voxelCorners": [
+            [
+              91.5,
+              124.0,
+              48.0
+            ],
+            [
+              92.0,
+              124.5,
+              48.0
+            ],
+            [
+              91.5,
+              125.0,
+              48.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 881380
+    },
+    {
+      "sourceHemisphereName": "L",
+      "label": 3,
+      "file": "101006-L-label-3.mesh.gz",
+      "gzipSHA256": "07453250235db24acc1baebb8fc7205670fe76e00a3ad2f81f324cc195a1bc62",
+      "decodedSHA256": "105216826c8981d47cc3a849155fa974fcab24a5ccea29201f61adac8d6136a9",
+      "vertexCount": 11855,
+      "triangleCount": 24428,
+      "positionByteSHA256": "68703e50e16d82e6a2110998ce24cdfcecdb4a437ecf18684f7ddf8345bace9c",
+      "indexByteSHA256": "b417a21eac454ad8ed1aba5ef1f1a654d3f13cda602c64c0766653f081f232da",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 400,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        159,
+        120,
+        121
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 3,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 3,
+      "MCExactDuplicateTriangleSets": 2,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            6621,
+            6622
+          ],
+          "voxelCorners": [
+            [
+              35.0,
+              62.5,
+              61.0
+            ],
+            [
+              35.5,
+              62.0,
+              61.0
+            ],
+            [
+              35.5,
+              63.0,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            6613,
+            6630
+          ],
+          "voxelCorners": [
+            [
+              35.5,
+              62.0,
+              61.0
+            ],
+            [
+              35.5,
+              63.0,
+              61.0
+            ],
+            [
+              36.0,
+              62.5,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 435412
+    },
+    {
+      "sourceHemisphereName": "L",
+      "label": 4,
+      "file": "101006-L-label-4.mesh.gz",
+      "gzipSHA256": "c274331c9b0ab36a9ccc5e7214cda5623c536edd2bd8534fe121e0cf55c8bcc4",
+      "decodedSHA256": "8472f5e8eec71858bf069ec9806be2aea2171d71be11d6fece174e9983d5b9db",
+      "vertexCount": 14907,
+      "triangleCount": 30504,
+      "positionByteSHA256": "a1554fe9f34512d75fc3cc8da536aa93deaa45ed9a8d53f435dd801fba2057ab",
+      "indexByteSHA256": "ffb7eecb23c37cac31ec9d4814a1ff4725dc76bc59172df1a2ffccc26f316fbb",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 335,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        93,
+        101,
+        141
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 9,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 9,
+      "MCExactDuplicateTriangleSets": 6,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            18857,
+            18874
+          ],
+          "voxelCorners": [
+            [
+              50.0,
+              59.5,
+              74.0
+            ],
+            [
+              50.5,
+              59.0,
+              74.0
+            ],
+            [
+              50.5,
+              60.0,
+              74.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            18865,
+            18866
+          ],
+          "voxelCorners": [
+            [
+              50.5,
+              59.0,
+              74.0
+            ],
+            [
+              50.5,
+              60.0,
+              74.0
+            ],
+            [
+              51.0,
+              59.5,
+              74.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            24201,
+            24218
+          ],
+          "voxelCorners": [
+            [
+              58.0,
+              61.5,
+              71.0
+            ],
+            [
+              58.5,
+              61.0,
+              71.0
+            ],
+            [
+              58.5,
+              62.0,
+              71.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            24209,
+            24210
+          ],
+          "voxelCorners": [
+            [
+              58.5,
+              61.0,
+              71.0
+            ],
+            [
+              58.5,
+              62.0,
+              71.0
+            ],
+            [
+              59.0,
+              61.5,
+              71.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            30818,
+            30832
+          ],
+          "voxelCorners": [
+            [
+              73.0,
+              103.5,
+              61.0
+            ],
+            [
+              73.5,
+              103.0,
+              61.0
+            ],
+            [
+              73.5,
+              104.0,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            30817,
+            30824
+          ],
+          "voxelCorners": [
+            [
+              73.5,
+              103.0,
+              61.0
+            ],
+            [
+              74.0,
+              103.5,
+              61.0
+            ],
+            [
+              73.5,
+              104.0,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 544948
+    },
+    {
+      "sourceHemisphereName": "L",
+      "label": 5,
+      "file": "101006-L-label-5.mesh.gz",
+      "gzipSHA256": "ba04db7c1f9c18d97eff39094878b45aaee6a94e56f1773f134167f976e856a4",
+      "decodedSHA256": "c28cf33bc58c073d0d2bb3427237e2fe40433405476a4d0be68514c8513c7d26",
+      "vertexCount": 1180,
+      "triangleCount": 2412,
+      "positionByteSHA256": "487b8e4ced4d1b83c65134b961c7f6f4e1d36e13a157b755bbfd195d68e06429",
+      "indexByteSHA256": "d8150f20fa5b3913e144c3f6a43089d0af780e1acc6e208e019bdf45fb7dfed7",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 30,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        11,
+        6,
+        13
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 0,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 0,
+      "MCExactDuplicateTriangleSets": 0,
+      "MCExactDuplicateTriangles": [],
+      "byteLength": 43120
+    },
+    {
+      "sourceHemisphereName": "L",
+      "label": 6,
+      "file": "101006-L-label-6.mesh.gz",
+      "gzipSHA256": "e70f32bf3f45577da20e7e682ed4417cd16e0ba5cc93c8303a2c125fb9e144c8",
+      "decodedSHA256": "b07453532837c155753fb7eb341061bb0c9a3504845f0c170bc249ed3e2a8546",
+      "vertexCount": 1845,
+      "triangleCount": 4004,
+      "positionByteSHA256": "c5ae4c1f1d75e4433523171b007748b5267b2719c9ad875ccf705c3a5e98ae9a",
+      "indexByteSHA256": "e35c0a22cb93818cb4c0c37e2507002260f5002afa8d4dd7a5bf7c2a99200ea6",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 147,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        48,
+        53,
+        46
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 0,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 0,
+      "MCExactDuplicateTriangleSets": 0,
+      "MCExactDuplicateTriangles": [],
+      "byteLength": 70204
+    },
+    {
+      "sourceHemisphereName": "L",
+      "label": 7,
+      "file": "101006-L-label-7.mesh.gz",
+      "gzipSHA256": "94ecb1fe01bcd3b93f9b1f25892f0b767c3bfc4967408324691798546f27185b",
+      "decodedSHA256": "c783714329d9962b59bcbfe42ad8b7bd1d4858a331b1c838d0b748d27f1560e3",
+      "vertexCount": 2976,
+      "triangleCount": 5932,
+      "positionByteSHA256": "5a4c2b5969126588eb03490c353706c50ed9776e8b54ed2fa63acc678b1111ca",
+      "indexByteSHA256": "71404a51b7c7b09b7aca435eb416c8e584ffe290964e5b1a6e6666aef6313866",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 12,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        0,
+        0,
+        12
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 0,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 0,
+      "MCExactDuplicateTriangleSets": 0,
+      "MCExactDuplicateTriangles": [],
+      "byteLength": 106912
+    },
+    {
+      "sourceHemisphereName": "L",
+      "label": 8,
+      "file": "101006-L-label-8.mesh.gz",
+      "gzipSHA256": "1ef076da4efc89a4145a9d77e2d627cd31d2120fc01a34efd8a75574a91b991f",
+      "decodedSHA256": "aafa0d72bee16640f45c30cf51f290765cf911712d50b9bdcba22a5470e97e50",
+      "vertexCount": 11301,
+      "triangleCount": 23908,
+      "positionByteSHA256": "e64fd9ac0e60263dee570dbf3b515e61ec1a1353e6658899dcc133c071587f20",
+      "indexByteSHA256": "efb4f1c8bbbd188c37f5da6bbb19b5838da5ef37f21001036b61e8fd8df0c1b5",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          -2.3000059127807617
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -51.10000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -32.69999694824219
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 508,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        106,
+        238,
+        164
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 15,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 15,
+      "MCExactDuplicateTriangleSets": 10,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            4551,
+            4568
+          ],
+          "voxelCorners": [
+            [
+              66.0,
+              156.5,
+              53.0
+            ],
+            [
+              66.5,
+              156.0,
+              53.0
+            ],
+            [
+              66.5,
+              157.0,
+              53.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            4559,
+            4560
+          ],
+          "voxelCorners": [
+            [
+              66.5,
+              156.0,
+              53.0
+            ],
+            [
+              66.5,
+              157.0,
+              53.0
+            ],
+            [
+              67.0,
+              156.5,
+              53.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            8313,
+            8330
+          ],
+          "voxelCorners": [
+            [
+              72.0,
+              153.5,
+              50.0
+            ],
+            [
+              72.5,
+              153.0,
+              50.0
+            ],
+            [
+              72.5,
+              154.0,
+              50.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            8321,
+            8322
+          ],
+          "voxelCorners": [
+            [
+              72.5,
+              153.0,
+              50.0
+            ],
+            [
+              72.5,
+              154.0,
+              50.0
+            ],
+            [
+              73.0,
+              153.5,
+              50.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            12325,
+            12342
+          ],
+          "voxelCorners": [
+            [
+              76.0,
+              66.5,
+              61.0
+            ],
+            [
+              76.5,
+              66.0,
+              61.0
+            ],
+            [
+              76.5,
+              67.0,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            12401,
+            12402
+          ],
+          "voxelCorners": [
+            [
+              76.0,
+              68.5,
+              66.0
+            ],
+            [
+              76.5,
+              68.0,
+              66.0
+            ],
+            [
+              76.5,
+              69.0,
+              66.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            13281,
+            13298
+          ],
+          "voxelCorners": [
+            [
+              76.0,
+              138.5,
+              51.0
+            ],
+            [
+              76.5,
+              138.0,
+              51.0
+            ],
+            [
+              76.5,
+              139.0,
+              51.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            12333,
+            12334
+          ],
+          "voxelCorners": [
+            [
+              76.5,
+              66.0,
+              61.0
+            ],
+            [
+              76.5,
+              67.0,
+              61.0
+            ],
+            [
+              77.0,
+              66.5,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            12393,
+            12410
+          ],
+          "voxelCorners": [
+            [
+              76.5,
+              68.0,
+              66.0
+            ],
+            [
+              76.5,
+              69.0,
+              66.0
+            ],
+            [
+              77.0,
+              68.5,
+              66.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            13289,
+            13290
+          ],
+          "voxelCorners": [
+            [
+              76.5,
+              138.0,
+              51.0
+            ],
+            [
+              76.5,
+              139.0,
+              51.0
+            ],
+            [
+              77.0,
+              138.5,
+              51.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 422524
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 1,
+      "file": "101006-R-label-1.mesh.gz",
+      "gzipSHA256": "574acdcfee34f08725f1c0be4873df2cfee3d9e2cd92cc063b1df153fdf753f4",
+      "decodedSHA256": "342023ee013f589de811031d6cdaa4af61426cab6c11f5b9421f49f2575195f3",
+      "vertexCount": 48281,
+      "triangleCount": 97704,
+      "positionByteSHA256": "d532849f62975ed4a4b1a51ad8e6fc4a7cfef979c2f17bb7ee32ff6ec865f6c8",
+      "indexByteSHA256": "b838f7ffc5d8490a318b474acef8b66aeafd94c87d054e748053a09a7751f420",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 605,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        192,
+        101,
+        312
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 3,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 3,
+      "MCExactDuplicateTriangleSets": 2,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            96209,
+            96213
+          ],
+          "voxelCorners": [
+            [
+              92.0,
+              162.5,
+              74.0
+            ],
+            [
+              92.5,
+              162.0,
+              74.0
+            ],
+            [
+              92.5,
+              163.0,
+              74.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            96201,
+            96212
+          ],
+          "voxelCorners": [
+            [
+              92.5,
+              162.0,
+              74.0
+            ],
+            [
+              92.5,
+              163.0,
+              74.0
+            ],
+            [
+              93.0,
+              162.5,
+              74.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 1751836
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 2,
+      "file": "101006-R-label-2.mesh.gz",
+      "gzipSHA256": "a31b3572aac5fc808d316a96342d2eb116ef42322cdbaed7354db30c6c708c15",
+      "decodedSHA256": "6311854e239fa88f3be4ef92ecefdfcc16f66d8b34ddc4c7e6355dc271e7a65a",
+      "vertexCount": 23472,
+      "triangleCount": 48684,
+      "positionByteSHA256": "71bc07ea0ea104e04e64fc255c42a51006c7ce9be4cd68d237740e5224a84ec1",
+      "indexByteSHA256": "f7fef998f1e35b90a8d7bc8890e3e70f5594dc11122c3aa3e31c39ca41275c8f",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 766,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        257,
+        217,
+        292
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 24,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 24,
+      "MCExactDuplicateTriangleSets": 16,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            9369,
+            10815
+          ],
+          "voxelCorners": [
+            [
+              44.0,
+              140.0,
+              51.5
+            ],
+            [
+              44.0,
+              140.5,
+              51.0
+            ],
+            [
+              44.0,
+              141.0,
+              51.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            9368,
+            10816
+          ],
+          "voxelCorners": [
+            [
+              44.0,
+              140.0,
+              51.5
+            ],
+            [
+              44.0,
+              140.5,
+              52.0
+            ],
+            [
+              44.0,
+              141.0,
+              51.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            22656,
+            22677
+          ],
+          "voxelCorners": [
+            [
+              53.0,
+              144.0,
+              43.5
+            ],
+            [
+              53.5,
+              144.0,
+              43.0
+            ],
+            [
+              53.5,
+              144.0,
+              44.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            22655,
+            22669
+          ],
+          "voxelCorners": [
+            [
+              53.5,
+              144.0,
+              43.0
+            ],
+            [
+              53.5,
+              144.0,
+              44.0
+            ],
+            [
+              54.0,
+              144.0,
+              43.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            27054,
+            27072
+          ],
+          "voxelCorners": [
+            [
+              56.0,
+              166.0,
+              61.5
+            ],
+            [
+              56.5,
+              166.0,
+              61.0
+            ],
+            [
+              56.5,
+              166.0,
+              62.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            27062,
+            27073
+          ],
+          "voxelCorners": [
+            [
+              56.5,
+              166.0,
+              61.0
+            ],
+            [
+              56.5,
+              166.0,
+              62.0
+            ],
+            [
+              57.0,
+              166.0,
+              61.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            41913,
+            41914
+          ],
+          "voxelCorners": [
+            [
+              72.0,
+              54.5,
+              75.0
+            ],
+            [
+              72.5,
+              54.0,
+              75.0
+            ],
+            [
+              72.5,
+              55.0,
+              75.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42549,
+            42550
+          ],
+          "voxelCorners": [
+            [
+              73.0,
+              53.5,
+              72.0
+            ],
+            [
+              73.5,
+              53.0,
+              72.0
+            ],
+            [
+              73.5,
+              54.0,
+              72.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            41905,
+            41922
+          ],
+          "voxelCorners": [
+            [
+              72.5,
+              54.0,
+              75.0
+            ],
+            [
+              72.5,
+              55.0,
+              75.0
+            ],
+            [
+              73.0,
+              54.5,
+              75.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            41919,
+            42607
+          ],
+          "voxelCorners": [
+            [
+              73.0,
+              54.0,
+              75.5
+            ],
+            [
+              73.0,
+              54.5,
+              75.0
+            ],
+            [
+              73.0,
+              54.5,
+              76.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42572,
+            42612
+          ],
+          "voxelCorners": [
+            [
+              73.0,
+              54.0,
+              76.5
+            ],
+            [
+              73.5,
+              54.0,
+              76.0
+            ],
+            [
+              73.5,
+              54.0,
+              77.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            41920,
+            42606
+          ],
+          "voxelCorners": [
+            [
+              73.0,
+              54.5,
+              75.0
+            ],
+            [
+              73.0,
+              54.5,
+              76.0
+            ],
+            [
+              73.0,
+              55.0,
+              75.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42609,
+            42610
+          ],
+          "voxelCorners": [
+            [
+              73.0,
+              54.5,
+              76.0
+            ],
+            [
+              73.5,
+              54.0,
+              76.0
+            ],
+            [
+              73.5,
+              55.0,
+              76.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42541,
+            42558
+          ],
+          "voxelCorners": [
+            [
+              73.5,
+              53.0,
+              72.0
+            ],
+            [
+              73.5,
+              54.0,
+              72.0
+            ],
+            [
+              74.0,
+              53.5,
+              72.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42571,
+            42613
+          ],
+          "voxelCorners": [
+            [
+              73.5,
+              54.0,
+              76.0
+            ],
+            [
+              73.5,
+              54.0,
+              77.0
+            ],
+            [
+              74.0,
+              54.0,
+              76.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            42601,
+            42618
+          ],
+          "voxelCorners": [
+            [
+              73.5,
+              54.0,
+              76.0
+            ],
+            [
+              73.5,
+              55.0,
+              76.0
+            ],
+            [
+              74.0,
+              54.5,
+              76.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 865888
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 3,
+      "file": "101006-R-label-3.mesh.gz",
+      "gzipSHA256": "a460615a76b03d227cf912ecd49aa351b8d54ab3c80215e32e638789c9f48c3b",
+      "decodedSHA256": "91b2544a9b6301fae213b3e678ff66be45655c9bf36726834f90a42bcb8c51a1",
+      "vertexCount": 10913,
+      "triangleCount": 22420,
+      "positionByteSHA256": "250ed715422f161ecd1209bde9c26532dd5d9d98209006d259be01fea728d3b4",
+      "indexByteSHA256": "2a7698144682bd3a0751e3b201da31197de2c5f5f0e68b27020f8f7d5fd0582c",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 365,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        154,
+        103,
+        108
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 3,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 3,
+      "MCExactDuplicateTriangleSets": 2,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            17583,
+            17590
+          ],
+          "voxelCorners": [
+            [
+              95.0,
+              182.5,
+              65.0
+            ],
+            [
+              95.5,
+              182.0,
+              65.0
+            ],
+            [
+              95.5,
+              183.0,
+              65.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            17584,
+            17598
+          ],
+          "voxelCorners": [
+            [
+              95.5,
+              182.0,
+              65.0
+            ],
+            [
+              95.5,
+              183.0,
+              65.0
+            ],
+            [
+              96.0,
+              182.5,
+              65.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 400012
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 4,
+      "file": "101006-R-label-4.mesh.gz",
+      "gzipSHA256": "e5c8aea26add7f6619987913cbed37f7ac38e44b27f8af1c2839fc9f35a2fca1",
+      "decodedSHA256": "35be1305edc4902b5a8b473c16a44f572bb4e2ae7dc56b5c4d134c58e490bb62",
+      "vertexCount": 13157,
+      "triangleCount": 26768,
+      "positionByteSHA256": "b38d02ffc2f4a7cd6a2add171f7ebb7489d1da9724c97bd0dee9430e0ed3c1f7",
+      "indexByteSHA256": "a1961a07c2e588d21eef294995f51f58d6d576789f13a77f8eb64b1eeb659f9d",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 217,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        64,
+        59,
+        94
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 12,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 12,
+      "MCExactDuplicateTriangleSets": 8,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            18477,
+            18529
+          ],
+          "voxelCorners": [
+            [
+              87.0,
+              157.0,
+              67.5
+            ],
+            [
+              87.5,
+              157.0,
+              67.0
+            ],
+            [
+              87.5,
+              157.0,
+              68.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            18478,
+            18537
+          ],
+          "voxelCorners": [
+            [
+              87.5,
+              157.0,
+              67.0
+            ],
+            [
+              87.5,
+              157.0,
+              68.0
+            ],
+            [
+              88.0,
+              157.0,
+              67.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            23451,
+            23461
+          ],
+          "voxelCorners": [
+            [
+              92.0,
+              163.5,
+              58.0
+            ],
+            [
+              92.5,
+              163.0,
+              58.0
+            ],
+            [
+              92.5,
+              164.0,
+              58.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            23452,
+            23460
+          ],
+          "voxelCorners": [
+            [
+              92.5,
+              163.0,
+              58.0
+            ],
+            [
+              92.5,
+              164.0,
+              58.0
+            ],
+            [
+              93.0,
+              163.5,
+              58.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            23953,
+            24455
+          ],
+          "voxelCorners": [
+            [
+              94.0,
+              160.0,
+              54.5
+            ],
+            [
+              94.0,
+              160.5,
+              54.0
+            ],
+            [
+              94.0,
+              161.0,
+              54.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            23952,
+            24456
+          ],
+          "voxelCorners": [
+            [
+              94.0,
+              160.0,
+              54.5
+            ],
+            [
+              94.0,
+              160.5,
+              55.0
+            ],
+            [
+              94.0,
+              161.0,
+              54.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            24443,
+            24453
+          ],
+          "voxelCorners": [
+            [
+              94.0,
+              160.5,
+              54.0
+            ],
+            [
+              94.5,
+              160.0,
+              54.0
+            ],
+            [
+              94.5,
+              161.0,
+              54.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            24444,
+            24452
+          ],
+          "voxelCorners": [
+            [
+              94.5,
+              160.0,
+              54.0
+            ],
+            [
+              94.5,
+              161.0,
+              54.0
+            ],
+            [
+              95.0,
+              160.5,
+              54.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 479116
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 5,
+      "file": "101006-R-label-5.mesh.gz",
+      "gzipSHA256": "c4e52e54ccf614b40aa4beac93b442f151816ddf821b7565bf026c93ef3acc2e",
+      "decodedSHA256": "06facf4eb3ad0c982239433f4c5c289440473fbb9ebb3a76fd05c992d15e377a",
+      "vertexCount": 1014,
+      "triangleCount": 2076,
+      "positionByteSHA256": "04c555d53bc1e49c4beeb731809670d42bf1b23d73de9f3448e303e623f89173",
+      "indexByteSHA256": "f32b3d75c23ef81ac3ff2d7c3c4a06d1056f3139bc4fe428603db488faf40369",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 26,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        10,
+        8,
+        8
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 0,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 0,
+      "MCExactDuplicateTriangleSets": 0,
+      "MCExactDuplicateTriangles": [],
+      "byteLength": 37096
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 6,
+      "file": "101006-R-label-6.mesh.gz",
+      "gzipSHA256": "a317e53538c3a3906d9a80cb34e55c93ece7c700e1bedfc43df12b22dc3cd519",
+      "decodedSHA256": "4eb95a69130d85a22b044111def8fb88aca75bd0675cc56612832dc987fd4ffe",
+      "vertexCount": 1005,
+      "triangleCount": 2092,
+      "positionByteSHA256": "fa086da76813b8284d846490950869740330e02851817544f0ba17f9fc0ea50f",
+      "indexByteSHA256": "5e03acf6f27447a808c2d6c255f7ebca6c3552543352c9f6dbaa83fdc0d2bd08",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 39,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        12,
+        17,
+        10
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 0,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 0,
+      "MCExactDuplicateTriangleSets": 0,
+      "MCExactDuplicateTriangles": [],
+      "byteLength": 37180
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 7,
+      "file": "101006-R-label-7.mesh.gz",
+      "gzipSHA256": "2d331380283d7821133a3d1330d096d4ada6e40dcda4acefc4b373ec507bc546",
+      "decodedSHA256": "2eb0fdf0fa8874029335dc920fabac4e595b2acf221fc09cb49c223cd66879f8",
+      "vertexCount": 3559,
+      "triangleCount": 7100,
+      "positionByteSHA256": "4cb1e55f35c5c763736b017b572bd061aef7cd0b5b028153457c48745eefe4d1",
+      "indexByteSHA256": "64555289ccc202bb309a3d52888785d9479717db390452e00c0308078d806a40",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 15,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        4,
+        1,
+        10
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 0,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 0,
+      "MCExactDuplicateTriangleSets": 0,
+      "MCExactDuplicateTriangles": [],
+      "byteLength": 127924
+    },
+    {
+      "sourceHemisphereName": "R",
+      "label": 8,
+      "file": "101006-R-label-8.mesh.gz",
+      "gzipSHA256": "9791f2f2bb80add528fa4bd216adf3236d3c2189c233d2de899f45e02edd3327",
+      "decodedSHA256": "a92b91604611da282813aa40e6e20b2eb48e311a4f276ded82b23a59ae73c9bc",
+      "vertexCount": 10951,
+      "triangleCount": 22952,
+      "positionByteSHA256": "ccc2dca917b61cc7d27c6ae0f6a414c30025d04af485b5b88af2efa374bb2199",
+      "indexByteSHA256": "9860b8a89f02b40b8363c4f21d2d0a2293585b3760618af9afdd114ce0d44ebc",
+      "sourceVoxelPositionsExactlyFloat32Representable": true,
+      "sourceAffine": [
+        [
+          -0.30000001192092896,
+          -0.0,
+          0.0,
+          41.499996185302734
+        ],
+        [
+          -0.0,
+          0.30000001192092896,
+          -0.0,
+          -50.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.30000001192092896,
+          -31.499998092651367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "independentScalarAffineAllVerticesExactlyEqual": true,
+      "allTrianglesMatchFullExposedVoxelFaces": true,
+      "allFaceNormalsOutwardFromOwningVoxel": true,
+      "geometricNonmanifoldEdges": 454,
+      "sourceCheckerboardCellEdgeContactsPerAxis": [
+        112,
+        196,
+        146
+      ],
+      "everyNonmanifoldEdgeHasExactlyFourIncidentTriangles": true,
+      "MCNonmanifoldEdgeCount": 24,
+      "MCNonmanifoldEdgesCoveredByDuplicateTriangles": 24,
+      "MCExactDuplicateTriangleSets": 16,
+      "MCExactDuplicateTriangles": [
+        {
+          "faceIndices": [
+            9501,
+            10745
+          ],
+          "voxelCorners": [
+            [
+              53.0,
+              85.0,
+              58.5
+            ],
+            [
+              53.0,
+              85.5,
+              58.0
+            ],
+            [
+              53.0,
+              85.5,
+              59.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            9500,
+            10746
+          ],
+          "voxelCorners": [
+            [
+              53.0,
+              85.5,
+              58.0
+            ],
+            [
+              53.0,
+              86.0,
+              58.5
+            ],
+            [
+              53.0,
+              85.5,
+              59.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            10731,
+            10748
+          ],
+          "voxelCorners": [
+            [
+              53.0,
+              85.5,
+              58.0
+            ],
+            [
+              53.5,
+              85.0,
+              58.0
+            ],
+            [
+              53.5,
+              86.0,
+              58.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            10739,
+            10740
+          ],
+          "voxelCorners": [
+            [
+              53.5,
+              85.0,
+              58.0
+            ],
+            [
+              53.5,
+              86.0,
+              58.0
+            ],
+            [
+              54.0,
+              85.5,
+              58.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            11773,
+            13019
+          ],
+          "voxelCorners": [
+            [
+              55.0,
+              74.0,
+              61.5
+            ],
+            [
+              55.0,
+              74.5,
+              61.0
+            ],
+            [
+              55.0,
+              74.5,
+              62.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            11772,
+            13020
+          ],
+          "voxelCorners": [
+            [
+              55.0,
+              74.5,
+              61.0
+            ],
+            [
+              55.0,
+              75.0,
+              61.5
+            ],
+            [
+              55.0,
+              74.5,
+              62.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            13005,
+            13022
+          ],
+          "voxelCorners": [
+            [
+              55.0,
+              74.5,
+              61.0
+            ],
+            [
+              55.5,
+              74.0,
+              61.0
+            ],
+            [
+              55.5,
+              75.0,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            14027,
+            14071
+          ],
+          "voxelCorners": [
+            [
+              56.0,
+              69.0,
+              64.5
+            ],
+            [
+              56.5,
+              69.0,
+              64.0
+            ],
+            [
+              56.5,
+              69.0,
+              65.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            14059,
+            14076
+          ],
+          "voxelCorners": [
+            [
+              56.0,
+              69.5,
+              64.0
+            ],
+            [
+              56.5,
+              69.0,
+              64.0
+            ],
+            [
+              56.5,
+              70.0,
+              64.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            13013,
+            13014
+          ],
+          "voxelCorners": [
+            [
+              55.5,
+              74.0,
+              61.0
+            ],
+            [
+              55.5,
+              75.0,
+              61.0
+            ],
+            [
+              56.0,
+              74.5,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            14028,
+            14070
+          ],
+          "voxelCorners": [
+            [
+              56.5,
+              69.0,
+              64.0
+            ],
+            [
+              56.5,
+              69.0,
+              65.0
+            ],
+            [
+              57.0,
+              69.0,
+              64.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            14067,
+            14068
+          ],
+          "voxelCorners": [
+            [
+              56.5,
+              69.0,
+              64.0
+            ],
+            [
+              56.5,
+              70.0,
+              64.0
+            ],
+            [
+              57.0,
+              69.5,
+              64.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            21783,
+            21784
+          ],
+          "voxelCorners": [
+            [
+              71.0,
+              161.5,
+              61.0
+            ],
+            [
+              71.5,
+              161.0,
+              61.0
+            ],
+            [
+              71.5,
+              162.0,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            21775,
+            21792
+          ],
+          "voxelCorners": [
+            [
+              71.5,
+              161.0,
+              61.0
+            ],
+            [
+              71.5,
+              162.0,
+              61.0
+            ],
+            [
+              72.0,
+              161.5,
+              61.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            22419,
+            22661
+          ],
+          "voxelCorners": [
+            [
+              75.0,
+              51.0,
+              78.5
+            ],
+            [
+              75.0,
+              51.5,
+              78.0
+            ],
+            [
+              75.0,
+              52.0,
+              78.5
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        },
+        {
+          "faceIndices": [
+            22420,
+            22660
+          ],
+          "voxelCorners": [
+            [
+              75.0,
+              51.0,
+              78.5
+            ],
+            [
+              75.0,
+              52.0,
+              78.5
+            ],
+            [
+              75.0,
+              51.5,
+              79.0
+            ]
+          ],
+          "normalPairDotProduct": -1.0
+        }
+      ],
+      "byteLength": 406852
+    }
+  ],
+  "authorLabels": [
+    "Background",
+    "Hippocampal grey matter",
+    "SRLM / dark band",
+    "Medial temporal neocortex",
+    "Pial surface class",
+    "HATA",
+    "Indusium griseum",
+    "Cyst class",
+    "Dentate gyrus"
+  ],
+  "classNotes": [
+    "Unlabelled source background.",
+    "Published hippocampal grey-matter label; CA1\u2013CA4 and subiculum are not separately labelled.",
+    "Published SRLM / dark-band class.",
+    "Combined entorhinal and parahippocampal boundary context (author class: medial temporal neocortex); not complete medial temporal cortex.",
+    "Pial-boundary class used by the source method; not a segmentation of the whole meninges.",
+    "Hippocampal\u2013amygdalar transition area (HATA); not the whole amygdala.",
+    "Indusium griseum posterior boundary context; not complete fornices or mammillary bodies.",
+    "The authors\u2019 cyst label; its presence does not establish a clinical diagnosis or benignity.",
+    "Dentate granule-layer / endpoint label used by the source method; not the whole dentate gyrus, hilus or CA4."
+  ]
+}

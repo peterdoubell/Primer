@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Published hippocampal training reference · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<main>
+  <p class="eyebrow">HippUnfold · published training case 101006</p>
+  <h1>Hippocampal T2 and 3D reference</h1>
+  <p>Explore the published T2 images alongside eight research label classes. These registered, resampled crops provide partial hippocampal anatomy context. The labels are source annotations; they do not establish normality or a diagnosis.</p>
+  <p class="context">L/R identify the supplied files. Their coordinates are registered source coordinates, not independently validated patient laterality or native measurements. The approximately 0.3 mm grid is upsampled, not the acquisition resolution.</p>
+  <div class="controls">
+    <label>Source filename side<select id="hemi"><option>L</option><option>R</option></select></label>
+    <label>Source class<select id="class"></select></label>
+    <label>Source index plane<select id="plane"><option value="1">j fixed · i/k plane</option><option value="0">i fixed · j/k plane</option><option value="2">k fixed · i/j plane</option></select></label>
+    <label>Slice<input id="slice" type="range" min="0" max="255" step="1" value="128"><output id="slice-value"></output></label>
+    <label>Labels<input type="checkbox" id="overlay" checked></label>
+    <label>Overlay scope<select id="overlay-scope"><option value="all">All source classes</option><option value="selected">Selected class</option></select></label>
+    <label>Display centre<input id="centre" type="number" value="300" step="10"></label>
+    <label>Display width<input id="width" type="number" value="900" min="1" step="10"></label>
+    <button id="reset-window">Reset display window</button>
+  </div>
+  <p id="class-note" class="context" aria-live="polite"></p>
+  <p id="status" role="status">Loading source images…</p>
+  <div class="views">
+    <section>
+      <h2>Source T2 and labels</h2>
+      <button id="enlarge-mri">Enlarge image</button>
+      <canvas id="mri" tabindex="0" aria-label="T2 source index plane; up and down change slice"></canvas>
+      <p id="cursor">Move over the image for source position, stored intensity and label.</p>
+      <p>Up/down keys change the slice. These index planes retain the source crop geometry; they are not clinical anatomical plane labels. Window controls affect display only.</p>
+    </section>
+    <section>
+      <h2>3D source label boundaries</h2>
+      <label>Surface scope<select id="surface-scope"><option value="selected">Selected class</option><option value="all">All eight classes</option></select></label>
+      <button id="reset-3d">Reset / fit</button><button id="enlarge-3d">Enlarge 3D</button>
+      <canvas id="mesh" tabindex="0" aria-label="Source-derived voxel-cell surfaces; drag or arrow keys rotate, plus or minus zoom"></canvas>
+      <p id="mesh-status" role="status">Waiting for source…</p>
+      <p>Drag or use arrow keys to rotate; +/− zoom. Steps follow the labelled voxel cells. Select one class to inspect an obscured internal surface. All source components are retained.</p>
+    </section>
+  </div>
+  <div id="legend" aria-label="Source class colour key"></div>
+  <details>
+    <summary>Source methods, class boundaries and limitations</summary>
+    <p>The published methods describe bias correction, affine atlas registration, coronal-oblique cropping and sagittal left mirroring. The dataset description says left labels were mirrored. This reference preserves the provided arrays and affines without an additional mirror, resampling or anatomical fitting. The exact training exporter convention remains unresolved.</p>
+    <p>The authors produced heavily supervised, semi-automatic research segmentations. The medial temporal neocortex class is combined entorhinal/parahippocampal boundary context. The pial class is a method boundary, not whole meninges. HATA is a transition area, not the whole amygdala. Indusium griseum supplies posterior boundary context, not complete fornices or mammillary bodies. The dentate gyrus class represents a granule-layer/endpoint label, not whole DG, hilus or CA4. A cyst label alone establishes neither a diagnosis nor benignity.</p>
+    <p>CA1–CA4 and subiculum are not separately labelled. Surfaces follow exact categorical voxel-cell boundaries, including disconnected components and contacts; they are not smoothed biological tissue surfaces. Every exposed voxel face is retained.</p>
+    <p>This selected source does not establish normality, hippocampal sclerosis, FLAIR abnormalities, native volume or asymmetry, clinical MTA scores, complete fornices/mammillary bodies, whole-brain cortex, lesions or dual pathology. It is a partial anatomy reference; complete epilepsy and dementia reporting requires additional images and clinical interpretation.</p>
+    <p>In the 2D view, left-to-right pixels follow increasing first displayed index; bottom-to-top follows increasing second index. <a href="manifest.json">View file identities, original affines and derivation metadata</a>.</p>
+    <p>Source: DeKraker and Khan · <a href="https://zenodo.org/records/7007362">HippUnfold HCP-YA Training Data v1.0.0</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9831605/">Published methods</a>. Lossless transport, display windowing and categorical voxel-cell surface derivation are adaptations.</p>
+  </details>
+  <button id="retry" hidden>Retry source load</button>
+</main>
+<script src="payload.js"></script>
+<script src="viewer.js"></script>
+</html>

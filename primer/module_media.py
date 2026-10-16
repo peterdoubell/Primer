@@ -122,11 +122,15 @@ def attach_module_media(node):
                       if i['module_id'] == node['id'] and inspectors.get(i['id'])]
         if native_ids:
             media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',
-                          'title': ('Native source CT and separate nodule models'
+                          'title': ('Registered hippocampal MRI and source surfaces'
+                                    if node['id'] in {'rad.5.epilepsy-mri', 'rad.5.dementia'} else
+                                    'Native source CT and separate nodule models'
                                     if node['id'] == 'rad.4.pulmonary-nodule' else
                                     'Separate cardiac source anatomy contexts' if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else
                                     'Original curated thoracic anatomy' if node['id'] == 'rad.5.pleura' else 'Native source anatomy inspection'),
-                          'instructions': ('Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
+                          'instructions': ('Compare the published registered T2 crops, eight research label classes and complete categorical voxel-cell surfaces. These upsampled training grids do not establish native volume, normality, pathology or complete reporting anatomy.'
+                                           if node['id'] in {'rad.5.epilepsy-mri', 'rad.5.dementia'} else
+                                           'Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
                                            if node['id'] == 'rad.4.stroke' else
                                            'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'
                                            if node['id'] == 'rad.4.pulmonary-nodule' else

@@ -112,9 +112,17 @@ def check():
             health = client.get('/healthz')
             assert health.status_code == 200 and health.json()['source_pulmonary_metadata_validated'] is True
             assert all(value is True for key, value in health.json().items() if key.endswith('_metadata_validated'))
-            keys = set(combined.references())
+            references = combined.references()
+            keys = set(references)
             from primer.cardiac_native_inspector import BINDINGS as cardiac_bindings
-            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings
+            from primer import hippunfold_reference as hippocampal
+            assert hippocampal.BINDINGS == {'ra.mri-epilepsy', 'ra.mri-dementia'}
+            registered = hippocampal.references()  # Includes pinned registry, manifest and payload checks.
+            assert set(registered) == hippocampal.BINDINGS
+            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
+            for identifier, expected in registered.items():
+                assert references[identifier] == expected
+                assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
             os.environ.pop('PRIMER_ACCESS_USERNAME')
             os.environ.pop('PRIMER_ACCESS_PASSWORD')
             with patch.object(native, 'references', side_effect=AssertionError('Lookup happened without access config')):
