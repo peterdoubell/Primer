@@ -1,0 +1,140 @@
+{
+  "baseline_commit": "0ba88bd6dbf6af0f85902c588e82a39d114c690f",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "scope": "Append two independently identified supplementary cardiac sources, exact private/static routes and reader wrappers; retain existing reporting guides and every previous source/decoder. No clinical or inter-dataset registration approval.",
+  "files": {
+    "primer/server.py": {
+      "before_sha256": "08d0aa84173f7254a9d25e0e949ca7b8b9b905aa7a1fdd685bc77ce4bc849aef",
+      "after_sha256": "120a5077b190a9f4c9c41266a72f0b846a777a76209e8ea3cc63ede970b0afc0",
+      "changes": [
+        {
+          "start": 3841,
+          "end": 3871,
+          "before": "",
+          "after": "async def cardiac_wall_context_delivery(identifier: str, asset: str, request: Request):\n    from .cardiac_wall_context import registry, references, validate_file\n    group = registry()['groups'][identifier]\n    src = group['prefix'] + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in group['files']:\n        return JSONResponse({'detail': 'Unknown cardiac context resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(identifier, asset)\n    if asset not in group['authored'] and os.environ.get('VERCEL'):\n        return RedirectResponse('/source-media/' + group['directory'].removeprefix('web/') + '/' + asset,\n                                status_code=307, headers={'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response(group['directory'].removeprefix('web/') + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n        if identifier == 'baskaran-2020-cardiac-comparisons':\n            response.headers['Content-Security-Policy'] = response.headers['Content-Security-Policy'].replace(\"img-src 'self' data: \", \"img-src 'self' data: blob: \")\n    return response\n\n\n@app.api_route(\"/app/anatomy/bp3d-cardiac-4.3/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def cardiac_curated_context_delivery(asset: str, request: Request):\n    return await cardiac_wall_context_delivery('bp3d-cardiac-original-context', asset, request)\n\n\n@app.api_route(\"/app/reference-media/cardiac-comparisons-2020/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def cardiac_comparison_context_delivery(asset: str, request: Request):\n    return await cardiac_wall_context_delivery('baskaran-2020-cardiac-comparisons', asset, request)\n\n\n"
+        }
+      ]
+    },
+    "primer/source_native_inspectors.py": {
+      "before_sha256": "28ca2c048f0dec4940e77a804f5d39eee1e1d5f173ee2d5a3ead1ce6cba24181",
+      "after_sha256": "e66f464f7e7c309ac1852b34fcd0673180fa9b40618874bb932de3376097d008",
+      "changes": [
+        {
+          "start": 89,
+          "end": 92,
+          "before": "",
+          "after": "    from .cardiac_wall_context import references as wall_references\n    for identifier, entries in wall_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+        }
+      ]
+    },
+    "primer/module_media.py": {
+      "before_sha256": "80f0244047c9ddf79874cef8673e1f372bf9068265f6114a4e0137436073c051",
+      "after_sha256": "0d29e66b2b34bc5903101a1021a04afd79237028ae879f136f70650fff923e49",
+      "changes": [
+        {
+          "start": 126,
+          "end": 127,
+          "before": "                                    'Original CT cardiac source anatomy' if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else\n",
+          "after": "                                    'Separate cardiac source anatomy contexts' if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else\n"
+        },
+        {
+          "start": 132,
+          "end": 133,
+          "before": "                                           'Inspect original curated surfaces and separate CT sources for lung, basal-organ and LV-myocardium/chamber context. The v1 cardiac and v3 lung images remain distinct, and no source is registered to the ultrasound examples; required anatomy remains incomplete.'\n",
+          "after": "                                           'Inspect original curated sources, separate cardiac/lung CT sources and published CT annotation/prediction comparisons. Their coordinates, versions and case identities remain separate; none is registered to the ultrasound examples or current patient. Required anatomy and clinical validation remain incomplete.'\n"
+        },
+        {
+          "start": 134,
+          "end": 135,
+          "before": "                                           'Inspect the original v1 cardiac CT, LV-myocardium label and four chamber regions in matching source planes and complete source-derived interfaces. This CT context does not supply MRI signal, coronary arteries, masses, RV/atrial walls, valves or pericardium; function, normality and current-patient registration remain unverified.'\n",
+          "after": "                                           'Inspect each cardiac source separately: original v1 CT and LV-myocardium/chamber labels, curated wall/cusp/papillary objects, and published CT comparison PNGs. In the methods-defined comparisons, green is manual annotation and red is model prediction. Source defects, incomplete anatomy, unverified MRI signal/function and absent current-patient registration remain explicit.'\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "762420bb08bcebbe8c5d32f234c80615224860c87ef9f96fc00c42a1e2a2ee2a",
+      "after_sha256": "5ced07d4629236b0b632dc93649ca1840ca3e3e19b6c6c784c9d2589d797fa7b",
+      "changes": [
+        {
+          "start": 2035,
+          "end": 2036,
+          "before": "",
+          "after": "  const comparisonCT = asset.id === 'baskaran-2020-cardiac-comparisons' && asset.modality === 'CT image comparisons';\n"
+        },
+        {
+          "start": 2037,
+          "end": 2038,
+          "before": "  const curatedSurface = asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy';\n",
+          "after": "  const curatedSurface = ['bp3d-thoracic-original-surfaces', 'bp3d-cardiac-original-context'].includes(asset.id) && asset.modality === 'Curated 3D anatomy';\n"
+        },
+        {
+          "start": 2041,
+          "end": 2043,
+          "before": "    radiologySourceLink(curatedSurface ? 'Original curated surface dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n    ...(curatedSurface || lungCT || basalCT || cardiacCT ? [] : [' \u00b7 ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' \u00b7 ',\n",
+          "after": "    radiologySourceLink(curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' \u00b7 ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' \u00b7 ',\n"
+        },
+        {
+          "start": 2044,
+          "end": 2045,
+          "before": "  if (nativeCT || curatedSurface) {\n",
+          "after": "  if (nativeCT || curatedSurface || comparisonCT) {\n"
+        },
+        {
+          "start": 2046,
+          "end": 2047,
+          "before": "    const openLabel = cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n",
+          "after": "    const openLabel = comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n"
+        },
+        {
+          "start": 2859,
+          "end": 2861,
+          "before": "  const cardiacContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'totalseg-v1-s0028-cardiac-native');\n  const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));\n",
+          "after": "  const cardiacContext = (ref.source_native_inspectors || []).filter(asset => ['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));\n  const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' && asset.id !== 'bp3d-cardiac-original-context' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));\n"
+        },
+        {
+          "start": 2951,
+          "end": 2952,
+          "before": "    ['model', curatedModels.length ? 'Original source models' : cardiacContext.length ? '3D anatomy and original CT context' : ref.source_native_only ? 'Native source models' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {\n",
+          "after": "    ['model', curatedModels.length ? 'Original source models' : cardiacContext.length ? '3D anatomy and original source context' : ref.source_native_only ? 'Native source models' : detailedAnatomy || ref.source_anatomy_references?.length ? '3D anatomy' : 'Spatial guide', panel => {\n"
+        },
+        {
+          "start": 3221,
+          "end": 3223,
+          "before": "  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n  const curatedSurface = sourceModels.some(asset => asset.id !== 'totalseg-v1-s0028-cardiac-native');\n",
+          "after": "  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n  const curatedSurface = sourceModels.some(asset => !['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));\n"
+        },
+        {
+          "start": 3257,
+          "end": 3258,
+          "before": "  const modes = sourceOnly ? [['native', 'Native source']] : curatedSurface ? [['figures', 'Figures'], ['source-surfaces', 'Original 3D sources']] : [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : []), ...(sourceModels.length ? [['source-surfaces', 'Original CT context']] : [])];\n",
+          "after": "  const modes = sourceOnly ? [['native', 'Native source']] : curatedSurface ? [['figures', 'Figures'], ['source-surfaces', 'Original 3D sources']] : [['figures', 'Figures'], ['landmark', '3D landmarks'], ...(meshFamily ? [['anatomy', '3D anatomy']] : []), ...(sourceModels.length ? [['source-surfaces', 'Original source context']] : [])];\n"
+        },
+        {
+          "start": 3479,
+          "end": 3480,
+          "before": "      visualNote.textContent = curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Original cardiac CT and LV-myocardium/chamber interfaces in their source coordinates. Coronary arteries, masses, RV/atrial walls, valves, pericardium, MRI tissue signal and quantitative function remain absent or unverified; this source does not fill current-patient findings.';\n",
+          "after": "      visualNote.textContent = curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';\n"
+        }
+      ]
+    },
+    "vercel.json": {
+      "before_sha256": "930f874087a0ff5d9afb70a4813f718295269014a8fc3a94d30494ebd53fbd8e",
+      "after_sha256": "b3bdbe59cd51302636b8101417e46644c9d2f1a76649f324500f90a3783a8f02",
+      "changes": [
+        {
+          "start": 7,
+          "end": 8,
+          "before": "        \"excludeFiles\": \"{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**}\"\n",
+          "after": "        \"excludeFiles\": \"{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**}\"\n"
+        },
+        {
+          "start": 116,
+          "end": 124,
+          "before": "",
+          "after": "      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/anatomy/bp3d-cardiac-4.3/{originals,transport}/**\",\n      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/reference-media/cardiac-comparisons-2020/images/**\",\n"
+        }
+      ]
+    }
+  }
+}

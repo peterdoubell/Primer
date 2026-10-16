@@ -3839,6 +3839,36 @@ async def cardiac_native_delivery(asset: str, request: Request):
     return response
 
 
+async def cardiac_wall_context_delivery(identifier: str, asset: str, request: Request):
+    from .cardiac_wall_context import registry, references, validate_file
+    group = registry()['groups'][identifier]
+    src = group['prefix'] + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in group['files']:
+        return JSONResponse({'detail': 'Unknown cardiac context resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(identifier, asset)
+    if asset not in group['authored'] and os.environ.get('VERCEL'):
+        return RedirectResponse('/source-media/' + group['directory'].removeprefix('web/') + '/' + asset,
+                                status_code=307, headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response(group['directory'].removeprefix('web/') + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+        if identifier == 'baskaran-2020-cardiac-comparisons':
+            response.headers['Content-Security-Policy'] = response.headers['Content-Security-Policy'].replace("img-src 'self' data: ", "img-src 'self' data: blob: ")
+    return response
+
+
+@app.api_route("/app/anatomy/bp3d-cardiac-4.3/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def cardiac_curated_context_delivery(asset: str, request: Request):
+    return await cardiac_wall_context_delivery('bp3d-cardiac-original-context', asset, request)
+
+
+@app.api_route("/app/reference-media/cardiac-comparisons-2020/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def cardiac_comparison_context_delivery(asset: str, request: Request):
+    return await cardiac_wall_context_delivery('baskaran-2020-cardiac-comparisons', asset, request)
+
+
 @app.api_route("/app/source-labels/thoracic/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def thoracic_source_label_delivery(asset: str, request: Request):
     from .thoracic_source_labels import PREFIX, registry, references, validate_file

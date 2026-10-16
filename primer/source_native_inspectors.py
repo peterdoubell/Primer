@@ -87,4 +87,7 @@ def references():
     from .cardiac_native_inspector import references as cardiac_references
     for identifier, entries in cardiac_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .cardiac_wall_context import references as wall_references
+    for identifier, entries in wall_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

@@ -164,8 +164,10 @@ def test_exact_metadata_generation_and_only_reviewed_public_redirects():
     lung = {'src': 'web/anatomy/totalseg-s0028-lungs/{originals,surfaces}/**', 'use': '@vercel/static'}
     basal = {'src': 'web/anatomy/totalseg-s0028-basal-context/{originals,surfaces}/**', 'use': '@vercel/static'}
     cardiac = {'src': 'web/anatomy/totalseg-v1-s0028-cardiac/{originals,surfaces}/**', 'use': '@vercel/static'}
-    assert config['builds'][-4:] == [thoracic, lung, basal, cardiac]
-    assert config['builds'][1:-4] == base['builds'][1:]
+    walls = {'src': 'web/anatomy/bp3d-cardiac-4.3/{originals,transport}/**', 'use': '@vercel/static'}
+    comparisons = {'src': 'web/reference-media/cardiac-comparisons-2020/images/**', 'use': '@vercel/static'}
+    assert config['builds'][-6:] == [thoracic, lung, basal, cardiac, walls, comparisons]
+    assert config['builds'][1:-6] == base['builds'][1:]
     assert config['builds'][0]['config']['excludeFiles'].startswith(base['builds'][0]['config']['excludeFiles'][:-1] + ',')
     ignored = (ROOT / '.vercelignore').read_text()
     patterns = [line for line in ignored.splitlines() if line.startswith('web/anatomy/lidc-idri-0525/')]
@@ -190,11 +192,12 @@ def test_old_source_registries_and_bindings_are_preserved():
     assert refs['ra.brain-anatomy'] == expected_brain
     assert refs['ra.acute-stroke'] == stroke_references()['ra.acute-stroke']
     from primer.cardiac_native_inspector import references as cardiac_references, BINDINGS as cardiac_bindings
+    from primer.cardiac_wall_context import references as wall_references
     assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings
     from primer.thoracic_native_inspectors import references as thoracic_references
     from primer.thoracic_lung_native import references as lung_references
     from primer.thoracic_basal_context import references as basal_references
-    assert refs['ra.thoracic-ultrasound'] == [*thoracic_references()['ra.thoracic-ultrasound'], *lung_references()['ra.thoracic-ultrasound'], *basal_references()['ra.thoracic-ultrasound'], *cardiac_references()['ra.thoracic-ultrasound']]
+    assert refs['ra.thoracic-ultrasound'] == [*thoracic_references()['ra.thoracic-ultrasound'], *lung_references()['ra.thoracic-ultrasound'], *basal_references()['ra.thoracic-ultrasound'], *cardiac_references()['ra.thoracic-ultrasound'], *wall_references()['ra.thoracic-ultrasound']]
 
 
 def test_thin_hosted_metadata_cannot_accept_present_wrong_or_absent_local_source(tmp_path, monkeypatch):

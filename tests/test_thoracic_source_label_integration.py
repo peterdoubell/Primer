@@ -27,7 +27,7 @@ def test_only_the_six_matching_figures_are_bound_without_replacing_source_models
     assert len(images) == 16 and len(ref['source_motion_references']) == 6
     assert [item['id'] for item in ref['source_native_inspectors']] == [
         'bp3d-thoracic-original-surfaces', 'totalseg-s0028-lung-native',
-        'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native']
+        'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons']
     bound = [r for r in images if 'source_label_locator' in r]
     assert len(bound) == 6
     assert all(r['source_label_locator']['figure_sha256'] == r['sha256'] for r in bound)
