@@ -15,7 +15,9 @@ def test_reference_and_shared_lesson_preserve_clinical_images_and_cine():
     curriculum = Curriculum()
     ref = detail(curriculum, resolve('ra.thoracic-ultrasound'))['radiology_reference']
     assert len(ref['structure_atlas']) == 16 and len(ref['source_motion_references']) == 6
-    assert len(ref['source_native_inspectors']) == 3
+    assert [item['id'] for item in ref['source_native_inspectors']] == [
+        'bp3d-thoracic-original-surfaces', 'totalseg-s0028-lung-native',
+        'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native']
     item = ref['source_native_inspectors'][0]
     assert item['modality'] == 'Curated 3D anatomy'
     assert item['clinical_approval'] is item['fine_anatomical_approval'] is False

@@ -113,7 +113,8 @@ def check():
             assert health.status_code == 200 and health.json()['source_pulmonary_metadata_validated'] is True
             assert all(value is True for key, value in health.json().items() if key.endswith('_metadata_validated'))
             keys = set(combined.references())
-            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'}
+            from primer.cardiac_native_inspector import BINDINGS as cardiac_bindings
+            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings
             os.environ.pop('PRIMER_ACCESS_USERNAME')
             os.environ.pop('PRIMER_ACCESS_PASSWORD')
             with patch.object(native, 'references', side_effect=AssertionError('Lookup happened without access config')):

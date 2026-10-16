@@ -61,6 +61,8 @@ def test_every_attached_figure_keeps_its_original_role_rights_and_case_context(c
     for module in proof['modules']:
         node = curriculum.node(module['module_id'])
         historical = copy.deepcopy({key: node.get(key) for key in FIELDS})
+        from tools.cardiac_native_runtime_compatibility import before_cardiac_lesson_fields
+        historical = before_cardiac_lesson_fields(module['module_id'], historical)
         # Preserve the older figure-delivery proof; the later model-delivery
         # proof independently binds the complete current props and source cases.
         for media in historical['lesson_media']:

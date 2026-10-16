@@ -14,13 +14,15 @@ def test_combining_sources_does_not_mutate_cached_curated_bindings():
     from primer.thoracic_native_inspectors import references as curated
     for _ in range(3):
         combined.references.cache_clear()
-        assert len(combined.references()['ra.thoracic-ultrasound']) == 3
+        assert [i['id'] for i in combined.references()['ra.thoracic-ultrasound']] == [
+            'bp3d-thoracic-original-surfaces', 'totalseg-s0028-lung-native',
+            'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native']
         assert [i['id'] for i in curated()['ra.thoracic-ultrasound']] == ['bp3d-thoracic-original-surfaces']
 
 
 def test_curated_and_ct_sources_coexist_without_replacing_images_or_report_fields():
     c=Curriculum();ref=detail(c,resolve('ra.thoracic-ultrasound'))['radiology_reference']
-    assert [i['id'] for i in ref['source_native_inspectors']]==['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native','totalseg-s0028-basal-context']
+    assert [i['id'] for i in ref['source_native_inspectors']]==['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native','totalseg-s0028-basal-context','totalseg-v1-s0028-cardiac-native']
     assert len(ref['structure_atlas'])==16 and len(ref['source_motion_references'])==6
     assert all(not s['normal'] for s in ref['walkthrough']['steps'])
     model=next(i for i in c.node('rad.5.pleura')['lesson_media'] if i.get('renderer')=='radiology-anatomy')

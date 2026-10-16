@@ -724,6 +724,40 @@
         "path": "docs/thoracic-source-label-review-20261014/integration/local-reader-proof.json",
         "sha256": "a6829a08bc1975f78bb23ad3704b8eda075741ead4c84ddce9bcc70ec170691d"
       }
+    },
+    {
+      "id": "2026-10-14-cardiac-native-source",
+      "files": {
+        "web/app.js": {
+          "before": "5ed44bcf329222450e46a4547c1ce7ed1308bb6c49d5c096f34315f4c988f614",
+          "after": "762420bb08bcebbe8c5d32f234c80615224860c87ef9f96fc00c42a1e2a2ee2a"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "cardiac_original_CT_and_interfaces_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "new_source_decoder_files_added": true,
+      "existing_reporting_guides_retained": true,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/cardiac-native-source-review-v1-s0028/integration/runtime-inverse.json",
+        "sha256": "ac9f8cb4095f84a223506457b80c7975982a235c2e59375845d4cbe42c8f426a"
+      },
+      "cardiac_source_reader_smoke": {
+        "path": "docs/cardiac-native-source-review-v1-s0028/integration/local-reader-proof.json",
+        "sha256": "3e4584cf18f493c3550af171493469f23c1ecf509d1e192e02c7a01a7fe1bd8e"
+      }
     }
   ]
 }
