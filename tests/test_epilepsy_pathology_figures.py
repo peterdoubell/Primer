@@ -1,4 +1,5 @@
 """Six published examples preserve full rasters, rights and bounded case meanings."""
+import gzip
 import hashlib
 import json
 from pathlib import Path
@@ -21,6 +22,40 @@ def load(path):
 
 def sha(raw):
     return hashlib.sha256(raw).hexdigest()
+
+
+def source_snapshot(name):
+    """Resolve historical source names without storing active third-party HTML."""
+    assert name in {'scielo-publisher.html', 'frontiers-publisher.response'}
+    storage = load(DOC / 'source/archive-storage.json')
+    assert storage['schema_version'] == 1
+    row = storage['files'].get(name)
+    if row is None:
+        return (DOC / 'source' / name).read_bytes()
+    assert name == 'scielo-publisher.html'
+    assert row['stored_path'] == 'scielo-publisher.html.gz'
+    assert row['encoding'] == 'gzip' and row['gzip_mtime'] == 0
+    packed = (DOC / 'source' / row['stored_path']).read_bytes()
+    assert len(packed) == row['compressed_bytes']
+    assert sha(packed) == row['compressed_sha256']
+    assert packed[:3] == b'\x1f\x8b\x08' and int.from_bytes(packed[4:8], 'little') == 0
+    original = gzip.decompress(packed)
+    assert len(original) == row['decoded_bytes']
+    assert sha(original) == row['decoded_sha256']
+    return original
+
+
+def test_archived_publisher_document_retains_both_historical_source_identities():
+    storage = load(DOC / 'source/archive-storage.json')
+    assert set(storage['files']) == {'scielo-publisher.html'}
+    assert not (DOC / 'source/scielo-publisher.html').exists()
+    original = source_snapshot('scielo-publisher.html')
+    assert len(original) == 172478
+    for review_path in ['original-source-review.json', 'source/independent-review/independent-review.json']:
+        source = load(DOC / review_path)['source_documents']['PMC4557590.xml']
+        assert source['publisher_snapshot'] == 'scielo-publisher.html'
+        assert sha(original) == source['publisher_snapshot_sha256'] == (
+            '9ece3e6704431495bb43c39f4c4ef40d602c50d26bafb4a45a2068ff6c4842f6')
 
 
 def figures():
@@ -65,7 +100,7 @@ def test_captions_authors_and_grants_match_independent_primary_source_records():
         source = review['source_documents'][pmc + '.xml']
         raw = (DOC / 'source' / (pmc + '.xml')).read_bytes()
         assert sha(raw) == source['xml_sha256']
-        publisher = (DOC / 'source' / source['publisher_snapshot']).read_bytes()
+        publisher = source_snapshot(source['publisher_snapshot'])
         assert sha(publisher) == source['publisher_snapshot_sha256']
         assert b'creativecommons.org/licenses/by/4.0/' in publisher
         tree = ET.fromstring(raw)

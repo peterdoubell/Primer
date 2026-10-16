@@ -17,7 +17,7 @@ Sources: [Abud et al.](https://www.scielo.br/j/clin/a/JFNmN3SqynTg3vTv7ndPpGs/?l
 
 ## Verification
 
-- `tests/test_epilepsy_pathology_figures.py`: six tests cover original encoded/decoded identities, source captions and rights, exhaustive panel joins, repeated/display-variant roles, original guide/binding preservation, empty structure-coverage claims and static delivery metadata.
+- `tests/test_epilepsy_pathology_figures.py`: source and archival-storage checks cover original encoded/decoded identities, source captions and rights, exhaustive panel joins, repeated/display-variant roles, original guide/binding preservation, empty structure-coverage claims and static delivery metadata.
 - Together with the existing HippUnfold tests, **20 tests passed**. An additional **37 relevant radiology scope, static-raster, module-media and neuroradiology tests passed**.
 - `reader-check.cjs` and `reader-proof.json` verify **36 cases**: six figures across Images, walkthrough and lesson gallery at 390 and 1440 pixels. Exact delivered image bodies, original dimensions, complete source-caption access, unfiltered display and full-size label inspection passed without page errors, CSP violations or horizontal page overflow. The existing HippUnfold inline viewer still loaded. This uses an isolated authenticated loopback fixture with synthetic data, not production learner writes.
 - Current scope refresh affects only `ra.mri-epilepsy` and `rad.5.epilepsy-mri`. All 136 investigations and 106 curriculum nodes remain inventoried; 40 investigations remain unexpanded. See `current-scope-refresh.json` for exact before/after hashes and bounded provenance.
@@ -25,6 +25,18 @@ Sources: [Abud et al.](https://www.scielo.br/j/clin/a/JFNmN3SqynTg3vTv7ndPpGs/?l
 The existing modal entrance animation and object-fit letterboxing are respected by the reader verifier: it waits for the animation to finish before checking native-size rendering, and accepts an undistorted contained image inside a larger display box. No UI change was needed.
 
 The historical evidence suite initially rejected the new image arrays and companion because the prior HippUnfold inverse requires exact recorded bytes/contracts. The log and failure inventory were handed to the release owner for a new bounded inverse. Historical proofs and broad compatibility code were not changed by this implementation.
+
+## Archival publisher storage
+
+The SciELO publisher snapshot is evidence, not application HTML. Its original 172,478 bytes are stored losslessly as `source/scielo-publisher.html.gz` with gzip mtime zero. `source/archive-storage.json` records the compressed and decoded byte counts and SHA-256 identities. Historical source reviews keep the original logical name `scielo-publisher.html` and its original decoded hash; the provenance tests resolve that name through the exact storage mapping before checking rights and captions. The third-party document's JavaScript and URLs have not been rewritten or executed.
+
+To reproduce the decoded identity without restoring an active HTML file:
+
+```sh
+python -c "import gzip, hashlib; from pathlib import Path; raw=gzip.decompress(Path('docs/epilepsy-pathology-figure-review-20261016/source/scielo-publisher.html.gz').read_bytes()); print(len(raw), hashlib.sha256(raw).hexdigest())"
+```
+
+Expected output is `172478 9ece3e6704431495bb43c39f4c4ef40d602c50d26bafb4a45a2068ff6c4842f6`. This is a storage-only change: product assets, runtime data, source captions, original rights records and historical proof hashes remain unchanged.
 
 ## Reproduce
 
