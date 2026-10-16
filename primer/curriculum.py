@@ -179,7 +179,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "fraction-equivalence-lab", "atom-element-builder", "cell-microscope",
     "counterexample-lab", "function-composition-lab", "circulation-route-lab",
     "allele-segregation-lab",
-    "truth-table-lab", "stack-queue-lab", "matrix-transform-lab",
+    "truth-table-lab", "stack-queue-lab", "matrix-transform-lab", "linear-algebra-lab",
     "venturi-flow-lab", "fluids-concept-lab", "gene-expression-stepper", "tcp-packet-tracer",
     "heat-equation-lab", "complexity-certificate-lab",
     "morphogen-gradient-lab", "ct-window-lab", "doppler-angle-lab",
@@ -598,6 +598,10 @@ def _validate_lesson_media(node: Dict) -> None:
                 if set(props) != {"start_transform"} or props.get("start_transform") not in {
                         "identity", "x-stretch", "x-shear", "y-reflection", "x-projection"}:
                     raise ValueError("{} matrix transform lab has an unknown starting transform".format(
+                        node.get("id")))
+            elif renderer == "linear-algebra-lab":
+                if props != {"scenario": "math.4.linalg"} or node.get("id") != "math.4.linalg":
+                    raise ValueError("{} linear algebra lab has an unknown or cross-lesson scenario".format(
                         node.get("id")))
             elif renderer == "venturi-flow-lab":
                 if set(props) != {"scenario", "start_throat"} \

@@ -1,0 +1,36 @@
+{
+  "path": "tools/check_remaining_models.js",
+  "before_sha256": "8f34c8954a121ead027e1fe58967221fa7916e0eacc91732c4c251a1a00ad8a5",
+  "after_sha256": "d4583d53b620bf0115d18ef9e3dc041fb038af7a5fd2432f9dfff6e1b9414232",
+  "changes": [
+    {
+      "start": 415,
+      "end": 416,
+      "before": "  let numberTheoryEntries = 0, systemsEntries = 0;\n",
+      "after": "  let numberTheoryEntries = 0, systemsEntries = 0, linearAlgebraEntries = 0;\n"
+    },
+    {
+      "start": 441,
+      "end": 442,
+      "before": "",
+      "after": "          'linear-algebra-lab': ['math.4.linalg', 'math.4.linalg'],\n"
+    },
+    {
+      "start": 449,
+      "end": 453,
+      "before": "",
+      "after": "          if (media.renderer === 'linear-algebra-lab') {\n            assert.equal(media.id, 'explore-linear-maps-and-kernels');\n            linearAlgebraEntries++;\n          }\n"
+    },
+    {
+      "start": 566,
+      "end": 567,
+      "before": "",
+      "after": "  assert.equal(linearAlgebraEntries, 1, 'exactly one separately verified linear-algebra companion');\n"
+    }
+  ],
+  "scope": "Only one exact separately verified linear-algebra companion binding and exact count1; the28 original generic interactions and fluids interaction are retained. Dedicated numerical/render/reader validation remains separate.",
+  "existing_interaction_count": 28,
+  "existing_fluids_interaction_count": 1,
+  "new_companion_ignored_without_exact_binding_check": false,
+  "extends_historical_approval": false
+}

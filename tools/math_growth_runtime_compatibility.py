@@ -14,6 +14,8 @@ AFTER_SHA = 'f57ab18d5a4657547b7f9bdaf725bad6486d109be640fe5acc683e3759f62d4c'
 def before_growth_bytes(path, raw, allow_older=False):
     if path != PATH:
         return raw
+    from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes
+    raw = before_linear_algebra_bytes(path, raw, allow_older=True)
     encoded = (ROOT / PROOF).read_bytes()
     if hashlib.sha256(encoded).hexdigest() != PROOF_SHA:
         raise ValueError('Math growth inverse evidence changed')

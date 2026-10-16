@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "scope": "Checker-only re-evaluation of unchanged saved actual-reader observations after the CodeQL bounded-parser correction. No browser run, runtime change, new reader observation or approval extension is claimed.",
+  "original_reader_proof": {
+    "path": "docs/linear-algebra-fidelity-review-20261016/integration/oracle-parser-refresh-20261016/original-reader-proof.json.gz",
+    "storage": "lossless gzip archive of the exact original JSON bytes",
+    "archive_sha256": "0a7244b6d79f4dd63460ed606517fc8abe739843f3c3a76b305b7db90c2c1ea3",
+    "decoded_sha256": "78b1f92d1e945aa30a35db17468bfa9ed0772fd3791b902e9a6dffb6e7d0c64e",
+    "decoded_bytes": 1749784
+  },
+  "reader_proof_update": {
+    "path": "docs/linear-algebra-fidelity-review-20261016/reader/proof.json",
+    "before_sha256": "78b1f92d1e945aa30a35db17468bfa9ed0772fd3791b902e9a6dffb6e7d0c64e",
+    "after_sha256": "f70933a7f0e6719af9a9b06f38859d320d67f57388ce1ca73fdfa0fa03fc1b0c",
+    "only_changed_JSON_path": [
+      "sourceSHA256",
+      "tools/check_linear_algebra_independent.py"
+    ],
+    "before_value": "099710c5b757965880e3bc51d688111b16467274589cfb713e27f79014727dbc",
+    "after_value": "59c26497941730dec3f3f21e4b09e266045e54f3baaec34a5de3179f20a2653d",
+    "exact_inverse": "Replace the unique after_value with before_value; every other original byte remains unchanged."
+  },
+  "observations": {
+    "path": "docs/linear-algebra-fidelity-review-20261016/reader/snapshots.json",
+    "sha256": "03259bcd35d2e1ba07db6cde17090b4a30a03eca5e662ed917cd0fd3dddc40de",
+    "cases": 202,
+    "unchanged": true
+  },
+  "replay_result": {
+    "path": "docs/linear-algebra-fidelity-review-20261016/integration/oracle-parser-refresh-20261016/reader-replay-result.json",
+    "sha256": "e928904a740465574dddb46f4e573c2fa4f62e82121ce60e7403e1b0dbcaefbb",
+    "full_result_exactly_equal_to_original": true,
+    "allPassed": true,
+    "cases": 202,
+    "projected_SVG_points": 9402,
+    "invalid_cases": 12
+  },
+  "checker": {
+    "python_path": "tools/check_linear_algebra_independent.py",
+    "before_sha256": "099710c5b757965880e3bc51d688111b16467274589cfb713e27f79014727dbc",
+    "after_sha256": "59c26497941730dec3f3f21e4b09e266045e54f3baaec34a5de3179f20a2653d",
+    "javascript_path": "tools/check_linear_algebra_independent.cjs",
+    "javascript_sha256": "8ee609bc25171046e787b886ff5bb8fe365facb43141a24e97a463698f024d06",
+    "javascript_unchanged": true
+  },
+  "unchanged_runtime_source_sha256": {
+    "web/linear-algebra-lab.js": "a8403ffb053c31afffa65f6906d6e2d256bacb9d525235a15c0be0cf04f48dad",
+    "web/lesson-models.js": "d687673d197f40be1b8dbeb3c0beac5f7821050503c8d7ddfd77a34718fffd3d",
+    "web/index.html": "962634640436a074fcf1aac7be949cfbfedac16329579f35f5547c65c1d22184",
+    "web/app.js": "13e0bc4938487040585780be56e7e8d98b900f9b77abe48a7f068d2fed284596",
+    "web/math-eigenspace.js": "19e18c49c5dda15f6dee9bb1cf2a04fb5edbac9990c37eb2bc341352e4ca2c1b",
+    "web/math-eigenspace.css": "74929f6f7d078545d2b269a9d585109109a5e826d6f799db9d2416e06c014c5e",
+    "data/curriculum/01-mathematics.json": "545477aedd91455cd2a27f46ef1f5bb1f4d8da5e1adf08918a4a18476f31c215",
+    "primer/curriculum.py": "134440510e6f2efdb14efcdade33b36b8b552ed340bca67b8f9f69b266dd03c8"
+  },
+  "unchanged_reader_values": [
+    "authentication",
+    "readerCases",
+    "startupBundle",
+    "lastNetworkObservation",
+    "independentRenderedCoordinateVerification",
+    "snapshotsSHA256",
+    "totalStates",
+    "speechCases",
+    "allPassed"
+  ],
+  "browser_rerun": false,
+  "product_or_reader_harness_changed": false,
+  "saved_snapshots_changed": false,
+  "current_or_historical_approval_extended": false,
+  "production_learner_writes": false,
+  "whole_module_complete": false
+}

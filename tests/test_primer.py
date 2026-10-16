@@ -500,8 +500,13 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert [(item['id'], item['kind'], item['props']) for item in companions] == (
             [('explore-fluid-forces-and-flow', 'model', {'scenario': 'phys.4.fluids'})]
             if nid == 'phys.4.fluids' else []), nid
+        linear_algebra = [item for item in node['lesson_media']
+                          if item.get('renderer') == 'linear-algebra-lab']
+        assert [(item['id'], item['kind'], item['props']) for item in linear_algebra] == (
+            [('explore-linear-maps-and-kernels', 'model', {'scenario': 'math.4.linalg'})]
+            if nid == 'math.4.linalg' else []), nid
         assert node['stage'] == expected[nid][0], nid
-        base_media = [entry for entry in node['lesson_media']
+        base_media = [entry for entry in node['lesson_media'] if entry not in linear_algebra
                       if entry['kind'] in {'illustration', 'model'} and (entry.get('renderer') == expected[nid][1]
                            or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'})]
         kinds = [entry['kind'] for entry in base_media]

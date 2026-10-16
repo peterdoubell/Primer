@@ -1,0 +1,51 @@
+{
+  "global": "window.PrimerLinearAlgebraLab",
+  "node": "require(web/linear-algebra-lab.js)",
+  "render": "render(item,hooks,frame) → frame.root (or standalone root); only exact props {scenario: math.4.linalg} accepted",
+  "numbers": "Exact normalized rational strings for algebra. Input: finite number or integer/decimal/scientific/fraction string; absolute value≤10^6 and reduced denominator≤10^12. Derived fractions are not re-limited. Drawing and square-root norms are approximate. A leading≈in summary prose is an abbreviation; full exact coordinate/solution/norm ledgers are accessible.",
+  "functions": {
+    "rational": "canonical string",
+    "analyze": "analyze(A,b?):1–4 rows/columns; b length rows; internal augmented matrix may have5 columns; exact RREF/rank/nullity/original-column basis/kernel/left kernel, determinant and trace for square A; consistency/particular/solution basis if b supplied",
+    "multiply": "multiply(A,B): matching inner dimensions; exact matrix result",
+    "apply": "apply(A,x): exact coordinate vector",
+    "power": "power(A,n): square A, integer0≤n≤100; exact matrix",
+    "maps": "maps({A,B,x}):2×2 matrices,2-vector; columns, area, weighted sum, AB/BA and paths",
+    "system": "system({k,rhs2,free}):|k|,|rhs2|≤16,|free|≤8; A=[[k,2],[8,k]], b=[1,rhs2]",
+    "planes": "planes({kind,free:[s,t]}):unique/dependent/inconsistent/parallel/coincident; |s|,|t|≤4; exact clipped plane polygons and common solution family",
+    "space": "space({kind,t,coefficients:[a,b,c]}):family/repeated/rank1/zero; |t|≤4 and coefficients≤4; exact cube vertices, columns, image-plane normal/patch or line",
+    "kernel": "kernel({kind,coefficients:[s,t]}):4x4/3x4/2x4 fixed maps, coefficients≤8; second slot unused for nullity1; all coordinates and norms explicit",
+    "spectrum": "spectrum({kind}):diag35/tri235/tri124/identity/shear/eigenpower/decay-diagonal/decay-nonnormal/reflection or exact quarter-turn rotation; no arbitrary eigensolver",
+    "orbit": "orbit({kind,initial,n}):known spectral fixture with matching-dimensional initial vector,0≤n≤100; exact indexed vectors/norm squared and approximate norms; UI offers2D cases",
+    "projection3D": "projection3D({yaw,pitch}):yaw±180°,pitch±90°; declared orthographic numeric camera matrix"
+  },
+  "stable_dom": {
+    "root": "[data-linalg-lab]",
+    "ready": "data-linalg-ready=true",
+    "state": "root.linalg.getState()/getModels()/reset(); returned objects are copies",
+    "stations": [
+      "maps",
+      "systems",
+      "planes",
+      "space",
+      "kernel",
+      "spectrum",
+      "orbits"
+    ],
+    "station_control": "[data-linalg-control=station]",
+    "fields": "[data-linalg-control=station.field]",
+    "panel": "[data-linalg-panel=station]",
+    "output": "[data-linalg-output=station]",
+    "preset": "[data-linalg-preset=id]",
+    "actions": [
+      "enlarge",
+      "reset",
+      "space-face",
+      "space-edge"
+    ],
+    "invalid": "panel data-error and input aria-invalid; stale plots removed; controls remain recoverable",
+    "plots": "svg[data-linalg-plot] declares viewBox, data-axis-domain and optional data-projection; primitives retain data-series, numeric data-world and exact/source data-exact-world alongside real SVG coordinates",
+    "events": "Rational text controls use change; range controls use input; kind selects use change. Inapplicable free/camera controls are disabled.",
+    "speech": "Active marked paragraphs include current state, all four kernel input and actual output coordinates, limits and interpretations; exact tables remain accessible.",
+    "orbit_labels": "One selected-point visible label; canonical exact repeats may share compact indices. Every true point, exact tooltip/accessibility label and table row is retained; nearby distinct vectors are never merged."
+  }
+}

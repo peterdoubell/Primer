@@ -9,6 +9,7 @@ import pytest
 from primer.curriculum import Curriculum, _validate_lesson_media
 from primer.quiz import score_short_answer
 from tools.fluids_runtime_compatibility import PATHS, before_fluids_bytes, reviewed
+from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,7 +44,7 @@ def test_fluids_companion_rejects_unknown_and_cross_lesson_settings(node_id, pro
 
 @pytest.mark.parametrize('path', sorted(PATHS))
 def test_historical_view_is_exact_and_rejects_unreviewed_changes(path):
-    raw = (ROOT / path).read_bytes()
+    raw = before_linear_algebra_bytes(path, (ROOT / path).read_bytes())
     proof = reviewed()['files'][path]
     assert hashlib.sha256(raw).hexdigest() == proof['after_sha256']
     previous = before_fluids_bytes(path, raw)

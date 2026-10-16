@@ -1,0 +1,271 @@
+{
+  "module_id": "math.4.linalg",
+  "source_sha256": "a8403ffb053c31afffa65f6906d6e2d256bacb9d525235a15c0be0cf04f48dad",
+  "original_authored_quiz_count": 10,
+  "all_quiz_indices_mapped": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "practice": {
+    "key": "matrices",
+    "observed_generator": "primer/practice.py:g_matrices",
+    "scope": [
+      "2×2 determinant, integer entries−5…5",
+      "top-left matrix-product entry, second factor−3…3"
+    ],
+    "implemented_by": "maps editable exact A/B, complete products and column-combination geometry"
+  },
+  "requirements": [
+    {
+      "requirement_id": "matrix-columns-and-composition",
+      "quiz_indices_zero_based": [],
+      "stations": [
+        "maps"
+      ],
+      "features": [
+        "Editable rational 2×2 A and B cover determinant and matrix-entry multiplication practice.",
+        "Actual columns, weighted sum path, unit-square image, both exact products and both composition paths."
+      ],
+      "fixtures": [
+        "maps-det5",
+        "maps-compose",
+        "maps-negative",
+        "maps-collapse"
+      ],
+      "implementation_status": "implemented_with_declared_exact_fixture_domain",
+      "evidence": [
+        "core-proof.json",
+        "browser/proof.json",
+        "independent-review/final-review.json",
+        "reader/proof.json",
+        "integration/runtime-inverse.json"
+      ],
+      "requirement_complete_certified": false
+    },
+    {
+      "requirement_id": "determinant-area-volume",
+      "quiz_indices_zero_based": [
+        0,
+        3,
+        7
+      ],
+      "stations": [
+        "maps",
+        "space",
+        "kernel",
+        "spectrum"
+      ],
+      "features": [
+        "Signed2D area and3D volume from exact determinants; every mapped square/cube corner is linked to A times its input.",
+        "4×4 determinant is explicitly4D volume, without falsely asserting all lower-dimensional areas collapse."
+      ],
+      "fixtures": [
+        "maps-det5",
+        "space-plane",
+        "space-positive",
+        "space-negative",
+        "space-repeated",
+        "tri235"
+      ],
+      "implementation_status": "implemented_with_declared_exact_fixture_domain",
+      "evidence": [
+        "core-proof.json",
+        "browser/proof.json",
+        "independent-review/final-review.json",
+        "reader/proof.json",
+        "integration/runtime-inverse.json"
+      ],
+      "requirement_complete_certified": false
+    },
+    {
+      "requirement_id": "linear-systems-and-consistency",
+      "quiz_indices_zero_based": [
+        2
+      ],
+      "stations": [
+        "systems",
+        "planes"
+      ],
+      "features": [
+        "Exact k-system, rank/augmented-rank distinction and particular-plus-kernel families.",
+        "Actual three-dimensional constraint-plane patches: unique point, dependent line, coincident plane, pairwise intersections without common point, and parallel inconsistency.",
+        "Near-singular rational solutions retain exact distant coordinates; drawing axes adapt and may visually obscure tiny separation."
+      ],
+      "fixtures": [
+        "systems-plus4",
+        "systems-minus4",
+        "systems-unique",
+        "systems-near",
+        "systems-infinite",
+        "unique",
+        "dependent",
+        "coincident",
+        "inconsistent",
+        "parallel"
+      ],
+      "implementation_status": "implemented_with_declared_exact_fixture_domain",
+      "evidence": [
+        "core-proof.json",
+        "browser/proof.json",
+        "independent-review/final-review.json",
+        "reader/proof.json",
+        "integration/runtime-inverse.json"
+      ],
+      "requirement_complete_certified": false
+    },
+    {
+      "requirement_id": "span-basis-and-rank",
+      "quiz_indices_zero_based": [
+        4,
+        7
+      ],
+      "stations": [
+        "space",
+        "planes"
+      ],
+      "features": [
+        "Exact original-column basis and kernel; rank0,1,2,3 fixtures, image point/line/plane/wholeR3.",
+        "True3D sampled plane and actual cube edges/corners; face-on/edge-on camera controls keep algebraic rank.",
+        "Affine constraint planes are explicitly distinguished from linear subspaces."
+      ],
+      "fixtures": [
+        "family",
+        "repeated",
+        "rank1",
+        "zero",
+        "space-face",
+        "space-edge"
+      ],
+      "implementation_status": "implemented_with_declared_exact_fixture_domain",
+      "evidence": [
+        "core-proof.json",
+        "browser/proof.json",
+        "independent-review/final-review.json",
+        "reader/proof.json",
+        "integration/runtime-inverse.json"
+      ],
+      "requirement_complete_certified": false
+    },
+    {
+      "requirement_id": "four-dimensional-kernel",
+      "quiz_indices_zero_based": [
+        6
+      ],
+      "stations": [
+        "kernel"
+      ],
+      "features": [
+        "4×4 rank3,3×4 rank3 and2×4 rank2 maps; all four input coordinates and all actual output coordinates retained.",
+        "Kernel coefficients change the input with invariant output; exact squared norms use all coordinates.",
+        "Coordinate-index bars and complete tables, without pretending to display4D spatial geometry."
+      ],
+      "fixtures": [
+        "4x4",
+        "3x4",
+        "2x4",
+        "kernel-shift",
+        "kernel-rectangular"
+      ],
+      "implementation_status": "implemented_with_declared_exact_fixture_domain",
+      "evidence": [
+        "core-proof.json",
+        "browser/proof.json",
+        "independent-review/final-review.json",
+        "reader/proof.json",
+        "integration/runtime-inverse.json"
+      ],
+      "requirement_complete_certified": false
+    },
+    {
+      "requirement_id": "eigenvalues-and-spectrum",
+      "quiz_indices_zero_based": [
+        1,
+        3,
+        5,
+        9
+      ],
+      "stations": [
+        "spectrum",
+        "orbits"
+      ],
+      "features": [
+        "Exact known real eigenpairs, algebraic/geometric multiplicity, rank of eigenvectors, trace and determinant.",
+        "Identity versus defective shear; explicit representative triangular matrices with spectra2/3/5 and1/2/4.",
+        "Quarter-turn special case reports±i and complex eigenvectors separately, with no real eigenline or arbitrary eigensolver claim."
+      ],
+      "fixtures": [
+        "diag35",
+        "tri235",
+        "tri124",
+        "identity",
+        "shear",
+        "rotation",
+        "reflection"
+      ],
+      "implementation_status": "implemented_with_declared_exact_fixture_domain",
+      "evidence": [
+        "core-proof.json",
+        "browser/proof.json",
+        "independent-review/final-review.json",
+        "reader/proof.json",
+        "integration/runtime-inverse.json"
+      ],
+      "requirement_complete_certified": false
+    },
+    {
+      "requirement_id": "matrix-powers-and-orbits",
+      "quiz_indices_zero_based": [
+        5,
+        8
+      ],
+      "stations": [
+        "orbits"
+      ],
+      "features": [
+        "Every indexed orbit point and approximate norm derived from exact rational coordinates/squared norm, with no normalization.",
+        "Eigenvalue4,n3 gives64v; nonnormal decay permits transient growth, fast-only/slow-only/zero and late decay.",
+        "The asymptotic eigenbasis argument is stated separately from finite numerical illustration; powers may gain eigendirections."
+      ],
+      "fixtures": [
+        "orbit-power",
+        "orbit-transient",
+        "orbit-fast",
+        "orbit-slow",
+        "orbit-zero",
+        "orbit-late",
+        "orbit-rotation"
+      ],
+      "implementation_status": "implemented_with_declared_exact_fixture_domain",
+      "evidence": [
+        "core-proof.json",
+        "browser/proof.json",
+        "independent-review/final-review.json",
+        "reader/proof.json",
+        "integration/runtime-inverse.json"
+      ],
+      "requirement_complete_certified": false
+    }
+  ],
+  "additional_required_visual_evidence": [
+    "Real3D constraint planes and intersections, not only RREF tables.",
+    "Bounded exact complex quarter-turn contrast, without real-only general diagonalization claims."
+  ],
+  "external_article_bodies_exhaustively_reviewed": false,
+  "module_complete": false,
+  "whole_primer_complete": false,
+  "remaining_scope_limits": [
+    "No arbitrary complex/floating-point eigensolver, SVD, pseudospectra or high-dimensional numerical-conditioning analysis.",
+    "Input matrices are limited to1–4 rows/columns and declared finite rational bounds; each interactive station has a narrower explicit domain.",
+    "3D drawings are orthographic approximations; four-coordinate bars are index plots, not4D geometry.",
+    "The seven-station count and numerical assertions are not completeness denominators.",
+    "Current shared integration, original-media preservation and the quiz8 clarification have separate integration/actual-reader evidence."
+  ]
+}
