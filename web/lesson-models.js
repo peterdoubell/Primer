@@ -5950,6 +5950,9 @@
 
   function renderPhysicsConceptLab(item, hooks) {
     const scenarioId = item && item.props && item.props.scenario;
+    if (scenarioId === 'phys.4.experiment' && window.PrimerMeasurementLab) {
+      return window.PrimerMeasurementLab.render(item, hooks, modelFrame(item, hooks));
+    }
     if (!Object.prototype.hasOwnProperty.call(PHYSICS_SCENARIOS, scenarioId)) return null;
     const scenario = PHYSICS_SCENARIOS[scenarioId];
     const frame = modelFrame(item, hooks);

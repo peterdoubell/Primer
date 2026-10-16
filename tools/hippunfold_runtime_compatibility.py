@@ -32,6 +32,10 @@ def reviewed():
 
 
 def before_hippunfold_bytes(path, raw, allow_older=False):
+    from tools.measurement_runtime_compatibility import before_measurement_bytes
+    raw = before_measurement_bytes(path, raw, allow_older=True)
+    from tools.epilepsy_figure_runtime_compatibility import before_figure_bytes
+    raw = before_figure_bytes(path, raw, allow_older=True)
     row = reviewed()['files'].get(str(path))
     if row is None or sha(raw) == row['before_sha256']:
         return raw
@@ -67,6 +71,8 @@ def _reverse_value(result, change):
 
 
 def before_hippunfold_lesson_fields(module_id, fields):
+    from tools.epilepsy_figure_runtime_compatibility import before_figure_lesson_fields
+    fields = before_figure_lesson_fields(module_id, fields)
     if module_id not in LESSONS:
         return fields
     row = reviewed()['lessons'][module_id]
@@ -83,6 +89,13 @@ def before_hippunfold_lesson_fields(module_id, fields):
 
 
 def restore_prior_view(path, data, tokens):
+    from tools.epilepsy_figure_runtime_compatibility import restore_prior_view as before_figure_view
+    historical = reviewed()['data_values'].get(str(path))
+    if historical is not None and data['investigations'][historical['investigation_id']] == historical['before']:
+        keys = [key for key in [historical['token_key'], 'walkthrough:' + historical['token_key']] if key in tokens]
+        if len(keys) == 1 and tokens[keys[0]] == historical['before_raw_token_sha256']:
+            return copy.deepcopy(data), dict(tokens)
+    data, tokens = before_figure_view(path, data, tokens)
     row = reviewed()['data_values'].get(str(path))
     if row is None:
         return data, tokens
@@ -105,9 +118,12 @@ def restore_prior_view(path, data, tokens):
 
 
 def restore_prior_contract(identifier, contract):
+    from tools.epilepsy_figure_runtime_compatibility import restore_prior_contract as before_figure_contract
+    # Existing callers may already carry the exact older HippUnfold view.
     row = reviewed()['contracts'].get(identifier)
     if row is None or contract == row['before']:
         return contract
+    contract = before_figure_contract(identifier, contract)
     if contract != row['after']:
         raise ValueError('Unreviewed HippUnfold effective contract value')
     return copy.deepcopy(row['before'])
@@ -118,6 +134,8 @@ def restore_prior_contracts(contracts):
     for identifier, row in reviewed()['contracts'].items():
         if identifier not in result or result[identifier] == row['before_sha256']:
             continue
+        from tools.epilepsy_figure_runtime_compatibility import restore_prior_contracts as before_figure_contracts
+        result = before_figure_contracts(result)
         if result[identifier] != row['after_sha256']:
             raise ValueError('Unreviewed HippUnfold effective contract')
         result[identifier] = row['before_sha256']
@@ -170,7 +188,11 @@ def _validate_reader(proof):
                 'currentSourceBytesEqual': True}):
         raise ValueError('HippUnfold reader evidence scope differs')
     for path, expected_sha in proof['sourceSHA256'].items():
-        if sha((ROOT / path).read_bytes()) != expected_sha:
+        from tools.epilepsy_figure_runtime_compatibility import before_figure_bytes
+        from tools.measurement_runtime_compatibility import before_measurement_bytes
+        raw = before_measurement_bytes(path, (ROOT / path).read_bytes())
+        raw = before_figure_bytes(path, raw)
+        if sha(raw) != expected_sha:
             raise ValueError('HippUnfold reader source bytes changed')
     manifest = json.loads((ROOT / 'web/anatomy/hippunfold-hcp101006-registered/manifest.json').read_bytes())
     payloads = {row['file']: row for row in [*manifest['meshes'],

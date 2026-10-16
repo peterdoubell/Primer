@@ -4747,9 +4747,9 @@
         },
         {
           "kind": "numeric",
-          "prompt": "A length carries a 1.0 percent uncertainty and a time carries 2.0 percent. For speed = length / time, what is the percentage uncertainty in the speed?",
-          "answer": "3",
-          "explain": "For a quotient, fractional uncertainties add: 1.0 + 2.0 = 3.0 percent."
+          "prompt": "Independent measurements of length L and time t have relative standard uncertainties u(L)/L = 1.0% and u(t)/t = 2.0%. For speed v = L/t, use first-order uncertainty propagation to find the relative standard uncertainty u(v)/v as a percentage. Give the percentage to one decimal place.",
+          "answer": "2.2",
+          "explain": "For independent inputs, first-order propagation for v = L/t gives [u(v)/v]^2 = [u(L)/L]^2 + [u(t)/t]^2. Therefore u(v)/v is sqrt(1.0^2 + 2.0^2)% = sqrt(5)% ≈ 2.2%. Adding the percentages gives a first-order worst-case bound estimate, not the independent combined standard uncertainty."
         },
         {
           "kind": "choice",

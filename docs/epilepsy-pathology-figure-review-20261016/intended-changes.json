@@ -1,0 +1,47 @@
+{
+  "base_commit": "6881f3238f26c4c3fba36d4970faa8e01045ad36",
+  "prepared_package_sha256": "8e2946d903d5d52c83fbff5ba231095b09b3b650ab06d272186eec8788db1655",
+  "before_file_sha256": {
+    "data/radiology/radiology-open-images.json": "9d455470db5b5ee02a6086b01ba07d5b804f451a95df49f3097a524bbb437dd0",
+    "data/radiology/radiology-asset-evidence.json": "8e0dd927748652c0893a569342130d1e5165cbecd9f1a411bc67158672d6f903",
+    "data/radiology/reporting-steps/neuroradiology.json": "e20d293c40069e696e98a05014bbf3bf1dad9f2d565a55cdbffb98b679fedf43",
+    "data/radiology/radiology-static-rasters.json": "da426a5c21b25ff29b122128e37b87fc1771b45c59f9c7da78b2d5faca21d884",
+    "docs/radiology-fidelity-scope.json": "348c60b6389200149b498a286f3b4cff7363767fed47466974362eb73df0db50"
+  },
+  "allowed_product_changes": [
+    {
+      "path": "data/radiology/radiology-open-images.json",
+      "change": "Add only ra.mri-epilepsy with six source figure rows"
+    },
+    {
+      "path": "data/radiology/radiology-asset-evidence.json",
+      "change": "Append only six source evidence rows, preserve all prior entries and metadata"
+    },
+    {
+      "path": "data/radiology/reporting-steps/neuroradiology.json",
+      "change": "Append image IDs to only four epilepsy reporting-step arrays; preserve every other value"
+    },
+    {
+      "path": "data/radiology/radiology-static-rasters.json",
+      "change": "Add six generated static raster identities"
+    },
+    {
+      "path": "docs/radiology-fidelity-scope.json",
+      "change": "Refresh current scope with exact affected investigation/lesson rows and explicit provenance"
+    }
+  ],
+  "new_asset_paths": [
+    "web/reference-media/radiology-open/epilepsy-pmc4557590-fig1.jpg",
+    "web/reference-media/radiology-open/epilepsy-pmc8353251-fig4.webp",
+    "web/reference-media/radiology-open/epilepsy-pmc8353251-fig3.webp",
+    "web/reference-media/radiology-open/epilepsy-pmc4557590-fig6.jpg",
+    "web/reference-media/radiology-open/epilepsy-pmc4557590-fig7.jpg",
+    "web/reference-media/radiology-open/epilepsy-pmc8353251-fig2.webp"
+  ],
+  "existing_source_images_and_captions_retained": true,
+  "existing_clinical_guide_and_text_retained": true,
+  "new_verified_structure_coverage": false,
+  "clinical_approval": false,
+  "whole_goal_complete": false,
+  "no_commits_or_deployments": true
+}

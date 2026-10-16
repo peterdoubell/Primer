@@ -7,6 +7,8 @@ PROOF='docs/optics-fidelity-review-20261016/runtime-inverse.json'
 PROOF_SHA='9fa04fac92ddd30c45797078e9237397e78242757c097b90c21b2373b9e8c90c'
 
 def before_optics_bytes(path, raw, allow_older=False):
+    from tools.measurement_runtime_compatibility import before_measurement_bytes
+    raw = before_measurement_bytes(path, raw, allow_older=True)
     if path != 'web/lesson-models.js':
         return raw
     encoded=(ROOT/PROOF).read_bytes()
