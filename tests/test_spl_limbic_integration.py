@@ -4,6 +4,7 @@ import hashlib
 from pathlib import Path
 
 import pytest
+from tools.spl_reporting_runtime_compatibility import before_reporting_bytes
 
 from primer.curriculum import Curriculum
 from tools.spl_limbic_runtime_compatibility import PATHS, before_spl_bytes, before_spl_lesson_fields, before_spl_reference_fields, reviewed
@@ -13,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.mark.parametrize('path', sorted(PATHS))
 def test_exact_historical_reconstruction_rejects_unreviewed_bytes(path):
-    raw = (ROOT / path).read_bytes()
+    raw = before_reporting_bytes(path, (ROOT / path).read_bytes())
     row = reviewed()['files'][path]
     assert hashlib.sha256(raw).hexdigest() == row['after_sha256']
     prior = before_spl_bytes(path, raw)

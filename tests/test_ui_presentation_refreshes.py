@@ -69,6 +69,9 @@ def test_only_the_two_shared_ui_files_are_refreshable_and_nothing_is_approved():
         elif step['id']=='2026-10-16-spl-native-limbic-reference':
             from tools.spl_limbic_runtime_compatibility import validate_refresh
             assert len(validate_refresh(step)['cases']) == 24
+        elif step['id']=='2026-10-16-spl-reporting-relationships':
+            from tools.spl_reporting_runtime_compatibility import validate_refresh
+            assert len(validate_refresh(step)['cases']) == 8
         else:
             assert step['native_presentation_code_touched'] is False
 
@@ -111,6 +114,10 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
             continue
         if step['id']=='2026-10-16-spl-native-limbic-reference':
             from tools.spl_limbic_runtime_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
+        if step['id']=='2026-10-16-spl-reporting-relationships':
+            from tools.spl_reporting_runtime_compatibility import validate_refresh
             validate_refresh(step)
             continue
         smoke = step['native_reader_smoke']

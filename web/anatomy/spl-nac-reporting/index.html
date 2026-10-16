@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SPL brain atlas · reporting relationships</title>
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body><main>
+  <p class="eyebrow">Original atlas reference</p>
+  <h1>Brain relationships in the SPL atlas</h1>
+  <p>Locate source-defined brain structures in native T1/T2 MRI and compare exact 3D label boundaries. The atlas describes one volunteer; this reference does not establish patient-specific anatomy or diagnostic suitability.</p>
+  <p class="context">Choose a reporting group, locate a structure in all three native planes, and compare it with another structure. Source gaps, partial labels, name conflicts and retained components are explicit.</p>
+  <section class="activity" aria-labelledby="group-title"><label>Reporting relationship <select id="group"></select></label><h2 id="group-title"></h2><p id="activity"></p><details><summary>Source gaps and qualifications for this group</summary><div id="group-gaps"></div></details></section>
+  <div class="controls">
+    <label>MRI contrast <select id="contrast"><option value="T1">T1</option><option value="T2">T2</option></select></label>
+    <label>Source structure <select id="structure"></select></label>
+    <button id="focus" type="button">Find structure in MRI</button>
+    <label>Comparison structure <select id="comparison"></select></label>
+    <label>Retained source component <select id="component"></select></label>
+    <button id="focus-component" type="button">Find component in MRI</button>
+    <button id="fornix-outlier" type="button" hidden>Inspect retained fornix outlier</button>
+    <button id="retry" type="button" hidden>Retry source load</button>
+  </div>
+  <p id="source-note"></p><p id="component-note"></p>
+  <div class="views">
+    <section aria-labelledby="mri-heading">
+      <h2 id="mri-heading">Native MRI and source labels</h2>
+      <div class="controls">
+        <label>Plane <select id="plane"><option value="axial">Axial</option><option value="coronal">Coronal</option><option value="sagittal">Sagittal</option></select></label>
+        <label>Native slice <input id="slice" type="range" min="0" max="319" value="160"><output id="slice-value"></output></label>
+        <label>Display centre <input id="centre" type="number" value="500" step="10"></label>
+        <label>Display width <input id="width" type="number" min="0.001" value="1000" step="10"></label>
+        <label>Label overlay <select id="overlay"><option value="selected">Selected structure</option><option value="all">Current group</option><option value="pair">Selected and comparison</option><option value="off">MRI only</option></select></label>
+        <button id="reset-window" type="button">Reset window</button>
+        <button id="enlarge-mri" type="button" aria-pressed="false">Enlarge image</button>
+      </div>
+      <p id="orientation"></p>
+      <canvas id="mri" width="208" height="288" tabindex="0" aria-label="Native MRI slice. Arrow keys move through slices; move the pointer to inspect a source sample." hidden></canvas>
+      <p id="cursor">Load a contrast to inspect its original sample values and source coordinates.</p>
+      <p id="status" role="status" aria-live="polite">Loading source metadata…</p>
+    </section>
+    <section aria-labelledby="surface-heading">
+      <h2 id="surface-heading">3D source-label relationships</h2>
+      <div class="controls">
+        <label>Visible structures <select id="surface-scope"><option value="group">Current group</option><option value="selected">Selected only</option><option value="pair">Selected and comparison</option></select></label>
+        <button id="anterior" type="button">Anterior view</button>
+        <button id="left-view" type="button">Left view</button>
+        <button id="superior" type="button">Superior view</button>
+        <button id="reset-3d" type="button">Fit surfaces</button>
+        <button id="enlarge-3d" type="button" aria-pressed="false">Enlarge 3D</button>
+        <button id="retry-3d" type="button" hidden>Retry surfaces</button>
+      </div>
+      <canvas id="mesh" tabindex="0" aria-label="Source surfaces. Drag or use arrow keys to rotate; plus and minus keys zoom." hidden></canvas>
+      <p id="mesh-status" role="status" aria-live="polite">Surfaces will load independently of the MRI.</p>
+      <p id="surface-note"></p>
+      <p>All source components are retained. Rotation and fitting change the camera only. Surface shading is for depth perception, not tissue colour or a photorealistic reconstruction.</p>
+      <div class="orientation-row" hidden><svg id="orientation-3d" viewBox="0 0 125 115" role="img" aria-label="Projected positive source RAS axes: R right, A anterior, S superior"></svg><p>3D orientation: R right, A anterior, S superior. The axes rotate with the source anatomy.</p></div>
+      <div id="legend" aria-label="Structure colours"></div>
+    </section>
+  </div>
+  <details>
+    <summary>Source, coordinate conventions and reuse</summary>
+    <p>This is the SPL-PNL/NAC atlas, published through the Open Anatomy Project. Its native MRI and label headers specify LPS coordinates; this viewer displays them in RAS using the explicit sign conversion. These cell boundaries derive directly from the original categorical grid in RAS. The earlier twelve-structure viewer retains a separate publisher-surface comparison.</p>
+    <p>The original data are research material. They do not establish normal ranges, complete reporting anatomy, clinical accuracy or suitability for a particular patient. The original licensing terms and notices accompany this atlas reference.</p>
+    <p>All or portions of this licensed product (such portions are the "Software") have been obtained under license from The Brigham and Women's Hospital, Inc. and are subject to the following terms and conditions:</p>
+    <p><a href="https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html" target="_blank" rel="noopener noreferrer">Atlas publication</a> · <a href="https://github.com/Slicer/Slicer/blob/v4.4.0/Libs/MRML/Core/vtkMRMLModelStorageNode.cxx" target="_blank" rel="noopener noreferrer">Original Slicer model reader</a> · <a href="../spl-nac-limbic/LICENSE.txt">Full source licence</a> · <a href="../spl-nac-limbic/ATTRIBUTION.txt">Attribution and conversion notices</a></p>
+  </details>
+</main>
+<script src="../spl-nac-limbic/payload.js"></script>
+<script src="../spl-nac-limbic/coordinates.js"></script>
+<script src="viewer.js"></script>
+</body>
+</html>

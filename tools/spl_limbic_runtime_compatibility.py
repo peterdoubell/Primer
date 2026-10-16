@@ -33,6 +33,8 @@ def reviewed():
 
 
 def before_spl_bytes(path, raw, allow_older=False):
+    from tools.spl_reporting_runtime_compatibility import before_reporting_bytes
+    raw = before_reporting_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
@@ -70,6 +72,8 @@ def before_spl_lesson_fields(module_id, fields):
 
 
 def before_spl_reference_fields(identifier, fields):
+    from tools.spl_reporting_runtime_compatibility import before_reporting_reference_fields
+    fields = before_reporting_reference_fields(identifier, fields)
     proof = reviewed()
     if identifier not in proof['bindings']:
         return fields
@@ -139,10 +143,11 @@ def validate_refresh(step):
     # Reconstruct only the recorded later linear-algebra include/mount. This is a
     # historical reader view; the current combined application needs its own smoke.
     from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes
+    from tools.spl_reporting_runtime_compatibility import before_reporting_bytes
     shell = before_linear_algebra_bytes('web/index.html', (ROOT / 'web/index.html').read_bytes()).decode()
     scripts = re.findall(r'<script src="/app/([\w-]+\.js)(?:\?[^"<>]*)?"></script>', shell)
     styles = re.findall(r'<link rel="stylesheet" href="/app/([\w-]+\.css)(?:\?[^"<>]*)?">', shell)
-    startup = b"'use strict';\n" + b'\n;\n'.join(before_linear_algebra_bytes('web/' + name, (ROOT / 'web' / name).read_bytes()) for name in scripts)
+    startup = b"'use strict';\n" + b'\n;\n'.join(before_linear_algebra_bytes('web/' + name, before_reporting_bytes('web/' + name, (ROOT / 'web' / name).read_bytes())) for name in scripts)
     stylesheet = b'\n'.join((ROOT / 'web' / name).read_bytes() for name in styles)
     if (sha(startup) != proof['startupSHA256'] or len(startup) != proof['startupBytes']
             or sha(stylesheet) != proof['stylesheetSHA256'] or len(stylesheet) != proof['stylesheetBytes']):
