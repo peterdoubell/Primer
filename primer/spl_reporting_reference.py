@@ -35,7 +35,8 @@ def validate_file(asset):
     files=registry()['files']
     if asset not in files:raise ValueError('Unknown SPL reporting asset')
     file=ROOT/'web/anatomy'/ATLAS/asset
-    if any(p.is_symlink() for p in [file,*file.parents]) or (file.exists() and not file.is_file()):raise ValueError('SPL reporting asset must be a regular file')
+    within_root=[file,*(p for p in file.parents if p==ROOT or ROOT in p.parents)]
+    if any(p.is_symlink() for p in within_root) or (file.exists() and not file.is_file()):raise ValueError('SPL reporting asset must be a regular file')
     row=files[asset]
     if file.is_file():
         raw=file.read_bytes()

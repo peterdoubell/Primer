@@ -105499,6 +105499,49 @@
             "current_patient_registration": false,
             "normal_anatomical_atlas_approval": false,
             "complete_reporting_anatomy_approved": false
+          },
+          {
+            "id": "spl-nac-reporting-native-reference",
+            "modality": "Native T1/T2 MRI and grouped brain source-label boundaries",
+            "coordinate_context": "source-native-mri-and-separate-label-grid-in-declared-RAS",
+            "title": "Brain reporting relationships in native MRI and exact source boundaries",
+            "src": "/app/anatomy/spl-nac-reporting/index.html",
+            "manifest_url": "/app/anatomy/spl-nac-reporting/manifest.json",
+            "sha256": "fc18e058928b883b6043722ff3e2bdc8afcc91c315549561eedfcc4136cf0912",
+            "manifest_sha256": "b5b1666410a9ee367bff1d4556afb128e44d41ae339b73660b2191c7a46789d3",
+            "caption": "Explore 217 source classes in thirteen relationship groups, with 205 additions to the earlier twelve-structure reference. Locate each class in native axial, coronal and sagittal T1/T2, compare source objects, and inspect retained small components. Exact categorical-cell geometry preserves the source; missing capsule limbs, separate callosal segments, cisterns, vascular territories and unacquired sulcal curves remain explicit. This single-subject source does not establish diagnostic accuracy or complete reporting anatomy.",
+            "attribution": "SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original native MRI and categorical label samples are retained. Primer\u2019s marked adaptation derives exact label-cell boundaries and adds grouped native-image relationship controls, preserving source components without fitted registration or cleanup. Full original source notices and licensing terms accompany the reference.",
+            "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+            "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+            "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+            "license_url": "https://www.openanatomy.org/atlas-pages/slicer-license.html",
+            "source_grain": {
+              "kind": "single-subject anatomical research atlas",
+              "subject_count": 1,
+              "MRI": "native 0.75 mm T1/T2",
+              "categorical_labels": "separate native 1 mm Int16 grid",
+              "selected_label_classes": 217,
+              "additional_source_classes": 205,
+              "generated_boundary_payload_sets": 207,
+              "reused_boundary_payload_sets": 10,
+              "default_surface": "exact categorical voxel-cell boundaries",
+              "separately_labelled_CA_fields_or_subiculum": false
+            },
+            "source_grant": {
+              "publisher_explicitly_applies_license_to_data": true,
+              "terms_url": "/app/anatomy/spl-nac-limbic/LICENSE.txt",
+              "attribution_url": "/app/anatomy/spl-nac-limbic/ATTRIBUTION.txt",
+              "marked_derived_version": true,
+              "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+            },
+            "bound_source_ids": [
+              "spl-nac-reporting-native-reference"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false
           }
         ]
       },

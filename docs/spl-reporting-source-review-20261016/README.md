@@ -40,7 +40,7 @@ Native MRI and labels are reused from `spl-nac-limbic`; they are not copied, res
 - `viewer/standalone-proof.json`: 1,340 actual-canvas cases, **97,572,864 pixels**, both viewport widths, selected-label overlays for all 217 classes in six native contrast/plane combinations, 286 component controls, all 217 actual GPU position/index/world buffers at each width, fitted frusta, projected orientation axes and six load-failure/recovery paths.
 - `viewer/reader-proof.json`: eight authenticated synthetic reader cases across Images, 3D anatomy, walkthrough and lesson gallery at 390/1440 px; **3,497,984 native pixels**, actual source delivery, current startup identity, source limits, CSP and layout checks.
 - `viewer/preservation-proof.json`: current combined-reader preservation of the earlier twelve-structure source, **874,496 native pixels** and 24 original/categorical GPU meshes at each width. It does not extend the earlier frozen 24-case receipt.
-- `integration/runtime-inverse.json`: exact changes to four shared integration files and one added source-inspector item. Historical reconstruction grants no approval to the new anatomy. Current behaviour has its own proofs above.
+- `integration/runtime-inverse.json`: exact changes to five shared integration/scope files and one added source-inspector item. Historical reconstruction grants no approval to the new anatomy. Current behaviour has its own proofs above.
 
 The authenticated checks use disposable synthetic learner storage and empty Turso credentials. They do not exercise or modify a production learner record. Existing external reference-image URLs are blocked and recorded by these loopback checks; no availability claim is made for those unrelated remote images.
 

@@ -202,7 +202,8 @@ def test_old_source_registries_and_bindings_are_preserved():
     assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
     prior_brain = before_spl_reference_fields('ra.brain-anatomy', {'source_native_inspectors': refs['ra.brain-anatomy']})
     assert prior_brain['source_native_inspectors'] == expected_brain
-    assert refs['ra.brain-anatomy'] == [*expected_brain, *spl_registered['ra.brain-anatomy']]
+    from primer.spl_reporting_reference import references as reporting_references
+    assert refs['ra.brain-anatomy'] == [*expected_brain, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy']]
     assert refs['ra.acute-stroke'] == stroke_references()['ra.acute-stroke']
     from primer.cardiac_native_inspector import references as cardiac_references, BINDINGS as cardiac_bindings
     from primer.cardiac_wall_context import references as wall_references
