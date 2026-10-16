@@ -14,6 +14,8 @@ CARDIAC_INSTRUCTIONS = 'Inspect the original v1 cardiac CT, LV-myocardium label 
 
 def before_cardiac_lesson_fields(module_id, fields):
     """Remove only the exact new companion from an older figure-only comparison."""
+    from tools.cardiac_wall_runtime_compatibility import before_wall_lesson_fields
+    fields = before_wall_lesson_fields(module_id, fields)
     if module_id not in LESSON_BINDINGS:
         return fields
     restored = copy.deepcopy(fields)
@@ -40,6 +42,8 @@ def reviewed():
 
 
 def before_cardiac_bytes(path, raw, allow_older=False):
+    from tools.cardiac_wall_runtime_compatibility import before_wall_bytes
+    raw = before_wall_bytes(path, raw, allow_older=allow_older)
     row = reviewed()['files'].get(path)
     if row is None or hashlib.sha256(raw).hexdigest() == row['before_sha256']:
         return raw
