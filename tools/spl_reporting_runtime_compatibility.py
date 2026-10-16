@@ -3,7 +3,7 @@ from pathlib import Path
 import copy,hashlib,json
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/spl-reporting-source-review-20261016/integration/runtime-inverse.json'
-PROOF_SHA256='96d1c761132b02c0835ccd9c50a18d88541f26b35b66c7b9df7e6d2a194a4342'
+PROOF_SHA256='27e9cc90b3a290e3e76f18c2877e8e5accfd630f89f34c6b03903b8cd3e96830'
 PATHS=frozenset({'web/app.js','primer/server.py','primer/source_native_inspectors.py','vercel.json','docs/radiology-fidelity-scope.json'})
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def reviewed():

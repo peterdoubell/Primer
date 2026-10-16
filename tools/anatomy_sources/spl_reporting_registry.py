@@ -1,6 +1,7 @@
 """Pin the current reporting viewer after exact source and standalone validation."""
 from pathlib import Path
 import hashlib
+import gzip
 import json
 import re
 
@@ -33,6 +34,9 @@ def build():
     registry={'schema_version':1,'source_repository':'https://github.com/mhalle/spl-brain-atlas','source_commit':manifest['sourceCommit'],'source_review_sha256':sha((DOCS/'source-review.json').read_bytes()),
               'source_class_count':217,'additional_source_class_count':205,'generated_boundary_payload_sets':207,'shared_boundary_payload_sets':10,
               'bindings':{'ra.brain-anatomy':[identifier]},'inspectors':{identifier:item},'files':files}
+    raw_manifest=(ASSETS/'manifest.json').read_bytes();packed=gzip.compress(raw_manifest,compresslevel=9,mtime=0)
+    runtime_path='data/radiology/spl-reporting-runtime-manifest.json.gz';(ROOT/runtime_path).write_bytes(packed)
+    registry['runtime_manifest']={'path':runtime_path,'bytes':len(packed),'sha256':sha(packed),'decoded_bytes':len(raw_manifest),'decoded_sha256':sha(raw_manifest)}
     destination=ROOT/'data/radiology/spl-reporting-reference.json';destination.write_text(json.dumps(registry,indent=2)+'\n')
     module=ROOT/'primer/spl_reporting_reference.py';text=module.read_text();text,n=re.subn(r"REGISTRY_SHA256='(?:PENDING|[a-f0-9]{64})'","REGISTRY_SHA256='"+sha(destination.read_bytes())+"'",text);assert n==1;module.write_text(text)
     print(json.dumps({'registrySHA256':sha(destination.read_bytes()),'files':len(files),'classes':217,'additionalClasses':205}))

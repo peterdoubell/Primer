@@ -30,6 +30,8 @@ The compressed requirement and inventory records retain the prior audit's source
 
 All 2,491,024 displayed triangles follow exposed categorical cell faces, retaining cavities and small components. The new meshes use the same independently checked cell-boundary producer as the earlier reference. No smoothing, component deletion, filling, boundary fitting or cosmetic repair occurs. The voxel stair steps are source sampling, not a claim of a smooth anatomical contour.
 
+The Python function stores the authored manifest as a byte-verified lossless gzip and serves its exact original JSON bytes through the private route. The plain web manifest remains the canonical test/generation artifact; it is excluded from the function bundle.
+
 Native MRI and labels are reused from `spl-nac-limbic`; they are not copied, resampled or transformed to make surfaces agree. The viewer verifies the shared source manifest's exact identity and requires its native descriptors unchanged. Boundary vertices are already source RAS millimetres and receive no additional affine.
 
 `check_spl_reporting_source.py` independently compares every emitted face with an occupancy-grid oracle and every triangle with its exact cell plane, outward normal, half-square-millimetre area and shared diagonal. It checks all source components, sample-contained focus points and original LUT identities. It imports neither the mesh producer nor viewer coordinate helpers.

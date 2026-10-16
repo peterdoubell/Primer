@@ -64,3 +64,25 @@ print('reader delivery, original context and explicit source limits verified')
 '''
     result=subprocess.run([sys.executable,'-B','-c',script],cwd=ROOT,env=env,capture_output=True,text=True,timeout=90)
     assert result.returncode==0,result.stdout+result.stderr
+
+
+def test_lossless_runtime_manifest_matches_canonical_response_bytes():
+    raw=reference.manifest_bytes();assert raw==(ROOT/'web/anatomy/spl-nac-reporting/manifest.json').read_bytes()
+    row=reference.registry()['runtime_manifest'];assert row['decoded_sha256']==hashlib.sha256(raw).hexdigest()
+    assert row['bytes']<len(raw)//5
+
+
+def test_production_metadata_works_without_plain_manifest_or_static_payloads(tmp_path,monkeypatch):
+    import shutil
+    assets=tmp_path/'web/anatomy/spl-nac-reporting';assets.mkdir(parents=True)
+    for name in ['index.html','viewer.js','viewer.css']:shutil.copyfile(ROOT/'web/anatomy/spl-nac-reporting'/name,assets/name)
+    runtime=tmp_path/'data/radiology';runtime.mkdir(parents=True)
+    for name in ['spl-reporting-reference.json','spl-reporting-runtime-manifest.json.gz']:shutil.copyfile(ROOT/'data/radiology'/name,runtime/name)
+    reference.references.cache_clear();reference.registry.cache_clear();reference.manifest_bytes.cache_clear()
+    monkeypatch.setattr(reference,'ROOT',tmp_path);monkeypatch.setattr(reference,'REGISTRY',runtime/'spl-reporting-reference.json');monkeypatch.setenv('VERCEL','1')
+    try:
+        assert not (assets/'manifest.json').exists()
+        assert reference.references()['ra.brain-anatomy'][0]['id']==reference.IDENTIFIER
+        assert hashlib.sha256(reference.manifest_bytes()).hexdigest()==reference.registry()['files']['manifest.json']['sha256']
+    finally:
+        reference.references.cache_clear();reference.registry.cache_clear();reference.manifest_bytes.cache_clear()

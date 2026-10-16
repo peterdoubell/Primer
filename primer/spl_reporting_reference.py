@@ -1,5 +1,6 @@
 """Grouped SPL source anatomy, retaining exact categorical cells and native grids."""
 import hashlib
+import gzip
 import json
 import os
 from functools import lru_cache
@@ -10,7 +11,7 @@ ATLAS='spl-nac-reporting'
 IDENTIFIER='spl-nac-reporting-native-reference'
 PREFIX='/app/anatomy/'+ATLAS+'/'
 REGISTRY=ROOT/'data/radiology/spl-reporting-reference.json'
-REGISTRY_SHA256='beba53ebfe78a7a947397d57701d3a66f564a4d24a7bde78ee715fcf62702b31'
+REGISTRY_SHA256='059c703cf857d9963a09e5479a23588e67197f7a10b7fee46a6c463400f3a0a4'
 AUTHORED=frozenset({'index.html','viewer.js','viewer.css','manifest.json'})
 BINDINGS=frozenset({'ra.brain-anatomy'})
 FLAGS=('clinical_approval','fine_anatomical_approval','current_patient_registration','normal_anatomical_atlas_approval','complete_reporting_anatomy_approved')
@@ -31,6 +32,18 @@ def registry():
         raise ValueError('SPL reporting source scope differs')
     return data
 
+@lru_cache(maxsize=1)
+def manifest_bytes():
+    data=registry();row=data.get('runtime_manifest',{})
+    if row.get('path')!='data/radiology/spl-reporting-runtime-manifest.json.gz':raise ValueError('SPL runtime manifest path differs')
+    file=ROOT/row['path']
+    if file.is_symlink() or not file.is_file():raise ValueError('SPL runtime manifest must be a regular file')
+    packed=file.read_bytes()
+    if len(packed)!=row['bytes'] or sha(packed)!=row['sha256']:raise ValueError('SPL runtime manifest transport differs')
+    raw=gzip.decompress(packed);expected=data['files']['manifest.json']
+    if len(raw)!=row['decoded_bytes'] or sha(raw)!=row['decoded_sha256'] or len(raw)!=expected['bytes'] or sha(raw)!=expected['sha256']:raise ValueError('SPL runtime manifest decoded identity differs')
+    return raw
+
 def validate_file(asset):
     files=registry()['files']
     if asset not in files:raise ValueError('Unknown SPL reporting asset')
@@ -41,6 +54,8 @@ def validate_file(asset):
     if file.is_file():
         raw=file.read_bytes()
         if len(raw)!=row['bytes'] or sha(raw)!=row['sha256']:raise ValueError('SPL reporting asset bytes changed')
+    elif asset=='manifest.json' and os.environ.get('VERCEL'):
+        manifest_bytes()
     elif asset in AUTHORED or not os.environ.get('VERCEL'):raise ValueError('SPL reporting asset missing')
     return file
 
@@ -57,7 +72,7 @@ def references():
             or item.get('source_grain',{}).get('selected_label_classes')!=217 or item.get('source_grain',{}).get('subject_count')!=1
             or item.get('source_grant',{}).get('terms_url')!=shared.PREFIX+'LICENSE.txt'):
         raise ValueError('SPL reporting identity or source meaning differs')
-    manifest=json.loads(validate_file('manifest.json').read_bytes())
+    manifest=json.loads(manifest_bytes())
     base=json.loads(shared.validate_file('manifest.json').read_bytes())
     if (manifest.get('sourceCommit')!=SOURCE_COMMIT or manifest.get('sourceCoordinateSystem')!='RAS'
             or manifest.get('sharedSourceManifestSHA256')!=shared.SOURCE_MANIFEST_SHA256
