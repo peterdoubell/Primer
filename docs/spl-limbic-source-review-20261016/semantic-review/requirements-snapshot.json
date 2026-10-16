@@ -1,0 +1,571 @@
+{
+  "ra.mri-epilepsy": {
+    "reporting": {
+      "protocol": [
+        "Use HARNESS structural sequences: isotropic 3D T1, isotropic 3D FLAIR and high-resolution coronal T2 perpendicular to the hippocampal long axis; add sequences for the clinical question.",
+        "Review seizure semiology, EEG localisation and timing of recent seizures; consider age-related myelination when adapting paediatric protocols."
+      ],
+      "checklist": [
+        {
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        },
+        {
+          "label": "Cortical development",
+          "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "label": "Dual pathology",
+          "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+        },
+        {
+          "label": "Other substrates",
+          "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        },
+        {
+          "label": "Concordance",
+          "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Lesion dimensions",
+          "method": "Measure a suspected epileptogenic structural lesion in three planes and identify sequences.",
+          "pitfall": "Transient peri-ictal swelling can alter apparent extent."
+        },
+        {
+          "name": "Hippocampal asymmetry",
+          "method": "Use visual comparison or validated volumetry with age-appropriate reference data.",
+          "pitfall": "Oblique planes and segmentation errors can create false asymmetry."
+        }
+      ],
+      "classification": {
+        "name": "HARNESS-MRI",
+        "version": "ILAE 2019 structural protocol",
+        "applicability": "Dedicated structural epilepsy MRI; adapt for infants and specific clinical questions.",
+        "summary": "A standard acquisition protocol, not a diagnostic severity score. A normal study does not exclude epilepsy."
+      },
+      "pitfalls": [
+        "Normal MRI does not exclude epilepsy or subtle focal cortical dysplasia.",
+        "Peri-ictal diffusion and FLAIR change may be reversible; use the clinical timeline."
+      ],
+      "impression_prompts": [
+        "Is there a structural lesion plausibly relevant to seizures?",
+        "Which side/region and associated second lesion are involved?",
+        "Is the examination adequate or is targeted expert review warranted?"
+      ],
+      "escalation": [
+        "Communicate acute haemorrhage, infarction, encephalitis pattern or a mass with threatening pressure effect."
+      ],
+      "template_sections": [
+        {
+          "heading": "MESIAL TEMPORAL STRUCTURES",
+          "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "heading": "CORTEX AND MIGRATION",
+          "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "heading": "FOCAL LESIONS",
+          "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ \u00d7 __ \u00d7 __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+        },
+        {
+          "heading": "SKULL BASE AND DUAL PATHOLOGY",
+          "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+        },
+        {
+          "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+          "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "ILAE structural MRI recommendations / HARNESS",
+          "url": "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+        },
+        {
+          "title": "Radiology Assistant: Epilepsy MRI",
+          "url": "https://radiologyassistant.nl/neuroradiology/epilepsy/role-of-mri"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "epilepsy-mri-report",
+        "title": "MRI EPILEPSY",
+        "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+          },
+          {
+            "heading": "COMPARISON",
+            "body": "[None available / date and examination]. Relevant interval change: [ ]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Use HARNESS structural sequences: isotropic 3D T1, isotropic 3D FLAIR and high-resolution coronal T2 perpendicular to the hippocampal long axis; add sequences for the clinical question.\nReview seizure semiology, EEG localisation and timing of recent seizures; consider age-related myelination when adapting paediatric protocols.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+          },
+          {
+            "heading": "KEY IMAGES",
+            "body": "[IMG 1: Coronal hippocampal plane; series __ image __]\n[IMG 2: High-resolution cortical abnormality; series __ image __]\n[IMG 3: Matched FLAIR/T2 finding; series __ image __]"
+          },
+          {
+            "heading": "MESIAL TEMPORAL STRUCTURES",
+            "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+          },
+          {
+            "heading": "CORTEX AND MIGRATION",
+            "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+          },
+          {
+            "heading": "FOCAL LESIONS",
+            "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ \u00d7 __ \u00d7 __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+          },
+          {
+            "heading": "SKULL BASE AND DUAL PATHOLOGY",
+            "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+          },
+          {
+            "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+            "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. [Is there a structural lesion plausibly relevant to seizures?]\n2. [Which side/region and associated second lesion are involved?]\n3. [Is the examination adequate or is targeted expert review warranted?]"
+          },
+          {
+            "heading": "RECOMMENDATION AND COMMUNICATION",
+            "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+          }
+        ],
+        "notes": [
+          "A normal structural MRI does not exclude epilepsy; record whether an epilepsy-specific acquisition was adequate.",
+          "Normal MRI does not exclude epilepsy or subtle focal cortical dysplasia.",
+          "Peri-ictal diffusion and FLAIR change may be reversible; use the clinical timeline."
+        ],
+        "sources": [
+          {
+            "title": "Epilepsy - Role of MRI",
+            "url": "https://radiologyassistant.nl/neuroradiology/epilepsy/role-of-mri"
+          },
+          {
+            "title": "ILAE structural MRI recommendations / HARNESS",
+            "url": "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          }
+        ]
+      }
+    ],
+    "checklist_steps": [
+      {
+        "label": "Hippocampi",
+        "sections": [
+          "MESIAL TEMPORAL STRUCTURES"
+        ]
+      },
+      {
+        "label": "Cortex and neuronal migration",
+        "sections": [
+          "CORTEX AND MIGRATION"
+        ]
+      },
+      {
+        "label": "Focal lesions",
+        "sections": [
+          "FOCAL LESIONS"
+        ]
+      },
+      {
+        "label": "Temporal encephalocele and dual pathology",
+        "sections": [
+          "SKULL BASE AND DUAL PATHOLOGY"
+        ]
+      },
+      {
+        "label": "Electroclinical concordance",
+        "sections": [
+          "ACUTE AND ELECTROCLINICAL CORRELATION"
+        ]
+      }
+    ]
+  },
+  "ra.mri-dementia": {
+    "reporting": {
+      "protocol": [
+        "Review age, cognitive phenotype, tempo and prior imaging; use 3D T1, FLAIR/T2, DWI/ADC and susceptibility.",
+        "If monitoring disease-modifying treatment, use the separate therapy-specific safety protocol and comparison requirements."
+      ],
+      "checklist": [
+        {
+          "label": "Atrophy",
+          "detail": "Describe global and regional volume loss, symmetry and age context."
+        },
+        {
+          "label": "Medial temporal structures",
+          "detail": "Assess both hippocampi on comparable coronal planes."
+        },
+        {
+          "label": "Vascular burden",
+          "detail": "Record white-matter disease, lacunes, strategic and territorial infarcts."
+        },
+        {
+          "label": "Blood products",
+          "detail": "Describe microbleed count/distribution and cortical superficial siderosis."
+        },
+        {
+          "label": "Treatable mimics",
+          "detail": "Exclude mass, hydrocephalus, collection and acute diffusion abnormality."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "MTA score",
+          "method": "Report right and left 0\u20134 visual scores on standard coronal T1 planes.",
+          "pitfall": "Interpret with age and clinical phenotype; MTA is not specific for Alzheimer disease."
+        },
+        {
+          "name": "Fazekas score",
+          "method": "Record deep/periventricular white-matter burden using the stated visual scale.",
+          "pitfall": "FLAIR intensity alone does not establish vascular aetiology."
+        },
+        {
+          "name": "Microbleeds",
+          "method": "Count or describe burden and lobar/deep/infratentorial distribution on the same susceptibility technique.",
+          "pitfall": "Different field strength or sequence sensitivity can mimic interval increase."
+        }
+      ],
+      "classification": {
+        "name": "Visual atrophy and white-matter scales",
+        "version": "MTA 0\u20134; Fazekas 0\u20133; name any additional scale",
+        "applicability": "Descriptive structural MRI assessment in cognitive impairment.",
+        "summary": "Report individual scores and their anatomic context. They describe burden and pattern; they do not replace clinical diagnosis or biomarker assessment."
+      },
+      "pitfalls": [
+        "An atrophy pattern supports a differential; it does not independently diagnose dementia subtype.",
+        "Rapidly progressive symptoms require a different differential even when atrophy is present."
+      ],
+      "impression_prompts": [
+        "Is atrophy disproportionate for age, and what is its distribution?",
+        "What is the cerebrovascular and haemorrhagic burden?",
+        "Is there a structural alternative or urgent finding?"
+      ],
+      "escalation": [
+        "Escalate acute infarction, mass effect or unexpected rapid-progressive diffusion abnormalities in the clinical context."
+      ],
+      "template_sections": [
+        {
+          "heading": "GLOBAL AND REGIONAL VOLUME",
+          "body": "Global atrophy [none / mild / moderate / severe]; predominant region [ ]; symmetry [ ]; age appropriateness [ ]."
+        },
+        {
+          "heading": "MEDIAL TEMPORAL AND POSTERIOR ATROPHY",
+          "body": "MTA right __/4, left __/4; hippocampal symmetry [ ]; posterior parietal/precuneus atrophy [ ]; scale if used [ ]."
+        },
+        {
+          "heading": "SMALL-VESSEL AND ISCHAEMIC DISEASE",
+          "body": "White-matter distribution [ ]; Fazekas [ ]; lacunes [ ]; strategic/territorial infarcts [ ]."
+        },
+        {
+          "heading": "HAEMORRHAGIC MARKERS",
+          "body": "Microbleed count/burden [ ]; distribution [lobar / deep / infratentorial / mixed]; superficial siderosis [ ]; prior macrohaemorrhage [ ]."
+        },
+        {
+          "heading": "ALTERNATIVE STRUCTURAL CAUSES",
+          "body": "Diffusion abnormality [ ]; mass/collection [ ]; ventricular configuration [ ]; hydrocephalus features [ ]; other explanatory finding [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Dementia - Role of MRI - 2026 update",
+          "url": "https://radiologyassistant.nl/neuroradiology/dementia/update"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "dementia-report",
+        "title": "MRI DEMENTIA",
+        "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+          },
+          {
+            "heading": "COMPARISON",
+            "body": "[None available / date and examination]. Relevant interval change: [ ]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Review age, cognitive phenotype, tempo and prior imaging; use 3D T1, FLAIR/T2, DWI/ADC and susceptibility.\nIf monitoring disease-modifying treatment, use the separate therapy-specific safety protocol and comparison requirements.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+          },
+          {
+            "heading": "KEY IMAGES",
+            "body": "[IMG 1: Coronal medial temporal level; series __ image __]\n[IMG 2: Regional cortical atrophy; series __ image __]\n[IMG 3: FLAIR and susceptibility findings; series __ image __]"
+          },
+          {
+            "heading": "GLOBAL AND REGIONAL VOLUME",
+            "body": "Global atrophy [none / mild / moderate / severe]; predominant region [ ]; symmetry [ ]; age appropriateness [ ]."
+          },
+          {
+            "heading": "MEDIAL TEMPORAL AND POSTERIOR ATROPHY",
+            "body": "MTA right __/4, left __/4; hippocampal symmetry [ ]; posterior parietal/precuneus atrophy [ ]; scale if used [ ]."
+          },
+          {
+            "heading": "SMALL-VESSEL AND ISCHAEMIC DISEASE",
+            "body": "White-matter distribution [ ]; Fazekas [ ]; lacunes [ ]; strategic/territorial infarcts [ ]."
+          },
+          {
+            "heading": "HAEMORRHAGIC MARKERS",
+            "body": "Microbleed count/burden [ ]; distribution [lobar / deep / infratentorial / mixed]; superficial siderosis [ ]; prior macrohaemorrhage [ ]."
+          },
+          {
+            "heading": "ALTERNATIVE STRUCTURAL CAUSES",
+            "body": "Diffusion abnormality [ ]; mass/collection [ ]; ventricular configuration [ ]; hydrocephalus features [ ]; other explanatory finding [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. [Is atrophy disproportionate for age, and what is its distribution?]\n2. [What is the cerebrovascular and haemorrhagic burden?]\n3. [Is there a structural alternative or urgent finding?]"
+          },
+          {
+            "heading": "RECOMMENDATION AND COMMUNICATION",
+            "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+          }
+        ],
+        "notes": [
+          "Use age-aware interpretation and named rating scales; MRI supports the clinical assessment rather than determining dementia subtype alone.",
+          "An atrophy pattern supports a differential; it does not independently diagnose dementia subtype.",
+          "Rapidly progressive symptoms require a different differential even when atrophy is present."
+        ],
+        "sources": [
+          {
+            "title": "Dementia - Role of MRI - 2026 update",
+            "url": "https://radiologyassistant.nl/neuroradiology/dementia/update"
+          }
+        ]
+      }
+    ],
+    "checklist_steps": [
+      {
+        "label": "Global and regional atrophy",
+        "sections": [
+          "GLOBAL AND REGIONAL VOLUME"
+        ]
+      },
+      {
+        "label": "Medial temporal lobe atrophy",
+        "sections": [
+          "MEDIAL TEMPORAL AND POSTERIOR ATROPHY"
+        ]
+      },
+      {
+        "label": "Vascular burden",
+        "sections": [
+          "SMALL-VESSEL AND ISCHAEMIC DISEASE"
+        ]
+      },
+      {
+        "label": "Microbleeds and siderosis",
+        "sections": [
+          "HAEMORRHAGIC MARKERS"
+        ]
+      },
+      {
+        "label": "Treatable and alternative causes",
+        "sections": [
+          "ALTERNATIVE STRUCTURAL CAUSES"
+        ]
+      }
+    ]
+  },
+  "ra.brain-anatomy": {
+    "reporting": {
+      "protocol": [
+        "Use multiplanar brain images with side markers and anatomic orientation verified. Add angiographic correlation when the question is vascular.",
+        "This is a localisation worksheet; select an appropriate disease-specific report for a clinical abnormality."
+      ],
+      "checklist": [
+        {
+          "label": "Surface",
+          "detail": "Name lobe, gyrus/sulcus and cortical versus subcortical position."
+        },
+        {
+          "label": "Deep structures",
+          "detail": "Check basal ganglia, thalamus, internal capsule and corpus callosum."
+        },
+        {
+          "label": "Posterior fossa",
+          "detail": "Localise midbrain, pons, medulla, cerebellar hemisphere and peduncles."
+        },
+        {
+          "label": "Spaces",
+          "detail": "Trace ventricles, cisterns, extra-axial spaces and midline relationships."
+        },
+        {
+          "label": "Supply",
+          "detail": "Distinguish arterial territories, border zones and venous drainage without assuming fixed boundaries."
+        }
+      ],
+      "measurements": [
+        {
+          "name": "Lesion localisation",
+          "method": "Record three orthogonal dimensions and relation to a reproducible landmark.",
+          "pitfall": "Anatomic localisation alone does not determine cause."
+        },
+        {
+          "name": "Midline position",
+          "method": "If abnormal, measure perpendicular displacement from the expected midline at a named level in mm.",
+          "pitfall": "Oblique reformats or pre-existing asymmetry can mislead."
+        }
+      ],
+      "classification": null,
+      "pitfalls": [
+        "Vascular territory borders vary with arterial anatomy.",
+        "A lesion spanning arterial territories warrants a differential beyond arterial infarction."
+      ],
+      "impression_prompts": [
+        "What precise structure and compartment contain the finding?",
+        "What functionally important adjacent structure is affected?",
+        "Which disease-specific module should complete interpretation?"
+      ],
+      "escalation": [],
+      "template_sections": [
+        {
+          "heading": "CORTEX AND WHITE MATTER",
+          "body": "Side [ ]; lobe [ ]; gyrus/sulcus [ ]; cortical/subcortical/deep white matter [ ]; relationship to central sulcus [ ]."
+        },
+        {
+          "heading": "DEEP GREY AND CAPSULES",
+          "body": "Basal ganglia [ ]; thalamus [ ]; internal capsule limb [ ]; corpus callosum segment [ ]; finding [ ]."
+        },
+        {
+          "heading": "BRAINSTEM AND CEREBELLUM",
+          "body": "Level [midbrain / pons / medulla]; cerebellar side/lobule/peduncle [ ]; fourth ventricle relationship [ ]."
+        },
+        {
+          "heading": "VENTRICLES AND CISTERNS",
+          "body": "Ventricular anatomy [ ]; basal cisterns [ ]; extra-axial compartment [ ]; midline position [ ]."
+        },
+        {
+          "heading": "VASCULAR LOCALISATION",
+          "body": "Likely arterial/venous territory [ ]; variant supply [not evaluated / specify]; border-zone relationship [ ]; angiographic correlation [ ]."
+        }
+      ],
+      "sources": [
+        {
+          "title": "Brain Anatomy",
+          "url": "https://radiologyassistant.nl/neuroradiology/brain/anatomy"
+        },
+        {
+          "title": "Vascular territories of the Brain",
+          "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/vascular-territories"
+        }
+      ],
+      "reviewed_at": "2026-09-23"
+    },
+    "report_templates": [
+      {
+        "id": "brain-anatomy-report",
+        "title": "BRAIN ANATOMY AND VASCULAR TERRITORIES",
+        "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+        "sections": [
+          {
+            "heading": "INDICATION",
+            "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+          },
+          {
+            "heading": "COMPARISON",
+            "body": "[None available / date and examination]. Relevant interval change: [ ]."
+          },
+          {
+            "heading": "TECHNIQUE AND QUALITY",
+            "body": "Use multiplanar brain images with side markers and anatomic orientation verified. Add angiographic correlation when the question is vascular.\nThis is a localisation worksheet; select an appropriate disease-specific report for a clinical abnormality.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+          },
+          {
+            "heading": "KEY IMAGES",
+            "body": "[IMG 1: Axial localisation; series __ image __]\n[IMG 2: Coronal anatomic relationship; series __ image __]\n[IMG 3: Vascular territory overview; series __ image __]"
+          },
+          {
+            "heading": "CORTEX AND WHITE MATTER",
+            "body": "Side [ ]; lobe [ ]; gyrus/sulcus [ ]; cortical/subcortical/deep white matter [ ]; relationship to central sulcus [ ]."
+          },
+          {
+            "heading": "DEEP GREY AND CAPSULES",
+            "body": "Basal ganglia [ ]; thalamus [ ]; internal capsule limb [ ]; corpus callosum segment [ ]; finding [ ]."
+          },
+          {
+            "heading": "BRAINSTEM AND CEREBELLUM",
+            "body": "Level [midbrain / pons / medulla]; cerebellar side/lobule/peduncle [ ]; fourth ventricle relationship [ ]."
+          },
+          {
+            "heading": "VENTRICLES AND CISTERNS",
+            "body": "Ventricular anatomy [ ]; basal cisterns [ ]; extra-axial compartment [ ]; midline position [ ]."
+          },
+          {
+            "heading": "VASCULAR LOCALISATION",
+            "body": "Likely arterial/venous territory [ ]; variant supply [not evaluated / specify]; border-zone relationship [ ]; angiographic correlation [ ]."
+          },
+          {
+            "heading": "IMPRESSION",
+            "body": "1. [What precise structure and compartment contain the finding?]\n2. [What functionally important adjacent structure is affected?]\n3. [Which disease-specific module should complete interpretation?]"
+          },
+          {
+            "heading": "RECOMMENDATION AND COMMUNICATION",
+            "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+          }
+        ],
+        "notes": [
+          "Anatomic variants and overlapping vascular territories limit assignment from location alone.",
+          "Vascular territory borders vary with arterial anatomy.",
+          "A lesion spanning arterial territories warrants a differential beyond arterial infarction."
+        ],
+        "sources": [
+          {
+            "title": "Brain Anatomy",
+            "url": "https://radiologyassistant.nl/neuroradiology/brain/anatomy"
+          },
+          {
+            "title": "Vascular territories of the Brain",
+            "url": "https://radiologyassistant.nl/neuroradiology/brain-ischemia/vascular-territories"
+          }
+        ]
+      }
+    ],
+    "checklist_steps": [
+      {
+        "label": "Cortex and white matter",
+        "sections": [
+          "CORTEX AND WHITE MATTER"
+        ]
+      },
+      {
+        "label": "Deep grey matter and capsules",
+        "sections": [
+          "DEEP GREY AND CAPSULES"
+        ]
+      },
+      {
+        "label": "Brainstem and cerebellum",
+        "sections": [
+          "BRAINSTEM AND CEREBELLUM"
+        ]
+      },
+      {
+        "label": "Ventricles, cisterns and midline",
+        "sections": [
+          "VENTRICLES AND CISTERNS"
+        ]
+      },
+      {
+        "label": "Vascular territory",
+        "sections": [
+          "VASCULAR LOCALISATION"
+        ]
+      }
+    ]
+  }
+}

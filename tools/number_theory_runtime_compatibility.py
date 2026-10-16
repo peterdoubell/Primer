@@ -46,6 +46,8 @@ def math_product_bytes(relative,raw):
 
 
 def math_test_bytes(relative,raw):
+    from tools.number_theory_duration_compatibility import before_duration_test_bytes
+    raw=before_duration_test_bytes(relative,raw)
     evidence=(ROOT/TEST_PROOF).read_bytes()
     if hashlib.sha256(evidence).hexdigest()!=TEST_SHA256:
         raise ValueError('Number theory test inverse evidence changed')

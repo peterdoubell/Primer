@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "source_repository": "https://github.com/mhalle/spl-brain-atlas",
+  "source_commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+  "source_review_sha256": "a68a06adab2658924a02f5367de168ac4a55b87ed02b9be3b719fcb8ccdf8e81",
+  "bindings": {
+    "ra.brain-anatomy": [
+      "spl-nac-limbic-native-reference"
+    ],
+    "ra.mri-dementia": [
+      "spl-nac-limbic-native-reference"
+    ],
+    "ra.mri-epilepsy": [
+      "spl-nac-limbic-native-reference"
+    ]
+  },
+  "inspectors": {
+    "spl-nac-limbic-native-reference": {
+      "id": "spl-nac-limbic-native-reference",
+      "modality": "Native T1/T2 MRI and limbic source-label boundaries",
+      "coordinate_context": "source-native-mri-and-separate-label-grid-in-declared-RAS",
+      "title": "Limbic anatomy in original MRI and source-label boundaries",
+      "src": "/app/anatomy/spl-nac-limbic/index.html",
+      "manifest_url": "/app/anatomy/spl-nac-limbic/manifest.json",
+      "sha256": "d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f",
+      "manifest_sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+      "caption": "Explore the SPL atlas\u2019s original T1/T2 MRI and twelve left/right labels for the hippocampus, amygdala, fornix, mammillary body, parahippocampal gyrus and mammillothalamic tract. The default surfaces follow every exposed categorical voxel face, retaining small components. Separately selectable original publisher surfaces can differ substantially, especially at the fornices. This single-subject research atlas supplies source anatomy context; it does not supply separate CA fields or subiculum, patient registration, diagnostic validation or complete reporting anatomy.",
+      "attribution": "SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original MRI/label sample bytes and original VTK coordinate, normal and strip bits are preserved. Primer\u2019s marked adaptations are lossless transport, display windowing and exact categorical cell boundaries; full source notices and 3D Slicer Agreement terms accompany the viewer.",
+      "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+      "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+      "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+      "license_url": "https://www.openanatomy.org/atlas-pages/slicer-license.html",
+      "source_grain": {
+        "kind": "single-subject anatomical research atlas",
+        "subject_count": 1,
+        "MRI": "native 0.75 mm T1/T2",
+        "categorical_labels": "separate native 1 mm Int16 source grid",
+        "selected_label_classes": 12,
+        "original_producer_surfaces": 12,
+        "default_surface": "exact categorical voxel-cell boundaries",
+        "separately_labelled_CA_fields_or_subiculum": false
+      },
+      "source_grant": {
+        "publisher_explicitly_applies_license_to_data": true,
+        "terms_url": "/app/anatomy/spl-nac-limbic/LICENSE.txt",
+        "attribution_url": "/app/anatomy/spl-nac-limbic/ATTRIBUTION.txt",
+        "marked_derived_version": true,
+        "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+      },
+      "bound_source_ids": [
+        "spl-nac-limbic-native-reference"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    }
+  },
+  "files": {
+    "ATTRIBUTION.txt": {
+      "sha256": "3d1ebe9c96b244023fb83861ecc4deb1af5d414868438b34c0519896178ef3e3",
+      "bytes": 2310
+    },
+    "LICENSE.txt": {
+      "sha256": "70e2a0ad66ad7b936a2118a27d87dbb8d18a4687bac34c7088a304a7464364c5",
+      "bytes": 10513
+    },
+    "SOURCE-LICENSE.md": {
+      "sha256": "26ab4d622b3df5b7adb145862696f4b6c2c3ff7f4a24f859880050d665a63bec",
+      "bytes": 125
+    },
+    "SOURCE-README.md": {
+      "sha256": "df9bd08ba332b77add60a8966540dc948cd80fa0cbd240526653a17eca1d7162",
+      "bytes": 2745
+    },
+    "T1.bin.gz": {
+      "sha256": "b4f2f564715203a3b5b7d4e59cf197d8608b410f6e170bb81bc68335b1c18c6e",
+      "bytes": 67389884
+    },
+    "T2.bin.gz": {
+      "sha256": "941d481aca3f0b1ae8995f71ea7096f1ee055cfc4339eb9a84c1bb27b165572b",
+      "bytes": 63979514
+    },
+    "coordinates.js": {
+      "sha256": "a2ad9b603bf0a2a171b2cca261f9633f6d1c858f62befbf109fa5f7bfb7ac325",
+      "bytes": 4781
+    },
+    "index.html": {
+      "sha256": "d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f",
+      "bytes": 5958
+    },
+    "label-100-faces.bin.gz": {
+      "sha256": "e55a07d25fc9e62fb65b80d8b3bfc13c064aa4dd80423c580531e006a9fef719",
+      "bytes": 259
+    },
+    "label-100.mesh.gz": {
+      "sha256": "e049375afeb094dd291148840800fb167dca6fd7a976826834ebb3782983681c",
+      "bytes": 933
+    },
+    "label-1016-faces.bin.gz": {
+      "sha256": "61da596add27cb07bf1bbfb153a2147ec8069b15ffbee27355a3ba6231e0d944",
+      "bytes": 7054
+    },
+    "label-1016.mesh.gz": {
+      "sha256": "a9f855628f69c61cd83bff92ccc08c8307a06a14b6b6eec8a62f6f67b4d6cddd",
+      "bytes": 28438
+    },
+    "label-17-faces.bin.gz": {
+      "sha256": "9ba688612d470575a72884755f0946f4a18410577cfce7798d0030a63d65f317",
+      "bytes": 9112
+    },
+    "label-17.mesh.gz": {
+      "sha256": "08ca9329b1b85ae08f6391554804cc8b20c268d645eb614bbbb6c28dbd8a6e3b",
+      "bytes": 36280
+    },
+    "label-18-faces.bin.gz": {
+      "sha256": "cca9a3ce5738afc15bfbf5eeda967bfe70424f6fc2deeec64e2468e4025fc78c",
+      "bytes": 3347
+    },
+    "label-18.mesh.gz": {
+      "sha256": "b43816761bf790ac6a1bcf01d0d502b425b9bfcad1f66dc2d6c2a4e2ebfcb7c0",
+      "bytes": 14093
+    },
+    "label-200-faces.bin.gz": {
+      "sha256": "69015ffd5c19ec45e6622383e764d3a8f23bf8fd4be5417648a41ba1694f6147",
+      "bytes": 258
+    },
+    "label-200.mesh.gz": {
+      "sha256": "0efee0ee35e0a6e17fe1dfae4f271d1e78b1412d3bfd3e7723daf30343d28eb1",
+      "bytes": 930
+    },
+    "label-2016-faces.bin.gz": {
+      "sha256": "c2add66d0fbf9dcca6713919218b46e4a14d8e1f7a01b3cf2c9dd5abc4f6e24b",
+      "bytes": 6971
+    },
+    "label-2016.mesh.gz": {
+      "sha256": "f07d7e005e218e420a06ec5216d8cfeb4ee2547f58825aa99e0887067575b89e",
+      "bytes": 27177
+    },
+    "label-3002-faces.bin.gz": {
+      "sha256": "94d153c4f28cbfffb9f530a6e9941793ae817d8322308bd07ffc9b49eef00393",
+      "bytes": 332
+    },
+    "label-3002.mesh.gz": {
+      "sha256": "045f575420c07389cd34c73f02b54c6d4cb544ff60f9535b6d01d6d248cbf029",
+      "bytes": 1292
+    },
+    "label-3003-faces.bin.gz": {
+      "sha256": "e06322b71d5285207358e100c0a164bb5810acb955554e5731e2366ebabe057a",
+      "bytes": 303
+    },
+    "label-3003.mesh.gz": {
+      "sha256": "703ad7c7e2f3fc384c7e7c800e2fac6da780a27ea29fb212c2d2f18daff9c20c",
+      "bytes": 1154
+    },
+    "label-3005-faces.bin.gz": {
+      "sha256": "e2f9494cd02170dd8908d20e5260fb28284f8ea33e7f9bba180efa7850851920",
+      "bytes": 3702
+    },
+    "label-3005.mesh.gz": {
+      "sha256": "22854ecd4be4178615cab53561af668d1ae81680d2a2eb9051fd05effb9a947d",
+      "bytes": 14533
+    },
+    "label-3007-faces.bin.gz": {
+      "sha256": "a1973297029f2619d416b539b2f9ac49c8e58df911608d0afa0a23c3ddec0ea8",
+      "bytes": 3644
+    },
+    "label-3007.mesh.gz": {
+      "sha256": "b4871722a076ebf92370cc1dccf4820e05f1536d68a7b91ec25b2371271a61d8",
+      "bytes": 14224
+    },
+    "label-53-faces.bin.gz": {
+      "sha256": "ca73a781c63e7e48529c46f02497e27952bbcbcdeea071b1634293cea476dc25",
+      "bytes": 8329
+    },
+    "label-53.mesh.gz": {
+      "sha256": "b42d1c0598898735404ef0673e153d41918ec37f344ef6dd9acc97061346c6c2",
+      "bytes": 32629
+    },
+    "label-54-faces.bin.gz": {
+      "sha256": "e23c6433ad784c968347aedd9d3722246a434ab710d39bdd441be27dfdc4a85d",
+      "bytes": 3860
+    },
+    "label-54.mesh.gz": {
+      "sha256": "0eb5c33f3e2a77194a9827f8ce8b2e2a71f45e60ae156ce946ee3c8debd8b990",
+      "bytes": 16173
+    },
+    "labels.bin.gz": {
+      "sha256": "17f6f8ce15539e0d9f36d5ee644354762986bddab0fe82692be5cadfff2aa8dd",
+      "bytes": 465791
+    },
+    "manifest.json": {
+      "sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+      "bytes": 115502
+    },
+    "model-100-normals.bin.gz": {
+      "sha256": "e27285fb19aff1aa5841110d4a80c12429fd1f7fe58366701ea5bf7c61dc2d7d",
+      "bytes": 1261
+    },
+    "model-100-strips.bin.gz": {
+      "sha256": "f69996ea5ca70b96e7ceaec0dee63a6ae36ba6343a0e43b1a39fef6891da4c7a",
+      "bytes": 418
+    },
+    "model-100.mesh.gz": {
+      "sha256": "023ffeafe38e49ea9d22239a3a7ef318f44612705f70b5e3d445a202e638a514",
+      "bytes": 1406
+    },
+    "model-1016-normals.bin.gz": {
+      "sha256": "a51ec2acd264f4b87de5fb5de12a7e70ff01faa431f11d0267fe1b4e943b7825",
+      "bytes": 28730
+    },
+    "model-1016-strips.bin.gz": {
+      "sha256": "a0ce44437be9a23aa9c13e4ac5161548d1af772ce974fd39886df4da396ac907",
+      "bytes": 13332
+    },
+    "model-1016.mesh.gz": {
+      "sha256": "0b85156fd71fba457e315062d4b89acfc4b51ab7917637d0b90d6c73a4cc49eb",
+      "bytes": 40754
+    },
+    "model-17-normals.bin.gz": {
+      "sha256": "49df29987fe85aac526839ff74013b8b4abad2292d5204a27ad36c0ac076bab2",
+      "bytes": 32681
+    },
+    "model-17-strips.bin.gz": {
+      "sha256": "063091351b24a9c27b6d19a645f15254de4793b2cc296b546489064a8c5dc731",
+      "bytes": 16126
+    },
+    "model-17.mesh.gz": {
+      "sha256": "76358ff5b89f1de5f1cfdebb67d16fed0626b198419eda4d5cf0702d56e75b98",
+      "bytes": 50273
+    },
+    "model-18-normals.bin.gz": {
+      "sha256": "9eb94df5bc02f4a45383ba6f012e5e515524b25ed12e6a3c7a2fc73becaf7e24",
+      "bytes": 12124
+    },
+    "model-18-strips.bin.gz": {
+      "sha256": "d5de62808d086e096f5bea647ab6427cbc9e675105d394fc0b72cef2a67ed18a",
+      "bytes": 5450
+    },
+    "model-18.mesh.gz": {
+      "sha256": "9ec03b8b3b5e3fa273e917483ed7c4a10782ae61c7a3929f51d9d07f873c721f",
+      "bytes": 19413
+    },
+    "model-200-normals.bin.gz": {
+      "sha256": "96d45c03983ad3dbccb5b67e350fb42216b7bd282baef985445dd7f8d56f40d2",
+      "bytes": 1268
+    },
+    "model-200-strips.bin.gz": {
+      "sha256": "f0720dcd1fa42ee0d4f6c11dc4b5d9f3286687f1592f78dce9fa7374ec0f4fc5",
+      "bytes": 414
+    },
+    "model-200.mesh.gz": {
+      "sha256": "192d3e76c2091dcb5062a13bfe35586a4caf095b4ae24e15a5cb09d898fc3b70",
+      "bytes": 1484
+    },
+    "model-2016-normals.bin.gz": {
+      "sha256": "00e23e1150089cc0083aa0c1d268d59f83d6729ea413b905df5bb9ebee787e95",
+      "bytes": 25362
+    },
+    "model-2016-strips.bin.gz": {
+      "sha256": "8393eb7b6f365ae6de1b298a208d53a46965ee124d95fb4fa29d3992145e9b65",
+      "bytes": 11734
+    },
+    "model-2016.mesh.gz": {
+      "sha256": "7c57f8eaaee9d3818c21b58ec3d38537c54bc2c9dc977e45e53718f376d6c1db",
+      "bytes": 38435
+    },
+    "model-3002-normals.bin.gz": {
+      "sha256": "0a1aa2ec815205f1e4a7c74deb9f58016504a86c8e3d64cc7f88ada71e187766",
+      "bytes": 1262
+    },
+    "model-3002-strips.bin.gz": {
+      "sha256": "b130e477d73d0545d0d349bd4af7cfc97cf752387ccae8237c8f3550fdac4744",
+      "bytes": 506
+    },
+    "model-3002.mesh.gz": {
+      "sha256": "79e7028180116dc8b6eba6bf015701b1967c396922955537c321c76221e0b55e",
+      "bytes": 1849
+    },
+    "model-3003-normals.bin.gz": {
+      "sha256": "2db0c1b7cdc9630771cd437b68743917ce1812ad647b45fab9386741c32ab688",
+      "bytes": 1187
+    },
+    "model-3003-strips.bin.gz": {
+      "sha256": "bdc39ecb07e32aece6d555f8f1b9feac5dc7c5efab71d644252abc63386c71a1",
+      "bytes": 438
+    },
+    "model-3003.mesh.gz": {
+      "sha256": "1d6f3268687ed43207e295f4351907f9fe150187cfebc619c4d93cad5cb488ff",
+      "bytes": 1647
+    },
+    "model-3005-normals.bin.gz": {
+      "sha256": "064d67bb3d40f951b74eb73d350106fba8e0c6bebc8d7d30c35aa4f983d513fb",
+      "bytes": 16705
+    },
+    "model-3005-strips.bin.gz": {
+      "sha256": "ec2cca6354f38b6d7589f7050ef15750137d5e350027f90fec2dd7211a6e1714",
+      "bytes": 7560
+    },
+    "model-3005.mesh.gz": {
+      "sha256": "7fb9e3903d2bec72d6db4cff0c74ed24311c280bfcda82187075ffe29f044604",
+      "bytes": 24325
+    },
+    "model-3007-normals.bin.gz": {
+      "sha256": "58c30e3eb51cfb254199090ce23169da26cdc6e92142be47a7f32cdce7dc9d10",
+      "bytes": 16270
+    },
+    "model-3007-strips.bin.gz": {
+      "sha256": "1470dbb71e588a065533f67faa4f7d07139c60fa8cce46934065ee10c84d5f50",
+      "bytes": 7051
+    },
+    "model-3007.mesh.gz": {
+      "sha256": "b0a37e6ed1ba581cef0ef8a02f7ec5b25a502f9890bd012657c7e9e127c9f58f",
+      "bytes": 23233
+    },
+    "model-53-normals.bin.gz": {
+      "sha256": "f1b38753c2c3bf20d2b61b4ca56396c5c20a8e3dcdae1eefb0e48b78fa6e525d",
+      "bytes": 29069
+    },
+    "model-53-strips.bin.gz": {
+      "sha256": "ee8f6b786b99ae56183d0337259a969255adae4c3e5d28d18d3f143e4c57bce6",
+      "bytes": 14175
+    },
+    "model-53.mesh.gz": {
+      "sha256": "8db3124f7d4bd1ebc11592711270ae7acbef9e0441d1683f5a43d952d6dbfa64",
+      "bytes": 45720
+    },
+    "model-54-normals.bin.gz": {
+      "sha256": "4163a48e2101546857c590fdb5f4853c4d4cbffd7b37b435385407e438a3ceda",
+      "bytes": 13391
+    },
+    "model-54-strips.bin.gz": {
+      "sha256": "698015feada1f3e2b3de819ffbf07191ec99de6dd271a36b242269c39b951b6a",
+      "bytes": 6130
+    },
+    "model-54.mesh.gz": {
+      "sha256": "b6674216328978437be2790c26133463f548c1a4592f9060c7d09aad852d3f43",
+      "bytes": 21040
+    },
+    "originals/A1_grayT1.nrrd.header.txt": {
+      "sha256": "eb96f9d94364dbfe60920fef3460c2ba2a3d5e69c86c495d5fffc53594bd85be",
+      "bytes": 329
+    },
+    "originals/A1_grayT2.nrrd.header.txt": {
+      "sha256": "eb96f9d94364dbfe60920fef3460c2ba2a3d5e69c86c495d5fffc53594bd85be",
+      "bytes": 329
+    },
+    "originals/Model_100_left_mammillothalamic_tract.vtk.gz": {
+      "sha256": "41a081e16fa3916d6c16a12bee8ae11b77349715524837bc32a6e4352e12f111",
+      "bytes": 2704
+    },
+    "originals/Model_1016_left_parahippocampal_gyrus.vtk.gz": {
+      "sha256": "55c05df8a35f6e5284680f1ed00730fe1bb8aa61f272187e7eba54111e74b628",
+      "bytes": 66975
+    },
+    "originals/Model_17_left_hippocampus.vtk.gz": {
+      "sha256": "255731ce8d62df4e918b935209b330b33c4a77591ff06a838dd82053b60852b4",
+      "bytes": 80021
+    },
+    "originals/Model_18_left_amygdala.vtk.gz": {
+      "sha256": "296214d20e5a1310940ced6b5fd60b4941c4991b79d2258a4d2a45b10283afd3",
+      "bytes": 29867
+    },
+    "originals/Model_200_right_mammillothalamic_tract.vtk.gz": {
+      "sha256": "134d7fcdc96dd16eb1c356e2b86212cac618ae972406dfd6cba62f204e0046c5",
+      "bytes": 2738
+    },
+    "originals/Model_2016_right_parahippocampal_gyrus.vtk.gz": {
+      "sha256": "64e19464610ba0ce265eef9d0e6d3b26c52ca7ce4d2cc9286672dedafc342c14",
+      "bytes": 61328
+    },
+    "originals/Model_3002_right_mammillary_body.vtk.gz": {
+      "sha256": "e4c512d94668582bd8ed31625433ee5c4c0247159c01100eeecd515ec2a855c4",
+      "bytes": 3041
+    },
+    "originals/Model_3003_left_mammillary_body.vtk.gz": {
+      "sha256": "ec563d934dc1eac6478ae53b8688c0f9b21f6a5ecd6ffdf55c20ff7314964c5e",
+      "bytes": 2793
+    },
+    "originals/Model_3005_right_fornix_of_forebrain.vtk.gz": {
+      "sha256": "e62a16a9d812053fbf84d7bf8f1c4873bc8bc807dd81d52049eb4e3c52da5982",
+      "bytes": 40166
+    },
+    "originals/Model_3007_left_fornix_of_forebrain.vtk.gz": {
+      "sha256": "169fb608cd9e915bdb71ed85c8f4c996702394e3f5ee2ad6615250e189c7afa4",
+      "bytes": 38629
+    },
+    "originals/Model_53_right_hippocampus.vtk.gz": {
+      "sha256": "94703347ed2f871db5af9060bbb3cb90228e9c5d588171b1d2f1d27972f76995",
+      "bytes": 72292
+    },
+    "originals/Model_54_right_amygdala.vtk.gz": {
+      "sha256": "bfd2535674c929ad42d8a80a428cee5cec93dbdfa341144036a1d512bd725d74",
+      "bytes": 33129
+    },
+    "originals/hncma-atlas.nrrd.header.txt": {
+      "sha256": "4b4415d5ae3dacd2a19e0cacbe3084b878e8ccf708f5a2f0707e13ce599051ac",
+      "bytes": 309
+    },
+    "payload.js": {
+      "sha256": "a18e1fa2a19205f6c90c04306245051572ff930dbdd60ff9c01b05e3aa90fab2",
+      "bytes": 1568
+    },
+    "viewer.css": {
+      "sha256": "f4d99fa08e891623aec272fc0b5a47b25224cf89c3cbb021cc02247d03383710",
+      "bytes": 2117
+    },
+    "viewer.js": {
+      "sha256": "4ae3fe18806838d865c970945ed4c6e9f7c4079bfb341a447ee390d026f58e0b",
+      "bytes": 28041
+    }
+  }
+}

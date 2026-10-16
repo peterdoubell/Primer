@@ -1,0 +1,61 @@
+[
+  {
+    "id": "openstax-buoyancy",
+    "url": "https://openstax.org/books/university-physics-volume-1/pages/14-4-archimedes-principle-and-buoyancy",
+    "authority": "Original textbook chapter by Moebs, Ling and Sanny, OpenStax/Rice",
+    "reviewed": "Buoyant force and object-volume versus displaced-volume definitions; fraction submerged = average object density / fluid density",
+    "use": "Concept verification only; no artwork or substantial text copied"
+  },
+  {
+    "id": "openstax-viscosity",
+    "url": "https://openstax.org/books/university-physics-volume-1/pages/14-7-viscosity-and-turbulence",
+    "authority": "Original textbook chapter, OpenStax/Rice",
+    "reviewed": "Viscous shear, Poiseuille flow, Reynolds number and terminal speed",
+    "use": "Concept verification only; future figures should be original"
+  },
+  {
+    "id": "doe-fluid-handbook",
+    "url": "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1012-92_VOL3.pdf",
+    "landing_url": "https://www.energy.gov/ehss/articles/doe-hdbk-10123-92",
+    "authority": "US Department of Energy Fundamentals Handbook 1012/3-92, archived training text",
+    "reviewed": "Module3 pressure/depth, Pascal, continuity and Bernoulli/head losses; printed pp48–49/PDF pp70–71 explain cavitation when local pressure falls below saturation pressure",
+    "limits": "Not a current pump-design standard. Express pressure and head with explicit SI conversion; do not inherit shorthand pressure/head notation."
+  },
+  {
+    "id": "nasa-lift",
+    "url": "https://www.grc.nasa.gov/WWW/k-12/VirtualAero/BottleRocket/airplane/wrong1.html",
+    "authority": "NASA Glenn original educational explanation",
+    "reviewed": "Equal-transit-time assumption is false; pressure-area integration and Bernoulli need physically obtained velocity information"
+  },
+  {
+    "id": "mit-boundary-layer",
+    "url": "https://web.mit.edu/13.021/demos/lectures/lecture16.pdf",
+    "authority": "MIT Department of Ocean Engineering, Marine Hydrodynamics Lecture16",
+    "reviewed": "Pages1–5 thin steady laminar boundary layer, zero-pressure-gradient Blasius scaling, no-slip boundary conditions, δ99≈4.9√(νx/U), displacement/momentum thickness and wall shear"
+  },
+  {
+    "id": "unsteady-settling",
+    "url": "https://arxiv.org/html/2408.12530v2",
+    "abstract_url": "https://arxiv.org/abs/2408.12530",
+    "related_publication_doi": "10.1103/PhysRevFluids.10.L062301",
+    "authority": "Jaroslawski, Jaganathan, Govindarajan and McKeon, primary experimental/theoretical paper",
+    "reviewed": "Equations2 and terminal-velocity statement; authors observe history-dependent algebraic approach even at low particle Reynolds number. Low Re alone does not license a memoryless exponential transient."
+  },
+  {
+    "id": "plume-primary",
+    "url": "https://doi.org/10.1038/s41467-021-22159-3",
+    "repository_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8113474/fullTextXML",
+    "authority": "Original Nature Communications research article: On the use of plume models to estimate the flux in volcanic gas plumes",
+    "reviewed": "Equation1 gives u proportional to B^(1/3)(z+z0)^(-1/3) for its stated plume regime",
+    "local_snapshot": "plume-primary.xml",
+    "sha256": "2eca8da2a5f9dd118e040b1c7adb3ea7516935561aa059e9b5f103b333531399",
+    "limits": "This is a far-field turbulent-plume scaling example, not a solver or onset criterion for a laminar smoke plume."
+  },
+  {
+    "id": "mit-plume-scope",
+    "url": "https://ocw.mit.edu/courses/2-27-turbulent-flow-and-transport-spring-2002/70532f29a5b30e675c60540077a92931_7_SimpleBuoyancy.pdf",
+    "authority": "MIT original course outline, Turbulent Flow and Transport",
+    "reviewed": "Distinguishes jets, forced/pure plumes, thermals, ambient stratification, entrainment and far-field models",
+    "limits": "Outline only; not used as a numerical benchmark."
+  }
+]

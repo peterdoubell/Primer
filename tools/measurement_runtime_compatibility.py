@@ -28,6 +28,8 @@ def reviewed():
 
 
 def before_measurement_bytes(path, raw, allow_older=False):
+    from tools.fluids_runtime_compatibility import before_fluids_bytes
+    raw = before_fluids_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw

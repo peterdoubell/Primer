@@ -1,0 +1,790 @@
+[
+  {
+    "id": "continuity-0",
+    "method": "continuity",
+    "input": {}
+  },
+  {
+    "id": "continuity-1",
+    "method": "continuity",
+    "input": {
+      "flow": 0.0008
+    }
+  },
+  {
+    "id": "continuity-2",
+    "method": "continuity",
+    "input": {
+      "flow": 0
+    }
+  },
+  {
+    "id": "continuity-3",
+    "method": "continuity",
+    "input": {
+      "areaThroat": 0.0004
+    }
+  },
+  {
+    "id": "continuity-4",
+    "method": "continuity",
+    "input": {
+      "inletGauge": -50000
+    }
+  },
+  {
+    "id": "continuity-5",
+    "method": "continuity",
+    "input": {
+      "flow": 0.001,
+      "rho": 1500,
+      "ambientPressure": 50000,
+      "inletGauge": 0
+    }
+  },
+  {
+    "id": "hydro-0",
+    "method": "hydrostatics",
+    "input": {}
+  },
+  {
+    "id": "hydro-1",
+    "method": "hydrostatics",
+    "input": {
+      "topPressure": 0
+    }
+  },
+  {
+    "id": "hydro-2",
+    "method": "hydrostatics",
+    "input": {
+      "ambientPressure": 80000,
+      "topPressure": 3000,
+      "rho": 850
+    }
+  },
+  {
+    "id": "hydro-3",
+    "method": "hydrostatics",
+    "input": {
+      "topPressure": 150000
+    }
+  },
+  {
+    "id": "hydro-4",
+    "method": "hydrostatics",
+    "input": {
+      "topPressure": 1000
+    }
+  },
+  {
+    "id": "hydro-5",
+    "method": "hydrostatics",
+    "input": {
+      "ambientPressure": 1000
+    }
+  },
+  {
+    "id": "piston-0",
+    "method": "pistons",
+    "input": {}
+  },
+  {
+    "id": "piston-1",
+    "method": "pistons",
+    "input": {
+      "areaIn": 0.004,
+      "areaOut": 0.002,
+      "forceIn": 30,
+      "strokeIn": 0.1
+    }
+  },
+  {
+    "id": "piston-2",
+    "method": "pistons",
+    "input": {
+      "forceIn": 0
+    }
+  },
+  {
+    "id": "piston-3",
+    "method": "pistons",
+    "input": {
+      "strokeIn": 0
+    }
+  },
+  {
+    "id": "hull-0",
+    "method": "hull",
+    "input": {}
+  },
+  {
+    "id": "hull-1",
+    "method": "hull",
+    "input": {
+      "cargoMass": 800
+    }
+  },
+  {
+    "id": "hull-2",
+    "method": "hull",
+    "input": {
+      "retainedWaterMass": 600
+    }
+  },
+  {
+    "id": "hull-3",
+    "method": "hull",
+    "input": {
+      "length": 2,
+      "width": 0.5,
+      "height": 0.8,
+      "rho": 850,
+      "cargoMass": 200
+    }
+  },
+  {
+    "id": "hull-4",
+    "method": "hull",
+    "input": {
+      "dryMass": 0,
+      "cargoMass": 0
+    }
+  },
+  {
+    "id": "hull-5",
+    "method": "hull",
+    "input": {
+      "retainedWaterMass": 1000
+    }
+  },
+  {
+    "id": "hull-6",
+    "method": "hull",
+    "input": {
+      "rho": 850,
+      "retainedWaterMass": 850
+    }
+  },
+  {
+    "id": "pipe-0",
+    "method": "pipe",
+    "input": {}
+  },
+  {
+    "id": "pipe-1",
+    "method": "pipe",
+    "input": {
+      "pressureDrop": -2
+    }
+  },
+  {
+    "id": "pipe-2",
+    "method": "pipe",
+    "input": {
+      "pressureDrop": 0
+    }
+  },
+  {
+    "id": "pipe-3",
+    "method": "pipe",
+    "input": {
+      "radius": 0.01
+    }
+  },
+  {
+    "id": "pipe-4",
+    "method": "pipe",
+    "input": {
+      "mu": 0.02
+    }
+  },
+  {
+    "id": "pipe-5",
+    "method": "pipe",
+    "input": {
+      "pressureDrop": 1000
+    }
+  },
+  {
+    "id": "blasius-0",
+    "method": "blasiusSolve",
+    "input": {},
+    "probes": [
+      0,
+      0.125,
+      1,
+      2.75,
+      4.91,
+      8,
+      10
+    ]
+  },
+  {
+    "id": "blasius-1",
+    "method": "blasiusSolve",
+    "input": {
+      "etaMax": 16,
+      "step": 0.01
+    },
+    "probes": [
+      0,
+      0.125,
+      1,
+      2.75,
+      4.91,
+      8,
+      10
+    ]
+  },
+  {
+    "id": "blasius-2",
+    "method": "blasiusSolve",
+    "input": {
+      "etaMax": 10,
+      "step": 0.05
+    },
+    "probes": [
+      0,
+      0.125,
+      1,
+      2.75,
+      4.91,
+      8,
+      10
+    ]
+  },
+  {
+    "id": "boundary-0",
+    "method": "boundaryLayer",
+    "input": {}
+  },
+  {
+    "id": "boundary-1",
+    "method": "boundaryLayer",
+    "input": {
+      "speed": 4,
+      "x": 2,
+      "probeEta": 4.91
+    }
+  },
+  {
+    "id": "boundary-2",
+    "method": "boundaryLayer",
+    "input": {
+      "speed": 0.01,
+      "nu": 0.1,
+      "x": 0.001,
+      "probeEta": 0
+    }
+  },
+  {
+    "id": "settle-7800-0.001-0",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.001,
+      "time": 0.0
+    }
+  },
+  {
+    "id": "settle-7800-0.001-1e-09",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.001,
+      "time": 1.7333333333333334e-13
+    }
+  },
+  {
+    "id": "settle-7800-0.001-0.1",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.001,
+      "time": 1.7333333333333336e-05
+    }
+  },
+  {
+    "id": "settle-7800-0.001-2.995732273553991",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.001,
+      "time": 0.0005192602607493584
+    }
+  },
+  {
+    "id": "settle-7800-0.001-20",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.001,
+      "time": 0.0034666666666666665
+    }
+  },
+  {
+    "id": "settle-7800-0.02-0",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.02,
+      "time": 0.0
+    }
+  },
+  {
+    "id": "settle-7800-0.02-1e-09",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.02,
+      "time": 8.666666666666668e-15
+    }
+  },
+  {
+    "id": "settle-7800-0.02-0.1",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.02,
+      "time": 8.666666666666668e-07
+    }
+  },
+  {
+    "id": "settle-7800-0.02-2.995732273553991",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.02,
+      "time": 2.5963013037467924e-05
+    }
+  },
+  {
+    "id": "settle-7800-0.02-20",
+    "method": "settling",
+    "input": {
+      "particleDensity": 7800,
+      "mu": 0.02,
+      "time": 0.00017333333333333336
+    }
+  },
+  {
+    "id": "settle-500-0.001-0",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.001,
+      "time": 0.0
+    }
+  },
+  {
+    "id": "settle-500-0.001-1e-09",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.001,
+      "time": 1.111111111111111e-14
+    }
+  },
+  {
+    "id": "settle-500-0.001-0.1",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.001,
+      "time": 1.111111111111111e-06
+    }
+  },
+  {
+    "id": "settle-500-0.001-2.995732273553991",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.001,
+      "time": 3.3285914150599894e-05
+    }
+  },
+  {
+    "id": "settle-500-0.001-20",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.001,
+      "time": 0.0002222222222222222
+    }
+  },
+  {
+    "id": "settle-500-0.02-0",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.02,
+      "time": 0.0
+    }
+  },
+  {
+    "id": "settle-500-0.02-1e-09",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.02,
+      "time": 5.555555555555557e-16
+    }
+  },
+  {
+    "id": "settle-500-0.02-0.1",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.02,
+      "time": 5.555555555555557e-08
+    }
+  },
+  {
+    "id": "settle-500-0.02-2.995732273553991",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.02,
+      "time": 1.6642957075299952e-06
+    }
+  },
+  {
+    "id": "settle-500-0.02-20",
+    "method": "settling",
+    "input": {
+      "particleDensity": 500,
+      "mu": 0.02,
+      "time": 1.1111111111111112e-05
+    }
+  },
+  {
+    "id": "settle-1000-0.001-0",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.001,
+      "time": 0.0
+    }
+  },
+  {
+    "id": "settle-1000-0.001-1e-09",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.001,
+      "time": 2.222222222222222e-14
+    }
+  },
+  {
+    "id": "settle-1000-0.001-0.1",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.001,
+      "time": 2.222222222222222e-06
+    }
+  },
+  {
+    "id": "settle-1000-0.001-2.995732273553991",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.001,
+      "time": 6.657182830119979e-05
+    }
+  },
+  {
+    "id": "settle-1000-0.001-20",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.001,
+      "time": 0.0004444444444444444
+    }
+  },
+  {
+    "id": "settle-1000-0.02-0",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.02,
+      "time": 0.0
+    }
+  },
+  {
+    "id": "settle-1000-0.02-1e-09",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.02,
+      "time": 1.1111111111111114e-15
+    }
+  },
+  {
+    "id": "settle-1000-0.02-0.1",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.02,
+      "time": 1.1111111111111114e-07
+    }
+  },
+  {
+    "id": "settle-1000-0.02-2.995732273553991",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.02,
+      "time": 3.3285914150599903e-06
+    }
+  },
+  {
+    "id": "settle-1000-0.02-20",
+    "method": "settling",
+    "input": {
+      "particleDensity": 1000,
+      "mu": 0.02,
+      "time": 2.2222222222222223e-05
+    }
+  },
+  {
+    "id": "lift-0",
+    "method": "joukowski",
+    "input": {},
+    "probes": [
+      0,
+      0.01,
+      0.3,
+      1.7,
+      3.141592653589793,
+      5.7,
+      6.283185307179586
+    ]
+  },
+  {
+    "id": "lift-1",
+    "method": "joukowski",
+    "input": {
+      "alphaDegrees": -5
+    },
+    "probes": [
+      0,
+      0.01,
+      0.3,
+      1.7,
+      3.141592653589793,
+      5.7,
+      6.283185307179586
+    ]
+  },
+  {
+    "id": "lift-2",
+    "method": "joukowski",
+    "input": {
+      "alphaDegrees": 0
+    },
+    "probes": [
+      0,
+      0.01,
+      0.3,
+      1.7,
+      3.141592653589793,
+      5.7,
+      6.283185307179586
+    ]
+  },
+  {
+    "id": "lift-3",
+    "method": "joukowski",
+    "input": {
+      "alphaDegrees": 10,
+      "epsilon": 0.05,
+      "samples": 128
+    },
+    "probes": [
+      0,
+      0.01,
+      0.3,
+      1.7,
+      3.141592653589793,
+      5.7,
+      6.283185307179586
+    ]
+  },
+  {
+    "id": "lift-4",
+    "method": "joukowski",
+    "input": {
+      "alphaDegrees": -10,
+      "epsilon": 0.25,
+      "samples": 2048,
+      "chord": 2,
+      "speed": 7
+    },
+    "probes": [
+      0,
+      0.01,
+      0.3,
+      1.7,
+      3.141592653589793,
+      5.7,
+      6.283185307179586
+    ]
+  },
+  {
+    "id": "lift-refined-256",
+    "method": "joukowski",
+    "input": {
+      "alphaDegrees": 10,
+      "epsilon": 0.05,
+      "samples": 256
+    }
+  },
+  {
+    "id": "lift-refined-720",
+    "method": "joukowski",
+    "input": {
+      "alphaDegrees": 10,
+      "epsilon": 0.05,
+      "samples": 720
+    }
+  },
+  {
+    "id": "plume-0",
+    "method": "plume",
+    "input": {}
+  },
+  {
+    "id": "plume-1",
+    "method": "plume",
+    "input": {
+      "height": 1
+    }
+  },
+  {
+    "id": "plume-2",
+    "method": "plume",
+    "input": {
+      "height": 16
+    }
+  },
+  {
+    "id": "plume-3",
+    "method": "plume",
+    "input": {
+      "referenceHeight": 2,
+      "height": 16,
+      "referenceSpeed": 3,
+      "referenceWidth": 0.2
+    }
+  },
+  {
+    "id": "invalid-0",
+    "method": "continuity",
+    "input": {
+      "areaThroat": 0.001
+    }
+  },
+  {
+    "id": "invalid-1",
+    "method": "continuity",
+    "input": {
+      "flow": -0.001
+    }
+  },
+  {
+    "id": "invalid-2",
+    "method": "hydrostatics",
+    "input": {
+      "topPressure": -1
+    }
+  },
+  {
+    "id": "invalid-3",
+    "method": "hydrostatics",
+    "input": {
+      "rho": 0
+    }
+  },
+  {
+    "id": "invalid-4",
+    "method": "pistons",
+    "input": {
+      "areaIn": 0.2,
+      "areaOut": 1e-05,
+      "strokeIn": 0.5
+    }
+  },
+  {
+    "id": "invalid-5",
+    "method": "hull",
+    "input": {
+      "retainedWaterMass": -1
+    }
+  },
+  {
+    "id": "invalid-6",
+    "method": "pipe",
+    "input": {
+      "mu": 0
+    }
+  },
+  {
+    "id": "invalid-7",
+    "method": "blasiusSolve",
+    "input": {
+      "step": 0.033
+    }
+  },
+  {
+    "id": "invalid-8",
+    "method": "boundaryLayer",
+    "input": {
+      "x": 0
+    }
+  },
+  {
+    "id": "invalid-9",
+    "method": "settling",
+    "input": {
+      "time": -1
+    }
+  },
+  {
+    "id": "invalid-10",
+    "method": "joukowski",
+    "input": {
+      "epsilon": 0
+    }
+  },
+  {
+    "id": "invalid-11",
+    "method": "joukowski",
+    "input": {
+      "samples": 720.5
+    }
+  },
+  {
+    "id": "invalid-12",
+    "method": "plume",
+    "input": {
+      "height": 0
+    }
+  },
+  {
+    "id": "invalid-13",
+    "method": "hull",
+    "input": {
+      "retainedWaterMass": 1000.001
+    }
+  },
+  {
+    "id": "invalid-14",
+    "method": "hull",
+    "input": {
+      "rho": 850,
+      "retainedWaterMass": 850.001
+    }
+  }
+]

@@ -97,6 +97,8 @@ class FakeTextNode {
 
 function matchesSelector(element, selector) {
   if (!element || element.nodeType !== 1) return false;
+  const attribute = selector.match(/^\[([a-z][a-z0-9-]*)\]$/i);
+  if (attribute) return element.hasAttribute(attribute[1]);
   if (selector.startsWith('.')) return element.classList.contains(selector.slice(1));
   if (/^[a-z][a-z0-9-]*$/i.test(selector)) return element.tagName === selector.toLowerCase();
   throw new Error('fake DOM does not implement selector ' + JSON.stringify(selector));
@@ -123,6 +125,12 @@ class FakeElement {
     this.disabled = false;
     this.hidden = false;
     this.classList = new FakeClassList(this);
+  }
+  get valueAsNumber() { return String(this.value).trim() === '' ? NaN : Number(this.value); }
+  get validity() {
+    const value = this.valueAsNumber;
+    return { valid: Number.isFinite(value) && (this.min === '' || value >= Number(this.min)) &&
+      (this.max === '' || value <= Number(this.max)) };
   }
   get className() { return this._className; }
   set className(value) {
@@ -204,7 +212,10 @@ class FakeElement {
     this.children = [];
     this.append(...values);
   }
-  querySelectorAll(selector) { return descendants(this, element => matchesSelector(element, selector)); }
+  querySelectorAll(selector) {
+    if (selector.startsWith(':scope > ')) return this.children.filter(element => matchesSelector(element, selector.slice(9)));
+    return descendants(this, element => element !== this && matchesSelector(element, selector));
+  }
   querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   focus() { this.ownerDocument.activeElement = this; }
   remove() {
@@ -276,12 +287,13 @@ function serialize(node) {
 }
 
 function normalizeGeneratedIds(value) {
-  return value.replace(/(shadow-position|lesson-spectrum)-\d+/g, '$1-#');
+  return value.replace(/(shadow-position|lesson-spectrum)-\d+/g, '$1-#')
+    .replace(/fluids-\d+-arrow-\d+/g, 'fluids-#-arrow-#').replace(/fluids-\d+/g, 'fluids-#');
 }
 
 function modelState(root) {
   const canvas = one(root, element => hasClass(element, 'model-canvas'), 'model canvas');
-  const controls = one(root, element => hasClass(element, 'model-controls'), 'model controls');
+  const controls = root.fluids ? canvas : one(root, element => hasClass(element, 'model-controls'), 'model controls');
   const readout = one(root, element => hasClass(element, 'model-readout'), 'model readout');
   return {
     canvas: normalizeGeneratedIds(serialize(canvas)),
@@ -324,6 +336,15 @@ function setRange(control, value) {
 }
 
 const INTERACTIONS = Object.freeze({
+  'fluids-concept-lab': { description: 'select continuity and exercise the 800 cm³/s preset', actions: 2,
+    reset: 'Reset fluid workbench', run: root => {
+      const station = one(root, element => element.getAttribute('data-fluids-control') === 'station', 'fluid station');
+      station.value = 'continuity'; station.dispatch('change');
+      click(one(root, element => element.getAttribute('data-fluids-preset') === 'continuity-800', '800 cm³/s preset'));
+      const result = root.fluids.getModels().continuity;
+      assert.equal(result.inletSpeed, 2); assert.equal(result.throatSpeed, 8); assert.equal(result.pressureDrop, 30000);
+      assert.equal(root.fluids.getState().station, 'continuity');
+    } },
   counter: { description: 'count pebble 1', actions: 1,
     run: root => click(buttonAria(root, 'Pebble 1, not counted yet')) },
   'shape-explorer': { description: 'select Triangle', actions: 1,
@@ -393,7 +414,7 @@ function collectRemainingModels() {
   let curvatureEntries = 0, constraintsEntries = 0, complexEntries = 0, quantumEntries = 0;
   let topologyEntries = 0, relativityEntries = 0;
   let numberTheoryEntries = 0, systemsEntries = 0;
-  let phaseEntries = 0;
+  let phaseEntries = 0, fluidsEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
   let odeEntries = 0;
@@ -403,6 +424,14 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'fluids-concept-lab') {
+          assert.equal(lesson.id, 'phys.4.fluids');
+          assert.equal(media.id, 'explore-fluid-forces-and-flow');
+          assert.equal(media.kind, 'model');
+          assert.deepEqual(media.props, { scenario: 'phys.4.fluids' });
+          fluidsEntries++; entries.push({ filename, lessonId: lesson.id, media });
+          continue;
+        }
         const fullLessonBinding = {
           'math-logic-lab': ['math.5.logic', 'math.5.logic.diagonal-models-proof'],
           'physics-maxwell-lab': ['phys.4.em-maxwell', 'phys.4.em-maxwell.fields-flux-radiation'],
@@ -527,6 +556,7 @@ function collectRemainingModels() {
       }
     }
   }
+  assert.equal(fluidsEntries, 1, 'exactly one new fluids companion');
   assert.equal(numberTheoryEntries, 1, 'exactly one separately verified full number-theory binding');
   assert.equal(systemsEntries, 1, 'exactly one separately verified general-form systems binding');
   if (odeEntries !== 1) throw new Error('expected exactly one separately verified second-order ODE binding, found ' + odeEntries);
@@ -547,7 +577,9 @@ function collectRemainingModels() {
 
 function loadRegistry() {
   global.document = new FakeDocument();
-  global.window = {};
+  global.window = { document: global.document };
+  require('../web/fluids-lab.js');
+  assert.equal(typeof window.PrimerFluidsLab.render, 'function');
   require('../web/lesson-models.js');
   if (!window.PrimerLessonModels || typeof window.PrimerLessonModels.render !== 'function' ||
       !Array.isArray(window.PrimerLessonModels.supported)) {
@@ -557,7 +589,10 @@ function loadRegistry() {
 }
 
 function validateBindings(models, failures) {
-  const actual = new Map(models.map(entry => [entry.lessonId, entry.media.renderer]));
+  const baseModels = models.filter(entry => entry.media.renderer !== 'fluids-concept-lab');
+  assert.equal(models.length, 28 + 1, '28 existing models plus exactly one fluids companion');
+  assert.equal(baseModels.length, 28, 'The original 28 interactions remain in this harness');
+  const actual = new Map(baseModels.map(entry => [entry.lessonId, entry.media.renderer]));
   if (actual.size !== Object.keys(EXPECTED_BINDINGS).length) {
     failures.push('expected 28 remaining curriculum models, found ' + actual.size);
   }
@@ -590,7 +625,7 @@ function checkModel(registry, lessonId, media) {
   let canvas; let controls; let readout; let status; let initial;
   try {
     canvas = one(root, element => hasClass(element, 'model-canvas'), 'model canvas');
-    controls = one(root, element => hasClass(element, 'model-controls'), 'model controls');
+    controls = root.fluids ? canvas : one(root, element => hasClass(element, 'model-controls'), 'model controls');
     readout = one(root, element => hasClass(element, 'model-readout'), 'model readout');
     status = one(root, element => hasClass(element, 'model-status'), 'live status');
     initial = modelState(root);
@@ -681,6 +716,7 @@ function main() {
   }
   console.log('Remaining lesson-model DOM smoke check passed: ' + models.length +
     ' models, ' + actions + ' exercised control changes, ' + resets + ' verified resets.');
+  console.log('Preserved 28 base model interactions plus one independently checked fluids companion.');
   coverage.forEach(entry => console.log('COVER ' + entry));
 }
 

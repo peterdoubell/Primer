@@ -1,0 +1,1698 @@
+{
+  "scope": "Actual authenticated fluids lesson on an isolated synthetic database",
+  "productionVerified": false,
+  "sourceSHA256": {
+    "web/fluids-lab.js": "3df09ceda539660bb4b9c23317b3d1c764614e14c71ccbc7eefcd575f4264ac6",
+    "web/lesson-models.js": "25d0b22415fbecaafb1381182a3c8bffbabf335a8aa2453df8f81e31d0bcec8b",
+    "web/index.html": "47deb2001c09688960602b87e534e38c346c3fe10255a06e8f6f9f674f6ab3d6",
+    "web/app.js": "13e0bc4938487040585780be56e7e8d98b900f9b77abe48a7f068d2fed284596",
+    "primer/curriculum.py": "61ef976bf2cadc742f07a9c7945a5a10446a0764bd89be31358de26d007c3dc5",
+    "data/curriculum/03-physics.json": "645563ea298e33d44ed9122d38193d428fd9bb9238cc469ea437d77e9cc1dd20"
+  },
+  "authentication": [
+    {
+      "asset": "/app/fluids-lab.js",
+      "status": 401
+    },
+    {
+      "asset": "/app/startup.js",
+      "status": 401
+    },
+    {
+      "asset": "/api/curriculum/node/phys.4.fluids",
+      "status": 401
+    }
+  ],
+  "readerCases": [
+    {
+      "width": 390,
+      "states": [
+        {
+          "label": "authored state",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity-400",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0004 m³/s (400 cm³/s): inlet speed 1 m/s, throat speed 4 m/s, pressure drop 7500 Pa (7.5 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity-800",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0008 m³/s (800 cm³/s): inlet speed 2 m/s, throat speed 8 m/s, pressure drop 30000 Pa (30 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity enlarged",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0008 m³/s (800 cm³/s): inlet speed 2 m/s, throat speed 8 m/s, pressure drop 30000 Pa (30 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity fitted",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0008 m³/s (800 cm³/s): inlet speed 2 m/s, throat speed 8 m/s, pressure drop 30000 Pa (30 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydro-vacuum",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.3287 m. Top: 0 Pa absolute, -101325 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. The requested state violates the declared ordinary single-phase bound; the plotted hydrostatic extrapolation is not a predicted intact liquid column.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydro-vapor",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydrostatics enlarged",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydrostatics fitted",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "piston-example",
+          "station": "pistons",
+          "readout": "Gauge pressure 50000 Pa gives output force 1000 N. Input stroke 0.2 m displaces 0.0002 m³; output stroke 0.01 m. Input and output work are 10 J and 10 J.",
+          "plots": [
+            {
+              "name": "Horizontal cylinders: one fixed elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pistons enlarged",
+          "station": "pistons",
+          "readout": "Gauge pressure 50000 Pa gives output force 1000 N. Input stroke 0.2 m displaces 0.0002 m³; output stroke 0.01 m. Input and output work are 10 J and 10 J.",
+          "plots": [
+            {
+              "name": "Horizontal cylinders: one fixed elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pistons fitted",
+          "station": "pistons",
+          "readout": "Gauge pressure 50000 Pa gives output force 1000 N. Input stroke 0.2 m displaces 0.0002 m³; output stroke 0.01 m. Input and output work are 10 J and 10 J.",
+          "plots": [
+            {
+              "name": "Horizontal cylinders: one fixed elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull-floating",
+          "station": "hull",
+          "readout": "State: floating. Total mass 600 kg, full water-excluding volume 1 m³, average object density 600 kg/m³. Displacement 0.6 m³, shown draft 0.6 m, freeboard 0.4 m. Weight and hydrostatic buoyancy balance.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull-neutral",
+          "station": "hull",
+          "readout": "State: neutral. Total mass 1000 kg, full water-excluding volume 1 m³, average object density 1000 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No reserve displacement; neutral fully submerged depth is not unique.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull-overload",
+          "station": "hull",
+          "readout": "State: overloaded. Total mass 1200 kg, full water-excluding volume 1 m³, average object density 1200 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No floating equilibrium: shown fully submerged at maximum buoyancy.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull enlarged",
+          "station": "hull",
+          "readout": "State: overloaded. Total mass 1200 kg, full water-excluding volume 1 m³, average object density 1200 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No floating equilibrium: shown fully submerged at maximum buoyancy.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull fitted",
+          "station": "hull",
+          "readout": "State: overloaded. Total mass 1200 kg, full water-excluding volume 1 m³, average object density 1200 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No floating equilibrium: shown fully submerged at maximum buoyancy.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe-baseline",
+          "station": "pipe",
+          "readout": "Signed mean speed 0.003125 m/s, flow 2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe-reverse",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe enlarged",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe fitted",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary-baseline",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=0.5 m, Re_x=33333.3, δ99=0.0134466 m and C_f=0.00363751. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary-downstream",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=2 m, Re_x=133333, δ99=0.0268931 m and C_f=0.00181875. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary enlarged",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=2 m, Re_x=133333, δ99=0.0268931 m and C_f=0.00181875. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary fitted",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=2 m, Re_x=133333, δ99=0.0268931 m and C_f=0.00181875. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling-heavy",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed 0.0014824 m/s, terminal Re_D=0.029648. Approximation τ=0.000173333 s, t95=0.00051926 s. At t=0.00052 s: v=0.0014086 m/s and displacement 5.26691e-7 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling-neutral",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed 0 m/s, terminal Re_D=0. Approximation τ=0.0000222222 s, t95=not defined s. At t=0.0000666667 s: v=0 m/s and displacement 0 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling-rise",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed -0.0000654 m/s, terminal Re_D=0.001308. Approximation τ=0.0000155556 s, t95=0.0000466003 s. At t=0.0000466667 s: v=-0.0000621439 m/s and displacement -2.08532e-9 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling enlarged",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed -0.0000654 m/s, terminal Re_D=0.001308. Approximation τ=0.0000155556 s, t95=0.0000466003 s. At t=0.0000466667 s: v=-0.0000621439 m/s and displacement -2.08532e-9 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling fitted",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed -0.0000654 m/s, terminal Re_D=0.001308. Approximation τ=0.0000155556 s, t95=0.0000466003 s. At t=0.0000466667 s: v=-0.0000621439 m/s and displacement -2.08532e-9 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift-symmetric",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift 2.04264e-15 N/m of span; Kutta–Joukowski ρUΓ=0 N/m. Pressure drag -2.50188e-17 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=0 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift-positive",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift 145.509 N/m of span; Kutta–Joukowski ρUΓ=145.509 N/m. Pressure drag 1.77636e-15 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift-negative",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift -145.509 N/m of span; Kutta–Joukowski ρUΓ=-145.509 N/m. Pressure drag -1.95399e-14 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=-6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift enlarged",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift -145.509 N/m of span; Kutta–Joukowski ρUΓ=-145.509 N/m. Pressure drag -1.95399e-14 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=-6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift fitted",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift -145.509 N/m of span; Kutta–Joukowski ρUΓ=-145.509 N/m. Pressure drag -1.95399e-14 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=-6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume-base",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 1 m, U=1 m/s, radius scale b=0.1 m, Re_b=6666.67. Relative to 1 m: speed ratio 1, radius ratio 1, Re ratio 1. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume-eightfold",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 8 m, U=0.5 m/s, radius scale b=0.8 m, Re_b=26666.7. Relative to 1 m: speed ratio 0.5, radius ratio 8, Re ratio 4. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume enlarged",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 8 m, U=0.5 m/s, radius scale b=0.8 m, Re_b=26666.7. Relative to 1 m: speed ratio 0.5, radius ratio 8, Re ratio 4. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume fitted",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 8 m, U=0.5 m/s, radius scale b=0.8 m, Re_b=26666.7. Relative to 1 m: speed ratio 0.5, radius ratio 8, Re ratio 4. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull invalid physical domain",
+          "station": "hull",
+          "invalidValueRejected": true,
+          "stalePlotHidden": true
+        },
+        {
+          "label": "hull domain recovery",
+          "station": "hull",
+          "readout": "State: floating. Total mass 600 kg, full water-excluding volume 1 m³, average object density 600 kg/m³. Displacement 0.6 m³, shown draft 0.6 m, freeboard 0.4 m. Weight and hydrostatic buoyancy balance.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe invalid physical domain",
+          "station": "pipe",
+          "invalidValueRejected": true,
+          "stalePlotHidden": true
+        },
+        {
+          "label": "pipe domain recovery",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary invalid physical domain",
+          "station": "boundary",
+          "invalidValueRejected": true,
+          "stalePlotHidden": true
+        },
+        {
+          "label": "boundary domain recovery",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=0.5 m, Re_x=33333.3, δ99=0.0134466 m and C_f=0.00363751. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "reset",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        }
+      ],
+      "speech": [
+        {
+          "station": "continuity",
+          "readoutIncluded": true,
+          "characters": 1860
+        },
+        {
+          "station": "hydrostatics",
+          "readoutIncluded": true,
+          "characters": 1792
+        },
+        {
+          "station": "pistons",
+          "readoutIncluded": true,
+          "characters": 1586
+        },
+        {
+          "station": "hull",
+          "readoutIncluded": true,
+          "characters": 1997
+        },
+        {
+          "station": "pipe",
+          "readoutIncluded": true,
+          "characters": 1557
+        },
+        {
+          "station": "boundary",
+          "readoutIncluded": true,
+          "characters": 1507
+        },
+        {
+          "station": "settling",
+          "readoutIncluded": true,
+          "characters": 2049
+        },
+        {
+          "station": "lift",
+          "readoutIncluded": true,
+          "characters": 2477
+        },
+        {
+          "station": "plume",
+          "readoutIncluded": true,
+          "characters": 1852
+        }
+      ],
+      "preservedVenturi": true,
+      "originalIllustrationLoaded": true,
+      "originalMediaIdentityPreserved": true,
+      "quizAnswersNotExposedByPublicNodeAPI": true,
+      "currentStartupBundleExact": true,
+      "CSPViolations": [],
+      "pageErrors": [],
+      "externalRequests": []
+    },
+    {
+      "width": 1440,
+      "states": [
+        {
+          "label": "authored state",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity-400",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0004 m³/s (400 cm³/s): inlet speed 1 m/s, throat speed 4 m/s, pressure drop 7500 Pa (7.5 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity-800",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0008 m³/s (800 cm³/s): inlet speed 2 m/s, throat speed 8 m/s, pressure drop 30000 Pa (30 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity enlarged",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0008 m³/s (800 cm³/s): inlet speed 2 m/s, throat speed 8 m/s, pressure drop 30000 Pa (30 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "continuity fitted",
+          "station": "continuity",
+          "readout": "Maintained Q=0.0008 m³/s (800 cm³/s): inlet speed 2 m/s, throat speed 8 m/s, pressure drop 30000 Pa (30 kPa). All three absolute pressures respect the declared vapor bound.",
+          "plots": [
+            {
+              "name": "Maintained-flow Venturi: radii and speeds",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Equivalent gauge-pressure head",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydro-vacuum",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.3287 m. Top: 0 Pa absolute, -101325 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. The requested state violates the declared ordinary single-phase bound; the plotted hydrostatic extrapolation is not a predicted intact liquid column.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydro-vapor",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydrostatics enlarged",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hydrostatics fitted",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "piston-example",
+          "station": "pistons",
+          "readout": "Gauge pressure 50000 Pa gives output force 1000 N. Input stroke 0.2 m displaces 0.0002 m³; output stroke 0.01 m. Input and output work are 10 J and 10 J.",
+          "plots": [
+            {
+              "name": "Horizontal cylinders: one fixed elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pistons enlarged",
+          "station": "pistons",
+          "readout": "Gauge pressure 50000 Pa gives output force 1000 N. Input stroke 0.2 m displaces 0.0002 m³; output stroke 0.01 m. Input and output work are 10 J and 10 J.",
+          "plots": [
+            {
+              "name": "Horizontal cylinders: one fixed elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pistons fitted",
+          "station": "pistons",
+          "readout": "Gauge pressure 50000 Pa gives output force 1000 N. Input stroke 0.2 m displaces 0.0002 m³; output stroke 0.01 m. Input and output work are 10 J and 10 J.",
+          "plots": [
+            {
+              "name": "Horizontal cylinders: one fixed elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull-floating",
+          "station": "hull",
+          "readout": "State: floating. Total mass 600 kg, full water-excluding volume 1 m³, average object density 600 kg/m³. Displacement 0.6 m³, shown draft 0.6 m, freeboard 0.4 m. Weight and hydrostatic buoyancy balance.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull-neutral",
+          "station": "hull",
+          "readout": "State: neutral. Total mass 1000 kg, full water-excluding volume 1 m³, average object density 1000 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No reserve displacement; neutral fully submerged depth is not unique.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull-overload",
+          "station": "hull",
+          "readout": "State: overloaded. Total mass 1200 kg, full water-excluding volume 1 m³, average object density 1200 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No floating equilibrium: shown fully submerged at maximum buoyancy.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull enlarged",
+          "station": "hull",
+          "readout": "State: overloaded. Total mass 1200 kg, full water-excluding volume 1 m³, average object density 1200 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No floating equilibrium: shown fully submerged at maximum buoyancy.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull fitted",
+          "station": "hull",
+          "readout": "State: overloaded. Total mass 1200 kg, full water-excluding volume 1 m³, average object density 1200 kg/m³. Displacement 1 m³, shown draft 1 m, freeboard 0 m. No floating equilibrium: shown fully submerged at maximum buoyancy.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe-baseline",
+          "station": "pipe",
+          "readout": "Signed mean speed 0.003125 m/s, flow 2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe-reverse",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe enlarged",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe fitted",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary-baseline",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=0.5 m, Re_x=33333.3, δ99=0.0134466 m and C_f=0.00363751. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary-downstream",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=2 m, Re_x=133333, δ99=0.0268931 m and C_f=0.00181875. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary enlarged",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=2 m, Re_x=133333, δ99=0.0268931 m and C_f=0.00181875. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary fitted",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=2 m, Re_x=133333, δ99=0.0268931 m and C_f=0.00181875. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling-heavy",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed 0.0014824 m/s, terminal Re_D=0.029648. Approximation τ=0.000173333 s, t95=0.00051926 s. At t=0.00052 s: v=0.0014086 m/s and displacement 5.26691e-7 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling-neutral",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed 0 m/s, terminal Re_D=0. Approximation τ=0.0000222222 s, t95=not defined s. At t=0.0000666667 s: v=0 m/s and displacement 0 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling-rise",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed -0.0000654 m/s, terminal Re_D=0.001308. Approximation τ=0.0000155556 s, t95=0.0000466003 s. At t=0.0000466667 s: v=-0.0000621439 m/s and displacement -2.08532e-9 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling enlarged",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed -0.0000654 m/s, terminal Re_D=0.001308. Approximation τ=0.0000155556 s, t95=0.0000466003 s. At t=0.0000466667 s: v=-0.0000621439 m/s and displacement -2.08532e-9 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "settling fitted",
+          "station": "settling",
+          "readout": "Downward-positive terminal speed -0.0000654 m/s, terminal Re_D=0.001308. Approximation τ=0.0000155556 s, t95=0.0000466003 s. At t=0.0000466667 s: v=-0.0000621439 m/s and displacement -2.08532e-9 m. Creeping-drag teaching guard Re≤0.1 is met; this does not validate the memoryless transient.",
+          "plots": [
+            {
+              "name": "Declared memoryless settling transient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift-symmetric",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift 2.04264e-15 N/m of span; Kutta–Joukowski ρUΓ=0 N/m. Pressure drag -2.50188e-17 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=0 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift-positive",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift 145.509 N/m of span; Kutta–Joukowski ρUΓ=145.509 N/m. Pressure drag 1.77636e-15 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift-negative",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift -145.509 N/m of span; Kutta–Joukowski ρUΓ=-145.509 N/m. Pressure drag -1.95399e-14 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=-6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift enlarged",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift -145.509 N/m of span; Kutta–Joukowski ρUΓ=-145.509 N/m. Pressure drag -1.95399e-14 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=-6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "lift fitted",
+          "station": "lift",
+          "readout": "Ideal 2D pressure lift -145.509 N/m of span; Kutta–Joukowski ρUΓ=-145.509 N/m. Pressure drag -1.95399e-14 N/m is numerical zero for this ideal model, not zero drag of a real wing. Clockwise-positive Γ=-6.06289 m²/s.",
+          "plots": [
+            {
+              "name": "Joukowski geometry and pressure-normal traction",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Upper and lower surface pressure coefficient",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume-base",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 1 m, U=1 m/s, radius scale b=0.1 m, Re_b=6666.67. Relative to 1 m: speed ratio 1, radius ratio 1, Re ratio 1. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume-eightfold",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 8 m, U=0.5 m/s, radius scale b=0.8 m, Re_b=26666.7. Relative to 1 m: speed ratio 0.5, radius ratio 8, Re ratio 4. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume enlarged",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 8 m, U=0.5 m/s, radius scale b=0.8 m, Re_b=26666.7. Relative to 1 m: speed ratio 0.5, radius ratio 8, Re ratio 4. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "plume fitted",
+          "station": "plume",
+          "readout": "Scaling only: at effective height 8 m, U=0.5 m/s, radius scale b=0.8 m, Re_b=26666.7. Relative to 1 m: speed ratio 0.5, radius ratio 8, Re ratio 4. No transition location or eddy trajectory is computed.",
+          "plots": [
+            {
+              "name": "Far-field plume scaling ratios",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "hull invalid physical domain",
+          "station": "hull",
+          "invalidValueRejected": true,
+          "stalePlotHidden": true
+        },
+        {
+          "label": "hull domain recovery",
+          "station": "hull",
+          "readout": "State: floating. Total mass 600 kg, full water-excluding volume 1 m³, average object density 600 kg/m³. Displacement 0.6 m³, shown draft 0.6 m, freeboard 0.4 m. Weight and hydrostatic buoyancy balance.",
+          "plots": [
+            {
+              "name": "Sealed rectangular hull at the capacity check",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "pipe invalid physical domain",
+          "station": "pipe",
+          "invalidValueRejected": true,
+          "stalePlotHidden": true
+        },
+        {
+          "label": "pipe domain recovery",
+          "station": "pipe",
+          "readout": "Signed mean speed -0.003125 m/s, flow -2.45437e-7 m³/s and Re_D = 31.25. Pressure power ΔpQ = 2.45437e-7 W. Inside the conservative Re≤1000 teaching range; laminar/developed conditions remain assumptions.",
+          "plots": [
+            {
+              "name": "Developed circular-pipe velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Annular weighting of volume flux",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Newtonian radial shear stress",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "boundary invalid physical domain",
+          "station": "boundary",
+          "invalidValueRejected": true,
+          "stalePlotHidden": true
+        },
+        {
+          "label": "boundary domain recovery",
+          "station": "boundary",
+          "readout": "Numerically shot Blasius solution: f″(0) = 0.332057, η99 = 4.90999. At x=0.5 m, Re_x=33333.3, δ99=0.0134466 m and C_f=0.00363751. Inside the δ99/x≤0.1 teaching guard.",
+          "plots": [
+            {
+              "name": "External boundary-layer velocity profile",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Thickness grows with downstream position",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        },
+        {
+          "label": "reset",
+          "station": "hydrostatics",
+          "readout": "Level difference h = 10.0892 m. Top: 2350 Pa absolute, -98975 Pa gauge. Ideal zero-pressure limit 10.3287 m; declared vapor-limited model 10.0892 m. This state respects the declared vapor-pressure bound.",
+          "plots": [
+            {
+              "name": "Hydrostatic pressure versus elevation",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            },
+            {
+              "name": "Linked liquid-level difference",
+              "viewBox": "0 0 680 390",
+              "invalidNumericGeometry": false
+            }
+          ],
+          "noHorizontalOverflow": true,
+          "allGeometryFinite": true
+        }
+      ],
+      "speech": [
+        {
+          "station": "continuity",
+          "readoutIncluded": true,
+          "characters": 1860
+        },
+        {
+          "station": "hydrostatics",
+          "readoutIncluded": true,
+          "characters": 1792
+        },
+        {
+          "station": "pistons",
+          "readoutIncluded": true,
+          "characters": 1586
+        },
+        {
+          "station": "hull",
+          "readoutIncluded": true,
+          "characters": 1997
+        },
+        {
+          "station": "pipe",
+          "readoutIncluded": true,
+          "characters": 1557
+        },
+        {
+          "station": "boundary",
+          "readoutIncluded": true,
+          "characters": 1507
+        },
+        {
+          "station": "settling",
+          "readoutIncluded": true,
+          "characters": 2049
+        },
+        {
+          "station": "lift",
+          "readoutIncluded": true,
+          "characters": 2477
+        },
+        {
+          "station": "plume",
+          "readoutIncluded": true,
+          "characters": 1852
+        }
+      ],
+      "preservedVenturi": true,
+      "originalIllustrationLoaded": true,
+      "originalMediaIdentityPreserved": true,
+      "quizAnswersNotExposedByPublicNodeAPI": true,
+      "currentStartupBundleExact": true,
+      "CSPViolations": [],
+      "pageErrors": [],
+      "externalRequests": []
+    }
+  ],
+  "errors": [],
+  "independentPhysicsEstablishedByThisReaderCheck": false,
+  "startupBundle": {
+    "bytes": 2954277,
+    "sha256": "324f6f7bd50258098c2b03d0797f64ca369724efcd0f9e5679fbad9bb34f7b38",
+    "currentSourceBytesEqual": true
+  },
+  "totalStates": 92,
+  "speechCases": 18,
+  "allPassed": true
+}

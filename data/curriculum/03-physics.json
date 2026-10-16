@@ -3447,6 +3447,16 @@
             "scenario": "horizontal-water-venturi",
             "start_throat": "half-area"
           }
+        },
+        {
+          "id": "explore-fluid-forces-and-flow",
+          "kind": "model",
+          "renderer": "fluids-concept-lab",
+          "title": "Explore fluid forces and flow",
+          "instructions": "Compare pressure, displacement, viscous flow and idealized external-flow models. Change one physical parameter at a time and read the assumptions, units and force or energy balance.",
+          "props": {
+            "scenario": "phys.4.fluids"
+          }
         }
       ],
       "quiz": [
@@ -3476,16 +3486,16 @@
         },
         {
           "kind": "short",
-          "prompt": "Archimedes' principle says a submerged or floating object experiences a buoyant force equal to the weight of the fluid it displaces. Explain why a steel ship floats even though steel is much denser than water, and what would need to change for it to sink.",
-          "answer": "The ship's hull is shaped to displace a large volume of water — much of that volume is air-filled interior space, not solid steel — so the total weight of water displaced by the hull's shape equals the ship's total weight (steel plus cargo plus air) while the ship floats at equilibrium. What matters for floating is the AVERAGE density of the whole ship (mass divided by the volume it displaces), not the density of the steel alone. If enough water leaks in and replaces that air-filled volume, the displaced-water weight can no longer match the ship's weight at any waterline within the hull, and the ship sinks.",
+          "prompt": "Archimedes' principle relates buoyancy to the weight of displaced water. In an upright, static model, explain how a hollow steel hull can support its load while keeping positive freeboard, and how loading or flooding can remove that floating equilibrium.",
+          "answer": "At floating equilibrium, the weight of displaced water equals the ship's total weight. A hollow hull can exclude enough water before its rim or downflooding opening reaches the waterline, even though solid steel is denser than water. Compare the ship's mass with its available water-excluding hull volume: their ratio must be below the water density to leave reserve displacement in this fixed-orientation model. Mass divided by the volume currently submerged instead equals water density at equilibrium. Flooding can add load through retained water, while openings can reduce the volume that excludes outside water. Either can exhaust the available displacement; account for the same water consistently rather than counting it twice.",
           "keywords": [
             "displaced water",
-            "average density",
-            "buoyant force",
+            "weight",
             "hull volume",
-            "floods"
+            "density",
+            "flooding"
           ],
-          "explain": "This is the same reason a solid steel block sinks but a steel bowl floats: shape changes the volume of water displaced, not the material's own density."
+          "explain": "For water density rho, buoyancy is rho times g times submerged water-excluding volume. The upright hull needs enough available volume to balance its total mass before downflooding. This static capacity test does not establish stability against capsizing or predict the rate of flooding."
         },
         {
           "kind": "choice",
@@ -3501,14 +3511,14 @@
         },
         {
           "kind": "choice",
-          "prompt": "Viscosity measures a fluid's resistance to shear. Two identical, sufficiently small spheres fall separately through water and honey, with both flows remaining in the low-Reynolds-number Stokes regime. Which sphere approaches terminal speed sooner, and how do the terminal speeds compare?",
-          "answer": "The sphere in honey approaches a much lower terminal speed more quickly",
-          "explain": "For a sufficiently small sphere in creeping flow, Stokes' law makes terminal speed inversely proportional to viscosity and the velocity relaxation time smaller in the more viscous fluid. That low-Reynolds-number formula is well suited to the honey case; the qualitative prediction that the honey sphere settles more slowly is robust, but Stokes' numerical scaling must not be extrapolated to a water case whose Reynolds number is no longer small.",
+          "prompt": "Two identical dense spheres are released from rest in ideal Newtonian liquids of equal density. Liquid B has 20 times the dynamic viscosity of liquid A; both terminal Reynolds numbers are much less than 1. Use the quasi-steady Stokes-drag model with particle inertia, neglecting added mass and fluid-history forces. Compare terminal settling speed and the time to reach 95% of that speed.",
+          "answer": "In B, terminal speed and time to reach 95% are each one-twentieth of their values in A",
+          "explain": "For radius a, sphere density rho_s, liquid density rho_f and dynamic viscosity mu, this declared model gives terminal speed 2a^2(rho_s-rho_f)g/(9mu) and relaxation time tau = 2rho_s a^2/(9mu). From rest, v/v_terminal = 1-exp(-t/tau), so t95 = tau ln(20). Both quantities scale as 1/mu under the stated equal-density comparison. Actual unsteady settling can include added-mass and history forces; low Reynolds number alone does not make exponential relaxation exact.",
           "choices": [
-            "The sphere in honey approaches a much lower terminal speed more quickly",
-            "Both spheres reach the same terminal velocity, just at different times",
-            "The sphere in water reaches terminal velocity sooner and at a lower speed",
-            "Viscosity does not affect terminal velocity, only the sphere's density does"
+            "In B, terminal speed and time to reach 95% are each one-twentieth of their values in A",
+            "In B, terminal speed is one-twentieth as large but the time to reach 95% is 20 times longer",
+            "Both terminal speed and the time to reach 95% are unchanged",
+            "In B, terminal speed and the time to reach 95% are both 20 times larger"
           ]
         },
         {
@@ -3543,24 +3553,24 @@
         },
         {
           "kind": "short",
-          "prompt": "Explain why a smoke plume rises smoothly for a short distance and then abruptly breaks into swirling, chaotic eddies further up, in terms of the Reynolds number changing along the plume.",
-          "answer": "Close to the source, the smoke moves slowly over a small length scale, so its Reynolds number can be low enough for a laminar region where viscosity damps disturbances. Reynolds number compares viscous versus inertial effects; as the plume's speed and width grow, inertial effects become more important and the flow can transition to a turbulent region. The transition range depends on the plume's geometry, buoyancy and disturbances; there is no universal critical Re shared by pipes, plumes and every obstacle.",
+          "prompt": "An observed smoke plume has a smooth region near its source and an irregular, swirling region farther up. Explain what the local Reynolds number can tell you about these regions, and why a change in Reynolds number alone does not locate the onset of turbulence. Must the plume's speed increase with height?",
+          "answer": "A local Reynolds number compares inertial and viscous effects using a stated speed, width and kinematic viscosity. A smooth, laminar near-source region can persist while disturbances remain small; farther up, buoyancy, entrainment, geometry and disturbances can allow turbulent motion. The speed need not increase: in one far-field, self-similar round turbulent plume model, width grows with height while characteristic speed decreases. Their product, and thus a width-based Reynolds number, can still increase. That scaling describes an already turbulent regime; it does not predict the transition point. Source conditions and ambient stratification also matter, and a pipe's critical Reynolds number cannot be transferred to a plume.",
           "keywords": [
             "Reynolds number",
             "laminar",
             "turbulent",
             "transition",
-            "viscous versus inertial"
+            "viscous"
           ],
-          "explain": "A rising plume can display laminar and turbulent regions in one continuous flow, making Reynolds number's comparison of inertial and viscous effects visible. Its transition should not be assigned the critical value used for a different geometry such as a circular pipe."
+          "explain": "For the stated far-field pure-plume scaling, characteristic speed varies as height above a virtual origin to the power -1/3, width varies as that height, and their product varies as height to the power 2/3. These scalings explain how widening and increasing Reynolds number can coexist with decreasing speed. They do not supply a universal instability threshold or a simulation of the observed eddies."
         },
         {
           "kind": "choice",
-          "prompt": "A drinking straw works because sucking air out lowers the pressure inside it below atmospheric pressure, and atmospheric pressure pushing down on the drink's surface then forces liquid up. A student asks whether a straw could lift a drink to any height, given a strong enough suction. Evaluate the claim, using the fact that atmospheric pressure can support at most about 10.3 meters of water before the pressure difference runs out.",
-          "answer": "No — there is a hard ceiling around 10.3 m, set by atmospheric pressure itself, no matter how hard you suck",
-          "explain": "The absolute best a suction pump (or a mouth) can do is create a perfect vacuum above the liquid; even then, atmospheric pressure alone can only push a column of water up to about 10.3 meters (this is exactly the same physics behind the mercury barometer's roughly 76 cm column, scaled by mercury being about 13.6 times denser than water). No amount of additional suction beyond a perfect vacuum can push the liquid any higher, since there is nothing left to suck — the limit is set by the atmosphere's pushing power, not the straw or the sucker.",
+          "prompt": "Consider suction lifting a wide, static water column from a reservoir at standard atmospheric pressure, 101325 Pa. Take water density as 1000 kg/m^3 and g as 9.81 m/s^2; neglect capillarity and liquid tension. The hypothetical zero-pressure-at-the-top bound is h = p_atm/(rho g), about 10.3 m. Does unlimited suction allow arbitrary height, and how does this ideal bound relate to ordinary liquid water and flowing pumps?",
+          "answer": "No: about 10.3 m is the ideal bound here; vapour pressure and flow losses reduce ordinary suction lift",
+          "explain": "Hydrostatic balance gives h = (p_atm-p_top)/(rho g). Setting the absolute top pressure to zero gives 101325/(1000 x 9.81) = 10.33 m. In an ordinary single-phase equilibrium model the top pressure must remain at least the water's saturation vapour pressure, giving a lower height; flow losses reduce available suction head further. Ambient pressure and temperature matter. The calculation neglects capillarity and metastable liquid tension, and is not a prediction that a real pump reaches a vacuum-topped water column.",
           "choices": [
-            "No — there is a hard ceiling around 10.3 m, set by atmospheric pressure itself, no matter how hard you suck",
+            "No: about 10.3 m is the ideal bound here; vapour pressure and flow losses reduce ordinary suction lift",
             "Yes, with unlimited suction strength a straw could lift a drink to any height",
             "The limit depends only on straw diameter, not on atmospheric pressure",
             "The limit applies only to mercury, not to water or other drinks"

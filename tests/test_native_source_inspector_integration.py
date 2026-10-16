@@ -13,6 +13,7 @@ from primer.curriculum import Curriculum, _validate_lesson_media
 from primer import radiology_catalog
 from primer import source_native_inspectors as native
 from tools.anatomy_sources.brain_native_delivery_amendment import restored_historical_contract, MEDIA
+from tools.spl_limbic_runtime_compatibility import before_spl_lesson_fields, before_spl_reference_fields, reviewed as spl_reviewed
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,18 +29,26 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     from tools.hippunfold_runtime_compatibility import reviewed
     expected_companions = {'rad.5.epilepsy-mri': 'ra.mri-epilepsy', 'rad.5.dementia': 'ra.mri-dementia'}
     registered = hippocampal.references()
+    from primer.spl_limbic_reference import references as spl_references
+    spl_registered = spl_references()
+    assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
+    assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
     assert set(registered) == set(expected_companions.values())
     manifest = json.loads(hippocampal.validate_file('manifest.json').read_bytes())
     assert manifest['case'] == '101006' and manifest['shape'] == [128, 256, 128]
     for lesson_id, investigation_id in expected_companions.items():
         companion_node = curriculum.node(lesson_id)
         _validate_lesson_media(companion_node)
-        companions = [m for m in companion_node['lesson_media'] if m['kind'] == 'source-native-inspectors']
+        # Recover only the exact reviewed SPL lesson wording, then keep the frozen HippUnfold assertion.
+        previous_node = before_spl_lesson_fields(lesson_id, companion_node)
+        companions = [m for m in previous_node['lesson_media'] if m['kind'] == 'source-native-inspectors']
+        assert [m for m in companion_node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [spl_reviewed()['lessons'][lesson_id]['after']]
         assert companions == reviewed()['lessons'][lesson_id]['added_media']
         assert companions[0]['id'] == 'module-native-inspectors-' + lesson_id
         assert companions[0]['investigation_ids'] == [investigation_id]
         companion_ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve(investigation_id))['radiology_reference']
-        assert companion_ref['source_native_inspectors'] == registered[investigation_id]
+        assert before_spl_reference_fields(investigation_id, companion_ref)['source_native_inspectors'] == registered[investigation_id]
+        assert companion_ref['source_native_inspectors'] == [*registered[investigation_id], *spl_registered[investigation_id]]
         assert [asset['id'] for asset in registered[investigation_id]] == [hippocampal.IDENTIFIER]
     thoracic = curriculum.node('rad.5.pleura')
     thoracic_media, = [m for m in thoracic['lesson_media'] if m['kind'] == 'source-native-inspectors']
@@ -57,7 +66,9 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     stroke_inspector, = [m for m in stroke['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert stroke_inspector['investigation_ids'] == ['ra.acute-stroke']
     ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve('ra.brain-anatomy'))['radiology_reference']
-    inspector, = ref['source_native_inspectors']
+    previous_ref = before_spl_reference_fields('ra.brain-anatomy', ref)
+    inspector, = previous_ref['source_native_inspectors']
+    assert ref['source_native_inspectors'] == [inspector, *spl_registered['ra.brain-anatomy']]
     assert inspector['bound_source_ids'] == ['massp2-subcortical-reference']
     assert not inspector['clinical_approval'] and not inspector['fine_anatomical_approval']
     model = next(m for m in node['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
@@ -90,7 +101,7 @@ def test_registered_payload_packet_matches_source_manifest_and_hosted_identity()
 def test_actual_get_head_auth_redirect_and_unknown_routes(tmp_path):
     env={k:v for k,v in os.environ.items() if not k.startswith('TURSO')
          and k not in {'VERCEL','VERCEL_ENV','PRIMER_ACCESS_USERNAME','PRIMER_ACCESS_PASSWORD'}}
-    env.update(PRIMER_DB=str(tmp_path/'native.db'),PRIMER_BACKUP_DIR=str(tmp_path/'backups'))
+    env.update(PRIMER_DB=str(tmp_path/'native.db'),PRIMER_CONTENT_DIR=str(tmp_path/'content'),PRIMER_BACKUP_DIR=str(tmp_path/'backups'))
     script=r'''
 import hashlib,os
 from fastapi import FastAPI

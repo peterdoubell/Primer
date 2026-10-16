@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-16",
+  "scope": "Bounded source semantics and gross anatomical plausibility of the twelve selected SPL labels. This is not expert clinical segmentation validation, a whole-module audit, or deployment approval.",
+  "source_publisher": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+  "source_commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+  "method": [
+    "Read primary publisher description and archived original MRML, lookup table and label metadata.",
+    "Independently decoded native source arrays, verified original NRRD reconstruction identities, and computed label components/physical coordinates without the product coordinate code.",
+    "Visually inspected native T1 and T2 axial/coronal/sagittal panels for each of twelve labels; selected planes only, not every-slice expert boundary review.",
+    "Inspected native T1 panels through both isolated left-fornix components and actual viewer screenshots for both surface representations.",
+    "Compared source contribution with current epilepsy, dementia and brain-anatomy reporting requirements.",
+    "Inspected three focused screenshots captured after the ordinary outlier control in the authenticated mobile reader: source disclosure, actual MRI and probe readout."
+  ],
+  "identity_and_laterality": {
+    "selected_codes": [
+      17,
+      53,
+      18,
+      54,
+      3007,
+      3005,
+      3003,
+      3002,
+      1016,
+      2016,
+      100,
+      200
+    ],
+    "names_codes_coherent_across_manifest_LUT_metadata_MRML": true,
+    "six_pair_centroid_ordering_coherent": true,
+    "demonstrated_side_swap": false,
+    "caution": "RAS x=0 is not an independently fitted anatomical midline; a few near-midline cells crossing it do not alone establish a side error."
+  },
+  "anatomical_observation": {
+    "gross_location": "Plausible in the inspected original planes for all twelve selected source objects.",
+    "fine_boundary_accuracy": "Unvalidated",
+    "tract_continuity_and_connectivity": "Unvalidated",
+    "clinical_volumetry_normality_and_pathology": "Not established",
+    "label_geometry_preferred_biological_ground_truth": false
+  },
+  "findings": [
+    {
+      "id": "SPL-SEM-01",
+      "kind": "source-presentation omission",
+      "status": "corrected_in_product_source",
+      "finding": "The known isolated left-fornix source cell was not specifically disclosed by the original generic components/discrepancy wording.",
+      "source_label_code": 3007,
+      "original_label_index_ijk": [
+        167,
+        132,
+        130
+      ],
+      "source_RAS_mm": [
+        -2,
+        -39,
+        -4
+      ],
+      "nearest_native_MRI_index_ijk": [
+        196,
+        165,
+        106
+      ],
+      "correction": "Selected left-fornix note now states the retained isolated cell, unvalidated continuity and finite sampled 12.24 mm comparison; ordinary Inspect retained fornix outlier control selects its native MRI/readout. Right-fornix note identifies the 7.17 mm vertex discrepancy.",
+      "remaining_uncertainty": "No repaired or deleted data; biological meaning of the isolated cell and the preferable anatomical representation remain unresolved. Finite face-centre/vertex distances are not continuous Hausdorff bounds."
+    },
+    {
+      "id": "SPL-SEM-02",
+      "kind": "source limitation",
+      "status": "retained_and_disclosed",
+      "finding": "Exact cell boundaries and original processed surfaces encode different representations, most visibly at the fornices.",
+      "disposition": "Default cell boundaries honestly display the categorical labels, with separately named original-surface comparison. Neither representation is established as biological ground truth."
+    },
+    {
+      "id": "SPL-SEM-03",
+      "kind": "coverage limitation",
+      "status": "mapped_without_completion_claim",
+      "finding": "Twelve labels from one source case contribute gross limbic context but cannot complete the three reporting modules.",
+      "disposition": "Seventeen explicit requirement dispositions retain missing disease/sequence/structure/normality evidence. Other Primer sources are outside this package-specific gap claim."
+    },
+    {
+      "id": "SPL-SEM-04",
+      "kind": "stale source-description text",
+      "status": "corrected_in_product_source",
+      "finding": "After selecting the remote outlier, the selected-source paragraph still says the selected slice passes near the source label centroid. This is also potentially false after manual slice changes.",
+      "proposed_correction": "Describe the Find structure in MRI action as selecting a label sample near its centroid; do not describe every current slice this way.",
+      "evidence": "reviewed-outlier-disclosure-before-text-fix.png",
+      "geometry_or_data_defect": false,
+      "correction": "Source paragraph now says: Find structure in MRI selects an original label sample near its centroid; this is not a normative volume measurement.",
+      "disposition": "The action description remains true after outlier selection or manual slice navigation; data/geometry unchanged."
+    }
+  ],
+  "product_semantic_source_observed": [
+    {
+      "path": "web/anatomy/spl-nac-limbic/manifest.json",
+      "sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+      "bytes": 115502
+    },
+    {
+      "path": "web/anatomy/spl-nac-limbic/viewer.js",
+      "sha256": "4ae3fe18806838d865c970945ed4c6e9f7c4079bfb341a447ee390d026f58e0b",
+      "bytes": 28041
+    },
+    {
+      "path": "web/anatomy/spl-nac-limbic/index.html",
+      "sha256": "d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f",
+      "bytes": 5958
+    }
+  ],
+  "evidence": [
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/structure-audit.json",
+      "sha256": "e9e5a38a26fd8e71f9798d2a653f938a3b4cada159d524024e263efcfa51464a",
+      "bytes": 37918
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/source-volume-identities.json",
+      "sha256": "898ded708165f49105f88dd68aadf6caebfd0b9a0761a1c6da11eb9a2fbfc44f",
+      "bytes": 1296
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/requirements-snapshot.json",
+      "sha256": "11986bf1dc6dcea3a3df429d0eb3377cf425f57f7d4432b4628ecac0b2347545",
+      "bytes": 25538
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/requirement-map.json",
+      "sha256": "c792badb7c93496ecb5f6252161c6d85012aec536860cd76c0a6367b313a0845",
+      "bytes": 7586
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/reviewed-viewer-1440-label.png",
+      "sha256": "6b5170098b3ea878a10d9ea601168344ee9406a131ba8bc08e2339d54618cba4",
+      "bytes": 353050
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/reviewed-viewer-1440-publisher.png",
+      "sha256": "d554a2979d55339bff4997e2793864ca913964d90de1d9eac53fc20700d81dac",
+      "bytes": 389364
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/reviewed-outlier-disclosure-before-text-fix.png",
+      "sha256": "f00e08f80509d43c31476cd1f0e36c8e85d6a031b81b84e43e01eaf719a76fd2",
+      "bytes": 38953
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/reviewed-outlier-mri-reader.png",
+      "sha256": "2335545963ece86ffb3e66aff20518ec4e5b0f394c2f87b293648643d8d5ab7e",
+      "bytes": 79058
+    },
+    {
+      "path": "docs/spl-limbic-source-review-20261016/semantic-review/reviewed-outlier-probe-reader.png",
+      "sha256": "c6f0b10fc4429c59a615862d6c67518010bea8de532dd4bb77fc9d4d422f983f",
+      "bytes": 23587
+    }
+  ],
+  "disposition": {
+    "useful_as": "Partial source-defined anatomy reference with explicit uncertainties",
+    "additional_demonstrated_naming_side_or_gross_location_defect": false,
+    "clinical_approval": false,
+    "every_slice_review": false,
+    "whole_module_complete": false,
+    "whole_user_goal_complete": false,
+    "release_decision": "Outside this semantic review; transport, access, final UI and integration verification are separate."
+  },
+  "licence": "Source Slicer Agreement Part B assignment and full terms/notices retained; not CC BY. This review grants no new rights or clinical approval."
+}

@@ -21,9 +21,16 @@ def test_every_remaining_curriculum_model_interacts_and_resets():
     )
     assert result.returncode == 0, result.stdout + result.stderr
     assert (
-        "28 models, 29 exercised control changes, 28 verified resets"
+        "29 models, 31 exercised control changes, 29 verified resets"
         in result.stdout
     )
+    assert "Preserved 28 base model interactions plus one independently checked fluids companion." in result.stdout
+    fluid_bindings = [line.split(" [", 1)[0] for line in result.stdout.splitlines()
+                      if line.startswith("COVER phys.4.fluids = ")]
+    assert fluid_bindings == [
+        "COVER phys.4.fluids = venturi-flow-lab",
+        "COVER phys.4.fluids = fluids-concept-lab",
+    ]
     covered = {
         line.split(" = ", 1)[0].removeprefix("COVER ")
         for line in result.stdout.splitlines()

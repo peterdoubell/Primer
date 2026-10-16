@@ -1,0 +1,450 @@
+{
+  "schema_version": 1,
+  "source": {
+    "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+    "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+    "bytes": 466100,
+    "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+    "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+  },
+  "source_affine": [
+    [
+      0.0,
+      0.0,
+      -1.0,
+      128.0
+    ],
+    [
+      -1.0,
+      0.0,
+      0.0,
+      128.0
+    ],
+    [
+      0.0,
+      -1.0,
+      0.0,
+      128.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "method": "Expose all six faces of each selected voxel whose neighbor is not the same code; retain cavity and small-component faces; triangulate each exact world-space unit square outward without smoothing, fitting, deletion or closing.",
+  "independent_oracle": "Full-grid boolean occupancy shifted in each of six axis directions; exact equality with the emitted unique face records.",
+  "topology_note": "Shared coincident corners are indexed once. Edge/corner-touching source voxels can produce nonmanifold contacts; these are preserved, not repaired.",
+  "clinical_approval": false,
+  "rows": [
+    {
+      "code": 17,
+      "source_voxel_count": 4641,
+      "connected_component_sizes": {
+        "6": [
+          4635,
+          4,
+          1,
+          1
+        ],
+        "26": [
+          4636,
+          4,
+          1
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 3686,
+      "vertex_count": 3679,
+      "triangle_count": 7372,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 3686.0,
+      "signed_enclosed_volume_mm3": 4641.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 11030,
+        "4": 14
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "c7c549d4467dc34d6925acaf52db263fbbd5bd31bbdebd162dc33d8d7d9cbc66",
+      "indices_sha256": "aca2ecc54af1315d4c610c450c1c822f1221a994bb96a21cdcd951c3f3501a79",
+      "face_provenance_sha256": "a8813f005f0c8f451157150bbccc7b71d0f7cb8d398fc0811e9f1fe2bd4898c8"
+    },
+    {
+      "code": 53,
+      "source_voxel_count": 4378,
+      "connected_component_sizes": {
+        "6": [
+          4374,
+          3,
+          1
+        ],
+        "26": [
+          4375,
+          3
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 3312,
+      "vertex_count": 3298,
+      "triangle_count": 6624,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 3312.0,
+      "signed_enclosed_volume_mm3": 4378.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 9900,
+        "4": 18
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "0c00d38d2f51aad3d032eda5959775e9f78a239f2b5a293c2dd866a044fb829d",
+      "indices_sha256": "f31bc43854305ecd6e49ffe9500eb583dc4c7229845155ebcdfdc51b6e155a1c",
+      "face_provenance_sha256": "15c6a278f880e62ac88af8e46f7496b443da154b7f8f85fd542814cfaa244b9e"
+    },
+    {
+      "code": 18,
+      "source_voxel_count": 1733,
+      "connected_component_sizes": {
+        "6": [
+          1733
+        ],
+        "26": [
+          1733
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 1412,
+      "vertex_count": 1414,
+      "triangle_count": 2824,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 1412.0,
+      "signed_enclosed_volume_mm3": 1733.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 4236
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "72b1c4db44e0b22f7b3aa5be09e75f77e66b479bc998b0b23599b26e0bcf9efa",
+      "indices_sha256": "58b5bd8e1dcfa6fa583b740290067e05fd09d5cbec668e5733fbe1fae76c1833",
+      "face_provenance_sha256": "371d22e3756baef3d3589e6e941f70e7a6d4d056afe1a9625cf352a6fce0f43b"
+    },
+    {
+      "code": 54,
+      "source_voxel_count": 2166,
+      "connected_component_sizes": {
+        "6": [
+          2166
+        ],
+        "26": [
+          2166
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 1604,
+      "vertex_count": 1603,
+      "triangle_count": 3208,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 1604.0,
+      "signed_enclosed_volume_mm3": 2166.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 4806,
+        "4": 3
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "2d37f4c2879fc3edf7d0254d2d519f6591f30cdc093605835e514f329883fa61",
+      "indices_sha256": "d5c0ef7a81a4289182d2b3f95ffb75b5ad0c3d333812bda5c686522406391a33",
+      "face_provenance_sha256": "d7eadad6c7a902ef3a6f1d882efc3d8d939e0c74f0ddfffc213dc097f4effe10"
+    },
+    {
+      "code": 3007,
+      "source_voxel_count": 741,
+      "connected_component_sizes": {
+        "6": [
+          739,
+          1,
+          1
+        ],
+        "26": [
+          739,
+          1,
+          1
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 1440,
+      "vertex_count": 1442,
+      "triangle_count": 2880,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 1440.0,
+      "signed_enclosed_volume_mm3": 741.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 4316,
+        "4": 2
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "82e9ba4b4b2751c58231d719b723006526cb99c4ed02dfb17b3a57ff9a27fae4",
+      "indices_sha256": "c675baf4e0124f15e70af7ffef24acfbc2ea4259d6c80293fcde1aa4fba10c64",
+      "face_provenance_sha256": "7bb63caf144646e33dd8fac2c98ba9d6467f4833612c2e97619a0a41ba407577"
+    },
+    {
+      "code": 3005,
+      "source_voxel_count": 760,
+      "connected_component_sizes": {
+        "6": [
+          760
+        ],
+        "26": [
+          760
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 1486,
+      "vertex_count": 1479,
+      "triangle_count": 2972,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 1486.0,
+      "signed_enclosed_volume_mm3": 760.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 4448,
+        "4": 5
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "afd0b78b08d5ed5cef671cd3d9b08129f834b0af11d2243ed70eb1dbe5c4138c",
+      "indices_sha256": "1a08cb3923d204ec2a23f2ff4cb47f15f0eba173da505c850e8503894341f864",
+      "face_provenance_sha256": "0e6dd124ef3b4277187a511d70c4519f54936f321db3dd92eb67f6e3518a16c5"
+    },
+    {
+      "code": 3003,
+      "source_voxel_count": 67,
+      "connected_component_sizes": {
+        "6": [
+          67
+        ],
+        "26": [
+          67
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 116,
+      "vertex_count": 118,
+      "triangle_count": 232,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 116.0,
+      "signed_enclosed_volume_mm3": 67.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 348
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "a39669fe2dbc3339a7805382479c076b369e23ce59fa63e6731bedb96534426b",
+      "indices_sha256": "d0a46a7cb6609e9743dc044dbc75b89963ef4065d988a52a789018aba866447d",
+      "face_provenance_sha256": "0014317ef63b158b9c41e0d46eae80a6bf1d043680fe51baf2377d3e4b1fe35a"
+    },
+    {
+      "code": 3002,
+      "source_voxel_count": 76,
+      "connected_component_sizes": {
+        "6": [
+          76
+        ],
+        "26": [
+          76
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 130,
+      "vertex_count": 132,
+      "triangle_count": 260,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 130.0,
+      "signed_enclosed_volume_mm3": 76.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 390
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "ed4d18ddab0f97b23cc0c56ce57973a72adf8af9c4dd34cd15e6074644ac364d",
+      "indices_sha256": "506e155d7e6e8c2b4b2695b18965a232045a1a20c4c149d255d6a71b02deaf57",
+      "face_provenance_sha256": "75a9856b035f4e765658ce62066512e410f0e65007246cf9fbd4f4cfb0ffc3a0"
+    },
+    {
+      "code": 1016,
+      "source_voxel_count": 1989,
+      "connected_component_sizes": {
+        "6": [
+          1980,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "26": [
+          1988,
+          1
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 2844,
+      "vertex_count": 2773,
+      "triangle_count": 5688,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 2844.0,
+      "signed_enclosed_volume_mm3": 1989.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 8396,
+        "4": 68
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "72748d30ce4446399d690ac5851ef96f4705e746fe7c3e45e307b01caa068e41",
+      "indices_sha256": "4f3eb83a4e8d01f396190b56e2586527d020a2ac87f1a901e3e241e48d609741",
+      "face_provenance_sha256": "335893c01c2e20fdba0a0bf0dcc4e3472ff979e1e0a24c55bc5bf19cea1a5d75"
+    },
+    {
+      "code": 2016,
+      "source_voxel_count": 1900,
+      "connected_component_sizes": {
+        "6": [
+          1895,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "26": [
+          1899,
+          1
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 2724,
+      "vertex_count": 2664,
+      "triangle_count": 5448,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 2724.0,
+      "signed_enclosed_volume_mm3": 1900.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 8040,
+        "4": 66
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "887ab84f1e209855d34a3dfccdf3226bc30361b9a3e3e90dfbc196c47f705c14",
+      "indices_sha256": "e3d87e7a09dc329e42d8f6a964b08d249f785b4a0c0fe31e85e0c80f14f13b6d",
+      "face_provenance_sha256": "ab76d36760a45942365808f656ad48ced59b6fa5c3288c1a1d37d0f8746e15fe"
+    },
+    {
+      "code": 100,
+      "source_voxel_count": 30,
+      "connected_component_sizes": {
+        "6": [
+          30
+        ],
+        "26": [
+          30
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 96,
+      "vertex_count": 97,
+      "triangle_count": 192,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 96.0,
+      "signed_enclosed_volume_mm3": 30.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 286,
+        "4": 1
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "09aefc0e47c1589645e9525778638f6d68ccac77429895679d88dfe41128d7a8",
+      "indices_sha256": "683fbf89d452c83d09ccd10d4308d6ea920a229812e018384bfa1cb6e6ef916e",
+      "face_provenance_sha256": "6da73ba00492d0e3f0edcd06c278df77b3e82c44b5917ef6bd5620a0b159f803"
+    },
+    {
+      "code": 200,
+      "source_voxel_count": 33,
+      "connected_component_sizes": {
+        "6": [
+          33
+        ],
+        "26": [
+          33
+        ]
+      },
+      "all_exposed_faces_equal_independent_full_grid_oracle": true,
+      "face_count": 96,
+      "vertex_count": 98,
+      "triangle_count": 192,
+      "every_quad_has_four_exact_half_integer_RAS_corners": true,
+      "every_triangle_area_mm2": 0.5,
+      "surface_area_mm2": 96.0,
+      "signed_enclosed_volume_mm3": 33.0,
+      "volume_equals_all_source_voxels": true,
+      "every_triangle_winds_outward": true,
+      "edge_incidence_histogram": {
+        "2": 288
+      },
+      "oriented_edge_balance_everywhere_zero": true,
+      "nonmanifold_source_contacts_preserved": true,
+      "all_faces_and_components_preserved": true,
+      "position_sha256": "550168c19093303ae4c69b5ec3ea0f5bc5479736cf9401d7cd63675e15ec634f",
+      "indices_sha256": "2883ef097de2e95fa57176e7a222f0d4bcbc616179fda0457db5ec50539dd13b",
+      "face_provenance_sha256": "ef03b3468aa60ec2d1c85e63d3030dbe1a6e3c6fb825e90fb98cf5b9366411ea"
+    }
+  ]
+}

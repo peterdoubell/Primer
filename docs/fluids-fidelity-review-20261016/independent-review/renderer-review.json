@@ -1,0 +1,1865 @@
+{
+  "sourceSHA256": "3df09ceda539660bb4b9c23317b3d1c764614e14c71ccbc7eefcd575f4264ac6",
+  "oracleSHA256": "69f85a349ce1e5e10efd4436671ac96e38fe94677f9b535923d47db195502ad0",
+  "scope": "Independent standalone mount and rendered SVG coordinate/control audit. Actual authenticated reader delivery is checked separately.",
+  "cases": [
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "continuity",
+      "edits": {},
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0.0004,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 50000,
+        "continuity.ambientPressure": 101325,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1000
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "hydrostatics",
+      "edits": {},
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 101325,
+        "hydrostatics.topPressure": 2350,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "pistons",
+      "edits": {},
+      "checked": [
+        {
+          "geometry": "pistons"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pistons.areaIn": 0.001,
+        "pistons.areaOut": 0.02,
+        "pistons.forceIn": 50,
+        "pistons.strokeIn": 0.2
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "hull",
+      "edits": {},
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 400,
+        "hull.retainedWaterMass": 0,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "pipe",
+      "edits": {},
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 1
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "boundary",
+      "edits": {},
+      "checked": [
+        {
+          "series": "blasius-u",
+          "points": 121
+        },
+        {
+          "series": "boundary-growth",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "boundary.speed": 1,
+        "boundary.nu": 0.000015,
+        "boundary.x": 0.5,
+        "boundary.rho": 1.2,
+        "boundary.probeEta": 3
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "settling",
+      "edits": {},
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 7800,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.001,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "lift",
+      "edits": {},
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.12,
+        "lift.alphaDegrees": 5,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 390,
+      "station": "plume",
+      "edits": {},
+      "checked": [
+        {
+          "series": "plume-u",
+          "points": 101
+        },
+        {
+          "series": "plume-b",
+          "points": 101
+        },
+        {
+          "series": "plume-re",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "plume.referenceSpeed": 1,
+        "plume.referenceWidth": 0.1,
+        "plume.height": 8,
+        "plume.nu": 0.000015
+      }
+    },
+    {
+      "name": "exact-quiz",
+      "width": 390,
+      "station": "continuity",
+      "edits": {
+        "flow": 0.0008
+      },
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0.0008,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 50000,
+        "continuity.ambientPressure": 101325,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1000
+      }
+    },
+    {
+      "name": "zero-flow",
+      "width": 390,
+      "station": "continuity",
+      "edits": {
+        "flow": 0
+      },
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 50000,
+        "continuity.ambientPressure": 101325,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1000
+      }
+    },
+    {
+      "name": "vapor-limit-violated",
+      "width": 390,
+      "station": "continuity",
+      "edits": {
+        "flow": 0.001,
+        "rho": 1500,
+        "ambientPressure": 50000,
+        "inletGauge": 0
+      },
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0.001,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 0,
+        "continuity.ambientPressure": 50000,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1500
+      }
+    },
+    {
+      "name": "retained-water-upper-bound",
+      "width": 390,
+      "station": "hull",
+      "edits": {
+        "retainedWaterMass": 1000
+      },
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 400,
+        "hull.retainedWaterMass": 1000,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "retained-water-impossible-volume-rejected",
+      "width": 390,
+      "station": "hull",
+      "checked": [
+        {
+          "invalidModelCleared": true,
+          "error": "Retained water exceeds the whole-box capacity upper bound at the declared fluid density. This bound does not subtract shell or cargo volume."
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "name": "negative-height",
+      "width": 390,
+      "station": "hydrostatics",
+      "edits": {
+        "topPressure": 150000
+      },
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 101325,
+        "hydrostatics.topPressure": 150000,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "vacuum-bound",
+      "width": 390,
+      "station": "hydrostatics",
+      "edits": {
+        "topPressure": 0
+      },
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 101325,
+        "hydrostatics.topPressure": 0,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "pressure-lowered",
+      "width": 390,
+      "station": "hydrostatics",
+      "edits": {
+        "ambientPressure": 80000
+      },
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 80000,
+        "hydrostatics.topPressure": 2350,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "inverse-area-ratio",
+      "width": 390,
+      "station": "pistons",
+      "edits": {
+        "areaIn": 0.004,
+        "areaOut": 0.002,
+        "strokeIn": 0.1
+      },
+      "checked": [
+        {
+          "geometry": "pistons"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pistons.areaIn": 0.004,
+        "pistons.areaOut": 0.002,
+        "pistons.forceIn": 50,
+        "pistons.strokeIn": 0.1
+      }
+    },
+    {
+      "name": "overloaded",
+      "width": 390,
+      "station": "hull",
+      "edits": {
+        "retainedWaterMass": 600
+      },
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 400,
+        "hull.retainedWaterMass": 600,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "neutral",
+      "width": 390,
+      "station": "hull",
+      "edits": {
+        "cargoMass": 800
+      },
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 800,
+        "hull.retainedWaterMass": 0,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "reverse",
+      "width": 390,
+      "station": "pipe",
+      "edits": {
+        "pressureDrop": -2
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": -2
+      }
+    },
+    {
+      "name": "zero",
+      "width": 390,
+      "station": "pipe",
+      "edits": {
+        "pressureDrop": 0
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 0
+      }
+    },
+    {
+      "name": "radius-doubled",
+      "width": 390,
+      "station": "pipe",
+      "edits": {
+        "radius": 0.01
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.01,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 1
+      }
+    },
+    {
+      "name": "viscosity20",
+      "width": 390,
+      "station": "pipe",
+      "edits": {
+        "mu": 0.02
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.02,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 1
+      }
+    },
+    {
+      "name": "downstream4",
+      "width": 390,
+      "station": "boundary",
+      "edits": {
+        "x": 2
+      },
+      "checked": [
+        {
+          "series": "blasius-u",
+          "points": 121
+        },
+        {
+          "series": "boundary-growth",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "boundary.speed": 1,
+        "boundary.nu": 0.000015,
+        "boundary.x": 2,
+        "boundary.rho": 1.2,
+        "boundary.probeEta": 3
+      }
+    },
+    {
+      "name": "probe-wall",
+      "width": 390,
+      "station": "boundary",
+      "edits": {
+        "probeEta": 0
+      },
+      "checked": [
+        {
+          "series": "blasius-u",
+          "points": 121
+        },
+        {
+          "series": "boundary-growth",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "boundary.speed": 1,
+        "boundary.nu": 0.000015,
+        "boundary.x": 0.5,
+        "boundary.rho": 1.2,
+        "boundary.probeEta": 0
+      }
+    },
+    {
+      "name": "rise",
+      "width": 390,
+      "station": "settling",
+      "edits": {
+        "particleDensity": 700
+      },
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 700,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.001,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "neutral",
+      "width": 390,
+      "station": "settling",
+      "edits": {
+        "particleDensity": 1000
+      },
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 1000,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.001,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "viscosity20",
+      "width": 390,
+      "station": "settling",
+      "edits": {
+        "mu": 0.02
+      },
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 7800,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.02,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "negative-lift",
+      "width": 390,
+      "station": "lift",
+      "edits": {
+        "alphaDegrees": -5
+      },
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.12,
+        "lift.alphaDegrees": -5,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "zero-lift",
+      "width": 390,
+      "station": "lift",
+      "edits": {
+        "alphaDegrees": 0
+      },
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.12,
+        "lift.alphaDegrees": 0,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "thin-limit",
+      "width": 390,
+      "station": "lift",
+      "edits": {
+        "epsilon": 0.05,
+        "alphaDegrees": 10
+      },
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.05,
+        "lift.alphaDegrees": 10,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "reference",
+      "width": 390,
+      "station": "plume",
+      "edits": {
+        "height": 1
+      },
+      "checked": [
+        {
+          "series": "plume-u",
+          "points": 101
+        },
+        {
+          "series": "plume-b",
+          "points": 101
+        },
+        {
+          "series": "plume-re",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "plume.referenceSpeed": 1,
+        "plume.referenceWidth": 0.1,
+        "plume.height": 1,
+        "plume.nu": 0.000015
+      }
+    },
+    {
+      "name": "height16",
+      "width": 390,
+      "station": "plume",
+      "edits": {
+        "height": 16
+      },
+      "checked": [
+        {
+          "series": "plume-u",
+          "points": 101
+        },
+        {
+          "series": "plume-b",
+          "points": 101
+        },
+        {
+          "series": "plume-re",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "plume.referenceSpeed": 1,
+        "plume.referenceWidth": 0.1,
+        "plume.height": 16,
+        "plume.nu": 0.000015
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "continuity",
+      "edits": {},
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0.0004,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 50000,
+        "continuity.ambientPressure": 101325,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1000
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "hydrostatics",
+      "edits": {},
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 101325,
+        "hydrostatics.topPressure": 2350,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "pistons",
+      "edits": {},
+      "checked": [
+        {
+          "geometry": "pistons"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pistons.areaIn": 0.001,
+        "pistons.areaOut": 0.02,
+        "pistons.forceIn": 50,
+        "pistons.strokeIn": 0.2
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "hull",
+      "edits": {},
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 400,
+        "hull.retainedWaterMass": 0,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "pipe",
+      "edits": {},
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 1
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "boundary",
+      "edits": {},
+      "checked": [
+        {
+          "series": "blasius-u",
+          "points": 121
+        },
+        {
+          "series": "boundary-growth",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "boundary.speed": 1,
+        "boundary.nu": 0.000015,
+        "boundary.x": 0.5,
+        "boundary.rho": 1.2,
+        "boundary.probeEta": 3
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "settling",
+      "edits": {},
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 7800,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.001,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "lift",
+      "edits": {},
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.12,
+        "lift.alphaDegrees": 5,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "baseline",
+      "width": 1440,
+      "station": "plume",
+      "edits": {},
+      "checked": [
+        {
+          "series": "plume-u",
+          "points": 101
+        },
+        {
+          "series": "plume-b",
+          "points": 101
+        },
+        {
+          "series": "plume-re",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "plume.referenceSpeed": 1,
+        "plume.referenceWidth": 0.1,
+        "plume.height": 8,
+        "plume.nu": 0.000015
+      }
+    },
+    {
+      "name": "exact-quiz",
+      "width": 1440,
+      "station": "continuity",
+      "edits": {
+        "flow": 0.0008
+      },
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0.0008,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 50000,
+        "continuity.ambientPressure": 101325,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1000
+      }
+    },
+    {
+      "name": "zero-flow",
+      "width": 1440,
+      "station": "continuity",
+      "edits": {
+        "flow": 0
+      },
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 50000,
+        "continuity.ambientPressure": 101325,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1000
+      }
+    },
+    {
+      "name": "vapor-limit-violated",
+      "width": 1440,
+      "station": "continuity",
+      "edits": {
+        "flow": 0.001,
+        "rho": 1500,
+        "ambientPressure": 50000,
+        "inletGauge": 0
+      },
+      "checked": [
+        {
+          "series": "venturi-upper",
+          "points": 6
+        },
+        {
+          "series": "venturi-lower",
+          "points": 6
+        },
+        {
+          "speedAndHeadMarkers": 6
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "continuity.flow": 0.001,
+        "continuity.areaIn": 0.0004,
+        "continuity.areaThroat": 0.0001,
+        "continuity.inletGauge": 0,
+        "continuity.ambientPressure": 50000,
+        "continuity.vaporPressure": 2350,
+        "continuity.rho": 1500
+      }
+    },
+    {
+      "name": "retained-water-upper-bound",
+      "width": 1440,
+      "station": "hull",
+      "edits": {
+        "retainedWaterMass": 1000
+      },
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 400,
+        "hull.retainedWaterMass": 1000,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "retained-water-impossible-volume-rejected",
+      "width": 1440,
+      "station": "hull",
+      "checked": [
+        {
+          "invalidModelCleared": true,
+          "error": "Retained water exceeds the whole-box capacity upper bound at the declared fluid density. This bound does not subtract shell or cargo volume."
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "name": "negative-height",
+      "width": 1440,
+      "station": "hydrostatics",
+      "edits": {
+        "topPressure": 150000
+      },
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 101325,
+        "hydrostatics.topPressure": 150000,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "vacuum-bound",
+      "width": 1440,
+      "station": "hydrostatics",
+      "edits": {
+        "topPressure": 0
+      },
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 101325,
+        "hydrostatics.topPressure": 0,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "pressure-lowered",
+      "width": 1440,
+      "station": "hydrostatics",
+      "edits": {
+        "ambientPressure": 80000
+      },
+      "checked": [
+        {
+          "series": "absolute-pressure",
+          "points": 51
+        },
+        {
+          "series": "gauge-pressure",
+          "points": 51
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hydrostatics.ambientPressure": 80000,
+        "hydrostatics.topPressure": 2350,
+        "hydrostatics.vaporPressure": 2350,
+        "hydrostatics.rho": 1000
+      }
+    },
+    {
+      "name": "inverse-area-ratio",
+      "width": 1440,
+      "station": "pistons",
+      "edits": {
+        "areaIn": 0.004,
+        "areaOut": 0.002,
+        "strokeIn": 0.1
+      },
+      "checked": [
+        {
+          "geometry": "pistons"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pistons.areaIn": 0.004,
+        "pistons.areaOut": 0.002,
+        "pistons.forceIn": 50,
+        "pistons.strokeIn": 0.1
+      }
+    },
+    {
+      "name": "overloaded",
+      "width": 1440,
+      "station": "hull",
+      "edits": {
+        "retainedWaterMass": 600
+      },
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 400,
+        "hull.retainedWaterMass": 600,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "neutral",
+      "width": 1440,
+      "station": "hull",
+      "edits": {
+        "cargoMass": 800
+      },
+      "checked": [
+        {
+          "geometry": "hull"
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "hull.length": 1,
+        "hull.width": 1,
+        "hull.height": 1,
+        "hull.dryMass": 200,
+        "hull.cargoMass": 800,
+        "hull.retainedWaterMass": 0,
+        "hull.rho": 1000
+      }
+    },
+    {
+      "name": "reverse",
+      "width": 1440,
+      "station": "pipe",
+      "edits": {
+        "pressureDrop": -2
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": -2
+      }
+    },
+    {
+      "name": "zero",
+      "width": 1440,
+      "station": "pipe",
+      "edits": {
+        "pressureDrop": 0
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 0
+      }
+    },
+    {
+      "name": "radius-doubled",
+      "width": 1440,
+      "station": "pipe",
+      "edits": {
+        "radius": 0.01
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.01,
+        "pipe.length": 1,
+        "pipe.mu": 0.001,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 1
+      }
+    },
+    {
+      "name": "viscosity20",
+      "width": 1440,
+      "station": "pipe",
+      "edits": {
+        "mu": 0.02
+      },
+      "checked": [
+        {
+          "series": "pipe-velocity",
+          "points": 201
+        },
+        {
+          "series": "annular-flux",
+          "points": 101
+        },
+        {
+          "series": "pipe-shear",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "pipe.radius": 0.005,
+        "pipe.length": 1,
+        "pipe.mu": 0.02,
+        "pipe.rho": 1000,
+        "pipe.pressureDrop": 1
+      }
+    },
+    {
+      "name": "downstream4",
+      "width": 1440,
+      "station": "boundary",
+      "edits": {
+        "x": 2
+      },
+      "checked": [
+        {
+          "series": "blasius-u",
+          "points": 121
+        },
+        {
+          "series": "boundary-growth",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "boundary.speed": 1,
+        "boundary.nu": 0.000015,
+        "boundary.x": 2,
+        "boundary.rho": 1.2,
+        "boundary.probeEta": 3
+      }
+    },
+    {
+      "name": "probe-wall",
+      "width": 1440,
+      "station": "boundary",
+      "edits": {
+        "probeEta": 0
+      },
+      "checked": [
+        {
+          "series": "blasius-u",
+          "points": 121
+        },
+        {
+          "series": "boundary-growth",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "boundary.speed": 1,
+        "boundary.nu": 0.000015,
+        "boundary.x": 0.5,
+        "boundary.rho": 1.2,
+        "boundary.probeEta": 0
+      }
+    },
+    {
+      "name": "rise",
+      "width": 1440,
+      "station": "settling",
+      "edits": {
+        "particleDensity": 700
+      },
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 700,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.001,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "neutral",
+      "width": 1440,
+      "station": "settling",
+      "edits": {
+        "particleDensity": 1000
+      },
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 1000,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.001,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "viscosity20",
+      "width": 1440,
+      "station": "settling",
+      "edits": {
+        "mu": 0.02
+      },
+      "checked": [
+        {
+          "series": "settling-velocity",
+          "points": 121
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "settling.radius": 0.00001,
+        "settling.particleDensity": 7800,
+        "settling.fluidDensity": 1000,
+        "settling.mu": 0.02,
+        "settling.timeFactor": 3
+      }
+    },
+    {
+      "name": "negative-lift",
+      "width": 1440,
+      "station": "lift",
+      "edits": {
+        "alphaDegrees": -5
+      },
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.12,
+        "lift.alphaDegrees": -5,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "zero-lift",
+      "width": 1440,
+      "station": "lift",
+      "edits": {
+        "alphaDegrees": 0
+      },
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.12,
+        "lift.alphaDegrees": 0,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "thin-limit",
+      "width": 1440,
+      "station": "lift",
+      "edits": {
+        "epsilon": 0.05,
+        "alphaDegrees": 10
+      },
+      "checked": [
+        {
+          "series": "airfoil-outline",
+          "points": 361
+        },
+        {
+          "series": "upper-Cp",
+          "points": 360
+        },
+        {
+          "series": "lower-Cp",
+          "points": 360
+        },
+        {
+          "pressureArrows": 24
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "lift.chord": 1,
+        "lift.epsilon": 0.05,
+        "lift.alphaDegrees": 10,
+        "lift.speed": 20,
+        "lift.rho": 1.2
+      }
+    },
+    {
+      "name": "reference",
+      "width": 1440,
+      "station": "plume",
+      "edits": {
+        "height": 1
+      },
+      "checked": [
+        {
+          "series": "plume-u",
+          "points": 101
+        },
+        {
+          "series": "plume-b",
+          "points": 101
+        },
+        {
+          "series": "plume-re",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "plume.referenceSpeed": 1,
+        "plume.referenceWidth": 0.1,
+        "plume.height": 1,
+        "plume.nu": 0.000015
+      }
+    },
+    {
+      "name": "height16",
+      "width": 1440,
+      "station": "plume",
+      "edits": {
+        "height": 16
+      },
+      "checked": [
+        {
+          "series": "plume-u",
+          "points": 101
+        },
+        {
+          "series": "plume-b",
+          "points": 101
+        },
+        {
+          "series": "plume-re",
+          "points": 101
+        }
+      ],
+      "horizontalOverflow": false,
+      "controlValues": {
+        "plume.referenceSpeed": 1,
+        "plume.referenceWidth": 0.1,
+        "plume.height": 16,
+        "plume.nu": 0.000015
+      }
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    {
+      "file": "independent-390-continuity.png",
+      "sha256": "e496602926a7b9447e1dc5a4bfcfb09360a5bb3e1ab36202d0c2f53209bd0b76"
+    },
+    {
+      "file": "independent-390-hydrostatics.png",
+      "sha256": "2eab8bd9c94ee9359952ee0ad15058f1b1a79aa8e5f27265af366a49192245fc"
+    },
+    {
+      "file": "independent-390-pistons.png",
+      "sha256": "ef17e6ec351579c0c1db6f9e46125dce706bf5d59e82bdf07d2a2909f0042049"
+    },
+    {
+      "file": "independent-390-hull.png",
+      "sha256": "3e758554a8fddfc4d9fb6d510fe8061289962101b0ba6baafc3c5fd012282aba"
+    },
+    {
+      "file": "independent-390-pipe.png",
+      "sha256": "d21365c0d9d33f98d36e7542b2fa2e8a08da2dd86dd216cdd84bc70c65627317"
+    },
+    {
+      "file": "independent-390-boundary.png",
+      "sha256": "70d3a53f94b740ba0f43715fa34e22edc72f2dfe4e874ad1ce25114518d1af97"
+    },
+    {
+      "file": "independent-390-settling.png",
+      "sha256": "74835f0a72c480d1bf037fe90288be2ef07ee7206995097f517d678b39c57de2"
+    },
+    {
+      "file": "independent-390-lift.png",
+      "sha256": "c13db47ef76afed96cdbb0cd3ffd87d6c7b1dd24b0dac439c2351426ae7c4510"
+    },
+    {
+      "file": "independent-390-plume.png",
+      "sha256": "58f5fc9233f8ed1c5fa153ce68fc362fe261b9042067075f6ac32aa1aac13ed2"
+    },
+    {
+      "file": "independent-1440-continuity.png",
+      "sha256": "4865bc0f9907a8810243c8f80f6aab030da5b04135d54d84c35da02709230e0b"
+    },
+    {
+      "file": "independent-1440-hydrostatics.png",
+      "sha256": "e9ac32dba3dd5e6d3ca5fedc559f30b529602f8c845a7824d888b3dba574c19a"
+    },
+    {
+      "file": "independent-1440-pistons.png",
+      "sha256": "882dc8cca3a2c067ee1375aec08fc3d474f08370cb3877e47300adfa162bba5d"
+    },
+    {
+      "file": "independent-1440-hull.png",
+      "sha256": "db226537ff241b0f4f70fdd3b781f70ec0f9579c91d0d29f222f2e56f8f3eda6"
+    },
+    {
+      "file": "independent-1440-pipe.png",
+      "sha256": "7148e0199c15100c673da160992c66119e845a14ea44c34b5b286b24846933c0"
+    },
+    {
+      "file": "independent-1440-boundary.png",
+      "sha256": "5f5d59706e9535d88f21055c2786344d58c61b07a7a2f6284a13efa0108b0a57"
+    },
+    {
+      "file": "independent-1440-settling.png",
+      "sha256": "ab48d7e408180908f352c6d65e6d38ce60f49407d54b0dd9ebd67614401e6f69"
+    },
+    {
+      "file": "independent-1440-lift.png",
+      "sha256": "163f336191213574163b45efb186afd6ce3efbe2cebf74895a6e537cbbae1f87"
+    },
+    {
+      "file": "independent-1440-plume.png",
+      "sha256": "edf403cc4ac9482490daba84d07c906da041c85038ed444fe243f050640291df"
+    }
+  ],
+  "allPassed": true
+}
