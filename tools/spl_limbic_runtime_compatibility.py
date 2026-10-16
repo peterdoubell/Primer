@@ -91,7 +91,7 @@ STANDALONE_SHA = '81608f66cb5505b3d3fc113e09d851cacfb16913ada8fd5fda5d25245d3f30
 
 
 def validate_refresh(step):
-    """Advance the shared wrapper only with the actual current reader evidence."""
+    """Validate the frozen SPL wrapper proof; later exact additions remain separate."""
     row = reviewed()['files']['web/app.js']
     if (step.get('id') != '2026-10-16-spl-native-limbic-reference'
             or step.get('files') != {'web/app.js': {'before': row['before_sha256'], 'after': row['after_sha256']}}
@@ -136,10 +136,13 @@ def validate_refresh(step):
         raise ValueError('Standalone and actual reader source identities differ')
     if sha((ROOT / 'data/radiology/spl-limbic-reference.json').read_bytes()) != proof['registrySHA256']:
         raise ValueError('Current SPL registry differs from reader evidence')
-    shell = (ROOT / 'web/index.html').read_text()
+    # Reconstruct only the recorded later linear-algebra include/mount. This is a
+    # historical reader view; the current combined application needs its own smoke.
+    from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes
+    shell = before_linear_algebra_bytes('web/index.html', (ROOT / 'web/index.html').read_bytes()).decode()
     scripts = re.findall(r'<script src="/app/([\w-]+\.js)(?:\?[^"<>]*)?"></script>', shell)
     styles = re.findall(r'<link rel="stylesheet" href="/app/([\w-]+\.css)(?:\?[^"<>]*)?">', shell)
-    startup = b"'use strict';\n" + b'\n;\n'.join((ROOT / 'web' / name).read_bytes() for name in scripts)
+    startup = b"'use strict';\n" + b'\n;\n'.join(before_linear_algebra_bytes('web/' + name, (ROOT / 'web' / name).read_bytes()) for name in scripts)
     stylesheet = b'\n'.join((ROOT / 'web' / name).read_bytes() for name in styles)
     if (sha(startup) != proof['startupSHA256'] or len(startup) != proof['startupBytes']
             or sha(stylesheet) != proof['stylesheetSHA256'] or len(stylesheet) != proof['stylesheetBytes']):

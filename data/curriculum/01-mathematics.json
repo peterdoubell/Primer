@@ -5672,6 +5672,16 @@
           "props": {
             "start_transform": "x-shear"
           }
+        },
+        {
+          "id": "explore-linear-maps-and-kernels",
+          "kind": "model",
+          "renderer": "linear-algebra-lab",
+          "title": "Explore linear maps, spaces and powers",
+          "instructions": "Compare matrix action, solution constraints, span, kernels and repeated application. Read exact coordinates alongside each drawing, including all four coordinates in the higher-dimensional example.",
+          "props": {
+            "scenario": "math.4.linalg"
+          }
         }
       ],
       "practice": "matrices",
@@ -5756,15 +5766,15 @@
         },
         {
           "kind": "choice",
-          "prompt": "Suppose a 2-by-2 matrix A has eigenvalues 0.5 and 0.9. Predict what repeatedly applying A does to a typical starting vector.",
-          "answer": "It shrinks toward the origin",
+          "prompt": "A real 2-by-2 matrix A has eigenvalues 0.5 and 0.9. For any fixed starting vector v, what happens to A^n v as n grows without bound?",
+          "answer": "It converges to the zero vector; its length need not decrease at every step.",
           "choices": [
-            "It shrinks toward the origin",
-            "It grows without any bound",
-            "It settles onto the eigenvector with eigenvalue 0.9",
-            "It settles onto a nonzero fixed vector"
+            "It converges to the zero vector; its length need not decrease at every step.",
+            "Its length grows without bound for every nonzero starting vector.",
+            "It converges to a nonzero vector in the 0.9-eigenspace.",
+            "It always reaches the zero vector after finitely many steps."
           ],
-          "explain": "Both eigenvalues have magnitude below one, so every component decays and the vector collapses to the origin. Its direction does line up with the 0.9-eigenvector, but the length still goes to zero, so nothing nonzero survives."
+          "explain": "The distinct real eigenvalues give an eigenbasis. Each coefficient in that basis is multiplied by 0.5^n or 0.9^n, so the vector tends to zero. This is an eventual limit, not a guarantee that Euclidean length decreases at every step: a matrix with nonorthogonal eigenvectors can have transient growth. If the starting vector has a nonzero component in the 0.9-eigendirection, its direction eventually approaches that eigenline; a vector entirely in the 0.5-eigendirection stays on that line."
         },
         {
           "kind": "numeric",

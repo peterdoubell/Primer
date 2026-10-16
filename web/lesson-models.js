@@ -6211,6 +6211,7 @@
     'truth-table-lab': renderTruthTable,
     'stack-queue-lab': renderStackQueue,
     'matrix-transform-lab': renderMatrixTransform,
+    'linear-algebra-lab': (item, hooks) => window.PrimerLinearAlgebraLab?.render(item, hooks, modelFrame(item, hooks)) || null,
     'venturi-flow-lab': renderVenturiFlow,
     'fluids-concept-lab': (item, hooks) => window.PrimerFluidsLab?.render(item, hooks, modelFrame(item, hooks)) || null,
     'gene-expression-stepper': renderGeneExpression,

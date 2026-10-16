@@ -6,15 +6,18 @@ from pathlib import Path
 import pytest
 
 from tools import math_growth_runtime_compatibility as bridge
+from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_exact_inverse_restores_only_four_activity_description_lines():
     proof = json.loads((ROOT / bridge.PROOF).read_bytes())
-    raw = (ROOT / bridge.PATH).read_bytes()
+    current = (ROOT / bridge.PATH).read_bytes()
+    raw = before_linear_algebra_bytes(bridge.PATH, current)
     assert hashlib.sha256(raw).hexdigest() == bridge.AFTER_SHA
     restored = bridge.before_growth_bytes(bridge.PATH, raw)
+    assert bridge.before_growth_bytes(bridge.PATH, current) == restored
     assert hashlib.sha256(restored).hexdigest() == bridge.BEFORE_SHA
     assert bridge.before_growth_bytes(bridge.PATH, restored) == restored
     assert proof['clinical_approval'] is proof['extends_historical_approval'] is False

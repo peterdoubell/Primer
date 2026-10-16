@@ -28,6 +28,8 @@ def reviewed():
 
 
 def before_fluids_bytes(path, raw, allow_older=False):
+    from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes
+    raw = before_linear_algebra_bytes(path, raw, allow_older=True)
     from tools.spl_limbic_runtime_compatibility import before_spl_bytes
     raw = before_spl_bytes(path, raw, allow_older=True)
     path = str(path)

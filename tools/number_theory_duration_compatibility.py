@@ -26,7 +26,10 @@ def semantic(value):
 
 
 def current_corpus():
-    return {str(path.relative_to(ROOT)): path.read_bytes() for path in sorted((ROOT / 'data/curriculum').glob('*.json'))}
+    # Current view at the frozen fluids review, undoing only the later exact linear-algebra addition.
+    from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes
+    return {str(path.relative_to(ROOT)): before_linear_algebra_bytes(str(path.relative_to(ROOT)), path.read_bytes())
+            for path in sorted((ROOT / 'data/curriculum').glob('*.json'))}
 
 
 def character_count(node):
@@ -109,10 +112,13 @@ def reviewed():
 
 def historical_number_theory_duration(lesson, corpus=None):
     proof = reviewed()
+    from tools.linear_algebra_runtime_compatibility import before_linear_algebra_bytes, before_linear_algebra_duration_fields
+    if semantic(lesson) != HISTORICAL_SEMANTIC:
+        lesson = before_linear_algebra_duration_fields(lesson)
     from tools.fluids_runtime_compatibility import PROOF_SHA as fluids_pin
     if fluids_pin != proof['fluids_inverse_sha256']:
         raise ValueError('Reviewed fluids inverse changed')
-    curriculum_source = (ROOT / 'primer/curriculum.py').read_bytes()
+    curriculum_source = before_linear_algebra_bytes('primer/curriculum.py', (ROOT / 'primer/curriculum.py').read_bytes())
     if sha(curriculum_source) != proof['curriculum_algorithm_sha256']:
         raise ValueError('Product duration algorithm changed')
     corpus = current_corpus() if corpus is None else corpus
