@@ -3,6 +3,7 @@ import copy
 import gzip
 import hashlib
 import json
+import shutil
 from pathlib import Path
 
 import pytest
@@ -11,6 +12,43 @@ from primer.curriculum import Curriculum
 from primer.radiology_catalog import detail, resolve
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_packed_metadata_restores_every_original_JSON_byte_and_record():
+    packed = context.PACKED_REGISTRY.read_bytes()
+    assert hashlib.sha256(packed).hexdigest() == context.PACKED_REGISTRY_SHA256
+    assert gzip.decompress(packed) == context.REGISTRY.read_bytes()
+    group = context.registry()['groups'][context.COMPARISONS]
+    raw = gzip.decompress((ROOT / group['directory'] / 'image-inventory.json.gz').read_bytes())
+    assert raw == (ROOT / 'docs/cardiac-wall-context-review-20261016/comparison-manifest.json').read_bytes()
+    assert len(json.loads(raw)['files']) == 6061
+
+
+def test_thin_production_packet_requires_verified_packed_metadata_and_authored_resources(tmp_path, monkeypatch):
+    data = context.registry()
+    packed = tmp_path / 'data/radiology/cardiac-wall-context.json.gz'
+    packed.parent.mkdir(parents=True)
+    packed.write_bytes(context.PACKED_REGISTRY.read_bytes())
+    for group in data['groups'].values():
+        for name in group['authored']:
+            target = tmp_path / group['directory'] / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / group['directory'] / name, target)
+    monkeypatch.setattr(context, 'ROOT', tmp_path)
+    monkeypatch.setattr(context, 'REGISTRY', tmp_path / 'data/radiology/cardiac-wall-context.json')
+    monkeypatch.setattr(context, 'PACKED_REGISTRY', packed)
+    monkeypatch.setenv('VERCEL', '1')
+    context.registry.cache_clear()
+    context.references.cache_clear()
+    try:
+        assert len(context.references()) == 4
+        packed.write_bytes(b'wrong compressed metadata')
+        context.registry.cache_clear()
+        with pytest.raises(ValueError, match='Packed cardiac registry changed'):
+            context.registry()
+    finally:
+        context.registry.cache_clear()
+        context.references.cache_clear()
 
 
 def test_every_context_resource_matches_its_pinned_original_or_authored_display():
@@ -24,7 +62,7 @@ def test_every_context_resource_matches_its_pinned_original_or_authored_display(
 
 def test_comparison_categories_and_colour_roles_cannot_be_relabelled_native_CT_or_3D():
     group = context.registry()['groups'][context.COMPARISONS]
-    manifest = json.loads(context.validate_file(context.COMPARISONS, 'image-inventory.json').read_bytes())
+    manifest = json.loads(gzip.decompress(context.validate_file(context.COMPARISONS, 'image-inventory.json.gz').read_bytes()))
     assert len(manifest['files']) == 6061
     assert set(manifest['categories']) == set(manifest['paper_defined_categories'])
     assert set(manifest['excluded_additional_categories']) == {'Left atrial appendage', 'Papillary muscle – LV', 'Posterior mitral leaflet'}

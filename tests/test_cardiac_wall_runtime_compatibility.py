@@ -11,7 +11,7 @@ from tools import cardiac_wall_runtime_compatibility as bridge
 ROOT = Path(__file__).resolve().parents[1]
 
 
-@pytest.mark.parametrize('path', ['primer/server.py', 'primer/module_media.py', 'primer/source_native_inspectors.py', 'web/app.js', 'vercel.json'])
+@pytest.mark.parametrize('path', ['primer/server.py', 'primer/module_media.py', 'primer/source_native_inspectors.py', 'web/app.js', 'vercel.json', '.vercelignore'])
 def test_exact_five_file_inverse_cannot_hide_unrelated_byte_changes(path):
     raw = (ROOT / path).read_bytes()
     restored = bridge.before_wall_bytes(path, raw)

@@ -182,17 +182,13 @@
       "prefix": "/app/reference-media/cardiac-comparisons-2020/",
       "authored": [
         "index.html",
-        "image-inventory.json",
+        "image-inventory.json.gz",
         "gallery.js"
       ],
       "files": {
         "index.html": {
           "sha256": "e7b631323816aeefffad048b9f53b6583cbc7e48ae636c4eb78377b0a1558ade",
           "bytes": 2792
-        },
-        "image-inventory.json": {
-          "sha256": "c3baff3dac6159d0e1ccbf73635e72823da52c3682f3edf196e881fa8eaa7c41",
-          "bytes": 2829947
         },
         "images/0008d57bfc2eca128eba3f8f8b7f892b8a25e14fdf00b72b4baacc1cd8ec223a.png": {
           "sha256": "0008d57bfc2eca128eba3f8f8b7f892b8a25e14fdf00b72b4baacc1cd8ec223a",
@@ -24439,8 +24435,12 @@
           "bytes": 58797
         },
         "gallery.js": {
-          "sha256": "b9086c4884b3e15e9377be41654a036070d158d659c2271493cbc2420ffbd583",
-          "bytes": 3190
+          "sha256": "0e2163e057f3efcbe29cb84b9f706b6fb1dc91edfc6c5377c07e2aa1895456f3",
+          "bytes": 3193
+        },
+        "image-inventory.json.gz": {
+          "sha256": "24332ff5ddb7f347224d9d8a0e405a2c047b5e53fc053c9b8fcede47c244c83c",
+          "bytes": 326726
         }
       },
       "inspector": {
@@ -24448,9 +24448,9 @@
         "modality": "CT image comparisons",
         "title": "Original manual-annotation and model-prediction CT comparisons",
         "src": "/app/reference-media/cardiac-comparisons-2020/index.html",
-        "manifest_url": "/app/reference-media/cardiac-comparisons-2020/image-inventory.json",
+        "manifest_url": "/app/reference-media/cardiac-comparisons-2020/image-inventory.json.gz",
         "sha256": "e7b631323816aeefffad048b9f53b6583cbc7e48ae636c4eb78377b0a1558ade",
-        "manifest_sha256": "c3baff3dac6159d0e1ccbf73635e72823da52c3682f3edf196e881fa8eaa7c41",
+        "manifest_sha256": "24332ff5ddb7f347224d9d8a0e405a2c047b5e53fc053c9b8fcede47c244c83c",
         "caption": "All 6,061 original paired PNGs in eight methods-defined categories remain available. Green is the paper's manual annotation and red its model prediction; neither is a current-patient finding or independent clinical approval. These published 512 by 256 comparisons do not provide raw CT values, calibrated measurements, physical slice spacing or 3D masks. Three additional archive categories with unverified definitions are excluded.",
         "attribution": "Baskaran L and colleagues (2020). Automatic segmentation of multiple cardiovascular structures from cardiac computed tomography angiography images using deep learning. DOI 10.1371/journal.pone.0232573; dataset DOI 10.5061/dryad.9s4mw6mc9. CC0 1.0 source PNGs unchanged.",
         "source_url": "https://zenodo.org/records/3863028",

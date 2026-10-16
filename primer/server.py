@@ -3850,6 +3850,9 @@ async def cardiac_wall_context_delivery(identifier: str, asset: str, request: Re
     if asset not in group['authored'] and os.environ.get('VERCEL'):
         return RedirectResponse('/source-media/' + group['directory'].removeprefix('web/') + '/' + asset,
                                 status_code=307, headers={'Cache-Control': 'private, no-store'})
+    if identifier == 'baskaran-2020-cardiac-comparisons' and asset == 'image-inventory.json.gz':
+        return Response(validate_file(identifier, asset).read_bytes(), media_type='application/json',
+                        headers={'Content-Encoding': 'gzip', 'Cache-Control': 'private, no-store'})
     response = await app.state.source_static.get_response(group['directory'].removeprefix('web/') + '/' + asset, request.scope)
     response.headers['Cache-Control'] = 'private, no-store'
     if asset == 'index.html':

@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/cardiac-wall-context-review-20261016/integration/runtime-inverse.json'
-PROOF_SHA = '59cf44e4a5f9fbe9a89335c8a4bd3fbddb75d4bc52babb5430c77a38359f72ca'
+PROOF_SHA = 'e766b39ef9b1be1ef09a4356829fb211b74e8db3ce7cca7acf45b987d1e6f2ad'
 LESSONS = {'rad.5.pleura': 'ra.thoracic-ultrasound', 'rad.5.cardiac-mri': 'ra.mri-cardiomyopathy',
            'rad.5.coronary-ct': 'ra.ct-coronary', 'rad.5.cardiac-masses-devices': 'ra.cardiac-masses'}
 NEW_INSTRUCTIONS = 'Inspect each cardiac source separately: original v1 CT and LV-myocardium/chamber labels, curated wall/cusp/papillary objects, and published CT comparison PNGs. In the methods-defined comparisons, green is manual annotation and red is model prediction. Source defects, incomplete anatomy, unverified MRI signal/function and absent current-patient registration remain explicit.'

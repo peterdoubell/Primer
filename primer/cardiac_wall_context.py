@@ -1,5 +1,6 @@
 """Separate original cardiac source contexts; no anatomical/clinical approval transfer."""
 import hashlib
+import gzip
 import json
 import os
 from functools import lru_cache
@@ -7,7 +8,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / 'data/radiology/cardiac-wall-context.json'
-REGISTRY_SHA256 = '930fc4c912f02f9f571e0c1a84d2e7861bb13a1f177ebbf7f730fd55621328eb'
+REGISTRY_SHA256 = '1c29f2a086ffc16155c1cf3ce78ea18d78764a386ac12372abb81b64086e0c16'
+PACKED_REGISTRY = ROOT / 'data/radiology/cardiac-wall-context.json.gz'
+PACKED_REGISTRY_SHA256 = 'f289c8f640e47e01cc5d4c582bb5f211471e81a7297306bbd1ead59fe6a30ae5'
 CURATED = 'bp3d-cardiac-original-context'
 COMPARISONS = 'baskaran-2020-cardiac-comparisons'
 GROUPS = {CURATED, COMPARISONS}
@@ -18,7 +21,12 @@ FLAGS = ('clinical_approval', 'fine_anatomical_approval', 'current_patient_regis
 
 @lru_cache(maxsize=1)
 def registry():
-    raw = REGISTRY.read_bytes()
+    packed = PACKED_REGISTRY.read_bytes()
+    if hashlib.sha256(packed).hexdigest() != PACKED_REGISTRY_SHA256:
+        raise ValueError('Packed cardiac registry changed')
+    raw = gzip.decompress(packed)
+    if REGISTRY.exists() and REGISTRY.read_bytes() != raw:
+        raise ValueError('Original and packed cardiac registries differ')
     if hashlib.sha256(raw).hexdigest() != REGISTRY_SHA256:
         raise ValueError('Cardiac wall context registry changed')
     data = json.loads(raw)
@@ -32,7 +40,7 @@ def registry():
                         {'index.html', 'reference.js', 'manifest.json'}, 31)
         else:
             expected = ('web/reference-media/cardiac-comparisons-2020', '/app/reference-media/cardiac-comparisons-2020/',
-                        {'index.html', 'image-inventory.json', 'gallery.js'}, 6064)
+                        {'index.html', 'image-inventory.json.gz', 'gallery.js'}, 6064)
         if (row['directory'], row['prefix'], set(row['authored']), len(row['files'])) != expected:
             raise ValueError('Cardiac wall context resource scope differs')
     return data
@@ -63,7 +71,7 @@ def references():
         for asset in group['files']:
             validate_file(identifier, asset)
         item = group['inspector']
-        manifest_name = 'manifest.json' if identifier == CURATED else 'image-inventory.json'
+        manifest_name = 'manifest.json' if identifier == CURATED else 'image-inventory.json.gz'
         if (item.get('id') != identifier or item.get('src') != group['prefix'] + 'index.html'
                 or item.get('manifest_url') != group['prefix'] + manifest_name
                 or item.get('bound_source_ids') != [identifier]
@@ -72,7 +80,8 @@ def references():
                 or item.get('manifest_sha256') != group['files'][manifest_name]['sha256']
                 or any(item.get(flag) is not False for flag in FLAGS)):
             raise ValueError('Cardiac wall context identity/approval differs')
-        manifest = json.loads(validate_file(identifier, manifest_name).read_bytes())
+        manifest_raw = validate_file(identifier, manifest_name).read_bytes()
+        manifest = json.loads(gzip.decompress(manifest_raw) if manifest_name.endswith('.gz') else manifest_raw)
         if identifier == CURATED:
             if (len(manifest['parts']) != 14 or sum(p['faces'] for p in manifest['parts']) != 72572
                     or manifest['clinical_approval'] is not False

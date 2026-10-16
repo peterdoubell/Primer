@@ -6,13 +6,13 @@
   "files": {
     "primer/server.py": {
       "before_sha256": "08d0aa84173f7254a9d25e0e949ca7b8b9b905aa7a1fdd685bc77ce4bc849aef",
-      "after_sha256": "120a5077b190a9f4c9c41266a72f0b846a777a76209e8ea3cc63ede970b0afc0",
+      "after_sha256": "376d66f4363858185339d61d2c6ba00f1dd296d930a00570894b5498e93c899f",
       "changes": [
         {
           "start": 3841,
-          "end": 3871,
+          "end": 3874,
           "before": "",
-          "after": "async def cardiac_wall_context_delivery(identifier: str, asset: str, request: Request):\n    from .cardiac_wall_context import registry, references, validate_file\n    group = registry()['groups'][identifier]\n    src = group['prefix'] + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in group['files']:\n        return JSONResponse({'detail': 'Unknown cardiac context resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(identifier, asset)\n    if asset not in group['authored'] and os.environ.get('VERCEL'):\n        return RedirectResponse('/source-media/' + group['directory'].removeprefix('web/') + '/' + asset,\n                                status_code=307, headers={'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response(group['directory'].removeprefix('web/') + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n        if identifier == 'baskaran-2020-cardiac-comparisons':\n            response.headers['Content-Security-Policy'] = response.headers['Content-Security-Policy'].replace(\"img-src 'self' data: \", \"img-src 'self' data: blob: \")\n    return response\n\n\n@app.api_route(\"/app/anatomy/bp3d-cardiac-4.3/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def cardiac_curated_context_delivery(asset: str, request: Request):\n    return await cardiac_wall_context_delivery('bp3d-cardiac-original-context', asset, request)\n\n\n@app.api_route(\"/app/reference-media/cardiac-comparisons-2020/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def cardiac_comparison_context_delivery(asset: str, request: Request):\n    return await cardiac_wall_context_delivery('baskaran-2020-cardiac-comparisons', asset, request)\n\n\n"
+          "after": "async def cardiac_wall_context_delivery(identifier: str, asset: str, request: Request):\n    from .cardiac_wall_context import registry, references, validate_file\n    group = registry()['groups'][identifier]\n    src = group['prefix'] + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in group['files']:\n        return JSONResponse({'detail': 'Unknown cardiac context resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(identifier, asset)\n    if asset not in group['authored'] and os.environ.get('VERCEL'):\n        return RedirectResponse('/source-media/' + group['directory'].removeprefix('web/') + '/' + asset,\n                                status_code=307, headers={'Cache-Control': 'private, no-store'})\n    if identifier == 'baskaran-2020-cardiac-comparisons' and asset == 'image-inventory.json.gz':\n        return Response(validate_file(identifier, asset).read_bytes(), media_type='application/json',\n                        headers={'Content-Encoding': 'gzip', 'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response(group['directory'].removeprefix('web/') + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n        if identifier == 'baskaran-2020-cardiac-comparisons':\n            response.headers['Content-Security-Policy'] = response.headers['Content-Security-Policy'].replace(\"img-src 'self' data: \", \"img-src 'self' data: blob: \")\n    return response\n\n\n@app.api_route(\"/app/anatomy/bp3d-cardiac-4.3/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def cardiac_curated_context_delivery(asset: str, request: Request):\n    return await cardiac_wall_context_delivery('bp3d-cardiac-original-context', asset, request)\n\n\n@app.api_route(\"/app/reference-media/cardiac-comparisons-2020/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def cardiac_comparison_context_delivery(asset: str, request: Request):\n    return await cardiac_wall_context_delivery('baskaran-2020-cardiac-comparisons', asset, request)\n\n\n"
         }
       ]
     },
@@ -133,6 +133,18 @@
           "end": 124,
           "before": "",
           "after": "      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/anatomy/bp3d-cardiac-4.3/{originals,transport}/**\",\n      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/reference-media/cardiac-comparisons-2020/images/**\",\n"
+        }
+      ]
+    },
+    ".vercelignore": {
+      "before_sha256": "634cc43f353020ee835582b6bc17380d2b1212eafba2eac7634788e30595b73e",
+      "after_sha256": "b9832da1b95f185568b1b7c2730ce23013575ca9a4f388eee87f4992bc0e148c",
+      "changes": [
+        {
+          "start": 71,
+          "end": 74,
+          "before": "",
+          "after": "\n# Original cardiac context registry remains offline; runtime uses byte-verified lossless gzip.\ndata/radiology/cardiac-wall-context.json\n"
         }
       ]
     }
