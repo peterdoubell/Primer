@@ -51,9 +51,31 @@ def test_all_other_effective_reporting_contracts_preserved():
             continue
         ref = catalog.detail(curriculum, catalog.resolve(row['id']))['radiology_reference']
         from tools.thoracic_data_compatibility import restore_contract
-        assert restore_contract(row['id'], {key: ref.get(key) for key in ('reporting', 'report_templates', 'walkthrough', 'reading')}) == row['contract']
+        from tools.hippunfold_runtime_compatibility import restore_prior_contract
+        historical = restore_prior_contract(row['id'], {key: ref.get(key) for key in ('reporting', 'report_templates', 'walkthrough', 'reading')})
+        assert restore_contract(row['id'], historical) == row['contract']
         count += 1
     assert count == 135
+
+
+def test_hippunfold_contract_inverse_rejects_unreviewed_local_and_unrelated_changes():
+    from tools import hippunfold_runtime_compatibility as bridge
+    identifier = 'ra.mri-epilepsy'
+    row = bridge.reviewed()['contracts'][identifier]
+    original = copy.deepcopy(row['after'])
+    assert bridge.restore_prior_contract(identifier, original) == row['before']
+    assert original == row['after']
+    assert bridge.restore_prior_contract(identifier, row['before']) == row['before']
+    for field in ['walkthrough', 'reading']:
+        changed = copy.deepcopy(original)
+        if field == 'walkthrough':
+            changed[field]['steps'][1]['tip'] += ' Unreviewed subtype claim.'
+        else:
+            changed[field].append({'unreviewed': True})
+        with pytest.raises(ValueError, match='effective contract value'):
+            bridge.restore_prior_contract(identifier, changed)
+    unrelated = {'unreviewed': 'must remain visible to its own historical comparison'}
+    assert bridge.restore_prior_contract('another-investigation', unrelated) == unrelated
 
 
 def test_shared_lesson_and_report_keep_same_exact_source_and_no_part_highlights():

@@ -35,6 +35,8 @@ def test_complete_amended_questions_and_unfilled_reporting_scope():
 
 def test_all_other_effective_contracts_and_original_inventory_entries_preserved():
     current=build_scope();lookup={r['id']:r['reporting_contract_sha256'] for r in current['investigations']}
+    from tools.hippunfold_runtime_compatibility import restore_prior_contracts
+    lookup=restore_prior_contracts(lookup)
     base=json.loads((REVIEW/'baseline-effective-contracts.json').read_text())
     assert len(base['investigations'])==len(lookup)==136
     assert [r['id'] for r in base['investigations'] if r['sha256']!=lookup[r['id']]]==['ra.thoracic-ultrasound','ra.ct-pulmonary-nodules']

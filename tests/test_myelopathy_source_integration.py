@@ -202,6 +202,20 @@ def test_unrelated_json_values_and_references_keep_frozen_semantics(source):
   assert tokens==expect['unrelated_value_token_fingerprints']
 
 
+@pytest.mark.parametrize('prefix',['','walkthrough:'])
+def test_hippunfold_comparison_accepts_only_one_exact_existing_token_namespace(prefix):
+ from tools import hippunfold_runtime_compatibility as bridge
+ path='data/radiology/reporting-steps/neuroradiology.json';row=bridge.reviewed()['data_values'][path]
+ data=json.loads((ROOT/path).read_text());key=prefix+row['token_key']
+ tokens={key:row['after_raw_token_sha256'],'unrelated':'f'*64}
+ restored,prior=bridge.restore_prior_view(path,data,tokens)
+ assert restored['investigations'][row['investigation_id']]==row['before']
+ assert prior=={key:row['before_raw_token_sha256'],'unrelated':'f'*64}
+ assert tokens[key]==row['after_raw_token_sha256']
+ for altered in ({}, {row['token_key']:row['after_raw_token_sha256'],'walkthrough:'+row['token_key']:row['after_raw_token_sha256']}, {key:'0'*64}):
+  with pytest.raises(ValueError,match='raw value token'):bridge.restore_prior_view(path,data,altered)
+
+
 def test_registered_source_images_pdfs_get_head_and_unknown_delivery(source,tmp_path):
  proof,rows,*_=source;requests={r['src']:{'sha256':r['sha256'],'bytes':(ROOT/'web'/r['src'].removeprefix('/app/')).stat().st_size,'pdf':False} for r in rows}
  for article in proof['articles']:

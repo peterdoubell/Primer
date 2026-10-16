@@ -88,7 +88,13 @@ def restore_prior_view(path, data, tokens):
         return data, tokens
     result, prior_tokens = copy.deepcopy(data), dict(tokens)
     value = result['investigations'][row['investigation_id']]
-    token = row['token_key']
+    # Both existing historical callers hash the same original JSON value span;
+    # the myelopathy receipt names that span with an explicit walkthrough prefix.
+    namespaces = [row['token_key'], 'walkthrough:' + row['token_key']]
+    present = [key for key in namespaces if key in prior_tokens]
+    if len(present) != 1:
+        raise ValueError('Unreviewed HippUnfold missing or ambiguous raw value token namespace')
+    token = present[0]
     if value == row['before'] and prior_tokens.get(token) == row['before_raw_token_sha256']:
         return result, prior_tokens
     if value != row['after'] or prior_tokens.get(token) != row['after_raw_token_sha256']:
@@ -96,6 +102,15 @@ def restore_prior_view(path, data, tokens):
     result['investigations'][row['investigation_id']] = copy.deepcopy(row['before'])
     prior_tokens[token] = row['before_raw_token_sha256']
     return result, prior_tokens
+
+
+def restore_prior_contract(identifier, contract):
+    row = reviewed()['contracts'].get(identifier)
+    if row is None or contract == row['before']:
+        return contract
+    if contract != row['after']:
+        raise ValueError('Unreviewed HippUnfold effective contract value')
+    return copy.deepcopy(row['before'])
 
 
 def restore_prior_contracts(contracts):
