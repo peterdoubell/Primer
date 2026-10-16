@@ -5,11 +5,12 @@ import json
 import pytest
 
 from tools import measurement_runtime_compatibility as bridge
+from tools.fluids_runtime_compatibility import before_fluids_bytes
 
 
 @pytest.mark.parametrize('path', sorted(bridge.PATHS))
 def test_each_exact_inverse_recovers_base_bytes_and_is_idempotent(path):
-    raw = (bridge.ROOT / path).read_bytes()
+    raw = before_fluids_bytes(path, (bridge.ROOT / path).read_bytes())
     row = bridge.reviewed()['files'][path]
     assert hashlib.sha256(raw).hexdigest() == row['after_sha256']
     prior = bridge.before_measurement_bytes(path, raw)
@@ -23,7 +24,7 @@ def test_script_and_mount_are_the_only_shared_ui_changes():
     proof = bridge.reviewed()
     for path, literal in [('web/index.html', proof['script_include_literal']),
                           ('web/lesson-models.js', proof['renderer_mount_literal'])]:
-        raw = (bridge.ROOT / path).read_bytes()
+        raw = before_fluids_bytes(path, (bridge.ROOT / path).read_bytes())
         assert raw.count(literal.encode()) == 1
         expected = raw.replace(literal.encode(), b'', 1)
         assert bridge.before_measurement_bytes(path, raw) == expected
@@ -35,7 +36,7 @@ def test_script_and_mount_are_the_only_shared_ui_changes():
 
 def test_quiz_comparison_restores_only_three_recorded_values_and_rejects_other_edits():
     path = 'data/curriculum/03-physics.json'
-    raw = (bridge.ROOT / path).read_bytes()
+    raw = before_fluids_bytes(path, (bridge.ROOT / path).read_bytes())
     current = json.loads(raw)
     before = json.loads(bridge.before_measurement_bytes(path, raw))
     changes = bridge.reviewed()['curriculum_changes']

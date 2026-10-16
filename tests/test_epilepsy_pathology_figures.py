@@ -175,12 +175,15 @@ def test_original_guide_and_existing_figures_are_preserved_with_four_bounded_add
     for key in ['reporting', 'report_templates', 'reading']:
         assert ref.get(key) == baseline['effective_' + key]
     for key in ['key_images', 'source_native_inspectors', 'source_anatomy_references', 'spatial_model']:
-        assert ref.get(key) == baseline[key]
+        from tools.spl_limbic_runtime_compatibility import before_spl_reference_fields
+        assert before_spl_reference_fields(INV, ref).get(key) == baseline[key]
     assert {r['id'] for r in ref['structure_atlas']} == {r['id'] for r in figures().values()}
     for change in plan:
         index = int(change['json_pointer'].split('/')[4])
         assert ref['walkthrough']['steps'][index]['images'] == change['proposed_after']
     media = curriculum.node('rad.5.epilepsy-mri')['lesson_media']
+    from tools.spl_limbic_runtime_compatibility import before_spl_lesson_fields
+    media = before_spl_lesson_fields('rad.5.epilepsy-mri', {'lesson_media': media})['lesson_media']
     galleries = [m for m in media if m['kind'] == 'source-gallery']
     assert len(galleries) == 1 and galleries[0]['investigation_ids'] == [INV]
     assert [m for m in media if m['kind'] != 'source-gallery'] == baseline['lesson_media']

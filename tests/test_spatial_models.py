@@ -22,6 +22,7 @@ def test_spatial_model_geometry_and_curriculum_bindings():
         check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+    assert "FLUIDS_BINDING phys.4.fluids = explore-fluid-forces-and-flow" in result.stdout
     assert "Verified 17 spatial models" in result.stdout
     assert {
         line.removeprefix("COVER ") for line in result.stdout.splitlines()

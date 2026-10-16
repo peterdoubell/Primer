@@ -1,0 +1,199 @@
+{
+  "module_id": "phys.4.fluids",
+  "whole_module_complete": false,
+  "whole_primer_complete": false,
+  "external_reading_bodies_exhaustively_reviewed": false,
+  "status": "bounded_models_and_actual_reader_verified",
+  "requirements": [
+    {
+      "id": "fluids.continuity-bernoulli",
+      "quiz_indices": [
+        1,
+        5
+      ],
+      "acceptance": [
+        "Independent Q=A U and Bernoulli checks for all current geometries.",
+        "Rendered radii squared track area and speed arrows track U; standpipe heights use h=p_g/(ρg) with one datum.",
+        "Future head-loss cases satisfy an explicit energy balance and never create energy or silently clip negative absolute-pressure states."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Maintained-Q uniform-section lossless energy and continuity, circular radius, common speed-arrow scale and pressure head; exact 2/8 m/s and 30 kPa quiz state.",
+      "remaining_scope_limits": "No viscous head-loss solver, real pump operating point or physical diffuser design."
+    },
+    {
+      "id": "fluids.hydrostatics-suction",
+      "quiz_indices": [
+        9
+      ],
+      "acceptance": [
+        "Column height and pressure difference independently reconstruct each other, including pressure-sign/elevation changes.",
+        "At p_atm101325Pa,ρ1000,g9.81,p_top0, h=10.328746m; increasing p_top decreasesheight.",
+        "Atmospheric offset changes absolute pressure but not gauge hydrostatic gradient; show loss terms with correct units."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Pressure integration, absolute versus gauge datum, signed level difference, ideal vacuum and declared saturation constraints.",
+      "remaining_scope_limits": "Static wide-tube case; flow losses, temperature-property fit, capillarity and tensile states are excluded."
+    },
+    {
+      "id": "fluids.hydraulic-pistons",
+      "quiz_indices": [
+        7
+      ],
+      "acceptance": [
+        "10cm²,200cm²,50N gives50kPa and1000N. A0.2m input stroke produces0.01m output stroke and10J each.",
+        "Numerical integration of changing piston volumes equals0; same-height force ratio remains area ratio.",
+        "Nonzero-height pressure signs verified independently; prevent overtravel/negative-volume states."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "50 N on 10 cm² gives 1000 N on 200 cm²; 0.2/0.01 m strokes transfer 10 J. Areas determine real circular radii.",
+      "remaining_scope_limits": "Fixed same-elevation horizontal cylinders only; nonzero-elevation hydraulic work is not simulated."
+    },
+    {
+      "id": "fluids.buoyancy-capacity",
+      "quiz_indices": [
+        2
+      ],
+      "acceptance": [
+        "Independent surface-pressure integration agrees withρg V_sub, including partially submerged faces.",
+        "M600kg,V_total1m³,ρ1000 givesV_sub0.6m³ andaverage objectdensity600, whereasM/V_sub=1000: regression for wording error.",
+        "Neutral and overloaded limits remain distinct; no clipping of force arrows or hidden extra buoyancy."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Surface-pressure forces, conserved sealed external volume, load/retained-water mass, freeboard, neutral and overloaded capacity. Same-density retained fluid is rejected above the entire box volume; the bound does not establish sufficient real internal capacity.",
+      "remaining_scope_limits": "Fixed upright sealed rectangular body; no stability, capsize, leak-rate or open flooded-hull simulation."
+    },
+    {
+      "id": "fluids.viscosity-pipe",
+      "quiz_indices": [
+        3,
+        6
+      ],
+      "acceptance": [
+        "Independent annular quadrature recovers Q and u_max = 2U; wall traction and the ΔpQ/dissipation balance agree.",
+        "At fixed pressure drop, geometry and fluid density, doubling radius multiplies Q by16, mean speed by4 and Re_D by8. Doubling dynamic viscosity halves Q and mean speed, while Re_D falls by4.",
+        "For R=5mm, L=1m, μ=0.001Pa·s, Δp=1Pa and ρ=1000kg/m³: Q=2.45436926e−7m³/s, U=0.003125m/s and Re_D=31.25.",
+        "Check the steady Stokes momentum residual, all units and signed flow reversal; reject μ≤0, R≤0 and L≤0."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Radial collocation solution, annular flux, signed wall shear, viscous dissipation, Darcy relation and diameter-based Reynolds number.",
+      "remaining_scope_limits": "Conditional laminar/developed Newtonian solution; no turbulent flow field or universal transition threshold."
+    },
+    {
+      "id": "fluids.external-boundary-layer",
+      "quiz_indices": [
+        6
+      ],
+      "acceptance": [
+        "Compare independent boundary-value/shooting solutions with refinement convergence, not a copied table alone.",
+        "Check wall/far-field conditions, f″(0)≈0.332057 under the stated convention, δ99 defined by f′=.99, and integral displacement/momentum thickness.",
+        "Multiplying x by4 doubles δ99 and halves local Cf; actual SVG arrows/points must use that same verified solution."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Refined collocation Blasius solution, no-slip and far-field values, displacement/momentum integrals, wall shear and actual SVG dimensional profile.",
+      "remaining_scope_limits": "Steady zero-pressure-gradient laminar attached thin boundary layer; no leading-edge, separation or transition solution."
+    },
+    {
+      "id": "fluids.settling",
+      "quiz_indices": [
+        4
+      ],
+      "acceptance": [
+        "Independently verify terminal force balance, the declared ODE residual, initial acceleration, t95 and long-time limit.",
+        "Neutral density gives v_t=0; lighter particles rise with consistent signs. Doubling radius multiplies v_t and τ by4, and terminal Re_D by8, potentially leaving the allowed regime.",
+        "Compare any general unsteady claim with a primary BBO/history-force benchmark; exponential and algebraic tails remain different models."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Signed force ODE, rising/sinking/neutral spheres, initial/long-time balance, viscosity comparison and tiny-time displacement.",
+      "remaining_scope_limits": "Declared memoryless particle inertia omits added mass and Basset history; low Re alone does not validate the transient."
+    },
+    {
+      "id": "fluids.lift-pressure",
+      "quiz_indices": [
+        0
+      ],
+      "acceptance": [
+        "Independent closed-surface quadrature cancels uniform pressure and matches known analytic or published lift.",
+        "A symmetric zero-incidence reference has zero lift; test normals, force direction and SI units.",
+        "Every visible arrow corresponds to its local Cp; source geometry and measured/modelled velocity data are identified."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Complex-potential velocity, closed-surface pressure force, outward normals, clockwise circulation sign and Kutta cusp, actual force arrows and Cp legend.",
+      "remaining_scope_limits": "Ideal 2D incompressible inviscid attached flow; no real-wing performance, stall, compressibility or viscous/induced drag prediction."
+    },
+    {
+      "id": "fluids.plume-regimes",
+      "quiz_indices": [
+        8
+      ],
+      "acceptance": [
+        "Check dimensions and power laws: multiplying z+z0 by8 halves U, multiplies b by8 and Re by4 within the stated model.",
+        "A flow-field simulation needs independent mass/buoyancy budgets, domain/resolution convergence and an experiment comparison.",
+        "Do not label a scaling-only result as a transition location or instantaneous vortex prediction."
+      ],
+      "implementation": "implemented and independently checked within declared model",
+      "evidence": [
+        "independent-review/numerical-review.json",
+        "independent-review/renderer-review.json",
+        "reader/proof.json"
+      ],
+      "completion_proven": false,
+      "accepted_bounded_evidence": "Normalized far-field scaling and dimensional radius Reynolds number; width ×8, speed ×0.5 and Re ×4 at height ×8.",
+      "remaining_scope_limits": "Scaling only: no resolved mass/entrainment/buoyancy flow budget, eddies or onset prediction."
+    }
+  ],
+  "source_sha256": "3df09ceda539660bb4b9c23317b3d1c764614e14c71ccbc7eefcd575f4264ac6",
+  "actual_reader": {
+    "states": 92,
+    "speech_checks": 18,
+    "productionVerified": false
+  },
+  "independent_review": "independent-review/final-review.json"
+}

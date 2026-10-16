@@ -1,0 +1,505 @@
+{
+  "source_commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+  "scene": {
+    "repositoryPath": "slicer/brain-atlas.mrml",
+    "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/brain-atlas.mrml",
+    "bytes": 13966673,
+    "sha256": "1cd7c8dbe8be8ad6bc5c9cf13ee33c2b942c3522541f1faf8e83b7a4d3d068dd",
+    "gitBlobSHA1": "5eb7416cab78625bbdd92e2084965ecd035e6a0b"
+  },
+  "scene_version": "Slicer4.4.0",
+  "volume_proofs": {
+    "T1": {
+      "source": {
+        "repositoryPath": "slicer/volumes/imaging/A1_grayT1.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/imaging/A1_grayT1.nrrd",
+        "bytes": 67390213,
+        "sha256": "330ad0b55c8468f8c16199002b43eed183b746703a197691d294a253048cb772",
+        "gitBlobSHA1": "08025eac4849179a4682bf5ad2caebf90f384b99"
+      },
+      "header": "NRRD0004\n# Complete NRRD file format specification at:\n# http://teem.sourceforge.net/nrrd/format.html\ntype: float\ndimension: 3\nspace: left-posterior-superior\nsizes: 288 320 208\nspace directions: (0,0.75,0) (0,0,-0.75) (0.75,0,0)\nkinds: domain domain domain\nendian: little\nencoding: gzip\nspace origin: (-77.625,-107.625,119.625)",
+      "MRML_nodes": [
+        {
+          "id": "vtkMRMLScalarVolumeNode1",
+          "name": "A1_grayT1",
+          "voxelToRAS": [
+            [
+              -0.0,
+              0.0,
+              -0.75,
+              77.625
+            ],
+            [
+              -0.75,
+              -0.0,
+              0.0,
+              107.625
+            ],
+            [
+              0.0,
+              -0.75,
+              -0.0,
+              119.625
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "parentTransform": null
+        }
+      ],
+      "sampleCount": 19169280,
+      "all_original_sample_bytes_exact": true
+    },
+    "T2": {
+      "source": {
+        "repositoryPath": "slicer/volumes/imaging/A1_grayT2.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/imaging/A1_grayT2.nrrd",
+        "bytes": 63979843,
+        "sha256": "506b818daa835a5a4eacbe935fc4a41c603c42784f223cc7ae4531dc7ebcdaa9",
+        "gitBlobSHA1": "860707fd86f4c16711f81a6fcb28e57661abe25d"
+      },
+      "header": "NRRD0004\n# Complete NRRD file format specification at:\n# http://teem.sourceforge.net/nrrd/format.html\ntype: float\ndimension: 3\nspace: left-posterior-superior\nsizes: 288 320 208\nspace directions: (0,0.75,0) (0,0,-0.75) (0.75,0,0)\nkinds: domain domain domain\nendian: little\nencoding: gzip\nspace origin: (-77.625,-107.625,119.625)",
+      "MRML_nodes": [
+        {
+          "id": "vtkMRMLScalarVolumeNode2",
+          "name": "A1_grayT2",
+          "voxelToRAS": [
+            [
+              -0.0,
+              0.0,
+              -0.75,
+              77.625
+            ],
+            [
+              -0.75,
+              -0.0,
+              0.0,
+              107.625
+            ],
+            [
+              0.0,
+              -0.75,
+              -0.0,
+              119.625
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "parentTransform": null
+        }
+      ],
+      "sampleCount": 19169280,
+      "all_original_sample_bytes_exact": true
+    },
+    "labels": {
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "header": "NRRD0004\n# Complete NRRD file format specification at:\n# http://teem.sourceforge.net/nrrd/format.html\ntype: short\ndimension: 3\nspace: left-posterior-superior\nsizes: 256 256 256\nspace directions: (0,1,0) (0,0,-1) (1,0,0)\nkinds: domain domain domain\nendian: little\nencoding: gzip\nspace origin: (-128,-128,128)",
+      "MRML_nodes": [
+        {
+          "id": "vtkMRMLScalarVolumeNode5",
+          "name": "hncma-atlas",
+          "voxelToRAS": [
+            [
+              -0.0,
+              0.0,
+              -1.0,
+              128.0
+            ],
+            [
+              -1.0,
+              -0.0,
+              0.0,
+              128.0
+            ],
+            [
+              0.0,
+              -1.0,
+              -0.0,
+              128.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "parentTransform": null
+        }
+      ],
+      "sampleCount": 16777216,
+      "all_original_sample_bytes_exact": true
+    }
+  },
+  "mesh_proofs": [
+    {
+      "code": 17,
+      "source": {
+        "repositoryPath": "slicer/models/Model_17_left_hippocampus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_17_left_hippocampus.vtk",
+        "bytes": 107691,
+        "sha256": "907af400218e9285c1b34d3c5807d4bce09c4769fe53893fd2490289e4a1d676",
+        "gitBlobSHA1": "711b421827ae4f954c9241bfbaca9ae2a477a22f"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode15",
+          "name": "Model_17_left_hippocampus",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode16",
+          "storageNodeRef": "vtkMRMLModelStorageNode12",
+          "references": "display:vtkMRMLModelDisplayNode16;storage:vtkMRMLModelStorageNode12;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "bc24f37e5c6750ad9eb03677718119dc0b9e35fefedc917dd5e35fd1241008f1",
+      "originalStripCount": 1188,
+      "triangleCount": 5550
+    },
+    {
+      "code": 53,
+      "source": {
+        "repositoryPath": "slicer/models/Model_53_right_hippocampus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_53_right_hippocampus.vtk",
+        "bytes": 95879,
+        "sha256": "b9cdae96d639e1c1505c55d70bfa909f6e2047a1f511b5361ea5a9fdd3cfa644",
+        "gitBlobSHA1": "f96c02ca3288d95f3f41cbf8115aadb25bcc5be2"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode32",
+          "name": "Model_53_right_hippocampus",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode33",
+          "storageNodeRef": "vtkMRMLModelStorageNode29",
+          "references": "display:vtkMRMLModelDisplayNode33;storage:vtkMRMLModelStorageNode29;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "c6e5a21092a578184f0a81cb04b979a94d4685a179b8f3bd994f2920f0c1b87a",
+      "originalStripCount": 1035,
+      "triangleCount": 4964
+    },
+    {
+      "code": 18,
+      "source": {
+        "repositoryPath": "slicer/models/Model_18_left_amygdala.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_18_left_amygdala.vtk",
+        "bytes": 39850,
+        "sha256": "7927f02a2d2ebabe48129e4ea110e9eb8ddac0edb02d4f42ba09e46be1ee52c5",
+        "gitBlobSHA1": "4e1c45f991518e1d4b2bf9b1b19b1d293e7beafe"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode16",
+          "name": "Model_18_left_amygdala",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode17",
+          "storageNodeRef": "vtkMRMLModelStorageNode13",
+          "references": "display:vtkMRMLModelDisplayNode17;storage:vtkMRMLModelStorageNode13;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "45deec76bc48d565f5e532a0083cbbf1df62da2ab5a067b8ab46c832c8beeafc",
+      "originalStripCount": 398,
+      "triangleCount": 2102
+    },
+    {
+      "code": 54,
+      "source": {
+        "repositoryPath": "slicer/models/Model_54_right_amygdala.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_54_right_amygdala.vtk",
+        "bytes": 44114,
+        "sha256": "1426fd3c4bbb9f41fbad0770b893ffe677d152a4158d527dd1ba28d16a5f7256",
+        "gitBlobSHA1": "cbbeedf43c3ed5cba86a88491cfdb0fc50f7e7df"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode33",
+          "name": "Model_54_right_amygdala",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode34",
+          "storageNodeRef": "vtkMRMLModelStorageNode30",
+          "references": "display:vtkMRMLModelDisplayNode34;storage:vtkMRMLModelStorageNode30;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "c8ffee7b65d772747ebcf17976790dcb6b30d13a02c95b736f98906617832ead",
+      "originalStripCount": 470,
+      "triangleCount": 2274
+    },
+    {
+      "code": 3007,
+      "source": {
+        "repositoryPath": "slicer/models/Model_3007_left_fornix_of_forebrain.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3007_left_fornix_of_forebrain.vtk",
+        "bytes": 52562,
+        "sha256": "67a35e06fa65f96b5a6caa621b19620b5908f909655dca5a5c8b424618e23dfa",
+        "gitBlobSHA1": "98e7a77d3b5eaaa10e332e2d08569f90ef9d042f"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode316",
+          "name": "Model_3007_left_fornix_of_forebrain",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode495",
+          "storageNodeRef": "vtkMRMLModelStorageNode312",
+          "references": "display:vtkMRMLModelDisplayNode495;storage:vtkMRMLModelStorageNode312;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "034e1d64c3a986af59925fc117a7f6dc1dc878e0d68806849c9b6eebbe7bac3c",
+      "originalStripCount": 592,
+      "triangleCount": 2490
+    },
+    {
+      "code": 3005,
+      "source": {
+        "repositoryPath": "slicer/models/Model_3005_right_fornix_of_forebrain.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3005_right_fornix_of_forebrain.vtk",
+        "bytes": 54586,
+        "sha256": "727e70f1f978ae5c1ab7d8feb58665baa3a7b76b921065d84ed47b68f523fe3f",
+        "gitBlobSHA1": "d721b902a3ca0f5d9012ae22753fbc14ae92671e"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode317",
+          "name": "Model_3005_right_fornix_of_forebrain",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode497",
+          "storageNodeRef": "vtkMRMLModelStorageNode313",
+          "references": "display:vtkMRMLModelDisplayNode497;storage:vtkMRMLModelStorageNode313;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "f9774a25e8642285d4d39458b806944e854e28a3e6d73b8e08bf9465bc3d67af",
+      "originalStripCount": 640,
+      "triangleCount": 2612
+    },
+    {
+      "code": 3003,
+      "source": {
+        "repositoryPath": "slicer/models/Model_3003_left_mammillary_body.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3003_left_mammillary_body.vtk",
+        "bytes": 3726,
+        "sha256": "afe7daec21875a0b1b5f007e1fa1561817344f585d8b62e9a4b605aef96ca3b3",
+        "gitBlobSHA1": "ac2d957281d73784b7ae9092acbfef227e7948bf"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode221",
+          "name": "Model_3003_left_mammillary_body",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode222",
+          "storageNodeRef": "vtkMRMLModelStorageNode218",
+          "references": "display:vtkMRMLModelDisplayNode222;storage:vtkMRMLModelStorageNode218;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "f828ca6ccd0fe2cef8fbb64dd8381ba4446dc6059d82ba5edc082cbc7b3b7abc",
+      "originalStripCount": 40,
+      "triangleCount": 170
+    },
+    {
+      "code": 3002,
+      "source": {
+        "repositoryPath": "slicer/models/Model_3002_right_mammillary_body.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3002_right_mammillary_body.vtk",
+        "bytes": 4174,
+        "sha256": "7d62b5dc325e4c853697f0a1d55b786bda14c9713674a943d7665b6ad84617d6",
+        "gitBlobSHA1": "fb6e5a984339a2f0a97ff7cfa97a050d62d9ccb5"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode220",
+          "name": "Model_3002_right_mammillary_body",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode221",
+          "storageNodeRef": "vtkMRMLModelStorageNode217",
+          "references": "display:vtkMRMLModelDisplayNode221;storage:vtkMRMLModelStorageNode217;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "926d09cca053a963529ca16a4c398d5bc75b3339610ef05ddd10b4b743f451ae",
+      "originalStripCount": 48,
+      "triangleCount": 192
+    },
+    {
+      "code": 1016,
+      "source": {
+        "repositoryPath": "slicer/models/Model_1016_left_parahippocampal_gyrus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_1016_left_parahippocampal_gyrus.vtk",
+        "bytes": 95259,
+        "sha256": "220864abbbb19d88a3a512cf730e1d464f1f13bff9b1e2ff66088d78c861d114",
+        "gitBlobSHA1": "4555203a52288d62cf27106757a5adcd9b2b3235"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode46",
+          "name": "Model_1016_left_parahippocampal_gyrus",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode224",
+          "storageNodeRef": "vtkMRMLModelStorageNode24",
+          "references": "display:vtkMRMLModelDisplayNode224;storage:vtkMRMLModelStorageNode24;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "fb31a9ee30c4139133ac12e3360f881519b6fb7b344dbbef33bc6bc4a1ffa982",
+      "originalStripCount": 1108,
+      "triangleCount": 4410
+    },
+    {
+      "code": 2016,
+      "source": {
+        "repositoryPath": "slicer/models/Model_2016_right_parahippocampal_gyrus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_2016_right_parahippocampal_gyrus.vtk",
+        "bytes": 83890,
+        "sha256": "3e9bccea4376e9a8a7ce266e374100e2872ab26abd67acdf69b960932715623a",
+        "gitBlobSHA1": "a175b7eb3cd6cc7bcfedd7825c916ae73b6f1489"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode43",
+          "name": "Model_2016_right_parahippocampal_gyrus",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode149",
+          "storageNodeRef": "vtkMRMLModelStorageNode9",
+          "references": "display:vtkMRMLModelDisplayNode149;storage:vtkMRMLModelStorageNode9;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "cfa0792a8f32323896b253bf230d8cbb128db7a3a0724a97c26d010d221fdf00",
+      "originalStripCount": 920,
+      "triangleCount": 4076
+    },
+    {
+      "code": 100,
+      "source": {
+        "repositoryPath": "slicer/models/Model_100_left_mammillothalamic_tract.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_100_left_mammillothalamic_tract.vtk",
+        "bytes": 3858,
+        "sha256": "e53c5b7e7497d53a890ecf16a15ca338563171a6227c25bfeb7cd99fe204e884",
+        "gitBlobSHA1": "ae700bbb939f18dd21091657dc716753a4de977b"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode48",
+          "name": "Model_100_left_mammillothalamic_tract",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode49",
+          "storageNodeRef": "vtkMRMLModelStorageNode45",
+          "references": "display:vtkMRMLModelDisplayNode49;storage:vtkMRMLModelStorageNode45;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "97005adce405d6e92480a7321056e153eb42b3271c70a4741afca60a9b53b4d5",
+      "originalStripCount": 45,
+      "triangleCount": 140
+    },
+    {
+      "code": 200,
+      "source": {
+        "repositoryPath": "slicer/models/Model_200_right_mammillothalamic_tract.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_200_right_mammillothalamic_tract.vtk",
+        "bytes": 3850,
+        "sha256": "d86eb0c5d7b7900e815ba6a8957771f0df9b7370ee5a439a93d832382efda2fc",
+        "gitBlobSHA1": "500b3f01a2c0d10cf0e1817855a7c7be03128ca3"
+      },
+      "mainMRMLNodes": [
+        {
+          "id": "vtkMRMLModelNode50",
+          "name": "Model_200_right_mammillothalamic_tract",
+          "hideFromEditors": "false",
+          "selectable": "true",
+          "selected": "false",
+          "displayNodeRef": "vtkMRMLModelDisplayNode51",
+          "storageNodeRef": "vtkMRMLModelStorageNode47",
+          "references": "display:vtkMRMLModelDisplayNode51;storage:vtkMRMLModelStorageNode47;",
+          "userTags": ""
+        }
+      ],
+      "all_position_and_normal_float32_bits_recover_original_big_endian_bytes": true,
+      "all_source_strip_int32_bits_recover_original_big_endian_bytes": true,
+      "every_implied_triangle_retained": true,
+      "triangle_provenance_sha256": "601b9b0736d4991cd82bae5289cbb7c88a657be82e97da0e7a4d71a89657cd96",
+      "originalStripCount": 43,
+      "triangleCount": 150
+    }
+  ],
+  "original_native_sample_count": 55115776,
+  "transport_manifest_sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+  "source_mesh_triangles": 29130,
+  "exact_label_boundary_triangles": 37892,
+  "exact_label_boundary_proof_sha256": "3a7bac21dbeb9dc67b5846fc739388933e757b194a783027b0ff476519c55524",
+  "geometry_or_native_samples_changed": false,
+  "clinical_approval": false
+}

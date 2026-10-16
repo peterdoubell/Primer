@@ -93,4 +93,7 @@ def references():
     from .hippunfold_reference import references as hippocampal_references
     for identifier, entries in hippocampal_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .spl_limbic_reference import references as spl_limbic_references
+    for identifier, entries in spl_limbic_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

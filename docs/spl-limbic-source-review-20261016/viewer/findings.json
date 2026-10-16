@@ -1,0 +1,61 @@
+{
+  "current_viewer_sha256": "4ae3fe18806838d865c970945ed4c6e9f7c4079bfb341a447ee390d026f58e0b",
+  "current_standalone_all_passed": true,
+  "resolved_findings": [
+    {
+      "issue": "Pointer readout included the canvas CSS border and could identify the neighbouring sample.",
+      "observed_fixture": "390 px, T2 sagittal slice 133, displayed pixel (0,0) centre",
+      "before_voxel": [
+        1,
+        1,
+        133
+      ],
+      "expected_and_after_voxel": [
+        0,
+        0,
+        133
+      ],
+      "resolution": "Use the content box for pointer coordinates; the MRI border is now an outline, preserving content aspect ratio. The original failing pixel-centre assertion passes."
+    },
+    {
+      "issue": "Loading text survived a successful source load.",
+      "resolution": "Successful load displays an inspection prompt; failed load says that no source sample is available."
+    },
+    {
+      "issue": "A previous source probe could remain after changing slice, plane or selected structure.",
+      "resolution": "drawMRI clears the stored probe/readout; the ordinary outlier action writes its verified new probe afterward. Invalid windows clear stored image state too."
+    },
+    {
+      "issue": "The unbroken source-commit identifier widened the phone reporting page from 390 to 402 px.",
+      "resolution": "The native-source attribution wraps without truncating provenance; iframe/tabs/source geometry unchanged."
+    },
+    {
+      "issue": "The centroid sentence became false after manual slicing or the outlier action.",
+      "resolution": "The sentence describes what the Find structure in MRI button does, independently of the currently selected slice."
+    }
+  ],
+  "source_outlier_context": {
+    "source_label": 3007,
+    "original_label_voxel": [
+      167,
+      132,
+      130
+    ],
+    "original_RAS_mm": [
+      -2,
+      -39,
+      -4
+    ],
+    "nearest_native_MRI_voxel": [
+      196,
+      165,
+      106
+    ],
+    "nearest_label_at_native_MRI_sample": 3007,
+    "ordinary_control_verified_in_both_contrasts_and_all_three_planes": true,
+    "biological_continuity_validated": false,
+    "sampled_face_distance_is_continuous_Hausdorff_bound": false
+  },
+  "remaining_actionable_viewer_findings": [],
+  "clinical_approval": false
+}

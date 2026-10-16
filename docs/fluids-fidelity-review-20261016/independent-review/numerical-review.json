@@ -1,0 +1,95 @@
+{
+  "sourceSHA256": "3df09ceda539660bb4b9c23317b3d1c764614e14c71ccbc7eefcd575f4264ac6",
+  "checkerSHA256": "53e5970f9428962d7f5bc1d798214d47ace09fe35c9ebaa9090973fc11fd7920",
+  "runnerSHA256": "1129221e81055b0b869a020d792f167e9e23165eb99a2d51c11d853c6a6d4fcd",
+  "scipyVersion": "1.15.3",
+  "numpyVersion": "2.2.6",
+  "checks": [
+    {
+      "area": "continuity and Bernoulli",
+      "method": "Independent annular section flux, conserved energy per volume and signed head/absolute-pressure checks, including exact 2/8 m/s and 30 kPa quiz state",
+      "cases": 6,
+      "result": "pass"
+    },
+    {
+      "area": "original Venturi preservation",
+      "method": "Exact hash of the original 7,358-byte constants/renderer body remains unchanged after adding the new companion",
+      "cases": 1,
+      "result": "pass"
+    },
+    {
+      "area": "hydrostatics",
+      "method": "Integrate dp/dz=-rho*g; compare every absolute/gauge sample, signed height and saturation constraint",
+      "cases": 6,
+      "result": "pass"
+    },
+    {
+      "area": "pistons",
+      "method": "Integrate swept circular area and force-displacement work, same-elevation horizontal geometry",
+      "cases": 4,
+      "result": "pass"
+    },
+    {
+      "area": "buoyancy",
+      "method": "Surface pressure integrals and explicit mass/volume capacity ledger for floating, neutral and overloaded sealed hulls; retained-fluid whole-box bound is necessary only, at the same declared density",
+      "cases": 7,
+      "result": "pass"
+    },
+    {
+      "area": "pipe",
+      "method": "Independent singular collocation radial-momentum BVP, annular volume/energy flux, viscous dissipation and signed Darcy loss",
+      "cases": 6,
+      "result": "pass"
+    },
+    {
+      "area": "boundary layer",
+      "method": "Two refined collocation BVPs on eta 14/18 independent of RK4 shooting; dimensional profiles, displacement/momentum integrals and wall stress",
+      "cases": 6,
+      "result": "pass",
+      "refinement": 5.990521856347186e-09
+    },
+    {
+      "area": "settling",
+      "method": "Adaptive DOP853 force ODE with signed density difference, neutral state, force root and sixty-digit tiny-time oracle",
+      "cases": 30,
+      "result": "pass"
+    },
+    {
+      "area": "ideal lift",
+      "method": "Independent complex potential/map derivative, adaptive pressure/circulation contour integrals, impermeability, pressure-reference cancellation and finite Kutta cusp; explicitly refine the least-resolved supported thin foil",
+      "cases": 7,
+      "result": "pass",
+      "coarse_resolution_limit": "At 128 samples and epsilon=.05, alpha=10\u00b0, pressure-force quadrature has about 6e-6 relative Fx error and 3.06e-4 N/m residual drag. Default 720 samples resolves this case to floating-point precision."
+    },
+    {
+      "area": "plume scaling",
+      "method": "Independent power-law invariants and radius-based Reynolds dimensional definition; no onset or resolved-flow claim",
+      "cases": 4,
+      "result": "pass"
+    },
+    {
+      "area": "invalid domains",
+      "method": "Reject nonphysical/sign-disallowed and impossible piston travel inputs rather than emit invalid physics",
+      "cases": 15,
+      "result": "pass"
+    }
+  ],
+  "metrics": {
+    "independent_blasius": {
+      "wallSecond": 0.3320573362151989,
+      "eta99": 4.909989513295118,
+      "displacementEta": 1.7207876575204961,
+      "momentumEta": 0.6641146724303912
+    },
+    "blasius_refinement_max_absolute_change": 5.990521856347186e-09,
+    "thin_foil_quadrature_drag_N_per_m": {
+      "128": 0.00030552648713921826,
+      "256": 8.344898105860921e-10,
+      "720": -4.263256414560601e-14
+    }
+  },
+  "requestCount": 91,
+  "allPassed": true,
+  "remainingActionableScientificDefects": [],
+  "scope": "Independent numerical API verification only; renderer/control evidence is separate. Models remain subject to their declared idealizations, guards are not transition laws, and this does not certify complete fluid mechanics or real-world prediction."
+}

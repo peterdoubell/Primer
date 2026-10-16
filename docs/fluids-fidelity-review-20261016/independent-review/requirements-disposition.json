@@ -1,0 +1,107 @@
+{
+  "module_id": "phys.4.fluids",
+  "quiz_indices_reviewed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "requirements": [
+    {
+      "id": "fluids.continuity-bernoulli",
+      "quiz_indices": [
+        1,
+        5
+      ],
+      "accepted_bounded_evidence": "Maintained-Q uniform-section lossless energy and continuity, circular radius, common speed-arrow scale and pressure head; exact 2/8 m/s and 30 kPa quiz state.",
+      "remaining_scope_limits": "No viscous head-loss solver, real pump operating point or physical diffuser design.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.hydrostatics-suction",
+      "quiz_indices": [
+        9
+      ],
+      "accepted_bounded_evidence": "Pressure integration, absolute versus gauge datum, signed level difference, ideal vacuum and declared saturation constraints.",
+      "remaining_scope_limits": "Static wide-tube case; flow losses, temperature-property fit, capillarity and tensile states are excluded.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.hydraulic-pistons",
+      "quiz_indices": [
+        7
+      ],
+      "accepted_bounded_evidence": "50 N on 10 cm\u00b2 gives 1000 N on 200 cm\u00b2; 0.2/0.01 m strokes transfer 10 J. Areas determine real circular radii.",
+      "remaining_scope_limits": "Fixed same-elevation horizontal cylinders only; nonzero-elevation hydraulic work is not simulated.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.buoyancy-capacity",
+      "quiz_indices": [
+        2
+      ],
+      "accepted_bounded_evidence": "Surface-pressure forces, conserved sealed external volume, load/retained-water mass, freeboard, neutral and overloaded capacity. Same-density retained fluid is rejected above the entire box volume; the bound does not establish sufficient real internal capacity.",
+      "remaining_scope_limits": "Fixed upright sealed rectangular body; no stability, capsize, leak-rate or open flooded-hull simulation.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.viscosity-pipe",
+      "quiz_indices": [
+        3,
+        6
+      ],
+      "accepted_bounded_evidence": "Radial collocation solution, annular flux, signed wall shear, viscous dissipation, Darcy relation and diameter-based Reynolds number.",
+      "remaining_scope_limits": "Conditional laminar/developed Newtonian solution; no turbulent flow field or universal transition threshold.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.external-boundary-layer",
+      "quiz_indices": [
+        6
+      ],
+      "accepted_bounded_evidence": "Refined collocation Blasius solution, no-slip and far-field values, displacement/momentum integrals, wall shear and actual SVG dimensional profile.",
+      "remaining_scope_limits": "Steady zero-pressure-gradient laminar attached thin boundary layer; no leading-edge, separation or transition solution.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.settling",
+      "quiz_indices": [
+        4
+      ],
+      "accepted_bounded_evidence": "Signed force ODE, rising/sinking/neutral spheres, initial/long-time balance, viscosity comparison and tiny-time displacement.",
+      "remaining_scope_limits": "Declared memoryless particle inertia omits added mass and Basset history; low Re alone does not validate the transient.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.lift-pressure",
+      "quiz_indices": [
+        0
+      ],
+      "accepted_bounded_evidence": "Complex-potential velocity, closed-surface pressure force, outward normals, clockwise circulation sign and Kutta cusp, actual force arrows and Cp legend.",
+      "remaining_scope_limits": "Ideal 2D incompressible inviscid attached flow; no real-wing performance, stall, compressibility or viscous/induced drag prediction.",
+      "whole_requirement_complete": false
+    },
+    {
+      "id": "fluids.plume-regimes",
+      "quiz_indices": [
+        8
+      ],
+      "accepted_bounded_evidence": "Normalized far-field scaling and dimensional radius Reynolds number; width \u00d78, speed \u00d70.5 and Re \u00d74 at height \u00d78.",
+      "remaining_scope_limits": "Scaling only: no resolved mass/entrainment/buoyancy flow budget, eddies or onset prediction.",
+      "whole_requirement_complete": false
+    }
+  ],
+  "remaining_actionable_defects_in_checked_models": [],
+  "whole_module_complete": false,
+  "whole_primer_complete": false,
+  "external_article_bodies_exhaustively_reviewed": false,
+  "original_raster_treated_as_calibrated_data": false,
+  "generic_lab_vessels_treated_as_flow_solution": false,
+  "scope_note": "All 10 authored quiz items are mapped and their stated calculations/assumptions reviewed. Acceptance of these bounded idealized activities is not a claim that every original requirement, all external lesson content or all desired image/3D coverage is complete."
+}

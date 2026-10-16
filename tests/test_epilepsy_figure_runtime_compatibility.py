@@ -26,6 +26,8 @@ def test_only_exact_source_gallery_is_removed_from_the_observed_lesson():
               'lesson_media', 'model_family', 'model_context', 'practice', 'quiz', 'kid_text']
     node = Curriculum().node(bridge.MODULE)
     current = {key: node.get(key) for key in fields}
+    from tools.spl_limbic_runtime_compatibility import before_spl_lesson_fields
+    current = before_spl_lesson_fields(bridge.MODULE, current)
     record = bridge.reviewed()['lesson']
     assert digest(current) == record['after_sha256']
     original = copy.deepcopy(current)

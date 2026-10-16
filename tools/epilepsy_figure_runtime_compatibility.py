@@ -36,6 +36,8 @@ def reviewed():
 
 
 def before_figure_bytes(path, raw, allow_older=False):
+    from tools.spl_limbic_runtime_compatibility import before_spl_bytes
+    raw = before_spl_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
@@ -59,6 +61,8 @@ def before_figure_bytes(path, raw, allow_older=False):
 
 
 def before_figure_lesson_fields(module_id, fields):
+    from tools.spl_limbic_runtime_compatibility import before_spl_lesson_fields
+    fields = before_spl_lesson_fields(module_id, fields)
     if module_id != MODULE:
         return fields
     expected = reviewed()['lesson']['added_media']

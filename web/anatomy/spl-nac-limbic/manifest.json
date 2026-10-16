@@ -1,0 +1,4578 @@
+{
+  "schemaVersion": 1,
+  "source": "SPL-PNL/NAC Brain Atlas",
+  "sourceCommit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+  "sourceCoordinateSystem": "RAS",
+  "sourceCoordinateUnits": "mm",
+  "sourceCoordinateExplanation": "Legacy Slicer4.4.0 model coordinates are already RAS millimetres. NRRD LPS affines are converted by diag(-1,-1,1,1). Do not apply modern unmarked-VTK=LPS defaults or a second sign flip to these original model vertices.",
+  "volumes": {
+    "T1": {
+      "file": "T1.bin.gz",
+      "byteLength": 76677120,
+      "gzipBytes": 67389884,
+      "gzipSHA256": "b4f2f564715203a3b5b7d4e59cf197d8608b410f6e170bb81bc68335b1c18c6e",
+      "decodedSHA256": "f2b340133120181f890bc24c0233d1588fb74aea2d87eed692e9e4e8f969960b",
+      "name": "T1",
+      "shape": [
+        288,
+        320,
+        208
+      ],
+      "dtype": "<f4",
+      "storageOrder": "F",
+      "offsetFormula": "i + nx * (j + ny * k)",
+      "voxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -0.75,
+          77.625
+        ],
+        [
+          -0.75,
+          0.0,
+          0.0,
+          107.625
+        ],
+        [
+          0.0,
+          -0.75,
+          0.0,
+          119.625
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToLPS": [
+        [
+          0.0,
+          0.0,
+          0.75,
+          -77.625
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          -107.625
+        ],
+        [
+          0.0,
+          -0.75,
+          0.0,
+          119.625
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "spaceUnits": "mm",
+      "source": {
+        "repositoryPath": "slicer/volumes/imaging/A1_grayT1.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/imaging/A1_grayT1.nrrd",
+        "bytes": 67390213,
+        "sha256": "330ad0b55c8468f8c16199002b43eed183b746703a197691d294a253048cb772",
+        "gitBlobSHA1": "08025eac4849179a4682bf5ad2caebf90f384b99"
+      },
+      "allOriginalSampleBitsPreserved": true,
+      "resampled": false,
+      "sourceHeaderFile": "originals/A1_grayT1.nrrd.header.txt",
+      "intensityRange": [
+        -135.63162231445312,
+        2131.865478515625
+      ],
+      "finiteSampleCount": 19169280,
+      "positiveIntensityPercentiles": {
+        "0.5": 0.787821426987648,
+        "99.5": 830.2800537109379
+      },
+      "defaultWindow": [
+        0.0,
+        830.2800537109379
+      ],
+      "displayWindowMeaning": "Presentation-only clipping; source MRI intensities and native samples remain unchanged. MRI values are not HU."
+    },
+    "T2": {
+      "file": "T2.bin.gz",
+      "byteLength": 76677120,
+      "gzipBytes": 63979514,
+      "gzipSHA256": "941d481aca3f0b1ae8995f71ea7096f1ee055cfc4339eb9a84c1bb27b165572b",
+      "decodedSHA256": "074e9ff5705fa86fa20fad64b2d9db47bb54b15772b27e17f46d6d55614ee30e",
+      "name": "T2",
+      "shape": [
+        288,
+        320,
+        208
+      ],
+      "dtype": "<f4",
+      "storageOrder": "F",
+      "offsetFormula": "i + nx * (j + ny * k)",
+      "voxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -0.75,
+          77.625
+        ],
+        [
+          -0.75,
+          0.0,
+          0.0,
+          107.625
+        ],
+        [
+          0.0,
+          -0.75,
+          0.0,
+          119.625
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToLPS": [
+        [
+          0.0,
+          0.0,
+          0.75,
+          -77.625
+        ],
+        [
+          0.75,
+          0.0,
+          0.0,
+          -107.625
+        ],
+        [
+          0.0,
+          -0.75,
+          0.0,
+          119.625
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "spaceUnits": "mm",
+      "source": {
+        "repositoryPath": "slicer/volumes/imaging/A1_grayT2.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/imaging/A1_grayT2.nrrd",
+        "bytes": 63979843,
+        "sha256": "506b818daa835a5a4eacbe935fc4a41c603c42784f223cc7ae4531dc7ebcdaa9",
+        "gitBlobSHA1": "860707fd86f4c16711f81a6fcb28e57661abe25d"
+      },
+      "allOriginalSampleBitsPreserved": true,
+      "resampled": false,
+      "sourceHeaderFile": "originals/A1_grayT2.nrrd.header.txt",
+      "intensityRange": [
+        -14.118437767028809,
+        595.5744018554688
+      ],
+      "finiteSampleCount": 19169280,
+      "positiveIntensityPercentiles": {
+        "0.5": 0.00793691110331565,
+        "99.5": 331.8367816162081
+      },
+      "defaultWindow": [
+        0.0,
+        331.8367816162081
+      ],
+      "displayWindowMeaning": "Presentation-only clipping; source MRI intensities and native samples remain unchanged. MRI values are not HU."
+    }
+  },
+  "labelVolume": {
+    "file": "labels.bin.gz",
+    "byteLength": 33554432,
+    "gzipBytes": 465791,
+    "gzipSHA256": "17f6f8ce15539e0d9f36d5ee644354762986bddab0fe82692be5cadfff2aa8dd",
+    "decodedSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a",
+    "name": "labels",
+    "shape": [
+      256,
+      256,
+      256
+    ],
+    "dtype": "<i2",
+    "storageOrder": "F",
+    "offsetFormula": "i + nx * (j + ny * k)",
+    "voxelToRAS": [
+      [
+        0.0,
+        0.0,
+        -1.0,
+        128.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0,
+        128.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0,
+        128.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "voxelToLPS": [
+      [
+        0.0,
+        0.0,
+        1.0,
+        -128.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        -128.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0,
+        128.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "spaceUnits": "mm",
+    "source": {
+      "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+      "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+      "bytes": 466100,
+      "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+      "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+    },
+    "allOriginalSampleBitsPreserved": true,
+    "resampled": false,
+    "sourceHeaderFile": "originals/hncma-atlas.nrrd.header.txt",
+    "intensityRange": [
+      0.0,
+      4100.0
+    ],
+    "finiteSampleCount": 16777216,
+    "labelCodesInSource": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      7,
+      11,
+      12,
+      13,
+      15,
+      17,
+      18,
+      19,
+      24,
+      25,
+      26,
+      35,
+      40,
+      41,
+      43,
+      44,
+      46,
+      50,
+      51,
+      52,
+      53,
+      54,
+      58,
+      61,
+      66,
+      71,
+      72,
+      77,
+      78,
+      79,
+      83,
+      84,
+      85,
+      96,
+      100,
+      142,
+      200,
+      215,
+      216,
+      300,
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      308,
+      309,
+      310,
+      311,
+      312,
+      313,
+      314,
+      315,
+      316,
+      317,
+      318,
+      319,
+      320,
+      321,
+      322,
+      323,
+      324,
+      327,
+      328,
+      329,
+      330,
+      331,
+      332,
+      333,
+      334,
+      335,
+      336,
+      337,
+      338,
+      339,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345,
+      346,
+      347,
+      348,
+      349,
+      350,
+      351,
+      352,
+      353,
+      354,
+      355,
+      356,
+      357,
+      358,
+      361,
+      362,
+      363,
+      364,
+      365,
+      366,
+      367,
+      371,
+      373,
+      375,
+      377,
+      380,
+      381,
+      382,
+      383,
+      384,
+      385,
+      386,
+      387,
+      388,
+      389,
+      390,
+      391,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511,
+      512,
+      513,
+      514,
+      515,
+      516,
+      517,
+      518,
+      519,
+      520,
+      521,
+      522,
+      523,
+      524,
+      525,
+      1000,
+      1001,
+      1002,
+      1003,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      1014,
+      1015,
+      1016,
+      1017,
+      1018,
+      1019,
+      1020,
+      1021,
+      1022,
+      1023,
+      1024,
+      1025,
+      1026,
+      1027,
+      1028,
+      1029,
+      1030,
+      1031,
+      1032,
+      1033,
+      1034,
+      1035,
+      2000,
+      2001,
+      2002,
+      2003,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026,
+      2027,
+      2028,
+      2029,
+      2030,
+      2031,
+      2032,
+      2033,
+      2034,
+      2035,
+      3000,
+      3001,
+      3002,
+      3003,
+      3004,
+      3005,
+      3007,
+      3008,
+      3011,
+      3012,
+      3020,
+      3021,
+      3022,
+      3023,
+      3030,
+      3031,
+      3032,
+      3033,
+      4001,
+      4002,
+      4003,
+      4004,
+      4005,
+      4006,
+      4007,
+      4008,
+      4011,
+      4012,
+      4013,
+      4014,
+      4015,
+      4016,
+      4017,
+      4018,
+      4019,
+      4020,
+      4021,
+      4022,
+      4027,
+      4028,
+      4030,
+      4031,
+      4032,
+      4033,
+      4034,
+      4035,
+      4036,
+      4037,
+      4038,
+      4041,
+      4042,
+      4043,
+      4044,
+      4045,
+      4046,
+      4047,
+      4048,
+      4050,
+      4051,
+      4052,
+      4060,
+      4061,
+      4062,
+      4071,
+      4072,
+      4073,
+      4074,
+      4075,
+      4076,
+      4077,
+      4078,
+      4079,
+      4080,
+      4081,
+      4082,
+      4083,
+      4084,
+      4085,
+      4086,
+      4087,
+      4088,
+      4089,
+      4090,
+      4091,
+      4092,
+      4093,
+      4094,
+      4095,
+      4096,
+      4097,
+      4098,
+      4099,
+      4100
+    ]
+  },
+  "labels": [
+    {
+      "code": 17,
+      "name": "left hippocampus",
+      "sourceName": "left_hippocampus",
+      "color": [
+        220,
+        215,
+        20
+      ],
+      "sourceRGBA": [
+        220,
+        215,
+        20,
+        255
+      ],
+      "voxelCount": 4641,
+      "centroidRAS": [
+        -21.595561301443666,
+        -10.60504201680672,
+        -20.165481577246283
+      ]
+    },
+    {
+      "code": 53,
+      "name": "right hippocampus",
+      "sourceName": "right_hippocampus",
+      "color": [
+        220,
+        215,
+        20
+      ],
+      "sourceRGBA": [
+        220,
+        215,
+        20,
+        255
+      ],
+      "voxelCount": 4378,
+      "centroidRAS": [
+        22.21470991320237,
+        -6.244403837368651,
+        -21.555961626313376
+      ]
+    },
+    {
+      "code": 18,
+      "name": "left amygdala",
+      "sourceName": "left_amygdala",
+      "color": [
+        98,
+        153,
+        112
+      ],
+      "sourceRGBA": [
+        98,
+        153,
+        112,
+        255
+      ],
+      "voxelCount": 1733,
+      "centroidRAS": [
+        -21.521061742642814,
+        6.957299480669363,
+        -19.078476630121173
+      ]
+    },
+    {
+      "code": 54,
+      "name": "right amygdala",
+      "sourceName": "right_amygdala",
+      "color": [
+        98,
+        153,
+        112
+      ],
+      "sourceRGBA": [
+        98,
+        153,
+        112,
+        255
+      ],
+      "voxelCount": 2166,
+      "centroidRAS": [
+        19.309787626962148,
+        9.78670360110803,
+        -20.108956602031384
+      ]
+    },
+    {
+      "code": 3007,
+      "name": "left fornix of forebrain",
+      "sourceName": "left_fornix_of_forebrain",
+      "color": [
+        64,
+        123,
+        147
+      ],
+      "sourceRGBA": [
+        64,
+        123,
+        147,
+        255
+      ],
+      "voxelCount": 741,
+      "centroidRAS": [
+        -4.526315789473671,
+        -5.641025641025635,
+        1.9784075573549273
+      ]
+    },
+    {
+      "code": 3005,
+      "name": "right fornix of forebrain",
+      "sourceName": "right_fornix_of_forebrain",
+      "color": [
+        64,
+        123,
+        147
+      ],
+      "sourceRGBA": [
+        64,
+        123,
+        147,
+        255
+      ],
+      "voxelCount": 760,
+      "centroidRAS": [
+        6.423684210526318,
+        -5.906578947368416,
+        1.9552631578947341
+      ]
+    },
+    {
+      "code": 3003,
+      "name": "left mammillary body",
+      "sourceName": "left_mammillary_body",
+      "color": [
+        155,
+        230,
+        255
+      ],
+      "sourceRGBA": [
+        155,
+        230,
+        255,
+        255
+      ],
+      "voxelCount": 67,
+      "centroidRAS": [
+        -3.3283582089552226,
+        4.835820895522389,
+        -15.611940298507449
+      ]
+    },
+    {
+      "code": 3002,
+      "name": "right mammillary body",
+      "sourceName": "right_mammillary_body",
+      "color": [
+        155,
+        230,
+        255
+      ],
+      "sourceRGBA": [
+        155,
+        230,
+        255,
+        255
+      ],
+      "voxelCount": 76,
+      "centroidRAS": [
+        1.1315789473684248,
+        4.84210526315789,
+        -15.63157894736841
+      ]
+    },
+    {
+      "code": 1016,
+      "name": "left parahippocampal gyrus",
+      "sourceName": "left_parahippocampal_gyrus",
+      "color": [
+        244,
+        244,
+        24
+      ],
+      "sourceRGBA": [
+        244,
+        244,
+        24,
+        255
+      ],
+      "voxelCount": 1989,
+      "centroidRAS": [
+        -20.046757164404227,
+        -19.736551030668664,
+        -26.001005530417302
+      ]
+    },
+    {
+      "code": 2016,
+      "name": "right parahippocampal gyrus",
+      "sourceName": "right_parahippocampal_gyrus",
+      "color": [
+        244,
+        244,
+        24
+      ],
+      "sourceRGBA": [
+        244,
+        244,
+        24,
+        255
+      ],
+      "voxelCount": 1900,
+      "centroidRAS": [
+        22.18631578947368,
+        -9.483157894736848,
+        -29.541578947368407
+      ]
+    },
+    {
+      "code": 100,
+      "name": "left mammillothalamic tract",
+      "sourceName": "left_mammillothalamic_tract",
+      "color": [
+        125,
+        140,
+        180
+      ],
+      "sourceRGBA": [
+        125,
+        140,
+        180,
+        255
+      ],
+      "voxelCount": 30,
+      "centroidRAS": [
+        -2.9666666666666686,
+        1.86666666666666,
+        -11.633333333333326
+      ]
+    },
+    {
+      "code": 200,
+      "name": "right mammillothalamic tract",
+      "sourceName": "right_mammillothalamic_tract",
+      "color": [
+        125,
+        140,
+        180
+      ],
+      "sourceRGBA": [
+        125,
+        140,
+        180,
+        255
+      ],
+      "voxelCount": 33,
+      "centroidRAS": [
+        1.3636363636363598,
+        1.9393939393939377,
+        -11.121212121212125
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "file": "model-17.mesh.gz",
+      "byteLength": 102160,
+      "gzipBytes": 50273,
+      "gzipSHA256": "76358ff5b89f1de5f1cfdebb67d16fed0626b198419eda4d5cf0702d56e75b98",
+      "decodedSHA256": "f180edbecc102c5c7b3c68be34b2305aa7e7610c0a6832cf8f66da367c8e135e",
+      "code": 17,
+      "name": "left hippocampus",
+      "structure": "left_hippocampus",
+      "originalFile": "slicer/models/Model_17_left_hippocampus.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_17_left_hippocampus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_17_left_hippocampus.vtk",
+        "bytes": 107691,
+        "sha256": "907af400218e9285c1b34d3c5807d4bce09c4769fe53893fd2490289e4a1d676",
+        "gitBlobSHA1": "711b421827ae4f954c9241bfbaca9ae2a477a22f"
+      },
+      "originalVTK": {
+        "file": "originals/Model_17_left_hippocampus.vtk.gz",
+        "byteLength": 107691,
+        "gzipBytes": 80021,
+        "gzipSHA256": "255731ce8d62df4e918b935209b330b33c4a77591ff06a838dd82053b60852b4",
+        "decodedSHA256": "907af400218e9285c1b34d3c5807d4bce09c4769fe53893fd2490289e4a1d676"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 2962,
+      "triangleCount": 5550,
+      "positionByteSHA256": "8388cf407b4b055ac4b12efe6f84ecfdd100cf023190f1e61bc6e3ed4b05e265",
+      "indexByteSHA256": "1aa2390d4c27f24bf6c7fef0363adffbc3b08b5d4a60960d67cd5570717d8c65",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 2962
+        },
+        "triangles": {
+          "offset": 35560,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 5550
+        }
+      },
+      "originalNormals": {
+        "file": "model-17-normals.bin.gz",
+        "byteLength": 35544,
+        "gzipBytes": 32681,
+        "gzipSHA256": "49df29987fe85aac526839ff74013b8b4abad2292d5204a27ad36c0ac076bab2",
+        "decodedSHA256": "4bde85eab3c8494c8fb574b12dffbefb8dee4b074b6e74e2f8f015b22d8ef49c",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 2962
+      },
+      "originalStrips": {
+        "file": "model-17-strips.bin.gz",
+        "byteLength": 36456,
+        "gzipBytes": 16126,
+        "gzipSHA256": "063091351b24a9c27b6d19a645f15254de4793b2cc296b546489064a8c5dc731",
+        "decodedSHA256": "11105d2a7953850e386b7db5195d730de58aea8d400fd9d8ee30406baf866c77",
+        "dtype": "<i4",
+        "stripCount": 1188,
+        "intCount": 9114,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -33.54890441894531,
+          -37.437408447265625,
+          -30.2835693359375
+        ],
+        [
+          -8.233291625976562,
+          8.357154846191406,
+          -7.0798492431640625
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-53.mesh.gz",
+      "byteLength": 91312,
+      "gzipBytes": 45720,
+      "gzipSHA256": "8db3124f7d4bd1ebc11592711270ae7acbef9e0441d1683f5a43d952d6dbfa64",
+      "decodedSHA256": "912b9035c75c17662f030eacb04679a2e68e82e837c2447a7c0a5d2a79f9eb7d",
+      "code": 53,
+      "name": "right hippocampus",
+      "structure": "right_hippocampus",
+      "originalFile": "slicer/models/Model_53_right_hippocampus.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_53_right_hippocampus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_53_right_hippocampus.vtk",
+        "bytes": 95879,
+        "sha256": "b9cdae96d639e1c1505c55d70bfa909f6e2047a1f511b5361ea5a9fdd3cfa644",
+        "gitBlobSHA1": "f96c02ca3288d95f3f41cbf8115aadb25bcc5be2"
+      },
+      "originalVTK": {
+        "file": "originals/Model_53_right_hippocampus.vtk.gz",
+        "byteLength": 95879,
+        "gzipBytes": 72292,
+        "gzipSHA256": "94703347ed2f871db5af9060bbb3cb90228e9c5d588171b1d2f1d27972f76995",
+        "decodedSHA256": "b9cdae96d639e1c1505c55d70bfa909f6e2047a1f511b5361ea5a9fdd3cfa644"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 2644,
+      "triangleCount": 4964,
+      "positionByteSHA256": "7492e12f508b5eb168b04f6667aec76410e800566efedb3ec0c4af885f4f23c8",
+      "indexByteSHA256": "6e8f216374b0b5a4ce733f20c1a6d00716c2086a9b4481644e73653a258a04d2",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 2644
+        },
+        "triangles": {
+          "offset": 31744,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 4964
+        }
+      },
+      "originalNormals": {
+        "file": "model-53-normals.bin.gz",
+        "byteLength": 31728,
+        "gzipBytes": 29069,
+        "gzipSHA256": "f1b38753c2c3bf20d2b61b4ca56396c5c20a8e3dcdae1eefb0e48b78fa6e525d",
+        "decodedSHA256": "bd387685a33a71851cadfd79d0c359197900f95451fa4cc6c607d2c689d253d1",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 2644
+      },
+      "originalStrips": {
+        "file": "model-53-strips.bin.gz",
+        "byteLength": 32276,
+        "gzipBytes": 14175,
+        "gzipSHA256": "ee8f6b786b99ae56183d0337259a969255adae4c3e5d28d18d3f143e4c57bce6",
+        "decodedSHA256": "615a8909841800e908b7b22beb3ea4c294a058a2fc11af641d24450a956ba599",
+        "dtype": "<i4",
+        "stripCount": 1035,
+        "intCount": 8069,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          7.264839172363281,
+          -30.809478759765625,
+          -31.490798950195312
+        ],
+        [
+          32.436279296875,
+          10.419258117675781,
+          -8.792877197265625
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-18.mesh.gz",
+      "byteLength": 38500,
+      "gzipBytes": 19413,
+      "gzipSHA256": "9ec03b8b3b5e3fa273e917483ed7c4a10782ae61c7a3929f51d9d07f873c721f",
+      "decodedSHA256": "24ccc5128f8f7abd9c4c74956cf539e915eaa84f525ba0a2b8a4ab4bfc8c60ff",
+      "code": 18,
+      "name": "left amygdala",
+      "structure": "left_amygdala",
+      "originalFile": "slicer/models/Model_18_left_amygdala.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_18_left_amygdala.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_18_left_amygdala.vtk",
+        "bytes": 39850,
+        "sha256": "7927f02a2d2ebabe48129e4ea110e9eb8ddac0edb02d4f42ba09e46be1ee52c5",
+        "gitBlobSHA1": "4e1c45f991518e1d4b2bf9b1b19b1d293e7beafe"
+      },
+      "originalVTK": {
+        "file": "originals/Model_18_left_amygdala.vtk.gz",
+        "byteLength": 39850,
+        "gzipBytes": 29867,
+        "gzipSHA256": "296214d20e5a1310940ced6b5fd60b4941c4991b79d2258a4d2a45b10283afd3",
+        "decodedSHA256": "7927f02a2d2ebabe48129e4ea110e9eb8ddac0edb02d4f42ba09e46be1ee52c5"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 1105,
+      "triangleCount": 2102,
+      "positionByteSHA256": "165798ecffa0b6a4ae8fa22a90d3bc60a5876198554e597dcabb240b905a9157",
+      "indexByteSHA256": "1ea3c4331970a0af7cad3fcebf842273608352b9033e535877c867f59b7426c3",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1105
+        },
+        "triangles": {
+          "offset": 13276,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 2102
+        }
+      },
+      "originalNormals": {
+        "file": "model-18-normals.bin.gz",
+        "byteLength": 13260,
+        "gzipBytes": 12124,
+        "gzipSHA256": "9eb94df5bc02f4a45383ba6f012e5e515524b25ed12e6a3c7a2fc73becaf7e24",
+        "decodedSHA256": "77650b62a2bd2af32f0673bb94bf4d6faf026bde7e1c7db5097ae3a825a6e795",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 1105
+      },
+      "originalStrips": {
+        "file": "model-18-strips.bin.gz",
+        "byteLength": 13184,
+        "gzipBytes": 5450,
+        "gzipSHA256": "d5de62808d086e096f5bea647ab6427cbc9e675105d394fc0b72cef2a67ed18a",
+        "decodedSHA256": "e12077de6a82b8f2d04f51ebdf2e768eb981b534a79b0db8d4fecd8e22503da6",
+        "dtype": "<i4",
+        "stripCount": 398,
+        "intCount": 3296,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -31.531158447265625,
+          -2.4985809326171875,
+          -29.5076904296875
+        ],
+        [
+          -10.968109130859375,
+          12.41064453125,
+          -9.872360229492188
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-54.mesh.gz",
+      "byteLength": 41920,
+      "gzipBytes": 21040,
+      "gzipSHA256": "b6674216328978437be2790c26133463f548c1a4592f9060c7d09aad852d3f43",
+      "decodedSHA256": "0af5155fb508dc05ee60c005c7c3667fb7b34f0af9d3cfb5f14e992fe031fec4",
+      "code": 54,
+      "name": "right amygdala",
+      "structure": "right_amygdala",
+      "originalFile": "slicer/models/Model_54_right_amygdala.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_54_right_amygdala.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_54_right_amygdala.vtk",
+        "bytes": 44114,
+        "sha256": "1426fd3c4bbb9f41fbad0770b893ffe677d152a4158d527dd1ba28d16a5f7256",
+        "gitBlobSHA1": "cbbeedf43c3ed5cba86a88491cfdb0fc50f7e7df"
+      },
+      "originalVTK": {
+        "file": "originals/Model_54_right_amygdala.vtk.gz",
+        "byteLength": 44114,
+        "gzipBytes": 33129,
+        "gzipSHA256": "bfd2535674c929ad42d8a80a428cee5cec93dbdfa341144036a1d512bd725d74",
+        "decodedSHA256": "1426fd3c4bbb9f41fbad0770b893ffe677d152a4158d527dd1ba28d16a5f7256"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 1218,
+      "triangleCount": 2274,
+      "positionByteSHA256": "2d7960d9bce40bd6a18c2ba51af030f3071b06af47260fdb1afc929a516d1df1",
+      "indexByteSHA256": "4c5d8c9809ed1f8ce8b088c0fe4939b78450f96f6fe21f55132a38675b45a956",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1218
+        },
+        "triangles": {
+          "offset": 14632,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 2274
+        }
+      },
+      "originalNormals": {
+        "file": "model-54-normals.bin.gz",
+        "byteLength": 14616,
+        "gzipBytes": 13391,
+        "gzipSHA256": "4163a48e2101546857c590fdb5f4853c4d4cbffd7b37b435385407e438a3ceda",
+        "decodedSHA256": "9671da6b3612c02b1985b5c71dc87ce2a1c37587f2053a8044092010e320827b",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 1218
+      },
+      "originalStrips": {
+        "file": "model-54-strips.bin.gz",
+        "byteLength": 14736,
+        "gzipBytes": 6130,
+        "gzipSHA256": "698015feada1f3e2b3de819ffbf07191ec99de6dd271a36b242269c39b951b6a",
+        "decodedSHA256": "d01cd8dccc13667bed2040ac3d90aaaefed39e25c80079c11f194bef353c364d",
+        "dtype": "<i4",
+        "stripCount": 470,
+        "intCount": 3684,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          8.116752624511719,
+          -1.6228485107421875,
+          -30.3914794921875
+        ],
+        [
+          28.595001220703125,
+          16.379608154296875,
+          -11.50921630859375
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-3007.mesh.gz",
+      "byteLength": 47572,
+      "gzipBytes": 23233,
+      "gzipSHA256": "b0a37e6ed1ba581cef0ef8a02f7ec5b25a502f9890bd012657c7e9e127c9f58f",
+      "decodedSHA256": "efe2cdfb02288b023ee922ae22f3fe8112d0b543a2fa8b2909f82fb022252435",
+      "code": 3007,
+      "name": "left fornix of forebrain",
+      "structure": "left_fornix_of_forebrain",
+      "originalFile": "slicer/models/Model_3007_left_fornix_of_forebrain.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_3007_left_fornix_of_forebrain.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3007_left_fornix_of_forebrain.vtk",
+        "bytes": 52562,
+        "sha256": "67a35e06fa65f96b5a6caa621b19620b5908f909655dca5a5c8b424618e23dfa",
+        "gitBlobSHA1": "98e7a77d3b5eaaa10e332e2d08569f90ef9d042f"
+      },
+      "originalVTK": {
+        "file": "originals/Model_3007_left_fornix_of_forebrain.vtk.gz",
+        "byteLength": 52562,
+        "gzipBytes": 38629,
+        "gzipSHA256": "169fb608cd9e915bdb71ed85c8f4c996702394e3f5ee2ad6615250e189c7afa4",
+        "decodedSHA256": "67a35e06fa65f96b5a6caa621b19620b5908f909655dca5a5c8b424618e23dfa"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 1473,
+      "triangleCount": 2490,
+      "positionByteSHA256": "8ef322ed914fc7abe6f7163c95d7c2491f51063c987d12ea05685cac34ad1633",
+      "indexByteSHA256": "a57ec772dcffcff8f22597310da0dff45683e90fa89f84e839ccf647f6908de9",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1473
+        },
+        "triangles": {
+          "offset": 17692,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 2490
+        }
+      },
+      "originalNormals": {
+        "file": "model-3007-normals.bin.gz",
+        "byteLength": 17676,
+        "gzipBytes": 16270,
+        "gzipSHA256": "58c30e3eb51cfb254199090ce23169da26cdc6e92142be47a7f32cdce7dc9d10",
+        "decodedSHA256": "27b39410b735e545ea12ab5626869784c7fec8c8ad424cd3057f1fff2f17e9c1",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 1473
+      },
+      "originalStrips": {
+        "file": "model-3007-strips.bin.gz",
+        "byteLength": 17064,
+        "gzipBytes": 7051,
+        "gzipSHA256": "1470dbb71e588a065533f67faa4f7d07139c60fa8cce46934065ee10c84d5f50",
+        "decodedSHA256": "09d405a818f75ac946a2a3f1dcd219f3d947ce6d74a1e85225e030d900c12a13",
+        "dtype": "<i4",
+        "stripCount": 592,
+        "intCount": 4266,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -23.108291625976562,
+          -31.649505615234375,
+          -13.70745849609375
+        ],
+        [
+          1.3404464721679688,
+          20.860397338867188,
+          13.414688110351562
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-3005.mesh.gz",
+      "byteLength": 49516,
+      "gzipBytes": 24325,
+      "gzipSHA256": "7fb9e3903d2bec72d6db4cff0c74ed24311c280bfcda82187075ffe29f044604",
+      "decodedSHA256": "5093cd41db19758d519ab53b0844ad4ae3f093b320c45a77db54d56c0dcbdb6b",
+      "code": 3005,
+      "name": "right fornix of forebrain",
+      "structure": "right_fornix_of_forebrain",
+      "originalFile": "slicer/models/Model_3005_right_fornix_of_forebrain.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_3005_right_fornix_of_forebrain.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3005_right_fornix_of_forebrain.vtk",
+        "bytes": 54586,
+        "sha256": "727e70f1f978ae5c1ab7d8feb58665baa3a7b76b921065d84ed47b68f523fe3f",
+        "gitBlobSHA1": "d721b902a3ca0f5d9012ae22753fbc14ae92671e"
+      },
+      "originalVTK": {
+        "file": "originals/Model_3005_right_fornix_of_forebrain.vtk.gz",
+        "byteLength": 54586,
+        "gzipBytes": 40166,
+        "gzipSHA256": "e62a16a9d812053fbf84d7bf8f1c4873bc8bc807dd81d52049eb4e3c52da5982",
+        "decodedSHA256": "727e70f1f978ae5c1ab7d8feb58665baa3a7b76b921065d84ed47b68f523fe3f"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 1513,
+      "triangleCount": 2612,
+      "positionByteSHA256": "d00df4720cb1f2f398608edbf6cc0454e73fba0d6df743125decc29c22446d88",
+      "indexByteSHA256": "0f34a9e0595d66f003a052b785cb7e1999de3f328152b2d6dd7fbd8113e523b9",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1513
+        },
+        "triangles": {
+          "offset": 18172,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 2612
+        }
+      },
+      "originalNormals": {
+        "file": "model-3005-normals.bin.gz",
+        "byteLength": 18156,
+        "gzipBytes": 16705,
+        "gzipSHA256": "064d67bb3d40f951b74eb73d350106fba8e0c6bebc8d7d30c35aa4f983d513fb",
+        "decodedSHA256": "3eb634c24f432b79c79f527640edfdf69bc220cbfca79604175da068cda81ddc",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 1513
+      },
+      "originalStrips": {
+        "file": "model-3005-strips.bin.gz",
+        "byteLength": 18128,
+        "gzipBytes": 7560,
+        "gzipSHA256": "ec2cca6354f38b6d7589f7050ef15750137d5e350027f90fec2dd7211a6e1714",
+        "decodedSHA256": "688c4ab47fa02229d86df9dde1084a7fda51eaf3fbf9da8caae03f628d1987b8",
+        "dtype": "<i4",
+        "stripCount": 640,
+        "intCount": 4532,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -0.6716156005859375,
+          -27.574661254882812,
+          -13.63140869140625
+        ],
+        [
+          25.889122009277344,
+          20.89647674560547,
+          13.536788940429688
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-3003.mesh.gz",
+      "byteLength": 3268,
+      "gzipBytes": 1647,
+      "gzipSHA256": "1d6f3268687ed43207e295f4351907f9fe150187cfebc619c4d93cad5cb488ff",
+      "decodedSHA256": "2a14909921602780596729e9c387121ff7dcba70cba678b7e5b51b741bfab964",
+      "code": 3003,
+      "name": "left mammillary body",
+      "structure": "left_mammillary_body",
+      "originalFile": "slicer/models/Model_3003_left_mammillary_body.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_3003_left_mammillary_body.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3003_left_mammillary_body.vtk",
+        "bytes": 3726,
+        "sha256": "afe7daec21875a0b1b5f007e1fa1561817344f585d8b62e9a4b605aef96ca3b3",
+        "gitBlobSHA1": "ac2d957281d73784b7ae9092acbfef227e7948bf"
+      },
+      "originalVTK": {
+        "file": "originals/Model_3003_left_mammillary_body.vtk.gz",
+        "byteLength": 3726,
+        "gzipBytes": 2793,
+        "gzipSHA256": "ec563d934dc1eac6478ae53b8688c0f9b21f6a5ecd6ffdf55c20ff7314964c5e",
+        "decodedSHA256": "afe7daec21875a0b1b5f007e1fa1561817344f585d8b62e9a4b605aef96ca3b3"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 101,
+      "triangleCount": 170,
+      "positionByteSHA256": "28bb159ee62f7d5bc4a748380b6aa5386fc6c50d83ec2b71481cabc278b62a2a",
+      "indexByteSHA256": "9144f893ae32ec5a952d61b509ae34763d0fed80ab8f1bdba163f9d95692c255",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 101
+        },
+        "triangles": {
+          "offset": 1228,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 170
+        }
+      },
+      "originalNormals": {
+        "file": "model-3003-normals.bin.gz",
+        "byteLength": 1212,
+        "gzipBytes": 1187,
+        "gzipSHA256": "2db0c1b7cdc9630771cd437b68743917ce1812ad647b45fab9386741c32ab688",
+        "decodedSHA256": "b213ae66e83b7a8ff140555598430c1ec237275bb4737cae5c1804227ecf9fcd",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 101
+      },
+      "originalStrips": {
+        "file": "model-3003-strips.bin.gz",
+        "byteLength": 1160,
+        "gzipBytes": 438,
+        "gzipSHA256": "bdc39ecb07e32aece6d555f8f1b9feac5dc7c5efab71d644252abc63386c71a1",
+        "decodedSHA256": "ca3af9f8114158600695bf998cafde0e24ace747cbf638d387ed9631a521e7b8",
+        "dtype": "<i4",
+        "stripCount": 40,
+        "intCount": 290,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -5.5643768310546875,
+          2.62286376953125,
+          -17.710098266601562
+        ],
+        [
+          -1.3923797607421875,
+          7.227851867675781,
+          -13.155517578125
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-3002.mesh.gz",
+      "byteLength": 3664,
+      "gzipBytes": 1849,
+      "gzipSHA256": "79e7028180116dc8b6eba6bf015701b1967c396922955537c321c76221e0b55e",
+      "decodedSHA256": "9e07eed8f33ddaffcb47391a7448c994add74e9b7a285c8aae1a04b80a5c2940",
+      "code": 3002,
+      "name": "right mammillary body",
+      "structure": "right_mammillary_body",
+      "originalFile": "slicer/models/Model_3002_right_mammillary_body.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_3002_right_mammillary_body.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_3002_right_mammillary_body.vtk",
+        "bytes": 4174,
+        "sha256": "7d62b5dc325e4c853697f0a1d55b786bda14c9713674a943d7665b6ad84617d6",
+        "gitBlobSHA1": "fb6e5a984339a2f0a97ff7cfa97a050d62d9ccb5"
+      },
+      "originalVTK": {
+        "file": "originals/Model_3002_right_mammillary_body.vtk.gz",
+        "byteLength": 4174,
+        "gzipBytes": 3041,
+        "gzipSHA256": "e4c512d94668582bd8ed31625433ee5c4c0247159c01100eeecd515ec2a855c4",
+        "decodedSHA256": "7d62b5dc325e4c853697f0a1d55b786bda14c9713674a943d7665b6ad84617d6"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 112,
+      "triangleCount": 192,
+      "positionByteSHA256": "842991c4d94b1cede4d8061f434c175e4bdbb3de978404fe5a7de9582ee1b5f5",
+      "indexByteSHA256": "306f0acc8c0cd95b1ae361a0d770067ba6a0949703bbff1d3f9314836f0af313",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 112
+        },
+        "triangles": {
+          "offset": 1360,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 192
+        }
+      },
+      "originalNormals": {
+        "file": "model-3002-normals.bin.gz",
+        "byteLength": 1344,
+        "gzipBytes": 1262,
+        "gzipSHA256": "0a1aa2ec815205f1e4a7c74deb9f58016504a86c8e3d64cc7f88ada71e187766",
+        "decodedSHA256": "976232df4375caf2387be5e22186f063b02afaff90b9b6081ada5374ce5b035a",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 112
+      },
+      "originalStrips": {
+        "file": "model-3002-strips.bin.gz",
+        "byteLength": 1344,
+        "gzipBytes": 506,
+        "gzipSHA256": "b130e477d73d0545d0d349bd4af7cfc97cf752387ccae8237c8f3550fdac4744",
+        "decodedSHA256": "6d9f715c7d3c9fe8856b9451ffd30f8304223da90344ce073f2e9b07dab1dedc",
+        "dtype": "<i4",
+        "stripCount": 48,
+        "intCount": 336,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -1.478271484375,
+          3.02886962890625,
+          -17.857711791992188
+        ],
+        [
+          3.5440902709960938,
+          7.7744903564453125,
+          -13.422042846679688
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-1016.mesh.gz",
+      "byteLength": 85024,
+      "gzipBytes": 40754,
+      "gzipSHA256": "0b85156fd71fba457e315062d4b89acfc4b51ab7917637d0b90d6c73a4cc49eb",
+      "decodedSHA256": "0151fad07e0f193db8761f4d66330533468a5cb28c50c717015452de35e18462",
+      "code": 1016,
+      "name": "left parahippocampal gyrus",
+      "structure": "left_parahippocampal_gyrus",
+      "originalFile": "slicer/models/Model_1016_left_parahippocampal_gyrus.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_1016_left_parahippocampal_gyrus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_1016_left_parahippocampal_gyrus.vtk",
+        "bytes": 95259,
+        "sha256": "220864abbbb19d88a3a512cf730e1d464f1f13bff9b1e2ff66088d78c861d114",
+        "gitBlobSHA1": "4555203a52288d62cf27106757a5adcd9b2b3235"
+      },
+      "originalVTK": {
+        "file": "originals/Model_1016_left_parahippocampal_gyrus.vtk.gz",
+        "byteLength": 95259,
+        "gzipBytes": 66975,
+        "gzipSHA256": "55c05df8a35f6e5284680f1ed00730fe1bb8aa61f272187e7eba54111e74b628",
+        "decodedSHA256": "220864abbbb19d88a3a512cf730e1d464f1f13bff9b1e2ff66088d78c861d114"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 2674,
+      "triangleCount": 4410,
+      "positionByteSHA256": "444f2aa9d654aa8e9d92fb41d0e2a95928c6bea26f06f42a0ae0015cd863f2eb",
+      "indexByteSHA256": "d192418a31c170c9b2eab57954342f3533ba5862985ba4d6b8ad3c388cf7124b",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 2674
+        },
+        "triangles": {
+          "offset": 32104,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 4410
+        }
+      },
+      "originalNormals": {
+        "file": "model-1016-normals.bin.gz",
+        "byteLength": 32088,
+        "gzipBytes": 28730,
+        "gzipSHA256": "a51ec2acd264f4b87de5fb5de12a7e70ff01faa431f11d0267fe1b4e943b7825",
+        "decodedSHA256": "a3d1d6530a2e6bda6659b9583573a0148b5a14e53940fbca82c39a5e56414d25",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 2674
+      },
+      "originalStrips": {
+        "file": "model-1016-strips.bin.gz",
+        "byteLength": 30936,
+        "gzipBytes": 13332,
+        "gzipSHA256": "a0ce44437be9a23aa9c13e4ac5161548d1af772ce974fd39886df4da396ac907",
+        "decodedSHA256": "657ffba50e1f2e01bf34d89326c38acf11208aac1d492262d7292af39e6e85c2",
+        "dtype": "<i4",
+        "stripCount": 1108,
+        "intCount": 7734,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -31.132705688476562,
+          -33.39874267578125,
+          -35.84576416015625
+        ],
+        [
+          -7.792877197265625,
+          -5.6583709716796875,
+          -11.487258911132812
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-2016.mesh.gz",
+      "byteLength": 77128,
+      "gzipBytes": 38435,
+      "gzipSHA256": "7c57f8eaaee9d3818c21b58ec3d38537c54bc2c9dc977e45e53718f376d6c1db",
+      "decodedSHA256": "ddc5e39a67feb08b297ae311b762d3ae2508fad6749ae806f71869e972171193",
+      "code": 2016,
+      "name": "right parahippocampal gyrus",
+      "structure": "right_parahippocampal_gyrus",
+      "originalFile": "slicer/models/Model_2016_right_parahippocampal_gyrus.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_2016_right_parahippocampal_gyrus.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_2016_right_parahippocampal_gyrus.vtk",
+        "bytes": 83890,
+        "sha256": "3e9bccea4376e9a8a7ce266e374100e2872ab26abd67acdf69b960932715623a",
+        "gitBlobSHA1": "a175b7eb3cd6cc7bcfedd7825c916ae73b6f1489"
+      },
+      "originalVTK": {
+        "file": "originals/Model_2016_right_parahippocampal_gyrus.vtk.gz",
+        "byteLength": 83890,
+        "gzipBytes": 61328,
+        "gzipSHA256": "64e19464610ba0ce265eef9d0e6d3b26c52ca7ce4d2cc9286672dedafc342c14",
+        "decodedSHA256": "3e9bccea4376e9a8a7ce266e374100e2872ab26abd67acdf69b960932715623a"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 2350,
+      "triangleCount": 4076,
+      "positionByteSHA256": "3ee9931f9ba385ce6e13a89d7c49ecf6c04805660afd82305374a28d345d123b",
+      "indexByteSHA256": "0f4f1471e68140796593aa97aa36a917b8bff064b0dd906ccf6af69e643d9790",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 2350
+        },
+        "triangles": {
+          "offset": 28216,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 4076
+        }
+      },
+      "originalNormals": {
+        "file": "model-2016-normals.bin.gz",
+        "byteLength": 28200,
+        "gzipBytes": 25362,
+        "gzipSHA256": "00e23e1150089cc0083aa0c1d268d59f83d6729ea413b905df5bb9ebee787e95",
+        "decodedSHA256": "761932776cc2521991fef8b073efdc2339c90e3167062239532ac34a160d8a2c",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 2350
+      },
+      "originalStrips": {
+        "file": "model-2016-strips.bin.gz",
+        "byteLength": 27344,
+        "gzipBytes": 11734,
+        "gzipSHA256": "8393eb7b6f365ae6de1b298a208d53a46965ee124d95fb4fa29d3992145e9b65",
+        "decodedSHA256": "fc30c68369026590daa5266a0da5aaa876e1b70f21b7ee7ba1892ef1407b74d4",
+        "dtype": "<i4",
+        "stripCount": 920,
+        "intCount": 6836,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          11.738822937011719,
+          -23.60870361328125,
+          -37.90312194824219
+        ],
+        [
+          32.85258483886719,
+          10.269309997558594,
+          -21.470977783203125
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-100.mesh.gz",
+      "byteLength": 3004,
+      "gzipBytes": 1406,
+      "gzipSHA256": "023ffeafe38e49ea9d22239a3a7ef318f44612705f70b5e3d445a202e638a514",
+      "decodedSHA256": "8e477189dcaadab300e8e058d42819333277e24a8a502ddde5b473fc39fb859b",
+      "code": 100,
+      "name": "left mammillothalamic tract",
+      "structure": "left_mammillothalamic_tract",
+      "originalFile": "slicer/models/Model_100_left_mammillothalamic_tract.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_100_left_mammillothalamic_tract.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_100_left_mammillothalamic_tract.vtk",
+        "bytes": 3858,
+        "sha256": "e53c5b7e7497d53a890ecf16a15ca338563171a6227c25bfeb7cd99fe204e884",
+        "gitBlobSHA1": "ae700bbb939f18dd21091657dc716753a4de977b"
+      },
+      "originalVTK": {
+        "file": "originals/Model_100_left_mammillothalamic_tract.vtk.gz",
+        "byteLength": 3858,
+        "gzipBytes": 2704,
+        "gzipSHA256": "41a081e16fa3916d6c16a12bee8ae11b77349715524837bc32a6e4352e12f111",
+        "decodedSHA256": "e53c5b7e7497d53a890ecf16a15ca338563171a6227c25bfeb7cd99fe204e884"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 109,
+      "triangleCount": 140,
+      "positionByteSHA256": "6058a3b5da415453518ef7125b362fe6c4f2bc8df2bd2251d0688b6f8064f2f7",
+      "indexByteSHA256": "0c5e894a7326120e3f8882c13201788d8e0be1b56d838200ce9cfdcd85cff37f",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 109
+        },
+        "triangles": {
+          "offset": 1324,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 140
+        }
+      },
+      "originalNormals": {
+        "file": "model-100-normals.bin.gz",
+        "byteLength": 1308,
+        "gzipBytes": 1261,
+        "gzipSHA256": "e27285fb19aff1aa5841110d4a80c12429fd1f7fe58366701ea5bf7c61dc2d7d",
+        "decodedSHA256": "c1ce6ca59d00a46d56dd0e31a2019fb921b544b665bf319f5f7058fc1ed8f64f",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 109
+      },
+      "originalStrips": {
+        "file": "model-100-strips.bin.gz",
+        "byteLength": 1100,
+        "gzipBytes": 418,
+        "gzipSHA256": "f69996ea5ca70b96e7ceaec0dee63a6ae36ba6343a0e43b1a39fef6891da4c7a",
+        "decodedSHA256": "aeea9d636f8fc63cddd2a795a0f4a62ebc4fcba782f1c54272a9f517f2101c48",
+        "dtype": "<i4",
+        "stripCount": 45,
+        "intCount": 275,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -5.0825653076171875,
+          -0.2435150146484375,
+          -13.497573852539062
+        ],
+        [
+          -1.4968719482421875,
+          4.8788604736328125,
+          -7.9774169921875
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    },
+    {
+      "file": "model-200.mesh.gz",
+      "byteLength": 3112,
+      "gzipBytes": 1484,
+      "gzipSHA256": "192d3e76c2091dcb5062a13bfe35586a4caf095b4ae24e15a5cb09d898fc3b70",
+      "decodedSHA256": "3ade746edd21a2f8a2a58b9e7bcd925f142d89b2618b9db3739dd342818b0cbd",
+      "code": 200,
+      "name": "right mammillothalamic tract",
+      "structure": "right_mammillothalamic_tract",
+      "originalFile": "slicer/models/Model_200_right_mammillothalamic_tract.vtk",
+      "source": {
+        "repositoryPath": "slicer/models/Model_200_right_mammillothalamic_tract.vtk",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/models/Model_200_right_mammillothalamic_tract.vtk",
+        "bytes": 3850,
+        "sha256": "d86eb0c5d7b7900e815ba6a8957771f0df9b7370ee5a439a93d832382efda2fc",
+        "gitBlobSHA1": "500b3f01a2c0d10cf0e1817855a7c7be03128ca3"
+      },
+      "originalVTK": {
+        "file": "originals/Model_200_right_mammillothalamic_tract.vtk.gz",
+        "byteLength": 3850,
+        "gzipBytes": 2738,
+        "gzipSHA256": "134d7fcdc96dd16eb1c356e2b86212cac618ae972406dfd6cba62f204e0046c5",
+        "decodedSHA256": "d86eb0c5d7b7900e815ba6a8957771f0df9b7370ee5a439a93d832382efda2fc"
+      },
+      "coordinateSystem": "RAS",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "spaceUnits": "mm",
+      "vertexCount": 108,
+      "triangleCount": 150,
+      "positionByteSHA256": "f9a8ad0d0908431ecf8e7b70afeb7bfecbb39794028ca09315d4c9d7ad0c1118",
+      "indexByteSHA256": "4f6eb68acaebc02b6fd5b1b0e11dc2c4bab9c3605af23ea12f2673dd3e54e1ec",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 108
+        },
+        "triangles": {
+          "offset": 1312,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 150
+        }
+      },
+      "originalNormals": {
+        "file": "model-200-normals.bin.gz",
+        "byteLength": 1296,
+        "gzipBytes": 1268,
+        "gzipSHA256": "96d45c03983ad3dbccb5b67e350fb42216b7bd282baef985445dd7f8d56f40d2",
+        "decodedSHA256": "fac56d051363fbeeabbf29e4996d216f1c2161b460d9c715d3b852e4b069ab6d",
+        "dtype": "<f4",
+        "components": 3,
+        "count": 108
+      },
+      "originalStrips": {
+        "file": "model-200-strips.bin.gz",
+        "byteLength": 1116,
+        "gzipBytes": 414,
+        "gzipSHA256": "f0720dcd1fa42ee0d4f6c11dc4b5d9f3286687f1592f78dce9fa7374ec0f4fc5",
+        "decodedSHA256": "1802e16266f93fed900fe0d50d4f87e9467d0f88491aedafba8d63ceef673eda",
+        "dtype": "<i4",
+        "stripCount": 43,
+        "intCount": 279,
+        "encoding": "length-prefixed original point indices"
+      },
+      "boundsRAS": [
+        [
+          -1.592559814453125,
+          -0.7630767822265625,
+          -13.62249755859375
+        ],
+        [
+          3.1312408447265625,
+          4.816764831542969,
+          -7.4993133544921875
+        ]
+      ],
+      "winding": "For each original strip offset i: (v_i,v_i+1,v_i+2) for even i; swap the first two for odd i. Every implied triangle, including degeneracies, is retained.",
+      "sourceVerticesNormalsAndStripBitsExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "exactCategoricalVoxelBoundaryClaim": false
+    }
+  ],
+  "labelMeshes": [
+    {
+      "file": "label-17.mesh.gz",
+      "byteLength": 132628,
+      "gzipBytes": 36280,
+      "gzipSHA256": "08ca9329b1b85ae08f6391554804cc8b20c268d645eb614bbbb6c28dbd8a6e3b",
+      "decodedSHA256": "9c3d53c37ad1016888beeaaaa325fdb7ab5108a9e48b940a74d9c7c5558edaef",
+      "code": 17,
+      "name": "left hippocampus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_hippocampus",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 17,
+      "sourceVoxelCount": 4641,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 3679,
+      "triangleCount": 7372,
+      "exposedFaceCount": 3686,
+      "positionByteSHA256": "c7c549d4467dc34d6925acaf52db263fbbd5bd31bbdebd162dc33d8d7d9cbc66",
+      "indexByteSHA256": "aca2ecc54af1315d4c610c450c1c822f1221a994bb96a21cdcd951c3f3501a79",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 3679
+        },
+        "triangles": {
+          "offset": 44164,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 7372
+        }
+      },
+      "boundsRAS": [
+        [
+          -33.5,
+          -37.5,
+          -30.5
+        ],
+        [
+          -7.5,
+          8.5,
+          -6.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-17-faces.bin.gz",
+        "byteLength": 36860,
+        "gzipBytes": 9112,
+        "gzipSHA256": "9ba688612d470575a72884755f0946f4a18410577cfce7798d0030a63d65f317",
+        "decodedSHA256": "a8813f005f0c8f451157150bbccc7b71d0f7cb8d398fc0811e9f1fe2bd4898c8",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 3686,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-53.mesh.gz",
+      "byteLength": 119080,
+      "gzipBytes": 32629,
+      "gzipSHA256": "b42d1c0598898735404ef0673e153d41918ec37f344ef6dd9acc97061346c6c2",
+      "decodedSHA256": "c9f9c1077f6773e31c5d200d2c1edcfd286e8550313966bbb0470ce3f2f797e3",
+      "code": 53,
+      "name": "right hippocampus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_hippocampus",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 53,
+      "sourceVoxelCount": 4378,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 3298,
+      "triangleCount": 6624,
+      "exposedFaceCount": 3312,
+      "positionByteSHA256": "0c00d38d2f51aad3d032eda5959775e9f78a239f2b5a293c2dd866a044fb829d",
+      "indexByteSHA256": "f31bc43854305ecd6e49ffe9500eb583dc4c7229845155ebcdfdc51b6e155a1c",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 3298
+        },
+        "triangles": {
+          "offset": 39592,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 6624
+        }
+      },
+      "boundsRAS": [
+        [
+          6.5,
+          -31.5,
+          -31.5
+        ],
+        [
+          32.5,
+          10.5,
+          -8.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-53-faces.bin.gz",
+        "byteLength": 33120,
+        "gzipBytes": 8329,
+        "gzipSHA256": "ca73a781c63e7e48529c46f02497e27952bbcbcdeea071b1634293cea476dc25",
+        "decodedSHA256": "15c6a278f880e62ac88af8e46f7496b443da154b7f8f85fd542814cfaa244b9e",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 3312,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-18.mesh.gz",
+      "byteLength": 50872,
+      "gzipBytes": 14093,
+      "gzipSHA256": "b43816761bf790ac6a1bcf01d0d502b425b9bfcad1f66dc2d6c2a4e2ebfcb7c0",
+      "decodedSHA256": "502f21f2af1e73d779a5dd7f5700f8b981560e787b7b2b1b67edc86f91d54db3",
+      "code": 18,
+      "name": "left amygdala",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_amygdala",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 18,
+      "sourceVoxelCount": 1733,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 1414,
+      "triangleCount": 2824,
+      "exposedFaceCount": 1412,
+      "positionByteSHA256": "72b1c4db44e0b22f7b3aa5be09e75f77e66b479bc998b0b23599b26e0bcf9efa",
+      "indexByteSHA256": "58b5bd8e1dcfa6fa583b740290067e05fd09d5cbec668e5733fbe1fae76c1833",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1414
+        },
+        "triangles": {
+          "offset": 16984,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 2824
+        }
+      },
+      "boundsRAS": [
+        [
+          -31.5,
+          -2.5,
+          -29.5
+        ],
+        [
+          -10.5,
+          12.5,
+          -9.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-18-faces.bin.gz",
+        "byteLength": 14120,
+        "gzipBytes": 3347,
+        "gzipSHA256": "cca9a3ce5738afc15bfbf5eeda967bfe70424f6fc2deeec64e2468e4025fc78c",
+        "decodedSHA256": "371d22e3756baef3d3589e6e941f70e7a6d4d056afe1a9625cf352a6fce0f43b",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 1412,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-54.mesh.gz",
+      "byteLength": 57748,
+      "gzipBytes": 16173,
+      "gzipSHA256": "0eb5c33f3e2a77194a9827f8ce8b2e2a71f45e60ae156ce946ee3c8debd8b990",
+      "decodedSHA256": "e73fb66f2df6b3f42bfd8f4c0685810870a2909661d5b89aaf0dcb0487eee921",
+      "code": 54,
+      "name": "right amygdala",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_amygdala",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 54,
+      "sourceVoxelCount": 2166,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 1603,
+      "triangleCount": 3208,
+      "exposedFaceCount": 1604,
+      "positionByteSHA256": "2d37f4c2879fc3edf7d0254d2d519f6591f30cdc093605835e514f329883fa61",
+      "indexByteSHA256": "d5c0ef7a81a4289182d2b3f95ffb75b5ad0c3d333812bda5c686522406391a33",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1603
+        },
+        "triangles": {
+          "offset": 19252,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 3208
+        }
+      },
+      "boundsRAS": [
+        [
+          7.5,
+          -2.5,
+          -30.5
+        ],
+        [
+          29.5,
+          16.5,
+          -11.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-54-faces.bin.gz",
+        "byteLength": 16040,
+        "gzipBytes": 3860,
+        "gzipSHA256": "e23c6433ad784c968347aedd9d3722246a434ab710d39bdd441be27dfdc4a85d",
+        "decodedSHA256": "d7eadad6c7a902ef3a6f1d882efc3d8d939e0c74f0ddfffc213dc097f4effe10",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 1604,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-3007.mesh.gz",
+      "byteLength": 51880,
+      "gzipBytes": 14224,
+      "gzipSHA256": "b4871722a076ebf92370cc1dccf4820e05f1536d68a7b91ec25b2371271a61d8",
+      "decodedSHA256": "6aed6117b7b4aaff64cfff2d527b93f3ff4c08f85fb6d6203752c2939c82eac7",
+      "code": 3007,
+      "name": "left fornix of forebrain",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_fornix_of_forebrain",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 3007,
+      "sourceVoxelCount": 741,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 1442,
+      "triangleCount": 2880,
+      "exposedFaceCount": 1440,
+      "positionByteSHA256": "82e9ba4b4b2751c58231d719b723006526cb99c4ed02dfb17b3a57ff9a27fae4",
+      "indexByteSHA256": "c675baf4e0124f15e70af7ffef24acfbc2ea4259d6c80293fcde1aa4fba10c64",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1442
+        },
+        "triangles": {
+          "offset": 17320,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 2880
+        }
+      },
+      "boundsRAS": [
+        [
+          -19.5,
+          -39.5,
+          -10.5
+        ],
+        [
+          1.5,
+          21.5,
+          13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3007-faces.bin.gz",
+        "byteLength": 14400,
+        "gzipBytes": 3644,
+        "gzipSHA256": "a1973297029f2619d416b539b2f9ac49c8e58df911608d0afa0a23c3ddec0ea8",
+        "decodedSHA256": "7bb63caf144646e33dd8fac2c98ba9d6467f4833612c2e97619a0a41ba407577",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 1440,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-3005.mesh.gz",
+      "byteLength": 53428,
+      "gzipBytes": 14533,
+      "gzipSHA256": "22854ecd4be4178615cab53561af668d1ae81680d2a2eb9051fd05effb9a947d",
+      "decodedSHA256": "c3aa4b451808214c7f2103bc0b411f6a17441822f34a5f983ef0f2016271a2be",
+      "code": 3005,
+      "name": "right fornix of forebrain",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_fornix_of_forebrain",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 3005,
+      "sourceVoxelCount": 760,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 1479,
+      "triangleCount": 2972,
+      "exposedFaceCount": 1486,
+      "positionByteSHA256": "afd0b78b08d5ed5cef671cd3d9b08129f834b0af11d2243ed70eb1dbe5c4138c",
+      "indexByteSHA256": "1a08cb3923d204ec2a23f2ff4cb47f15f0eba173da505c850e8503894341f864",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1479
+        },
+        "triangles": {
+          "offset": 17764,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 2972
+        }
+      },
+      "boundsRAS": [
+        [
+          -0.5,
+          -27.5,
+          -10.5
+        ],
+        [
+          24.5,
+          21.5,
+          13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3005-faces.bin.gz",
+        "byteLength": 14860,
+        "gzipBytes": 3702,
+        "gzipSHA256": "e2f9494cd02170dd8908d20e5260fb28284f8ea33e7f9bba180efa7850851920",
+        "decodedSHA256": "0e6dd124ef3b4277187a511d70c4519f54936f321db3dd92eb67f6e3518a16c5",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 1486,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-3003.mesh.gz",
+      "byteLength": 4216,
+      "gzipBytes": 1154,
+      "gzipSHA256": "703ad7c7e2f3fc384c7e7c800e2fac6da780a27ea29fb212c2d2f18daff9c20c",
+      "decodedSHA256": "a2bda3e67f728b2c21c4f0032968de191a0e263569eb7bda367320a25f92ece5",
+      "code": 3003,
+      "name": "left mammillary body",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_mammillary_body",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 3003,
+      "sourceVoxelCount": 67,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 118,
+      "triangleCount": 232,
+      "exposedFaceCount": 116,
+      "positionByteSHA256": "a39669fe2dbc3339a7805382479c076b369e23ce59fa63e6731bedb96534426b",
+      "indexByteSHA256": "d0a46a7cb6609e9743dc044dbc75b89963ef4065d988a52a789018aba866447d",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 118
+        },
+        "triangles": {
+          "offset": 1432,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 232
+        }
+      },
+      "boundsRAS": [
+        [
+          -5.5,
+          2.5,
+          -18.5
+        ],
+        [
+          -1.5,
+          7.5,
+          -13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3003-faces.bin.gz",
+        "byteLength": 1160,
+        "gzipBytes": 303,
+        "gzipSHA256": "e06322b71d5285207358e100c0a164bb5810acb955554e5731e2366ebabe057a",
+        "decodedSHA256": "0014317ef63b158b9c41e0d46eae80a6bf1d043680fe51baf2377d3e4b1fe35a",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 116,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-3002.mesh.gz",
+      "byteLength": 4720,
+      "gzipBytes": 1292,
+      "gzipSHA256": "045f575420c07389cd34c73f02b54c6d4cb544ff60f9535b6d01d6d248cbf029",
+      "decodedSHA256": "1a92680f126df5b31a06225d9612dfbb5ee35d362420dafbf49004a83f1081c5",
+      "code": 3002,
+      "name": "right mammillary body",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_mammillary_body",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 3002,
+      "sourceVoxelCount": 76,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 132,
+      "triangleCount": 260,
+      "exposedFaceCount": 130,
+      "positionByteSHA256": "ed4d18ddab0f97b23cc0c56ce57973a72adf8af9c4dd34cd15e6074644ac364d",
+      "indexByteSHA256": "506e155d7e6e8c2b4b2695b18965a232045a1a20c4c149d255d6a71b02deaf57",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 132
+        },
+        "triangles": {
+          "offset": 1600,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 260
+        }
+      },
+      "boundsRAS": [
+        [
+          -1.5,
+          2.5,
+          -18.5
+        ],
+        [
+          3.5,
+          7.5,
+          -13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3002-faces.bin.gz",
+        "byteLength": 1300,
+        "gzipBytes": 332,
+        "gzipSHA256": "94d153c4f28cbfffb9f530a6e9941793ae817d8322308bd07ffc9b49eef00393",
+        "decodedSHA256": "75a9856b035f4e765658ce62066512e410f0e65007246cf9fbd4f4cfb0ffc3a0",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 130,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-1016.mesh.gz",
+      "byteLength": 101548,
+      "gzipBytes": 28438,
+      "gzipSHA256": "a9f855628f69c61cd83bff92ccc08c8307a06a14b6b6eec8a62f6f67b4d6cddd",
+      "decodedSHA256": "5a47b700a4ab1a1d64cc7e3aa65a53733d8a58dac4ab413f9b12c60aacf4dcb8",
+      "code": 1016,
+      "name": "left parahippocampal gyrus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_parahippocampal_gyrus",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 1016,
+      "sourceVoxelCount": 1989,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 2773,
+      "triangleCount": 5688,
+      "exposedFaceCount": 2844,
+      "positionByteSHA256": "72748d30ce4446399d690ac5851ef96f4705e746fe7c3e45e307b01caa068e41",
+      "indexByteSHA256": "4f3eb83a4e8d01f396190b56e2586527d020a2ac87f1a901e3e241e48d609741",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 2773
+        },
+        "triangles": {
+          "offset": 33292,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 5688
+        }
+      },
+      "boundsRAS": [
+        [
+          -31.5,
+          -33.5,
+          -36.5
+        ],
+        [
+          -6.5,
+          -5.5,
+          -13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-1016-faces.bin.gz",
+        "byteLength": 28440,
+        "gzipBytes": 7054,
+        "gzipSHA256": "61da596add27cb07bf1bbfb153a2147ec8069b15ffbee27355a3ba6231e0d944",
+        "decodedSHA256": "335893c01c2e20fdba0a0bf0dcc4e3472ff979e1e0a24c55bc5bf19cea1a5d75",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 2844,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-2016.mesh.gz",
+      "byteLength": 97360,
+      "gzipBytes": 27177,
+      "gzipSHA256": "f07d7e005e218e420a06ec5216d8cfeb4ee2547f58825aa99e0887067575b89e",
+      "decodedSHA256": "7f6305ded4f073f5d54afaac94447edc8a1c65e12b68c17c0725b459348f1118",
+      "code": 2016,
+      "name": "right parahippocampal gyrus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_parahippocampal_gyrus",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 2016,
+      "sourceVoxelCount": 1900,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 2664,
+      "triangleCount": 5448,
+      "exposedFaceCount": 2724,
+      "positionByteSHA256": "887ab84f1e209855d34a3dfccdf3226bc30361b9a3e3e90dfbc196c47f705c14",
+      "indexByteSHA256": "e3d87e7a09dc329e42d8f6a964b08d249f785b4a0c0fe31e85e0c80f14f13b6d",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 2664
+        },
+        "triangles": {
+          "offset": 31984,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 5448
+        }
+      },
+      "boundsRAS": [
+        [
+          11.5,
+          -23.5,
+          -38.5
+        ],
+        [
+          33.5,
+          9.5,
+          -21.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-2016-faces.bin.gz",
+        "byteLength": 27240,
+        "gzipBytes": 6971,
+        "gzipSHA256": "c2add66d0fbf9dcca6713919218b46e4a14d8e1f7a01b3cf2c9dd5abc4f6e24b",
+        "decodedSHA256": "ab76d36760a45942365808f656ad48ced59b6fa5c3288c1a1d37d0f8746e15fe",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 2724,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-100.mesh.gz",
+      "byteLength": 3484,
+      "gzipBytes": 933,
+      "gzipSHA256": "e049375afeb094dd291148840800fb167dca6fd7a976826834ebb3782983681c",
+      "decodedSHA256": "040b9ccc50994c582435edcffc892d646983c9f223bb882dc26444fb505e71af",
+      "code": 100,
+      "name": "left mammillothalamic tract",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_mammillothalamic_tract",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 100,
+      "sourceVoxelCount": 30,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 97,
+      "triangleCount": 192,
+      "exposedFaceCount": 96,
+      "positionByteSHA256": "09aefc0e47c1589645e9525778638f6d68ccac77429895679d88dfe41128d7a8",
+      "indexByteSHA256": "683fbf89d452c83d09ccd10d4308d6ea920a229812e018384bfa1cb6e6ef916e",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 97
+        },
+        "triangles": {
+          "offset": 1180,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 192
+        }
+      },
+      "boundsRAS": [
+        [
+          -5.5,
+          -0.5,
+          -13.5
+        ],
+        [
+          -0.5,
+          5.5,
+          -7.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-100-faces.bin.gz",
+        "byteLength": 960,
+        "gzipBytes": 259,
+        "gzipSHA256": "e55a07d25fc9e62fb65b80d8b3bfc13c064aa4dd80423c580531e006a9fef719",
+        "decodedSHA256": "6da73ba00492d0e3f0edcd06c278df77b3e82c44b5917ef6bd5620a0b159f803",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 96,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    },
+    {
+      "file": "label-200.mesh.gz",
+      "byteLength": 3496,
+      "gzipBytes": 930,
+      "gzipSHA256": "0efee0ee35e0a6e17fe1dfae4f271d1e78b1412d3bfd3e7723daf30343d28eb1",
+      "decodedSHA256": "1ff1160bc6e7e979833ade84713f4fabf21efbdde3cfc90fa48cd427560fafe2",
+      "code": 200,
+      "name": "right mammillothalamic tract",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_mammillothalamic_tract",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 200,
+      "sourceVoxelCount": 33,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 98,
+      "triangleCount": 192,
+      "exposedFaceCount": 96,
+      "positionByteSHA256": "550168c19093303ae4c69b5ec3ea0f5bc5479736cf9401d7cd63675e15ec634f",
+      "indexByteSHA256": "2883ef097de2e95fa57176e7a222f0d4bcbc616179fda0457db5ec50539dd13b",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 98
+        },
+        "triangles": {
+          "offset": 1192,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 192
+        }
+      },
+      "boundsRAS": [
+        [
+          -1.5,
+          -1.5,
+          -13.5
+        ],
+        [
+          3.5,
+          5.5,
+          -7.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-200-faces.bin.gz",
+        "byteLength": 960,
+        "gzipBytes": 258,
+        "gzipSHA256": "69015ffd5c19ec45e6622383e764d3a8f23bf8fd4be5417648a41ba1694f6147",
+        "decodedSHA256": "ef03b3468aa60ec2d1c85e63d3030dbe1a6e3c6fb825e90fb98cf5b9366411ea",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 96,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface."
+    }
+  ],
+  "defaultSurfaceSet": "labelMeshes",
+  "licenseFile": "LICENSE.txt",
+  "attributionFile": "ATTRIBUTION.txt",
+  "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+  "licenseURL": "https://www.openanatomy.org/atlas-pages/slicer-license.html",
+  "sourceNoticeFiles": [
+    "SOURCE-README.md",
+    "SOURCE-LICENSE.md"
+  ],
+  "originalSurfaceWarning": "Original publisher surfaces are distinct processed objects and do not coincide exactly with categorical labels. The fornix shows substantial differences: left original vertex-to-label-boundary maximum 5.48 mm and label-face-center-to-original-surface maximum 12.24 mm; right vertex maximum 7.17 mm. These sampled distances are not continuous Hausdorff bounds. Use labelMeshes for exact categorical cell boundaries.",
+  "clinicalApproval": false,
+  "completeReportingAnatomyApproved": false,
+  "normalPopulationAtlas": false,
+  "currentPatientRegistration": false,
+  "newFittedTransforms": false,
+  "surfaceMeaning": "labelMeshes are exact categorical voxel-cell boundaries from all selected source label voxels. meshes are distinct original publisher-processed surfaces. Their spatial relation to original categorical labels is audited separately; they are not relabelled as exact voxel-cell boundaries.",
+  "halfVoxelWarning": "The separately published 1mm T1 resample starts at(-127.5,-127.5,127.5)LPS; labels start at(-128,-128,128)LPS. That resample is not used here. Native0.75mm images and1mm labels retain separate affines."
+}

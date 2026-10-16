@@ -23,6 +23,7 @@ def check():
     logging.disable(logging.CRITICAL)
     with tempfile.TemporaryDirectory(prefix='primer-pulmonary-delivery-') as temporary:
         os.environ.update(PRIMER_DB=str(Path(temporary) / 'reader.db'),
+                          PRIMER_CONTENT_DIR=str(Path(temporary) / 'content'),
                           PRIMER_BACKUP_DIR=str(Path(temporary) / 'backups'),
                           PRIMER_ACCESS_USERNAME='pulmonary-source-review',
                           PRIMER_ACCESS_PASSWORD='synthetic-source-fixture')
@@ -118,10 +119,17 @@ def check():
             from primer import hippunfold_reference as hippocampal
             assert hippocampal.BINDINGS == {'ra.mri-epilepsy', 'ra.mri-dementia'}
             registered = hippocampal.references()  # Includes pinned registry, manifest and payload checks.
+            from primer.spl_limbic_reference import references as spl_references
+            from tools.spl_limbic_runtime_compatibility import before_spl_reference_fields, reviewed as spl_reviewed
+            spl_registered = spl_references()
+            assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
+            assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
             assert set(registered) == hippocampal.BINDINGS
             assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
             for identifier, expected in registered.items():
-                assert references[identifier] == expected
+                prior = before_spl_reference_fields(identifier, {'source_native_inspectors': references[identifier]})
+                assert prior['source_native_inspectors'] == expected
+                assert references[identifier] == [*expected, *spl_registered[identifier]]
                 assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
             os.environ.pop('PRIMER_ACCESS_USERNAME')
             os.environ.pop('PRIMER_ACCESS_PASSWORD')

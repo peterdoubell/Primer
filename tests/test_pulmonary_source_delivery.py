@@ -169,7 +169,9 @@ def test_exact_metadata_generation_and_only_reviewed_public_redirects():
     # Compare the earlier build inventory after reversing only the byte-pinned
     # HippUnfold static/exclusion addition. Current pulmonary routes above remain exact.
     from tools.hippunfold_runtime_compatibility import before_hippunfold_bytes
-    previous_builds = json.loads(before_hippunfold_bytes('vercel.json', (ROOT / 'vercel.json').read_bytes()))['builds']
+    from tools.spl_limbic_runtime_compatibility import before_spl_bytes
+    previous_config = before_spl_bytes('vercel.json', (ROOT / 'vercel.json').read_bytes())
+    previous_builds = json.loads(before_hippunfold_bytes('vercel.json', previous_config))['builds']
     assert previous_builds[-6:] == [thoracic, lung, basal, cardiac, walls, comparisons]
     assert previous_builds[1:-6] == base['builds'][1:]
     assert previous_builds[0]['config']['excludeFiles'].startswith(base['builds'][0]['config']['excludeFiles'][:-1] + ',')
@@ -193,7 +195,14 @@ def test_old_source_registries_and_bindings_are_preserved():
     refs = combined.references()
     original_brain = json.loads((ROOT / 'data/radiology/native-source-inspectors.json').read_bytes())
     expected_brain = [original_brain['inspectors'][key] for key in original_brain['bindings']['ra.brain-anatomy']]
-    assert refs['ra.brain-anatomy'] == expected_brain
+    from tools.spl_limbic_runtime_compatibility import before_spl_reference_fields, reviewed as spl_reviewed
+    from primer.spl_limbic_reference import references as spl_references
+    spl_registered = spl_references()
+    assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
+    assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
+    prior_brain = before_spl_reference_fields('ra.brain-anatomy', {'source_native_inspectors': refs['ra.brain-anatomy']})
+    assert prior_brain['source_native_inspectors'] == expected_brain
+    assert refs['ra.brain-anatomy'] == [*expected_brain, *spl_registered['ra.brain-anatomy']]
     assert refs['ra.acute-stroke'] == stroke_references()['ra.acute-stroke']
     from primer.cardiac_native_inspector import references as cardiac_references, BINDINGS as cardiac_bindings
     from primer.cardiac_wall_context import references as wall_references
@@ -203,7 +212,9 @@ def test_old_source_registries_and_bindings_are_preserved():
     assert set(registered) == hippocampal.BINDINGS
     assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
     for identifier, expected in registered.items():
-        assert refs[identifier] == expected
+        prior = before_spl_reference_fields(identifier, {'source_native_inspectors': refs[identifier]})
+        assert prior['source_native_inspectors'] == expected
+        assert refs[identifier] == [*expected, *spl_registered[identifier]]
         assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
     from primer.thoracic_native_inspectors import references as thoracic_references
     from primer.thoracic_lung_native import references as lung_references
@@ -242,6 +253,7 @@ def test_thin_hosted_metadata_cannot_accept_present_wrong_or_absent_local_source
 def test_actual_full_app_private_get_head_and_hosted_fixtures(tmp_path):
     env = {key: value for key, value in os.environ.items()
            if not key.startswith(('TURSO', 'PRIMER_ACCESS_', 'VERCEL', 'BLOB_'))}
+    env.update(PRIMER_DB=str(tmp_path / 'reader.db'), PRIMER_CONTENT_DIR=str(tmp_path / 'content'), PRIMER_BACKUP_DIR=str(tmp_path / 'backups'))
     output = tmp_path / 'proof.json'
     result = subprocess.run([sys.executable, str(ROOT / 'tools/check_pulmonary_delivery.py'), '--output', str(output)],
                             cwd=ROOT, env=env, capture_output=True, text=True, timeout=180)

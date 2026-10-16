@@ -6212,6 +6212,7 @@
     'stack-queue-lab': renderStackQueue,
     'matrix-transform-lab': renderMatrixTransform,
     'venturi-flow-lab': renderVenturiFlow,
+    'fluids-concept-lab': (item, hooks) => window.PrimerFluidsLab?.render(item, hooks, modelFrame(item, hooks)) || null,
     'gene-expression-stepper': renderGeneExpression,
     'tcp-packet-tracer': renderTcpPacketTracer,
     'heat-equation-lab': renderHeatEquation,

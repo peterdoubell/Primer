@@ -180,7 +180,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "counterexample-lab", "function-composition-lab", "circulation-route-lab",
     "allele-segregation-lab",
     "truth-table-lab", "stack-queue-lab", "matrix-transform-lab",
-    "venturi-flow-lab", "gene-expression-stepper", "tcp-packet-tracer",
+    "venturi-flow-lab", "fluids-concept-lab", "gene-expression-stepper", "tcp-packet-tracer",
     "heat-equation-lab", "complexity-certificate-lab",
     "morphogen-gradient-lab", "ct-window-lab", "doppler-angle-lab",
     "alphabet-explorer", "inclusive-family-timeline",
@@ -604,6 +604,10 @@ def _validate_lesson_media(node: Dict) -> None:
                         or props.get("scenario") != "horizontal-water-venturi" \
                         or props.get("start_throat") not in {"full-area", "half-area", "quarter-area"}:
                     raise ValueError("{} Venturi flow lab has unknown starting settings".format(
+                        node.get("id")))
+            elif renderer == "fluids-concept-lab":
+                if props != {"scenario": "phys.4.fluids"} or node.get("id") != "phys.4.fluids":
+                    raise ValueError("{} fluids concept lab has an unknown or cross-lesson scenario".format(
                         node.get("id")))
             elif renderer == "gene-expression-stepper":
                 if set(props) != {"scenario", "start_gene_state"} \
