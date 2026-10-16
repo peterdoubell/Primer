@@ -26,6 +26,8 @@ def reviewed():
 
 
 def before_wall_bytes(path, raw, allow_older=False):
+    from tools.hippunfold_runtime_compatibility import before_hippunfold_bytes
+    raw = before_hippunfold_bytes(path, raw, allow_older=allow_older)
     row = reviewed()['files'].get(path)
     if row is None or hashlib.sha256(raw).hexdigest() == row['before_sha256']:
         return raw
@@ -46,6 +48,8 @@ def before_wall_bytes(path, raw, allow_older=False):
 
 
 def before_wall_lesson_fields(module_id, fields):
+    from tools.hippunfold_runtime_compatibility import before_hippunfold_lesson_fields
+    fields = before_hippunfold_lesson_fields(module_id, fields)
     if module_id not in LESSONS:
         return fields
     result = copy.deepcopy(fields)

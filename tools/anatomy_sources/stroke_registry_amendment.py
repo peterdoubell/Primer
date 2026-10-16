@@ -114,6 +114,8 @@ def restore_prior_view(path,data,tokens):
 
 def restore_prior_step_raw(raw):
  """Replace only the exactly reviewed stroke value span with its original token."""
+ from tools.hippunfold_runtime_compatibility import before_hippunfold_bytes
+ raw=before_hippunfold_bytes(PATHS[3],raw.encode(),allow_older=True).decode()
  review=reviewed_amendment();record=review['files'][PATHS[3]];value,a,b=member(raw,['investigations',INVESTIGATION])
  if digest(value)!=record['current_semantic_SHA256'] or sha(raw[a:b].encode())!=record['current_raw_value_token_SHA256']:raise ValueError('Current stroke step value or raw token differs')
  old=record['prior_raw_value_token']

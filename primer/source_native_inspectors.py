@@ -90,4 +90,7 @@ def references():
     from .cardiac_wall_context import references as wall_references
     for identifier, entries in wall_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .hippunfold_reference import references as hippocampal_references
+    for identifier, entries in hippocampal_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

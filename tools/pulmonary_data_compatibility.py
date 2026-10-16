@@ -33,6 +33,8 @@ def reviewed():
 
 def restore_main_raw(path, raw):
     path = str(path)
+    from tools.hippunfold_runtime_compatibility import before_hippunfold_bytes
+    raw = before_hippunfold_bytes(path, raw, allow_older=True)
     from tools.thoracic_data_compatibility import restore_raw
     raw = restore_raw(path, raw, allow_historical=True)
     if path not in PATHS:
@@ -66,6 +68,8 @@ def _exact(value, tokens, record):
 def restore_prior_view(path, data, tokens):
     """Remove only exact pulmonary additions; preserve unrelated caller drift."""
     path = str(path)
+    from tools.hippunfold_runtime_compatibility import restore_prior_view as before_hippunfold_view
+    data, tokens = before_hippunfold_view(path, data, tokens)
     from tools.thoracic_data_compatibility import restore_view
     data, tokens = restore_view(path, data, tokens)
     data, tokens = copy.deepcopy(data), dict(tokens)
@@ -89,6 +93,8 @@ def restore_prior_view(path, data, tokens):
 
 
 def restore_prior_contracts(contracts):
+    from tools.hippunfold_runtime_compatibility import restore_prior_contracts as before_hippunfold_contracts
+    contracts = before_hippunfold_contracts(contracts)
     from tools.thoracic_data_compatibility import restore_contract_hashes
     contracts = restore_contract_hashes(contracts)
     record = reviewed()['nonstroke_contract']
