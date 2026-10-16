@@ -2,7 +2,8 @@
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const assert = require('assert/strict'), { chromium } = require('playwright');
-const fixture = JSON.parse(fs.readFileSync(process.argv[2]));
+// The caller supplies the private fixture on stdin; no arbitrary input/output paths are opened.
+const fixture = JSON.parse(fs.readFileSync(0, 'utf8'));
 assert.equal(new URL(fixture.url).hostname, '127.0.0.1');
 const ROOT = path.resolve(__dirname, '..');
 const ATLAS = 'hippunfold-hcp101006-registered';
@@ -227,9 +228,6 @@ async function checkViewer(page, section, full, drainResponses) {
     proof.totalReaderCases = proof.cases.length;
     proof.totalInteractionStates = proof.cases.reduce((n, c) => n + c.states, 0);
     proof.timestamp = new Date().toISOString();
-    const out = process.argv[3] || path.join(ROOT, 'docs/hippunfold-epilepsy-review-20261016/reader-proof.json');
-    fs.mkdirSync(path.dirname(out), { recursive: true });
-    fs.writeFileSync(out, JSON.stringify(proof, null, 2) + '\n');
-    console.log(JSON.stringify({ proof: out, readerCases: proof.totalReaderCases, interactionStates: proof.totalInteractionStates, exactDeliveredPayloads: 20, errors: [] }));
+    process.stdout.write(JSON.stringify(proof, null, 2) + '\n');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
