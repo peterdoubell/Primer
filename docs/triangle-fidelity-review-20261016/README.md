@@ -10,6 +10,8 @@ Equations and ambiguity convention were checked against the primary textbook sou
 
 `node tools/verify_triangle_fidelity.cjs` verifies 52,982 solutions against Cartesian side distances, all three cosine identities, angle sums, positive areas and preservation of input measurements. It includes explicit impossible, tangent and two-solution SSA fixtures and invalid-input checks. The triangle coordinates are derived from area/angle; the distance checks independently recover all three side lengths from those coordinates.
 
-`NODE_PATH=<Playwright installation> node tools/check_triangle_browser.cjs` mounts the actual concept-lab renderer and exercises six presets at 390px and 1440px. It checks solution counts, invalid-input clearing, no horizontal document overflow and no page errors. Screenshots record the two-solution SSA example. This is standalone browser evidence: authenticated lesson delivery and production deployment have not yet been verified for this change.
+`NODE_PATH=<Playwright installation> node tools/check_triangle_browser.cjs` mounts the actual concept-lab renderer and exercises six presets at 390px and 1440px. It checks solution counts, invalid-input clearing, no horizontal document overflow and no page errors. Screenshots record the two-solution SSA example. This is standalone browser evidence: production deployment has not yet been verified for this change.
 
 This review establishes the scoped triangle feature only. It does not establish complete math/physics coverage or clinical completeness of radiology modules.
+
+`reader-proof.json` records 12 additional scenarios through the actual authenticated lesson reader on an isolated loopback server with a fresh synthetic account. It verifies that the activity is delivered within `math.3.trig` and that its presets produce the expected number of diagrams at both widths. It is not a production account test.
