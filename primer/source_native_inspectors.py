@@ -96,4 +96,7 @@ def references():
     from .spl_limbic_reference import references as spl_limbic_references
     for identifier, entries in spl_limbic_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .spl_reporting_reference import references as spl_reporting_references
+    for identifier, entries in spl_reporting_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

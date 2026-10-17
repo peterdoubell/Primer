@@ -2035,7 +2035,8 @@ function sourceNativeInspector(asset) {
   const cardiacCT = asset.id === 'totalseg-v1-s0028-cardiac-native' && asset.modality === 'CT';
   const comparisonCT = asset.id === 'baskaran-2020-cardiac-comparisons' && asset.modality === 'CT image comparisons';
   const registeredMRI = asset.id === 'hippunfold-hcp101006-registered-reference';
-  const limbicMRI = asset.id === 'spl-nac-limbic-native-reference';
+  const reportingMRI = asset.id === 'spl-nac-reporting-native-reference';
+  const limbicMRI = asset.id === 'spl-nac-limbic-native-reference' || reportingMRI;
   const nativeCT = noduleCT || lungCT || basalCT || cardiacCT;
   const curatedSurface = ['bp3d-thoracic-original-surfaces', 'bp3d-cardiac-original-context'].includes(asset.id) && asset.modality === 'Curated 3D anatomy';
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
@@ -2046,7 +2047,7 @@ function sourceNativeInspector(asset) {
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
   if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI) {
     if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
-    const openLabel = limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const openLabel = reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
     const host = el('div', { class: 'source-native-inline-host' });
     let frame = null;
     const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
@@ -2862,7 +2863,7 @@ async function renderRadiologyDesk(page, nodeId) {
   const motionReferences = ref.source_motion_references || [];
   const cardiacContext = (ref.source_native_inspectors || []).filter(asset => ['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const hippocampalContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
-  const limbicContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'spl-nac-limbic-native-reference');
+  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference'].includes(asset.id));
   const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' && asset.id !== 'bp3d-cardiac-original-context' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));
   const studyReferences = ref.source_study_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
@@ -3225,9 +3226,10 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const overview = walk.spatial_model.focus[0];
   const sourceOnly = ref.source_native_only === true;
   const hippocampalContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
+  const reportingContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-reporting-native-reference');
   const limbicContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-limbic-native-reference');
-  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
-  const curatedSurface = sourceModels.some(asset => !['spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
+  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['spl-nac-reporting-native-reference', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
+  const curatedSurface = sourceModels.some(asset => !['spl-nac-reporting-native-reference', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
@@ -3484,7 +3486,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
       visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
     } else if (mode === 'source-surfaces') {
       if (!anatomyBox.querySelector('.source-native-inspector')) anatomyBox.replaceChildren(...sourceModels.map(sourceNativeInspector));
-      visualNote.textContent = limbicContext ? 'The SPL atlas provides original MRI, twelve label classes and exact label-cell boundaries, with differing publisher surfaces shown separately. The HippUnfold reference, where present, is a distinct registered training source. Their grids and anatomical meanings are not interchangeable; complete reporting anatomy and clinical validation remain unproven.' : hippocampalContext ? 'Published registered T2 crops and eight research classes show hippocampal source context. The upsampled grids do not establish native volume, pathology, patient laterality or complete reporting anatomy.' : curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';
+      visualNote.textContent = reportingContext ? 'The grouped SPL reference links 217 source-defined classes to native T1/T2 and exact label-cell boundaries. Source components, partial labels and naming conflicts remain explicit. Capsule subdivisions, cisterns, vascular territories and other source gaps remain unfilled; diagnostic accuracy and complete reporting anatomy are unproven.' : limbicContext ? 'The SPL atlas provides original MRI, twelve label classes and exact label-cell boundaries, with differing publisher surfaces shown separately. The HippUnfold reference, where present, is a distinct registered training source. Their grids and anatomical meanings are not interchangeable; complete reporting anatomy and clinical validation remain unproven.' : hippocampalContext ? 'Published registered T2 crops and eight research classes show hippocampal source context. The upsampled grids do not establish native volume, pathology, patient laterality or complete reporting anatomy.' : curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';
     } else if (mode === 'landmark') {
       if (!landmarkModel && window.PrimerRadiologyReferenceModels) {
         landmarkModel = window.PrimerRadiologyReferenceModels.render(walk.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
