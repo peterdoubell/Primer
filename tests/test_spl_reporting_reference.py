@@ -23,6 +23,9 @@ def test_current_source_inventory_preserves_native_grids_and_explicit_gaps():
 @pytest.mark.parametrize('path',sorted(bridge.PATHS))
 def test_exact_shared_inverse_retains_unrelated_bytes(path):
     row=bridge.reviewed()['files'][path];raw=(ROOT/path).read_bytes()
+    # Compare this historical receipt with the exact pre-reference-addition bytes.
+    from tools.spine_cardiology_runtime_compatibility import before_reference_bytes
+    raw=before_reference_bytes(path,raw,allow_older=True)
     assert hashlib.sha256(raw).hexdigest()==row['after_sha256']
     previous=bridge.before_reporting_bytes(path,raw);assert hashlib.sha256(previous).hexdigest()==row['before_sha256']
     assert bridge.before_reporting_bytes(path,previous)==previous
