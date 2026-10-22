@@ -65,6 +65,14 @@ def test_calculation_proxy_keeps_credentials_server_side(bridge_client, monkeypa
     assert request["json"] == {"inputs": {"zone": None}}
 
 
+@pytest.mark.parametrize("identifier", ["acr_tirads_2017", "pirads_v2_1", "cadrads_2_0", "prostate_volume_psad"])
+def test_upstream_paths_come_only_from_literal_route_map(bridge_client, monkeypatch, identifier):
+    calls = fake_upstream(monkeypatch, httpx.Response(200, json={"calculator_id": identifier}))
+    response = bridge_client.get("/api/radiology/reporting/calculators/" + identifier)
+    assert response.status_code == 200
+    assert calls[0][0:2] == ("GET", "https://reporting.example/v1/" + reporting_bridge.CALCULATOR_PATHS[identifier])
+
+
 def test_unknown_calculators_never_reach_upstream(bridge_client, monkeypatch):
     calls = fake_upstream(monkeypatch)
     assert bridge_client.get("/api/radiology/reporting/calculators/unknown").status_code == 404

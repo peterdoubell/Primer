@@ -11,6 +11,13 @@ from fastapi.responses import JSONResponse
 
 router=APIRouter(prefix='/api/radiology/reporting')
 
+CALCULATOR_PATHS = {
+    'acr_tirads_2017': 'calculators/acr_tirads_2017',
+    'pirads_v2_1': 'calculators/pirads_v2_1',
+    'cadrads_2_0': 'calculators/cadrads_2_0',
+    'prostate_volume_psad': 'calculators/prostate_volume_psad',
+}
+
 
 @lru_cache(maxsize=1)
 def structured_forms():
@@ -56,10 +63,12 @@ async def forward(path,payload=None):
 
 @router.get('/calculators/{calculator_id}')
 async def calculator(calculator_id:str):
-    if calculator_id not in {'acr_tirads_2017','pirads_v2_1','cadrads_2_0','prostate_volume_psad'}:return JSONResponse({'error':{'code':'unknown_calculator'}},status_code=404)
-    return await forward('calculators/'+calculator_id)
+    path = CALCULATOR_PATHS.get(calculator_id)
+    if path is None:return JSONResponse({'error':{'code':'unknown_calculator'}},status_code=404)
+    return await forward(path)
 
 @router.post('/calculators/{calculator_id}/calculate')
 async def calculate(calculator_id:str,payload:dict=Body(...)):
-    if calculator_id not in {'acr_tirads_2017','pirads_v2_1','cadrads_2_0','prostate_volume_psad'}:return JSONResponse({'error':{'code':'unknown_calculator'}},status_code=404)
-    return await forward('calculators/'+calculator_id+'/calculate',payload)
+    path = CALCULATOR_PATHS.get(calculator_id)
+    if path is None:return JSONResponse({'error':{'code':'unknown_calculator'}},status_code=404)
+    return await forward(path+'/calculate',payload)
