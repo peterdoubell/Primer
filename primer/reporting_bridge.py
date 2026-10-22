@@ -1,4 +1,6 @@
 """Server-only bridge to the reporting service; never expose its key to JavaScript."""
+import copy
+from functools import lru_cache
 import json
 import os
 from pathlib import Path
@@ -8,6 +10,25 @@ from fastapi import APIRouter, Body
 from fastapi.responses import JSONResponse
 
 router=APIRouter(prefix='/api/radiology/reporting')
+
+
+@lru_cache(maxsize=1)
+def structured_forms():
+    path = Path(__file__).resolve().parents[1] / 'data/radiology/structured-reporting.json'
+    return json.loads(path.read_text()) if path.exists() else {'forms': {}}
+
+
+def with_structured_form(detail):
+    """Attach reporting controls to a response, preserving canonical lesson data."""
+    catalogue = structured_forms()
+    form = catalogue['forms'].get(detail.get('module_id'))
+    if form is None:
+        return detail
+    result = dict(detail)
+    result['radiology_reference'] = dict(detail['radiology_reference'])
+    result['radiology_reference']['structured_form'] = copy.deepcopy(form)
+    result['radiology_reference']['structured_form']['form_version'] = catalogue.get('schema_hash', catalogue.get('version'))
+    return result
 
 def configuration():
     url=os.getenv('REPORTING_SERVICE_URL','https://radiology-reporting-api.vercel.app').rstrip('/')

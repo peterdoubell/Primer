@@ -254,8 +254,6 @@ def attach_references(nodes):
     slot_ids = {image["id"] for guide in guides.values() for image in guide["key_images"]}
     if set(image_catalog) != slot_ids:
         raise ValueError("Radiology key image catalog must cover every report slot exactly once")
-    structured_path = DATA / "structured-reporting.json"
-    structured_forms = json.loads(structured_path.read_text()) if structured_path.exists() else {"forms": {}}
     known = {node["id"] for node in nodes}
     reporting, models = _reporting_catalog(nodes)
     readings = {identifier: [] for identifier in known}
@@ -330,9 +328,6 @@ def attach_references(nodes):
             reference['source_native_inspectors'] = copy.deepcopy(inspectors)
             reference['key_images'] = []
         validate_reference(reference)
-        if node["id"] in structured_forms["forms"]:
-            reference["structured_form"] = copy.deepcopy(structured_forms["forms"][node["id"]])
-            reference["structured_form"]["form_version"] = structured_forms.get("schema_hash", structured_forms.get("version"))
         node["radiology_reference"] = reference
         node["reference_count"] = len(reference["reading"])
         node["template_count"] = len(reference["report_templates"])

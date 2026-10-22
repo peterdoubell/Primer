@@ -39,6 +39,8 @@ def reviewed():
 
 
 def before_linear_algebra_bytes(path, raw, allow_older=False):
+    from tools.structured_reporting_runtime_compatibility import before_structured_bytes
+    raw = before_structured_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw

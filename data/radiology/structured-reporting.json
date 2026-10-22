@@ -1,8 +1,1684 @@
 {
   "schema_version": "1.0",
   "version": "2026-10-22",
-  "source_snapshot_id": "47a0da96c1ec9ae67d9fad9ea71158a29eea42a517d64d5c7fae042e87eab7fc",
+  "source_snapshot_id": "475d46132776be4db2e123c6755d611641e83ed598f1f5b5211da55b8e471fd0",
   "forms": {
+    "cardiology.echocardiography": {
+      "guide_id": "cardiology.echocardiography",
+      "title": "Echocardiography — adult transthoracic study",
+      "template_id": "cardiology-echocardiography-report",
+      "sections": [
+        {
+          "section_id": "indication",
+          "label": "INDICATION",
+          "source_body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ].",
+          "fields": [
+            {
+              "id": "indication.clinical-question",
+              "label": "Clinical question",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 19,
+                "end": 22,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "indication.relevant-history-symptoms-and-prior-procedures",
+              "label": "Relevant history, symptoms and prior procedures",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 73,
+                "end": 76,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "comparison",
+          "label": "COMPARISON",
+          "source_body": "[None / examination and date].",
+          "fields": [
+            {
+              "id": "comparison.none-examination-and-date",
+              "label": "None / examination and date",
+              "type": "text",
+              "default": null,
+              "source_prompt": "[None / examination and date].",
+              "source_token": "[None / examination and date]",
+              "source_span": {
+                "start": 0,
+                "end": 29,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "None / examination and date"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "technique-and-quality",
+          "label": "TECHNIQUE AND QUALITY",
+          "source_body": "Record indication, examination scope, physiological context and image quality.\nAcquire standard 2D and Doppler views appropriate to a comprehensive adult TTE.\nIdentify unassessed structures; use a dedicated protocol for TEE, stress or congenital studies.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+          "fields": [
+            {
+              "id": "technique-and-quality.acquisition-details",
+              "label": "Acquisition details",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Record indication, examination scope, physiological context and image quality.\nAcquire standard 2D and Doppler views appropriate to a comprehensive adult TTE.\nIdentify unassessed structures; use a dedicated protocol for TEE, stress or congenital studies.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 277,
+                "end": 280,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "technique-and-quality.quality",
+              "label": "Quality",
+              "type": "select",
+              "default": null,
+              "source_prompt": "Record indication, examination scope, physiological context and image quality.\nAcquire standard 2D and Doppler views appropriate to a comprehensive adult TTE.\nIdentify unassessed structures; use a dedicated protocol for TEE, stress or congenital studies.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+              "source_token": "[diagnostic / limited / non-diagnostic]",
+              "source_span": {
+                "start": 291,
+                "end": 330,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "options": [
+                {
+                  "value": "diagnostic",
+                  "label": "diagnostic"
+                },
+                {
+                  "value": "limited",
+                  "label": "limited"
+                },
+                {
+                  "value": "non-diagnostic",
+                  "label": "non-diagnostic"
+                }
+              ]
+            },
+            {
+              "id": "technique-and-quality.limitation-and-effect",
+              "label": "Limitation and effect",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Record indication, examination scope, physiological context and image quality.\nAcquire standard 2D and Doppler views appropriate to a comprehensive adult TTE.\nIdentify unassessed structures; use a dedicated protocol for TEE, stress or congenital studies.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 355,
+                "end": 358,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "key-images",
+          "label": "KEY IMAGES",
+          "source_body": "[IMG 1: examination and quality; series __ image __]\n[IMG 2: left ventricle; series __ image __]\n[IMG 3: right heart and atria; series __ image __]",
+          "fields": [],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "examination-and-quality",
+          "label": "EXAMINATION AND QUALITY",
+          "source_body": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+          "fields": [
+            {
+              "id": "examination-and-quality.study",
+              "label": "Study",
+              "type": "select",
+              "default": null,
+              "source_prompt": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+              "source_token": "[comprehensive adult TTE / focused examination]",
+              "source_span": {
+                "start": 7,
+                "end": 54,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "options": [
+                {
+                  "value": "comprehensive-adult-tte",
+                  "label": "comprehensive adult TTE"
+                },
+                {
+                  "value": "focused-examination",
+                  "label": "focused examination"
+                }
+              ]
+            },
+            {
+              "id": "examination-and-quality.rhythm-heart-rate-blood-pressure-and-body-size",
+              "label": "Rhythm, heart rate, blood pressure and body size",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 106,
+                "end": 109,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "examination-and-quality.windows-image-quality",
+              "label": "Windows / image quality",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 136,
+                "end": 139,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "examination-and-quality.2d-colour-spectral-and-tissue-doppler-acquired",
+              "label": "2D, colour, spectral and tissue Doppler acquired",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 191,
+                "end": 194,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "examination-and-quality.ultrasound-enhancing-agent-saline-study-if-used",
+              "label": "Ultrasound enhancing agent / saline study, if used",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 248,
+                "end": 251,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "examination-and-quality.unassessed-structures-and-effect",
+              "label": "Unassessed structures and effect",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 287,
+                "end": 290,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "examination-and-quality.step-cardiology-echocardiography-1-2-1",
+              "label": "Examination scope",
+              "type": "select",
+              "default": null,
+              "options": [
+                {
+                  "value": "comprehensive",
+                  "label": "comprehensive"
+                },
+                {
+                  "value": "focused",
+                  "label": "focused"
+                }
+              ],
+              "source_kind": "authored-step-choice",
+              "source_prompt": "Examination scope: [comprehensive / focused]; available windows [ ].",
+              "source_token": "[comprehensive / focused]",
+              "source_location": {
+                "investigation_id": "cardiology.echocardiography",
+                "step_index": 0,
+                "finding_index": 1
+              },
+              "help": "Source example: Examination scope: [comprehensive / focused]; available windows [ ]."
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "left-ventricle",
+          "label": "LEFT VENTRICLE",
+          "source_body": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+          "fields": [
+            {
+              "id": "left-ventricle.lv-dimensions-indexed-volumes-and-method",
+              "label": "LV dimensions / indexed volumes and method",
+              "type": "text",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 44,
+                "end": 47,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "left-ventricle.wall-thickness",
+              "label": "Wall thickness",
+              "type": "text",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 65,
+                "end": 68,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "left-ventricle.lvef",
+              "label": "LVEF",
+              "type": "number",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 75,
+                "end": 78,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "unit": "%"
+            },
+            {
+              "id": "left-ventricle.lvef-by",
+              "label": "LVEF % by",
+              "type": "text",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[method]",
+              "source_span": {
+                "start": 83,
+                "end": 91,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "method"
+            },
+            {
+              "id": "left-ventricle.endocardial-definition",
+              "label": "endocardial definition",
+              "type": "text",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 116,
+                "end": 119,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "left-ventricle.regional-wall-motion",
+              "label": "Regional wall motion",
+              "type": "text",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 143,
+                "end": 146,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "left-ventricle.gls-if-acquired",
+              "label": "GLS, if acquired",
+              "type": "number",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 166,
+                "end": 169,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "unit": "%"
+            },
+            {
+              "id": "left-ventricle.gls-if-acquired-with-method-vendor",
+              "label": "GLS, if acquired: % with method / vendor",
+              "type": "text",
+              "default": null,
+              "source_prompt": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 192,
+                "end": 195,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "right-heart-and-atria",
+          "label": "RIGHT HEART AND ATRIA",
+          "source_body": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ].",
+          "fields": [
+            {
+              "id": "right-heart-and-atria.rv-size-systolic-function-and-measures",
+              "label": "RV size / systolic function and measures",
+              "type": "text",
+              "default": null,
+              "source_prompt": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 42,
+                "end": 45,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "right-heart-and-atria.la-indexed-volume",
+              "label": "LA indexed volume",
+              "type": "text",
+              "default": null,
+              "source_prompt": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 66,
+                "end": 69,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "right-heart-and-atria.ra-size",
+              "label": "RA size",
+              "type": "text",
+              "default": null,
+              "source_prompt": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 80,
+                "end": 83,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "right-heart-and-atria.ivc-size-respiratory-behaviour",
+              "label": "IVC size / respiratory behaviour",
+              "type": "text",
+              "default": null,
+              "source_prompt": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 119,
+                "end": 122,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "right-heart-and-atria.estimated-pressures-method-and-limitations",
+              "label": "Estimated pressures, method and limitations",
+              "type": "text",
+              "default": null,
+              "source_prompt": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 169,
+                "end": 172,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "valves-and-great-vessels",
+          "label": "VALVES AND GREAT VESSELS",
+          "source_body": "Aortic, mitral, tricuspid and pulmonary valves: [morphology, stenosis / regurgitation and supporting data].\nProsthetic valves / devices: [type, location, function].\nAortic root / ascending aorta: [diameters, level and method].",
+          "fields": [
+            {
+              "id": "valves-and-great-vessels.aortic-mitral-tricuspid-and-pulmonary-valves",
+              "label": "Aortic, mitral, tricuspid and pulmonary valves",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Aortic, mitral, tricuspid and pulmonary valves: [morphology, stenosis / regurgitation and supporting data].\nProsthetic valves / devices: [type, location, function].\nAortic root / ascending aorta: [diameters, level and method].",
+              "source_token": "[morphology, stenosis / regurgitation and supporting data]",
+              "source_span": {
+                "start": 48,
+                "end": 106,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "morphology, stenosis / regurgitation and supporting data"
+            },
+            {
+              "id": "valves-and-great-vessels.prosthetic-valves-devices",
+              "label": "Prosthetic valves / devices",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Aortic, mitral, tricuspid and pulmonary valves: [morphology, stenosis / regurgitation and supporting data].\nProsthetic valves / devices: [type, location, function].\nAortic root / ascending aorta: [diameters, level and method].",
+              "source_token": "[type, location, function]",
+              "source_span": {
+                "start": 137,
+                "end": 163,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "type, location, function"
+            },
+            {
+              "id": "valves-and-great-vessels.aortic-root-ascending-aorta",
+              "label": "Aortic root / ascending aorta",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Aortic, mitral, tricuspid and pulmonary valves: [morphology, stenosis / regurgitation and supporting data].\nProsthetic valves / devices: [type, location, function].\nAortic root / ascending aorta: [diameters, level and method].",
+              "source_token": "[diameters, level and method]",
+              "source_span": {
+                "start": 196,
+                "end": 225,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "diameters, level and method"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "diastolic-function-and-other-findings",
+          "label": "DIASTOLIC FUNCTION AND OTHER FINDINGS",
+          "source_body": "Diastolic assessment: [parameters, applicable algorithm and conclusion / indeterminate].\nPericardial fluid and haemodynamic features: [ ].\nMass / thrombus / shunt, when assessable: [ ].",
+          "fields": [
+            {
+              "id": "diastolic-function-and-other-findings.diastolic-assessment",
+              "label": "Diastolic assessment",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Diastolic assessment: [parameters, applicable algorithm and conclusion / indeterminate].\nPericardial fluid and haemodynamic features: [ ].\nMass / thrombus / shunt, when assessable: [ ].",
+              "source_token": "[parameters, applicable algorithm and conclusion / indeterminate]",
+              "source_span": {
+                "start": 22,
+                "end": 87,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "parameters, applicable algorithm and conclusion / indeterminate"
+            },
+            {
+              "id": "diastolic-function-and-other-findings.pericardial-fluid-and-haemodynamic-features",
+              "label": "Pericardial fluid and haemodynamic features",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Diastolic assessment: [parameters, applicable algorithm and conclusion / indeterminate].\nPericardial fluid and haemodynamic features: [ ].\nMass / thrombus / shunt, when assessable: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 134,
+                "end": 137,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "diastolic-function-and-other-findings.mass-thrombus-shunt-when-assessable",
+              "label": "Mass / thrombus / shunt, when assessable",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Diastolic assessment: [parameters, applicable algorithm and conclusion / indeterminate].\nPericardial fluid and haemodynamic features: [ ].\nMass / thrombus / shunt, when assessable: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 181,
+                "end": 184,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "comparison-and-synthesis",
+          "label": "COMPARISON AND SYNTHESIS",
+          "source_body": "Comparison examination and method differences: [ ].\nMeaningful change: [ ].\nKey conclusions, uncertainty and unassessed questions: [ ].\nCritical finding communication: [recipient, time and method].",
+          "fields": [
+            {
+              "id": "comparison-and-synthesis.comparison-examination-and-method-differences",
+              "label": "Comparison examination and method differences",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Comparison examination and method differences: [ ].\nMeaningful change: [ ].\nKey conclusions, uncertainty and unassessed questions: [ ].\nCritical finding communication: [recipient, time and method].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 47,
+                "end": 50,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "comparison-and-synthesis.meaningful-change",
+              "label": "Meaningful change",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Comparison examination and method differences: [ ].\nMeaningful change: [ ].\nKey conclusions, uncertainty and unassessed questions: [ ].\nCritical finding communication: [recipient, time and method].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 71,
+                "end": 74,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "comparison-and-synthesis.key-conclusions-uncertainty-and-unassessed-questions",
+              "label": "Key conclusions, uncertainty and unassessed questions",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Comparison examination and method differences: [ ].\nMeaningful change: [ ].\nKey conclusions, uncertainty and unassessed questions: [ ].\nCritical finding communication: [recipient, time and method].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 131,
+                "end": 134,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "comparison-and-synthesis.critical-finding-communication",
+              "label": "Critical finding communication",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Comparison examination and method differences: [ ].\nMeaningful change: [ ].\nKey conclusions, uncertainty and unassessed questions: [ ].\nCritical finding communication: [recipient, time and method].",
+              "source_token": "[recipient, time and method]",
+              "source_span": {
+                "start": 168,
+                "end": 196,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "recipient, time and method"
+            },
+            {
+              "id": "comparison-and-synthesis.step-cardiology-echocardiography-6-1-2",
+              "label": "Interval change",
+              "type": "select",
+              "default": null,
+              "options": [
+                {
+                  "value": "change",
+                  "label": "change"
+                },
+                {
+                  "value": "no-material-change",
+                  "label": "no material change"
+                }
+              ],
+              "source_kind": "authored-step-choice",
+              "source_prompt": "Compared with [date], [change / no material change], accounting for [method].",
+              "source_token": "[change / no material change]",
+              "source_location": {
+                "investigation_id": "cardiology.echocardiography",
+                "step_index": 5,
+                "finding_index": 0
+              },
+              "help": "Source example: Compared with [date], [change / no material change], accounting for [method]."
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "impression",
+          "label": "IMPRESSION",
+          "source_body": "1. [LV and RV size and systolic function with method]\n2. [Principal valve, filling and pericardial findings]\n3. [Meaningful interval change, limitations and communication]",
+          "fields": [
+            {
+              "id": "impression.lv-and-rv-size-and-systolic-function-with-method",
+              "label": "LV and RV size and systolic function with method",
+              "type": "text",
+              "default": null,
+              "source_prompt": "1. [LV and RV size and systolic function with method]\n2. [Principal valve, filling and pericardial findings]\n3. [Meaningful interval change, limitations and communication]",
+              "source_token": "[LV and RV size and systolic function with method]",
+              "source_span": {
+                "start": 3,
+                "end": 53,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "LV and RV size and systolic function with method"
+            },
+            {
+              "id": "impression.principal-valve-filling-and-pericardial-findings",
+              "label": "Principal valve, filling and pericardial findings",
+              "type": "text",
+              "default": null,
+              "source_prompt": "1. [LV and RV size and systolic function with method]\n2. [Principal valve, filling and pericardial findings]\n3. [Meaningful interval change, limitations and communication]",
+              "source_token": "[Principal valve, filling and pericardial findings]",
+              "source_span": {
+                "start": 57,
+                "end": 108,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "Principal valve, filling and pericardial findings"
+            },
+            {
+              "id": "impression.meaningful-interval-change-limitations-and-communication",
+              "label": "Meaningful interval change, limitations and communication",
+              "type": "text",
+              "default": null,
+              "source_prompt": "1. [LV and RV size and systolic function with method]\n2. [Principal valve, filling and pericardial findings]\n3. [Meaningful interval change, limitations and communication]",
+              "source_token": "[Meaningful interval change, limitations and communication]",
+              "source_span": {
+                "start": 112,
+                "end": 171,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "Meaningful interval change, limitations and communication"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "recommendation-and-communication",
+          "label": "RECOMMENDATION AND COMMUNICATION",
+          "source_body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method].",
+          "fields": [
+            {
+              "id": "recommendation-and-communication.recommended-next-step-and-rationale",
+              "label": "Recommended next step and rationale",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 37,
+                "end": 40,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "recommendation-and-communication.direct-communication-when-indicated",
+              "label": "Direct communication, when indicated",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method].",
+              "source_token": "[recipient, time, method]",
+              "source_span": {
+                "start": 80,
+                "end": 105,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "recipient, time, method"
+            }
+          ],
+          "allow_free_text": true
+        }
+      ],
+      "checklist": [
+        {
+          "id": "checklist.scope-and-acoustic-windows",
+          "label": "Scope and acoustic windows",
+          "detail": "Identify the study type and whether the clinical question can be answered.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.lv-size-and-systolic-function",
+          "label": "LV size and systolic function",
+          "detail": "Assess chamber size, global function and regional contraction.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.rv-and-atrial-assessment",
+          "label": "RV and atrial assessment",
+          "detail": "Describe chamber size and right ventricular function.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.valve-morphology-and-haemodynamics",
+          "label": "Valve morphology and haemodynamics",
+          "detail": "Integrate morphology, Doppler and chamber response.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.filling-pericardium-and-other-findings",
+          "label": "Filling, pericardium and other findings",
+          "detail": "Integrate filling assessment and complete the structural survey.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.comparison-and-communication",
+          "label": "Comparison and communication",
+          "detail": "Answer the clinical question and state meaningful interval change.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        }
+      ],
+      "calculator_ids": [],
+      "sources": [
+        {
+          "title": "ASE standardization of adult echocardiography reporting (2025)",
+          "url": "https://www.asecho.org/wp-content/uploads/2025/09/PIIS0894731725002925.pdf"
+        },
+        {
+          "title": "ASE comprehensive transthoracic echocardiography in adults (2019)",
+          "url": "https://www.asecho.org/guideline/comprehensive-tte-in-adults/"
+        },
+        {
+          "title": "ASE comprehensive transesophageal echocardiography (2013)",
+          "url": "https://www.asecho.org/guideline/comprehensive-tee/"
+        }
+      ],
+      "provenance": {
+        "source_scope": "supplementary",
+        "schema_derivation": "Authored template slots and reporting checklist; rotator-cuff controls are explicitly source-backed.",
+        "clinical_validation": "Not independently clinically validated.",
+        "source_reviewed_at": "2026-10-22"
+      }
+    },
+    "cardiology.percutaneous-angiography": {
+      "guide_id": "cardiology.percutaneous-angiography",
+      "title": "Percutaneous coronary angiography",
+      "template_id": "cardiology-percutaneous-angiography-report",
+      "sections": [
+        {
+          "section_id": "indication",
+          "label": "INDICATION",
+          "source_body": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ].",
+          "fields": [
+            {
+              "id": "indication.clinical-question",
+              "label": "Clinical question",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 19,
+                "end": 22,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "indication.relevant-history-symptoms-and-prior-procedures",
+              "label": "Relevant history, symptoms and prior procedures",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Clinical question: [ ].\nRelevant history, symptoms and prior procedures: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 73,
+                "end": 76,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "comparison",
+          "label": "COMPARISON",
+          "source_body": "[None / examination and date].",
+          "fields": [
+            {
+              "id": "comparison.none-examination-and-date",
+              "label": "None / examination and date",
+              "type": "text",
+              "default": null,
+              "source_prompt": "[None / examination and date].",
+              "source_token": "[None / examination and date]",
+              "source_span": {
+                "start": 0,
+                "end": 29,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "None / examination and date"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "technique-and-quality",
+          "label": "TECHNIQUE AND QUALITY",
+          "source_body": "Confirm indication, consent and the institutional pre-procedure assessment.\nRecord access, equipment, drugs, contrast exposure and radiation from the actual procedural record.\nAssess adequate projections of each coronary territory; document missing coverage.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+          "fields": [
+            {
+              "id": "technique-and-quality.acquisition-details",
+              "label": "Acquisition details",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Confirm indication, consent and the institutional pre-procedure assessment.\nRecord access, equipment, drugs, contrast exposure and radiation from the actual procedural record.\nAssess adequate projections of each coronary territory; document missing coverage.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 281,
+                "end": 284,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "technique-and-quality.quality",
+              "label": "Quality",
+              "type": "select",
+              "default": null,
+              "source_prompt": "Confirm indication, consent and the institutional pre-procedure assessment.\nRecord access, equipment, drugs, contrast exposure and radiation from the actual procedural record.\nAssess adequate projections of each coronary territory; document missing coverage.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+              "source_token": "[diagnostic / limited / non-diagnostic]",
+              "source_span": {
+                "start": 295,
+                "end": 334,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "options": [
+                {
+                  "value": "diagnostic",
+                  "label": "diagnostic"
+                },
+                {
+                  "value": "limited",
+                  "label": "limited"
+                },
+                {
+                  "value": "non-diagnostic",
+                  "label": "non-diagnostic"
+                }
+              ]
+            },
+            {
+              "id": "technique-and-quality.limitation-and-effect",
+              "label": "Limitation and effect",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Confirm indication, consent and the institutional pre-procedure assessment.\nRecord access, equipment, drugs, contrast exposure and radiation from the actual procedural record.\nAssess adequate projections of each coronary territory; document missing coverage.\n\nAcquisition details: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 359,
+                "end": 362,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "key-images",
+          "label": "KEY IMAGES",
+          "source_body": "[IMG 1: access and procedural record; series __ image __]\n[IMG 2: coronary anatomy; series __ image __]\n[IMG 3: lesions and flow; series __ image __]",
+          "fields": [],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "access-and-procedural-record",
+          "label": "ACCESS AND PROCEDURAL RECORD",
+          "source_body": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+          "fields": [
+            {
+              "id": "access-and-procedural-record.operator-and-team",
+              "label": "Operator and team",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 19,
+                "end": 22,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "access-and-procedural-record.access-vessel-side-ultrasound-guidance-sheath-and-catheters",
+              "label": "Access vessel, side, ultrasound guidance, sheath and catheters",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 88,
+                "end": 91,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "access-and-procedural-record.sedation-medication-record",
+              "label": "Sedation / medication record",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 123,
+                "end": 126,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "access-and-procedural-record.contrast-agent-and-volume-ml",
+              "label": "Contrast agent and volume (mL)",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 160,
+                "end": 163,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "access-and-procedural-record.radiation-dose-indices-and-fluoroscopy-time",
+              "label": "Radiation dose indices and fluoroscopy time",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 210,
+                "end": 213,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "access-and-procedural-record.study-quality-and-missing-projections",
+              "label": "Study quality and missing projections",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 254,
+                "end": 257,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "access-and-procedural-record.step-cardiology-percutaneous-angiography-1-2-1",
+              "label": "Diagnostic angiography scope",
+              "type": "select",
+              "default": null,
+              "options": [
+                {
+                  "value": "only",
+                  "label": "only"
+                },
+                {
+                  "value": "with-additional-procedures-listed",
+                  "label": "with additional procedures listed"
+                }
+              ],
+              "source_kind": "authored-step-choice",
+              "source_prompt": "Diagnostic angiography [only / with additional procedures listed].",
+              "source_token": "[only / with additional procedures listed]",
+              "source_location": {
+                "investigation_id": "cardiology.percutaneous-angiography",
+                "step_index": 0,
+                "finding_index": 1
+              },
+              "help": "Source example: Diagnostic angiography [only / with additional procedures listed]."
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "coronary-anatomy",
+          "label": "CORONARY ANATOMY",
+          "source_body": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+          "fields": [
+            {
+              "id": "coronary-anatomy.origins-variants",
+              "label": "Origins / variants",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 20,
+                "end": 23,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "coronary-anatomy.dominance",
+              "label": "Dominance",
+              "type": "select",
+              "default": null,
+              "source_prompt": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+              "source_token": "[right / left / codominant / uncertain]",
+              "source_span": {
+                "start": 36,
+                "end": 75,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "options": [
+                {
+                  "value": "right",
+                  "label": "right"
+                },
+                {
+                  "value": "left",
+                  "label": "left"
+                },
+                {
+                  "value": "codominant",
+                  "label": "codominant"
+                },
+                {
+                  "value": "uncertain",
+                  "label": "uncertain"
+                }
+              ]
+            },
+            {
+              "id": "coronary-anatomy.left-main",
+              "label": "Left main",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 88,
+                "end": 91,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "coronary-anatomy.lad-and-diagonal-branches",
+              "label": "LAD and diagonal branches",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 120,
+                "end": 123,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "coronary-anatomy.lcx-and-obtuse-marginal-branches",
+              "label": "LCx and obtuse marginal branches",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 159,
+                "end": 162,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "coronary-anatomy.rca-pda-and-posterolateral-branches",
+              "label": "RCA, PDA and posterolateral branches",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 202,
+                "end": 205,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "coronary-anatomy.grafts-stents-if-present",
+              "label": "Grafts / stents, if present",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 236,
+                "end": 239,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "lesions-and-flow",
+          "label": "LESIONS AND FLOW",
+          "source_body": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+          "fields": [
+            {
+              "id": "lesions-and-flow.for-each-lesion-vessel-segment",
+              "label": "For each lesion: vessel / segment",
+              "type": "text",
+              "default": null,
+              "source_prompt": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 34,
+                "end": 37,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "lesions-and-flow.narrowing",
+              "label": "narrowing",
+              "type": "number",
+              "default": null,
+              "source_prompt": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 49,
+                "end": 52,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "unit": "%"
+            },
+            {
+              "id": "lesions-and-flow.visual-quantitative-method",
+              "label": "visual / quantitative method",
+              "type": "text",
+              "default": null,
+              "source_prompt": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 84,
+                "end": 87,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "lesions-and-flow.length",
+              "label": "length",
+              "type": "number",
+              "default": null,
+              "source_prompt": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 96,
+                "end": 99,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "unit": "mm"
+            },
+            {
+              "id": "lesions-and-flow.calcification-thrombus-bifurcation-occlusion",
+              "label": "calcification / thrombus / bifurcation / occlusion",
+              "type": "text",
+              "default": null,
+              "source_prompt": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 167,
+                "end": 170,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "lesions-and-flow.distal-flow-timi-if-assessed",
+              "label": "Distal flow (TIMI, if assessed)",
+              "type": "text",
+              "default": null,
+              "source_prompt": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 205,
+                "end": 208,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "lesions-and-flow.collateral-supply",
+              "label": "Collateral supply",
+              "type": "text",
+              "default": null,
+              "source_prompt": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 229,
+                "end": 232,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "physiology-and-intravascular-imaging",
+          "label": "PHYSIOLOGY AND INTRAVASCULAR IMAGING",
+          "source_body": "FFR / iFR: [not performed / vessel, value and conditions].\nIVUS / OCT: [not performed / segment and measured findings].\nHaemodynamics / LV angiography: [not performed / measurements and method].",
+          "fields": [
+            {
+              "id": "physiology-and-intravascular-imaging.ffr-ifr",
+              "label": "FFR / iFR",
+              "type": "text",
+              "default": null,
+              "source_prompt": "FFR / iFR: [not performed / vessel, value and conditions].\nIVUS / OCT: [not performed / segment and measured findings].\nHaemodynamics / LV angiography: [not performed / measurements and method].",
+              "source_token": "[not performed / vessel, value and conditions]",
+              "source_span": {
+                "start": 11,
+                "end": 57,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "not performed / vessel, value and conditions"
+            },
+            {
+              "id": "physiology-and-intravascular-imaging.ivus-oct",
+              "label": "IVUS / OCT",
+              "type": "text",
+              "default": null,
+              "source_prompt": "FFR / iFR: [not performed / vessel, value and conditions].\nIVUS / OCT: [not performed / segment and measured findings].\nHaemodynamics / LV angiography: [not performed / measurements and method].",
+              "source_token": "[not performed / segment and measured findings]",
+              "source_span": {
+                "start": 71,
+                "end": 118,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "not performed / segment and measured findings"
+            },
+            {
+              "id": "physiology-and-intravascular-imaging.haemodynamics-lv-angiography",
+              "label": "Haemodynamics / LV angiography",
+              "type": "text",
+              "default": null,
+              "source_prompt": "FFR / iFR: [not performed / vessel, value and conditions].\nIVUS / OCT: [not performed / segment and measured findings].\nHaemodynamics / LV angiography: [not performed / measurements and method].",
+              "source_token": "[not performed / measurements and method]",
+              "source_span": {
+                "start": 152,
+                "end": 193,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "not performed / measurements and method"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "intervention-if-performed",
+          "label": "INTERVENTION IF PERFORMED",
+          "source_body": "PCI: [not performed / target and indication].\nDevices, sizes and locations: [ ].\nPre- and post-intervention narrowing / flow: [ ].\nResidual lesion, dissection, perforation or other event: [ ].",
+          "fields": [
+            {
+              "id": "intervention-if-performed.pci",
+              "label": "PCI",
+              "type": "text",
+              "default": null,
+              "source_prompt": "PCI: [not performed / target and indication].\nDevices, sizes and locations: [ ].\nPre- and post-intervention narrowing / flow: [ ].\nResidual lesion, dissection, perforation or other event: [ ].",
+              "source_token": "[not performed / target and indication]",
+              "source_span": {
+                "start": 5,
+                "end": 44,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "not performed / target and indication"
+            },
+            {
+              "id": "intervention-if-performed.devices-sizes-and-locations",
+              "label": "Devices, sizes and locations",
+              "type": "text",
+              "default": null,
+              "source_prompt": "PCI: [not performed / target and indication].\nDevices, sizes and locations: [ ].\nPre- and post-intervention narrowing / flow: [ ].\nResidual lesion, dissection, perforation or other event: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 76,
+                "end": 79,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "intervention-if-performed.pre-and-post-intervention-narrowing-flow",
+              "label": "Pre- and post-intervention narrowing / flow",
+              "type": "text",
+              "default": null,
+              "source_prompt": "PCI: [not performed / target and indication].\nDevices, sizes and locations: [ ].\nPre- and post-intervention narrowing / flow: [ ].\nResidual lesion, dissection, perforation or other event: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 126,
+                "end": 129,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "intervention-if-performed.residual-lesion-dissection-perforation-or-other-event",
+              "label": "Residual lesion, dissection, perforation or other event",
+              "type": "text",
+              "default": null,
+              "source_prompt": "PCI: [not performed / target and indication].\nDevices, sizes and locations: [ ].\nPre- and post-intervention narrowing / flow: [ ].\nResidual lesion, dissection, perforation or other event: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 188,
+                "end": 191,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "complications-and-handover",
+          "label": "COMPLICATIONS AND HANDOVER",
+          "source_body": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ].",
+          "fields": [
+            {
+              "id": "complications-and-handover.complications",
+              "label": "Complications",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ].",
+              "source_token": "[none observed / event and response]",
+              "source_span": {
+                "start": 15,
+                "end": 51,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "none observed / event and response"
+            },
+            {
+              "id": "complications-and-handover.estimated-blood-loss",
+              "label": "Estimated blood loss",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 75,
+                "end": 78,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "complications-and-handover.haemostasis-access-site-status",
+              "label": "Haemostasis / access-site status",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 114,
+                "end": 117,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "complications-and-handover.post-procedure-diagnosis",
+              "label": "Post-procedure diagnosis",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 145,
+                "end": 148,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "complications-and-handover.handover-monitoring-and-treating-team-plan",
+              "label": "Handover, monitoring and treating-team plan",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 195,
+                "end": 198,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "impression",
+          "label": "IMPRESSION",
+          "source_body": "1. [Principal coronary findings and affected territories]\n2. [Adjunctive findings and PCI result, if performed]\n3. [Complications, limitations and treating-team handover]",
+          "fields": [
+            {
+              "id": "impression.principal-coronary-findings-and-affected-territories",
+              "label": "Principal coronary findings and affected territories",
+              "type": "text",
+              "default": null,
+              "source_prompt": "1. [Principal coronary findings and affected territories]\n2. [Adjunctive findings and PCI result, if performed]\n3. [Complications, limitations and treating-team handover]",
+              "source_token": "[Principal coronary findings and affected territories]",
+              "source_span": {
+                "start": 3,
+                "end": 57,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "Principal coronary findings and affected territories"
+            },
+            {
+              "id": "impression.adjunctive-findings-and-pci-result-if-performed",
+              "label": "Adjunctive findings and PCI result, if performed",
+              "type": "text",
+              "default": null,
+              "source_prompt": "1. [Principal coronary findings and affected territories]\n2. [Adjunctive findings and PCI result, if performed]\n3. [Complications, limitations and treating-team handover]",
+              "source_token": "[Adjunctive findings and PCI result, if performed]",
+              "source_span": {
+                "start": 61,
+                "end": 111,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "Adjunctive findings and PCI result, if performed"
+            },
+            {
+              "id": "impression.complications-limitations-and-treating-team-handover",
+              "label": "Complications, limitations and treating-team handover",
+              "type": "text",
+              "default": null,
+              "source_prompt": "1. [Principal coronary findings and affected territories]\n2. [Adjunctive findings and PCI result, if performed]\n3. [Complications, limitations and treating-team handover]",
+              "source_token": "[Complications, limitations and treating-team handover]",
+              "source_span": {
+                "start": 115,
+                "end": 170,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "Complications, limitations and treating-team handover"
+            }
+          ],
+          "allow_free_text": true
+        },
+        {
+          "section_id": "recommendation-and-communication",
+          "label": "RECOMMENDATION AND COMMUNICATION",
+          "source_body": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method].",
+          "fields": [
+            {
+              "id": "recommendation-and-communication.recommended-next-step-and-rationale",
+              "label": "Recommended next step and rationale",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method].",
+              "source_token": "[ ]",
+              "source_span": {
+                "start": 37,
+                "end": 40,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot"
+            },
+            {
+              "id": "recommendation-and-communication.direct-communication-when-indicated",
+              "label": "Direct communication, when indicated",
+              "type": "text",
+              "default": null,
+              "source_prompt": "Recommended next step and rationale: [ ].\nDirect communication, when indicated: [recipient, time, method].",
+              "source_token": "[recipient, time, method]",
+              "source_span": {
+                "start": 80,
+                "end": 105,
+                "unit": "unicode_code_points"
+              },
+              "source_kind": "authored-template-slot",
+              "placeholder": "recipient, time, method"
+            }
+          ],
+          "allow_free_text": true
+        }
+      ],
+      "checklist": [
+        {
+          "id": "checklist.access-and-acquisition",
+          "label": "Access and acquisition",
+          "detail": "Establish what was performed and the available angiographic runs.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.origins-course-and-dominance",
+          "label": "Origins, course and dominance",
+          "detail": "Describe the coronary tree before individual lesions.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.lesion-by-lesion",
+          "label": "Lesion by lesion",
+          "detail": "Localize disease and record the method and confidence of assessment.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.additional-assessments",
+          "label": "Additional assessments",
+          "detail": "Report adjunctive tests only when acquired.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.pci-result-when-applicable",
+          "label": "PCI result, when applicable",
+          "detail": "Document the target and final result separately from the diagnostic findings.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        },
+        {
+          "id": "checklist.complications-and-immediate-handover",
+          "label": "Complications and immediate handover",
+          "detail": "Record the outcome and information needed by the receiving team.",
+          "type": "boolean",
+          "default": null,
+          "meaning": "Review acknowledgement only; checked does not assert a normal patient finding.",
+          "source_kind": "authored-reporting-checklist"
+        }
+      ],
+      "calculator_ids": [],
+      "sources": [
+        {
+          "title": "SCAI expert consensus update on best practices in the cardiac catheterization laboratory (2021)",
+          "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccd.29744"
+        },
+        {
+          "title": "ACC/AHA/SCAI structured reporting for the cardiac catheterization laboratory (2014)",
+          "url": "https://www.jacc.org/doi/10.1016/j.jacc.2014.03.020"
+        },
+        {
+          "title": "2025 Acute Coronary Syndromes guideline: key points",
+          "url": "https://professional.heart.org/en/science-news/2025-guideline-for-the-management-of-patients-with-acute-coronary-syndromes/top-things-to-know"
+        }
+      ],
+      "provenance": {
+        "source_scope": "supplementary",
+        "schema_derivation": "Authored template slots and reporting checklist; rotator-cuff controls are explicitly source-backed.",
+        "clinical_validation": "Not independently clinically validated.",
+        "source_reviewed_at": "2026-10-22"
+      }
+    },
     "rad.2.modalities": {
       "guide_id": "rad.2.modalities",
       "title": "What Each Modality Detects",
@@ -74752,12 +76428,12 @@
     }
   },
   "summary": {
-    "guide_count": 96,
-    "section_count": 1073,
-    "field_count": 3729,
-    "checklist_item_count": 480,
-    "select_count": 416,
+    "guide_count": 98,
+    "section_count": 1097,
+    "field_count": 3815,
+    "checklist_item_count": 492,
+    "select_count": 423,
     "conditional_field_count": 24
   },
-  "schema_hash": "5fbeca03872761de2fddc42e33a840b56064b79a924f976334e602b2bce5e1b9"
+  "schema_hash": "c89532b864c35117d9d5b3856cfdd71b6d436c2667c23556071ec848a802539d"
 }

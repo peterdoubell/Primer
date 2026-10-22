@@ -113,8 +113,13 @@ def test_every_clinical_guide_has_an_unanswered_structured_form():
     source = json.loads((ROOT / "data/curriculum/11-radiology.json").read_text())
     nodes = source["nodes"]
     guide_ids = {node["id"] for node in nodes if node["id"].startswith("rad.")}
-    catalogue = json.loads((ROOT / "data/radiology/structured-reporting.json").read_text())
     assert len(guide_ids) == 96
+    cardiology = json.loads((ROOT / "data/radiology/cardiology-investigations.json").read_text())
+    cardiology_ids = {item["id"] for item in cardiology["investigations"]}
+    assert cardiology_ids == {"cardiology.echocardiography", "cardiology.percutaneous-angiography"}
+    guide_ids.update(cardiology_ids)
+    catalogue = json.loads((ROOT / "data/radiology/structured-reporting.json").read_text())
+    assert len(catalogue["forms"]) == 98
     assert set(catalogue["forms"]) == guide_ids
     for guide_id, form in catalogue["forms"].items():
         assert form["guide_id"] == guide_id
@@ -131,23 +136,19 @@ def test_every_clinical_guide_has_an_unanswered_structured_form():
                 assert ("equals" in condition) != ("in" in condition)
 
 
-def test_structured_forms_attach_to_guide_without_mutating_catalogue(monkeypatch):
-    from primer import radiology
-    nodes = json.loads((ROOT / "data/curriculum/11-radiology.json").read_text())["nodes"]
-    nodes = [node for node in nodes if node["id"].startswith("rad.")]
-    # Media integrity has its own contracts; this test targets form attachment.
-    monkeypatch.setattr(radiology, "validate_image_source", lambda value: None)
-    from primer import source_native_inspectors
-    monkeypatch.setattr(source_native_inspectors, "references",
-                        lambda: {"ra.ct-pulmonary-nodules": [{"id": "test-native-inspector"}]})
-    radiology.attach_references(nodes)
+def test_reporting_response_adds_form_without_mutating_canonical_lesson_data():
     catalogue = json.loads((ROOT / "data/radiology/structured-reporting.json").read_text())
-    for node in nodes:
-        form = node["radiology_reference"]["structured_form"]
-        assert form["guide_id"] == node["id"]
-        assert form["form_version"] == catalogue["schema_hash"]
-        original = copy.deepcopy(catalogue["forms"][node["id"]])
-        assert {key: value for key, value in form.items() if key != "form_version"} == original
-    nodes[0]["radiology_reference"]["structured_form"]["sections"].clear()
-    radiology.attach_references(nodes)
-    assert nodes[0]["radiology_reference"]["structured_form"]["sections"]
+    for guide_id, form in catalogue["forms"].items():
+        canonical = {"id": "an-investigation", "module_id": guide_id,
+                     "radiology_reference": {"overview": "Existing authored reference."}}
+        before = copy.deepcopy(canonical)
+        response = reporting_bridge.with_structured_form(canonical)
+        assert canonical == before
+        attached = response["radiology_reference"]["structured_form"]
+        assert attached["guide_id"] == guide_id
+        assert attached["form_version"] == catalogue["schema_hash"]
+        assert {key: value for key, value in attached.items() if key != "form_version"} == form
+        attached["sections"].clear()
+        assert reporting_bridge.with_structured_form(canonical)["radiology_reference"]["structured_form"]["sections"]
+    unknown = {"module_id": "cardiology.echo", "radiology_reference": {"overview": "Separate source."}}
+    assert reporting_bridge.with_structured_form(unknown) == unknown

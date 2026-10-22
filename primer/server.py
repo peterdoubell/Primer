@@ -1445,7 +1445,8 @@ def radiology_reporting_reference(node_id: str):
     investigation = resolve(node_id)
     if not investigation:
         return JSONResponse({"error": "no such radiology module"}, status_code=404)
-    return detail(curr, investigation)
+    from .reporting_bridge import with_structured_form
+    return with_structured_form(detail(curr, investigation))
 
 
 @app.get("/api/curriculum/node/{node_id}")
