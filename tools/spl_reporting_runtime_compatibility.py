@@ -16,6 +16,8 @@ def reviewed():
     return data
 
 def before_reporting_bytes(path,raw,allow_older=False):
+    from tools.spine_cardiology_runtime_compatibility import before_reference_bytes
+    raw = before_reference_bytes(path, raw, allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]
@@ -51,7 +53,8 @@ def validate_refresh(step):
             or step.get('native_decoder_mesh_CT_renderer_code_touched') is not False
             or any(step.get(k) is not False for k in ['clinical_approval','fine_anatomical_approval','reopens_or_extends_any_review'])
             or step.get('scoped_compatibility_amendment')!={'path':PROOF,'sha256':PROOF_SHA256}):raise ValueError('SPL reporting UI refresh leaves exact scope')
-    if sha((ROOT/'web/app.js').read_bytes())!=row['after_sha256']:raise ValueError('Current reporting wrapper differs')
+    from tools.spine_cardiology_runtime_compatibility import before_reference_bytes
+    if sha(before_reference_bytes('web/app.js', (ROOT/'web/app.js').read_bytes()))!=row['after_sha256']:raise ValueError('Current reporting wrapper differs')
     def receipt(field):
         reference=step[field];raw=(ROOT/reference['path']).read_bytes()
         if sha(raw)!=reference['sha256']:raise ValueError('SPL reporting reader receipt changed')
@@ -69,7 +72,7 @@ def validate_refresh(step):
             if sha((ROOT/'web/anatomy/spl-nac-reporting'/name).read_bytes())!=pin:raise ValueError('SPL reporting viewer changed')
     if reader['registrySHA256']!=sha((ROOT/'data/radiology/spl-reporting-reference.json').read_bytes()):raise ValueError('SPL reporting registry differs')
     shell=(ROOT/'web/index.html').read_text();scripts=re.findall(r'<script src="/app/([\w-]+\.js)(?:\?[^"<>]*)?"></script>',shell)
-    startup=b"'use strict';\n"+b'\n;\n'.join((ROOT/'web'/name).read_bytes() for name in scripts)
+    startup=b"'use strict';\n"+b'\n;\n'.join(before_reference_bytes('web/' + name, (ROOT/'web'/name).read_bytes(), allow_older=True) for name in scripts)
     if sha(startup)!=reader['startupSHA256'] or len(startup)!=reader['startupBytes']:raise ValueError('SPL current reader startup differs')
     for path,pin in step['guarded_paths_sha256'].items():
         if sha((ROOT/path).read_bytes())!=pin:raise ValueError('SPL guarded native file changed')

@@ -148,7 +148,8 @@ def validate_refresh(step):
     scripts = re.findall(r'<script src="/app/([\w-]+\.js)(?:\?[^"<>]*)?"></script>', shell)
     styles = re.findall(r'<link rel="stylesheet" href="/app/([\w-]+\.css)(?:\?[^"<>]*)?">', shell)
     startup = b"'use strict';\n" + b'\n;\n'.join(before_linear_algebra_bytes('web/' + name, before_reporting_bytes('web/' + name, (ROOT / 'web' / name).read_bytes())) for name in scripts)
-    stylesheet = b'\n'.join((ROOT / 'web' / name).read_bytes() for name in styles)
+    from tools.spine_cardiology_runtime_compatibility import before_reference_bytes
+    stylesheet = b'\n'.join(before_reference_bytes('web/' + name, (ROOT / 'web' / name).read_bytes(), allow_older=True) for name in styles)
     if (sha(startup) != proof['startupSHA256'] or len(startup) != proof['startupBytes']
             or sha(stylesheet) != proof['stylesheetSHA256'] or len(stylesheet) != proof['stylesheetBytes']):
         raise ValueError('Current reader startup differs from the tested source')

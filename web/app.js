@@ -2299,13 +2299,14 @@ function renderRadiologyReference(n) {
   const images = ref.key_images || [];
   const header = el('div', { class: 'rad-reference-head' },
     el('div', { class: 'kicker' }, 'Specialist reference'),
-    el('h2', {}, 'Radiology Assistant foundation'),
+    el('h2', {}, ref.source_label || 'Radiology Assistant foundation'),
     el('p', {}, ref.overview || 'Study the linked foundation articles, then apply the structured approach in the report templates.'),
     el('p', { class: 'rad-reference-credit' },
-      radiologySourceLink('The Radiology Assistant', 'https://radiologyassistant.nl/'),
+      ref.source_label ? 'Society guidelines and original reporting worksheets' : radiologySourceLink('The Radiology Assistant', 'https://radiologyassistant.nl/'),
       ' · Articles, clinical images and complete explanations open at the source.',
       ref.reviewed_at ? ' Reference index reviewed ' + ref.reviewed_at + '.' : ''));
   section.append(header);
+  if (ref.spine_neurology_map && !ref.investigation) section.append(renderSpineNeurologyMap(ref));
   if ((ref.learning_points || []).length) section.append(el('div', { class: 'rad-learning-points' },
     el('h3', {}, 'Learning focus'), el('ul', {}, ...ref.learning_points.map(point => el('li', {}, point)))));
   if (reading.length) {
@@ -2621,6 +2622,78 @@ function renderAnnotatedAnatomy(ref) {
       radiologySourceLink('Open annotated case', reference.url))));
 }
 
+function renderSpineNeurologyMap(ref) {
+  const data = ref.spine_neurology_map;
+  const root = el('section', { class: 'rad-neurology-map', 'aria-label': data.title },
+    el('h3', {}, data.title), el('p', {}, data.scope));
+  const level = el('select', { 'aria-label': 'Nerve level' },
+    ...data.levels.map(row => el('option', { value: row.root }, row.root + ' · ' + row.sensory)));
+  level.value = ref.investigation?.id === 'ra.cervical-spine-injury' ? 'C6' : 'L5';
+  const mode = el('select', { 'aria-label': 'Map type' },
+    el('option', { value: 'sensory' }, 'Dermatomes · sensory landmarks'),
+    el('option', { value: 'motor' }, 'Myotomes · motor actions'));
+  const detail = el('div', { class: 'rad-neurology-detail', role: 'status', 'aria-live': 'polite' });
+  const drawing = el('div', { class: 'rad-neurology-drawing' });
+  root.append(el('div', { class: 'rad-neurology-controls' },
+    el('label', {}, 'Nerve level ', level), el('label', {}, 'Show ', mode)), drawing, detail);
+  const ns = 'http://www.w3.org/2000/svg';
+  function svgNode(tag, attrs, text) {
+    const node = document.createElementNS(ns, tag);
+    for (const [key, value] of Object.entries(attrs || {})) node.setAttribute(key, value);
+    if (text) node.textContent = text;
+    return node;
+  }
+  function show() {
+    const selected = data.levels.find(row => row.root === level.value);
+    const motor = mode.value === 'motor';
+    const svg = svgNode('svg', { viewBox: '0 0 600 470', role: 'group', 'aria-label': motor ? 'Myotome action locations' : 'Anterior and posterior sensory landmarks' });
+    svg.append(svgNode('title', {}, 'Approximate bilateral landmarks; select a dot or use the nerve level selector'));
+    const outline = 'M135 77 L135 90 Q105 90 100 106 L75 183 L57 245 Q55 261 69 263 L88 251 L106 190 L115 158 L113 218 Q105 244 110 265 L109 309 L107 406 L99 432 Q114 443 137 432 L143 323 L150 277 L157 323 L163 432 Q186 443 201 432 L193 406 L191 309 L190 265 Q195 244 187 218 L185 158 L194 190 L212 251 L231 263 Q245 261 243 245 L225 183 L200 106 Q195 90 165 90 L165 77';
+    for (const [index, view] of ['anterior', 'posterior'].entries()) {
+      const group = svgNode('g', { transform: 'translate(' + index * 300 + ',0)' });
+      group.append(svgNode('text', { x: 150, y: 20, 'text-anchor': 'middle' }, view === 'anterior' ? 'Anterior' : 'Posterior'),
+        svgNode('ellipse', { cx: 150, cy: 56, rx: 23, ry: 29, class: 'rad-neurology-body' }),
+        svgNode('path', { d: outline, class: 'rad-neurology-body' }));
+      for (const row of data.levels) {
+        if (motor ? !row.motor_point || view !== 'anterior' : row.view !== view) continue;
+        const [x, y] = motor ? row.motor_point : row.point;
+        for (const px of [x, 300 - x]) {
+          const dot = svgNode('circle', { cx: px, cy: y, r: row === selected ? 7 : 4,
+            class: 'rad-neurology-point' + (row === selected ? ' is-selected' : ''),
+            role: 'button', tabindex: '0', 'aria-label': row.root + ': ' + (motor ? row.motor : row.sensory),
+            'aria-pressed': String(row === selected) });
+          dot.append(svgNode('title', {}, row.root + ': ' + (motor ? row.motor : row.sensory)));
+          function choose() { level.value = row.root; show(); level.focus(); }
+          dot.addEventListener('click', choose);
+          dot.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); choose(); }
+          });
+          group.append(dot);
+        }
+      }
+      svg.append(group);
+    }
+    drawing.replaceChildren(svg);
+    detail.replaceChildren(el('h4', {}, selected.root),
+      el('p', {}, 'Sensory landmark: ' + selected.sensory),
+      el('p', {}, 'Motor action: ' + selected.motor + '. ' + selected.muscle + '.'),
+      el('p', { class: 'muted' }, motor && !selected.motor_point ? 'No isolated key-muscle marker is plotted for this level.' :
+        'Highlighted dots show the selected level on both sides. Positions are schematic.'));
+  }
+  level.addEventListener('change', show); mode.addEventListener('change', show); show();
+  const table = el('table', { class: 'rad-measurement-table' },
+    el('caption', {}, 'Sensory landmarks and representative motor actions'),
+    el('thead', {}, el('tr', {}, ...['Level', 'Sensory landmark', 'Motor action', 'Representative muscles'].map(label => el('th', { scope: 'col' }, label)))),
+    el('tbody', {}, ...data.levels.map(row => el('tr', {}, el('th', { scope: 'row' }, row.root),
+      el('td', {}, row.sensory), el('td', {}, row.motor), el('td', {}, row.muscle)))));
+  root.append(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Neurology reference table' }, table),
+    el('h4', {}, 'Correlate with spine MRI'), el('ul', {}, ...data.mri_notes.map(note => el('li', {}, note))),
+    el('p', { class: 'muted' }, data.limits), el('p', { class: 'rad-image-credit' },
+      'Original schematic · Reviewed ' + data.reviewed_at + ' · Clinical references: ',
+      ...data.sources.map(source => el('span', {}, radiologySourceLink(source.publisher + ' — ' + source.title, source.url), ' · '))));
+  return root;
+}
+
 function renderCancerStaging(n, { openTab, usePrompts } = {}) {
   const ref = n.radiology_reference, systems = ref.cancer_staging;
   const root = el('section', { class: 'rad-cancer-staging', 'aria-label': 'Cancer staging tables and illustrations' },
@@ -2730,7 +2803,7 @@ function renderBladderStagingExamples(system) {
 }
 
 function renderReportingDiagrams(ref) {
-  const root = el('section', { class: 'rad-reporting-diagrams' }, el('h3', {}, 'Classification diagrams'));
+  const root = el('section', { class: 'rad-reporting-diagrams' }, el('h3', {}, ref.source_label ? 'Reporting diagrams' : 'Classification diagrams'));
   for (const diagram of ref.reporting_diagrams || []) {
     root.append(el('figure', { class: 'rad-anatomy-illustration' },
       el('h4', {}, diagram.title),
@@ -2886,7 +2959,7 @@ async function renderRadiologyDesk(page, nodeId) {
       btn({ class: 'btn ghost small rad-desk-back', onclick: () => go('radiology') }, backward('Back to references')),
       el('span', { class: 'rad-desk-location' }, n.section + ' / ' + n.topic)),
     pagehead(n.modality + ' · ' + n.topic, n.title, n.goal),
-    el('div', { class: 'rad-source-heading-list' }, el('span', {}, 'Radiology Assistant topics'),
+    el('div', { class: 'rad-source-heading-list' }, el('span', {}, n.source_label || 'Radiology Assistant topics'),
       el('ul', {}, ...n.source_titles.map(title => el('li', {}, title)))),
     el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
       plural(ref.walkthrough.steps.length, 'reporting step') + ' · ' +
@@ -2899,6 +2972,7 @@ async function renderRadiologyDesk(page, nodeId) {
   const choices = [
     ['quick', 'Quick reference', panel => panel.append(renderReportingStart(n,
       key => activate(choices.findIndex(([id]) => id === key), true)))],
+    ...(ref.spine_neurology_map ? [['neurology', 'Dermatomes & myotomes', panel => panel.append(renderSpineNeurologyMap(ref))]] : []),
     ...(ref.cancer_staging?.length ? [['staging', 'Staging', panel => panel.append(renderCancerStaging(n, {
       openTab: key => activate(choices.findIndex(([id]) => id === key), true),
       usePrompts: system => {

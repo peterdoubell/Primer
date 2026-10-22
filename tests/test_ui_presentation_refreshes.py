@@ -80,6 +80,10 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
     ledger, bound = ui_refresh.load(), reviewed()
     for step in ledger['refreshes']:
         assert step['guarded_paths_sha256'] == {path: bound[path] for path in ledger['guarded_paths']}
+        if step['id']=='2026-10-22-spine-cardiology-references':
+            from tools.spine_cardiology_runtime_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
         if step['id']=='2026-10-13-source-motion-frame-status':
             from tools.thoracic_motion_ui_compatibility import validate_refresh
             validate_refresh(step)
