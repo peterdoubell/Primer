@@ -33,13 +33,19 @@
     },
     "web/app.js": {
       "before_sha256": "e474ddb1ef541c32dcd91948de592df01a8fa69934de4defa4c35d806d7492f7",
-      "after_sha256": "1c9c3b857a70c1d4c107e394214a7dc2eafa8c11ba0d7e3ff6d6c34e1b9d3572",
+      "after_sha256": "693f001b3e49c0cb29e67a57abfa05706d2b36d3684915ac3280520c4b6d47e6",
       "changes": [
         {
           "start": 2339,
           "end": 2340,
           "before": "",
           "after": "    ref.structured_form && window.PrimerStructuredReporting ? window.PrimerStructuredReporting.render(ref.structured_form) : null,\n"
+        },
+        {
+          "start": 7016,
+          "end": 7017,
+          "before": "  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard,\n",
+          "after": "  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard, renderRadiologyReference,\n"
         }
       ]
     },

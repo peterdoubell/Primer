@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/structured-reporting-release-20261022/runtime-inverse.json'
-PROOF_SHA256 = '13941f0dfd70716c05751470f42ae59f0b5610463b399e163b356972bb25001b'
+PROOF_SHA256 = '1bf493841f0facb38f09cd651c754dbfd92d29da875a9652edd9b793315b4fbb'
 PATHS = frozenset({'primer/server.py', 'web/app.js', 'web/index.html'})
 ADDED_PATHS = frozenset({'primer/reporting_bridge.py', 'web/radiology-structured.js',
                          'web/radiology-structured.css', 'data/radiology/structured-reporting.json'})

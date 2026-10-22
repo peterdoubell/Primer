@@ -7014,7 +7014,7 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // Node QA imports the same functions without starting a reader session. Browser
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard,
+  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard, renderRadiologyReference,
     walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime, lessonSourceGallery, sourceStudyReference, referenceFrameIndex });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at
