@@ -1099,6 +1099,8 @@ def detail(curriculum, item):
             or not inspectors or ref['key_images'] or ref['source_anatomy_references']):
         raise ValueError('Native-only pulmonary reference has a missing source or unreviewed fallback')
     ref['investigation'] = copy.deepcopy(item)
+    if item['module_id'] == 'rad.4.spine-imaging':
+        ref['spine_neurology_map'] = _read('spine-neurology-map.json')
     if item['id'] == 'ra.hrct-lung':
         ref['quick_reference'] = _read('hrct-quick-reference.json')
     if item['module_id'] == 'rad.5.aorta':

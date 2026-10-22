@@ -78,3 +78,16 @@ def test_reporting_steps_use_existing_anatomy_landmarks():
     for item in cardiology.investigations():
         assert item['focus'] in families[item['family']]
         assert all(step['landmark'] in families[item['family']] for step in item['steps'])
+
+
+def test_reference_additions_have_an_exact_rejecting_historical_inverse():
+    import hashlib
+    from tools import spine_cardiology_runtime_compatibility as bridge
+    for path, row in bridge.reviewed()['files'].items():
+        raw = (ROOT / path).read_bytes()
+        restored = bridge.before_reference_bytes(path, raw)
+        assert hashlib.sha256(restored).hexdigest() == row['before_sha256']
+        assert bridge.before_reference_bytes(path, restored) == restored
+        with pytest.raises(ValueError, match='Unreviewed'):
+            bridge.before_reference_bytes(path, raw + b'\n')
+    assert bridge.before_reference_bytes('unknown', b'unchanged') == b'unchanged'
