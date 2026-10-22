@@ -4,12 +4,17 @@ from functools import lru_cache
 import json
 import os
 from pathlib import Path
-from urllib.parse import urlsplit
 import httpx
 from fastapi import APIRouter, Body
 from fastapi.responses import JSONResponse
 
 router=APIRouter(prefix='/api/radiology/reporting')
+
+SERVICE_URLS = {
+    'https://radiology-reporting-api.vercel.app': 'https://radiology-reporting-api.vercel.app',
+    'http://127.0.0.1:8770': 'http://127.0.0.1:8770',
+    'http://localhost:8770': 'http://localhost:8770',
+}
 
 CALCULATOR_PATHS = {
     'acr_tirads_2017': 'calculators/acr_tirads_2017',
@@ -38,15 +43,15 @@ def with_structured_form(detail):
     return result
 
 def configuration():
-    url=os.getenv('REPORTING_SERVICE_URL','https://radiology-reporting-api.vercel.app').rstrip('/')
+    configured=os.getenv('REPORTING_SERVICE_URL','https://radiology-reporting-api.vercel.app').rstrip('/')
+    url=SERVICE_URLS.get(configured)
+    if url is None:raise ValueError('Reporting service origin is not approved.')
     key=os.getenv('REPORTING_API_KEY','')
     if not key and not os.getenv('VERCEL'):
         local=Path.home()/'.config/primer-reporting/production.env'
         if local.is_file():
             for line in local.read_text().splitlines():
                 if line.startswith('REPORTING_API_KEY='):key=line.split('=',1)[1]
-    parsed=urlsplit(url)
-    if parsed.scheme!='https' and not(parsed.scheme=='http' and parsed.hostname in ('127.0.0.1','localhost')):raise ValueError('Reporting service requires HTTPS or loopback.')
     if not key:raise ValueError('Reporting service key is not configured on this server.')
     return url,key
 

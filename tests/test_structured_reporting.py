@@ -18,7 +18,7 @@ from primer import reporting_bridge
 def bridge_client(monkeypatch):
     # Do not consult the developer's local credential file during tests.
     monkeypatch.setenv("VERCEL", "1")
-    monkeypatch.setenv("REPORTING_SERVICE_URL", "https://reporting.example")
+    monkeypatch.setenv("REPORTING_SERVICE_URL", "https://radiology-reporting-api.vercel.app")
     monkeypatch.setenv("REPORTING_API_KEY", "test-key-only")
     app = FastAPI()
     app.include_router(reporting_bridge.router)
@@ -60,7 +60,7 @@ def test_calculation_proxy_keeps_credentials_server_side(bridge_client, monkeypa
     assert "test-key-only" not in response.text
     method, url, request = calls[0]
     assert method == "POST"
-    assert url == "https://reporting.example/v1/calculators/pirads_v2_1/calculate"
+    assert url == "https://radiology-reporting-api.vercel.app/v1/calculators/pirads_v2_1/calculate"
     assert request["headers"] == {"Authorization": "Bearer test-key-only"}
     assert request["json"] == {"inputs": {"zone": None}}
 
@@ -70,7 +70,28 @@ def test_upstream_paths_come_only_from_literal_route_map(bridge_client, monkeypa
     calls = fake_upstream(monkeypatch, httpx.Response(200, json={"calculator_id": identifier}))
     response = bridge_client.get("/api/radiology/reporting/calculators/" + identifier)
     assert response.status_code == 200
-    assert calls[0][0:2] == ("GET", "https://reporting.example/v1/" + reporting_bridge.CALCULATOR_PATHS[identifier])
+    assert calls[0][0:2] == ("GET", "https://radiology-reporting-api.vercel.app/v1/" + reporting_bridge.CALCULATOR_PATHS[identifier])
+
+
+@pytest.mark.parametrize("origin", ["https://untrusted.example", "http://169.254.169.254", "http://127.0.0.1:22",
+                                   "https://radiology-reporting-api.vercel.app.evil.example",
+                                   "https://radiology-reporting-api.vercel.app/private",
+                                   "https://user:password@radiology-reporting-api.vercel.app"])
+def test_unapproved_origin_cannot_receive_reporting_key(bridge_client, monkeypatch, origin):
+    calls = fake_upstream(monkeypatch)
+    monkeypatch.setenv("REPORTING_SERVICE_URL", origin)
+    response = bridge_client.get("/api/radiology/reporting/calculators/pirads_v2_1")
+    assert response.status_code == 503
+    assert "test-key-only" not in response.text
+    assert calls == []
+
+
+@pytest.mark.parametrize("origin", ["http://localhost:8770", "http://127.0.0.1:8770"])
+def test_explicit_local_reporting_origins_remain_available(bridge_client, monkeypatch, origin):
+    calls = fake_upstream(monkeypatch, httpx.Response(200, json={"status": "incomplete"}))
+    monkeypatch.setenv("REPORTING_SERVICE_URL", origin)
+    assert bridge_client.get("/api/radiology/reporting/calculators/pirads_v2_1").status_code == 200
+    assert calls[0][1] == origin + "/v1/calculators/pirads_v2_1"
 
 
 def test_unknown_calculators_never_reach_upstream(bridge_client, monkeypatch):
