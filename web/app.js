@@ -2337,6 +2337,7 @@ function renderRadiologyReference(n) {
       ref.supplementary ? 'Additional module extending the foundation reference.' : 'Open the source index above to explore the foundation reference.'));
   }
   if (templates.length) section.append(el('div', { class: 'rad-report-templates' },
+    ref.structured_form && window.PrimerStructuredReporting ? window.PrimerStructuredReporting.render(ref.structured_form) : null,
     el('h3', {}, 'Structured report templates'),
     el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
     ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))));
@@ -7013,7 +7014,7 @@ function openModal({ label, build, dismissable = false, dismissLabel = 'Close', 
 // Node QA imports the same functions without starting a reader session. Browser
 // scripts have no CommonJS module object and retain the normal bootstrap path.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard,
+  module.exports = Object.freeze({ histologyFigure, radiologyPresentation, attachPictureHandlers, pictureCaptionElement, reportingGuard, renderRadiologyReference,
     walkthroughPrompts, walkthroughFirstPrompt, walkthroughInsert, walkthroughReport, walkthroughFigure, sourceAtlasFigure, sourceMotionFrameAtTime, lessonSourceGallery, sourceStudyReference, referenceFrameIndex });
 } else boot().catch(e => {
   // A boot that fails only because there is no reader yet is not an error at

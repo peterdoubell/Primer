@@ -26,6 +26,8 @@ def reviewed():
 
 
 def before_reference_bytes(path, raw, allow_older=False):
+    from tools.structured_reporting_runtime_compatibility import before_structured_bytes
+    raw = before_structured_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
@@ -60,7 +62,8 @@ def validate_refresh(step):
         raise ValueError('Spine/cardiology refresh leaves its exact scope')
     for path in PATHS:
         row = proof['files'][path]
-        raw = (ROOT / path).read_bytes()
+        from tools.structured_reporting_runtime_compatibility import before_structured_bytes
+        raw = before_structured_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
         if sha(raw) != row['after_sha256'] or sha(before_reference_bytes(path, raw)) != row['before_sha256']:
             raise ValueError('Spine/cardiology current runtime differs')
     for path, expected_sha in step['guarded_paths_sha256'].items():

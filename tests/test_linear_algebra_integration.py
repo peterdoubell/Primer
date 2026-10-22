@@ -54,7 +54,8 @@ def test_renderer_is_narrow_and_old_five_map_and_plate_metadata_remain():
 
 @pytest.mark.parametrize('path',sorted(bridge.PATHS))
 def test_exact_shared_byte_inverse_rejects_unreviewed_changes(path):
-    raw=(ROOT/path).read_bytes();row=bridge.reviewed()['files'][path]
+    from tools.structured_reporting_runtime_compatibility import before_structured_bytes
+    raw=before_structured_bytes(path, (ROOT/path).read_bytes());row=bridge.reviewed()['files'][path]
     assert hashlib.sha256(raw).hexdigest()==row['after_sha256']
     prior=bridge.before_linear_algebra_bytes(path,raw)
     assert hashlib.sha256(prior).hexdigest()==row['before_sha256']

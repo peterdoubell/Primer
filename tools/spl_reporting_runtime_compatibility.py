@@ -71,7 +71,7 @@ def validate_refresh(step):
         for name,pin in evidence['sourcePins'].items():
             if sha((ROOT/'web/anatomy/spl-nac-reporting'/name).read_bytes())!=pin:raise ValueError('SPL reporting viewer changed')
     if reader['registrySHA256']!=sha((ROOT/'data/radiology/spl-reporting-reference.json').read_bytes()):raise ValueError('SPL reporting registry differs')
-    shell=(ROOT/'web/index.html').read_text();scripts=re.findall(r'<script src="/app/([\w-]+\.js)(?:\?[^"<>]*)?"></script>',shell)
+    shell=before_reference_bytes('web/index.html', (ROOT/'web/index.html').read_bytes(), allow_older=True).decode();scripts=re.findall(r'<script src="/app/([\w-]+\.js)(?:\?[^"<>]*)?"></script>',shell)
     startup=b"'use strict';\n"+b'\n;\n'.join(before_reference_bytes('web/' + name, (ROOT/'web'/name).read_bytes(), allow_older=True) for name in scripts)
     if sha(startup)!=reader['startupSHA256'] or len(startup)!=reader['startupBytes']:raise ValueError('SPL current reader startup differs')
     for path,pin in step['guarded_paths_sha256'].items():
