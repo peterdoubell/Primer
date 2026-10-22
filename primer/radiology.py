@@ -282,6 +282,8 @@ def attach_references(nodes):
         reference["additional_sources"] = supplementary[node["id"]]
         reference["reporting"] = copy.deepcopy(reporting[node["id"]])
         reference["spatial_model"] = copy.deepcopy(models[node["id"]])
+        if node['id'] == 'rad.4.spine-imaging':
+            reference['spine_neurology_map'] = _read('spine-neurology-map.json')
         brief = reference["reporting"]
         reference["overview"] = node["goal"]
         if node["id"] not in {"rad.5.coronary-ct", "rad.5.prostate-mri"}:

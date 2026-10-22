@@ -1,0 +1,470 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-22",
+  "investigations": [
+    {
+      "id": "cardiology.percutaneous-angiography",
+      "module_id": "cardiology.percutaneous-angiography",
+      "title": "Percutaneous coronary angiography",
+      "section": "Cardiovascular",
+      "topic": "Cardiology",
+      "modality": "Catheter angiography",
+      "summary": "Invasive coronary catheter angiography: assess anatomy, stenoses and flow, then document adjunctive tests, PCI when performed, complications and handover.",
+      "source_titles": [
+        "SCAI expert consensus update on best practices in the cardiac catheterization laboratory (2021)",
+        "ACC/AHA/SCAI structured reporting for the cardiac catheterization laboratory (2014)",
+        "2025 Acute Coronary Syndromes guideline: key points"
+      ],
+      "source_label": "Cardiology society references",
+      "aliases": [
+        "cardiology",
+        "invasive coronary angiography",
+        "ICA",
+        "catheterisation",
+        "catheterization",
+        "cardiac cath",
+        "PCI",
+        "percutaneous angiography"
+      ],
+      "reporting": {
+        "reviewed_at": "2026-10-22",
+        "protocol": [
+          "Confirm indication, consent and the institutional pre-procedure assessment.",
+          "Record access, equipment, drugs, contrast exposure and radiation from the actual procedural record.",
+          "Assess adequate projections of each coronary territory; document missing coverage."
+        ],
+        "checklist": [
+          {
+            "label": "Access and acquisition",
+            "detail": "Establish what was performed and the available angiographic runs."
+          },
+          {
+            "label": "Origins, course and dominance",
+            "detail": "Describe the coronary tree before individual lesions."
+          },
+          {
+            "label": "Lesion by lesion",
+            "detail": "Localize disease and record the method and confidence of assessment."
+          },
+          {
+            "label": "Additional assessments",
+            "detail": "Report adjunctive tests only when acquired."
+          },
+          {
+            "label": "PCI result, when applicable",
+            "detail": "Document the target and final result separately from the diagnostic findings."
+          },
+          {
+            "label": "Complications and immediate handover",
+            "detail": "Record the outcome and information needed by the receiving team."
+          }
+        ],
+        "measurements": [
+          {
+            "name": "Contrast volume and radiation",
+            "method": "Record mL, dose-area product and reference air kerma with units, plus fluoroscopy time.",
+            "pitfall": "Time alone is not a complete radiation dose record."
+          },
+          {
+            "name": "Coronary stenosis",
+            "method": "Report segment, percent diameter narrowing and visual or quantitative method.",
+            "pitfall": "Avoid false precision in a poorly profiled vessel."
+          },
+          {
+            "name": "Adjunctive measurements",
+            "method": "Record vessel, value, units or ratio, and acquisition conditions for tests performed.",
+            "pitfall": "Do not infer FFR / iFR from angiographic appearance."
+          }
+        ],
+        "classification": null,
+        "template_sections": [
+          {
+            "heading": "ACCESS AND PROCEDURAL RECORD",
+            "body": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ]."
+          },
+          {
+            "heading": "CORONARY ANATOMY",
+            "body": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ]."
+          },
+          {
+            "heading": "LESIONS AND FLOW",
+            "body": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ]."
+          },
+          {
+            "heading": "PHYSIOLOGY AND INTRAVASCULAR IMAGING",
+            "body": "FFR / iFR: [not performed / vessel, value and conditions].\nIVUS / OCT: [not performed / segment and measured findings].\nHaemodynamics / LV angiography: [not performed / measurements and method]."
+          },
+          {
+            "heading": "INTERVENTION IF PERFORMED",
+            "body": "PCI: [not performed / target and indication].\nDevices, sizes and locations: [ ].\nPre- and post-intervention narrowing / flow: [ ].\nResidual lesion, dissection, perforation or other event: [ ]."
+          },
+          {
+            "heading": "COMPLICATIONS AND HANDOVER",
+            "body": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ]."
+          }
+        ],
+        "pitfalls": [
+          "Projection overlap and foreshortening can obscure lesions.",
+          "Do not apply CT CAD-RADS categories to invasive angiography.",
+          "Visual narrowing, physiological significance and a treatment decision are distinct."
+        ],
+        "escalation": [
+          "Communicate acute occlusion with clinical instability, perforation, major dissection, no-reflow or significant access bleeding promptly."
+        ],
+        "impression_prompts": [
+          "Principal coronary findings and affected territories",
+          "Adjunctive findings and PCI result, if performed",
+          "Complications, limitations and treating-team handover"
+        ],
+        "sources": [
+          {
+            "title": "SCAI expert consensus update on best practices in the cardiac catheterization laboratory (2021)",
+            "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccd.29744",
+            "publisher": "SCAI"
+          },
+          {
+            "title": "ACC/AHA/SCAI structured reporting for the cardiac catheterization laboratory (2014)",
+            "url": "https://www.jacc.org/doi/10.1016/j.jacc.2014.03.020",
+            "publisher": "ACC/AHA/SCAI"
+          },
+          {
+            "title": "2025 Acute Coronary Syndromes guideline: key points",
+            "url": "https://professional.heart.org/en/science-news/2025-guideline-for-the-management-of-patients-with-acute-coronary-syndromes/top-things-to-know",
+            "publisher": "American Heart Association"
+          }
+        ]
+      },
+      "steps": [
+        {
+          "heading": "ACCESS AND PROCEDURAL RECORD",
+          "label": "Access and acquisition",
+          "detail": "Establish what was performed and the available angiographic runs.",
+          "body": "Operator and team: [ ].\nAccess vessel, side, ultrasound guidance, sheath and catheters: [ ].\nSedation / medication record: [ ].\nContrast agent and volume (mL): [ ].\nRadiation dose indices and fluoroscopy time: [ ].\nStudy quality and missing projections: [ ].",
+          "landmark": "origins",
+          "findings": [
+            "Access: [vessel and side]; haemostasis: [method].",
+            "Diagnostic angiography [only / with additional procedures listed]."
+          ],
+          "look": "Check the stored runs, patient identifiers, projections and procedural log.",
+          "tip": "Diagnostic coronary angiography and PCI are separate procedures. Record only what was performed.",
+          "measurements": [
+            "Contrast volume and radiation"
+          ]
+        },
+        {
+          "heading": "CORONARY ANATOMY",
+          "label": "Origins, course and dominance",
+          "detail": "Describe the coronary tree before individual lesions.",
+          "body": "Origins / variants: [ ].\nDominance: [right / left / codominant / uncertain].\nLeft main: [ ].\nLAD and diagonal branches: [ ].\nLCx and obtuse marginal branches: [ ].\nRCA, PDA and posterolateral branches: [ ].\nGrafts / stents, if present: [ ].",
+          "landmark": "origins",
+          "findings": [
+            "Dominance: [ ]; origin / course variant: [ ].",
+            "Graft or stent [location]: [patency and assessed extent]."
+          ],
+          "look": "Trace the left main bifurcation, LAD, LCx and RCA in complementary projections.",
+          "tip": "Foreshortening and overlap can conceal disease; explicitly identify segments that cannot be assessed.",
+          "measurements": []
+        },
+        {
+          "heading": "LESIONS AND FLOW",
+          "label": "Lesion by lesion",
+          "detail": "Localize disease and record the method and confidence of assessment.",
+          "body": "For each lesion: vessel / segment [ ]; narrowing [ ]%; visual / quantitative method [ ]; length [ ] mm if measured; calcification / thrombus / bifurcation / occlusion [ ].\nDistal flow (TIMI, if assessed): [ ].\nCollateral supply: [ ].",
+          "landmark": "lad",
+          "findings": [
+            "[Vessel / segment]: [ ]% narrowing by [method]; distal flow [ ].",
+            "[Segment] is not assessable because [limitation]."
+          ],
+          "look": "Review the tightest segment in more than one adequate projection and compare with the reference vessel.",
+          "tip": "A luminal stenosis estimate alone does not establish physiological significance. CAD-RADS is a coronary CT system.",
+          "measurements": [
+            "Coronary stenosis"
+          ]
+        },
+        {
+          "heading": "PHYSIOLOGY AND INTRAVASCULAR IMAGING",
+          "label": "Additional assessments",
+          "detail": "Report adjunctive tests only when acquired.",
+          "body": "FFR / iFR: [not performed / vessel, value and conditions].\nIVUS / OCT: [not performed / segment and measured findings].\nHaemodynamics / LV angiography: [not performed / measurements and method].",
+          "landmark": "lad",
+          "findings": [
+            "FFR / iFR in [vessel]: [value, conditions and interpretation].",
+            "IVUS / OCT: [segment and finding]; not acquired elsewhere."
+          ],
+          "look": "Match every pressure or intravascular measurement to its vessel and acquisition record.",
+          "tip": "Keep anatomical severity and physiological assessment distinct.",
+          "measurements": [
+            "Adjunctive measurements"
+          ]
+        },
+        {
+          "heading": "INTERVENTION IF PERFORMED",
+          "label": "PCI result, when applicable",
+          "detail": "Document the target and final result separately from the diagnostic findings.",
+          "body": "PCI: [not performed / target and indication].\nDevices, sizes and locations: [ ].\nPre- and post-intervention narrowing / flow: [ ].\nResidual lesion, dissection, perforation or other event: [ ].",
+          "landmark": "lad",
+          "findings": [
+            "No coronary intervention was performed.",
+            "PCI to [target]: [devices]; final residual narrowing [ ]%; distal flow [ ]."
+          ],
+          "look": "Compare the pre-intervention and final runs using the same target vessel.",
+          "tip": "Do not turn a diagnostic angiography worksheet into an implied instruction to intervene.",
+          "measurements": []
+        },
+        {
+          "heading": "COMPLICATIONS AND HANDOVER",
+          "label": "Complications and immediate handover",
+          "detail": "Record the outcome and information needed by the receiving team.",
+          "body": "Complications: [none observed / event and response].\nEstimated blood loss: [ ].\nHaemostasis / access-site status: [ ].\nPost-procedure diagnosis: [ ].\nHandover, monitoring and treating-team plan: [ ].",
+          "landmark": "origins",
+          "findings": [
+            "Access-site status: [ ]; haemostasis: [ ].",
+            "Complication: [event]; action and communication: [ ]."
+          ],
+          "look": "Reconcile the final angiogram with the physiological status and access-site record.",
+          "tip": "Critical findings and complications need direct handover as well as a written report.",
+          "measurements": []
+        }
+      ],
+      "family": "coronary",
+      "focus": "lad"
+    },
+    {
+      "id": "cardiology.echocardiography",
+      "module_id": "cardiology.echocardiography",
+      "title": "Echocardiography — adult transthoracic study",
+      "section": "Cardiovascular",
+      "topic": "Cardiology",
+      "modality": "Ultrasound",
+      "summary": "Adult resting TTE: organize acoustic windows, chamber function, valve Doppler, filling assessment and pericardial findings into a structured report.",
+      "source_titles": [
+        "ASE standardization of adult echocardiography reporting (2025)",
+        "ASE comprehensive transthoracic echocardiography in adults (2019)",
+        "ASE comprehensive transesophageal echocardiography (2013)"
+      ],
+      "source_label": "Cardiology society references",
+      "aliases": [
+        "cardiology",
+        "echocardiography",
+        "echo",
+        "TTE",
+        "transthoracic",
+        "ultrasound heart",
+        "Doppler",
+        "TEE",
+        "TOE",
+        "transoesophageal",
+        "transesophageal"
+      ],
+      "reporting": {
+        "reviewed_at": "2026-10-22",
+        "protocol": [
+          "Record indication, examination scope, physiological context and image quality.",
+          "Acquire standard 2D and Doppler views appropriate to a comprehensive adult TTE.",
+          "Identify unassessed structures; use a dedicated protocol for TEE, stress or congenital studies."
+        ],
+        "checklist": [
+          {
+            "label": "Scope and acoustic windows",
+            "detail": "Identify the study type and whether the clinical question can be answered."
+          },
+          {
+            "label": "LV size and systolic function",
+            "detail": "Assess chamber size, global function and regional contraction."
+          },
+          {
+            "label": "RV and atrial assessment",
+            "detail": "Describe chamber size and right ventricular function."
+          },
+          {
+            "label": "Valve morphology and haemodynamics",
+            "detail": "Integrate morphology, Doppler and chamber response."
+          },
+          {
+            "label": "Filling, pericardium and other findings",
+            "detail": "Integrate filling assessment and complete the structural survey."
+          },
+          {
+            "label": "Comparison and communication",
+            "detail": "Answer the clinical question and state meaningful interval change."
+          }
+        ],
+        "measurements": [
+          {
+            "name": "LV volumes and ejection fraction",
+            "method": "Record end-diastolic / end-systolic volumes, indexing and EF method.",
+            "pitfall": "Poor endocardial definition limits confidence."
+          },
+          {
+            "name": "RV function and pressure estimates",
+            "method": "Record measures used, TR velocity / IVC assumptions where applicable.",
+            "pitfall": "Do not report an unsupported pressure estimate."
+          },
+          {
+            "name": "Valve Doppler and aortic dimensions",
+            "method": "Record velocity, gradients and integrated severity data; name aortic measurement level.",
+            "pitfall": "Doppler misalignment and inconsistent measurement conventions alter results."
+          },
+          {
+            "name": "Diastolic parameters",
+            "method": "Record the acquired inflow, tissue Doppler and supporting measurements.",
+            "pitfall": "Use an applicable guideline and report indeterminate assessment when appropriate."
+          }
+        ],
+        "classification": null,
+        "template_sections": [
+          {
+            "heading": "EXAMINATION AND QUALITY",
+            "body": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ]."
+          },
+          {
+            "heading": "LEFT VENTRICLE",
+            "body": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ]."
+          },
+          {
+            "heading": "RIGHT HEART AND ATRIA",
+            "body": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ]."
+          },
+          {
+            "heading": "VALVES AND GREAT VESSELS",
+            "body": "Aortic, mitral, tricuspid and pulmonary valves: [morphology, stenosis / regurgitation and supporting data].\nProsthetic valves / devices: [type, location, function].\nAortic root / ascending aorta: [diameters, level and method]."
+          },
+          {
+            "heading": "DIASTOLIC FUNCTION AND OTHER FINDINGS",
+            "body": "Diastolic assessment: [parameters, applicable algorithm and conclusion / indeterminate].\nPericardial fluid and haemodynamic features: [ ].\nMass / thrombus / shunt, when assessable: [ ]."
+          },
+          {
+            "heading": "COMPARISON AND SYNTHESIS",
+            "body": "Comparison examination and method differences: [ ].\nMeaningful change: [ ].\nKey conclusions, uncertainty and unassessed questions: [ ].\nCritical finding communication: [recipient, time and method]."
+          }
+        ],
+        "pitfalls": [
+          "Apical foreshortening and poor border definition alter volume estimates.",
+          "Interpret Doppler with rhythm, loading conditions and acquisition quality.",
+          "A resting TTE does not exclude coronary artery disease."
+        ],
+        "escalation": [
+          "Communicate suspected tamponade physiology, acute severe valve dysfunction or other critical haemodynamic findings promptly."
+        ],
+        "impression_prompts": [
+          "LV and RV size and systolic function with method",
+          "Principal valve, filling and pericardial findings",
+          "Meaningful interval change, limitations and communication"
+        ],
+        "sources": [
+          {
+            "title": "ASE standardization of adult echocardiography reporting (2025)",
+            "url": "https://www.asecho.org/wp-content/uploads/2025/09/PIIS0894731725002925.pdf",
+            "publisher": "American Society of Echocardiography"
+          },
+          {
+            "title": "ASE comprehensive transthoracic echocardiography in adults (2019)",
+            "url": "https://www.asecho.org/guideline/comprehensive-tte-in-adults/",
+            "publisher": "American Society of Echocardiography"
+          },
+          {
+            "title": "ASE comprehensive transesophageal echocardiography (2013)",
+            "url": "https://www.asecho.org/guideline/comprehensive-tee/",
+            "publisher": "American Society of Echocardiography"
+          }
+        ]
+      },
+      "steps": [
+        {
+          "heading": "EXAMINATION AND QUALITY",
+          "label": "Scope and acoustic windows",
+          "detail": "Identify the study type and whether the clinical question can be answered.",
+          "body": "Study: [comprehensive adult TTE / focused examination].\nRhythm, heart rate, blood pressure and body size: [ ].\nWindows / image quality: [ ].\n2D, colour, spectral and tissue Doppler acquired: [ ].\nUltrasound enhancing agent / saline study, if used: [ ].\nUnassessed structures and effect: [ ].",
+          "landmark": "ventricles",
+          "findings": [
+            "Study limited by [ ]; [structure / question] remains unassessed.",
+            "Examination scope: [comprehensive / focused]; available windows [ ]."
+          ],
+          "look": "Review parasternal, apical, subcostal and suprasternal acquisitions as available.",
+          "tip": "A focused bedside study cannot automatically be reported as a comprehensive TTE.",
+          "measurements": []
+        },
+        {
+          "heading": "LEFT VENTRICLE",
+          "label": "LV size and systolic function",
+          "detail": "Assess chamber size, global function and regional contraction.",
+          "body": "LV dimensions / indexed volumes and method: [ ].\nWall thickness: [ ].\nLVEF [ ]% by [method]; endocardial definition [ ].\nRegional wall motion: [ ].\nGLS, if acquired: [ ]% with method / vendor [ ].",
+          "landmark": "ventricles",
+          "findings": [
+            "LVEF [ ]% by [method]; regional wall motion [ ].",
+            "LV function cannot be quantified reliably because [ ]."
+          ],
+          "look": "Check apical foreshortening and contour quality before accepting calculated volumes.",
+          "tip": "Report the measurement method and uncertainty with the result.",
+          "measurements": [
+            "LV volumes and ejection fraction"
+          ]
+        },
+        {
+          "heading": "RIGHT HEART AND ATRIA",
+          "label": "RV and atrial assessment",
+          "detail": "Describe chamber size and right ventricular function.",
+          "body": "RV size / systolic function and measures: [ ].\nLA indexed volume: [ ].\nRA size: [ ].\nIVC size / respiratory behaviour: [ ].\nEstimated pressures, method and limitations: [ ].",
+          "landmark": "atria",
+          "findings": [
+            "RV size [ ]; systolic function [ ] by [measures].",
+            "Pressure estimate unavailable because [ ]."
+          ],
+          "look": "Use an RV-focused acquisition when available; inspect atrial size and the IVC.",
+          "tip": "State assumptions and incomplete Doppler envelopes when estimating pressures.",
+          "measurements": [
+            "RV function and pressure estimates"
+          ]
+        },
+        {
+          "heading": "VALVES AND GREAT VESSELS",
+          "label": "Valve morphology and haemodynamics",
+          "detail": "Integrate morphology, Doppler and chamber response.",
+          "body": "Aortic, mitral, tricuspid and pulmonary valves: [morphology, stenosis / regurgitation and supporting data].\nProsthetic valves / devices: [type, location, function].\nAortic root / ascending aorta: [diameters, level and method].",
+          "landmark": "outflow",
+          "findings": [
+            "[Valve]: [finding and severity], supported by [measurements].",
+            "Valve assessment discordant or limited by [ ]; further evaluation [ ]."
+          ],
+          "look": "Align Doppler with flow and compare multiple windows; inspect prosthetic material and the aorta.",
+          "tip": "Do not grade a valve lesion from a single colour-jet appearance.",
+          "measurements": [
+            "Valve Doppler and aortic dimensions"
+          ]
+        },
+        {
+          "heading": "DIASTOLIC FUNCTION AND OTHER FINDINGS",
+          "label": "Filling, pericardium and other findings",
+          "detail": "Integrate filling assessment and complete the structural survey.",
+          "body": "Diastolic assessment: [parameters, applicable algorithm and conclusion / indeterminate].\nPericardial fluid and haemodynamic features: [ ].\nMass / thrombus / shunt, when assessable: [ ].",
+          "landmark": "ventricles",
+          "findings": [
+            "Diastolic assessment: [ ]; supporting parameters [ ].",
+            "Pericardial effusion: [size / distribution]; haemodynamic features [ ]."
+          ],
+          "look": "Interpret inflow, tissue Doppler and other available findings in the clinical and rhythm context.",
+          "tip": "Absence of a finding on a limited window does not exclude it.",
+          "measurements": [
+            "Diastolic parameters"
+          ]
+        },
+        {
+          "heading": "COMPARISON AND SYNTHESIS",
+          "label": "Comparison and communication",
+          "detail": "Answer the clinical question and state meaningful interval change.",
+          "body": "Comparison examination and method differences: [ ].\nMeaningful change: [ ].\nKey conclusions, uncertainty and unassessed questions: [ ].\nCritical finding communication: [recipient, time and method].",
+          "landmark": "ventricles",
+          "findings": [
+            "Compared with [date], [change / no material change], accounting for [method].",
+            "Urgent finding [ ] communicated to [ ] at [ ]."
+          ],
+          "look": "Prioritize the principal abnormality and its haemodynamic consequences.",
+          "tip": "TEE and stress echocardiography need their own acquisition and reporting protocols; this worksheet covers resting adult TTE.",
+          "measurements": []
+        }
+      ],
+      "family": "heart",
+      "focus": "ventricles"
+    }
+  ]
+}

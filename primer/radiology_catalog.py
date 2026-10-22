@@ -913,6 +913,10 @@ def _structure_atlases():
 
 
 def resolve(identifier):
+    from .cardiology import investigations as cardiology_investigations
+    cardiology = next((item for item in cardiology_investigations() if item['id'] == identifier), None)
+    if cardiology:
+        return cardiology
     if identifier == 'ra.hrct-cystic-lung':
         identifier = 'ra.hrct-lung'
     investigations = catalogue()['investigations']
@@ -982,6 +986,9 @@ def reporting_image(image):
 
 
 def detail(curriculum, item):
+    if item['id'].startswith('cardiology.'):
+        from .cardiology import detail as cardiology_detail
+        return cardiology_detail(item)
     node = curriculum.node(item['module_id'])
     if not node:
         raise ValueError('Investigation backing content is missing')
@@ -1125,15 +1132,16 @@ def detail(curriculum, item):
 
 
 def index(curriculum):
+    from .cardiology import investigations as cardiology_investigations
     modules = []
-    for item in catalogue()['investigations']:
+    for item in [*catalogue()['investigations'], *cardiology_investigations()]:
         reference = detail(curriculum, item)['radiology_reference']
         classification = reference['reporting']['classification']
         modules.append({
             'id': item['id'], 'module_id': item['module_id'], 'title': item['title'],
             'section': item['section'], 'topic': item['topic'], 'modality': item['modality'],
             'source_titles': item['source_titles'], 'summary': item['summary'],
-            'topics': list(dict.fromkeys([item['topic'], item['modality'], *item['source_titles'],
+            'topics': list(dict.fromkeys([item['topic'], item['modality'], *item['source_titles'], *item.get('aliases', []),
                 *[heading for article in reference['reading'] for heading in article.get('headings', [])],
                 *[point['label'] for point in reference['reporting']['checklist']],
                 *[system['title'] for system in reference.get('cancer_staging', [])],
