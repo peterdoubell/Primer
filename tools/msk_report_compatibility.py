@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/msk-reporting-release-20261023/runtime-inverse.json'
-PROOF_SHA256 = 'eee695138278b88e9d7681b72a0455b96f67083d7075df7f3636cc940e5906c8'
+PROOF_SHA256 = '3e60af8389277584a2c09c6389879fd1d188bf1890c43e7940fb3fb5ea2c78d0'
 BASE_COMMIT = 'd1b98cd84c407e5f237eaf409192ca3a449db212'
 PATHS = frozenset({'primer/server.py', 'primer/reporting_bridge.py', 'web/app.js',
                    'web/radiology-structured.js', 'web/radiology-structured.css'})
