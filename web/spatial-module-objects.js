@@ -545,6 +545,39 @@
       };
     });
 
+  define('plane-shapes', 'Sides and corners', {shape:'circle',turn:0,size:1}, [
+    choice('shape','Choose a shape',[['circle','Circle'],['triangle','Triangle'],['square','Square'],['rectangle','Rectangle']]),
+    range('turn','Turn the shape',0,360,15,'°'), range('size','Resize the shape',.5,1.5,.1),
+  ], (s,g) => {
+    const names={circle:'Circle',triangle:'Triangle',square:'Square',rectangle:'Rectangle'};
+    const source=s.shape==='triangle'?[[0,1],[-Math.sqrt(3)/2,-.5],[Math.sqrt(3)/2,-.5]]:
+      s.shape==='square'?[[-.8,-.8],[.8,-.8],[.8,.8],[-.8,.8]]:
+      s.shape==='rectangle'?[[-1,-.6],[1,-.6],[1,.6],[-1,.6]]:null;
+    // A rigid rotation preserves lengths and angles. All boundary points lie
+    // in the same plane; marker spheres denote vertices, not solid thickness.
+    const angle=radians(s.turn),tilt=radians(25),transform=([x,y])=>{
+      const u=s.size*(x*Math.cos(angle)-y*Math.sin(angle));
+      const v=s.size*(x*Math.sin(angle)+y*Math.cos(angle));
+      return [u,v*Math.cos(tilt),v*Math.sin(tilt)];
+    };
+    const corners=(source||[]).map(transform),count=source?source.length:360;
+    const outline=source?corners:Array.from({length:count},(_,i)=>transform([Math.cos(i*TAU/count),Math.sin(i*TAU/count)]));
+    // The displayed circle is sampled for drawing only. Sampling points are
+    // never classified or marked as mathematical corners or straight sides.
+    for(let i=0;i<count;i++)g.line([outline[i],outline[(i+1)%count]],g.colors.blue,{width:3,shape_part:'boundary',shape_index:i});
+    corners.forEach((p,i)=>{g.sphere(p,.045,g.colors.coral,{shape_part:'corner',shape_index:i});g.label(p.map((v,j)=>v+(j===1?.12:0)),String(i+1));});
+    const readout=s.shape==='circle'?'Circle: no straight sides and no corners. Its boundary is one continuous curve.':
+      s.shape==='triangle'?'Triangle: 3 straight sides and 3 corners. This example has three equal sides.':
+      s.shape==='square'?'Square: 4 equal straight sides and 4 square corners (right angles). A square is also a rectangle.':
+      'Rectangle: 4 straight sides and 4 square corners (right angles). Opposite sides have equal lengths. This example has two long and two short sides.';
+    return {...result(readout+' Turning and resizing keep the same shape.',
+      'These are flat shapes viewed in 3D. Tilting a flat circle can make its picture look oval. Red dots mark polygon corners; their size is only a drawing aid. The circle has a smooth outline with no corners.',
+      [['Blue: outline',g.colors.blue],...(source?[['Red dots: corners',g.colors.coral]]:[])],g),
+      planeShape:{name:names[s.shape],straightSides:corners.length,corners:corners.length,vertices:corners,circleRadius:source?null:s.size,circleSamples:source?0:count,maximumCircleChordError:source?0:s.size*(1-Math.cos(Math.PI/count))}};
+  });
+
+  families['plane-shapes'].camera = {yaw:0,pitch:-25};
+
   define('unit-blocks', 'Counting blocks', {count: 12, group: 4}, [range('count', 'Number of blocks', 1, 30, 1), range('group', 'Blocks in each row', 1, 10, 1)], (s, g) => {
     for (let i = 0; i < s.count; i++) g.box([(i % s.group - (s.group-1)/2)*.4, -.68, (Math.floor(i/s.group) - 1)*.4], [.34,.34,.34], i % 2 ? g.colors.teal : g.colors.blue);
     const rows = Math.floor(s.count / s.group), remainder = s.count % s.group;
@@ -942,7 +975,7 @@
     window.PrimerSpatial.register({[p.scenario]: {
       initial:family.initialFactory ? family.initialFactory() : {...family.initial},
       controls:family.controlsFactory ? family.controlsFactory() : family.controls,
-      normalize:family.normalize, familyId:p.family, camera:{yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
+      normalize:family.normalize, familyId:p.family, camera:family.camera || {yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
       build(state,g) {
         const explanation = family.build(state,g);
         explanation.readout = context + ' ' + explanation.readout;
