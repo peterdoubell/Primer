@@ -1,0 +1,39 @@
+{
+  "base_commit": "6d8ee107da8c29fd62de5a5d93fd18b533a543c3",
+  "scope": "math.0.shapes_only",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "new_geometry_validated_by_this_inverse": false,
+  "files": {
+    "web/spatial-module-objects.js": {
+      "before_sha256": "54ce7bdabc20ae919a211b6df6ec2e02e0ff148a58bd5e99742eb80fc78727a7",
+      "after_sha256": "b1915f66cccb40ebd58db72468a3c85e028f7dbe9ed1267ad9d96c85a73f9b06",
+      "changes": [
+        {
+          "start": 544,
+          "end": 583,
+          "before": "      };\n    });\n\n  define('unit-blocks', 'Counting blocks', {count: 12, group: 4}, [range('count', 'Number of blocks', 1, 30, 1), range('group', 'Blocks in each row', 1, 10, 1)], (s, g) => {\n    for (let i = 0; i < s.count; i++) g.box([(i % s.group - (s.group-1)/2)*.4, -.68, (Math.floor(i/s.group) - 1)*.4], [.34,.34,.34], i % 2 ? g.colors.teal : g.colors.blue);\n    const rows = Math.floor(s.count / s.group), remainder = s.count % s.group;\n",
+          "after": "      };\n    });\n\n  define('plane-shapes', 'Sides and corners', {shape:'circle',turn:0,size:1}, [\n    choice('shape','Choose a shape',[['circle','Circle'],['triangle','Triangle'],['square','Square'],['rectangle','Rectangle']]),\n    range('turn','Turn the shape',0,360,15,'\u00b0'), range('size','Resize the shape',.5,1.5,.1),\n  ], (s,g) => {\n    const names={circle:'Circle',triangle:'Triangle',square:'Square',rectangle:'Rectangle'};\n    const source=s.shape==='triangle'?[[0,1],[-Math.sqrt(3)/2,-.5],[Math.sqrt(3)/2,-.5]]:\n      s.shape==='square'?[[-.8,-.8],[.8,-.8],[.8,.8],[-.8,.8]]:\n      s.shape==='rectangle'?[[-1,-.6],[1,-.6],[1,.6],[-1,.6]]:null;\n    // A rigid rotation preserves lengths and angles. All boundary points lie\n    // in the same plane; marker spheres denote vertices, not solid thickness.\n    const angle=radians(s.turn),tilt=radians(25),transform=([x,y])=>{\n      const u=s.size*(x*Math.cos(angle)-y*Math.sin(angle));\n      const v=s.size*(x*Math.sin(angle)+y*Math.cos(angle));\n      return [u,v*Math.cos(tilt),v*Math.sin(tilt)];\n    };\n    const corners=(source||[]).map(transform),count=source?source.length:360;\n    const outline=source?corners:Array.from({length:count},(_,i)=>transform([Math.cos(i*TAU/count),Math.sin(i*TAU/count)]));\n    // The displayed circle is sampled for drawing only. Sampling points are\n    // never classified or marked as mathematical corners or straight sides.\n    for(let i=0;i<count;i++)g.line([outline[i],outline[(i+1)%count]],g.colors.blue,{width:3,shape_part:'boundary',shape_index:i});\n    corners.forEach((p,i)=>{g.sphere(p,.045,g.colors.coral,{shape_part:'corner',shape_index:i});g.label(p.map((v,j)=>v+(j===1?.12:0)),String(i+1));});\n    const readout=s.shape==='circle'?'Circle: no straight sides and no corners. Its boundary is one continuous curve.':\n      s.shape==='triangle'?'Triangle: 3 straight sides and 3 corners. This example has three equal sides.':\n      s.shape==='square'?'Square: 4 equal straight sides and 4 square corners (right angles). A square is also a rectangle.':\n      'Rectangle: 4 straight sides and 4 square corners (right angles). Opposite sides have equal lengths. This example has two long and two short sides.';\n    return {...result(readout+' Turning and resizing keep the same shape.',\n      'These are flat shapes viewed in 3D. Tilting a flat circle can make its picture look oval. Red dots mark polygon corners; their size is only a drawing aid. The circle has a smooth outline with no corners.',\n      [['Blue: outline',g.colors.blue],...(source?[['Red dots: corners',g.colors.coral]]:[])],g),\n      planeShape:{name:names[s.shape],straightSides:corners.length,corners:corners.length,vertices:corners,circleRadius:source?null:s.size,circleSamples:source?0:count,maximumCircleChordError:source?0:s.size*(1-Math.cos(Math.PI/count))}};\n  });\n\n  families['plane-shapes'].camera = {yaw:0,pitch:-25};\n\n  define('unit-blocks', 'Counting blocks', {count: 12, group: 4}, [range('count', 'Number of blocks', 1, 30, 1), range('group', 'Blocks in each row', 1, 10, 1)], (s, g) => {\n    for (let i = 0; i < s.count; i++) g.box([(i % s.group - (s.group-1)/2)*.4, -.68, (Math.floor(i/s.group) - 1)*.4], [.34,.34,.34], i % 2 ? g.colors.teal : g.colors.blue);\n    const rows = Math.floor(s.count / s.group), remainder = s.count % s.group;\n"
+        },
+        {
+          "start": 974,
+          "end": 981,
+          "before": "    window.PrimerSpatial.register({[p.scenario]: {\n      initial:family.initialFactory ? family.initialFactory() : {...family.initial},\n      controls:family.controlsFactory ? family.controlsFactory() : family.controls,\n      normalize:family.normalize, familyId:p.family, camera:{yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,\n      build(state,g) {\n        const explanation = family.build(state,g);\n        explanation.readout = context + ' ' + explanation.readout;\n",
+          "after": "    window.PrimerSpatial.register({[p.scenario]: {\n      initial:family.initialFactory ? family.initialFactory() : {...family.initial},\n      controls:family.controlsFactory ? family.controlsFactory() : family.controls,\n      normalize:family.normalize, familyId:p.family, camera:family.camera || {yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,\n      build(state,g) {\n        const explanation = family.build(state,g);\n        explanation.readout = context + ' ' + explanation.readout;\n"
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "aefa6d198d77fe3b2a3df7e6ed3acb33d4c11e2e03f5a78ed5847127ade404ed",
+      "after_sha256": "5371fa8c024de8ba80825b02f4ac8b4a1ee5ba67c1a339ef0b383546efa2c91c",
+      "changes": [
+        {
+          "start": 10,
+          "end": 20,
+          "before": "    },\n    {\n      \"node_id\": \"math.0.shapes\",\n      \"family\": \"lattice\",\n      \"title\": \"Crystal lattice \u00b7 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Shapes All Around: Inspect edges, equal distances and repeated positions in three perpendicular directions.\",\n      \"mode\": \"model\"\n    },\n    {\n",
+          "after": "    },\n    {\n      \"node_id\": \"math.0.shapes\",\n      \"family\": \"plane-shapes\",\n      \"title\": \"Sides and corners \u00b7 3D study\",\n      \"instructions\": \"Choose a shape. Count its sides and corners. Turn or resize it, then reset the view to see it face-on.\",\n      \"context\": \"Shapes All Around: Choose a flat shape and count its straight sides and corners. Turn or resize it and check what stays the same.\",\n      \"mode\": \"model\"\n    },\n    {\n"
+        }
+      ]
+    }
+  }
+}

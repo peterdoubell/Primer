@@ -32,6 +32,8 @@ def reviewed():
 
 
 def before_structured_bytes(path, raw, allow_older=False):
+    from tools.plane_shapes_runtime_compatibility import before_shapes_bytes
+    raw = before_shapes_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
