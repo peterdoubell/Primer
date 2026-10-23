@@ -46,12 +46,29 @@ window.PrimerStructuredReporting = (() => {
     const text = (descriptor.segments || [{text: descriptor.text || ''}]).map(segment => own(segment, 'slot') ? (resolved[segment.slot] ?? '') : segment.text || '').join('');
     return {text: text.trim(), missing};
   }
+  function findingActive(finding, chosen, section, chain = new Set()) {
+    if (chain.has(finding.id)) return false;
+    return !(finding.requires_any || []).length || finding.requires_any.some(id => {
+      const parent = section.findings.find(item => item.id === id);
+      return own(chosen, id) && parent && findingActive(parent, chosen, section, new Set([...chain, finding.id]));
+    });
+  }
+  function blockedNormals(investigation, selections) {
+    const blocked = new Set();
+    for (const section of investigation?.sections || []) {
+      const chosen = selections?.[section.id]?.findings || {};
+      for (const finding of section.findings) if (own(chosen, finding.id) && findingActive(finding, chosen, section)) {
+        for (const id of finding.invalidates_normal || []) blocked.add(id);
+      }
+    }
+    return blocked;
+  }
   function compose(form, state = {}, context = {}) {
     const schema = descriptorForm(form);
     const investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);
     if (!investigation) return {text: '', missing: [], complete: false, selected_count: 0};
     if (own(state, 'selections') && !dictionary(state.selections)) return {text: '', missing: [{label: 'Invalid report selections'}], complete: false, selected_count: 0};
-    const grouped = new Map(), missing = [];
+    const grouped = new Map(), missing = [], blocked = blockedNormals(investigation, state.selections);
     for (const key of Object.keys(state.selections || {})) if (!(investigation.sections || []).some(section => section.id === key)) missing.push({section_id: key, label: 'Unrecognised section'});
     let selectedCount = 0;
     for (const section of investigation.sections || []) {
@@ -61,14 +78,18 @@ window.PrimerStructuredReporting = (() => {
         missing.push({section_id: section.id, label: 'Review conflicting selections for ' + section.label}); continue;
       }
       for (const key of Object.keys(selected.findings || {})) if (!(section.findings || []).some(finding => finding.id === key)) missing.push({section_id: section.id, finding_id: key, label: 'Unrecognised finding'});
+      if (selected.normal && blocked.has(section.id)) { missing.push({section_id:section.id,label:"Normal conflicts with a related finding: " + section.label}); continue; }
       if (selected.normal && section.normal) {
         const result = descriptorText(section.normal, {}, context);
         lines.push(result.text); missing.push(...result.missing); selectedCount++;
       } else if (selected.not_assessed) {
         lines.push(section.label + ': not assessed.'); selectedCount++;
       } else {
+        const exclusive = new Set();
         for (const finding of section.findings || []) {
           if (!own(selected.findings, finding.id)) continue;
+          if (!findingActive(finding, selected.findings, section)) { missing.push({label:'Inactive detail: ' + finding.label}); continue; }
+          if (finding.exclusive_group) { if (exclusive.has(finding.exclusive_group)) missing.push({label:'Conflicting findings: ' + section.label}); exclusive.add(finding.exclusive_group); }
           const result = descriptorText(finding, selected.findings[finding.id], context);
           lines.push(result.text); missing.push(...result.missing); selectedCount++;
         }
@@ -161,11 +182,13 @@ window.PrimerStructuredReporting = (() => {
     const calculations = new Map(), calculatorControllers = new Map(), pending = new Set();
     const heading = element('div', undefined, 'rad-sheet-heading'), actions = element('div', undefined, 'rad-sheet-actions');
     const normal = button('Use normal findings', () => {
-      for (const section of investigation()?.sections || []) if (section.normal) state.selections[section.id] = {normal: true, not_assessed: false, findings: {}};
+      fillNormal();
       drawSections(); update(true);
     }, 'rad-small-button');
     const clear = button('Clear', () => { state.selections = {}; state.calculator_inputs = {}; calculations.clear(); drawSections(); drawCalculators(); update(true); }, 'rad-small-button');
     actions.append(normal, clear); heading.append(element('h3', 'Report findings'), actions); root.append(heading);
+    normal.title = 'Fill unselected structures only; retain existing findings.';
+    const groupNavigation = element('nav', undefined, 'rad-group-navigation'); groupNavigation.setAttribute('aria-label', 'Anatomical groups'); root.append(groupNavigation);
     const investigationPicker = element('div', undefined, 'rad-investigation-picker');
     if (!options.investigationId && (schema.investigations || []).length > 1) {
       investigationPicker.setAttribute('role', 'group'); investigationPicker.setAttribute('aria-label', 'Examination');
@@ -190,10 +213,23 @@ window.PrimerStructuredReporting = (() => {
       } catch (error) { feedback.textContent = error.message || 'Copy unavailable. Select the report text to copy it.'; }
       finally { copying = false; copy.disabled = !reportResult().complete; }
     }, 'btn rad-copy-report');
-    draft.append(element('h4', 'Report draft'), copy, preview, feedback); fields.append(descriptorFields, calculatorFields); sheet.append(fields, draft); root.append(sheet);
+    actions.append(copy); draft.append(element('h4', 'Report draft'), preview, feedback); fields.append(descriptorFields, calculatorFields); sheet.append(fields, draft); root.append(sheet);
     const investigation = () => (schema.investigations || []).find(item => item.id === state.investigation_id);
     const selected = section => state.selections[section.id] || {normal: false, not_assessed: false, findings: {}};
-    const changeSection = (section, value) => { state.selections[section.id] = value; drawSections(); update(true); };
+    function fillNormal(group) {
+      const blocked = blockedNormals(investigation(), state.selections);
+      for (const section of investigation()?.sections || []) {
+        const value = selected(section);
+        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length) state.selections[section.id] = {normal:true,findings:{}};
+      }
+    }
+    const changeSection = (section, value) => {
+      let changed;
+      do { changed = false; for (const finding of section.findings) if (own(value.findings, finding.id) && !findingActive(finding, value.findings, section)) {delete value.findings[finding.id];changed=true;} } while (changed);
+      state.selections[section.id] = value;
+      for (const id of blockedNormals(investigation(), state.selections)) if (state.selections[id]?.normal) delete state.selections[id];
+      drawSections(); update(true);
+    };
     function drawSlots(descriptor, values, target) {
       if (!dictionary(values)) { target.append(element('p', 'Clear this finding and select its details again.', 'rad-missing-detail')); return; }
       if (!(descriptor.slots || []).length) return;
@@ -221,22 +257,32 @@ window.PrimerStructuredReporting = (() => {
     }
     function drawSections() {
       const focusKey = document.activeElement?.dataset?.radFocus;
-      descriptorFields.replaceChildren();
+      descriptorFields.replaceChildren(); groupNavigation.replaceChildren();
       const exam = investigation();
       if (!exam) { descriptorFields.append(element('p', 'Choose the examination above.')); return; }
+      const blocked = blockedNormals(exam, state.selections); let lastGroup = null;
+      root.classList?.toggle('rad-anatomic-sheet', exam.presentation === 'anatomic_rows');
       for (const section of exam.sections || []) {
+        if (section.group && section.group !== lastGroup) {
+          lastGroup = section.group;
+          const groupHeader = element('div', undefined, 'rad-anatomic-group');
+          groupHeader.append(element('h4', section.group), button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));
+          descriptorFields.append(groupHeader);
+          groupNavigation.append(button(section.group, () => groupHeader.scrollIntoView?.({behavior:'smooth',block:'start'}), 'rad-small-button'));
+        }
         const panel = element('section', undefined, 'rad-report-section'), sectionState = selected(section);
         panel.dataset.sectionId = section.id;
-        const row = element('div', undefined, 'rad-section-heading'); row.append(element('h4', section.label));
+        const row = element('div', undefined, 'rad-section-heading'); row.append(element(section.group ? 'h5' : 'h4', section.label));
         const quick = element('div', undefined, 'rad-choices');
         if (section.normal) {
           const normalChoice = button('Normal', () => changeSection(section, {normal: !sectionState.normal, not_assessed: false, findings: {}}));
-          normalChoice.dataset.radFocus = 'normal:' + section.id; choose(normalChoice, sectionState.normal); quick.append(normalChoice);
+          normalChoice.disabled = blocked.has(section.id); if (normalChoice.disabled) normalChoice.title = 'A selected related finding excludes this normal statement.'; normalChoice.dataset.radFocus = 'normal:' + section.id; choose(normalChoice, sectionState.normal); quick.append(normalChoice);
         }
         const unassessed = button('Not assessed', () => changeSection(section, {normal: false, not_assessed: !sectionState.not_assessed, findings: {}}));
         unassessed.dataset.radFocus = 'unassessed:' + section.id; choose(unassessed, sectionState.not_assessed); quick.append(unassessed); row.append(quick); panel.append(row);
         const choices = element('div', undefined, 'rad-finding-choices');
         for (const finding of section.findings || []) {
+          if (!findingActive(finding, sectionState.findings, section)) continue;
           const active = own(sectionState.findings, finding.id), item = element('div', undefined, 'rad-finding');
           const choice = button(finding.label || finding.text, () => {
             const next = {normal: false, not_assessed: false, findings: {...sectionState.findings}};
@@ -255,7 +301,7 @@ window.PrimerStructuredReporting = (() => {
     }
     function reportResult() {
       const result = compose(schema, state, context);
-      const completeCalculations = [...calculations.values()].filter(value => value.status === 'complete');
+      const completeCalculations = [...allowedCalculators].map(id => calculations.get(id)).filter(value => value?.status === 'complete');
       const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : ''))].filter(Boolean);
       const incompleteCalculators = [...allowedCalculators].filter(id => Object.values(state.calculator_inputs[id] || {}).some(present) && calculations.get(id)?.status !== 'complete');
       const missing = [...result.missing, ...incompleteCalculators.map(id => ({calculator_id: id, label: title(id)}))];

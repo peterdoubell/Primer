@@ -96,10 +96,17 @@ def test_reporting_endpoints_are_direct_and_do_not_fetch_wiki_or_change_progress
         index = client.get('/api/radiology/modules')
         detail = client.get('/api/radiology/modules/rad.5.prostate-mri')
         assert index.status_code == detail.status_code == 200
-        assert index.json()['count'] == 138
-        assert len(index.json()['modules']) == 138
+        assert index.json()['count'] == 142
+        assert len(index.json()['modules']) == 142
         assert 'report_templates' not in index.text
         assert 'key_images' not in index.text
+        for identifier in ('msk.mri-hip', 'msk.mri-foot', 'msk.mri-wrist', 'msk.mri-hand'):
+            variant = client.get('/api/radiology/modules/' + identifier)
+            assert variant.status_code == 200
+            ref = variant.json()['radiology_reference']
+            assert ref['descriptor_only'] is True
+            assert ref['key_images'] == ref['structure_atlas'] == []
+            assert ref['structured_form']['descriptor_form']['selected_investigation_id'] == identifier
         body = detail.json()
         assert set(body) == {'id', 'module_id', 'title', 'section', 'topic', 'modality', 'source_titles', 'goal', 'radiology_reference', 'lesson_media'}
         assert body['radiology_reference']['spatial_model']['scenario'] == 'radiology-investigation:ra.mri-prostate'

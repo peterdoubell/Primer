@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import gzip
 import importlib.util
 import json
 import re
@@ -16,6 +17,9 @@ SPEC = importlib.util.spec_from_file_location("descriptor_compiler", ROOT / "too
 COMPILER = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(COMPILER)
 CATALOG = json.loads((ROOT / "data/radiology/descriptor-reporting.json").read_text())
+# Retained contract for existing saved drafts; source-only assertions do not
+# confuse the new, independently authored anatomy rows with verbatim sources.
+SOURCE_CATALOG = json.loads(gzip.decompress((ROOT / "data/radiology/descriptor-reporting-v1.json.gz").read_bytes()))
 
 
 def descriptors():
@@ -31,13 +35,17 @@ def descriptors():
 def test_complete_source_inventory_is_separated_from_template_worksheets():
     summary = CATALOG["summary"]
     assert len(CATALOG["forms"]) == summary["guides"] == 98
-    assert summary["investigations"] == 138
-    assert summary["sections"] == 705
+    assert summary["source_investigations"] == 138
+    assert summary["source_sections"] == 705
+    assert summary["investigations"] == sum(len(form["investigations"]) for form in CATALOG["forms"].values())
+    assert summary["sections"] == sum(len(inv["sections"]) for form in CATALOG["forms"].values() for inv in form["investigations"])
     assert summary["source_finding_statements"] == 1924
     assert summary["source_normal_statements"] == 524
     assert summary["source_worksheets"] == 14
     assert summary["worksheet_sections"] == 74
-    assert summary["descriptors"] == 2522
+    assert summary["source_descriptors"] == 2522
+    assert summary["anatomic_investigations"] == len(CATALOG["anatomic_coverage"])
+    assert summary["anatomic_structures"] > summary["source_sections"]
     assert len(list(descriptors())) == summary["descriptors"]
 
 
@@ -51,7 +59,7 @@ def test_source_snapshot_and_content_hashes_pin_the_actual_contract():
 
 
 def test_shoulder_modalities_are_separate_without_normalizing_away_limits():
-    form = CATALOG["forms"]["rad.5.shoulder"]
+    form = SOURCE_CATALOG["forms"]["rad.5.shoulder"]
     investigations = {item["id"]: item for item in form["investigations"]}
     assert set(investigations) == {"ra.mri-shoulder", "ra.ultrasound-shoulder"}
     mr = investigations["ra.mri-shoulder"]
@@ -102,7 +110,7 @@ def test_every_source_character_survives_compilation_and_slots_cover_all_tokens(
 def test_source_normals_are_explicit_complete_statements_not_placeholder_prompts():
     normals = 0
     assessment = 0
-    for form in CATALOG["forms"].values():
+    for form in SOURCE_CATALOG["forms"].values():
         for investigation in form["investigations"]:
             section_ids = [section["id"] for section in investigation["sections"]]
             assert len(set(section_ids)) == len(section_ids)
@@ -154,7 +162,7 @@ def test_stage_strings_are_not_assumed_to_be_plain_measurement_numbers():
 
 
 def test_mri_shoulder_partial_tear_and_tendinosis_need_no_unenumerated_tendon_text():
-    form = CATALOG["forms"]["rad.5.shoulder"]
+    form = SOURCE_CATALOG["forms"]["rad.5.shoulder"]
     investigation = next(item for item in form["investigations"] if item["id"] == "ra.mri-shoulder")
     cuff = next(section for section in investigation["sections"] if section["source_sections"] == ["ROTATOR CUFF"])
     partial = next(finding for finding in cuff["findings"] if finding["text"].startswith("Partial-thickness"))
@@ -177,7 +185,7 @@ def test_mri_shoulder_partial_tear_and_tendinosis_need_no_unenumerated_tendon_te
 
 
 def test_shoulder_numeric_constraints_match_existing_source_fields():
-    form = CATALOG["forms"]["rad.5.shoulder"]
+    form = SOURCE_CATALOG["forms"]["rad.5.shoulder"]
     investigation = next(item for item in form["investigations"] if item["id"] == "ra.mri-shoulder")
     cuff = next(section for section in investigation["sections"] if section["source_sections"] == ["ROTATOR CUFF"])
     structured = json.loads((ROOT / "data/radiology/structured-reporting.json").read_text())["forms"]["rad.5.shoulder"]
@@ -203,7 +211,7 @@ def test_shoulder_report_rejects_impossible_source_bounded_measurements(depth, l
     engine_spec = importlib.util.spec_from_file_location("descriptor_engine", ROOT / "primer/descriptor_reporting.py")
     engine = importlib.util.module_from_spec(engine_spec)
     engine_spec.loader.exec_module(engine)
-    form = CATALOG["forms"]["rad.5.shoulder"]
+    form = SOURCE_CATALOG["forms"]["rad.5.shoulder"]
     investigation = next(item for item in form["investigations"] if item["id"] == "ra.mri-shoulder")
     cuff = next(section for section in investigation["sections"] if section["source_sections"] == ["ROTATOR CUFF"])
     partial = next(finding for finding in cuff["findings"] if finding["text"].startswith("Partial-thickness"))
@@ -236,8 +244,8 @@ def test_compilation_is_reproducible_and_defaults_are_never_inserted():
         }]} for identity, title in [("mri", "MRI tendon"), ("us", "Ultrasound tendon")]],
     }]}
     structured = {"forms": {"example": {"template_id": "example-report", "sections": [{"section_id": "tendon", "label": "TENDON"}], "calculator_ids": []}}}
-    first = COMPILER.build_catalog(catalogue, structured)
-    second = COMPILER.build_catalog(copy.deepcopy(catalogue), copy.deepcopy(structured))
+    first = COMPILER.build_catalog(catalogue, structured, anatomic=False)
+    second = COMPILER.build_catalog(copy.deepcopy(catalogue), copy.deepcopy(structured), anatomic=False)
     assert first == second
     section = first["forms"]["example"]["investigations"][0]["sections"][0]
     assert section["report_section_id"] == "tendon"

@@ -199,11 +199,9 @@ test('clearing the last echogenic-foci chip returns to unreviewed, not an implic
 test('the actual MRI shoulder source produces a complete selectable partial-tear report', async () => {
   const api = load(), source = JSON.parse(fs.readFileSync('data/radiology/descriptor-reporting.json', 'utf8')).forms['rad.5.shoulder'];
   const root = api.render(source, {investigationId: 'ra.mri-shoulder'});
-  const finding = source.investigations.find(item => item.id === 'ra.mri-shoulder').sections.flatMap(section => section.findings).find(item => item.text.startsWith('Partial-thickness'));
-  find(root, finding.label).onclick(); find(root, 'articular-sided').onclick(); find(root, 'Supraspinatus').onclick();
-  const measurements = finding.slots.filter(slot => slot.kind === 'number');
-  select(root, measurements[0].label, 40); select(root, measurements[1].label, 12);
-  assert.match(root.getReport(), /Partial-thickness articular-sided supraspinatus tear involving approximately 40% of tendon thickness, 12 mm long\./);
+  find(root, 'Partial-thickness tear').onclick();
+  find(root, 'articular-sided').onclick(); find(root, '25–50%').onclick();
+  assert.match(root.getReport(), /supraspinatus tendon has a partial-thickness articular-sided tear involving 25–50% of its thickness\./);
   assert.equal(root.getReportResult().complete, true);
   assert.equal(descendants(root).filter(node => ['INPUT', 'TEXTAREA'].includes(node.tagName)).length, 0);
   await find(root, 'Copy report').onclick();
@@ -247,4 +245,57 @@ test('exact numeric selectors preserve signed measurements when the source sets 
   select(root, 'Attenuation whole digit 1', 3); select(root, 'Attenuation sign', true);
   assert.equal(root.getState().descriptor_state.selections.cuff.findings.size.width, -35);
   assert.equal(root.getReportResult().complete, true);
+});
+
+function anatomicForm() {
+  const result = JSON.parse(JSON.stringify(form));
+  const sections = result.investigations[0].sections;
+  sections[0].group = 'Tendons'; sections[1].group = 'Tendons';
+  sections[0].findings[1].requires_any = ['tear'];
+  sections[0].findings[0].exclusive_group = 'tear-kind';
+  sections[0].findings.push({...plain('full', 'Complete tear'), exclusive_group: 'tear-kind', invalidates_normal: ['biceps']});
+  sections.push({id: 'contrast', label: 'Enhancement', group: 'Contrast', exclude_from_bulk_normal: true,
+    normal: plain('contrast-normal', 'No enhancement.'), findings: []});
+  return result;
+}
+
+test('follow-up measures disappear and are cleared when their parent finding is removed', () => {
+  const root = load().render(anatomicForm());
+  assert.equal(descendants(root).some(node => node.textContent === 'Tear width'), false);
+  find(root, 'Partial-thickness tear').onclick(); find(root, 'Articular').onclick();
+  find(root, 'Tear width').onclick(); select(root, 'Width', 12);
+  assert.match(root.getReport(), /12 mm/);
+  find(root, 'Partial-thickness tear').onclick();
+  assert.equal(root.getReport(), '');
+  assert.deepEqual(Object.keys(root.getState().selections.cuff.findings), []);
+});
+
+test('bulk normal preserves abnormalities and omits unperformed or conflicting assessments', () => {
+  const root = load().render(anatomicForm());
+  find(root, 'Complete tear').onclick(); find(root, 'Use normal findings').onclick();
+  assert.equal(root.getReport(), 'FINDINGS\nComplete tear');
+  assert.equal(root.getState().selections.biceps, undefined);
+  assert.equal(root.getState().selections.contrast, undefined);
+  find(root, 'Partial-thickness tear').onclick(); find(root, 'Articular').onclick();
+  assert.doesNotMatch(root.getReport(), /Complete tear/);
+  find(root, 'Use normal findings').onclick();
+  assert.match(root.getReport(), /articular-sided tear\.\nBiceps intact/);
+  assert.doesNotMatch(root.getReport(), /Rotator cuff intact|No enhancement/);
+});
+
+test('anatomic conflicts clear prior normals and disable incompatible normal buttons', () => {
+  const root = load().render(anatomicForm());
+  find(root, 'Use normal findings').onclick(); find(root, 'Complete tear').onclick();
+  assert.doesNotMatch(root.getReport(), /Biceps intact/);
+  assert.equal(root.getState().selections.biceps, undefined);
+  const bicepsRow = descendants(root).find(node => node.className === 'rad-report-section' && descendants(node).some(child => child.textContent === 'Biceps'));
+  assert.equal(find(bicepsRow, 'Normal').disabled, true);
+});
+
+test('copy is in the persistent actions and anatomy groups have normal-remaining controls', () => {
+  const root = load().render(anatomicForm());
+  const actions = descendants(root).find(node => node.className === 'rad-sheet-actions');
+  assert.equal(find(actions, 'Copy report'), find(root, 'Copy report'));
+  assert.equal(descendants(root).filter(node => node.tagName === 'BUTTON' && node.textContent === 'Normal remaining').length, 2);
+  assert.ok(descendants(root).find(node => node.tagName === 'NAV' && node.getAttribute('aria-label') === 'Anatomical groups'));
 });

@@ -2935,6 +2935,14 @@ async function renderRadiologyDesk(page, nodeId) {
   const n = await reportingGuard(page, () => api.get('/api/radiology/modules/' + encodeURIComponent(nodeId)));
   if (!n) return;
   const ref = n.radiology_reference, guide = ref.reporting;
+  if (ref.descriptor_only && window.PrimerStructuredReporting) {
+    page.append(btn({class:'btn ghost small',onclick:()=>go('radiology')},backward('Back to references')),
+      pagehead(n.modality + ' · ' + n.topic,n.title,n.goal),
+      window.PrimerStructuredReporting.render(ref.structured_form,{investigationId:n.id}),
+      el('details',{class:'rad-protocol'},el('summary',{},'References'),
+        el('ul',{},...(guide.sources||[]).map(source=>el('li',{},radiologySourceLink(source.title,source.url))))));
+    return;
+  }
   const motionReferences = ref.source_motion_references || [];
   const cardiacContext = (ref.source_native_inspectors || []).filter(asset => ['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const hippocampalContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
