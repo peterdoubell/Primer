@@ -6,6 +6,12 @@ Each polygon boundary uses its actual vertices and closed edge sequence. Rotatio
 
 The default camera cancels the shape-plane tilt, so a square initially looks square and a circle round. The camera can then be rotated independently. Reset view returns to the face-on view. The scene explains the effect of viewing a flat circle at an angle.
 
+## Historical proof preservation
+
+The shared module file and binding manifest change for this one lesson. A fixed, hash-pinned literal inverse recovers the complete exact bytes from main commit `6d8ee107da8c29fd62de5a5d93fd18b533a543c3`. Earlier scientific and reader checks retain their original assertions against that explicitly historical view; no frozen review receipt is rewritten. Foreign byte changes are rejected. Current shape geometry and reader behavior are checked separately. The prior QFT test now explicitly uses that exact historical source view before its original byte and literal assertions.
+
+`node tools/check_plane_shapes_preservation.cjs` compared the prior Git source with current source in separate Node processes. All 3,061 tested states across the other 461 lesson bindings are byte-identical, including readouts and geometry. This covers defaults and each control choice/endpoint individually; it is not a claim about every possible combination or a new scientific approval.
+
 ## Verification
 
 - `node tools/check_plane_shapes.cjs`: 1,100 states. Independently checks boundary closure, plane equation, side and corner counts, side lengths, perpendicular adjacent edges, shoelace areas, circle radii and chord midpoint error.
