@@ -6,7 +6,7 @@ import json
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/holiatlas-source-review-20261023/runtime-inverse.json'
-PROOF_SHA256 = 'e46da9bb5657c7b498e5628b7b010bbe5334454ab1985bdc2627e91aa60ca8a6'
+PROOF_SHA256 = 'afc55962c7b5b239404aaac6fea3eaf5fb298f6568fa7b0fbb793f2c04c68fc0'
 READER_SHA256 = 'f124d44a8c15429c74fd406f282c5f07172529432432a763e93229aa401bf88f'
 RECOVERY_SHA256 = '0cde75818f0a87a7fd6d0a14dc66869ce55817b456872a7c5da5e739ce2bb25a'
 PRESERVATION_SHA256 = 'b3d87951bcb2d6e65c093b58d3cdcee4255a06c0a8fb7672d24a37ebfbdcbf54'

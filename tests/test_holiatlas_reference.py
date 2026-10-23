@@ -90,3 +90,14 @@ with TestClient(server.app) as client:
     result = subprocess.run([sys.executable, '-B', '-c', script], cwd=ROOT, env=env,
                             text=True, capture_output=True, timeout=120)
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_every_thin_function_exclusion_has_a_static_delivery_build():
+    import fnmatch
+    config = json.loads((ROOT/'vercel.json').read_bytes())
+    static = [row['src'] for row in config['builds'] if row.get('use') == '@vercel/static']
+    excluded = [name for name in source.registry()['files']
+                if name not in source.AUTHORED or name in {'manifest.json', 'labels.json'}]
+    for name in excluded:
+        path = 'web/anatomy/holiatlas/' + name
+        assert any(fnmatch.fnmatchcase(path, pattern) for pattern in static), path
