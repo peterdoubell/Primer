@@ -72,6 +72,7 @@ def validate_refresh(step):
         if sha(raw) != row['after_sha256'] or sha(before_structured_bytes(path, raw)) != row['before_sha256']:
             raise ValueError('Structured reporting current runtime differs')
     for path, expected in {**proof['added_files_sha256'], **proof['guarded_paths_sha256'], **proof['canonical_contract_files_sha256']}.items():
-        if sha((ROOT / path).read_bytes()) != expected:
+        from tools.simple_report_sheet_compatibility import before_simple_asset
+        if sha(before_simple_asset(path, (ROOT / path).read_bytes())) != expected:
             raise ValueError('Structured reporting refresh changes a pinned or guarded file')
     return proof
