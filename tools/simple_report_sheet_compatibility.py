@@ -3,7 +3,7 @@ import hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/simple-report-sheet-20261023.json'
-PROOF_SHA='4df6ccc193498329cdb6b20a4deee5780d0a6e91e92f3768067c05fd23cc48f3'
+PROOF_SHA='520b5b1db9be2f3f3e221c5f61150786b0db46dd0374b1f6064743c8f4c973fa'
 def before_simple_asset(path,raw):
     source=(ROOT/PROOF).read_bytes()
     if hashlib.sha256(source).hexdigest()!=PROOF_SHA:raise ValueError('Report sheet proof changed')
