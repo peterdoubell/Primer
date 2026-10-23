@@ -20,7 +20,7 @@ The protocol has 350 named anatomical classes, plus background and a reserved em
 
 `preserved-old-spl/preservation-proof.json` separately checks the prior SPL viewer in the current combined app: 874,496 pixels and 24 GPU meshes per viewport. Original frozen source-review artifacts are not rewritten.
 
-The prototype's five recovery tests cover malformed ranges, ignored ranges, corrupted bytes, missing payloads and delayed earlier selections. Production range delivery still needs its own staged check. Lossless compressed metadata keeps the large static assets and plain metadata outside the Python function bundle.
+`reader-current-recovery-proof.json` repeats five recovery tests through the authenticated application: malformed ranges, ignored ranges, corrupted bytes, missing payloads and delayed earlier selections. Exact native pixels are checked after recovery. Run `tools/check_holiatlas_recovery.py` to reproduce. Production range delivery still needs its own staged check. Lossless compressed metadata keeps the large static assets and plain metadata outside the Python function bundle.
 
 `runtime-inverse.json` restores only five exact pre-integration files for historical byte assertions. Earlier source and clinical approvals do not extend to this reader. Descriptor mutations, duplicates and unrelated bytes are rejected.
 
