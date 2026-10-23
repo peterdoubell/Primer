@@ -129,3 +129,13 @@ def test_msk_inverse_checks_literals_and_restored_baseline(side, monkeypatch):
     monkeypatch.setattr(bridge, 'reviewed', lambda: proof)
     with pytest.raises(ValueError, match='literal|baseline'):
         bridge.before_msk_bytes('web/app.js', (ROOT / 'web/app.js').read_bytes())
+
+
+def test_msk_packaging_inverse_preserves_the_exact_cardiac_wall_receipt():
+    from tools.cardiac_wall_runtime_compatibility import before_wall_bytes, reviewed
+    path = '.vercelignore'
+    raw = (ROOT / path).read_bytes()
+    restored = before_wall_bytes(path, raw)
+    assert hashlib.sha256(restored).hexdigest() == reviewed()['files'][path]['before_sha256']
+    with pytest.raises(ValueError, match='Unreviewed'):
+        before_wall_bytes(path, raw + b'\nunrecorded-exclusion\n')

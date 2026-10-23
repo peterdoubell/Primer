@@ -1,6 +1,6 @@
 {
   "base_commit": "d1b98cd84c407e5f237eaf409192ca3a449db212",
-  "scope": "msk_anatomic_reporting_controls_and_bridge_only",
+  "scope": "msk_anatomic_reporting_controls_bridge_and_packaging_only",
   "clinical_approval": false,
   "fine_anatomical_approval": false,
   "extends_historical_approval": false,
@@ -185,6 +185,18 @@
           "end": 13,
           "before": "",
           "after": "\n/* Complete anatomical rows remain on one page, with a persistent copy action. */\n.rad-sheet-heading{position:sticky;top:0;z-index:3;background:var(--surface,var(--paper,Canvas));padding:10px 0;border-bottom:1px solid var(--rad-line);border-radius:5px}\n.rad-sheet-actions .rad-copy-report{width:auto;max-width:none;padding:7px 12px;min-height:34px}\n.rad-group-navigation{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0 14px}.rad-group-navigation:empty{display:none}\n.rad-anatomic-group{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:20px 0 8px;scroll-margin-top:90px;border-bottom:2px solid var(--rad-line)}\n.rad-anatomic-group h4{margin:0;font-size:14px}.rad-anatomic-sheet .rad-report-section{padding:9px 0;border-top:0;border-bottom:1px solid var(--rad-line)}\n.rad-anatomic-sheet .rad-report-section h5{margin:0;font-size:13px;line-height:1.5}\n.rad-anatomic-sheet .rad-section-heading{margin-bottom:5px}.rad-anatomic-sheet .rad-choice{font-size:12px;padding:5px 8px;min-height:30px}\n.rad-anatomic-sheet .rad-report-preview{top:96px}.rad-anatomic-sheet .rad-report-text{max-height:75vh;overflow:auto}\n@media(max-width:600px){.rad-sheet-heading{gap:5px}.rad-sheet-actions{width:100%}.rad-sheet-actions .rad-copy-report{margin-left:auto}.rad-anatomic-group{scroll-margin-top:120px}}\n"
+        }
+      ]
+    },
+    ".vercelignore": {
+      "before_sha256": "b9832da1b95f185568b1b7c2730ce23013575ca9a4f388eee87f4992bc0e148c",
+      "after_sha256": "101a99d1327f6fcc0270ca372d9c5e22476720e75db922c5bebaef319bb03726",
+      "changes": [
+        {
+          "start": 74,
+          "end": 78,
+          "before": "",
+          "after": "\n# Report authoring sources remain in Git; runtime reads the lossless compiled pack.\ndata/radiology/msk-anatomic-*.json\ndata/radiology/descriptor-reporting.json\n"
         }
       ]
     }

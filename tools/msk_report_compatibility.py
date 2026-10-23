@@ -5,9 +5,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/msk-reporting-release-20261023/runtime-inverse.json'
-PROOF_SHA256 = '3e60af8389277584a2c09c6389879fd1d188bf1890c43e7940fb3fb5ea2c78d0'
+PROOF_SHA256 = '8336c3d0d1fdf974e822872bc054bcf0fca5c768add09c8499f45274a441a708'
 BASE_COMMIT = 'd1b98cd84c407e5f237eaf409192ca3a449db212'
-PATHS = frozenset({'primer/server.py', 'primer/reporting_bridge.py', 'web/app.js',
+PATHS = frozenset({'.vercelignore', 'primer/server.py', 'primer/reporting_bridge.py', 'web/app.js',
                    'web/radiology-structured.js', 'web/radiology-structured.css'})
 FLAGS = ('clinical_approval', 'fine_anatomical_approval', 'extends_historical_approval',
          'native_decoder_mesh_CT_renderer_code_touched', 'canonical_lesson_data_changed',
@@ -26,7 +26,7 @@ def reviewed():
     from tools.structured_reporting_runtime_compatibility import reviewed as structured_reviewed
     prior = structured_reviewed()
     if (set(proof['files']) != PATHS or proof['base_commit'] != BASE_COMMIT
-            or proof['scope'] != 'msk_anatomic_reporting_controls_and_bridge_only'
+            or proof['scope'] != 'msk_anatomic_reporting_controls_bridge_and_packaging_only'
             or proof['guarded_paths_sha256'] != prior['guarded_paths_sha256']
             or proof['canonical_contract_files_sha256'] != prior['canonical_contract_files_sha256']
             or any(proof[key] is not False for key in FLAGS)):
