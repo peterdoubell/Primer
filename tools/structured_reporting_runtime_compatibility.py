@@ -32,6 +32,8 @@ def reviewed():
 
 
 def before_structured_bytes(path, raw, allow_older=False):
+    from tools.descriptor_report_compatibility import before_descriptor_bytes
+    raw = before_descriptor_bytes(path, raw, allow_older=True)
     from tools.plane_shapes_runtime_compatibility import before_shapes_bytes
     raw = before_shapes_bytes(path, raw, allow_older=True)
     path = str(path)
@@ -67,7 +69,8 @@ def validate_refresh(step):
                 'native_decoder_mesh_CT_renderer_code_touched'))):
         raise ValueError('Structured reporting refresh leaves its exact scope')
     for path in PATHS:
-        raw = (ROOT / path).read_bytes()
+        from tools.descriptor_report_compatibility import before_descriptor_bytes
+        raw = before_descriptor_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
         row = proof['files'][path]
         if sha(raw) != row['after_sha256'] or sha(before_structured_bytes(path, raw)) != row['before_sha256']:
             raise ValueError('Structured reporting current runtime differs')

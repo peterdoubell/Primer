@@ -30,6 +30,12 @@ def structured_forms():
     return json.loads(path.read_text()) if path.exists() else {'forms': {}}
 
 
+@lru_cache(maxsize=1)
+def descriptor_forms():
+    path = Path(__file__).resolve().parents[1] / 'data/radiology/descriptor-reporting.json'
+    return json.loads(path.read_text())
+
+
 def with_structured_form(detail):
     """Attach reporting controls to a response, preserving canonical lesson data."""
     catalogue = structured_forms()
@@ -40,6 +46,15 @@ def with_structured_form(detail):
     result['radiology_reference'] = dict(detail['radiology_reference'])
     result['radiology_reference']['structured_form'] = copy.deepcopy(form)
     result['radiology_reference']['structured_form']['form_version'] = catalogue.get('schema_hash', catalogue.get('version'))
+    descriptors = descriptor_forms()
+    descriptor = copy.deepcopy(descriptors['forms'][detail['module_id']])
+    descriptor['version'] = descriptors['schema_hash']
+    descriptor['selected_investigation_id'] = detail['id']
+    result['radiology_reference']['structured_form'].update({
+        'descriptor_form': descriptor,
+        'descriptor_version': descriptors['schema_hash'],
+        'snapshot_id': descriptors['source_snapshot_id'],
+    })
     return result
 
 def configuration():
@@ -77,3 +92,8 @@ async def calculate(calculator_id:str,payload:dict=Body(...)):
     path = CALCULATOR_PATHS.get(calculator_id)
     if path is None:return JSONResponse({'error':{'code':'unknown_calculator'}},status_code=404)
     return await forward(path+'/calculate',payload)
+
+
+@router.post('/reports/structured')
+async def render_descriptor_report(payload:dict=Body(...)):
+    return await forward('reports/structured',payload)

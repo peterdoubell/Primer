@@ -1,25 +1,393 @@
-/* Structured section selections are explicit observations, never defaults. */
-window.PrimerStructuredReporting=(()=>{
- const e=(tag,text)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;return n};
- function render(form,options={}){
-  const root=e('section');root.className='rad-structured';root.append(e('h3','Report findings'));
-  root.append(e('p','Choose findings and enter measurements. Blank fields are not reported.'));
-  const answers={},calculationDrafts={},all=new Map(),entries=new Map(),preview=e('textarea'),feedback=e('p');preview.readOnly=true;preview.setAttribute('aria-label','Tick-list report draft');feedback.setAttribute('role','status');
-  for(const s of form.sections)for(const f of s.fields)all.set(f.id,f);
-  const visible=(f,seen=new Set())=>{const c=f.visible_when;if(!c)return true;if(seen.has(c.field_id)||!all.has(c.field_id))return false;seen.add(c.field_id);if(!visible(all.get(c.field_id),seen))return false;const v=answers[c.field_id];return v!==undefined&&v!==null&&('in'in c?c.in.includes(v):v===c.equals)};
-  function update(){for(const [id,x]of entries){x.wrap.hidden=!visible(x.field);if(x.wrap.hidden){delete answers[id];if(x.input.type==='checkbox')x.input.checked=false;else x.input.value=''}}const invalid=[...entries.values()].filter(x=>!x.wrap.hidden&&!x.input.checkValidity());for(const x of entries.values())x.input.setAttribute('aria-invalid',String(invalid.includes(x)));copy.disabled=invalid.length>0;feedback.textContent=invalid.length?'Check '+invalid.map(x=>x.field.label).join(', ')+': '+invalid[0].input.validationMessage:'';if(invalid.length){preview.value='';return}preview.value=form.sections.map(s=>{const lines=s.fields.filter(f=>answers[f.id]!==undefined&&answers[f.id]!==null&&answers[f.id]!==''&&visible(f)).map(f=>{const value=answers[f.id],options=new Map((f.options||[]).map(o=>[o.value,o.label]));return f.label+': '+(Array.isArray(value)?value.map(v=>options.get(v)||v).join('; '):options.get(value)||String(value))+(f.unit?' '+f.unit:'')});return lines.length?s.label+'\n'+lines.join('\n'):''}).filter(Boolean).concat(Object.values(calculationDrafts).filter(Boolean).map(r=>'CALCULATED ASSESSMENT\n'+(r.summary||r.category)+' ('+r.version+')')).join('\n\n')}
-  const sheet=e('div');sheet.className='rad-report-sheet';const fields=e('div');fields.className='rad-report-fields';const draft=e('aside');draft.className='rad-report-preview';draft.append(e('h4','Report draft'));sheet.append(fields,draft);root.append(sheet);
-  const placed=new Set();const scoreSections={'acr-feature-scoring':'acr_tirads_2017','cad-rads-2-0':'cadrads_2_0'};const addScore=id=>{placed.add(id);fields.append(calculator(id,(result,include)=>{calculationDrafts[id]=include&&result?.status==='complete'?result:null;update()},options.request||request))};
-  for(const s of form.sections){if((form.calculator_ids||[]).includes(scoreSections[s.section_id])){addScore(scoreSections[s.section_id]);continue}const panel=e('section');panel.className='rad-report-section';panel.append(e('h4',s.label));for(const f of s.fields){if(all.has('rotator-cuff.supraspinatus.tear')&&['rotator-cuff.tear-surface-depth','rotator-cuff.ap-width','rotator-cuff.retraction'].includes(f.id))continue;const wrap=e('label');if(f.visible_when)wrap.className='rad-dependent-field';const label=f.visible_when&&f.label.includes(' — ')?f.label.split(' — ').slice(1).join(' — '):f.label;wrap.append(e('span',label+(f.unit?' ('+f.unit+')':'')));let input;if(f.type==='select'||f.type==='boolean'){input=e('select');const blank=e('option','Select…');blank.value='';input.append(blank);const opts=f.type==='boolean'?[{value:'true',label:'Yes'},{value:'false',label:'No'}]:f.options;for(const o of opts||[]){const n=e('option',o.label);n.value=o.value;input.append(n)}}else if(f.type==='multiselect'){input=e('select');input.multiple=true;for(const o of f.options||[]){const n=e('option',o.label);n.value=o.value;input.append(n)}}else{input=e('input');input.type=f.type==='number'?'number':'text';if(f.type==='number'){input.step='any';if(f.minimum!==undefined)input.min=f.minimum;if(f.maximum!==undefined)input.max=f.maximum}}
-   input.setAttribute('aria-label',f.label);input.onchange=input.oninput=()=>{let value=input.value;if(f.type==='number')value=value===''?null:Number(value);if(f.type==='boolean')value=value===''?null:value==='true';if(f.type==='multiselect')value=[...input.selectedOptions].map(x=>x.value);answers[f.id]=value;update()};wrap.append(input);if(f.help)input.title=f.help;entries.set(f.id,{wrap,input,field:f});panel.append(wrap)}if(s.fields.length)fields.append(panel)}
-  for(const id of form.calculator_ids||[])if(!placed.has(id))addScore(id);
-  const copy=e('button','Copy selected findings');copy.className='btn';copy.onclick=async()=>{try{await navigator.clipboard.writeText(preview.value);feedback.textContent='Draft copied.'}catch{preview.focus();preview.select();feedback.textContent='Text selected. Use your copy shortcut.'}};draft.append(preview,copy,feedback);update();return root
- }
- async function request(path,data){const r=await fetch('/api/radiology/reporting/'+path,{method:data?'POST':'GET',headers:{'Content-Type':'application/json'},...(data?{body:JSON.stringify(data)}:{})});const j=await r.json();if(!r.ok)throw Error(j.error?.message||j.error?.code||'Service unavailable');return j}
- function calculator(id,onResult,send){const panel=e('section');panel.className='rad-structured-calculator';panel.append(e('h4',id.replaceAll('_',' ')));const output=e('div');panel.append(output);const load=async()=>{try{const config=await send('calculators/'+id),schema=config.input_schema;panel.querySelector('h4').textContent=config.title+' · '+config.version;output.append(e('p',config.scope));const inputs={},result=e('pre'),include=e('input'),includeLabel=e('label');include.type='checkbox';include.disabled=true;includeLabel.append(include,document.createTextNode(' Include this completed calculation in the draft after review'));let timer,seq=0,lastResult=null;include.onchange=()=>onResult(lastResult,include.checked);
-  const resolve=s=>s?.$ref?resolve(schema.$defs[s.$ref.split('/').pop()]):s?.anyOf?resolve(s.anyOf.find(x=>x.type!=='null')):s;
-  const calculate=()=>{clearTimeout(timer);include.checked=false;include.disabled=true;lastResult=null;onResult(null,false);const generation=++seq;timer=setTimeout(async()=>{try{const data=await send('calculators/'+id+'/calculate',{inputs});if(generation!==seq)return;lastResult=data;include.disabled=data.status!=='complete';result.textContent=(data.summary||data.category||data.status)+'\n'+(data.missing_inputs?.length?'Missing: '+data.missing_inputs.join(', ')+'\n':'');result.title=(data.limitations||[]).join('\n')}catch(err){if(generation===seq)result.textContent=err.message}},200)};
-  for(const [key,raw]of Object.entries(schema.properties||{})){const s=resolve(raw),label=e('label'),name=raw.title||key.replaceAll('_',' ');label.append(e('span',name));let control;if(s.type==='array'){control=e('select');control.multiple=true;for(const v of resolve(s.items)?.enum||[]){const o=e('option',v.replaceAll('_',' '));o.value=v;control.append(o)}}else if(s.enum||s.type==='boolean'){control=e('select');const o=e('option','Unknown / unreviewed');o.value='';control.append(o);for(const v of s.enum||['true','false']){const option=e('option',s.type==='boolean'?(v==='true'?'Yes':'No'):String(v).replaceAll('_',' '));option.value=v;control.append(option)}}else{control=e('input');control.type=['integer','number'].includes(s.type)?'number':'text';control.step=s.type==='integer'?'1':'any';if(s.minimum!==undefined)control.min=s.minimum;if(s.maximum!==undefined)control.max=s.maximum}
-   control.setAttribute('aria-label',name);control.onchange=()=>{let value=control.value;if(s.type==='array')value=[...control.selectedOptions].map(x=>x.value);else if(value==='')value=null;else if(s.type==='boolean')value=value==='true';else if(['integer','number'].includes(s.type))value=Number(value);inputs[key]=value;calculate()};label.append(control);if(raw.description)label.append(e('small',raw.description));output.append(label)}output.append(result,includeLabel);for(const source of config.sources||[]){const a=e('a',source.title);a.href=source.url;a.target='_blank';a.rel='noopener noreferrer';output.append(a)}calculate();}catch(err){output.textContent=err.message}};load();return panel}
- return {render};
+/* Source-backed observations are selected explicitly; no findings are defaults. */
+window.PrimerStructuredReporting = (() => {
+  const clone = value => JSON.parse(JSON.stringify(value));
+  const own = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
+  const dictionary = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+  const present = value => value !== undefined && value !== null && value !== '';
+  const title = value => String(value).replaceAll('_', ' ').replace(/^./, character => character.toUpperCase());
+  const element = (tag, text, className) => {
+    const node = document.createElement(tag);
+    if (text !== undefined) node.textContent = text;
+    if (className) node.className = className;
+    return node;
+  };
+  const button = (text, action, className = 'rad-choice') => {
+    const node = element('button', text, className);
+    node.type = 'button';
+    node.onclick = action;
+    return node;
+  };
+  const choose = (node, active) => node.setAttribute('aria-pressed', String(Boolean(active)));
+  const descriptorForm = form => form.descriptor_form || form;
+  const contextValue = (context, descriptor, slot) => {
+    if (slot.context_key && own(context, slot.context_key)) return context[slot.context_key];
+    if (own(context, descriptor.id + '.' + slot.id)) return context[descriptor.id + '.' + slot.id];
+    return context?.[descriptor.id]?.[slot.id];
+  };
+  const validValue = (slot, value) => {
+    if (!present(value)) return false;
+    if (slot.kind === 'choice') return (slot.options || []).some(option => option.value === value);
+    if (slot.kind === 'number') return typeof value === 'number' && Number.isFinite(value) &&
+      (slot.minimum === undefined || value >= slot.minimum) && (slot.maximum === undefined || value <= slot.maximum);
+    return typeof value === 'string' && value.trim().length > 0 && value.length <= 4000 && !/[\x00-\x1f\x7f\[\]]|_{2,}|\b(?:TODO|TBD)\b/i.test(value);
+  };
+  function descriptorText(descriptor, values = {}, context = {}) {
+    if (!dictionary(values)) return {text: '', missing: [{descriptor_id: descriptor.id, label: 'Invalid finding details'}]};
+    const resolved = {}, missing = [];
+    for (const key of Object.keys(values)) if (!(descriptor.slots || []).some(slot => slot.id === key)) missing.push({descriptor_id: descriptor.id, slot_id: key, label: 'Unrecognised detail'});
+    for (const slot of descriptor.slots || []) {
+      const supplied = contextValue(context, descriptor, slot);
+      const value = present(supplied) ? supplied : values[slot.id];
+      if (!validValue(slot, value)) {
+        if (slot.required !== false) missing.push({descriptor_id: descriptor.id, slot_id: slot.id, label: slot.label || descriptor.label});
+      } else resolved[slot.id] = slot.kind === 'context' ? value.trim() : value;
+    }
+    if (missing.length) return {text: '', missing};
+    const text = (descriptor.segments || [{text: descriptor.text || ''}]).map(segment => own(segment, 'slot') ? (resolved[segment.slot] ?? '') : segment.text || '').join('');
+    return {text: text.trim(), missing};
+  }
+  function compose(form, state = {}, context = {}) {
+    const schema = descriptorForm(form);
+    const investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);
+    if (!investigation) return {text: '', missing: [], complete: false, selected_count: 0};
+    if (own(state, 'selections') && !dictionary(state.selections)) return {text: '', missing: [{label: 'Invalid report selections'}], complete: false, selected_count: 0};
+    const grouped = new Map(), missing = [];
+    for (const key of Object.keys(state.selections || {})) if (!(investigation.sections || []).some(section => section.id === key)) missing.push({section_id: key, label: 'Unrecognised section'});
+    let selectedCount = 0;
+    for (const section of investigation.sections || []) {
+      const selected = state.selections?.[section.id] ?? {}, lines = [];
+      if ((own(state.selections, section.id) && !dictionary(state.selections[section.id])) || (own(selected, 'findings') && !dictionary(selected.findings))) { missing.push({section_id: section.id, label: 'Invalid selections for ' + section.label}); continue; }
+      if (Object.keys(selected).some(key => !['normal', 'not_assessed', 'findings'].includes(key)) || ['normal', 'not_assessed'].some(key => own(selected, key) && typeof selected[key] !== 'boolean') || [Boolean(selected.normal), Boolean(selected.not_assessed), Object.keys(selected.findings || {}).length > 0].filter(Boolean).length > 1 || (selected.normal && !section.normal)) {
+        missing.push({section_id: section.id, label: 'Review conflicting selections for ' + section.label}); continue;
+      }
+      for (const key of Object.keys(selected.findings || {})) if (!(section.findings || []).some(finding => finding.id === key)) missing.push({section_id: section.id, finding_id: key, label: 'Unrecognised finding'});
+      if (selected.normal && section.normal) {
+        const result = descriptorText(section.normal, {}, context);
+        lines.push(result.text); missing.push(...result.missing); selectedCount++;
+      } else if (selected.not_assessed) {
+        lines.push(section.label + ': not assessed.'); selectedCount++;
+      } else {
+        for (const finding of section.findings || []) {
+          if (!own(selected.findings, finding.id)) continue;
+          const result = descriptorText(finding, selected.findings[finding.id], context);
+          lines.push(result.text); missing.push(...result.missing); selectedCount++;
+        }
+      }
+      const linesWithText = lines.filter(Boolean);
+      if (linesWithText.length) {
+        const key = section.report_section_id || section.id;
+        if (!grouped.has(key)) grouped.set(key, {label: section.report_section_label || section.label, lines: []});
+        const group = grouped.get(key);
+        for (const line of linesWithText) if (!group.lines.includes(line)) group.lines.push(line);
+      }
+    }
+    return {text: [...grouped.values()].map(group => group.label + '\n' + group.lines.join('\n')).join('\n\n'), missing, complete: selectedCount > 0 && missing.length === 0, selected_count: selectedCount};
+  }
+  function selectControl(label, options, value, change) {
+    const control = element('select');
+    control.setAttribute('aria-label', label);
+    const empty = element('option', 'Select…'); empty.value = ''; control.append(empty);
+    options.forEach(item => { const option = element('option', item.label); option.value = String(item.value); control.append(option); });
+    control.value = present(value) ? String(value) : '';
+    control.onchange = () => change(control.value === '' ? undefined : options.find(item => String(item.value) === control.value)?.value);
+    return control;
+  }
+  /* Exact values are selected, never inferred from an unreviewed zero. Common values
+     take one menu; the digit picker permits values beyond that menu without typing. */
+  function numberControl(label, value, schema, change) {
+    const wrapper = element('div', undefined, 'rad-number-picker');
+    const min = schema.minimum ?? (schema.exclusiveMinimum !== undefined ? schema.exclusiveMinimum : -Infinity);
+    const max = schema.maximum;
+    const integer = schema.type === 'integer';
+    const unit = schema.unit || '';
+    const step = !integer && /cm|ng\/ml/i.test(unit) ? .1 : 1;
+    const commonMax = Math.min(max ?? (step === .1 ? 15 : 100), step === .1 ? 15 : 100);
+    const acceptable = n => Number.isFinite(n) && n >= min && (max === undefined || n <= max) &&
+      (schema.exclusiveMinimum === undefined || n > schema.exclusiveMinimum) &&
+      (schema.exclusiveMaximum === undefined || n < schema.exclusiveMaximum) && (!integer || Number.isInteger(n));
+    const values = [];
+    for (let n = Math.max(0, min); n <= commonMax + step / 2; n += step) {
+      const candidate = Number(n.toFixed(3));
+      if (acceptable(candidate)) values.push(candidate);
+    }
+    if (present(value) && acceptable(value) && !values.includes(value)) values.push(value);
+    values.sort((a, b) => a - b);
+    const picker = selectControl(label, [...values.map(n => ({value: n, label: String(n) + (unit ? ' ' + unit : '')})), {value: 'exact', label: 'Exact value…'}], value, selected => {
+      if (selected === 'exact') { exact.hidden = false; return; }
+      exact.hidden = true; change(selected);
+    });
+    const exact = element('div', undefined, 'rad-number-exact'); exact.hidden = true;
+    const readout = element('span', 'Select each digit', 'rad-number-value');
+    const digits = element('div', undefined, 'rad-number-digits');
+    let whole = [null], fraction = [], negative = false;
+    if (present(value)) {
+      const parts = Math.abs(value).toString().split('.');
+      whole = parts[0].split('').map(Number); fraction = (parts[1] || '').split('').map(Number); negative = value < 0;
+    }
+    const emit = () => {
+      if (whole.some(v => v === null) || fraction.some(v => v === null)) { readout.textContent = 'Select each digit'; change(undefined); return; }
+      const number = Number((negative ? '-' : '') + whole.join('') + (fraction.length ? '.' + fraction.join('') : ''));
+      readout.textContent = String(number) + (unit ? ' ' + unit : '');
+      if (!acceptable(number)) { readout.textContent += ' — outside permitted range'; change(undefined); return; }
+      change(number);
+    };
+    const drawDigits = () => {
+      digits.replaceChildren();
+      if (min < 0) digits.append(selectControl(label + ' sign', [{value: false, label: '+'}, {value: true, label: '−'}], negative, value => { negative = value === true; emit(); }));
+      const digit = (list, index, part) => selectControl(label + ' ' + part + ' digit ' + (index + 1), Array.from({length: 10}, (_, n) => ({value: n, label: String(n)})), list[index], value => { list[index] = value ?? null; emit(); });
+      whole.forEach((_, i) => digits.append(digit(whole, i, 'whole')));
+      if (fraction.length) digits.append(element('span', '.', 'rad-decimal-point'));
+      fraction.forEach((_, i) => digits.append(digit(fraction, i, 'decimal')));
+    };
+    exact.append(digits, readout, button('+ whole digit', () => { whole.unshift(null); drawDigits(); emit(); }, 'rad-small-button'));
+    if (!integer) exact.append(button('+ decimal digit', () => { fraction.push(null); drawDigits(); emit(); }, 'rad-small-button'));
+    exact.append(button('Clear value', () => { whole = [null]; fraction = []; picker.value = ''; exact.hidden = true; change(undefined); }, 'rad-small-button'));
+    drawDigits(); wrapper.append(picker, exact); return wrapper;
+  }
+  async function request(path, data) {
+    const response = await fetch('/api/radiology/reporting/' + path, {method: data === undefined ? 'GET' : 'POST', headers: {'Content-Type': 'application/json'}, ...(data === undefined ? {} : {body: JSON.stringify(data)})});
+    const payload = await response.json();
+    if (!response.ok) throw Error(payload.error?.message || payload.error?.code || 'Reporting service unavailable');
+    return payload;
+  }
+  function render(form, options = {}) {
+    const schema = descriptorForm(form), root = element('section', undefined, 'rad-structured rad-descriptor-sheet');
+    let context = clone(options.contextValues || {}), state = clone(options.initialState || {}), copying = false;
+    if (state.descriptor_state) state = {...state, ...state.descriptor_state};
+    if (!state.calculator_inputs && Array.isArray(state.calculations)) state.calculator_inputs = Object.fromEntries(state.calculations.map(item => [item.calculator_id, item.inputs]));
+    state = {schema_version: '1.0', investigation_id: options.investigationId || state.investigation_id || schema.selected_investigation_id || form.selected_investigation_id || (schema.investigations?.length === 1 ? schema.investigations[0].id : ''), selections: state.selections || {}, calculator_inputs: state.calculator_inputs || {}};
+    const allowedCalculators = new Set(form.calculator_ids || schema.calculator_ids || []);
+    for (const id of Object.keys(state.calculator_inputs)) if (!allowedCalculators.has(id)) delete state.calculator_inputs[id];
+    const calculations = new Map(), calculatorControllers = new Map(), pending = new Set();
+    const heading = element('div', undefined, 'rad-sheet-heading'), actions = element('div', undefined, 'rad-sheet-actions');
+    const normal = button('Use normal findings', () => {
+      for (const section of investigation()?.sections || []) if (section.normal) state.selections[section.id] = {normal: true, not_assessed: false, findings: {}};
+      drawSections(); update(true);
+    }, 'rad-small-button');
+    const clear = button('Clear', () => { state.selections = {}; state.calculator_inputs = {}; calculations.clear(); drawSections(); drawCalculators(); update(true); }, 'rad-small-button');
+    actions.append(normal, clear); heading.append(element('h3', 'Report findings'), actions); root.append(heading);
+    const investigationPicker = element('div', undefined, 'rad-investigation-picker');
+    if (!options.investigationId && (schema.investigations || []).length > 1) {
+      investigationPicker.setAttribute('role', 'group'); investigationPicker.setAttribute('aria-label', 'Examination');
+      for (const item of schema.investigations) {
+        const choice = button(item.title, () => { if (state.investigation_id === item.id) return; state.investigation_id = item.id; state.selections = {}; state.calculator_inputs = {}; calculations.clear(); drawSections(); drawCalculators(); update(true); });
+        choice.dataset.investigationId = item.id; investigationPicker.append(choice);
+      }
+      root.append(investigationPicker);
+    }
+    const sheet = element('div', undefined, 'rad-report-sheet'), fields = element('div', undefined, 'rad-report-fields'), descriptorFields = element('div'), calculatorFields = element('div');
+    const draft = element('aside', undefined, 'rad-report-preview'), preview = element('pre', '', 'rad-report-text'), feedback = element('p', '', 'rad-report-feedback');
+    feedback.setAttribute('role', 'status'); preview.setAttribute('aria-label', 'Report draft');
+    const copy = button('Copy report', async () => {
+      if (copying) return;
+      copying = true; update();
+      try {
+        await root.flush(); const report = reportResult();
+        if (!report.complete) throw Error('Complete the selected findings before copying.');
+        if (options.onCopy) await options.onCopy(root.getState(), report.text);
+        else await navigator.clipboard.writeText(report.text);
+        feedback.textContent = 'Report copied.';
+      } catch (error) { feedback.textContent = error.message || 'Copy unavailable. Select the report text to copy it.'; }
+      finally { copying = false; copy.disabled = !reportResult().complete; }
+    }, 'btn rad-copy-report');
+    draft.append(element('h4', 'Report draft'), copy, preview, feedback); fields.append(descriptorFields, calculatorFields); sheet.append(fields, draft); root.append(sheet);
+    const investigation = () => (schema.investigations || []).find(item => item.id === state.investigation_id);
+    const selected = section => state.selections[section.id] || {normal: false, not_assessed: false, findings: {}};
+    const changeSection = (section, value) => { state.selections[section.id] = value; drawSections(); update(true); };
+    function drawSlots(descriptor, values, target) {
+      if (!dictionary(values)) { target.append(element('p', 'Clear this finding and select its details again.', 'rad-missing-detail')); return; }
+      if (!(descriptor.slots || []).length) return;
+      const slots = element('div', undefined, 'rad-followups');
+      for (const slot of descriptor.slots) {
+        const row = element('div', undefined, 'rad-followup'); row.append(element('span', slot.label || 'Detail', 'rad-field-label'));
+        const supplied = contextValue(context, descriptor, slot), value = present(supplied) ? supplied : values[slot.id];
+        const change = next => {
+          if (slot.context_key) delete context[slot.context_key];
+          delete context[descriptor.id + '.' + slot.id];
+          if (context[descriptor.id]) delete context[descriptor.id][slot.id];
+          if (next === undefined) delete values[slot.id]; else values[slot.id] = next; update(true);
+        };
+        if (slot.kind === 'choice') {
+          const choices = element('div', undefined, 'rad-choices'); choices.setAttribute('role', 'group'); choices.setAttribute('aria-label', slot.label || 'Detail');
+          for (const item of slot.options || []) {
+            const choice = button(item.label, () => { change(value === item.value ? undefined : item.value); drawSections(); }); choice.dataset.radFocus = 'slot:' + descriptor.id + ':' + slot.id + ':' + item.value; choose(choice, value === item.value); choices.append(choice);
+          }
+          row.append(choices);
+        } else if (slot.kind === 'number') row.append(numberControl(slot.label || 'Measurement', value, slot, change));
+        else row.append(element('span', present(value) ? String(value) : 'Awaiting linked ' + (slot.label || 'detail').toLowerCase(), present(value) ? 'rad-linked-value' : 'rad-missing-detail'));
+        slots.append(row);
+      }
+      target.append(slots);
+    }
+    function drawSections() {
+      const focusKey = document.activeElement?.dataset?.radFocus;
+      descriptorFields.replaceChildren();
+      const exam = investigation();
+      if (!exam) { descriptorFields.append(element('p', 'Choose the examination above.')); return; }
+      for (const section of exam.sections || []) {
+        const panel = element('section', undefined, 'rad-report-section'), sectionState = selected(section);
+        panel.dataset.sectionId = section.id;
+        const row = element('div', undefined, 'rad-section-heading'); row.append(element('h4', section.label));
+        const quick = element('div', undefined, 'rad-choices');
+        if (section.normal) {
+          const normalChoice = button('Normal', () => changeSection(section, {normal: !sectionState.normal, not_assessed: false, findings: {}}));
+          normalChoice.dataset.radFocus = 'normal:' + section.id; choose(normalChoice, sectionState.normal); quick.append(normalChoice);
+        }
+        const unassessed = button('Not assessed', () => changeSection(section, {normal: false, not_assessed: !sectionState.not_assessed, findings: {}}));
+        unassessed.dataset.radFocus = 'unassessed:' + section.id; choose(unassessed, sectionState.not_assessed); quick.append(unassessed); row.append(quick); panel.append(row);
+        const choices = element('div', undefined, 'rad-finding-choices');
+        for (const finding of section.findings || []) {
+          const active = own(sectionState.findings, finding.id), item = element('div', undefined, 'rad-finding');
+          const choice = button(finding.label || finding.text, () => {
+            const next = {normal: false, not_assessed: false, findings: {...sectionState.findings}};
+            if (active) delete next.findings[finding.id];
+            else {
+              if (finding.exclusive_group) for (const peer of section.findings || []) if (peer.exclusive_group === finding.exclusive_group) delete next.findings[peer.id];
+              next.findings[finding.id] = {};
+            }
+            changeSection(section, next);
+          });
+          choice.dataset.radFocus = 'finding:' + finding.id; choose(choice, active); item.append(choice); if (active) drawSlots(finding, sectionState.findings[finding.id], item); choices.append(item);
+        }
+        panel.append(choices); descriptorFields.append(panel);
+      }
+      if (focusKey) [...(descriptorFields.querySelectorAll?.('[data-rad-focus]') || [])].find(node => node.dataset.radFocus === focusKey)?.focus();
+    }
+    function reportResult() {
+      const result = compose(schema, state, context);
+      const completeCalculations = [...calculations.values()].filter(value => value.status === 'complete');
+      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : ''))].filter(Boolean);
+      const incompleteCalculators = [...allowedCalculators].filter(id => Object.values(state.calculator_inputs[id] || {}).some(present) && calculations.get(id)?.status !== 'complete');
+      const missing = [...result.missing, ...incompleteCalculators.map(id => ({calculator_id: id, label: title(id)}))];
+      return {...result, missing, text: parts.join('\n\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0)};
+    }
+    function update(notify = false) {
+      for (const node of investigationPicker.children) choose(node, node.dataset.investigationId === state.investigation_id);
+      normal.disabled = !(investigation()?.sections || []).some(section => section.normal);
+      const result = reportResult();
+      preview.textContent = result.text || 'Select findings to build the report.';
+      copy.disabled = copying || !result.complete;
+      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length; }).length;
+      feedback.textContent = result.missing.length ? 'Choose remaining details: ' + result.missing.map(item => item.label).join(', ') : remaining ? remaining + ' unselected ' + (remaining === 1 ? 'section' : 'sections') + ' — omitted from report.' : '';
+      if (notify && options.onChange) options.onChange(root.getState());
+    }
+    function track(promise) { pending.add(promise); promise.finally(() => pending.delete(promise)); return promise; }
+    function drawCalculators() {
+      for (const controller of calculatorControllers.values()) controller.dispose();
+      calculatorControllers.clear(); calculatorFields.replaceChildren();
+      if (!investigation()) return;
+      for (const id of allowedCalculators) {
+        const inputs = state.calculator_inputs[id] ||= {};
+        const linked = options.calculatorInputs?.[id] || context.calculator_inputs?.[id];
+        if (linked) Object.assign(inputs, linked);
+        const controller = calculator(id, inputs, options.request || request, (result, changed) => {
+          if (result) calculations.set(id, result); else calculations.delete(id);
+          update(changed);
+        }, track);
+        calculatorControllers.set(id, controller); calculatorFields.append(controller.node);
+      }
+    }
+    root.getState = () => {
+      const snapshot = clone(state);
+      for (const section of investigation()?.sections || []) for (const finding of section.findings || []) {
+        const values = snapshot.selections[section.id]?.findings?.[finding.id];
+        if (!values) continue;
+        for (const slot of finding.slots || []) { const value = contextValue(context, finding, slot); if (present(value)) values[slot.id] = value; }
+      }
+      return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};
+    };
+    root.getReport = () => reportResult().text;
+    root.getReportResult = () => clone(reportResult());
+    root.flush = async () => { while (pending.size) await Promise.all([...pending]); return root.getReportResult(); };
+    root.updateContext = values => { context = clone(values || {}); calculations.clear(); drawSections(); drawCalculators(); update(true); };
+    root.dispose = () => { for (const controller of calculatorControllers.values()) controller.dispose(); };
+    drawSections(); drawCalculators(); update(); return root;
+  }
+  function calculator(id, inputs, send, onResult, track) {
+    const panel = element('section', undefined, 'rad-structured-calculator'), heading = element('h4', 'Calculation'), controls = element('div'), result = element('p', 'Loading calculation…', 'rad-calculation-result');
+    const bar = element('div', undefined, 'rad-section-heading');
+    bar.append(heading, button('Clear calculation', () => { for (const key of Object.keys(inputs)) delete inputs[key]; if (schema) { draw(); run(true); } }, 'rad-small-button'));
+    panel.append(bar, controls, result);
+    let sequence = 0, disposed = false, inFlight = false, definitions;
+    const resolve = property => property?.$ref ? resolve(definitions[property.$ref.split('/').pop()]) : property?.anyOf ? resolve(property.anyOf.find(candidate => candidate.type !== 'null')) : property;
+    const visible = key => {
+      if (id === 'acr_tirads_2017' && inputs.adult_applicability_confirmed === false) return key === 'adult_applicability_confirmed';
+      if (id === 'pirads_v2_1' && inputs.treatment_naive === false) return key === 'treatment_naive';
+      if (id === 'acr_tirads_2017' && ['cystic_or_almost_cystic', 'spongiform'].includes(inputs.composition) && ['echogenicity', 'shape', 'margin', 'echogenic_foci'].includes(key)) return false;
+      if (id === 'pirads_v2_1') {
+        if (key === 't2_score') return inputs.t2_adequate === true;
+        if (key === 'dwi_score') return inputs.dwi_adequate === true;
+        if (key === 'dce') return inputs.dwi_adequate === false || (inputs.zone === 'PZ' && inputs.dwi_score === 3);
+      }
+      if (id === 'cadrads_2_0' && key === 'plaque_burden' && inputs.plaque_present === false) return false;
+      if (id === 'cadrads_2_0' && key === 'bypassed_segments_excluded') return inputs.grafts_present === true;
+      return true;
+    };
+    let schema, config;
+    const run = (changed = false) => {
+      const generation = ++sequence; inFlight = true; onResult(null, changed); result.textContent = 'Calculating…';
+      const payload = clone(inputs);
+      track((async () => {
+        try {
+          const response = await send('calculators/' + id + '/calculate', {inputs: payload});
+          if (disposed || generation !== sequence) return;
+          inFlight = false;
+          result.textContent = response.status === 'complete' ? (response.summary || response.category) : response.status === 'not_applicable' ? 'Not applicable to these selections.' : 'Select remaining calculation descriptors.';
+          result.title = (response.limitations || []).join('\n'); onResult(response, false);
+        } catch (error) { if (!disposed && generation === sequence) { inFlight = false; result.textContent = error.message || 'Calculation unavailable'; onResult(null, false); } }
+      })());
+    };
+    const change = (key, value, redraw = true) => {
+      if (value === undefined) delete inputs[key]; else inputs[key] = value;
+      for (const other of Object.keys(schema.properties || {})) if (!visible(other)) delete inputs[other];
+      if (redraw) draw(); run(true);
+    };
+    const draw = () => {
+      controls.replaceChildren();
+      for (const [key, raw] of Object.entries(schema.properties || {})) {
+        if (!visible(key)) continue;
+        const property = resolve(raw), name = raw.title || title(key), row = element('div', undefined, 'rad-calculation-field');
+        row.append(element('span', name, 'rad-field-label'));
+        const enumValues = property.type === 'array' ? resolve(property.items)?.enum : property.enum || (property.type === 'boolean' ? [true, false] : property.type === 'integer' && property.minimum !== undefined && property.maximum - property.minimum <= 10 ? Array.from({length: property.maximum - property.minimum + 1}, (_, i) => property.minimum + i) : null);
+        if (enumValues) {
+          const choices = element('div', undefined, 'rad-choices'); choices.setAttribute('role', 'group'); choices.setAttribute('aria-label', name);
+          for (const value of enumValues) {
+            const choice = button(typeof value === 'boolean' ? value ? 'Yes' : 'No' : title(value), () => {
+              if (property.type !== 'array') { change(key, inputs[key] === value ? undefined : value); return; }
+              let next = Array.isArray(inputs[key]) ? [...inputs[key]] : [];
+              next = next.includes(value) ? next.filter(item => item !== value) : [...next, value];
+              if (value === 'none' && next.includes(value)) next = ['none']; else if (value !== 'none') next = next.filter(item => item !== 'none');
+              if (key === 'modifiers' && String(value).startsWith('I') && next.includes(value)) next = next.filter(item => !String(item).startsWith('I') || item === value);
+              change(key, next.length ? next : undefined);
+            }); choose(choice, property.type === 'array' ? (inputs[key] || []).includes(value) : inputs[key] === value); choices.append(choice);
+          }
+          row.append(choices);
+        } else if (['integer', 'number'].includes(property.type)) {
+          const unit = key.endsWith('_cm') ? 'cm' : key.endsWith('_mm') ? 'mm' : key.endsWith('_pct') ? '%' : key === 'psa_ng_ml' ? 'ng/ml' : '';
+          row.append(numberControl(name, inputs[key], {...property, unit}, value => change(key, value, false)));
+        } else row.append(element('span', present(inputs[key]) ? String(inputs[key]) : 'Awaiting linked value', 'rad-linked-value'));
+        if (raw.description) row.title = raw.description; controls.append(row);
+      }
+    };
+    track((async () => {
+      try {
+        config = await send('calculators/' + id);
+        if (disposed) return;
+        schema = config.input_schema; definitions = schema.$defs || {};
+        heading.textContent = config.title + (config.version ? ' · ' + config.version : '');
+        draw();
+        if ((config.sources || []).length) {
+          const references = element('details', undefined, 'rad-calculation-references'); references.append(element('summary', 'References'));
+          for (const source of config.sources) {
+            if (!/^https?:\/\//.test(source.url || '')) continue;
+            const link = element('a', source.title); link.href = source.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; references.append(link);
+          }
+          panel.append(references);
+        }
+        run();
+      } catch (error) { if (!disposed) { result.textContent = error.message || 'Calculation unavailable'; inFlight = false; onResult(null, false); } }
+    })());
+    return {node: panel, busy: () => inFlight, dispose: () => { disposed = true; sequence++; }};
+  }
+  return {render, compose, descriptorText};
 })();
