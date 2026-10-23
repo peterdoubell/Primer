@@ -2338,9 +2338,10 @@ function renderRadiologyReference(n) {
   }
   if (templates.length) section.append(el('div', { class: 'rad-report-templates' },
     ref.structured_form && window.PrimerStructuredReporting ? window.PrimerStructuredReporting.render(ref.structured_form) : null,
-    el('h3', {}, 'Structured report templates'),
-    el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
-    ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))));
+    ...(ref.structured_form?.descriptor_form && window.PrimerStructuredReporting ? [] : [
+      el('h3', {}, 'Structured report templates'),
+      el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
+      ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))])));
   if (images.length) section.append(el('div', { class: 'rad-key-images' },
     el('h3', {}, 'Key image examples'),
     el('p', { class: 'rad-reference-meta' }, 'Independent teaching examples illustrate the report image slots. They are not a single patient study. Open a picture to inspect it at full size; report image references remain blank for your own study.'),
@@ -3173,7 +3174,8 @@ async function renderRadiologyDesk(page, nodeId) {
   });
   desk.append(tabs, ...panels.map(entry => entry.panel));
   page.append(desk);
-  activate(0, false);
+  activate(ref.structured_form?.descriptor_form && window.PrimerStructuredReporting
+    ? choices.findIndex(([key]) => key === 'template') : 0, false);
 }
 
 function renderReportingGuide(guide, nodeId) {

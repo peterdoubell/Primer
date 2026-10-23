@@ -5,6 +5,8 @@ ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/simple-report-sheet-20261023.json'
 PROOF_SHA='6b65ce71ddab4b094797121e446188f896fb54558631726c6671c463edafec8f'
 def before_simple_asset(path,raw):
+    from tools.descriptor_report_compatibility import before_descriptor_bytes
+    raw=before_descriptor_bytes(path,raw,allow_older=True)
     source=(ROOT/PROOF).read_bytes()
     if hashlib.sha256(source).hexdigest()!=PROOF_SHA:raise ValueError('Report sheet proof changed')
     proof=json.loads(source)

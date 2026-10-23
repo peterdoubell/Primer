@@ -176,7 +176,11 @@ def test_reporting_response_adds_form_without_mutating_canonical_lesson_data():
         attached = response["radiology_reference"]["structured_form"]
         assert attached["guide_id"] == guide_id
         assert attached["form_version"] == catalogue["schema_hash"]
-        assert {key: value for key, value in attached.items() if key != "form_version"} == form
+        additions = {"form_version", "descriptor_form", "descriptor_version", "snapshot_id"}
+        assert {key: value for key, value in attached.items() if key not in additions} == form
+        assert attached["descriptor_form"]["guide_id"] == guide_id
+        assert attached["descriptor_form"]["selected_investigation_id"] == canonical["id"]
+        assert attached["descriptor_version"] == reporting_bridge.descriptor_forms()["schema_hash"]
         attached["sections"].clear()
         assert reporting_bridge.with_structured_form(canonical)["radiology_reference"]["structured_form"]["sections"]
     unknown = {"module_id": "cardiology.echo", "radiology_reference": {"overview": "Separate source."}}

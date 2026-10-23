@@ -22,10 +22,11 @@ global.document = {
 global.location = {href: 'https://primer.example/app/'};
 const {renderRadiologyReference} = require('../web/app.js');
 
-function render({withForm = true, withComponent = true} = {}) {
+function render({withForm = true, withComponent = true, withDescriptors = false} = {}) {
   const marker = element('section');
   marker.className = 'structured-form-fixture';
   const form = {guide_id: 'rad.5.prostate-mri'};
+  if (withDescriptors) form.descriptor_form = {investigations: []};
   window.PrimerStructuredReporting = withComponent ? {render(value) {
     assert.equal(value, form);
     return marker;
@@ -52,4 +53,11 @@ test('legacy templates remain usable without a form or its optional script', () 
     assert.ok(!descendants(section).includes(marker));
     assert.ok(descendants(section).some(node => node.className === 'rad-template'));
   }
+});
+
+test('descriptor reports replace the duplicate typing editor', () => {
+  const {section, marker} = render({withDescriptors: true});
+  const nodes = descendants(section);
+  assert.ok(nodes.includes(marker));
+  assert.ok(!nodes.some(node => node.className === 'rad-template' || node.tag === 'textarea'));
 });
