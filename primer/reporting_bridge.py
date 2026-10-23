@@ -2,6 +2,7 @@
 import copy
 from functools import lru_cache
 import json
+import gzip
 import os
 from pathlib import Path
 import httpx
@@ -33,7 +34,65 @@ def structured_forms():
 @lru_cache(maxsize=1)
 def descriptor_forms():
     path = Path(__file__).resolve().parents[1] / 'data/radiology/descriptor-reporting.json'
-    return json.loads(path.read_text())
+    packed = path.with_suffix('.json.gz')
+    return json.loads(gzip.decompress(packed.read_bytes()) if packed.exists() else path.read_text())
+
+
+def descriptor_variant(identifier):
+    for form in descriptor_forms()['forms'].values():
+        for investigation in form['investigations']:
+            if investigation['id'] == identifier and investigation.get('base_investigation_id'):
+                return dict(investigation, guide_id=form['guide_id'])
+    return None
+
+
+def with_descriptor_investigations(index):
+    """Add reporting-only examinations without rewriting teaching references."""
+    modules = list(index['modules'])
+    known = {item['id']:item for item in modules}
+    for form in descriptor_forms()['forms'].values():
+        for investigation in form['investigations']:
+            base = known.get(investigation.get('base_investigation_id'))
+            if not base or investigation['id'] in known:
+                continue
+            sources = investigation.get('sources', [])
+            modules.append(dict(base, id=investigation['id'], module_id=form['guide_id'],
+                title=investigation['title'], modality=investigation['modality'],
+                summary='Structure-by-structure selectable reporting.',
+                source_titles=[source['title'] for source in sources],
+                topics=[base['topic'],investigation['modality'],'MSK','structured report'],
+                image_count=0,motion_count=0,template_count=1,classification='',staging_systems=[],
+                step_count=len(investigation['sections']),reviewed_at=investigation['content_revision']))
+    return dict(index,modules=modules,count=len(modules))
+
+
+def descriptor_variant_detail(investigation, regional):
+    """A reporting-only view: do not relabel radiographs or lessons as MRI."""
+    groups = list(dict.fromkeys(section['group'] for section in investigation['sections']))
+    sources = investigation['sources']
+    template_id = 'anatomic-' + investigation['id']
+    sections = [{'heading':group.upper(),'body':'\n'.join(section['label'] + ': select the observed findings.'
+                 for section in investigation['sections'] if section['group'] == group)} for group in groups]
+    steps = [{'label':section['label'],'detail':'Assess the individual structure.',
+              'sections':[section['group'].upper()],
+              'normal':{section['group'].upper():section['normal']['text']} if section['normal'] else {},
+              'findings':[finding['text'] for finding in section['findings']], 'images':[], 'measurements':[]}
+             for section in investigation['sections']]
+    reporting = {'title':investigation['title'],'reviewed_at':investigation['content_revision'],
+                 'protocol':[],'checklist':[{'label':step['label'],'detail':step['detail'],'sections':step['sections']} for step in steps],
+                 'measurements':[],'classification':None,'template_sections':sections,
+                 'pitfalls':[],'escalation':[],'impression_prompts':[],'sources':sources}
+    ref = {'descriptor_only':True,'overview':'Anatomical reporting checklist.',
+           'reviewed_at':investigation['content_revision'],'reporting':reporting,
+           'report_templates':[{'id':template_id,'title':investigation['title'],'sections':sections,'sources':sources}],
+           'walkthrough':{'template_id':template_id,'reviewed_at':investigation['content_revision'],
+                          'start':{'sections':[],'images':[]},'steps':steps,'finish':{'sections':[],'images':[]}},
+           'reading':[],'key_images':[],'structure_atlas':[],
+           'spatial_model':{'family':regional.get('family','joint')}}
+    return {'id':investigation['id'],'module_id':investigation['guide_id'],
+            'title':investigation['title'],'section':regional['section'],'topic':regional['topic'],
+            'modality':investigation['modality'],'source_titles':[source['title'] for source in sources],
+            'goal':'Structure-by-structure selectable reporting.','radiology_reference':ref,'lesson_media':[]}
 
 
 def with_structured_form(detail):
@@ -48,13 +107,21 @@ def with_structured_form(detail):
     result['radiology_reference']['structured_form']['form_version'] = catalogue.get('schema_hash', catalogue.get('version'))
     descriptors = descriptor_forms()
     descriptor = copy.deepcopy(descriptors['forms'][detail['module_id']])
-    descriptor['version'] = descriptors['schema_hash']
+    descriptor['version'] = descriptor['schema_hash']
     descriptor['selected_investigation_id'] = detail['id']
     result['radiology_reference']['structured_form'].update({
         'descriptor_form': descriptor,
-        'descriptor_version': descriptors['schema_hash'],
+        'descriptor_version': descriptor['schema_hash'],
         'snapshot_id': descriptors['source_snapshot_id'],
     })
+    selected = next((item for item in descriptor['investigations'] if item['id'] == detail['id']), None)
+    if selected and selected.get('presentation') == 'anatomic_rows':
+        reporting = dict(result['radiology_reference'].get('reporting', {}))
+        sources = list(reporting.get('sources', []))
+        known = {source['url'] for source in sources}
+        sources.extend(source for source in selected.get('sources', []) if source['url'] not in known)
+        reporting['sources'] = sources
+        result['radiology_reference']['reporting'] = reporting
     return result
 
 def configuration():

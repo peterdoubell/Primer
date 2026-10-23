@@ -20,6 +20,8 @@ def reviewed():
 
 
 def before_descriptor_bytes(path,raw,allow_older=False):
+    from tools.msk_report_compatibility import before_msk_bytes
+    raw = before_msk_bytes(path, raw, allow_older=True)
     if str(path) not in PATHS:return raw
     proof=reviewed()
     row=proof['files'][str(path)]
@@ -58,7 +60,8 @@ def validate_refresh(step):
                 'new_reporting_workflow_validated_by_this_inverse'))):
         raise ValueError('Descriptor reporting refresh leaves its exact scope')
     for path,row in proof['files'].items():
-        raw=(ROOT/path).read_bytes()
+        from tools.msk_report_compatibility import before_msk_bytes
+        raw=before_msk_bytes(path, (ROOT/path).read_bytes())
         if (hashlib.sha256(raw).hexdigest()!=row['after_sha256']
                 or hashlib.sha256(before_descriptor_bytes(path,raw)).hexdigest()!=row['before_sha256']):
             raise ValueError('Descriptor reporting current runtime differs')

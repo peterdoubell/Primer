@@ -26,6 +26,23 @@ def render_descriptors(form, state):
         if key not in sections:
             problem('unknown_descriptor_section', section_id=key)
 
+    def active(finding, chosen, definitions, chain=None):
+        chain = set() if chain is None else chain
+        if finding['id'] in chain: return False
+        return not finding.get('requires_any') or any(
+            key in chosen and key in definitions and active(definitions[key], chosen, definitions, chain | {finding['id']})
+            for key in finding['requires_any'])
+
+    blocked_normals = set()
+    for section in investigation['sections']:
+        selected = selections.get(section['id'], {})
+        chosen = selected.get('findings', {}) if isinstance(selected, dict) else {}
+        if not isinstance(chosen, dict): continue
+        definitions = {item['id']:item for item in section['findings']}
+        for finding in section['findings']:
+            if finding['id'] in chosen and active(finding, chosen, definitions):
+                blocked_normals.update(finding.get('invalidates_normal', []))
+
     def statement(descriptor, values, section_id):
         location = {'section_id': section_id, 'finding_id': descriptor['id']}
         if not isinstance(values, dict) or len(values) > 100:
@@ -91,6 +108,9 @@ def render_descriptors(form, state):
             continue
         lines = []
         if normal:
+            if key in blocked_normals:
+                problem('conflicting_anatomic_normal', section_id=key)
+                continue
             if not section.get('normal'):
                 problem('normal_not_available', section_id=key)
             else:
@@ -100,11 +120,20 @@ def render_descriptors(form, state):
             lines.append(section['label'] + ': not assessed.')
         else:
             definitions = {x['id']: x for x in section['findings']}
+            exclusive = {}
             for finding_id in chosen:
                 if finding_id not in definitions:
                     problem('unknown_descriptor_finding', section_id=key, finding_id=finding_id)
             for descriptor in section['findings']:
                 if descriptor['id'] not in chosen: continue
+                if not active(descriptor, chosen, definitions):
+                    problem('inactive_descriptor_finding', section_id=key, finding_id=descriptor['id'])
+                    continue
+                group = descriptor.get('exclusive_group')
+                if group:
+                    if group in exclusive:
+                        problem('conflicting_descriptor_findings', section_id=key, finding_id=descriptor['id'])
+                    exclusive[group] = descriptor['id']
                 selected_count += 1
                 line = statement(descriptor, chosen[descriptor['id']], key)
                 if line: lines.append(line)

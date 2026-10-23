@@ -1435,7 +1435,8 @@ def curriculum_visuals():
 def radiology_reference_index():
     """A small reporting index, independent of learning progression and quizzes."""
     from .radiology_catalog import index
-    return index(curr)
+    from .reporting_bridge import with_descriptor_investigations
+    return with_descriptor_investigations(index(curr))
 
 
 @app.get("/api/radiology/modules/{node_id}")
@@ -1444,6 +1445,10 @@ def radiology_reporting_reference(node_id: str):
     from .radiology_catalog import detail, resolve
     investigation = resolve(node_id)
     if not investigation:
+        from .reporting_bridge import descriptor_variant, descriptor_variant_detail, with_structured_form
+        variant = descriptor_variant(node_id)
+        if variant and resolve(variant['base_investigation_id']):
+            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id'])))
         return JSONResponse({"error": "no such radiology module"}, status_code=404)
     from .reporting_bridge import with_structured_form
     return with_structured_form(detail(curr, investigation))

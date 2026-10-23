@@ -80,6 +80,10 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
     ledger, bound = ui_refresh.load(), reviewed()
     for step in ledger['refreshes']:
         assert step['guarded_paths_sha256'] == {path: bound[path] for path in ledger['guarded_paths']}
+        if step['id']=='2026-10-23-msk-anatomic-reporting':
+            from tools.msk_report_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
         if step['id']=='2026-10-23-descriptor-reporting':
             from tools.descriptor_report_compatibility import validate_refresh
             validate_refresh(step)

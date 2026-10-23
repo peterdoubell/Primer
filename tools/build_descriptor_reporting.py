@@ -23,6 +23,7 @@ import collections
 import hashlib
 import json
 import re
+import gzip
 from pathlib import Path
 from typing import Any
 
@@ -44,7 +45,7 @@ CONTEXT_WORDS = {
 TOKEN = re.compile(r"\[[^\[\]]*\]|_{2,}")
 UNIT = re.compile(
     r"^\s*(mm(?:²|³)?|cm(?:²|³)?|mL(?:/min/1\.73\s*m²|/s)?|mgI/mL|HU|%|°|"
-    r"years?|months?|weeks?|days?|hours?|minutes?|seconds?|o['’]clock)(?![A-Za-z_])",
+    r"years?|months?|weeks?|days?|hours?|minutes?|seconds?|degrees?|o['’]clock)(?![A-Za-z_])",
     re.I,
 )
 GENERIC_TERMS = re.compile(r"\b(?:and|or|the|a|an|of|at|in|on|with|without|by|to|from)\s*$", re.I)
@@ -293,7 +294,7 @@ def shoulder_tendon_choices(descriptor: dict, *, guide_id: str, investigation_id
     descriptor["requires_context"] = any(value["kind"] == "context" for value in descriptor["slots"])
 
 
-def build_catalog(catalog: dict, structured: dict) -> dict:
+def build_catalog(catalog: dict, structured: dict, *, anatomic=True) -> dict:
     forms, counts = {}, collections.Counter()
     snapshot = catalog["manifest"]["snapshot_id"]
     for guide in catalog["guides"]:
@@ -407,9 +408,36 @@ def build_catalog(catalog: dict, structured: dict) -> dict:
         }
         forms[guide["id"]]["schema_hash"] = digest(forms[guide["id"]])
         counts["guides"] += 1
+    coverage = []
+    if anatomic:
+        try:
+            from tools.msk_descriptor_catalog import apply_anatomic_reports
+        except ModuleNotFoundError:
+            from msk_descriptor_catalog import apply_anatomic_reports
+        coverage = apply_anatomic_reports(forms, ROOT, compile_statement, digest, slug)
+    counts['source_descriptors'] = counts['descriptors']
+    for key in ('investigations', 'sections'):
+        counts['source_' + key] = counts[key]
+    all_investigations = [item for form in forms.values() for item in form['investigations']]
+    counts['investigations'] = len(all_investigations)
+    counts['sections'] = sum(len(item['sections']) for item in all_investigations)
+    counts['complete_normal_sections'] = sum(bool(section['normal']) for item in all_investigations for section in item['sections'])
+    current = [descriptor for form in forms.values() for investigation in form['investigations']
+               for section in investigation['sections'] for descriptor in
+               ([section['normal']] if section['normal'] else []) + section['findings']]
+    counts['descriptors'] = len(current)
+    counts['anatomic_investigations'] = len(coverage)
+    counts['anatomic_structures'] = sum(row['structures'] for row in coverage)
+    counts['anatomic_findings'] = sum(row['findings'] for row in coverage)
+    for key in ('choice_slots','number_slots','context_slots','descriptors_requiring_context','descriptors_complete_without_context'):
+        counts['source_' + key] = counts[key]
+    for kind in ('choice','number','context'):
+        counts[kind+'_slots'] = sum(slot['kind'] == kind for descriptor in current for slot in descriptor['slots'])
+    counts['descriptors_requiring_context'] = sum(descriptor['requires_context'] for descriptor in current)
+    counts['descriptors_complete_without_context'] = len(current)-counts['descriptors_requiring_context']
     result = {
         "schema_version": SCHEMA_VERSION, "version": VERSION, "source_snapshot_id": snapshot,
-        "forms": forms, "summary": dict(sorted(counts.items())),
+        "forms": forms, "summary": dict(sorted(counts.items())), "anatomic_coverage":coverage,
         "contract": {
             "selection_policy": "Explicit selection only. Normal and not-assessed exclude findings within the same section.",
             "context_policy": "Unenumerated source placeholders require external context. They must not be guessed, auto-filled, silently omitted, or rendered as text inputs.",
@@ -430,11 +458,15 @@ def main() -> int:
     args = parser.parse_args()
     result = build_catalog(json.loads(args.catalog.read_text()), json.loads(args.structured.read_text()))
     encoded = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
+    packed = args.output.with_suffix(args.output.suffix + '.gz')
     if args.check:
         if not args.output.exists() or args.output.read_text() != encoded:
             raise SystemExit("Descriptor catalogue is out of date")
+        if not packed.exists() or gzip.decompress(packed.read_bytes()) != encoded.encode():
+            raise SystemExit('Packed descriptor catalogue is out of date')
     else:
         args.output.write_text(encoded)
+        packed.write_bytes(gzip.compress(encoded.encode(), mtime=0))
     print(json.dumps(result["summary"], sort_keys=True))
     return 0
 

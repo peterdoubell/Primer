@@ -1,0 +1,206 @@
+{
+  "base_commit": "d1b98cd84c407e5f237eaf409192ca3a449db212",
+  "scope": "msk_anatomic_reporting_controls_and_bridge_only",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_historical_approval": false,
+  "native_decoder_mesh_CT_renderer_code_touched": false,
+  "canonical_lesson_data_changed": false,
+  "new_reporting_workflow_validated_by_this_inverse": false,
+  "files": {
+    "primer/server.py": {
+      "before_sha256": "22f307e273c643892719ec890fa089098e6ac61cc782d1685d284b51b6edc8c4",
+      "after_sha256": "1fac9650e71249b7efe0c53031bc73e742d5efd2f71b4852c8b482903df6274f",
+      "changes": [
+        {
+          "start": 1437,
+          "end": 1439,
+          "before": "    return index(curr)\n",
+          "after": "    from .reporting_bridge import with_descriptor_investigations\n    return with_descriptor_investigations(index(curr))\n"
+        },
+        {
+          "start": 1447,
+          "end": 1451,
+          "before": "",
+          "after": "        from .reporting_bridge import descriptor_variant, descriptor_variant_detail, with_structured_form\n        variant = descriptor_variant(node_id)\n        if variant and resolve(variant['base_investigation_id']):\n            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id'])))\n"
+        }
+      ]
+    },
+    "primer/reporting_bridge.py": {
+      "before_sha256": "554b8023f463fe410cad5a1e91ca5516fe9f52605477fffa6e46c49474cda758",
+      "after_sha256": "da639f11f225d2117b5e7db5ca27d2da40a5a22771f137fd6cb04b6c29231522",
+      "changes": [
+        {
+          "start": 4,
+          "end": 5,
+          "before": "",
+          "after": "import gzip\n"
+        },
+        {
+          "start": 36,
+          "end": 95,
+          "before": "    return json.loads(path.read_text())\n",
+          "after": "    packed = path.with_suffix('.json.gz')\n    return json.loads(gzip.decompress(packed.read_bytes()) if packed.exists() else path.read_text())\n\n\ndef descriptor_variant(identifier):\n    for form in descriptor_forms()['forms'].values():\n        for investigation in form['investigations']:\n            if investigation['id'] == identifier and investigation.get('base_investigation_id'):\n                return dict(investigation, guide_id=form['guide_id'])\n    return None\n\n\ndef with_descriptor_investigations(index):\n    \"\"\"Add reporting-only examinations without rewriting teaching references.\"\"\"\n    modules = list(index['modules'])\n    known = {item['id']:item for item in modules}\n    for form in descriptor_forms()['forms'].values():\n        for investigation in form['investigations']:\n            base = known.get(investigation.get('base_investigation_id'))\n            if not base or investigation['id'] in known:\n                continue\n            sources = investigation.get('sources', [])\n            modules.append(dict(base, id=investigation['id'], module_id=form['guide_id'],\n                title=investigation['title'], modality=investigation['modality'],\n                summary='Structure-by-structure selectable reporting.',\n                source_titles=[source['title'] for source in sources],\n                topics=[base['topic'],investigation['modality'],'MSK','structured report'],\n                image_count=0,motion_count=0,template_count=1,classification='',staging_systems=[],\n                step_count=len(investigation['sections']),reviewed_at=investigation['content_revision']))\n    return dict(index,modules=modules,count=len(modules))\n\n\ndef descriptor_variant_detail(investigation, regional):\n    \"\"\"A reporting-only view: do not relabel radiographs or lessons as MRI.\"\"\"\n    groups = list(dict.fromkeys(section['group'] for section in investigation['sections']))\n    sources = investigation['sources']\n    template_id = 'anatomic-' + investigation['id']\n    sections = [{'heading':group.upper(),'body':'\\n'.join(section['label'] + ': select the observed findings.'\n                 for section in investigation['sections'] if section['group'] == group)} for group in groups]\n    steps = [{'label':section['label'],'detail':'Assess the individual structure.',\n              'sections':[section['group'].upper()],\n              'normal':{section['group'].upper():section['normal']['text']} if section['normal'] else {},\n              'findings':[finding['text'] for finding in section['findings']], 'images':[], 'measurements':[]}\n             for section in investigation['sections']]\n    reporting = {'title':investigation['title'],'reviewed_at':investigation['content_revision'],\n                 'protocol':[],'checklist':[{'label':step['label'],'detail':step['detail'],'sections':step['sections']} for step in steps],\n                 'measurements':[],'classification':None,'template_sections':sections,\n                 'pitfalls':[],'escalation':[],'impression_prompts':[],'sources':sources}\n    ref = {'descriptor_only':True,'overview':'Anatomical reporting checklist.',\n           'reviewed_at':investigation['content_revision'],'reporting':reporting,\n           'report_templates':[{'id':template_id,'title':investigation['title'],'sections':sections,'sources':sources}],\n           'walkthrough':{'template_id':template_id,'reviewed_at':investigation['content_revision'],\n                          'start':{'sections':[],'images':[]},'steps':steps,'finish':{'sections':[],'images':[]}},\n           'reading':[],'key_images':[],'structure_atlas':[],\n           'spatial_model':{'family':regional.get('family','joint')}}\n    return {'id':investigation['id'],'module_id':investigation['guide_id'],\n            'title':investigation['title'],'section':regional['section'],'topic':regional['topic'],\n            'modality':investigation['modality'],'source_titles':[source['title'] for source in sources],\n            'goal':'Structure-by-structure selectable reporting.','radiology_reference':ref,'lesson_media':[]}\n"
+        },
+        {
+          "start": 109,
+          "end": 110,
+          "before": "    descriptor['version'] = descriptors['schema_hash']\n",
+          "after": "    descriptor['version'] = descriptor['schema_hash']\n"
+        },
+        {
+          "start": 113,
+          "end": 114,
+          "before": "        'descriptor_version': descriptors['schema_hash'],\n",
+          "after": "        'descriptor_version': descriptor['schema_hash'],\n"
+        },
+        {
+          "start": 116,
+          "end": 124,
+          "before": "",
+          "after": "    selected = next((item for item in descriptor['investigations'] if item['id'] == detail['id']), None)\n    if selected and selected.get('presentation') == 'anatomic_rows':\n        reporting = dict(result['radiology_reference'].get('reporting', {}))\n        sources = list(reporting.get('sources', []))\n        known = {source['url'] for source in sources}\n        sources.extend(source for source in selected.get('sources', []) if source['url'] not in known)\n        reporting['sources'] = sources\n        result['radiology_reference']['reporting'] = reporting\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "285d77ec6ff7eb251d57bd4949f9b3b6d8095d8b4cf1d1bcdb74be48a9d203f1",
+      "after_sha256": "b6f05a96372de697b8b6b088b150d240a3e7da682abc80ad735df05da4146c49",
+      "changes": [
+        {
+          "start": 2937,
+          "end": 2945,
+          "before": "",
+          "after": "  if (ref.descriptor_only && window.PrimerStructuredReporting) {\n    page.append(btn({class:'btn ghost small',onclick:()=>go('radiology')},backward('Back to references')),\n      pagehead(n.modality + ' \u00b7 ' + n.topic,n.title,n.goal),\n      window.PrimerStructuredReporting.render(ref.structured_form,{investigationId:n.id}),\n      el('details',{class:'rad-protocol'},el('summary',{},'References'),\n        el('ul',{},...(guide.sources||[]).map(source=>el('li',{},radiologySourceLink(source.title,source.url))))));\n    return;\n  }\n"
+        }
+      ]
+    },
+    "web/radiology-structured.js": {
+      "before_sha256": "428819396bcd35fcdea1faf29c8378ddd56632fecce82a53599e17ada205e512",
+      "after_sha256": "2cf48bcd51a9b98e8dd0d1127f59083705497e28abe618b84da8b4941e2d506f",
+      "changes": [
+        {
+          "start": 48,
+          "end": 65,
+          "before": "",
+          "after": "  function findingActive(finding, chosen, section, chain = new Set()) {\n    if (chain.has(finding.id)) return false;\n    return !(finding.requires_any || []).length || finding.requires_any.some(id => {\n      const parent = section.findings.find(item => item.id === id);\n      return own(chosen, id) && parent && findingActive(parent, chosen, section, new Set([...chain, finding.id]));\n    });\n  }\n  function blockedNormals(investigation, selections) {\n    const blocked = new Set();\n    for (const section of investigation?.sections || []) {\n      const chosen = selections?.[section.id]?.findings || {};\n      for (const finding of section.findings) if (own(chosen, finding.id) && findingActive(finding, chosen, section)) {\n        for (const id of finding.invalidates_normal || []) blocked.add(id);\n      }\n    }\n    return blocked;\n  }\n"
+        },
+        {
+          "start": 70,
+          "end": 71,
+          "before": "    const grouped = new Map(), missing = [];\n",
+          "after": "    const grouped = new Map(), missing = [], blocked = blockedNormals(investigation, state.selections);\n"
+        },
+        {
+          "start": 80,
+          "end": 81,
+          "before": "",
+          "after": "      if (selected.normal && blocked.has(section.id)) { missing.push({section_id:section.id,label:\"Normal conflicts with a related finding: \" + section.label}); continue; }\n"
+        },
+        {
+          "start": 87,
+          "end": 88,
+          "before": "",
+          "after": "        const exclusive = new Set();\n"
+        },
+        {
+          "start": 90,
+          "end": 92,
+          "before": "",
+          "after": "          if (!findingActive(finding, selected.findings, section)) { missing.push({label:'Inactive detail: ' + finding.label}); continue; }\n          if (finding.exclusive_group) { if (exclusive.has(finding.exclusive_group)) missing.push({label:'Conflicting findings: ' + section.label}); exclusive.add(finding.exclusive_group); }\n"
+        },
+        {
+          "start": 184,
+          "end": 185,
+          "before": "      for (const section of investigation()?.sections || []) if (section.normal) state.selections[section.id] = {normal: true, not_assessed: false, findings: {}};\n",
+          "after": "      fillNormal();\n"
+        },
+        {
+          "start": 189,
+          "end": 191,
+          "before": "",
+          "after": "    normal.title = 'Fill unselected structures only; retain existing findings.';\n    const groupNavigation = element('nav', undefined, 'rad-group-navigation'); groupNavigation.setAttribute('aria-label', 'Anatomical groups'); root.append(groupNavigation);\n"
+        },
+        {
+          "start": 215,
+          "end": 216,
+          "before": "    draft.append(element('h4', 'Report draft'), copy, preview, feedback); fields.append(descriptorFields, calculatorFields); sheet.append(fields, draft); root.append(sheet);\n",
+          "after": "    actions.append(copy); draft.append(element('h4', 'Report draft'), preview, feedback); fields.append(descriptorFields, calculatorFields); sheet.append(fields, draft); root.append(sheet);\n"
+        },
+        {
+          "start": 218,
+          "end": 232,
+          "before": "    const changeSection = (section, value) => { state.selections[section.id] = value; drawSections(); update(true); };\n",
+          "after": "    function fillNormal(group) {\n      const blocked = blockedNormals(investigation(), state.selections);\n      for (const section of investigation()?.sections || []) {\n        const value = selected(section);\n        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length) state.selections[section.id] = {normal:true,findings:{}};\n      }\n    }\n    const changeSection = (section, value) => {\n      let changed;\n      do { changed = false; for (const finding of section.findings) if (own(value.findings, finding.id) && !findingActive(finding, value.findings, section)) {delete value.findings[finding.id];changed=true;} } while (changed);\n      state.selections[section.id] = value;\n      for (const id of blockedNormals(investigation(), state.selections)) if (state.selections[id]?.normal) delete state.selections[id];\n      drawSections(); update(true);\n    };\n"
+        },
+        {
+          "start": 259,
+          "end": 260,
+          "before": "      descriptorFields.replaceChildren();\n",
+          "after": "      descriptorFields.replaceChildren(); groupNavigation.replaceChildren();\n"
+        },
+        {
+          "start": 262,
+          "end": 264,
+          "before": "",
+          "after": "      const blocked = blockedNormals(exam, state.selections); let lastGroup = null;\n      root.classList?.toggle('rad-anatomic-sheet', exam.presentation === 'anatomic_rows');\n"
+        },
+        {
+          "start": 265,
+          "end": 272,
+          "before": "",
+          "after": "        if (section.group && section.group !== lastGroup) {\n          lastGroup = section.group;\n          const groupHeader = element('div', undefined, 'rad-anatomic-group');\n          groupHeader.append(element('h4', section.group), button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n          descriptorFields.append(groupHeader);\n          groupNavigation.append(button(section.group, () => groupHeader.scrollIntoView?.({behavior:'smooth',block:'start'}), 'rad-small-button'));\n        }\n"
+        },
+        {
+          "start": 274,
+          "end": 275,
+          "before": "        const row = element('div', undefined, 'rad-section-heading'); row.append(element('h4', section.label));\n",
+          "after": "        const row = element('div', undefined, 'rad-section-heading'); row.append(element(section.group ? 'h5' : 'h4', section.label));\n"
+        },
+        {
+          "start": 278,
+          "end": 279,
+          "before": "          normalChoice.dataset.radFocus = 'normal:' + section.id; choose(normalChoice, sectionState.normal); quick.append(normalChoice);\n",
+          "after": "          normalChoice.disabled = blocked.has(section.id); if (normalChoice.disabled) normalChoice.title = 'A selected related finding excludes this normal statement.'; normalChoice.dataset.radFocus = 'normal:' + section.id; choose(normalChoice, sectionState.normal); quick.append(normalChoice);\n"
+        },
+        {
+          "start": 284,
+          "end": 285,
+          "before": "",
+          "after": "          if (!findingActive(finding, sectionState.findings, section)) continue;\n"
+        },
+        {
+          "start": 303,
+          "end": 304,
+          "before": "      const completeCalculations = [...calculations.values()].filter(value => value.status === 'complete');\n",
+          "after": "      const completeCalculations = [...allowedCalculators].map(id => calculations.get(id)).filter(value => value?.status === 'complete');\n"
+        }
+      ]
+    },
+    "web/radiology-structured.css": {
+      "before_sha256": "21175fc0dcf80d7fa91d6b69b8913d0f864f76c321ca26a379411c2e22be6277",
+      "after_sha256": "8d1a28fb68c0ba1062124e24e7eb8e6508bce18b256986cfac37b943bd017780",
+      "changes": [
+        {
+          "start": 2,
+          "end": 13,
+          "before": "",
+          "after": "\n/* Complete anatomical rows remain on one page, with a persistent copy action. */\n.rad-sheet-heading{position:sticky;top:0;z-index:3;background:var(--surface,var(--paper,Canvas));padding:10px 0;border-bottom:1px solid var(--rad-line);border-radius:5px}\n.rad-sheet-actions .rad-copy-report{width:auto;max-width:none;padding:7px 12px;min-height:34px}\n.rad-group-navigation{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0 14px}.rad-group-navigation:empty{display:none}\n.rad-anatomic-group{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:20px 0 8px;scroll-margin-top:90px;border-bottom:2px solid var(--rad-line)}\n.rad-anatomic-group h4{margin:0;font-size:14px}.rad-anatomic-sheet .rad-report-section{padding:9px 0;border-top:0;border-bottom:1px solid var(--rad-line)}\n.rad-anatomic-sheet .rad-report-section h5{margin:0;font-size:13px;line-height:1.5}\n.rad-anatomic-sheet .rad-section-heading{margin-bottom:5px}.rad-anatomic-sheet .rad-choice{font-size:12px;padding:5px 8px;min-height:30px}\n.rad-anatomic-sheet .rad-report-preview{top:70px}.rad-anatomic-sheet .rad-report-text{max-height:75vh;overflow:auto}\n@media(max-width:600px){.rad-sheet-heading{gap:5px}.rad-sheet-actions{width:100%}.rad-sheet-actions .rad-copy-report{margin-left:auto}.rad-anatomic-group{scroll-margin-top:120px}}\n"
+        }
+      ]
+    }
+  },
+  "guarded_paths_sha256": {
+    "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+    "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+    "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+    "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+    "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+  },
+  "canonical_contract_files_sha256": {
+    "primer/radiology.py": "46291fe72247d0dfb25bf86155e2c1d0412b08d77f5e9d535c00f8acb532fdce",
+    "primer/radiology_catalog.py": "f3ad245dd99dd04e6420099785fdfd65ae0deb5531c5a7a551eddde3a99812e6",
+    "docs/radiology-fidelity-scope.json": "a5d3f4dbeafb88e0fbf6e9f0de72bcd3d027a22533f4ee37a3883bdefc290790"
+  }
+}
