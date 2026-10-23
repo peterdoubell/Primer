@@ -1,7 +1,6 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 const fs = require('node:fs');
-const vm = require('node:vm');
 
 class Element {
   constructor(tag) { this.tagName = tag.toUpperCase(); this.children = []; this.attributes = {}; this.dataset = {}; this.textContent = ''; this.hidden = false; }
@@ -13,7 +12,11 @@ class Element {
 function descendants(node) { return [node, ...node.children.flatMap(descendants)]; }
 function load() {
   const context = {window: {}, document: {createElement: tag => new Element(tag)}, navigator: {clipboard: {writeText: async text => { context.copied = text; }}}, console};
-  vm.runInNewContext(fs.readFileSync('web/radiology-structured.js', 'utf8'), context);
+  global.window = context.window;
+  global.document = context.document;
+  Object.defineProperty(global, 'navigator', {value: context.navigator, configurable: true});
+  delete require.cache[require.resolve('../web/radiology-structured.js')];
+  require('../web/radiology-structured.js');
   return {...context.window.PrimerStructuredReporting, context};
 }
 function find(root, text) {
