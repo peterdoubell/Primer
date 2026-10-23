@@ -80,6 +80,10 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
     ledger, bound = ui_refresh.load(), reviewed()
     for step in ledger['refreshes']:
         assert step['guarded_paths_sha256'] == {path: bound[path] for path in ledger['guarded_paths']}
+        if step['id']=='2026-10-23-descriptor-reporting':
+            from tools.descriptor_report_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
         if step['id']=='2026-10-22-structured-reporting':
             from tools.structured_reporting_runtime_compatibility import validate_refresh
             validate_refresh(step)
@@ -154,6 +158,48 @@ def test_an_unrecorded_hash_does_not_advance():
     ledger = ui_refresh.load()
     assert ui_refresh.advance('web/app.js', '0' * 64, ledger) == '0' * 64
     assert ui_refresh.advance('web/radiology-detailed-anatomy.js', '0' * 64, ledger) == '0' * 64
+
+
+def test_descriptor_refresh_is_exact_and_cannot_extend_source_or_clinical_scope():
+    import copy
+    import pytest
+    from tools import descriptor_report_compatibility as bridge
+    step = next(row for row in ui_refresh.load()['refreshes'] if row['id'] == '2026-10-23-descriptor-reporting')
+    proof = bridge.validate_refresh(step)
+    assert len(proof['files']['web/app.js']['changes']) == 2
+    assert step['native_presentation_code_touched'] is False
+    for key, value in [
+        ('id', 'arbitrary-reporting-refresh'),
+        ('clinical_approval', True),
+        ('fine_anatomical_approval', True),
+        ('reopens_or_extends_any_review', True),
+        ('canonical_lesson_data_changed', True),
+        ('native_decoder_mesh_CT_renderer_code_touched', True),
+        ('native_presentation_change_scope', 'native_image_renderer'),
+        ('new_reporting_workflow_validated_by_this_inverse', True),
+        ('scoped_compatibility_amendment', {'path': bridge.PROOF, 'sha256': '0' * 64}),
+    ]:
+        changed = copy.deepcopy(step)
+        changed[key] = value
+        with pytest.raises(ValueError, match='scope'):
+            bridge.validate_refresh(changed)
+    for field in ('before', 'after'):
+        changed = copy.deepcopy(step)
+        changed['files']['web/app.js'][field] = '0' * 64
+        with pytest.raises(ValueError, match='scope'):
+            bridge.validate_refresh(changed)
+    changed = copy.deepcopy(step)
+    changed['guarded_paths_sha256']['web/radiology-detailed-anatomy.js'] = '0' * 64
+    with pytest.raises(ValueError, match='scope'):
+        bridge.validate_refresh(changed)
+    for path, row in proof['files'].items():
+        raw = (ROOT / path).read_bytes()
+        restored = bridge.before_descriptor_bytes(path, raw)
+        assert hashlib.sha256(restored).hexdigest() == row['before_sha256']
+        assert bridge.before_descriptor_bytes(path, restored) == restored
+        with pytest.raises(ValueError, match='Unreviewed'):
+            bridge.before_descriptor_bytes(path, raw + b'\n')
+    assert bridge.before_descriptor_bytes('unrelated', b'unmodified') == b'unmodified'
 
 
 def test_only_exact_citation_wrapper_delta_can_use_the_explicit_native_ui_scope():
