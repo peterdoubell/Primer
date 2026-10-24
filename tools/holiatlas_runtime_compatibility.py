@@ -6,10 +6,10 @@ import json
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/holiatlas-source-review-20261023/runtime-inverse.json'
-PROOF_SHA256 = 'afc55962c7b5b239404aaac6fea3eaf5fb298f6568fa7b0fbb793f2c04c68fc0'
-READER_SHA256 = 'f124d44a8c15429c74fd406f282c5f07172529432432a763e93229aa401bf88f'
-RECOVERY_SHA256 = '0cde75818f0a87a7fd6d0a14dc66869ce55817b456872a7c5da5e739ce2bb25a'
-PRESERVATION_SHA256 = 'b3d87951bcb2d6e65c093b58d3cdcee4255a06c0a8fb7672d24a37ebfbdcbf54'
+PROOF_SHA256 = '8246562da1885bf915277ea2d2753afb3cadbcafe750db6086bf6d7698ee1990'
+READER_SHA256 = 'afdc87a634d5927fbd95f82dc709c0c494d2a1786c83446426d2e14b2c374f2f'
+RECOVERY_SHA256 = 'a42035115b127d30c691f25d70a58bf4f33f72b2e08e7eeb1928e04fd935ada3'
+PRESERVATION_SHA256 = 'e1ad16619068f73e9a75a757150c680ca5c3937ec607212d710a7ba228595092'
 PATHS = frozenset({'web/app.js', 'primer/server.py', 'primer/source_native_inspectors.py',
                    'vercel.json', 'docs/radiology-fidelity-scope.json'})
 
@@ -23,7 +23,7 @@ def reviewed():
     if sha(raw) != PROOF_SHA256:
         raise ValueError('holiAtlas inverse evidence changed')
     proof = json.loads(raw)
-    if (set(proof['files']) != PATHS or proof['base_commit'] != 'd3b8b350287b47f1d4c3e1969b2186efd5c28111'
+    if (set(proof['files']) != PATHS or proof['base_commit'] != 'fd43c37003a7e894df350bf6b551bd000ba35677'
             or proof['scope'] != 'one_separate_holiatlas_source_reference_and_exact_delivery_only'
             or proof['bindings'] != ['ra.brain-anatomy']
             or any(proof[k] is not False for k in ('clinical_approval', 'fine_anatomical_approval',
