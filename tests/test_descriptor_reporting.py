@@ -22,8 +22,8 @@ CATALOG = json.loads((ROOT / "data/radiology/descriptor-reporting.json").read_te
 SOURCE_CATALOG = json.loads(gzip.decompress((ROOT / "data/radiology/descriptor-reporting-v1.json.gz").read_bytes()))
 
 
-def descriptors():
-    for form in CATALOG["forms"].values():
+def descriptors(catalog=CATALOG):
+    for form in catalog["forms"].values():
         for investigation in form["investigations"]:
             for section in investigation["sections"]:
                 if section["normal"]:
@@ -73,8 +73,9 @@ def test_shoulder_modalities_are_separate_without_normalizing_away_limits():
     assert next(section for section in us["sections"] if section["label"] == "Long head of biceps")["report_section_id"] is None
 
 
-def test_every_source_character_survives_compilation_and_slots_cover_all_tokens():
-    for form, investigation, section, descriptor in descriptors():
+@pytest.mark.parametrize("catalog", [SOURCE_CATALOG, CATALOG], ids=["frozen-source-v1", "current-authored"])
+def test_every_source_character_survives_compilation_and_slots_cover_all_tokens(catalog):
+    for form, investigation, section, descriptor in descriptors(catalog):
         text = descriptor["text"]
         slots = {slot["id"]: slot for slot in descriptor["slots"]}
         restored = "".join(segment["text"] if "text" in segment else slots[segment["slot"]]["source_token"] for segment in descriptor["segments"])
@@ -251,3 +252,14 @@ def test_compilation_is_reproducible_and_defaults_are_never_inserted():
     assert section["report_section_id"] == "tendon"
     assert [slot["kind"] for slot in section["findings"][0]["slots"]] == ["choice", "number", "context"]
     assert '"default":' not in json.dumps(first)
+
+
+def test_frozen_source_contract_retains_its_exact_original_hash_and_inventory():
+    assert SOURCE_CATALOG["schema_hash"] == "88b25d451b59bdafafbd2fd97e5742791d62f82bdedf857ed7b924fcd8b8efc5"
+    assert SOURCE_CATALOG["schema_hash"] == COMPILER.digest({k: v for k, v in SOURCE_CATALOG.items() if k != "schema_hash"})
+    assert SOURCE_CATALOG["source_snapshot_id"] == CATALOG["source_snapshot_id"]
+    assert SOURCE_CATALOG["summary"]["descriptors"] == 2522
+    assert SOURCE_CATALOG["summary"]["source_worksheets"] == 14
+    assert SOURCE_CATALOG["summary"]["investigations"] == 138
+    for form in SOURCE_CATALOG["forms"].values():
+        assert form["schema_hash"] == COMPILER.digest({k: v for k, v in form.items() if k != "schema_hash"})

@@ -7,7 +7,9 @@ from pathlib import Path
 def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
     coverage = []
     changed = set()
-    for path in sorted((root / 'data/radiology').glob('msk-anatomic-*.json')):
+    paths = sorted({* (root / 'data/radiology').glob('msk-anatomic-*.json'),
+                    * (root / 'data/radiology').glob('anatomic-*.json')})
+    for path in paths:
         authored = json.loads(path.read_text())
         sources = {source['id']: source for source in authored['sources']}
         for identifier, definition in authored['investigations'].items():
@@ -15,6 +17,9 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
             if guide_id not in forms:
                 raise ValueError(f'Unknown anatomical report guide: {guide_id}')
             form = forms[guide_id]
+            # The imported source catalogue is immutable; authored references
+            # belong to the compiled form, not the caller's guide dictionary.
+            form['sources'] = copy.deepcopy(form['sources'])
             structure_ids = {row['id'] for row in definition['sections']}
             seen = set()
             sections = []
@@ -58,6 +63,8 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
                         result['requires_any'] = [identifier + ':' + row['id'] + ':' + key for key in dependencies]
                     if item.get('exclusive_group'):
                         result['exclusive_group'] = item['exclusive_group']
+                    if item.get('report') is False:
+                        result['report'] = False
                     invalidates = item.get('invalidates_normal', [])
                     if any(key not in structure_ids for key in invalidates):
                         raise ValueError(f'Unknown related anatomy: {result["id"]}')
@@ -82,6 +89,8 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
                                  'source_sections':[group], 'report_section_id':'anatomic-'+slug(group),
                                  'report_section_label':group.upper(),'normal':normal,'findings':findings,
                                  'exclude_from_bulk_normal':bool(row.get('exclude_from_bulk_normal'))})
+                if row.get('repeatable'):
+                    sections[-1].update(repeatable=True, repeat_label=row.get('repeat_label', row['label']))
             investigation = {'id':identifier,'title':definition['title'],'modality':definition['modality'],
                              'sections':sections,'presentation':'anatomic_rows','content_revision':authored['version'],
                              'sources':[sources[key] for key in sorted({key for row in definition['sections'] for key in row['source_ids']})],
@@ -106,6 +115,13 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
                              'anatomy_ids':[row['anatomy_id'] for row in sections],
                              'source_file':str(path.relative_to(root))})
             changed.add(guide_id)
+    binding_path = root / 'data/radiology/descriptor-calculation-bindings.json'
+    if binding_path.exists():
+        try:
+            from tools.descriptor_calculation_binding_compiler import attach_calculation_bindings
+        except ModuleNotFoundError:
+            from descriptor_calculation_binding_compiler import attach_calculation_bindings
+        changed.update(attach_calculation_bindings(forms, json.loads(binding_path.read_text())))
     for guide_id in changed:
         form = forms[guide_id]
         form['provenance']['anatomic_expansion'] = 'Original structure-specific reporting choices; references retained; no clinical approval implied.'

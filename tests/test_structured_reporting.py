@@ -185,3 +185,24 @@ def test_reporting_response_adds_form_without_mutating_canonical_lesson_data():
         assert reporting_bridge.with_structured_form(canonical)["radiology_reference"]["structured_form"]["sections"]
     unknown = {"module_id": "cardiology.echo", "radiology_reference": {"overview": "Separate source."}}
     assert reporting_bridge.with_structured_form(unknown) == unknown
+
+
+def test_every_report_variant_is_exposed_by_the_native_library_without_fictitious_teaching_images():
+    from primer.radiology_catalog import catalogue
+    native = catalogue()['investigations']
+    index = {'modules': [dict(item, image_count=0) for item in native], 'count': len(native)}
+    # Cardiology modules are a separate canonical source.
+    cardiology = json.loads((ROOT / 'data/radiology/cardiology-investigations.json').read_text())
+    index['modules'].extend(cardiology['investigations'])
+    result = reporting_bridge.with_descriptor_investigations(index)
+    expected = {item['id'] for form in reporting_bridge.descriptor_forms()['forms'].values() for item in form['investigations']}
+    assert {item['id'] for item in result['modules']} == expected
+    assert result['count'] == 156
+    for identifier in sorted(key for key in expected if key.startswith('template:')):
+        variant = reporting_bridge.descriptor_variant(identifier)
+        assert variant and variant['kind'] == 'source-worksheet'
+        detail = reporting_bridge.with_structured_form(reporting_bridge.descriptor_variant_detail(variant, None))
+        reference = detail['radiology_reference']
+        assert reference['descriptor_only'] and not reference['key_images'] and not reference['structure_atlas']
+        assert reference['structured_form']['descriptor_form']['selected_investigation_id'] == identifier
+        assert detail['section'] == 'Reporting worksheets'
