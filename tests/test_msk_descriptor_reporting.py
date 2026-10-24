@@ -18,8 +18,11 @@ CATALOG = json.loads((ROOT / 'data/radiology/descriptor-reporting.json').read_te
 SPEC = importlib.util.spec_from_file_location('msk_descriptor_engine', ROOT / 'primer/descriptor_reporting.py')
 ENGINE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(ENGINE)
+# MSK remains a separately guarded subset as the rest of radiology is expanded.
+MSK_IDS = {identifier for path in (ROOT / 'data/radiology').glob('msk-anatomic-*.json')
+           for identifier in json.loads(path.read_text())['investigations']}
 ANATOMIC = [(form, investigation) for form in CATALOG['forms'].values()
-            for investigation in form['investigations'] if investigation.get('presentation') == 'anatomic_rows']
+            for investigation in form['investigations'] if investigation['id'] in MSK_IDS]
 EXAMS = {investigation['id']: (form, investigation) for form, investigation in ANATOMIC}
 
 
@@ -306,8 +309,10 @@ def test_anatomic_coverage_and_reference_lineage_match_authored_files():
                     assert set(source['source_ids']) <= source_ids
                     assert source['clinical_approval'] is False
                     assert all(key in form['anatomic_sources'] for key in source['reference_ids'])
-    assert authored_ids == set(coverage) == set(EXAMS)
-    assert CATALOG['summary']['anatomic_structures'] == sum(len(i['sections']) for _, i in ANATOMIC)
+    assert authored_ids == set(EXAMS) == MSK_IDS
+    assert authored_ids <= set(coverage)
+    assert len(MSK_IDS) == 32
+    assert sum(coverage[i]['structures'] for i in MSK_IDS) == sum(len(i['sections']) for _, i in ANATOMIC)
 
 
 def test_packaged_gzip_and_plain_contract_are_identical():

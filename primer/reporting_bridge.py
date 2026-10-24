@@ -41,7 +41,7 @@ def descriptor_forms():
 def descriptor_variant(identifier):
     for form in descriptor_forms()['forms'].values():
         for investigation in form['investigations']:
-            if investigation['id'] == identifier and investigation.get('base_investigation_id'):
+            if investigation['id'] == identifier and (investigation.get('base_investigation_id') or investigation.get('kind') == 'source-worksheet'):
                 return dict(investigation, guide_id=form['guide_id'])
     return None
 
@@ -53,14 +53,19 @@ def with_descriptor_investigations(index):
     for form in descriptor_forms()['forms'].values():
         for investigation in form['investigations']:
             base = known.get(investigation.get('base_investigation_id'))
-            if not base or investigation['id'] in known:
+            if investigation['id'] in known:
+                continue
+            if not base and investigation.get('kind') == 'source-worksheet':
+                base = {'section':'Reporting worksheets','topic':form['title'],
+                        'modality':investigation.get('modality') or 'Reference'}
+            if not base:
                 continue
             sources = investigation.get('sources', [])
             modules.append(dict(base, id=investigation['id'], module_id=form['guide_id'],
-                title=investigation['title'], modality=investigation['modality'],
+                title=investigation['title'], modality=investigation.get('modality') or 'Reference',
                 summary='Structure-by-structure selectable reporting.',
                 source_titles=[source['title'] for source in sources],
-                topics=[base['topic'],investigation['modality'],'MSK','structured report'],
+                topics=[base['topic'],investigation.get('modality') or 'Reference','structured report'],
                 image_count=0,motion_count=0,template_count=1,classification='',staging_systems=[],
                 step_count=len(investigation['sections']),reviewed_at=investigation['content_revision']))
     return dict(index,modules=modules,count=len(modules))
@@ -68,6 +73,7 @@ def with_descriptor_investigations(index):
 
 def descriptor_variant_detail(investigation, regional):
     """A reporting-only view: do not relabel radiographs or lessons as MRI."""
+    regional = regional or {'section':'Reporting worksheets','topic':investigation['title'],'family':'reference'}
     groups = list(dict.fromkeys(section['group'] for section in investigation['sections']))
     sources = investigation['sources']
     template_id = 'anatomic-' + investigation['id']
@@ -91,7 +97,7 @@ def descriptor_variant_detail(investigation, regional):
            'spatial_model':{'family':regional.get('family','joint')}}
     return {'id':investigation['id'],'module_id':investigation['guide_id'],
             'title':investigation['title'],'section':regional['section'],'topic':regional['topic'],
-            'modality':investigation['modality'],'source_titles':[source['title'] for source in sources],
+            'modality':investigation.get('modality') or 'Reference','source_titles':[source['title'] for source in sources],
             'goal':'Structure-by-structure selectable reporting.','radiology_reference':ref,'lesson_media':[]}
 
 

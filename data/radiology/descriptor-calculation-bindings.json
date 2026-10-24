@@ -1,0 +1,345 @@
+{
+  "version": "2026-10-23",
+  "contract": "Binding metadata extracts explicit observations only. Versioned algorithms remain in the reporting API; no clinical formula is duplicated here. Raw section and finding IDs are canonicalised by the descriptor compiler.",
+  "algorithm_references": [
+    {
+      "calculator_id": "acr_tirads_2017",
+      "version": "2017",
+      "title": "ACR TI-RADS",
+      "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/TI-RADS"
+    },
+    {
+      "calculator_id": "pirads_v2_1",
+      "version": "2.1 (2019)",
+      "title": "ACR PI-RADS v2.1",
+      "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/PI-RADS"
+    },
+    {
+      "calculator_id": "prostate_volume_psad",
+      "version": "PI-RADS 2.1 (2019)",
+      "title": "ACR PI-RADS v2.1 prostate volume convention",
+      "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/PI-RADS/PIRADS-2019.pdf"
+    }
+  ],
+  "investigations": {
+    "ra.ultrasound-thyroid": {
+      "thyroid-nodule": [
+        {
+          "calculator_id": "acr_tirads_2017",
+          "label": "ACR TI-RADS 2017",
+          "trigger_any": [
+            "nodule"
+          ],
+          "inputs": {
+            "adult_applicability_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "adult",
+                  "section_id": "patient-group",
+                  "value": true
+                },
+                {
+                  "finding_id": "child",
+                  "section_id": "patient-group",
+                  "value": false
+                }
+              ]
+            },
+            "composition": {
+              "sources": [
+                {
+                  "finding_id": "composition",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "cystic or almost completely cystic": "cystic_or_almost_cystic",
+                    "spongiform": "spongiform",
+                    "mixed cystic and solid": "mixed_cystic_solid",
+                    "solid or almost completely solid": "solid_or_almost_solid"
+                  }
+                }
+              ]
+            },
+            "echogenicity": {
+              "sources": [
+                {
+                  "finding_id": "echogenicity",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "anechoic": "anechoic",
+                    "hyperechoic or isoechoic": "hyper_or_isoechoic",
+                    "hypoechoic": "hypoechoic",
+                    "very hypoechoic": "very_hypoechoic"
+                  }
+                }
+              ]
+            },
+            "shape": {
+              "sources": [
+                {
+                  "finding_id": "shape",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "wider-than-tall": "wider_than_tall",
+                    "taller-than-wide": "taller_than_wide"
+                  }
+                }
+              ]
+            },
+            "margin": {
+              "sources": [
+                {
+                  "finding_id": "margin",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "smooth": "smooth",
+                    "ill-defined": "ill_defined",
+                    "lobulated or irregular": "lobulated_or_irregular",
+                    "extrathyroidal extension": "extrathyroidal_extension"
+                  }
+                }
+              ]
+            },
+            "echogenic_foci": {
+              "sources": [
+                {
+                  "finding_id": "echogenic-foci",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "no echogenic foci": [
+                      "none"
+                    ],
+                    "large comet-tail artefacts only": [
+                      "large_comet_tail"
+                    ],
+                    "macrocalcification only": [
+                      "macrocalcifications"
+                    ],
+                    "peripheral rim calcification only": [
+                      "peripheral_rim"
+                    ],
+                    "punctate echogenic foci only": [
+                      "punctate"
+                    ],
+                    "macrocalcification and peripheral rim calcification": [
+                      "macrocalcifications",
+                      "peripheral_rim"
+                    ],
+                    "macrocalcification and punctate echogenic foci": [
+                      "macrocalcifications",
+                      "punctate"
+                    ],
+                    "peripheral rim calcification and punctate echogenic foci": [
+                      "peripheral_rim",
+                      "punctate"
+                    ],
+                    "macrocalcification and peripheral rim calcification and punctate echogenic foci": [
+                      "macrocalcifications",
+                      "peripheral_rim",
+                      "punctate"
+                    ]
+                  }
+                }
+              ]
+            },
+            "size_mm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-1"
+                },
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-2"
+                },
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-3"
+                }
+              ],
+              "aggregate": "max",
+              "all_required": true
+            }
+          },
+          "skip_when": [
+            {
+              "input": "adult_applicability_confirmed",
+              "values": [
+                false
+              ],
+              "message": "ACR TI-RADS adult classification is not applied to this child."
+            }
+          ]
+        }
+      ]
+    },
+    "ra.mri-prostate": {
+      "prostate-lesion": [
+        {
+          "calculator_id": "pirads_v2_1",
+          "label": "PI-RADS v2.1",
+          "trigger_any": [
+            "lesion"
+          ],
+          "inputs": {
+            "treatment_naive": {
+              "sources": [
+                {
+                  "finding_id": "treatment",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "treatment-naive prostate": true,
+                    "previously treated prostate": false
+                  }
+                }
+              ]
+            },
+            "zone": {
+              "sources": [
+                {
+                  "finding_id": "zone",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "peripheral zone": "PZ",
+                    "transition zone": "TZ",
+                    "central zone": "CZ",
+                    "anterior fibromuscular stroma": "AFMS"
+                  }
+                }
+              ]
+            },
+            "t2_adequate": {
+              "sources": [
+                {
+                  "finding_id": "t2-adequate",
+                  "value": true
+                },
+                {
+                  "finding_id": "t2-inadequate",
+                  "value": false
+                }
+              ]
+            },
+            "dwi_adequate": {
+              "sources": [
+                {
+                  "finding_id": "dwi-adequate",
+                  "value": true
+                },
+                {
+                  "finding_id": "dwi-inadequate",
+                  "value": false
+                }
+              ]
+            },
+            "t2_score": {
+              "sources": [
+                {
+                  "finding_id": "t2-score",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 3,
+                    "4": 4,
+                    "5": 5
+                  }
+                }
+              ]
+            },
+            "dwi_score": {
+              "sources": [
+                {
+                  "finding_id": "dwi-score",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 3,
+                    "4": 4,
+                    "5": 5
+                  }
+                }
+              ]
+            },
+            "dce": {
+              "sources": [
+                {
+                  "finding_id": "dce",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "positive": "positive",
+                    "negative": "negative",
+                    "not available": "not_available"
+                  }
+                }
+              ]
+            }
+          },
+          "skip_when": [
+            {
+              "input": "zone",
+              "values": [
+                "CZ",
+                "AFMS"
+              ],
+              "message": "PI-RADS v2.1 zone scoring requires a peripheral- or transition-zone origin; no category is assigned for this selected origin."
+            },
+            {
+              "input": "treatment_naive",
+              "values": [
+                false
+              ],
+              "message": "PI-RADS v2.1 does not classify post-treatment recurrence."
+            }
+          ]
+        }
+      ],
+      "prostate-dimensions": [
+        {
+          "calculator_id": "prostate_volume_psad",
+          "label": "Prostate volume and PSA density",
+          "trigger_any": [
+            "dimensions"
+          ],
+          "inputs": {
+            "transverse_cm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-1"
+                }
+              ],
+              "scale": 0.1
+            },
+            "ap_cm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-2"
+                }
+              ],
+              "scale": 0.1
+            },
+            "longitudinal_cm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-3"
+                }
+              ],
+              "scale": 0.1
+            },
+            "psa_ng_ml": {
+              "sources": [
+                {
+                  "finding_id": "psa",
+                  "slot_id": "slot-1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

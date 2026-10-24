@@ -1,0 +1,338 @@
+{
+  "added_files_sha256": {
+    "primer/descriptor_calculations.py": "7df6e70b7062d7afe9fd1cd023d2ebf764166a22073c8009286ec2308a7b2b13"
+  },
+  "base_commit": "fd43c37003a7e894df350bf6b551bd000ba35677",
+  "canonical_contract_files_sha256": {
+    "docs/radiology-fidelity-scope.json": "a5d3f4dbeafb88e0fbf6e9f0de72bcd3d027a22533f4ee37a3883bdefc290790",
+    "primer/radiology.py": "46291fe72247d0dfb25bf86155e2c1d0412b08d77f5e9d535c00f8acb532fdce",
+    "primer/radiology_catalog.py": "f3ad245dd99dd04e6420099785fdfd65ae0deb5531c5a7a551eddde3a99812e6"
+  },
+  "canonical_lesson_data_changed": false,
+  "clinical_approval": false,
+  "clinical_content_validated_by_this_inverse": false,
+  "extends_historical_approval": false,
+  "files": {
+    ".vercelignore": {
+      "after_sha256": "620bb08a60584b11e5aab361438ce442d65e2e76cf1f06cc174575b390ef4829",
+      "before_sha256": "101a99d1327f6fcc0270ca372d9c5e22476720e75db922c5bebaef319bb03726",
+      "changes": [
+        {
+          "after": "# Authoring definitions and historical exports are not used by the Primer runtime.\ndata/radiology/anatomic-*.json\ndata/radiology/descriptor-history/\ntools/authoring/\n",
+          "before": "",
+          "end": 82,
+          "start": 78
+        }
+      ]
+    },
+    "primer/descriptor_reporting.py": {
+      "after_sha256": "3341504df43a94800174f24b15cb672c1777e86ee15d8d1151d9f59beb7cdc62",
+      "before_sha256": "a669d28cc2c3a648225eceb07416700e14007cefb4b0f2ec3284cee12dd78291",
+      "changes": [
+        {
+          "after": "\nMAX_REPEAT_INSTANCES = 50\n\n\ndef expand_repeated_sections(investigation, selections):\n    \"\"\"Expand explicit records without mutating the saved schema or selections.\"\"\"\n    expanded, values, issues = [], dict(selections), []\n    for section in investigation['sections']:\n        expanded.append(section)\n        selected = selections.get(section['id'], {})\n        if not isinstance(selected, dict) or 'instances' not in selected:\n            continue\n        location = {'section_id': section['id'], 'severity': 'error'}\n        instances = selected['instances']\n        if (not section.get('repeatable') or not isinstance(instances, list)\n                or len(instances) > MAX_REPEAT_INSTANCES\n                or set(selected) - {'normal', 'not_assessed', 'findings', 'instances'}\n                or not isinstance(selected.get('findings', {}), dict)\n                or any(type(selected.get(flag, False)) is not bool for flag in ('normal', 'not_assessed'))\n                or selected.get('normal') or selected.get('not_assessed') or selected.get('findings')):\n            issues.append({'code': 'invalid_repeat_instances', **location})\n            values[section['id']] = {}\n            continue\n        values[section['id']] = {}\n        for index, instance in enumerate(instances):\n            key = section['id'] + '@' + str(index + 1)\n            label = section.get('repeat_label', section['label']) + ' ' + str(index + 1)\n            expanded.append(dict(section, id=key, label=label, normal=None, repeat_instance_label=label))\n            values[key] = instance\n            if isinstance(instance, dict) and not instance.get('not_assessed') and not instance.get('findings'):\n                issues.append({'code': 'empty_repeat_instance', 'instance_index': index, **location})\n    return dict(investigation, sections=expanded), values, issues\n",
+          "before": "",
+          "end": 39,
+          "start": 7
+        },
+        {
+          "after": "    original_ids = {section['id'] for section in investigation['sections']}\n",
+          "before": "    sections = {x['id']: x for x in investigation['sections']}\n",
+          "end": 56,
+          "start": 55
+        },
+        {
+          "after": "        if key not in original_ids:\n",
+          "before": "        if key not in sections:\n",
+          "end": 58,
+          "start": 57
+        },
+        {
+          "after": "    investigation, selections, repeated_issues = expand_repeated_sections(investigation, selections)\n    issues.extend(repeated_issues)\n",
+          "before": "",
+          "end": 61,
+          "start": 59
+        },
+        {
+          "after": "                if descriptor.get('report') is not False:\n                    selected_count += 1\n",
+          "before": "                selected_count += 1\n",
+          "end": 172,
+          "start": 170
+        },
+        {
+          "after": "                if line and descriptor.get('report') is not False: lines.append(line)\n",
+          "before": "                if line: lines.append(line)\n",
+          "end": 174,
+          "start": 173
+        },
+        {
+          "after": "            if section.get('repeat_instance_label') and not unassessed:\n                lines = [section['repeat_instance_label'] + ':\\n' + '\\n'.join(lines)]\n",
+          "before": "",
+          "end": 177,
+          "start": 175
+        }
+      ]
+    },
+    "primer/reporting_bridge.py": {
+      "after_sha256": "851ff89cddf9bec3c569913729017c96f6804b8e23e14b2e7f18d54b97c835dc",
+      "before_sha256": "da639f11f225d2117b5e7db5ca27d2da40a5a22771f137fd6cb04b6c29231522",
+      "changes": [
+        {
+          "after": "            if investigation['id'] == identifier and (investigation.get('base_investigation_id') or investigation.get('kind') == 'source-worksheet'):\n",
+          "before": "            if investigation['id'] == identifier and investigation.get('base_investigation_id'):\n",
+          "end": 44,
+          "start": 43
+        },
+        {
+          "after": "            if investigation['id'] in known:\n                continue\n            if not base and investigation.get('kind') == 'source-worksheet':\n                base = {'section':'Reporting worksheets','topic':form['title'],\n                        'modality':investigation.get('modality') or 'Reference'}\n            if not base:\n",
+          "before": "            if not base or investigation['id'] in known:\n",
+          "end": 61,
+          "start": 55
+        },
+        {
+          "after": "                title=investigation['title'], modality=investigation.get('modality') or 'Reference',\n",
+          "before": "                title=investigation['title'], modality=investigation['modality'],\n",
+          "end": 65,
+          "start": 64
+        },
+        {
+          "after": "                topics=[base['topic'],investigation.get('modality') or 'Reference','structured report'],\n",
+          "before": "                topics=[base['topic'],investigation['modality'],'MSK','structured report'],\n",
+          "end": 68,
+          "start": 67
+        },
+        {
+          "after": "    regional = regional or {'section':'Reporting worksheets','topic':investigation['title'],'family':'reference'}\n",
+          "before": "",
+          "end": 76,
+          "start": 75
+        },
+        {
+          "after": "            'modality':investigation.get('modality') or 'Reference','source_titles':[source['title'] for source in sources],\n",
+          "before": "            'modality':investigation['modality'],'source_titles':[source['title'] for source in sources],\n",
+          "end": 100,
+          "start": 99
+        }
+      ]
+    },
+    "primer/server.py": {
+      "after_sha256": "76278e07b9872b5de92bed85daef440f1fa3bb69711a7f98374c688385afc9ab",
+      "before_sha256": "1fac9650e71249b7efe0c53031bc73e742d5efd2f71b4852c8b482903df6274f",
+      "changes": [
+        {
+          "after": "            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None))\n",
+          "before": "            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id'])))\n",
+          "end": 1451,
+          "start": 1450
+        }
+      ]
+    },
+    "web/radiology-structured.css": {
+      "after_sha256": "2d24beb7ec7099839bb7b57fb43bcef6283febd9daf976019edce0ca80ba33fc",
+      "before_sha256": "53af6e0cad154f2495907ee23dcc12ccec978a6bae6c59ff4a70fc9925e4f054",
+      "changes": [
+        {
+          "after": ".rad-repeat-instance{margin:10px 0;padding:10px;border:1px solid var(--rad-line);border-radius:7px}.rad-repeat-instance h6{font:600 13px/1.5 system-ui,sans-serif;margin:0}.rad-repeat-instance+.rad-small-button{margin-top:6px}\n",
+          "before": "",
+          "end": 14,
+          "start": 13
+        }
+      ]
+    },
+    "web/radiology-structured.js": {
+      "after_sha256": "79fed9bd31d02238ed1fb75d0d3bbf2fcc92fd713cada333a9b7ba8256dca88e",
+      "before_sha256": "2cf48bcd51a9b98e8dd0d1127f59083705497e28abe618b84da8b4941e2d506f",
+      "changes": [
+        {
+          "after": "  const MAX_REPEAT_INSTANCES = 50;\n  function expandRepeated(investigation, selections = {}) {\n    const sections = [], values = {...selections}, missing = [];\n    for (const section of investigation?.sections || []) {\n      sections.push(section);\n      const selected = selections[section.id];\n      if (!dictionary(selected) || !own(selected, 'instances')) continue;\n      const instances = selected.instances;\n      if (!section.repeatable || !Array.isArray(instances) || instances.length > MAX_REPEAT_INSTANCES ||\n          Object.keys(selected).some(key => !['normal','not_assessed','findings','instances'].includes(key)) ||\n          (own(selected,'findings') && !dictionary(selected.findings)) || ['normal','not_assessed'].some(key => own(selected,key) && typeof selected[key] !== 'boolean') ||\n          selected.normal || selected.not_assessed || Object.keys(selected.findings || {}).length) {\n        missing.push({section_id:section.id,label:'Invalid entries for ' + section.label}); values[section.id] = {}; continue;\n      }\n      values[section.id] = {};\n      instances.forEach((instance,index) => {\n        const id = section.id + '@' + (index+1), label = (section.repeat_label || section.label) + ' ' + (index+1);\n        sections.push({...section,id,label,normal:null,repeat_instance_label:label}); values[id] = instance;\n        if (dictionary(instance) && !instance.not_assessed && !Object.keys(instance.findings || {}).length)\n          missing.push({section_id:section.id,label:'Complete or remove ' + label});\n      });\n    }\n    return {investigation:{...investigation,sections},selections:values,missing};\n  }\n",
+          "before": "",
+          "end": 45,
+          "start": 21
+        },
+        {
+          "after": "    const expanded = expandRepeated(investigation, selections || {});\n    investigation = expanded.investigation; selections = expanded.selections;\n",
+          "before": "",
+          "end": 82,
+          "start": 80
+        },
+        {
+          "after": "  function descriptorCalculationJobs(form, state = {}) {\n    const exam=(descriptorForm(form).investigations || []).find(item=>item.id===state.investigation_id), selections=state.selections || {}, jobs=[];\n    if(!exam || !dictionary(selections)) return jobs;\n    for(const section of exam.sections || []) {\n      const selected=selections[section.id] || {};\n      if(!dictionary(selected) || selected.normal || selected.not_assessed) continue;\n      const records=own(selected,'instances') ? (section.repeatable && Array.isArray(selected.instances) ? selected.instances.map((record,index)=>({record,index})) : []) : [{record:selected,index:null}];\n      for(const {record,index} of records) {\n        if(!dictionary(record) || record.normal || record.not_assessed || !dictionary(record.findings || {})) continue;\n        for(const spec of section.calculations || []) {\n          if(!spec.trigger_any.some(id=>own(record.findings,id))) continue;\n          const label=index===null ? section.label : (section.repeat_label || section.label)+' '+(index+1);\n          const job={calculator_id:spec.calculator_id,label:spec.label || spec.calculator_id,binding_id:section.id+':'+(index===null?'single':index+1)+':'+spec.calculator_id,context_label:label,section_id:section.id,instance_index:index,instance_label:index===null?null:label,inputs:{}};\n          const issues=[];\n          for(const [name,rule] of Object.entries(spec.inputs || {})) {\n            const values=[];let missing=false,failed=false;\n            for(const source of rule.sources || []) {\n              const target=source.section_id ? selections[source.section_id] : record;\n              if(!dictionary(target) || target.normal || target.not_assessed || target.instances?.length || !dictionary(target.findings || {})) {missing=true;continue;}\n              const payload=target.findings?.[source.finding_id];\n              if(!dictionary(payload)) {missing=true;continue;}\n              let value=source.slot_id ? payload[source.slot_id] : source.value;\n              if(!present(value)) {missing=true;continue;}\n              if(source.map) {\n                const key=typeof value==='string'||typeof value==='boolean'||(typeof value==='number'&&Number.isFinite(value)) ? String(value) : null;\n                if(key===null || !own(source.map,key)) {failed=true;issues.push({code:'unmapped_calculation_input',input:name,finding_id:source.finding_id});continue;}\n                value=source.map[key];\n              }\n              values.push(clone(value));\n            }\n            if(failed || (rule.all_required && missing) || !values.length) continue;\n            let value;\n            if((rule.aggregate || 'first')==='max') {\n              if(values.some(item=>typeof item!=='number'||!Number.isFinite(item))) {issues.push({code:'invalid_calculation_aggregate',input:name});continue;}\n              value=Math.max(...values);\n            } else if((rule.aggregate || 'first')==='first') {\n              if(values.some(item=>JSON.stringify(item)!==JSON.stringify(values[0]))) {issues.push({code:'conflicting_calculation_inputs',input:name});continue;}\n              value=values[0];\n            } else {issues.push({code:'unsupported_calculation_aggregate',input:name});continue;}\n            if(own(rule,'scale')) {\n              if(typeof value!=='number'||!Number.isFinite(value)||typeof rule.scale!=='number'||!Number.isFinite(rule.scale)||!Number.isFinite(value*rule.scale)) {issues.push({code:'invalid_calculation_scale',input:name});continue;}\n              value*=rule.scale;\n            }\n            job.inputs[name]=clone(value);\n          }\n          if(issues.length) job.input_issues=issues;\n          for(const rule of spec.skip_when || []) if(own(job.inputs,rule.input)&&rule.values.some(value=>JSON.stringify(value)===JSON.stringify(job.inputs[rule.input]))) {job.not_applicable=true;job.message=rule.message;break;}\n          jobs.push(job);\n        }\n      }\n    }\n    return jobs;\n  }\n",
+          "before": "",
+          "end": 144,
+          "start": 91
+        },
+        {
+          "after": "    let investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);\n",
+          "before": "    const investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);\n",
+          "end": 147,
+          "start": 146
+        },
+        {
+          "after": "    const grouped = new Map(), missing = [];\n",
+          "before": "    const grouped = new Map(), missing = [], blocked = blockedNormals(investigation, state.selections);\n",
+          "end": 150,
+          "start": 149
+        },
+        {
+          "after": "    const expanded = expandRepeated(investigation, state.selections || {});\n    investigation = expanded.investigation; state = {...state,selections:expanded.selections}; missing.push(...expanded.missing);\n    const blocked = blockedNormals(investigation, state.selections);\n",
+          "before": "",
+          "end": 154,
+          "start": 151
+        },
+        {
+          "after": "          const result = descriptorText(finding, selected.findings[finding.id], section.repeat_instance_label ? {} : context);\n          if (finding.report !== false) {lines.push(result.text);selectedCount++;} missing.push(...result.missing);\n",
+          "before": "          const result = descriptorText(finding, selected.findings[finding.id], context);\n          lines.push(result.text); missing.push(...result.missing); selectedCount++;\n",
+          "end": 176,
+          "start": 174
+        },
+        {
+          "after": "      let linesWithText = lines.filter(Boolean);\n      if (section.repeat_instance_label && !selected.not_assessed && linesWithText.length)\n        linesWithText = [section.repeat_instance_label + ':\\n' + linesWithText.join('\\n')];\n",
+          "before": "      const linesWithText = lines.filter(Boolean);\n",
+          "end": 181,
+          "start": 178
+        },
+        {
+          "after": "    const boundCalculations = new Map(), boundNodes = new Map(); let disposed = false;\n",
+          "before": "",
+          "end": 267,
+          "start": 266
+        },
+        {
+          "after": "        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};\n",
+          "before": "        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length) state.selections[section.id] = {normal:true,findings:{}};\n",
+          "end": 308,
+          "start": 307
+        },
+        {
+          "after": "      const records = Array.isArray(value.instances) ? value.instances : [value];\n      for (const record of records) {\n        if (!dictionary(record?.findings)) continue;\n        let changed;\n        do { changed = false; for (const finding of section.findings) if (own(record.findings, finding.id) && !findingActive(finding, record.findings, section)) {delete record.findings[finding.id];changed=true;} } while (changed);\n      }\n",
+          "before": "      let changed;\n      do { changed = false; for (const finding of section.findings) if (own(value.findings, finding.id) && !findingActive(finding, value.findings, section)) {delete value.findings[finding.id];changed=true;} } while (changed);\n",
+          "end": 317,
+          "start": 311
+        },
+        {
+          "after": "    function drawSlots(descriptor, values, target, focusPrefix = '') {\n",
+          "before": "    function drawSlots(descriptor, values, target) {\n",
+          "end": 322,
+          "start": 321
+        },
+        {
+          "after": "        const supplied = focusPrefix ? undefined : contextValue(context, descriptor, slot), value = present(supplied) ? supplied : values[slot.id];\n",
+          "before": "        const supplied = contextValue(context, descriptor, slot), value = present(supplied) ? supplied : values[slot.id];\n",
+          "end": 328,
+          "start": 327
+        },
+        {
+          "after": "          if (!focusPrefix) {\n            if (slot.context_key) delete context[slot.context_key];\n            delete context[descriptor.id + '.' + slot.id];\n            if (context[descriptor.id]) delete context[descriptor.id][slot.id];\n          }\n",
+          "before": "          if (slot.context_key) delete context[slot.context_key];\n          delete context[descriptor.id + '.' + slot.id];\n          if (context[descriptor.id]) delete context[descriptor.id][slot.id];\n",
+          "end": 334,
+          "start": 329
+        },
+        {
+          "after": "            const choice = button(item.label, () => { change(value === item.value ? undefined : item.value); drawSections(); }); choice.dataset.radFocus = 'slot:' + focusPrefix + descriptor.id + ':' + slot.id + ':' + item.value; choose(choice, value === item.value); choices.append(choice);\n",
+          "before": "            const choice = button(item.label, () => { change(value === item.value ? undefined : item.value); drawSections(); }); choice.dataset.radFocus = 'slot:' + descriptor.id + ':' + slot.id + ':' + item.value; choose(choice, value === item.value); choices.append(choice);\n",
+          "end": 340,
+          "start": 339
+        },
+        {
+          "after": "    function drawFindingChoices(section, sectionState, target, onChange, focusPrefix = '') {\n      if (!dictionary(sectionState) || (own(sectionState,'findings') && !dictionary(sectionState.findings))) {\n        target.append(element('p','Clear this entry and select its findings again.','rad-missing-detail')); return;\n      }\n      const chosen = sectionState.findings || {}, choices = element('div', undefined, 'rad-finding-choices');\n      for (const finding of section.findings || []) {\n        if (!findingActive(finding, chosen, section)) continue;\n        const active = own(chosen, finding.id), item = element('div', undefined, 'rad-finding');\n        const choice = button(finding.label || finding.text, () => {\n          const next = {normal:false,not_assessed:false,findings:{...chosen}};\n          if (active) delete next.findings[finding.id];\n          else {\n            if (finding.exclusive_group) for (const peer of section.findings || []) if (peer.exclusive_group === finding.exclusive_group) delete next.findings[peer.id];\n            next.findings[finding.id] = {};\n          }\n          onChange(next);\n        });\n        choice.dataset.radFocus = 'finding:' + focusPrefix + finding.id; choose(choice,active); item.append(choice);\n        if (active) drawSlots(finding,chosen[finding.id],item,focusPrefix);\n        choices.append(item);\n      }\n      target.append(choices);\n    }\n    const boundKey = (section,index,spec) => section.id+':'+(index===null?'single':index+1)+':'+spec.calculator_id;\n    function appendBoundNodes(section,index,target) {\n      for(const spec of section.calculations || []) {\n        const node=element('div',undefined,'rad-bound-calculation');node.setAttribute('role','status');node.hidden=true;\n        boundNodes.set(boundKey(section,index,spec),node);target.append(node);\n      }\n    }\n    function drawBoundStatus() {\n      for(const [key,node] of boundNodes) {\n        const entry=boundCalculations.get(key);node.replaceChildren();node.hidden=!entry;if(!entry)continue;\n        const result=entry.result,label=entry.job.label;\n        let message=label+': calculating…';\n        if(result?.status==='complete') message=label+': '+(result.summary || result.category);\n        else if(result?.status==='not_applicable') message=label+': '+(result.limitations?.at(-1) || entry.job.message || 'Not applicable to these selections.');\n        else if(result?.status==='incomplete') message=label+': choose '+(result.missing_inputs || []).map(title).join(', ')+'.';\n        else if(result?.status==='error') message=label+': '+(entry.error || 'Review the selected calculation inputs.');\n        node.append(element('p',message,'rad-calculation-result'));\n        if(result?.status==='error') node.append(button('Retry calculation',()=>{boundCalculations.delete(key);update();},'rad-small-button'));\n        if(result?.sources?.length) {\n          const details=element('details',undefined,'rad-calculation-references');details.append(element('summary','Calculation reference'));\n          for(const source of result.sources) {const link=element('a',source.title || source.url);link.href=source.url;link.target='_blank';link.rel='noopener noreferrer';details.append(link);}\n          node.append(details);\n        }\n      }\n    }\n    function syncBoundCalculations() {\n      const jobs=compose(schema,state,context).missing.length ? [] : descriptorCalculationJobs(schema,materializedState());\n      const keys=new Set(jobs.map(job=>job.binding_id));\n      for(const [key,entry] of boundCalculations) if(!keys.has(key)) {pending.delete(entry.pending);boundCalculations.delete(key);}\n      for(const job of jobs) {\n        const signature=JSON.stringify({inputs:job.inputs,issues:job.input_issues,not_applicable:job.not_applicable,message:job.message});\n        if(boundCalculations.get(job.binding_id)?.signature===signature)continue;\n        pending.delete(boundCalculations.get(job.binding_id)?.pending);\n        const entry={job,signature,result:null};boundCalculations.set(job.binding_id,entry);\n        if(job.input_issues?.length) {entry.result={status:'error'};entry.error='Review conflicting or unmapped inputs.';continue;}\n        if(job.not_applicable) {entry.result={status:'not_applicable',limitations:[job.message]};continue;}\n        const current=()=>!disposed&&boundCalculations.get(job.binding_id)===entry;\n        const work=Promise.resolve().then(()=>(options.request || request)('calculators/'+job.calculator_id+'/calculate',{inputs:job.inputs})).then(result=>{\n          if(!current())return;entry.result=result;update();\n        }).catch(error=>{if(!current())return;entry.result={status:'error'};entry.error=error.message || 'Calculation unavailable.';update();});\n        entry.pending=work;track(work);\n      }\n      drawBoundStatus();\n      return jobs;\n    }\n",
+          "before": "",
+          "end": 416,
+          "start": 348
+        },
+        {
+          "after": "      descriptorFields.replaceChildren(); groupNavigation.replaceChildren(); boundNodes.clear();\n",
+          "before": "      descriptorFields.replaceChildren(); groupNavigation.replaceChildren();\n",
+          "end": 419,
+          "start": 418
+        },
+        {
+          "after": "          groupHeader.append(element('h4', section.group));\n          if (exam.sections.some(row => row.group === section.group && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n",
+          "before": "          groupHeader.append(element('h4', section.group), button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n",
+          "end": 429,
+          "start": 427
+        },
+        {
+          "after": "        if (section.repeatable) {\n          const instances = sectionState.instances || [];\n          if (Array.isArray(instances)) instances.forEach((instance,index) => {\n            const entry = element('div',undefined,'rad-repeat-instance'), label = (section.repeat_label || section.label) + ' ' + (index+1);\n            const entryHeading = element('div',undefined,'rad-section-heading');\n            entryHeading.append(element('h6',label),button('Remove ' + label,()=>{\n              const remaining = [...instances]; remaining.splice(index,1); changeSection(section,{instances:remaining});\n            },'rad-small-button')); entry.append(entryHeading);\n            drawFindingChoices(section,instance,entry,next=>{\n              const revised = [...instances]; revised[index] = next; changeSection(section,{instances:revised});\n            },section.id+'@'+index+':'); appendBoundNodes(section,index,entry); panel.append(entry);\n",
+          "before": "        const choices = element('div', undefined, 'rad-finding-choices');\n        for (const finding of section.findings || []) {\n          if (!findingActive(finding, sectionState.findings, section)) continue;\n          const active = own(sectionState.findings, finding.id), item = element('div', undefined, 'rad-finding');\n          const choice = button(finding.label || finding.text, () => {\n            const next = {normal: false, not_assessed: false, findings: {...sectionState.findings}};\n            if (active) delete next.findings[finding.id];\n            else {\n              if (finding.exclusive_group) for (const peer of section.findings || []) if (peer.exclusive_group === finding.exclusive_group) delete next.findings[peer.id];\n              next.findings[finding.id] = {};\n            }\n            changeSection(section, next);\n",
+          "end": 453,
+          "start": 442
+        },
+        {
+          "after": "          else panel.append(element('p','Clear these entries and select their findings again.','rad-missing-detail'));\n          // A single-record API client may use the original findings shape.\n          if (Object.keys(sectionState.findings || {}).length) drawFindingChoices(section,sectionState,panel,next=>changeSection(section,next));\n          const add = button('Add ' + (section.repeat_label || section.label).toLowerCase(),()=>{\n            const prior = Array.isArray(instances) ? [...instances] : [];\n            if (Object.keys(sectionState.findings || {}).length) prior.push({findings:clone(sectionState.findings)});\n            prior.push({findings:{}}); changeSection(section,{instances:prior});\n          },'rad-small-button');\n          add.disabled = !Array.isArray(instances) || instances.length + (Object.keys(sectionState.findings || {}).length ? 1 : 0) >= MAX_REPEAT_INSTANCES;\n          if (add.disabled) add.title = 'At most ' + MAX_REPEAT_INSTANCES + ' entries are supported in this section.';\n          panel.append(add);\n        } else drawFindingChoices(section,sectionState,panel,next=>changeSection(section,next));\n        if (!section.repeatable || Object.keys(sectionState.findings || {}).length) appendBoundNodes(section,null,panel);\n        descriptorFields.append(panel);\n",
+          "before": "          choice.dataset.radFocus = 'finding:' + finding.id; choose(choice, active); item.append(choice); if (active) drawSlots(finding, sectionState.findings[finding.id], item); choices.append(item);\n        }\n        panel.append(choices); descriptorFields.append(panel);\n",
+          "end": 468,
+          "start": 454
+        },
+        {
+          "after": "      const jobs=result.missing.length ? [] : descriptorCalculationJobs(schema,materializedState()), boundResults=jobs.map(job=>({job,result:boundCalculations.get(job.binding_id)?.result}));\n      const completeBound=boundResults.filter(entry=>entry.result?.status==='complete');\n      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),\n        ...completeBound.map(({job,result:value})=>'CALCULATED ASSESSMENT\\n'+job.context_label+': '+(value.summary || value.category || '')+(value.version?' ('+value.version+')':''))].filter(Boolean);\n      const incompleteCalculators = [...allowedCalculators].filter(id => Object.values(state.calculator_inputs[id] || {}).some(present) && !['complete','not_applicable'].includes(calculations.get(id)?.status));\n      const duplicateCalculators = [...new Set(jobs.map(job=>job.calculator_id))].filter(id=>Object.values(state.calculator_inputs[id] || {}).some(present));\n      const missing = [...result.missing, ...incompleteCalculators.map(id => ({calculator_id: id, label: title(id)})),\n        ...boundResults.filter(entry=>!['complete','not_applicable'].includes(entry.result?.status)).map(({job})=>({binding_id:job.binding_id,label:job.context_label+' — '+job.label})),\n        ...duplicateCalculators.map(id=>({calculator_id:id,label:'Clear the separate '+title(id)+' calculation'}))];\n      return {...result, missing, text: parts.join('\\n\\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0 || completeBound.length > 0)};\n",
+          "before": "      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : ''))].filter(Boolean);\n      const incompleteCalculators = [...allowedCalculators].filter(id => Object.values(state.calculator_inputs[id] || {}).some(present) && calculations.get(id)?.status !== 'complete');\n      const missing = [...result.missing, ...incompleteCalculators.map(id => ({calculator_id: id, label: title(id)}))];\n      return {...result, missing, text: parts.join('\\n\\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0)};\n",
+          "end": 484,
+          "start": 474
+        },
+        {
+          "after": "      syncBoundCalculations();\n",
+          "before": "",
+          "end": 487,
+          "start": 486
+        },
+        {
+          "after": "      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;\n",
+          "before": "      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length; }).length;\n",
+          "end": 493,
+          "start": 492
+        },
+        {
+          "after": "        const bound = investigation().sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id));\n        if (bound && !Object.values(inputs).some(present)) continue;\n",
+          "before": "",
+          "end": 507,
+          "start": 505
+        },
+        {
+          "after": "    function materializedState() {\n",
+          "before": "    root.getState = () => {\n",
+          "end": 515,
+          "start": 514
+        },
+        {
+          "after": "      return snapshot;\n    }\n    root.getState = () => {\n      const snapshot = materializedState();\n",
+          "before": "",
+          "end": 525,
+          "start": 521
+        },
+        {
+          "after": "    root.updateContext = values => { context = clone(values || {}); calculations.clear(); for(const entry of boundCalculations.values()) pending.delete(entry.pending); boundCalculations.clear(); drawSections(); drawCalculators(); update(true); };\n    root.dispose = () => { disposed=true;for(const entry of boundCalculations.values()) pending.delete(entry.pending);boundCalculations.clear();for (const controller of calculatorControllers.values()) controller.dispose(); };\n",
+          "before": "    root.updateContext = values => { context = clone(values || {}); calculations.clear(); drawSections(); drawCalculators(); update(true); };\n    root.dispose = () => { for (const controller of calculatorControllers.values()) controller.dispose(); };\n",
+          "end": 532,
+          "start": 530
+        },
+        {
+          "after": "  return {render, compose, descriptorText, descriptorCalculationJobs};\n",
+          "before": "  return {render, compose, descriptorText};\n",
+          "end": 621,
+          "start": 620
+        }
+      ]
+    }
+  },
+  "fine_anatomical_approval": false,
+  "guarded_paths_sha256": {
+    "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+    "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+    "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+    "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+    "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+    "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+    "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+  },
+  "native_decoder_mesh_CT_renderer_code_touched": false,
+  "new_reporting_workflow_validated_by_this_inverse": false,
+  "notes": "Exact compatibility view for historical receipts only. Reporting-only catalogue exposure includes all existing source worksheets. This inverse does not validate clinical content, automatic classifications, repeated observations, native anatomy, or the new reporting workflow. The native UI ledger remains unchanged because app.js and styles.css did not change.",
+  "scope": "all_anatomic_reporting_controls_composition_catalogue_and_packaging_only",
+  "ui_presentation_ledger_changed": false,
+  "unchanged_runtime_sha256": {
+    "data/radiology/ui-presentation-refreshes.json": "18e8bd48e60ec12aef1507855df41a078b2c7fe0a6f11d56f500e0902c33f6f2",
+    "web/app.js": "b6f05a96372de697b8b6b088b150d240a3e7da682abc80ad735df05da4146c49",
+    "web/styles.css": "86fe8fc56fd90137ad989c0b000ab50655ef32a2de5047e344bde741f39c1afa"
+  },
+  "version": "2026-10-24"
+}

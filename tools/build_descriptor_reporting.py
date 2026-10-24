@@ -44,7 +44,8 @@ CONTEXT_WORDS = {
 }
 TOKEN = re.compile(r"\[[^\[\]]*\]|_{2,}")
 UNIT = re.compile(
-    r"^\s*(mm(?:²|³)?|cm(?:²|³)?|mL(?:/min/1\.73\s*m²|/s)?|mgI/mL|HU|%|°|"
+    r"^\s*(mGy[·.]cm|mL/min/1\.73\s*m²|mL/m²|mL/min|mL/s|mmHg|mm(?:²|³)?|"
+    r"cm/s|m/s|cm(?:²|³)?|mL|mgI/mL|ng/mL|mmol/L|g/m²|g|bpm|mGy|MBq|SUV|ms|HU|%|°|"
     r"years?|months?|weeks?|days?|hours?|minutes?|seconds?|degrees?|o['’]clock)(?![A-Za-z_])",
     re.I,
 )
@@ -455,6 +456,7 @@ def main() -> int:
     parser.add_argument("--structured", type=Path, default=ROOT / "data/radiology/structured-reporting.json")
     parser.add_argument("--output", type=Path, default=ROOT / "data/radiology/descriptor-reporting.json")
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--archive-current", action="store_true", help="Preserve the current shipped form versions before replacing them")
     args = parser.parse_args()
     result = build_catalog(json.loads(args.catalog.read_text()), json.loads(args.structured.read_text()))
     encoded = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
@@ -465,6 +467,19 @@ def main() -> int:
         if not packed.exists() or gzip.decompress(packed.read_bytes()) != encoded.encode():
             raise SystemExit('Packed descriptor catalogue is out of date')
     else:
+        if args.archive_current and args.output.exists():
+            previous = json.loads(args.output.read_text())
+            previous_hash = previous.get('schema_hash')
+            if previous_hash != digest({key:value for key,value in previous.items() if key != 'schema_hash'}):
+                raise SystemExit('Current catalogue identity is invalid; review before archiving')
+            if previous_hash != result['schema_hash']:
+                history = args.output.parent / 'descriptor-history'
+                history.mkdir(exist_ok=True)
+                archive = history / (previous_hash + '.json.gz')
+                if archive.exists() and json.loads(gzip.decompress(archive.read_bytes())) != previous:
+                    raise SystemExit('A different catalogue already uses this archive identity')
+                if not archive.exists():
+                    archive.write_bytes(gzip.compress(args.output.read_bytes(), mtime=0))
         args.output.write_text(encoded)
         packed.write_bytes(gzip.compress(encoded.encode(), mtime=0))
     print(json.dumps(result["summary"], sort_keys=True))

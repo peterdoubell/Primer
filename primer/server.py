@@ -1448,7 +1448,7 @@ def radiology_reporting_reference(node_id: str):
         from .reporting_bridge import descriptor_variant, descriptor_variant_detail, with_structured_form
         variant = descriptor_variant(node_id)
         if variant and resolve(variant['base_investigation_id']):
-            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id'])))
+            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None))
         return JSONResponse({"error": "no such radiology module"}, status_code=404)
     from .reporting_bridge import with_structured_form
     return with_structured_form(detail(curr, investigation))
