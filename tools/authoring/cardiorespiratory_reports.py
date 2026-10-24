@@ -5,22 +5,20 @@ Regenerates one authored JSON file; clinical observations are never preselected.
 References support the reporting elements, not a claim of clinical validation.
 """
 import copy
+import gzip
 import json
 import re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-# A source export may be supplied when rebuilding from a clean initial checkout.
-# The checked-in metadata preserves investigation IDs; the export supplies reference provenance.
-import os
-CATALOG = Path(os.environ.get('PRIMER_REPORTING_CATALOG', str(ROOT/'data/radiology/catalog.json')))
+# Reuse the checked-in, frozen source contract for reproducible provenance.
+# Authoring never reads an arbitrary environment-supplied file.
+CATALOG = ROOT/'data/radiology/descriptor-reporting-v1.json.gz'
 AUTHORED = ROOT/'data/radiology/anatomic-cardiorespiratory.json'
 if not AUTHORED.exists():
     raise SystemExit('The authored JSON must exist; preserve its metadata when regenerating.')
 metadata = json.loads(AUTHORED.read_text())
 assignments = {iid:{'investigation_id':iid,**{k:v[k] for k in ('guide_id','title','modality')}} for iid,v in metadata['investigations'].items()}
-if not CATALOG.exists():
-    raise SystemExit('Set PRIMER_REPORTING_CATALOG to the versioned reporting API catalog.json export.')
-base = {g['id']:g for g in json.loads(CATALOG.read_text())['guides']}
+base = json.loads(gzip.decompress(CATALOG.read_bytes()))['forms']
 sources = {}
 reports = {}
 

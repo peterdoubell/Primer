@@ -48,8 +48,9 @@ const thyroidState = () => ({investigation_id: 'ra.ultrasound-thyroid', selectio
 }});
 function pythonJobs(schema, states) {
   // The constant Python program imports the pure resolver. Clinical data goes via
-  // JSON stdin, never executable code, and the shared browser module uses require.
-  const result = spawnSync(process.env.PYTHON || 'python3', ['-c',
+  // JSON stdin, never executable code; the interpreter is fixed, not environment-selected.
+  // The shared browser module uses require.
+  const result = spawnSync('python3', ['-c',
     'import json,sys; from primer.descriptor_calculations import descriptor_calculation_jobs; payload=json.load(sys.stdin); print(json.dumps([descriptor_calculation_jobs(payload["form"], state) for state in payload["states"]]))'], {
     cwd: path.join(__dirname, '..'), input: JSON.stringify({form: schema, states}), encoding: 'utf8', maxBuffer: 4 * 1024 * 1024,
   });
