@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/all-reporting-release-20261023/runtime-inverse.json'
-PROOF_SHA256 = '7a6f1ea3c6f10b06908412e9af3cb4b43127c587a6ed4f7c45d2f12223dbb8a6'
+PROOF_SHA256 = '9224e034ec07090f81d66f7c60e3b1a72a7b816d89832d69f92a9caa38131b14'
 BASE_COMMIT = 'fd43c37003a7e894df350bf6b551bd000ba35677'
 PATHS = frozenset({'.vercelignore', 'primer/descriptor_reporting.py',
                    'primer/reporting_bridge.py', 'primer/server.py',

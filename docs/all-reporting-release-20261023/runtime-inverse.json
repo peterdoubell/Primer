@@ -116,14 +116,14 @@
       ]
     },
     "primer/server.py": {
-      "after_sha256": "76278e07b9872b5de92bed85daef440f1fa3bb69711a7f98374c688385afc9ab",
+      "after_sha256": "0977e0001afe54864798278587b4417576dd83a8f04b0d1fe39c680b8ecc5cf3",
       "before_sha256": "1fac9650e71249b7efe0c53031bc73e742d5efd2f71b4852c8b482903df6274f",
       "changes": [
         {
-          "after": "            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None))\n",
-          "before": "            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id'])))\n",
+          "after": "        if variant and (not variant.get('base_investigation_id') or resolve(variant['base_investigation_id'])):\n            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id']) if variant.get('base_investigation_id') else None))\n",
+          "before": "        if variant and resolve(variant['base_investigation_id']):\n            return with_structured_form(descriptor_variant_detail(variant, resolve(variant['base_investigation_id'])))\n",
           "end": 1451,
-          "start": 1450
+          "start": 1449
         }
       ]
     },
