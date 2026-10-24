@@ -99,4 +99,7 @@ def references():
     from .spl_reporting_reference import references as spl_reporting_references
     for identifier, entries in spl_reporting_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .holiatlas_reference import references as holiatlas_references
+    for identifier, entries in holiatlas_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

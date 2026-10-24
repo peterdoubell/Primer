@@ -1,0 +1,42 @@
+{
+  "scope": "Actual local reader failures, retry and stale-request isolation; no production claim",
+  "allPassed": true,
+  "cases": [
+    {
+      "fault": "wrong-content-range",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "ignored-range",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "corrupted-body",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "missing-payload",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "delayed prior source after structure and contrast switches",
+      "staleSourceNeverShown": true,
+      "finalCode": 102,
+      "finalContrast": "T2",
+      "nativePixelsExact": true,
+      "cacheBoundRetained": true
+    }
+  ]
+}

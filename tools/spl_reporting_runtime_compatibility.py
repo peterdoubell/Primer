@@ -34,6 +34,8 @@ def before_reporting_bytes(path,raw,allow_older=False):
     return restored
 
 def before_reporting_reference_fields(identifier,fields):
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_reference_fields
+    fields = before_holiatlas_reference_fields(identifier, fields)
     if identifier!='ra.brain-anatomy':return fields
     result=copy.deepcopy(fields);addition=reviewed()['source_inspector_addition'];items=result.get('source_native_inspectors',[])
     matches=[item for item in items if item.get('id')==addition['id']]

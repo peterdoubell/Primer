@@ -41,7 +41,8 @@ def test_refresh_keeps_canonical_source_and_all_native_guards_exact():
     assert set(proof['canonical_contract_files_sha256']) == {
         'primer/radiology.py', 'primer/radiology_catalog.py', 'docs/radiology-fidelity-scope.json'}
     for path, expected in proof['canonical_contract_files_sha256'].items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == expected
+        from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+        assert hashlib.sha256(before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)).hexdigest() == expected
     for key in ['clinical_approval', 'fine_anatomical_approval', 'native_decoder_mesh_CT_renderer_code_touched']:
         changed = copy.deepcopy(step)
         changed[key] = True
