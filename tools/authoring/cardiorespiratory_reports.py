@@ -695,6 +695,17 @@ for r in reports['ra.breast-implants']['sections']:
     r['findings']=material+r['findings']
     r['findings'].append(f('saline-deflation','Saline component deflation',side.capitalize()+' saline component is [not deflated / partly deflated / completely deflated].',requires=['saline','dual']))
 
+# Dedicated mass assessment needs an explicit negative; chamber size alone
+# cannot establish absence of an intracardiac lesion. Specific positive mass
+# findings must invalidate this same parent negative, including valve lesions.
+for r in reports['ra.cardiac-masses']['sections']:
+    if r['id']=='cardiac-lesion':
+        r['normal']='No intracardiac or pericardial mass is identified on the acquired images.'
+    elif r['id'] in {'left-ventricle','right-ventricle','left-atrium','right-atrium',
+                      'valve-aortic','valve-mitral','valve-tricuspid','valve-pulmonary'}:
+        for v in r['findings']:
+            if v['id']=='mass':v['invalidates_normal']=['cardiac-lesion']
+
 # Keep the reproducible JSON, references and explicit coverage together.
 def build():
     assert set(reports)==set(assignments), sorted(set(assignments)-set(reports))

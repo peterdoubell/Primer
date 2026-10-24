@@ -28696,7 +28696,10 @@
             {
               "id": "mass",
               "label": "Intracavitary lesion",
-              "text": "Left ventricle: [suspected thrombus / focal mass / indeterminate filling defect]."
+              "text": "Left ventricle: [suspected thrombus / focal mass / indeterminate filling defect].",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             },
             {
               "id": "hypertrophy",
@@ -28727,7 +28730,10 @@
             {
               "id": "mass",
               "label": "Intracavitary lesion",
-              "text": "Right ventricle: [suspected thrombus / focal mass / indeterminate filling defect]."
+              "text": "Right ventricle: [suspected thrombus / focal mass / indeterminate filling defect].",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             },
             {
               "id": "hypertrophy",
@@ -28758,7 +28764,10 @@
             {
               "id": "mass",
               "label": "Intracavitary lesion",
-              "text": "Left atrium: [suspected thrombus / focal mass / indeterminate filling defect]."
+              "text": "Left atrium: [suspected thrombus / focal mass / indeterminate filling defect].",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             }
           ],
           "source_ids": [
@@ -28784,7 +28793,10 @@
             {
               "id": "mass",
               "label": "Intracavitary lesion",
-              "text": "Right atrium: [suspected thrombus / focal mass / indeterminate filling defect]."
+              "text": "Right atrium: [suspected thrombus / focal mass / indeterminate filling defect].",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             }
           ],
           "source_ids": [
@@ -28815,7 +28827,10 @@
             {
               "id": "mass",
               "label": "Valvular mass",
-              "text": "A [mobile / sessile] mass is attached to the aortic valve."
+              "text": "A [mobile / sessile] mass is attached to the aortic valve.",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             },
             {
               "id": "prosthesis",
@@ -28852,7 +28867,10 @@
             {
               "id": "mass",
               "label": "Valvular mass",
-              "text": "A [mobile / sessile] mass is attached to the mitral valve."
+              "text": "A [mobile / sessile] mass is attached to the mitral valve.",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             },
             {
               "id": "prosthesis",
@@ -28889,7 +28907,10 @@
             {
               "id": "mass",
               "label": "Valvular mass",
-              "text": "A [mobile / sessile] mass is attached to the tricuspid valve."
+              "text": "A [mobile / sessile] mass is attached to the tricuspid valve.",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             },
             {
               "id": "prosthesis",
@@ -28926,7 +28947,10 @@
             {
               "id": "mass",
               "label": "Valvular mass",
-              "text": "A [mobile / sessile] mass is attached to the pulmonary valve."
+              "text": "A [mobile / sessile] mass is attached to the pulmonary valve.",
+              "invalidates_normal": [
+                "cardiac-lesion"
+              ]
             },
             {
               "id": "prosthesis",
@@ -28974,7 +28998,7 @@
           "id": "cardiac-lesion",
           "label": "Cardiac lesion",
           "group": "Lesion characterisation",
-          "normal": null,
+          "normal": "No intracardiac or pericardial mass is identified on the acquired images.",
           "findings": [
             {
               "id": "present",

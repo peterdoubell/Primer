@@ -352,3 +352,19 @@ test('current thyroid location choices enumerate only anatomically valid lobe an
     'left lower pole', 'isthmus centrally', 'isthmus-right lobe junction', 'isthmus-left lobe junction',
   ]);
 });
+
+test('explicit negative focal prostate assessment is mutually exclusive with lesions and does not infer PI-RADS', async () => {
+  const api = load(), calls = [];
+  const state = {investigation_id: 'ra.mri-prostate', selections: {'anatomy-prostate-lesion': {normal: true}}};
+  const root = api.render(form('rad.5.prostate-mri'), {initialState: {descriptor_state: state}, request: async (...args) => {calls.push(args); return {};}});
+  try {
+    await root.flush();
+    assert.ok(root.getReport().includes('No suspicious focal prostatic lesion is identified on the acquired MRI sequences.'));
+    assert.equal(find(root, 'Copy report').disabled, false);
+    assert.equal(root.getReport().includes('PI-RADS'), false);
+    assert.deepEqual(calls, []);
+    const conflicting = clone(state);
+    conflicting.selections['anatomy-prostate-lesion'].instances = [prostate()];
+    assert.equal(api.compose(form('rad.5.prostate-mri'), conflicting).complete, false);
+  } finally { root.dispose(); }
+});

@@ -27,6 +27,8 @@ def authored_form(identifier):
             finding['id'] = identifier + ':' + raw['id'] + ':' + item['id']
             if item.get('requires_any'):
                 finding['requires_any'] = [identifier + ':' + raw['id'] + ':' + parent for parent in item['requires_any']]
+            if item.get('invalidates_normal'):
+                finding['invalidates_normal'] = ['anatomy-' + target for target in item['invalidates_normal']]
             if item.get('exclusive_group'):
                 finding['exclusive_group'] = item['exclusive_group']
             if item.get('report') is False:
@@ -37,7 +39,7 @@ def authored_form(identifier):
     form = {'guide_id': authored['guide_id'], 'calculator_ids': ['acr_tirads_2017', 'pirads_v2_1', 'prostate_volume_psad'],
             'investigations': [{'id': identifier, 'sections': rows}]}
     bindings = json.loads((ROOT / 'data/radiology/descriptor-calculation-bindings.json').read_text())
-    attach_calculation_bindings({form['guide_id']: form}, {'investigations': {identifier: bindings['investigations'][identifier]}})
+    attach_calculation_bindings({form['guide_id']: form}, {'investigations': {identifier: bindings['investigations'][identifier]} if identifier in bindings['investigations'] else {}})
     return form
 
 
@@ -144,3 +146,64 @@ def test_unbound_archived_forms_and_unanswered_rows_have_no_jobs():
 def test_normal_or_unassessed_records_cannot_activate_a_job(record):
     assert descriptor_calculation_jobs(authored_form('ra.mri-prostate'), {
         'investigation_id': 'ra.mri-prostate', 'selections': {'anatomy-prostate-lesion': record}}) == []
+
+
+def test_explicit_negative_prostate_assessment_does_not_infer_pirads():
+    form = authored_form('ra.mri-prostate')
+    state = {'investigation_id': 'ra.mri-prostate', 'selections': {
+        'anatomy-prostate-lesion': {'normal': True}}}
+    result = render_descriptors(form, state)
+    assert result['valid']
+    assert 'No suspicious focal prostatic lesion is identified on the acquired MRI sequences.' in result['text']
+    assert descriptor_calculation_jobs(form, state) == []
+    state['selections']['anatomy-prostate-lesion']['instances'] = [prostate_lesion()]
+    assert not render_descriptors(form, state)['valid']
+
+
+@pytest.mark.parametrize('investigation_id,section_id,expected', [
+    ('ra.liver-masses','hepatic-observation','No focal hepatic lesion is identified on the acquired images.'),
+    ('ra.liver-lirads','hepatic-observation','No suspicious focal hepatic observation is identified on the acquired images.'),
+    ('ra.ct-pancreatic-cancer','pancreatic-lesion','No focal pancreatic mass is identified on the acquired CT images.'),
+    ('ra.pancreatic-cysts','pancreatic-lesion','No pancreatic cystic lesion is identified on the acquired images.'),
+    ('ra.ct-pancreatitis','pancreatic-collection','No pancreatic or peripancreatic collection is identified on the acquired CT images.'),
+    ('ra.gi-foreign-bodies','foreign-body','No gastrointestinal foreign body is identified on the acquired images.'),
+    ('ra.mri-crohn','penetrating-tract','No enteric fistula or blind-ending sinus tract is identified in the examined region.'),
+    ('ra.ultrasound-ibd','penetrating-tract','No enteric fistula or blind-ending sinus tract is identified in the examined region.'),
+    ('ra.mri-crohn','collection','No focal fluid collection is identified in the examined region.'),
+    ('ra.ultrasound-ibd','collection','No focal fluid collection is identified in the examined region.'),
+    ('ra.mri-perianal-fistula','fistula','No perianal fistulous tract is identified on the acquired MRI sequences.'),
+    ('ra.mri-rectal-cancer','primary-tumour','No focal rectal tumour is delineated on the acquired MRI sequences.'),
+])
+def test_scoped_absence_is_an_explicit_choice_without_a_category(investigation_id, section_id, expected):
+    form = authored_form(investigation_id)
+    state = {'investigation_id': investigation_id, 'selections': {'anatomy-' + section_id: {'normal': True}}}
+    result = render_descriptors(form, state)
+    assert result['valid'] and expected in result['text']
+    assert descriptor_calculation_jobs(form, state) == []
+    row = next(s for s in form['investigations'][0]['sections'] if s['id'] == 'anatomy-' + section_id)
+    finding = row['findings'][0]
+    values = {s['id']: s['options'][0]['value'] if s['kind'] == 'choice' else 1 for s in finding['slots']}
+    state['selections']['anatomy-' + section_id]['instances'] = [{'findings': {finding['id']: values}}]
+    invalid = render_descriptors(form, state)
+    assert not invalid['valid'] and invalid['text'] == ''
+    assert any(issue['code'] == 'invalid_repeat_instances' for issue in invalid['issues'])
+
+
+@pytest.mark.parametrize('investigation_id,positive_section,finding_id,negative_section', [
+    ('ra.liver-masses','segment-ii','burden','hepatic-observation'),
+    ('ra.liver-lirads','segment-ii','burden','hepatic-observation'),
+    ('ra.appendicitis','periappendiceal-fluid','fluid','collection'),
+    ('ra.ct-peritoneum','lesser-sac','fluid','collection'),
+    ('ra.mri-prostate','right-neurovascular-bundle','invades','prostate-lesion'),
+])
+def test_related_positive_observations_exclude_parent_absence(investigation_id,positive_section,finding_id,negative_section):
+    form = authored_form(investigation_id)
+    row = next(s for s in form['investigations'][0]['sections'] if s['id'] == 'anatomy-' + positive_section)
+    finding = next(f for f in row['findings'] if f['id'].endswith(':' + finding_id))
+    values = {s['id']: s['options'][0]['value'] if s['kind'] == 'choice' else 1 for s in finding['slots']}
+    state = {'investigation_id': investigation_id, 'selections': {
+        'anatomy-' + positive_section: {'findings': {finding['id']: values}},
+        'anatomy-' + negative_section: {'normal': True}}}
+    result = render_descriptors(form, state)
+    assert not result['valid'] and result['text'] == ''
+    assert any(issue['code'] == 'conflicting_anatomic_normal' for issue in result['issues'])

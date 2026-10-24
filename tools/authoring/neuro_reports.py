@@ -431,7 +431,7 @@ def cervical_nodes(rows, reference=False, ultrasound=False):
             # Level Ia is conventionally a midline compartment and is authored once.
             if level=='Ia' and side=='left': continue
             prefix='midline' if level=='Ia' else side
-            normal=None if reference else f'No morphologically suspicious node is identified in the imaged {prefix} level {level} ({name}) region.'
+            normal=(f'No morphologically suspicious node is identified in the assessed {prefix} level {level} ({name}) region.' if reference else f'No morphologically suspicious node is identified in the imaged {prefix} level {level} ({name}) region.')
             rows.append(row(slug(prefix+'-node-'+level),prefix.title()+' level '+level+' · '+name,'Cervical nodal stations',normal,[
                 f('node','Mapped node',f'A node is mapped to the {prefix} level {level} ({name}) region.'),
                 f('dimensions','Node dimensions',f'The {prefix} level {level} node measures __ mm in short axis and __ mm in long axis.',parents=['node']),
@@ -563,7 +563,7 @@ rows.append(row('arch','Aortic arch / great-vessel origins','Proximal circulatio
 rows = report('ra.mri-sella',['sella-turcica-and-parasellar-region','69485'])
 protocol(rows,['dedicated pituitary MRI without contrast','dedicated pituitary MRI before and after contrast','dedicated pituitary MRI with dynamic contrast sequences'])
 rows.extend([
-    row('anterior-gland','Anterior pituitary','Pituitary gland','The anterior pituitary has no focal contour abnormality on the acquired images.',[f('height','Gland height','The pituitary gland measures __ mm craniocaudally.'),f('enlarge','Diffuse enlargement','There is [symmetric / asymmetric] diffuse pituitary enlargement.'),f('empty','Empty sella','There is [partial / complete] CSF filling of the sella with flattening of the gland.'),f('enhance','Gland enhancement','On post-contrast imaging the gland enhances [homogeneously / heterogeneously].')]),
+    row('anterior-gland','Anterior pituitary','Pituitary gland','No focal lesion is identified in the anterior pituitary on the acquired images.',[f('height','Gland height','The pituitary gland measures __ mm craniocaudally.'),f('enlarge','Diffuse enlargement','There is [symmetric / asymmetric] diffuse pituitary enlargement.'),f('empty','Empty sella','There is [partial / complete] CSF filling of the sella with flattening of the gland.'),f('enhance','Gland enhancement','On post-contrast imaging the gland enhances [homogeneously / heterogeneously].')]),
     row('posterior-gland','Posterior pituitary','Pituitary gland','The posterior pituitary T1 bright spot is present in the expected position.',[f('absent','Bright spot absent','The posterior pituitary T1 bright spot is not identified.'),f('ectopic','Ectopic bright spot','The posterior pituitary bright spot is ectopic at the [median eminence / proximal infundibulum].')]),
     row('stalk','Pituitary stalk','Suprasellar structures','The pituitary stalk is midline and not thickened.',[f('deviation','Stalk deviation','The pituitary stalk is deviated [rightward / leftward].'),f('thick','Stalk thickening','The stalk is [smoothly / nodularly] thickened.'),f('diameter','Stalk measurement','The stalk measures __ mm in transverse diameter.')]),
     row('optic-chiasm','Optic chiasm','Suprasellar structures','The optic chiasm is not compressed and has normal signal.',[f('contact','Chiasmal relationship','The lesion [abuts / elevates / compresses] the optic chiasm.'),f('signal','Chiasmal signal','The chiasm has [focal / diffuse] T2 hyperintensity.')]),
@@ -577,7 +577,7 @@ for side in ['right','left']:
         row(side+'-carotid',side.title()+' cavernous carotid','Parasellar structures',f'The {side} cavernous carotid flow void is preserved.',[f('vessel','Carotid relationship',f'The {side} cavernous carotid is [displaced / narrowed / encased without narrowing].'),f('vascular-lesion','Vascular lesion concern',f'A flow-related lesion adjacent to the {side} cavernous carotid requires dedicated angiographic correlation.')]),
         row(side+'-optic-nerve',side.title()+' prechiasmatic optic nerve','Suprasellar structures',f'The {side} prechiasmatic optic nerve is not compressed.',[f('compression','Optic nerve compression',f'The {side} prechiasmatic optic nerve is [displaced / compressed] by the lesion.')])
     ])
-rows.append(row('sellar-lesion','Sellar / parasellar lesion','Lesion detail',None,[
+rows.append(row('sellar-lesion','Sellar / parasellar lesion','Lesion detail','No focal sellar or parasellar lesion is identified on the acquired images.',[
     f('lesion','Lesion centre','A lesion is centred in the [right pituitary / left pituitary / midline pituitary / suprasellar cistern / pituitary stalk / right parasellar compartment / left parasellar compartment].'),size(),
     f('composition','Composition','The lesion is [solid / cystic / mixed solid and cystic / predominantly haemorrhagic].',parents=['lesion']),
     f('signal','Signal','The lesion is [low / intermediate / high] on T1 and [low / intermediate / high] on T2.',parents=['lesion']),
@@ -781,6 +781,19 @@ for item in OUT['investigations']['ra.mri-lumbar-disc']['sections']:
             options.append(f(identifier,label,text,exclusive='focal-herniation'))
         item['findings'][index:index+1]=options
         next(v for v in item['findings'] if v['id']=='migration')['requires_any']=['extrusion','sequestration']
+
+# Explicit lesion extension elsewhere in the sella report excludes the global
+# negative lesion assertion; measurements and non-focal variants do not.
+sellar_positive_findings={
+    'stalk':{'thick'},'optic-chiasm':{'contact','signal'},'hypothalamus':{'lesion'},'third-ventricle':{'extension'},
+    'sella-floor':{'clivus','sphenoid'},'right-cavernous-sinus':{'extension'},'left-cavernous-sinus':{'extension'},
+    'right-carotid':{'vessel','vascular-lesion'},'left-carotid':{'vessel','vascular-lesion'},
+    'right-optic-nerve':{'compression'},'left-optic-nerve':{'compression'},
+}
+for item in OUT['investigations']['ra.mri-sella']['sections']:
+    for finding in item['findings']:
+        if finding['id'] in sellar_positive_findings.get(item['id'],set()):
+            finding['invalidates_normal']=list(dict.fromkeys(finding.get('invalidates_normal',[])+['sellar-lesion']))
 
 # Explicit controls preserve calculator applicability without entering clinical
 # assertions into the report text. The source findings remain selectable.

@@ -722,7 +722,7 @@ def pelvic_nodes(inguinal=False):
  return nodes(names)
 # Prostate: zone- and sequence-specific inputs, with separate capsule, NVBs and seminal vesicles.
 fs=[f('lesion','Lesion location','A prostate lesion lies in the [right / left] [apex / mid gland / base], in the [anterior / posteromedial / posterolateral] sector.'),f('zone','Zone of origin','The lesion originates in the [peripheral zone / transition zone / central zone / anterior fibromuscular stroma].',['lesion']),measure('The prostate lesion',['lesion']),f('t2-morphology','T2 morphology','The lesion is [a circumscribed encapsulated nodule / a mostly encapsulated nodule / a heterogeneous ill-defined area / a lenticular non-circumscribed focus / a homogeneous markedly hypointense focus] on T2-weighted images.',['lesion']),f('diffusion','Diffusion morphology','The lesion has [focal marked ADC hypointensity with marked high-b-value hyperintensity / focal mild ADC hypointensity with mild high-b-value hyperintensity / linear diffusion abnormality / no focal diffusion abnormality].',['lesion']),f('t2-adequate','T2 adequate','T2-weighted imaging is adequate for assessment of this lesion.',['lesion'],ex='t2-quality'),f('t2-inadequate','T2 inadequate','T2-weighted imaging is inadequate for assessment of this lesion.',['lesion'],ex='t2-quality'),f('dwi-adequate','DWI adequate','DWI and ADC imaging are adequate for assessment of this lesion.',['lesion'],ex='dwi-quality'),f('dwi-inadequate','DWI inadequate','DWI and ADC imaging are inadequate for assessment of this lesion.',['lesion'],ex='dwi-quality'),f('t2-score','Assigned T2 score','The clinician-assigned PI-RADS v2.1 T2 sequence score is [1 / 2 / 3 / 4 / 5].',['t2-adequate']),f('dwi-score','Assigned DWI score','The clinician-assigned PI-RADS v2.1 DWI sequence score is [1 / 2 / 3 / 4 / 5].',['dwi-adequate']),f('dce','Dynamic contrast','The PI-RADS v2.1 DCE assessment is [positive / negative / not available].',['lesion']),f('treatment','Applicability','This lesion is in a [treatment-naive prostate / previously treated prostate].',['lesion']),f('capsule-contact','Capsular contact','The prostate lesion has capsular contact spanning __ mm.',['lesion']),f('capsule-breach','Capsular breach','The lesion shows [capsular bulging without definite breach / definite extraprostatic extension / indeterminate extraprostatic extension].',['lesion'],bad=['prostatic-capsule']),f('index','Index lesion','This is the index lesion based on the reviewed MRI findings.',['lesion'])]
-rows=[s('prostate-background','Prostate background','Gland','There is no diffuse prostatic signal abnormality.',[f('bph','BPH','The transition zone contains [mild / moderate / marked] benign prostatic hyperplastic nodules.'),f('prostatitis','Inflammatory pattern','The peripheral zone has [linear / wedge-shaped / diffuse] low T2 signal without a discrete mass.'),f('haemorrhage','Haemorrhage','Haemorrhagic signal is present in the [right peripheral zone / left peripheral zone / bilateral peripheral zones / transition zone].')]),s('prostate-dimensions','Prostate dimensions','Gland',None,[f('dimensions','Dimensions','The prostate measures __ mm transverse × __ mm anteroposterior × __ mm craniocaudal.')]),s('prostate-lesion','Prostate lesion','Focal lesions',None,fs,True,True),extension('prostatic-capsule','Prostatic capsule'),extension('right-neurovascular-bundle','Right neurovascular bundle'),extension('left-neurovascular-bundle','Left neurovascular bundle'),extension('right-seminal-vesicle','Right seminal vesicle'),extension('left-seminal-vesicle','Left seminal vesicle'),extension('bladder-neck','Bladder neck'),extension('external-urethral-sphincter','External urethral sphincter'),extension('rectum','Rectal wall'),*pelvic_nodes(),s('pelvic-bones','Pelvic bones','Additional findings','No suspicious focal marrow lesion is identified within the imaged pelvic bones.',[f('lesion','Marrow lesion','A suspicious marrow lesion is present in the [sacrum / right ilium / left ilium / right ischium / left ischium / right pubis / left pubis / proximal femur].'),measure('The marrow lesion',['lesion'])],repeat=True)]
+rows=[s('prostate-background','Prostate background','Gland','There is no diffuse prostatic signal abnormality.',[f('bph','BPH','The transition zone contains [mild / moderate / marked] benign prostatic hyperplastic nodules.'),f('prostatitis','Inflammatory pattern','The peripheral zone has [linear / wedge-shaped / diffuse] low T2 signal without a discrete mass.'),f('haemorrhage','Haemorrhage','Haemorrhagic signal is present in the [right peripheral zone / left peripheral zone / bilateral peripheral zones / transition zone].')]),s('prostate-dimensions','Prostate dimensions','Gland',None,[f('dimensions','Dimensions','The prostate measures __ mm transverse × __ mm anteroposterior × __ mm craniocaudal.')]),s('prostate-lesion','Prostate lesion','Focal lesions','No suspicious focal prostatic lesion is identified on the acquired MRI sequences.',fs,False,True),extension('prostatic-capsule','Prostatic capsule'),extension('right-neurovascular-bundle','Right neurovascular bundle'),extension('left-neurovascular-bundle','Left neurovascular bundle'),extension('right-seminal-vesicle','Right seminal vesicle'),extension('left-seminal-vesicle','Left seminal vesicle'),extension('bladder-neck','Bladder neck'),extension('external-urethral-sphincter','External urethral sphincter'),extension('rectum','Rectal wall'),*pelvic_nodes(),s('pelvic-bones','Pelvic bones','Additional findings','No suspicious focal marrow lesion is identified within the imaged pelvic bones.',[f('lesion','Marrow lesion','A suspicious marrow lesion is present in the [sacrum / right ilium / left ilium / right ischium / left ischium / right pubis / left pubis / proximal femur].'),measure('The marrow lesion',['lesion'])],repeat=True)]
 save('ra.mri-prostate',rows)
 
 # Bladder: sequence components and each wall region; score assigned, not invented from morphology.
@@ -918,6 +918,56 @@ for row in OUT['investigations']['ra.liver-lirads']['sections']:
   row['findings']=[x for x in row['findings'] if x['id']!='eligibility']
   row['findings'] += [f('eligible','Eligible untreated observation','This untreated observation is in an adult meeting LI-RADS at-risk criteria.',['lesion'],ex='lirads-applicability'),f('not-at-risk','Not in at-risk population','LI-RADS diagnostic categorisation is not applicable because the patient does not meet the defined at-risk criteria.',['lesion'],ex='lirads-applicability'),f('treated','Previously treated observation','The observation has undergone treatment; untreated-observation LI-RADS categorisation is not applicable.',['lesion'],ex='lirads-applicability')]
   next(x for x in row['findings'] if x['id']=='lirads')['requires_any']=['eligible']
+
+# Explicit observed absence is separate from an unreviewed repeated lesion block.
+# These choices do not infer a clinical category, stage, or calculation.
+ABSENCE_BY_INVESTIGATION={
+ 'ra.liver-masses':{'hepatic-observation':'No focal hepatic lesion is identified on the acquired images.'},
+ 'ra.liver-lirads':{'hepatic-observation':'No suspicious focal hepatic observation is identified on the acquired images.'},
+ 'ra.ct-pancreatic-cancer':{'pancreatic-lesion':'No focal pancreatic mass is identified on the acquired CT images.'},
+ 'ra.pancreatic-cysts':{'pancreatic-lesion':'No pancreatic cystic lesion is identified on the acquired images.'},
+ 'ra.ct-pancreatitis':{'pancreatic-collection':'No pancreatic or peripancreatic collection is identified on the acquired CT images.'},
+ 'ra.gi-foreign-bodies':{'foreign-body':'No gastrointestinal foreign body is identified on the acquired images.'},
+ 'ra.mri-crohn':{'penetrating-tract':'No enteric fistula or blind-ending sinus tract is identified in the examined region.'},
+ 'ra.ultrasound-ibd':{'penetrating-tract':'No enteric fistula or blind-ending sinus tract is identified in the examined region.'},
+ 'ra.ct-bowel-obstruction':{'transition':'No bowel transition point is identified on the acquired CT images.'},
+ 'ra.ct-small-bowel-tumours':{'bowel-tumour':'No focal small bowel mass is identified on the acquired CT images.'},
+ 'ra.aortic-aneurysm-rupture':{'retroperitoneal-haematoma':'No retroperitoneal haematoma is identified on the acquired CT images.'},
+ 'ra.mri-perianal-fistula':{'fistula':'No perianal fistulous tract is identified on the acquired MRI sequences.'},
+ 'ra.mri-rectal-cancer':{'primary-tumour':'No focal rectal tumour is delineated on the acquired MRI sequences.','tumour-deposit':'No discrete mesorectal tumour deposit is identified on the acquired MRI sequences.'},
+ 'ra.mri-anal-cancer':{'primary-tumour':'No focal anal tumour is delineated on the acquired MRI sequences.'},
+ 'ra.mri-cervical-cancer':{'uterine-tumour':'No focal cervical tumour is delineated on the acquired MRI sequences.'},
+ 'ra.mri-endometrial-cancer':{'uterine-tumour':'No focal endometrial tumour is delineated on the acquired MRI sequences.'},
+ 'ra.paediatric-cystic-abdominal-masses':{'paediatric-mass':'No discrete cystic abdominal mass is identified in the examined region.'},
+ 'ra.paediatric-solid-abdominal-masses':{'paediatric-mass':'No discrete solid abdominal mass is identified in the examined region.'},
+}
+for identifier,inv in OUT['investigations'].items():
+ for row in inv['sections']:
+  negative=ABSENCE_BY_INVESTIGATION.get(identifier,{}).get(row['id'])
+  if row['id']=='collection':negative='No focal fluid collection is identified in the examined region.'
+  if negative:
+   row['normal']=negative
+   row.pop('exclude_from_bulk_normal',None)
+
+# Related explicit positive observations exclude a newly available parent negative.
+for identifier,inv in OUT['investigations'].items():
+ rows={row['id']:row for row in inv['sections']}
+ def exclude(finding,target):
+  if target in rows:finding['invalidates_normal']=list(dict.fromkeys(finding.get('invalidates_normal',[])+[target]))
+ for row in inv['sections']:
+  for finding in row['findings']:
+   if identifier in ['ra.liver-masses','ra.liver-lirads'] and row['id'].startswith('segment-'):
+    exclude(finding,'hepatic-observation')
+   if row['id']=='periappendiceal-fluid' and finding['id']=='fluid':exclude(finding,'collection')
+   if identifier=='ra.ct-abdominal-trauma' and finding['id']=='haematoma':exclude(finding,'collection')
+   if identifier in ['ra.ct-peritoneum','ra.ct-peritoneal-carcinomatosis'] and finding['id']=='fluid' and row['id']!='free-fluid':exclude(finding,'collection')
+   if identifier=='ra.aortic-aneurysm-rupture' and finding['id']=='rupture':exclude(finding,'retroperitoneal-haematoma')
+   if identifier=='ra.mri-prostate' and row['id']!='prostate-lesion' and finding['id'] in ['contact','invades']:
+    exclude(finding,'prostate-lesion')
+   if identifier in ['ra.mri-rectal-cancer','ra.mri-anal-cancer'] and row['id']!='primary-tumour' and finding['id'] in ['contact','invades']:
+    exclude(finding,'primary-tumour')
+   if identifier in ['ra.mri-cervical-cancer','ra.mri-endometrial-cancer'] and row['id']!='uterine-tumour' and finding['id'] in ['contact','invades']:
+    exclude(finding,'uterine-tumour')
 
 # Multimodality and conditional findings do not silently attest to an unperformed sequence.
 for key, inv in OUT['investigations'].items():
