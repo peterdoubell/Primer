@@ -26,7 +26,8 @@ def test_only_the_exact_shared_file_additions_have_an_inverse(path):
 
 
 def test_historical_shell_excludes_only_the_two_new_asset_includes():
-    raw = (ROOT / 'web/index.html').read_bytes()
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
+    raw = before_continuation_bytes('web/index.html', (ROOT / 'web/index.html').read_bytes())
     previous = bridge.before_structured_bytes('web/index.html', raw)
     assert b'/app/radiology-structured.js' in raw and b'/app/radiology-structured.css' in raw
     assert b'/app/radiology-structured.js' not in previous and b'/app/radiology-structured.css' not in previous

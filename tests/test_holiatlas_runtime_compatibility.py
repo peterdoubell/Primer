@@ -20,7 +20,8 @@ def test_exact_inverse_recovers_the_complete_base_and_rejects_unknown_changes():
 
 
 def test_ledger_inverse_removes_only_the_exact_atlas_append():
-    raw = (ROOT / bridge.LEDGER_PATH).read_bytes()
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
+    raw = before_continuation_bytes(bridge.LEDGER_PATH, (ROOT / bridge.LEDGER_PATH).read_bytes())
     proof = bridge.reviewed_ledger()
     restored = bridge.before_holiatlas_bytes(bridge.LEDGER_PATH, raw)
     assert hashlib.sha256(restored).hexdigest() == proof['before_sha256']

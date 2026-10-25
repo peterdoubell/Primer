@@ -5950,6 +5950,9 @@
 
   function renderPhysicsConceptLab(item, hooks) {
     const scenarioId = item && item.props && item.props.scenario;
+    if (scenarioId === 'phys.3.energy-work') {
+      return window.PrimerEnergyMomentumLab?.render(item, hooks) || null;
+    }
     if (scenarioId === 'phys.4.experiment' && window.PrimerMeasurementLab) {
       return window.PrimerMeasurementLab.render(item, hooks, modelFrame(item, hooks));
     }
@@ -6161,7 +6164,12 @@
       const reference = window.PrimerRadiologyReferenceModels;
       return reference ? reference.render(reference.specification(item.props?.node_id), hooks) : null;
     },
-    'concept-lab': (item, hooks) => window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null,
+    'concept-lab': (item, hooks) => {
+      if (item.props?.scenario === 'math.4.int-calc') {
+        return window.PrimerMathIntegralLab?.render(item, hooks) || null;
+      }
+      return window.PrimerConceptModels ? window.PrimerConceptModels.render(item, hooks) : null;
+    },
     'math-ode-lab': (item, hooks) => window.PrimerMathODELab?.render(item, hooks) || null,
     'math-field-lab': (item, hooks) => window.PrimerMathFieldLab?.render(item, hooks) || null,
     'physics-phase-lab': (item, hooks) => window.PrimerPhysicsPhaseLab?.render(item, hooks) || null,

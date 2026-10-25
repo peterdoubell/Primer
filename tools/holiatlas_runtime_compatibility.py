@@ -53,6 +53,8 @@ def reviewed_ledger():
 
 
 def before_holiatlas_bytes(path, raw, allow_older=False):
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
+    raw = before_continuation_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS and path != LEDGER_PATH:
         return raw
@@ -75,6 +77,8 @@ def before_holiatlas_bytes(path, raw, allow_older=False):
 
 
 def before_holiatlas_reference_fields(identifier, fields):
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_reference_fields
+    fields = before_continuation_reference_fields(identifier, fields)
     if identifier != 'ra.brain-anatomy':
         return fields
     result = copy.deepcopy(fields)
@@ -89,6 +93,7 @@ def before_holiatlas_reference_fields(identifier, fields):
 
 
 def validate_refresh(step):
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
     proof = reviewed()
     row = proof['files']['web/app.js']
     if (step.get('id') != '2026-10-23-holiatlas-source-template'
@@ -113,14 +118,14 @@ def validate_refresh(step):
     if not recovery['allPassed'] or len(recovery['cases']) != 5:
         raise ValueError('holiAtlas current recovery evidence is incomplete')
     for path, expected in recovery['sourceSHA256'].items():
-        if sha((ROOT / path).read_bytes()) != expected:
+        if sha(before_continuation_bytes(path, (ROOT / path).read_bytes(), allow_older=True)) != expected:
             raise ValueError('holiAtlas recovery source differs')
     reader = json.loads(reader_raw)
     if (not reader['allPassed'] or reader['productionVerified'] or reader['clinicalApproval']
             or len(reader['cases']) != 8 or len(reader['directMeshes']) != 332 or reader['errors']):
         raise ValueError('holiAtlas current reader proof is incomplete')
     for path, expected in reader['sourceSHA256'].items():
-        if sha((ROOT / path).read_bytes()) != expected:
+        if sha(before_continuation_bytes(path, (ROOT / path).read_bytes(), allow_older=True)) != expected:
             raise ValueError('holiAtlas current reader source differs')
     for path, expected in step['guarded_paths_sha256'].items():
         if sha((ROOT / path).read_bytes()) != expected:
