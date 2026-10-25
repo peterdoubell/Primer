@@ -6,10 +6,14 @@ import json
 
 ROOT = Path(__file__).resolve().parents[1]
 PROOF = 'docs/holiatlas-source-review-20261023/runtime-inverse.json'
-PROOF_SHA256 = '8246562da1885bf915277ea2d2753afb3cadbcafe750db6086bf6d7698ee1990'
-READER_SHA256 = 'afdc87a634d5927fbd95f82dc709c0c494d2a1786c83446426d2e14b2c374f2f'
-RECOVERY_SHA256 = 'a42035115b127d30c691f25d70a58bf4f33f72b2e08e7eeb1928e04fd935ada3'
-PRESERVATION_SHA256 = 'e1ad16619068f73e9a75a757150c680ca5c3937ec607212d710a7ba228595092'
+PROOF_SHA256 = 'b3dd28e529975736ab6e96501d36adfe17784e439f5241a4970a4d84ba85e7c3'
+BASE_COMMIT = 'd4b5fbefae6005d05bd90bbd56141f726fe4f83e'
+LEDGER_PATH = 'data/radiology/ui-presentation-refreshes.json'
+LEDGER_PROOF = 'docs/holiatlas-source-review-20261023/ledger-inverse.json'
+LEDGER_PROOF_SHA256 = 'f3846f84a84ad45dc33f6e4db17bfed76e5fa70b19d8845508c1a3c663c555cf'
+READER_SHA256 = '9f5ecc3aea01228cf9b580e018dac52341391ef29e7f1e8b51bf3aa73875eee4'
+RECOVERY_SHA256 = '78101319e1f5c4eb70b861d0ae74ffaf0f92cc4b2e433d3b13e54c8f79d9ec90'
+PRESERVATION_SHA256 = '6856b04441c161cacfe3fa1458f5d1cad52189318c37425acb5162eb014a1b1a'
 PATHS = frozenset({'web/app.js', 'primer/server.py', 'primer/source_native_inspectors.py',
                    'vercel.json', 'docs/radiology-fidelity-scope.json'})
 
@@ -23,7 +27,7 @@ def reviewed():
     if sha(raw) != PROOF_SHA256:
         raise ValueError('holiAtlas inverse evidence changed')
     proof = json.loads(raw)
-    if (set(proof['files']) != PATHS or proof['base_commit'] != 'fd43c37003a7e894df350bf6b551bd000ba35677'
+    if (set(proof['files']) != PATHS or proof['base_commit'] != BASE_COMMIT
             or proof['scope'] != 'one_separate_holiatlas_source_reference_and_exact_delivery_only'
             or proof['bindings'] != ['ra.brain-anatomy']
             or any(proof[k] is not False for k in ('clinical_approval', 'fine_anatomical_approval',
@@ -32,11 +36,27 @@ def reviewed():
     return proof
 
 
+def reviewed_ledger():
+    """Pin the ledger after its runtime-proof digest, avoiding a hash cycle."""
+    raw = (ROOT / LEDGER_PROOF).read_bytes()
+    if sha(raw) != LEDGER_PROOF_SHA256:
+        raise ValueError('holiAtlas ledger inverse evidence changed')
+    proof = json.loads(raw)
+    if (proof['base_commit'] != BASE_COMMIT or proof['path'] != LEDGER_PATH
+            or proof['scope'] != 'one_exact_holiatlas_presentation_ledger_append_only'
+            or proof['source_refresh_id'] != '2026-10-23-holiatlas-source-template'
+            or proof['runtime_inverse_sha256'] != PROOF_SHA256
+            or any(proof[k] is not False for k in ('clinical_approval', 'fine_anatomical_approval',
+                                                   'extends_historical_approval'))):
+        raise ValueError('holiAtlas ledger inverse leaves exact scope')
+    return proof
+
+
 def before_holiatlas_bytes(path, raw, allow_older=False):
     path = str(path)
-    if path not in PATHS:
+    if path not in PATHS and path != LEDGER_PATH:
         return raw
-    row = reviewed()['files'][path]
+    row = reviewed_ledger() if path == LEDGER_PATH else reviewed()['files'][path]
     if sha(raw) == row['before_sha256']:
         return raw
     if sha(raw) != row['after_sha256']:

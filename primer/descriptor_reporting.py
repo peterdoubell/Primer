@@ -6,6 +6,38 @@ measurement or normal statement is inferred from an unanswered control.
 import math
 import re
 
+MAX_REPEAT_INSTANCES = 50
+
+
+def expand_repeated_sections(investigation, selections):
+    """Expand explicit records without mutating the saved schema or selections."""
+    expanded, values, issues = [], dict(selections), []
+    for section in investigation['sections']:
+        expanded.append(section)
+        selected = selections.get(section['id'], {})
+        if not isinstance(selected, dict) or 'instances' not in selected:
+            continue
+        location = {'section_id': section['id'], 'severity': 'error'}
+        instances = selected['instances']
+        if (not section.get('repeatable') or not isinstance(instances, list)
+                or len(instances) > MAX_REPEAT_INSTANCES
+                or set(selected) - {'normal', 'not_assessed', 'findings', 'instances'}
+                or not isinstance(selected.get('findings', {}), dict)
+                or any(type(selected.get(flag, False)) is not bool for flag in ('normal', 'not_assessed'))
+                or selected.get('normal') or selected.get('not_assessed') or selected.get('findings')):
+            issues.append({'code': 'invalid_repeat_instances', **location})
+            values[section['id']] = {}
+            continue
+        values[section['id']] = {}
+        for index, instance in enumerate(instances):
+            key = section['id'] + '@' + str(index + 1)
+            label = section.get('repeat_label', section['label']) + ' ' + str(index + 1)
+            expanded.append(dict(section, id=key, label=label, normal=None, repeat_instance_label=label))
+            values[key] = instance
+            if isinstance(instance, dict) and not instance.get('not_assessed') and not instance.get('findings'):
+                issues.append({'code': 'empty_repeat_instance', 'instance_index': index, **location})
+    return dict(investigation, sections=expanded), values, issues
+
 
 def render_descriptors(form, state):
     issues = []
@@ -21,10 +53,12 @@ def render_descriptors(form, state):
     selections = state.get('selections', {})
     if not isinstance(selections, dict) or len(selections) > 1000:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'invalid_descriptor_selections', 'severity': 'error'}]}
-    sections = {x['id']: x for x in investigation['sections']}
+    original_ids = {section['id'] for section in investigation['sections']}
     for key in selections:
-        if key not in sections:
+        if key not in original_ids:
             problem('unknown_descriptor_section', section_id=key)
+    investigation, selections, repeated_issues = expand_repeated_sections(investigation, selections)
+    issues.extend(repeated_issues)
 
     def active(finding, chosen, definitions, chain=None):
         chain = set() if chain is None else chain
@@ -134,10 +168,13 @@ def render_descriptors(form, state):
                     if group in exclusive:
                         problem('conflicting_descriptor_findings', section_id=key, finding_id=descriptor['id'])
                     exclusive[group] = descriptor['id']
-                selected_count += 1
+                if descriptor.get('report') is not False:
+                    selected_count += 1
                 line = statement(descriptor, chosen[descriptor['id']], key)
-                if line: lines.append(line)
+                if line and descriptor.get('report') is not False: lines.append(line)
         if lines:
+            if section.get('repeat_instance_label') and not unassessed:
+                lines = [section['repeat_instance_label'] + ':\n' + '\n'.join(lines)]
             report_id = section.get('report_section_id') or key
             group = grouped.setdefault(report_id, {'section_id': report_id, 'label': section.get('report_section_label') or section['label'], 'lines': [], 'status': 'not_assessed' if unassessed else 'provided'})
             if not unassessed: group['status'] = 'provided'

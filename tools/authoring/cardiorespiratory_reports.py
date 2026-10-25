@@ -1,0 +1,738 @@
+#!/usr/bin/env python3
+"""Original, selectable cardiothoracic, breast and general reporting worksheets.
+
+Regenerates one authored JSON file; clinical observations are never preselected.
+References support the reporting elements, not a claim of clinical validation.
+"""
+import copy
+import gzip
+import json
+import re
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[2]
+# Reuse the checked-in, frozen source contract for reproducible provenance.
+# Authoring never reads an arbitrary environment-supplied file.
+CATALOG = ROOT/'data/radiology/descriptor-reporting-v1.json.gz'
+AUTHORED = ROOT/'data/radiology/anatomic-cardiorespiratory.json'
+if not AUTHORED.exists():
+    raise SystemExit('The authored JSON must exist; preserve its metadata when regenerating.')
+metadata = json.loads(AUTHORED.read_text())
+assignments = {iid:{'investigation_id':iid,**{k:v[k] for k in ('guide_id','title','modality')}} for iid,v in metadata['investigations'].items()}
+base = json.loads(gzip.decompress(CATALOG.read_bytes()))['forms']
+sources = {}
+reports = {}
+
+def slug(s):
+    return re.sub('[^a-z0-9]+','-',s.lower()).strip('-')
+
+def source(id,title,url):
+    sources[id]={'id':id,'title':title,'url':url}
+    return id
+
+def refs_for(identifier):
+    refs=[]
+    for s in base[assignments[identifier]['guide_id']]['sources']:
+        key='ref-'+slug(s['title'])[:80]
+        if key in sources and sources[key]['url'] != s['url']:
+            key += '-'+str(len(sources))
+        refs.append(source(key,s['title'],s['url']))
+    return refs
+
+ASE=source('ase-reporting-2025','ASE adult echocardiography reporting recommendations (2025)','https://www.asecho.org/wp-content/uploads/2025/09/PIIS0894731725002925.pdf')
+SCMR=source('scmr-reporting-2022','SCMR cardiovascular MRI reporting guideline (2022)','https://pmc.ncbi.nlm.nih.gov/articles/PMC9052489/')
+SEG=source('ra-lung-segments','Radiology Assistant: lung segments and bronchi','https://radiologyassistant.nl/chest/lung-anatomy/lung-segments')
+HRCT=source('ra-hrct','Radiology Assistant: HRCT basic interpretation','https://radiologyassistant.nl/chest/hrct/basic-interpretation')
+NODES=source('ra-nodal-map','Radiology Assistant: mediastinal lymph node map','https://radiologyassistant.nl/chest/mediastinum/mediastinum-lymph-node-map')
+COR=source('ra-coronary-anatomy','Radiology Assistant: coronary anatomy and anomalies','https://radiologyassistant.nl/cardiovascular/anatomy/coronary-anatomy-and-anomalies')
+CAD=source('cad-rads-2022','SCCT/ACC/ACR/NASCI CAD-RADS 2.0 consensus (2022)','https://pmc.ncbi.nlm.nih.gov/articles/PMC9627235/')
+TAVI=source('ra-tavi-2026','Radiology Assistant: TAVI/TAVR planning','https://radiologyassistant.nl/cardiovascular/thoracic-aorta/TAVI-TAVR')
+BIRADS=source('acr-birads-2025','ACR BI-RADS v2025 resources','https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/BI-RADS')
+BRM=source('ra-mammography-2025','Radiology Assistant: BI-RADS v2025 mammography','https://radiologyassistant.nl/breast/bi-rads/bi-rads-for-mammography-and-ultrasound-2013-1-1')
+BRUS=source('ra-breast-us-2025','Radiology Assistant: BI-RADS v2025 ultrasound','https://radiologyassistant.nl/breast/bi-rads/BI-RADS-v2025-Ultrasound')
+
+
+def f(id,label,text,requires=None,exclusive=None,invalidates=None,labels=None):
+    d={'id':id,'label':label,'text':text}
+    if requires:d['requires_any']=requires
+    if exclusive:d['exclusive_group']=exclusive
+    if invalidates:d['invalidates_normal']=invalidates
+    # Numeric inputs use selectable values; bound physical lengths/counts at zero,
+    # but do not impose invented upper bounds on pathology.
+    tokens=list(re.finditer(r'\[[^\[\]]*\]|_{2,}',text))
+    overrides={}
+    for i,m in enumerate(tokens,1):
+        o={}
+        if m.group().startswith('__'):
+            o['minimum']=0
+            if re.match(r'\s*%',text[m.end():]):o['maximum']=100
+        if labels and i<=len(labels):o['label']=labels[i-1]
+        if o:overrides['slot-'+str(i)]=o
+    if overrides:d['slot_overrides']=overrides
+    return d
+
+def row(id,label,group,normal,findings,refs=None,exclude=False,repeat=False,repeat_label='Lesion'):
+    d={'id':id,'label':label,'group':group,'normal':normal,'findings':findings,'source_ids':refs or CURRENT_REFS}
+    if exclude:d['exclude_from_bulk_normal']=True
+    if repeat:d.update(repeatable=True,repeat_label=repeat_label)
+    return d
+
+def new(identifier,title=None):
+    global CURRENT_REFS
+    a=assignments[identifier]
+    CURRENT_REFS=refs_for(identifier)
+    reports[identifier]={k:a[k] for k in ('guide_id','title','modality')}
+    if title:reports[identifier]['title']=title
+    reports[identifier]['sections']=[]
+    return reports[identifier]['sections']
+
+def choice_row(id,label,group,text,choices,refs=None):
+    return row(id,label,group,None,[f('assessment',label,text+' ['+' / '.join(choices)+'].')],refs,exclude=True)
+
+def measurement(id,label,group,text,unit='mm',refs=None,normal=None,exclude=True):
+    return row(id,label,group,normal,[f('measurement',label,text+' __ '+unit+'.',labels=[label])],refs,exclude=exclude)
+
+def quality(modality='CT',contrast=False):
+    r=[choice_row('acquisition','Acquisition','Technique',modality+' acquisition', ['diagnostic quality','limited by motion','limited by body habitus','incomplete anatomic coverage'])]
+    if contrast:r.append(choice_row('contrast','Contrast phase','Technique','Contrast acquisition',['unenhanced','arterial phase','venous phase','arterial and venous phases','delayed phase','multiphase']))
+    r.append(choice_row('comparison','Prior comparison','Technique','Comparison',['no prior examination available','prior images reviewed','prior report only available']))
+    return r
+
+LOBES=[('right-upper-lobe','Right upper lobe'),('right-middle-lobe','Right middle lobe'),('right-lower-lobe','Right lower lobe'),('left-upper-lobe','Left upper lobe excluding lingula'),('lingula','Lingula'),('left-lower-lobe','Left lower lobe')]
+SEGMENTS={
+ 'right-upper-lobe':['apical (S1)','posterior (S2)','anterior (S3)'],
+ 'right-middle-lobe':['lateral (S4)','medial (S5)'],
+ 'right-lower-lobe':['superior (S6)','medial basal (S7)','anterior basal (S8)','lateral basal (S9)','posterior basal (S10)'],
+ 'left-upper-lobe':['apicoposterior (S1+2)','anterior (S3)'],
+ 'lingula':['superior (S4)','inferior (S5)'],
+ 'left-lower-lobe':['superior (S6)','anteromedial basal (S7+8)','lateral basal (S9)','posterior basal (S10)']}
+
+def lung_lobes(kind='ct'):
+    out=[]
+    for id,name in LOBES:
+        findings=[f('consolidation','Consolidation',f'{name}: [segmental / lobar / patchy] consolidation.'),f('ground-glass','Ground-glass opacity',f'{name}: [focal / patchy / diffuse] ground-glass opacity.'),f('atelectasis','Atelectasis',f'{name}: [linear atelectasis / segmental collapse / lobar collapse].'),f('nodule','Nodule or mass',f'{name}: a [solid nodule / subsolid nodule / mass] is present.'),f('cavity','Cavitation',f'{name}: [single cavity / multiple cavities].'),f('tree-bud','Tree-in-bud nodules',f'{name}: centrilobular branching nodules.'),f('bronchiectasis','Bronchiectasis',f'{name}: [cylindrical / varicose / cystic] bronchiectasis.'),f('emphysema','Emphysema',f'{name}: [centrilobular / paraseptal / panlobular] emphysema.')]
+        if kind=='hrct':
+            findings += [f('reticulation','Reticulation',f'{name}: [fine / coarse] reticulation.'),f('honeycomb','Honeycombing',f'{name}: subpleural honeycombing.'),f('traction','Traction bronchiectasis',f'{name}: traction [bronchiectasis / bronchiolectasis].'),f('cysts','Cysts',f'{name}: [scattered / numerous] thin-walled cysts.'),f('septal','Septal thickening',f'{name}: [smooth / irregular / nodular] interlobular septal thickening.'),f('mosaic','Mosaic attenuation',f'{name}: mosaic attenuation.')]
+        parents=[x['id'] for x in findings]
+        findings += [f('segment','Affected segment',f'{name}: the abnormality involves the ['+' / '.join(SEGMENTS[id])+'].',requires=parents),f('distribution','Within-lobe distribution',f'{name}: [subpleural / peribronchovascular / central / random / diffuse] distribution.',requires=parents),f('extent','Extent',f'{name}: abnormality involves [less than 5% / 5–25% / 26–50% / 51–75% / more than 75%] of the assessed lobe.',requires=parents)]
+        out.append(row(id,name,'Lung parenchyma',f'{name}: no focal opacity, suspicious nodule or fibrotic change.',findings,[SEG,HRCT]))
+    return out
+
+def pleura():
+    return [row(side+'-pleura',side.capitalize()+' pleura','Pleura',f'No {side} pleural effusion, pneumothorax or pleural nodularity.',[
+       f('effusion','Effusion',f'{side.capitalize()} [small / moderate / large] pleural effusion.'),f('loculation','Loculation',f'The {side} pleural fluid is [free-flowing / loculated].',requires=['effusion']),f('pneumothorax','Pneumothorax',f'{side.capitalize()} [small / moderate / large] pneumothorax.'),f('nodularity','Nodularity',f'{side.capitalize()} [focal / diffuse] pleural nodularity.'),f('thickening','Thickening',f'{side.capitalize()} [smooth / nodular / calcified] pleural thickening.'),f('enhancement','Enhancement on contrast images',f'The {side} pleura enhances on the available postcontrast images.',requires=['effusion','thickening','nodularity'])]) for side in ['right','left']]
+
+def airway_rows(segmental=False):
+    names=['Trachea','Carina','Right main bronchus','Bronchus intermedius','Left main bronchus'] + [name.replace(' excluding lingula','')+' bronchus' for _,name in LOBES]
+    if segmental:
+        names += [name.replace(' excluding lingula','')+' '+s+' bronchus' for id,name in LOBES for s in SEGMENTS[id]]
+    result=[]
+    for name in names:
+        id='airway-'+slug(name)
+        result.append(row(id,name,'Airways',f'{name}: patent without focal narrowing or endoluminal lesion.',[
+            f('stenosis','Narrowing',f'{name}: [mild / moderate / severe] narrowing.'),f('cause','Narrowing cause',f'{name}: narrowing is [intrinsic / from extrinsic compression / mixed].',requires=['stenosis']),f('occlusion','Occlusion',f'{name}: [partial obstruction / complete obstruction].'),f('material','Luminal material',f'{name}: [mucus / endobronchial soft tissue / foreign body] in the lumen.'),f('wall','Wall abnormality',f'{name}: [smooth thickening / nodular thickening / mural calcification / wall discontinuity].'),f('length','Involved length',f'{name}: abnormal segment length __ mm.',requires=['stenosis','occlusion','wall']),f('malacia','Dynamic collapse demonstrated',f'{name}: excessive collapse is demonstrated on the acquired expiratory images.')],[SEG],exclude=segmental))
+    return result
+
+NODAL_STATIONS=['1R lower cervical','1L lower cervical','2R upper paratracheal','2L upper paratracheal','3A prevascular','3P retrotracheal','4R lower paratracheal','4L lower paratracheal','5 subaortic','6 para-aortic','7 subcarinal','8R paraesophageal','8L paraesophageal','9R pulmonary ligament','9L pulmonary ligament','10R hilar','10L hilar','11R interlobar','11L interlobar']
+def nodes(full=False):
+    names=NODAL_STATIONS if full else ['2R upper paratracheal','2L upper paratracheal','4R lower paratracheal','4L lower paratracheal','5 subaortic','6 para-aortic','7 subcarinal','10R hilar','10L hilar']
+    return [row('node-'+slug(name), 'Station '+name,'Thoracic lymph nodes',f'Station {name}: no enlarged node.',[
+        f('enlarged','Enlarged node',f'Station {name}: enlarged [single node / multiple nodes].'),f('diameter','Short axis',f'Station {name}: largest node short axis __ mm.',requires=['enlarged']),f('necrotic','Necrosis',f'Station {name}: nodal central low attenuation.'),f('calcified','Calcification',f'Station {name}: [coarse / peripheral eggshell / punctate] nodal calcification.'),f('conglomerate','Conglomerate',f'Station {name}: confluent nodal soft tissue.')],[NODES],exclude=name.startswith('1')) for name in names]
+
+def thoracic_other():
+    return [row('pericardium','Pericardium','Cardiovascular', 'No pericardial effusion or thickening.',[f('effusion','Effusion','[Small / moderate / large] pericardial effusion.'),f('thickening','Thickening','[Smooth / nodular / calcified] pericardial thickening.')]),row('chest-wall','Chest wall','Additional structures','No focal chest-wall mass or destructive osseous lesion.',[f('mass','Soft-tissue lesion','A [right / left] [anterior / lateral / posterior] chest-wall soft-tissue lesion is present.'),f('bone','Bone lesion','There is a [lytic / sclerotic / mixed] lesion in the [rib / sternum / thoracic vertebra / clavicle / scapula].')],repeat=True)]
+
+def pulmonary_lesion(group='Pulmonary lesions'):
+    return row('pulmonary-lesion','Pulmonary lesion',group,None,[f('present','Lesion','A [solid / part-solid / ground-glass / cyst-associated] pulmonary lesion is present.'),f('location','Location','The lesion is in the [right upper lobe / right middle lobe / right lower lobe / left upper lobe / lingula / left lower lobe].',requires=['present']),f('size','Long and short axes','The lesion measures __ × __ mm.',requires=['present']),f('solid-size','Solid component','The solid component measures __ mm.',requires=['present']),f('margin','Margin','The lesion margin is [smooth / lobulated / irregular / spiculated].',requires=['present']),f('calcification','Calcification','Calcification is [absent / central / diffuse / laminated / popcorn-like / eccentric / punctate].',requires=['present']),f('fat','Macroscopic fat','Macroscopic fat is [present / absent].',requires=['present']),f('perifissural','Perifissural morphology','The nodule is [typical perifissural / atypical perifissural / not perifissural].',requires=['present']),f('cavity','Cavity wall','The lesion has [thin smooth / thick smooth / thick irregular] cavitary wall.',requires=['present']),f('growth','Change from reviewed prior','On direct comparison, the lesion has [increased / decreased / remained unchanged / newly appeared].',requires=['present']),f('prior-size','Prior measurement','The lesion previously measured __ × __ mm.',requires=['present']),f('series','Image localisation','Lesion image number __ on series __.',requires=['present'])],repeat=True)
+
+# Chest radiography uses projections and zones, not unsupported CT negatives.
+s=new('ra.chest-radiography');s+=quality('Radiography')
+s+= [choice_row('projection','Projection','Technique','Projection',['PA and lateral erect','AP erect','AP supine','PA erect','lateral only']),choice_row('inspiration','Inspiration','Technique','Lung inflation',['adequate','reduced','hyperinflated'])]
+for side in ['right','left']:
+ for zone in ['upper','middle','lower']:
+    n=f'{side.capitalize()} {zone} lung zone'
+    s.append(row(slug(n),n,'Lung zones',f'{n}: no focal opacity.',[f('opacity','Air-space opacity',f'{n}: [focal / patchy / diffuse] air-space opacity.'),f('linear','Linear opacity',f'{n}: linear atelectatic or scar-like opacity.'),f('nodule','Nodule or mass',f'{n}: [nodular / mass-like] opacity.'),f('interstitial','Interstitial opacity',f'{n}: [reticular / reticulonodular] opacity.'),f('volume','Volume loss',f'{n}: associated volume loss.')]))
+s+=pleura()
+# Radiography cannot assess contrast enhancement.
+for r in s:
+ if r['id'].endswith('-pleura'):r['findings']=[x for x in r['findings'] if x['id']!='enhancement'];r['normal']=r['normal'].replace(' or pleural nodularity','')
+s += [row('cardiomediastinal','Cardiomediastinal silhouette','Mediastinum','Cardiomediastinal silhouette is not enlarged for the projection.',[f('heart','Heart size','The cardiac silhouette is enlarged.'),f('mediastinum','Mediastinal contour','The mediastinal contour is [widened / shifted rightward / shifted leftward].'),f('aorta','Aortic contour','The aortic contour is [unfolded / tortuous / aneurysmal in appearance].')]),row('hila','Hila','Mediastinum','Hilar contours are not enlarged.',[f('hilar','Hilar enlargement','[Right / left / bilateral] hilar enlargement.'),f('vascular','Pulmonary vasculature','Pulmonary vascular markings show [cephalisation / congestion / peripheral pruning].')]),row('diaphragms','Diaphragms','Additional structures','Hemidiaphragm contours are maintained.',[f('elevated','Elevation','The [right / left] hemidiaphragm is elevated.'),f('freegas','Subdiaphragmatic gas','Subdiaphragmatic free gas is suspected beneath the [right / left / both] hemidiaphragm.'),f('hernia','Hernia','There is a [hiatal / right diaphragmatic / left diaphragmatic] hernia contour.')])]
+s+=thoracic_other()[1:]
+
+s=new('ra.hrct-lung');s+=quality();s+=lung_lobes('hrct');s+=pleura()+nodes()+thoracic_other()
+s += [choice_row('craniocaudal','Craniocaudal distribution','Pattern synthesis','Disease predominance',['upper lung','lower lung','mid lung','diffuse without predominance']),choice_row('axial-distribution','Axial distribution','Pattern synthesis','Axial predominance',['subpleural','peribronchovascular','central','diffuse','subpleural sparing']),row('expiratory','Expiratory images','Additional acquisitions',None,[f('acquired','Acquired','Expiratory images were acquired.'),f('trapping','Air trapping','Expiratory air trapping is [absent / focal / lobular / extensive].',requires=['acquired'])],exclude=True),row('prone','Prone images','Additional acquisitions',None,[f('acquired','Acquired','Prone images were acquired.'),f('dependence','Dependent opacity','Posterior subpleural opacity [resolves / persists] on prone imaging.',requires=['acquired'])],exclude=True),choice_row('fibrosis-pattern','Fibrosis pattern interpretation','Pattern synthesis','Clinician-selected fibrosis pattern',['UIP pattern','probable UIP pattern','indeterminate for UIP','features suggesting an alternative diagnosis','no fibrotic pattern'])]
+
+s=new('ra.ct-pulmonary-nodules');s+=quality()+[pulmonary_lesion()]+lung_lobes()+pleura()+nodes()
+s += [choice_row('nodule-context','Assessment context','Interpretation','Nodule assessment context',['incidental nodule in an adult','screening examination','known malignancy','immunocompromised patient','infection suspected']),choice_row('followup','Recommendation','Interpretation','Clinician-selected next step',['no imaging follow-up required','CT surveillance according to the applicable guideline','PET/CT consideration','tissue sampling consideration','multidisciplinary review']),measurement('followup-interval','Chosen surveillance interval','Interpretation','Chosen follow-up interval','months')]
+
+s=new('ra.ct-lung-cancer');s+=quality(contrast=True)+[pulmonary_lesion('Primary pulmonary lesion')]
+s += [row('primary-invasion','Local extension','Local staging',None,[f('pleural-contact','Pleural contact','The primary lesion [does not contact / contacts / is inseparable from] the [visceral pleura / parietal pleura].'),f('chest-wall','Chest-wall interface','Chest-wall extension is [absent on imaging / suspected / definite].',invalidates=['chest-wall']),f('mediastinal','Mediastinal interface','Mediastinal invasion is [absent on imaging / suspected / definite].'),f('bronchial','Bronchial involvement','The lesion involves the [segmental bronchus / lobar bronchus / main bronchus / carina / trachea].'),f('vascular','Vascular interface','The lesion [abuts / encases / invades] the [pulmonary artery / pulmonary vein / aorta / superior vena cava].'),f('collapse','Postobstructive change','Postobstructive [atelectasis / consolidation] is present.'),f('satellite','Additional tumour nodules','Additional suspicious nodules are in the [same lobe / different ipsilateral lobe / contralateral lung].')])]
+s+=nodes(True)+pleura()+thoracic_other()
+for organ in ['Liver','Right adrenal','Left adrenal','Included bones']:
+ s.append(row('metastasis-'+slug(organ),organ,'Included metastatic survey',f'{organ}: no suspicious lesion in the imaged field.',[f('lesion','Suspicious lesion',f'{organ}: [single / multiple] suspicious lesion.'),f('size','Size',f'{organ}: dominant lesion __ mm.',requires=['lesion'])],exclude=True))
+s += [choice_row('tnm-edition','Staging edition','Interpretation','Staging edition used',['TNM ninth edition','TNM eighth edition']),choice_row('clinical-stage','Stage completion','Interpretation','Imaging staging status',['complete within this examination scope','pending brain assessment','pending tissue confirmation','pending additional metastatic assessment'])]
+
+s=new('ra.ct-airways');s+=quality()+airway_rows(True)+lung_lobes()+pleura()
+s += [choice_row('airway-variant','Bronchial variant','Airway variants','Bronchial branching',['usual branching','tracheal bronchus','accessory cardiac bronchus','bridging bronchus','bronchial isomerism']),row('dynamic','Dynamic examination','Dynamic assessment',None,[f('acquired','Dynamic acquisition','Dynamic inspiratory and expiratory airway images were acquired.'),f('collapse','Collapse pattern','Airway collapse has a [posterior membrane bowing / cartilaginous wall collapse / combined] pattern.',requires=['acquired']),f('percent','Area reduction','Maximal airway area reduction is __ %.',requires=['acquired'])],exclude=True)]
+
+s=new('ra.ct-covid');s+=quality()+lung_lobes()+pleura()+nodes()
+s += [choice_row('infection-distribution','Distribution','Pattern synthesis','Opacity distribution',['bilateral peripheral','unilateral peripheral','peribronchovascular','diffuse','focal lobar']),choice_row('corads','CO-RADS assessment','Interpretation','Clinician-selected CO-RADS category',['0 — technically insufficient','1 — very low suspicion','2 — low suspicion','3 — equivocal','4 — high suspicion','5 — very high suspicion','6 — confirmed infection by laboratory testing']),choice_row('ct-specificity','Clinical correlation','Interpretation','Pattern interpretation',['compatible with viral pneumonia','nonspecific infection pattern','alternative pattern requires correlation','no CT evidence of pneumonia'])]
+
+s=new('ra.tuberculosis');s+=quality('Chest imaging')
+s += [choice_row('performed-modality','Performed modality','Technique','Assessment modality',['chest radiograph','CT without contrast','contrast-enhanced CT'])]
+# CT detail is explicitly chosen, excluded from blanket normal in a mixed report.
+s += lung_lobes()+nodes(True)+pleura()+thoracic_other()
+for r in s:
+ if r['id'] not in ['acquisition','comparison','performed-modality']:r['exclude_from_bulk_normal']=True
+s += [row('tb-distribution','TB-associated patterns','Pattern synthesis',None,[f('apical','Apical fibrocavitary pattern','Apical [right / left / bilateral] fibrocavitary change.'),f('miliary','Miliary nodules','Diffuse random micronodules produce a miliary pattern.'),f('bronchogenic','Bronchogenic spread','Tree-in-bud nodules and airway-centred opacities suggest bronchogenic spread.'),f('sequelae','Chronic sequelae','[Fibrotic volume loss / traction bronchiectasis / calcified granulomas / calcified nodes] are present.'),f('activity','Activity interpretation','Imaging activity is [suspicious for active infection / indeterminate / predominantly chronic sequelae]; microbiological correlation is required.')])]
+
+s=new('ra.ct-mediastinum');s+=quality(contrast=True)
+for compartment in ['Prevascular','Visceral','Paravertebral']:
+ s.append(row(slug(compartment)+'-compartment',compartment+' compartment','Mediastinal compartments',f'No focal mass in the {compartment.lower()} compartment.',[f('mass','Mass',f'{compartment} compartment: a focal mass is present.'),f('size','Dimensions','Mass dimensions __ × __ × __ mm.',requires=['mass']),f('content','Contents','The mass contains [soft tissue / fluid / macroscopic fat / mixed fat and soft tissue / gas].',requires=['mass']),f('enhancement','Enhancement','On acquired postcontrast images the lesion has [no / homogeneous / heterogeneous / peripheral] enhancement.',requires=['mass']),f('calcification','Calcification','The mass has [no / punctate / coarse / rim] calcification.',requires=['mass']),f('extension','Effect on neighbours','The lesion [displaces / compresses / encases / invades] adjacent [trachea / oesophagus / superior vena cava / aorta / pulmonary artery / neural foramen].',requires=['mass'])],repeat=True))
+s += nodes(True)+pleura()+thoracic_other()
+
+s=new('ra.thymus');s+=quality('Thymic imaging',True)
+s += [row('thymic-bed','Thymic bed','Thymus','No focal thymic-bed mass.',[f('tissue','Thymic tissue','Thymic tissue is [triangular / bilobed / nodular / diffusely enlarged / predominantly fatty].'),f('mass','Focal lesion','A focal thymic lesion is present.'),f('size','Dimensions','The thymic lesion measures __ × __ × __ mm.',requires=['mass']),f('content','Attenuation or signal contents','The thymic lesion is [fluid dominant / soft-tissue dominant / fat containing / mixed].',requires=['mass']),f('margin','Margin','The thymic lesion is [well circumscribed / lobulated / infiltrative].',requires=['mass']),f('capsule','Invasion','There is [no visible invasion / suspected pericardial invasion / suspected lung invasion / suspected great-vessel invasion].',requires=['mass'])],repeat=True),row('chemical-shift','Chemical-shift MRI','MRI characterisation',None,[f('acquired','Acquired','Paired in-phase and opposed-phase images were acquired.'),f('signal','Signal loss','Thymic tissue [loses signal / does not lose signal / is indeterminate] on opposed-phase imaging.',requires=['acquired'])],exclude=True),row('thymic-enhancement','Contrast MRI/CT','Contrast characterisation',None,[f('acquired','Postcontrast acquisition','Postcontrast thymic images were acquired.'),f('pattern','Enhancement pattern','Thymic lesion enhancement is [absent / homogeneous / heterogeneous / septal / mural nodular].',requires=['acquired'])],exclude=True)]
+s+=nodes()+pleura()
+
+s=new('ra.esophagus');s+=quality('Oesophageal imaging')
+s += [choice_row('oesophageal-technique','Study type','Technique','Oesophageal evaluation',['single-contrast swallow','double-contrast oesophagram','videofluoroscopic swallow','CT without oral contrast','CT with water-soluble oral contrast'])]
+for region in ['Cervical oesophagus','Upper thoracic oesophagus','Mid thoracic oesophagus','Distal oesophagus','Gastro-oesophageal junction']:
+ s.append(row(slug(region),region,'Oesophageal segments',None,[f('patent','Patent lumen',f'{region}: luminal passage is maintained.'),f('stricture','Stricture',f'{region}: [smooth / irregular / shouldered] narrowing.'),f('stricture-length','Stricture length',f'{region}: narrowing length __ mm.',requires=['stricture']),f('mass','Mass or wall thickening',f'{region}: [focal eccentric / focal concentric / long-segment] wall thickening.'),f('diverticulum','Diverticulum',f'{region}: a diverticulum is present.'),f('leak','Leak','Contrast extravasation from the '+region.lower()+' is [absent on the acquired study / present / indeterminate].'),f('mucosa','Mucosal abnormality',f'{region}: [ulceration / nodularity / transverse folds / longitudinal folds].')],exclude=True))
+s += [row('swallow-function','Swallowing function','Fluoroscopy',None,[f('performed','Observed swallow','Swallowing was observed fluoroscopically.'),f('aspiration','Airway entry','[No airway entry / Laryngeal penetration / Aspiration] was observed.',requires=['performed']),f('motility','Motility','Oesophageal transit shows [preserved peristalsis / weak peristalsis / absent peristalsis / tertiary contractions / prolonged hold-up].',requires=['performed']),f('reflux','Reflux','Gastro-oesophageal reflux was [observed / not elicited].',requires=['performed']),f('hiatus','Hiatus hernia','A [sliding / paraoesophageal / mixed] hiatus hernia is demonstrated.',requires=['performed'])],exclude=True)]
+
+# Cardiac and vascular reports retain anatomic segments and separate observed
+# measurements from diagnoses requiring integration by the reporting clinician.
+CORONARY_SEGMENTS=[('rca-proximal','Proximal RCA'),('rca-mid','Mid RCA'),('rca-distal','Distal RCA'),('right-pda','Right posterior descending artery'),('left-main','Left main coronary artery'),('lad-proximal','Proximal LAD'),('lad-mid','Mid LAD'),('lad-distal','Distal LAD'),('first-diagonal','First diagonal branch'),('second-diagonal','Second diagonal branch'),('lcx-proximal','Proximal circumflex'),('first-obtuse-marginal','First obtuse marginal branch'),('lcx-distal','Distal circumflex'),('second-obtuse-marginal','Second obtuse marginal branch'),('left-pda','Left posterior descending artery'),('posterolateral','Posterolateral branch'),('ramus-intermedius','Ramus intermedius')]
+
+def coronary_rows(angiographic=False):
+    rows=[]
+    for id,name in CORONARY_SEGMENTS:
+        observations=[f('stenosis','Stenosis',f'{name}: [minimal 1–24% / mild 25–49% / moderate 50–69% / severe 70–99% / complete occlusion] luminal narrowing.'),f('extent','Lesion extent',f'{name}: [focal / diffuse] disease.',requires=['stenosis']),f('length','Lesion length',f'{name}: lesion length __ mm.',requires=['stenosis']),f('patency-limited','Limited assessment',f'{name}: assessment is limited by [small calibre / motion / dense calcium / stent artefact / poor contrast].'),f('absent','Not present',f'{name}: not present in this coronary anatomy.'),f('bridge','Myocardial bridge',f'{name}: [superficial / deep] intramyocardial course.'),f('aneurysm','Ectasia or aneurysm',f'{name}: [ectasia / fusiform aneurysm / saccular aneurysm].'),f('diameter','Aneurysm diameter',f'{name}: maximal vessel diameter __ mm.',requires=['aneurysm'])]
+        if angiographic:observations+=[f('flow','Distal flow',f'{name}: TIMI flow grade [0 / 1 / 2 / 3].'),f('thrombus','Thrombus',f'{name}: angiographic thrombus is [suspected / present].'),f('dissection','Dissection',f'{name}: angiographic dissection is [suspected / present].')]
+        else:observations+=[f('plaque','Plaque type',f'{name}: [calcified / noncalcified / mixed] plaque.',requires=['stenosis']),f('highrisk','High-risk plaque feature',f'{name}: [positive remodelling / low-attenuation plaque / spotty calcification / napkin-ring sign].',requires=['stenosis'])]
+        rows.append(row(id,name,'Coronary segments',f'{name}: no visible luminal narrowing'+('.' if angiographic else ' or plaque.'),observations,[COR,CAD],exclude=id in ['right-pda','left-pda','posterolateral','ramus-intermedius','second-diagonal','second-obtuse-marginal']))
+    return rows
+
+MYOCARDIAL_SEGMENTS=['Basal anterior','Basal anteroseptal','Basal inferoseptal','Basal inferior','Basal inferolateral','Basal anterolateral','Mid anterior','Mid anteroseptal','Mid inferoseptal','Mid inferior','Mid inferolateral','Mid anterolateral','Apical anterior','Apical septal','Apical inferior','Apical lateral','Apical cap']
+def myocardial_rows(mri=False):
+    rr=[]
+    for name in MYOCARDIAL_SEGMENTS:
+        findings=[f('motion','Wall motion',f'{name} myocardium: [hypokinetic / akinetic / dyskinetic / aneurysmal] motion.'),f('thickness','Wall thickness',f'{name} myocardial end-diastolic thickness __ mm.'),f('thinning','Thinning',f'{name} myocardium is thinned.')]
+        if mri:
+            findings += [f('oedema','Oedema',f'{name} myocardium: increased T2-weighted signal.'),f('lge','Late enhancement',f'{name} myocardium has [subendocardial / transmural / mid-wall / subepicardial / patchy / right-ventricular insertion-point] late gadolinium enhancement.'),f('lge-transmurality','Enhancement extent',f'{name} late enhancement involves [1–25% / 26–50% / 51–75% / 76–100%] wall thickness.',requires=['lge']),f('mvo','Microvascular obstruction',f'{name}: a dark core within enhanced myocardium is compatible with microvascular obstruction.',requires=['lge'])]
+        rr.append(row('myocardium-'+slug(name),name+' myocardium','Regional myocardium',f'{name} myocardium: normal systolic thickening and motion.',findings,[SCMR if mri else ASE]))
+    return rr
+
+def cardiac_chambers(modality='CT'):
+    rr=[]
+    for name in ['Left ventricle','Right ventricle','Left atrium','Right atrium']:
+        fs=[f('dilatation','Dilatation',f'{name}: [mild / moderate / severe] dilatation.'),f('mass','Intracavitary lesion',f'{name}: [suspected thrombus / focal mass / indeterminate filling defect].')]
+        if 'ventricle' in name.lower():
+            fs += [f('hypertrophy','Hypertrophy',f'{name}: [concentric / asymmetric / apical] wall thickening.')]
+            if modality!='CT':fs += [f('function','Global function',f'{name}: [mildly reduced / moderately reduced / severely reduced / hyperdynamic] systolic function.'),f('ef','Ejection fraction',f'{name} ejection fraction __ %.')]
+        rr.append(row(slug(name),name,'Cardiac chambers',f'{name}: not enlarged'+(' with preserved global systolic function.' if modality!='CT' and 'ventricle' in name.lower() else '.'),fs,[ASE if modality=='Echo' else SCMR] if modality!='CT' else None))
+    return rr
+
+def valve_rows(echo=False):
+    rr=[]
+    for name in ['Aortic','Mitral','Tricuspid','Pulmonary']:
+        fs=[f('thickening','Leaflet thickening',f'{name} valve leaflets are thickened.'),f('calcification','Calcification',f'{name} valve has [mild / moderate / severe] calcification.'),f('mass','Valvular mass',f'A [mobile / sessile] mass is attached to the {name.lower()} valve.'),f('prosthesis','Prosthesis',f'A [mechanical / surgical bioprosthetic / transcatheter bioprosthetic] {name.lower()} valve is present.')]
+        if echo:
+            fs += [f('stenosis','Stenosis',f'{name} stenosis is [mild / moderate / severe / indeterminate].'),f('regurgitation','Regurgitation',f'{name} regurgitation is [trace / mild / moderate / severe / indeterminate].'),f('peak-velocity','Peak velocity',f'{name} transvalvular peak velocity __ m/s.',requires=['stenosis','prosthesis']),f('mean-gradient','Mean gradient',f'{name} mean transvalvular gradient __ mmHg.',requires=['stenosis','prosthesis'])]
+        rr.append(row('valve-'+slug(name),name+' valve','Valves',f'{name} valve: no significant structural abnormality'+(' or haemodynamic dysfunction.' if echo else ' on the available images.'),fs,[ASE] if echo else None,exclude=not echo))
+    return rr
+
+s=new('ra.ct-coronary');s+=quality('Coronary CTA',True)
+s += [choice_row('dominance','Dominance','Coronary anatomy','Coronary dominance',['right','left','codominant']),choice_row('origins','Coronary origins','Coronary anatomy','Coronary ostial origins',['usual origins','anomalous left coronary from right sinus','anomalous right coronary from left sinus','single coronary origin','high take-off','separate LAD and circumflex ostia']),row('anomalous-course','Anomalous course','Coronary anatomy',None,[f('course','Course','Anomalous coronary course is [interarterial / intramural / retroaortic / prepulmonic / transseptal].'),f('ostium','Ostium','The anomalous ostium is [round / slit-like / acutely angled].')],[COR],exclude=True)]
+s+=coronary_rows()+cardiac_chambers()+valve_rows()+thoracic_other()[:1]
+s += [row('coronary-stent','Coronary stent','Revascularisation',None,[f('present','Stent','A stent is present in the [RCA / left main / LAD / diagonal / circumflex / obtuse marginal / PDA / posterolateral branch].'),f('patency','Patency','Stent lumen is [patent / narrowed / occluded / nondiagnostic].',requires=['present']),f('stenosis','In-stent stenosis','In-stent narrowing is [less than 50% / 50–69% / 70–99%].',requires=['present'])],[CAD],repeat=True,repeat_label='Stent'),row('bypass-graft','Bypass graft','Revascularisation',None,[f('present','Graft','A [left internal mammary / right internal mammary / radial artery / saphenous vein] graft is present.'),f('target','Distal target','The graft supplies the [LAD / diagonal / obtuse marginal / RCA / PDA / posterolateral branch].',requires=['present']),f('patency','Patency','Graft is [patent / stenosed proximally / stenosed distally / occluded / nondiagnostic].',requires=['present'])],[CAD],repeat=True,repeat_label='Graft'),measurement('calcium-score','Agatston calcium score','Plaque burden','Reported total coronary calcium score','Agatston units',[CAD]),choice_row('cadrads-interpretation','CAD-RADS review','Interpretation','CAD-RADS assessment',['review calculator output with segment findings','classification deferred because of nondiagnostic segments','classification supplied by reporting cardiologist'])]
+
+s=new('cardiology.percutaneous-angiography');s+=quality('Catheter coronary angiography')
+s += [choice_row('access','Arterial access','Procedure observations','Documented access',['right radial','left radial','right femoral','left femoral','right ulnar','left ulnar']),choice_row('dominance','Dominance','Coronary anatomy','Coronary dominance',['right','left','codominant'])]+coronary_rows(True)
+s += [row('graft-angiogram','Bypass graft angiogram','Revascularisation',None,[f('graft','Graft assessed','A [left internal mammary / right internal mammary / radial artery / saphenous vein] graft was opacified.'),f('target','Target','The graft supplies the [LAD / diagonal / obtuse marginal / RCA / PDA / posterolateral branch].',requires=['graft']),f('finding','Graft finding','The graft is [patent / focally narrowed / diffusely diseased / occluded].',requires=['graft'])],repeat=True,repeat_label='Graft',exclude=True),measurement('aortic-pressure','Aortic pressure','Haemodynamics','Aortic systolic pressure','mmHg'),measurement('lv-end-diastolic','LV end-diastolic pressure','Haemodynamics','Left ventricular end-diastolic pressure','mmHg'),row('ventriculography','Left ventriculography','Optional acquisition',None,[f('performed','Performed','Left ventriculography was performed.'),f('function','Function','Global systolic function is [preserved / mildly reduced / moderately reduced / severely reduced].',requires=['performed']),f('regurgitation','Regurgitation','Angiographic mitral regurgitation is [absent / mild / moderate / severe].',requires=['performed'])],exclude=True),choice_row('haemostasis','Haemostasis documentation','Procedure observations','Documented haemostasis',['radial compression band','manual femoral compression','vascular closure device','not documented']),choice_row('angiography-complication','Immediate complication','Procedure observations','Documented immediate course',['no immediate complication observed','access-site haematoma','coronary dissection','contrast reaction','arrhythmia','haemodynamic instability'])]
+
+s=new('cardiology.echocardiography');s+=quality('Transthoracic echocardiography')
+s += [choice_row('rhythm','Rhythm','Technique','Recorded rhythm',['regular','atrial fibrillation','frequent ectopy','paced']),measurement('heart-rate','Heart rate','Technique','Recorded heart rate','bpm',[ASE])]+cardiac_chambers('Echo')+myocardial_rows()+valve_rows(True)
+for id,name,text,unit in [('lv-edd','LV end-diastolic diameter','LV end-diastolic internal diameter','mm'),('lv-esd','LV end-systolic diameter','LV end-systolic internal diameter','mm'),('septal-thickness','Septal thickness','Interventricular septal end-diastolic thickness','mm'),('posterior-wall','Posterior wall thickness','LV posterior end-diastolic wall thickness','mm'),('lv-edv','LV end-diastolic volume','Biplane LV end-diastolic volume','mL'),('lv-esv','LV end-systolic volume','Biplane LV end-systolic volume','mL'),('la-volume','LA volume index','Left atrial volume index','mL/m²'),('tapse','TAPSE','Tricuspid annular systolic excursion','mm'),('rv-s-prime','RV systolic velocity','Lateral tricuspid annular systolic velocity','cm/s'),('rv-fac','RV fractional area change','Right ventricular fractional area change','%'),('mitral-e','Mitral E velocity','Mitral inflow E velocity','cm/s'),('mitral-a','Mitral A velocity','Mitral inflow A velocity','cm/s'),('septal-e-prime','Septal e-prime','Septal e-prime velocity','cm/s'),('lateral-e-prime','Lateral e-prime','Lateral e-prime velocity','cm/s'),('tr-velocity','TR peak velocity','Tricuspid regurgitant peak velocity','m/s')]:
+ s.append(measurement(id,name,'Quantitative measurements',text,unit,[ASE]))
+s += [choice_row('diastolic','Diastolic interpretation','Filling and pressure','Clinician-integrated LV diastolic assessment',['normal','grade I impaired relaxation','grade II pseudonormal filling','grade III restrictive filling','indeterminate','not assessable']),row('ivc','Inferior vena cava','Filling and pressure',None,[f('size','IVC size','Inferior vena cava diameter __ mm.'),f('collapse','Inspiratory collapse','IVC inspiratory collapse is [greater than 50% / less than 50% / absent / not assessed].')],[ASE],exclude=True),row('interatrial-septum','Interatrial septum','Septa',None,[f('appearance','Appearance','Interatrial septum is [intact on colour Doppler / aneurysmal / deficient].'),f('bubble','Agitated saline','Agitated saline study demonstrates [no right-to-left passage / early right-to-left passage / delayed right-to-left passage].')],[ASE],exclude=True),row('interventricular-septum','Interventricular septum','Septa','No ventricular septal defect is demonstrated on colour Doppler.',[f('defect','Defect','A [perimembranous / muscular / inlet / outlet] ventricular septal defect is seen.'),f('direction','Shunt direction','Septal shunt is [left-to-right / right-to-left / bidirectional].',requires=['defect'])],[ASE],exclude=True),row('echo-pericardium','Pericardium','Pericardium','No pericardial effusion.',[f('effusion','Effusion','[Small / moderate / large] [circumferential / loculated] pericardial effusion.'),f('collapse','Chamber collapse','There is [right atrial systolic / right ventricular diastolic / combined right atrial and ventricular] collapse.',requires=['effusion']),f('respiratory','Respiratory variation','Respiratory inflow variation is [exaggerated / not exaggerated].',requires=['effusion'])],[ASE])]
+for name in ['Aortic root','Ascending aorta','Aortic arch']:
+ s.append(measurement(slug(name)+'-diameter',name,'Aorta',name+' diameter','mm',[ASE]))
+
+s=new('ra.mri-cardiomyopathy');s+=quality('Cardiac MRI')+cardiac_chambers('MRI')+myocardial_rows(True)+valve_rows()+thoracic_other()[:1]
+for chamber in ['LV','RV']:
+ for suffix,label,unit in [('end-diastolic-volume','end-diastolic volume','mL'),('end-systolic-volume','end-systolic volume','mL'),('stroke-volume','stroke volume','mL'),('mass','myocardial mass','g')]:
+    s.append(measurement(chamber.lower()+'-'+suffix,chamber+' '+label,'Ventricular quantification',chamber+' '+label,unit,[SCMR]))
+s += [row('tissue-mapping','Parametric mapping','Tissue characterisation',None,[f('acquired','Mapping acquired','Parametric mapping sequences were acquired.'),f('native-t1','Native T1','Native myocardial T1 is __ ms.',requires=['acquired']),f('t2','T2','Myocardial T2 is __ ms.',requires=['acquired']),f('t2star','T2-star','Myocardial T2-star is __ ms.',requires=['acquired']),f('ecv','Extracellular volume','Calculated myocardial extracellular volume is __ %.',requires=['acquired']),f('interpretation','Reference comparison','Mapping values are [within / above / below] the locally validated sequence-specific reference interval.',requires=['acquired'])],[SCMR],exclude=True),choice_row('cmr-pattern','Integrated pattern','Interpretation','Clinician-integrated imaging pattern',['ischaemic injury pattern','nonischaemic dilated phenotype','hypertrophic phenotype','inflammatory injury pattern','infiltrative phenotype','arrhythmogenic phenotype','no diagnostic cardiomyopathy pattern']),row('perfusion','Stress perfusion','Optional acquisition',None,[f('acquired','Acquired','Stress perfusion imaging was acquired.'),f('defect','Perfusion','Stress perfusion shows [no inducible defect / subendocardial defect / transmural defect / nondiagnostic images].',requires=['acquired'])],[SCMR],exclude=True)]
+
+AORTIC_LEVELS=['Aortic annulus','Sinuses of Valsalva','Sinotubular junction','Ascending aorta','Proximal aortic arch','Distal aortic arch','Aortic isthmus','Proximal descending thoracic aorta','Mid descending thoracic aorta','Aorta at diaphragm','Suprarenal abdominal aorta','Infrarenal abdominal aorta']
+def aorta_rows(acute=False):
+    rr=[]
+    for name in AORTIC_LEVELS:
+        fs=[f('diameter','Orthogonal diameter',f'{name}: maximal orthogonal diameter __ mm.'),f('dilatation','Dilatation',f'{name}: [fusiform dilatation / saccular aneurysm / pseudoaneurysm].'),f('atheroma','Atheroma',f'{name}: [mild / moderate / severe] atheroma.'),f('thrombus','Mural thrombus',f'{name}: [laminated / irregular / protruding] mural thrombus.')]
+        if acute:fs += [f('dissection','Dissection',f'{name}: dissection flap present.'),f('false-lumen','False lumen',f'{name}: false lumen is [patent / partially thrombosed / completely thrombosed].',requires=['dissection']),f('true-lumen','True lumen',f'{name}: true lumen is [preserved / compressed / nearly occluded].',requires=['dissection']),f('imh','Intramural haematoma',f'{name}: intramural haematoma.'),f('imh-width','Haematoma thickness',f'{name}: maximal intramural haematoma thickness __ mm.',requires=['imh']),f('ulcer','Penetrating ulcer',f'{name}: penetrating atherosclerotic ulcer.'),f('ulcer-size','Ulcer dimensions',f'{name}: ulcer width __ mm and depth __ mm.',requires=['ulcer']),f('rupture','Leak or rupture',f'{name}: [contained leak / active extravasation / periaortic haematoma].')]
+        rr.append(row(slug(name),name,'Aortic segments',f'{name}: no focal dilatation'+(', dissection or acute wall abnormality.' if acute else '.'),fs,exclude=name in ['Aortic annulus','Suprarenal abdominal aorta','Infrarenal abdominal aorta']))
+    return rr
+
+s=new('ra.ct-acute-aortic-syndrome');s+=quality('Aortic CTA',True)+aorta_rows(True)
+for name in ['Brachiocephalic artery','Left common carotid artery','Left subclavian artery','Coeliac artery','Superior mesenteric artery','Right renal artery','Left renal artery','Right common iliac artery','Left common iliac artery']:
+ s.append(row(slug(name),name,'Branch vessels',f'{name}: patent without visible dissection.',[f('extension','Dissection extension',f'{name}: dissection extends into the vessel.'),f('origin','Origin from lumen',f'{name}: arises from the [true lumen / false lumen / both lumina].'),f('obstruction','Obstruction',f'{name}: [dynamic narrowing / static narrowing / occlusion].'),f('perfusion','Downstream effect',f'{name}: [preserved / delayed / absent] downstream enhancement.')],exclude=True))
+s += [row('coronary-extension','Coronary ostia','Root complications',None,[f('ostium','Ostial extension','Dissection extends into the [right / left / both] coronary ostia.')],exclude=True),row('aortic-pericardium','Pericardium','Complications','No haemopericardium.',[f('haemopericardium','Haemopericardium','Hyperattenuating pericardial fluid is compatible with haemopericardium.')]),row('aortic-pleura','Pleural spaces','Complications','No haemothorax.',[f('haemothorax','Haemothorax','[Right / left / bilateral] high-attenuation pleural fluid is compatible with haemothorax.')]),choice_row('dissection-class','Dissection classification','Interpretation','Clinician-selected dissection extent',['Stanford type A','Stanford type B','non-A non-B arch dissection','no dissection'])]
+
+s=new('ra.thoracic-aorta-measurement');s+=quality('Thoracic aortic CT',True)
+s += [choice_row('gating','ECG acquisition','Measurement method','Acquisition',['ECG-gated systolic','ECG-gated diastolic','nongated']),choice_row('edge-convention','Edge convention','Measurement method','Reported edge convention',['inner edge to inner edge','outer edge to outer edge']),choice_row('root-method','Root method','Measurement method','Root measurement method',['sinus to sinus','sinus to commissure'])]+aorta_rows()
+s += [row('aortic-comparison','Prior matched measurement','Comparison',None,[f('prior','Prior study reviewed','Matched prior aortic images were reviewed.'),f('prior-diameter','Prior maximum','Prior maximal diameter __ mm.',requires=['prior']),f('interval','Interval','Comparison interval __ months.',requires=['prior']),f('change','Assessment','Aortic calibre is [unchanged / increased / decreased] allowing for measurement technique.',requires=['prior'])],exclude=True)]
+
+s=new('ra.ct-tavi');s+=quality('TAVI planning CTA',True)
+s += [row('tavi-valve','Aortic valve morphology','Valve and annulus',None,[f('cusps','Cusp morphology','Aortic valve is [tricuspid / bicuspid with raphe / bicuspid without raphe / unicuspid / prosthetic].'),f('calcium','Leaflet calcium','Aortic leaflet calcification is [mild / moderate / severe].'),f('raphe','Raphe calcification','The raphe is [not calcified / mildly calcified / heavily calcified].',requires=['cusps']),f('score','Calcium score','Aortic valve Agatston score __ Agatston units.')],[TAVI],exclude=True)]
+for id,name,text,unit in [('annular-min','Minimum annular diameter','Minimum annular diameter','mm'),('annular-max','Maximum annular diameter','Maximum annular diameter','mm'),('annular-area','Annular area','Annular area','mm²'),('annular-perimeter','Annular perimeter','Annular perimeter','mm'),('annular-phase','Measurement phase','Annular measurement cardiac phase','%'),('right-coronary-height','Right coronary height','Right coronary ostial height above annulus','mm'),('left-coronary-height','Left coronary height','Left coronary ostial height above annulus','mm'),('right-sinus','Right coronary sinus','Right coronary sinus diameter','mm'),('left-sinus','Left coronary sinus','Left coronary sinus diameter','mm'),('noncoronary-sinus','Noncoronary sinus','Noncoronary sinus diameter','mm'),('sinus-height','Sinus height','Sinus height above annular plane','mm'),('stj','Sinotubular junction','Sinotubular junction diameter','mm'),('stj-height','Sinotubular junction height','Sinotubular junction height above annulus','mm'),('ascending-diameter','Ascending aortic diameter','Ascending aortic diameter','mm'),('membranous-septum','Membranous septum','Membranous septal length','mm'),('aortic-angulation','Aortic angulation','Aortic root angulation','degrees')]:
+ s.append(measurement(id,name,'Planning dimensions',text,unit,[TAVI]))
+s += [row('lvot','Left ventricular outflow tract','Valve and annulus',None,[f('calcium','Subannular calcium','LVOT calcium is [absent / mild / moderate / severe].'),f('location','Calcium location','Subannular calcium lies beneath the [right coronary cusp / left coronary cusp / noncoronary cusp / multiple cusps].',requires=['calcium']),f('diameters','LVOT diameters','LVOT diameters __ × __ mm.')],[TAVI],exclude=True)]
+for side in ['Right','Left']:
+ for vessel in ['common iliac artery','external iliac artery','common femoral artery','subclavian artery']:
+    name=side+' '+vessel
+    s.append(row(slug(name),name,'Access vessels',None,[f('diameter','Minimum lumen','Minimum '+name.lower()+' lumen __ mm.'),f('calcification','Calcification',name+': [none / mild / moderate / severe] calcification.'),f('circumferential','Calcium distribution',name+': calcification is [eccentric / nearly circumferential / circumferential].',requires=['calcification']),f('tortuosity','Tortuosity',name+': [none / mild / moderate / severe] tortuosity.'),f('stenosis','Stenosis',name+': [no focal stenosis / focal narrowing / occlusion].'),f('complication','Additional vessel finding',name+': [dissection / aneurysm / prior stent / mural thrombus].')],[TAVI],exclude=True))
+s += [choice_row('deployment-view','Deployment projection','Planning','Preferred deployment projection type',['three-cusp coplanar','cusp-overlap','not established']),choice_row('access-review','Access review','Planning','Access assessment',['transfemoral route appears feasible subject to device review','alternative access requires heart-team review','access not assessable on this acquisition'])]
+
+s=new('ra.pulmonary-hypertension');s+=quality('CT pulmonary angiography',True)
+s += [choice_row('pa-opacification','Pulmonary opacification','Technique','Pulmonary artery assessment reaches',['main arteries only','lobar arteries','segmental arteries','subsegmental arteries','nondiagnostic opacification'])]
+pa_names=['Pulmonary trunk','Right main pulmonary artery','Left main pulmonary artery']+[name+' pulmonary artery' for _,name in LOBES]
+pa_names += [name+' '+seg+' artery' for id,name in LOBES for seg in SEGMENTS[id]]
+for name in pa_names:
+ s.append(row('pa-'+slug(name),name,'Pulmonary arteries',f'{name}: no filling defect on diagnostic images.',[f('acute','Acute clot',f'{name}: [central / eccentric] filling defect with acute clot morphology.'),f('occlusion','Clot burden',f'{name}: [nonocclusive / occlusive] thrombus.',requires=['acute']),f('chronic','Chronic change',f'{name}: [web / band / eccentric wall-adherent thrombus / abrupt tapering / pouch occlusion].'),f('mixed','Acute on chronic',f'{name}: acute clot superimposed on chronic thromboembolic change.'),f('nondiagnostic','Not evaluable',f'{name}: not reliably assessed because of [motion / poor opacification / streak artefact].')],[SEG]+CURRENT_REFS,exclude=True))
+s += [measurement('main-pa-diameter','Pulmonary trunk diameter','Right-heart and vascular signs','Pulmonary trunk diameter','mm'),measurement('rv-diameter','RV diameter','Right-heart and vascular signs','Right ventricular diameter','mm'),measurement('lv-diameter','LV diameter','Right-heart and vascular signs','Left ventricular diameter','mm'),row('rv-strain','Right-heart morphology','Right-heart and vascular signs','No CT signs of right-heart strain.',[f('rv-dilatation','RV dilatation','The right ventricle is dilated.'),f('septum','Septal configuration','Interventricular septum is [flattened / bowed leftward].'),f('reflux','Venous reflux','Contrast reflux into the [inferior vena cava / hepatic veins].'),f('hypertrophy','RV wall thickening','Right ventricular wall thickening is present.')]),row('systemic-collaterals','Systemic collaterals','Right-heart and vascular signs','No enlarged bronchial collateral arteries.',[f('collaterals','Collaterals','Enlarged [bronchial / intercostal / internal thoracic] collateral arteries.')])]+lung_lobes()+pleura()
+s += [choice_row('ph-synthesis','Interpretation','Interpretation','CT vascular pattern',['acute pulmonary embolism','chronic thromboembolic disease','acute on chronic thromboembolic disease','features suggesting pulmonary hypertension without demonstrable thromboembolic obstruction','no CT evidence of pulmonary embolism','nondiagnostic for pulmonary embolism'])]
+
+s=new('ra.mra-peripheral-vessels');s+=quality('Peripheral MR angiography')
+for name in ['Infrarenal aorta']+[side+' '+vessel for side in ['Right','Left'] for vessel in ['common iliac artery','internal iliac artery','external iliac artery','common femoral artery','profunda femoris artery','proximal superficial femoral artery','mid superficial femoral artery','distal superficial femoral artery','popliteal artery','anterior tibial artery','tibioperoneal trunk','posterior tibial artery','peroneal artery','dorsalis pedis artery','plantar arteries']]:
+ s.append(row(slug(name),name,'Arterial segments',f'{name}: patent without significant focal stenosis.',[f('stenosis','Stenosis',f'{name}: [less than 50% / 50–69% / 70–99%] narrowing.'),f('occlusion','Occlusion',f'{name}: occlusion.'),f('length','Affected length',f'{name}: affected length __ mm.',requires=['stenosis','occlusion']),f('reconstitution','Distal reconstitution',f'{name}: distal reconstitution [present / absent].',requires=['occlusion']),f('aneurysm','Aneurysm',f'{name}: [fusiform / saccular] aneurysmal dilatation.'),f('diameter','Diameter',f'{name}: maximum diameter __ mm.',requires=['aneurysm']),f('artifact','Limited segment',f'{name}: evaluation limited by [motion / venous contamination / timing / metallic artefact / slow flow].')],exclude='plantar' in name or 'dorsalis' in name))
+for side in ['Right','Left']:
+ s.append(choice_row(slug(side)+'-runoff',side+' foot supply','Runoff',side+' distal runoff',['three patent tibial vessels','two patent tibial vessels','one patent tibial vessel','no continuous tibial vessel demonstrated','not assessable']))
+
+s=new('ra.vascular-anomalies');s+=quality('Congenital vascular CTA',True)
+for id,name,text,opts in [
+ ('situs','Visceral and atrial arrangement','Imaged visceral arrangement',['situs solitus','situs inversus','heterotaxy']),('arch-side','Aortic arch side','Aortic arch',['left-sided','right-sided','double arch']),('arch-branching','Arch branching','Arch branching',['usual three-branch arrangement','common brachiocephalic-left carotid origin','aberrant right subclavian artery','aberrant left subclavian artery','mirror-image branching']),('vascular-ring','Vascular ring','Complete vascular ring',['not demonstrated','double arch ring','right arch with aberrant left subclavian and left ligamentous remnant','other configuration requiring surgical correlation']),('pulmonary-arteries','Pulmonary artery origin','Pulmonary artery configuration',['usual bifurcation','left pulmonary artery sling','absent proximal right pulmonary artery','absent proximal left pulmonary artery']),('systemic-veins','Systemic venous pathway','Systemic venous return',['usual right SVC and IVC','persistent left SVC to coronary sinus','bilateral SVC','interrupted IVC with azygos continuation','left-sided IVC']),('pulmonary-veins','Pulmonary venous return','Pulmonary venous drainage',['all identified veins to left atrium','partial anomalous drainage','total anomalous drainage','incomplete coverage'])]:
+ s.append(choice_row(id,name,'Vascular connections',text,opts))
+for name in ['Right upper pulmonary vein','Right lower pulmonary vein','Left upper pulmonary vein','Left lower pulmonary vein']:
+ s.append(row(slug(name),name,'Pulmonary venous connections',None,[f('drainage','Drainage',name+' drains to the [left atrium / right atrium / superior vena cava / brachiocephalic vein / coronary sinus / inferior vena cava / vertical vein].'),f('stenosis','Narrowing',name+': [no narrowing / ostial narrowing / long-segment narrowing / atresia].')],exclude=True))
+s += [row('ring-airway','Tracheobronchial effect','Associated findings','No extrinsic central airway compression.',[f('compression','Compression','Vascular compression narrows the [trachea / right main bronchus / left main bronchus].'),f('diameter','Minimum diameter','Minimum compressed airway diameter __ mm.',requires=['compression'])]),row('oesophageal-compression','Oesophageal effect','Associated findings','No focal extrinsic oesophageal compression.',[f('compression','Compression','Extrinsic oesophageal compression is present.')]),row('kommerell','Kommerell diverticulum','Associated findings',None,[f('present','Diverticulum','Kommerell diverticulum is present.'),f('orifice','Orifice size','Diverticular orifice measures __ mm.',requires=['present']),f('combined','Combined diameter','Diverticulum-to-opposite-aortic-wall diameter __ mm.',requires=['present'])],exclude=True)]
+
+s=new('ra.ct-cardiovascular-pearls');s+=quality('Chest CT',True)+cardiac_chambers()+valve_rows()+thoracic_other()[:1]
+for name in ['Ascending aorta','Aortic arch','Descending thoracic aorta','Main pulmonary artery','Superior vena cava','Inferior vena cava','Coronary arteries']:
+ s.append(row(slug(name),name,'Great vessels and coronary arteries',None,[f('calibre','Calibre',name+': [not enlarged / enlarged / focally narrowed].'),f('thrombus','Filling defect',name+': a filling defect is [suspected / demonstrated].'),f('calcium','Calcification',name+': [mild / moderate / severe] calcification.')],exclude=True))
+s += [row('interatrial-septum','Interatrial septum','Septal and wall findings',None,[f('fat','Fat','Interatrial septal fat has a [fossa-ovalis-sparing / diffuse] distribution.'),f('defect','Defect','An interatrial communication is suspected on this nongated examination.')],exclude=True),row('myocardial-fat','Myocardium','Septal and wall findings',None,[f('fat','Myocardial fat','[Subendocardial / intramyocardial] fat is present in the [left / right] ventricle.'),f('scar','Scar morphology','Focal ventricular [wall thinning / calcification / aneurysmal contour] is present.')],exclude=True)]
+
+s=new('ra.cardiac-masses');s+=quality('Cardiac CT/MRI',True)+cardiac_chambers()+valve_rows()+thoracic_other()[:1]
+s += [row('cardiac-lesion','Cardiac lesion','Lesion characterisation',None,[f('present','Lesion','A [mass / thrombus-like lesion / indeterminate lesion] is present.'),f('chamber','Location','The lesion involves the [left atrium / right atrium / left ventricle / right ventricle / interatrial septum / interventricular septum / pericardium / aortic valve / mitral valve / tricuspid valve / pulmonary valve].',requires=['present']),f('attachment','Attachment','The lesion is [pedunculated / broad-based / infiltrative / unattached].',requires=['present']),f('size','Dimensions','The lesion measures __ × __ × __ mm.',requires=['present']),f('mobility','Mobility on cine','On acquired cine images the lesion is [mobile / fixed / prolapsing across a valve].',requires=['present']),f('fat','Fat','Macroscopic fat is [present / absent].',requires=['present']),f('calcium','Calcification','Calcification is [absent / focal / extensive].',requires=['present']),f('t1','T1 signal','On acquired MRI the lesion is [low / intermediate / high] T1 signal.',requires=['present']),f('t2','T2 signal','On acquired MRI the lesion is [low / intermediate / high] T2 signal.',requires=['present']),f('perfusion','First-pass perfusion','On acquired perfusion images the lesion is [nonperfused / weakly perfused / avidly perfused].',requires=['present']),f('late','Late enhancement','On acquired late gadolinium images the lesion has [no enhancement / homogeneous enhancement / heterogeneous enhancement / peripheral enhancement].',requires=['present']),f('invasion','Local effect','The lesion [obstructs inflow / obstructs outflow / invades myocardium / invades pericardium / has no demonstrated invasive extension].',requires=['present'])],repeat=True)]
+
+s=new('ra.cardiovascular-devices');s+=quality('Cardiovascular device imaging')
+for id,name,positions in [('central-line','Central venous catheter',['lower SVC','cavoatrial junction','right atrium','azygos vein','brachiocephalic vein','extravenous position']),('right-atrial-lead','Right atrial lead',['right atrial appendage','right atrial wall','displaced into SVC','displaced into right ventricle']),('right-ventricular-lead','Right ventricular lead',['right ventricular apex','right ventricular septum','right ventricular outflow tract','extracardiac position']),('lv-lead','Coronary sinus lead',['lateral cardiac vein','posterolateral cardiac vein','proximal coronary sinus','displaced position']),('pulmonary-catheter','Pulmonary artery catheter',['main pulmonary artery','proximal right pulmonary artery','proximal left pulmonary artery','peripheral pulmonary artery']),('iabp','Intra-aortic balloon pump',['proximal descending aorta','aortic arch','low thoracic aorta','abdominal aorta']),('ecmo-venous','ECMO venous cannula',['right atrium','cavoatrial junction','inferior vena cava','superior vena cava']),('ecmo-arterial','ECMO arterial cannula',['ascending aorta','descending aorta','iliac artery','femoral artery'])]:
+ s.append(row(id,name,'Device position',None,[f('present','Present',name+' is present.'),f('tip','Tip or electrode',name+' tip or electrode lies at the ['+' / '.join(positions)+'].',requires=['present']),f('course','Course',name+' course is [expected / kinked / looped / discontinuous].',requires=['present']),f('complication','Local complication',name+': [suspected perforation / associated thrombus / surrounding collection / no visible local complication].',requires=['present'])],exclude=True))
+s += [row('lvad','LV assist device','Mechanical support',None,[f('present','Present','A left ventricular assist device is present.'),f('inflow','Inflow cannula','Inflow cannula is [directed toward the mitral valve / directed toward septum / directed toward free wall / obstructed].',requires=['present']),f('outflow','Outflow graft','Outflow graft is [patent / kinked / narrowed / occluded].',requires=['present']),f('driveline','Driveline','Driveline has [no visible collection / surrounding fluid / surrounding gas / focal discontinuity].',requires=['present'])],exclude=True),row('valve-device','Valve or septal device','Other devices',None,[f('present','Device','A [mechanical valve / bioprosthetic valve / transcatheter aortic valve / mitral clip / atrial septal occluder / left atrial appendage occluder] is present.'),f('finding','Device finding','Device has [expected position / malposition / suspected thrombus / dehiscence / adjacent collection].',requires=['present'])],repeat=True,repeat_label='Device',exclude=True)]+pleura()+thoracic_other()[:1]
+
+# Breast: distinct regions, separate axillary levels, repeatable characterised
+# lesions. Assessment categories remain clinician choices, never inferred.
+BREAST_REGIONS=['upper outer quadrant','upper inner quadrant','lower inner quadrant','lower outer quadrant','retroareolar region','axillary tail']
+def breast_regions(modality='Mammography'):
+    rr=[]
+    for side in ['Right','Left']:
+      for region in BREAST_REGIONS:
+        name=side+' '+region
+        fs=[f('mass','Mass',name+': a focal mass is present.'),f('distortion','Distortion',name+': architectural distortion.'),f('postoperative','Postoperative change',name+': postoperative scarring.')]
+        if modality=='MRI':
+            fs += [f('nonmass','Non-mass enhancement',name+': non-mass enhancement is present.')]
+            normal=name+': no suspicious enhancement on the acquired contrast study.'
+        elif modality=='Ultrasound':
+            fs += [f('cyst','Cyst',name+': a [simple cyst / complicated cyst / clustered microcysts] is present.'),f('nonmass','Non-mass lesion',name+': a discrete non-mass lesion is present.')]
+            normal=name+': no suspicious sonographic lesion in the examined region.'
+        else:
+            fs += [f('calcifications','Calcifications',name+': calcifications are present.'),f('asymmetry','Asymmetry',name+': [one-view asymmetry / focal asymmetry / global asymmetry] is present.')]
+            normal=name+': no suspicious mammographic finding.'
+        rr.append(row(slug(name),name,'Breast regions',normal,fs,[BIRADS,BRUS if modality=='Ultrasound' else BRM],exclude=modality=='Ultrasound'))
+    return rr
+
+def breast_nodes():
+    rr=[]
+    for side in ['Right','Left']:
+     for level in ['axillary level I','axillary level II','axillary level III','internal mammary chain','supraclavicular region']:
+        name=side+' '+level
+        rr.append(row(slug(name),name,'Regional nodes',name+': no suspicious node in the imaged region.',[f('suspicious','Suspicious node',name+': suspicious [single node / multiple nodes].'),f('cortex','Cortical morphology',name+': nodal cortex is [diffusely thickened / focally thickened / lobulated].',requires=['suspicious']),f('cortex-size','Cortical thickness',name+': cortical thickness __ mm.',requires=['suspicious']),f('hilum','Fatty hilum',name+': nodal fatty hilum is [preserved / partially effaced / absent].',requires=['suspicious']),f('short-axis','Short axis',name+': largest suspicious node short axis __ mm.',requires=['suspicious']),f('biopsy','Sampling status',name+': suspicious node is [not sampled / biopsy benign and concordant / biopsy malignant / sampling result pending].',requires=['suspicious'])],[BIRADS,BRUS],exclude=True))
+    return rr
+
+def breast_skin():
+    rr=[]
+    for side in ['Right','Left']:
+      rr += [row(side.lower()+'-skin',side+' skin','Skin, nipple and chest wall',side+' breast skin is not thickened.',[f('thickening','Thickening',side+' breast skin has [focal / diffuse] thickening.'),f('retraction','Retraction',side+' breast has focal skin retraction.'),f('lesion','Skin lesion',side+' breast has a [cutaneous mass / ulcerated skin lesion].')]),row(side.lower()+'-nipple',side+' nipple','Skin, nipple and chest wall',side+' nipple is not retracted.',[f('retraction','Retraction',side+' nipple is [inverted / newly retracted].'),f('lesion','Nipple lesion',side+' nipple has a focal lesion.')])]
+    return rr
+
+def breast_location():
+    return [f('side','Side','The lesion is in the [right / left] breast.',requires=['present']),f('quadrant','Region','Lesion region: [upper outer quadrant / upper inner quadrant / lower inner quadrant / lower outer quadrant / retroareolar / axillary tail].',requires=['present']),f('clock','Clock position','Lesion clock position: [12 / 1 / 2 / 3 / 4 / 5 / 6 / 7 / 8 / 9 / 10 / 11] o’clock.',requires=['present']),f('depth','Depth','Lesion depth: [anterior / middle / posterior].',requires=['present']),f('nipple-distance','Distance from nipple','Lesion lies __ mm from the nipple.',requires=['present']),f('size','Dimensions','Lesion dimensions __ × __ × __ mm.',requires=['present'])]
+
+def breast_lesion(modality='Mammography'):
+    fs=[f('present','Lesion','A breast lesion is identified.')]+breast_location()
+    if modality=='Mammography':
+        fs += [f('type','Finding type','The lesion is a [mass / asymmetry / architectural distortion / calcification cluster].',requires=['present']),f('shape','Mass shape','Mass shape is [oval / lobulated / round / irregular].',requires=['present']),f('margin','Mass margin','Mass margin is [circumscribed / obscured / indistinct / spiculated].',requires=['present']),f('density','Mass density','Mass density is [fat-containing / lower than fibroglandular tissue / equal to fibroglandular tissue / higher than fibroglandular tissue].',requires=['present'])]
+    elif modality=='Ultrasound':
+        fs += [f('shape','Shape','Shape is [oval / lobulated / round / irregular].',requires=['present']),f('orientation','Orientation','Orientation is [parallel / nonparallel] to the skin.',requires=['present']),f('margin','Margin','Margin is [circumscribed / indistinct / angular / microlobulated / spiculated].',requires=['present']),f('echo','Echo pattern','Internal echo pattern is [anechoic / hypoechoic / isoechoic / hyperechoic / heterogeneous / mixed solid and cystic].',requires=['present']),f('posterior','Posterior feature','Posterior acoustic feature is [none / enhancement / shadowing / combined enhancement and shadowing].',requires=['present']),f('vascularity','Vascularity','Doppler vascularity is [absent / internal / peripheral / internal and peripheral].',requires=['present']),f('rind','Echogenic rind','An echogenic rind is [present / absent].',requires=['present']),f('elasticity','Elastography','On acquired elastography the lesion is [soft / intermediate / hard].',requires=['present'])]
+    else:
+        fs += [f('type','Enhancement type','The lesion is [mass enhancement / non-mass enhancement].',requires=['present']),f('shape','Mass shape','Enhancing mass shape is [oval / round / irregular].',requires=['present']),f('margin','Mass margin','Enhancing mass margin is [circumscribed / irregular / spiculated].',requires=['present']),f('internal','Mass internal enhancement','Internal mass enhancement is [homogeneous / heterogeneous / rim / dark internal septations].',requires=['present']),f('nme-distribution','Non-mass distribution','Non-mass enhancement distribution is [focal / linear / segmental / regional / multiple regions / diffuse].',requires=['present']),f('nme-pattern','Non-mass internal pattern','Non-mass enhancement is [homogeneous / heterogeneous / clumped / clustered ring].',requires=['present']),f('t2','T2 signal','Lesion T2 signal is [low / intermediate / high].',requires=['present']),f('initial','Initial enhancement','Initial enhancement is [slow / medium / rapid].',requires=['present']),f('delayed','Delayed enhancement','Delayed curve is [persistent / plateau / washout].',requires=['present']),f('diffusion','Diffusion','The lesion [restricts diffusion / does not restrict diffusion / is not assessable on diffusion images].',requires=['present'])]
+    fs += [f('change','Prior comparison','On reviewed prior imaging the lesion is [new / larger / unchanged / smaller / not comparable].',requires=['present']),f('clip','Marker','A biopsy marker is [within the lesion / adjacent to the lesion / displaced from the lesion / not identified].',requires=['present']),f('known-pathology','Pathology correlation','Pathology status is [not sampled / benign concordant / benign discordant / malignant / pending].',requires=['present'])]
+    return row('breast-lesion','Breast lesion','Lesion characterisation',None,fs,[BIRADS,BRUS if modality=='Ultrasound' else BRM],repeat=True)
+
+def calcification_lesion():
+    return row('calcification-group','Calcification group','Calcifications',None,[f('present','Calcifications','A calcification group is identified.')]+breast_location()+[f('morphology','Morphology','Calcification morphology is [skin / vascular / coarse / large rod-like / round / rim / layering / suture / amorphous / coarse heterogeneous / fine pleomorphic / fine linear / fine linear branching].',requires=['present']),f('distribution','Distribution','Calcification distribution is [diffuse / regional / grouped / linear / segmental].',requires=['present']),f('span','Total span','Calcifications span __ mm.',requires=['present']),f('change','Change','Compared with reviewed prior images, calcifications are [new / increased / stable / decreased].',requires=['present']),f('associated','Associated finding','Calcifications are associated with [a mass / distortion / asymmetry / no other mammographic finding].',requires=['present'])],[BIRADS,BRM],repeat=True,repeat_label='Calcification group')
+
+def breast_assessment():
+    return [choice_row(side.lower()+'-assessment',side+' assessment','Assessment',side+' clinician-selected BI-RADS category',['0 — incomplete','1 — negative','2 — benign','3 — probably benign','4A — low suspicion','4B — moderate suspicion','4C — high suspicion','5 — highly suggestive of malignancy','6 — known biopsy-proven malignancy'],[BIRADS]) for side in ['Right','Left']]+[choice_row('breast-next-step','Recommendation','Assessment','Clinician-selected recommendation',['routine screening','additional mammographic views','targeted ultrasound','short-interval imaging follow-up','image-guided biopsy','surgical or oncology review','comparison with prior studies required'],[BIRADS]),measurement('breast-followup','Chosen follow-up interval','Assessment','Chosen follow-up interval','months',[BIRADS])]
+
+s=new('ra.mammography');s+=quality('Mammography')
+s += [choice_row('mammo-views','Technique','Technique','Mammographic technique',['bilateral two-view digital mammography','bilateral tomosynthesis with synthetic views','diagnostic additional views','unilateral mammography']),choice_row('density','Composition','Composition','Breast composition',['almost entirely fatty','scattered fibroglandular density','heterogeneously dense','extremely dense'],[BIRADS,BRM])]+breast_regions()+[breast_lesion(),calcification_lesion()]+breast_skin()+breast_nodes()+breast_assessment()
+
+s=new('template:breast-calcifications-report');s+=quality('Mammography')+[calcification_lesion()]
+s += [choice_row('magnification','Magnification assessment','Technique','Magnification views',['performed and diagnostic','not acquired','limited']),choice_row('sampling-planning','Sampling correlation','Assessment','Biopsy correlation',['sampling not performed','calcifications confirmed in specimen radiograph','target calcifications not confirmed in specimen radiograph','specimen radiograph unavailable'])]+breast_assessment()
+
+s=new('ra.ultrasound-breast');s+=quality('Breast ultrasound')
+s += [choice_row('us-coverage','Coverage','Technique','Ultrasound coverage',['bilateral whole-breast','right whole-breast','left whole-breast','right targeted','left targeted','bilateral targeted']),choice_row('breast-us-background','Background','Composition','Background echotexture',['homogeneous fat','homogeneous fibroglandular','heterogeneous'])]+breast_regions('Ultrasound')+[breast_lesion('Ultrasound')]+breast_skin()+breast_nodes()+breast_assessment()
+s += [row('duct-lesion','Duct assessment','Ducts',None,[f('duct','Duct finding','[Right / left] [single / multiple] dilated ducts.'),f('contents','Contents','Duct contents are [anechoic / mobile debris / fixed intraductal tissue].',requires=['duct']),f('flow','Intraductal flow','Intraductal tissue has [absent / present] Doppler flow.',requires=['duct'])],[BRUS],repeat=True,repeat_label='Duct')]
+
+s=new('ra.mri-breast');s+=quality('Contrast breast MRI')
+s += [choice_row('fibroglandular','Fibroglandular tissue','Composition','Fibroglandular tissue amount',['almost entirely fat','scattered','heterogeneous','extreme']),choice_row('bpe','Background enhancement','Composition','Background parenchymal enhancement',['minimal','mild','moderate','marked']),choice_row('bpe-symmetry','Enhancement symmetry','Composition','Background enhancement',['symmetric','asymmetric'])]+breast_regions('MRI')+[breast_lesion('MRI')]+breast_skin()+breast_nodes()+breast_assessment()
+for side in ['Right','Left']:
+ s.append(row(side.lower()+'-chest-wall',side+' pectoral and chest wall','Skin, nipple and chest wall',side+' pectoral muscle and chest wall show no suspicious enhancement.',[f('muscle','Pectoral muscle',side+' pectoral muscle involvement is [suspected / definite].'),f('deep','Chest-wall extension',side+' tumour extends to [serratus anterior / intercostal muscles / ribs].')],exclude=True))
+
+s=new('ra.breast-cancer-staging');s+=quality('Breast staging')
+s += [choice_row('staging-modality','Modality','Technique','Assessment uses',['mammography and ultrasound','breast MRI','CT systemic staging','PET/CT systemic staging','combined reviewed examinations'])]+[breast_lesion('MRI')]+breast_skin()+breast_nodes()
+s += [choice_row('extent-pattern','Tumour distribution','Local extent','Ipsilateral extent',['unifocal','multifocal in one quadrant','multicentric across quadrants','diffuse involvement']),measurement('total-span','Total disease span','Local extent','Total span of suspicious ipsilateral disease','mm'),row('local-invasion','Local invasion','Local extent',None,[f('nipple','Nipple involvement','Nipple involvement is [absent on imaging / suspected / demonstrated].'),f('skin','Skin involvement','Skin findings are [no suspicious change / focal involvement / diffuse thickening / ulceration].'),f('pectoral','Pectoral muscle','Pectoral muscle invasion is [absent on imaging / suspected / demonstrated].'),f('chest-wall','Chest wall','Deep chest-wall invasion is [absent on imaging / suspected / demonstrated].')],exclude=True),row('distant-lesion','Distant lesion','Included systemic staging',None,[f('present','Lesion','A suspicious distant lesion is present.'),f('site','Site','The lesion involves [lung / liver / bone / brain / adrenal / nonregional lymph nodes].',requires=['present']),f('size','Measurement','The lesion measures __ mm.',requires=['present']),f('confirmation','Confirmation','The lesion is [imaging suspected / pathology confirmed / indeterminate].',requires=['present'])],repeat=True,exclude=True),choice_row('staging-completion','Staging completeness','Assessment','Imaging staging assessment',['limited to locoregional disease','systemic staging included','additional assessment required before stage assignment'])]
+
+s=new('ra.breast-implants');s+=quality('Breast implant imaging')
+s += [choice_row('implant-modality','Modality','Technique','Implant examination',['ultrasound','MRI without contrast','MRI with contrast','mammography'])]
+for side in ['Right','Left']:
+ s += [row(side.lower()+'-implant',side+' implant','Implant structure',None,[f('present','Implant','A '+side.lower()+' [silicone / saline / dual-lumen] implant is present.'),f('plane','Position',side+' implant is [subglandular / subpectoral / prepectoral after reconstruction].',requires=['present']),f('shell','Shell',side+' implant shell is [intact on assessed sequences / collapsed / irregular / indeterminate].',requires=['present']),f('intracapsular','Intracapsular rupture sign',side+' implant demonstrates [linguine sign / keyhole sign / teardrop sign / stepladder sign / no intracapsular rupture sign on the acquired study].',requires=['present']),f('extracapsular','Extracapsular silicone',side+' extracapsular silicone is [absent on acquired images / present in breast tissue / present in regional nodes].',requires=['present']),f('contracture','Capsular contour',side+' implant contour is [normal / rounded with capsular thickening / distorted].',requires=['present']),f('fluid','Peri-implant fluid',side+' peri-implant fluid is [absent / small / moderate / large].',requires=['present']),f('mass','Capsular mass',side+' [capsular / peri-implant] mass is present.',requires=['present']),f('mass-size','Mass size',side+' peri-implant mass measures __ mm.',requires=['mass'])],exclude=True)]
+s += breast_nodes()+[choice_row('implant-assessment','Interpretation','Assessment','Implant assessment',['no rupture demonstrated on the acquired examination','intracapsular rupture','extracapsular rupture','indeterminate integrity','peri-implant fluid or mass requires targeted assessment'])]
+
+s=new('ra.male-breast');s+=quality('Male breast imaging')
+s += [choice_row('male-modality','Modality','Technique','Examination',['mammography','ultrasound','mammography and ultrasound'])]
+for side in ['Right','Left']:
+ s.append(row(side.lower()+'-retroareolar',side+' retroareolar tissue','Breast tissue',side+' retroareolar tissue shows no focal abnormality.',[f('gynaecomastia','Gynaecomastia pattern',side+' retroareolar glandular tissue has a [nodular / dendritic / diffuse glandular] pattern.'),f('fat','Fat enlargement',side+' breast enlargement is predominantly fatty.'),f('mass','Eccentric mass',side+' eccentric retroareolar mass is present.'),f('fluid','Collection',side+' retroareolar [simple fluid / complex collection] is present.')]))
+s += [breast_lesion('Ultrasound')]+breast_skin()+breast_nodes()+breast_assessment()
+
+# Paediatric chest and safeguarding are scoped to acquired images. A negative
+# survey is not a conclusion about whether abuse occurred, nor is fracture age
+# assigned from a single image.
+s=new('ra.neonatal-chest-xray');s+=quality('Neonatal chest radiography')
+s += [choice_row('neonatal-inflation','Lung inflation','Lung inflation','Inflation',['low','age-appropriate','hyperinflated'])]
+for side in ['Right','Left']:
+ for zone in ['upper','middle','lower']:
+    name=side+' '+zone+' zone'
+    s.append(row(slug(name),name,'Lung zones',name+': no focal opacity.',[f('granular','Granular opacity',name+': fine granular opacity.'),f('air-bronchogram','Air bronchograms',name+': air bronchograms are visible.'),f('patchy','Patchy opacity',name+': coarse patchy air-space opacity.'),f('atelectasis','Volume loss',name+': [subsegmental / lobar] atelectasis.'),f('cystic','Cystic lucencies',name+': [interstitial air lucencies / cystic lucencies].'),f('overinflation','Hyperlucency',name+': focal overinflation.')]))
+s+=pleura()
+for r in s:
+ if r['id'].endswith('-pleura'):r['findings']=[x for x in r['findings'] if x['id']!='enhancement'];r['normal']=r['normal'].replace(' or pleural nodularity','')
+s += [row('neonatal-mediastinum','Cardiothymic silhouette','Mediastinum','Cardiothymic contour is within the expected range for the projection.',[f('cardiac','Cardiac enlargement','The cardiac silhouette is enlarged.'),f('thymus','Thymic elevation','The thymus is elevated by mediastinal air.'),f('shift','Shift','Mediastinal shift is [rightward / leftward].')]),row('ett','Endotracheal tube','Lines and tubes',None,[f('present','Present','An endotracheal tube is present.'),f('tip','Tip','Tube tip lies [in the thoracic trachea / at the carina / in the right main bronchus / in the left main bronchus / above the thoracic inlet].',requires=['present']),f('distance','Carina distance','Tip is __ mm above the carina.',requires=['present'])],exclude=True),row('enteric','Enteric tube','Lines and tubes',None,[f('present','Present','An enteric tube is present.'),f('tip','Tip','Tube tip lies [in stomach / in oesophagus / beyond pylorus / in airway / coiled in proximal oesophageal pouch].',requires=['present'])],exclude=True)]
+for id,name,positions in [('uvc','Umbilical venous catheter',['cavoatrial junction','right atrium','portal venous system','hepatic parenchyma','low umbilical vein']),('uac','Umbilical arterial catheter',['high thoracic aortic position','low lumbar aortic position','at a major visceral branch level','iliac artery']),('picc','PICC',['SVC near cavoatrial junction','IVC near cavoatrial junction','right atrium','peripheral vein','abnormal nonvenous course'])]:
+ s.append(row(id,name,'Lines and tubes',None,[f('present','Present',name+' is present.'),f('tip','Tip',name+' tip lies in ['+' / '.join(positions)+'].',requires=['present']),f('level','Vertebral level',name+' tip projects at [T4 / T5 / T6 / T7 / T8 / T9 / T10 / T11 / T12 / L1 / L2 / L3 / L4 / L5].',requires=['present'])],exclude=True))
+s += [row('air-leak','Extra-alveolar air','Complications','No pneumomediastinum or pneumopericardium.',[f('mediastinum','Pneumomediastinum','Pneumomediastinum is present.'),f('pericardial','Pneumopericardium','Pneumopericardium is present.')]),row('included-abdomen','Included abdomen','Additional structures',None,[f('gas','Bowel gas','Included bowel gas is [nonobstructive / distended / markedly reduced].'),f('pneumatosis','Pneumatosis','Pneumatosis is suspected in included bowel.'),f('portal-gas','Portal venous gas','Portal venous gas is present.')],exclude=True),choice_row('neonatal-pattern','Pattern synthesis','Interpretation','Clinician-integrated pattern',['respiratory distress syndrome','transient tachypnoea pattern','meconium aspiration pattern','pneumonia pattern','bronchopulmonary dysplasia pattern','nonspecific pulmonary opacity','no acute radiographic abnormality'])]
+
+s=new('ra.paediatric-chest-ct');s+=quality('Paediatric chest CT',True)+lung_lobes()+airway_rows()+pleura()+nodes()+thoracic_other()
+s += [row('congenital-lung-lesion','Congenital lung lesion','Congenital findings',None,[f('present','Lesion','A congenital-appearing lung lesion is present.'),f('lobe','Location','The lesion is in the [right upper lobe / right middle lobe / right lower lobe / left upper lobe / left lower lobe].',requires=['present']),f('pattern','Morphology','Morphology is [multicystic / solid with microcysts / focal overinflation / sequestration-like].',requires=['present']),f('artery','Systemic supply','A systemic feeding artery arises from the [thoracic aorta / abdominal aorta / coeliac artery / intercostal artery / no systemic feeder demonstrated].',requires=['present']),f('venous','Venous drainage','Venous drainage is to the [pulmonary veins / systemic veins / not resolved].',requires=['present'])],repeat=True)]
+
+s=new('ra.paediatric-mediastinum');s+=quality('Paediatric mediastinal imaging')
+for name in ['Prevascular compartment','Visceral compartment','Paravertebral compartment']:
+ s.append(row(slug(name),name,'Mediastinal compartments',None,[f('mass','Mass',name+': a mass is present.'),f('size','Size','Mass dimensions __ × __ × __ mm.',requires=['mass']),f('contents','Contents','Mass contents are [soft tissue / fluid / fat / calcified material / mixed].',requires=['mass']),f('foramen','Neural extension','Neural foraminal or intraspinal extension is [absent on the acquired images / suspected / demonstrated].',requires=['mass']),f('compression','Compression','The mass compresses [trachea / bronchi / oesophagus / heart / great veins / no major structure].',requires=['mass'])],repeat=True,exclude=True))
+s += [row('paediatric-thymus','Thymus','Mediastinal structures',None,[f('thymus','Appearance','Thymus is [age-appropriate / prominent but homogeneous / replaced by a focal lesion / not separately identified].')],exclude=True)]+nodes()+pleura()
+
+s=new('ra.child-abuse-imaging','Suspected physical abuse — acquired imaging review');s+=quality('Safeguarding imaging')
+s += [choice_row('safeguarding-study','Acquired study','Technique','Imaging reviewed',['initial skeletal survey','follow-up skeletal survey','head CT','brain and spine MRI','abdominal CT','combined acquired studies'])]
+for name in ['Skull','Cervical spine','Thoracic spine','Lumbar spine','Pelvis','Right ribs','Left ribs','Right humerus','Left humerus','Right radius and ulna','Left radius and ulna','Right hand','Left hand','Right femur','Left femur','Right tibia and fibula','Left tibia and fibula','Right foot','Left foot']:
+ s.append(row(slug(name),name,'Acquired skeletal regions',name+': no fracture on the acquired views.',[f('fracture','Fracture',name+': [single / multiple] fracture.'),f('morphology','Morphology',name+': [transverse / oblique / spiral / buckle / classic metaphyseal lesion / posterior rib / anterolateral rib / linear skull / depressed skull] fracture morphology.',requires=['fracture']),f('healing','Healing features',name+': [no visible callus / periosteal reaction / callus formation / remodelling] is observed.',requires=['fracture']),f('equivocal','Equivocal finding',name+': an equivocal cortical or metaphyseal finding requires additional assessment.'),f('coverage','Inadequate views',name+': views are incomplete or technically inadequate.')],exclude=True))
+s += [row('safeguarding-intracranial','Intracranial assessment','Acquired cross-sectional studies',None,[f('acquired','Acquired','Brain imaging was reviewed.'),f('haemorrhage','Haemorrhage','[Subdural / subarachnoid / intraparenchymal / intraventricular] haemorrhage is present.',requires=['acquired']),f('injury','Parenchymal injury','There is [restricted diffusion / contusion / oedema / hypoxic-ischaemic injury pattern].',requires=['acquired']),f('negative','No acute finding','No acute intracranial injury is demonstrated.',requires=['acquired'],exclusive='brain-conclusion')],exclude=True),row('safeguarding-viscera','Visceral injury','Acquired cross-sectional studies',None,[f('acquired','Acquired','Abdominal cross-sectional imaging was reviewed.'),f('organ','Injury','There is injury to the [liver / spleen / pancreas / kidney / bowel / mesentery].',requires=['acquired']),f('fluid','Fluid','[Haemoperitoneum / retroperitoneal fluid / free intraperitoneal gas] is present.',requires=['acquired']),f('negative','No injury','No acute visceral injury is demonstrated on the acquired examination.',requires=['acquired'])],exclude=True),choice_row('safeguarding-communication','Communication','Conclusion','Safeguarding communication status',['direct communication completed and recorded in clinical system','urgent direct communication required','specialist second review requested'])]
+
+s=new('ra.paediatric-ultrasound-values','Paediatric ultrasound — measured structure assessment')
+s += [choice_row('paediatric-reference','Reference context','Reference context','Reference interpretation',['age-specific reference available','height-specific reference available','gestational-age reference required','appropriate reference unavailable']),measurement('age','Age','Reference context','Age','months'),measurement('height','Height','Reference context','Height','cm')]
+for id,name,unit in [('liver','Right liver lobe length','mm'),('spleen','Splenic length','mm'),('right-kidney','Right renal length','mm'),('left-kidney','Left renal length','mm'),('right-pelvis','Right renal pelvic AP diameter','mm'),('left-pelvis','Left renal pelvic AP diameter','mm'),('common-bile-duct','Common bile duct diameter','mm'),('gallbladder-wall','Gallbladder wall thickness','mm'),('pancreatic-head','Pancreatic head AP diameter','mm'),('pyloric-muscle','Pyloric muscle thickness','mm'),('pyloric-channel','Pyloric channel length','mm'),('appendix','Appendix outer diameter','mm'),('bladder-wall','Bladder wall thickness','mm'),('right-testis','Right testicular volume','mL'),('left-testis','Left testicular volume','mL'),('right-ovary','Right ovarian volume','mL'),('left-ovary','Left ovarian volume','mL'),('uterus','Uterine length','mm')]:
+ s.append(row(id,name,'Measured structures',None,[f('measured','Measurement',name+' __ '+unit+'.'),f('reference','Reference comparison',name+' is [within / above / below] the selected age- or size-appropriate reference range.',requires=['measured']),f('limited','Not measurable',name+' is not reliably measurable.')],exclude=True))
+
+# Protocol and safety worksheets record concrete checks and decisions without
+# implying that an examination, injection, biopsy or communication took place.
+s=new('template:modalities-report','Imaging modality selection — structured assessment')
+for id,label,text,options in [
+ ('question','Clinical question','Primary imaging question',['acute haemorrhage','ischaemia','infection','tumour characterisation','tumour staging','trauma','vascular occlusion','functional assessment','procedure guidance']),
+ ('region','Anatomic region','Target region',['brain','head and neck','chest','heart and vessels','abdomen','pelvis','spine','upper limb','lower limb','breast']),
+ ('modality','Selected modality','Selected initial modality',['radiography','ultrasound','CT','MRI','nuclear scintigraphy','PET/CT','fluoroscopy','catheter angiography']),
+ ('appropriateness','Appropriateness review','Appropriateness review',['relevant criteria reviewed','specialist protocol review needed','alternative without ionising radiation considered']),
+ ('contrast-need','Contrast need','Contrast decision',['not required for this question','iodinated contrast proposed','gadolinium contrast proposed','microbubble contrast proposed','decision pending protocol review']),
+ ('pregnancy','Pregnancy consideration','Pregnancy screening applicability',['not applicable','status confirmed in clinical record','status requires confirmation']),
+ ('renal','Renal consideration','Renal assessment for proposed contrast',['not required by local protocol','result available for review','acute kidney injury concern','result required before protocol decision']),
+ ('implant','Implants and MRI','MR implant assessment',['no implant reported on screening','documented implant conditions require review','implant identity unknown','MRI not proposed']),
+ ('motion','Cooperation','Motion/cooperation consideration',['routine acquisition feasible','breath-hold limited','pain limits positioning','sedation assessment required']),
+ ('disposition','Protocol disposition','Protocol disposition',['proceed with authorised protocol','radiologist protocol review required','alternative imaging selected','defer until missing safety information is resolved'])]:
+ s.append(choice_row(id,label,'Assessment',text,options))
+
+s=new('template:radiation-safety-report','Radiation exposure — examination review')
+for id,label,text,opts in [
+ ('justification','Justification','Examination justification',['clinical indication reviewed','duplicate examination concern','additional phase requires justification','nonionising alternative considered']),
+ ('size-protocol','Protocol sizing','Exposure protocol',['adult size-adjusted','paediatric size-adjusted','extremity low-dose','standard protocol needs adjustment']),
+ ('scan-length','Coverage','Scan coverage',['limited to indicated anatomy','excess coverage identified','coverage insufficient for question']),
+ ('phases','Acquisition phases','Phase review',['single clinically indicated phase','multiphase justified','avoidable repeated phase identified']),
+ ('aec','Exposure modulation','Exposure modulation',['automatic exposure control used','manual exposure appropriate','modulation data unavailable']),
+ ('position','Positioning','Positioning review',['centred appropriately','off-centre position','arms introduce artefact','motion-related repeat required']),
+ ('comparison-drl','Dose reference review','Dose indices relative to applicable diagnostic reference level',['below reference level','at reference level','above reference level requiring review','reference level unavailable']),
+ ('pregnancy-check','Pregnancy check','Documented pregnancy screening',['not applicable','completed in clinical record','requires confirmation']),
+ ('repeat','Repeat exposure','Repeat acquisition',['not needed','needed because of motion','needed because of incomplete coverage','needed because of contrast timing']),
+ ('review','Follow-up','Dose review outcome',['protocol appropriate for examination','medical physicist review requested','protocol optimisation requested','individual dose assessment requested'])]:s.append(choice_row(id,label,'Radiation review',text,opts))
+s += [measurement('ctdivol','CTDIvol','Recorded dose indicators','Recorded CTDIvol','mGy'),measurement('dlp','Dose-length product','Recorded dose indicators','Recorded dose-length product','mGy·cm'),measurement('fluoro-time','Fluoroscopy time','Recorded dose indicators','Recorded fluoroscopy time','minutes')]
+
+s=new('template:ct-image-report','CT image quality and characterisation worksheet')
+for id,label,text,opts in [('plane','Reconstruction plane','Assessed plane',['axial','coronal','sagittal','oblique multiplanar','curved planar']),('kernel','Reconstruction','Reconstruction reviewed',['soft-tissue kernel','lung kernel','bone kernel','vascular reconstruction']),('window','Display window','Primary display window',['soft tissue','lung','bone','brain','subdural','vascular']),('phase','Contrast phase','Available phase',['unenhanced','arterial','portal venous','nephrographic','excretory','delayed','multiple phases']),('coverage','Coverage','Anatomic coverage',['complete for clinical question','truncated superiorly','truncated inferiorly','limited field of view']),('motion','Motion','Motion artefact',['absent','minor','limits focal assessment','renders examination nondiagnostic']),('metal','Metal artefact','Metal artefact',['absent','present but diagnostic','limits evaluation near implant']),('noise','Noise','Image noise',['acceptable','increased but diagnostic','nondiagnostic']),('enhancement','Enhancement assessment','Enhancement assessment validity',['matched precontrast and postcontrast images available','postcontrast images only','unenhanced study only','phase timing inadequate'])]:s.append(choice_row(id,label,'Technical assessment',text,opts))
+s += [row('ct-lesion','CT lesion feature assessment','Image characterisation',None,[f('present','Region of interest','A focal region of interest is assessed.'),f('attenuation','Attenuation category','Attenuation is [air / macroscopic fat / fluid-like / soft-tissue / high-density material].',requires=['present']),f('hu','Measured attenuation','Mean attenuation __ HU.',requires=['present']),f('morphology','Morphology','Lesion is [round / ovoid / lobulated / infiltrative / tubular].',requires=['present']),f('border','Border','Border is [sharp / ill-defined / spiculated].',requires=['present']),f('pattern','Enhancement pattern','On the acquired phases enhancement is [absent / homogeneous / heterogeneous / peripheral / progressive].',requires=['present']),f('dimensions','Dimensions','Measured dimensions __ × __ × __ mm.',requires=['present'])],repeat=True,repeat_label='Region')]
+
+s=new('template:mri-sequences-report','MRI sequence and signal assessment worksheet')
+for id,label,text,opts in [('field','Field strength','Field strength',['1.5 T','3 T','low field','not supplied']),('coverage','Coverage','MRI coverage',['complete for clinical question','limited anatomic coverage','aborted acquisition']),('motion','Motion','Motion',['absent','minor','limits interpretation','nondiagnostic']),('fat-suppression','Fat suppression','Fat suppression',['uniform','inhomogeneous','failed','not applied']),('susceptibility','Susceptibility','Susceptibility artefact',['absent','expected near air interface','metal-related','limits target evaluation'])]:s.append(choice_row(id,label,'Technical assessment',text,opts))
+for id,label,choices in [('t1','T1-weighted signal',['low','intermediate','high']),('t2','T2-weighted signal',['low','intermediate','high']),('flair','FLAIR signal',['suppressed','partially suppressed','not suppressed']),('dwi','DWI signal',['low','intermediate','high']),('adc','ADC signal',['low','intermediate','high']),('susceptibility-signal','GRE/SWI',['no blooming','focal blooming','diffuse blooming']),('opposed-phase','Chemical shift',['signal drop on opposed-phase','no signal drop on opposed-phase','indeterminate']),('postcontrast','Postcontrast signal',['no enhancement','homogeneous enhancement','heterogeneous enhancement','rim enhancement','nodular enhancement'])]:
+ s.append(row(id,label,'Sequence interpretation',None,[f('acquired','Sequence acquired',label+' sequence was acquired.'),f('signal','Observed signal',label+': ['+' / '.join(choices)+'].',requires=['acquired'])],exclude=True))
+s += [choice_row('diffusion-synthesis','Diffusion interpretation','Synthesis','Paired DWI/ADC interpretation',['restricted diffusion','T2 shine-through','T2 blackout','no restriction','insufficient paired images']),choice_row('mri-interpretability','Interpretability','Synthesis','Sequence set',['answers the stated imaging question','additional sequence required','contrast assessment unavailable','limited examination requires qualification'])]
+
+s=new('template:structured-reporting-report','Structured report completeness review')
+for id,label,text,opts in [('identity','Patient and examination','Patient/examination context',['matched to source study','discrepancy requires resolution','not supplied']),('indication','Clinical question','Clinical question',['available and addressed','available but unresolved by this study','not supplied']),('technique','Technique','Technique description',['matches acquired sequences and phases','needs acquisition details','contains unsupported acquisition claim']),('prior','Comparison','Comparison',['relevant prior reviewed','prior report reviewed without images','no prior available','comparison not yet assessed']),('anatomy','Anatomic completeness','Required anatomic regions',['all assessed within coverage','some not visualised and explicitly qualified','unassessed structures remain']),('lesions','Lesion characterisation','Focal lesions',['none identified','localisation and descriptors complete','measurement missing','relevant follow-up descriptors missing']),('measurements','Measurement consistency','Measurements',['units and landmarks verified','comparison method differs','measurement requires correction']),('classification','Classification','Classification use',['not applicable','edition and inputs verified','insufficient inputs','classification needs specialist confirmation']),('impression','Impression','Impression',['answers clinical question','prioritises actionable findings','needs clarification','inconsistent with findings']),('communication','Communication','Communication status',['routine report delivery','urgent direct communication completed in clinical record','urgent direct communication pending']),('final-check','Final review','Reporting disposition',['ready for author review','incomplete observations remain','internal contradiction requires correction'])]:s.append(choice_row(id,label,'Report review',text,opts))
+
+s=new('ra.ct-contrast-protocols','CT contrast protocol and administration record')
+for id,label,text,opts in [('phase-plan','Planned phase','Protocol plan',['unenhanced only','arterial','portal venous','nephrographic','excretory','arterial and venous','dedicated angiography']),('bolus','Timing method','Bolus timing method',['bolus tracking','test bolus','fixed delay','not applicable']),('trigger-site','Trigger region','Bolus tracking region',['ascending aorta','descending aorta','pulmonary trunk','abdominal aorta','not applicable']),('access','Intravenous access','Access assessment',['peripheral vein suitable for intended rate','power-injectable central access confirmed','access inadequate','not assessed']),('reaction-history','Prior reaction','Prior contrast reaction review',['none reported','prior immediate reaction','prior delayed reaction','history uncertain']),('renal-check','Renal review','Renal information',['reviewed and appropriate for local protocol','AKI concern requiring protocol review','required information unavailable','not required by local protocol']),('thyroid-check','Thyroid consideration','Relevant thyroid risk',['none known','active thyrotoxicosis requires review','planned radioiodine requires review','history uncertain']),('pregnancy','Pregnancy and lactation','Relevant status',['not applicable','documented and reviewed','confirmation needed']),('protocol-decision','Protocol decision','Protocol decision',['authorised as planned','modified after radiologist review','deferred pending information'])]:s.append(choice_row(id,label,'Protocol and safety review',text,opts))
+s += [row('actual-injection','Actual contrast administration','Administration record',None,[f('performed','Administered','Intravenous iodinated contrast was administered.'),f('concentration','Iodine concentration','Iodine concentration __ mgI/mL.',requires=['performed']),f('volume','Volume','Administered contrast volume __ mL.',requires=['performed']),f('rate','Injection rate','Injection rate __ mL/s.',requires=['performed']),f('saline','Saline chaser','Saline chaser volume __ mL.',requires=['performed']),f('delay','Scan delay','Scan delay after injection start __ seconds.',requires=['performed']),f('result','Bolus result','Bolus opacification was [diagnostic / suboptimal / nondiagnostic].',requires=['performed']),f('adverse','Immediate event','Immediate observation: [no reaction observed / hypersensitivity-like reaction / physiologic reaction / extravasation].',requires=['performed']),f('extravasated-volume','Estimated extravasated volume','Estimated extravasated volume __ mL.',requires=['performed'])],exclude=True)]
+
+s=new('template:biopsy-safety-report','Image-guided biopsy or drainage — structured record')
+for id,label,text,opts in [('procedure-intent','Intended procedure','Procedure request',['core biopsy','fine-needle aspiration','fluid aspiration','catheter drainage']),('target','Target organ','Target',['lung','liver','kidney','bone','lymph node','breast','soft tissue','abdominal collection','pleural collection']),('laterality','Laterality','Target side',['right','left','midline','not applicable']),('consent','Consent review','Consent documentation',['recorded in clinical system','pending','emergency exception documented']),('coagulation','Coagulation review','Bleeding-risk review',['acceptable for planned procedure under local policy','correction or medication review required','results unavailable']),('antithrombotics','Antithrombotic review','Antithrombotic plan',['reviewed and documented','no antithrombotic reported','requires prescribing-team decision']),('allergy','Allergies','Allergy review',['reviewed in clinical record','relevant allergy requires alternative','not yet reviewed']),('trajectory','Planned trajectory','Access trajectory',['safe route identified','vital structure limits access','no safe percutaneous route']),('infection','Infection consideration','Infection assessment',['aseptic procedure planned','infected collection suspected','prophylaxis decision documented','requires review']),('timeout','Time-out','Procedure time-out',['completed and recorded','pending','procedure not undertaken'])]:s.append(choice_row(id,label,'Preprocedure assessment',text,opts))
+s += [row('biopsy-event','Procedure performed','Procedure record',None,[f('performed','Performed','An image-guided biopsy was performed.'),f('guidance','Guidance','Guidance was [ultrasound / CT / fluoroscopy / MRI / stereotactic mammography].',requires=['performed']),f('needle','Needle calibre','Needle calibre [14 G / 16 G / 18 G / 20 G / 22 G / 25 G].',requires=['performed']),f('samples','Samples','Number of tissue samples __.',requires=['performed']),f('sample-destination','Specimen handling','Specimens were submitted for [histology / cytology / microbiology / histology and microbiology].',requires=['performed']),f('adequacy','Adequacy','Immediate adequacy assessment was [not available / satisfactory / inadequate].',requires=['performed'])],exclude=True),row('drainage-event','Drainage performed','Procedure record',None,[f('performed','Performed','Image-guided fluid drainage was performed.'),f('material','Aspirate','Aspirate was [serous / purulent / haemorrhagic / bilious / turbid].',requires=['performed']),f('volume','Volume','Aspirated volume __ mL.',requires=['performed']),f('catheter','Catheter','A [6 Fr / 8 Fr / 10 Fr / 12 Fr / 14 Fr / 16 Fr] catheter was placed.',requires=['performed']),f('position','Position','Final catheter position is [within target collection / suboptimal / not assessable].',requires=['performed']),f('residual','Residual','Residual collection is [minimal / reduced / substantial].',requires=['performed'])],exclude=True),row('procedure-outcome','Observed outcome','Aftercare',None,[f('observed','Immediate assessment','Immediate postprocedure imaging and clinical observations were reviewed.'),f('complication','Complication','Immediate findings: [no detected complication / pneumothorax / bleeding / adjacent organ injury / vasovagal event / reaction].',requires=['observed']),f('disposition','Disposition','Documented disposition: [routine recovery observation / extended monitoring / inpatient review / urgent intervention].',requires=['observed']),f('plan','Follow-up plan','Follow-up arrangement: [pathology review / microbiology review / drain output review / repeat imaging / specialty review].',requires=['observed'])],exclude=True)]
+
+s=new('ra.recist','RECIST 1.1 — target and non-target lesion worksheet')
+s += [choice_row('recist-timepoint','Time point','Assessment context','Assessment time point',['baseline','follow-up','confirmation scan']),choice_row('recist-technique','Comparability','Assessment context','Comparison technique',['comparable acquisition and measurement method','protocol difference may affect measurement','baseline or nadir unavailable']),row('recist-target','Target lesion','Target lesions',None,[f('selected','Target selected','A RECIST target lesion is selected.'),f('organ','Organ','Target organ: [lung / liver / lymph node / adrenal / kidney / soft tissue / peritoneum / bone with measurable soft-tissue component].',requires=['selected']),f('side','Side','Target side: [right / left / midline / not applicable].',requires=['selected']),f('current','Current measurement','Current target [long-axis / nodal short-axis] diameter __ mm.',requires=['selected']),f('baseline','Baseline diameter','Baseline target diameter __ mm.',requires=['selected']),f('nadir','Nadir diameter','Target diameter at the chosen nadir examination __ mm.',requires=['selected']),f('resolved','Resolved target','Target lesion has [disappeared / become too small to measure reliably / remained measurable].',requires=['selected']),f('localisation','Image localisation','Target on image __ of series __.',requires=['selected'])],repeat=True,repeat_label='Target lesion'),row('recist-nontarget','Non-target disease','Non-target lesions',None,[f('present','Non-target disease','Non-target disease is tracked.'),f('organ','Site','Non-target disease involves [lung / liver / lymph nodes / pleura / peritoneum / bone / soft tissue / ascites / pericardium].',requires=['present']),f('response','Non-target response','Non-target assessment: [complete response / non-CR non-PD / unequivocal progression / not evaluable].',requires=['present'])],repeat=True,repeat_label='Non-target site'),row('recist-new','New lesion','New disease',None,[f('present','New finding','A potentially new lesion is identified.'),f('site','Site','New lesion site: [lung / liver / lymph node / bone / adrenal / brain / pleura / peritoneum / soft tissue].',requires=['present']),f('certainty','Certainty','The lesion is [unequivocally new malignant disease / equivocal and requiring reassessment / newly visible due to technique].',requires=['present'])],repeat=True,repeat_label='New lesion'),row('recist-sums','Diameter sums','Response synthesis',None,[f('baseline','Baseline sum','Baseline sum of target diameters __ mm.'),f('nadir','Nadir sum','Smallest prior sum of target diameters __ mm.'),f('current','Current sum','Current sum of target diameters __ mm.')],exclude=True),choice_row('recist-selection-check','Target selection check','Response synthesis','Target selection verification',['at most five total and two per organ with eligible measurements','target selection requires correction','eligibility requires review']),choice_row('recist-overall','Overall assessment','Response synthesis','Clinician-verified RECIST 1.1 response',['complete response','partial response','stable disease','progressive disease','not evaluable'])]
+
+s=new('template:ultrasound-physics-report','Ultrasound acquisition and Doppler quality assessment')
+for id,label,text,opts in [('transducer','Transducer','Transducer selection',['high-frequency linear','low-frequency curvilinear','phased array','endocavitary','small-footprint linear']),('depth','Depth','Depth setting',['target and posterior margin included','target too deep in field','posterior margin truncated']),('focus','Focus','Focal-zone placement',['at target','below target','above target','multiple zones used']),('gain','Gain','Gain/TGC review',['balanced tissue display','excessive gain','insufficient gain','nonuniform TGC']),('compression','Compression','Compression assessment',['appropriate','limited by pain','not applicable']),('doppler-angle','Doppler alignment','Spectral Doppler alignment',['angle correction parallel to flow','angle correction unreliable','angle-independent assessment only','not used']),('scale','Doppler scale','Velocity scale',['appropriate','aliasing limits assessment','too high for low flow','not used']),('wall-filter','Wall filter','Wall filter',['appropriate','low flow may be suppressed','not used']),('colour-fill','Colour display','Colour filling',['adequate','blooming','poor sensitivity','motion flash']),('safety','Output review','Output and dwell review',['lowest practical output and dwell used','thermal/mechanical indices require review','output details unavailable'])]:s.append(choice_row(id,label,'Acquisition assessment',text,opts))
+s += [row('artefact','Artefact','Image interpretation',None,[f('present','Artefact','An image artefact is observed.'),f('type','Type','Artefact is [reverberation / ring-down / comet-tail / mirror image / side lobe / refraction / posterior shadowing / posterior enhancement / anisotropy / aliasing].',requires=['present']),f('response','Response to adjustment','Artefact [changes with angle / changes with gain / changes with frequency / persists despite optimisation].',requires=['present']),f('impact','Diagnostic effect','Artefact [does not limit target assessment / limits assessment / mimics pathology and requires qualification].',requires=['present'])],repeat=True,repeat_label='Artefact'),measurement('spectral-psv','Peak systolic velocity','Measured Doppler','Peak systolic velocity','cm/s'),measurement('spectral-edv','End-diastolic velocity','Measured Doppler','End-diastolic velocity','cm/s')]
+
+# Nuclear medicine observations are tracer- and acquisition-specific. Mixed
+# teaching modules expose a performed-study selector before their own details.
+s=new('template:nuclear-general-report','Nuclear medicine — acquired study findings')
+s += [choice_row('nuclear-study','Study','Technique','Acquired examination',['bone scintigraphy','ventilation-perfusion scintigraphy','thyroid scintigraphy and uptake','sentinel-node lymphoscintigraphy']),measurement('nuclear-activity','Administered activity','Technique','Recorded administered activity','MBq'),choice_row('nuclear-quality','Quality','Technique','Technical quality',['diagnostic','motion limited','injection infiltration','incomplete acquisition'])]
+s += [row('bone-acquisition','Bone scan acquisition','Bone scintigraphy',None,[f('acquired','Bone scan performed','Bone scintigraphy was performed.'),f('protocol','Protocol','Bone protocol: [delayed whole-body planar / three-phase regional / planar with SPECT/CT].',requires=['acquired']),f('distribution','Global distribution','Skeletal tracer distribution is [expected / diffusely increased with reduced renal activity / diffusely reduced / limited by poor counts].',requires=['acquired']),f('renal','Renal activity','Renal tracer activity is [symmetric / asymmetric / not visualised].',requires=['acquired'])],exclude=True),row('bone-focus','Skeletal uptake focus','Bone scintigraphy',None,[f('focus','Focus','A focal skeletal uptake abnormality is present.'),f('region','Region','Focus lies in the [skull / cervical spine / thoracic spine / lumbar spine / sacrum / pelvis / rib / sternum / clavicle / scapula / humerus / radius / ulna / hand / femur / tibia / fibula / foot].',requires=['focus']),f('side','Side','Focus is [right-sided / left-sided / midline / bilateral].',requires=['focus']),f('intensity','Intensity','Uptake is [mild / moderate / intense / photopenic].',requires=['focus']),f('pattern','Pattern','Pattern is [joint-centred / linear / focal medullary / cortical / diffuse bone involvement].',requires=['focus']),f('ct','SPECT/CT correlate','On acquired SPECT/CT, correlate is [degenerative change / fracture / lytic lesion / sclerotic lesion / no visible lesion / indeterminate].',requires=['focus']),f('interpretation','Interpretation','Focus is [likely degenerative / likely traumatic / suspicious for metastasis / indeterminate].',requires=['focus'])],repeat=True,repeat_label='Skeletal focus'),row('vq-acquisition','Ventilation-perfusion study','V/Q scintigraphy',None,[f('acquired','Acquired','Ventilation-perfusion imaging was performed.'),f('method','Method','Acquisition: [planar V/Q / V/Q SPECT / V/Q SPECT with CT / perfusion-only scan].',requires=['acquired']),f('ventilation','Ventilation quality','Ventilation distribution is [uniform / heterogeneous / centrally deposited / not acquired].',requires=['acquired']),f('perfusion','Overall perfusion','Perfusion is [normal / segmentally abnormal / nonsegmentally abnormal].',requires=['acquired']),f('synthesis','Interpretation','Study interpretation: [no scintigraphic evidence of embolism / pattern consistent with pulmonary embolism / nondiagnostic].',requires=['acquired'])],exclude=True),row('vq-defect','Perfusion defect','V/Q scintigraphy',None,[f('present','Defect','A perfusion defect is present.'),f('lobe','Lobe','Defect lies in the [right upper lobe / right middle lobe / right lower lobe / left upper lobe / lingula / left lower lobe].',requires=['present']),f('size','Distribution','Defect is [segmental / subsegmental / nonsegmental / whole-lung].',requires=['present']),f('match','Ventilation match','Defect is [ventilation matched / ventilation mismatched / reverse mismatched / not assessable without ventilation].',requires=['present'])],repeat=True,repeat_label='Perfusion defect'),row('thyroid-scintigraphy','Thyroid scintigraphy','Thyroid',None,[f('acquired','Acquired','Thyroid scintigraphy was performed.'),f('tracer','Tracer','Tracer: [technetium-99m pertechnetate / iodine-123 / iodine-131].',requires=['acquired']),f('gland','Gland distribution','Thyroid activity is [homogeneous / patchy / focally increased / diffusely increased / markedly reduced].',requires=['acquired']),f('site','Gland position','Thyroid tissue is [orthotopic / lingual / sublingual / substernal / not visualised].',requires=['acquired']),f('uptake','Uptake fraction','Measured uptake __ % at __ hours.',requires=['acquired'])],exclude=True),row('thyroid-focus','Thyroid focus','Thyroid',None,[f('present','Focus','A thyroid focus is assessed.'),f('location','Location','The focus is in the [right upper pole / right mid lobe / right lower pole / left upper pole / left mid lobe / left lower pole / isthmus].',requires=['present']),f('activity','Relative activity','Focus is [hyperfunctioning / isofunctioning / hypofunctioning] relative to surrounding tissue.',requires=['present'])],repeat=True,repeat_label='Thyroid focus'),row('sentinel-mapping','Sentinel-node mapping','Lymphoscintigraphy',None,[f('acquired','Acquired','Sentinel-node lymphoscintigraphy was performed.'),f('route','Injection approach','Injection approach: [intradermal / peritumoral / periareolar / subcutaneous].',requires=['acquired']),f('drainage','Drainage','Lymphatic drainage is [visualised / not visualised / delayed].',requires=['acquired']),f('basin','Basin','Sentinel drainage basin: [right axilla / left axilla / right groin / left groin / right cervical / left cervical / internal mammary / pelvic].',requires=['acquired']),f('nodes','Nodes identified','Number of mapped sentinel nodes __.',requires=['acquired']),f('marking','Marking','Skin localisation is [performed / not performed].',requires=['acquired'])],repeat=True,repeat_label='Drainage basin',exclude=True)]
+
+PET_REGIONS=['Head and neck','Thorax','Abdomen','Pelvis','Skeleton','Included limbs']
+def pet_region_rows(tracer='FDG'):
+    rr=[]
+    for region in PET_REGIONS:
+        rr.append(row('pet-'+slug(region),region,'Regional survey',f'{region}: no suspicious {tracer}-avid focus in the imaged region.',[f('nodal','Nodal uptake',region+': suspicious nodal tracer uptake.'),f('organ','Extranodal uptake',region+': suspicious extranodal tracer uptake.'),f('physiologic','Physiological variant',region+': uptake favours [physiological activity / inflammatory activity / treatment-related change].'),f('nonavid','Nonavid lesion',region+': an anatomical lesion has no appreciable tracer uptake.'),f('limited','Limited region',region+': assessment is limited by [physiological activity / motion / metal artefact / incomplete coverage].')],exclude=True))
+    return rr
+
+def pet_lesion(tracer='FDG'):
+    return row('pet-lesion','PET/CT lesion','Lesion measurements',None,[f('present','Lesion','A lesion is assessed on '+tracer+' PET/CT.'),f('organ','Organ or station','Lesion site: [cervical node / axillary node / mediastinal node / hilar node / abdominal node / pelvic node / inguinal node / lung / liver / spleen / adrenal / pancreas / bowel / prostate or prostate bed / bone / soft tissue / breast].',requires=['present']),f('side','Side','Lesion side: [right / left / midline / bilateral / not applicable].',requires=['present']),f('dimensions','Size','Lesion dimensions __ × __ mm.',requires=['present']),f('suv','SUV maximum','Lesion SUV maximum __.',requires=['present']),f('relative','Reference uptake','Lesion uptake is [below blood pool / similar to blood pool / above blood pool but not above liver / above liver].',requires=['present']),f('ct','CT appearance','CT correlate is [soft-tissue mass / enlarged node / lytic lesion / sclerotic lesion / mixed bone lesion / no clear CT correlate].',requires=['present']),f('change','Prior comparison','Compared with reviewed prior images, lesion activity is [increased / decreased / unchanged / newly present / not comparable].',requires=['present']),f('interpretation','Interpretation','Lesion interpretation: [suspicious for malignancy / likely inflammatory / likely physiological / indeterminate].',requires=['present']),f('image','Image localisation','Lesion image __ on series __.',requires=['present'])],repeat=True)
+
+s=new('template:pet-ct-report','FDG PET/CT — structured oncological report')
+s+=quality('FDG PET/CT')
+s += [measurement('fdg-activity','Injected FDG activity','Acquisition','Injected FDG activity','MBq'),measurement('fdg-glucose','Blood glucose','Acquisition','Preinjection blood glucose','mmol/L'),measurement('fdg-uptake-time','Uptake interval','Acquisition','FDG uptake interval','minutes'),choice_row('pet-coverage','Coverage','Acquisition','PET coverage',['skull base to thighs','vertex to toes','vertex to thighs','limited regional']),choice_row('pet-ct-type','CT component','Acquisition','CT component',['low-dose attenuation correction','diagnostic noncontrast CT','diagnostic contrast-enhanced CT']),choice_row('fdg-distribution','Biodistribution','Acquisition','FDG biodistribution',['expected','increased muscle activity','brown fat activity','diffuse marrow stimulation','injection infiltration']),measurement('fdg-liver-reference','Liver reference SUV','Reference uptake','Liver reference SUV mean','SUV'),measurement('fdg-blood-reference','Blood-pool SUV','Reference uptake','Mediastinal blood-pool SUV mean','SUV')]+pet_region_rows()+[pet_lesion()]
+s += [choice_row('fdg-response','Response interpretation','Interpretation','Clinician-integrated metabolic response',['complete metabolic response','partial metabolic response','stable metabolic disease','progressive metabolic disease','mixed response','not a response assessment','not evaluable']),choice_row('deauville','Lymphoma Deauville score','Interpretation','Clinician-selected Deauville score for applicable lymphoma context',['1','2','3','4','5','X — uptake unlikely related to lymphoma','not applicable']),choice_row('pet-limitations','Interpretive limitation','Interpretation','Relevant PET limitation',['no major limitation','small lesions below reliable PET resolution','low-avidity tumour phenotype','recent therapy or inflammation limits specificity','CT component not diagnostic quality'])]
+
+s=new('template:theranostics-report','PSMA or SSTR PET/CT — expression and disease map')
+s+=quality('Targeted PET/CT')
+s += [choice_row('target-tracer','Radiopharmaceutical','Acquisition','Radiopharmaceutical',['gallium-68 PSMA-11','fluorine-18 DCFPyL','fluorine-18 PSMA-1007','gallium-68 DOTATATE','gallium-68 DOTATOC','copper-64 DOTATATE']),measurement('target-activity','Administered activity','Acquisition','Recorded administered activity','MBq'),measurement('target-interval','Uptake interval','Acquisition','Uptake interval','minutes'),choice_row('target-indication','Assessment purpose','Acquisition','Examination purpose',['initial staging','biochemical recurrence localisation','restaging','target-expression assessment before therapy','post-treatment assessment']),measurement('target-liver-reference','Liver reference','Reference uptake','Liver reference SUV mean','SUV'),measurement('target-spleen-reference','Spleen reference','Reference uptake','Spleen reference SUV mean','SUV')]+pet_region_rows('target-tracer')+[pet_lesion('target-tracer')]
+s += [row('prostate-bed','Prostate or prostate bed','PSMA-specific assessment',None,[f('assessed','Assessed','PSMA prostate/prostate-bed region was assessed.'),f('local','Local uptake','Local uptake pattern is [no suspicious focus / unifocal intraprostatic / multifocal intraprostatic / prostate-bed focus / seminal-vesicle extension / adjacent-organ extension].',requires=['assessed'])],exclude=True),row('target-discordance','Target heterogeneity','Therapy assessment observations',None,[f('assessment','Assessed','Lesional target expression was compared across visible disease.'),f('heterogeneity','Heterogeneity','Target expression is [uniformly high / heterogeneous / predominantly low].',requires=['assessment']),f('discordance','Discordant disease','Morphologically suspicious but low-target-uptake lesions are [absent / present / indeterminate].',requires=['assessment']),f('fdg-correlation','FDG correlation','On available FDG imaging there is [no discordant FDG-positive target-negative disease / discordant FDG-positive target-negative disease / indeterminate discordance].',requires=['assessment']),f('review','Treatment eligibility review','Therapy eligibility requires [multidisciplinary integration of imaging and clinical criteria / additional assessment of discordant disease].',requires=['assessment'])],exclude=True)]
+
+# Editorial refinements: keep follow-ups tied to the actual type of lesion,
+# and never offer an anatomically impossible fracture description.
+def refine_breast_lesion(report_id,mode):
+    rr=next(r for r in reports[report_id]['sections'] if r['id']=='breast-lesion')
+    common=[copy.deepcopy(v) for v in rr['findings'] if v['id'] not in {'present','type'}]
+    if mode=='Mammography':
+        primary=[f('mass','Mass','A mammographic mass is present.',exclusive='lesion-type'),f('asymmetry','Asymmetry','A [one-view asymmetry / focal asymmetry / global asymmetry] is present.',exclusive='lesion-type'),f('distortion','Distortion','Architectural distortion is present.',exclusive='lesion-type')]
+        gated={'shape':['mass'],'margin':['mass'],'density':['mass']}
+    elif mode=='Ultrasound':
+        primary=[f('mass','Mass','A sonographic mass is present.',exclusive='lesion-type'),f('nonmass','Non-mass lesion','A discrete sonographic non-mass lesion is present.',exclusive='lesion-type'),f('cyst','Cyst','A [simple cyst / complicated cyst / clustered microcysts] is present.',exclusive='lesion-type')]
+        gated={k:['mass'] for k in ['shape','orientation','margin','posterior','rind','elasticity']}
+        gated['echo']=['mass','nonmass'];gated['vascularity']=['mass','nonmass']
+        primary += [f('nonmass-distribution','Non-mass distribution','Non-mass lesion distribution is [focal / regional / segmental / diffuse].',requires=['nonmass']),f('nonmass-pattern','Non-mass pattern','Non-mass lesion has [hypoechoic tissue / echogenic tissue / mixed echogenicity / ductal changes].',requires=['nonmass'])]
+    else:
+        primary=[f('mass','Enhancing mass','An enhancing breast mass is present.',exclusive='lesion-type'),f('nonmass','Non-mass enhancement','Non-mass breast enhancement is present.',exclusive='lesion-type')]
+        gated={k:['mass'] for k in ['shape','margin','internal']}
+        gated.update({k:['nonmass'] for k in ['nme-distribution','nme-pattern']})
+    roots=[x['id'] for x in primary if not x.get('requires_any')]
+    for v in common:
+        if v.get('requires_any')==['present']:v['requires_any']=gated.get(v['id'],roots)
+    rr['findings']=primary+common
+for report_id,mode in [('ra.mammography','Mammography'),('ra.ultrasound-breast','Ultrasound'),('ra.male-breast','Ultrasound'),('ra.mri-breast','MRI'),('ra.breast-cancer-staging','MRI')]:refine_breast_lesion(report_id,mode)
+
+# Named regional observations and detailed repeatable lesions cannot both claim
+# absence and presence. Clearing broad normals is conservative: it never invents
+# a lesion elsewhere, and unaffected regions can be left unselected.
+for iid,inv in reports.items():
+    by_id={r['id']:r for r in inv['sections']}
+    lung_normals=[k for k in by_id if k in {x[0] for x in LOBES}]
+    breast_normals=[k for k in by_id if any(k==slug(side+' '+region) for side in ['Right','Left'] for region in BREAST_REGIONS)]
+    for rid,targets in [('pulmonary-lesion',lung_normals),('breast-lesion',breast_normals),('calcification-group',breast_normals),('congenital-lung-lesion',lung_normals),('pet-lesion',[k for k in by_id if k.startswith('pet-') and k!='pet-lesion']),('cardiac-lesion',[k for k in by_id if k in {'left-atrium','right-atrium','left-ventricle','right-ventricle','pericardium'}])]:
+        if rid in by_id:
+            for v in by_id[rid]['findings']:
+                if not v.get('requires_any') and targets:v['invalidates_normal']=list(dict.fromkeys(v.get('invalidates_normal',[])+targets))
+
+# MRI enhancement requires explicit acquisition evidence in each relevant row.
+for iid in ['ra.mri-cardiomyopathy']:
+    for r in reports[iid]['sections']:
+        if r['id'].startswith('myocardium-'):
+            r['findings'].append(f('lge-acquired','LGE acquired','Late gadolinium enhancement images of this segment were acquired.'))
+            for v in r['findings']:
+                if v['id']=='lge':v['requires_any']=['lge-acquired']
+                if v['id']=='oedema':
+                    # Oedema is not inferred merely from wall motion.
+                    v['text']=v['text'].replace('increased T2-weighted signal','increased signal on the acquired T2-weighted images')
+
+# Fracture descriptors are limited to the named structure.
+for r in reports['ra.child-abuse-imaging']['sections']:
+    if r['group']!='Acquired skeletal regions':continue
+    if r['label']=='Skull':opts=['linear','depressed','diastatic','complex']
+    elif 'ribs' in r['label'].lower():opts=['posterior','posterolateral','lateral','anterolateral','anterior']
+    elif 'spine' in r['label'].lower():opts=['vertebral compression','vertebral body corner','posterior element','fracture-dislocation']
+    elif r['label']=='Pelvis':opts=['pubic ramus','iliac','ischial','sacral','acetabular']
+    elif 'hand' in r['label'].lower() or 'foot' in r['label'].lower():opts=['metaphyseal','diaphyseal','physeal','avulsion']
+    else:opts=['transverse','oblique','spiral','buckle','classic metaphyseal lesion']
+    for v in r['findings']:
+        if v['id']=='morphology':v['text']=r['label']+': ['+' / '.join(opts)+'] fracture morphology.'
+# A negative conclusion is a normal state, mutually exclusive with the abnormal
+# findings in that acquired-study row; it is never included by bulk normal.
+for rid,negative in [('safeguarding-intracranial','No acute intracranial injury is demonstrated on the reviewed brain study.'),('safeguarding-viscera','No acute visceral injury is demonstrated on the reviewed abdominal study.')]:
+    r=next(r for r in reports['ra.child-abuse-imaging']['sections'] if r['id']==rid)
+    r['normal']=negative;r['exclude_from_bulk_normal']=True
+    r['findings']=[v for v in r['findings'] if v['id']!='negative']
+
+# Detailed valve quantification, atrial appendage and outflow findings.
+CURRENT_REFS=[ASE]
+s=reports['cardiology.echocardiography']['sections']
+for r in s:
+    if r['id']=='valve-aortic':r['findings'] += [f('cusps','Cusp anatomy','Aortic valve morphology is [tricuspid / bicuspid / unicuspid / indeterminate].'),f('area','Valve area','Aortic valve area by continuity equation __ cm².',requires=['stenosis']),f('dimensionless','Dimensionless index','Aortic valve dimensionless index __.',requires=['stenosis']),f('regurgitant-vena','Regurgitant vena contracta','Aortic regurgitant vena contracta __ mm.',requires=['regurgitation'])]
+    if r['id']=='valve-mitral':r['findings'] += [f('prolapse','Prolapse','Mitral prolapse involves [anterior leaflet / posterior leaflet / both leaflets].'),f('flail','Flail','A flail [anterior / posterior] mitral leaflet is present.'),f('mechanism','Regurgitation mechanism','Mitral regurgitation mechanism is [degenerative / functional ventricular / functional atrial / mixed / indeterminate].',requires=['regurgitation']),f('eroa','Effective regurgitant orifice','Mitral effective regurgitant orifice area __ cm².',requires=['regurgitation']),f('regurgitant-volume','Regurgitant volume','Mitral regurgitant volume __ mL.',requires=['regurgitation']),f('area','Valve area','Mitral valve area __ cm².',requires=['stenosis'])]
+    if r['id']=='valve-tricuspid':r['findings'] += [f('mechanism','Regurgitation mechanism','Tricuspid regurgitation mechanism is [primary leaflet disease / annular dilatation / device lead related / mixed / indeterminate].',requires=['regurgitation']),f('vena','Vena contracta','Tricuspid regurgitant vena contracta __ mm.',requires=['regurgitation'])]
+s += [row('lv-outflow','Left ventricular outflow','Outflow assessment',None,[f('obstruction','Obstruction','LV outflow obstruction is [absent at rest / present at rest / present only with provocation].'),f('gradient','Peak gradient','Peak LV outflow gradient __ mmHg.'),f('sam','Systolic anterior motion','Mitral systolic anterior motion is [absent / present without septal contact / present with septal contact].'),f('lvot-diameter','Diameter','LVOT diameter __ mm.'),f('vti','VTI','LVOT velocity-time integral __ cm.')],[ASE],exclude=True),row('pulmonary-pressure','Pulmonary pressure estimate','Filling and pressure',None,[f('estimate','Estimate','Estimated right ventricular systolic pressure __ mmHg.'),f('limitation','Limitation','Pressure estimate is [supported by adequate Doppler envelope / limited by incomplete Doppler envelope / not reliable in the presence of outflow obstruction].',requires=['estimate'])],[ASE],exclude=True)]
+
+# A modality/reference worksheet must not masquerade as a completed diagnostic
+# examination. Explicit context is retained in every row and all normals omitted.
+for iid in ['template:modalities-report','template:radiation-safety-report','template:ct-image-report','template:mri-sequences-report','template:structured-reporting-report','template:ultrasound-physics-report','ra.paediatric-ultrasound-values','ra.ct-contrast-protocols','template:biopsy-safety-report']:
+    for r in reports[iid]['sections']:r['exclude_from_bulk_normal']=True
+
+# Correct numerical domains: CT attenuation may be negative; conventional
+# percentages and physical lengths retain their explicit bounds.
+for inv in reports.values():
+    for r in inv['sections']:
+        for v in r['findings']:
+            for i,m in enumerate(re.finditer(r'\[[^\[\]]*\]|_{2,}',v['text']),1):
+                if m.group().startswith('__') and re.match(r'\s*HU',v['text'][m.end():]):
+                    v.setdefault('slot_overrides',{}).setdefault('slot-'+str(i),{}).pop('minimum',None)
+
+# Keep mixed-modality staging observations modality-neutral. MRI signal and
+# enhancement belong in the dedicated breast MRI report, not in every stage map.
+r=next(r for r in reports['ra.breast-cancer-staging']['sections'] if r['id']=='breast-lesion')
+r['findings']=[f('present','Tumour focus','A known or suspected breast tumour focus is assessed.')]+breast_location()+[
+    f('morphology','Appearance','The focus is a [mass / non-mass abnormality / calcification-only abnormality].',requires=['present']),
+    f('pathology','Pathology','Pathology status is [biopsy-proven invasive carcinoma / biopsy-proven in-situ carcinoma / suspected malignancy pending sampling].',requires=['present']),
+    f('clip','Marker','A biopsy marker is [within / adjacent to / not identified within] the tumour focus.',requires=['present']),
+    f('distance-skin','Skin distance','Shortest tumour-to-skin distance __ mm.',requires=['present']),
+    f('distance-nipple','Nipple distance','Shortest tumour-to-nipple distance __ mm.',requires=['present']),
+    f('distance-pectoral','Pectoral distance','Shortest tumour-to-pectoral distance __ mm.',requires=['present'])]
+# Every lesion can be localised precisely using its regional descriptor and
+# source image; extra lesion instances remain unlimited in the authoring data.
+for iid in ['ra.ct-pulmonary-nodules','ra.ct-lung-cancer']:
+    r=next(r for r in reports[iid]['sections'] if r['id']=='pulmonary-lesion')
+    r['findings'].append(f('bronchopulmonary-segment','Bronchopulmonary segment','Lesion segment: [right S1 / right S2 / right S3 / right S4 / right S5 / right S6 / right S7 / right S8 / right S9 / right S10 / left S1+2 / left S3 / left S4 / left S5 / left S6 / left S7+8 / left S9 / left S10].',requires=['present']))
+# An absent variant branch is recorded as an anatomy observation separately;
+# it must not be combined with stenosis or plaque in that same branch row.
+for iid in ['ra.ct-coronary','cardiology.percutaneous-angiography']:
+    for r in reports[iid]['sections']:
+        if r['group']=='Coronary segments':
+            r['findings']=[v for v in r['findings'] if v['id']!='absent']
+    reports[iid]['sections'].append(choice_row('ramus-anatomy','Ramus intermedius anatomy','Coronary anatomy','Ramus intermedius',['present','not present','not resolved'],[COR]))
+# Use the current verified TAVI article rather than its retired slug.
+for val in sources.values():
+    if val['url']=='https://radiologyassistant.nl/cardiovascular/thoracic-aorta/acute-aortic-syndrome-1':
+        val['url']='https://radiologyassistant.nl/cardiovascular/thoracic-aorta/TAVI-TAVR'
+        val['title']='Radiology Assistant: TAVI/TAVR planning (2026)'
+# A specific compartment map in each PET report keeps repeatable lesion records
+# anchored to organs and nodal basins rather than a generic whole-body status.
+PET_ORGANS=['Right cervical nodes','Left cervical nodes','Right supraclavicular nodes','Left supraclavicular nodes','Right axillary nodes','Left axillary nodes','Mediastinal nodes','Right hilar nodes','Left hilar nodes','Right lung','Left lung','Liver','Spleen','Pancreas','Right adrenal','Left adrenal','Kidneys and urinary tract','Bowel','Peritoneum and omentum','Retroperitoneal nodes','Right pelvic nodes','Left pelvic nodes','Right inguinal nodes','Left inguinal nodes','Axial skeleton','Appendicular skeleton']
+for iid,tracer in [('template:pet-ct-report','FDG'),('template:theranostics-report','target-tracer')]:
+    rr=reports[iid]['sections'];old={r['id'] for r in rr if r['group']=='Regional survey'}
+    rr[:]=[r for r in rr if r['id'] not in old]
+    CURRENT_REFS=refs_for(iid)
+    fresh=[]
+    for name in PET_ORGANS:
+        rid='pet-'+slug(name)
+        fs=[f('suspicious','Suspicious uptake',name+': suspicious '+tracer+' uptake.'),f('nonavid','Nonavid CT finding',name+': an anatomical abnormality has no appreciable '+tracer+' uptake.'),f('benign','Benign-pattern uptake',name+': activity favours [physiological / inflammatory / post-treatment] change.'),f('limited','Limited assessment',name+': assessment limited by [physiological activity / motion / metal artefact / incomplete coverage].')]
+        fresh.append(row(rid,name,'Regional survey',name+': no suspicious '+tracer+'-avid focus in the imaged field.',fs,exclude=True))
+    rr+=fresh
+    lesion=next(r for r in rr if r['id']=='pet-lesion')
+    for v in lesion['findings']:
+        if v['id']=='present':v['invalidates_normal']=[r['id'] for r in fresh]
+    lesion['findings'] += [f('nodal-station','Nodal basin','Nodal lesion basin: [cervical level I / cervical level II / cervical level III / cervical level IV / cervical level V / cervical level VI / supraclavicular / axillary / paratracheal / aortopulmonary window / subcarinal / hilar / paraoesophageal / gastrohepatic / porta hepatis / portocaval / para-aortic / aortocaval / mesenteric / common iliac / external iliac / internal iliac / obturator / presacral / inguinal].',requires=['present']),f('osseous-location','Osseous location','Osseous lesion: [skull / cervical spine / thoracic spine / lumbar spine / sacrum / iliac bone / acetabulum / pubis / ischium / rib / sternum / clavicle / scapula / humerus / radius / ulna / femur / tibia / fibula / hand / foot].',requires=['present'])]
+# Record additional localisers on the technical CT lesion worksheet without
+# pretending that a single generic example is a complete anatomic report.
+ctrow=next(r for r in reports['template:ct-image-report']['sections'] if r['id']=='ct-lesion')
+ctrow['findings'] += [f('region','Anatomic region','The assessed region is [brain / neck / chest / abdomen / pelvis / spine / upper limb / lower limb].',requires=['present']),f('image','Image localisation','Region of interest on image __ of series __.',requires=['present'])]
+
+# Independent cross-domain review corrections.
+for r in reports['ra.ct-coronary']['sections']:
+    if r['group']=='Coronary segments':
+        for v in r['findings']:
+            if v['id']=='plaque':v.pop('requires_any',None)
+            if v['id']=='highrisk':v['requires_any']=['plaque']
+for r in reports['ra.cardiac-masses']['sections']:
+    if r['id']=='cardiac-lesion':
+        next(v for v in r['findings'] if v['id']=='present')['invalidates_normal'] += ['valve-aortic','valve-mitral','valve-tricuspid','valve-pulmonary']
+for r in reports['ra.mri-breast']['sections']:
+    if r.get('normal') and 'enhancement' in r['normal']:
+        r['exclude_from_bulk_normal']=True
+for r in reports['ra.breast-implants']['sections']:
+    if r['id'] not in {'right-implant','left-implant'}:continue
+    side=r['id'].split('-')[0]
+    r['findings']=[v for v in r['findings'] if v['id']!='present']
+    material=[f('silicone','Silicone implant','A '+side+' silicone implant is present.',exclusive='implant-material'),f('saline','Saline implant','A '+side+' saline implant is present.',exclusive='implant-material'),f('dual','Dual-lumen implant','A '+side+' dual-lumen implant is present.',exclusive='implant-material')]
+    for v in r['findings']:
+        if v.get('requires_any')==['present']:
+            v['requires_any']=['silicone','dual'] if v['id'] in {'intracapsular','extracapsular'} else ['silicone','saline','dual']
+    r['findings']=material+r['findings']
+    r['findings'].append(f('saline-deflation','Saline component deflation',side.capitalize()+' saline component is [not deflated / partly deflated / completely deflated].',requires=['saline','dual']))
+
+# Dedicated mass assessment needs an explicit negative; chamber size alone
+# cannot establish absence of an intracardiac lesion. Specific positive mass
+# findings must invalidate this same parent negative, including valve lesions.
+for r in reports['ra.cardiac-masses']['sections']:
+    if r['id']=='cardiac-lesion':
+        r['normal']='No intracardiac or pericardial mass is identified on the acquired images.'
+    elif r['id'] in {'left-ventricle','right-ventricle','left-atrium','right-atrium',
+                      'valve-aortic','valve-mitral','valve-tricuspid','valve-pulmonary'}:
+        for v in r['findings']:
+            if v['id']=='mass':v['invalidates_normal']=['cardiac-lesion']
+
+# Keep the reproducible JSON, references and explicit coverage together.
+def build():
+    assert set(reports)==set(assignments), sorted(set(assignments)-set(reports))
+    coverage=[]
+    from tools.build_descriptor_reporting import compile_statement
+    for iid,inv in reports.items():
+        ids={r['id'] for r in inv['sections']}
+        assert len(ids)==len(inv['sections']), ('duplicate section',iid)
+        for r in inv['sections']:
+            local={v['id'] for v in r['findings']}
+            assert len(local)==len(r['findings']), ('duplicate finding',iid,r['id'])
+            assert r['source_ids'] and all(x in sources for x in r['source_ids'])
+            for v in r['findings']:
+                assert set(v.get('requires_any',[]))<=local, (iid,r['id'],v['id'])
+                assert set(v.get('invalidates_normal',[]))<=ids, (iid,r['id'],v['id'])
+                c=compile_statement(v['text'],kind='finding',label=v['label'],source={'investigation_id':iid,'step_index':0})
+                assert not any(x['kind']=='context' for x in c['slots']), (iid,r['id'],v['id'],v['text'])
+                assert set(v.get('slot_overrides',{}))<={x['id'] for x in c['slots']},(iid,r['id'],v['id'])
+            if r.get('normal'):
+                c=compile_statement(r['normal'],kind='normal',label='Normal',source={'investigation_id':iid,'step_index':0})
+                assert not c['slots'],(iid,r['id'],'normal has slots')
+        coverage.append({'investigation_id':iid,'expected_anatomy_ids':[r['id'] for r in inv['sections']]})
+    used={key for inv in reports.values() for r in inv['sections'] for key in r['source_ids']}
+    return {'version':'2026-10-23','sources':[sources[key] for key in sorted(used)],'investigations':reports,'coverage':coverage}
+
+if __name__=='__main__':
+    out=build()
+    path=ROOT/'data/radiology/anatomic-cardiorespiratory.json'
+    path.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+    print(f"{len(reports)} investigations; {sum(len(v['sections']) for v in reports.values())} sections; {sum(len(r['findings']) for v in reports.values() for r in v['sections'])} findings")

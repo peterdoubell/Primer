@@ -40,8 +40,8 @@ def before_msk_bytes(path, raw, allow_older=False):
     Historical callers may pass through earlier bytes, then check their own exact
     receipt. The direct inverse rejects all unrecorded bytes by default.
     """
-    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
-    raw = before_holiatlas_bytes(path, raw, allow_older=True)
+    from tools.all_report_compatibility import before_all_reports_bytes
+    raw = before_all_reports_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
@@ -78,8 +78,9 @@ def validate_refresh(step):
                 'new_reporting_workflow_validated_by_this_inverse'))):
         raise ValueError('MSK reporting refresh leaves its exact scope')
     from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+    from tools.all_report_compatibility import before_all_reports_bytes
     for path, row in proof['files'].items():
-        raw = before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
+        raw = before_all_reports_bytes(path, (ROOT / path).read_bytes())
         if (sha(raw) != row['after_sha256']
                 or sha(before_msk_bytes(path, raw)) != row['before_sha256']):
             raise ValueError('MSK reporting current runtime differs')

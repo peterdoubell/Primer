@@ -19,6 +19,30 @@ window.PrimerStructuredReporting = (() => {
   };
   const choose = (node, active) => node.setAttribute('aria-pressed', String(Boolean(active)));
   const descriptorForm = form => form.descriptor_form || form;
+  const MAX_REPEAT_INSTANCES = 50;
+  function expandRepeated(investigation, selections = {}) {
+    const sections = [], values = {...selections}, missing = [];
+    for (const section of investigation?.sections || []) {
+      sections.push(section);
+      const selected = selections[section.id];
+      if (!dictionary(selected) || !own(selected, 'instances')) continue;
+      const instances = selected.instances;
+      if (!section.repeatable || !Array.isArray(instances) || instances.length > MAX_REPEAT_INSTANCES ||
+          Object.keys(selected).some(key => !['normal','not_assessed','findings','instances'].includes(key)) ||
+          (own(selected,'findings') && !dictionary(selected.findings)) || ['normal','not_assessed'].some(key => own(selected,key) && typeof selected[key] !== 'boolean') ||
+          selected.normal || selected.not_assessed || Object.keys(selected.findings || {}).length) {
+        missing.push({section_id:section.id,label:'Invalid entries for ' + section.label}); values[section.id] = {}; continue;
+      }
+      values[section.id] = {};
+      instances.forEach((instance,index) => {
+        const id = section.id + '@' + (index+1), label = (section.repeat_label || section.label) + ' ' + (index+1);
+        sections.push({...section,id,label,normal:null,repeat_instance_label:label}); values[id] = instance;
+        if (dictionary(instance) && !instance.not_assessed && !Object.keys(instance.findings || {}).length)
+          missing.push({section_id:section.id,label:'Complete or remove ' + label});
+      });
+    }
+    return {investigation:{...investigation,sections},selections:values,missing};
+  }
   const contextValue = (context, descriptor, slot) => {
     if (slot.context_key && own(context, slot.context_key)) return context[slot.context_key];
     if (own(context, descriptor.id + '.' + slot.id)) return context[descriptor.id + '.' + slot.id];
@@ -54,6 +78,8 @@ window.PrimerStructuredReporting = (() => {
     });
   }
   function blockedNormals(investigation, selections) {
+    const expanded = expandRepeated(investigation, selections || {});
+    investigation = expanded.investigation; selections = expanded.selections;
     const blocked = new Set();
     for (const section of investigation?.sections || []) {
       const chosen = selections?.[section.id]?.findings || {};
@@ -63,13 +89,69 @@ window.PrimerStructuredReporting = (() => {
     }
     return blocked;
   }
+  function descriptorCalculationJobs(form, state = {}) {
+    const exam=(descriptorForm(form).investigations || []).find(item=>item.id===state.investigation_id), selections=state.selections || {}, jobs=[];
+    if(!exam || !dictionary(selections)) return jobs;
+    for(const section of exam.sections || []) {
+      const selected=selections[section.id] || {};
+      if(!dictionary(selected) || selected.normal || selected.not_assessed) continue;
+      const records=own(selected,'instances') ? (section.repeatable && Array.isArray(selected.instances) ? selected.instances.map((record,index)=>({record,index})) : []) : [{record:selected,index:null}];
+      for(const {record,index} of records) {
+        if(!dictionary(record) || record.normal || record.not_assessed || !dictionary(record.findings || {})) continue;
+        for(const spec of section.calculations || []) {
+          if(!spec.trigger_any.some(id=>own(record.findings,id))) continue;
+          const label=index===null ? section.label : (section.repeat_label || section.label)+' '+(index+1);
+          const job={calculator_id:spec.calculator_id,label:spec.label || spec.calculator_id,binding_id:section.id+':'+(index===null?'single':index+1)+':'+spec.calculator_id,context_label:label,section_id:section.id,instance_index:index,instance_label:index===null?null:label,inputs:{}};
+          const issues=[];
+          for(const [name,rule] of Object.entries(spec.inputs || {})) {
+            const values=[];let missing=false,failed=false;
+            for(const source of rule.sources || []) {
+              const target=source.section_id ? selections[source.section_id] : record;
+              if(!dictionary(target) || target.normal || target.not_assessed || target.instances?.length || !dictionary(target.findings || {})) {missing=true;continue;}
+              const payload=target.findings?.[source.finding_id];
+              if(!dictionary(payload)) {missing=true;continue;}
+              let value=source.slot_id ? payload[source.slot_id] : source.value;
+              if(!present(value)) {missing=true;continue;}
+              if(source.map) {
+                const key=typeof value==='string'||typeof value==='boolean'||(typeof value==='number'&&Number.isFinite(value)) ? String(value) : null;
+                if(key===null || !own(source.map,key)) {failed=true;issues.push({code:'unmapped_calculation_input',input:name,finding_id:source.finding_id});continue;}
+                value=source.map[key];
+              }
+              values.push(clone(value));
+            }
+            if(failed || (rule.all_required && missing) || !values.length) continue;
+            let value;
+            if((rule.aggregate || 'first')==='max') {
+              if(values.some(item=>typeof item!=='number'||!Number.isFinite(item))) {issues.push({code:'invalid_calculation_aggregate',input:name});continue;}
+              value=Math.max(...values);
+            } else if((rule.aggregate || 'first')==='first') {
+              if(values.some(item=>JSON.stringify(item)!==JSON.stringify(values[0]))) {issues.push({code:'conflicting_calculation_inputs',input:name});continue;}
+              value=values[0];
+            } else {issues.push({code:'unsupported_calculation_aggregate',input:name});continue;}
+            if(own(rule,'scale')) {
+              if(typeof value!=='number'||!Number.isFinite(value)||typeof rule.scale!=='number'||!Number.isFinite(rule.scale)||!Number.isFinite(value*rule.scale)) {issues.push({code:'invalid_calculation_scale',input:name});continue;}
+              value*=rule.scale;
+            }
+            job.inputs[name]=clone(value);
+          }
+          if(issues.length) job.input_issues=issues;
+          for(const rule of spec.skip_when || []) if(own(job.inputs,rule.input)&&rule.values.some(value=>JSON.stringify(value)===JSON.stringify(job.inputs[rule.input]))) {job.not_applicable=true;job.message=rule.message;break;}
+          jobs.push(job);
+        }
+      }
+    }
+    return jobs;
+  }
   function compose(form, state = {}, context = {}) {
     const schema = descriptorForm(form);
-    const investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);
+    let investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);
     if (!investigation) return {text: '', missing: [], complete: false, selected_count: 0};
     if (own(state, 'selections') && !dictionary(state.selections)) return {text: '', missing: [{label: 'Invalid report selections'}], complete: false, selected_count: 0};
-    const grouped = new Map(), missing = [], blocked = blockedNormals(investigation, state.selections);
+    const grouped = new Map(), missing = [];
     for (const key of Object.keys(state.selections || {})) if (!(investigation.sections || []).some(section => section.id === key)) missing.push({section_id: key, label: 'Unrecognised section'});
+    const expanded = expandRepeated(investigation, state.selections || {});
+    investigation = expanded.investigation; state = {...state,selections:expanded.selections}; missing.push(...expanded.missing);
+    const blocked = blockedNormals(investigation, state.selections);
     let selectedCount = 0;
     for (const section of investigation.sections || []) {
       const selected = state.selections?.[section.id] ?? {}, lines = [];
@@ -90,11 +172,13 @@ window.PrimerStructuredReporting = (() => {
           if (!own(selected.findings, finding.id)) continue;
           if (!findingActive(finding, selected.findings, section)) { missing.push({label:'Inactive detail: ' + finding.label}); continue; }
           if (finding.exclusive_group) { if (exclusive.has(finding.exclusive_group)) missing.push({label:'Conflicting findings: ' + section.label}); exclusive.add(finding.exclusive_group); }
-          const result = descriptorText(finding, selected.findings[finding.id], context);
-          lines.push(result.text); missing.push(...result.missing); selectedCount++;
+          const result = descriptorText(finding, selected.findings[finding.id], section.repeat_instance_label ? {} : context);
+          if (finding.report !== false) {lines.push(result.text);selectedCount++;} missing.push(...result.missing);
         }
       }
-      const linesWithText = lines.filter(Boolean);
+      let linesWithText = lines.filter(Boolean);
+      if (section.repeat_instance_label && !selected.not_assessed && linesWithText.length)
+        linesWithText = [section.repeat_instance_label + ':\n' + linesWithText.join('\n')];
       if (linesWithText.length) {
         const key = section.report_section_id || section.id;
         if (!grouped.has(key)) grouped.set(key, {label: section.report_section_label || section.label, lines: []});
@@ -180,6 +264,7 @@ window.PrimerStructuredReporting = (() => {
     const allowedCalculators = new Set(form.calculator_ids || schema.calculator_ids || []);
     for (const id of Object.keys(state.calculator_inputs)) if (!allowedCalculators.has(id)) delete state.calculator_inputs[id];
     const calculations = new Map(), calculatorControllers = new Map(), pending = new Set();
+    const boundCalculations = new Map(), boundNodes = new Map(); let disposed = false;
     const heading = element('div', undefined, 'rad-sheet-heading'), actions = element('div', undefined, 'rad-sheet-actions');
     const normal = button('Use normal findings', () => {
       fillNormal();
@@ -220,33 +305,39 @@ window.PrimerStructuredReporting = (() => {
       const blocked = blockedNormals(investigation(), state.selections);
       for (const section of investigation()?.sections || []) {
         const value = selected(section);
-        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length) state.selections[section.id] = {normal:true,findings:{}};
+        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};
       }
     }
     const changeSection = (section, value) => {
-      let changed;
-      do { changed = false; for (const finding of section.findings) if (own(value.findings, finding.id) && !findingActive(finding, value.findings, section)) {delete value.findings[finding.id];changed=true;} } while (changed);
+      const records = Array.isArray(value.instances) ? value.instances : [value];
+      for (const record of records) {
+        if (!dictionary(record?.findings)) continue;
+        let changed;
+        do { changed = false; for (const finding of section.findings) if (own(record.findings, finding.id) && !findingActive(finding, record.findings, section)) {delete record.findings[finding.id];changed=true;} } while (changed);
+      }
       state.selections[section.id] = value;
       for (const id of blockedNormals(investigation(), state.selections)) if (state.selections[id]?.normal) delete state.selections[id];
       drawSections(); update(true);
     };
-    function drawSlots(descriptor, values, target) {
+    function drawSlots(descriptor, values, target, focusPrefix = '') {
       if (!dictionary(values)) { target.append(element('p', 'Clear this finding and select its details again.', 'rad-missing-detail')); return; }
       if (!(descriptor.slots || []).length) return;
       const slots = element('div', undefined, 'rad-followups');
       for (const slot of descriptor.slots) {
         const row = element('div', undefined, 'rad-followup'); row.append(element('span', slot.label || 'Detail', 'rad-field-label'));
-        const supplied = contextValue(context, descriptor, slot), value = present(supplied) ? supplied : values[slot.id];
+        const supplied = focusPrefix ? undefined : contextValue(context, descriptor, slot), value = present(supplied) ? supplied : values[slot.id];
         const change = next => {
-          if (slot.context_key) delete context[slot.context_key];
-          delete context[descriptor.id + '.' + slot.id];
-          if (context[descriptor.id]) delete context[descriptor.id][slot.id];
+          if (!focusPrefix) {
+            if (slot.context_key) delete context[slot.context_key];
+            delete context[descriptor.id + '.' + slot.id];
+            if (context[descriptor.id]) delete context[descriptor.id][slot.id];
+          }
           if (next === undefined) delete values[slot.id]; else values[slot.id] = next; update(true);
         };
         if (slot.kind === 'choice') {
           const choices = element('div', undefined, 'rad-choices'); choices.setAttribute('role', 'group'); choices.setAttribute('aria-label', slot.label || 'Detail');
           for (const item of slot.options || []) {
-            const choice = button(item.label, () => { change(value === item.value ? undefined : item.value); drawSections(); }); choice.dataset.radFocus = 'slot:' + descriptor.id + ':' + slot.id + ':' + item.value; choose(choice, value === item.value); choices.append(choice);
+            const choice = button(item.label, () => { change(value === item.value ? undefined : item.value); drawSections(); }); choice.dataset.radFocus = 'slot:' + focusPrefix + descriptor.id + ':' + slot.id + ':' + item.value; choose(choice, value === item.value); choices.append(choice);
           }
           row.append(choices);
         } else if (slot.kind === 'number') row.append(numberControl(slot.label || 'Measurement', value, slot, change));
@@ -255,9 +346,77 @@ window.PrimerStructuredReporting = (() => {
       }
       target.append(slots);
     }
+    function drawFindingChoices(section, sectionState, target, onChange, focusPrefix = '') {
+      if (!dictionary(sectionState) || (own(sectionState,'findings') && !dictionary(sectionState.findings))) {
+        target.append(element('p','Clear this entry and select its findings again.','rad-missing-detail')); return;
+      }
+      const chosen = sectionState.findings || {}, choices = element('div', undefined, 'rad-finding-choices');
+      for (const finding of section.findings || []) {
+        if (!findingActive(finding, chosen, section)) continue;
+        const active = own(chosen, finding.id), item = element('div', undefined, 'rad-finding');
+        const choice = button(finding.label || finding.text, () => {
+          const next = {normal:false,not_assessed:false,findings:{...chosen}};
+          if (active) delete next.findings[finding.id];
+          else {
+            if (finding.exclusive_group) for (const peer of section.findings || []) if (peer.exclusive_group === finding.exclusive_group) delete next.findings[peer.id];
+            next.findings[finding.id] = {};
+          }
+          onChange(next);
+        });
+        choice.dataset.radFocus = 'finding:' + focusPrefix + finding.id; choose(choice,active); item.append(choice);
+        if (active) drawSlots(finding,chosen[finding.id],item,focusPrefix);
+        choices.append(item);
+      }
+      target.append(choices);
+    }
+    const boundKey = (section,index,spec) => section.id+':'+(index===null?'single':index+1)+':'+spec.calculator_id;
+    function appendBoundNodes(section,index,target) {
+      for(const spec of section.calculations || []) {
+        const node=element('div',undefined,'rad-bound-calculation');node.setAttribute('role','status');node.hidden=true;
+        boundNodes.set(boundKey(section,index,spec),node);target.append(node);
+      }
+    }
+    function drawBoundStatus() {
+      for(const [key,node] of boundNodes) {
+        const entry=boundCalculations.get(key);node.replaceChildren();node.hidden=!entry;if(!entry)continue;
+        const result=entry.result,label=entry.job.label;
+        let message=label+': calculating…';
+        if(result?.status==='complete') message=label+': '+(result.summary || result.category);
+        else if(result?.status==='not_applicable') message=label+': '+(result.limitations?.at(-1) || entry.job.message || 'Not applicable to these selections.');
+        else if(result?.status==='incomplete') message=label+': choose '+(result.missing_inputs || []).map(title).join(', ')+'.';
+        else if(result?.status==='error') message=label+': '+(entry.error || 'Review the selected calculation inputs.');
+        node.append(element('p',message,'rad-calculation-result'));
+        if(result?.status==='error') node.append(button('Retry calculation',()=>{boundCalculations.delete(key);update();},'rad-small-button'));
+        if(result?.sources?.length) {
+          const details=element('details',undefined,'rad-calculation-references');details.append(element('summary','Calculation reference'));
+          for(const source of result.sources) {const link=element('a',source.title || source.url);link.href=source.url;link.target='_blank';link.rel='noopener noreferrer';details.append(link);}
+          node.append(details);
+        }
+      }
+    }
+    function syncBoundCalculations() {
+      const jobs=compose(schema,state,context).missing.length ? [] : descriptorCalculationJobs(schema,materializedState());
+      const keys=new Set(jobs.map(job=>job.binding_id));
+      for(const [key,entry] of boundCalculations) if(!keys.has(key)) {pending.delete(entry.pending);boundCalculations.delete(key);}
+      for(const job of jobs) {
+        const signature=JSON.stringify({inputs:job.inputs,issues:job.input_issues,not_applicable:job.not_applicable,message:job.message});
+        if(boundCalculations.get(job.binding_id)?.signature===signature)continue;
+        pending.delete(boundCalculations.get(job.binding_id)?.pending);
+        const entry={job,signature,result:null};boundCalculations.set(job.binding_id,entry);
+        if(job.input_issues?.length) {entry.result={status:'error'};entry.error='Review conflicting or unmapped inputs.';continue;}
+        if(job.not_applicable) {entry.result={status:'not_applicable',limitations:[job.message]};continue;}
+        const current=()=>!disposed&&boundCalculations.get(job.binding_id)===entry;
+        const work=Promise.resolve().then(()=>(options.request || request)('calculators/'+job.calculator_id+'/calculate',{inputs:job.inputs})).then(result=>{
+          if(!current())return;entry.result=result;update();
+        }).catch(error=>{if(!current())return;entry.result={status:'error'};entry.error=error.message || 'Calculation unavailable.';update();});
+        entry.pending=work;track(work);
+      }
+      drawBoundStatus();
+      return jobs;
+    }
     function drawSections() {
       const focusKey = document.activeElement?.dataset?.radFocus;
-      descriptorFields.replaceChildren(); groupNavigation.replaceChildren();
+      descriptorFields.replaceChildren(); groupNavigation.replaceChildren(); boundNodes.clear();
       const exam = investigation();
       if (!exam) { descriptorFields.append(element('p', 'Choose the examination above.')); return; }
       const blocked = blockedNormals(exam, state.selections); let lastGroup = null;
@@ -266,7 +425,8 @@ window.PrimerStructuredReporting = (() => {
         if (section.group && section.group !== lastGroup) {
           lastGroup = section.group;
           const groupHeader = element('div', undefined, 'rad-anatomic-group');
-          groupHeader.append(element('h4', section.group), button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));
+          groupHeader.append(element('h4', section.group));
+          if (exam.sections.some(row => row.group === section.group && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));
           descriptorFields.append(groupHeader);
           groupNavigation.append(button(section.group, () => groupHeader.scrollIntoView?.({behavior:'smooth',block:'start'}), 'rad-small-button'));
         }
@@ -280,40 +440,57 @@ window.PrimerStructuredReporting = (() => {
         }
         const unassessed = button('Not assessed', () => changeSection(section, {normal: false, not_assessed: !sectionState.not_assessed, findings: {}}));
         unassessed.dataset.radFocus = 'unassessed:' + section.id; choose(unassessed, sectionState.not_assessed); quick.append(unassessed); row.append(quick); panel.append(row);
-        const choices = element('div', undefined, 'rad-finding-choices');
-        for (const finding of section.findings || []) {
-          if (!findingActive(finding, sectionState.findings, section)) continue;
-          const active = own(sectionState.findings, finding.id), item = element('div', undefined, 'rad-finding');
-          const choice = button(finding.label || finding.text, () => {
-            const next = {normal: false, not_assessed: false, findings: {...sectionState.findings}};
-            if (active) delete next.findings[finding.id];
-            else {
-              if (finding.exclusive_group) for (const peer of section.findings || []) if (peer.exclusive_group === finding.exclusive_group) delete next.findings[peer.id];
-              next.findings[finding.id] = {};
-            }
-            changeSection(section, next);
+        if (section.repeatable) {
+          const instances = sectionState.instances || [];
+          if (Array.isArray(instances)) instances.forEach((instance,index) => {
+            const entry = element('div',undefined,'rad-repeat-instance'), label = (section.repeat_label || section.label) + ' ' + (index+1);
+            const entryHeading = element('div',undefined,'rad-section-heading');
+            entryHeading.append(element('h6',label),button('Remove ' + label,()=>{
+              const remaining = [...instances]; remaining.splice(index,1); changeSection(section,{instances:remaining});
+            },'rad-small-button')); entry.append(entryHeading);
+            drawFindingChoices(section,instance,entry,next=>{
+              const revised = [...instances]; revised[index] = next; changeSection(section,{instances:revised});
+            },section.id+'@'+index+':'); appendBoundNodes(section,index,entry); panel.append(entry);
           });
-          choice.dataset.radFocus = 'finding:' + finding.id; choose(choice, active); item.append(choice); if (active) drawSlots(finding, sectionState.findings[finding.id], item); choices.append(item);
-        }
-        panel.append(choices); descriptorFields.append(panel);
+          else panel.append(element('p','Clear these entries and select their findings again.','rad-missing-detail'));
+          // A single-record API client may use the original findings shape.
+          if (Object.keys(sectionState.findings || {}).length) drawFindingChoices(section,sectionState,panel,next=>changeSection(section,next));
+          const add = button('Add ' + (section.repeat_label || section.label).toLowerCase(),()=>{
+            const prior = Array.isArray(instances) ? [...instances] : [];
+            if (Object.keys(sectionState.findings || {}).length) prior.push({findings:clone(sectionState.findings)});
+            prior.push({findings:{}}); changeSection(section,{instances:prior});
+          },'rad-small-button');
+          add.disabled = !Array.isArray(instances) || instances.length + (Object.keys(sectionState.findings || {}).length ? 1 : 0) >= MAX_REPEAT_INSTANCES;
+          if (add.disabled) add.title = 'At most ' + MAX_REPEAT_INSTANCES + ' entries are supported in this section.';
+          panel.append(add);
+        } else drawFindingChoices(section,sectionState,panel,next=>changeSection(section,next));
+        if (!section.repeatable || Object.keys(sectionState.findings || {}).length) appendBoundNodes(section,null,panel);
+        descriptorFields.append(panel);
       }
       if (focusKey) [...(descriptorFields.querySelectorAll?.('[data-rad-focus]') || [])].find(node => node.dataset.radFocus === focusKey)?.focus();
     }
     function reportResult() {
       const result = compose(schema, state, context);
       const completeCalculations = [...allowedCalculators].map(id => calculations.get(id)).filter(value => value?.status === 'complete');
-      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : ''))].filter(Boolean);
-      const incompleteCalculators = [...allowedCalculators].filter(id => Object.values(state.calculator_inputs[id] || {}).some(present) && calculations.get(id)?.status !== 'complete');
-      const missing = [...result.missing, ...incompleteCalculators.map(id => ({calculator_id: id, label: title(id)}))];
-      return {...result, missing, text: parts.join('\n\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0)};
+      const jobs=result.missing.length ? [] : descriptorCalculationJobs(schema,materializedState()), boundResults=jobs.map(job=>({job,result:boundCalculations.get(job.binding_id)?.result}));
+      const completeBound=boundResults.filter(entry=>entry.result?.status==='complete');
+      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),
+        ...completeBound.map(({job,result:value})=>'CALCULATED ASSESSMENT\n'+job.context_label+': '+(value.summary || value.category || '')+(value.version?' ('+value.version+')':''))].filter(Boolean);
+      const incompleteCalculators = [...allowedCalculators].filter(id => Object.values(state.calculator_inputs[id] || {}).some(present) && !['complete','not_applicable'].includes(calculations.get(id)?.status));
+      const duplicateCalculators = [...new Set(jobs.map(job=>job.calculator_id))].filter(id=>Object.values(state.calculator_inputs[id] || {}).some(present));
+      const missing = [...result.missing, ...incompleteCalculators.map(id => ({calculator_id: id, label: title(id)})),
+        ...boundResults.filter(entry=>!['complete','not_applicable'].includes(entry.result?.status)).map(({job})=>({binding_id:job.binding_id,label:job.context_label+' — '+job.label})),
+        ...duplicateCalculators.map(id=>({calculator_id:id,label:'Clear the separate '+title(id)+' calculation'}))];
+      return {...result, missing, text: parts.join('\n\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0 || completeBound.length > 0)};
     }
     function update(notify = false) {
+      syncBoundCalculations();
       for (const node of investigationPicker.children) choose(node, node.dataset.investigationId === state.investigation_id);
       normal.disabled = !(investigation()?.sections || []).some(section => section.normal);
       const result = reportResult();
       preview.textContent = result.text || 'Select findings to build the report.';
       copy.disabled = copying || !result.complete;
-      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length; }).length;
+      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;
       feedback.textContent = result.missing.length ? 'Choose remaining details: ' + result.missing.map(item => item.label).join(', ') : remaining ? remaining + ' unselected ' + (remaining === 1 ? 'section' : 'sections') + ' — omitted from report.' : '';
       if (notify && options.onChange) options.onChange(root.getState());
     }
@@ -326,6 +503,8 @@ window.PrimerStructuredReporting = (() => {
         const inputs = state.calculator_inputs[id] ||= {};
         const linked = options.calculatorInputs?.[id] || context.calculator_inputs?.[id];
         if (linked) Object.assign(inputs, linked);
+        const bound = investigation().sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id));
+        if (bound && !Object.values(inputs).some(present)) continue;
         const controller = calculator(id, inputs, options.request || request, (result, changed) => {
           if (result) calculations.set(id, result); else calculations.delete(id);
           update(changed);
@@ -333,20 +512,24 @@ window.PrimerStructuredReporting = (() => {
         calculatorControllers.set(id, controller); calculatorFields.append(controller.node);
       }
     }
-    root.getState = () => {
+    function materializedState() {
       const snapshot = clone(state);
       for (const section of investigation()?.sections || []) for (const finding of section.findings || []) {
         const values = snapshot.selections[section.id]?.findings?.[finding.id];
         if (!values) continue;
         for (const slot of finding.slots || []) { const value = contextValue(context, finding, slot); if (present(value)) values[slot.id] = value; }
       }
+      return snapshot;
+    }
+    root.getState = () => {
+      const snapshot = materializedState();
       return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};
     };
     root.getReport = () => reportResult().text;
     root.getReportResult = () => clone(reportResult());
     root.flush = async () => { while (pending.size) await Promise.all([...pending]); return root.getReportResult(); };
-    root.updateContext = values => { context = clone(values || {}); calculations.clear(); drawSections(); drawCalculators(); update(true); };
-    root.dispose = () => { for (const controller of calculatorControllers.values()) controller.dispose(); };
+    root.updateContext = values => { context = clone(values || {}); calculations.clear(); for(const entry of boundCalculations.values()) pending.delete(entry.pending); boundCalculations.clear(); drawSections(); drawCalculators(); update(true); };
+    root.dispose = () => { disposed=true;for(const entry of boundCalculations.values()) pending.delete(entry.pending);boundCalculations.clear();for (const controller of calculatorControllers.values()) controller.dispose(); };
     drawSections(); drawCalculators(); update(); return root;
   }
   function calculator(id, inputs, send, onResult, track) {
@@ -435,5 +618,5 @@ window.PrimerStructuredReporting = (() => {
     })());
     return {node: panel, busy: () => inFlight, dispose: () => { disposed = true; sequence++; }};
   }
-  return {render, compose, descriptorText};
+  return {render, compose, descriptorText, descriptorCalculationJobs};
 })();

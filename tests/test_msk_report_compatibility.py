@@ -23,7 +23,8 @@ def test_msk_inverse_restores_exact_prior_bytes_and_rejects_unrecorded_edits(pat
     from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
     raw = before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
     restored = bridge.before_msk_bytes(path, raw)
-    assert hashlib.sha256(raw).hexdigest() == row['after_sha256']
+    from tools.all_report_compatibility import before_all_reports_bytes
+    assert hashlib.sha256(before_all_reports_bytes(path, raw)).hexdigest() == row['after_sha256']
     assert hashlib.sha256(restored).hexdigest() == row['before_sha256']
     assert bridge.before_msk_bytes(path, restored) == restored
     with pytest.raises(ValueError, match='Unreviewed'):

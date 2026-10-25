@@ -22,7 +22,7 @@ The protocol has 350 named anatomical classes, plus background and a reserved em
 
 `reader-current-recovery-proof.json` repeats five recovery tests through the authenticated application: malformed ranges, ignored ranges, corrupted bytes, missing payloads and delayed earlier selections. Exact native pixels are checked after recovery. Run `tools/check_holiatlas_recovery.py` to reproduce. Production range delivery still needs its own staged check. Lossless compressed metadata keeps the large static assets and plain metadata outside the Python function bundle.
 
-`runtime-inverse.json` restores only five exact pre-integration files for historical byte assertions. Earlier source and clinical approvals do not extend to this reader. Descriptor mutations, duplicates and unrelated bytes are rejected.
+`runtime-inverse.json` restores only five exact pre-integration files to reporting base `d4b5fbefae6005d05bd90bbd56141f726fe4f83e` for historical byte assertions. `ledger-inverse.json` separately pins the single atlas ledger append after the runtime receipt is hashed, avoiding circular hashes. Historical views undo atlas, all-report and MSK changes in that order; the all-report receipt remains unchanged. Earlier source and clinical approvals do not extend to this reader. Descriptor mutations, duplicate ledger additions and unrelated bytes are rejected.
 
 ## Reporting correspondence and remaining work
 

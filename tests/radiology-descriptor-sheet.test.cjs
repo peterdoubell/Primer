@@ -296,6 +296,34 @@ test('copy is in the persistent actions and anatomy groups have normal-remaining
   const root = load().render(anatomicForm());
   const actions = descendants(root).find(node => node.className === 'rad-sheet-actions');
   assert.equal(find(actions, 'Copy report'), find(root, 'Copy report'));
-  assert.equal(descendants(root).filter(node => node.tagName === 'BUTTON' && node.textContent === 'Normal remaining').length, 2);
+  assert.equal(descendants(root).filter(node => node.tagName === 'BUTTON' && node.textContent === 'Normal remaining').length, 1);
   assert.ok(descendants(root).find(node => node.tagName === 'NAV' && node.getAttribute('aria-label') === 'Anatomical groups'));
+});
+
+function repeatedForm() {
+  const source=anatomicForm(), section=source.investigations[0].sections[0];
+  section.repeatable=true; section.repeat_label='Lesion'; return source;
+}
+test('repeatable findings are independent and unfilled entries block copy',()=>{
+  const root=load().render(repeatedForm());
+  find(root,'Add lesion').onclick();
+  assert.equal(find(root,'Copy report').disabled,true);
+  find(root,'Partial-thickness tear').onclick(); find(root,'Articular').onclick();
+  assert.match(root.getReport(),/Lesion 1:\nPartial-thickness articular-sided tear/);
+  find(root,'Add lesion').onclick(); assert.equal(find(root,'Copy report').disabled,true);
+  find(descendants(root).filter(node=>node.className==='rad-repeat-instance')[1],'Complete tear').onclick();
+  assert.match(root.getReport(),/Lesion 1:[\s\S]*articular-sided[\s\S]*Lesion 2:\nComplete tear/);
+  find(root,'Use normal findings').onclick();
+  assert.equal(root.getState().selections.cuff.instances.length,2);
+  assert.doesNotMatch(root.getReport(),/Rotator cuff intact|Biceps intact/);
+  find(root,'Remove Lesion 1').onclick();
+  assert.match(root.getReport(),/Lesion 1:\nComplete tear/);
+  assert.doesNotMatch(root.getReport(),/Lesion 2|articular-sided/);
+});
+test('malformed repeated hydration blocks copy without crashing the sheet',()=>{
+  for(const instances of ['bad',[{}],[{normal:true}],[{findings:{unknown:{}}}]]){
+    const root=load().render(repeatedForm(),{initialState:{descriptor_state:{investigation_id:'mri',selections:{cuff:{instances}}}}});
+    assert.equal(root.getReportResult().complete,false);
+    assert.equal(find(root,'Copy report').disabled,true);
+  }
 });
