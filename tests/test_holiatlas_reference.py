@@ -1,6 +1,7 @@
 """Exact source transport, thin production metadata and protected range delivery."""
 from pathlib import Path
 import hashlib
+import copy
 import json
 import os
 import shutil
@@ -34,13 +35,13 @@ def test_reference_preserves_source_meaning_and_all_present_components():
 def test_runtime_metadata_is_lossless_without_static_payloads(tmp_path, monkeypatch):
     assets = tmp_path / 'web/anatomy/holiatlas'
     assets.mkdir(parents=True)
-    for name in source.AUTHORED - {'manifest.json', 'labels.json'}:
+    for name in source.AUTHORED - {'manifest.json', 'labels.json', 'hierarchy.json'}:
         shutil.copy2(ROOT / 'web/anatomy/holiatlas' / name, assets / name)
     data = tmp_path / 'data/radiology'
     data.mkdir(parents=True)
-    for name in ['holiatlas-reference.json', 'holiatlas-manifest.json.gz', 'holiatlas-labels.json.gz']:
+    for name in ['holiatlas-reference.json', 'holiatlas-manifest.json.gz', 'holiatlas-labels.json.gz', 'holiatlas-hierarchy.json.gz']:
         shutil.copy2(ROOT / 'data/radiology' / name, data / name)
-    expected = {name: source.metadata_bytes(name) for name in ['manifest.json', 'labels.json']}
+    expected = {name: source.metadata_bytes(name) for name in ['manifest.json', 'labels.json', 'hierarchy.json']}
     monkeypatch.setattr(source, 'ROOT', tmp_path)
     monkeypatch.setattr(source, 'REGISTRY', data / 'holiatlas-reference.json')
     monkeypatch.setenv('VERCEL', '1')
@@ -69,7 +70,7 @@ from primer import server,holiatlas_reference as source
 auth=('synthetic-holiatlas-test','synthetic-test-password')
 manifest=json.loads(source.metadata_bytes('manifest.json'));row=manifest['volumes']['T1']['planes']['2'][0]
 with TestClient(server.app) as client:
- for name in ['index.html','manifest.json','labels.json',row['file']]:
+ for name in ['index.html','manifest.json','labels.json','hierarchy.json','hierarchy-composition-right-insular-cortex.mesh.gz',row['file']]:
   assert client.get(source.PREFIX+name).status_code==401
   response=client.get(source.PREFIX+name,auth=auth);assert response.status_code==200
   assert response.headers['cache-control']=='private, no-store'
@@ -97,7 +98,53 @@ def test_every_thin_function_exclusion_has_a_static_delivery_build():
     config = json.loads((ROOT/'vercel.json').read_bytes())
     static = [row['src'] for row in config['builds'] if row.get('use') == '@vercel/static']
     excluded = [name for name in source.registry()['files']
-                if name not in source.AUTHORED or name in {'manifest.json', 'labels.json'}]
+                if name not in source.AUTHORED or name in {'manifest.json', 'labels.json', 'hierarchy.json'}]
     for name in excluded:
         path = 'web/anatomy/holiatlas/' + name
         assert any(fnmatch.fnmatchcase(path, pattern) for pattern in static), path
+
+
+def test_hierarchy_preserves_source_scales_and_distinguishes_insula_from_opercula():
+    hierarchy = json.loads(source.metadata_bytes('hierarchy.json'))
+    assert {key: len(value['sourceClasses']) for key, value in hierarchy['levels'].items()} == {
+        'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 16}
+    assert hierarchy['totalTriangles'] == 22314324
+    assert sum(len(row['components26']) for level in hierarchy['levels'].values()
+               for row in level['sourceClasses']) == 741
+    right_insular_group = next(r for r in hierarchy['levels']['structure']['sourceClasses'] if r['code'] == 18)
+    pure_insular = next(r for r in hierarchy['levels']['composition']['sourceClasses']
+                       if r['sourceCompositionId'] == 'right-insular-cortex')
+    assert right_insular_group['fineSourceCodes'] == [224, 226, 228, 230, 232]
+    assert pure_insular['fineSourceCodes'] == [224, 230]
+    assert pure_insular['voxels'] == 77649
+    assert hierarchy['levels']['composition']['mutuallyExclusive'] is False
+    for level in ('structure', 'tissue', 'organ'):
+        assert hierarchy['levels'][level]['sourceHeaderUnits'] == ['unknown', 'unknown']
+        assert hierarchy['levels'][level]['protocolMappingDisagreements'] == 0
+
+
+@pytest.mark.parametrize('mutation', ['approval', 'count', 'membership', 'component', 'payload', 'partition', 'units'])
+def test_hierarchy_rejects_unreviewed_scope_and_delivery_mutations(monkeypatch, mutation):
+    original = source.metadata_bytes
+    data = copy.deepcopy(source.registry())
+    hierarchy = json.loads(original('hierarchy.json'))
+    row = hierarchy['levels']['structure']['sourceClasses'][0]
+    if mutation == 'approval':
+        hierarchy['clinicalApproval'] = True
+    elif mutation == 'count':
+        hierarchy['presentClasses'] = data['hierarchy_classes'] = 78
+    elif mutation == 'membership':
+        row['fineSourceCodes'].append(65535)
+    elif mutation == 'component':
+        row['components26'].pop()
+    elif mutation == 'payload':
+        row['mesh']['gzipSHA256'] = '0' * 64
+    elif mutation == 'partition':
+        hierarchy['levels']['composition']['mutuallyExclusive'] = True
+    else:
+        hierarchy['levels']['structure']['sourceHeaderUnits'] = ['mm', 'unknown']
+    monkeypatch.setattr(source, 'metadata_bytes', lambda name: json.dumps(hierarchy).encode()
+                        if name == 'hierarchy.json' else original(name))
+    with pytest.raises(ValueError):
+        source.validate_hierarchy(data, json.loads(original('labels.json'))['sourceClasses'],
+                                  json.loads(original('manifest.json')))

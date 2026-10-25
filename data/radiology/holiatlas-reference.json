@@ -1,5 +1,8 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "hierarchy_classes": 79,
+  "hierarchy_triangles": 22314324,
+  "hierarchy_components26": 741,
   "atlas": "holiatlas",
   "source_record": "https://zenodo.org/records/15690524",
   "source_archive_md5": "4869902cb6e6082820109b0aae3dd16c",
@@ -19,13 +22,13 @@
       "id": "holiatlas-source-template-reference",
       "modality": "Population T1/T2 templates, synthesized WMn-like contrast and source-label cell boundaries",
       "coordinate_context": "single-source-population-template-in-declared-source-world-mm",
-      "title": "Brain template regions in source MRI and exact cell boundaries",
+      "title": "Brain template regions, tissue groups and source compositions",
       "src": "/app/anatomy/holiatlas/index.html",
       "manifest_url": "/app/anatomy/holiatlas/manifest.json",
-      "sha256": "67588f704841762c355bc9b0e2ff79ad3ac39af4f7a86c8333b737fb6c332dad",
+      "sha256": "1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7",
       "manifest_sha256": "d4d3f7f2482c4001b1d63dd34ca7de6b87d37996d6debc85f2088c7ebd7d6a6a",
-      "caption": "Inspect 332 present source-defined regions and all 868 retained components in paired orthogonal template planes and exact cell-boundary meshes. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.",
-      "attribution": "holiAtlas v1.0 \u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.",
+      "caption": "Inspect 332 present fine source regions, 63 source-scale entries and 16 explicit overlapping compositions in matched MRI planes and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.",
+      "attribution": "holiAtlas v1.0 \u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\n\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 16 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.",
       "source_url": "https://zenodo.org/records/15690524",
       "publication_url": "https://www.nature.com/articles/s41598-026-40186-2",
       "license": "CC BY 4.0",
@@ -42,6 +45,9 @@
         "present_label_classes": 332,
         "absent_named_label_classes": 18,
         "retained_components26": 868,
+        "source_scale_entries": 63,
+        "source_compositions": 16,
+        "additional_distinct_aggregate_masks": 50,
         "WMn_like_contrast_synthesized": true,
         "sulcal_classes_are_CSF_territories": true
       },
@@ -63,8 +69,8 @@
   },
   "files": {
     "ATTRIBUTION.txt": {
-      "bytes": 832,
-      "sha256": "6fe3bbc137899b4cca53ed55cd5e6139d84f35e8b22aa37b8129d860e351284c"
+      "bytes": 1353,
+      "sha256": "029e261ae9c9c3e89d605bfff76dc097414a20a5dd7e00dccabe732e759ff493"
     },
     "LICENSE.txt": {
       "bytes": 457,
@@ -119,12 +125,648 @@
       "sha256": "f4200039840795be272ee7462170dc669dc262ede54608892ea3e3ab21abd6b9"
     },
     "config.json": {
-      "bytes": 323,
-      "sha256": "886ad1771b79b52d243cbcc8f8e41bd9fd938d94672e58c66b8f097303f3b78b"
+      "bytes": 412,
+      "sha256": "f37af2ab8c6c07b0dcef791959353e069ac4f822f23abdc1a6d5254abef711af"
+    },
+    "hierarchy-composition-left-cingulate-cortex-faces.bin.gz": {
+      "bytes": 156893,
+      "sha256": "7b12c24648f23305a0401052d2dd8b69c2b84331ec3535b3dc2592d57050693a"
+    },
+    "hierarchy-composition-left-cingulate-cortex.mesh.gz": {
+      "bytes": 605031,
+      "sha256": "449f5ba75de0197cc8c3f7daf19f2176df02893dbc3ee4efab2072f288853a5b"
+    },
+    "hierarchy-composition-left-inferior-frontal-cortex-faces.bin.gz": {
+      "bytes": 104306,
+      "sha256": "7bdaa2e0faa0c8d826648fc154b323d90b116b3d440bcf547aa84611cca33f03"
+    },
+    "hierarchy-composition-left-inferior-frontal-cortex.mesh.gz": {
+      "bytes": 396499,
+      "sha256": "41f95d8fe8557b7ac9deff11dfc02b85e4d414f767d5f4a4b7418e6c3faa6a39"
+    },
+    "hierarchy-composition-left-insular-cortex-faces.bin.gz": {
+      "bytes": 72756,
+      "sha256": "56a20e184ed49c79b89a573cb78f2a0c41677cbb5263acade17194e8ef3c9561"
+    },
+    "hierarchy-composition-left-insular-cortex.mesh.gz": {
+      "bytes": 274858,
+      "sha256": "d8f3c7676bf4be2eeea563aed7ad974e730db21a1e6ca170996e523dd95120a9"
+    },
+    "hierarchy-composition-left-lateral-ventricular-source-compartments-faces.bin.gz": {
+      "bytes": 85602,
+      "sha256": "1f9cfac030b9fe3b22664521d37046d963767cec1486f249c34ea693d202da94"
+    },
+    "hierarchy-composition-left-lateral-ventricular-source-compartments.mesh.gz": {
+      "bytes": 309810,
+      "sha256": "8f8c9bfc374746800a9bf8a516f969588ff2ac9ddd5eaf230025d9db86f20d55"
+    },
+    "hierarchy-composition-left-opercular-cortex-faces.bin.gz": {
+      "bytes": 113962,
+      "sha256": "23ff6aca429f76d5f87807c92c9f4b207447024b6b71f550ecf43f57895691c4"
+    },
+    "hierarchy-composition-left-opercular-cortex.mesh.gz": {
+      "bytes": 402815,
+      "sha256": "99213ba94b5fdd7d186fd47e8080a669b4427db8176e29704f638407282c45ab"
+    },
+    "hierarchy-composition-left-postcentral-cortex-faces.bin.gz": {
+      "bytes": 175508,
+      "sha256": "4b8fda213f0bf5c6b7c028714bd4e88f52c5df9e337eb9af4a88042d5cfe0298"
+    },
+    "hierarchy-composition-left-postcentral-cortex.mesh.gz": {
+      "bytes": 646488,
+      "sha256": "ded36d4c78f3e837efd7d5b0d4ed1e2c3904a7f2dc589beca722c802cf65b959"
+    },
+    "hierarchy-composition-left-precentral-cortex-faces.bin.gz": {
+      "bytes": 195735,
+      "sha256": "eafa4da7169fcbbe85c58ae4ca92fba5d2d448e81fdf5d914450f8cf1870128d"
+    },
+    "hierarchy-composition-left-precentral-cortex.mesh.gz": {
+      "bytes": 727596,
+      "sha256": "8c50c79fff650bcf11635681f3a1a808c6efcff01ee8fe1dbfe0611db8f25df0"
+    },
+    "hierarchy-composition-left-superior-frontal-cortex-faces.bin.gz": {
+      "bytes": 237767,
+      "sha256": "9b999fd56aa9bb271f2e65e84ec514c911e2d42dba78cb12b3cab3eb497e08a4"
+    },
+    "hierarchy-composition-left-superior-frontal-cortex.mesh.gz": {
+      "bytes": 897251,
+      "sha256": "7620f62c46cac057738036f535526b3b66fefc4735f8454c7081556cab44ce9e"
+    },
+    "hierarchy-composition-right-cingulate-cortex-faces.bin.gz": {
+      "bytes": 154373,
+      "sha256": "ab0cd2c2727d6b71b8f6a0982b22253f7fe62521f8210e106118561718b0c6cd"
+    },
+    "hierarchy-composition-right-cingulate-cortex.mesh.gz": {
+      "bytes": 597772,
+      "sha256": "7b0eb9b4f4270a9c3b1a239fcd144bd32390a3ed88027fafc7a5f60b7441d456"
+    },
+    "hierarchy-composition-right-inferior-frontal-cortex-faces.bin.gz": {
+      "bytes": 102096,
+      "sha256": "11fdc0284409a766654af2089ec08e55950cfbb41136f60da741c42da0c71644"
+    },
+    "hierarchy-composition-right-inferior-frontal-cortex.mesh.gz": {
+      "bytes": 387376,
+      "sha256": "29239c19092bbd4d95f96b227e012868205f4601107b3095d92f62676f1e8a92"
+    },
+    "hierarchy-composition-right-insular-cortex-faces.bin.gz": {
+      "bytes": 70657,
+      "sha256": "3b969504dd53f3522e88c478542e985d517cb2f38cf4fdb2ba10737446e36676"
+    },
+    "hierarchy-composition-right-insular-cortex.mesh.gz": {
+      "bytes": 271915,
+      "sha256": "59be17e0aa7191f3d1146d9058238f9a0ffa78f2f559999c72af693b4c047bdb"
+    },
+    "hierarchy-composition-right-lateral-ventricular-source-compartments-faces.bin.gz": {
+      "bytes": 83701,
+      "sha256": "78cddec4a5f3476da04d9f75e76806c026ead19fa969ef0e13c5f536838a0555"
+    },
+    "hierarchy-composition-right-lateral-ventricular-source-compartments.mesh.gz": {
+      "bytes": 304177,
+      "sha256": "39809bda05bf33c2bf5abcf6d72e19aa2fe0cb1cc6b785aacf3aec02d0dc4ea1"
+    },
+    "hierarchy-composition-right-opercular-cortex-faces.bin.gz": {
+      "bytes": 103409,
+      "sha256": "e1964c5533a1f9d6f41230e9d0983e99d83968b234acefc122d96547ea0e0438"
+    },
+    "hierarchy-composition-right-opercular-cortex.mesh.gz": {
+      "bytes": 372566,
+      "sha256": "80bda89b20c024bb98f2f155354222d44822236319841a6da5c1ca498e5ef842"
+    },
+    "hierarchy-composition-right-postcentral-cortex-faces.bin.gz": {
+      "bytes": 160544,
+      "sha256": "fbe5d050083c7c9208c09ba8d1b10d57c9e64732f76a4993261adbb9a57cba76"
+    },
+    "hierarchy-composition-right-postcentral-cortex.mesh.gz": {
+      "bytes": 605625,
+      "sha256": "3bc31df9cb969e1f3f894116a0e3b33db8f44afc0fb0267307a5d50db7d67c06"
+    },
+    "hierarchy-composition-right-precentral-cortex-faces.bin.gz": {
+      "bytes": 189914,
+      "sha256": "dee08901268c4d845a1dade35dcd61997f0fb200403b61b6c1aab6995d4a4fe3"
+    },
+    "hierarchy-composition-right-precentral-cortex.mesh.gz": {
+      "bytes": 731643,
+      "sha256": "67b6facb9cf5914ec8aa53bfe197aea3a2a574fb503286b470a0206f869ee259"
+    },
+    "hierarchy-composition-right-superior-frontal-cortex-faces.bin.gz": {
+      "bytes": 243052,
+      "sha256": "1b50374be7d035be545b0e7e2eec0c1e98270c75d3d2df1f7630a2efd3450737"
+    },
+    "hierarchy-composition-right-superior-frontal-cortex.mesh.gz": {
+      "bytes": 915465,
+      "sha256": "aec61164c26312a1cfb6d72dea12c7130f2572107bf5b35d495d44d9a7f96130"
+    },
+    "hierarchy-organ-label-1-faces.bin.gz": {
+      "bytes": 1437916,
+      "sha256": "b975b0755c22a899e807b862e121239e3c6cc11d030f660be7d7aad3706dc1d3"
+    },
+    "hierarchy-organ-label-1.mesh.gz": {
+      "bytes": 5407044,
+      "sha256": "1fbb344a014354137465073ff9acb3e06211d7ca052cd7d0d64c4cd2755fa8e0"
+    },
+    "hierarchy-structure-label-1-faces.bin.gz": {
+      "bytes": 2720535,
+      "sha256": "04a4cb1c798413b38113ba0a363121795ee53fdc2d229df9d6670fb2fe70a8aa"
+    },
+    "hierarchy-structure-label-1.mesh.gz": {
+      "bytes": 10308133,
+      "sha256": "6ba9838dac6e0bc133f5bb6eadc6472956ad641388122bf9513d47ca47542966"
+    },
+    "hierarchy-structure-label-10-faces.bin.gz": {
+      "bytes": 579068,
+      "sha256": "f78dba9f1e89fbbba31766845eb7d2b511a49ce9970b17ac90d12de043b25e33"
+    },
+    "hierarchy-structure-label-10.mesh.gz": {
+      "bytes": 2210798,
+      "sha256": "cdaddfc5510be3312f4d745103de73789df6527dd0475b23a9672c0e7e18146f"
+    },
+    "hierarchy-structure-label-11-faces.bin.gz": {
+      "bytes": 564341,
+      "sha256": "a3349fc3085e8cde949e28f82cc482535201faebef2cc8a832146acc7b277d65"
+    },
+    "hierarchy-structure-label-11.mesh.gz": {
+      "bytes": 2147070,
+      "sha256": "4609cd5aae77cb4c6d0c1a4e4b8b8c9565514ab4da1c1d73d6b005baf6a8aa88"
+    },
+    "hierarchy-structure-label-12-faces.bin.gz": {
+      "bytes": 481680,
+      "sha256": "9fb493f9f776038075b10d98c416b3828f3b43015baa53692f44593c530621ba"
+    },
+    "hierarchy-structure-label-12.mesh.gz": {
+      "bytes": 1893465,
+      "sha256": "7faf1ce3c287f5c88fa957d0bc3cb2e09caaac07de99425495f981a0124416e8"
+    },
+    "hierarchy-structure-label-13-faces.bin.gz": {
+      "bytes": 471154,
+      "sha256": "0ac1ea60a91f6a514931fc887a96d195a86b9c71d9530f705715a0f38d9fa8a2"
+    },
+    "hierarchy-structure-label-13.mesh.gz": {
+      "bytes": 1843750,
+      "sha256": "fd346ac6e69813958c7be9e60462fdc0f4bb523a1521ea220f9d5db6693655e1"
+    },
+    "hierarchy-structure-label-14-faces.bin.gz": {
+      "bytes": 377722,
+      "sha256": "8f150f7f21d12a64550e69a950854249e78539381c7205bf1d1cbaad65fc3b42"
+    },
+    "hierarchy-structure-label-14.mesh.gz": {
+      "bytes": 1552966,
+      "sha256": "686f435d99675013c4904a746294b205039473fde8a245391b603a3c82765db0"
+    },
+    "hierarchy-structure-label-15-faces.bin.gz": {
+      "bytes": 363188,
+      "sha256": "845659b826c6e5585c4d27f992d7785e0166ca69a00a2e1633c4e5e229c573bf"
+    },
+    "hierarchy-structure-label-15.mesh.gz": {
+      "bytes": 1493722,
+      "sha256": "2ed3cad93d0e7eaeca837b5a211b5c138cd65da2b986dd06772efc629c0c50d5"
+    },
+    "hierarchy-structure-label-16-faces.bin.gz": {
+      "bytes": 219408,
+      "sha256": "d6fee6581f8b41798a56aaaf78ca6bfe695b0ce90246691dfab4774bd0453d3e"
+    },
+    "hierarchy-structure-label-16.mesh.gz": {
+      "bytes": 825054,
+      "sha256": "d30c41a165854c3c5cbf1ce9ec7f03ded21913e78446faf0a9955ad53774d0b7"
+    },
+    "hierarchy-structure-label-17-faces.bin.gz": {
+      "bytes": 226721,
+      "sha256": "3b5671519e41fdbe1505dd4f9f889c6525ff0585f290d8ee71ab0e36422a4104"
+    },
+    "hierarchy-structure-label-17.mesh.gz": {
+      "bytes": 841235,
+      "sha256": "280b684d93a603436a3ab2b18df55747f91d020fd86b9476d426940271dde193"
+    },
+    "hierarchy-structure-label-18-faces.bin.gz": {
+      "bytes": 154359,
+      "sha256": "cb4032d7d4a29c7eacdd152032e5dc83f8a6312681c502da49b752f7eb9de1f9"
+    },
+    "hierarchy-structure-label-18.mesh.gz": {
+      "bytes": 580045,
+      "sha256": "16b44d153f8fbc3a1e3b2a5bdd2415c84a50c032b31686302525a641ef82e55e"
+    },
+    "hierarchy-structure-label-19-faces.bin.gz": {
+      "bytes": 165833,
+      "sha256": "f8c53f5c05e5bb334c8e4ed3261dc439b81b508e78154d445f214fd6db4904d5"
+    },
+    "hierarchy-structure-label-19.mesh.gz": {
+      "bytes": 606215,
+      "sha256": "b50b6ded5ec47a6e8f27167c589ea1f5a8e140e57dc19ce1b37210821758210b"
+    },
+    "hierarchy-structure-label-2-faces.bin.gz": {
+      "bytes": 12926,
+      "sha256": "27c0d4014b801c55d486b13adec35d0ffa073a40aa89c281f80d5e8936710a29"
+    },
+    "hierarchy-structure-label-2.mesh.gz": {
+      "bytes": 52381,
+      "sha256": "b3ccc4b73e3e1b87dfd06b45ccde0c82a8147b6d541d430ac29658f9f77711c0"
+    },
+    "hierarchy-structure-label-20-faces.bin.gz": {
+      "bytes": 44889,
+      "sha256": "813f468b801c4eff6aea32eb64544a945f7479c142d86ebc742880a55dad5ac1"
+    },
+    "hierarchy-structure-label-20.mesh.gz": {
+      "bytes": 167875,
+      "sha256": "92381b43bb10fe0d64225563a7f5dd530eadd9279cfe35124da61f12a0c84130"
+    },
+    "hierarchy-structure-label-21-faces.bin.gz": {
+      "bytes": 44385,
+      "sha256": "20c46a38e47efd37b0e1230caf2bfdf4224d26d8ab2b8913576aeb2aed7f14c9"
+    },
+    "hierarchy-structure-label-21.mesh.gz": {
+      "bytes": 166135,
+      "sha256": "144fa1a079458949c1d3f8a2f461e93784afb5d65548650c44e576a38c9a2e21"
+    },
+    "hierarchy-structure-label-22-faces.bin.gz": {
+      "bytes": 16361,
+      "sha256": "ec143b0696eef3bdefa598af604d56d3717977f54879a0f90bce0ef81da2846f"
+    },
+    "hierarchy-structure-label-22.mesh.gz": {
+      "bytes": 63308,
+      "sha256": "08b9c3a90300a195182e588d0acab92e04d64fe81eebe7a8b086a6e1e195458d"
+    },
+    "hierarchy-structure-label-23-faces.bin.gz": {
+      "bytes": 16456,
+      "sha256": "303efee94aea6f5527a815d3476d93944b3666f4a0682090b5563b5d4a247357"
+    },
+    "hierarchy-structure-label-23.mesh.gz": {
+      "bytes": 62627,
+      "sha256": "22b9d38c367377f1d9b2606bd9c6c7f89c7de1ce543eb2154b1c555c21c3b1a3"
+    },
+    "hierarchy-structure-label-24-faces.bin.gz": {
+      "bytes": 40060,
+      "sha256": "7c714e216cc220a01c9971bc5f7d07421f27b6d9b0d91b0e32b7349a40fb6e6d"
+    },
+    "hierarchy-structure-label-24.mesh.gz": {
+      "bytes": 150430,
+      "sha256": "f4e4e1e5169158c7ac4d4a78e2e80e0bf3f244eda3316986f88dcc403f1c2fff"
+    },
+    "hierarchy-structure-label-25-faces.bin.gz": {
+      "bytes": 40554,
+      "sha256": "14c401b0c758bc02cbd20455d0d5d7aea880a7fc80314d4cf9288c18eda904c5"
+    },
+    "hierarchy-structure-label-25.mesh.gz": {
+      "bytes": 153659,
+      "sha256": "422fdfad869038888353729dfcb5c62687200363c313d1287693a9e7467841f3"
+    },
+    "hierarchy-structure-label-26-faces.bin.gz": {
+      "bytes": 6096,
+      "sha256": "8a0b0cc85ecb1781fa61d0201575d59730bf07348e1c67a4b1c205625e5e7181"
+    },
+    "hierarchy-structure-label-26.mesh.gz": {
+      "bytes": 25214,
+      "sha256": "0a1d7d732ae92a96cf9bae402b0ad198519866f496cee935795a7d1b9bd38cf5"
+    },
+    "hierarchy-structure-label-27-faces.bin.gz": {
+      "bytes": 6601,
+      "sha256": "c094f9ab360f363f6fb64b672c9a3dffa55cbe1ea292ffdebb6656f81cecb038"
+    },
+    "hierarchy-structure-label-27.mesh.gz": {
+      "bytes": 26998,
+      "sha256": "3f1c50c08a026d819e0f526e453c47b7732d69718e9c5afa087ee7a6cf42ff3b"
+    },
+    "hierarchy-structure-label-28-faces.bin.gz": {
+      "bytes": 39725,
+      "sha256": "b404688e352a3c0834cdf48e5dc9996622fed9913daa592239be5565f0675443"
+    },
+    "hierarchy-structure-label-28.mesh.gz": {
+      "bytes": 141984,
+      "sha256": "c6b2ac87f52227a41584f351142b8e7628cfe26aa252f484948a7f283e4b8964"
+    },
+    "hierarchy-structure-label-29-faces.bin.gz": {
+      "bytes": 39925,
+      "sha256": "56b14e4cc12215569419306e55a4ab16bfdf3b6eaae877f764a078a930e454fa"
+    },
+    "hierarchy-structure-label-29.mesh.gz": {
+      "bytes": 143815,
+      "sha256": "a7fd65c816a0019b9ec3917067b6b598981c17e93b57bd549b49c22053092d57"
+    },
+    "hierarchy-structure-label-3-faces.bin.gz": {
+      "bytes": 29295,
+      "sha256": "68d6fc74a16710652828a1af9c2788bfb1105cd6f92241e081b8efdfde31340e"
+    },
+    "hierarchy-structure-label-3.mesh.gz": {
+      "bytes": 109632,
+      "sha256": "30bef1bea75eff341e8f51adcb5725150b0bcaa45d4849d85c89907529def07f"
+    },
+    "hierarchy-structure-label-30-faces.bin.gz": {
+      "bytes": 15059,
+      "sha256": "8288c2e7f7c9ddc952a0c4db984c8be3452433ff27ac9b1c41197fa5e9bdac73"
+    },
+    "hierarchy-structure-label-30.mesh.gz": {
+      "bytes": 59536,
+      "sha256": "466410dc96750a9f06003779b8009b1cc4397b8dd8f1b0f717d77b32f19df9d4"
+    },
+    "hierarchy-structure-label-31-faces.bin.gz": {
+      "bytes": 14867,
+      "sha256": "e4f7c7be71145ee16e227a9442c835e68f93a7cef4f762b8753deaa7df4e75e3"
+    },
+    "hierarchy-structure-label-31.mesh.gz": {
+      "bytes": 60293,
+      "sha256": "97c7873e1a117ad746b5fb910b2fca0b2f48d388125c71e3645e95870888c055"
+    },
+    "hierarchy-structure-label-32-faces.bin.gz": {
+      "bytes": 35343,
+      "sha256": "9431ed196e12da48842ccca9f3d335aa839de2bb1594a4be370c78336639c2f3"
+    },
+    "hierarchy-structure-label-32.mesh.gz": {
+      "bytes": 137002,
+      "sha256": "9a336b9e19eefca25a41277904c83e142572034196e48ccdd9b7430f48f66831"
+    },
+    "hierarchy-structure-label-33-faces.bin.gz": {
+      "bytes": 35203,
+      "sha256": "3eec8708d81b7c1c8d67a26dd9f7d203800707001cc5b280cad747987d2bc900"
+    },
+    "hierarchy-structure-label-33.mesh.gz": {
+      "bytes": 136578,
+      "sha256": "1b91eb45cc489faa1feacb15cd5bb92fde28882a3b7bf830c384383a88ba6ca4"
+    },
+    "hierarchy-structure-label-34-faces.bin.gz": {
+      "bytes": 9208,
+      "sha256": "96a698b0d0101712f6452d02a865c5a78ec532041f1b38b256ddb505e4336f1f"
+    },
+    "hierarchy-structure-label-34.mesh.gz": {
+      "bytes": 38211,
+      "sha256": "a1f4330166783f5494ce80ac7fc21c3bd2e92fc0e2d82120c7ee7cd0d4d83c32"
+    },
+    "hierarchy-structure-label-35-faces.bin.gz": {
+      "bytes": 8864,
+      "sha256": "412d5218b1732a0ac4cfa8a04c492125168628616aa68a2f48e91ed213bc63bc"
+    },
+    "hierarchy-structure-label-35.mesh.gz": {
+      "bytes": 36606,
+      "sha256": "60b1c108e8a99223d6a2e6322e7cef19904fa15d7c267b5af2a8aa8e382c4df3"
+    },
+    "hierarchy-structure-label-36-faces.bin.gz": {
+      "bytes": 4143,
+      "sha256": "edf5ee22663cac64baec66a2445dc6700fa000b9a68db2cfac95b8d56b2b9b45"
+    },
+    "hierarchy-structure-label-36.mesh.gz": {
+      "bytes": 18014,
+      "sha256": "a4f94381f7b1785f1e498b68877f41bee3499e2519b7008f5947ec5da3ed1ca0"
+    },
+    "hierarchy-structure-label-37-faces.bin.gz": {
+      "bytes": 4071,
+      "sha256": "b9383c9df2076e4d6be8f89c12ceb0b6db900b78cf2d6ebabfeec717809ace81"
+    },
+    "hierarchy-structure-label-37.mesh.gz": {
+      "bytes": 17637,
+      "sha256": "72559bc2a09f9c5e800379779c1af39a103307cddb3142bf53059c5149b835d6"
+    },
+    "hierarchy-structure-label-38-faces.bin.gz": {
+      "bytes": 7096,
+      "sha256": "09685a0e94f84262123da9b586719b1eca1a74bd83cb26e4ecf253aa77b6e1b1"
+    },
+    "hierarchy-structure-label-38.mesh.gz": {
+      "bytes": 29051,
+      "sha256": "fec6da3baa274dd560f93babf88df89d7bc5d6e76535565b8667b63121d61671"
+    },
+    "hierarchy-structure-label-39-faces.bin.gz": {
+      "bytes": 6883,
+      "sha256": "885f5d02c4b8b1bf2432ae80501c1506f603db0e970fc53fa250390f4fc1b506"
+    },
+    "hierarchy-structure-label-39.mesh.gz": {
+      "bytes": 27728,
+      "sha256": "ea8046e6b5cf7df3ae840a5f9f13110368e91c12a23bcfa720325b753143a541"
+    },
+    "hierarchy-structure-label-4-faces.bin.gz": {
+      "bytes": 9255,
+      "sha256": "652c11a122014629e3ba0c09be2799bc23a58b2709236ed8a3040a8881bde515"
+    },
+    "hierarchy-structure-label-4.mesh.gz": {
+      "bytes": 37919,
+      "sha256": "5888d829d4c358c99b0d35949879991dc8fbb4b2e148cc22745e8b762db47e01"
+    },
+    "hierarchy-structure-label-40-faces.bin.gz": {
+      "bytes": 2505,
+      "sha256": "0134a0b941c85f319716f7de2cc54004fc88fe4acd063de87dfcab63a7b5f8fb"
+    },
+    "hierarchy-structure-label-40.mesh.gz": {
+      "bytes": 10663,
+      "sha256": "ccac1cc2f37f165fae2d14a52c4b0878a6bda55f48056760e0410d582682b753"
+    },
+    "hierarchy-structure-label-41-faces.bin.gz": {
+      "bytes": 2624,
+      "sha256": "1fddc0c187f3849836fe1dd1383688cd02d67b6b17783e0125a9348475a523a6"
+    },
+    "hierarchy-structure-label-41.mesh.gz": {
+      "bytes": 10792,
+      "sha256": "1fc7e592beb42ee1b499df7911b1e16d764a9f0daa2c5e276d73fd78a73147b7"
+    },
+    "hierarchy-structure-label-42-faces.bin.gz": {
+      "bytes": 6580,
+      "sha256": "a513cb030b33f3d4e57ea36f6f521b4106be4b65459b7c6fc06a10d83ee8a286"
+    },
+    "hierarchy-structure-label-42.mesh.gz": {
+      "bytes": 28073,
+      "sha256": "bbeba488b0e8a8d7e4bad25a7d1b8b3a7c1e23668cb2e5d305ad45be829b64f7"
+    },
+    "hierarchy-structure-label-43-faces.bin.gz": {
+      "bytes": 6998,
+      "sha256": "a8d4943c50c6fff6187e931d58b37af369fb9efff4e904f5346b84c77a9d157b"
+    },
+    "hierarchy-structure-label-43.mesh.gz": {
+      "bytes": 29226,
+      "sha256": "3ed63adf76f0dd14d918dcaa2d4dd54e58c1ee52af1a30c663cb93826555f64d"
+    },
+    "hierarchy-structure-label-44-faces.bin.gz": {
+      "bytes": 489108,
+      "sha256": "f8ed7865601859d57eaeabb99f363e7dc213c4ced74b24c69859f048dbef81e5"
+    },
+    "hierarchy-structure-label-44.mesh.gz": {
+      "bytes": 1996544,
+      "sha256": "f5e7d4f7f7b6883c2a53591cb6e65e4c0a95ada9d2947f370cb16080d95e6b20"
+    },
+    "hierarchy-structure-label-45-faces.bin.gz": {
+      "bytes": 485109,
+      "sha256": "d8ffe0103fcd877d880693873ecd9e3261d0272645d7d7774cc36fccdde17fec"
+    },
+    "hierarchy-structure-label-45.mesh.gz": {
+      "bytes": 1992766,
+      "sha256": "5e30c85e790883e7d3529eff633bbd6ee0589fc8f07acd853fbd897809cacddf"
+    },
+    "hierarchy-structure-label-46-faces.bin.gz": {
+      "bytes": 1563028,
+      "sha256": "091935bd90f8c47542f95ac68b007d4ece8dbb07eb7bdc2a0af07397d0dad70c"
+    },
+    "hierarchy-structure-label-46.mesh.gz": {
+      "bytes": 6160303,
+      "sha256": "639ca61317a01509b42ceab4249e5b099f950d29cea46ee1383feee1fe4197cd"
+    },
+    "hierarchy-structure-label-47-faces.bin.gz": {
+      "bytes": 1542279,
+      "sha256": "8bf507a5cfcc37d6388155f51f07977d36fab12a27c36a7e91da5c08c4262e85"
+    },
+    "hierarchy-structure-label-47.mesh.gz": {
+      "bytes": 6051121,
+      "sha256": "27d2f2247b884530fef6e90f23cff83c88cee8e6999fb274fc629a15205352e9"
+    },
+    "hierarchy-structure-label-48-faces.bin.gz": {
+      "bytes": 146679,
+      "sha256": "71bc3e44644aabc3bc6fcfed938bbbbbb1d834364c3863f70cd7742f21421afe"
+    },
+    "hierarchy-structure-label-48.mesh.gz": {
+      "bytes": 537293,
+      "sha256": "3d96796099e1ef369fc601d35de814609f555652146ea84dfb0831398691be3a"
+    },
+    "hierarchy-structure-label-5-faces.bin.gz": {
+      "bytes": 8133,
+      "sha256": "4f39409ec0b94ab8e1619dfc98a0e398f3c2398e5447cc069d2fbab51115b895"
+    },
+    "hierarchy-structure-label-5.mesh.gz": {
+      "bytes": 32721,
+      "sha256": "8d3a0d86d602d2818ccfd4605850ea2a85b02044da13a702cd03af979d4ed6c7"
+    },
+    "hierarchy-structure-label-50-faces.bin.gz": {
+      "bytes": 312383,
+      "sha256": "d7b86a1a4648dc947ca8dc02683e0c5500e856c50691a1a50c10ea734783c4f3"
+    },
+    "hierarchy-structure-label-50.mesh.gz": {
+      "bytes": 1228614,
+      "sha256": "fd504406fe3ed97ef7a29f823efb52af8d2dc78db0e9311cc77d60f0fb4bf1b1"
+    },
+    "hierarchy-structure-label-51-faces.bin.gz": {
+      "bytes": 302626,
+      "sha256": "d215467e5e5b6c33a2810303b56cf68482b185e7c7af6918c8d1388d5e0b3a96"
+    },
+    "hierarchy-structure-label-51.mesh.gz": {
+      "bytes": 1196663,
+      "sha256": "97b03b77330313327b36a783c5b2902d9fedb798ee2de2e4de4c878949732e59"
+    },
+    "hierarchy-structure-label-52-faces.bin.gz": {
+      "bytes": 149,
+      "sha256": "ca03bf88164034d480894d322de26551c8fb60655b194f66bacc8674aa46e9c0"
+    },
+    "hierarchy-structure-label-52.mesh.gz": {
+      "bytes": 531,
+      "sha256": "0eb4e46d7ba8f5799af39399b3f69c77725d42669b8f8b2b0d4b78818b06f1d6"
+    },
+    "hierarchy-structure-label-53-faces.bin.gz": {
+      "bytes": 172,
+      "sha256": "da05e220e693c7bda1a69f6b8d626ad1ad320666d4b8eb647aa206a82db1676c"
+    },
+    "hierarchy-structure-label-53.mesh.gz": {
+      "bytes": 628,
+      "sha256": "d2e52a55619e4240c8efb285c4142ec7933589647215e0af2927843ac81b8460"
+    },
+    "hierarchy-structure-label-54-faces.bin.gz": {
+      "bytes": 179744,
+      "sha256": "dfb20a1888af3978119c29849c2fc950c47cd8b66954c60089a62342c08f11a6"
+    },
+    "hierarchy-structure-label-54.mesh.gz": {
+      "bytes": 611081,
+      "sha256": "e1ded4d1b9cad7f19fe6da8e4f89804fe5949502c737bf3db7e02e71cd564284"
+    },
+    "hierarchy-structure-label-6-faces.bin.gz": {
+      "bytes": 73942,
+      "sha256": "045b5810e432bd71f0f462b739c59575a82497fe2d6bf6ded135a88a2f6aebed"
+    },
+    "hierarchy-structure-label-6.mesh.gz": {
+      "bytes": 266487,
+      "sha256": "50d2774f2b57d5777928642f5b3e5a9b98d18cb882e8e74426a7ed37e1f819d5"
+    },
+    "hierarchy-structure-label-7-faces.bin.gz": {
+      "bytes": 76723,
+      "sha256": "d31317129e2941968391a5394a055d9fa5b161e124caa34a403c69fcb8754e7b"
+    },
+    "hierarchy-structure-label-7.mesh.gz": {
+      "bytes": 278175,
+      "sha256": "e8db4cf7c7d339b2d96fd7a88254e2a29c87f44ddb3326ff455f1e63a7393f1f"
+    },
+    "hierarchy-structure-label-8-faces.bin.gz": {
+      "bytes": 874003,
+      "sha256": "4ad284b13cbecff8c58a67cccc8eb599d0b80a5f4ac98be6ee23777a07c022b0"
+    },
+    "hierarchy-structure-label-8.mesh.gz": {
+      "bytes": 3385491,
+      "sha256": "c708e455ff359803559d644637270ca284f1bf380ba3d840817698e3fef2e1ea"
+    },
+    "hierarchy-structure-label-9-faces.bin.gz": {
+      "bytes": 869946,
+      "sha256": "b83899c4de5e364e1591c728d003cdf0a8786f17c5495a2e5ac8cb4c2a520def"
+    },
+    "hierarchy-structure-label-9.mesh.gz": {
+      "bytes": 3358261,
+      "sha256": "e6d2c190c683d888b57fb3d7075552440d280a65489d347b6256f35fe4d64383"
+    },
+    "hierarchy-tissue-label-1-faces.bin.gz": {
+      "bytes": 2916379,
+      "sha256": "0ad0bed4e1cdbfe4b369954976f227af4ebbc6dffa826c590a04aa7234b40843"
+    },
+    "hierarchy-tissue-label-1.mesh.gz": {
+      "bytes": 11102400,
+      "sha256": "cb883fb78071b8f88451b72c83039bbed0c10f8b54f1e296c75bae50af66ebec"
+    },
+    "hierarchy-tissue-label-2-faces.bin.gz": {
+      "bytes": 4704256,
+      "sha256": "667e2f89be056891bc993801509255a2f384bd167defd0c3812a18a0d0bb0c08"
+    },
+    "hierarchy-tissue-label-2.mesh.gz": {
+      "bytes": 18934925,
+      "sha256": "664c49ee213394deaedc6c18c80506728b0162f70e2ff038290690d242758bda"
+    },
+    "hierarchy-tissue-label-3-faces.bin.gz": {
+      "bytes": 3079008,
+      "sha256": "0e6d45135701979feb6b78138ad4d605c19798ff81422d9df296008c928d921f"
+    },
+    "hierarchy-tissue-label-3.mesh.gz": {
+      "bytes": 12107847,
+      "sha256": "cf6a267809b1e476f3dd79901e31a440732c4a939532d749e78a1b1bd37b60ce"
+    },
+    "hierarchy-tissue-label-4-faces.bin.gz": {
+      "bytes": 415950,
+      "sha256": "ff17bd19ab4e7a1b10a97d73dda2a384b2d5f6c2bc77c37d9316cfb1db26c179"
+    },
+    "hierarchy-tissue-label-4.mesh.gz": {
+      "bytes": 1589787,
+      "sha256": "fef7f867e09f0a9f4c5ff53ee71a05ffc72f93f745e8e5de8982369da6e2e2a0"
+    },
+    "hierarchy-tissue-label-5-faces.bin.gz": {
+      "bytes": 955985,
+      "sha256": "3ba2c4d3474bb7356a52ebecff6698c1b2cd8090b62e6ac5d40a979231dbd5d3"
+    },
+    "hierarchy-tissue-label-5.mesh.gz": {
+      "bytes": 3909067,
+      "sha256": "bd6422eb0e7d7450d3a097be58f1b2ee855dee1242bbd3e1e983ce9318beae75"
+    },
+    "hierarchy-tissue-label-6-faces.bin.gz": {
+      "bytes": 611850,
+      "sha256": "413ec459cf8eb80ae24e6cf96a9b5bbb0ebd7327dd64f85c702053a21d3705dc"
+    },
+    "hierarchy-tissue-label-6.mesh.gz": {
+      "bytes": 2404072,
+      "sha256": "1ddb6ddce81bc0e9181d0ca9b84ba40953237ec2d7c54c43febd950e8319f3eb"
+    },
+    "hierarchy-tissue-label-7-faces.bin.gz": {
+      "bytes": 146679,
+      "sha256": "71bc3e44644aabc3bc6fcfed938bbbbbb1d834364c3863f70cd7742f21421afe"
+    },
+    "hierarchy-tissue-label-7.mesh.gz": {
+      "bytes": 537293,
+      "sha256": "3d96796099e1ef369fc601d35de814609f555652146ea84dfb0831398691be3a"
+    },
+    "hierarchy-tissue-label-8-faces.bin.gz": {
+      "bytes": 288,
+      "sha256": "dceefd2ceda3066f85d3c0b16e056805bb12fd84bb3ceafc56e9b68b072de649"
+    },
+    "hierarchy-tissue-label-8.mesh.gz": {
+      "bytes": 1141,
+      "sha256": "4035d648de5f9b1e3e580875424de1e295bd1c035427aa877b8e3ada87ef0e6e"
+    },
+    "hierarchy-tissue-label-9-faces.bin.gz": {
+      "bytes": 179744,
+      "sha256": "dfb20a1888af3978119c29849c2fc950c47cd8b66954c60089a62342c08f11a6"
+    },
+    "hierarchy-tissue-label-9.mesh.gz": {
+      "bytes": 611081,
+      "sha256": "e1ded4d1b9cad7f19fe6da8e4f89804fe5949502c737bf3db7e02e71cd564284"
+    },
+    "hierarchy.json": {
+      "bytes": 445275,
+      "sha256": "d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13"
     },
     "index.html": {
-      "bytes": 3347,
-      "sha256": "67588f704841762c355bc9b0e2ff79ad3ac39af4f7a86c8333b737fb6c332dad"
+      "bytes": 4067,
+      "sha256": "1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7"
     },
     "label-1-faces.bin.gz": {
       "bytes": 12926,
@@ -2803,12 +3445,12 @@
       "sha256": "d4d3f7f2482c4001b1d63dd34ca7de6b87d37996d6debc85f2088c7ebd7d6a6a"
     },
     "viewer.css": {
-      "bytes": 1428,
-      "sha256": "f8f742c4e26cabd8e6f404ca18d0fbd96f813980f0845eedfb7c541184285ee2"
+      "bytes": 1705,
+      "sha256": "c0f43ba7b355303898944e1b37c02086d62f77e792b7eb5ff35b77766b9ba6f1"
     },
     "viewer.js": {
-      "bytes": 12116,
-      "sha256": "52f2215b39568dd2fd16ba7f1828ef247b09c0923dbb398cd3b332eabd072dc6"
+      "bytes": 16938,
+      "sha256": "7d8ffaf46751312dc12508db6e6c0d229aafb154e73f2567d06e654138a4c5b8"
     }
   },
   "runtime_metadata": {
@@ -2825,6 +3467,13 @@
       "sha256": "c0e65bedad9742220334b337f671634d99950df52662dd4ec3f85b4280a08d15",
       "decoded_bytes": 545215,
       "decoded_sha256": "3255ce252ce72c9364bd2c9f071b08433a9a6f698b79792cdca3e4e6cadb002d"
+    },
+    "hierarchy.json": {
+      "path": "data/radiology/holiatlas-hierarchy.json.gz",
+      "bytes": 51533,
+      "sha256": "419bfec5ee82fa2de045614c1c79b46189d603ecc1575bf17e2386542571f2d2",
+      "decoded_bytes": 445275,
+      "decoded_sha256": "d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13"
     }
   },
   "clinical_approval": false,

@@ -1,0 +1,720 @@
+{
+  "scope": "Authenticated actual Integral Calculus reader, synthetic local data; independent rendered-coordinate and quadrature oracle",
+  "productionVerified": false,
+  "wholeGoalComplete": false,
+  "sourceSHA256": {
+    "web/math-integral-lab.js": "a8b915cd51d165df7d5d202e8e93741d4c135a4b8bd4208f1e17a849b41e1457",
+    "web/math-integral-lab.css": "6eaaf01db120a047c22bed219dfbaf443275768f58772eee43b4ef3d65190438",
+    "web/lesson-models.js": "d7e7d65f695fd0f8481f6914a2ca23bd2fade51926faec4bada97f141822838b",
+    "web/index.html": "2f4ce36b244fd760d43aae9d21982118ca926f2c817c8a5303af51eeb14f8fad",
+    "web/app.js": "0d019b62b09cec7eb710a3cb05512f864ff5119639097d4cb442fe0406c0fcb9",
+    "primer/server.py": "d2c46c8ec6dd83d9c4ea5fd937fd7562d9142ad2fda3f6ce9c3b37e8c1e9bdfc",
+    "data/curriculum/01-mathematics.json": "545477aedd91455cd2a27f46ef1f5bb1f4d8da5e1adf08918a4a18476f31c215",
+    "tools/check_math_integral_reader.cjs": "5bf0069888dc06fbd153543c0d5b57f6f9ea4a4370c01905ba3a136fe343e926",
+    "tools/check_math_integral_reader.py": "2ff9e059840c42c3176a6b06f3f3508f5a592a4acbc0e0b8b43477e8058b44cb",
+    "tests/test_math_integral_lab.py": "6b6f1bd2fc491c4e7929c6a857b3c963a714e9389b810dd30a3246dbc7123c2d"
+  },
+  "authentication": [
+    {
+      "asset": "/app/math-integral-lab.js",
+      "status": 401
+    },
+    {
+      "asset": "/app/math-integral-lab.css",
+      "status": 401
+    },
+    {
+      "asset": "/app/startup.js",
+      "status": 401
+    },
+    {
+      "asset": "/api/curriculum/node/math.4.int-calc",
+      "status": 401
+    }
+  ],
+  "readerCases": [
+    {
+      "width": 390,
+      "states": [
+        {
+          "label": "authored entry",
+          "station": "proper",
+          "example": "square",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "power",
+          "station": "proper",
+          "example": "square",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "constant",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "signed",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 870,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "velocity",
+          "station": "proper",
+          "example": "velocity",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "between",
+          "station": "proper",
+          "example": "between",
+          "checkedRenderedCoordinates": 1297,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "inflow",
+          "station": "proper",
+          "example": "inflow",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "increasing",
+          "station": "proper",
+          "example": "increasing",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "left 1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 842,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "left 128",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "midpoint 1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 842,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "midpoint 128",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "right 1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 842,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "right 128",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "bounds 4,-3,4",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "bounds -3,4,-3",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "bounds 1,1,1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1197,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "constant shift",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "invalid input restored",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "proper enlarge scroll fit",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal equal",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal half",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal square",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal independent",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=0.25",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 8,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=0.5",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 8,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=0.95",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 8,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=1",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=1.05",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=2",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "improper enlarge scroll fit",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reset",
+          "station": "proper",
+          "example": "square",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        }
+      ],
+      "speech": [
+        {
+          "station": "proper",
+          "fullDynamicSpeech": true,
+          "characters": 1435
+        },
+        {
+          "station": "improper",
+          "fullDynamicSpeech": true,
+          "characters": 597
+        }
+      ],
+      "centeredCaptures": [
+        {
+          "file": "signed-integrand-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "signed-accumulation-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "between-integrand-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "between-accumulation-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-equal-limits-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-half-limits-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-square-limits-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-independent-limits-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "endpoint-0.5-limits-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "endpoint-1-limits-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "endpoint-2-limits-390-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        }
+      ],
+      "authoredMediaIdentityPreserved": true,
+      "originalIllustrationLoaded": true,
+      "quizAnswersNotExposed": true,
+      "startupBundleExact": true,
+      "CSPViolations": [],
+      "pageErrors": [],
+      "externalRequests": []
+    },
+    {
+      "width": 1440,
+      "states": [
+        {
+          "label": "authored entry",
+          "station": "proper",
+          "example": "square",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "power",
+          "station": "proper",
+          "example": "square",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "constant",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "signed",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 870,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "velocity",
+          "station": "proper",
+          "example": "velocity",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "between",
+          "station": "proper",
+          "example": "between",
+          "checkedRenderedCoordinates": 1297,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "inflow",
+          "station": "proper",
+          "example": "inflow",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "increasing",
+          "station": "proper",
+          "example": "increasing",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "left 1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 842,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "left 128",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "midpoint 1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 842,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "midpoint 128",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "right 1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 842,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "right 128",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "bounds 4,-3,4",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "bounds -3,4,-3",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1350,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "bounds 1,1,1",
+          "station": "proper",
+          "example": "signed",
+          "checkedRenderedCoordinates": 1197,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "constant shift",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "invalid input restored",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "proper enlarge scroll fit",
+          "station": "proper",
+          "example": "linear",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal equal",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal half",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal square",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reciprocal independent",
+          "station": "improper",
+          "example": "reciprocal",
+          "checkedRenderedCoordinates": 18,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=0.25",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 8,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=0.5",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 8,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=0.95",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 8,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=1",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=1.05",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "endpoint p=2",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "improper enlarge scroll fit",
+          "station": "improper",
+          "example": "power",
+          "checkedRenderedCoordinates": 6,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        },
+        {
+          "label": "reset",
+          "station": "proper",
+          "example": "square",
+          "checkedRenderedCoordinates": 768,
+          "noHorizontalOverflow": true,
+          "labelsInsidePlot": true
+        }
+      ],
+      "speech": [
+        {
+          "station": "proper",
+          "fullDynamicSpeech": true,
+          "characters": 1435
+        },
+        {
+          "station": "improper",
+          "fullDynamicSpeech": true,
+          "characters": 597
+        }
+      ],
+      "centeredCaptures": [
+        {
+          "file": "signed-integrand-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "signed-accumulation-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "between-integrand-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "between-accumulation-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-equal-limits-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-half-limits-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-square-limits-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "reciprocal-independent-limits-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "endpoint-0.5-limits-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "endpoint-1-limits-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        },
+        {
+          "file": "endpoint-2-limits-1440-centered.png",
+          "viewportCentered": true,
+          "sampledHitTestsUnobscured": true
+        }
+      ],
+      "authoredMediaIdentityPreserved": true,
+      "originalIllustrationLoaded": true,
+      "quizAnswersNotExposed": true,
+      "startupBundleExact": true,
+      "CSPViolations": [],
+      "pageErrors": [],
+      "externalRequests": []
+    }
+  ],
+  "errors": [],
+  "startupBundle": {
+    "bytes": 3128559,
+    "sha256": "42859a9c0c121530a7b49e626e9f0a78cc55af0edf29b4212bdd79dae981534d",
+    "currentSourceBytesEqual": true
+  },
+  "totalStates": 64,
+  "checkedRenderedCoordinates": 40880,
+  "allPassed": true
+}

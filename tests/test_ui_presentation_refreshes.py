@@ -69,6 +69,10 @@ def test_only_the_two_shared_ui_files_are_refreshable_and_nothing_is_approved():
         elif step['id']=='2026-10-16-spl-native-limbic-reference':
             from tools.spl_limbic_runtime_compatibility import validate_refresh
             assert len(validate_refresh(step)['cases']) == 24
+        elif step['id']=='2026-10-25-integrals-energy-and-atlas-hierarchy':
+            from tools.fidelity_continuation_runtime_compatibility import validate_refresh
+            assert len(validate_refresh(step)) == 3
+            assert step['native_decoder_mesh_CT_renderer_code_touched'] is True
         elif step['id']=='2026-10-23-holiatlas-source-template':
             from tools.holiatlas_runtime_compatibility import validate_refresh
             assert len(validate_refresh(step)['cases']) == 8
@@ -89,6 +93,10 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
             continue
         if step['id']=='2026-10-23-descriptor-reporting':
             from tools.descriptor_report_compatibility import validate_refresh
+            validate_refresh(step)
+            continue
+        if step['id']=='2026-10-25-integrals-energy-and-atlas-hierarchy':
+            from tools.fidelity_continuation_runtime_compatibility import validate_refresh
             validate_refresh(step)
             continue
         if step['id']=='2026-10-23-holiatlas-source-template':

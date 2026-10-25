@@ -53,17 +53,39 @@ class Element {
   removeAttribute(key) { this.attributes.delete(key); }
   set className(value) { this.setAttribute('class', value); }
   get className() { return this.getAttribute('class') || ''; }
-  append(...children) { this.children.push(...children.map(child => child && child.nodeType ? child : new TextNode(child))); }
-  prepend(...children) { this.children.unshift(...children); }
+  append(...children) { for (const child of children) { const node = child && child.nodeType ? child : new TextNode(child); node.parentElement = this; this.children.push(node); } }
+  prepend(...children) { for (const child of children) child.parentElement = this; this.children.unshift(...children); }
   replaceChildren(...children) { this.children = []; this.append(...children); }
+  // DOM behavior for the shipped dedicated integral renderer, rather than a
+  // substitute renderer or a fallback to the legacy concept calculation.
+  matches(selector) {
+    const attribute = selector.match(/^\[([^=\]]+)(?:=["']?([^"'\]]+)["']?)?\]$/);
+    if (attribute) return this.getAttribute(attribute[1]) !== null && (attribute[2] === undefined || this.getAttribute(attribute[1]) === attribute[2]);
+    if (selector.startsWith('.')) return this.classList.contains(selector.slice(1));
+    return this.tagName === selector.toLowerCase();
+  }
+  querySelectorAll(selector) {
+    const selections = selector.split(',').map(s => s.trim()), found = [];
+    const visit = (parent, direct) => { for (const child of parent.children) if (child.nodeType === 1) { if (selections.some(s => s.startsWith(':scope > ') ? direct && child.matches(s.slice(9).trim()) : child.matches(s))) found.push(child); visit(child, false); } };
+    visit(this, true); return found;
+  }
+  querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
+  closest(selector) { for (let node = this; node; node = node.parentElement) if (node.matches(selector)) return node; return null; }
+  get valueAsNumber() { return String(this.value).trim() === '' ? NaN : Number(this.value); }
+  get validity() {
+    if (this.type !== 'number' || String(this.value).trim() === '') return { valid: true };
+    const value = this.valueAsNumber, minimum = this.min === undefined ? -Infinity : Number(this.min), maximum = this.max === undefined ? Infinity : Number(this.max);
+    const step = this.step === undefined ? 1 : this.step === 'any' ? null : Number(this.step), origin = Number.isFinite(minimum) ? minimum : 0, steps = step ? (value - origin) / step : 0;
+    return { valid: Number.isFinite(value) && value >= minimum && value <= maximum && (step === null || Math.abs(steps - Math.round(steps)) < 1e-8) };
+  }
   get textContent() { return this.children.map(child => child.textContent).join(''); }
   set textContent(value) { this.children = value === '' ? [] : [new TextNode(value)]; }
   addEventListener(type, listener) {
     if (!this.listeners.has(type)) this.listeners.set(type, []);
     this.listeners.get(type).push(listener);
   }
-  dispatch(type) {
-    const event = { type, target: this, currentTarget: this, preventDefault() {} };
+  dispatch(type, extra = {}) {
+    const event = { type, target: this, currentTarget: this, preventDefault() {}, ...extra };
     (this.listeners.get(type) || []).forEach(listener => listener.call(this, event));
   }
 }
@@ -86,6 +108,7 @@ require('../web/spatial-physical.js');
 require('../web/spatial-molecular.js');
 require('../web/spatial-cross-subject.js');
 require('../web/concept-models.js');
+require('../web/math-integral-lab.js');
 require('../web/lesson-models.js');
 const spatial = context.window.PrimerSpatial;
 const concepts = context.window.PrimerConceptModels;
@@ -1244,7 +1267,7 @@ assert.equal(entries.filter(({ item }) => item.renderer === 'prenatal-sequence')
   1, 'The separately checked prenatal sequence remains reachable');
 const page = fs.readFileSync(path.join(ROOT, 'web/index.html'), 'utf8');
 const scripts = [...page.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/g)].map(match => match[1]);
-for (const file of ['spatial-cross-subject.js', 'concept-models.js']) {
+for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js']) {
   assert.equal(scripts.filter(src => src === '/app/' + file).length, 1, file + ': loaded exactly once');
   assert.ok(scripts.indexOf('/app/' + file) < scripts.indexOf('/app/lesson-models.js'), file + ': loaded before registry');
 }
@@ -1525,6 +1548,107 @@ function assertAccessibleReferences(root) {
     }
   }
 }
+// Exercise the actual dedicated lesson through the registry. Geometry is
+// inverse-projected and checked with independent degree-two Simpson quadrature;
+// no teaching functions from math-integral-lab.js are used as the oracle.
+function exerciseIntegralRenderer(root, speak) {
+  assert.equal(root.getAttribute('data-renderer'), 'math-integral-lab');
+  assert.equal(typeof root.integral?.getModel, 'function');
+  assert.equal(typeof speak, 'function');
+  assert.equal(root.querySelector('.model-canvas'), null, 'The obsolete single-canvas integral toy is not rendered');
+  const coefficients = { square: [0, 0, 3], linear: [0, 2, 0], signed: [-1, 0, 1], velocity: [0, 6, 0], inflow: [1, 4, 0], increasing: [1, 0, 1], between: [0, 1, -1] };
+  const value = (id, x) => coefficients[id][0] + coefficients[id][1] * x + coefficients[id][2] * x * x;
+  const area = (id, a, b) => (b - a) * (value(id, a) + 4 * value(id, (a + b) / 2) + value(id, b)) / 6;
+  let geometryChecks = 0, changes = 0;
+  const check = label => {
+    const state = root.integral.getState(), model = root.integral.getModel();
+    finiteNumbers(model, label); assertAccessibleReferences(root);
+    const readout = root.querySelector('.integral-readout').textContent;
+    assert.ok(speak().includes(readout), label + ': speech follows visible explanation');
+    assert.equal(root.querySelector('.integral-live').getAttribute('aria-live'), 'polite');
+    if (state.station === 'proper') {
+      near(model.exact, area(state.example, state.a, state.b));
+      near(model.cursor.slope, value(state.example, state.cursor));
+      near(model.splitAtProbe.before, area(state.example, state.a, state.cursor));
+      near(model.splitAtProbe.after, area(state.example, state.cursor, state.b));
+      assert.equal(root.querySelectorAll('[data-integral-plot]').length, 2);
+    }
+    for (const plot of root.querySelectorAll('[data-integral-plot]')) {
+      const domain = JSON.parse(plot.getAttribute('data-domain'));
+      equal(JSON.parse(plot.getAttribute('data-transform')), { x0: 82, x1: 644, y0: 322, y1: 28 });
+      const X = x => 82 + (x - domain.x[0]) * 562 / (domain.x[1] - domain.x[0]), Y = y => 322 - (y - domain.y[0]) * 294 / (domain.y[1] - domain.y[0]);
+      for (const line of plot.querySelectorAll('[data-integral-series]')) for (const pair of line.getAttribute('points').split(' ')) {
+        const [px, py] = pair.split(',').map(Number), x = domain.x[0] + (px - 82) * (domain.x[1] - domain.x[0]) / 562, y = domain.y[0] + (322 - py) * (domain.y[1] - domain.y[0]) / 294;
+        assert.ok(px >= 82 - 1e-7 && px <= 644 + 1e-7 && py >= 28 - 1e-7 && py <= 322 + 1e-7, label + ': all actual curve points fit the calibrated plot');
+        const key = line.getAttribute('data-integral-series'); let expected;
+        if (key === 'integrand') expected = value(state.example, x);
+        else if (key === 'upper') expected = x;
+        else if (key === 'lower') expected = x * x;
+        else if (key === 'accumulation') expected = area(state.example, state.a, x);
+        else if (key === 'antiderivative') expected = area(state.example, 0, x) + state.constant;
+        else if (key === 'tangent') expected = area(state.example, state.a, state.cursor) + (x - state.cursor) * value(state.example, state.cursor);
+        else if (key === 'left-limit') expected = -x * Math.LN10;
+        else if (key === 'right-limit') expected = (state.path === 'equal' ? x : state.path === 'half' ? x + Math.log(2) / Math.LN10 : state.path === 'square' ? 2 * x : state.rightExponent) * Math.LN10;
+        else if (key === 'combined-limit') expected = state.path === 'equal' ? 0 : state.path === 'half' ? Math.log(2) : state.path === 'square' ? x * Math.LN10 : (state.rightExponent - x) * Math.LN10;
+        else if (key === 'power-limit') expected = state.power === 1 ? x * Math.LN10 : (1 - 10 ** (-x * (1 - state.power))) / (1 - state.power);
+        else if (key === 'finite-limit') expected = 1 / (1 - state.power);
+        else assert.fail('Unexpected integral series ' + key);
+        near(y, expected, 1e-7 * Math.max(1, Math.abs(expected))); geometryChecks++;
+      }
+      if (plot.getAttribute('data-integral-plot') === 'integrand') {
+        const rectangles = plot.querySelectorAll('[data-integral-rectangle]'), width = (state.b - state.a) / state.count;
+        assert.equal(rectangles.length, state.count); let sum = 0;
+        rectangles.forEach((rectangle, i) => {
+          const start = state.a + i * width, end = start + width, x = state.method === 'left' ? Math.min(start, end) : state.method === 'right' ? Math.max(start, end) : (start + end) / 2, height = value(state.example, x);
+          near(Number(rectangle.getAttribute('x')), X(Math.min(start, end)));
+          near(Number(rectangle.getAttribute('y')), Math.min(Y(0), Y(height)));
+          near(Number(rectangle.getAttribute('width')), Math.abs(X(end) - X(start)));
+          near(Number(rectangle.getAttribute('height')), Math.abs(Y(height) - Y(0)));
+          sum += width * height; geometryChecks += 4;
+        }); near(model.sum, sum);
+      }
+    }
+    return model;
+  };
+  const set = (key, value) => {
+    const input = root.querySelector('[data-integral-' + key + ']'); assert.ok(input, key + ': current control exists');
+    assert.ok(input.getAttribute('aria-label'), key + ': accessible name');
+    input.value = String(value); input.dispatch('change');
+    assert.equal(input.getAttribute('aria-invalid'), null, key + ': accepts valid change');
+    if (key !== 'preset') assert.equal(root.integral.getState()[key], value, key + ': changes applied state');
+    changes++; return check(key + '=' + value);
+  };
+  const initial = check('initial dedicated integral reader'); near(initial.exact, 8);
+  for (const [preset, exact] of [['constant', 4], ['signed', 4 / 3], ['velocity', 48], ['between', 1 / 6], ['inflow', 21], ['increasing', 12], ['power', 8]]) near(set('preset', preset).exact, exact);
+  set('example', 'signed'); set('a', 4); set('b', -3); set('cursor', -3); set('constant', -10);
+  for (const method of ['left', 'right', 'midpoint']) { set('method', method); set('count', 1); set('count', 128); }
+  const empty = set('a', -3); near(empty.exact, 0); assert.equal(empty.average, null); assert.equal(empty.regions.length, 0);
+  const count = root.querySelector('[data-integral-count]'), accepted = root.integral.getState();
+  for (const value of ['', '0', '129', '1.5']) { count.value = value; count.dispatch('change'); assert.equal(count.getAttribute('aria-invalid'), 'true'); equal(root.integral.getState(), accepted); }
+  count.dispatch('keydown', { key: 'Escape' }); assert.equal(String(count.value), String(accepted.count)); assert.equal(count.getAttribute('aria-invalid'), null);
+  set('station', 'improper'); set('leftExponent', 6);
+  for (const path of ['equal', 'half', 'square', 'independent']) {
+    const model = set('path', path); assert.equal(model.reciprocalConverges, false);
+    if (path === 'equal') near(model.combined, 0);
+    if (path === 'half') near(model.combined, Math.log(2));
+    if (path === 'square') near(model.combined, 6 * Math.LN10);
+  }
+  set('rightExponent', .5); set('singular', 'power');
+  for (const p of [.25, .5, .95, 1, 1.05, 2]) {
+    const model = set('power', p); assert.equal(model.powerConverges, p < 1);
+    assert.equal(root.querySelectorAll('[data-integral-series="finite-limit"]').length, p < 1 ? 1 : 0);
+    if (p < 1) near(model.powerIntegral + model.powerRemainder, 1 / (1 - p));
+  }
+  const zoom = root.querySelector('[data-integral-enlarge]'), beforeZoom = root.integral.getState();
+  zoom.dispatch('click'); assert.equal(zoom.getAttribute('aria-pressed'), 'true'); assert.ok(root.querySelectorAll('[data-integral-plot]').every(p => p.style.width === '900px'));
+  zoom.dispatch('click'); assert.equal(zoom.getAttribute('aria-pressed'), 'false'); equal(root.integral.getState(), beforeZoom);
+  set('station', 'proper'); root.querySelector('[data-integral-reset]').dispatch('click'); equal(check('reset'), initial);
+  assert.ok(geometryChecks > 20000, 'Dedicated integral coverage checks actual rendered geometry, not merely presence');
+  assert.ok(changes >= 35, 'All dedicated stations and controls were exercised');
+  interactionChecks += changes;
+  console.log('INTEGRAL_BINDING math.4.int-calc = math-integral-lab; ' + changes + ' control changes; ' + geometryChecks + ' independent rendered coordinate checks');
+}
+
 for (const { node, item } of crossEntries) {
   const api = item.renderer === 'concept-lab' ? concepts : spatial;
   let speak;
@@ -1533,6 +1657,11 @@ for (const { node, item } of crossEntries) {
     return document.createElement('button');
   } });
   assert.ok(root, node.id + ': renderer is reachable through the shipped registry');
+  if (node.id === 'math.4.int-calc') {
+    exerciseIntegralRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
   assert.equal(root.getAttribute('data-renderer'), item.renderer);
   assert.equal(root.getAttribute('data-scenario'), node.id);
   const canvas = classElement(root, 'model-canvas');

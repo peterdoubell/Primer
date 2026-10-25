@@ -1,0 +1,311 @@
+{
+  "git_head": "495aeb17c711ace603f7ad196033d2741e23ff32",
+  "review_scope": "Source protocol membership and current reporting/inventory correspondence; not anatomical certification or evidence of every representation being complete.",
+  "dataset": "https://zenodo.org/records/15690524",
+  "source_paper": "https://www.nature.com/articles/s41598-026-40186-2",
+  "source_preprint": "https://arxiv.org/html/2501.16879v1",
+  "input_sha256": {
+    "docs/holiatlas-source-review-20261023/holiatlas-protocol-rows.json": "0276cb7b396aa42a688d8f444d8b0efac9c0f68ebd3fafdc97c30df06a5a01e1",
+    "data/radiology/non-msk-structure-requirements.json": "405f3fe902e9fdce1f9d3834dff72898911135acd0b6a170bdc7d00868ad868d",
+    "data/radiology/anatomic-neuro.json": "e34d5008fdb16620a3fb1a846f569be50b624ed2488d8b07d5f323be66f93ba3",
+    "source-hierarchy-review.json": "683afa816360e4e3ac9278f35018f79c1ac35cdbff6cef508f6ed54c3f10b10b",
+    "data/radiology/holiatlas-labels.json.gz": "c0e65bedad9742220334b337f671634d99950df52662dd4ec3f85b4280a08d15"
+  },
+  "numerical_basis": "All 56,873,096 voxels were checked in the existing source-hierarchy proof: each provided coarse volume equals the protocol parent mapping of the fine atlas, with zero disagreements.",
+  "spatial_units": "Coarse headers leave units unspecified; millimetres are inherited only from their exact array correspondence and numerically identical sform to the fine source, which declares millimetres.",
+  "clinical_completion_claim": false,
+  "count": 16,
+  "compositions": [
+    {
+      "id": "right-insular-cortex",
+      "display_name": "Right insular cortex — anterior and posterior source labels",
+      "fine_codes": [
+        224,
+        230
+      ],
+      "source_names": [
+        "Right Anterior Insula",
+        "Right Posterior Insula"
+      ],
+      "source_voxels": 77649,
+      "why_this_improves_representation": "Separates the insula-labelled children from the source parent’s opercular labels.",
+      "remaining_limit": "Source label extent still requires anatomical boundary review.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "right-opercular-cortex",
+      "display_name": "Right opercular cortex — central, frontal and parietal source labels",
+      "fine_codes": [
+        226,
+        228,
+        232
+      ],
+      "source_names": [
+        "Right Central Operculum",
+        "Right Frontal Operculum",
+        "Right Parietal Operculum"
+      ],
+      "source_voxels": 91027,
+      "why_this_improves_representation": "Displays the parts that must not be silently included in pure-insula selection.",
+      "remaining_limit": "Not all anatomically defined opercular tissue is proven by these three source labels.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "right-precentral-cortex",
+      "display_name": "Right precentral cortical regions — main and medial source labels",
+      "fine_codes": [
+        150,
+        160
+      ],
+      "source_names": [
+        "Right Precentral Gyrus Medial Segment",
+        "Right Precentral Gyrus"
+      ],
+      "source_voxels": 171360,
+      "why_this_improves_representation": "Includes the source medial segment that a simple exact-name match misses.",
+      "remaining_limit": "No independent hand-knob segmentation.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "right-postcentral-cortex",
+      "display_name": "Right postcentral cortical regions — main and medial source labels",
+      "fine_codes": [
+        172,
+        176
+      ],
+      "source_names": [
+        "Right Postcentral Gyrus Medial Segment",
+        "Right Postcentral Gyrus"
+      ],
+      "source_voxels": 111207,
+      "why_this_improves_representation": "Includes the source medial segment that a simple exact-name match misses.",
+      "remaining_limit": "No somatotopic map.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "right-superior-frontal-cortex",
+      "display_name": "Right superior frontal cortex — main and medial source labels",
+      "fine_codes": [
+        152,
+        164
+      ],
+      "source_names": [
+        "Right Sup. Frontal Gyrus Medial Segment",
+        "Right Sup. Frontal Gyrus"
+      ],
+      "source_voxels": 262282,
+      "why_this_improves_representation": "Combines explicitly named source superior-frontal components.",
+      "remaining_limit": "Do not silently include other source medial-frontal or supplementary-motor labels.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "right-inferior-frontal-cortex",
+      "display_name": "Right inferior frontal cortical parts — opercular, orbital and triangular",
+      "fine_codes": [
+        154,
+        156,
+        168
+      ],
+      "source_names": [
+        "Right Opercular Inf. Frontal Gyrus",
+        "Right Orbital Inf. Frontal Gyrus",
+        "Right Triangular Inf. Frontal Gyrus"
+      ],
+      "source_voxels": 94742,
+      "why_this_improves_representation": "Combines three explicitly named source inferior-frontal components.",
+      "remaining_limit": "Source Frontal Operculum is a separate category; clinical aggregate extent is not signed off.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "right-cingulate-cortex",
+      "display_name": "Right cingulate cortex — anterior, middle and posterior source labels",
+      "fine_codes": [
+        214,
+        218,
+        220
+      ],
+      "source_names": [
+        "Right Anterior Cingulate Gyrus",
+        "Right Middle Cingulate Gyrus",
+        "Right Posterior Cingulate Gyrus"
+      ],
+      "source_voxels": 155814,
+      "why_this_improves_representation": "Separates cingulate-labelled cortex from the larger limbic source group.",
+      "remaining_limit": "Not a cingulate-sulcus mask or white-matter cingulum tract.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "right-lateral-ventricular-source-compartments",
+      "display_name": "Right lateral ventricle — main and inferior source compartments",
+      "fine_codes": [
+        6,
+        4
+      ],
+      "source_names": [
+        "Right Lateral Ventricle",
+        "Right Inferior Lateral Ventricle"
+      ],
+      "source_voxels": 60414,
+      "why_this_improves_representation": "Makes the whole union of the two source ventricular compartments inspectable.",
+      "remaining_limit": "Does not independently delineate horns, atrium or interventricular foramen.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-insular-cortex",
+      "display_name": "Left insular cortex — anterior and posterior source labels",
+      "fine_codes": [
+        225,
+        231
+      ],
+      "source_names": [
+        "Left Anterior Insula",
+        "Left Posterior Insula"
+      ],
+      "source_voxels": 77270,
+      "why_this_improves_representation": "Separates the insula-labelled children from the source parent’s opercular labels.",
+      "remaining_limit": "Source label extent still requires anatomical boundary review.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-opercular-cortex",
+      "display_name": "Left opercular cortex — central, frontal and parietal source labels",
+      "fine_codes": [
+        227,
+        229,
+        233
+      ],
+      "source_names": [
+        "Left Central Operculum",
+        "Left Frontal Operculum",
+        "Left Parietal Operculum"
+      ],
+      "source_voxels": 101125,
+      "why_this_improves_representation": "Displays the parts that must not be silently included in pure-insula selection.",
+      "remaining_limit": "Not all anatomically defined opercular tissue is proven by these three source labels.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-precentral-cortex",
+      "display_name": "Left precentral cortical regions — main and medial source labels",
+      "fine_codes": [
+        151,
+        161
+      ],
+      "source_names": [
+        "Left Precentral Gyrus Medial Segment",
+        "Left Precentral Gyrus"
+      ],
+      "source_voxels": 171442,
+      "why_this_improves_representation": "Includes the source medial segment that a simple exact-name match misses.",
+      "remaining_limit": "No independent hand-knob segmentation.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-postcentral-cortex",
+      "display_name": "Left postcentral cortical regions — main and medial source labels",
+      "fine_codes": [
+        173,
+        177
+      ],
+      "source_names": [
+        "Left Postcentral Gyrus Medial Segment",
+        "Left Postcentral Gyrus"
+      ],
+      "source_voxels": 121298,
+      "why_this_improves_representation": "Includes the source medial segment that a simple exact-name match misses.",
+      "remaining_limit": "No somatotopic map.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-superior-frontal-cortex",
+      "display_name": "Left superior frontal cortex — main and medial source labels",
+      "fine_codes": [
+        153,
+        165
+      ],
+      "source_names": [
+        "Left Sup. Frontal Gyrus Medial Segment",
+        "Left Sup. Frontal Gyrus"
+      ],
+      "source_voxels": 255260,
+      "why_this_improves_representation": "Combines explicitly named source superior-frontal components.",
+      "remaining_limit": "Do not silently include other source medial-frontal or supplementary-motor labels.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-inferior-frontal-cortex",
+      "display_name": "Left inferior frontal cortical parts — opercular, orbital and triangular",
+      "fine_codes": [
+        155,
+        157,
+        169
+      ],
+      "source_names": [
+        "Left Opercular Inf. Frontal Gyrus",
+        "Left Orbital Inf. Frontal Gyrus",
+        "Left Triangular Inf. Frontal Gyrus"
+      ],
+      "source_voxels": 99358,
+      "why_this_improves_representation": "Combines three explicitly named source inferior-frontal components.",
+      "remaining_limit": "Source Frontal Operculum is a separate category; clinical aggregate extent is not signed off.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-cingulate-cortex",
+      "display_name": "Left cingulate cortex — anterior, middle and posterior source labels",
+      "fine_codes": [
+        215,
+        219,
+        221
+      ],
+      "source_names": [
+        "Left Anterior Cingulate Gyrus",
+        "Left Middle Cingulate Gyrus",
+        "Left Posterior Cingulate Gyrus"
+      ],
+      "source_voxels": 170617,
+      "why_this_improves_representation": "Separates cingulate-labelled cortex from the larger limbic source group.",
+      "remaining_limit": "Not a cingulate-sulcus mask or white-matter cingulum tract.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-lateral-ventricular-source-compartments",
+      "display_name": "Left lateral ventricle — main and inferior source compartments",
+      "fine_codes": [
+        7,
+        5
+      ],
+      "source_names": [
+        "Left Lateral Ventricle",
+        "Left Inferior Lateral Ventricle"
+      ],
+      "source_voxels": 64300,
+      "why_this_improves_representation": "Makes the whole union of the two source ventricular compartments inspectable.",
+      "remaining_limit": "Does not independently delineate horns, atrium or interventricular foramen.",
+      "construction": "Set union of listed exact fine masks, recomputing only exposed union boundary faces; native image overlay maps those same codes.",
+      "clinical_requirement_complete": false
+    }
+  ],
+  "rejected_shortcuts": [
+    "Do not combine the entire insular parent with a pure-insula requirement.",
+    "Do not restore a supposed complete brainstem by blindly adding all bilateral pBrain labels.",
+    "Do not relabel cerebral WM as individual capsules, tracts, centrum semiovale or corona radiata.",
+    "Do not use lobar-GM masks as arterial territory maps.",
+    "Do not call the vessels/connective residual an artery, vein, sinus, dura or cranial-nerve model."
+  ]
+}

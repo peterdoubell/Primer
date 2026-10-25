@@ -11,9 +11,9 @@ ATLAS = 'holiatlas'
 IDENTIFIER = 'holiatlas-source-template-reference'
 PREFIX = '/app/anatomy/holiatlas/'
 REGISTRY = ROOT / 'data/radiology/holiatlas-reference.json'
-REGISTRY_SHA256 = 'f7f6a1fc08c0599ff75b7822488d7a56e52e53dba47ef0f31953e30a89daa176'
+REGISTRY_SHA256 = '46a475c05cba0342fa1b35be45d5496cf69d607b6b77d6e9098426f2fe364bbf'
 AUTHORED = frozenset({'index.html', 'viewer.js', 'viewer.css', 'config.json',
-                      'manifest.json', 'labels.json', 'ATTRIBUTION.txt', 'LICENSE.txt'})
+                      'manifest.json', 'labels.json', 'hierarchy.json', 'ATTRIBUTION.txt', 'LICENSE.txt'})
 FLAGS = ('clinical_approval', 'fine_anatomical_approval', 'current_patient_registration',
          'normal_anatomical_atlas_approval', 'complete_reporting_anatomy_approved')
 
@@ -28,12 +28,12 @@ def registry():
     if sha(raw) != REGISTRY_SHA256:
         raise ValueError('holiAtlas registry changed')
     data = json.loads(raw)
-    if (data.get('schema_version') != 1 or data.get('atlas') != ATLAS
+    if (data.get('schema_version') != 2 or data.get('atlas') != ATLAS
             or data.get('source_record') != 'https://zenodo.org/records/15690524'
             or data.get('source_archive_sha256') != '6932bc8063568f0037627d5b85199ff6142b4457413f8fef8817871a3ffa1ee5'
             or data.get('bindings') != {'ra.brain-anatomy': [IDENTIFIER]}
             or set(data.get('inspectors', {})) != {IDENTIFIER}
-            or len(data.get('files', {})) != 687 or not AUTHORED <= set(data['files'])
+            or len(data.get('files', {})) != 846 or not AUTHORED <= set(data['files'])
             or any(data.get(flag) is not False for flag in FLAGS)
             or [data.get(k) for k in ('present_source_classes', 'missing_named_classes',
                 'components26', 'triangles', 'plane_count')] != [332, 18, 868, 11650276, 4632]):
@@ -41,9 +41,9 @@ def registry():
     return data
 
 
-@lru_cache(maxsize=2)
+@lru_cache(maxsize=3)
 def metadata_bytes(name):
-    if name not in {'manifest.json', 'labels.json'}:
+    if name not in {'manifest.json', 'labels.json', 'hierarchy.json'}:
         raise ValueError('Unknown holiAtlas metadata')
     row = registry()['runtime_metadata'][name]
     expected_path = 'data/radiology/holiatlas-' + name + '.gz'
@@ -63,7 +63,7 @@ def metadata_bytes(name):
     return raw
 
 
-@lru_cache(maxsize=2048)
+@lru_cache(maxsize=3048)
 def _check_file(path, size, mtime, expected_sha):
     raw = Path(path).read_bytes()
     if len(raw) != size or sha(raw) != expected_sha:
@@ -84,7 +84,7 @@ def validate_file(asset):
         if stat.st_size != files[asset]['bytes']:
             raise ValueError('holiAtlas asset length changed')
         _check_file(str(file), stat.st_size, stat.st_mtime_ns, files[asset]['sha256'])
-    elif asset in {'manifest.json', 'labels.json'} and os.environ.get('VERCEL'):
+    elif asset in {'manifest.json', 'labels.json', 'hierarchy.json'} and os.environ.get('VERCEL'):
         metadata_bytes(asset)
     elif asset in AUTHORED or not os.environ.get('VERCEL'):
         raise ValueError('holiAtlas asset missing')
@@ -107,8 +107,8 @@ def references():
             or set(manifest.get('volumes', {})) != {'labels', 'T1', 'T2', 'WMn'}
             or len(manifest.get('packs', {})) != 15):
         raise ValueError('holiAtlas source interpretation differs')
-    for name in ['manifest.json', 'labels.json']:
-        key = 'manifestSHA256' if name == 'manifest.json' else 'labelsSHA256'
+    for name in ['manifest.json', 'labels.json', 'hierarchy.json']:
+        key = name.removesuffix('.json') + 'SHA256'
         if config[key] != data['files'][name]['sha256']:
             raise ValueError('holiAtlas viewer metadata identity differs')
     for name, row in manifest['packs'].items():
@@ -128,6 +128,7 @@ def references():
                 raise ValueError('holiAtlas components differ')
         elif not row.get('missingSourceLabel') or row['components26']:
             raise ValueError('holiAtlas missing class was fabricated')
+    validate_hierarchy(data, classes, manifest)
     item = data['inspectors'][IDENTIFIER]
     if (item['id'] != IDENTIFIER or item['src'] != PREFIX + 'index.html'
             or item['manifest_url'] != PREFIX + 'manifest.json'
@@ -139,3 +140,56 @@ def references():
             or item['source_grain']['sulcal_classes_are_CSF_territories'] is not True):
         raise ValueError('holiAtlas inspector interpretation differs')
     return {'ra.brain-anatomy': [item]}
+
+
+def validate_hierarchy(data, fine_classes, manifest):
+    """Check exact memberships and delivery identities; no anatomical sign-off."""
+    hierarchy = json.loads(metadata_bytes('hierarchy.json'))
+    expected = {'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 16}
+    if (hierarchy.get('schemaVersion') != 1 or set(hierarchy.get('levels', {})) != set(expected)
+            or hierarchy.get('clinicalApproval') is not False
+            or hierarchy.get('currentPatientRegistration') is not False
+            or hierarchy.get('sourceGridIsAcquisitionResolution') is not False
+            or hierarchy.get('sourceArchiveSHA256') != data['source_archive_sha256']
+            or hierarchy.get('presentClasses') != 79 or data.get('hierarchy_classes') != 79
+            or hierarchy.get('totalTriangles') != 22314324
+            or data.get('hierarchy_triangles') != 22314324
+            or data.get('hierarchy_components26') != 741):
+        raise ValueError('holiAtlas hierarchy scope differs')
+    by_code = {r['code']: r for r in fine_classes}
+    components = 0
+    for level, count in expected.items():
+        group = hierarchy['levels'][level]
+        rows = group.get('sourceClasses', [])
+        if len(rows) != count or len({r['code'] for r in rows}) != count:
+            raise ValueError('holiAtlas hierarchy class inventory differs')
+        represented = []
+        for row in rows:
+            members = row['fineSourceCodes']
+            if (not members or len(set(members)) != len(members) or not set(members) <= set(by_code)
+                    or sum(by_code[c]['voxels'] for c in members) != row['voxels']
+                    or sum(c['voxels'] for c in row['components26']) != row['voxels']):
+                raise ValueError('holiAtlas hierarchy membership differs')
+            represented.extend(c for c in members if by_code[c]['voxels'])
+            components += len(row['components26'])
+            for component in row['components26']:
+                focus = component['focusSourceIJK']
+                if len(focus) != 3 or any(type(v) is not int or not 0 <= v < n
+                                         for v, n in zip(focus, manifest['volumes']['labels']['shape'])):
+                    raise ValueError('holiAtlas hierarchy focus differs')
+            for kind in ('mesh', 'facesPayload'):
+                payload = row[kind]
+                if data['files'].get(payload['file']) != {'bytes': payload['gzipBytes'], 'sha256': payload['gzipSHA256']}:
+                    raise ValueError('holiAtlas hierarchy payload differs')
+        if level != 'composition':
+            present = {c for c, row in by_code.items() if row['voxels']}
+            if (len(represented) != len(present) or set(represented) != present
+                    or group.get('protocolMappingCheckedVoxels') != 56873096
+                    or group.get('protocolMappingDisagreements') != 0
+                    or group.get('sourceHeaderUnits') != ['unknown', 'unknown']):
+                raise ValueError('holiAtlas parent partition differs')
+        elif group.get('mutuallyExclusive') is not False:
+            raise ValueError('holiAtlas compositions are overlapping selections')
+    if components != 741:
+        raise ValueError('holiAtlas hierarchy components differ')
+    return hierarchy

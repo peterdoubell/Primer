@@ -1,0 +1,21 @@
+.math-integral-lab { min-width:0; }
+.integral-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr)); gap:14px; margin:16px 0; }
+.integral-controls[hidden],.integral-controls label[hidden],.math-integral-lab select[hidden] { display:none; }
+.integral-controls label { display:flex; flex-direction:column; gap:6px; font-weight:600; }
+.math-integral-lab select,.math-integral-lab input { box-sizing:border-box; width:100%; max-width:100%; min-width:0; min-height:44px; font:inherit; }
+.math-integral-lab input[aria-invalid=true] { border:2px solid #ab4936; }
+.integral-actions { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0; }
+.integral-plots { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr)); gap:18px; }
+.integral-output figure { margin:16px 0; min-width:0; }
+.integral-output figcaption { font-weight:700; }
+.integral-axis-caption { margin:6px 0; font-size:.92em; }
+.integral-viewport { max-width:100%; overflow:auto; border:1px solid #c9bfae; border-radius:8px; }
+.integral-viewport svg { display:block; width:100%; max-width:none; height:auto; background:#f7f1e5; }
+.integral-readout,.integral-formula { font-weight:650; overflow-wrap:anywhere; }
+.integral-table-scroll { max-width:100%; overflow:auto; margin:16px 0; }
+.integral-table-scroll table { border-collapse:collapse; min-width:100%; font-variant-numeric:tabular-nums; }
+.integral-table-scroll caption { text-align:left; font-weight:650; margin-bottom:8px; }
+.integral-table-scroll th,.integral-table-scroll td { padding:9px 12px; text-align:right; white-space:nowrap; border-bottom:1px solid #c9bfae; }
+.integral-output summary { cursor:pointer; min-height:44px; display:flex; align-items:center; font-weight:650; }
+.integral-note { font-size:.92em; }
+.integral-live { font-size:.9em; }

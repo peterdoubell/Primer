@@ -87,7 +87,9 @@ def before_linear_algebra_lesson_fields(module_id, fields):
 
 
 def source_corpus():
-    return {str(path.relative_to(ROOT)): path.read_bytes() for path in sorted((ROOT / 'data/curriculum').glob('*.json'))}
+    from tools.fidelity_continuation_runtime_compatibility import before_continuation_bytes
+    return {str(path.relative_to(ROOT)): before_continuation_bytes(str(path.relative_to(ROOT)), path.read_bytes())
+            for path in sorted((ROOT / 'data/curriculum').glob('*.json'))}
 
 
 def independent_stage4_budget(corpus):
