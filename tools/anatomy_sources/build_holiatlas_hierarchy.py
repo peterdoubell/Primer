@@ -9,7 +9,6 @@ import gzip
 import hashlib
 import io
 import json
-import shutil
 import zipfile
 
 import nibabel as nib
@@ -19,6 +18,8 @@ from scipy import ndimage
 ROOT = Path(__file__).resolve().parents[2]
 ARCHIVE_SHA = '6932bc8063568f0037627d5b85199ff6142b4457413f8fef8817871a3ffa1ee5'
 PROTOCOL_SHA = '0276cb7b396aa42a688d8f444d8b0efac9c0f68ebd3fafdc97c30df06a5a01e1'
+SEMANTICS_SHA = 'f5a36bbfa981197e3fb1e4fb6d53ea8cda4554f3136865983f50a49737087c57'
+COMPOSITIONS_SHA = 'f2c0a11483f9a5b77b4c8ae94ae7c39424eb5a4f93a88cb647f0ff6457cc928a'
 REVIEW_SHA = {
     'structure': ('a3f8b16c7920a80885121630b02f62493745c6e4ee99a269512ae0f789bf26f2',
                   '95b6c9d7c4a5f4271e14b421bbe6b6d62d18207fba15032ebe83235c1cff7c51'),
@@ -31,6 +32,14 @@ LEVELS = {'structure': ('structure_atlas.nii.gz', 'C', 'D'),
           'tissue': ('tissue_atlas.nii.gz', 'E', 'F'),
           'organ': ('icm_atlas.nii.gz', 'G', 'H')}
 sha = lambda raw: hashlib.sha256(raw).hexdigest()
+
+
+def read_pinned_json(path, expected_sha):
+    """Return the reviewed bytes once; never reopen an intake path for export."""
+    raw = path.read_bytes()
+    if sha(raw) != expected_sha:
+        raise ValueError('Unreviewed atlas authoring input')
+    return raw, json.loads(raw)
 
 
 def native(archive, member):
@@ -73,10 +82,11 @@ def main():
     parser.add_argument('--compositions', type=Path, required=True)
     args = parser.parse_args()
     archive_path = args.source/'atlas_v1.0.zip'
-    assert sha(archive_path.read_bytes()) == ARCHIVE_SHA
+    archive_bytes = archive_path.read_bytes()
+    if sha(archive_bytes) != ARCHIVE_SHA:
+        raise ValueError('Unreviewed source atlas archive')
     protocol_path = args.source/'holiatlas-protocol-rows.json'
-    assert sha(protocol_path.read_bytes()) == PROTOCOL_SHA
-    protocol = json.loads(protocol_path.read_bytes())
+    _, protocol = read_pinned_json(protocol_path, PROTOCOL_SHA)
     lookup = {key: {} for key in LEVELS}
     for row in next(iter(protocol.values())):
         cells = {c['cell'][0]: c['value'] for c in row}
@@ -89,13 +99,22 @@ def main():
                 lookup[level][fine_code] = int(cells[column])
             except (KeyError, ValueError):
                 continue
+    semantic_raw, semantic_review = read_pinned_json(args.semantics, SEMANTICS_SHA)
+    composition_raw, compositions = read_pinned_json(
+        args.compositions/'composition-manifest.json', COMPOSITIONS_SHA)
+    composition_reviews = {}
+    for name in ('source-compositions.json', 'build-compositions.py', 'verify-compositions.py',
+                 'boundary-proof.json', 'independent-verification.json'):
+        raw = (args.compositions/name).read_bytes()
+        if sha(raw) != compositions['proofs'][name]:
+            raise ValueError('Unreviewed composition evidence')
+        composition_reviews[name] = raw
     destination = ROOT/'web/anatomy/holiatlas'
     review_out = ROOT/'docs/holiatlas-hierarchy-review-20261025'
     review_out.mkdir(parents=True, exist_ok=True)
-    semantic_review = json.loads(args.semantics.read_bytes())
     semantics = {r['scale']+':'+str(r['code']): r for r in semantic_review['entries']}
     assert len(semantics) == 63 and semantic_review['clinical_completion_claim'] is False
-    shutil.copy2(args.semantics, review_out/'source-scale-display-crosswalk.json')
+    (review_out/'source-scale-display-crosswalk.json').write_bytes(semantic_raw)
     labels = json.loads((destination/'labels.json').read_bytes())
     fine_names = {r['code']: r['name'] for r in labels['sourceClasses']}
     result = {'schemaVersion': 1, 'sourceRecord': 'https://zenodo.org/records/15690524',
@@ -104,7 +123,7 @@ def main():
               'sourceGridIsAcquisitionResolution': False,
               'millimetreFrameBasis': 'Exact voxel correspondence to the fine-label source grid with declared millimetres; coarse source headers leave spatial units unspecified.',
               'levels': {}}
-    with zipfile.ZipFile(archive_path) as archive:
+    with zipfile.ZipFile(io.BytesIO(archive_bytes)) as archive:
         fine_raw, fine_header, original_fine = native(archive, 'substructure_atlas.nii.gz')
         fine_sha = sha(fine_raw)
         fine = original_fine.astype(np.uint16)
@@ -121,10 +140,11 @@ def main():
                 lut[code] = target
             assert np.array_equal(lut[fine], coarse)
             proof_dir = args.review/('boundaries-'+level)
+            reviewed_bytes = {}
             for name, expected in zip(('boundary-proof.json', 'independent-verification.json'), REVIEW_SHA[level]):
-                assert sha((proof_dir/name).read_bytes()) == expected
-            boundary = json.loads((proof_dir/'boundary-proof.json').read_bytes())
-            independent = json.loads((proof_dir/'independent-verification.json').read_bytes())
+                reviewed_bytes[name], _ = read_pinned_json(proof_dir/name, expected)
+            boundary = json.loads(reviewed_bytes['boundary-proof.json'])
+            independent = json.loads(reviewed_bytes['independent-verification.json'])
             assert boundary['allPassed'] and independent['allPassed']
             assert boundary['sourceLabelSHA256'] == sha(raw)
             assert len(boundary['rows']) == {'structure': 53, 'tissue': 9, 'organ': 1}[level]
@@ -168,15 +188,12 @@ def main():
                 'protocolMappingCheckedVoxels': fine.size, 'protocolMappingDisagreements': 0,
                 'totalTriangles': sum(r['triangles'] for r in rows)}
             for name in ('boundary-proof.json', 'independent-verification.json'):
-                shutil.copy2(proof_dir/name, review_out/(level+'-'+name))
+                (review_out/(level+'-'+name)).write_bytes(reviewed_bytes[name])
             print(level, len(rows), 'classes', sum(len(r['components26']) for r in rows), 'components', flush=True)
-    compositions = json.loads((args.compositions/'composition-manifest.json').read_bytes())
     assert compositions['sourceArchiveSHA256'] == ARCHIVE_SHA and compositions['sourceLabelSHA256'] == fine_sha
     assert compositions['count'] == 16 and compositions['clinicalApproval'] is False
-    for name, expected in compositions['proofs'].items():
-        assert sha((args.compositions/name).read_bytes()) == expected
     for name in ('boundary-proof.json', 'independent-verification.json'):
-        assert json.loads((args.compositions/name).read_bytes())['allPassed']
+        assert json.loads(composition_reviews[name])['allPassed']
     rows = []
     for code, item in enumerate(compositions['compositions'], 1):
         payloads = {}
@@ -198,8 +215,9 @@ def main():
         'sourceMember': 'substructure_atlas.nii.gz', 'nativeSHA256': fine_sha,
         'totalTriangles': sum(r['triangles'] for r in rows), 'mutuallyExclusive': False}
     composition_out = review_out/'compositions'; composition_out.mkdir(exist_ok=True)
-    for name in ['composition-manifest.json', *compositions['proofs']]:
-        shutil.copy2(args.compositions/name, composition_out/name)
+    (composition_out/'composition-manifest.json').write_bytes(composition_raw)
+    for name, raw in composition_reviews.items():
+        (composition_out/name).write_bytes(raw)
     result['presentClasses'] = sum(len(v['sourceClasses']) for v in result['levels'].values())
     result['totalTriangles'] = sum(v['totalTriangles'] for v in result['levels'].values())
     (destination/'hierarchy.json').write_text(json.dumps(result, indent=2)+'\n')
