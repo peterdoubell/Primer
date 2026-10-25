@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from tools import all_report_compatibility as bridge
-from tools.anatomy_sources import ui_refresh
+from tools.holiatlas_runtime_compatibility import LEDGER_PATH, before_holiatlas_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,7 +20,7 @@ def sha(raw):
 @pytest.mark.parametrize('path', sorted(bridge.PATHS))
 def test_expansion_inverse_is_exact_idempotent_and_rejects_unrecorded_changes(path):
     row = bridge.reviewed()['files'][path]
-    raw = (ROOT / path).read_bytes()
+    raw = before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
     assert sha(raw) == row['after_sha256']
     restored = bridge.before_all_reports_bytes(path, raw)
     assert sha(restored) == row['before_sha256']
@@ -57,11 +57,11 @@ def test_standalone_proof_does_not_create_an_empty_native_ui_ledger_step():
     assert set(proof['added_files_sha256']) == {'primer/descriptor_calculations.py'}
     assert set(proof['unchanged_runtime_sha256']) == bridge.UNCHANGED_PATHS
     assert all(proof[flag] is False for flag in bridge.FLAGS)
-    ledger = ui_refresh.load()
+    ledger = json.loads(before_holiatlas_bytes(LEDGER_PATH, (ROOT / LEDGER_PATH).read_bytes()))
     assert ledger['refreshes'][-1]['id'] == '2026-10-23-msk-anatomic-reporting'
     assert not any(step['id'] == '2026-10-23-all-anatomic-reporting' for step in ledger['refreshes'])
     for path in ('web/app.js', 'web/styles.css'):
-        assert sha((ROOT / path).read_bytes()) == proof['unchanged_runtime_sha256'][path]
+        assert sha(before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)) == proof['unchanged_runtime_sha256'][path]
 
 
 def test_proof_bytes_are_checked_before_contents_are_used(tmp_path, monkeypatch):

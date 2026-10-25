@@ -1,0 +1,189 @@
+{
+  "scope": "Selected native source planes and complete cell meshes; no clinical approval or full 332-class anatomical review",
+  "sourceContrastMeaning": {
+    "T1w_average.nii.gz": "Processed population T1w template",
+    "T2w_average.nii.gz": "Processed population T2w template",
+    "WMn_average.nii.gz": "Population template of source-author synthesized WMn-like contrast; not acquired WMn"
+  },
+  "cases": [
+    {
+      "code": 60,
+      "sourceName": "Right Central Sylvian Sulcus",
+      "voxel": [
+        308,
+        256,
+        159
+      ],
+      "worldCoordinate": [
+        64.0,
+        2.0,
+        7.5
+      ],
+      "planeWindowRadiusMM": 30,
+      "sourceVoxels": 199,
+      "triangles": 740,
+      "allMeshTrianglesRendered": true,
+      "file": "class-60.png"
+    },
+    {
+      "code": 61,
+      "sourceName": "Left Central Sylvian Sulcus",
+      "voxel": [
+        54,
+        251,
+        162
+      ],
+      "worldCoordinate": [
+        -63.0,
+        -0.5,
+        9.0
+      ],
+      "planeWindowRadiusMM": 30,
+      "sourceVoxels": 50,
+      "triangles": 256,
+      "allMeshTrianglesRendered": true,
+      "file": "class-61.png"
+    },
+    {
+      "code": 80,
+      "sourceName": "Right Central Sulcus",
+      "voxel": [
+        263,
+        209,
+        256
+      ],
+      "worldCoordinate": [
+        41.5,
+        -21.5,
+        56.0
+      ],
+      "planeWindowRadiusMM": 30,
+      "sourceVoxels": 30496,
+      "triangles": 57600,
+      "allMeshTrianglesRendered": true,
+      "file": "class-80.png"
+    },
+    {
+      "code": 81,
+      "sourceName": "Left Central Sulcus",
+      "voxel": [
+        99,
+        204,
+        259
+      ],
+      "worldCoordinate": [
+        -40.5,
+        -24.0,
+        57.5
+      ],
+      "planeWindowRadiusMM": 30,
+      "sourceVoxels": 29555,
+      "triangles": 57312,
+      "allMeshTrianglesRendered": true,
+      "file": "class-81.png"
+    },
+    {
+      "code": 102,
+      "sourceName": "Right Calcarine Fissure",
+      "voxel": [
+        182,
+        102,
+        164
+      ],
+      "worldCoordinate": [
+        1.0,
+        -75.0,
+        10.0
+      ],
+      "planeWindowRadiusMM": 30,
+      "sourceVoxels": 1092,
+      "triangles": 4188,
+      "allMeshTrianglesRendered": true,
+      "file": "class-102.png"
+    },
+    {
+      "code": 103,
+      "sourceName": "Left Calcarine Fissure",
+      "voxel": [
+        163,
+        132,
+        157
+      ],
+      "worldCoordinate": [
+        -8.5,
+        -60.0,
+        6.5
+      ],
+      "planeWindowRadiusMM": 30,
+      "sourceVoxels": 717,
+      "triangles": 3052,
+      "allMeshTrianglesRendered": true,
+      "file": "class-103.png"
+    }
+  ],
+  "volumes": {
+    "T1w_average.nii.gz": {
+      "sha256": "e60f3f3b1251e258829d9c1b70656f62fc9617b4821fc7b8bcb518adf2303cf9",
+      "allVoxelsFinite": true,
+      "gridAndSformExactlyEqualToLabels": true,
+      "displayWindow": [
+        2.0,
+        380.0
+      ],
+      "meaning": "Processed population T1w template"
+    },
+    "T2w_average.nii.gz": {
+      "sha256": "90edd5ed468e601f43f85c379a6510ace16536e205801c1611fb87299150a0c1",
+      "allVoxelsFinite": true,
+      "gridAndSformExactlyEqualToLabels": true,
+      "displayWindow": [
+        1.0,
+        260.0
+      ],
+      "meaning": "Processed population T2w template"
+    },
+    "WMn_average.nii.gz": {
+      "sha256": "3c0bc71417d7e79b1793b96bc57630602e377deed0880cc596ec7ae1b4fdb115",
+      "allVoxelsFinite": true,
+      "gridAndSformExactlyEqualToLabels": true,
+      "displayWindow": [
+        9.0,
+        375.0
+      ],
+      "meaning": "Population template of source-author synthesized WMn-like contrast; not acquired WMn"
+    }
+  },
+  "visuallyInspectedCases": [
+    {
+      "code": 80,
+      "observation": "Selected overlay follows the source CSF compartment in the rendered T1/T2 planes. Full categorical mesh and remote components remain visible. This is limited visual corroboration, not independent anatomical approval."
+    },
+    {
+      "code": 61,
+      "observation": "Only 50 cells (6.25 mm3) are present under this supplied name. Do not present this tiny source region as the entire Sylvian fissure or silently expand it."
+    }
+  ],
+  "wholeAtlasAnatomicalApproval": false,
+  "rawArrayScaling": {
+    "substructure_atlas.nii.gz": {
+      "slope": 1.0,
+      "intercept": 0.0,
+      "identityScaling": true
+    },
+    "T1w_average.nii.gz": {
+      "slope": 1.0,
+      "intercept": 0.0,
+      "identityScaling": true
+    },
+    "T2w_average.nii.gz": {
+      "slope": 1.0,
+      "intercept": 0.0,
+      "identityScaling": true
+    },
+    "WMn_average.nii.gz": {
+      "slope": 1.0,
+      "intercept": 0.0,
+      "identityScaling": true
+    }
+  }
+}

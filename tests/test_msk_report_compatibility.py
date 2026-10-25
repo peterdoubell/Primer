@@ -20,7 +20,8 @@ def step():
 @pytest.mark.parametrize('path', sorted(bridge.PATHS))
 def test_msk_inverse_restores_exact_prior_bytes_and_rejects_unrecorded_edits(path):
     row = bridge.reviewed()['files'][path]
-    raw = (ROOT / path).read_bytes()
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+    raw = before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
     restored = bridge.before_msk_bytes(path, raw)
     from tools.all_report_compatibility import before_all_reports_bytes
     assert hashlib.sha256(before_all_reports_bytes(path, raw)).hexdigest() == row['after_sha256']
@@ -51,7 +52,8 @@ def test_msk_refresh_keeps_all_historical_guards_and_approvals():
     for key in bridge.FLAGS:
         assert proof[key] is False
     for path, expected in {**proof['guarded_paths_sha256'], **proof['canonical_contract_files_sha256']}.items():
-        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == expected
+        from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+        assert hashlib.sha256(before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)).hexdigest() == expected
 
 
 @pytest.mark.parametrize('key,value', [

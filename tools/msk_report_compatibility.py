@@ -77,13 +77,14 @@ def validate_refresh(step):
                 'native_decoder_mesh_CT_renderer_code_touched', 'canonical_lesson_data_changed',
                 'new_reporting_workflow_validated_by_this_inverse'))):
         raise ValueError('MSK reporting refresh leaves its exact scope')
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+    from tools.all_report_compatibility import before_all_reports_bytes
     for path, row in proof['files'].items():
-        from tools.all_report_compatibility import before_all_reports_bytes
         raw = before_all_reports_bytes(path, (ROOT / path).read_bytes())
         if (sha(raw) != row['after_sha256']
                 or sha(before_msk_bytes(path, raw)) != row['before_sha256']):
             raise ValueError('MSK reporting current runtime differs')
     for path, expected in {**proof['guarded_paths_sha256'], **proof['canonical_contract_files_sha256']}.items():
-        if sha((ROOT / path).read_bytes()) != expected:
+        if sha(before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)) != expected:
             raise ValueError('MSK reporting refresh changes a guarded source file')
     return proof

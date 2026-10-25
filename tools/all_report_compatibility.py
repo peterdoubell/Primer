@@ -54,6 +54,8 @@ def before_all_reports_bytes(path, raw, allow_older=False):
     Permissive passthrough is solely for older chained receipts, which must still
     check their own before/after hashes. It never transforms an unknown delta.
     """
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
+    raw = before_holiatlas_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
@@ -78,8 +80,9 @@ def before_all_reports_bytes(path, raw, allow_older=False):
 def validate_current():
     """Check this release separately; do not fabricate a UI-ledger transition."""
     proof = reviewed()
+    from tools.holiatlas_runtime_compatibility import before_holiatlas_bytes
     for path, row in proof['files'].items():
-        raw = (ROOT / path).read_bytes()
+        raw = before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
         if (sha(raw) != row['after_sha256']
                 or sha(before_all_reports_bytes(path, raw)) != row['before_sha256']):
             raise ValueError('All-report current runtime differs')
@@ -88,6 +91,6 @@ def validate_current():
             raise ValueError('All-report added runtime differs')
     for path, expected in {**proof['unchanged_runtime_sha256'], **proof['guarded_paths_sha256'],
                            **proof['canonical_contract_files_sha256']}.items():
-        if sha((ROOT / path).read_bytes()) != expected:
+        if sha(before_holiatlas_bytes(path, (ROOT / path).read_bytes(), allow_older=True)) != expected:
             raise ValueError('All-report release changes an unchanged or guarded source file')
     return proof
