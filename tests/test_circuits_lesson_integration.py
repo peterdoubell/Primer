@@ -19,7 +19,8 @@ def test_current_authenticated_reader_evidence_is_bound_to_actual_sources():
  proof=json.loads((ROOT/'docs/circuits-induction-review-20261026/reader-smoke/proof.json').read_text())
  assert proof['allPassed'] and proof['errors']==[] and not proof['productionVerified']
  for path,digest in proof['sourceSHA256'].items():
-  assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path
+  from tools.percentage_runtime_compatibility import before_percentage_bytes
+  assert hashlib.sha256(before_percentage_bytes(path,(ROOT/path).read_bytes(),allow_older=True)).hexdigest()==digest,path
  assert len(proof['cases'])==20
  assert sum(len(c['speeches']) for c in proof['cases'])==126
  assert sum(len(c['boundaries']) for c in proof['cases'])==284

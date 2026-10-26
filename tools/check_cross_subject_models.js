@@ -48,6 +48,7 @@ class Element {
     this.attributes.set(key, text);
     if (['id', 'value', 'type', 'min', 'max', 'step'].includes(key)) this[key] = text;
     if (key === 'checked') this.checked = true;
+    if (key.startsWith('data-')) this.dataset[key.slice(5).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = text;
   }
   getAttribute(key) { return this.attributes.has(key) ? this.attributes.get(key) : null; }
   removeAttribute(key) { this.attributes.delete(key); }
@@ -71,6 +72,8 @@ class Element {
   }
   querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
   closest(selector) { for (let node = this; node; node = node.parentElement) if (node.matches(selector)) return node; return null; }
+  focus() { document.activeElement = this; }
+  dispatchEvent(event) { this.dispatch(event.type, event); return true; }
   get valueAsNumber() { return String(this.value).trim() === '' ? NaN : Number(this.value); }
   get validity() {
     if (this.type !== 'number' || String(this.value).trim() === '') return { valid: true };
@@ -87,6 +90,7 @@ class Element {
   dispatch(type, extra = {}) {
     const event = { type, target: this, currentTarget: this, preventDefault() {}, ...extra };
     (this.listeners.get(type) || []).forEach(listener => listener.call(this, event));
+    if (typeof this['on' + type] === 'function') this['on' + type](event);
   }
 }
 const attributeProbe = new Element('input');
@@ -109,6 +113,8 @@ require('../web/spatial-molecular.js');
 require('../web/spatial-cross-subject.js');
 require('../web/concept-models.js');
 require('../web/math-integral-lab.js');
+require('../web/percentage-core.js');
+require('../web/percentage-lab.js');
 require('../web/lesson-models.js');
 const spatial = context.window.PrimerSpatial;
 const concepts = context.window.PrimerConceptModels;
@@ -1243,6 +1249,50 @@ const crossEntries = entries.filter(({ node, item }) =>
   CROSS_SPATIAL.includes(node.id) && item.renderer === 'spatial-3d' || item.renderer === 'concept-lab');
 equal(crossEntries.map(({ node }) => node.id).sort(), [...CROSS_SPATIAL, ...CONCEPTS.filter(id => id !== 'math.4.numtheory')].sort(),
   'Legacy concept bindings remain exact except the separately verified full number-theory replacement');
+
+function exercisePercentageRenderer(root, speak) {
+  assert.ok(root.classList.contains('percentage-workbench'));
+  assert.equal(typeof root.percentage?.getModel, 'function');
+  assert.equal(typeof speak, 'function');
+  const preset = root.querySelector('[data-percent-preset]');
+  let checked = 0;
+  for (const option of preset.children.filter(e => e.value)) {
+    preset.value = option.value; preset.dispatch('change'); checked++;
+    const model = root.percentage.getModel();
+    assert.ok(speak().includes('Accepted inputs:'));
+    assertAccessibleReferences(root);
+    if (option.value === 'fractional') {
+      assert.equal(model.part.exact, '30'); assert.equal(model.percent.exact, '37.5');
+      const cells = root.querySelectorAll('[data-percent-cell]');
+      assert.equal(cells.length, 38); assert.equal(Number(cells[37].getAttribute('width')), 12);
+    }
+    if (option.value === 'twice') { assert.equal(model.middle.exact, '180'); assert.equal(model.last.exact, '162'); assert.equal(model.composedPercent.exact, '-19'); }
+    if (option.value === 'opposite') { assert.equal(model.last.exact, '96'); assert.equal(model.composedPercent.exact, '-4'); }
+    if (option.value === 'third') { assert.equal(model.percent.fraction, '100/3'); assert.equal(model.percent.decimal, null); }
+    if (option.value === 'compare') equal(model.largest, ['B']);
+    if (option.value === 'zero') { assert.equal(model.status, 'undefined'); assert.equal(root.querySelectorAll('[data-percent-plot]').length, 0); }
+  }
+  assert.equal(checked, 13);
+  root.querySelector('[data-percent-reset]').dispatch('click');
+  const format = root.querySelector('[data-percent-control="format"]');
+  format.value = 'fraction'; format.dispatch('change');
+  const value = root.querySelector('[data-percent-control="value"]');
+  value.value = '3/8'; value.dispatch('change');
+  assert.equal(root.percentage.getModel().percent.exact, '37.5');
+  const accepted = JSON.stringify(root.percentage.getModel()), narration = speak();
+  value.value = '3/0'; value.dispatch('change');
+  assert.equal(value.getAttribute('aria-invalid'), 'true');
+  assert.equal(JSON.stringify(root.percentage.getModel()), accepted); assert.equal(speak(), narration);
+  value.dispatch('keydown', { key: 'Escape' });
+  assert.equal(root.querySelector('[data-percent-control="value"]').value, '3/8');
+  root.querySelector('[data-percent-zoom]').dispatch('click');
+  assert.equal(root.querySelector('[data-percent-zoom]').getAttribute('aria-pressed'), 'true');
+  root.querySelector('[data-percent-reset]').dispatch('click');
+  assert.equal(root.querySelector('[data-percent-zoom]').getAttribute('aria-pressed'), 'false');
+  interactionChecks += checked + 7;
+  console.log('PERCENTAGE_BINDING math.2.percent = percentage-workbench; 13 exact presets and invalid-draft recovery');
+}
+
 for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
@@ -1275,7 +1325,7 @@ assert.equal(entries.filter(({ item }) => item.renderer === 'prenatal-sequence')
   1, 'The separately checked prenatal sequence remains reachable');
 const page = fs.readFileSync(path.join(ROOT, 'web/index.html'), 'utf8');
 const scripts = [...page.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/g)].map(match => match[1]);
-for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js']) {
+for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js', 'percentage-core.js', 'percentage-lab.js']) {
   assert.equal(scripts.filter(src => src === '/app/' + file).length, 1, file + ': loaded exactly once');
   assert.ok(scripts.indexOf('/app/' + file) < scripts.indexOf('/app/lesson-models.js'), file + ': loaded before registry');
 }
@@ -1665,6 +1715,11 @@ for (const { node, item } of crossEntries) {
     return document.createElement('button');
   } });
   assert.ok(root, node.id + ': renderer is reachable through the shipped registry');
+  if (node.id === 'math.2.percent') {
+    exercisePercentageRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
   if (node.id === 'math.4.int-calc') {
     exerciseIntegralRenderer(root, speak);
     console.log('COVER ' + node.id);

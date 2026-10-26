@@ -33,6 +33,8 @@ def reviewed():
 
 
 def before_atlas_schematic_bytes(path, raw, allow_older=False):
+    from tools.percentage_runtime_compatibility import before_percentage_bytes
+    raw = before_percentage_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw

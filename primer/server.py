@@ -3544,6 +3544,7 @@ def app_shell():
                      "math-integral-lab.js", "math-integral-lab.css",
                      "energy-momentum-lab.js", "energy-momentum-lab.css",
                      "fractions-lab.js", "fractions-lab.css",
+                     "percentage-core.js", "percentage-lab.js", "percentage-lab.css",
                      "circuits-induction-core.js", "circuits-induction-lab.js", "circuits-induction-lab.css",
                      "math-ode-lab.js", "math-ode-lab.css", "math-eigenspace.js", "math-eigenspace.css",
                      "math-field-lab.js", "math-field-lab.css", "math-wave-lab.js", "math-wave-lab.css",

@@ -30,7 +30,7 @@ def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
     assert {node['id'] for node in curriculum.nodes.values()
             if node.get('lesson') and not node.get('model_family')} == {
         'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity',
-        'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory', 'phys.3.energy-work', 'math.2.fractions', 'phys.2.electricity', 'phys.3.em'}
+        'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory', 'phys.3.energy-work', 'math.2.fractions', 'phys.2.electricity', 'phys.3.em', 'math.2.percent'}
     # Energy/work never used a generic model_family. Its new teaching sections
     # accompany the dedicated SI mechanics workbench and its numerical oracle;
     # keep it in the exact scientific-node contract without changing the 106
@@ -50,10 +50,12 @@ def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
     assert [(m['renderer'], m['props']) for m in fractions['lesson_media']
             if m.get('id') == 'build-equivalent-fractions'] == [
         ('fraction-arithmetic-lab', {'scenario': 'math.2.fractions'})]
-    for identifier in ('phys.2.electricity', 'phys.3.em'):
+    for identifier in ('phys.2.electricity', 'phys.3.em', 'math.2.percent'):
         scientific = curriculum.node(identifier)
         _validate_authored_lesson(scientific)
         assert len(scientific['quiz']) == 10
+        if identifier == 'math.2.percent':
+            assert len(scientific['learning_outcomes']) == 6
         assert next(m for m in scientific['lesson_media'] if m['kind'] == 'model')['props'] == {'scenario': identifier}
     assert len(nodes) == 106
     for node in nodes:
