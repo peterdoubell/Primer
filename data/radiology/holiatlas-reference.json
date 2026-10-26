@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "hierarchy_classes": 79,
-  "hierarchy_triangles": 22314324,
-  "hierarchy_components26": 741,
+  "hierarchy_classes": 81,
+  "hierarchy_triangles": 22598628,
+  "hierarchy_components26": 743,
   "atlas": "holiatlas",
   "source_record": "https://zenodo.org/records/15690524",
   "source_archive_md5": "4869902cb6e6082820109b0aae3dd16c",
@@ -25,10 +25,10 @@
       "title": "Brain template regions, tissue groups and source compositions",
       "src": "/app/anatomy/holiatlas/index.html",
       "manifest_url": "/app/anatomy/holiatlas/manifest.json",
-      "sha256": "1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7",
+      "sha256": "0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b",
       "manifest_sha256": "d4d3f7f2482c4001b1d63dd34ca7de6b87d37996d6debc85f2088c7ebd7d6a6a",
-      "caption": "Inspect 332 present fine source regions, 63 source-scale entries and 16 explicit overlapping compositions in matched MRI planes and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.",
-      "attribution": "holiAtlas v1.0 \u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\n\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 16 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.",
+      "caption": "Inspect 332 present fine source regions, 63 source-scale entries and 18 explicit overlapping compositions in matched MRI planes, native-label schematics and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.",
+      "attribution": "holiAtlas v1.0 \u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\n\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 18 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, native-label schematics with source orientation and calibrated scale bars, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.",
       "source_url": "https://zenodo.org/records/15690524",
       "publication_url": "https://www.nature.com/articles/s41598-026-40186-2",
       "license": "CC BY 4.0",
@@ -46,8 +46,8 @@
         "absent_named_label_classes": 18,
         "retained_components26": 868,
         "source_scale_entries": 63,
-        "source_compositions": 16,
-        "additional_distinct_aggregate_masks": 50,
+        "source_compositions": 18,
+        "additional_distinct_aggregate_masks": 52,
         "WMn_like_contrast_synthesized": true,
         "sulcal_classes_are_CSF_territories": true
       },
@@ -69,8 +69,8 @@
   },
   "files": {
     "ATTRIBUTION.txt": {
-      "bytes": 1353,
-      "sha256": "029e261ae9c9c3e89d605bfff76dc097414a20a5dd7e00dccabe732e759ff493"
+      "bytes": 1428,
+      "sha256": "ba7b3c5d1109ea3b1feb3f8412e4fd03b185dd48c02f15cf10f9798d600370ee"
     },
     "LICENSE.txt": {
       "bytes": 457,
@@ -126,7 +126,15 @@
     },
     "config.json": {
       "bytes": 412,
-      "sha256": "f37af2ab8c6c07b0dcef791959353e069ac4f822f23abdc1a6d5254abef711af"
+      "sha256": "78292f2a5812e236284cff64aa3882b36d12a2ff7be22af8f22c1c81eec408f4"
+    },
+    "hierarchy-composition-left-angular-supramarginal-cortex-faces.bin.gz": {
+      "bytes": 187021,
+      "sha256": "6937927505e43b8273478852e9155f1e156b413dc174f20ee73c3458254990e0"
+    },
+    "hierarchy-composition-left-angular-supramarginal-cortex.mesh.gz": {
+      "bytes": 699861,
+      "sha256": "2329e5ec70d0d1b5358d8628fb91e9cff3f0636f931b7e55bdf5c55d15e3cdc8"
     },
     "hierarchy-composition-left-cingulate-cortex-faces.bin.gz": {
       "bytes": 156893,
@@ -191,6 +199,14 @@
     "hierarchy-composition-left-superior-frontal-cortex.mesh.gz": {
       "bytes": 897251,
       "sha256": "7620f62c46cac057738036f535526b3b66fefc4735f8454c7081556cab44ce9e"
+    },
+    "hierarchy-composition-right-angular-supramarginal-cortex-faces.bin.gz": {
+      "bytes": 203345,
+      "sha256": "d28e19503bb31ab0ab3024be6ba7a5bd384af47cccd7958336909b9845a9c9a6"
+    },
+    "hierarchy-composition-right-angular-supramarginal-cortex.mesh.gz": {
+      "bytes": 772437,
+      "sha256": "281e363312be4e84fae0fec2cd7fe5bd926a94fae4a76c35f17f73adbe9b2cdc"
     },
     "hierarchy-composition-right-cingulate-cortex-faces.bin.gz": {
       "bytes": 154373,
@@ -761,12 +777,12 @@
       "sha256": "e1ded4d1b9cad7f19fe6da8e4f89804fe5949502c737bf3db7e02e71cd564284"
     },
     "hierarchy.json": {
-      "bytes": 445275,
-      "sha256": "d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13"
+      "bytes": 449927,
+      "sha256": "906db646be034d057b478a4bf1d21c0783e871d063d3607cd5d1d81bee66e196"
     },
     "index.html": {
-      "bytes": 4067,
-      "sha256": "1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7"
+      "bytes": 5659,
+      "sha256": "0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b"
     },
     "label-1-faces.bin.gz": {
       "bytes": 12926,
@@ -3444,13 +3460,17 @@
       "bytes": 1595531,
       "sha256": "d4d3f7f2482c4001b1d63dd34ca7de6b87d37996d6debc85f2088c7ebd7d6a6a"
     },
+    "schematic.js": {
+      "bytes": 1922,
+      "sha256": "90a4847055035e3a44168106dbe1fde23e8a594437161c3d9c4e663b9e9f6655"
+    },
     "viewer.css": {
-      "bytes": 1705,
-      "sha256": "c0f43ba7b355303898944e1b37c02086d62f77e792b7eb5ff35b77766b9ba6f1"
+      "bytes": 2064,
+      "sha256": "cf31854ca978c19abca2f243353bec7125e0a7b1a9d130656906bf1e87f21607"
     },
     "viewer.js": {
-      "bytes": 16938,
-      "sha256": "7d8ffaf46751312dc12508db6e6c0d229aafb154e73f2567d06e654138a4c5b8"
+      "bytes": 18337,
+      "sha256": "dd608ed30fae1ad2889d935a4b4d6738e0844559d9a52132db22c6d00dfb3c58"
     }
   },
   "runtime_metadata": {
@@ -3470,10 +3490,10 @@
     },
     "hierarchy.json": {
       "path": "data/radiology/holiatlas-hierarchy.json.gz",
-      "bytes": 51533,
-      "sha256": "419bfec5ee82fa2de045614c1c79b46189d603ecc1575bf17e2386542571f2d2",
-      "decoded_bytes": 445275,
-      "decoded_sha256": "d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13"
+      "bytes": 52288,
+      "sha256": "28e64529857bbcaba34d006e3740e87c40fb10606cf9c71b55e60bc22f80556a",
+      "decoded_bytes": 449927,
+      "decoded_sha256": "906db646be034d057b478a4bf1d21c0783e871d063d3607cd5d1d81bee66e196"
     }
   },
   "clinical_approval": false,

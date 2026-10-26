@@ -96,6 +96,8 @@ def before_continuation_bytes(path, raw, allow_older=False):
 
 
 def before_continuation_reference_fields(identifier, fields):
+    from tools.atlas_schematic_runtime_compatibility import before_atlas_schematic_reference_fields
+    fields = before_atlas_schematic_reference_fields(identifier, fields, allow_older=True)
     if identifier != 'ra.brain-anatomy':
         return fields
     result = copy.deepcopy(fields)

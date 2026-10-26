@@ -1,0 +1,48 @@
+{
+  "scope": "Current schematic-capable authenticated reader: original MRI response-corruption, retry and stale-request isolation; no production claim",
+  "allPassed": true,
+  "cases": [
+    {
+      "fault": "wrong-content-range",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "ignored-range",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "corrupted-body",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "missing-payload",
+      "rejected": true,
+      "recovered": true,
+      "nativePixelsExact": true,
+      "pageErrors": []
+    },
+    {
+      "fault": "delayed prior source after structure and contrast switches",
+      "staleSourceNeverShown": true,
+      "finalCode": 102,
+      "finalContrast": "T2",
+      "nativePixelsExact": true,
+      "cacheBoundRetained": true
+    }
+  ],
+  "sourceSHA256": {
+    "web/anatomy/holiatlas/viewer.js": "dd608ed30fae1ad2889d935a4b4d6738e0844559d9a52132db22c6d00dfb3c58",
+    "web/anatomy/holiatlas/index.html": "0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b",
+    "primer/server.py": "f1b812e11d657ad684b927c119ded6d73ef1db1490b09e93d8f6c2c3e046c2ed",
+    "primer/holiatlas_reference.py": "949a6527796820f151c8dc5ee2561286d10224534bc4c45f66a66025cafc45cf"
+  }
+}
