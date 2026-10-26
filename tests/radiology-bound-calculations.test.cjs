@@ -410,6 +410,7 @@ test('duplex scope reveals only the acquired limb, limits bulk normal and clears
  assert(!descendants(root).some(n=>n.textContent==='Right Common femoral vein'));
  assert(descendants(root).some(n=>n.textContent==='Left Common femoral vein'));
  assert(!Object.keys(root.getState().selections).some(k=>k.startsWith('anatomy-right-')));
+ assert.equal(root.getReport(),'TECHNIQUE\nExamined side is left.','Shared superficial and regional observations must not transfer to another limb');
  const forged={...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{normal:true}}};
  assert.equal(api.compose(schema,forged).complete,false);
  assert.equal(api.compose(schema,{...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{unexpected:'cannot vanish'}}}).complete,false);

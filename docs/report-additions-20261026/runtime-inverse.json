@@ -25,7 +25,7 @@
     },
     "web/radiology-structured.js": {
       "before_sha256": "79fed9bd31d02238ed1fb75d0d3bbf2fcc92fd713cada333a9b7ba8256dca88e",
-      "after_sha256": "7c79718264be863b8603a7068c0759e77d260d1be90193a5d0b1afd8b646e678",
+      "after_sha256": "dbcb99c32a5fe935745ff522ad2435b8e2d450002814804440368571381c0e76",
       "changes": [
         {
           "start": 144,
@@ -52,32 +52,38 @@
           "before": "        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};\n"
         },
         {
-          "start": 441,
-          "end": 442,
-          "after": "        if (!sectionScopeActive(section,state.selections)) continue;\n",
+          "start": 350,
+          "end": 355,
+          "after": "          }\n          const scopeControl = (investigation()?.sections || []).map(section => section.requires_scope).find(scope => scope?.finding_id === descriptor.id && scope.slot_id === slot.id);\n          if (scopeControl && value !== next) {\n            for (const key of Object.keys(state.selections)) if (key !== scopeControl.section_id) delete state.selections[key];\n            state.calculator_inputs = {}; calculations.clear();\n",
           "before": ""
         },
         {
           "start": 446,
           "end": 447,
+          "after": "        if (!sectionScopeActive(section,state.selections)) continue;\n",
+          "before": ""
+        },
+        {
+          "start": 451,
+          "end": 452,
           "after": "          if (exam.sections.some(row => row.group === section.group && sectionScopeActive(row,state.selections) && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n",
           "before": "          if (exam.sections.some(row => row.group === section.group && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n"
         },
         {
-          "start": 504,
-          "end": 505,
+          "start": 509,
+          "end": 510,
           "after": "      if(notify)for(const section of investigation()?.sections || [])if(!sectionScopeActive(section,state.selections))delete state.selections[section.id];\n",
           "before": ""
         },
         {
-          "start": 511,
-          "end": 512,
+          "start": 516,
+          "end": 517,
           "after": "      const remaining = (investigation()?.sections || []).filter(section => { if(!sectionScopeActive(section,state.selections))return false; const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;\n",
           "before": "      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;\n"
         },
         {
-          "start": 525,
-          "end": 527,
+          "start": 530,
+          "end": 532,
           "after": "        const boundElsewhere = (schema.investigations || []).some(item => item.sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id)));\n        if ((bound || boundElsewhere) && !Object.values(inputs).some(present)) continue;\n",
           "before": "        if (bound && !Object.values(inputs).some(present)) continue;\n"
         }

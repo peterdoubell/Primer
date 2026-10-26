@@ -349,6 +349,11 @@ window.PrimerStructuredReporting = (() => {
             delete context[descriptor.id + '.' + slot.id];
             if (context[descriptor.id]) delete context[descriptor.id][slot.id];
           }
+          const scopeControl = (investigation()?.sections || []).map(section => section.requires_scope).find(scope => scope?.finding_id === descriptor.id && scope.slot_id === slot.id);
+          if (scopeControl && value !== next) {
+            for (const key of Object.keys(state.selections)) if (key !== scopeControl.section_id) delete state.selections[key];
+            state.calculator_inputs = {}; calculations.clear();
+          }
           if (next === undefined) delete values[slot.id]; else values[slot.id] = next; update(true);
         };
         if (slot.kind === 'choice') {
