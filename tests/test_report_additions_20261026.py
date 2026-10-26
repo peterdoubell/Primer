@@ -86,3 +86,43 @@ def test_acquired_side_never_allows_an_unexamined_limb_normal(iid):
  assert render_descriptors(f,state(iid,{'anatomy-side':both,right['id']:{'normal':True},left['id']:{'normal':True}}))['valid']
  assert not render_descriptors(f,state(iid,{right['id']:{'normal':True}}))['valid']
  assert not render_descriptors(f,state(iid,{left['id']:{'unknown':'must not disappear'}}))['valid']
+
+
+def test_additional_descriptors_respect_structure_and_modality():
+ for iid in ['msk.mri-spine-cervical-postoperative','msk.mri-spine-thoracic-postoperative','msk.mri-spine-lumbar-postoperative']:
+  rows={r['anatomy_id']:r for r in EXAMS[iid][1]['sections']}
+  assert 'lucency' not in ' '.join(f['text'] for f in rows['hardware']['findings']).lower()
+  if 'lumbar' not in iid:assert 'cauda equina' not in ' '.join(f['text'] for f in rows['neural']['findings']).lower()
+ for iid in ['neuro.mri-spine-cervical','neuro.mri-spine-thoracic']:
+  assert 'operative bed' not in ' '.join(r['normal']['text'] for r in EXAMS[iid][1]['sections'] if r['normal']).lower()
+ scrotal={r['anatomy_id']:r for r in EXAMS['us.scrotum-adult'][1]['sections']}
+ assert not any('twisted' in f['text'] for key,r in scrotal.items() if not key.endswith('spermatic-cord') for f in r['findings'])
+ assert not any('mass' in f['label'].lower() or 'dimensions' in f['label'].lower() for key,r in scrotal.items() if key.endswith('testicular-perfusion') for f in r['findings'])
+ for iid in ['ct.kub','ct.urography']:assert 'echogenic material' not in ' '.join(f['text'] for r in EXAMS[iid][1]['sections'] for f in r['findings'])
+ knee={r['anatomy_id'] for r in EXAMS['msk.mri-knee-postoperative'][1]['sections']}
+ assert {'graft-'+ligament+'-'+site+'-tunnel' for ligament in ['acl','pcl'] for site in ['femoral','tibial']} <= knee
+ for iid in ['msk.mri-brachial-plexus','msk.mri-lumbosacral-plexus']:
+  for r in EXAMS[iid][1]['sections']:
+   if 'root' not in r['label'].lower():assert not any('avulsed root' in f['text'] for f in r['findings'])
+
+
+def test_radiograph_named_bone_parts_do_not_receive_overlapping_parent_negatives():
+ assert 'proximal-ulnar-shaft' in {r['anatomy_id'] for r in EXAMS['xr.elbow'][1]['sections']}
+ assert 'distal-tibial-metaphysis' in {r['anatomy_id'] for r in EXAMS['xr.ankle'][1]['sections']}
+ assert {'right-iliac-wing','left-iliac-wing'} <= {r['anatomy_id'] for r in EXAMS['xr.pelvis'][1]['sections']}
+ for iid in ['xr.knee','xr.knee-arthroplasty']:
+  assert 'suprapatellar-effusion' in {r['anatomy_id'] for r in EXAMS[iid][1]['sections']}
+
+
+def test_routine_ultrasound_measurements_can_accompany_normal_organs():
+ iid='us.scrotum-adult';form,inv=EXAMS[iid];rows={r['anatomy_id']:r for r in inv['sections']}
+ assert not rows['right-testicular-perfusion'].get('repeatable')
+ assert not rows['right-testis'].get('repeatable')
+ assert rows['right-testis-focal-findings']['repeatable']
+ result=render_descriptors(form,state(iid,{'anatomy-right-testis':{'normal':True},'anatomy-right-testis-measurements':selected(iid,'right-testis-measurements',{'size':{'slot-1':40,'slot-2':25,'slot-3':20}})}))
+ assert result['valid'] and '40 × 25 × 20 mm' in result['text'] and 'no focal abnormality' in result['text'].lower()
+ assert 'Lesion 1' not in result['text']
+ iid='us.abdomen';form,inv=EXAMS[iid];rows={r['anatomy_id']:r for r in inv['sections']}
+ assert not rows['main-portal-vein'].get('repeatable')
+ assert not rows['gallbladder'].get('repeatable')
+ assert rows['liver-right-lobe-focal-findings']['repeatable']

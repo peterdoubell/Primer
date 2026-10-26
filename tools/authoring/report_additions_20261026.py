@@ -541,6 +541,153 @@ for iid,inv in OUT['investigations'].items():
   inv['sections']=[r for r in inv['sections'] if r['id']!='weight-bearing']
 OUT['coverage']=[{'investigation_id':iid,'expected_anatomy_ids':[r['id'] for r in inv['sections']]} for iid,inv in OUT['investigations'].items()]
 
+# Keep structure-specific wording and modality limits explicit.
+for iid,replacements in {
+ 'xr.elbow':{'Proximal ulna':'Proximal ulnar shaft'},
+ 'xr.ankle':{'Distal tibia':'Distal tibial metaphysis'},
+ 'xr.pelvis':{'Right ilium':'Right iliac wing','Left ilium':'Left iliac wing'},
+}.items():
+ for r in OUT['investigations'][iid]['sections']:
+  old=r['label']
+  if old not in replacements:continue
+  new=replacements[old];r['label']=new;r['id']=slug(new)
+  if r.get('normal'):r['normal']=r['normal'].replace(old,new)
+  for finding in r['findings']:finding['text']=finding['text'].replace(old,new)
+for iid,inv in OUT['investigations'].items():
+ if iid.startswith('xr.'):
+  for r in inv['sections']:
+   if r['group']=='Joints' and r['label'] not in ['Ulnohumeral joint','Ankle mortise']:
+    r['findings']=[x for x in r['findings'] if x['id']!='effusion']
+for iid in ['xr.knee','xr.knee-arthroplasty']:
+ OUT['investigations'][iid]['sections'].append(row('suprapatellar-effusion','Suprapatellar recess','Soft tissues','No visible suprapatellar effusion.',[f('effusion','Effusion','A [small / moderate / large] suprapatellar effusion is visible.')],('acr-xr',)))
+for iid,inv in OUT['investigations'].items():
+ if iid.startswith('msk.mri-spine-') and iid.endswith('postoperative'):
+  for index,r in enumerate(inv['sections']):
+   if r['id']=='hardware':
+    inv['sections'][index]=row('hardware','Implants and susceptibility artefact','Postoperative findings',None,[f('configuration','Observed configuration','The MR-visible operative configuration is [posterior instrumentation / anterior instrumentation / interbody implant / disc replacement / combined instrumentation].'),f('artefact','Artefact','Implant-related artefact [does not substantially limit assessment / partly obscures the operated level / severely limits assessment].'),f('fluid','Peri-implant fluid','Peri-implant fluid is visible on the acquired sequences.'),f('marrow','Adjacent marrow','Adjacent marrow shows [oedema / fatty change / heterogeneous signal].')],('essr',),exclude=True)
+ if iid.startswith('neuro.mri-spine-'):
+  for r in inv['sections']:
+   if r.get('normal'):r['normal']=r['normal'].replace('disc / operative bed','disc')
+   for finding in r['findings']:
+    if finding['label']=='Disc / scar':finding['label']='Disc contour'
+ if iid in ['msk.mri-brachial-plexus','msk.mri-lumbosacral-plexus']:
+  for r in inv['sections']:
+   if 'root' not in r['label'].lower():
+    for finding in r['findings']:
+     if finding['id']=='continuity':finding['text']=finding['text'].replace(' / avulsed root','')
+ if iid.startswith('msk.ultrasound-'):
+  for r in inv['sections']:
+   if r['label'] in ['Achilles tendon','Patellar tendon','Quadriceps tendon','Plantar fascia']:
+    for finding in r['findings']:
+     if finding['id']=='sheath':
+      finding['label']='Surrounding tissues';finding['text']=r['label']+': [surrounding oedema / surrounding hyperaemia / adjacent tissue thickening].'
+foot=OUT['investigations']['msk.ultrasound-foot']
+for index,r in enumerate(foot['sections']):
+ if r['group']=='Nerves' and 'intermetatarsal space' in r['label']:
+  foot['sections'][index]=nerve('Common plantar digital nerve at the '+r['label'].lower())
+# Scrotal perfusion, cord, tunica and epididymis do not share interchangeable findings.
+for r in OUT['investigations']['us.scrotum-adult']['sections']:
+ name=r['label'];key=r['id']
+ if key.endswith('-testis'):
+  r['findings']=[f('size','Testicular dimensions',name+' measures __ × __ × __ mm.'),f('lesion','Focal lesion',name+': a [solid / simple cystic / complex cystic / mixed] lesion measures __ × __ mm.'),f('texture','Echotexture',name+': [homogeneous / heterogeneous / diffusely hypoechoic] echotexture.'),f('calcification','Calcification',name+': [scattered punctate calcifications / diffuse microlithiasis / coarse calcification].')]
+ elif key.endswith('-testicular-perfusion'):
+  r['findings']=[f('flow','Doppler perfusion',name+': [preserved flow / increased flow / reduced flow / absent detected flow / technically indeterminate flow].'),f('spectral','Spectral assessment',name+': [preserved arterial and venous signals / high-resistance arterial signal / reversed diastolic arterial flow / absent venous signal].')]
+ elif '-epididymal-' in key:
+  r['findings']=[f('size','Size',name+': [normal size / mild enlargement / marked enlargement].'),f('lesion','Focal lesion',name+': a [simple cyst / complex cyst / solid lesion] measures __ × __ mm.'),f('flow','Doppler activity',name+': [normal / increased / indeterminate] Doppler activity.'),f('texture','Echotexture',name+': [homogeneous / heterogeneous / hypoechoic] echotexture.'),f('calcification','Calcification',name+': focal calcification.')]
+ elif key.endswith('-spermatic-cord'):
+  r['findings']=[f('twist','Cord configuration',name+': a [twisted / redundant without demonstrated twist] cord configuration.'),f('thickening','Thickening',name+': thickening and increased Doppler activity.'),f('lesion','Focal lesion',name+': a [fat-containing / solid / cystic] lesion measures __ × __ mm.')]
+ elif key.endswith('-tunica-vaginalis'):
+  r['findings']=[f('hydrocele','Fluid',name+': [small / moderate / large] [simple / complex / septated] fluid.'),f('wall','Tunical change',name+': [thickening / calcification / focal nodule].')]
+ elif key.endswith('-inguinal-canal'):
+  r['findings']=[f('hernia','Hernia',name+': a [fat-containing / bowel-containing] hernia is demonstrated.'),f('dynamic','Performed dynamic assessment',name+': the hernia is [reducible / partly reducible / non-reducible] on the performed manoeuvre.',['hernia']),f('testis','Testis location',name+': an inguinal testis is identified.'),f('mass','Focal lesion',name+': a focal lesion measures __ × __ mm.')]
+for iid in ['ct.kub','ct.urography']:
+ for r in OUT['investigations'][iid]['sections']:
+  for finding in r['findings']:
+   if finding['id']=='material':finding['text']=finding['text'].replace('echogenic material','soft-tissue attenuation material')
+# Complete adult abdominal ultrasound: use organ-appropriate observations.
+for r in OUT['investigations']['us.abdomen']['sections']:
+ name=r['label'];key=r['id']
+ if key.startswith('liver-'):
+  r['normal']=name+': homogeneous parenchyma without a focal lesion in the visualised portion.'
+  r['findings']=[f('texture','Parenchymal texture',name+': [increased echogenicity / coarse heterogeneous texture / nodular contour].'),f('lesion','Focal lesion',name+': a [simple cystic / complex cystic / solid hypoechoic / solid echogenic / heterogeneous] lesion measures __ × __ mm.'),f('visibility','Visibility',name+': [fully assessed / partly visualised / substantially obscured].')]
+ elif key=='main-portal-vein':
+  r['normal']='No main portal venous dilatation or visible thrombus.'
+  r['findings']=[f('diameter','Diameter','Main portal vein diameter __ mm.'),f('flow','Performed Doppler assessment','On performed Doppler assessment portal flow is [hepatopetal / hepatofugal / bidirectional / not detected / technically indeterminate].'),f('thrombus','Thrombus','[Partial / occlusive] main portal venous thrombus is visible.')]
+ elif key=='gallbladder':
+  r['normal']='No gallbladder calculus, wall thickening or pericholecystic fluid.'
+  r['findings']=[f('stones','Calculi','[Single / multiple] gallbladder calculi.'),f('sludge','Sludge','Gallbladder sludge is present.'),f('wall','Wall thickness','Gallbladder wall thickness __ mm.'),f('fluid','Pericholecystic fluid','Pericholecystic fluid is present.'),f('murphy','Performed sonographic Murphy assessment','Performed sonographic Murphy assessment is [positive / negative / indeterminate].'),f('polyp','Polypoid lesion','A gallbladder polypoid lesion measures __ mm.'),f('absent','Cholecystectomy','The gallbladder is surgically absent.')]
+ elif key=='common-bile-duct':
+  r['normal']='No visible bile-duct dilatation or common-duct calculus.'
+  r['findings']=[f('diameter','Duct diameter','Common bile duct diameter __ mm.'),f('stone','Visible calculus','A visible common bile duct calculus measures __ mm.'),f('intrahepatic','Intrahepatic ducts','[Mild / moderate / severe] intrahepatic duct dilatation.'),f('visibility','Distal duct visibility','The distal common duct is [visualised / partly obscured / not visualised].')]
+ elif key.startswith('pancreatic-'):
+  r['normal']=name+': no focal abnormality in the visualised portion.'
+  r['findings']=[f('lesion','Focal lesion',name+': a [solid / cystic / complex] lesion measures __ × __ mm.'),f('texture','Parenchymal texture',name+': [heterogeneous / hypoechoic / echogenic] parenchyma.'),f('calcification','Calcification',name+': calcification is visible.'),f('duct','Visible pancreatic duct',name+': visible pancreatic duct diameter __ mm.'),f('visibility','Visibility',name+': [fully visualised / partly visualised / not visualised].')]
+ elif key=='spleen':
+  r['normal']='The visualised splenic parenchyma is homogeneous without a focal lesion.'
+  r['findings']=[f('length','Length','Maximum splenic length __ mm.'),f('lesion','Focal lesion','A [solid / simple cystic / complex cystic] splenic lesion measures __ × __ mm.'),f('texture','Echotexture','Heterogeneous splenic echotexture.')]
+ elif key=='abdominal-aorta':
+  r['normal']='The visualised abdominal aorta is not aneurysmally dilated.'
+  r['findings']=[f('diameter','Maximum diameter','Maximum assessed aortic AP diameter __ mm.'),f('aneurysm','Aneurysm morphology','A [fusiform / saccular] aortic aneurysm is identified.'),f('thrombus','Mural thrombus','Mural thrombus is present within the assessed aortic segment.'),f('plaque','Atheroma','Aortic atheromatous plaque is visible.'),f('visibility','Visibility','The aorta is [fully assessed / partly visualised / substantially obscured].')]
+ elif key=='inferior-vena-cava':
+  r['normal']='No IVC dilatation in the visualised segment.'
+  r['findings']=[f('calibre','Calibre','The assessed IVC is [dilated / small in calibre].'),f('thrombus','Visible thrombus','Visible IVC thrombus is present.'),f('flow','Performed Doppler assessment','Performed IVC Doppler assessment shows [preserved flow / altered flow / no detected flow / technically indeterminate flow].'),f('visibility','Visibility','The IVC is [visualised / partly visualised / not visualised].')]
+OUT['coverage']=[{'investigation_id':iid,'expected_anatomy_ids':[r['id'] for r in inv['sections']]} for iid,inv in OUT['investigations'].items()]
+
+# The imaged neural structures depend on the spinal region.
+for iid,inv in OUT['investigations'].items():
+ if not (iid.startswith('msk.mri-spine-') or iid.startswith('neuro.mri-spine-')):continue
+ for r in inv['sections']:
+  if r['id']!='neural':continue
+  if 'cervical' in iid:
+   r['normal']='No focal abnormality of the imaged cervical spinal cord.'
+   r['findings']=[x for x in r['findings'] if x['id']!='clumping']
+  elif 'thoracic' in iid:
+   r['normal']='No focal abnormality of the imaged thoracic cord or included conus.'
+   r['findings']=[x for x in r['findings'] if x['id']!='clumping']
+  else:r['normal']='No focal abnormality of the imaged conus or cauda equina.'
+# Each reconstruction tunnel has independent observations and measurements.
+knee=OUT['investigations']['msk.mri-knee-postoperative']
+for r in knee['sections']:
+ if r['id'] in ['graft-acl','graft-pcl']:r['findings']=[x for x in r['findings'] if x['id'] not in ['tunnel','tunnel-size']]
+for ligament in ['ACL','PCL']:
+ for site in ['femoral','tibial']:
+  name=ligament+' '+site+' tunnel'
+  knee['sections'].append(row('graft-'+ligament.lower()+'-'+site+'-tunnel',name,'Reconstruction tunnels',None,[f('diameter','Diameter',name+': diameter __ mm.'),f('widening','Widening',name+': [no widening / mild widening / marked widening].'),f('cyst','Tunnel cyst',name+': a tunnel-related cyst is present.'),f('position','Reviewed position',name+': position is [expected / malpositioned / not confidently assessed].'),f('fixation','MR-visible fixation',name+': [expected MR appearance / displacement suspected / obscured by artefact].')],('essr',),exclude=True))
+OUT['coverage']=[{'investigation_id':iid,'expected_anatomy_ids':[r['id'] for r in inv['sections']]} for iid,inv in OUT['investigations'].items()]
+
+# Routine organ assessments and measurements are not lesion records. Keep focal
+# findings repeatable in their own rows so dimensions can accompany a normal organ.
+for iid in ['us.abdomen','us.renal-bladder','us.scrotum-adult','ct.kub','ct.urography']:
+ inv=OUT['investigations'][iid];refined=[]
+ for r in inv['sections']:
+  if not r.get('repeatable'):
+   if iid=='ct.urography' and r['id'].startswith('urothelial-'):
+    negative=next((f for f in r['findings'] if f['id']=='negative'),None)
+    if negative:r['normal']=negative['text'];r['findings']=[f for f in r['findings'] if f['id']!='negative']
+   refined.append(r);continue
+  parent=copy.deepcopy(r);parent.pop('repeatable',None);parent.pop('repeat_label',None)
+  focal_ids={f['id'] for f in parent['findings'] if f['id'] in {'mass','lesion','stone','polyp','foreign-body'}}
+  changed=True
+  while changed:
+   previous=set(focal_ids)
+   focal_ids.update(f['id'] for f in parent['findings'] if set(f.get('requires_any',[])) & focal_ids)
+   changed=focal_ids!=previous
+  focal=[f for f in parent['findings'] if f['id'] in focal_ids]
+  measurements=[f for f in parent['findings'] if f['id'] not in focal_ids and '__' in f['text'] and not f.get('requires_any')]
+  measured_ids={f['id'] for f in measurements}
+  parent['findings']=[f for f in parent['findings'] if f['id'] not in focal_ids | measured_ids]
+  for finding in parent['findings']:
+   if finding['id']=='dilatation':finding['text']=finding['text'].replace('[mild / moderate / severe] dilatation','[no / mild / moderate / severe] dilatation')
+  refined.append(parent)
+  if measurements:refined.append(row(parent['id']+'-measurements',parent['label']+' measurements',parent['group'],None,measurements,tuple(parent['source_ids']),exclude=True))
+  if focal:
+   for finding in focal:finding['invalidates_normal']=list(dict.fromkeys(finding.get('invalidates_normal',[])+[parent['id']]))
+   child=row(parent['id']+'-focal-findings',parent['label']+' focal findings',parent['group'],None,focal,tuple(parent['source_ids']),repeat=True,exclude=True)
+   child['repeat_label']='Calculus' if {'stone'}=={f['id'] for f in focal if not f.get('requires_any')} else 'Finding'
+   refined.append(child)
+ inv['sections']=refined
+OUT['coverage']=[{'investigation_id':iid,'expected_anatomy_ids':[r['id'] for r in inv['sections']]} for iid,inv in OUT['investigations'].items()]
+
 if __name__=='__main__':
  p=ROOT/'data/radiology/anatomic-additions-20261026.json';p.write_text(json.dumps(OUT,ensure_ascii=False,indent=2)+'\n')
  bindings_path=ROOT/'data/radiology/descriptor-calculation-bindings.json'
