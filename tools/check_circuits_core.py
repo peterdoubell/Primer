@@ -1,0 +1,123 @@
+"""Independent rational MNA and exponential-convolution oracle; prototype only."""
+from fractions import Fraction as Q
+import hashlib,itertools,json,math,random,subprocess
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+ROOT=HERE.parent
+CORE=ROOT/'web/circuits-induction-core.js'
+TOPO={'single':(['A','D'],[('A','D')]),'series':(['A','B','C','D'],[('A','B'),('B','C'),('C','D')]),'parallel':(['A','D'],[('A','D')]*3),'mixed':(['A','B','D'],[('A','B'),('B','D'),('B','D')]),'bridge':(['A','B','C','D'],[('A','B'),('B','D'),('A','C'),('C','D'),('B','C')])}
+def close(a,b,label,scale=1,tol=3e-9):
+ assert a is not None and math.isfinite(a) and abs(a-float(b))<=tol*max(scale,1,abs(float(b))), (label,a,float(b))
+def rref(A,b):
+ M=[list(r)+[x] for r,x in zip(A,b)];n=len(A[0]);pivot={};r=0
+ for c in range(n):
+  at=next((i for i in range(r,len(M))if M[i][c]),None)
+  if at is None:continue
+  M[r],M[at]=M[at],M[r];v=M[r][c];M[r]=[x/v for x in M[r]]
+  for i in range(len(M)):
+   if i!=r and M[i][c]:
+    v=M[i][c];M[i]=[a-v*b for a,b in zip(M[i],M[r])]
+  pivot[c]=r;r+=1
+ if any(not any(row[:n]) and row[n] for row in M):return None
+ free=[i for i in range(n)if i not in pivot];out=[]
+ for c in range(n):
+  if c in pivot:row=M[pivot[c]];out.append([row[n]]+[-row[f]for f in free])
+  else:out.append([Q(0)]+[Q(c==f)for f in free])
+ return out
+
+def mna(s):
+ nodes,edges=TOPO[s['topology']];unknown_nodes=[n for n in nodes if n!='D'];shorts=[i for i in range(len(edges))if s['status'][i]=='short'];size=len(unknown_nodes)+len(shorts)+1;source=size-1;A=[];b=[]
+ def stamp(row,node,v):
+  if node!='D':row[unknown_nodes.index(node)]+=v
+ for node in unknown_nodes:
+  row=[Q(0)]*size
+  for i,(u,v)in enumerate(edges):
+   sign=1 if node==u else -1 if node==v else 0
+   if not sign:continue
+   if s['status'][i]=='normal':g=Q(sign)/Q(str(s['resistance'][i]));stamp(row,u,g);stamp(row,v,-g)
+   elif s['status'][i]=='short':row[len(unknown_nodes)+shorts.index(i)]+=sign
+  if node=='A':row[source]-=1
+  A.append(row);b.append(Q(0))
+ for i in shorts:
+  row=[Q(0)]*size;u,v=edges[i];stamp(row,u,Q(1));stamp(row,v,Q(-1));A.append(row);b.append(Q(0))
+ row=[Q(0)]*size;stamp(row,'A',Q(1));A.append(row);b.append(sum(Q(str(x))*sign for x,sign in zip(s['cells'],s['polarity'])))
+ result=rref(A,b)
+ if result is None:return None
+ zero=[Q(0)]*len(result[0]);V={n:result[i]for i,n in enumerate(unknown_nodes)};V['D']=zero
+ def value(expression):return expression[0]if not any(expression[1:])else None
+ currents=[];drops=[]
+ for i,(u,v)in enumerate(edges):
+  dv=[a-b for a,b in zip(V[u],V[v])];drops.append(value(dv))
+  currents.append(Q(0)if s['status'][i]=='open' else value(result[len(unknown_nodes)+shorts.index(i)])if s['status'][i]=='short' else value([x/Q(str(s['resistance'][i]))for x in dv]))
+ return {'nodes':{n:value(v)for n,v in V.items()},'source':value(result[source]),'currents':currents,'drops':drops}
+
+def simpson(f,a,b,tol):
+ if a==b:return 0.
+ c=(a+b)/2;fa,fc,fb=f(a),f(c),f(b);whole=(b-a)*(fa+4*fc+fb)/6
+ def rec(a,b,fa,fc,fb,S,tol,depth):
+  c=(a+b)/2;l=(a+c)/2;r=(c+b)/2;fl,fr=f(l),f(r);left=(c-a)*(fa+4*fl+fc)/6;right=(b-c)*(fc+4*fr+fb)/6;delta=left+right-S
+  if depth==0 or abs(delta)<15*tol:return left+right+delta/15
+  return rec(a,c,fa,fl,fc,left,tol/2,depth-1)+rec(c,b,fc,fr,fb,right,tol/2,depth-1)
+ return rec(a,b,fa,fc,fb,whole,tol,24)
+def main():
+ rng=random.Random(20261026);states=[]
+ for topology,(nodes,edges)in TOPO.items():
+  for conditions in itertools.product(['normal','open','short'],repeat=len(edges)):
+   for cells,polarity in [([6,0,0],[1,1,1]),([1.5,1.5,0],[1,-1,1]),([1.5,1.5,3],[1,1,1]),([6,3,0],[-1,1,1])]:states.append({'topology':topology,'status':list(conditions)+['normal']*(5-len(edges)),'cells':cells,'polarity':polarity,'resistance':[3,6,5,7,11]})
+ states.extend([{'topology':'single','cells':[.1,.2,.3],'polarity':[1,1,-1],'status':['short','normal','normal','normal','normal']},{'topology':'single','cells':[1,1e-17,1],'polarity':[1,1,-1],'status':['short','normal','normal','normal','normal']},{'topology':'single','cells':[12,0,0],'resistance':[4,6,5,7,11]},{'topology':'single','cells':[12,0,0],'resistance':[24,6,5,7,11]}])
+ for _ in range(80):states.append({'topology':'bridge','resistance':[rng.choice([.1,.5,1,3,6,17,240,1000])for _ in range(5)],'cells':[rng.choice([0,1.5,6,12,240])for _ in range(3)],'polarity':[rng.choice([-1,1])for _ in range(3)]})
+ induction=[]
+ for f,o,R,L,t in itertools.product([0,1,5],[-10,0,10],[1,100],[0,.001,2],[0,.1,5]):induction.append({'frequency':f,'rotation':o,'resistance':R,'inductance':L,'time':t,'fieldPhase':30,'angle':45})
+ for _ in range(35):induction.append({'turns':rng.randint(1,100),'radius':rng.uniform(.01,.5),'frequency':rng.uniform(0,5),'rotation':rng.uniform(-10,10),'fieldBias':rng.uniform(-1,1),'fieldAmplitude':rng.random(),'fieldPhase':rng.uniform(-180,180),'angle':rng.uniform(-180,180),'resistance':rng.uniform(1,100),'inductance':rng.uniform(.001,2),'time':rng.uniform(0,5)})
+ induction.extend([{'open':True,'rotation':3,'time':1},{'fieldBias':0,'fieldAmplitude':1,'fieldPhase':0,'frequency':0,'rotation':3},{'fieldAmplitude':0,'rotation':0},{'angle':90,'rotation':0,'frequency':2},{'angle':-90,'rotation':0,'frequency':5},{'turns':100,'radius':.5,'frequency':5,'rotation':10,'resistance':1,'inductance':.001,'time':5}])
+ script="const fs=require('fs'),c=require('./web/circuits-induction-core.js'),x=JSON.parse(fs.readFileSync(0));console.log(JSON.stringify({dc:x.dc.map(c.dc),induction:x.induction.map(s=>{const m=c.induction(s);return {...m,points:undefined};})}));"
+ results=json.loads(subprocess.run(['node','-e',script],cwd=ROOT,input=json.dumps({'dc':states,'induction':induction}),text=True,capture_output=True,check=True).stdout)
+ counts={'dc':0,'inconsistent_ideal_sources':0,'underdetermined_currents':0,'floating_potentials':0,'induction':0}
+ for model in results['dc']:
+  s=model['state'];exact=mna(s);counts['dc']+=1
+  if exact is None:assert model['status']=='inconsistent-source-short';counts['inconsistent_ideal_sources']+=1;continue
+  if exact['source']is None:assert model['sourceCurrent']is None and model['status']=='underdetermined-source-loop';counts['underdetermined_currents']+=1
+  else:close(model['sourceCurrent'],exact['source'],'MNA source current')
+  for n,V in exact['nodes'].items():
+   if V is None:assert model['nodes'][n]is None;counts['floating_potentials']+=1
+   else:close(model['nodes'][n],V,'MNA node voltage')
+  for i,e in enumerate(model['edges']):
+   I=exact['currents'][i];dv=exact['drops'][i]
+   if I is None:assert e['current']is None;counts['underdetermined_currents']+=1
+   else:close(e['current'],I,'MNA branch current')
+   if dv is None:assert e['drop']is None
+   else:close(e['drop'],dv,'MNA voltage drop')
+   if I is not None and e['status']=='normal':close(e['power'],I*I*Q(str(s['resistance'][i])),'resistive dissipation')
+  close(model['sourcePower'],model['loadPower'],'network power')
+  for x in model['kcl'].values():
+   if x is not None:close(x,0,'node KCL')
+ for model in results['induction']:
+  s=model['state'];p=model['current'];counts['induction']+=1;area=math.pi*s['radius']**2;K=s['turns']*area;w=2*math.pi*s['frequency'];o=s['rotation'];phi=math.radians(s['fieldPhase']);theta=math.radians(s['angle']);t=s['time'];R=s['resistance'];L=s['inductance']
+  def emf(t):
+   B=s['fieldBias']+s['fieldAmplitude']*math.sin(w*t+phi);dB=s['fieldAmplitude']*w*math.cos(w*t+phi);return -K*(dB*math.cos(theta+o*t)-B*o*math.sin(theta+o*t))
+  close(p['flux'],area*(s['fieldBias']+s['fieldAmplitude']*math.sin(w*t+phi))*math.cos(theta+o*t),'physical area/flux');close(p['emf'],emf(t),'Faraday derivative')
+  bound=K*(s['fieldAmplitude']*abs(w)+(abs(s['fieldBias'])+s['fieldAmplitude'])*abs(o))/R
+  if s['open']:current=0
+  elif L==0:current=emf(t)/R
+  else:
+   tau=L/R;end=min(45,t/tau);current=simpson(lambda u:emf(t-tau*u)*math.exp(-u)/R,0,end,1e-11*max(1,bound))
+  close(p['current'],current,'independent R-L convolution',max(1,bound),2e-9)
+  scale=max(1,abs(p['sourcePower']),abs(p['heatPower']),abs(p['storedPower']));assert abs(p['balance'])<=64*math.ulp(scale)
+  close(p['magneticTorque'],-K*p['current']*(s['fieldBias']+s['fieldAmplitude']*math.sin(w*t+phi))*math.sin(theta+o*t),'magnetic dipole torque')
+  close(p['motorPower']+p['fieldPower'],p['sourcePower'],'separate drive power contributions',scale)
+  if L==0 and s['fieldAmplitude']==0:assert p['motorPower']>=-1e-12
+  if L==0 and not s['open']:
+   ddB=-s['fieldAmplitude']*w*w*math.sin(w*t+phi);dB=s['fieldAmplitude']*w*math.cos(w*t+phi);B=s['fieldBias']+s['fieldAmplitude']*math.sin(w*t+phi);expected_rate=-K*(ddB*math.cos(theta+o*t)-2*dB*o*math.sin(theta+o*t)-B*o*o*math.cos(theta+o*t))/R;close(p['rate'],expected_rate,'resistive current derivative')
+  if L>0 and t==0:assert p['current']==0
+ # Independent check that the linearly drawn startup follows the exponential
+ # response, rather than joining zero to a late steady-state sample.
+ transient_script="const c=require('./web/circuits-induction-core.js'),m=c.induction({inductance:.001,resistance:100});console.log(JSON.stringify({tau:m.tau,points:m.points.filter(p=>p.t<=20*m.tau).map(p=>[p.t,p.current])}));"
+ transient=json.loads(subprocess.check_output(['node','-e',transient_script],cwd=ROOT,text=True));assert len(transient['points'])>=790
+ tau=transient['tau'];R=100;K=20*math.pi*.1**2;force=lambda t:-K*.1*2*math.pi*math.cos(2*math.pi*t)
+ interpolation=0.
+ for (a,ia),(b,ib)in zip(transient['points'],transient['points'][1:]):
+  t=(a+b)/2;expected=simpson(lambda u:force(t-tau*u)*math.exp(-u)/R,0,t/tau,1e-13);error=abs((ia+ib)/2-expected);interpolation=max(interpolation,error)
+ assert interpolation<4e-7,interpolation
+ report={'allPassed':True,'counts':counts,'fastTransientRegression':{'tauSeconds':tau,'samplesThrough20Tau':len(transient['points']),'maximumMidpointInterpolationErrorA':interpolation},'sourceSHA256':hashlib.sha256(CORE.read_bytes()).hexdigest(),'methods':['Exact Fraction modified-nodal equations, rational RREF including inconsistent and free-variable cases','Independent exponential-convolution quadrature of direct Faraday forcing','Per-node KCL, branch Ohm/power, source power and R-L energy identities'],'limits':'Checks ideal declared models only. No empirical coil/material or real wiring validation.'}
+ print(json.dumps(report,indent=2))
+if __name__=='__main__':main()

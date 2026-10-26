@@ -1,0 +1,22 @@
+{
+  "allPassed": true,
+  "counts": {
+    "dc": 1392,
+    "inconsistent_ideal_sources": 256,
+    "underdetermined_currents": 390,
+    "floating_potentials": 126,
+    "induction": 203
+  },
+  "fastTransientRegression": {
+    "tauSeconds": 1e-05,
+    "samplesThrough20Tau": 801,
+    "maximumMidpointInterpolationErrorA": 3.045977850439749e-07
+  },
+  "sourceSHA256": "5901c05cb0dab089457fc8b8bd642c2736de4ef6ce88b1ae07f9aebe05ebc8d3",
+  "methods": [
+    "Exact Fraction modified-nodal equations, rational RREF including inconsistent and free-variable cases",
+    "Independent exponential-convolution quadrature of direct Faraday forcing",
+    "Per-node KCL, branch Ohm/power, source power and R-L energy identities"
+  ],
+  "limits": "Checks ideal declared models only. No empirical coil/material or real wiring validation."
+}
