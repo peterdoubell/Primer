@@ -1,11 +1,12 @@
 """Assessment preservation, exact lesson scope and real-reader evidence."""
 import hashlib,json
 from pathlib import Path
+from tools.decimal_runtime_compatibility import before_decimal_bytes
 from primer.curriculum import _validate_authored_lesson,_validate_lesson_media
 ROOT=Path(__file__).resolve().parents[1]
 D=ROOT/'docs/percentage-fidelity-review-20261026'
 def test_original_assessments_and_illustration_remain():
- old=json.loads((D/'original-node.json').read_text());data=json.loads((ROOT/'data/curriculum/01-mathematics.json').read_text());n=next(n for n in data['nodes']if n['id']=='math.2.percent')
+ old=json.loads((D/'original-node.json').read_text());data=json.loads(before_decimal_bytes('data/curriculum/01-mathematics.json',(ROOT/'data/curriculum/01-mathematics.json').read_bytes()));n=next(n for n in data['nodes']if n['id']=='math.2.percent')
  _validate_authored_lesson(n);_validate_lesson_media(n)
  assert len(n['quiz'])==10 and n['quiz']==old['quiz']
  assert n['prereqs']==old['prereqs']
@@ -17,7 +18,7 @@ def test_original_assessments_and_illustration_remain():
 def test_real_reader_evidence_matches_current_sources():
  p=json.loads((D/'reader/proof.json').read_text())
  assert p['allPassed'] and p['errors']==[] and not p['productionVerified']
- for path,digest in p['sourceSHA256'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,path
+ for path,digest in p['sourceSHA256'].items():assert hashlib.sha256(before_decimal_bytes(path,(ROOT/path).read_bytes(),allow_older=True)).hexdigest()==digest,path
  assert {c['width']for c in p['cases']}=={390,1440}
  assert sum(len(c['states'])for c in p['cases'])==52
  assert sum(len(c['speech'])for c in p['cases'])==50

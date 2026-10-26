@@ -38,6 +38,7 @@ def test_cross_subject_model_invariants_and_interactions():
         check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+    assert "DECIMAL_BINDING math.2.decimals = decimal-workbench; 17 exact presets and invalid-draft recovery" in result.stdout
     assert "PERCENTAGE_BINDING math.2.percent = percentage-workbench; 13 exact presets and invalid-draft recovery" in result.stdout
     assert "FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions" in result.stdout
     assert "FLUIDS_BINDING phys.4.fluids = explore-fluid-forces-and-flow" in result.stdout

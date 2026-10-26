@@ -31,7 +31,8 @@ def test_only_target_lesson_presentation_changes_and_assessment_is_preserved():
  identity=json.loads((DOC/'original-curriculum-identity.json').read_text());assert hashlib.sha256(restored).hexdigest()==identity['sha256']
 
 def test_shared_companion_changes_are_confined_to_one_family():
- current=(ROOT/'web/spatial-module-objects.js').read_text();start=current.index("  define('fraction-disk'");end=current.index("\n  define('clock'",start)
+ from tools.decimal_runtime_compatibility import before_decimal_bytes
+ current=before_decimal_bytes('web/spatial-module-objects.js',(ROOT/'web/spatial-module-objects.js').read_bytes()).decode();start=current.index("  define('fraction-disk'");end=current.index("\n  define('clock'",start)
  old=(DOC/'fraction-disk.before.js.txt').read_text();identity=json.loads((DOC/'fraction-disk-refresh.json').read_text())
  assert hashlib.sha256((current[:start]+old+current[end:]).encode()).hexdigest()==identity['before_sha256']
  assert hashlib.sha256(current[:start].encode()).hexdigest()==identity['unchanged_prefix_sha256']

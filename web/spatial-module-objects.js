@@ -72,6 +72,8 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  if (window.PrimerDecimalSpatialFamily) families['decimal-base-ten'] = window.PrimerDecimalSpatialFamily;
+
   if (window.PrimerFidelitySpatialFamilies) {
     families['topology-open-set-geometry'] = window.PrimerFidelitySpatialFamilies.topology;
     families['relativistic-event-geometry'] = window.PrimerFidelitySpatialFamilies.relativity;
@@ -967,6 +969,8 @@
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((p.scenario === 'module.math.2.decimals' || p.family === 'decimal-base-ten')
+        && (p.scenario !== 'module.math.2.decimals' || p.family !== 'decimal-base-ten' || p.mode !== 'model' || p.lesson !== 'Decimals')) return false;
     if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')
         && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;
     if (!['model','context'].includes(p.mode) || typeof p.context !== 'string' || typeof p.lesson !== 'string') return false;

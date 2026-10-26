@@ -1,0 +1,124 @@
+{
+  "id": "math.2.decimals",
+  "title": "Decimals",
+  "stage": 2,
+  "goal": "Compute confidently with decimal numbers.",
+  "articles": [
+    "Decimal"
+  ],
+  "practice": "decimals",
+  "quiz": [
+    {
+      "kind": "numeric",
+      "prompt": "Compute 0.75 + 1.6.",
+      "answer": "2.35",
+      "explain": "Line up the decimal points: 0.75 + 1.60 = 2.35."
+    },
+    {
+      "kind": "choice",
+      "prompt": "Compute 0.4 x 0.3.",
+      "answer": "0.12",
+      "explain": "Multiply 4 x 3 = 12, then place two decimal digits (one from each factor): 0.12.",
+      "choices": [
+        "0.12",
+        "0.7",
+        "1.2",
+        "0.012"
+      ]
+    },
+    {
+      "kind": "choice",
+      "prompt": "Jo says 0.089 is bigger than 0.7 because 89 is bigger than 7. Which reply is correct?",
+      "answer": "Jo is wrong: 0.089 is less than a tenth",
+      "choices": [
+        "Jo is wrong: 0.089 is less than a tenth",
+        "Jo is right: more digits means a bigger number",
+        "Jo is right: 89 hundredths beats 7 tenths",
+        "Jo is wrong: the shorter decimal is the bigger one"
+      ],
+      "explain": "0.7 is seven tenths, while 0.089 is under one tenth, so Jo is wrong. But length settles nothing in either direction: 0.62 is the longer decimal and the larger number as well. Place value orders decimals; counting digits does not."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A pen costs $1.45. How much do 4 pens cost, in dollars?",
+      "answer": "5.8",
+      "explain": "4 x 1.45 = 5.80 dollars."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Compute 3 - 0.85.",
+      "answer": "2.15",
+      "explain": "Write 3 as 3.00 and subtract: 3.00 - 0.85 = 2.15."
+    },
+    {
+      "kind": "choice",
+      "prompt": "A ribbon 1.8 m long is cut into pieces each 0.6 m long. How many pieces do you get?",
+      "answer": "3",
+      "choices": [
+        "3",
+        "0.3",
+        "1.08",
+        "0.03"
+      ],
+      "explain": "Scale both numbers by 10 to get 18 divided by 6, which is 3. Dividing by a number below 1 gives an answer larger than you started with."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Compute 2.5 x 0.4.",
+      "answer": "1",
+      "explain": "25 x 4 = 100, and there are two decimal places between the two numbers, so the answer is 1.00, which is 1."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Round 3.478 to two decimal places.",
+      "answer": "3.48",
+      "explain": "The third decimal digit is 8, which is 5 or more, so the hundredths digit rounds up from 7 to 8."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "You buy items costing $3.40 and $2.75 and pay with a $10 note. How much change do you get, in dollars?",
+      "answer": "3.85",
+      "explain": "The items total $6.15, and $10 - $6.15 = $3.85."
+    },
+    {
+      "kind": "choice",
+      "prompt": "One scale shows a parcel as 1.2 kg and another shows it as 1.20 kg. Which statement is right?",
+      "answer": "They show the same mass",
+      "choices": [
+        "They show the same mass",
+        "The second reading is ten times heavier",
+        "The second reading is a tenth heavier",
+        "The first reading is a tenth of the second"
+      ],
+      "explain": "A zero at the end of a decimal adds no value: 1.20 kg is 1 kg and 2 tenths, exactly the same as 1.2 kg."
+    }
+  ],
+  "prereqs": [
+    "math.1.addition",
+    "math.1.place-value",
+    "math.1.multiplication",
+    "math.1.fractions-intro"
+  ],
+  "lesson_media": [
+    {
+      "id": "decimal-place-value-plate",
+      "kind": "illustration",
+      "src": "/app/illustrations/sapling/math/math-2-decimals-800.webp",
+      "srcset": "/app/illustrations/sapling/math/math-2-decimals-800.webp 800w, /app/illustrations/sapling/math/math-2-decimals-1600.webp 1600w",
+      "alt": "A place-value chart and number line show that 0.700 is greater than 0.089.",
+      "caption": "Compare decimals from the highest place value; trailing zeros do not change the number.",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "id": "math.2.decimals-concept-model",
+      "kind": "model",
+      "renderer": "concept-lab",
+      "title": "Add hundredths, regroup a whole",
+      "instructions": "Change two amounts in hundredths. Follow their coloured cells into the sum; a full grid is one whole.",
+      "props": {
+        "scenario": "math.2.decimals"
+      }
+    }
+  ]
+}
