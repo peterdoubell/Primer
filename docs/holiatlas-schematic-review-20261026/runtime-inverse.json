@@ -1,0 +1,400 @@
+{
+  "base_commit": "a8d9ee0998d263396e41923ca5a26dc41dfdb452",
+  "scope": "exact_atlas_schematic_and_two_compositions_only",
+  "files": {
+    "data/radiology/holiatlas-hierarchy.json.gz": {
+      "before_sha256": "419bfec5ee82fa2de045614c1c79b46189d603ecc1575bf17e2386542571f2d2",
+      "after_sha256": "28e64529857bbcaba34d006e3740e87c40fb10606cf9c71b55e60bc22f80556a",
+      "before_fixture": "docs/holiatlas-schematic-review-20261026/before-hierarchy.json.gz"
+    },
+    "data/radiology/holiatlas-reference.json": {
+      "before_sha256": "46a475c05cba0342fa1b35be45d5496cf69d607b6b77d6e9098426f2fe364bbf",
+      "after_sha256": "1cff09366d0197bcec49cd96dd09ea2ea1703a1615a1666672c709b640695ddc",
+      "changes": [
+        {
+          "start": 2,
+          "end": 5,
+          "before": "  \"hierarchy_classes\": 79,\n  \"hierarchy_triangles\": 22314324,\n  \"hierarchy_components26\": 741,\n",
+          "after": "  \"hierarchy_classes\": 81,\n  \"hierarchy_triangles\": 22598628,\n  \"hierarchy_components26\": 743,\n"
+        },
+        {
+          "start": 27,
+          "end": 28,
+          "before": "      \"sha256\": \"1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7\",\n",
+          "after": "      \"sha256\": \"0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b\",\n"
+        },
+        {
+          "start": 29,
+          "end": 31,
+          "before": "      \"caption\": \"Inspect 332 present fine source regions, 63 source-scale entries and 16 explicit overlapping compositions in matched MRI planes and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.\",\n      \"attribution\": \"holiAtlas v1.0 \\u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\\n\\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 16 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.\",\n",
+          "after": "      \"caption\": \"Inspect 332 present fine source regions, 63 source-scale entries and 18 explicit overlapping compositions in matched MRI planes, native-label schematics and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.\",\n      \"attribution\": \"holiAtlas v1.0 \\u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\\n\\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 18 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, native-label schematics with source orientation and calibrated scale bars, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.\",\n"
+        },
+        {
+          "start": 48,
+          "end": 50,
+          "before": "        \"source_compositions\": 16,\n        \"additional_distinct_aggregate_masks\": 50,\n",
+          "after": "        \"source_compositions\": 18,\n        \"additional_distinct_aggregate_masks\": 52,\n"
+        },
+        {
+          "start": 71,
+          "end": 73,
+          "before": "      \"bytes\": 1353,\n      \"sha256\": \"029e261ae9c9c3e89d605bfff76dc097414a20a5dd7e00dccabe732e759ff493\"\n",
+          "after": "      \"bytes\": 1428,\n      \"sha256\": \"ba7b3c5d1109ea3b1feb3f8412e4fd03b185dd48c02f15cf10f9798d600370ee\"\n"
+        },
+        {
+          "start": 128,
+          "end": 137,
+          "before": "      \"sha256\": \"f37af2ab8c6c07b0dcef791959353e069ac4f822f23abdc1a6d5254abef711af\"\n",
+          "after": "      \"sha256\": \"78292f2a5812e236284cff64aa3882b36d12a2ff7be22af8f22c1c81eec408f4\"\n    },\n    \"hierarchy-composition-left-angular-supramarginal-cortex-faces.bin.gz\": {\n      \"bytes\": 187021,\n      \"sha256\": \"6937927505e43b8273478852e9155f1e156b413dc174f20ee73c3458254990e0\"\n    },\n    \"hierarchy-composition-left-angular-supramarginal-cortex.mesh.gz\": {\n      \"bytes\": 699861,\n      \"sha256\": \"2329e5ec70d0d1b5358d8628fb91e9cff3f0636f931b7e55bdf5c55d15e3cdc8\"\n"
+        },
+        {
+          "start": 202,
+          "end": 210,
+          "before": "",
+          "after": "    \"hierarchy-composition-right-angular-supramarginal-cortex-faces.bin.gz\": {\n      \"bytes\": 203345,\n      \"sha256\": \"d28e19503bb31ab0ab3024be6ba7a5bd384af47cccd7958336909b9845a9c9a6\"\n    },\n    \"hierarchy-composition-right-angular-supramarginal-cortex.mesh.gz\": {\n      \"bytes\": 772437,\n      \"sha256\": \"281e363312be4e84fae0fec2cd7fe5bd926a94fae4a76c35f17f73adbe9b2cdc\"\n    },\n"
+        },
+        {
+          "start": 779,
+          "end": 781,
+          "before": "      \"bytes\": 445275,\n      \"sha256\": \"d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13\"\n",
+          "after": "      \"bytes\": 449927,\n      \"sha256\": \"906db646be034d057b478a4bf1d21c0783e871d063d3607cd5d1d81bee66e196\"\n"
+        },
+        {
+          "start": 783,
+          "end": 785,
+          "before": "      \"bytes\": 4067,\n      \"sha256\": \"1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7\"\n",
+          "after": "      \"bytes\": 5659,\n      \"sha256\": \"0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b\"\n"
+        },
+        {
+          "start": 3462,
+          "end": 3466,
+          "before": "",
+          "after": "    \"schematic.js\": {\n      \"bytes\": 1922,\n      \"sha256\": \"90a4847055035e3a44168106dbe1fde23e8a594437161c3d9c4e663b9e9f6655\"\n    },\n"
+        },
+        {
+          "start": 3467,
+          "end": 3469,
+          "before": "      \"bytes\": 1705,\n      \"sha256\": \"c0f43ba7b355303898944e1b37c02086d62f77e792b7eb5ff35b77766b9ba6f1\"\n",
+          "after": "      \"bytes\": 2064,\n      \"sha256\": \"cf31854ca978c19abca2f243353bec7125e0a7b1a9d130656906bf1e87f21607\"\n"
+        },
+        {
+          "start": 3471,
+          "end": 3473,
+          "before": "      \"bytes\": 16938,\n      \"sha256\": \"7d8ffaf46751312dc12508db6e6c0d229aafb154e73f2567d06e654138a4c5b8\"\n",
+          "after": "      \"bytes\": 18337,\n      \"sha256\": \"dd608ed30fae1ad2889d935a4b4d6738e0844559d9a52132db22c6d00dfb3c58\"\n"
+        },
+        {
+          "start": 3492,
+          "end": 3496,
+          "before": "      \"bytes\": 51533,\n      \"sha256\": \"419bfec5ee82fa2de045614c1c79b46189d603ecc1575bf17e2386542571f2d2\",\n      \"decoded_bytes\": 445275,\n      \"decoded_sha256\": \"d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13\"\n",
+          "after": "      \"bytes\": 52288,\n      \"sha256\": \"28e64529857bbcaba34d006e3740e87c40fb10606cf9c71b55e60bc22f80556a\",\n      \"decoded_bytes\": 449927,\n      \"decoded_sha256\": \"906db646be034d057b478a4bf1d21c0783e871d063d3607cd5d1d81bee66e196\"\n"
+        }
+      ]
+    },
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "537bab54550c6c8e4e0a4f40252119b1eacae260120653ed6c972857a081502b",
+      "after_sha256": "f6593271cc5d8cd18a38f6a248aebd51092ef763be7e5fd29eb8d2e1d99eb6d0",
+      "changes": [
+        {
+          "start": 105552,
+          "end": 105553,
+          "before": "            \"sha256\": \"1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7\",\n",
+          "after": "            \"sha256\": \"0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b\",\n"
+        },
+        {
+          "start": 105554,
+          "end": 105556,
+          "before": "            \"caption\": \"Inspect 332 present fine source regions, 63 source-scale entries and 16 explicit overlapping compositions in matched MRI planes and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.\",\n            \"attribution\": \"holiAtlas v1.0 \\u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\\n\\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 16 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.\",\n",
+          "after": "            \"caption\": \"Inspect 332 present fine source regions, 63 source-scale entries and 18 explicit overlapping compositions in matched MRI planes, native-label schematics and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.\",\n            \"attribution\": \"holiAtlas v1.0 \\u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\\n\\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 18 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, native-label schematics with source orientation and calibrated scale bars, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.\",\n"
+        },
+        {
+          "start": 105573,
+          "end": 105575,
+          "before": "              \"source_compositions\": 16,\n              \"additional_distinct_aggregate_masks\": 50,\n",
+          "after": "              \"source_compositions\": 18,\n              \"additional_distinct_aggregate_masks\": 52,\n"
+        }
+      ]
+    },
+    "primer/holiatlas_reference.py": {
+      "before_sha256": "7c616155df162b566707c7641aee02d1b7f374d08afe79d466f3d3cf9c83b38a",
+      "after_sha256": "949a6527796820f151c8dc5ee2561286d10224534bc4c45f66a66025cafc45cf",
+      "changes": [
+        {
+          "start": 13,
+          "end": 14,
+          "before": "REGISTRY_SHA256 = '46a475c05cba0342fa1b35be45d5496cf69d607b6b77d6e9098426f2fe364bbf'\n",
+          "after": "REGISTRY_SHA256 = '1cff09366d0197bcec49cd96dd09ea2ea1703a1615a1666672c709b640695ddc'\n"
+        },
+        {
+          "start": 15,
+          "end": 16,
+          "before": "                      'manifest.json', 'labels.json', 'hierarchy.json', 'ATTRIBUTION.txt', 'LICENSE.txt'})\n",
+          "after": "                      'manifest.json', 'labels.json', 'hierarchy.json', 'schematic.js', 'ATTRIBUTION.txt', 'LICENSE.txt'})\n"
+        },
+        {
+          "start": 35,
+          "end": 36,
+          "before": "            or len(data.get('files', {})) != 846 or not AUTHORED <= set(data['files'])\n",
+          "after": "            or len(data.get('files', {})) != 851 or not AUTHORED <= set(data['files'])\n"
+        },
+        {
+          "start": 147,
+          "end": 148,
+          "before": "    expected = {'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 16}\n",
+          "after": "    expected = {'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 18}\n"
+        },
+        {
+          "start": 153,
+          "end": 157,
+          "before": "            or hierarchy.get('presentClasses') != 79 or data.get('hierarchy_classes') != 79\n            or hierarchy.get('totalTriangles') != 22314324\n            or data.get('hierarchy_triangles') != 22314324\n            or data.get('hierarchy_components26') != 741):\n",
+          "after": "            or hierarchy.get('presentClasses') != 81 or data.get('hierarchy_classes') != 81\n            or hierarchy.get('totalTriangles') != 22598628\n            or data.get('hierarchy_triangles') != 22598628\n            or data.get('hierarchy_components26') != 743):\n"
+        },
+        {
+          "start": 192,
+          "end": 193,
+          "before": "    if components != 741:\n",
+          "after": "    if components != 743:\n"
+        }
+      ]
+    },
+    "tools/anatomy_sources/build_holiatlas_registry.py": {
+      "before_sha256": "a1424645c8a951c5ba07a46f902595e2c2c7da6f6d30301e2f9b9bae138cd2b7",
+      "after_sha256": "e8af46c5e06a3906b7a894456ac3e2b027cf2a4ee26dab05a870819b5de7aa91",
+      "changes": [
+        {
+          "start": 9,
+          "end": 15,
+          "before": "if notice.strip() not in p.read_text():p.write_text(p.read_text().rstrip()+'\\n'+notice)\n",
+          "after": "previous_notice=notice\nnotice=notice.replace('16 explicitly','18 explicitly').replace('multiscale MRI overlays, source-cell outlines and source-frame size comparison','multiscale MRI overlays, native-label schematics with source orientation and calibrated scale bars, source-cell outlines and source-frame size comparison')\ntext=p.read_text()\nif previous_notice.strip() in text:text=text.replace(previous_notice.strip(),notice.strip())\nelif notice.strip() not in text:text=text.rstrip()+'\\n'+notice\np.write_text(text)\n"
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "before": " raw=(dest/name).read_bytes();packed=gzip.compress(raw,mtime=0);path='data/radiology/holiatlas-'+name+'.gz';(root/path).write_bytes(packed);runtime[name]={'path':path,'bytes':len(packed),'sha256':sha(packed),'decoded_bytes':len(raw),'decoded_sha256':sha(raw)}\n",
+          "after": " raw=(dest/name).read_bytes();path='data/radiology/holiatlas-'+name+'.gz';existing=(root/path).read_bytes() if (root/path).exists() else None;packed=existing if existing is not None and gzip.decompress(existing)==raw else gzip.compress(raw,mtime=0);(root/path).write_bytes(packed);runtime[name]={'path':path,'bytes':len(packed),'sha256':sha(packed),'decoded_bytes':len(raw),'decoded_sha256':sha(raw)}\n"
+        },
+        {
+          "start": 19,
+          "end": 20,
+          "before": "item={'id':identifier,'modality':'Population T1/T2 templates, synthesized WMn-like contrast and source-label cell boundaries','coordinate_context':'single-source-population-template-in-declared-source-world-mm','title':'Brain template regions, tissue groups and source compositions','src':prefix+'index.html','manifest_url':prefix+'manifest.json','sha256':files['index.html']['sha256'],'manifest_sha256':files['manifest.json']['sha256'],'caption':'Inspect 332 present fine source regions, 63 source-scale entries and 16 explicit overlapping compositions in matched MRI planes and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.','attribution':(dest/'ATTRIBUTION.txt').read_text().strip(),'source_url':'https://zenodo.org/records/15690524','publication_url':'https://www.nature.com/articles/s41598-026-40186-2','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','source_grain':{'kind':'processed research population template','subject_count':75,'supplied_grid_mm':[.5,.5,.5],'supplied_grid_is_acquisition_resolution':False,'present_label_classes':332,'absent_named_label_classes':18,'retained_components26':868,'source_scale_entries':63,'source_compositions':16,'additional_distinct_aggregate_masks':50,'WMn_like_contrast_synthesized':True,'sulcal_classes_are_CSF_territories':True},'source_grant':{'publisher_explicitly_applies_license_to_data':True,'terms_url':'https://creativecommons.org/licenses/by/4.0/legalcode','attribution_url':prefix+'ATTRIBUTION.txt','marked_derived_version':True},'bound_source_ids':[identifier],**flags}\n",
+          "after": "item={'id':identifier,'modality':'Population T1/T2 templates, synthesized WMn-like contrast and source-label cell boundaries','coordinate_context':'single-source-population-template-in-declared-source-world-mm','title':'Brain template regions, tissue groups and source compositions','src':prefix+'index.html','manifest_url':prefix+'manifest.json','sha256':files['index.html']['sha256'],'manifest_sha256':files['manifest.json']['sha256'],'caption':'Inspect 332 present fine source regions, 63 source-scale entries and 18 explicit overlapping compositions in matched MRI planes, native-label schematics and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.','attribution':(dest/'ATTRIBUTION.txt').read_text().strip(),'source_url':'https://zenodo.org/records/15690524','publication_url':'https://www.nature.com/articles/s41598-026-40186-2','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','source_grain':{'kind':'processed research population template','subject_count':75,'supplied_grid_mm':[.5,.5,.5],'supplied_grid_is_acquisition_resolution':False,'present_label_classes':332,'absent_named_label_classes':18,'retained_components26':868,'source_scale_entries':63,'source_compositions':18,'additional_distinct_aggregate_masks':52,'WMn_like_contrast_synthesized':True,'sulcal_classes_are_CSF_territories':True},'source_grant':{'publisher_explicitly_applies_license_to_data':True,'terms_url':'https://creativecommons.org/licenses/by/4.0/legalcode','attribution_url':prefix+'ATTRIBUTION.txt','marked_derived_version':True},'bound_source_ids':[identifier],**flags}\n"
+        }
+      ]
+    },
+    "web/anatomy/holiatlas/ATTRIBUTION.txt": {
+      "before_sha256": "029e261ae9c9c3e89d605bfff76dc097414a20a5dd7e00dccabe732e759ff493",
+      "after_sha256": "ba7b3c5d1109ea3b1feb3f8412e4fd03b185dd48c02f15cf10f9798d600370ee",
+      "changes": [
+        {
+          "start": 2,
+          "end": 3,
+          "before": "Additional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 16 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.\n",
+          "after": "Additional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 18 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, native-label schematics with source orientation and calibrated scale bars, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.\n"
+        }
+      ]
+    },
+    "web/anatomy/holiatlas/config.json": {
+      "before_sha256": "f37af2ab8c6c07b0dcef791959353e069ac4f822f23abdc1a6d5254abef711af",
+      "after_sha256": "78292f2a5812e236284cff64aa3882b36d12a2ff7be22af8f22c1c81eec408f4",
+      "changes": [
+        {
+          "start": 17,
+          "end": 18,
+          "before": "  \"hierarchySHA256\": \"d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13\"\n",
+          "after": "  \"hierarchySHA256\": \"906db646be034d057b478a4bf1d21c0783e871d063d3607cd5d1d81bee66e196\"\n"
+        }
+      ]
+    },
+    "web/anatomy/holiatlas/hierarchy.json": {
+      "before_sha256": "d6b511eedcdabc09999581eb8b40c315eed388fb358ea15947739b8043682b13",
+      "after_sha256": "906db646be034d057b478a4bf1d21c0783e871d063d3607cd5d1d81bee66e196",
+      "changes": [
+        {
+          "start": 17332,
+          "end": 17458,
+          "before": "",
+          "after": "        },\n        {\n          \"code\": 17,\n          \"sourceCompositionId\": \"right-angular-supramarginal-cortex\",\n          \"level\": \"composition\",\n          \"name\": \"Right angular and supramarginal cortex \\u2014 exact source-label union\",\n          \"sourceName\": \"Right angular and supramarginal cortex \\u2014 exact source-label union\",\n          \"sourceDefinedMeaning\": \"Right angular and supramarginal cortex \\u2014 exact source-label union\",\n          \"exclusionsAndLimits\": [\n            \"Only the angular and supramarginal source labels are included. Equivalence to the complete clinically defined inferior parietal lobule is unproven and requires boundary review. No adjacent white matter or vascular territory is included.\"\n          ],\n          \"voxels\": 228509,\n          \"triangles\": 148972,\n          \"fineSourceCodes\": [\n            170,\n            178\n          ],\n          \"fineSourceNames\": [\n            \"Right Angular Gyrus\",\n            \"Right Supramarginal Gyrus\"\n          ],\n          \"components26\": [\n            {\n              \"id\": 1,\n              \"voxels\": 228509,\n              \"focusSourceIJK\": [\n                284,\n                154,\n                214\n              ],\n              \"focusSourceWorld\": [\n                52.0,\n                -49.0,\n                35.0\n              ]\n            }\n          ],\n          \"boundsSourceWorld\": [\n            [\n              29.25,\n              -78.75,\n              11.25\n            ],\n            [\n              69.75,\n              -16.25,\n              58.25\n            ]\n          ],\n          \"mesh\": {\n            \"file\": \"hierarchy-composition-right-angular-supramarginal-cortex.mesh.gz\",\n            \"bytes\": 2681116,\n            \"gzipBytes\": 772437,\n            \"sha256\": \"ffdc2cef289457760ec31cb8c9acfce6de73fee5e59c2f91c0ce8584aaabf0b0\",\n            \"gzipSHA256\": \"281e363312be4e84fae0fec2cd7fe5bd926a94fae4a76c35f17f73adbe9b2cdc\"\n          },\n          \"facesPayload\": {\n            \"file\": \"hierarchy-composition-right-angular-supramarginal-cortex-faces.bin.gz\",\n            \"bytes\": 744860,\n            \"gzipBytes\": 203345,\n            \"sha256\": \"32367e2c5a0d581fabde36acf330a19b26860ff4d9f115998b1808317b2d5ab5\",\n            \"gzipSHA256\": \"d28e19503bb31ab0ab3024be6ba7a5bd384af47cccd7958336909b9845a9c9a6\"\n          }\n        },\n        {\n          \"code\": 18,\n          \"sourceCompositionId\": \"left-angular-supramarginal-cortex\",\n          \"level\": \"composition\",\n          \"name\": \"Left angular and supramarginal cortex \\u2014 exact source-label union\",\n          \"sourceName\": \"Left angular and supramarginal cortex \\u2014 exact source-label union\",\n          \"sourceDefinedMeaning\": \"Left angular and supramarginal cortex \\u2014 exact source-label union\",\n          \"exclusionsAndLimits\": [\n            \"Only the angular and supramarginal source labels are included. Equivalence to the complete clinically defined inferior parietal lobule is unproven and requires boundary review. No adjacent white matter or vascular territory is included.\"\n          ],\n          \"voxels\": 215113,\n          \"triangles\": 135332,\n          \"fineSourceCodes\": [\n            171,\n            179\n          ],\n          \"fineSourceNames\": [\n            \"Left Angular Gyrus\",\n            \"Left Supramarginal Gyrus\"\n          ],\n          \"components26\": [\n            {\n              \"id\": 1,\n              \"voxels\": 215113,\n              \"focusSourceIJK\": [\n                82,\n                146,\n                216\n              ],\n              \"focusSourceWorld\": [\n                -49.0,\n                -53.0,\n                36.0\n              ]\n            }\n          ],\n          \"boundsSourceWorld\": [\n            [\n              -68.25,\n              -83.25,\n              13.25\n            ],\n            [\n              -25.25,\n              -20.25,\n              57.25\n            ]\n          ],\n          \"mesh\": {\n            \"file\": \"hierarchy-composition-left-angular-supramarginal-cortex.mesh.gz\",\n            \"bytes\": 2435584,\n            \"gzipBytes\": 699861,\n            \"sha256\": \"f87cc4417181b46f9aeca61c3aba8d2f21afeeb28dc5e354eea803af53765b3f\",\n            \"gzipSHA256\": \"2329e5ec70d0d1b5358d8628fb91e9cff3f0636f931b7e55bdf5c55d15e3cdc8\"\n          },\n          \"facesPayload\": {\n            \"file\": \"hierarchy-composition-left-angular-supramarginal-cortex-faces.bin.gz\",\n            \"bytes\": 676660,\n            \"gzipBytes\": 187021,\n            \"sha256\": \"68391cee3803c4bdb0789244e82a1ff8cbd024199f6300e922831bf87b38d29c\",\n            \"gzipSHA256\": \"6937927505e43b8273478852e9155f1e156b413dc174f20ee73c3458254990e0\"\n          }\n"
+        },
+        {
+          "start": 17462,
+          "end": 17463,
+          "before": "      \"totalTriangles\": 1627012,\n",
+          "after": "      \"totalTriangles\": 1911316,\n"
+        },
+        {
+          "start": 17466,
+          "end": 17468,
+          "before": "  \"presentClasses\": 79,\n  \"totalTriangles\": 22314324\n",
+          "after": "  \"presentClasses\": 81,\n  \"totalTriangles\": 22598628\n"
+        }
+      ]
+    },
+    "web/anatomy/holiatlas/index.html": {
+      "before_sha256": "1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7",
+      "after_sha256": "0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b",
+      "changes": [
+        {
+          "start": 0,
+          "end": 1,
+          "before": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Brain template anatomy \u2014 source regions and compositions</title><link rel=\"stylesheet\" href=\"viewer.css\"><script defer src=\"viewer.js\"></script></head><body><main><h1>Inspect the source brain template</h1><p>Explore matched population-template MRI and exact source-mask boundaries at several anatomical scales. These are not patient images or independently validated anatomical borders.</p><p id=\"meaning\"></p><div class=\"controls\"><label>Source scale<select id=\"source-level\"></select></label><label>Source structure group<select id=\"source-group\"></select></label><label>Source-defined region<select id=\"structure\"></select></label><label>Retained source component<select id=\"component\"></select></label><button id=\"focus\">Find component</button><label>Constituent fine region<select id=\"fine-member\"></select></label><label>Source contrast<select id=\"contrast\"><option value=\"T1\">T1 template</option><option value=\"T2\">T2 template</option><option value=\"WMn\">Synthesized WMn-like template</option></select></label><label>Window low<input id=\"low\" type=\"number\" step=\"any\"></label><label>Window high<input id=\"high\" type=\"number\" step=\"any\"></label><label><input id=\"overlay\" type=\"checkbox\" checked>Show selected source cells</label><label><input id=\"outline\" type=\"checkbox\">Outline only</label><button id=\"enlarge\">Enlarge MRI</button><button id=\"retry\">Retry</button></div><p id=\"membership-note\"></p><p id=\"status\" role=\"status\" aria-live=\"polite\">Loading source metadata\u2026</p><div class=\"panels\"><section><h2>Axial</h2><label>Source k<input type=\"range\" id=\"slice2\" min=\"0\" step=\"1\"></label><div class=\"viewport\" tabindex=\"0\"><canvas id=\"plane2\" role=\"img\" aria-label=\"Axial source plane\"></canvas></div><p id=\"axes2\"></p></section><section><h2>Coronal</h2><label>Source j<input type=\"range\" id=\"slice1\" min=\"0\" step=\"1\"></label><div class=\"viewport\" tabindex=\"0\"><canvas id=\"plane1\" role=\"img\" aria-label=\"Coronal source plane\"></canvas></div><p id=\"axes1\"></p></section><section><h2>Sagittal</h2><label>Source i<input type=\"range\" id=\"slice0\" min=\"0\" step=\"1\"></label><div class=\"viewport\" tabindex=\"0\"><canvas id=\"plane0\" role=\"img\" aria-label=\"Sagittal source plane\"></canvas></div><p id=\"axes0\"></p></section></div><section><h2>Complete selected cell-boundary mesh</h2><label><input id=\"fixed-scale\" type=\"checkbox\">Keep the full source frame while comparing sizes</label><div class=\"mesh-frame\"><canvas id=\"orientation\" width=\"140\" height=\"120\" aria-label=\"Rotating source right, anterior and superior orientation axes\"></canvas><canvas id=\"mesh\" width=\"900\" height=\"600\" role=\"img\" aria-label=\"Selected source region in three dimensions\"></canvas></div><div class=\"buttons\"><button id=\"left\">Rotate left</button><button id=\"right\">Rotate right</button><button id=\"up\">Tilt up</button><button id=\"down\">Tilt down</button><button id=\"reset\">Reset view</button></div><p id=\"mesh-note\"></p></section><p>All small components and cavities are retained. The source grid is 0.5 mm; it does not establish acquisition resolution. Source sulcal labels describe assigned CSF territories, not traced centre-lines or complete gyral banks. Eighteen named fine labels are absent and remain unavailable. Structure groups, tissue groups and explicitly listed compositions describe the source segmentation; they do not supply omitted white-matter subdivisions, vessels or other missing anatomy.</p><p>Source data: Manj\u00f3n et al., holiAtlas v1.0. Primer\u2019s derived planes and cell meshes retain the source data and qualifications. <a href=\"ATTRIBUTION.txt\">Full attribution and marked changes</a> \u00b7 <a href=\"LICENSE.txt\">Licence notice</a>.</p><p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://zenodo.org/records/15690524\">Original dataset and attribution (CC BY 4.0)</a> \u00b7 <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.nature.com/articles/s41598-026-40186-2\">Source methods</a></p></main></body></html>\n",
+          "after": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Brain template anatomy \u2014 source regions and compositions</title><link rel=\"stylesheet\" href=\"viewer.css\"><script defer src=\"schematic.js\"></script><script defer src=\"viewer.js\"></script></head><body><main><h1>Inspect the source brain template</h1><p>Explore matched population-template MRI and exact source-mask boundaries at several anatomical scales. These are not patient images or independently validated anatomical borders.</p><p id=\"meaning\"></p><div class=\"controls\"><label>Source scale<select id=\"source-level\"></select></label><label>Source structure group<select id=\"source-group\"></select></label><label>Source-defined region<select id=\"structure\"></select></label><label>Retained source component<select id=\"component\"></select></label><button id=\"focus\">Find component</button><label>Constituent fine region<select id=\"fine-member\"></select></label><label>Plane display<select id=\"display\"><option value=\"mri\">Source MRI</option><option value=\"schematic\">Source-mask schematic</option></select></label><label><input id=\"context\" type=\"checkbox\" checked disabled>Show other labelled source tissue</label><label>Source contrast<select id=\"contrast\"><option value=\"T1\">T1 template</option><option value=\"T2\">T2 template</option><option value=\"WMn\">Synthesized WMn-like template</option></select></label><label>Window low<input id=\"low\" type=\"number\" step=\"any\"></label><label>Window high<input id=\"high\" type=\"number\" step=\"any\"></label><label><input id=\"overlay\" type=\"checkbox\" checked>Show selected source cells</label><label><input id=\"outline\" type=\"checkbox\">Outline only</label><button id=\"enlarge\">Enlarge planes</button><button id=\"retry\">Retry</button></div><p id=\"membership-note\"></p><p id=\"status\" role=\"status\" aria-live=\"polite\">Loading source metadata\u2026</p><p>Source display convention: anatomical right is screen-right on axial and coronal planes. Schematics use original segmentation cells, not MRI intensities. A 20 mm bar measures 40 source pixels on this 0.5 mm grid.</p><div class=\"panels\"><section><h2>Axial</h2><label>Source k<input type=\"range\" id=\"slice2\" min=\"0\" step=\"1\"></label><div class=\"viewport\" tabindex=\"0\"><div class=\"plane-image\"><div class=\"orientation-row\" id=\"top2\"></div><div class=\"plane-mid\"><span id=\"left2\"></span><canvas id=\"plane2\" role=\"img\" aria-label=\"Axial source plane\"></canvas><span id=\"right2\"></span></div><div class=\"orientation-row\" id=\"bottom2\"></div><div class=\"plane-mid\"><span></span><svg id=\"scale2\" role=\"img\" preserveAspectRatio=\"none\" aria-label=\"20 millimetre source scale\"></svg><span></span></div></div></div><p id=\"axes2\"></p></section><section><h2>Coronal</h2><label>Source j<input type=\"range\" id=\"slice1\" min=\"0\" step=\"1\"></label><div class=\"viewport\" tabindex=\"0\"><div class=\"plane-image\"><div class=\"orientation-row\" id=\"top1\"></div><div class=\"plane-mid\"><span id=\"left1\"></span><canvas id=\"plane1\" role=\"img\" aria-label=\"Coronal source plane\"></canvas><span id=\"right1\"></span></div><div class=\"orientation-row\" id=\"bottom1\"></div><div class=\"plane-mid\"><span></span><svg id=\"scale1\" role=\"img\" preserveAspectRatio=\"none\" aria-label=\"20 millimetre source scale\"></svg><span></span></div></div></div><p id=\"axes1\"></p></section><section><h2>Sagittal</h2><label>Source i<input type=\"range\" id=\"slice0\" min=\"0\" step=\"1\"></label><div class=\"viewport\" tabindex=\"0\"><div class=\"plane-image\"><div class=\"orientation-row\" id=\"top0\"></div><div class=\"plane-mid\"><span id=\"left0\"></span><canvas id=\"plane0\" role=\"img\" aria-label=\"Sagittal source plane\"></canvas><span id=\"right0\"></span></div><div class=\"orientation-row\" id=\"bottom0\"></div><div class=\"plane-mid\"><span></span><svg id=\"scale0\" role=\"img\" preserveAspectRatio=\"none\" aria-label=\"20 millimetre source scale\"></svg><span></span></div></div></div><p id=\"axes0\"></p></section></div><section><h2>Complete selected cell-boundary mesh</h2><label><input id=\"fixed-scale\" type=\"checkbox\">Keep the full source frame while comparing sizes</label><div class=\"mesh-frame\"><canvas id=\"orientation\" width=\"140\" height=\"120\" aria-label=\"Rotating source right, anterior and superior orientation axes\"></canvas><canvas id=\"mesh\" width=\"900\" height=\"600\" role=\"img\" aria-label=\"Selected source region in three dimensions\"></canvas></div><div class=\"buttons\"><button id=\"left\">Rotate left</button><button id=\"right\">Rotate right</button><button id=\"up\">Tilt up</button><button id=\"down\">Tilt down</button><button id=\"reset\">Reset view</button></div><p id=\"mesh-note\"></p></section><p>All small components and cavities are retained. The source grid is 0.5 mm; it does not establish acquisition resolution. Source sulcal labels describe assigned CSF territories, not traced centre-lines or complete gyral banks. Eighteen named fine labels are absent and remain unavailable. Structure groups, tissue groups and explicitly listed compositions describe the source segmentation; they do not supply omitted white-matter subdivisions, vessels or other missing anatomy.</p><p>Source data: Manj\u00f3n et al., holiAtlas v1.0. Primer\u2019s derived planes and cell meshes retain the source data and qualifications. <a href=\"ATTRIBUTION.txt\">Full attribution and marked changes</a> \u00b7 <a href=\"LICENSE.txt\">Licence notice</a>.</p><p><a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://zenodo.org/records/15690524\">Original dataset and attribution (CC BY 4.0)</a> \u00b7 <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.nature.com/articles/s41598-026-40186-2\">Source methods</a></p></main></body></html>\n"
+        }
+      ]
+    },
+    "web/anatomy/holiatlas/viewer.css": {
+      "before_sha256": "c0f43ba7b355303898944e1b37c02086d62f77e792b7eb5ff35b77766b9ba6f1",
+      "after_sha256": "cf31854ca978c19abca2f243353bec7125e0a7b1a9d130656906bf1e87f21607",
+      "changes": [
+        {
+          "start": 0,
+          "end": 1,
+          "before": ":root{font:16px system-ui,sans-serif;color:#18313b;background:#f6f3eb}*{box-sizing:border-box}body{margin:0}main{max-width:1240px;margin:auto;padding:20px}h1{font-size:1.7rem}p{line-height:1.5}.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}label{display:flex;flex-direction:column;gap:6px;min-width:0}label:has(input[type=checkbox]){flex-direction:row}select,input,button{font:inherit;padding:9px;border:1px solid #abb8b7;border-radius:5px;max-width:100%;min-height:42px}#structure{width:390px}input[type=number]{width:110px}button{cursor:pointer;background:#fff}.panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}section{min-width:0;padding:12px;background:white;margin-top:16px;border:1px solid #c8d1ce;border-radius:8px}h2{font-size:1.1rem;margin-top:0}.viewport{overflow:auto;max-height:450px;max-width:100%;background:#101010;line-height:0}.viewport canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.enlarged .viewport canvas{width:868px;max-width:none}.buttons{display:flex;flex-wrap:wrap;gap:8px}#mesh{display:block;width:100%;max-width:900px;height:auto;background:#f2f7f6;margin:auto}#status{min-height:2em}#meaning{padding:10px;background:#e2eeeb}input[type=range]{width:100%;padding:0}@media(max-width:700px){main{padding:12px}.panels{grid-template-columns:1fr}.controls>label{max-width:100%}#structure{width:100%}.controls>label:first-child{width:100%}}\n",
+          "after": ":root{font:16px system-ui,sans-serif;color:#18313b;background:#f6f3eb}*{box-sizing:border-box}body{margin:0}main{max-width:1240px;margin:auto;padding:20px}h1{font-size:1.7rem}p{line-height:1.5}.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}label{display:flex;flex-direction:column;gap:6px;min-width:0}label:has(input[type=checkbox]){flex-direction:row}select,input,button{font:inherit;padding:9px;border:1px solid #abb8b7;border-radius:5px;max-width:100%;min-height:42px}#structure{width:390px}input[type=number]{width:110px}button{cursor:pointer;background:#fff}.panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}section{min-width:0;padding:12px;background:white;margin-top:16px;border:1px solid #c8d1ce;border-radius:8px}h2{font-size:1.1rem;margin-top:0}.viewport{overflow:auto;max-height:450px;max-width:100%;background:#101010;line-height:0}.viewport canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.enlarged .plane-image{width:868px;max-width:none}.buttons{display:flex;flex-wrap:wrap;gap:8px}#mesh{display:block;width:100%;max-width:900px;height:auto;background:#f2f7f6;margin:auto}#status{min-height:2em}#meaning{padding:10px;background:#e2eeeb}input[type=range]{width:100%;padding:0}@media(max-width:700px){main{padding:12px}.panels{grid-template-columns:1fr}.controls>label{max-width:100%}#structure{width:100%}.controls>label:first-child{width:100%}}\n"
+        },
+        {
+          "start": 3,
+          "end": 5,
+          "before": "",
+          "after": "\n.plane-image{width:100%;background:#faf8f1;color:#18313b}.plane-mid{display:grid;grid-template-columns:20px minmax(0,1fr) 20px;align-items:center}.plane-mid>span{text-align:center;line-height:1;font-weight:bold}.plane-mid>svg{display:block;width:100%;height:auto}.orientation-row{text-align:center;line-height:1.4;font-weight:bold}.plane-mid canvas{min-width:0}\n"
+        }
+      ]
+    },
+    "web/anatomy/holiatlas/viewer.js": {
+      "before_sha256": "7d8ffaf46751312dc12508db6e6c0d229aafb154e73f2567d06e654138a4c5b8",
+      "after_sha256": "dd608ed30fae1ad2889d935a4b4d6738e0844559d9a52132db22c6d00dfb3c58",
+      "changes": [
+        {
+          "start": 6,
+          "end": 7,
+          "before": "const state={level:'fine',code:80,component:0,contrast:'T1',ijk:[0,0,0]},stats={rangeRequests:0,rangeBytes:0,cacheBytes:0,errors:[]};\n",
+          "after": "const state={display:'mri',context:true,level:'fine',code:80,component:0,contrast:'T1',ijk:[0,0,0]},stats={rangeRequests:0,rangeBytes:0,cacheBytes:0,errors:[]};\n"
+        },
+        {
+          "start": 16,
+          "end": 17,
+          "before": "async function showPlane(axis,token,signal){const index=state.ijk[axis],contrast=state.contrast,code=state.code,low=Number($('low').value),high=Number($('high').value),overlay=$('overlay').checked,outline=$('outline').checked,level=state.level,memberMask=membership();const [image,mask]=await Promise.all([plane(contrast,axis,index,signal),plane('labels',axis,index,signal)]);if(token!==generation)return;const array=new Float32Array(image.b),classes=new Uint16Array(mask.b),shape=image.row.shape;const canvas=$('plane'+axis);canvas.width=shape[0];canvas.height=shape[1];canvas.getContext('2d').putImageData(new ImageData(pixels(array,classes,shape,low,high,code,overlay,memberMask,outline),...shape),0,0);const others=image.row.sourceAxes,names=['R','A','S'];$('axes'+axis).textContent=names[others[0]]+' increases right; '+names[others[1]]+' increases up. '+names[axis]+' = '+(-[90,126,72][axis]+index*.5)+' mm.';canvas.dataset.source=JSON.stringify({contrast,axis,index,code,level,outline,hierarchySHA256:config.hierarchySHA256,decodedSHA256:image.row.decodedSHA256,labelSHA256:mask.row.decodedSHA256,low,high,overlay});}\n",
+          "after": "async function showPlane(axis,token,signal){const index=state.ijk[axis],contrast=state.contrast,code=state.code,low=Number($('low').value),high=Number($('high').value),overlay=$('overlay').checked,outline=$('outline').checked,level=state.level,memberMask=membership(),display=state.display,context=state.context;const [image,mask]=await Promise.all([display==='mri'?plane(contrast,axis,index,signal):Promise.resolve(null),plane('labels',axis,index,signal)]);if(token!==generation)return;const classes=new Uint16Array(mask.b),shape=mask.row.shape,canvas=$('plane'+axis),codes=level==='fine'?[code]:current().fineSourceCodes;canvas.width=shape[0];canvas.height=shape[1];const rgba=display==='mri'?pixels(new Float32Array(image.b),classes,shape,low,high,code,overlay,memberMask,outline):PrimerAtlasSchematic.raster(classes,...shape,codes,{outline,context});canvas.getContext('2d').putImageData(new ImageData(rgba,...shape),0,0);const orientation=PrimerAtlasSchematic.orientation(axis);for(const side of ['left','right','top','bottom'])$(side+axis).textContent=orientation[side];const bar=PrimerAtlasSchematic.scaleBar(.5),svg=$('scale'+axis);svg.setAttribute('viewBox','0 0 '+shape[0]+' 32');svg.replaceChildren();for(const[tag,attrs,text]of [['line',{x1:10,y1:12,x2:10+bar.pixels,y2:12,stroke:'#18313b','stroke-width':3}],['text',{x:65,y:19,fill:'#18313b','font-size':18},'20 mm']]){const e=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);if(text)e.textContent=text;svg.append(e);}const others=mask.row.sourceAxes,names=['R','A','S'];$('axes'+axis).textContent=names[others[0]]+' increases right; '+names[others[1]]+' increases up. '+names[axis]+' = '+(-[90,126,72][axis]+index*.5)+' mm.';canvas.dataset.source=JSON.stringify({display,context,contrast:display==='mri'?contrast:null,axis,index,code,level,outline,hierarchySHA256:config.hierarchySHA256,decodedSHA256:image?.row.decodedSHA256??null,labelSHA256:mask.row.decodedSHA256,low,high,overlay});}\n"
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "before": "async function refresh(mesh=true){const needsMesh=mesh||meshState?.key!==selectionKey();const low=Number($('low').value),high=Number($('high').value);abort?.abort();abort=new AbortController();const token=++generation,signal=abort.signal;document.body.dataset.ready='false';if(!Number.isFinite(low)||!Number.isFinite(high)||high<=low){for(let a=0;a<3;a++){const c=$('plane'+a);c.getContext('2d').clearRect(0,0,c.width,c.height);}meshState=null;if(gl){meshBuffers.forEach(b=>gl.deleteBuffer(b));meshBuffers=[];gl.clearColor(.95,.97,.96,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}$('orientation').getContext('2d').clearRect(0,0,140,120);$('mesh-note').textContent='No model is displayed while the image window is invalid.';$('status').textContent='Choose a finite window high value above the low value.';document.body.dataset.ready='error';return;}$('status').textContent='Loading source views\u2026';if(meshState?.key!==selectionKey()){meshState=null;if(gl){meshBuffers.forEach(b=>gl.deleteBuffer(b));meshBuffers=[];gl.clearColor(.95,.97,.96,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}$('mesh-note').textContent='Loading selected source region\u2026';}for(let a=0;a<3;a++){const c=$('plane'+a);c.getContext('2d').clearRect(0,0,c.width,c.height);}try{await Promise.all([0,1,2].map(a=>showPlane(a,token,signal)));if(token!==generation)return;if(needsMesh)await showMesh(token,signal);if(token!==generation)return;document.body.dataset.ready='true';$('status').textContent='Source views ready. '+(state.contrast==='WMn'?'This WMn-like contrast was synthesized by the source authors.':'Processed population template; not patient anatomy.');}catch(e){if(token!==generation||e.name==='AbortError')return;stats.errors.push(String(e));$('status').textContent='A source view could not be loaded. Retry.';document.body.dataset.ready='error';}}\n",
+          "after": "async function refresh(mesh=true){const needsMesh=mesh||meshState?.key!==selectionKey();const low=Number($('low').value),high=Number($('high').value);abort?.abort();abort=new AbortController();const token=++generation,signal=abort.signal;document.body.dataset.ready='false';if(state.display==='mri'&&(!$('low').value.trim()||!$('high').value.trim()||!Number.isFinite(low)||!Number.isFinite(high)||high<=low)){for(let a=0;a<3;a++){const c=$('plane'+a);c.getContext('2d').clearRect(0,0,c.width,c.height);}meshState=null;if(gl){meshBuffers.forEach(b=>gl.deleteBuffer(b));meshBuffers=[];gl.clearColor(.95,.97,.96,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}$('orientation').getContext('2d').clearRect(0,0,140,120);$('mesh-note').textContent='No model is displayed while the image window is invalid.';$('status').textContent='Choose a finite window high value above the low value.';document.body.dataset.ready='error';return;}$('status').textContent='Loading source views\u2026';if(meshState?.key!==selectionKey()){meshState=null;if(gl){meshBuffers.forEach(b=>gl.deleteBuffer(b));meshBuffers=[];gl.clearColor(.95,.97,.96,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}$('mesh-note').textContent='Loading selected source region\u2026';}for(let a=0;a<3;a++){const c=$('plane'+a);c.getContext('2d').clearRect(0,0,c.width,c.height);}try{await Promise.all([0,1,2].map(a=>showPlane(a,token,signal)));if(token!==generation)return;if(needsMesh)await showMesh(token,signal);if(token!==generation)return;document.body.dataset.ready='true';$('status').textContent='Source views ready. '+(state.display==='schematic'?'Exact source-label schematic; no image intensity is represented.':state.contrast==='WMn'?'This WMn-like contrast was synthesized by the source authors.':'Processed population template; not patient anatomy.');}catch(e){if(token!==generation||e.name==='AbortError')return;stats.errors.push(String(e));$('status').textContent='A source view could not be loaded. Retry.';document.body.dataset.ready='error';}}\n"
+        },
+        {
+          "start": 34,
+          "end": 35,
+          "before": "",
+          "after": "$('display').onchange=()=>{state.display=$('display').value;for(const id of ['contrast','low','high','overlay'])$(id).disabled=state.display==='schematic';$('context').disabled=state.display!=='schematic';refresh(false);};$('context').onchange=()=>{state.context=$('context').checked;refresh(false);};\n"
+        },
+        {
+          "start": 39,
+          "end": 40,
+          "before": "$('structure').onchange=()=>{state.code=Number($('structure').value);state.component=0;components();focus();refresh();};$('component').onchange=()=>{state.component=Number($('component').value);focus();refresh(false);};$('focus').onclick=()=>{focus();refresh(false);};$('contrast').onchange=()=>{state.contrast=$('contrast').value;windowDefaults();refresh(false);};$('low').onchange=$('high').onchange=$('overlay').onchange=$('outline').onchange=()=>refresh(false);$('fixed-scale').onchange=()=>drawMesh();$('enlarge').onclick=()=>{document.body.classList.toggle('enlarged');$('enlarge').textContent=document.body.classList.contains('enlarged')?'Fit MRI':'Enlarge MRI';};$('retry').onclick=()=>refresh();for(const [id,dy,dp]of [['left',-.25,0],['right',.25,0],['up',0,.2],['down',0,-.2]])$(id).onclick=()=>{yaw+=dy;pitch+=dp;drawMesh();};$('reset').onclick=()=>{yaw=-.4;pitch=.25;drawMesh();};\n",
+          "after": "$('structure').onchange=()=>{state.code=Number($('structure').value);state.component=0;components();focus();refresh();};$('component').onchange=()=>{state.component=Number($('component').value);focus();refresh(false);};$('focus').onclick=()=>{focus();refresh(false);};$('contrast').onchange=()=>{state.contrast=$('contrast').value;windowDefaults();refresh(false);};$('low').onchange=$('high').onchange=$('overlay').onchange=$('outline').onchange=()=>refresh(false);$('fixed-scale').onchange=()=>drawMesh();$('enlarge').onclick=()=>{document.body.classList.toggle('enlarged');$('enlarge').textContent=document.body.classList.contains('enlarged')?'Fit planes':'Enlarge planes';};$('retry').onclick=()=>refresh();for(const [id,dy,dp]of [['left',-.25,0],['right',.25,0],['up',0,.2],['down',0,-.2]])$(id).onclick=()=>{yaw+=dy;pitch+=dp;drawMesh();};$('reset').onclick=()=>{yaw=-.4;pitch=.25;drawMesh();};\n"
+        }
+      ]
+    }
+  },
+  "source_inspector_replacement": {
+    "before": {
+      "id": "holiatlas-source-template-reference",
+      "modality": "Population T1/T2 templates, synthesized WMn-like contrast and source-label cell boundaries",
+      "coordinate_context": "single-source-population-template-in-declared-source-world-mm",
+      "title": "Brain template regions, tissue groups and source compositions",
+      "src": "/app/anatomy/holiatlas/index.html",
+      "manifest_url": "/app/anatomy/holiatlas/manifest.json",
+      "sha256": "1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7",
+      "manifest_sha256": "d4d3f7f2482c4001b1d63dd34ca7de6b87d37996d6debc85f2088c7ebd7d6a6a",
+      "caption": "Inspect 332 present fine source regions, 63 source-scale entries and 16 explicit overlapping compositions in matched MRI planes and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.",
+      "attribution": "holiAtlas v1.0 \u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\n\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 16 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.",
+      "source_url": "https://zenodo.org/records/15690524",
+      "publication_url": "https://www.nature.com/articles/s41598-026-40186-2",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_grain": {
+        "kind": "processed research population template",
+        "subject_count": 75,
+        "supplied_grid_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "supplied_grid_is_acquisition_resolution": false,
+        "present_label_classes": 332,
+        "absent_named_label_classes": 18,
+        "retained_components26": 868,
+        "source_scale_entries": 63,
+        "source_compositions": 16,
+        "additional_distinct_aggregate_masks": 50,
+        "WMn_like_contrast_synthesized": true,
+        "sulcal_classes_are_CSF_territories": true
+      },
+      "source_grant": {
+        "publisher_explicitly_applies_license_to_data": true,
+        "terms_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "attribution_url": "/app/anatomy/holiatlas/ATTRIBUTION.txt",
+        "marked_derived_version": true
+      },
+      "bound_source_ids": [
+        "holiatlas-source-template-reference"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    },
+    "after": {
+      "id": "holiatlas-source-template-reference",
+      "modality": "Population T1/T2 templates, synthesized WMn-like contrast and source-label cell boundaries",
+      "coordinate_context": "single-source-population-template-in-declared-source-world-mm",
+      "title": "Brain template regions, tissue groups and source compositions",
+      "src": "/app/anatomy/holiatlas/index.html",
+      "manifest_url": "/app/anatomy/holiatlas/manifest.json",
+      "sha256": "0d33036994cda7ee51a2ad3afb4bc0e46cdeca958b96c5526b0e29a6663bc44b",
+      "manifest_sha256": "d4d3f7f2482c4001b1d63dd34ca7de6b87d37996d6debc85f2088c7ebd7d6a6a",
+      "caption": "Inspect 332 present fine source regions, 63 source-scale entries and 18 explicit overlapping compositions in matched MRI planes, native-label schematics and exact cell-boundary models. All components are retained; some source scales repeat the same masks. Lobar groups contain cortical grey matter, with cerebral white matter separate. Eighteen named regions are absent. Sulcal labels are source-defined CSF territories, not traced sulcal centre-lines or complete gyral banks. WMn-like contrast was synthesized by the source authors. This processed population template is separate from SPL and patient anatomy; no cross-atlas registration or clinical completeness is implied.",
+      "attribution": "holiAtlas v1.0 \u2014 Manjon, Jose Vicente; Morell-Ortega, Sergio; Ruiz Perez, Marina; Mansencal, Boris; Le Bot, Edern; Gadea, Marien; Lanuza, Enrique; Catheline, Gwenaelle; Tourdias, Thomas; Panche, Vincent; Giraud, Remi; Rivi\u00e8re, Denis; Mangin, Jean-Francois; Labra-Avila, Nicole; Vivo Hernando, Roberto; Rubio, Gregorio; Aparici, Fernando; de la Iglesia Vaya, Maria; Coupe, Pierrick. Dataset DOI: 10.5281/zenodo.15690524. Source record: https://zenodo.org/records/15690524 . Licence: Creative Commons Attribution 4.0, https://creativecommons.org/licenses/by/4.0/ . Primer derives lossless plane packs and exact categorical-cell meshes, preserving all supplied source sample bits and source components. No smoothing, anatomical fitting, patient registration or clinical approval is implied. Source WMn-like contrast is synthesized.\n\nAdditional Primer derivations: exact meshes of all 53 supplied structure masks, 9 supplied tissue masks and the supplied intracranial mask; 18 explicitly listed overlapping fine-label compositions; multiscale MRI overlays, native-label schematics with source orientation and calibrated scale bars, source-cell outlines and source-frame size comparison. All source components and cavities are retained. Coarse header units remain unspecified; millimetres follow exact voxel correspondence to the fine source grid. Source masks and compositions do not establish completeness of reporting anatomy.",
+      "source_url": "https://zenodo.org/records/15690524",
+      "publication_url": "https://www.nature.com/articles/s41598-026-40186-2",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_grain": {
+        "kind": "processed research population template",
+        "subject_count": 75,
+        "supplied_grid_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "supplied_grid_is_acquisition_resolution": false,
+        "present_label_classes": 332,
+        "absent_named_label_classes": 18,
+        "retained_components26": 868,
+        "source_scale_entries": 63,
+        "source_compositions": 18,
+        "additional_distinct_aggregate_masks": 52,
+        "WMn_like_contrast_synthesized": true,
+        "sulcal_classes_are_CSF_territories": true
+      },
+      "source_grant": {
+        "publisher_explicitly_applies_license_to_data": true,
+        "terms_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+        "attribution_url": "/app/anatomy/holiatlas/ATTRIBUTION.txt",
+        "marked_derived_version": true
+      },
+      "bound_source_ids": [
+        "holiatlas-source-template-reference"
+      ],
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "current_patient_registration": false,
+      "normal_anatomical_atlas_approval": false,
+      "complete_reporting_anatomy_approved": false
+    }
+  },
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

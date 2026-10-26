@@ -28,6 +28,8 @@ def reviewed():
 
 
 def before_circuits_bytes(path, raw, allow_older=False):
+    from tools.atlas_schematic_runtime_compatibility import before_atlas_schematic_bytes
+    raw = before_atlas_schematic_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw

@@ -107,10 +107,10 @@ def test_every_thin_function_exclusion_has_a_static_delivery_build():
 def test_hierarchy_preserves_source_scales_and_distinguishes_insula_from_opercula():
     hierarchy = json.loads(source.metadata_bytes('hierarchy.json'))
     assert {key: len(value['sourceClasses']) for key, value in hierarchy['levels'].items()} == {
-        'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 16}
-    assert hierarchy['totalTriangles'] == 22314324
+        'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 18}
+    assert hierarchy['totalTriangles'] == 22598628
     assert sum(len(row['components26']) for level in hierarchy['levels'].values()
-               for row in level['sourceClasses']) == 741
+               for row in level['sourceClasses']) == 743
     right_insular_group = next(r for r in hierarchy['levels']['structure']['sourceClasses'] if r['code'] == 18)
     pure_insular = next(r for r in hierarchy['levels']['composition']['sourceClasses']
                        if r['sourceCompositionId'] == 'right-insular-cortex')
