@@ -9,6 +9,19 @@ import re
 MAX_REPEAT_INSTANCES = 50
 
 
+def section_scope_active(section, selections):
+    """A scoped region exists only after its explicit acquisition choice."""
+    scope = section.get('requires_scope')
+    if not scope:
+        return True
+    control = selections.get(scope['section_id'], {})
+    if not isinstance(control, dict) or control.get('normal') or control.get('not_assessed'):
+        return False
+    findings = control.get('findings', {})
+    payload = findings.get(scope['finding_id'], {}) if isinstance(findings, dict) else {}
+    return isinstance(payload, dict) and payload.get(scope['slot_id']) in scope['values']
+
+
 def expand_repeated_sections(investigation, selections):
     """Expand explicit records without mutating the saved schema or selections."""
     expanded, values, issues = [], dict(selections), []
@@ -57,6 +70,20 @@ def render_descriptors(form, state):
     for key in selections:
         if key not in original_ids:
             problem('unknown_descriptor_section', section_id=key)
+    scoped_sections = []
+    for section in investigation['sections']:
+        if section_scope_active(section, selections):
+            scoped_sections.append(section)
+        else:
+            selected = selections.get(section['id'], {})
+            if (not isinstance(selected, dict) or set(selected) - {'normal','not_assessed','findings','instances'}
+                    or any(type(selected.get(flag, False)) is not bool for flag in ('normal','not_assessed'))
+                    or not isinstance(selected.get('findings', {}), dict)
+                    or ('instances' in selected and not isinstance(selected['instances'], list))
+                    or selected.get('normal') or selected.get('not_assessed')
+                    or selected.get('findings') or selected.get('instances')):
+                problem('inactive_descriptor_section', section_id=section['id'])
+    investigation = dict(investigation, sections=scoped_sections)
     investigation, selections, repeated_issues = expand_repeated_sections(investigation, selections)
     issues.extend(repeated_issues)
 

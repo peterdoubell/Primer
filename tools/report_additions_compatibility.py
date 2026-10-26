@@ -4,10 +4,10 @@ import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/report-additions-20261026/runtime-inverse.json'
-PROOF_SHA256='a653d71d9b6daea257341efcad49bcf248329c1dee6416c7bf579f52edfe0578'
+PROOF_SHA256='9eecf50f7fc4739214bc9cd929fe6b3f474b7b5f106387222a74baa9449652d5'
 BASE_COMMIT='3f04127f67a52173a12aa141031bfac1a12cb142'
-PATHS=frozenset({'primer/reporting_bridge.py','web/radiology-structured.js'})
-SCOPE='new_selectable_examinations_calculator_routing_and_widget_availability_only'
+PATHS=frozenset({'primer/reporting_bridge.py','primer/descriptor_reporting.py','web/radiology-structured.js'})
+SCOPE='new_selectable_examinations_acquisition_scope_calculator_routing_and_widget_availability_only'
 def sha(raw):return hashlib.sha256(raw).hexdigest()
 def reviewed():
  raw=(ROOT/PROOF).read_bytes()

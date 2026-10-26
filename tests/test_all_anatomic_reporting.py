@@ -63,10 +63,18 @@ def selection(section, chosen):
     return {'instances': [value]} if section.get('repeatable') else value
 
 
+def scoped_state(inv, section, state):
+    # Explicit synthetic acquisition, never a production default.
+    scope=section.get('requires_scope')
+    if scope:
+        state[scope['section_id']]={'findings':{scope['finding_id']:{scope['slot_id']:scope['values'][0]}}}
+    return {'investigation_id':inv['id'],'selections':state}
+
+
 def render(form, inv, section, chosen, extra=None):
     state = {section['id']: selection(section, chosen)}
     state.update(extra or {})
-    return ENGINE.render_descriptors(form, {'investigation_id': inv['id'], 'selections': state})
+    return ENGINE.render_descriptors(form, scoped_state(inv,section,state))
 
 
 def codes(result):
@@ -194,7 +202,7 @@ def test_every_authored_finding_path_and_required_parent_renders_without_invente
             assert chosen == state, 'Rendering must not mutate saved observations'
             assert '__' not in result['text'] and '[' not in result['text'] and ']' not in result['text']
             reported = {item['id'] for item in section['findings'] if item.get('report') is not False}
-            assert result['selected_finding_count'] == len(set(chosen) & reported)
+            assert result['selected_finding_count'] == len(set(chosen) & reported) + int(bool(section.get('requires_scope')))
             if set(chosen) & reported:
                 assert result['text'], (inv['id'], finding['id'])
             if finding.get('requires_any'):
@@ -213,11 +221,11 @@ def test_unselected_anatomy_and_absent_normals_are_never_filled_in(form, inv):
     empty = ENGINE.render_descriptors(form, {'investigation_id': inv['id'], 'selections': {}})
     assert empty['valid'] and empty['text'] == '' and empty['sections'] == []
     for section in inv['sections']:
-        result = ENGINE.render_descriptors(form, {'investigation_id': inv['id'], 'selections': {section['id']: {'normal': True}}})
+        result = ENGINE.render_descriptors(form, scoped_state(inv,section,{section['id']: {'normal': True}}))
         if section['normal']:
             assert result['valid'], (section['id'], result['issues'])
             assert result['text'].endswith(section['normal']['text'])
-            assert len(result['sections']) == 1
+            assert len(result['sections']) == 1 + int(bool(section.get('requires_scope')))
             assert not section['normal']['slots']
         else:
             assert not result['valid'] and 'normal_not_available' in codes(result)

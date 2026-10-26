@@ -504,6 +504,13 @@ for modality in ['ct','mri']:
 # All additional IDs are stable and included once in the generated manifest.
 OUT['coverage']=[{'investigation_id':iid,'expected_anatomy_ids':[r['id'] for r in inv['sections']]} for iid,inv in OUT['investigations'].items()]
 
+# A unilateral duplex acquisition cannot attest to the opposite limb.
+for iid in ['us.venous-duplex-lower-limb','us.venous-duplex-upper-limb','us.venous-insufficiency']:
+ for r in OUT['investigations'][iid]['sections']:
+  if r['id'].startswith(('right-','left-')):
+   examined_side='right' if r['id'].startswith('right-') else 'left'
+   r['requires_scope']={'section_id':'side','finding_id':'assessment','slot_id':'slot-1','values':[examined_side,'bilateral']}
+
 # Acquisition choices are specific to the examination; no inferred views or load.
 XR_VIEWS={
  'shoulder':['AP scapular-Y and axillary','AP and scapular-Y','AP internal and external rotation','AP only','axillary only'],

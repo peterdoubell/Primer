@@ -397,3 +397,20 @@ test('an unselected examination does not display empty calculators bound elsewhe
   const root=api.render(schema,{investigationId:'ra.ovarian-cysts',request:async path=>{calls.push(path);throw Error('Should not request an empty unrelated calculator');}});
   await root.flush();assert.deepEqual(calls,[]);assert.equal(root.getReport(),'');
 });
+
+test('duplex scope reveals only the acquired limb, limits bulk normal and clears old side observations',()=>{
+ const api=load(),schema=form('rad.5.peripheral-vascular'),iid='us.venous-duplex-lower-limb';
+ const initial={investigation_id:iid,selections:{'anatomy-side':chosen(iid,'side',{assessment:{'slot-1':'right'}})}};
+ const root=api.render(schema,{investigationId:iid,initialState:initial});
+ assert(descendants(root).some(n=>n.textContent==='Right Common femoral vein'));
+ assert(!descendants(root).some(n=>n.textContent==='Left Common femoral vein'));
+ descendants(root).find(n=>n.tagName==='BUTTON'&&n.textContent==='Use normal findings').onclick();
+ assert(!root.getReport().includes('Left Common femoral vein'));
+ const left=descendants(root).find(n=>n.tagName==='BUTTON'&&n.textContent==='left');assert(left);left.onclick();
+ assert(!descendants(root).some(n=>n.textContent==='Right Common femoral vein'));
+ assert(descendants(root).some(n=>n.textContent==='Left Common femoral vein'));
+ assert(!Object.keys(root.getState().selections).some(k=>k.startsWith('anatomy-right-')));
+ const forged={...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{normal:true}}};
+ assert.equal(api.compose(schema,forged).complete,false);
+ assert.equal(api.compose(schema,{...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{unexpected:'cannot vanish'}}}).complete,false);
+});

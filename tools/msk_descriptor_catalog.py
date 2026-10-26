@@ -99,6 +99,22 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
                              'clinical_approval':False}
             if definition.get('base_investigation_id'):
                 investigation['base_investigation_id'] = definition['base_investigation_id']
+            raw_sections = {row['id']:row for row in definition['sections']}
+            for raw_row, section in zip(definition['sections'], sections):
+                scope = raw_row.get('requires_scope')
+                if not scope:
+                    continue
+                control = raw_sections.get(scope.get('section_id'))
+                if not control or control.get('repeatable') or control.get('requires_scope'):
+                    raise ValueError('Scope control must be an unscoped, non-repeated section')
+                control_row = next(row for row in sections if row['anatomy_id'] == control['id'])
+                control_id = identifier + ':' + control['id'] + ':' + scope['finding_id']
+                control_finding = next((f for f in control_row['findings'] if f['id'] == control_id), None)
+                slot = next((s for s in control_finding['slots'] if s['id'] == scope['slot_id']), None) if control_finding else None
+                if (not slot or slot['kind'] != 'choice' or not scope.get('values')
+                        or not set(scope['values']) <= {option['value'] for option in slot['options']}):
+                    raise ValueError('Scope needs explicit finite acquisition choices')
+                section['requires_scope'] = dict(scope, section_id=control_row['id'], finding_id=control_id)
             previous = next((i for i,x in enumerate(form['investigations']) if x['id'] == identifier), None)
             if previous is None:
                 if not investigation.get('base_investigation_id'):

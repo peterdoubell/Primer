@@ -72,3 +72,17 @@ def test_venous_thrombosis_is_segment_specific_and_not_a_global_normal_default()
  labels={r['label'] for r in inv['sections']}
  assert {s+' '+v for s in ['Right','Left'] for v in ['Common femoral vein','Femoral vein proximal segment','Femoral vein middle segment','Femoral vein distal segment','Popliteal vein','Posterior tibial veins','Peroneal veins']}<=labels
  assert render_descriptors(f,state(iid,{}))['text']==''
+
+@pytest.mark.parametrize('iid',['us.venous-duplex-lower-limb','us.venous-duplex-upper-limb','us.venous-insufficiency'])
+def test_acquired_side_never_allows_an_unexamined_limb_normal(iid):
+ f,inv=EXAMS[iid]
+ right=next(r for r in inv['sections'] if r['id'].startswith('anatomy-right-'))
+ left=next(r for r in inv['sections'] if r['id'].startswith('anatomy-left-'))
+ side=selected(iid,'side',{'assessment':{'slot-1':'right'}})
+ assert render_descriptors(f,state(iid,{'anatomy-side':side,right['id']:{'normal':True}}))['valid']
+ bad=render_descriptors(f,state(iid,{'anatomy-side':side,left['id']:{'normal':True}}))
+ assert not bad['valid'] and 'inactive_descriptor_section' in {x['code'] for x in bad['issues']}
+ both=selected(iid,'side',{'assessment':{'slot-1':'bilateral'}})
+ assert render_descriptors(f,state(iid,{'anatomy-side':both,right['id']:{'normal':True},left['id']:{'normal':True}}))['valid']
+ assert not render_descriptors(f,state(iid,{right['id']:{'normal':True}}))['valid']
+ assert not render_descriptors(f,state(iid,{left['id']:{'unknown':'must not disappear'}}))['valid']
