@@ -92,7 +92,9 @@ class FakeElement {
     const found = [];
     const visit = parent => parent.children.forEach(child => {
       if (child.nodeType !== 1) return;
-      if (selector.startsWith('.') ? child.classList.contains(selector.slice(1)) : child.tagName === selector) found.push(child);
+      const attribute = /^\[([\w-]+)(?:="([^"]*)")?\]$/.exec(selector);
+      const matches = attribute ? child.hasAttribute(attribute[1]) && (attribute[2] === undefined || child.getAttribute(attribute[1]) === attribute[2]) : selector.startsWith('.') ? child.classList.contains(selector.slice(1)) : child.tagName === selector;
+      if (matches) found.push(child);
       visit(child);
     });
     visit(this);
@@ -106,6 +108,7 @@ class FakeElement {
     this.parentNode = null;
     this.children = [];
     this.attributes = new Map();
+    this.dataset = {};
     this.listeners = new Map();
     this.style = new FakeStyle();
     this._className = '';
@@ -280,6 +283,8 @@ function loadRenderer() {
   // Load the repository-owned module through Node's normal module boundary;
   // never evaluate file contents as dynamically supplied code.
   require('../web/energy-momentum-lab.js');
+  require('../web/circuits-induction-core.js');
+  require('../web/circuits-induction-lab.js');
   require('../web/lesson-models.js');
   if (!window.PrimerLessonModels || typeof window.PrimerLessonModels.render !== 'function') {
     throw new Error('lesson model registry did not initialize');
@@ -299,6 +304,17 @@ function alternateValue(input) {
   return Math.abs(start - minimum) > Number.EPSILON ? minimum : maximum;
 }
 
+function checkCircuitsScenario(root, lessonId) {
+  try {
+    if(!root.hasAttribute('data-circuits-induction-lab'))throw Error('Shipped circuits renderer did not mount');
+    const expected=lessonId==='phys.2.electricity'?['dc','charge','material','spark']:['finite','induction','pipe','wires','transformer','dc'];
+    if(JSON.stringify(root.circuitsInduction.allowedStations)!==JSON.stringify(expected))throw Error('Station binding changed');
+    const selector=one(root,n=>n.getAttribute('data-ci-role')==='station','station selector');
+    for(const station of expected){selector.value=station;selector.dispatch('change');const m=root.circuitsInduction.getModel();if(!m||root.dataset.station!==station)throw Error('Current station did not render');if(/NaN|Infinity/.test(serializeGeometry(root)))throw Error('Nonfinite geometry');}
+    return [];
+  }catch(e){return [lessonId+': '+e.message];}
+}
+
 function checkScenario(renderer, lessonId, item) {
   const failures = [];
   let root;
@@ -308,6 +324,7 @@ function checkScenario(renderer, lessonId, item) {
     return [lessonId + ': render threw: ' + error.message];
   }
   if (!root) return [lessonId + ': renderer returned no model'];
+  if (['phys.2.electricity','phys.3.em'].includes(lessonId)) return checkCircuitsScenario(root, lessonId);
   if (lessonId === 'phys.3.energy-work') return checkEnergyMomentumScenario(renderer, item, root);
 
   let summary;
@@ -926,24 +943,11 @@ function checkPhysicsFidelity(renderer, models) {
       }
     }
   });
-  audit('current gauge retains the complete Ohmic range without false saturation', () => {
-    const lab = scenario('phys.2.electricity');
-    for (const voltage of [1, 6, 12]) {
-      lab.set('Battery voltage', voltage);
-      for (const resistance of [1, 6, 20]) {
-        lab.set('Resistance', resistance);
-        for (const closed of [0, 1]) {
-          lab.set('Switch', closed);
-          const gauge = one(lab.svg(), candidate => candidate.hasAttribute('data-current-gauge'), 'current gauge');
-          const current = closed ? voltage / resistance : 0;
-          requireClose(Number(gauge.getAttribute('width')) / 340 * 12, current, 1e-12, 'entire physical current scale');
-          if (closed) {
-            const reported = lab.readout().match(/load power V × I = ([\d.]+) W/);
-            if (!reported) throw new Error('load power missing');
-            requireClose(Number(reported[1]), voltage * current, .005, 'P=VI');
-          }
-        }
-      }
+  audit('shipped circuit solver retains complete Ohmic range and open branches', () => {
+    for(const voltage of [1,6,12])for(const resistance of [1,6,20])for(const closed of [false,true]){
+      const m=window.CircuitsInduction.dc({topology:'single',cells:[voltage,0,0],resistance:[resistance,6,6,3,6],status:[closed?'normal':'open','normal','normal','normal','normal']});
+      requireClose(m.sourceCurrent,closed?voltage/resistance:0,1e-12,'Ohmic current');
+      requireClose(m.sourcePower,closed?voltage*voltage/resistance:0,1e-12,'source power');
     }
   });
   audit('ideal ramp uses metres and newtons on one shared curve scale', () => {
@@ -1052,8 +1056,9 @@ function main() {
     const root = renderer.render(media, {});
     return total + descendants(root, node => node.tagName === 'input' && node.type === 'range').length;
   }, 0);
+  console.log('Dedicated circuits: 2 lesson bindings and 10 station mounts verified.');
   console.log('Physics model DOM smoke check passed: ' + models.length +
-    ' scenarios, ' + controls + ' independently exercised controls; ' + fidelity.checks +
+    ' scenarios, ' + controls + ' independently exercised legacy range controls; ' + fidelity.checks +
     ' equation/geometry assertions across eighteen targeted scenarios.');
 }
 

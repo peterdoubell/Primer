@@ -9,7 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_exact_current_delta_recovers_base_and_rejects_foreign_edits(path):
     row = bridge.reviewed()['files'][path]
     raw = (ROOT / path).read_bytes()
-    assert bridge.sha(raw) == row['after_sha256']
+    from tools.circuits_runtime_compatibility import before_circuits_bytes
+    assert bridge.sha(before_circuits_bytes(path, raw, allow_older=True)) == row['after_sha256']
     before = bridge.before_current_labs_bytes(path, raw)
     assert bridge.sha(before) == row['before_sha256']
     assert bridge.before_current_labs_bytes(path, before) == before

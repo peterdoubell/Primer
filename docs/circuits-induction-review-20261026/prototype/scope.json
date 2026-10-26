@@ -1,0 +1,162 @@
+{
+  "kind": "ignored standalone prototype; not shipped",
+  "sourceCommit": "6db082ede7c164afe0e8f3f9b700e39ea8706b3e",
+  "curriculumSHA256": "5d278dd3c789bfcc2b735dbc2a48e6784eac252d7d45adf5676612e6ed6504fb",
+  "allPhysicsModulesInGoal": 39,
+  "wholePhysicsComplete": false,
+  "wholePrimerComplete": false,
+  "modules": [
+    {
+      "id": "phys.2.electricity",
+      "goal": "Circuits, current, and static sparks.",
+      "assessment": [
+        {
+          "index_1_based": 1,
+          "prompt": "In a simple circuit, a battery is connected to a bulb by wires and the bulb lights up. If you cut one wire, why does the bulb go out?",
+          "expected_answer": "The circuit is broken, so charge cannot flow in a complete loop.",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "Opening a branch removes its current path; source and branch meters recompute."
+        },
+        {
+          "index_1_based": 2,
+          "prompt": "You rub a balloon on your hair and it sticks to a wall. This is an example of static electricity because...",
+          "expected_answer": "rubbing charges the balloon, which then attracts the neutral wall.",
+          "prototype_status": "missing",
+          "representation_or_remaining_scope": "No static-charge transfer, dielectric polarization or balloon–wall attraction."
+        },
+        {
+          "index_1_based": 3,
+          "prompt": "Three 1.5 V cells are joined end to end in a row to make one battery. What is the total voltage, in volts?",
+          "expected_answer": "4.5",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "Three 1.5 V cells produce 4.5 V; each cell orientation is explicit."
+        },
+        {
+          "index_1_based": 4,
+          "prompt": "A 6 V battery lights two identical bulbs joined one after the other in a single loop. The two bulbs share the voltage equally. How many volts are across one bulb?",
+          "expected_answer": "3",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "Two equal 6 Ω loads in a 6 V series loop each show 3 V; the third schematic edge is explicitly an ideal short."
+        },
+        {
+          "index_1_based": 5,
+          "prompt": "Two bulbs are wired with one battery in a single loop. When one bulb is unscrewed, both go dark. How are they wired?",
+          "expected_answer": "In series: the charge must pass through both bulbs in turn.",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "Opening either of two series loads gives zero current; this is an ideal ohmic-load analogue."
+        },
+        {
+          "index_1_based": 6,
+          "prompt": "Household wires have a copper core inside a plastic sleeve. Why those two materials?",
+          "expected_answer": "Copper conducts the current; plastic insulates the hand.",
+          "prototype_status": "partial",
+          "representation_or_remaining_scope": "Finite resistors, ideal wires and open branches are distinct, but copper/plastic material microphysics is absent."
+        },
+        {
+          "index_1_based": 7,
+          "prompt": "Two 1.5 V cells and one 3 V cell are joined end to end in a single row. What is the total voltage, in volts?",
+          "expected_answer": "6",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "Editable 1.5 V,1.5 V,3 V cells give a 6 V total; signed cancellation is exact for entered canonical decimals."
+        },
+        {
+          "index_1_based": 8,
+          "prompt": "A battery lights two identical bulbs on separate parallel loops. Each bulb draws 0.4 A. What total current, in amperes, leaves the battery?",
+          "expected_answer": "0.8",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "Two 15 Ω parallel branches at 6 V carry 0.4 A each; source supplies 0.8 A."
+        },
+        {
+          "index_1_based": 9,
+          "prompt": "A string of fairy lights keeps glowing when one bulb fails. How must the bulbs be wired?",
+          "expected_answer": "In parallel, so each bulb sits on its own loop to the battery.",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "Opening a parallel branch preserves the other branch voltages/current for an ideal source."
+        },
+        {
+          "index_1_based": 10,
+          "prompt": "You pull off a wool jumper in a dark room and hear tiny crackles and see small sparks. Explain what is happening.",
+          "expected_answer": "Rubbing transfers electrons between the wool and your other clothes, leaving them oppositely charged. When the built-up static charge grows large enough it jumps across the small air gap as a spark.",
+          "prototype_status": "missing",
+          "representation_or_remaining_scope": "No electrostatic discharge or ionization/breakdown model."
+        }
+      ]
+    },
+    {
+      "id": "phys.3.em",
+      "goal": "Fields, circuits, induction — toward Maxwell.",
+      "assessment": [
+        {
+          "index_1_based": 1,
+          "prompt": "You push a bar magnet quickly into a coil of wire connected to a meter, and the meter deflects. If you hold the magnet still inside the coil, what does the meter read?",
+          "expected_answer": "Zero, because current is induced only while the flux changes.",
+          "prototype_status": "partial",
+          "representation_or_remaining_scope": "Actual changing external flux and a held constant field are compared; no moving finite bar-magnet field/coil geometry is solved."
+        },
+        {
+          "index_1_based": 2,
+          "prompt": "Two long parallel wires carry current in the same direction. What happens between them?",
+          "expected_answer": "They attract each other.",
+          "prototype_status": "missing",
+          "representation_or_remaining_scope": "No parallel-current wire force model."
+        },
+        {
+          "index_1_based": 3,
+          "prompt": "A resistor of 4 ohms has a voltage of 12 volts across it. Using Ohm's law, what current in amperes flows through it?",
+          "expected_answer": "3",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "12 V/4 Ω gives 3 A and 36 W in the single-load preset."
+        },
+        {
+          "index_1_based": 4,
+          "prompt": "A 12 V supply drives a current of 0.50 A through a small heater. What power, in watts, does the heater dissipate?",
+          "expected_answer": "6",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "12 V across 24 Ω gives 0.5 A and 6 W."
+        },
+        {
+          "index_1_based": 5,
+          "prompt": "A strong magnet dropped down a vertical copper pipe takes several seconds to emerge, while through an identical plastic pipe it falls in a fraction of a second. Why?",
+          "expected_answer": "Induced currents in the copper oppose the magnet’s motion.",
+          "prototype_status": "partial",
+          "representation_or_remaining_scope": "Lenz torque and motor/field/heat/storage power are calculated for a uniform-field coil; no copper-pipe eddy-current field or falling-magnet trajectory."
+        },
+        {
+          "index_1_based": 6,
+          "prompt": "A 3 ohm and a 6 ohm resistor are connected in parallel across a battery. How does the combined resistance compare with the 3 ohm resistor on its own?",
+          "expected_answer": "It is 2 ohms, below either resistor on its own.",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "3 Ω in parallel with 6 Ω gives a 2 Ω equivalent resistance."
+        },
+        {
+          "index_1_based": 7,
+          "prompt": "A 240 V supply drives a current of 2.0 A through a heater. What is the heater's resistance, in ohms?",
+          "expected_answer": "120",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "240 V,120 Ω gives 2 A."
+        },
+        {
+          "index_1_based": 8,
+          "prompt": "A 5 ohm resistor and a 7 ohm resistor are connected in series. What is the total resistance, in ohms?",
+          "expected_answer": "12",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "5 Ω+7 Ω gives a 12 Ω series equivalent resistance."
+        },
+        {
+          "index_1_based": 9,
+          "prompt": "A transformer with more turns on its secondary coil than on its primary is fed with alternating current. What happens at the output?",
+          "expected_answer": "The voltage is stepped up and the current stepped down.",
+          "prototype_status": "missing",
+          "representation_or_remaining_scope": "No two-winding transformer, coupled inductance, secondary loading or port-power model."
+        },
+        {
+          "index_1_based": 10,
+          "prompt": "A bicycle dynamo lights its lamp only while the wheel is turning. Why?",
+          "expected_answer": "A voltage appears only while the flux through the coil changes.",
+          "prototype_status": "implemented_bounded",
+          "representation_or_remaining_scope": "A prescribed rotating coil produces emf/current with magnetic torque and required motor power; no rotation in a steady field gives no generated emf. Bicycle mechanism remains an analogue."
+        }
+      ]
+    }
+  ]
+}

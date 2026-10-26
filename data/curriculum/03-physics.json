@@ -1731,7 +1731,20 @@
             "scenario": "phys.2.electricity"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Track charge transfer and distinguish polarization from continuous conduction.",
+        "Use complete circuit paths, branch currents and voltage differences to explain series and parallel circuits.",
+        "Add signed cell voltages and check conservation of charge and electrical power.",
+        "Compare material conductivity while holding specimen dimensions and voltage fixed.",
+        "Explain a spark as discharge onset after charge separation, while distinguishing an onset model from a discharge simulation."
+      ],
+      "lesson": {
+        "overview": "Electric current describes charge flow; voltage describes an energy difference per unit charge. A steady circuit needs a complete conducting path. Static charge can instead remain separated on surfaces and polarize nearby matter. The workbench separates these mechanisms so that attraction, conduction and a spark are not mistaken for the same process.",
+        "worked_example": "Three aligned 1.5 V cells supply 4.5 V. Reversing one changes its sign in that sum. Two identical resistors in series share a 6 V supply equally, giving 3 V across each; the same current passes through both. In parallel, each branch spans the supply voltage: two branches carrying 0.4 A require 0.8 A from the source. Opening one parallel branch leaves the other complete. The circuit treats bulbs as fixed resistors; it does not model a filament warming up.",
+        "activity": "Start with the series and parallel presets, then open a branch and inspect every current and voltage. Reverse a cell and compare supplied power with resistor heating. In the charge station, reverse the deposited charge and inspect the wall response and the opposite charge on the transfer partner. In the material station, compare copper with an ideal insulator at identical dimensions and voltage. In the spark station, change charge, gap and pressure and compare the initial capacitor voltage with the predicted avalanche threshold.",
+        "reflection": "Charge is conserved: a transfer leaves opposite charges on the two partners. Polarization redistributes or displaces charge and can occur without steady current through an insulator. The wall calculation uses a uniformly charged shell and an ideal planar material; it does not reproduce every property of a rubbed balloon. The spark model predicts onset in a uniform gap, not the subsequent plasma waveform, light or sound yield. An ideal short across a nonzero ideal source has no finite steady solution; a real circuit requires source and wire resistance."
+      }
     },
     {
       "id": "phys.2.heat",
@@ -2721,7 +2734,21 @@
             "scenario": "phys.3.em"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Relate induced voltage to the rate of change of linked magnetic flux, including motion and orientation.",
+        "Distinguish induced emf from the current response of resistive, inductive and open circuits.",
+        "Use signed wire currents to predict magnetic attraction or repulsion.",
+        "Reconcile mechanical work, magnetic energy and resistive heating in induction models.",
+        "Explain conducting-pipe braking using induced currents and compare it with a nonconducting pipe.",
+        "Distinguish a solved loaded transformer from the ideal turns-ratio comparison."
+      ],
+      "lesson": {
+        "overview": "Changing magnetic flux links circuits and mechanical motion. An induced emf can exist even when the circuit is open; current also depends on resistance, self-inductance and history. The workbench connects circuits, parallel-wire forces, a moving finite magnet, a rotating coil, a conducting pipe and two coupled windings through explicit energy accounts.",
+        "worked_example": "A 12 V supply across 4 ohms produces 3 A and 36 W of heating. A 3 ohm branch in parallel with 6 ohms has equivalent resistance 2 ohms. For induction, holding a magnet and pickup coil stationary gives no changing external flux. Moving the magnet produces a signed emf; reversing the motion reverses that contribution. With self-inductance, current responds over time rather than instantaneously following emf divided by resistance. A transformer’s ideal turns ratio is a useful comparison, while the loaded calculation includes copper resistance, finite inductance and imperfect coupling.",
+        "activity": "Compare moving, stationary and reversed finite-magnet states. Inspect the R–L current and the energy delivered by the prescribed motion. In the rotating-coil station, compare changing field with changing orientation, and inspect the rapid startup time window. Reverse one of the parallel-wire currents and inspect both force directions. Drop the finite magnet through the conducting pipe, then select the same geometry with zero conductivity. Compare kinetic and potential energy with accumulated heat. Finally, compare transformer load, open-secondary, short-secondary and steady-DC cases.",
+        "reflection": "Flux is an integral over area; a nonuniform finite-magnet field cannot generally be replaced by its on-axis field times the loop area. The pipe calculation includes finite wall geometry and inertia but uses a low-speed resistive-current approximation; its displayed regime diagnostic limits precision claims. Its radial projection compares dimensions and does not show a material slice at the magnet’s current axial position. The transformer is linear and excludes saturation and core losses. Static fields, steady DC, induced voltage and persistent inductive current are different states. Separate companion models do not automatically share this workbench’s controls."
+      }
     },
     {
       "id": "phys.3.optics-waves",

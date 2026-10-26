@@ -1,0 +1,276 @@
+{
+  "curriculumSHA256": "5d278dd3c789bfcc2b735dbc2a48e6784eac252d7d45adf5676612e6ed6504fb",
+  "nodes": [
+    {
+      "id": "phys.2.electricity",
+      "title": "Electricity",
+      "stage": 2,
+      "goal": "Circuits, current, and static sparks.",
+      "articles": [
+        "Electricity",
+        "Electrical network"
+      ],
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "In a simple circuit, a battery is connected to a bulb by wires and the bulb lights up. If you cut one wire, why does the bulb go out?",
+          "answer": "The circuit is broken, so charge cannot flow in a complete loop.",
+          "explain": "Current only flows when there is a complete, unbroken path from one battery terminal to the other; a break stops the flow everywhere.",
+          "choices": [
+            "The circuit is broken, so charge cannot flow in a complete loop.",
+            "The bulb uses up the electricity and needs the wire to refill it.",
+            "The battery instantly runs out of energy when the wire is cut.",
+            "The electricity leaks out of the cut end into the open air."
+          ]
+        },
+        {
+          "kind": "choice",
+          "prompt": "You rub a balloon on your hair and it sticks to a wall. This is an example of static electricity because...",
+          "answer": "rubbing charges the balloon, which then attracts the neutral wall.",
+          "explain": "Rubbing moves electrons onto the balloon. The charged balloon pulls the charges in the wall slightly apart, so the near side becomes oppositely charged and attracts it. Nothing flows continuously, and static charge is not magnetism.",
+          "choices": [
+            "a current flows continuously between the balloon and the wall.",
+            "rubbing charges the balloon, which then attracts the neutral wall.",
+            "the balloon becomes a magnet and sticks to metal hidden in the wall.",
+            "rubbing warms the balloon, and warm rubber grips the wall better."
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "Three 1.5 V cells are joined end to end in a row to make one battery. What is the total voltage, in volts?",
+          "answer": "4.5",
+          "explain": "Cells joined in a line add their voltages: 1.5 + 1.5 + 1.5 = 4.5 V."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A 6 V battery lights two identical bulbs joined one after the other in a single loop. The two bulbs share the voltage equally. How many volts are across one bulb?",
+          "answer": "3",
+          "explain": "In a single loop the voltages across the parts add up to the battery voltage, so each identical bulb takes 6 V / 2 = 3 V."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Two bulbs are wired with one battery in a single loop. When one bulb is unscrewed, both go dark. How are they wired?",
+          "answer": "In series: the charge must pass through both bulbs in turn.",
+          "choices": [
+            "In parallel, since they share one battery.",
+            "In parallel, since removing one bulb breaks the loop they share.",
+            "As a short circuit, which drains the battery.",
+            "In series: the charge must pass through both bulbs in turn."
+          ],
+          "explain": "A series loop offers one path, so breaking it anywhere stops the current everywhere. Parallel branches are separate paths: removing one bulb would leave the other lit, which is exactly what did not happen here."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Household wires have a copper core inside a plastic sleeve. Why those two materials?",
+          "answer": "Copper conducts the current; plastic insulates the hand.",
+          "choices": [
+            "Copper is magnetic while plastic has no magnetism.",
+            "Copper conducts the current; plastic insulates the hand.",
+            "Copper stores the charge and plastic lets it out slowly.",
+            "Plastic stops the copper from getting hot and melting."
+          ],
+          "explain": "Copper holds its outer electrons loosely, so charge flows through it easily. Plastic holds its electrons tightly and blocks the current, keeping it in the wire and off your hand. Copper is not magnetic, and neither material stores the charge."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "Two 1.5 V cells and one 3 V cell are joined end to end in a single row. What is the total voltage, in volts?",
+          "answer": "6",
+          "explain": "Cells in series add: 1.5 + 1.5 + 3 = 6 V."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A battery lights two identical bulbs on separate parallel loops. Each bulb draws 0.4 A. What total current, in amperes, leaves the battery?",
+          "answer": "0.8",
+          "explain": "In parallel the branch currents add, so the battery supplies 0.4 + 0.4 = 0.8 A."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A string of fairy lights keeps glowing when one bulb fails. How must the bulbs be wired?",
+          "answer": "In parallel, so each bulb sits on its own loop to the battery.",
+          "choices": [
+            "In parallel, so each bulb sits on its own loop to the battery.",
+            "In series, so the charge passes through every bulb in turn.",
+            "In series, but with wire thick enough to bridge the dead bulb.",
+            "In a single loop with the battery pushing across the gap."
+          ],
+          "explain": "Parallel branches are independent, so breaking one still leaves complete loops through all the others."
+        },
+        {
+          "kind": "short",
+          "prompt": "You pull off a wool jumper in a dark room and hear tiny crackles and see small sparks. Explain what is happening.",
+          "answer": "Rubbing transfers electrons between the wool and your other clothes, leaving them oppositely charged. When the built-up static charge grows large enough it jumps across the small air gap as a spark.",
+          "keywords": [
+            "electrons",
+            "charge",
+            "static",
+            "spark"
+          ],
+          "explain": "Friction moves electrons from one surface to the other; the separated static charge then discharges across the gap as a visible, audible spark."
+        }
+      ],
+      "prereqs": [
+        "phys.1.motion",
+        "phys.1.magnets",
+        "phys.1.energy"
+      ],
+      "lesson_media": [
+        {
+          "id": "phys-electricity-circuit-topology",
+          "kind": "illustration",
+          "src": "/app/illustrations/sapling/physics/phys-2-electricity-800.webp",
+          "srcset": "/app/illustrations/sapling/physics/phys-2-electricity-800.webp 800w, /app/illustrations/sapling/physics/phys-2-electricity-1600.webp 1600w",
+          "alt": "Circuit schematics compare an open path, two bulbs in series, and two parallel current branches.",
+          "caption": "A closed topology permits current; voltage adds across series elements while current divides among parallel branches.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "phys-2-electricity-concept-lab",
+          "kind": "model",
+          "renderer": "physics-concept-lab",
+          "title": "Circuit Relationship Lab",
+          "instructions": "Open the circuit or change voltage and resistance to see current respond.",
+          "props": {
+            "scenario": "phys.2.electricity"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phys.3.em",
+      "title": "Electricity and Magnetism",
+      "stage": 3,
+      "goal": "Fields, circuits, induction — toward Maxwell.",
+      "articles": [
+        "Electromagnetism",
+        "Electromagnetic induction"
+      ],
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "You push a bar magnet quickly into a coil of wire connected to a meter, and the meter deflects. If you hold the magnet still inside the coil, what does the meter read?",
+          "answer": "Zero, because current is induced only while the flux changes.",
+          "explain": "Faraday's law says an EMF is induced by a changing magnetic flux; a stationary magnet gives constant flux and no induced current.",
+          "choices": [
+            "A reversed current, because the magnet has come to rest.",
+            "Zero, because current is induced only while the flux changes.",
+            "A steady large current, because the magnet is inside the coil.",
+            "A current that grows as long as the magnet stays inside."
+          ]
+        },
+        {
+          "kind": "choice",
+          "prompt": "Two long parallel wires carry current in the same direction. What happens between them?",
+          "answer": "They attract each other.",
+          "explain": "Each wire sits in the other's magnetic field, and parallel currents in the same direction produce an attractive magnetic force.",
+          "choices": [
+            "They attract each other.",
+            "There is no force between them.",
+            "They repel each other.",
+            "They twist to become perpendicular."
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A resistor of 4 ohms has a voltage of 12 volts across it. Using Ohm's law, what current in amperes flows through it?",
+          "answer": "3",
+          "explain": "Ohm's law gives I = V/R = 12 V ÷ 4 Ω = 3 A."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A 12 V supply drives a current of 0.50 A through a small heater. What power, in watts, does the heater dissipate?",
+          "answer": "6",
+          "explain": "P = VI = 12 V x 0.50 A = 6 W."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A strong magnet dropped down a vertical copper pipe takes several seconds to emerge, while through an identical plastic pipe it falls in a fraction of a second. Why?",
+          "answer": "Induced currents in the copper oppose the magnet’s motion.",
+          "choices": [
+            "Copper is magnetic and attracts the falling magnet upward.",
+            "Induced currents in the copper oppose the magnet’s motion.",
+            "Air in the copper pipe is compressed and slows the fall.",
+            "Friction against the copper wall is far greater than against plastic."
+          ],
+          "explain": "The falling magnet changes the flux through each ring of the copper, inducing eddy currents. By Lenz's law their field opposes the change, braking the magnet. Copper is not magnetic, and the magnet never touches the wall."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A 3 ohm and a 6 ohm resistor are connected in parallel across a battery. How does the combined resistance compare with the 3 ohm resistor on its own?",
+          "answer": "It is 2 ohms, below either resistor on its own.",
+          "choices": [
+            "It is 9 ohms, the sum of the two resistances.",
+            "It is 4.5 ohms, the average of the two values.",
+            "It is 2 ohms, below either resistor on its own.",
+            "It is 3 ohms, fixed by the smaller of the two."
+          ],
+          "explain": "1/R = 1/3 + 1/6 = 1/2, so R = 2 ohms. Adding a parallel branch always gives the current another route, so the total falls below even the smallest branch. Resistances add only in series."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A 240 V supply drives a current of 2.0 A through a heater. What is the heater's resistance, in ohms?",
+          "answer": "120",
+          "explain": "R = V/I = 240/2.0 = 120 ohms."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A 5 ohm resistor and a 7 ohm resistor are connected in series. What is the total resistance, in ohms?",
+          "answer": "12",
+          "explain": "Series resistances add: 5 + 7 = 12 ohms."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A transformer with more turns on its secondary coil than on its primary is fed with alternating current. What happens at the output?",
+          "answer": "The voltage is stepped up and the current stepped down.",
+          "choices": [
+            "The voltage is stepped up and the current stepped down.",
+            "Both the output voltage and the output current rise.",
+            "The voltage rises, and the power delivered rises with it.",
+            "Nothing happens, because a transformer needs direct current."
+          ],
+          "explain": "An ideal transformer conserves power, so raising voltage lowers current by the same ratio; it needs a changing current, which AC supplies."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A bicycle dynamo lights its lamp only while the wheel is turning. Why?",
+          "answer": "A voltage appears only while the flux through the coil changes.",
+          "choices": [
+            "A voltage appears only while the flux through the coil changes.",
+            "The lamp needs the mechanical push of the wheel to glow.",
+            "The dynamo stores charge, which leaks away once it stops.",
+            "The magnet loses its magnetism the moment the wheel halts."
+          ],
+          "explain": "Faraday's law makes the induced voltage depend on the rate at which flux changes, so a stationary magnet and coil produce nothing however strong the magnet. The wheel supplies the change, not a push that travels to the lamp."
+        }
+      ],
+      "prereqs": [
+        "phys.2.electricity",
+        "phys.1.magnets",
+        "phys.3.mechanics",
+        "math.3.trig"
+      ],
+      "lesson_media": [
+        {
+          "id": "phys-induction-changing-flux",
+          "kind": "illustration",
+          "src": "/app/illustrations/tree/physics/phys-3-em-800.webp",
+          "srcset": "/app/illustrations/tree/physics/phys-3-em-800.webp 800w, /app/illustrations/tree/physics/phys-3-em-1600.webp 1600w",
+          "alt": "A moving magnet and stationary magnet face identical coils, but only changing magnetic flux induces an emf.",
+          "caption": "Faraday induction depends on flux-change rate, so a strong unchanging flux produces no induced emf in this stationary coil.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "phys-3-em-concept-lab",
+          "kind": "model",
+          "renderer": "physics-concept-lab",
+          "title": "Induction Coil Lab",
+          "instructions": "Move, stop, or reverse the magnet to test how changing flux induces voltage.",
+          "props": {
+            "scenario": "phys.3.em"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "prototypeOnly": true,
+  "trackedFilesChanged": false,
+  "currentReleaseMustRemainUnchanged": true,
+  "targetLessons": [
+    "phys.2.electricity",
+    "phys.3.em"
+  ],
+  "preserve": [
+    "Existing quiz questions and answer validation",
+    "Existing authored media IDs, captions and original illustrations until explicitly reviewed",
+    "Existing independent physics checks and historical evidence"
+  ],
+  "pureCoreAPI": {
+    "dc": "Accept topology,3 canonical numeric cell voltages,3 polarities,5 positive resistances and5 branch conditions; return classified solution, node/branch meters, source/cell powers and residuals.",
+    "induction": "Accept documented N,r,B0,B1,f,phase,normal angle,rotation,R,L,time,open; return exact current function and time samples, external flux/emf, dipole torque and energy ports.",
+    "errors": "Invalid numerical domains throw. R is positive. L is zero or ≥0.001 H. An inconsistent ideal source short is a physical-model status, not a fabricated large current."
+  },
+  "requiredAdapterWork": [
+    "Refactor view.js global document queries/top-level bootstrap into a scoped render(item,hooks) that returns one root element.",
+    "Expose a browser API such as PrimerCircuitsInductionLab.render with exact physics-concept-lab scenario gates for the two target lessons; default DC for electricity and induction for EM.",
+    "Namespace style.css under that returned root; standalone body/main/reset styles must not be copied globally.",
+    "Use local component state and supplied full-current-state speech hook; do not introduce profile/database writes.",
+    "Load core/renderer/CSS through normal protected assets and startup bundle before lesson-models registry; preserve CSP.",
+    "Make the actual registry call the shipped helper rather than testing stale generic fallback bodies.",
+    "Give old 3D single-load/magnet examples explicit separate-example captions or replace them only with separately verified geometry; their default states are not shared with this prototype.",
+    "Validate exact lesson binding and update all current runtime/historical compatibility contracts without weakening frozen evidence.",
+    "Run authenticated actual-reader proofs for both lessons at390/1440 after adapter integration; standalone proof does not cover those paths."
+  ],
+  "suggestedAssets": [
+    "web/circuits-induction-core.js",
+    "web/circuits-induction-lab.js",
+    "web/circuits-induction-lab.css"
+  ],
+  "unimplementedAssessmentScope": [
+    "Static charge, polarization and sparks",
+    "Copper/plastic material response",
+    "Parallel-wire forces",
+    "Loaded transformer/two-winding coupling",
+    "Finite moving magnet and copper-pipe eddy-current dynamics"
+  ],
+  "reason": "This task requested ignored-area prototype work; current PR168 release is frozen.",
+  "integrationPerformed": false,
+  "integrationTiming": "After the frozen PR168 release; existing whole-Primer goal authorization is retained."
+}

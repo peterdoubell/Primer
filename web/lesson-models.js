@@ -5950,6 +5950,9 @@
 
   function renderPhysicsConceptLab(item, hooks) {
     const scenarioId = item && item.props && item.props.scenario;
+    if (['phys.2.electricity', 'phys.3.em'].includes(scenarioId)) {
+      return window.PrimerCircuitsInductionLab?.render(item, hooks) || null;
+    }
     if (scenarioId === 'phys.3.energy-work') {
       return window.PrimerEnergyMomentumLab?.render(item, hooks) || null;
     }
