@@ -95,3 +95,5 @@ Frozen native anatomy/source receipts remain unchanged. The bounded runtime inve
 - [RECIST Working Group: RECIST 1.1 guideline](https://recist.eortc.org/recist/wp-content/uploads/sites/14/2025/12/RECISTGuidelines.pdf)
 - [ACR O-RADS US v2022 assessment and lexicon](https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/O-RADS)
 - [ACR CT/MRI LI-RADS v2018 diagnostic algorithm](https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/LI-RADS)
+
+Duplex vein segments require an explicit right, left or bilateral acquisition choice. Bulk normal fills only the active side. A scope change clears inactive dependent observations, and the canonical API rejects selected observations outside that scope.
