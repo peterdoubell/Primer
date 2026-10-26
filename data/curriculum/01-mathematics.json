@@ -1706,13 +1706,11 @@
         {
           "id": "build-equivalent-fractions",
           "kind": "model",
-          "renderer": "fraction-equivalence-lab",
-          "title": "Build equivalent fractions",
-          "instructions": "Multiply the numerator and denominator by the same factor. Watch the partitions change while the fraction's value stays the same.",
+          "renderer": "fraction-arithmetic-lab",
+          "title": "Fractions: equal units, exact operations",
+          "instructions": "Keep the same whole while adding, subtracting, comparing, multiplying, dividing or simplifying fractions. Inspect exact partitions and quantities, including signed and improper fractions.",
           "props": {
-            "numerator": 2,
-            "denominator": 3,
-            "max_factor": 4
+            "scenario": "math.2.fractions"
           }
         }
       ],
@@ -1818,7 +1816,21 @@
         "math.1.addition",
         "math.1.fractions-intro",
         "math.1.multiplication"
-      ]
+      ],
+      "learning_outcomes": [
+        "Use equivalent partitions of the same whole to add, subtract and compare rational numbers.",
+        "Simplify a fraction by a common factor while preserving its exact value.",
+        "Interpret multiplication as taking a fraction of another fraction and distinguish its signed value from geometric area.",
+        "Find a fraction of a divisible quantity using equal shares of that full quantity.",
+        "Interpret division by a nonzero fraction as measuring in groups, including a partial final group.",
+        "Explain negative and improper fractions, negative denominator normalization and undefined zero-denominator or zero-divisor cases."
+      ],
+      "lesson": {
+        "overview": "A fraction names a number relative to a chosen whole. Equivalent fractions change the partition without changing that number. Addition and subtraction require pieces of the same size; multiplication, division and simplification follow different operations and should not be confused.",
+        "worked_example": "For two thirds plus one quarter, split the same whole into twelfths. The operands become eight twelfths and three twelfths, so their sum is eleven twelfths. To simplify eighteen twenty-fourths, group six original pieces into each new piece: the shaded amount becomes three quarters. Three quarters of a twenty-unit quantity means three of four equal five-unit shares, giving fifteen units.",
+        "activity": "Use the worked examples, then change the two signed numerators and denominators. Compare a common-denominator calculation with the equal-unit strips. In multiplication, inspect the equal-scale magnitude rectangle and its separately stated sign. In division, compare complete groups with the fraction of a final group. Follow an endpoint or change the magnified partition crop; the exact ledger always describes the complete value. Try a negative denominator, an improper fraction and division by zero.",
+        "reflection": "A bigger denominator means smaller pieces only when the whole stays fixed, and it does not by itself order two fractions. Simplification preserves the number, while an operation can change it. Negative lengths and areas are not physical objects: the diagrams use nonnegative geometric magnitudes with an explicit algebraic sign. The quantity example assumes a divisible amount, such as litres; a fractional answer is not automatically a permissible count of indivisible objects. The separate rotatable disk is an illustration of one partitioned whole, not the arithmetic state of this workbench."
+      }
     },
     {
       "id": "math.2.decimals",

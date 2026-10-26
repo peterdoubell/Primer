@@ -1,0 +1,109 @@
+{
+  "scope": "math.2.fractions arithmetic workbench and the separately attached fraction-disk family; whole mathematics/physics/radiology goal remains incomplete.",
+  "base": "ae974fcda00827d4617de9ae52da519327dcc743",
+  "actual_binding": {
+    "renderer": "fraction-arithmetic-lab",
+    "node": "math.2.fractions",
+    "props": {
+      "scenario": "math.2.fractions"
+    },
+    "global": "PrimerFractionsLab",
+    "media_id": "build-equivalent-fractions"
+  },
+  "changes": [
+    "Replaced the authored fixed2/3 equivalence activity with exact signed rational addition,subtraction,comparison,multiplication,division,simplification andfraction-of-quantity.",
+    "Added original teaching prose and six learning outcomes; retained all ten assessment objects,prerequisites and original illustration.",
+    "Integrated scoped book styling and dynamic full-state speech through the real lesson hooks.",
+    "Corrected the separate fraction disk\u2019s false exact rounded eighth decimals.",
+    "Closed every disk sector with outward faces; fixed total circular chords at96 across halves/quarters/eighths so the faceted whole has invariant area andvolume.",
+    "Clarified that the disk is a separate partition example andits circular boundary is a display approximation."
+  ],
+  "preservation": [
+    "Original target node saved and independently restored to the original whole-curriculum SHA.",
+    "Only the fraction-disk family substring changes within spatial-module-objects.js; prefix andsuffix pins prove all otherfamilies byte-identical."
+  ],
+  "numerical_verification": {
+    "proof": "numerical-proof.json",
+    "cases": 5060,
+    "defined": 3596,
+    "undefined": 1464,
+    "method": "Independent Python Fraction/gcd/lcm andinterval/group/share oracles."
+  },
+  "companion_verification": {
+    "proof": "companion-proof.json",
+    "valid_control_states": 96,
+    "normalized_boundary_states": 7,
+    "face_checks": 11808,
+    "method": "Independent oriented edge-pair closure,outward normals,signed polyhedron volumes,equal area/volume ratios andfixed whole across separation/partition states."
+  },
+  "reader_verification": {
+    "proof": "reader/proof.json",
+    "sha256": "202c500f0730b10d95f6c4ae97119e2a18a18c08e9eccd806c2dc8ffc6ed0bad",
+    "primary_states": 86,
+    "primary_geometry_checks": 6524,
+    "companion_states": 202,
+    "projected_companion_vertices": 128064,
+    "full_dynamic_speech_cases": 16,
+    "viewports": [
+      390,
+      1440
+    ],
+    "current_source_pin_mismatches": [],
+    "production_verified": false,
+    "methods": [
+      "Real authenticated lesson route on an isolated synthetic database/content directory.",
+      "Anonymous newassets/API return401; served CSS/JS andcomplete startup bundle match current source bytes.",
+      "Original illustration loads; public node does notexpose quiz objects.",
+      "Actual SVG bar/product/share/group/detail geometry checked independently.",
+      "Every actual companion polygon ismatched to a mathematical projection ofclosed sourcegeometry; controls andkeyboard camera exercised.",
+      "Speech callback executes through realbook buttons for every operation andundefineddivision; diagramzoom leaves speechicon unchanged."
+    ]
+  },
+  "integration_bug_fixed": "Standalone prototype zoom selected every SVG; the real speech hook adds an SVG icon. Restricting zoom to data-fraction-plot preserves the speech icon. The actual reader checker covers this.",
+  "known_limits": [
+    "Bounded rational arithmetic,not a general symbolic expression parser.",
+    "Full values stay in exact ledgers while partition/group detail can be explicitly cropped.",
+    "Quantity examples use divisible amounts; they do not silently round fractional counts of indivisible objects.",
+    "SVG positions and96-chord disk boundaries are display approximations; exact ratios are independently computed.",
+    "This current-state proof does notestablish production deployment or whole-subject completion."
+  ],
+  "whole_goal_complete": false,
+  "source_sha256": {
+    "web/fractions-lab.js": "d8b59366d45e21d7e7167b2c15c65e30ec70d7dce51d23b9f5e3187b770a2549",
+    "web/fractions-lab.css": "ec8360a114bac030485113fff1fc524df8b9fce4f9bc4996a03cf4a1d170ff87",
+    "web/spatial-module-objects.js": "a2f22cd77fd67b5169824742f962aff5736f916ee072e0343891ba1eb820a020",
+    "tools/check_fractions_lab.py": "c0c0235acbe462f2253cd736e083d08ec2084d7510c261ecb1ee11b482a1a32e",
+    "tools/check_fractions_companion.py": "08ef911965c131b2711a25bee65f4b2ef5f8241ba16a263aedc58d3aa8852d11",
+    "tools/check_fractions_reader.cjs": "81b70d8cda36800a02294b7e6508baf87a4c027067937660bb1c955a6e733dfe",
+    "tests/test_fractions_lab.py": "94629c2598305b0254561153d34b0ed4d2aa079b54244576eac87e2d2a471cb6"
+  },
+  "independent_review": {
+    "reviewer": "fractions_runtime_review_20261026",
+    "finding": "No actionable issue found in the fractions integration.",
+    "additional_browser_boundary_states": 56,
+    "viewports": [
+      390,
+      1440
+    ],
+    "focused_tests_passed": 6,
+    "source_sha256": {
+      "web/fractions-lab.js": "d8b59366d45e21d7e7167b2c15c65e30ec70d7dce51d23b9f5e3187b770a2549",
+      "web/spatial-module-objects.js": "a2f22cd77fd67b5169824742f962aff5736f916ee072e0343891ba1eb820a020"
+    },
+    "reviewed_reader_proof_sha256": "202c500f0730b10d95f6c4ae97119e2a18a18c08e9eccd806c2dc8ffc6ed0bad",
+    "limits": "Local authenticated behavior only; hosted deployment remains unverified."
+  },
+  "visual_review": {
+    "inspected": [
+      "reader/390-quantity-Fraction-of-a-quantity-equal-shares.png",
+      "reader/fraction-disk-1440.png"
+    ],
+    "observed": "The quantity diagram shows four equal five-unit shares and selects three; the exploded disk shows equal closed sectors. Magnification and keyboard scrolling are tested for small screens."
+  },
+  "historical_consumer_verification": {
+    "command": "Project Python 3.12: math growth, plane shapes, systems lesson preservation, linear algebra integration, number theory/system inverses and logic source pins",
+    "passed": 28,
+    "seconds": 9.07,
+    "consumer_change": "The frozen linear-algebra authored-corpus comparison first applies root-owned before_current_labs_bytes to remove only the exact recorded new fractions delta. No historical evidence file was changed."
+  }
+}

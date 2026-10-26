@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from tools import fidelity_continuation_runtime_compatibility as bridge
+from tools.current_labs_runtime_compatibility import before_current_labs_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,7 +20,7 @@ def sha(raw):
 def test_inverse_restores_exact_prior_bytes_and_rejects_unknown_changes(path):
     row = bridge.reviewed_ledger() if path == bridge.LEDGER_PATH else bridge.reviewed()['files'][path]
     raw = (ROOT / path).read_bytes()
-    assert sha(raw) == row['after_sha256']
+    assert sha(before_current_labs_bytes(path, raw, allow_older=True)) == row['after_sha256']
     restored = bridge.before_continuation_bytes(path, raw)
     assert sha(restored) == row['before_sha256']
     assert bridge.before_continuation_bytes(path, restored) == restored
@@ -87,7 +88,7 @@ def test_ledger_addition_is_explicitly_native_and_preserves_all_prior_entries():
 
 def test_physics_inverse_preserves_all_ten_questions_and_other_lessons():
     path = 'data/curriculum/03-physics.json'
-    current = json.loads((ROOT / path).read_bytes())
+    current = json.loads(before_current_labs_bytes(path, (ROOT / path).read_bytes()))
     prior = json.loads(bridge.before_continuation_bytes(path, (ROOT / path).read_bytes()))
     changed = [a['id'] for a, b in zip(current['nodes'], prior['nodes'], strict=True) if a != b]
     assert changed == ['phys.3.energy-work']

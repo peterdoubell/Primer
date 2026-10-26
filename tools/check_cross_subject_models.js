@@ -1228,6 +1228,14 @@ assert.deepEqual(linearAlgebraEntries.map(({ node, item }) => [node.id, item.id,
 ]);
 console.log('LINALG_BINDING math.4.linalg = explore-linear-maps-and-kernels');
 
+const fractionsEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'fraction-arithmetic-lab').map(item => ({ node, item })));
+assert.deepEqual(fractionsEntries.map(({ node, item }) => [node.id, item.id, item.kind, item.props]), [
+  ['math.2.fractions', 'build-equivalent-fractions', 'model', { scenario: 'math.2.fractions' }],
+]);
+console.log('FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions');
+
+
 
 const entries = nodes.flatMap(node => (node.lesson_media || [])
   .filter(item => item.kind === 'model').map(item => ({ node, item })));
@@ -1239,8 +1247,8 @@ for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
-assert.equal(entries.filter(({ item }) => !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
-  70, 'All 70 earlier lesson models remain reachable');
+assert.equal(entries.filter(({ item }) => !['fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
+  69, 'The other 69 earlier models remain; fractions has its exact dedicated replacement below');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-ode-lab').length,
   1, 'The separately checked second-order ODE activity remains reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-field-lab').length,

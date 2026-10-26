@@ -1,0 +1,137 @@
+{
+  "id": "math.2.fractions",
+  "title": "Fractions",
+  "stage": 2,
+  "goal": "Add, subtract, compare, multiply and simplify fractions.",
+  "articles": [
+    "Fraction"
+  ],
+  "practice": "fractions",
+  "lesson_media": [
+    {
+      "id": "equivalent-fractions-plate",
+      "kind": "illustration",
+      "src": "/app/illustrations/sapling/math/math-2-fractions-800.webp",
+      "srcset": "/app/illustrations/sapling/math/math-2-fractions-800.webp 800w, /app/illustrations/sapling/math/math-2-fractions-1600.webp 1600w",
+      "alt": "Three equal-length fraction bars show one of two, two of four and four of eight equal parts shaded, each covering exactly half of its bar.",
+      "caption": "One half, two quarters and four eighths are equivalent fractions: the partitions change, but the shaded amount stays the same.",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "id": "build-equivalent-fractions",
+      "kind": "model",
+      "renderer": "fraction-equivalence-lab",
+      "title": "Build equivalent fractions",
+      "instructions": "Multiply the numerator and denominator by the same factor. Watch the partitions change while the fraction's value stays the same.",
+      "props": {
+        "numerator": 2,
+        "denominator": 3,
+        "max_factor": 4
+      }
+    }
+  ],
+  "quiz": [
+    {
+      "kind": "choice",
+      "prompt": "Compute 2/3 + 1/4.",
+      "answer": "11/12",
+      "explain": "Use a common denominator of 12: 2/3 = 8/12 and 1/4 = 3/12, so the sum is 11/12.",
+      "choices": [
+        "11/12",
+        "3/7",
+        "5/7",
+        "7/12"
+      ]
+    },
+    {
+      "kind": "choice",
+      "prompt": "Sam says 3/8 must be bigger than 2/5, because 8 is bigger than 5. Which reply is correct?",
+      "answer": "Sam is wrong: 3/8 = 15/40 and 2/5 = 16/40",
+      "choices": [
+        "Sam is wrong: 3/8 = 15/40 and 2/5 = 16/40",
+        "Sam is right: a bigger bottom number means more",
+        "Sam is wrong: the two fractions turn out equal",
+        "Sam is right: 3 pieces beats 2 pieces"
+      ],
+      "explain": "Both fractions refer to the same-sized whole. Over a common denominator of 40, 3/8 becomes 15/40 and 2/5 becomes 16/40, so 2/5 is larger. The denominator says how many equal parts make the whole; by itself it does not tell you which fraction is larger."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "What is 3/4 of 20?",
+      "answer": "15",
+      "explain": "One quarter of 20 is 5, so three quarters is 3 x 5 = 15."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Simplify 18/24 to its lowest terms. What is the denominator of the simplified fraction?",
+      "answer": "4",
+      "explain": "Dividing top and bottom by 6 gives 3/4, so the denominator is 4."
+    },
+    {
+      "kind": "choice",
+      "prompt": "A pizza is cut into 8 equal slices. You eat 3 slices and a friend eats 2. What fraction of the pizza is left?",
+      "answer": "3/8",
+      "choices": [
+        "3/8",
+        "5/8",
+        "1/8",
+        "3/5"
+      ],
+      "explain": "Five slices are gone, so 3 of the 8 slices remain: 3/8."
+    },
+    {
+      "kind": "choice",
+      "prompt": "A recipe needs 1/2 a cup of sugar and you have 3/4 of a cup. How much is left once you measure out what the recipe needs?",
+      "answer": "1/4 cup",
+      "choices": [
+        "2/2 cup",
+        "1/2 cup",
+        "3/8 cup",
+        "1/4 cup"
+      ],
+      "explain": "3/4 - 1/2 = 3/4 - 2/4 = 1/4 of a cup. Subtracting tops and bottoms separately would wrongly give 2/2."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "What is 2/5 of 45?",
+      "answer": "18",
+      "explain": "Divide 45 into 5 equal parts of 9, then take 2 of them: 2 x 9 = 18."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Simplify 30/45 to its lowest terms. What is the numerator of the simplified fraction?",
+      "answer": "2",
+      "explain": "Both numbers divide by 15, giving 2/3, so the numerator is 2."
+    },
+    {
+      "kind": "choice",
+      "prompt": "Ali multiplies 1/2 by 1/3 and writes 2/6, saying you add the tops and multiply the bottoms. What went wrong?",
+      "answer": "He added the numerators instead of multiplying them",
+      "choices": [
+        "He added the numerators instead of multiplying them",
+        "He needed a common denominator first",
+        "He should have turned the second fraction upside down",
+        "He forgot to simplify at the end"
+      ],
+      "explain": "To multiply fractions you multiply top by top and bottom by bottom: 1/2 x 1/3 = 1/6. Common denominators are needed when adding or subtracting fractions with unlike denominators, not when multiplying."
+    },
+    {
+      "kind": "choice",
+      "prompt": "Which of these is a sound first step for adding 1/6 and 1/4?",
+      "answer": "Rewrite both with twelfths",
+      "choices": [
+        "Rewrite both with twelfths",
+        "Add the tops and add the bottoms",
+        "Rewrite both of them with tenths",
+        "Multiply the two bottoms and keep the tops as they are"
+      ],
+      "explain": "The smallest number both 6 and 4 divide into is 12, so 1/6 = 2/12 and 1/4 = 3/12, giving 5/12."
+    }
+  ],
+  "prereqs": [
+    "math.1.addition",
+    "math.1.fractions-intro",
+    "math.1.multiplication"
+  ]
+}

@@ -1,0 +1,620 @@
+{
+  "base_commit": "ae974fcda00827d4617de9ae52da519327dcc743",
+  "scope": "exact_current_lesson_and_requirement_deltas_only",
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "545477aedd91455cd2a27f46ef1f5bb1f4d8da5e1adf08918a4a18476f31c215",
+      "after_sha256": "27e713d0c7579bbef7b61b66014c58d57c73a5f299637f37c99272e9b515e19e",
+      "changes": [
+        {
+          "start": 1708,
+          "end": 1711,
+          "before": "          \"renderer\": \"fraction-equivalence-lab\",\n          \"title\": \"Build equivalent fractions\",\n          \"instructions\": \"Multiply the numerator and denominator by the same factor. Watch the partitions change while the fraction's value stays the same.\",\n",
+          "after": "          \"renderer\": \"fraction-arithmetic-lab\",\n          \"title\": \"Fractions: equal units, exact operations\",\n          \"instructions\": \"Keep the same whole while adding, subtracting, comparing, multiplying, dividing or simplifying fractions. Inspect exact partitions and quantities, including signed and improper fractions.\",\n"
+        },
+        {
+          "start": 1712,
+          "end": 1713,
+          "before": "            \"numerator\": 2,\n            \"denominator\": 3,\n            \"max_factor\": 4\n",
+          "after": "            \"scenario\": \"math.2.fractions\"\n"
+        },
+        {
+          "start": 1818,
+          "end": 1833,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Use equivalent partitions of the same whole to add, subtract and compare rational numbers.\",\n        \"Simplify a fraction by a common factor while preserving its exact value.\",\n        \"Interpret multiplication as taking a fraction of another fraction and distinguish its signed value from geometric area.\",\n        \"Find a fraction of a divisible quantity using equal shares of that full quantity.\",\n        \"Interpret division by a nonzero fraction as measuring in groups, including a partial final group.\",\n        \"Explain negative and improper fractions, negative denominator normalization and undefined zero-denominator or zero-divisor cases.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"A fraction names a number relative to a chosen whole. Equivalent fractions change the partition without changing that number. Addition and subtraction require pieces of the same size; multiplication, division and simplification follow different operations and should not be confused.\",\n        \"worked_example\": \"For two thirds plus one quarter, split the same whole into twelfths. The operands become eight twelfths and three twelfths, so their sum is eleven twelfths. To simplify eighteen twenty-fourths, group six original pieces into each new piece: the shaded amount becomes three quarters. Three quarters of a twenty-unit quantity means three of four equal five-unit shares, giving fifteen units.\",\n        \"activity\": \"Use the worked examples, then change the two signed numerators and denominators. Compare a common-denominator calculation with the equal-unit strips. In multiplication, inspect the equal-scale magnitude rectangle and its separately stated sign. In division, compare complete groups with the fraction of a final group. Follow an endpoint or change the magnified partition crop; the exact ledger always describes the complete value. Try a negative denominator, an improper fraction and division by zero.\",\n        \"reflection\": \"A bigger denominator means smaller pieces only when the whole stays fixed, and it does not by itself order two fractions. Simplification preserves the number, while an operation can change it. Negative lengths and areas are not physical objects: the diagrams use nonnegative geometric magnitudes with an explicit algebraic sign. The quantity example assumes a divisible amount, such as litres; a fractional answer is not automatically a permissible count of indivisible objects. The separate rotatable disk is an illustration of one partitioned whole, not the arithmetic state of this workbench.\"\n      }\n"
+        }
+      ]
+    },
+    "data/curriculum/03-physics.json": {
+      "before_sha256": "5d278dd3c789bfcc2b735dbc2a48e6784eac252d7d45adf5676612e6ed6504fb",
+      "after_sha256": "5d278dd3c789bfcc2b735dbc2a48e6784eac252d7d45adf5676612e6ed6504fb",
+      "changes": []
+    },
+    "data/radiology/non-msk-structure-requirements.json": {
+      "before_sha256": "405f3fe902e9fdce1f9d3834dff72898911135acd0b6a170bdc7d00868ad868d",
+      "after_sha256": "62cfde66f51d394d62df95b9721a989c1bea32a74baa2cf56df2de1cabce17cf",
+      "changes": [
+        {
+          "start": 1250,
+          "end": 1490,
+          "before": "",
+          "after": "            },\n            {\n              \"id\": \"brain.right_surface.superior_frontal_gyrus\",\n              \"name\": \"superior frontal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-superior-frontal-gyrus\",\n                \"section_sha256\": \"3063b9cde167c5bc9a20dded6b660572558a6dc5e613a0b44d363ff9ea4753b1\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.middle_frontal_gyrus\",\n              \"name\": \"middle frontal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-middle-frontal-gyrus\",\n                \"section_sha256\": \"c10f813005da2d0f5731d2a8ca83212f47ca2e69782c420457909ed2a25f7477\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.inferior_frontal_gyrus\",\n              \"name\": \"inferior frontal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-inferior-frontal-gyrus\",\n                \"section_sha256\": \"d8b5595a1a7e64bfaf632cde6302e0bb29417a5cebfff4a66a9f87fd9eb264ec\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.superior_parietal_lobule\",\n              \"name\": \"superior parietal lobule\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-superior-parietal-lobule\",\n                \"section_sha256\": \"ca445f7a5a48c420392e7e2b6a6a65a7375b469fcc06c774788cd0fb60b34342\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.inferior_parietal_lobule\",\n              \"name\": \"inferior parietal lobule\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-inferior-parietal-lobule\",\n                \"section_sha256\": \"9500158ae66c3938d3034368b3ec6e7ea0bc87b3e2d0ecb9c7e814936f9d0c1a\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.superior_temporal_gyrus\",\n              \"name\": \"superior temporal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-superior-temporal-gyrus\",\n                \"section_sha256\": \"d34aa2b316d80ff27c081ab62aba637fa70199d069ffe7ba00420575c94e34b4\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.middle_temporal_gyrus\",\n              \"name\": \"middle temporal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-middle-temporal-gyrus\",\n                \"section_sha256\": \"60a010b16b9cb75a4e4e4c6f3992a5c9090b37b22c58cffecfba923d2fb2394e\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.inferior_temporal_gyrus\",\n              \"name\": \"inferior temporal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-inferior-temporal-gyrus\",\n                \"section_sha256\": \"0f92a719aa98fb19b16404af3098c1d854172394021d68cd4b479271daf3a7f6\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.cingulate_gyrus\",\n              \"name\": \"cingulate gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-cingulate-gyrus\",\n                \"section_sha256\": \"89218ae720884451937a8b52c8b11255d74c484d36c5d25bdd7ee9963cdbddcd\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.precuneus\",\n              \"name\": \"precuneus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-precuneus\",\n                \"section_sha256\": \"b151699e30325f9e82ed4be1fda893d26f1f92110dcb215d4001c91e3e9361e3\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.cuneus\",\n              \"name\": \"cuneus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-cuneus\",\n                \"section_sha256\": \"4a2e03b0ae106bb97bf17a1ff4a2bdf390d789a6bc3447e47e4cdeaa1ac3d7fc\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_surface.lingual_gyrus\",\n              \"name\": \"lingual gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-lingual-gyrus\",\n                \"section_sha256\": \"93ad39177b5fec60f2098ee4be3b82c74b6aa4d985da4dca4e53266defd9e668\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n"
+        },
+        {
+          "start": 2027,
+          "end": 2067,
+          "before": "",
+          "after": "            },\n            {\n              \"id\": \"brain.right_territories.mca_superior_division_territory\",\n              \"name\": \"MCA superior division territory\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The side-specific superior/inferior MCA division supply territory, with source-defined variation and collateral/border-zone limitations. Arterial vessel geometry, a whole MCA cortical mask, or a cortical gyrus alone does not establish this territory.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"mca-superior-division\",\n                \"section_sha256\": \"322801cd98f8fa7b2aa01becc792e16d2fd478bb6f6a9130dcab175b308ff7c8\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.right_territories.mca_inferior_division_territory\",\n              \"name\": \"MCA inferior division territory\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The side-specific superior/inferior MCA division supply territory, with source-defined variation and collateral/border-zone limitations. Arterial vessel geometry, a whole MCA cortical mask, or a cortical gyrus alone does not establish this territory.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"mca-inferior-division\",\n                \"section_sha256\": \"c34875c76a72f54d8b34c589d12df3e29c0a133c61b16ccc1684716b7f92a65a\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n"
+        },
+        {
+          "start": 2173,
+          "end": 2193,
+          "before": "",
+          "after": "            },\n            {\n              \"id\": \"brain.right_source_regions.amygdala\",\n              \"name\": \"amygdala\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific whole amygdala extent. A source's present nuclear union may omit nuclei or adjacent amygdaloid subdivisions and must disclose that limitation.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"right-amygdala\",\n                \"section_sha256\": \"ac6b78ea3fa14048491ec8890fb9b7eaa89fa971fcf7f28748a19a1818c0e174\",\n                \"side_instantiation\": \"right\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n"
+        },
+        {
+          "start": 2292,
+          "end": 2532,
+          "before": "",
+          "after": "            },\n            {\n              \"id\": \"brain.left_surface.superior_frontal_gyrus\",\n              \"name\": \"superior frontal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-superior-frontal-gyrus\",\n                \"section_sha256\": \"8cd074df80cc1bdf68ca84a7cdd1c1b4440cf653c592f2457d38ef0c29a7075d\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.middle_frontal_gyrus\",\n              \"name\": \"middle frontal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-middle-frontal-gyrus\",\n                \"section_sha256\": \"bb4465caefb2e0690451234baaed97d84826cecc48a02ac8b3e3fa6279bb98ad\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.inferior_frontal_gyrus\",\n              \"name\": \"inferior frontal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-inferior-frontal-gyrus\",\n                \"section_sha256\": \"dae00fb69339ea63c92a2f813373ec3dc2abeb5a505e950bcaa1cfaed494f483\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.superior_parietal_lobule\",\n              \"name\": \"superior parietal lobule\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-superior-parietal-lobule\",\n                \"section_sha256\": \"6e417e061d85bbf9f010a722c614f043fb7a67599d45292088c1165c6f951e17\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.inferior_parietal_lobule\",\n              \"name\": \"inferior parietal lobule\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-inferior-parietal-lobule\",\n                \"section_sha256\": \"b28d3ff22b0c8f761ca36c03343c312821f76277fae2fb41b62879232a1a16ef\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.superior_temporal_gyrus\",\n              \"name\": \"superior temporal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-superior-temporal-gyrus\",\n                \"section_sha256\": \"f4b776dabc165ffd944da6cd809b2da18843a2add024bf738e663b8a48c995a8\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.middle_temporal_gyrus\",\n              \"name\": \"middle temporal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-middle-temporal-gyrus\",\n                \"section_sha256\": \"4a9caac5dc085810141b9c957951addd720cd2be41801f046e1107dc6186c4ee\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.inferior_temporal_gyrus\",\n              \"name\": \"inferior temporal gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-inferior-temporal-gyrus\",\n                \"section_sha256\": \"88d9418975b30f5851bd526280b5863ed7c629cc55975b7b5717cfebcf84fa16\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.cingulate_gyrus\",\n              \"name\": \"cingulate gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-cingulate-gyrus\",\n                \"section_sha256\": \"1be3871d66da50e43d7fec4bc2c2c32a491617a4326e6bb59abbce4d2ecfdcea\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.precuneus\",\n              \"name\": \"precuneus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-precuneus\",\n                \"section_sha256\": \"15061cc0311e00983e693da4bc99c0e072a143777335d7576d50b7ed1e40bfa6\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.cuneus\",\n              \"name\": \"cuneus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-cuneus\",\n                \"section_sha256\": \"7ab81a4bb6e63487143d73bab60b78ec09cefd0fcc011990ba891ee49797818c\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_surface.lingual_gyrus\",\n              \"name\": \"lingual gyrus\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific gyrus/lobule extent, with its constituent cortical subdivisions, limiting landmarks and cortical-versus-subcortical distinction. A broad lobe or differently defined source parcel does not by itself establish full extent.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-lingual-gyrus\",\n                \"section_sha256\": \"eb932e8c83dcdbb44ab212cfc18f02ddb2e011aedc464dd13af761d310f90978\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n"
+        },
+        {
+          "start": 3069,
+          "end": 3109,
+          "before": "",
+          "after": "            },\n            {\n              \"id\": \"brain.left_territories.mca_superior_division_territory\",\n              \"name\": \"MCA superior division territory\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The side-specific superior/inferior MCA division supply territory, with source-defined variation and collateral/border-zone limitations. Arterial vessel geometry, a whole MCA cortical mask, or a cortical gyrus alone does not establish this territory.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"mca-superior-division\",\n                \"section_sha256\": \"322801cd98f8fa7b2aa01becc792e16d2fd478bb6f6a9130dcab175b308ff7c8\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n            },\n            {\n              \"id\": \"brain.left_territories.mca_inferior_division_territory\",\n              \"name\": \"MCA inferior division territory\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The side-specific superior/inferior MCA division supply territory, with source-defined variation and collateral/border-zone limitations. Arterial vessel geometry, a whole MCA cortical mask, or a cortical gyrus alone does not establish this territory.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"mca-inferior-division\",\n                \"section_sha256\": \"c34875c76a72f54d8b34c589d12df3e29c0a133c61b16ccc1684716b7f92a65a\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n"
+        },
+        {
+          "start": 3215,
+          "end": 3235,
+          "before": "",
+          "after": "            },\n            {\n              \"id\": \"brain.left_source_regions.amygdala\",\n              \"name\": \"amygdala\",\n              \"required_representations\": [\n                \"image\",\n                \"schematic\",\n                \"model\"\n              ],\n              \"required_extent\": \"The named side-specific whole amygdala extent. A source's present nuclear union may omit nuclei or adjacent amygdaloid subdivisions and must disclose that limitation.\",\n              \"reporting_provenance\": {\n                \"source_file\": \"data/radiology/anatomic-neuro.json\",\n                \"investigation_id\": \"ra.brain-anatomy\",\n                \"section_id\": \"left-amygdala\",\n                \"section_sha256\": \"f38d9e6f2a9bcf8f2826c987e403599b0c02e58c878675c4aca63e0c2e114e7c\",\n                \"side_instantiation\": \"left\",\n                \"basis\": \"explicit_current_anatomical_reporting_row\"\n              },\n              \"clinical_validation_status\": \"draft_requires_neuroradiologist_review\",\n              \"representation_completion_claim\": false\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "134440510e6f2efdb14efcdade33b36b8b552ed340bca67b8f9f69b266dd03c8",
+      "after_sha256": "ab3519a8034990f0643d1baa6e4686d1ed9072c03c66d823805fa312a45644ff",
+      "changes": [
+        {
+          "start": 178,
+          "end": 179,
+          "before": "    \"fraction-equivalence-lab\", \"atom-element-builder\", \"cell-microscope\",\n",
+          "after": "    \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n"
+        },
+        {
+          "start": 503,
+          "end": 507,
+          "before": "",
+          "after": "            elif renderer == \"fraction-arithmetic-lab\":\n                if node.get(\"id\") != \"math.2.fractions\" or props != {\"scenario\": \"math.2.fractions\"}:\n                    raise ValueError(\"{} fraction arithmetic model has an unknown or cross-lesson scenario\".format(\n                        node.get(\"id\")))\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "d2c46c8ec6dd83d9c4ea5fd937fd7562d9142ad2fda3f6ce9c3b37e8c1e9bdfc",
+      "after_sha256": "0fdae918c95d1e47fbb65300259cc2049098324c927e9a89ae5b34c0f40b8030",
+      "changes": [
+        {
+          "start": 3545,
+          "end": 3546,
+          "before": "",
+          "after": "                     \"fractions-lab.js\", \"fractions-lab.css\",\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "2f4ce36b244fd760d43aae9d21982118ca926f2c817c8a5303af51eeb14f8fad",
+      "after_sha256": "cf1e5f2fbdd814e43e714705e41571fc156d149645520ddf5ca128fc9a1033b3",
+      "changes": [
+        {
+          "start": 30,
+          "end": 31,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/fractions-lab.css\">\n"
+        },
+        {
+          "start": 113,
+          "end": 114,
+          "before": "",
+          "after": "  <script src=\"/app/fractions-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "d7e7d65f695fd0f8481f6914a2ca23bd2fade51926faec4bada97f141822838b",
+      "after_sha256": "960133bc7186a4abdafaaed5ebacba6acd6004928e995f0b1102908c47d7f683",
+      "changes": [
+        {
+          "start": 6211,
+          "end": 6212,
+          "before": "",
+          "after": "    'fraction-arithmetic-lab': (item, hooks) => window.PrimerFractionsLab?.render(item, hooks) || null,\n"
+        },
+        {
+          "start": 6249,
+          "end": 6250,
+          "before": "      if (['physics-qft-lab', 'math-number-theory-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;\n",
+          "after": "      if (['fraction-arithmetic-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "b1915f66cccb40ebd58db72468a3c85e028f7dbe9ed1267ad9d96c85a73f9b06",
+      "after_sha256": "a2f22cd77fd67b5169824742f962aff5736f916ee072e0343891ba1eb820a020",
+      "changes": [
+        {
+          "start": 886,
+          "end": 887,
+          "before": "    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1;\n",
+          "after": "    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1,segments=96/n;\n"
+        },
+        {
+          "start": 889,
+          "end": 897,
+          "before": "      const arc=Array.from({length:13},(_,j)=>add([Math.cos(a+(b-a)*j/12)*radius,.04,Math.sin(a+(b-a)*j/12)*radius],offset));\n      const center=add([0,.04,0],offset);g.polygon([center,...arc],color);\n      for(let j=0;j<12;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color);\n      for(const edge of [arc[0],arc[12]])g.polygon([center,edge,add(edge,[0,-.18,0]),add(center,[0,-.18,0])],color);\n",
+          "after": "      const arc=Array.from({length:segments+1},(_,j)=>add([Math.cos(a+(b-a)*j/segments)*radius,.04,Math.sin(a+(b-a)*j/segments)*radius],offset));\n      const center=add([0,.04,0],offset),top=[center,...arc],bottom=top.map(p=>add(p,[0,-.18,0]));\n      g.polygon([...top].reverse(),color,{fraction_sector:i,fraction_face:'top'});\n      g.polygon(bottom,color,{fraction_sector:i,fraction_face:'bottom'});\n      for(let j=0;j<segments;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color,{fraction_sector:i,fraction_face:'curve'});\n      const first=[center,arc[0],add(arc[0],[0,-.18,0]),add(center,[0,-.18,0])],last=[center,arc[segments],add(arc[segments],[0,-.18,0]),add(center,[0,-.18,0])];\n      g.polygon(first,color,{fraction_sector:i,fraction_face:'start'});\n      g.polygon(last.reverse(),color,{fraction_sector:i,fraction_face:'end'});\n"
+        },
+        {
+          "start": 898,
+          "end": 899,
+          "before": "    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${fmt(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This represents one fixed whole.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);\n",
+          "after": "    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${String(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This is a separate example of one fixed whole, not the selected operation or signed value in another activity. The circular boundary is approximated by the same 96 straight chords for every partition, and every sector has outward-facing top, bottom and side faces; exact fraction ratios come from the equal angular partitions, not screen area or the faceted mesh.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);\n"
+        }
+      ]
+    },
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "ea2d08f53da9a9b04730b63d80ec41db3051888d3fee992da8aa7c2467666a23",
+      "after_sha256": "537bab54550c6c8e4e0a4f40252119b1eacae260120653ed6c972857a081502b",
+      "changes": [
+        {
+          "start": 448,
+          "end": 449,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 2415,
+          "end": 2416,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 3789,
+          "end": 3790,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 4846,
+          "end": 4847,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 5375,
+          "end": 5376,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 6172,
+          "end": 6173,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 7186,
+          "end": 7187,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 8606,
+          "end": 8607,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 9258,
+          "end": 9259,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 10107,
+          "end": 10108,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 10863,
+          "end": 10864,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 12051,
+          "end": 12052,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 12953,
+          "end": 12954,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 13857,
+          "end": 13858,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 14733,
+          "end": 14734,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 15602,
+          "end": 15603,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 16345,
+          "end": 16346,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 17740,
+          "end": 17741,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 23702,
+          "end": 23703,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 25696,
+          "end": 25697,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 28727,
+          "end": 28728,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 32885,
+          "end": 32886,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 33273,
+          "end": 33274,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 33802,
+          "end": 33803,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 34226,
+          "end": 34227,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 34644,
+          "end": 34645,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 35566,
+          "end": 35567,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 36030,
+          "end": 36031,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 36980,
+          "end": 36981,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 37789,
+          "end": 37790,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 38719,
+          "end": 38720,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 39457,
+          "end": 39458,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 41040,
+          "end": 41041,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 44138,
+          "end": 44139,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 44638,
+          "end": 44639,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 45796,
+          "end": 45797,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 46622,
+          "end": 46623,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 47198,
+          "end": 47199,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 47652,
+          "end": 47653,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 48152,
+          "end": 48153,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 49846,
+          "end": 49847,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 50435,
+          "end": 50436,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 51645,
+          "end": 51646,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 52817,
+          "end": 52818,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 55060,
+          "end": 55061,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 55859,
+          "end": 55860,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 59015,
+          "end": 59016,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 62314,
+          "end": 62315,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 63631,
+          "end": 63632,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 65949,
+          "end": 65950,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 66922,
+          "end": 66923,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 67443,
+          "end": 67444,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 69172,
+          "end": 69173,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 72023,
+          "end": 72024,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 73832,
+          "end": 73833,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 74230,
+          "end": 74231,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 74779,
+          "end": 74780,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 75196,
+          "end": 75197,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 76887,
+          "end": 76888,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 77545,
+          "end": 77546,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 79795,
+          "end": 79796,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 80510,
+          "end": 80511,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 81992,
+          "end": 81993,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 84064,
+          "end": 84065,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 84799,
+          "end": 84800,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 85817,
+          "end": 85818,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 87042,
+          "end": 87043,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 88582,
+          "end": 88583,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 105341,
+          "end": 105342,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 106037,
+          "end": 106038,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 108824,
+          "end": 108825,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 112077,
+          "end": 112078,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 114937,
+          "end": 114938,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        },
+        {
+          "start": 117990,
+          "end": 117991,
+          "before": "      \"structure_inventory_sha256\": \"2a3ff481994d2089ceac2a914b8bc42e5223e933588f39b9ad69127f834da32c\",\n",
+          "after": "      \"structure_inventory_sha256\": \"3790dfb5fd74b0d9339ec4cbd8b0df85da829636c1f1c35d7ff73c7ebe87c8a9\",\n"
+        }
+      ]
+    }
+  },
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

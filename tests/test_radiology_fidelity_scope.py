@@ -38,7 +38,7 @@ def test_missing_or_relabelled_scope_cannot_pass(scope,change):
 
 def test_unexpanded_scope_is_unknown_and_includes_non_msk_media(scope):
     report=build_report(scope)
-    assert report['known_representation_requirements']==149193
+    assert report['known_representation_requirements']==149283
     assert report['msk_subaudit']['representation_requirements']==5292
     assert len(report['investigations_requiring_structure_expansion'])==40
     assert 'ra.ct-pulmonary-nodules' not in report['investigations_requiring_structure_expansion']
