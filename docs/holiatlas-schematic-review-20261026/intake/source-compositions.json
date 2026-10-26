@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-26",
+  "dataset": "https://zenodo.org/records/15690524",
+  "source_paper": "https://www.nature.com/articles/s41598-026-40186-2",
+  "source_archive_sha256": "6932bc8063568f0037627d5b85199ff6142b4457413f8fef8817871a3ffa1ee5",
+  "source_protocol_sha256": "0276cb7b396aa42a688d8f444d8b0efac9c0f68ebd3fafdc97c30df06a5a01e1",
+  "count": 2,
+  "clinical_completion_claim": false,
+  "compositions": [
+    {
+      "id": "right-angular-supramarginal-cortex",
+      "display_name": "Right angular and supramarginal cortex — exact source-label union",
+      "fine_codes": [
+        170,
+        178
+      ],
+      "source_names": [
+        "Right Angular Gyrus",
+        "Right Supramarginal Gyrus"
+      ],
+      "source_voxels": 228509,
+      "why_this_improves_representation": "Groups the two explicitly named source cortical regions relevant to the inferior-parietal report target without substituting whole-lobe geometry.",
+      "remaining_limit": "Only the angular and supramarginal source labels are included. Equivalence to the complete clinically defined inferior parietal lobule is unproven and requires boundary review. No adjacent white matter or vascular territory is included.",
+      "construction": "Set union of listed exact original fine masks; every exposed source-cell boundary face retained.",
+      "clinical_requirement_complete": false
+    },
+    {
+      "id": "left-angular-supramarginal-cortex",
+      "display_name": "Left angular and supramarginal cortex — exact source-label union",
+      "fine_codes": [
+        171,
+        179
+      ],
+      "source_names": [
+        "Left Angular Gyrus",
+        "Left Supramarginal Gyrus"
+      ],
+      "source_voxels": 215113,
+      "why_this_improves_representation": "Groups the two explicitly named source cortical regions relevant to the inferior-parietal report target without substituting whole-lobe geometry.",
+      "remaining_limit": "Only the angular and supramarginal source labels are included. Equivalence to the complete clinically defined inferior parietal lobule is unproven and requires boundary review. No adjacent white matter or vascular territory is included.",
+      "construction": "Set union of listed exact original fine masks; every exposed source-cell boundary face retained.",
+      "clinical_requirement_complete": false
+    }
+  ]
+}

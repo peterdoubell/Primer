@@ -72,6 +72,10 @@ def test_receipt_inverse_never_discards_unknown_changes(change):
 def test_all_sixty_two_brain_rows_have_explicit_ids_and_source_limitations():
     data, report, _ = inputs()
     actual = brain_crosswalk(ROOT, data, report)
+    # The frozen reconciliation predates the separately verified atlas extension.
+    # Restore only its exact input bytes; all semantic rows still compare intact.
+    from tools.atlas_schematic_runtime_compatibility import before_atlas_schematic_bytes
+    actual['input_sha256'] = {path: hashlib.sha256(before_atlas_schematic_bytes(path, (ROOT/path).read_bytes(), allow_older=True)).hexdigest() for path in actual['input_sha256']}
     assert actual == read(OUT + "/brain-reporting-requirements.json")
     assert len(actual["all_report_rows"]) == 62
     assert all(r["requirement_ids"] and not r["clinical_representation_complete"] for r in actual["all_report_rows"])

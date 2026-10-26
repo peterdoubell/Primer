@@ -11,9 +11,9 @@ ATLAS = 'holiatlas'
 IDENTIFIER = 'holiatlas-source-template-reference'
 PREFIX = '/app/anatomy/holiatlas/'
 REGISTRY = ROOT / 'data/radiology/holiatlas-reference.json'
-REGISTRY_SHA256 = '46a475c05cba0342fa1b35be45d5496cf69d607b6b77d6e9098426f2fe364bbf'
+REGISTRY_SHA256 = '1cff09366d0197bcec49cd96dd09ea2ea1703a1615a1666672c709b640695ddc'
 AUTHORED = frozenset({'index.html', 'viewer.js', 'viewer.css', 'config.json',
-                      'manifest.json', 'labels.json', 'hierarchy.json', 'ATTRIBUTION.txt', 'LICENSE.txt'})
+                      'manifest.json', 'labels.json', 'hierarchy.json', 'schematic.js', 'ATTRIBUTION.txt', 'LICENSE.txt'})
 FLAGS = ('clinical_approval', 'fine_anatomical_approval', 'current_patient_registration',
          'normal_anatomical_atlas_approval', 'complete_reporting_anatomy_approved')
 
@@ -33,7 +33,7 @@ def registry():
             or data.get('source_archive_sha256') != '6932bc8063568f0037627d5b85199ff6142b4457413f8fef8817871a3ffa1ee5'
             or data.get('bindings') != {'ra.brain-anatomy': [IDENTIFIER]}
             or set(data.get('inspectors', {})) != {IDENTIFIER}
-            or len(data.get('files', {})) != 846 or not AUTHORED <= set(data['files'])
+            or len(data.get('files', {})) != 851 or not AUTHORED <= set(data['files'])
             or any(data.get(flag) is not False for flag in FLAGS)
             or [data.get(k) for k in ('present_source_classes', 'missing_named_classes',
                 'components26', 'triangles', 'plane_count')] != [332, 18, 868, 11650276, 4632]):
@@ -145,16 +145,16 @@ def references():
 def validate_hierarchy(data, fine_classes, manifest):
     """Check exact memberships and delivery identities; no anatomical sign-off."""
     hierarchy = json.loads(metadata_bytes('hierarchy.json'))
-    expected = {'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 16}
+    expected = {'structure': 53, 'tissue': 9, 'organ': 1, 'composition': 18}
     if (hierarchy.get('schemaVersion') != 1 or set(hierarchy.get('levels', {})) != set(expected)
             or hierarchy.get('clinicalApproval') is not False
             or hierarchy.get('currentPatientRegistration') is not False
             or hierarchy.get('sourceGridIsAcquisitionResolution') is not False
             or hierarchy.get('sourceArchiveSHA256') != data['source_archive_sha256']
-            or hierarchy.get('presentClasses') != 79 or data.get('hierarchy_classes') != 79
-            or hierarchy.get('totalTriangles') != 22314324
-            or data.get('hierarchy_triangles') != 22314324
-            or data.get('hierarchy_components26') != 741):
+            or hierarchy.get('presentClasses') != 81 or data.get('hierarchy_classes') != 81
+            or hierarchy.get('totalTriangles') != 22598628
+            or data.get('hierarchy_triangles') != 22598628
+            or data.get('hierarchy_components26') != 743):
         raise ValueError('holiAtlas hierarchy scope differs')
     by_code = {r['code']: r for r in fine_classes}
     components = 0
@@ -190,6 +190,6 @@ def validate_hierarchy(data, fine_classes, manifest):
                 raise ValueError('holiAtlas parent partition differs')
         elif group.get('mutuallyExclusive') is not False:
             raise ValueError('holiAtlas compositions are overlapping selections')
-    if components != 741:
+    if components != 743:
         raise ValueError('holiAtlas hierarchy components differ')
     return hierarchy
