@@ -63,10 +63,18 @@ def selection(section, chosen):
     return {'instances': [value]} if section.get('repeatable') else value
 
 
+def scoped_state(inv, section, state):
+    # Explicit synthetic acquisition, never a production default.
+    scope=section.get('requires_scope')
+    if scope:
+        state[scope['section_id']]={'findings':{scope['finding_id']:{scope['slot_id']:scope['values'][0]}}}
+    return {'investigation_id':inv['id'],'selections':state}
+
+
 def render(form, inv, section, chosen, extra=None):
     state = {section['id']: selection(section, chosen)}
     state.update(extra or {})
-    return ENGINE.render_descriptors(form, {'investigation_id': inv['id'], 'selections': state})
+    return ENGINE.render_descriptors(form, scoped_state(inv,section,state))
 
 
 def codes(result):
@@ -77,15 +85,17 @@ def test_every_native_investigation_and_source_worksheet_is_curated_without_fall
     original_ids = {inv['id'] for form in SOURCE['forms'].values() for inv in form['investigations']}
     new_mri_exams = {'msk.mri-hip', 'msk.mri-foot', 'msk.mri-wrist', 'msk.mri-hand'}
     authored_ids = [iid for _, authored in AUTHORED for iid in authored['investigations']]
+    additions = set(json.loads((ROOT / 'data/radiology/anatomic-additions-20261026.json').read_text())['investigations'])
+    expected = 156 + len(additions)
     assert len(CATALOG['forms']) == 98
-    assert len(EXAMS) == len(authored_ids) == len(set(authored_ids)) == 156
-    assert set(EXAMS) == original_ids | new_mri_exams == set(authored_ids)
+    assert len(EXAMS) == len(authored_ids) == len(set(authored_ids)) == expected
+    assert set(EXAMS) == original_ids | new_mri_exams | additions == set(authored_ids)
     assert {iid for iid in original_ids if iid.startswith('template:')} <= set(authored_ids)
-    assert CATALOG['summary']['anatomic_investigations'] == 156
-    assert CATALOG['summary']['investigations'] == 156
+    assert CATALOG['summary']['anatomic_investigations'] == expected
+    assert CATALOG['summary']['investigations'] == expected
     assert CATALOG['summary']['descriptors_requiring_context'] == 0
     assert CATALOG['summary']['context_slots'] == 0
-    assert len(CATALOG['anatomic_coverage']) == 156
+    assert len(CATALOG['anatomic_coverage']) == expected
     for form, inv in EXAM_PAIRS:
         assert inv['presentation'] == 'anatomic_rows', inv['id']
         assert inv['clinical_approval'] is False
@@ -192,7 +202,7 @@ def test_every_authored_finding_path_and_required_parent_renders_without_invente
             assert chosen == state, 'Rendering must not mutate saved observations'
             assert '__' not in result['text'] and '[' not in result['text'] and ']' not in result['text']
             reported = {item['id'] for item in section['findings'] if item.get('report') is not False}
-            assert result['selected_finding_count'] == len(set(chosen) & reported)
+            assert result['selected_finding_count'] == len(set(chosen) & reported) + int(bool(section.get('requires_scope')))
             if set(chosen) & reported:
                 assert result['text'], (inv['id'], finding['id'])
             if finding.get('requires_any'):
@@ -211,11 +221,11 @@ def test_unselected_anatomy_and_absent_normals_are_never_filled_in(form, inv):
     empty = ENGINE.render_descriptors(form, {'investigation_id': inv['id'], 'selections': {}})
     assert empty['valid'] and empty['text'] == '' and empty['sections'] == []
     for section in inv['sections']:
-        result = ENGINE.render_descriptors(form, {'investigation_id': inv['id'], 'selections': {section['id']: {'normal': True}}})
+        result = ENGINE.render_descriptors(form, scoped_state(inv,section,{section['id']: {'normal': True}}))
         if section['normal']:
             assert result['valid'], (section['id'], result['issues'])
             assert result['text'].endswith(section['normal']['text'])
-            assert len(result['sections']) == 1
+            assert len(result['sections']) == 1 + int(bool(section.get('requires_scope')))
             assert not section['normal']['slots']
         else:
             assert not result['valid'] and 'normal_not_available' in codes(result)

@@ -22,6 +22,10 @@ CALCULATOR_PATHS = {
     'pirads_v2_1': 'calculators/pirads_v2_1',
     'cadrads_2_0': 'calculators/cadrads_2_0',
     'prostate_volume_psad': 'calculators/prostate_volume_psad',
+    'orads_us_2022': 'calculators/orads_us_2022',
+    'lirads_ct_mri_2018': 'calculators/lirads_ct_mri_2018',
+    'recist_1_1': 'calculators/recist_1_1',
+    'lesion_growth': 'calculators/lesion_growth',
 }
 
 
@@ -117,6 +121,7 @@ def with_structured_form(detail):
     descriptor['selected_investigation_id'] = detail['id']
     result['radiology_reference']['structured_form'].update({
         'descriptor_form': descriptor,
+        'calculator_ids': descriptor['calculator_ids'],
         'descriptor_version': descriptor['schema_hash'],
         'snapshot_id': descriptors['source_snapshot_id'],
     })

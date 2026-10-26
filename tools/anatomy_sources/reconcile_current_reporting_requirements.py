@@ -230,7 +230,11 @@ def reporting_reconciliation(root, inventory):
     missing = set(current) - set(required)
     prior = read("docs/holiatlas-hierarchy-review-20261025/pr167-reporting-inventory-audit.json", root)
     prior_missing = {r["investigation_id"] for r in prior["global_exact_id_gaps"]}
-    if missing != prior_missing or set(RELATED_SCOPES) - missing:
+    additions_path = root / "data/radiology/anatomic-additions-20261026.json"
+    additions = json.loads(additions_path.read_text())["investigations"] if additions_path.exists() else {}
+    if set(additions) & (set(required) | prior_missing):
+        raise ValueError("New report additions cannot relabel historical investigation identities")
+    if missing != prior_missing | set(additions) or set(RELATED_SCOPES) - missing:
         raise ValueError("Current reporting identities changed; review the complete new scope")
     def norm(text):
         return re.sub(r"[^a-z0-9]", "", text.lower())
@@ -344,7 +348,7 @@ def main():
         brain = next(i for i in expanded["investigations"] if i["investigation_id"] == BRAIN)
         (args.root / REQUIREMENTS).write_text(replace_brain_bytes((args.root / REQUIREMENTS).read_text(), brain))
         write_json(args.root / OUT / "brain-reporting-requirements.json", crosswalk)
-        write_json(args.root / OUT / "all-current-reporting-reconciliation.json", reporting_reconciliation(args.root, expanded))
+        write_json(args.root / "docs/report-additions-20261026/reporting-reconciliation.json", reporting_reconciliation(args.root, expanded))
     print(json.dumps({k: v for k, v in crosswalk.items() if not isinstance(v, list)}))
 
 

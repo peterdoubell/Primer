@@ -142,6 +142,17 @@ window.PrimerStructuredReporting = (() => {
     }
     return jobs;
   }
+  function sectionScopeActive(section, selections = {}) {
+    const scope=section.requires_scope;if(!scope)return true;
+    const control=selections[scope.section_id],payload=control?.findings?.[scope.finding_id];
+    return dictionary(control)&&!control.normal&&!control.not_assessed&&dictionary(payload)&&scope.values.includes(payload[scope.slot_id]);
+  }
+  function sectionHasSelection(value) {
+    return !dictionary(value)||Object.keys(value).some(key=>!['normal','not_assessed','findings','instances'].includes(key))
+      ||['normal','not_assessed'].some(key=>own(value,key)&&typeof value[key]!=='boolean')
+      ||(own(value,'findings')&&!dictionary(value.findings))||(own(value,'instances')&&!Array.isArray(value.instances))
+      ||Boolean(value.normal||value.not_assessed||Object.keys(value.findings || {}).length||value.instances?.length);
+  }
   function compose(form, state = {}, context = {}) {
     const schema = descriptorForm(form);
     let investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);
@@ -149,6 +160,12 @@ window.PrimerStructuredReporting = (() => {
     if (own(state, 'selections') && !dictionary(state.selections)) return {text: '', missing: [{label: 'Invalid report selections'}], complete: false, selected_count: 0};
     const grouped = new Map(), missing = [];
     for (const key of Object.keys(state.selections || {})) if (!(investigation.sections || []).some(section => section.id === key)) missing.push({section_id: key, label: 'Unrecognised section'});
+    const scoped = (investigation.sections || []).filter(section => {
+      if(sectionScopeActive(section,state.selections || {}))return true;
+      if(sectionHasSelection(own(state.selections,section.id)?state.selections[section.id]:{}))missing.push({section_id:section.id,label:'Selection outside the acquired scope: '+section.label});
+      return false;
+    });
+    investigation={...investigation,sections:scoped};
     const expanded = expandRepeated(investigation, state.selections || {});
     investigation = expanded.investigation; state = {...state,selections:expanded.selections}; missing.push(...expanded.missing);
     const blocked = blockedNormals(investigation, state.selections);
@@ -261,7 +278,7 @@ window.PrimerStructuredReporting = (() => {
     if (state.descriptor_state) state = {...state, ...state.descriptor_state};
     if (!state.calculator_inputs && Array.isArray(state.calculations)) state.calculator_inputs = Object.fromEntries(state.calculations.map(item => [item.calculator_id, item.inputs]));
     state = {schema_version: '1.0', investigation_id: options.investigationId || state.investigation_id || schema.selected_investigation_id || form.selected_investigation_id || (schema.investigations?.length === 1 ? schema.investigations[0].id : ''), selections: state.selections || {}, calculator_inputs: state.calculator_inputs || {}};
-    const allowedCalculators = new Set(form.calculator_ids || schema.calculator_ids || []);
+    const allowedCalculators = new Set([...(form.calculator_ids || []), ...(schema.calculator_ids || [])]);
     for (const id of Object.keys(state.calculator_inputs)) if (!allowedCalculators.has(id)) delete state.calculator_inputs[id];
     const calculations = new Map(), calculatorControllers = new Map(), pending = new Set();
     const boundCalculations = new Map(), boundNodes = new Map(); let disposed = false;
@@ -305,7 +322,7 @@ window.PrimerStructuredReporting = (() => {
       const blocked = blockedNormals(investigation(), state.selections);
       for (const section of investigation()?.sections || []) {
         const value = selected(section);
-        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};
+        if (sectionScopeActive(section,state.selections) && section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};
       }
     }
     const changeSection = (section, value) => {
@@ -331,6 +348,11 @@ window.PrimerStructuredReporting = (() => {
             if (slot.context_key) delete context[slot.context_key];
             delete context[descriptor.id + '.' + slot.id];
             if (context[descriptor.id]) delete context[descriptor.id][slot.id];
+          }
+          const scopeControl = (investigation()?.sections || []).map(section => section.requires_scope).find(scope => scope?.finding_id === descriptor.id && scope.slot_id === slot.id);
+          if (scopeControl && value !== next) {
+            for (const key of Object.keys(state.selections)) if (key !== scopeControl.section_id) delete state.selections[key];
+            state.calculator_inputs = {}; calculations.clear();
           }
           if (next === undefined) delete values[slot.id]; else values[slot.id] = next; update(true);
         };
@@ -422,11 +444,12 @@ window.PrimerStructuredReporting = (() => {
       const blocked = blockedNormals(exam, state.selections); let lastGroup = null;
       root.classList?.toggle('rad-anatomic-sheet', exam.presentation === 'anatomic_rows');
       for (const section of exam.sections || []) {
+        if (!sectionScopeActive(section,state.selections)) continue;
         if (section.group && section.group !== lastGroup) {
           lastGroup = section.group;
           const groupHeader = element('div', undefined, 'rad-anatomic-group');
           groupHeader.append(element('h4', section.group));
-          if (exam.sections.some(row => row.group === section.group && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));
+          if (exam.sections.some(row => row.group === section.group && sectionScopeActive(row,state.selections) && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));
           descriptorFields.append(groupHeader);
           groupNavigation.append(button(section.group, () => groupHeader.scrollIntoView?.({behavior:'smooth',block:'start'}), 'rad-small-button'));
         }
@@ -484,13 +507,14 @@ window.PrimerStructuredReporting = (() => {
       return {...result, missing, text: parts.join('\n\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0 || completeBound.length > 0)};
     }
     function update(notify = false) {
+      if(notify)for(const section of investigation()?.sections || [])if(!sectionScopeActive(section,state.selections))delete state.selections[section.id];
       syncBoundCalculations();
       for (const node of investigationPicker.children) choose(node, node.dataset.investigationId === state.investigation_id);
       normal.disabled = !(investigation()?.sections || []).some(section => section.normal);
       const result = reportResult();
       preview.textContent = result.text || 'Select findings to build the report.';
       copy.disabled = copying || !result.complete;
-      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;
+      const remaining = (investigation()?.sections || []).filter(section => { if(!sectionScopeActive(section,state.selections))return false; const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;
       feedback.textContent = result.missing.length ? 'Choose remaining details: ' + result.missing.map(item => item.label).join(', ') : remaining ? remaining + ' unselected ' + (remaining === 1 ? 'section' : 'sections') + ' — omitted from report.' : '';
       if (notify && options.onChange) options.onChange(root.getState());
     }
@@ -504,7 +528,8 @@ window.PrimerStructuredReporting = (() => {
         const linked = options.calculatorInputs?.[id] || context.calculator_inputs?.[id];
         if (linked) Object.assign(inputs, linked);
         const bound = investigation().sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id));
-        if (bound && !Object.values(inputs).some(present)) continue;
+        const boundElsewhere = (schema.investigations || []).some(item => item.sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id)));
+        if ((bound || boundElsewhere) && !Object.values(inputs).some(present)) continue;
         const controller = calculator(id, inputs, options.request || request, (result, changed) => {
           if (result) calculations.set(id, result); else calculations.delete(id);
           update(changed);

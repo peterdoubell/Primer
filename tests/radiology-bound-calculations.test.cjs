@@ -368,3 +368,50 @@ test('explicit negative focal prostate assessment is mutually exclusive with les
     assert.equal(api.compose(form('rad.5.prostate-mri'), conflicting).complete, false);
   } finally { root.dispose(); }
 });
+
+test('new O-RADS records have Python parity, independent inputs and direct bound requests', async () => {
+  const schema=form('rad.5.ovarian-orads'),iid='us.adnexal-orads';
+  const record=(location,morphology)=>chosen(iid,'adnexal-lesion',{lesion:{'slot-1':location},[morphology]:{},size:{'slot-1':50},...(morphology==='solid'?{contour:{'slot-1':'irregular'}}:{})});
+  const state={investigation_id:iid,selections:{
+    'anatomy-applicability':chosen(iid,'applicability',{assessment:{'slot-1':'adnexal lesion appropriate for O-RADS assessment'}}),
+    'anatomy-quality':chosen(iid,'quality',{assessment:{'slot-1':'adequate for risk stratification'}}),
+    'anatomy-extraovarian':chosen(iid,'extraovarian',{assessment:{'slot-1':'no suspicious extraovarian findings'}}),
+    'anatomy-adnexal-lesion':{instances:[record('right ovary','simple'),record('left ovary','solid')]}
+  }};
+  const api=load(),jobs=api.descriptorCalculationJobs(schema,state);
+  assert.deepEqual(jobs,pythonJobs(schema,[state])[0]);
+  assert.deepEqual(jobs.map(job=>job.inputs.morphology),['simple_cyst','solid']);
+  const calls=[];
+  const root=api.render(schema,{investigationId:iid,initialState:state,request:async(path,{inputs})=>{
+    calls.push({path,inputs});assert.equal(path,'calculators/orads_us_2022/calculate');
+    const score=inputs.morphology==='solid'?5:2;return {status:'complete',calculator_id:'orads_us_2022',version:'2022',category:'O-RADS US '+score,summary:'O-RADS US '+score};
+  }});
+  await root.flush();
+  assert.equal(calls.length,2);assert.match(root.getReport(),/Lesion 1: O-RADS US 2/);assert.match(root.getReport(),/Lesion 2: O-RADS US 5/);
+  assert.equal(descendants(root).filter(node=>['INPUT','TEXTAREA'].includes(node.tagName)).length,0);
+  assert.equal(root.getReportResult().complete,true);
+});
+
+test('an unselected examination does not display empty calculators bound elsewhere in its guide', async () => {
+  const api=load(),calls=[],schema=form('rad.5.ovarian-orads');
+  const root=api.render(schema,{investigationId:'ra.ovarian-cysts',request:async path=>{calls.push(path);throw Error('Should not request an empty unrelated calculator');}});
+  await root.flush();assert.deepEqual(calls,[]);assert.equal(root.getReport(),'');
+});
+
+test('duplex scope reveals only the acquired limb, limits bulk normal and clears old side observations',()=>{
+ const api=load(),schema=form('rad.5.peripheral-vascular'),iid='us.venous-duplex-lower-limb';
+ const initial={investigation_id:iid,selections:{'anatomy-side':chosen(iid,'side',{assessment:{'slot-1':'right'}})}};
+ const root=api.render(schema,{investigationId:iid,initialState:initial});
+ assert(descendants(root).some(n=>n.textContent==='Right Common femoral vein'));
+ assert(!descendants(root).some(n=>n.textContent==='Left Common femoral vein'));
+ descendants(root).find(n=>n.tagName==='BUTTON'&&n.textContent==='Use normal findings').onclick();
+ assert(!root.getReport().includes('Left Common femoral vein'));
+ const left=descendants(root).find(n=>n.tagName==='BUTTON'&&n.textContent==='left');assert(left);left.onclick();
+ assert(!descendants(root).some(n=>n.textContent==='Right Common femoral vein'));
+ assert(descendants(root).some(n=>n.textContent==='Left Common femoral vein'));
+ assert(!Object.keys(root.getState().selections).some(k=>k.startsWith('anatomy-right-')));
+ assert.equal(root.getReport(),'TECHNIQUE\nExamined side is left.','Shared superficial and regional observations must not transfer to another limb');
+ const forged={...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{normal:true}}};
+ assert.equal(api.compose(schema,forged).complete,false);
+ assert.equal(api.compose(schema,{...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{unexpected:'cannot vanish'}}}).complete,false);
+});
