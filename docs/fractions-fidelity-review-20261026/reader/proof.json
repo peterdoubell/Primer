@@ -1,0 +1,2469 @@
+{
+  "scope": "Authenticated actual math.2.fractions lesson; isolated synthetic profile/database; current arithmetic and separate companion geometry",
+  "productionVerified": false,
+  "sourceSHA256": {
+    "web/fractions-lab.js": "d8b59366d45e21d7e7167b2c15c65e30ec70d7dce51d23b9f5e3187b770a2549",
+    "web/fractions-lab.css": "ec8360a114bac030485113fff1fc524df8b9fce4f9bc4996a03cf4a1d170ff87",
+    "web/index.html": "cf1e5f2fbdd814e43e714705e41571fc156d149645520ddf5ca128fc9a1033b3",
+    "web/lesson-models.js": "960133bc7186a4abdafaaed5ebacba6acd6004928e995f0b1102908c47d7f683",
+    "web/app.js": "0d019b62b09cec7eb710a3cb05512f864ff5119639097d4cb442fe0406c0fcb9",
+    "primer/server.py": "0fdae918c95d1e47fbb65300259cc2049098324c927e9a89ae5b34c0f40b8030",
+    "primer/curriculum.py": "ab3519a8034990f0643d1baa6e4686d1ed9072c03c66d823805fa312a45644ff",
+    "web/spatial-models.js": "3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3",
+    "web/spatial-module-objects.js": "a2f22cd77fd67b5169824742f962aff5736f916ee072e0343891ba1eb820a020",
+    "data/curriculum/01-mathematics.json": "27e713d0c7579bbef7b61b66014c58d57c73a5f299637f37c99272e9b515e19e",
+    "tools/check_fractions_reader.cjs": "81b70d8cda36800a02294b7e6508baf87a4c027067937660bb1c955a6e733dfe",
+    "tools/check_fractions_reader.py": "685c89eade7d6cffe7e45b47338159d36be305460a5f752fb0bbbcf8b1ea7247",
+    "tools/check_fractions_lab.py": "c0c0235acbe462f2253cd736e083d08ec2084d7510c261ecb1ee11b482a1a32e",
+    "tools/check_fractions_companion.py": "08ef911965c131b2711a25bee65f4b2ef5f8241ba16a263aedc58d3aa8852d11",
+    "tests/test_fractions_lab.py": "94629c2598305b0254561153d34b0ed4d2aa079b54244576eac87e2d2a471cb6"
+  },
+  "cases": [
+    {
+      "width": 390,
+      "states": [
+        {
+          "label": "add",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 122
+        },
+        {
+          "label": "compare",
+          "status": "defined",
+          "operation": "compare",
+          "geometryChecks": 78
+        },
+        {
+          "label": "quantity",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 50
+        },
+        {
+          "label": "reduce",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 198
+        },
+        {
+          "label": "pizza",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 86
+        },
+        {
+          "label": "recipe",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 42
+        },
+        {
+          "label": "quantity45",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 58
+        },
+        {
+          "label": "reduce30",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 260
+        },
+        {
+          "label": "multiply",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 73
+        },
+        {
+          "label": "sixths",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 98
+        },
+        {
+          "label": "division",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 28
+        },
+        {
+          "label": "signed",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 104
+        },
+        {
+          "label": "zero",
+          "status": "undefined",
+          "kind": "zero-divisor"
+        },
+        {
+          "label": "add normalized negative denominators",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 126
+        },
+        {
+          "label": "add negative crop",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 78
+        },
+        {
+          "label": "subtract normalized negative denominators",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 78
+        },
+        {
+          "label": "subtract negative crop",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 78
+        },
+        {
+          "label": "multiply normalized negative denominators",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 159
+        },
+        {
+          "label": "multiply negative crop",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 159
+        },
+        {
+          "label": "divide normalized negative denominators",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 60
+        },
+        {
+          "label": "divide negative crop",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 60
+        },
+        {
+          "label": "compare normalized negative denominators",
+          "status": "defined",
+          "operation": "compare",
+          "geometryChecks": 54
+        },
+        {
+          "label": "compare negative crop",
+          "status": "defined",
+          "operation": "compare",
+          "geometryChecks": 54
+        },
+        {
+          "label": "simplify normalized negative denominators",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 24
+        },
+        {
+          "label": "simplify negative crop",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 24
+        },
+        {
+          "label": "of normalized negative denominators",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 32
+        },
+        {
+          "label": "of negative crop",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 32
+        },
+        {
+          "label": "exact grid counterexample 25",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 145
+        },
+        {
+          "label": "exact grid counterexample 50",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 145
+        },
+        {
+          "label": "zero whole quantity",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 116
+        },
+        {
+          "label": "improper fraction of quantity",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 116
+        },
+        {
+          "label": "large LCM and final partition cell",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 14
+        },
+        {
+          "label": "follow A endpoint",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 90
+        },
+        {
+          "label": "advance detail",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 78
+        },
+        {
+          "label": "previous detail",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 90
+        },
+        {
+          "label": "large improper quotient last groups",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 12
+        },
+        {
+          "label": "zero divisor",
+          "status": "undefined",
+          "kind": "zero-divisor"
+        },
+        {
+          "label": "zero divided by zero",
+          "status": "undefined",
+          "kind": "zero-divisor"
+        },
+        {
+          "label": "undefined operand denominator",
+          "status": "undefined",
+          "kind": "operand-denominator"
+        },
+        {
+          "label": "recovery from undefined",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 23
+        },
+        {
+          "label": "invalid draft restored",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 23
+        },
+        {
+          "label": "keyboard enlarge scroll fit",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 73
+        },
+        {
+          "label": "reset",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 122
+        }
+      ],
+      "speech": [
+        {
+          "preset": "add",
+          "characters": 772,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "compare",
+          "characters": 742,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "multiply",
+          "characters": 924,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "division",
+          "characters": 915,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "reduce",
+          "characters": 752,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "quantity",
+          "characters": 863,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "recipe",
+          "characters": 767,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "zero",
+          "characters": 256,
+          "fullDynamicState": true
+        }
+      ],
+      "companion": [
+        {
+          "label": "partition 2/1 separated 0",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/1 separated 0.1",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/1 separated 0.2",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/1 separated 0.3",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0.1",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0.2",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0.3",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0.1",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0.2",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0.3",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0.1",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0.2",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0.3",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0.1",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0.2",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0.3",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0.1",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0.2",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0.3",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0.1",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0.2",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0.3",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0.1",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0.2",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0.3",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0.1",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0.2",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0.3",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0.1",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0.2",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0.3",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0.1",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0.2",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0.3",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0.1",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0.2",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0.3",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowRight",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowUp",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowLeft",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowDown",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera Home",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        }
+      ],
+      "originalIllustrationLoaded": true,
+      "originalAssessmentPreserved": true,
+      "exactStartupBundle": true,
+      "errors": [],
+      "external": []
+    },
+    {
+      "width": 1440,
+      "states": [
+        {
+          "label": "add",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 122
+        },
+        {
+          "label": "compare",
+          "status": "defined",
+          "operation": "compare",
+          "geometryChecks": 78
+        },
+        {
+          "label": "quantity",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 50
+        },
+        {
+          "label": "reduce",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 198
+        },
+        {
+          "label": "pizza",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 86
+        },
+        {
+          "label": "recipe",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 42
+        },
+        {
+          "label": "quantity45",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 58
+        },
+        {
+          "label": "reduce30",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 260
+        },
+        {
+          "label": "multiply",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 73
+        },
+        {
+          "label": "sixths",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 98
+        },
+        {
+          "label": "division",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 28
+        },
+        {
+          "label": "signed",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 104
+        },
+        {
+          "label": "zero",
+          "status": "undefined",
+          "kind": "zero-divisor"
+        },
+        {
+          "label": "add normalized negative denominators",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 126
+        },
+        {
+          "label": "add negative crop",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 78
+        },
+        {
+          "label": "subtract normalized negative denominators",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 78
+        },
+        {
+          "label": "subtract negative crop",
+          "status": "defined",
+          "operation": "subtract",
+          "geometryChecks": 78
+        },
+        {
+          "label": "multiply normalized negative denominators",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 159
+        },
+        {
+          "label": "multiply negative crop",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 159
+        },
+        {
+          "label": "divide normalized negative denominators",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 60
+        },
+        {
+          "label": "divide negative crop",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 60
+        },
+        {
+          "label": "compare normalized negative denominators",
+          "status": "defined",
+          "operation": "compare",
+          "geometryChecks": 54
+        },
+        {
+          "label": "compare negative crop",
+          "status": "defined",
+          "operation": "compare",
+          "geometryChecks": 54
+        },
+        {
+          "label": "simplify normalized negative denominators",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 24
+        },
+        {
+          "label": "simplify negative crop",
+          "status": "defined",
+          "operation": "simplify",
+          "geometryChecks": 24
+        },
+        {
+          "label": "of normalized negative denominators",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 32
+        },
+        {
+          "label": "of negative crop",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 32
+        },
+        {
+          "label": "exact grid counterexample 25",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 145
+        },
+        {
+          "label": "exact grid counterexample 50",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 145
+        },
+        {
+          "label": "zero whole quantity",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 116
+        },
+        {
+          "label": "improper fraction of quantity",
+          "status": "defined",
+          "operation": "of",
+          "geometryChecks": 116
+        },
+        {
+          "label": "large LCM and final partition cell",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 14
+        },
+        {
+          "label": "follow A endpoint",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 90
+        },
+        {
+          "label": "advance detail",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 78
+        },
+        {
+          "label": "previous detail",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 90
+        },
+        {
+          "label": "large improper quotient last groups",
+          "status": "defined",
+          "operation": "divide",
+          "geometryChecks": 12
+        },
+        {
+          "label": "zero divisor",
+          "status": "undefined",
+          "kind": "zero-divisor"
+        },
+        {
+          "label": "zero divided by zero",
+          "status": "undefined",
+          "kind": "zero-divisor"
+        },
+        {
+          "label": "undefined operand denominator",
+          "status": "undefined",
+          "kind": "operand-denominator"
+        },
+        {
+          "label": "recovery from undefined",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 23
+        },
+        {
+          "label": "invalid draft restored",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 23
+        },
+        {
+          "label": "keyboard enlarge scroll fit",
+          "status": "defined",
+          "operation": "multiply",
+          "geometryChecks": 73
+        },
+        {
+          "label": "reset",
+          "status": "defined",
+          "operation": "add",
+          "geometryChecks": 122
+        }
+      ],
+      "speech": [
+        {
+          "preset": "add",
+          "characters": 772,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "compare",
+          "characters": 742,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "multiply",
+          "characters": 924,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "division",
+          "characters": 915,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "reduce",
+          "characters": 752,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "quantity",
+          "characters": 863,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "recipe",
+          "characters": 767,
+          "fullDynamicState": true
+        },
+        {
+          "preset": "zero",
+          "characters": 256,
+          "fullDynamicState": true
+        }
+      ],
+      "companion": [
+        {
+          "label": "partition 2/1 separated 0",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/1 separated 0.1",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/1 separated 0.2",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/1 separated 0.3",
+          "parts": 2,
+          "selected": 1,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/2 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/3 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/4 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/5 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/6 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/7 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0.1",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0.2",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 2/8 separated 0.3",
+          "parts": 2,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 104,
+          "projectedVertices": 600,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0.1",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0.2",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/1 separated 0.3",
+          "parts": 4,
+          "selected": 1,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0.1",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0.2",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/2 separated 0.3",
+          "parts": 4,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0.1",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0.2",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/3 separated 0.3",
+          "parts": 4,
+          "selected": 3,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/4 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/5 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/6 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/7 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0.1",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0.2",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 4/8 separated 0.3",
+          "parts": 4,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 112,
+          "projectedVertices": 624,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0.1",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0.2",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/1 separated 0.3",
+          "parts": 8,
+          "selected": 1,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0.1",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0.2",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/2 separated 0.3",
+          "parts": 8,
+          "selected": 2,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0.1",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0.2",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/3 separated 0.3",
+          "parts": 8,
+          "selected": 3,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0.1",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0.2",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/4 separated 0.3",
+          "parts": 8,
+          "selected": 4,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0.1",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0.2",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/5 separated 0.3",
+          "parts": 8,
+          "selected": 5,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0.1",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0.2",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/6 separated 0.3",
+          "parts": 8,
+          "selected": 6,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0.1",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0.2",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/7 separated 0.3",
+          "parts": 8,
+          "selected": 7,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0.1",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.1,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0.2",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.2,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "partition 8/8 separated 0.3",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowRight",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowUp",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowLeft",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera ArrowDown",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        },
+        {
+          "label": "keyboard camera Home",
+          "parts": 8,
+          "selected": 8,
+          "separation": 0.3,
+          "polygons": 128,
+          "projectedVertices": 672,
+          "exactReadout": true
+        }
+      ],
+      "originalIllustrationLoaded": true,
+      "originalAssessmentPreserved": true,
+      "exactStartupBundle": true,
+      "errors": [],
+      "external": []
+    }
+  ],
+  "errors": [],
+  "startupBundle": {
+    "bytes": 3158093,
+    "sha256": "9946750c5a596d03435fdeef65f81f052a2af8247a93089b9c5b3c41e381385f",
+    "currentSourceBytesEqual": true
+  },
+  "allPassed": true,
+  "companionStates": 202,
+  "projectedCompanionVertices": 128064,
+  "speechCases": 16,
+  "states": 86,
+  "geometryChecks": 6524
+}

@@ -30,7 +30,7 @@ def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
     assert {node['id'] for node in curriculum.nodes.values()
             if node.get('lesson') and not node.get('model_family')} == {
         'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity',
-        'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory', 'phys.3.energy-work'}
+        'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory', 'phys.3.energy-work', 'math.2.fractions'}
     # Energy/work never used a generic model_family. Its new teaching sections
     # accompany the dedicated SI mechanics workbench and its numerical oracle;
     # keep it in the exact scientific-node contract without changing the 106
@@ -41,6 +41,15 @@ def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
     assert len(energy['quiz']) == 10
     assert next(m for m in energy['lesson_media'] if m['kind'] == 'model')['props'] == {
         'scenario': 'phys.3.energy-work'}
+    # The exact rational workbench replaces only this lesson's old fixed-value
+    # equivalence activity; independent arithmetic/geometry/reader tests cover it.
+    fractions = curriculum.node('math.2.fractions')
+    _validate_authored_lesson(fractions)
+    assert len(fractions['learning_outcomes']) == 6
+    assert len(fractions['quiz']) == 10
+    assert [(m['renderer'], m['props']) for m in fractions['lesson_media']
+            if m.get('id') == 'build-equivalent-fractions'] == [
+        ('fraction-arithmetic-lab', {'scenario': 'math.2.fractions'})]
     assert len(nodes) == 106
     for node in nodes:
         _validate_authored_lesson(node)

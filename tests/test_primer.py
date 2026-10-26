@@ -448,7 +448,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'hist.1.timelines': (1, 'timeline-order-lab'),
         'earth.1.seasons': (1, 'seasons-tilt-lab'),
         'arts.1.elements': (1, 'art-elements-composer'),
-        'math.2.fractions': (2, 'fraction-equivalence-lab'),
+        'math.2.fractions': (2, 'fraction-arithmetic-lab'),
         'math.2.negatives': (2, 'integer-number-line-lab'),
         'chem.2.atoms': (2, 'atom-element-builder'),
         'bio.2.cells': (2, 'cell-microscope'),

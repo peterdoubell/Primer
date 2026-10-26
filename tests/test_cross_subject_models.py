@@ -38,6 +38,7 @@ def test_cross_subject_model_invariants_and_interactions():
         check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+    assert "FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions" in result.stdout
     assert "FLUIDS_BINDING phys.4.fluids = explore-fluid-forces-and-flow" in result.stdout
     assert "INTEGRAL_BINDING math.4.int-calc = math-integral-lab;" in result.stdout
     assert f"Verified {len(CONCEPT_LESSONS) + 2} cross-subject models" in result.stdout

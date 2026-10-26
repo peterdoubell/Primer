@@ -884,15 +884,19 @@
 
 
   define('fraction-disk','Partitioned disk',{parts:'4',selected:1,separation:.1},[choice('parts','Equal parts',[['2','Halves'],['4','Quarters'],['8','Eighths']]),range('selected','Highlighted parts',1,8,1),range('separation','Separate the pieces',0,.3,.1)],(s,g)=>{
-    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1;
+    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1,segments=96/n;
     for(let i=0;i<n;i++){
       const a=i*TAU/n,b=(i+1)*TAU/n,mid=(a+b)/2,offset=[Math.cos(mid)*s.separation,0,Math.sin(mid)*s.separation],color=i<selected?g.colors.blue:colors.paper;
-      const arc=Array.from({length:13},(_,j)=>add([Math.cos(a+(b-a)*j/12)*radius,.04,Math.sin(a+(b-a)*j/12)*radius],offset));
-      const center=add([0,.04,0],offset);g.polygon([center,...arc],color);
-      for(let j=0;j<12;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color);
-      for(const edge of [arc[0],arc[12]])g.polygon([center,edge,add(edge,[0,-.18,0]),add(center,[0,-.18,0])],color);
+      const arc=Array.from({length:segments+1},(_,j)=>add([Math.cos(a+(b-a)*j/segments)*radius,.04,Math.sin(a+(b-a)*j/segments)*radius],offset));
+      const center=add([0,.04,0],offset),top=[center,...arc],bottom=top.map(p=>add(p,[0,-.18,0]));
+      g.polygon([...top].reverse(),color,{fraction_sector:i,fraction_face:'top'});
+      g.polygon(bottom,color,{fraction_sector:i,fraction_face:'bottom'});
+      for(let j=0;j<segments;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color,{fraction_sector:i,fraction_face:'curve'});
+      const first=[center,arc[0],add(arc[0],[0,-.18,0]),add(center,[0,-.18,0])],last=[center,arc[segments],add(arc[segments],[0,-.18,0]),add(center,[0,-.18,0])];
+      g.polygon(first,color,{fraction_sector:i,fraction_face:'start'});
+      g.polygon(last.reverse(),color,{fraction_sector:i,fraction_face:'end'});
     }
-    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${fmt(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This represents one fixed whole.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);
+    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${String(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This is a separate example of one fixed whole, not the selected operation or signed value in another activity. The circular boundary is approximated by the same 96 straight chords for every partition, and every sector has outward-facing top, bottom and side faces; exact fraction ratios come from the equal angular partitions, not screen area or the faceted mesh.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);
   });
 
   define('clock','Clock face and hands',{hour:3,minute:0},[range('hour','Hour',0,11,1),range('minute','Minutes',0,55,5)],(s,g)=>{

@@ -72,6 +72,8 @@ def reviewed_ledger():
 
 def before_continuation_bytes(path, raw, allow_older=False):
     """Restore only the exact recorded bytes; older callers retain their own guards."""
+    from tools.current_labs_runtime_compatibility import before_current_labs_bytes
+    raw = before_current_labs_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS and path != LEDGER_PATH:
         return raw
@@ -111,13 +113,14 @@ def before_continuation_reference_fields(identifier, fields):
 
 def validate_current():
     """Check current files and separate current reader proofs; grant no approval."""
+    from tools.current_labs_runtime_compatibility import before_current_labs_bytes
     proof = reviewed()
     for path, row in proof['files'].items():
-        raw = (ROOT / path).read_bytes()
+        raw = before_current_labs_bytes(path, (ROOT / path).read_bytes(), allow_older=True)
         if sha(raw) != row['after_sha256'] or sha(before_continuation_bytes(path, raw)) != row['before_sha256']:
             raise ValueError('Fidelity continuation current runtime differs')
     for path, expected in proof['added_files_sha256'].items():
-        if sha((ROOT / path).read_bytes()) != expected:
+        if sha(before_current_labs_bytes(path, (ROOT / path).read_bytes(), allow_older=True)) != expected:
             raise ValueError('Fidelity continuation added runtime differs')
     readers = {}
     for path, expected in proof['current_reader_evidence'].items():
@@ -130,7 +133,7 @@ def validate_current():
                 or reader.get('wholeGoalComplete', False) is not False or not reader.get('sourceSHA256')):
             raise ValueError('Fidelity continuation current reader proof is incomplete')
         for source_path, digest in reader['sourceSHA256'].items():
-            if sha((ROOT / source_path).read_bytes()) != digest:
+            if sha(before_current_labs_bytes(source_path, (ROOT / source_path).read_bytes(), allow_older=True)) != digest:
                 raise ValueError('Fidelity continuation current reader source differs: ' + source_path)
         readers[path] = reader
     return readers

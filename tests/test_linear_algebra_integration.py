@@ -18,7 +18,10 @@ REVIEW=ROOT/'docs/linear-algebra-fidelity-review-20261016/integration'
 
 
 def authored():
-    data=json.loads((ROOT/bridge.MATH).read_bytes())
+    # This frozen linear-algebra counterfactual compares its complete historical
+    # corpus only after the separately verified current lesson delta is removed.
+    from tools.current_labs_runtime_compatibility import before_current_labs_bytes
+    data=json.loads(before_current_labs_bytes(bridge.MATH,(ROOT/bridge.MATH).read_bytes()))
     return data,next(node for node in data['nodes'] if node['id']==bridge.MODULE)
 
 
