@@ -28,6 +28,8 @@ def reviewed():
 
 
 def before_percentage_bytes(path, raw, allow_older=False):
+    from tools.decimal_runtime_compatibility import before_decimal_bytes
+    raw = before_decimal_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw

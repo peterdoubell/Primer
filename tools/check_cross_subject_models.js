@@ -115,6 +115,8 @@ require('../web/concept-models.js');
 require('../web/math-integral-lab.js');
 require('../web/percentage-core.js');
 require('../web/percentage-lab.js');
+require('../web/decimal-core.js');
+require('../web/decimal-lab.js');
 require('../web/lesson-models.js');
 const spatial = context.window.PrimerSpatial;
 const concepts = context.window.PrimerConceptModels;
@@ -1293,6 +1295,30 @@ function exercisePercentageRenderer(root, speak) {
   console.log('PERCENTAGE_BINDING math.2.percent = percentage-workbench; 13 exact presets and invalid-draft recovery');
 }
 
+function exerciseDecimalRenderer(root, speak) {
+  assert.ok(root.classList.contains('decimal-workbench'));
+  assert.equal(typeof root.decimal?.getModel, 'function');
+  assert.equal(typeof speak, 'function');
+  const preset=root.querySelector('[data-decimal-preset]');
+  const expected={add:['result','2.35'],multiply:['result','0.12'],compare:['relation',-1],pens:['totalMoney','5.80'],subtract:['result','2.15'],ribbon:['quotient','3'],multiply2:['result','1'],round:['formatted','3.48'],change:['balance','3.85'],trailing:['relation',0],place:['a','1.2'],carry:['result','1'],negative:['result','0.1'],third:['quotient','1/3'],tie:['formatted','-1.3'],owed:['balance','-1.15']};
+  let checked=0;
+  for(const option of preset.children.filter(e=>e.value)){
+    preset.value=option.value;preset.dispatch('change');checked++;
+    const model=root.decimal.getModel();assert.ok(speak().includes('Accepted inputs:'));assertAccessibleReferences(root);
+    if(option.value==='zero'){assert.equal(model.status,'undefined');assert.equal(root.querySelectorAll('[data-decimal-plot]').length,0);}
+    else{const [key,value]=expected[option.value];assert.equal(typeof model[key]==='object'?model[key].exact:model[key],value);}
+  }
+  assert.equal(checked,17);
+  root.querySelector('[data-decimal-reset]').dispatch('click');
+  const accepted=JSON.stringify(root.decimal.getModel()),narration=speak(),input=root.querySelector('[data-decimal-control="a"]');
+  input.value='1e2';input.dispatch('change');assert.equal(input.getAttribute('aria-invalid'),'true');assert.equal(JSON.stringify(root.decimal.getModel()),accepted);assert.equal(speak(),narration);
+  input.dispatch('keydown',{key:'Escape'});assert.equal(root.querySelector('[data-decimal-control="a"]').value,'0.75');
+  root.querySelector('[data-decimal-zoom]').dispatch('click');assert.equal(root.querySelector('[data-decimal-zoom]').getAttribute('aria-pressed'),'true');
+  root.querySelector('[data-decimal-reset]').dispatch('click');assert.equal(root.querySelector('[data-decimal-zoom]').getAttribute('aria-pressed'),'false');
+  interactionChecks+=checked+5;
+  console.log('DECIMAL_BINDING math.2.decimals = decimal-workbench; 17 exact presets and invalid-draft recovery');
+}
+
 for (const { node, item } of crossEntries) {
   equal(item.props, { scenario: node.id });
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
@@ -1325,7 +1351,7 @@ assert.equal(entries.filter(({ item }) => item.renderer === 'prenatal-sequence')
   1, 'The separately checked prenatal sequence remains reachable');
 const page = fs.readFileSync(path.join(ROOT, 'web/index.html'), 'utf8');
 const scripts = [...page.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/g)].map(match => match[1]);
-for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js', 'percentage-core.js', 'percentage-lab.js']) {
+for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js', 'percentage-core.js', 'percentage-lab.js', 'decimal-core.js', 'decimal-lab.js']) {
   assert.equal(scripts.filter(src => src === '/app/' + file).length, 1, file + ': loaded exactly once');
   assert.ok(scripts.indexOf('/app/' + file) < scripts.indexOf('/app/lesson-models.js'), file + ': loaded before registry');
 }
@@ -1715,6 +1741,11 @@ for (const { node, item } of crossEntries) {
     return document.createElement('button');
   } });
   assert.ok(root, node.id + ': renderer is reachable through the shipped registry');
+  if (node.id === 'math.2.decimals') {
+    exerciseDecimalRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
   if (node.id === 'math.2.percent') {
     exercisePercentageRenderer(root, speak);
     console.log('COVER ' + node.id);

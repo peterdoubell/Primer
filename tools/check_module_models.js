@@ -45,6 +45,7 @@ require('../web/spatial-physical.js');
 require('../web/spatial-molecular.js');
 require('../web/spatial-cross-subject.js');
 require('../web/spatial-radiology.js');
+require('../web/decimal-spatial.js');
 require('../web/spatial-module-objects.js');
 const spatial = context.window.PrimerSpatial, objects = context.window.PrimerModuleObjects;
 const prior = [...spatial.supported];

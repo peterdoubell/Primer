@@ -25,12 +25,12 @@ def test_module_model_geometry_bindings_controls_and_invariants():
         cwd=ROOT,
         capture_output=True,
         text=True,
-        # The unchanged checker verifies 16,830 full builds, including costly
+        # The checker verifies the whole curriculum, including costly
         # quantum-well quadrature. Shared CI runners have exceeded 60 seconds;
         # retain every assertion and a bounded limit with execution headroom.
         timeout=180,
         check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '462 lesson bindings, 64 object families' in result.stdout
+    assert '462 lesson bindings, 65 object families' in result.stdout
     assert 'quantitative geometry invariants passed' in result.stdout
