@@ -1,0 +1,129 @@
+{
+  "id": "math.2.percent",
+  "title": "Percentages",
+  "stage": 2,
+  "goal": "Move between fractions, decimals and percents.",
+  "articles": [
+    "Percentage"
+  ],
+  "practice": "percent",
+  "prereqs": [
+    "math.2.fractions",
+    "math.2.decimals",
+    "math.2.ratio"
+  ],
+  "quiz": [
+    {
+      "kind": "choice",
+      "prompt": "A jacket costs $80 and is marked 25% off. What is the sale price?",
+      "answer": "$60",
+      "explain": "25% of $80 is $20 off, leaving $80 - $20 = $60.",
+      "choices": [
+        "$75",
+        "$60",
+        "$20",
+        "$55"
+      ]
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Write the fraction 3/5 as a percentage. Give just the number.",
+      "answer": "60",
+      "explain": "3/5 = 0.6, and 0.6 = 60%."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A test has 40 questions and you answer 30 correctly. What percentage did you score?",
+      "answer": "75",
+      "explain": "30/40 = 0.75, which is 75%."
+    },
+    {
+      "kind": "choice",
+      "prompt": "A $200 bike is reduced by 10%, and the new price is then reduced by a further 10%. What is the final price?",
+      "answer": "$162",
+      "choices": [
+        "$160",
+        "$180",
+        "$164",
+        "$162"
+      ],
+      "explain": "The first cut gives $180, and 10% of $180 is $18, leaving $162. Two 10% cuts are not the same as one 20% cut."
+    },
+    {
+      "kind": "choice",
+      "prompt": "Three shops advertise discounts on the same price: one takes off 0.35 of it, one takes off 3/8 of it, and one takes off 30%. Which discount saves the most?",
+      "answer": "The 3/8 discount",
+      "choices": [
+        "The 3/8 discount",
+        "The 0.35 discount",
+        "The 30% discount",
+        "They save equal amounts"
+      ],
+      "explain": "3/8 = 0.375, which beats 0.35 and 0.30. Turning each one into a decimal makes the comparison easy."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A shirt's price rises from $40 to $50. By what percentage did it increase?",
+      "answer": "25",
+      "explain": "The rise is $10 on an original $40, and 10/40 = 0.25, which is 25%."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "What is 15% of 60?",
+      "answer": "9",
+      "explain": "10% of 60 is 6 and 5% is half of that, 3, so 15% is 6 + 3 = 9."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Write the decimal 0.07 as a percentage. Give just the number.",
+      "answer": "7",
+      "explain": "Percent means hundredths, and 0.07 is 7 hundredths, so it is 7%."
+    },
+    {
+      "kind": "choice",
+      "prompt": "A student works out 20% of 150 by dividing 150 by 20, getting 7.5. What should they have done instead?",
+      "answer": "Divided by five",
+      "choices": [
+        "Divided by five",
+        "Multiplied by twenty",
+        "Divided by two instead",
+        "Subtracted twenty from the total"
+      ],
+      "explain": "20% is one fifth, so you divide by 5: 150 / 5 = 30. Dividing by 20 gives 5%, not 20%."
+    },
+    {
+      "kind": "choice",
+      "prompt": "A price goes up by 20%, and later the new price comes down by 20%. Predict how the final price compares with the original.",
+      "answer": "A little below the original price",
+      "choices": [
+        "A little below the original price",
+        "Exactly the original price",
+        "A little above the original price",
+        "A fifth below the original"
+      ],
+      "explain": "The rise is 20% of the small number and the fall is 20% of the bigger number, so $100 becomes $120 and then $96 - a 4% loss overall."
+    }
+  ],
+  "lesson_media": [
+    {
+      "id": "percent-equivalence-plate",
+      "kind": "illustration",
+      "src": "/app/illustrations/sapling/math/math-2-percent-800.webp",
+      "srcset": "/app/illustrations/sapling/math/math-2-percent-800.webp 800w, /app/illustrations/sapling/math/math-2-percent-1600.webp 1600w",
+      "alt": "Three-fifths, 0.60, and 60 percent are shown as equivalent parts of one whole.",
+      "caption": "Percent means per hundred; the whole being measured still matters.",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "id": "math.2.percent-concept-model",
+      "kind": "model",
+      "renderer": "concept-lab",
+      "title": "Percent means out of one hundred",
+      "instructions": "Change the percent and the whole amount. Compare the hundred-grid, decimal and resulting part of the whole.",
+      "props": {
+        "scenario": "math.2.percent"
+      }
+    }
+  ]
+}

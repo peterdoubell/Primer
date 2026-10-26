@@ -20,7 +20,8 @@ def test_companion_is_closed_outward_equal_volume_and_exact_readout():
 
 def test_only_target_lesson_presentation_changes_and_assessment_is_preserved():
  original=json.loads((DOC/'original-fractions-node.json').read_text())
- path=ROOT/'data/curriculum/01-mathematics.json';all_nodes=json.loads(path.read_text());node=next(n for n in all_nodes['nodes'] if n['id']=='math.2.fractions')
+ from tools.percentage_runtime_compatibility import before_percentage_bytes
+ path=ROOT/'data/curriculum/01-mathematics.json';all_nodes=json.loads(before_percentage_bytes('data/curriculum/01-mathematics.json',path.read_bytes()));node=next(n for n in all_nodes['nodes'] if n['id']=='math.2.fractions')
  assert node['quiz']==original['quiz'] and len(node['quiz'])==10
  assert node['prereqs']==original['prereqs']
  assert [m for m in node['lesson_media'] if m['kind']=='illustration']==[m for m in original['lesson_media'] if m['kind']=='illustration']
