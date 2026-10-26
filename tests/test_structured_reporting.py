@@ -65,7 +65,7 @@ def test_calculation_proxy_keeps_credentials_server_side(bridge_client, monkeypa
     assert request["json"] == {"inputs": {"zone": None}}
 
 
-@pytest.mark.parametrize("identifier", ["acr_tirads_2017", "pirads_v2_1", "cadrads_2_0", "prostate_volume_psad"])
+@pytest.mark.parametrize("identifier", ["acr_tirads_2017", "pirads_v2_1", "cadrads_2_0", "prostate_volume_psad", "orads_us_2022", "lirads_ct_mri_2018", "recist_1_1", "lesion_growth"])
 def test_upstream_paths_come_only_from_literal_route_map(bridge_client, monkeypatch, identifier):
     calls = fake_upstream(monkeypatch, httpx.Response(200, json={"calculator_id": identifier}))
     response = bridge_client.get("/api/radiology/reporting/calculators/" + identifier)
@@ -176,8 +176,10 @@ def test_reporting_response_adds_form_without_mutating_canonical_lesson_data():
         attached = response["radiology_reference"]["structured_form"]
         assert attached["guide_id"] == guide_id
         assert attached["form_version"] == catalogue["schema_hash"]
-        additions = {"form_version", "descriptor_form", "descriptor_version", "snapshot_id"}
-        assert {key: value for key, value in attached.items() if key not in additions} == form
+        additions = {"form_version", "descriptor_form", "descriptor_version", "snapshot_id", "calculator_ids"}
+        assert {key: value for key, value in attached.items() if key not in additions} == {key:value for key,value in form.items() if key != "calculator_ids"}
+        assert attached["calculator_ids"] == attached["descriptor_form"]["calculator_ids"]
+        assert set(form["calculator_ids"]) <= set(attached["calculator_ids"]) <= set(reporting_bridge.CALCULATOR_PATHS)
         assert attached["descriptor_form"]["guide_id"] == guide_id
         assert attached["descriptor_form"]["selected_investigation_id"] == canonical["id"]
         assert attached["descriptor_version"] == reporting_bridge.descriptor_forms()["forms"][guide_id]["schema_hash"]
