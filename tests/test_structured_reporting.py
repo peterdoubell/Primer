@@ -197,7 +197,7 @@ def test_every_report_variant_is_exposed_by_the_native_library_without_fictitiou
     result = reporting_bridge.with_descriptor_investigations(index)
     expected = {item['id'] for form in reporting_bridge.descriptor_forms()['forms'].values() for item in form['investigations']}
     assert {item['id'] for item in result['modules']} == expected
-    assert result['count'] == 156
+    assert result['count'] == 225
     for identifier in sorted(key for key in expected if key.startswith('template:')):
         variant = reporting_bridge.descriptor_variant(identifier)
         assert variant and variant['kind'] == 'source-worksheet'

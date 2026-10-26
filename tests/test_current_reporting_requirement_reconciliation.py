@@ -88,9 +88,9 @@ def test_all_sixty_two_brain_rows_have_explicit_ids_and_source_limitations():
 def test_global_reconciliation_retains_all_report_rows_without_module_alias_shortcuts():
     data, _, _ = inputs()
     result = reporting_reconciliation(ROOT, data)
-    assert result == read(OUT + "/all-current-reporting-reconciliation.json")
-    assert (result["current_investigations"], result["current_report_rows"]) == (156, 4124)
-    assert (result["expanded_investigation_identities"], result["without_dedicated_inventory"]) == (96, 60)
+    assert result == read("docs/report-additions-20261026/reporting-reconciliation.json")
+    assert (result["current_investigations"], result["current_report_rows"]) == (225, 5696)
+    assert (result["expanded_investigation_identities"], result["without_dedicated_inventory"]) == (96, 129)
     rows = {r["investigation_id"]: r for r in result["investigations"]}
     assert rows["ra.thoracolumbar-injury"]["relationship"] == "declared_duplicate_pathway_with_unresolved_instantiation"
     levels = [r for r in rows["ra.thoracolumbar-injury"]["report_rows"] if r["candidate_requirements"] and r["candidate_requirements"][0]["relationship"] == "explicit_level_instance_of_unresolved_template"]

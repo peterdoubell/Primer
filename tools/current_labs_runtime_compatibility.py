@@ -33,6 +33,8 @@ def reviewed():
 
 
 def before_current_labs_bytes(path, raw, allow_older=False):
+    from tools.report_additions_compatibility import before_report_additions_bytes
+    raw = before_report_additions_bytes(path, raw, allow_older=True)
     from tools.circuits_runtime_compatibility import before_circuits_bytes
     raw = before_circuits_bytes(path, raw, allow_older=True)
     path = str(path)

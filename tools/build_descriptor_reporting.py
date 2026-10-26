@@ -30,7 +30,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_VERSION = "1.0"
-VERSION = "2026-10-23"
+VERSION = "2026-10-26"
 
 # These are requests for information, not enumerated descriptions. In particular,
 # "[size / distribution]" must not become a choice between the words size and

@@ -1,0 +1,45 @@
+{
+  "base_commit": "3f04127f67a52173a12aa141031bfac1a12cb142",
+  "scope": "new_selectable_examinations_calculator_routing_and_widget_availability_only",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "native_anatomy_or_canonical_lessons_changed": false,
+  "files": {
+    "primer/reporting_bridge.py": {
+      "before_sha256": "851ff89cddf9bec3c569913729017c96f6804b8e23e14b2e7f18d54b97c835dc",
+      "after_sha256": "74e5bc667bb579a2d9a1b990803f228b193111cc0510560f9dd5ca21432e1894",
+      "changes": [
+        {
+          "start": 24,
+          "end": 28,
+          "after": "    'orads_us_2022': 'calculators/orads_us_2022',\n    'lirads_ct_mri_2018': 'calculators/lirads_ct_mri_2018',\n    'recist_1_1': 'calculators/recist_1_1',\n    'lesion_growth': 'calculators/lesion_growth',\n",
+          "before": ""
+        },
+        {
+          "start": 123,
+          "end": 124,
+          "after": "        'calculator_ids': descriptor['calculator_ids'],\n",
+          "before": ""
+        }
+      ]
+    },
+    "web/radiology-structured.js": {
+      "before_sha256": "79fed9bd31d02238ed1fb75d0d3bbf2fcc92fd713cada333a9b7ba8256dca88e",
+      "after_sha256": "76313b6e77123a57e025bda8eb78aebe166bca89d218e232a8b67f0b8ed99ae8",
+      "changes": [
+        {
+          "start": 263,
+          "end": 264,
+          "after": "    const allowedCalculators = new Set([...(form.calculator_ids || []), ...(schema.calculator_ids || [])]);\n",
+          "before": "    const allowedCalculators = new Set(form.calculator_ids || schema.calculator_ids || []);\n"
+        },
+        {
+          "start": 506,
+          "end": 508,
+          "after": "        const boundElsewhere = (schema.investigations || []).some(item => item.sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id)));\n        if ((bound || boundElsewhere) && !Object.values(inputs).some(present)) continue;\n",
+          "before": "        if (bound && !Object.values(inputs).some(present)) continue;\n"
+        }
+      ]
+    }
+  }
+}

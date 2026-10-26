@@ -261,7 +261,7 @@ window.PrimerStructuredReporting = (() => {
     if (state.descriptor_state) state = {...state, ...state.descriptor_state};
     if (!state.calculator_inputs && Array.isArray(state.calculations)) state.calculator_inputs = Object.fromEntries(state.calculations.map(item => [item.calculator_id, item.inputs]));
     state = {schema_version: '1.0', investigation_id: options.investigationId || state.investigation_id || schema.selected_investigation_id || form.selected_investigation_id || (schema.investigations?.length === 1 ? schema.investigations[0].id : ''), selections: state.selections || {}, calculator_inputs: state.calculator_inputs || {}};
-    const allowedCalculators = new Set(form.calculator_ids || schema.calculator_ids || []);
+    const allowedCalculators = new Set([...(form.calculator_ids || []), ...(schema.calculator_ids || [])]);
     for (const id of Object.keys(state.calculator_inputs)) if (!allowedCalculators.has(id)) delete state.calculator_inputs[id];
     const calculations = new Map(), calculatorControllers = new Map(), pending = new Set();
     const boundCalculations = new Map(), boundNodes = new Map(); let disposed = false;
@@ -504,7 +504,8 @@ window.PrimerStructuredReporting = (() => {
         const linked = options.calculatorInputs?.[id] || context.calculator_inputs?.[id];
         if (linked) Object.assign(inputs, linked);
         const bound = investigation().sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id));
-        if (bound && !Object.values(inputs).some(present)) continue;
+        const boundElsewhere = (schema.investigations || []).some(item => item.sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id)));
+        if ((bound || boundElsewhere) && !Object.values(inputs).some(present)) continue;
         const controller = calculator(id, inputs, options.request || request, (result, changed) => {
           if (result) calculations.set(id, result); else calculations.delete(id);
           update(changed);

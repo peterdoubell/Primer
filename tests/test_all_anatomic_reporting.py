@@ -77,15 +77,17 @@ def test_every_native_investigation_and_source_worksheet_is_curated_without_fall
     original_ids = {inv['id'] for form in SOURCE['forms'].values() for inv in form['investigations']}
     new_mri_exams = {'msk.mri-hip', 'msk.mri-foot', 'msk.mri-wrist', 'msk.mri-hand'}
     authored_ids = [iid for _, authored in AUTHORED for iid in authored['investigations']]
+    additions = set(json.loads((ROOT / 'data/radiology/anatomic-additions-20261026.json').read_text())['investigations'])
+    expected = 156 + len(additions)
     assert len(CATALOG['forms']) == 98
-    assert len(EXAMS) == len(authored_ids) == len(set(authored_ids)) == 156
-    assert set(EXAMS) == original_ids | new_mri_exams == set(authored_ids)
+    assert len(EXAMS) == len(authored_ids) == len(set(authored_ids)) == expected
+    assert set(EXAMS) == original_ids | new_mri_exams | additions == set(authored_ids)
     assert {iid for iid in original_ids if iid.startswith('template:')} <= set(authored_ids)
-    assert CATALOG['summary']['anatomic_investigations'] == 156
-    assert CATALOG['summary']['investigations'] == 156
+    assert CATALOG['summary']['anatomic_investigations'] == expected
+    assert CATALOG['summary']['investigations'] == expected
     assert CATALOG['summary']['descriptors_requiring_context'] == 0
     assert CATALOG['summary']['context_slots'] == 0
-    assert len(CATALOG['anatomic_coverage']) == 156
+    assert len(CATALOG['anatomic_coverage']) == expected
     for form, inv in EXAM_PAIRS:
         assert inv['presentation'] == 'anatomic_rows', inv['id']
         assert inv['clinical_approval'] is False

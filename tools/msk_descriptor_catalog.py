@@ -17,6 +17,8 @@ def apply_anatomic_reports(forms, root, compile_statement, digest, slug):
             if guide_id not in forms:
                 raise ValueError(f'Unknown anatomical report guide: {guide_id}')
             form = forms[guide_id]
+            if definition.get('calculator_ids'):
+                form['calculator_ids'] = list(dict.fromkeys(form.get('calculator_ids', []) + definition['calculator_ids']))
             # The imported source catalogue is immutable; authored references
             # belong to the compiled form, not the caller's guide dictionary.
             form['sources'] = copy.deepcopy(form['sources'])
