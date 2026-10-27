@@ -1,0 +1,45 @@
+from pathlib import Path
+import hashlib,json
+import nibabel as nib
+import numpy as np
+from PIL import Image,ImageDraw,ImageFont
+from scipy import ndimage
+D=Path(__file__).resolve().parent;L=nib.load(D/'sub-001_ses-01_desc-manual_dseg.nii.gz');M=nib.load(D/'sub-001_ses-01_T2w.nii.gz');labels=np.asanyarray(L.dataobj);mri=np.asanyarray(M.dataobj);transform=np.linalg.inv(M.affine)@L.affine;offset=np.rint(transform[:3,3]).astype(int);assert np.allclose(transform[:3,:3],np.eye(3),atol=1e-12,rtol=0);assert np.all(offset>=0)and np.all(offset+labels.shape<=mri.shape)
+residual=L.affine[:3,3]-nib.affines.apply_affine(M.affine,offset);ulp=np.abs(np.spacing(L.affine[:3,3].astype(np.float32))).astype(float)+np.abs(np.spacing(M.affine[:3,3].astype(np.float32))).astype(float);assert np.all(np.abs(residual)<=ulp)
+# Every voxel-centre has the same residual because the bases are identical.
+assert np.array_equal(L.affine[:3,:3],M.affine[:3,:3]);corners=np.array([[i,j,k]for i in [0,labels.shape[0]-1]for j in [0,labels.shape[1]-1]for k in [0,labels.shape[2]-1]]);delta=nib.affines.apply_affine(L.affine,corners)-nib.affines.apply_affine(M.affine,corners+offset);assert np.max(np.abs(delta-residual))<1e-11
+# Negative controls must reject a one-voxel shift in every axis.
+negative=[]
+for axis in range(3):
+ shifted=offset.copy();shifted[axis]+=1;error=np.max(np.abs(L.affine[:3,3]-nib.affines.apply_affine(M.affine,shifted)));assert error>.19;negative.append({'axis':axis,'oneVoxelShiftErrorMm':float(error)})
+lut={}
+for line in(D/'sub-001_lut.txt').read_text().splitlines():
+ if line.strip():p=line.split();lut[int(p[0])]={'name':p[1],'color':list(map(int,p[2:5]))}
+font=ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf',18);small=ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf',13)
+rows=[];codes=[8,13,19,20,29,83,84,85,86]
+# Native planes: axial R->L and A at top; coronal R->L and S at top;
+# sagittal A->P and S at top for the supplied L,A,I index directions.
+def display(a,axis):
+ a=a.T
+ if axis==2:a=a[::-1,:]
+ if axis==0:a=a[:,::-1]
+ return a
+for code in codes:
+ points=np.argwhere(labels==code);lo=points.min(0);hi=points.max(0)+1;region=labels[tuple(slice(a,b)for a,b in zip(lo,hi))]==code;components,n=ndimage.label(region,structure=np.ones((3,3,3),bool));counts=np.bincount(components.ravel());counts[0]=0;largest=int(counts.argmax());p=np.argwhere(components==largest)+lo;center=p.mean(0);focus=p[np.argmin(np.sum((p-center)**2,axis=1))];global_focus=focus+offset;assert labels[tuple(focus)]==code
+ canvas=Image.new('RGB',(1260,960),'#f5f2e9');draw=ImageDraw.Draw(canvas);draw.text((20,12),f'Code {code}: raw source name {lut[code]["name"]}',fill='#263d38',font=font);draw.text((20,39),'Supplied ex vivo MRI with native labels; publisher describes a right-hemisphere reference. Raw LUT names retained for this audit.',fill='#263d38',font=small)
+ panelproof=[]
+ for col,axis in enumerate([2,1,0]):
+  axes=[a for a in range(3)if a!=axis];ls=[slice(None)]*3;ms=ls.copy();ls[axis]=int(focus[axis]);ms[axis]=int(global_focus[axis]);lp=labels[tuple(ls)];mp=mri[tuple(ms)];full=np.zeros(mp.shape,dtype=np.uint8);sl=tuple(slice(int(offset[a]),int(offset[a]+labels.shape[a]))for a in axes);full[sl]=lp
+  assert np.array_equal(full[sl],lp);assert np.count_nonzero(full==code)==np.count_nonzero(lp==code)
+  # A 50-mm physical window around the actual selected source voxel, no interpolation.
+  region_indices=[]
+  for a in axes:
+   c=int(global_focus[a]);start=max(0,c-125);end=min(mri.shape[a],c+126);region_indices.append(slice(start,end))
+  grey=display(mp[tuple(region_indices)],axis);mask=display(full[tuple(region_indices)]==code,axis);raw=np.repeat(grey[...,None],3,axis=2);overlay=raw.copy();overlay[mask]=np.rint(.45*overlay[mask]+.55*np.array(lut[code]['color'])).astype(np.uint8)
+  for row,data in enumerate([raw,overlay]):
+   im=Image.fromarray(data);scale=min(390/im.width,360/im.height);im=im.resize((round(im.width*scale),round(im.height*scale)),Image.Resampling.NEAREST);x=20+col*415;y=95+row*420;canvas.paste(im,(x,y));draw.text((x,y-24),['Axial','Coronal','Sagittal'][col]+(' — original signal'if row==0 else' — label overlay'),fill='#263d38',font=small)
+   # Scale bar computed from the physical 0.2-mm basis, not acquisition claims.
+   pixels=10/np.linalg.norm(M.affine[:3,axes[0]])*(im.width/data.shape[1]);draw.line((x+8,y+im.height+12,x+8+pixels,y+im.height+12),fill='#263d38',width=3);draw.text((x+15+pixels,y+im.height+4),'10 mm',fill='#263d38',font=small)
+  panelproof.append({'axis':axis,'labelIndex':int(focus[axis]),'mriIndex':int(global_focus[axis]),'sourceAxes':axes,'nativeCropShape':list(grey.shape),'selectedPixels':int(mask.sum()),'greySHA256':hashlib.sha256(grey.tobytes()).hexdigest()})
+ out=D/f'review-code-{code}.png';canvas.save(out);rows.append({'code':code,'sourceName':lut[code]['name'],'components26':int(n),'focusLabelIJK':focus.tolist(),'focusMRIijk':global_focus.tolist(),'sourceWorld':nib.affines.apply_affine(L.affine,focus).tolist(),'panels':panelproof,'image':out.name})
+report={'labelToMRIIndexOffset':offset.tolist(),'matrix':transform.tolist(),'worldResidualMm':residual.tolist(),'maximumResidualMm':float(np.abs(residual).max()),'withinCombinedFloat32OriginULP':True,'sameVoxelBasis':True,'noResamplingPerformed':True,'negativeControls':negative,'reviewRows':rows,'clinicalApproval':False,'lateralityResolution':'Not completed; source metadata and LUT conflict remain explicit','contrastResolution':'Do not call the derivative quantitative T2 or assert a particular FLASH input without lineage evidence'};(D/'paired-grid-proof.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items()if k!='reviewRows'}));print('Rendered',len(rows),'source comparisons')
