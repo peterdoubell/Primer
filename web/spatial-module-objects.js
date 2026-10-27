@@ -72,6 +72,8 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  if (window.PrimerRatioSpatialFamily) families['ratio-calibrated-volumes'] = window.PrimerRatioSpatialFamily;
+
   if (window.PrimerDecimalSpatialFamily) families['decimal-base-ten'] = window.PrimerDecimalSpatialFamily;
 
   if (window.PrimerFidelitySpatialFamilies) {
@@ -969,6 +971,8 @@
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((p.scenario === 'module.math.2.ratio' || p.family === 'ratio-calibrated-volumes')
+        && (p.scenario !== 'module.math.2.ratio' || p.family !== 'ratio-calibrated-volumes' || p.mode !== 'model' || p.lesson !== 'Ratio and Proportion')) return false;
     if ((p.scenario === 'module.math.2.decimals' || p.family === 'decimal-base-ten')
         && (p.scenario !== 'module.math.2.decimals' || p.family !== 'decimal-base-ten' || p.mode !== 'model' || p.lesson !== 'Decimals')) return false;
     if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')

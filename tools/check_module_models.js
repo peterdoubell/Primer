@@ -46,6 +46,7 @@ require('../web/spatial-molecular.js');
 require('../web/spatial-cross-subject.js');
 require('../web/spatial-radiology.js');
 require('../web/decimal-spatial.js');
+require('../web/ratio-spatial.js');
 require('../web/spatial-module-objects.js');
 const spatial = context.window.PrimerSpatial, objects = context.window.PrimerModuleObjects;
 const prior = [...spatial.supported];
@@ -95,6 +96,22 @@ function verify(id,state={}) {
 }
 for(const [family,id] of familyIds){
   const initial=verify(id);let minimum={},maximum={};
+  if(family==='ratio-calibrated-volumes') {
+    for(const control of spatial.controls(id)) {
+      const mode=control.visibleWhen?.mode?.[0]||'mixture';
+      const values=control.options?control.options.map(o=>o.value):[control.min,control.max];
+      const versions=values.map(value=>verify(id,{mode,[control.key]:value}));
+      assert.ok(versions.some(scene=>JSON.stringify(scene.primitives)!==JSON.stringify(versions[0].primitives)),family+': active '+control.key+' changes geometry');
+      if(control.visibleWhen) {
+        const inactive=mode==='mixture'?'similarity':'mixture';
+        const before=verify(id,{mode:inactive});
+        for(const value of values)assert.deepEqual(verify(id,{mode:inactive,[control.key]:value}).primitives,before.primitives);
+      }
+      if(!control.options)for(const value of [NaN,Infinity,-Infinity,'not a number'])assert.deepEqual(verify(id,{mode,[control.key]:value}).state,window.PrimerRatioSpatialFamily.normalize({...window.PrimerRatioSpatialFamily.initial,mode,[control.key]:value}));
+      controls++;
+    }
+    continue;
+  }
   if(family==='number-theory-exact-traces') {
     assert.equal(id,'module.math.4.numtheory');
     const lab=window.PrimerMathNumberTheoryLab,diagrams=window.PrimerNumberTheoryDiagrams;

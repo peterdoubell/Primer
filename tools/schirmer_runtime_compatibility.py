@@ -31,6 +31,8 @@ def reviewed():
 
 
 def before_schirmer_bytes(path, raw, allow_older=False):
+    from tools.ratio_runtime_compatibility import before_ratio_bytes
+    raw = before_ratio_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
