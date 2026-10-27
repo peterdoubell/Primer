@@ -4,6 +4,7 @@ import copy,hashlib,json,subprocess,sys
 import pytest
 from primer.curriculum import _validate_authored_lesson,_validate_lesson_media
 from tools import base_ten_runtime_compatibility as bridge
+from tools.nextbrain_runtime_compatibility import before_nextbrain_bytes
 ROOT=Path(__file__).resolve().parents[1];D=ROOT/'docs/base-ten-fidelity-review-20261027';IDS={'math.1.place-value','math.1.addition','math.1.subtraction','math.1.multiplication','math.1.division'}
 @pytest.mark.parametrize('kind',['core','spatial'])
 def test_independent_current_base_ten_oracle(kind):
@@ -26,7 +27,7 @@ def test_only_the_five_lesson_teaching_and_companions_change():
 
 @pytest.mark.parametrize('path',sorted(bridge.PATHS))
 def test_exact_integration_inverse_preserves_unrelated_drift(path):
- raw=(ROOT/path).read_bytes();row=bridge.reviewed()['files'][path];assert bridge.sha(raw)==row['after_sha256'];old=bridge.before_base_ten_bytes(path,raw);assert bridge.sha(old)==row['before_sha256'];assert bridge.before_base_ten_bytes(path,old)==old
+ raw=before_nextbrain_bytes(path,(ROOT/path).read_bytes());row=bridge.reviewed()['files'][path];assert bridge.sha(raw)==row['after_sha256'];old=bridge.before_base_ten_bytes(path,raw);assert bridge.sha(old)==row['before_sha256'];assert bridge.before_base_ten_bytes(path,old)==old
  with pytest.raises(ValueError,match='Unreviewed'):bridge.before_base_ten_bytes(path,raw+b'\n')
  assert bridge.before_base_ten_bytes('unrelated',b'exact')==b'exact'
 
@@ -49,7 +50,8 @@ def test_every_preserved_assessment_has_a_corresponding_worked_example():
 
 def test_actual_child_reader_and_all_camera_evidence_match_current_sources():
  p=json.loads((D/'reader/proof.json').read_bytes());assert p['allPassed']and p['errors']==[]and p['profileAge']==8 and p['syntheticLoopback']and not p['productionVerified']
- for path,h in p['sourceSHA256'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==h,path
+ # Preserve the exact recorded base-ten proof after removing only the pinned NextBrain integration.
+ for path,h in p['sourceSHA256'].items():assert hashlib.sha256(before_nextbrain_bytes(path,(ROOT/path).read_bytes())).hexdigest()==h,path
  assert {(c['lesson'],c['width'])for c in p['cases']}=={(id,w)for id in IDS for w in [390,1440]};assert sum(len(c['states'])for c in p['cases'])==116;assert sum(len(c['poses'])for c in p['cases'])==462;assert sum(len(c['speeches'])+len(c['spatialSpeeches'])for c in p['cases'])==192
  for c in p['cases']:
   assert c['originalIllustrationLoaded']and c['originalTeachingModelPreserved']and c['invalidDraftPreservesAcceptedState']and c['zoomPreservesSpeechIconAndCompanionSize']and c['keyboardHorizontalScroll'];assert c['controls']

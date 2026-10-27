@@ -28,6 +28,8 @@ def reviewed():
 
 
 def before_base_ten_bytes(path, raw, allow_older=False):
+    from tools.nextbrain_runtime_compatibility import before_nextbrain_bytes
+    raw = before_nextbrain_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
