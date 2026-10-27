@@ -431,6 +431,12 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     """The bounded-model cohorts keep both their authored plate and model."""
+    base_ten = {nid: [m for m in n.get('lesson_media', []) if m.get('renderer') == 'base-ten-lab']
+                for nid, n in curr.nodes.items() if any(m.get('renderer') == 'base-ten-lab' for m in n.get('lesson_media', []))}
+    assert set(base_ten) == {'math.1.addition', 'math.1.division', 'math.1.subtraction', 'math.1.place-value', 'math.1.multiplication'}
+    for nid, models in base_ten.items():
+        assert len(models) == 1 and models[0]['props'] == {'scenario': nid}
+        assert curr.nodes[nid]['stage'] == 1
     expected = {
         'math.0.counting': (0, 'counter'),
         'math.0.shapes': (0, 'shape-explorer'),
@@ -489,7 +495,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     })
     with_models = {
         nid: node for nid, node in curr.nodes.items()
-        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab'})
+        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab'})
                for item in node.get('lesson_media', []))
     }
     assert set(with_models) == set(expected)
@@ -508,7 +514,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert node['stage'] == expected[nid][0], nid
         base_media = [entry for entry in node['lesson_media'] if entry not in linear_algebra
                       if entry['kind'] in {'illustration', 'model'} and (entry.get('renderer') == expected[nid][1]
-                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'})]
+                           or entry.get('renderer') not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]

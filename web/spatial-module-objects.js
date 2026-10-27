@@ -72,6 +72,15 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  const baseTenBindings = {
+    'module.math.1.place-value': ['base-ten-place-value', "Place Value"],
+    'module.math.1.addition': ['base-ten-addition', "Addition"],
+    'module.math.1.subtraction': ['base-ten-subtraction', "Subtraction"],
+    'module.math.1.multiplication': ['base-ten-multiplication', "Multiplication"],
+    'module.math.1.division': ['base-ten-division', "Division"],
+  };
+  if (window.PrimerBaseTenSpatialFamilies) for (const [scenario, [family]] of Object.entries(baseTenBindings)) families[family] = window.PrimerBaseTenSpatialFamilies[scenario.slice(7)];
+
   if (window.PrimerRatioSpatialFamily) families['ratio-calibrated-volumes'] = window.PrimerRatioSpatialFamily;
 
   if (window.PrimerDecimalSpatialFamily) families['decimal-base-ten'] = window.PrimerDecimalSpatialFamily;
@@ -971,6 +980,8 @@
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((Object.hasOwn(baseTenBindings, p.scenario) || p.family.startsWith('base-ten-'))
+        && (!Object.hasOwn(baseTenBindings, p.scenario) || p.family !== baseTenBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== baseTenBindings[p.scenario][1])) return false;
     if ((p.scenario === 'module.math.2.ratio' || p.family === 'ratio-calibrated-volumes')
         && (p.scenario !== 'module.math.2.ratio' || p.family !== 'ratio-calibrated-volumes' || p.mode !== 'model' || p.lesson !== 'Ratio and Proportion')) return false;
     if ((p.scenario === 'module.math.2.decimals' || p.family === 'decimal-base-ten')

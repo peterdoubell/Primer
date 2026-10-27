@@ -1200,11 +1200,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 848, 'items': 1409,  # Fluids and linear algebra companions.
+        'models': 853, 'items': 1414,  # Five calibrated whole-number workbenches.
     }
 
     expected_domain_counts = {
-        'math': (59, 130), 'language': (40, 61), 'physics': (39, 92 + 1),
+        'math': (59, 135), 'language': (40, 61), 'physics': (39, 92 + 1),
         'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
