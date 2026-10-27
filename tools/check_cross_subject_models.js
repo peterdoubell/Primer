@@ -117,6 +117,8 @@ require('../web/percentage-core.js');
 require('../web/percentage-lab.js');
 require('../web/decimal-core.js');
 require('../web/decimal-lab.js');
+require('../web/ratio-core.js');
+require('../web/ratio-lab.js');
 require('../web/lesson-models.js');
 const spatial = context.window.PrimerSpatial;
 const concepts = context.window.PrimerConceptModels;
@@ -1295,6 +1297,28 @@ function exercisePercentageRenderer(root, speak) {
   console.log('PERCENTAGE_BINDING math.2.percent = percentage-workbench; 13 exact presets and invalid-draft recovery');
 }
 
+function exerciseRatioRenderer(root, speak) {
+  assert.ok(root.classList.contains('ratio-workbench'));
+  assert.equal(typeof root.ratioModel, 'function');
+  const preset=root.querySelector('[data-ratio-preset]');
+  const expected={flour:['resultB','9'],map:['groundKm','40'],eggs:['result','15'],car:['modelCm','20'],paint:['resultA','15'],missing:['resultB','39'],drink:['resultA','100'],books:['result','4'],maps:['secondToFirst','4'],class:['fractionA','3/7'],equal:['equivalent',true],addition:['equivalent',false],third:['result','2/3'],half:['resultB','1.5'],zero:['equivalent',false],absent:['resultA','0']};
+  let checked=0;
+  for(const option of preset.children.filter(e=>e.value)) {
+    preset.value=option.value;preset.dispatch('change');checked++;
+    const model=root.ratioModel();assert.ok(speak().includes('Accepted inputs:'));assertAccessibleReferences(root);
+    if(option.value==='undefined'){assert.equal(model.status,'undefined');assert.equal(root.querySelectorAll('[data-ratio-plot]').length,0);}
+    else{const[key,value]=expected[option.value];assert.equal(typeof model[key]==='object'?model[key].exact:model[key],value);}
+  }
+  assert.equal(checked,17);root.querySelector('[data-ratio-reset]').dispatch('click');
+  const accepted=JSON.stringify(root.ratioModel()),narration=speak(),input=root.querySelector('[data-ratio-control="a"]');
+  input.value='1e2';input.dispatch('change');assert.equal(input.getAttribute('aria-invalid'),'true');assert.equal(JSON.stringify(root.ratioModel()),accepted);assert.equal(speak(),narration);
+  input.dispatch('keydown',{key:'Escape'});assert.equal(root.querySelector('[data-ratio-control="a"]').value,'2');
+  root.querySelector('[data-ratio-zoom]').dispatch('click');assert.equal(root.querySelector('[data-ratio-zoom]').getAttribute('aria-pressed'),'true');
+  root.querySelector('[data-ratio-reset]').dispatch('click');assert.equal(root.querySelector('[data-ratio-zoom]').getAttribute('aria-pressed'),'false');
+  interactionChecks+=checked+5;
+  console.log('RATIO_BINDING math.2.ratio = ratio-workbench; 17 exact presets and invalid-draft recovery');
+}
+
 function exerciseDecimalRenderer(root, speak) {
   assert.ok(root.classList.contains('decimal-workbench'));
   assert.equal(typeof root.decimal?.getModel, 'function');
@@ -1351,7 +1375,7 @@ assert.equal(entries.filter(({ item }) => item.renderer === 'prenatal-sequence')
   1, 'The separately checked prenatal sequence remains reachable');
 const page = fs.readFileSync(path.join(ROOT, 'web/index.html'), 'utf8');
 const scripts = [...page.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/g)].map(match => match[1]);
-for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js', 'percentage-core.js', 'percentage-lab.js', 'decimal-core.js', 'decimal-lab.js']) {
+for (const file of ['spatial-cross-subject.js', 'concept-models.js', 'math-integral-lab.js', 'percentage-core.js', 'percentage-lab.js', 'decimal-core.js', 'decimal-lab.js', 'ratio-core.js', 'ratio-lab.js']) {
   assert.equal(scripts.filter(src => src === '/app/' + file).length, 1, file + ': loaded exactly once');
   assert.ok(scripts.indexOf('/app/' + file) < scripts.indexOf('/app/lesson-models.js'), file + ': loaded before registry');
 }
@@ -1741,6 +1765,11 @@ for (const { node, item } of crossEntries) {
     return document.createElement('button');
   } });
   assert.ok(root, node.id + ': renderer is reachable through the shipped registry');
+  if (node.id === 'math.2.ratio') {
+    exerciseRatioRenderer(root, speak);
+    console.log('COVER ' + node.id);
+    continue;
+  }
   if (node.id === 'math.2.decimals') {
     exerciseDecimalRenderer(root, speak);
     console.log('COVER ' + node.id);

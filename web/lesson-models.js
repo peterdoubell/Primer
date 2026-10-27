@@ -6168,6 +6168,9 @@
       return reference ? reference.render(reference.specification(item.props?.node_id), hooks) : null;
     },
     'concept-lab': (item, hooks) => {
+      if (item.props?.scenario === 'math.2.ratio') {
+        return window.PrimerRatioLab?.render(item, hooks) || null;
+      }
       if (item.props?.scenario === 'math.2.decimals') {
         return window.PrimerDecimalLab?.render(item, hooks) || null;
       }

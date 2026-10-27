@@ -1,0 +1,131 @@
+{
+  "id": "math.2.ratio",
+  "title": "Ratio and Proportion",
+  "stage": 2,
+  "goal": "Scale recipes, maps and mixtures.",
+  "articles": [
+    "Ratio",
+    "Proportionality (mathematics)"
+  ],
+  "practice": "ratios",
+  "quiz": [
+    {
+      "kind": "choice",
+      "prompt": "A recipe uses 2 cups of flour to 3 cups of milk. If you use 6 cups of flour, how much milk do you need to keep the same ratio?",
+      "answer": "9 cups",
+      "explain": "Flour tripled from 2 to 6, so milk must also triple: 3 x 3 = 9 cups.",
+      "choices": [
+        "7 cups",
+        "12 cups",
+        "9 cups",
+        "6 cups"
+      ]
+    },
+    {
+      "kind": "numeric",
+      "prompt": "On a map, 1 cm represents 5 km. Two towns are 8 cm apart on the map. How many kilometers apart are they in reality?",
+      "answer": "40",
+      "explain": "Each cm is 5 km, so 8 x 5 = 40 km."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A recipe for 12 people needs 9 eggs. How many eggs are needed for 20 people?",
+      "answer": "15",
+      "explain": "9 eggs for 12 people is 3 eggs for every 4 people, and 20 people is five lots of 4, so 5 x 3 = 15 eggs."
+    },
+    {
+      "kind": "choice",
+      "prompt": "A model car is built to a scale of 1:24. The real car is 4.8 m long. How long is the model?",
+      "answer": "20 cm",
+      "choices": [
+        "48 cm",
+        "2 cm",
+        "11520 cm",
+        "20 cm"
+      ],
+      "explain": "4.8 m is 480 cm, and 480 / 24 = 20 cm. Multiplying by 24 instead of dividing gives the much-too-big 11520 cm."
+    },
+    {
+      "kind": "choice",
+      "prompt": "Paint is mixed 3 parts blue to 5 parts white. In 40 litres of the mixture, how much is blue?",
+      "answer": "15 litres",
+      "choices": [
+        "24 litres",
+        "25 litres",
+        "8 litres",
+        "15 litres"
+      ],
+      "explain": "The mixture has 8 parts in all, so one part is 5 litres and the blue is 3 x 5 = 15 litres."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Two numbers are in the ratio 7:3, and the larger one is 91. What is the smaller one?",
+      "answer": "39",
+      "explain": "Each part is 91 / 7 = 13, so the smaller number is 3 x 13 = 39."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "A drink is mixed 2 parts syrup to 7 parts water. How many millilitres of syrup are in 450 ml of the mixture?",
+      "answer": "100",
+      "explain": "There are 9 parts in total, so one part is 450 / 9 = 50 ml, and the syrup is 2 parts: 100 ml."
+    },
+    {
+      "kind": "numeric",
+      "prompt": "Six identical books weigh 2.4 kg altogether. What do ten of the same books weigh, in kilograms?",
+      "answer": "4",
+      "explain": "One book weighs 2.4 / 6 = 0.4 kg, so ten weigh 0.4 x 10 = 4 kg."
+    },
+    {
+      "kind": "choice",
+      "prompt": "Two maps of the same park use different scales: one uses 1 cm to 200 m, the other 1 cm to 50 m. Which map draws the park larger?",
+      "answer": "The 1 cm to 50 m map",
+      "choices": [
+        "The 1 cm to 50 m map",
+        "The 1 cm to 200 m map, because its number is bigger",
+        "The 1 cm to 200 m map, because it fits more detail in",
+        "Both draw the park at the same size"
+      ],
+      "explain": "Because each centimetre covers less ground. If one centimetre stands for only 50 m, you need four times as many centimetres to cover the same park, so the drawing is bigger."
+    },
+    {
+      "kind": "choice",
+      "prompt": "In a class, the number of boys to girls is in the ratio 3:4. Which statement follows?",
+      "answer": "Three sevenths of the class are boys",
+      "choices": [
+        "Three sevenths of the class are boys",
+        "Three quarters of the class are boys",
+        "There are exactly three boys",
+        "The class contains seven boys"
+      ],
+      "explain": "The ratio splits the class into 3 + 4 = 7 parts, and boys take 3 of them, so boys are 3/7 of the class."
+    }
+  ],
+  "prereqs": [
+    "math.1.addition",
+    "math.1.multiplication",
+    "math.1.division",
+    "math.2.fractions"
+  ],
+  "lesson_media": [
+    {
+      "id": "ratio-scale-plate",
+      "kind": "illustration",
+      "src": "/app/illustrations/sapling/math/math-2-ratio-800.webp",
+      "srcset": "/app/illustrations/sapling/math/math-2-ratio-800.webp 800w, /app/illustrations/sapling/math/math-2-ratio-1600.webp 1600w",
+      "alt": "A two-to-three mixture scales to six-to-nine by multiplying both parts by three.",
+      "caption": "Equivalent ratios multiply or divide every part by the same factor.",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "id": "math.2.ratio-concept-model",
+      "kind": "model",
+      "renderer": "concept-lab",
+      "title": "Scale both parts together",
+      "instructions": "Set scoops of ingredients A and B in one batch. Scale the number of batches; keep each batch in the same ratio.",
+      "props": {
+        "scenario": "math.2.ratio"
+      }
+    }
+  ]
+}
