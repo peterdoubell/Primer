@@ -28,6 +28,8 @@ def reviewed():
 
 
 def before_ratio_bytes(path, raw, allow_older=False):
+    from tools.base_ten_runtime_compatibility import before_base_ten_bytes
+    raw = before_base_ten_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw

@@ -668,6 +668,16 @@
             "first": 8,
             "second": 5
           }
+        },
+        {
+          "id": "math.1.addition-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Addition: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.addition"
+          }
         }
       ],
       "prereqs": [
@@ -766,7 +776,20 @@
           "speak_choices": true,
           "explain": "Swapping the two numbers round never changes the answer, so 6 + 3 is 9 as well."
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Combine quantities and check addition by counting equal units.",
+        "Align equal places and follow carries from smaller to larger places.",
+        "Explain that exchanging ten units for one unit of the next place preserves the sum.",
+        "Swap addends and verify that the total stays the same.",
+        "Inspect fixed-volume pieces before and after regrouping."
+      ],
+      "lesson": {
+        "overview": "Adding combines quantities. Ones add to ones and tens add to tens. Ten ones can be exchanged for one ten without changing how many unit values there are.",
+        "worked_example": "For 8 + 5, combine thirteen ones, exchange ten for one ten and retain three ones: the total is 13. For 20 + 30, two tens and three tens make five tens, or 50. For 99 + 1, ten ones exchange to a ten, and ten tens exchange to a hundred.",
+        "activity": "Use the original friendly-ten activity and all seven quiz examples in the new workbench. Follow the carry ledger from ones upwards. Swap the addends and compare the total. In the independent 3D companion, switch between combined equal-place pieces and the usual digits of the sum.",
+        "reflection": "A carry changes the pieces, not the total value. The incoming carry is measured in the current place; an outgoing carry goes to the next larger place. The workbench and 3D companion support addends through 999, including challenges beyond the lesson goal of adding through 100. Their controls are independent."
+      }
     },
     {
       "id": "math.1.subtraction",
@@ -895,8 +918,31 @@
           "props": {
             "scenario": "math.1.subtraction"
           }
+        },
+        {
+          "id": "math.1.subtraction-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Subtraction: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.subtraction"
+          }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Interpret subtraction as removing an amount or comparing two amounts.",
+        "Relate the difference to inverse addition.",
+        "Regroup across one or more zero places to calculate a gap.",
+        "Distinguish a nonnegative gap from a signed subtraction result and a physical shortfall.",
+        "Inspect equal-sized retained, removed and comparison counters."
+      ],
+      "lesson": {
+        "overview": "Subtraction can ask what stays after taking some away, or how far apart two quantities are. Addition checks the answer: removed plus retained gives the starting amount.",
+        "worked_example": "From nine counters, remove four and five stay: 9 − 4 = 5. Comparing ten with six also leaves a gap of four. For 12 − 5, exchange a ten into ten ones to leave seven. In 100 − 1, regroup across the empty tens place; the difference is 99.",
+        "activity": "Explore both meanings and the original quiz examples. Read the borrowing ledger from ones towards larger places. Swap the comparison amounts and observe the signed equation. In the independent 3D companion, compare the groups or move available counters into the removed group.",
+        "reflection": "The ledger finds the nonnegative gap by subtracting the smaller amount from the larger. The equation A − B also states its sign. If more objects are requested than are available, the missing amount is a shortfall, rather than negative physical cubes. The workbench supports amounts through 999; the independent counter companion shows amounts through 100."
+      }
     },
     {
       "id": "math.1.place-value",
@@ -1026,9 +1072,32 @@
           "props": {
             "scenario": "math.1.place-value"
           }
+        },
+        {
+          "id": "math.1.place-value-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Place Value: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.place-value"
+          }
         }
       ],
-      "practice": "know:math.1.place-value"
+      "practice": "know:math.1.place-value",
+      "learning_outcomes": [
+        "Read ones, tens, hundreds and thousands as positional units, including zero placeholders.",
+        "Write a whole number as the sum of its digit contributions.",
+        "Exchange ten smaller pieces for one larger piece, or reverse an exchange, without changing value.",
+        "Distinguish the number of pieces from the value they represent.",
+        "Compare calibrated 3D unit, ten, hundred and thousand volumes."
+      ],
+      "lesson": {
+        "overview": "A digit gets its value from its place. In 47, four tens contribute 40 and seven ones contribute 7. A zero keeps an empty place, so 101 and 11 mean different numbers.",
+        "worked_example": "Four ten pieces and seven one pieces make 47. Exchange one ten for ten ones: three tens and seventeen ones still make 47. Reverse the exchange to return to four tens and seven ones. In 1001, one thousand and one one contribute value while the hundreds and tens places are empty.",
+        "activity": "Try the original worked examples, then read every place in 9999. Use the exchange investigation to apply and reverse an exchange. Compare the total before and after. In the independent 3D companion, unbundle one ten, hundred or thousand and inspect the differently sized pieces.",
+        "reflection": "One hundred piece is worth one hundred one pieces. Counting unequal pieces alone does not tell their value: use the place unit or calibrated volume. The number reader covers 0 to 9999; the repeatable exchange ledger covers totals through 200. The 3D companion has independent controls and uses a fixed volume per unit."
+      }
     },
     {
       "id": "math.1.multiplication",
@@ -1158,8 +1227,31 @@
           "props": {
             "scenario": "math.1.multiplication"
           }
+        },
+        {
+          "id": "math.1.multiplication-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Multiplication: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.multiplication"
+          }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Interpret multiplication as equal groups or equal rows.",
+        "Build and count every product through 12 × 12.",
+        "Relate multiplication to repeated addition.",
+        "Swap rows and columns to explain why the product is unchanged.",
+        "Explain zero products with no invented counters."
+      ],
+      "lesson": {
+        "overview": "Multiplication counts equal groups. Four rows with three counters in each row contain twelve counters. Each row must have the same number.",
+        "worked_example": "Four groups of three give 3 + 3 + 3 + 3 = 12. Turning the array makes three groups of four, still twelve. Twelve rows of twelve contain 144 counters. Zero rows or zero counters in every row give zero counters.",
+        "activity": "Try all seven quiz examples, then edit rows and counters per row from zero through twelve. Swap the factors and compare the array. Rotate the independent 3D array and turn it using its labelled orientation control.",
+        "reflection": "The same unit counter is used throughout each array. Row colors identify groups and do not change the amount represented. Turning the array changes the grouping description without adding or removing counters. The 3D companion has its own controls."
+      }
     },
     {
       "id": "math.1.division",
@@ -1288,8 +1380,31 @@
           "props": {
             "scenario": "math.1.division"
           }
+        },
+        {
+          "id": "math.1.division-whole-number-workbench",
+          "kind": "model",
+          "renderer": "base-ten-lab",
+          "title": "Division: units, places and groups",
+          "instructions": "Choose a worked example or edit the labelled whole-number inputs. Compare each exact ledger with the diagram; diagrams can be enlarged and scrolled.",
+          "props": {
+            "scenario": "math.1.division"
+          }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Distinguish sharing into a given number of groups from making groups of a given size.",
+        "Use multiplication facts to calculate quotients.",
+        "Keep whole-counter remainders and verify dividend = divisor × quotient + remainder.",
+        "Explain zero dividends and undefined division by zero.",
+        "Inspect every counter in equal groups and the remainder."
+      ],
+      "lesson": {
+        "overview": "Division asks about equal groups. Sharing twelve among three groups gives four in each group. Making groups of three from twelve gives four groups. The quotient has a different role in these two questions.",
+        "worked_example": "For 12 ÷ 3, each of three equal sharing groups receives four counters. For 17 ÷ 5, the quotient is three and two counters remain: 5 × 3 + 2 = 17. A remainder is smaller than the nonzero divisor.",
+        "activity": "Try every original quiz example in both sharing and grouping contexts. Explore a remainder, zero counters, and division by zero. Compare the ledger with every counter in the diagram. Rotate the independent 3D companion to inspect the complete groups and the separate gold remainder.",
+        "reflection": "Whole counters are not silently split or discarded. A continuously divisible amount may have an exact fractional quotient, which the workbench states separately. Dividing by zero is undefined; zero divided by zero does not determine a unique quotient. The controls cover totals through 144 and group counts or group sizes through twelve. The 3D companion has independent controls."
+      }
     },
     {
       "id": "math.1.measurement",

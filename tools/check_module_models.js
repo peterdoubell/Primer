@@ -47,6 +47,8 @@ require('../web/spatial-cross-subject.js');
 require('../web/spatial-radiology.js');
 require('../web/decimal-spatial.js');
 require('../web/ratio-spatial.js');
+require('../web/base-ten-core.js');
+require('../web/base-ten-spatial.js');
 require('../web/spatial-module-objects.js');
 const spatial = context.window.PrimerSpatial, objects = context.window.PrimerModuleObjects;
 const prior = [...spatial.supported];
@@ -136,7 +138,7 @@ for(const [family,id] of familyIds){
     continue;
   }
   for(const control of spatial.controls(id)){
-    const coordinated=['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);
+    const coordinated=family.startsWith('base-ten-')||['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);
     // Large batch/seed ranges have no useful million-state exhaustive sweep.
     // Their distributions and geometry have separate independent oracles.
     const values=control.options?control.options.map(o=>o.value):coordinated

@@ -156,6 +156,8 @@
         192 / extents.reduce((v,p)=>Math.max(v,Math.abs(p.point[1])+p.radius),.1));
       const scale = camera.zoom <= 1 ? Math.min(requestedScale, fitScale) : requestedScale;
       const project = p => { const r = rotate(subtract(p, center), camera); return [300 + r[0] * scale, 210 - r[1] * scale, r[2]]; };
+      const cropped = extents.some(p => (Math.abs(p.point[0]) + p.radius) * scale > 300 + 1e-8 ||
+        (Math.abs(p.point[1]) + p.radius) * scale > 210 + 1e-8);
       const group = element('g', {}, null, true);
       const labels = [];
       // A curve can pass both in front of and behind a surface. Sorting an entire
@@ -195,11 +197,15 @@
       labels.sort((a, b) => a.projected[0][1] - b.projected[0][1]).forEach(p => {
         const [anchorX, anchorY] = p.projected[0];
         const width = Math.min(560, p.text.length * 16), height = 28;
+        // Search around an on-screen origin even when zoom moves the source
+        // anchor off-screen; otherwise every candidate clamps to one edge.
+        const originX = clamp(anchorX, width / 2 + 12, 588 - width / 2);
+        const originY = clamp(anchorY, height + 12, 408);
         let best, bestScore = Infinity;
         for (const dy of [0, -34, 34, -68, 68, -102, 102, -136, 136]) {
           for (const dx of [0, -48, 48, -96, 96]) {
-            const x = clamp(anchorX + dx, width / 2 + 12, 588 - width / 2);
-            const y = clamp(anchorY + dy, height + 12, 408);
+            const x = clamp(originX + dx, width / 2 + 12, 588 - width / 2);
+            const y = clamp(originY + dy, height + 12, 408);
             const box = { left: x - width / 2, right: x + width / 2, top: y - height, bottom: y + 5 };
             const overlaps = placed.filter(other => box.left < other.right + 5 && box.right + 5 > other.left &&
               box.top < other.bottom + 5 && box.bottom + 5 > other.top).length;
@@ -218,8 +224,10 @@
       });
       svg.replaceChildren(element('title', {}, item.title, true), group);
       orientation.textContent = 'Turn ' + Math.round(camera.yaw) + '° · Tilt ' + Math.round(camera.pitch) +
-        '° · Zoom ' + Math.round(camera.zoom * 100) + '%' + (scale < requestedScale ? ' · Auto-fit' : '');
+        '° · Zoom ' + Math.round(camera.zoom * 100) + '%' + (scale < requestedScale ? ' · Auto-fit' : '') +
+        (cropped ? ' · Cropped view; zoom out to inspect all geometry.' : '');
       root.dataset.view = [camera.yaw, camera.pitch, camera.zoom].join(',');
+      root.dataset.cropped = String(cropped);
     }
     function changeView(yaw, pitch, zoom, announce = true) {
       camera = { yaw: ((yaw + 180) % 360 + 360) % 360 - 180,
