@@ -2036,19 +2036,20 @@ function sourceNativeInspector(asset) {
   const comparisonCT = asset.id === 'baskaran-2020-cardiac-comparisons' && asset.modality === 'CT image comparisons';
   const registeredMRI = asset.id === 'hippunfold-hcp101006-registered-reference';
   const reportingMRI = asset.id === 'spl-nac-reporting-native-reference';
-  const templateMRI = asset.id === 'holiatlas-source-template-reference';
+  const vascularTemplate = asset.id === 'schirmer-vascular-template-reference';
+  const templateMRI = asset.id === 'holiatlas-source-template-reference' || vascularTemplate;
   const limbicMRI = asset.id === 'spl-nac-limbic-native-reference' || reportingMRI;
   const nativeCT = noduleCT || lungCT || basalCT || cardiacCT;
   const curatedSurface = ['bp3d-thoracic-original-surfaces', 'bp3d-cardiac-original-context'].includes(asset.id) && asset.modality === 'Curated 3D anatomy';
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit', style: 'overflow-wrap:anywhere' }, asset.attribution),
-    radiologySourceLink(templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
-    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
+    radiologySourceLink(vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
+    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
   if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI) {
     if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
-    const openLabel = templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const openLabel = vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
     const host = el('div', { class: 'source-native-inline-host' });
     let frame = null;
     const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {

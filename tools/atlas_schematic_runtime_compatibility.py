@@ -63,6 +63,8 @@ def before_atlas_schematic_bytes(path, raw, allow_older=False):
 
 def before_atlas_schematic_reference_fields(identifier, fields, allow_older=False):
     import copy
+    from tools.schirmer_runtime_compatibility import before_schirmer_reference_fields
+    fields = before_schirmer_reference_fields(identifier, fields)
     if identifier != 'ra.brain-anatomy':
         return fields
     result = copy.deepcopy(fields)

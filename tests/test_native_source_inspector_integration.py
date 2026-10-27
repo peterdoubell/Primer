@@ -70,7 +70,8 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     inspector, = previous_ref['source_native_inspectors']
     from primer.spl_reporting_reference import references as reporting_references
     from primer.holiatlas_reference import references as holiatlas_references
-    assert ref['source_native_inspectors'] == [inspector, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy'], *holiatlas_references()['ra.brain-anatomy']]
+    from primer.schirmer_vascular_reference import references as vascular_references
+    assert ref['source_native_inspectors'] == [inspector, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy'], *holiatlas_references()['ra.brain-anatomy'], *vascular_references()['ra.brain-anatomy']]
     assert inspector['bound_source_ids'] == ['massp2-subcortical-reference']
     assert not inspector['clinical_approval'] and not inspector['fine_anatomical_approval']
     model = next(m for m in node['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
