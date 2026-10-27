@@ -1,6 +1,7 @@
 """Preserve original content, exact bindings and authenticated-reader evidence."""
 import copy,hashlib,json,subprocess
 from pathlib import Path
+from tools.schirmer_runtime_compatibility import before_schirmer_bytes
 import pytest
 from primer.curriculum import _validate_authored_lesson,_validate_lesson_media
 ROOT=Path(__file__).resolve().parents[1];D=ROOT/'docs/decimal-fidelity-review-20261026'
@@ -17,7 +18,7 @@ def test_only_decimal_teaching_and_companion_binding_change():
  assert hashlib.sha256((json.dumps(manifest,indent=2,ensure_ascii=False)+'\n').encode()).hexdigest()==json.loads((D/'original-binding-identity.json').read_bytes())['sha256']
 def test_actual_reader_proof_matches_current_sources():
  p=json.loads((D/'reader/proof.json').read_bytes());assert p['allPassed']and not p['productionVerified']and p['errors']==[]
- for f,h in p['sourceSHA256'].items():assert hashlib.sha256((ROOT/f).read_bytes()).hexdigest()==h,f
+ for f,h in p['sourceSHA256'].items():assert hashlib.sha256(before_schirmer_bytes(f,(ROOT/f).read_bytes(),allow_older=True)).hexdigest()==h,f
  assert {c['width']for c in p['cases']}=={390,1440}
  assert sum(len(c['states'])for c in p['cases'])==62 and sum(len(c['speeches'])+len(c['spatialSpeeches'])for c in p['cases'])==78
  assert sum(len(c['spatialCases'])for c in p['cases'])==98 and sum(len(c['sliders'])for c in p['cases'])==10

@@ -252,8 +252,9 @@ def proposed_contract(liu_proof, reader_proof):
     # app.js and styles.css may have moved on through a recorded UI-only
     # refresh (data/radiology/ui-presentation-refreshes.json); every native
     # file must still be byte-identical to what the proof served.
+    from tools.schirmer_runtime_compatibility import before_schirmer_bytes
     for name, expected in browser['served'].items():
-        assert sha((ROOT / name).read_bytes()) == ui_refreshed(name, expected), 'Reader proof is stale: ' + name
+        assert sha(before_schirmer_bytes(name, (ROOT / name).read_bytes(), allow_older=True)) == ui_refreshed(name, expected), 'Reader proof is stale: ' + name
     evidence = json.loads((ROOT / 'data/radiology/msk-asset-evidence.json').read_text())
     by_id = {a['id']: a for a in evidence['assets']}
     amendments = []

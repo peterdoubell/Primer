@@ -102,4 +102,7 @@ def references():
     from .holiatlas_reference import references as holiatlas_references
     for identifier, entries in holiatlas_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .schirmer_vascular_reference import references as vascular_references
+    for identifier, entries in vascular_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

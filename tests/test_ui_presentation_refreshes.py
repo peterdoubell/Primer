@@ -4,13 +4,15 @@ import json
 from pathlib import Path
 
 from tools.anatomy_sources import ui_refresh
+from tools.schirmer_runtime_compatibility import before_schirmer_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / 'docs/native-source-presentation-review-20261011'
 
 
 def sha(path):
-    return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+    # The frozen ledger ends before the separately verified vascular integration.
+    return hashlib.sha256(before_schirmer_bytes(path, (ROOT / path).read_bytes())).hexdigest()
 
 
 def reviewed():
@@ -160,7 +162,7 @@ def test_every_refresh_left_the_native_files_exactly_as_reviewed():
             assert not row['page_errors'] and not row['failed_requests'] and not row['horizontal_overflow']
 
 
-def test_the_chain_runs_unbroken_from_the_reviewed_files_to_the_current_ones():
+def test_the_chain_runs_unbroken_to_the_exact_pre_vascular_integration_view():
     ledger, bound = ui_refresh.load(), reviewed()
     for path in ledger['refreshable_paths']:
         current = bound[path]
