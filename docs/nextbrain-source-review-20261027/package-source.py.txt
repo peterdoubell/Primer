@@ -1,0 +1,31 @@
+from pathlib import Path
+import gzip,hashlib,json,struct
+import nibabel as nib
+import numpy as np
+D=Path(__file__).resolve().parent;O=D/'package';O.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();M=nib.load(D/'sub-001_ses-01_T2w.nii.gz');L=nib.load(D/'sub-001_ses-01_desc-manual_dseg.nii.gz');mri=np.asanyarray(M.dataobj);native=np.asanyarray(L.dataobj);offset=np.rint((np.linalg.inv(M.affine)@L.affine)[:3,3]).astype(int);assert offset.tolist()==[124,10,23];labels=np.zeros(M.shape,dtype=np.uint8,order='F');crop=tuple(slice(int(v),int(v+n))for v,n in zip(offset,L.shape));labels[crop]=native;assert np.array_equal(labels[crop],native);assert np.count_nonzero(labels)==np.count_nonzero(native)
+manifest={'schemaVersion':1,'dataset':'ds005422','version':'1.0.1','sourceRevision':'924a8f3412463457a70e0fb141a88a8b57fc7ba6','license':'CC0','sourceSideDeclaration':'right hemisphere','sourceLUTSidePrefixesConflict':True,'clinicalApproval':False,'runtimeBound':False,'volumes':{},'packs':{},'annotationCrop':{'offsetMRIijk':offset.tolist(),'shape':list(L.shape),'affine':L.affine.tolist(),'outsideCropMeaning':'No annotation supplied; zero does not mean absent tissue'},'displayPlanes':{'axial':{'axis':2,'sourceAxes':[0,1],'flipX':False,'flipY':True,'edges':['R','L','A','P']},'coronal':{'axis':1,'sourceAxes':[0,2],'flipX':False,'flipY':False,'edges':['R','L','S','I']},'sagittal':{'axis':0,'sourceAxes':[1,2],'flipX':True,'flipY':False,'edges':['A','P','S','I']}},'meshParts':{}}
+def save():(O/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+for name,a in [('MRI',mri),('labels',labels)]:
+ volume={'shape':list(a.shape),'dtype':'uint8','voxelToSourceWorld':M.affine.tolist(),'sampleSHA256_F':sha(a.tobytes(order='F')),'planes':{}}
+ for axis in range(3):
+  planeRows=[];pack=bytearray();part=0;packName=f'{name}-axis-{axis}-part-{part}.pack'
+  def flush():
+   raw=bytes(pack);(O/packName).write_bytes(raw);manifest['packs'][packName]={'bytes':len(raw),'sha256':sha(raw)}
+  for index in range(a.shape[axis]):
+   selector=[slice(None)]*3;selector[axis]=index;plane=a[tuple(selector)];raw=plane.tobytes(order='F');z=gzip.compress(raw,compresslevel=6,mtime=0)
+   if pack and len(pack)+len(z)>16*1024*1024:flush();pack=bytearray();part+=1;packName=f'{name}-axis-{axis}-part-{part}.pack'
+   planeRows.append({'index':index,'file':packName,'offset':len(pack),'gzipBytes':len(z),'gzipSHA256':sha(z),'decodedBytes':len(raw),'decodedSHA256':sha(raw),'shape':list(plane.shape),'sourceAxes':[x for x in range(3)if x!=axis],'order':'F'});pack.extend(z)
+  if pack:flush()
+  volume['planes'][str(axis)]=planeRows;print(json.dumps({'volume':name,'axis':axis,'planes':len(planeRows),'packs':part+1}),flush=True)
+ manifest['volumes'][name]=volume;save()
+build=json.loads((D/'boundaries/boundary-build-proof.json').read_bytes());ind=json.loads((D/'boundaries/boundary-independent-proof.json').read_bytes());assert build['allPassed']and ind['allPassed']and build['triangles']==ind['triangles']
+for row in build['rows']:
+ raw=gzip.decompress((D/'boundaries'/row['mesh']['file']).read_bytes());assert sha(raw)==row['mesh']['sha256'];magic,V,T,reserved=struct.unpack_from('<4sIII',raw);assert magic==b'HVX1'and reserved==0
+ arrays={'positions':raw[16:16+12*V],'indices':raw[16+12*V:]};entry={'vertices':V,'triangles':T,'originalMeshSHA256':sha(raw),'boundsSourceWorld':row['boundsSourceWorld'],'parts':{}}
+ for kind,body in arrays.items():
+  parts=[]
+  for part,start in enumerate(range(0,len(body),4*1024*1024)):
+   chunk=body[start:start+4*1024*1024];name=f'label-{row["code"]}-{kind}-{part}.bin.gz';z=gzip.compress(chunk,compresslevel=6,mtime=0);(O/name).write_bytes(z);parts.append({'file':name,'offset':start,'bytes':len(chunk),'sha256':sha(chunk),'gzipBytes':len(z),'gzipSHA256':sha(z)})
+  assert b''.join(gzip.decompress((O/p['file']).read_bytes())for p in parts)==body;entry['parts'][kind]={'bytes':len(body),'sha256':sha(body),'chunks':parts}
+ manifest['meshParts'][str(row['code'])]=entry
+manifest['planeCount']=sum(len(v)for volume in manifest['volumes'].values()for v in volume['planes'].values());manifest['allOriginalValuesRetained']=True;manifest['allSourceMeshBytesRetained']=True;save();print(json.dumps({'planes':manifest['planeCount'],'packs':len(manifest['packs']),'classes':len(manifest['meshParts']),'bytes':sum(p.stat().st_size for p in O.iterdir())}),flush=True)

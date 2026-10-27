@@ -1,0 +1,20 @@
+from pathlib import Path
+import concurrent.futures,hashlib,json,re,subprocess,urllib.request
+D=Path(__file__).resolve().parent;REV='924a8f3412463457a70e0fb141a88a8b57fc7ba6';paths=['derivatives/manual_segmentation/sub-001/ses-01/sub-001_ses-01_desc-manual_dseg.nii.gz','derivatives/manual_segmentation/sub-001/sub-001_lut.txt','sub-001/ses-01/anat/sub-001_ses-01_T2w.nii.gz']
+for name in ['README.md','dataset_description.json','CHANGES']:
+ raw=urllib.request.urlopen('https://raw.githubusercontent.com/OpenNeuroDatasets/ds005422/'+REV+'/'+name,timeout=60).read();(D/name).write_bytes(raw)
+assert json.loads((D/'dataset_description.json').read_bytes())['License']=='CC0'
+upstream=urllib.request.urlopen('https://raw.githubusercontent.com/OpenNeuroDatasets/ds002179/master/dataset_description.json',timeout=60).read();assert json.loads(upstream)['License']=='CC0';(D/'upstream-mri-dataset-description.json').write_bytes(upstream)
+tree=json.loads(subprocess.check_output(['gh','api','repos/OpenNeuroDatasets/ds005422/git/trees/'+REV+'?recursive=1']));assert not tree['truncated'];(D/'git-tree.json').write_text(json.dumps(tree,indent=2)+'\n')
+rows=[]
+for path in paths:
+ info=json.loads(subprocess.check_output(['gh','api','repos/OpenNeuroDatasets/ds005422/contents/'+path+'?ref='+REV]));target=info['target'];match=re.search(r'SHA256E-s(\d+)--([0-9a-f]{64})\.',target);assert match;rows.append({'path':path,'file':Path(path).name,'bytes':int(match[1]),'sha256':match[2],'annexTarget':target,'url':'https://s3.amazonaws.com/openneuro.org/ds005422/'+path})
+(D/'source-index.json').write_text(json.dumps({'repository':'OpenNeuroDatasets/ds005422','revision':REV,'version':'1.0.1','license':'CC0','files':rows,'clinicalApproval':False,'wholeGoalComplete':False},indent=2)+'\n')
+def fetch(row):
+ p=D/row['file'];partial=p.with_suffix(p.suffix+'.partial')
+ if p.exists():assert p.stat().st_size==row['bytes']and hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256'];return
+ with urllib.request.urlopen(row['url'],timeout=120)as response,partial.open('wb')as output:
+  while chunk:=response.read(1024*1024):output.write(chunk)
+ assert partial.stat().st_size==row['bytes']and hashlib.sha256(partial.read_bytes()).hexdigest()==row['sha256'];partial.replace(p);print(json.dumps({'file':row['file'],'verifiedBytes':row['bytes']}),flush=True)
+with concurrent.futures.ThreadPoolExecutor(max_workers=3)as pool:list(pool.map(fetch,rows))
+print('All publisher-annex hashes verified',flush=True)

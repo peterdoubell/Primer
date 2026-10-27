@@ -1,0 +1,12 @@
+from pathlib import Path
+import json,hashlib,re
+W=Path.cwd();D=Path(__file__).resolve().parent;O=W/'web/anatomy/nextbrain'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+files={p.name:{'bytes':p.stat().st_size,'sha256':sha(p.read_bytes())}for p in O.iterdir()if p.is_file()}
+flags={k:False for k in ['clinical_approval','fine_anatomical_approval','current_patient_registration','normal_anatomical_atlas_approval','complete_reporting_anatomy_approved']}
+item={'id':'nextbrain-exvivo-reference','title':'NextBrain: fine source regions in matched ex vivo MRI','modality':'Supplied ex vivo MRI, source segmentation and exact cell boundaries','coordinate_context':'single-ex-vivo-study-source-world-mm','src':'/app/anatomy/nextbrain/index.html','manifest_url':'/app/anatomy/nextbrain/manifest.json','sha256':files['index.html']['sha256'],'manifest_sha256':files['manifest.json']['sha256'],'bound_source_ids':['nextbrain-exvivo-reference'],**flags,'source_url':'https://openneuro.org/datasets/ds005422/versions/1.0.1','publication_url':'https://www.nature.com/articles/s41586-025-09708-2','license':'CC0','license_url':'https://creativecommons.org/publicdomain/zero/1.0/','caption':'Explore 98 source-labelled regions with matched ex vivo MRI, native-label schematics and complete source-cell boundaries. The publisher describes a right-hemisphere reference; conflicting side prefixes remain visible in original label names. Source regions are not approved as complete clinical reporting structures.','attribution':'NextBrain Data Extension, OpenNeuro ds005422 v1.0.1, DOI 10.18112/openneuro.ds005422.v1.0.1; CC0. Upstream MRI: Edlow and colleagues, OpenNeuro ds002179 v1.1.0; CC0. Primer derivations retain the supplied voxel values and cell boundaries. The supplied derivative uses a 0.2 mm grid; its exact contrast lineage remains unresolved. This is one fixed postmortem specimen, not a normal-population template or a patient registration.'}
+delivery=json.loads((D/'runtime-delivery.json').read_bytes());assert delivery['allRemoteHashesMatch']and len(delivery['files'])==333
+r={'schema_version':1,'dataset_revision':'924a8f3412463457a70e0fb141a88a8b57fc7ba6','bindings':['ra.brain-anatomy'],**flags,'files':files,'delivery':delivery,'inspector':item}
+raw=(json.dumps(r,indent=2)+'\n').encode();(W/'data/radiology/nextbrain-reference.json').write_bytes(raw)
+p=W/'primer/nextbrain_reference.py';s=p.read_text();s=re.sub("REGISTRY_SHA256 = '[^']+'","REGISTRY_SHA256 = '"+sha(raw)+"'",s);p.write_text(s)
+print('Registry pinned:',sha(raw))

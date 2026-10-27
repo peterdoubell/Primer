@@ -205,7 +205,8 @@ def test_old_source_registries_and_bindings_are_preserved():
     from primer.spl_reporting_reference import references as reporting_references
     from primer.holiatlas_reference import references as holiatlas_references
     from primer.schirmer_vascular_reference import references as vascular_references
-    assert refs['ra.brain-anatomy'] == [*expected_brain, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy'], *holiatlas_references()['ra.brain-anatomy'], *vascular_references()['ra.brain-anatomy']]
+    from primer.nextbrain_reference import references as nextbrain_references
+    assert refs['ra.brain-anatomy'] == [*expected_brain, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy'], *holiatlas_references()['ra.brain-anatomy'], *vascular_references()['ra.brain-anatomy'], *nextbrain_references()['ra.brain-anatomy']]
     assert refs['ra.acute-stroke'] == [*stroke_references()['ra.acute-stroke'], *vascular_references()['ra.acute-stroke']]
     from primer.cardiac_native_inspector import references as cardiac_references, BINDINGS as cardiac_bindings
     from primer.cardiac_wall_context import references as wall_references

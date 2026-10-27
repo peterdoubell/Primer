@@ -1,0 +1,41 @@
+from pathlib import Path
+import gzip,hashlib,json,struct
+import nibabel as nib
+import numpy as np
+D=Path(__file__).resolve().parent;O=D/'package';sha=lambda b:hashlib.sha256(b).hexdigest();m=json.loads((O/'manifest.json').read_bytes());assert m['planeCount']==4800 and set(m['volumes'])=={'MRI','labels'};assert m['sourceRevision']=='924a8f3412463457a70e0fb141a88a8b57fc7ba6'
+paths={'MRI':D/'sub-001_ses-01_T2w.nii.gz','labels':D/'sub-001_ses-01_desc-manual_dseg.nii.gz'};pins={'MRI':'d479f4211cbb52b4502218982c8843b7b4ec1c454a1e6be0771db876c3091c4c','labels':'4b09afa6b6863bc2c374a826edff8f0bcb944775b9f0310bf8ceefa5cc957155'}
+for name,p in paths.items():assert sha(p.read_bytes())==pins[name]
+M=nib.load(paths['MRI']);L=nib.load(paths['labels']);image=np.asanyarray(M.dataobj);labels=np.asanyarray(L.dataobj);assert image.dtype==labels.dtype==np.uint8;assert np.array_equal(M.affine[:3,:3],L.affine[:3,:3]);offset=np.array([round((L.affine[i,3]-M.affine[i,3])/M.affine[i,i])for i in range(3)],int);assert offset.tolist()==[124,10,23]==m['annotationCrop']['offsetMRIijk'];assert m['annotationCrop']['shape']==list(L.shape)and m['annotationCrop']['affine']==L.affine.tolist();planes=values=0;ranges={};cachedName=None;cached=None
+for name,volume in m['volumes'].items():
+ assert volume['shape']==list(image.shape)and volume['voxelToSourceWorld']==M.affine.tolist()and volume['dtype']=='uint8'
+ fullHash=hashlib.sha256()
+ for axis in range(3):
+  others=[i for i in range(3)if i!=axis];shape=[image.shape[i]for i in others];rows=volume['planes'][str(axis)];assert [r['index']for r in rows]==list(range(image.shape[axis]))
+  for row in rows:
+   file=row['file'];meta=m['packs'][file]
+   if file!=cachedName:cached=(O/file).read_bytes();assert len(cached)==meta['bytes']and sha(cached)==meta['sha256'];cachedName=file
+   assert row['shape']==shape and row['sourceAxes']==others and row['order']=='F';start=row['offset'];end=start+row['gzipBytes'];packed=cached[start:end];assert len(packed)==row['gzipBytes']and sha(packed)==row['gzipSHA256'];decoded=gzip.decompress(packed);assert len(decoded)==row['decodedBytes']and sha(decoded)==row['decodedSHA256'];ranges.setdefault(file,[]).append((start,end))
+   if name=='MRI':s=[slice(None)]*3;s[axis]=row['index'];expected=image[tuple(s)]
+   else:
+    expected=np.zeros(shape,np.uint8,order='F');index=row['index']-offset[axis]
+    if 0<=index<labels.shape[axis]:s=[slice(None)]*3;s[axis]=index;sub=labels[tuple(s)];region=tuple(slice(int(offset[i]),int(offset[i]+labels.shape[i]))for i in others);expected[region]=sub
+   assert decoded==expected.tobytes(order='F'),(name,axis,row['index']);
+   if axis==2:fullHash.update(decoded)
+   planes+=1;values+=len(decoded)
+  print(json.dumps({'volume':name,'axis':axis,'planesVerified':len(rows)}),flush=True)
+ assert fullHash.hexdigest()==volume['sampleSHA256_F']
+assert set(ranges)==set(m['packs'])
+for name,items in ranges.items():
+ items.sort();assert items[0][0]==0 and items[-1][1]==m['packs'][name]['bytes']and all(a[1]==b[0]for a,b in zip(items,items[1:]))
+b=json.loads((D/'boundaries/boundary-build-proof.json').read_bytes());assert set(m['meshParts'])=={str(r['code'])for r in b['rows']};chunks=meshBytes=0
+for row in b['rows']:
+ p=m['meshParts'][str(row['code'])];original=gzip.decompress((D/'boundaries'/row['mesh']['file']).read_bytes());assert sha(original)==p['originalMeshSHA256']==row['mesh']['sha256'];parts=[]
+ for kind in ['positions','indices']:
+  group=p['parts'][kind];h=hashlib.sha256();data=[];end=0
+  for part in group['chunks']:
+   packed=(O/part['file']).read_bytes();assert len(packed)==part['gzipBytes']and sha(packed)==part['gzipSHA256'];raw=gzip.decompress(packed);assert len(raw)==part['bytes']and sha(raw)==part['sha256'];assert part['offset']==end and len(raw)<=4*1024*1024 and len(raw)%4==0;end+=len(raw);h.update(raw);data.append(raw);chunks+=1
+  assert end==group['bytes']and h.hexdigest()==group['sha256'];parts.append(b''.join(data));meshBytes+=end
+ rebuilt=struct.pack('<4sIII',b'HVX1',p['vertices'],p['triangles'],0)+b''.join(parts);assert rebuilt==original
+ points=np.frombuffer(parts[0],dtype='<f4').reshape(-1,3);assert p['boundsSourceWorld']==[points.min(0).tolist(),points.max(0).tolist()]
+expectedFiles={'manifest.json'}|set(m['packs'])|{p['file']for mesh in m['meshParts'].values()for group in mesh['parts'].values()for p in group['chunks']};assert {p.name for p in O.iterdir()}==expectedFiles
+proof={'allPassed':True,'planes':planes,'sourceSamplesCompared':values,'packs':len(m['packs']),'meshClasses':len(m['meshParts']),'meshChunks':chunks,'meshArrayBytesCompared':meshBytes,'allSourceArraySamplesExact':True,'allOriginalMeshBytesReassembledExactly':True,'allPackRangesContiguousAndComplete':True,'outsideAnnotationCropIsExplicitlyUnlabelled':True,'manifestSHA256':sha((O/'manifest.json').read_bytes()),'oracleSHA256':sha(Path(__file__).read_bytes()),'sourceInputs':pins,'clinicalApproval':False,'runtimeBound':False};(D/'package-independent-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps(proof),flush=True)

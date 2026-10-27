@@ -105,4 +105,7 @@ def references():
     from .schirmer_vascular_reference import references as vascular_references
     for identifier, entries in vascular_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .nextbrain_reference import references as nextbrain_references
+    for identifier, entries in nextbrain_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result
