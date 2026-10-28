@@ -4,7 +4,7 @@ const fixture=JSON.parse(fs.readFileSync(0,'utf8')),url=new URL(fixture.url);ass
 const ROOT=path.resolve(__dirname,'..'),OUT=path.join(ROOT,'docs/algebra-functions-review-20261027/reader');fs.mkdirSync(OUT,{recursive:true});
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex'),auth={Authorization:'Basic '+Buffer.from(fixture.username+':'+fixture.password).toString('base64')};
 const ids=['math.3.linear','math.3.slope','math.3.quadratics','math.3.polynomials'];
-const files=['web/algebra-functions-core.js','web/algebra-functions-lab.js','web/algebra-functions-lab.css','web/algebra-functions-spatial.js','web/spatial-models.js','web/spatial-module-objects.js','web/lesson-state.js','web/lesson-models.js','web/index.html','primer/server.py','primer/curriculum.py','data/curriculum/01-mathematics.json','data/module-models.json','tools/check_algebra_functions_reader.py','tools/check_algebra_functions_reader.cjs'];
+const files=['web/radiology-structured.js','web/radiology-structured.css','web/algebra-functions-core.js','web/algebra-functions-lab.js','web/algebra-functions-lab.css','web/algebra-functions-spatial.js','web/spatial-models.js','web/spatial-module-objects.js','web/lesson-state.js','web/lesson-models.js','web/index.html','primer/server.py','primer/curriculum.py','data/curriculum/01-mathematics.json','data/module-models.json','tools/check_algebra_functions_reader.py','tools/check_algebra_functions_reader.cjs'];
 async function inspect(lab,companion){
  const result=await lab.evaluate(e=>{
   const api=e.algebraFunctions,state=api.getState(),model=api.getModel(),scene=api.getScene(),svg=e.querySelector('[data-algebra-graph]'),b=scene.bounds;const viewport=e.querySelector('.algebra-viewport');if(!e.classList.contains('algebra-enlarged')&&viewport.scrollHeight>viewport.clientHeight+1)throw Error('Standard graph is vertically clipped');
@@ -39,7 +39,7 @@ async function inspect(lab,companion){
   assert.equal((await context.request.post(url.origin+'/api/profile/settings',{headers:{...auth,Origin:url.origin},data:{speak:false}})).status(),200);
   const page=await context.newPage();page.on('pageerror',e=>proof.errors.push(e.message));await page.goto(url.origin+'/app/#/node/'+id);
   const lab=page.locator('[data-algebra-lesson="'+id+'"]'),companion=page.locator('[data-scenario="module.'+id+'"]');await lab.waitFor();await companion.waitFor();
-  assert(await page.locator('img[src*="'+id.replaceAll('.','-')+'-"]').first().evaluate(e=>e.complete&&e.naturalWidth>0));
+  const illustration=page.locator('img[src*="'+id.replaceAll('.','-')+'-"]').first();await illustration.scrollIntoViewIfNeeded();await page.waitForFunction(e=>e.complete&&e.naturalWidth>0,await illustration.elementHandle(),{timeout:30000});
   const cases=[],poses=[];const presets=await lab.locator('[data-algebra-presets] option').evaluateAll(nodes=>nodes.map(n=>n.value).filter(Boolean));
   for(const preset of presets){await lab.locator('[data-algebra-presets]').selectOption(preset);cases.push({preset,...await inspect(lab,companion)});}
   await lab.locator('[data-algebra-reset]').click();const before=await inspect(lab,companion),input=lab.locator('input[data-algebra-field]').first(),key=await input.getAttribute('data-algebra-field');
