@@ -1,7 +1,7 @@
 /* Two views of one authored state; no persistence or cross-lesson messages. */
 (function () {
   'use strict';
-  const allowed = new Set(['math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials', 'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory']);
+  const allowed = new Set(['math.2.coordinates', 'math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials', 'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory']);
   const views = new Map();
   function join(key, root, receive) {
     if (!allowed.has(key) || !root || typeof receive !== 'function' || typeof WeakRef !== 'function') return;

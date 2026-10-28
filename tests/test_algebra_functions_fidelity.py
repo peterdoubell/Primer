@@ -7,13 +7,14 @@ from pathlib import Path
 import pytest
 from primer.curriculum import Curriculum,_validate_lesson_media,_validate_authored_lesson
 from tools.algebra_openear_runtime_compatibility import before_algebra_openear_bytes
+from tools.coordinate_plane_runtime_compatibility import before_coordinate_plane_bytes
 ROOT=Path(__file__).resolve().parents[1];D=ROOT/'docs/algebra-functions-review-20261027'
 IDS={'math.3.linear','math.3.slope','math.3.quadratics','math.3.polynomials'}
 
 def digest(raw):return hashlib.sha256(raw).hexdigest()
 
 def test_four_authored_lessons_keep_original_assessments_and_figures():
-    scope=json.loads((D/'initial-scope.json').read_bytes());current=json.loads((ROOT/'data/curriculum/01-mathematics.json').read_bytes());bindings=json.loads((ROOT/'data/module-models.json').read_bytes());originals={n['id']:n for n in scope['originalNodes']};old_bindings={n['node_id']:n for n in scope['originalBindings']}
+    scope=json.loads((D/'initial-scope.json').read_bytes());current=json.loads(before_coordinate_plane_bytes('data/curriculum/01-mathematics.json',(ROOT/'data/curriculum/01-mathematics.json').read_bytes()));bindings=json.loads(before_coordinate_plane_bytes('data/module-models.json',(ROOT/'data/module-models.json').read_bytes()));originals={n['id']:n for n in scope['originalNodes']};old_bindings={n['node_id']:n for n in scope['originalBindings']}
     assert set(originals)==IDS and sum(len(n['quiz'])for n in originals.values())==40
     for node in current['nodes']:
         if node['id']not in IDS:continue
@@ -48,7 +49,7 @@ def test_recorded_independent_core_oracle_covers_current_practice_functions():
 
 def test_actual_reader_matches_current_source_and_linked_states():
     proof=json.loads((D/'reader/proof.json').read_bytes());assert proof['allPassed']and proof['syntheticLoopback']and not proof['productionVerified']and proof['profileAge']==15 and proof['errors']==[]
-    for file,h in proof['sourceSHA256'].items():assert digest((ROOT/file).read_bytes())==h,file
+    for file,h in proof['sourceSHA256'].items():assert digest(before_coordinate_plane_bytes(file,(ROOT/file).read_bytes()))==h,file
     assert {(c['lesson'],c['width'])for c in proof['cases']}=={(id,w)for id in IDS for w in [390,1440]}
     assert sum(len(c['states'])for c in proof['cases'])==116
     assert sum(len(c['poses'])for c in proof['cases'])==56

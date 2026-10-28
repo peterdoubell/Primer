@@ -3150,14 +3150,28 @@
         {
           "id": "math.2.coordinates-concept-model",
           "kind": "model",
-          "renderer": "concept-lab",
-          "title": "Across first, then up or down",
-          "instructions": "Change x and y. Follow the dashed path from the origin to P; keep the order of the coordinates.",
+          "renderer": "coordinate-plane-lab",
+          "title": "Explore the coordinate plane",
+          "instructions": "Plot ordered pairs, then compare movements, reflections, distances and rectangles.",
           "props": {
             "scenario": "math.2.coordinates"
           }
         }
-      ]
+      ],
+      "learning_outcomes": [
+        "Plot an ordered pair with horizontal x first and vertical y second.",
+        "Distinguish the origin, the axes and the four quadrants.",
+        "Apply signed horizontal and vertical movements to a point.",
+        "Exchange coordinates and compare reflections with a half-turn.",
+        "Find missing corners, side lengths, area and perimeter of an axis-aligned rectangle.",
+        "Distinguish horizontal-plus-vertical path length from straight-line distance."
+      ],
+      "lesson": {
+        "overview": "An ordered pair (x, y) locates a point: x gives horizontal position and y gives vertical position relative to the origin (0, 0). Positive x is right and positive y is up. Negative coordinates move left or down. The axes divide the plane into four quadrants, numbered anticlockwise from the upper right. A point on either axis is not inside a quadrant. Coordinates may be fractions as well as integers.",
+        "worked_example": "To plot (−3, 2), move three units left from the origin and then two units up: the point lies in Quadrant II. Exchanging the coordinates gives (2, −3), a different point in Quadrant IV. From (3, 5), moving four left and two down gives (3 − 4, 5 − 2) = (−1, 3). A rectangle with opposite corners (2, 1) and (6, 4) has other corners (6, 1) and (2, 4); its width is 4, height is 3, area is 12 square units and perimeter is 14 units. The straight distance between its opposite corners is √(4² + 3²) = 5 units, while following two sides travels 7 units.",
+        "activity": "Choose each worked example and follow its exact point table. Try points on both axes and at the origin. Compare a point with its exchanged coordinates. Change the horizontal and vertical movements separately, then move across both axes. Reflect a point across x, y or y = x, and compare a half-turn about the origin. Use opposite corners to complete a rectangle; swap their order and check its measurements. Compare the stepped path and the straight distance. The flat graph and rotatable chart share accepted inputs; turning the camera does not move a mathematical point.",
+        "reflection": "Reflecting across the x-axis reverses y alone; reflecting across the y-axis reverses x alone. Exchanging coordinates reflects across y = x. Reversing both coordinates is a half-turn about the origin, not reflection across a line. For two points, signed differences tell direction, while absolute differences give nonnegative horizontal and vertical distances. The straight distance is √((Δx)² + (Δy)²). If a rectangle has zero width or height, its corners collapse to a segment or point, so it is not a positive-area rectangle. Always read the grid spacing: the view resizes to fit the points, but the exact coordinates stay the same."
+      }
     },
     {
       "id": "math.2.data",

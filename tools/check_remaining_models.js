@@ -436,6 +436,7 @@ function collectRemainingModels() {
           continue;
         }
         const fullLessonBinding = {
+          'coordinate-plane-lab': ['math.2.coordinates', 'math.2.coordinates'],
           'math-logic-lab': ['math.5.logic', 'math.5.logic.diagonal-models-proof'],
           'physics-maxwell-lab': ['phys.4.em-maxwell', 'phys.4.em-maxwell.fields-flux-radiation'],
           'physics-cosmology-lab': ['phys.5.gr-cosmo', 'phys.5.gr-cosmo.geometry-history'],

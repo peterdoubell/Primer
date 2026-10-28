@@ -19,7 +19,7 @@
     root.append(title, E('p', {}, item.instructions || 'Plot ordered pairs, then compare movements, reflections, distances and rectangles.'), E('div', { class: 'coordinate-actions' }, E('label', {}, 'Worked example', chooser), reset), controls, error, readout, plot, tableHost, note, live);
     function fields() {
       const s = scene.model.state;
-      const result = [{ key: 'mode', label: 'Construction', options: [['plot', 'Plot and exchange coordinates'], ['translate', 'Move a point'], ['reflect', 'Reflect or turn a point'], ['distance', 'Measure distance'], ['rectangle', 'Complete a rectangle']] }, { key: 'x', label: 'P: x coordinate' }, { key: 'y', label: 'P: y coordinate' }];
+      const result = [{ key: 'mode', label: 'Construction', options: [['plot', 'Plot / exchange'], ['translate', 'Move a point'], ['reflect', 'Reflect or turn a point'], ['distance', 'Measure distance'], ['rectangle', 'Complete a rectangle']] }, { key: 'x', label: 'P: x coordinate' }, { key: 'y', label: 'P: y coordinate' }];
       if (s.mode === 'translate') result.push({ key: 'dx', label: 'Horizontal movement (right +, left −)' }, { key: 'dy', label: 'Vertical movement (up +, down −)' });
       if (s.mode === 'reflect') result.push({ key: 'reflection', label: 'Transformation', options: [['x-axis', 'Reflect across the x-axis'], ['y-axis', 'Reflect across the y-axis'], ['diagonal', 'Reflect across y = x'], ['origin', 'Half-turn about the origin']] });
       if (s.mode === 'distance' || s.mode === 'rectangle') result.push({ key: 'qx', label: 'Q: x coordinate' }, { key: 'qy', label: 'Q: y coordinate' });
@@ -83,7 +83,7 @@
     root.setModelState = (raw, announce = false, shared = false) => { chooser.value = ''; return accept(raw, announce, shared); };
     root.coordinatePlane = { getModel: () => scene.model, getScene: () => scene, getState: () => ({ ...scene.model.state }) };
     if (hooks.speakButton) title.prepend(hooks.speakButton(root.getModelSpeech, 'Read this activity aloud'));
-    bus?.join('math.2.coordinates', root, raw => root.setModelState(raw, false, true)); accept(c.defaults()); return root;
+    bus?.join('math.2.coordinates', root, raw => root.setModelState(raw, false, true)); accept(c.defaults(), false, true); return root;
   }
   const api = Object.freeze({ render });
   if (host) host.PrimerCoordinatePlaneLab = api;

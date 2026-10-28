@@ -3,12 +3,13 @@ import copy
 from pathlib import Path
 import pytest
 from tools import algebra_openear_runtime_compatibility as bridge
+from tools.coordinate_plane_runtime_compatibility import before_coordinate_plane_bytes
 ROOT=Path(__file__).resolve().parents[1]
 
 @pytest.mark.parametrize('path',sorted(bridge.PATHS))
 def test_exact_current_delta_and_foreign_drift(path):
     raw=(ROOT/path).read_bytes();row=bridge.reviewed()['files'][path]
-    assert bridge.sha(raw)==row['after_sha256']
+    assert bridge.sha(before_coordinate_plane_bytes(path,raw))==row['after_sha256']
     before=bridge.before_algebra_openear_bytes(path,raw)
     assert bridge.sha(before)==row['before_sha256']
     assert bridge.before_algebra_openear_bytes(path,before)==before
