@@ -16,20 +16,36 @@ def compartment(exam, row):
     g = group.lower()
     if g in ('technique', 'examination', 'acquisition', 'optional acquisition', 'additional acquisitions', 'additional sequences', 'coverage'):
         return 'Technique'
+    if identifier in ('xr.hand', 'xr.foot'):
+        if key in ('soft-tissues','hardware'): return 'Soft tissues and postoperative findings'
+        if identifier == 'xr.hand':
+            for prefixes,label in [(('thumb-','first-'),'Thumb / first ray'),(('index-','second-'),'Index / second ray'),(('middle-finger-','third-'),'Middle / third ray'),(('ring-finger-','fourth-'),'Ring / fourth ray'),(('little-finger-','fifth-'),'Little / fifth ray')]:
+                if key.startswith(prefixes): return label
+        else:
+            if key in ('calcaneus','talus','subtalar-joint'): return 'Hindfoot'
+            if key in ('navicular','cuboid','medial-cuneiform','intermediate-cuneiform','lateral-cuneiform','talonavicular-joint','calcaneocuboid-joint','first-tarsometatarsal-joint','lisfranc-alignment','lesser-tarsometatarsal-joints'): return 'Midfoot / Lisfranc complex'
+            for prefixes,label in [(('hallux-','first-'),'Hallux / first ray'),(('second-',),'Second ray'),(('third-',),'Third ray'),(('fourth-',),'Fourth ray'),(('fifth-',),'Fifth ray')]:
+                if key.startswith(prefixes): return label
+    if identifier in ('neuro.mri-brain-routine','neuro.ct-brain-routine'):
+        if 'cerebell' in key or key in ('midbrain','pons','medulla'): return 'Posterior fossa and brainstem'
+        if key.startswith('right-'): return 'Right cerebral hemisphere'
+        if key.startswith('left-'): return 'Left cerebral hemisphere'
+        if key in ('ventricles','basal-cisterns','extra-axial-spaces','mass-effect'): return 'CSF spaces and mass effect'
+        return 'Skull and extracranial structures'
     if 'knee' in region:
         if g in ('ligament reconstruction', 'postoperative complications', 'meniscal surgery', 'cartilage repair', 'reconstruction tunnels', 'postoperative findings', 'implant identification'):
             return 'Postoperative assessment'
         if any(t in key for t in ('patell', 'trochlear', 'quadriceps', 'hoffa', 'plica')) or g in ('patellofemoral stabilisers', 'patellofemoral cartilage', 'extensor mechanism', 'anterior soft tissues'):
-            return 'Patellofemoral compartment and extensor mechanism'
+            return 'Patellofemoral compartment'
         if key in ('acl','pcl','meniscofemoral-humphrey','meniscofemoral-wrisberg','transverse-meniscal-ligament') or g in ('cruciate ligaments', 'meniscal attachments'):
-            return 'Central / intercondylar compartment'
+            return 'Intercondylar compartment'
         if g in ('posterior muscles','muscles / nerves') or key in ('baker-cyst', 'knee-muscles','tibial-nerve','common-peroneal-nerve'):
-            return 'Posterior soft tissues and neurovascular structures'
+            return 'Posterior compartment'
         if g in ('medial meniscus','medial stabilisers','posteromedial tendons','pes anserinus','medial cartilage') or key.startswith(('medial-', 'mcl-', 'pes-')):
             return 'Medial compartment'
         if g in ('lateral meniscus','posterolateral corner','lateral stabilisers','lateral cartilage') or key.startswith(('lateral-', 'fibular-head','proximal-tibiofibular')):
-            return 'Lateral compartment and posterolateral corner'
-        return 'Joint-wide assessment and remaining bone'
+            return 'Lateral compartment'
+        return 'Joint-wide assessment'
     if 'ankle' in region and exam.get('modality') in ('MRI','Ultrasound'):
         if g in ('medial tendons','superficial deltoid','deep deltoid','spring ligament complex') or key in ('flexor-retinaculum','tarsal-tunnel','tibial-nerve-ankle'):
             return 'Medial compartment'
@@ -89,7 +105,7 @@ def apply_compartments(forms, digest):
                 row['report_section_label'] = label.upper()
                 buckets.setdefault(label, []).append(row)
             if 'knee' in exam['id']:
-                order = ['Technique','Medial compartment','Lateral compartment and posterolateral corner','Patellofemoral compartment and extensor mechanism','Central / intercondylar compartment','Posterior soft tissues and neurovascular structures','Joint-wide assessment and remaining bone','Postoperative assessment']
+                order = ['Technique','Medial compartment','Lateral compartment','Patellofemoral compartment','Intercondylar compartment','Posterior compartment','Joint-wide assessment','Postoperative assessment']
                 buckets = {k:buckets[k] for k in order if k in buckets}
             exam['compartments'] = []
             ordered = []

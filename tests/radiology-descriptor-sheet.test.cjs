@@ -338,12 +338,12 @@ test('knee compartments keep every row, scope normal actions, and retain collaps
   assert.equal(panels().length,exam.compartments.length);
   assert(panels().every(p=>p.open));
   assert.equal(descendants(root).filter(n=>n.dataset.sectionId).length,exam.sections.length);
-  const lateral=named('Lateral compartment and posterolateral corner');lateral.open=false;lateral.ontoggle();
+  const lateral=named('Lateral compartment');lateral.open=false;lateral.ontoggle();
   find(named('Medial compartment'),'Normal remaining').onclick();
   const choices=root.getState().descriptor_state.selections;
   assert(Object.keys(choices).length>0);
   assert(Object.keys(choices).every(id=>exam.sections.find(s=>s.id===id).compartment==='Medial compartment'));
-  assert.equal(named('Lateral compartment and posterolateral corner').open,false);
+  assert.equal(named('Lateral compartment').open,false);
   assert.match(root.getReport(),/^MEDIAL COMPARTMENT\n/);
   assert(!root.getReport().includes('LATERAL COMPARTMENT'));
 });

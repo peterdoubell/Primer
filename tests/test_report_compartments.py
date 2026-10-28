@@ -38,10 +38,10 @@ def test_knee_compartments_join_related_tissues_and_keep_patella_out_of_medial_c
     exam = next(e for f in catalog()['forms'].values() for e in f['investigations'] if e['id']=='ra.mri-knee')
     rows = {s['anatomy_id']:s['compartment'] for s in exam['sections']}
     assert {rows[k] for k in ('medial-meniscus-body','medial-femoral-cartilage','mcl-superficial','medial-femoral-bone','pes-bursa')} == {'Medial compartment'}
-    assert rows['patellar-medial-cartilage'] == rows['mpfl'] == rows['quadriceps'] == 'Patellofemoral compartment and extensor mechanism'
+    assert rows['patellar-medial-cartilage'] == rows['mpfl'] == rows['quadriceps'] == 'Patellofemoral compartment'
     assert rows['lcl'] == rows['lateral-meniscus-body'] == rows['lateral-tibial-cartilage']
-    assert rows['acl'] == rows['pcl'] == 'Central / intercondylar compartment'
-    assert rows['baker-cyst'] == 'Posterior soft tissues and neurovascular structures'
+    assert rows['acl'] == rows['pcl'] == 'Intercondylar compartment'
+    assert rows['baker-cyst'] == 'Posterior compartment'
 
 
 def test_compartment_compilation_is_idempotent_and_does_not_change_ids():
