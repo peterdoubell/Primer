@@ -1,0 +1,80 @@
+from pathlib import Path
+from collections import deque
+from concurrent.futures import ThreadPoolExecutor
+import hashlib,json,time,urllib.request,urllib.error,os,fcntl
+from resumable_sha import ResumableSHA256
+D=Path(__file__).resolve().parent;CHUNK=32*1024*1024;CACHE=D/'archive-auth-chunks';CACHE.mkdir(exist_ok=True)
+lock=(D/'archive-auth.lock').open('a+');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+sha=lambda b:hashlib.sha256(b).hexdigest();receiptBytes=(D/'dryad-case10-acquisition.json').read_bytes();assert sha(receiptBytes)=='dfab764bc92a28f6366c926cb90eae0201a20acd2c23db00bfb47893ddb5f63b';p=json.loads(receiptBytes);size=p['archiveBytes'];url=p['archiveURL'];expected=p['archiveSHA256FromPublisher'];wrapper=sha((D/'resumable_sha.py').read_bytes());test=json.loads((D/'resumable-sha-selfcheck.json').read_bytes());assert test['allPassed'] and test['wrapperSHA256']==wrapper
+CHECKPOINT=D/'archive-auth-checkpoint.json';records=[];total=0;h=ResumableSHA256();ranges=[dict(r,hash=ResumableSHA256())for r in p['rangeRequests']];elapsedBase=0
+canonical=lambda d:json.dumps(d,sort_keys=True,separators=(',',':')).encode()
+def atomic(path,data):
+ temp=path.with_suffix(path.suffix+'.tmp')
+ with temp.open('wb')as f:f.write(data);f.flush();os.fsync(f.fileno())
+ temp.replace(path)
+if CHECKPOINT.exists():
+ envelope=json.loads(CHECKPOINT.read_bytes());snapshot=envelope['payload'];assert sha(canonical(snapshot))==envelope['sha256'];assert snapshot['archiveSHA256']==expected and snapshot['archiveBytes']==size and snapshot['url']==url and snapshot['wrapperSHA256']==wrapper and snapshot['format']==1
+ total=snapshot['bytes'];h=ResumableSHA256(snapshot['hash']);assert h.count==total;records=snapshot['chunks'];assert sum(r['end']-r['start']+1 for r in records)==total
+ cursor=0
+ for r in records:assert r['start']==cursor;cursor=r['end']+1
+ assert cursor==total
+ assert len(snapshot['rangeStates'])==len(ranges)
+ for r,state in zip(ranges,snapshot['rangeStates']):
+  r['hash']=ResumableSHA256(state);assert r['hash'].count==max(0,min(total,r['end']+1)-r['start'])
+ elapsedBase=snapshot['activeSeconds']
+reference=hashlib.sha256()if total==0 else None;started=time.monotonic()
+print(json.dumps({'event':'start','pid':os.getpid(),'resumeOffset':total,'totalBytes':size,'durableSHA256State':True}),flush=True)
+def save(status='running',error=None):
+ snapshot={'format':1,'archiveSHA256':expected,'archiveBytes':size,'url':url,'wrapperSHA256':wrapper,'bytes':total,'hash':h.snapshot(),'rangeStates':[r['hash'].snapshot()for r in ranges],'chunks':records,'activeSeconds':elapsedBase+time.monotonic()-started}
+ atomic(CHECKPOINT,canonical({'payload':snapshot,'sha256':sha(canonical(snapshot))}))
+ progress={'state':status,'bytes':total,'totalBytes':size,'completedChunks':len(records),'activeSeconds':snapshot['activeSeconds'],'error':error,'pid':os.getpid()};atomic(D/'dryad-resumable-progress.json',json.dumps(progress).encode());return progress
+save()
+def fetch(start):
+ end=min(size,start+CHUNK)-1;file=CACHE/f'{start}.bin';meta=CACHE/f'{start}.json'
+ if file.exists()and meta.exists():
+  info=json.loads(meta.read_bytes());data=file.read_bytes()
+  if info['archiveSHA256']==expected and info['start']==start and info['end']==end and len(data)==end-start+1 and sha(data)==info['sha256']:return start,end,data,0
+ for attempt in range(6):
+  try:
+   request=urllib.request.Request(url,headers={'Range':f'bytes={start}-{end}'})
+   with urllib.request.urlopen(request,timeout=90)as response:
+    assert response.status==206 and response.headers.get('Content-Range')==f'bytes {start}-{end}/{size}',(response.status,response.headers.get('Content-Range'))
+    chunks=[];received=0;fetchStart=time.monotonic()
+    while received<end-start+1:
+     b=response.read(min(65536,end-start+1-received))
+     if not b:raise IOError('Premature range EOF')
+     chunks.append(b);received+=len(b)
+     if time.monotonic()-fetchStart>300:raise TimeoutError('Range body exceeded five-minute bound')
+    data=b''.join(chunks)
+   assert len(data)==end-start+1
+   atomic(file,data);atomic(meta,json.dumps({'archiveSHA256':expected,'start':start,'end':end,'sha256':sha(data)}).encode());return start,end,data,attempt+1
+  except Exception as e:
+   delay=min(2**(attempt+1),60)
+   if isinstance(e,urllib.error.HTTPError)and e.headers.get('Retry-After','').isdigit():delay=max(delay,int(e.headers['Retry-After']))
+   print(json.dumps({'event':'retry','rangeStart':start,'attempt':attempt+1,'error':str(e),'waitSeconds':delay}),flush=True)
+   if attempt==5:raise
+   until=time.monotonic()+delay
+   while time.monotonic()<until:time.sleep(min(30,until-time.monotonic()))
+try:
+ with ThreadPoolExecutor(max_workers=4)as pool:
+  starts=iter(range(total,size,CHUNK));pending=deque()
+  for _ in range(4):
+   start=next(starts,None)
+   if start is not None:pending.append(pool.submit(fetch,start))
+  while pending:
+   start,end,data,attempts=pending.popleft().result();assert start==total;h.update(data)
+   if reference is not None:reference.update(data);assert h.hexdigest()==reference.hexdigest()
+   for r in ranges:
+    lo=max(start,r['start']);hi=min(end+1,r['end']+1)
+    if hi>lo:r['hash'].update(data[lo-start:hi-start])
+   total=end+1;records.append({'start':start,'end':end,'sha256':sha(data),'attempts':attempts,'hashlibPrefixCrossChecked':reference is not None});del data
+   progress=save();(CACHE/f'{start}.bin').unlink(missing_ok=True);(CACHE/f'{start}.json').unlink(missing_ok=True)
+   if len(records)%8==0:print(json.dumps(progress),flush=True)
+   nextStart=next(starts,None)
+   if nextStart is not None:pending.append(pool.submit(fetch,nextStart))
+ assert total==size and h.hexdigest()==expected,(total,h.hexdigest())
+ for r in ranges:assert r['hash'].count==r['end']-r['start']+1 and r['hash'].hexdigest()==r['sha256']
+ result={'state':'complete','bytes':total,'sha256':h.hexdigest(),'matchesPublisherSHA256':True,'selectedAcquisitionRangesIndependentlyVerified':len(ranges),'fullArchiveStoredLocally':False,'durableHashStateUsed':True,'wrapperSelfCheckCases':test['independentHashlibCases'],'activeSeconds':elapsedBase+time.monotonic()-started,'chunks':records}
+ atomic(D/'dryad-stream-verification.json',json.dumps(result,indent=2).encode());save('complete');print(json.dumps({k:v for k,v in result.items()if k!='chunks'}),flush=True)
+except BaseException as e:
+ save('stopped-error',str(e));raise

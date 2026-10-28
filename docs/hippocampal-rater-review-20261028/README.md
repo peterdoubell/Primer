@@ -14,7 +14,7 @@ The local reader now provides MRI, selected annotations, schematic and disagreem
 
 The original-array browser oracle passed 198 states at 390 and 1440 pixels, comparing all displayed plane pixels and actual GPU buffer bytes. It also checks source-header orientation, screen millimetre scales, camera framing, keyboard zoom scrolling, context recovery, failed-transfer recovery, no-WebGL image fallback and a forced-pending manifest at a non-loopback origin. The first unsigned-image oracle wrapped subtraction; its deterministic reproducer and correction are retained. One desktop readiness timeout was not fully diagnosed; the revised harness records failure state and waits beyond the transport deadline. Subsequent full runs passed.
 
-The first full archive stream ended prematurely at 4.90 GB. The replacement uses bounded range requests and is still running. No claim of full publisher-archive authentication is made yet.
+The first full archive stream ended prematurely at 4.90 GB. The second attempt used bounded ranges but stopped after connection timeouts at 6.68 GB. A third attempt now persists SHA256 state and a small chunk cache, allowing continuation after process or network failure. Its save/restore logic passed 271 independent hashlib comparisons. The prior prefixes must be reread once because those attempts did not persist hash state. No claim of full publisher-archive authentication is made yet.
 
 Remaining: complete archive authentication, adverse timing/transport review, authenticated lesson integration, whole reporting-structure coverage review, then CI and staged deployment verification. This is a local development reader, not a deployed clinical product.
 

@@ -7,7 +7,12 @@
     "finding": "Premature end of response; partial-prefix hash is not full archive authentication.",
     "log": ".research/epilepsy-source-20261028/dryad-stream-attempt1.log"
   },
-  "replacementMethod": "Four concurrent bounded32MiB range requests; complete bytes fed into SHA256 in archive order. Each chunk retries independently on transport/length failure. No full archive is stored locally.",
-  "currentStatus": "Running; authoritative progress and session are in the current checkpoint.",
-  "publicationPermittedByThisRecord": false
+  "replacementMethod": "Resumable SHA256 with atomically persisted state, separate partial-block tails, checksum-protected checkpoint, bounded chunk cache, four range workers and retry/backoff. State restoration was independently compared with hashlib in271cases. Earlier prefixes must be reread once because their hash state was not retained.",
+  "currentStatus": "Third attempt started and processing; use the authoritative current checkpoint and process handle for live status.",
+  "publicationPermittedByThisRecord": false,
+  "secondAttempt": {
+    "terminal": true,
+    "orderedPrefixBytes": 6677331968,
+    "finding": "Repeated connection timeouts exhausted per-range retries; no full archive authentication. Hash state was not persisted in this attempt."
+  }
 }
