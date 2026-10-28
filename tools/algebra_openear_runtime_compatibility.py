@@ -24,6 +24,8 @@ def reviewed():
     return d
 
 def before_algebra_openear_bytes(path,raw,allow_older=False):
+    from tools.coordinate_plane_runtime_compatibility import before_coordinate_plane_bytes
+    raw = before_coordinate_plane_bytes(path, raw, allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]

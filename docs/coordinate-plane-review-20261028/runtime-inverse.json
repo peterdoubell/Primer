@@ -1,0 +1,135 @@
+{
+  "base_commit": "000f68c16bcdecaae999e8a0c3679a3d4b90e859",
+  "scope": "exact_coordinate_plane_lesson_integration",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false,
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "f23781f99eea4a33ec0c13775282182b7c0051ba94f36f5df2a600454ac41b55",
+      "after_sha256": "f3e28e26d9b713473fb6a8e8a43b7ea107f4f7f202779b0bf154785cb733d759",
+      "changes": [
+        {
+          "start": 3152,
+          "end": 3155,
+          "before": "          \"renderer\": \"concept-lab\",\n          \"title\": \"Across first, then up or down\",\n          \"instructions\": \"Change x and y. Follow the dashed path from the origin to P; keep the order of the coordinates.\",\n",
+          "after": "          \"renderer\": \"coordinate-plane-lab\",\n          \"title\": \"Explore the coordinate plane\",\n          \"instructions\": \"Plot ordered pairs, then compare movements, reflections, distances and rectangles.\",\n"
+        },
+        {
+          "start": 3159,
+          "end": 3174,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Plot an ordered pair with horizontal x first and vertical y second.\",\n        \"Distinguish the origin, the axes and the four quadrants.\",\n        \"Apply signed horizontal and vertical movements to a point.\",\n        \"Exchange coordinates and compare reflections with a half-turn.\",\n        \"Find missing corners, side lengths, area and perimeter of an axis-aligned rectangle.\",\n        \"Distinguish horizontal-plus-vertical path length from straight-line distance.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"An ordered pair (x, y) locates a point: x gives horizontal position and y gives vertical position relative to the origin (0, 0). Positive x is right and positive y is up. Negative coordinates move left or down. The axes divide the plane into four quadrants, numbered anticlockwise from the upper right. A point on either axis is not inside a quadrant. Coordinates may be fractions as well as integers.\",\n        \"worked_example\": \"To plot (−3, 2), move three units left from the origin and then two units up: the point lies in Quadrant II. Exchanging the coordinates gives (2, −3), a different point in Quadrant IV. From (3, 5), moving four left and two down gives (3 − 4, 5 − 2) = (−1, 3). A rectangle with opposite corners (2, 1) and (6, 4) has other corners (6, 1) and (2, 4); its width is 4, height is 3, area is 12 square units and perimeter is 14 units. The straight distance between its opposite corners is √(4² + 3²) = 5 units, while following two sides travels 7 units.\",\n        \"activity\": \"Choose each worked example and follow its exact point table. Try points on both axes and at the origin. Compare a point with its exchanged coordinates. Change the horizontal and vertical movements separately, then move across both axes. Reflect a point across x, y or y = x, and compare a half-turn about the origin. Use opposite corners to complete a rectangle; swap their order and check its measurements. Compare the stepped path and the straight distance. The flat graph and rotatable chart share accepted inputs; turning the camera does not move a mathematical point.\",\n        \"reflection\": \"Reflecting across the x-axis reverses y alone; reflecting across the y-axis reverses x alone. Exchanging coordinates reflects across y = x. Reversing both coordinates is a half-turn about the origin, not reflection across a line. For two points, signed differences tell direction, while absolute differences give nonnegative horizontal and vertical distances. The straight distance is √((Δx)² + (Δy)²). If a rectangle has zero width or height, its corners collapse to a segment or point, so it is not a positive-area rectangle. Always read the grid spacing: the view resizes to fit the points, but the exact coordinates stay the same.\"\n      }\n"
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "4ebcf44fd98c9e05ccc9d1560438dcecfda166d72f717343d00f7c36842cc484",
+      "after_sha256": "0fa89c3f9e880494c6400806303ef5c172bb58484a15e124821083a3cbb66c70",
+      "changes": [
+        {
+          "start": 181,
+          "end": 185,
+          "before": "      \"family\": \"surface\",\n      \"title\": \"Coordinate surface · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"The Coordinate Plane: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.\",\n",
+          "after": "      \"family\": \"coordinate-plane-exact\",\n      \"title\": \"The coordinate plane · linked 3D chart\",\n      \"instructions\": \"Use the coordinate activity to change points and constructions. Rotate this chart to inspect the same x–y plane.\",\n      \"context\": \"Exact ordered pairs, signed movements, reflections, distances and axis-aligned rectangles in one coordinate plane.\",\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "24a11572be7f544609192ff5bd5010366e985101a0c743fecfa73b029fd8c702",
+      "after_sha256": "aeee3ac4991518f323e2c59d525e8f4c35ecf21cf1a2987d611f5b6e60889a27",
+      "changes": [
+        {
+          "start": 178,
+          "end": 179,
+          "before": "    \"algebra-functions-lab\", \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n",
+          "after": "    \"coordinate-plane-lab\", \"algebra-functions-lab\", \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n"
+        },
+        {
+          "start": 503,
+          "end": 506,
+          "before": "",
+          "after": "            elif renderer == \"coordinate-plane-lab\":\n                if node.get(\"id\") != \"math.2.coordinates\" or props != {\"scenario\": \"math.2.coordinates\"}:\n                    raise ValueError(\"{} coordinate model has an unknown or cross-lesson scenario\".format(node.get(\"id\")))\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "70e407423c430ccce2e656065b74dabf45bf4d8695cd4a5356592bb33e078ef0",
+      "after_sha256": "fe266d2a5c6cb0d3c6349751db198b93aed6a2e0ac2bac7a87653a8257acc6c6",
+      "changes": [
+        {
+          "start": 3554,
+          "end": 3555,
+          "before": "                     \"algebra-functions-core.js\", \"algebra-functions-lab.js\", \"algebra-functions-lab.css\", \"algebra-functions-spatial.js\"):\n",
+          "after": "                     \"algebra-functions-core.js\", \"algebra-functions-lab.js\", \"algebra-functions-lab.css\", \"algebra-functions-spatial.js\", \"coordinate-plane-core.js\", \"coordinate-plane-spatial.js\", \"coordinate-plane-lab.js\", \"coordinate-plane-lab.css\"):\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "0cae9cc5bda830da233c878f47ec86248de59034990f3d35b2e92048f527bffc",
+      "after_sha256": "833741f24127d1b28a2174a633742aeb8da9e5ee6423ddb4b55c1c349d9cc1d8",
+      "changes": [
+        {
+          "start": 36,
+          "end": 37,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/coordinate-plane-lab.css\">\n"
+        },
+        {
+          "start": 88,
+          "end": 90,
+          "before": "",
+          "after": "  <script src=\"/app/coordinate-plane-core.js\"></script>\n  <script src=\"/app/coordinate-plane-spatial.js\"></script>\n"
+        },
+        {
+          "start": 137,
+          "end": 138,
+          "before": "",
+          "after": "  <script src=\"/app/coordinate-plane-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "ebe2a7611ea7f7bfb17c04295103b7cde99c7b707907723caf2e90f913fc2e74",
+      "after_sha256": "afe457a571d97cff1a40a40f53ad96ecca08d3db7fe46358f1d2660fb3ec11c2",
+      "changes": [
+        {
+          "start": 6169,
+          "end": 6170,
+          "before": "",
+          "after": "    'coordinate-plane-lab': (item, hooks) => window.PrimerCoordinatePlaneLab?.render(item, hooks) || null,\n"
+        }
+      ]
+    },
+    "web/lesson-state.js": {
+      "before_sha256": "6e322202244c25f70097fe53a7c1b91d2d797ec59545622d7c49fa43e0740871",
+      "after_sha256": "dcc4bd9d8290550df34c3db8c85e782fe40897d33b5eaa93cc24df02f876ec84",
+      "changes": [
+        {
+          "start": 3,
+          "end": 4,
+          "before": "  const allowed = new Set(['math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials', 'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory']);\n",
+          "after": "  const allowed = new Set(['math.2.coordinates', 'math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials', 'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory']);\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "b8f72d82b77cfd173bf64b3a140ce0b2720a8fe76cf31d58cfe4714c31ba5e6d",
+      "after_sha256": "5d2c1be5d11b539f1348f3fe99515a454f950e1c888b0224bfbb5bf9fe7b5bf3",
+      "changes": [
+        {
+          "start": 73,
+          "end": 75,
+          "before": "",
+          "after": "\n  if (window.PrimerCoordinatePlaneSpatial) families[\"coordinate-plane-exact\"] = window.PrimerCoordinatePlaneSpatial.family;\n"
+        },
+        {
+          "start": 1004,
+          "end": 1006,
+          "before": "",
+          "after": "    if ((p.scenario === 'module.math.2.coordinates' || p.family === 'coordinate-plane-exact')\n        && (p.scenario !== 'module.math.2.coordinates' || p.family !== 'coordinate-plane-exact' || p.mode !== 'model' || p.lesson !== 'The Coordinate Plane')) return false;\n"
+        }
+      ]
+    }
+  }
+}

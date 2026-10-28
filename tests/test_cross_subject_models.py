@@ -48,7 +48,7 @@ def test_cross_subject_model_invariants_and_interactions():
     assert {
         line.removeprefix("COVER ") for line in result.stdout.splitlines()
         if line.startswith("COVER ")
-    } == CROSS_SUBJECT_LESSONS - {'math.4.numtheory', 'math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials'}  # Current dedicated binding is checked explicitly in the JS harness.
+    } == CROSS_SUBJECT_LESSONS - {'math.2.coordinates', 'math.4.numtheory', 'math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials'}  # Current dedicated binding is checked explicitly in the JS harness.
 
 
 def concept_node(node_id, props):

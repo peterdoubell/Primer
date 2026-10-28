@@ -3552,7 +3552,7 @@ def app_shell():
                      "decimal-core.js", "decimal-lab.js", "decimal-lab.css", "decimal-spatial.js",
                      "ratio-core.js", "ratio-lab.js", "ratio-lab.css", "ratio-spatial.js",
                      "base-ten-core.js", "base-ten-lab.js", "base-ten-lab.css", "base-ten-spatial.js",
-                     "algebra-functions-core.js", "algebra-functions-lab.js", "algebra-functions-lab.css", "algebra-functions-spatial.js"):
+                     "algebra-functions-core.js", "algebra-functions-lab.js", "algebra-functions-lab.css", "algebra-functions-spatial.js", "coordinate-plane-core.js", "coordinate-plane-spatial.js", "coordinate-plane-lab.js", "coordinate-plane-lab.css"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})

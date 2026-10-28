@@ -51,6 +51,8 @@ require('../web/base-ten-core.js');
 require('../web/base-ten-spatial.js');
 require('../web/algebra-functions-core.js');
 require('../web/algebra-functions-spatial.js');
+require('../web/coordinate-plane-core.js');
+require('../web/coordinate-plane-spatial.js');
 require('../web/spatial-module-objects.js');
 const spatial = context.window.PrimerSpatial, objects = context.window.PrimerModuleObjects;
 const prior = [...spatial.supported];

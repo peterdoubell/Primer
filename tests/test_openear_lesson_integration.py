@@ -1,4 +1,5 @@
 """Authenticated native OpenEar route, source grain and both actual lesson bindings."""
+from tools.coordinate_plane_runtime_compatibility import before_coordinate_plane_bytes
 import hashlib
 import json
 import os
@@ -63,7 +64,7 @@ def test_recorded_authenticated_lesson_proof_matches_current_inputs():
     assert proof['errors']==[]
     assert {(row['nodeId'],row['width'])for row in proof['mounts']}=={(node,width)for node in ['rad.5.temporal-bone','rad.5.tinnitus']for width in [390,1440]}
     for name,digest in proof['files'].items():
-        assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest,name
+        assert hashlib.sha256(before_coordinate_plane_bytes(name,(ROOT/name).read_bytes())).hexdigest()==digest,name
     for mount in proof['mounts']:
         assert mount['openedAndClosed'] and mount['schematicOverlapModeVerified']
         assert mount['credentialScope']=='loopback app origin only'

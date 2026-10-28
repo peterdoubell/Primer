@@ -47,6 +47,8 @@ console.log('FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions');
 
 
 
+const coordinateEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'coordinate-plane-lab').map(item => ({node,item})));
+assert.equal(coordinateEntries.length,1);assert.equal(coordinateEntries[0].node.id,'math.2.coordinates');assert.deepEqual(coordinateEntries[0].item.props,{scenario:'math.2.coordinates'});
 const baseTenEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'base-ten-lab').map(item => ({node,item})));
 assert.deepEqual(baseTenEntries.map(r=>r.node.id).sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
 for(const {node,item}of baseTenEntries){assert.equal(node.stage,1);assert.equal(item.kind,'model');assert.deepEqual(item.props,{scenario:node.id});}
@@ -56,7 +58,7 @@ assert.equal(entries.length, expected.length, 'Every spatial scene must be reach
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
+  !['coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
   69, 'The other 69 earlier models remain; fractions has its exact dedicated replacement below');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');

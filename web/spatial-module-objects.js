@@ -72,6 +72,8 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  if (window.PrimerCoordinatePlaneSpatial) families["coordinate-plane-exact"] = window.PrimerCoordinatePlaneSpatial.family;
+
   const algebraFunctionsBindings = {
   "module.math.3.linear": [
     "algebra-functions-linear",
@@ -1000,6 +1002,8 @@
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((p.scenario === 'module.math.2.coordinates' || p.family === 'coordinate-plane-exact')
+        && (p.scenario !== 'module.math.2.coordinates' || p.family !== 'coordinate-plane-exact' || p.mode !== 'model' || p.lesson !== 'The Coordinate Plane')) return false;
     if ((Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family.startsWith('algebra-functions-'))
         && (!Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family !== algebraFunctionsBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== algebraFunctionsBindings[p.scenario][1])) return false;
     if ((Object.hasOwn(baseTenBindings, p.scenario) || p.family.startsWith('base-ten-'))
