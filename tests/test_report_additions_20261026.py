@@ -51,7 +51,7 @@ def test_published_frozen_catalogue_preserves_every_original_investigation():
  assert sum(len(f['investigations']) for f in old['forms'].values())==156
  for form in old['forms'].values():
   for inv in form['investigations']:
-   assert EXAMS[inv['id']][1]==inv,'Existing examination observations must not be rewritten'
+   assert clinical_observations(EXAMS[inv['id']][1])==clinical_observations(inv),'Existing examination observations must not be rewritten'
 
 
 def test_orads_jobs_use_each_lesions_own_features_and_do_not_score_absence():
@@ -126,3 +126,13 @@ def test_routine_ultrasound_measurements_can_accompany_normal_organs():
  assert not rows['main-portal-vein'].get('repeatable')
  assert not rows['gallbladder'].get('repeatable')
  assert rows['liver-right-lobe-focal-findings']['repeatable']
+
+
+def clinical_observations(exam):
+ import copy
+ value=copy.deepcopy(exam)
+ value.pop('compartments',None);value.pop('presentation_revision',None)
+ for row in value['sections']:
+  for key in ('compartment','report_section_id','report_section_label'):row.pop(key,None)
+ value['sections'].sort(key=lambda row:row['id'])
+ return value

@@ -327,3 +327,23 @@ test('malformed repeated hydration blocks copy without crashing the sheet',()=>{
     assert.equal(find(root,'Copy report').disabled,true);
   }
 });
+
+test('knee compartments keep every row, scope normal actions, and retain collapsed state after selection',()=>{
+  const catalog=JSON.parse(require('node:zlib').gunzipSync(fs.readFileSync(require('node:path').join(__dirname,'../data/radiology/descriptor-reporting.json.gz'))));
+  const form=Object.values(catalog.forms).find(f=>f.investigations.some(i=>i.id==='ra.mri-knee'));
+  const exam=form.investigations.find(i=>i.id==='ra.mri-knee');
+  const root=load().render(form,{investigationId:exam.id});
+  const panels=()=>descendants(root).filter(n=>n.className==='rad-report-compartment');
+  const named=name=>panels().find(p=>descendants(p).some(n=>n.className==='rad-compartment-title'&&n.textContent===name));
+  assert.equal(panels().length,exam.compartments.length);
+  assert(panels().every(p=>p.open));
+  assert.equal(descendants(root).filter(n=>n.dataset.sectionId).length,exam.sections.length);
+  const lateral=named('Lateral compartment');lateral.open=false;lateral.ontoggle();
+  find(named('Medial compartment'),'Normal remaining').onclick();
+  const choices=root.getState().descriptor_state.selections;
+  assert(Object.keys(choices).length>0);
+  assert(Object.keys(choices).every(id=>exam.sections.find(s=>s.id===id).compartment==='Medial compartment'));
+  assert.equal(named('Lateral compartment').open,false);
+  assert.match(root.getReport(),/^MEDIAL COMPARTMENT\n/);
+  assert(!root.getReport().includes('LATERAL COMPARTMENT'));
+});
