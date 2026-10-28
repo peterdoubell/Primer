@@ -1,0 +1,158 @@
+{
+  "base": "000f68c16bcdecaae999e8a0c3679a3d4b90e859",
+  "originalNode": {
+    "id": "math.2.coordinates",
+    "title": "The Coordinate Plane",
+    "stage": 2,
+    "goal": "Plot and read points on a grid.",
+    "articles": [
+      "Cartesian coordinate system"
+    ],
+    "quiz": [
+      {
+        "kind": "choice",
+        "prompt": "In which quadrant does the point (-3, 2) lie?",
+        "answer": "Quadrant II",
+        "explain": "A negative x with a positive y places the point in the upper-left region, Quadrant II.",
+        "choices": [
+          "Quadrant III",
+          "Quadrant II",
+          "Quadrant I",
+          "Quadrant IV"
+        ]
+      },
+      {
+        "kind": "choice",
+        "prompt": "Which of these points lies exactly on the x-axis?",
+        "answer": "(5, 0)",
+        "explain": "A point is on the x-axis when its y-coordinate is 0, as in (5, 0).",
+        "choices": [
+          "(0, 5)",
+          "(5, 0)",
+          "(-3, -3)",
+          "(2, 2)"
+        ]
+      },
+      {
+        "kind": "numeric",
+        "prompt": "The points (2, 1), (6, 1) and (6, 4) are three corners of a rectangle whose sides run along the grid lines. What is the x-coordinate of the fourth corner?",
+        "answer": "2",
+        "explain": "The fourth corner sits at (2, 4), directly above the corner at (2, 1), so its x-coordinate is 2."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A counter starts at (3, 5), moves 4 squares left and then 2 squares down. What is its new y-coordinate?",
+        "answer": "3",
+        "explain": "Moving left changes x alone. Moving down 2 takes y from 5 to 3."
+      },
+      {
+        "kind": "choice",
+        "prompt": "A rectangle has corners at (1, 1), (7, 1), (7, 5) and (1, 5). What is its area in square units?",
+        "answer": "24 square units",
+        "choices": [
+          "24 square units",
+          "20 square units",
+          "12 square units",
+          "35 square units"
+        ],
+        "explain": "The rectangle is 6 units wide and 4 units tall, so its area is 6 x 4 = 24. The 20 is its perimeter."
+      },
+      {
+        "kind": "choice",
+        "prompt": "Point A sits at (-4, -1). Which move puts it into Quadrant I?",
+        "answer": "Add 6 to x and 3 to y",
+        "choices": [
+          "Add 6 to x and leave y",
+          "Add 3 to y and leave x",
+          "Add 6 to x and 3 to y",
+          "Reflect it across the x-axis"
+        ],
+        "explain": "Quadrant I needs both coordinates positive. Adding 6 and 3 gives (2, 2); changing one coordinate alone leaves the other negative."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A counter at (2, -3) moves 7 squares up. What is its new y-coordinate?",
+        "answer": "4",
+        "explain": "Moving up adds to the y-coordinate: -3 + 7 = 4. The x-coordinate is unchanged."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "How many units apart are the points (1, 4) and (7, 4) along the grid?",
+        "answer": "6",
+        "explain": "The y-coordinates match, so the points lie on a horizontal line and the gap is 7 - 1 = 6 units."
+      },
+      {
+        "kind": "choice",
+        "prompt": "A student plots the point (3, 5) by first going up 3 and then across 5. Which point did they actually mark?",
+        "answer": "(5, 3)",
+        "choices": [
+          "(5, 3)",
+          "(3, 5)",
+          "(-3, 5)",
+          "(3, -5)"
+        ],
+        "explain": "Coordinates are written across first, then up: (3, 5) means 3 right and 5 up. Reversing the order lands you on (5, 3)."
+      },
+      {
+        "kind": "choice",
+        "prompt": "A point has a negative x-coordinate and a negative y-coordinate. Where on the grid does it sit?",
+        "answer": "Quadrant III",
+        "choices": [
+          "Quadrant III",
+          "Quadrant I",
+          "Quadrant II",
+          "Quadrant IV"
+        ],
+        "explain": "Left of the y-axis and below the x-axis is the bottom-left region, Quadrant III; the quadrants are numbered anticlockwise from the top right."
+      }
+    ],
+    "prereqs": [
+      "math.1.addition",
+      "math.2.negatives",
+      "math.1.measurement"
+    ],
+    "lesson_media": [
+      {
+        "id": "coordinate-plane-plate",
+        "kind": "illustration",
+        "src": "/app/illustrations/sapling/math/math-2-coordinates-800.webp",
+        "srcset": "/app/illustrations/sapling/math/math-2-coordinates-800.webp 800w, /app/illustrations/sapling/math/math-2-coordinates-1600.webp 1600w",
+        "alt": "A path moves left three and up two to plot negative three, two in Quadrant Two.",
+        "caption": "Read x first, then y; points on an axis are not inside a quadrant.",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "id": "math.2.coordinates-concept-model",
+        "kind": "model",
+        "renderer": "concept-lab",
+        "title": "Across first, then up or down",
+        "instructions": "Change x and y. Follow the dashed path from the origin to P; keep the order of the coordinates.",
+        "props": {
+          "scenario": "math.2.coordinates"
+        }
+      }
+    ]
+  },
+  "originalBinding": {
+    "node_id": "math.2.coordinates",
+    "family": "surface",
+    "title": "Coordinate surface · 3D study",
+    "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+    "context": "The Coordinate Plane: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.",
+    "mode": "model"
+  },
+  "sourceSHA256": {
+    "data/curriculum/01-mathematics.json": "f23781f99eea4a33ec0c13775282182b7c0051ba94f36f5df2a600454ac41b55",
+    "data/module-models.json": "4ebcf44fd98c9e05ccc9d1560438dcecfda166d72f717343d00f7c36842cc484"
+  },
+  "requirements": [
+    "Preserve all10 quizzes, prerequisites and original illustration.",
+    "Replace bowl/saddle surface with actual x-y coordinate constructions at z=0.",
+    "Cover ordered pairs, axes and quadrants, coordinate exchange, signed translation, reflections, axis-aligned rectangles and distance.",
+    "Keep exact accepted state synchronized across 2D/3D; camera must not mutate mathematics.",
+    "Verify authenticated reader at390/1440, keyboard edits, invalid drafts, speech, point tables and camera states.",
+    "Verify current CI and exact source deployment before release."
+  ],
+  "completionProven": false
+}
