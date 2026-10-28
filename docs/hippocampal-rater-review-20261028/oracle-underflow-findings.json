@@ -1,0 +1,20 @@
+{
+  "finding": "The first Python oracle subtracted low=1 from uint16 raw zeros before converting to float, wrapping to65535. The browser produced the correct black pixel.",
+  "reproducer": {
+    "raw": [
+      0
+    ],
+    "dtype": "uint16",
+    "low": 1,
+    "high": 226,
+    "incorrectOracleGray": [
+      255.0
+    ],
+    "correctOracleGray": [
+      0.0
+    ]
+  },
+  "fix": "Cast original scaled source samples to float64 before window subtraction.",
+  "viewerChangedForThisFailure": false,
+  "failureEvidence": "Observed tool output plus this deterministic reproducer; temporary debug-last/expected files are overwritten by subsequent checks."
+}

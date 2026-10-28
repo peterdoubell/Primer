@@ -6,6 +6,7 @@ verification remains a separate mandatory publication gate.
 from pathlib import Path
 import gzip,hashlib,json,struct
 import nibabel as nib,numpy as np
+from scipy import ndimage
 D=Path(__file__).resolve().parents[2]/'.research/epilepsy-source-20261028';O=D/'native-package';S=D/'dryad-case10';m=json.loads((O/'manifest.json').read_bytes());sha=lambda b:hashlib.sha256(b).hexdigest();packs={};samples=0;planes=0
 
 acquisitionPath=D/'dryad-case10-acquisition.json'
@@ -17,6 +18,11 @@ for name,row in m['packs'].items():
  b=(O/name).read_bytes();assert len(b)==row['bytes'] and sha(b)==row['sha256'];packs[name]=b
 for key,row in m['volumes'].items():
  f=S/row['sourceFile'];assert sha(f.read_bytes())==row['sourceFileSHA256'];im=nib.load(f);a=im.dataobj.get_unscaled();assert list(a.shape)==row['shape'];assert np.array_equal(im.affine,row['affine']);assert im.dataobj.slope==row['slope'] and im.dataobj.inter==row['intercept'];assert sha(np.asarray(a,dtype=row['dtype']).tobytes())==row['rawCOrderSHA256']
+ if row['annotation']:
+  for code,components in row['components'].items():
+   cc,n=ndimage.label(np.asarray(a)==int(code),structure=np.ones((3,3,3),bool));assert len(components)==n
+   for component in components:
+    cells=np.argwhere(cc==component['sourceComponentId']);assert len(cells)==component['voxels'];focus=component['focusIJK'];assert cc[tuple(focus)]==component['sourceComponentId'];lo=cells.min(0)-.5;hi=cells.max(0)+.5;assert np.array_equal([lo,hi],component['boundsSourceIJK']);corners=np.array([[x,y,z]for x in [lo[0],hi[0]]for y in [lo[1],hi[1]]for z in [lo[2],hi[2]]]);world=nib.affines.apply_affine(im.affine,corners);assert np.allclose([world.min(0),world.max(0)],component['boundsSourceWorld'],rtol=0,atol=1e-12)
  for axis in range(3):
   group=row['planes'][str(axis)];other=[j for j in range(3)if j!=axis];assert group['uAxis']==other[0] and group['vAxis']==other[1];assert group['width']==a.shape[other[0]] and group['height']==a.shape[other[1]];assert [p['index']for p in group['rows']]==list(range(a.shape[axis]))
   for plane in group['rows']:

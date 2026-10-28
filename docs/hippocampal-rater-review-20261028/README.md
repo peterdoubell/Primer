@@ -10,7 +10,13 @@ Two annotations disagree: per-label Dice for the six subfield categories ranges 
 
 The local package contains 4,944 native planes in 21 packs and 13 meshes (six Main Sample, seven DICE). An independent decoder compared 253,919,232 original samples, including raw signedness and scaling. Independent geometry reconstruction verifies every exposed source face, its two triangles, outward orientation and signed source-cell volume. No source resampling, smoothing or component deletion is performed. The meshes total 167,796 triangles; 13 meshes do not mean 13 distinct validated anatomical structures.
 
-Remaining: finish full-archive authentication, build and verify an interactive reader with both annotations and disagreement views, prove browser pixel/GPU fidelity, review whole reporting-structure coverage, then integrate and release. All runtime data remains in ignored research storage and is not deployed.
+The local reader now provides MRI, selected annotations, schematic and disagreement views, all source components, calibrated image magnification, pixel picking and component-focused 3D framing. Source-header directions are explicit. At the crosshair it reports both source labels and scaled MRI intensity. Other components remain in the 3D buffers when the view focuses one component.
+
+The original-array browser oracle passed 198 states at 390 and 1440 pixels, comparing all displayed plane pixels and actual GPU buffer bytes. It also checks source-header orientation, screen millimetre scales, camera framing, keyboard zoom scrolling, context recovery, failed-transfer recovery, no-WebGL image fallback and a forced-pending manifest at a non-loopback origin. The first unsigned-image oracle wrapped subtraction; its deterministic reproducer and correction are retained. One desktop readiness timeout was not fully diagnosed; the revised harness records failure state and waits beyond the transport deadline. Subsequent full runs passed.
+
+The first full archive stream ended prematurely at 4.90 GB. The replacement uses bounded range requests and is still running. No claim of full publisher-archive authentication is made yet.
+
+Remaining: complete archive authentication, adverse timing/transport review, authenticated lesson integration, whole reporting-structure coverage review, then CI and staged deployment verification. This is a local development reader, not a deployed clinical product.
 
 Primary publication: https://doi.org/10.1038/s41597-023-02449-9
 Publisher data: https://doi.org/10.5061/dryad.2v6wwpzt3

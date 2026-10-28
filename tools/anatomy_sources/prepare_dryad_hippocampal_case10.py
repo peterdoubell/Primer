@@ -33,7 +33,7 @@ for key,name in sources:
    if not code:continue
    labels,n=ndimage.label(a==code,structure=np.ones((3,3,3),bool));boxes=ndimage.find_objects(labels);items=[]
    for label,box in enumerate(boxes,1):
-    local=np.argwhere(labels[box]==label);origin=np.array([s.start for s in box]);center=local.mean(0);focus=local[np.argmin(np.sum((local-center)**2,axis=1))]+origin;assert a[tuple(focus)]==code;items.append({'sourceComponentId':label,'voxels':len(local),'focusIJK':focus.tolist(),'focusWorld':nib.affines.apply_affine(im.affine,focus).tolist()})
+    local=np.argwhere(labels[box]==label);origin=np.array([s.start for s in box]);center=local.mean(0);focus=local[np.argmin(np.sum((local-center)**2,axis=1))]+origin;assert a[tuple(focus)]==code;lower=origin-.5;upper=np.array([s.stop for s in box])-.5;corners=np.array([[x,y,z]for x in [lower[0],upper[0]]for y in [lower[1],upper[1]]for z in [lower[2],upper[2]]]);world=nib.affines.apply_affine(im.affine,corners);items.append({'sourceComponentId':label,'voxels':len(local),'focusIJK':focus.tolist(),'focusWorld':nib.affines.apply_affine(im.affine,focus).tolist(),'boundsSourceIJK':[lower.tolist(),upper.tolist()],'boundsSourceWorld':[world.min(0).tolist(),world.max(0).tolist()]})
    assert sum(x['voxels']for x in items)==volume['counts'][str(int(code))];volume['components'][str(int(code))]=sorted(items,key=lambda x:(-x['voxels'],x['sourceComponentId']))
  for axis in range(3):
   other=[j for j in range(3)if j!=axis];rows=[]
