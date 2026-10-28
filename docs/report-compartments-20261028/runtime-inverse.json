@@ -1,0 +1,67 @@
+{
+  "base_commit": "e2d2003d22f0e8516d9066ab15fc9ac5346c795d",
+  "scope": "report_compartment_presentation_only",
+  "clinical_approval": false,
+  "files": {
+    "web/radiology-structured.js": {
+      "before_sha256": "dbcb99c32a5fe935745ff522ad2435b8e2d450002814804440368571381c0e76",
+      "after_sha256": "d1f02da891d1dff7d52050b38399ecf2ea0e85e1dae6be090d906e5b8962c7e8",
+      "changes": [
+        {
+          "start": 320,
+          "end": 321,
+          "before": "    function fillNormal(group) {\n",
+          "after": "    function fillNormal(group, compartment) {\n"
+        },
+        {
+          "start": 324,
+          "end": 325,
+          "before": "        if (sectionScopeActive(section,state.selections) && section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};\n",
+          "after": "        if (sectionScopeActive(section,state.selections) && section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && (!compartment || (section.compartment || section.group || section.label) === compartment) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};\n"
+        },
+        {
+          "start": 438,
+          "end": 439,
+          "before": "",
+          "after": "    const closedCompartments = new Set();\n"
+        },
+        {
+          "start": 445,
+          "end": 469,
+          "before": "",
+          "after": "      const containers = new Map();\n      const compartmentOf = section => section.compartment || section.group || section.label;\n      for (const section of exam.sections || []) {\n        if (!sectionScopeActive(section,state.selections)) continue;\n        const name = compartmentOf(section);\n        if (containers.has(name)) continue;\n        const rows = exam.sections.filter(row => compartmentOf(row) === name && sectionScopeActive(row,state.selections));\n        const panel = element('details',undefined,'rad-report-compartment');\n        const key = exam.id + ':' + name;\n        panel.open = !closedCompartments.has(key);\n        const heading = element('summary'), caption = element('span',name,'rad-compartment-title');\n        const reviewed = rows.filter(row => sectionHasSelection(selected(row))).length;\n        heading.append(caption,element('span',reviewed + '/' + rows.length + ' selected','rad-compartment-count'));\n        panel.append(heading);\n        panel.ontoggle=()=>{if(panel.open)closedCompartments.delete(key);else closedCompartments.add(key);};\n        const body = element('div',undefined,'rad-compartment-body');\n        if (rows.some(row => row.normal && !row.exclude_from_bulk_normal)) {\n          const controls = element('div',undefined,'rad-compartment-actions');\n          const normal = button('Normal remaining',()=>{fillNormal(null,name);drawSections();update(true);},'rad-small-button');\n          normal.setAttribute('aria-label','Normal remaining in '+name); controls.append(normal);body.append(controls);\n        }\n        panel.append(body); descriptorFields.append(panel); containers.set(name,body);\n        groupNavigation.append(button(name,()=>{panel.open=true;closedCompartments.delete(key);panel.scrollIntoView?.({behavior:'smooth',block:'start'});},'rad-small-button'));\n      }\n"
+        },
+        {
+          "start": 472,
+          "end": 476,
+          "before": "        if (section.group && section.group !== lastGroup) {\n          lastGroup = section.group;\n",
+          "after": "        const compartmentName = compartmentOf(section), container = containers.get(compartmentName);\n        const groupKey = compartmentName + ':' + section.group;\n        if (section.group && section.group !== compartmentName && groupKey !== lastGroup) {\n          lastGroup = groupKey;\n"
+        },
+        {
+          "start": 478,
+          "end": 481,
+          "before": "          if (exam.sections.some(row => row.group === section.group && sectionScopeActive(row,state.selections) && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n          descriptorFields.append(groupHeader);\n          groupNavigation.append(button(section.group, () => groupHeader.scrollIntoView?.({behavior:'smooth',block:'start'}), 'rad-small-button'));\n",
+          "after": "\n          container.append(groupHeader);\n\n"
+        },
+        {
+          "start": 517,
+          "end": 518,
+          "before": "        descriptorFields.append(panel);\n",
+          "after": "        container.append(panel);\n"
+        }
+      ]
+    },
+    "web/radiology-structured.css": {
+      "before_sha256": "2d24beb7ec7099839bb7b57fb43bcef6283febd9daf976019edce0ca80ba33fc",
+      "after_sha256": "2e899aa9367ac1b4cde6d1e7abbe52420f5cf11445e8f00ac8ceb04d2b20efbe",
+      "changes": [
+        {
+          "start": 14,
+          "end": 26,
+          "before": "",
+          "after": "\n/* Anatomical compartments remain open by default: no extra reporting clicks. */\n.rad-report-compartment{border:1px solid var(--rad-line);border-radius:10px;margin:0 0 16px;scroll-margin-top:110px;overflow:clip}\n.rad-report-compartment>summary{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--rad-panel);cursor:pointer;list-style:none;font-weight:650;border-bottom:1px solid var(--rad-line)}\n.rad-report-compartment>summary::-webkit-details-marker{display:none}\n.rad-report-compartment>summary:before{content:'\u25b8';flex:none}.rad-report-compartment[open]>summary:before{content:'\u25be'}\n.rad-compartment-title{flex:1;min-width:0}.rad-compartment-count{font-size:11px;font-weight:400;white-space:nowrap;color:var(--rad-muted)}\n.rad-compartment-body{padding:0 14px 10px}.rad-compartment-actions{display:flex;justify-content:flex-end;padding:10px 0 0}\n.rad-compartment-body .rad-anatomic-group{margin-top:10px;padding:8px 0;border-top:0;border-bottom:1px solid var(--rad-line)}\n.rad-compartment-body .rad-anatomic-group h4{font-size:12px;letter-spacing:.025em;color:var(--rad-muted)}\n.rad-report-compartment>summary:focus-visible{outline:2px solid currentColor;outline-offset:-3px}\n@media(max-width:600px){.rad-report-compartment>summary{padding:12px 10px}.rad-compartment-body{padding:0 10px 8px}.rad-compartment-count{font-size:10px}}\n"
+        }
+      ]
+    }
+  }
+}

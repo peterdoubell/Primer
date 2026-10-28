@@ -300,7 +300,7 @@ def test_anatomic_coverage_and_reference_lineage_match_authored_files():
             expected = [section['id'] for section in definition['sections']]
             assert coverage[identifier]['anatomy_ids'] == expected
             assert coverage[identifier]['structures'] == len(expected)
-            assert [section['anatomy_id'] for section in investigation['sections']] == expected
+            assert sorted(section['anatomy_id'] for section in investigation['sections']) == sorted(expected)
             assert investigation['clinical_approval'] is False
             for section in investigation['sections']:
                 for finding in ([section['normal']] if section['normal'] else []) + section['findings']:

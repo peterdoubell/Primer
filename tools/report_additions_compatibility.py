@@ -17,6 +17,8 @@ def reviewed():
   raise ValueError('Report addition inverse leaves exact scope')
  return proof
 def before_report_additions_bytes(path,raw,allow_older=False):
+ from tools.report_compartment_compatibility import before_compartments_bytes
+ raw=before_compartments_bytes(path,raw,allow_older=True)
  path=str(path)
  if path not in PATHS:return raw
  row=reviewed()['files'][path]

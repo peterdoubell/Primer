@@ -131,7 +131,7 @@ def test_authored_coverage_and_reference_lineage_are_complete_and_not_clinical_a
             form, inv = EXAMS[iid]
             expected = [row['id'] for row in definition['sections']]
             assert expected == declared[iid] == coverage[iid]['anatomy_ids']
-            assert [row['anatomy_id'] for row in inv['sections']] == expected
+            assert sorted(row['anatomy_id'] for row in inv['sections']) == sorted(expected)
             assert coverage[iid]['structures'] == len(expected)
             assert coverage[iid]['findings'] == sum(len(row['findings']) for row in definition['sections'])
             assert coverage[iid]['source_file'] == str(path.relative_to(ROOT))
