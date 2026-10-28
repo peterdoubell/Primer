@@ -108,4 +108,7 @@ def references():
     from .nextbrain_reference import references as nextbrain_references
     for identifier, entries in nextbrain_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .openear_native_reference import references as openear_references
+    for identifier, entries in openear_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

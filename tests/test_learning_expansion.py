@@ -29,6 +29,7 @@ def test_expansion_contains_taught_assessed_visual_lessons(curriculum):
              if node.get('lesson') and node.get('model_family')]
     assert {node['id'] for node in curriculum.nodes.values()
             if node.get('lesson') and not node.get('model_family')} == {
+        'math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials',
         'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity',
         'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory', 'phys.3.energy-work', 'math.2.fractions', 'phys.2.electricity', 'phys.3.em', 'math.2.percent', 'math.2.decimals', 'math.2.ratio', 'math.1.place-value', 'math.1.addition', 'math.1.subtraction', 'math.1.multiplication', 'math.1.division'}
     # Energy/work never used a generic model_family. Its new teaching sections

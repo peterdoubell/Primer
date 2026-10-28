@@ -86,8 +86,15 @@ def test_all_original_meshes_normals_indices_and_source_defects_are_preserved(se
     assert boundary['unmatched_boundary_edges'] == unmatched and not boundary['source_meshes_modified_or_fused']
 
 
-def test_every_available_source_model_reaches_its_matching_lesson_with_exact_context():
-    curr = Curriculum(); bindings = source_model_bindings()
+def test_every_available_source_model_reaches_its_matching_lesson_with_exact_context(monkeypatch):
+    from tools.algebra_openear_runtime_compatibility import before_algebra_openear_lesson_fields
+    class HistoricalReader(Curriculum):
+        def node(self, identifier):
+            return before_algebra_openear_lesson_fields(identifier, super().node(identifier))
+    # The two additive OpenEar wrappers have their own current-reader proof.
+    # Preserve this historical delivery record and all source byte checks.
+    monkeypatch.setattr(delivery, 'Curriculum', HistoricalReader)
+    curr = HistoricalReader(); bindings = source_model_bindings()
     proof = json.loads(delivery.CURRENT.read_text())
     # Rebuild from actual delivered bytes, require every immutable historical
     # digest after only the independently reviewed VerSe helper substitution.

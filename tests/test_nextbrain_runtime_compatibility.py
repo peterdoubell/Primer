@@ -3,13 +3,14 @@ import copy
 from pathlib import Path
 import pytest
 from tools import nextbrain_runtime_compatibility as bridge
+from tools.algebra_openear_runtime_compatibility import before_algebra_openear_bytes
 ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.mark.parametrize('path', sorted(bridge.PATHS))
 def test_exact_current_delta_recovers_base_and_rejects_foreign_edits(path):
     row = bridge.reviewed()['files'][path]
     raw = (ROOT / path).read_bytes()
-    assert bridge.sha(raw) == row['after_sha256']
+    assert bridge.sha(before_algebra_openear_bytes(path, raw)) == row['after_sha256']
     before = bridge.before_nextbrain_bytes(path, raw)
     assert bridge.sha(before) == row['before_sha256']
     assert bridge.before_nextbrain_bytes(path, before) == before

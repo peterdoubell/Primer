@@ -72,6 +72,26 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  const algebraFunctionsBindings = {
+  "module.math.3.linear": [
+    "algebra-functions-linear",
+    "Linear Equations"
+  ],
+  "module.math.3.slope": [
+    "algebra-functions-slope",
+    "Slope and Lines"
+  ],
+  "module.math.3.quadratics": [
+    "algebra-functions-quadratics",
+    "Quadratic Equations"
+  ],
+  "module.math.3.polynomials": [
+    "algebra-functions-polynomials",
+    "Polynomials"
+  ]
+};
+  if (window.PrimerAlgebraFunctionsSpatialFamilies) for (const [scenario, [family]] of Object.entries(algebraFunctionsBindings)) families[family] = window.PrimerAlgebraFunctionsSpatialFamilies[scenario.slice(7)];
+
   const baseTenBindings = {
     'module.math.1.place-value': ['base-ten-place-value', "Place Value"],
     'module.math.1.addition': ['base-ten-addition', "Addition"],
@@ -980,6 +1000,8 @@
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family.startsWith('algebra-functions-'))
+        && (!Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family !== algebraFunctionsBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== algebraFunctionsBindings[p.scenario][1])) return false;
     if ((Object.hasOwn(baseTenBindings, p.scenario) || p.family.startsWith('base-ten-'))
         && (!Object.hasOwn(baseTenBindings, p.scenario) || p.family !== baseTenBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== baseTenBindings[p.scenario][1])) return false;
     if ((p.scenario === 'module.math.2.ratio' || p.family === 'ratio-calibrated-volumes')

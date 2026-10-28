@@ -1,0 +1,40 @@
+{
+  "allPassed": true,
+  "transportSHA256": "80746b56ba3ca3bf9a3c7c76cdeee917e216e703eaf309f556515b07e90e2b86",
+  "configuredTimeoutMs": 45000,
+  "timersAcceleratedOnlyForTest": true,
+  "cases": [
+    {
+      "name": "exact range without exposed Content-Range",
+      "passed": true
+    },
+    {
+      "name": "ignored range fails closed",
+      "passed": true
+    },
+    {
+      "name": "same-length corruption fails closed",
+      "passed": true
+    },
+    {
+      "name": "oversized body canceled",
+      "passed": true
+    },
+    {
+      "name": "stalled headers reach configured45s deadline",
+      "passed": true
+    },
+    {
+      "name": "stalled body reaches configured45s deadline",
+      "passed": true
+    },
+    {
+      "name": "caller cancellation stays distinct from timeout",
+      "passed": true
+    },
+    {
+      "name": "already canceled request stops",
+      "passed": true
+    }
+  ]
+}

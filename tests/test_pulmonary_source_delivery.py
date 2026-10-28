@@ -214,7 +214,7 @@ def test_old_source_registries_and_bindings_are_preserved():
     assert hippocampal.BINDINGS == {'ra.mri-epilepsy', 'ra.mri-dementia'}
     registered = hippocampal.references()  # Validates the pinned registry, manifest and source inventory.
     assert set(registered) == hippocampal.BINDINGS
-    assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
+    assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
     for identifier, expected in registered.items():
         prior = before_spl_reference_fields(identifier, {'source_native_inspectors': refs[identifier]})
         assert prior['source_native_inspectors'] == expected

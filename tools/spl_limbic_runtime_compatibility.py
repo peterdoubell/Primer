@@ -57,6 +57,8 @@ def before_spl_bytes(path, raw, allow_older=False):
 
 
 def before_spl_lesson_fields(module_id, fields):
+    from tools.algebra_openear_runtime_compatibility import before_algebra_openear_lesson_fields
+    fields = before_algebra_openear_lesson_fields(module_id, fields)
     if module_id not in {'rad.5.epilepsy-mri', 'rad.5.dementia'}:
         return fields
     row = reviewed()['lessons'][module_id]

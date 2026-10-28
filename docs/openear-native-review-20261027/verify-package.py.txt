@@ -1,0 +1,55 @@
+from pathlib import Path
+import gzip,hashlib,json,re,struct
+import numpy as np
+R=Path.cwd();D=R/'.research/openear-native-20261027';O=D/'package';S=D/'source'
+sha=lambda b:hashlib.sha256(b).hexdigest();m=json.loads((O/'manifest.json').read_bytes());p=json.loads((D/'source-preparation.json').read_bytes());assert p['allPassed'];assert m['registeredSpacingEqualsReportedAcquisitionVoxelSize']=={'embedded':True,'unembedded':False} and m['effectiveSpatialResolutionEstablished'] is False and 'registeredSamplingIsAcquisitionResolution' not in m;original={x['sourceFile']:x for x in p['volumes']}
+def source(name):
+ r=original[name];return np.memmap(S/(name+'.raw'),dtype=r['dtype'],mode='r',shape=tuple(r['memmap_shape_reversed_axes']))
+seg=source('Segmentation.seg.nrrd');bone=source('Bone.nrrd');bits=np.memmap(D/'overlapping-masks.u16',dtype='<u2',mode='r',shape=(625,587,668));counts=np.zeros(14,np.int64);overlap=0;compared=0
+for z in range(625):
+ encoded=np.array(bits[z]);assert not np.any(encoded&0xc000);assert np.array_equal((encoded>>13)&1,bone[z]);compared+=encoded.size;counts[13]+=np.count_nonzero((encoded>>13)&1)
+ if 13<=z<488:
+  for bit in range(13):
+   recovered=(encoded[3:582,20:661]>>bit)&1;assert np.array_equal(recovered,seg[z-13,:,:,bit]);counts[bit]+=np.count_nonzero(recovered);compared+=recovered.size
+  overlap+=np.count_nonzero(np.sum(seg[z-13],axis=2)>1);encoded[3:582,20:661]&=0xe000
+ assert not np.any(encoded&0x1fff)
+assert counts.tolist()==m['overlap']['sourceChannelCounts']and overlap==773
+A=np.array(original['CBCT_Unembedded.nrrd']['equivalent_RAS_affine']);L=np.array(original['Segmentation.seg.nrrd']['equivalent_RAS_affine']);T=np.eye(4);T[:3,3]=[20,3,13];assert np.max(np.abs(A@T-L))<5e-14
+for row in m['selections']:
+ assert row['bit']==row['code']and sum(c['voxels']for c in row['components26'])==int(counts[row['bit']])
+ for c in row['components26']:
+  i,j,k=c['focusMRIijk'];assert(int(bits[k,j,i])>>row['bit'])&1;assert np.max(np.abs(np.array(c['focusSourceWorld'])-(A@np.array([i,j,k,1]))[:3]))<1e-12
+ print('Source masks/components verified',row['code'],len(row['components26']),flush=True)
+report={'allPassed':False,'clinicalApproval':False,'manifestSHA256':sha((O/'manifest.json').read_bytes()),'sourcePreparationSHA256':sha((D/'source-preparation.json').read_bytes()),'originalChannelValuesCompared':int(compared),'overlappingOriginalPositionsPreserved':int(overlap),'planes':0,'planeValuesCompared':0,'meshClasses':0,'meshBytesCompared':0,'sourceTriangles':0}
+arrays={'embedded':source('CBCT_Embedded.nrrd'),'unembedded':source('CBCT_Unembedded.nrrd'),'masks':bits}
+for name,record in m['packs'].items():
+ path=O/name;assert path.stat().st_size==record['bytes']
+ with path.open('rb')as f:assert hashlib.file_digest(f,'sha256').hexdigest()==record['sha256']
+ # Assert complete contiguous compressed-member coverage, not merely selected samples.
+ members=sorted([r for v in m['volumes'].values()for rows in v['planes'].values()for r in rows if r['file']==name],key=lambda r:r['offset']);offset=0
+ for r in members:assert r['offset']==offset;offset+=r['gzipBytes']
+ assert offset==record['bytes']
+for name,volume in m['volumes'].items():
+ source_flat=arrays[name].reshape(-1);assert volume['shape']==[668,587,625]and volume['voxelToSourceWorld']==A.tolist()
+ for axis in range(3):
+  rows=volume['planes'][str(axis)];assert len(rows)==volume['shape'][axis];others=[v for v in range(3)if v!=axis];width,height=[volume['shape'][v]for v in others]
+  for index,row in enumerate(rows):
+   assert row['index']==index and row['shape']==[width,height]and row['sourceAxes']==others and row['decodedBytes']==width*height*2
+   with (O/row['file']).open('rb')as f:f.seek(row['offset']);packed=f.read(row['gzipBytes'])
+   assert sha(packed)==row['gzipSHA256'];raw=gzip.decompress(packed);assert len(raw)==row['decodedBytes']and sha(raw)==row['decodedSHA256'];values=np.frombuffer(raw,dtype=volume['dtype'])
+   # Independent flattened-source address oracle: i + nx*(j + ny*k).
+   for start in range(0,len(values),65536):
+    q=np.arange(start,min(start+65536,len(values)),dtype=np.int64);coordinates=[None,None,None];coordinates[axis]=index;coordinates[others[0]]=q%width;coordinates[others[1]]=q//width;addresses=coordinates[0]+668*(coordinates[1]+587*coordinates[2]);assert np.array_equal(values[start:start+len(q)],source_flat[addresses])
+   report['planes']+=1;report['planeValuesCompared']+=len(values)
+  print('Independent plane addresses verified',name,axis,len(rows),flush=True)
+for identifier,mesh in m['meshes'].items():
+ raw=(S/Path(mesh['sourceMember']).name).read_bytes();assert sha(raw)==mesh['sourceMemberSHA256'];end=raw.index(b'end_header\n')+11;header=raw[:end].decode('ascii');nv=int(re.search(r'element vertex (\d+)',header)[1]);nt=int(re.search(r'element face (\d+)',header)[1]);assert len(raw)==end+nv*12+nt*13
+ positions=memoryview(raw)[end:end+nv*12];face_start=end+nv*12;counts_on_faces=np.ndarray((nt,),dtype='u1',buffer=raw,offset=face_start,strides=(13,));assert np.all(counts_on_faces==3);indices=np.ndarray((nt,3),dtype='<i4',buffer=raw,offset=face_start+1,strides=(13,4));assert indices.min()>=0 and indices.max()<nv;source_arrays={'positions':positions,'indices':indices.astype('<u4').tobytes()};assert nv==mesh['vertices']and nt==mesh['triangles']
+ for kind,group in mesh['parts'].items():
+  expected=source_arrays[kind];assert len(expected)==group['bytes']and sha(expected)==group['sha256'];offset=0
+  for part in group['chunks']:
+   assert part['offset']==offset and 0<part['bytes']<=4194304 and part['bytes']%4==0;packed=(O/part['file']).read_bytes();assert len(packed)==part['gzipBytes']and sha(packed)==part['gzipSHA256'];decoded=gzip.decompress(packed);assert len(decoded)==part['bytes']and sha(decoded)==part['sha256']and decoded==expected[offset:offset+len(decoded)];offset+=len(decoded);report['meshBytesCompared']+=len(decoded)
+  assert offset==len(expected)
+ report['meshClasses']+=1;report['sourceTriangles']+=nt;print('Original PLY arrays and all mesh chunks verified',identifier,flush=True)
+assert report['planes']==5640 and report['planeValuesCompared']==2205652500 and report['meshClasses']==13 and report['sourceTriangles']==7349910
+report['allPassed']=True;report['packageBytes']=sum(p.stat().st_size for p in O.iterdir()if p.is_file());(D/'package-independent-proof.json').write_text(json.dumps(report,indent=2)+'\n');print(report,flush=True)

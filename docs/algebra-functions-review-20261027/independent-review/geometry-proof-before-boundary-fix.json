@@ -1,0 +1,111 @@
+{
+  "sourceSHA256": "3d9aaacf05c13394000c25348ebb6747501a36e28a8af21b064159dc71bc3de2",
+  "methods": [
+    "Exact Fraction power sums",
+    "Exact shifted quartic evaluation",
+    "Analytic quadratic chord-error extrema"
+  ],
+  "counts": {
+    "scenes": 8,
+    "endpointChecks": 1052,
+    "sampledChordChecks": 3682,
+    "analyticQuadraticEnvelopes": 348
+  },
+  "allReportedChordBoundsCheckedPassed": true,
+  "categoricalFindings": [
+    {
+      "id": "false-outside-window",
+      "point": [
+        "17/25",
+        "14999/2500"
+      ],
+      "status": "outside-window",
+      "segments": 0,
+      "omitted": [
+        {
+          "fromX": -6,
+          "toX": 0,
+          "yRange": [
+            6.461999999999999,
+            50.62200000000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        },
+        {
+          "fromX": 0,
+          "toX": 0.375,
+          "yRange": [
+            6.092624999999999,
+            6.462000000000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        },
+        {
+          "fromX": 0.375,
+          "toX": 0.5625,
+          "yRange": [
+            6.013406249999999,
+            6.092625000000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        },
+        {
+          "fromX": 0.5625,
+          "toX": 0.65625,
+          "yRange": [
+            6.000164062499999,
+            6.013406250000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        },
+        {
+          "fromX": 0.65625,
+          "toX": 0.703125,
+          "yRange": [
+            5.999050781249999,
+            6.000164062500001
+          ],
+          "reason": "bounded-error chord is outside the y window",
+          "chordErrorBound": 0.0010986328125003272
+        },
+        {
+          "fromX": 0.703125,
+          "toX": 0.75,
+          "yRange": [
+            6.000134765624999,
+            6.004500000000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        },
+        {
+          "fromX": 0.75,
+          "toX": 1.5,
+          "yRange": [
+            6.004499999999999,
+            6.672000000000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        },
+        {
+          "fromX": 1.5,
+          "toX": 3,
+          "yRange": [
+            6.671999999999999,
+            11.382000000000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        },
+        {
+          "fromX": 3,
+          "toX": 6,
+          "yRange": [
+            11.381999999999998,
+            34.30200000000001
+          ],
+          "reason": "Bernstein hull is outside the y window"
+        }
+      ]
+    }
+  ],
+  "noAlgebraCoreReviewClaimed": true
+}

@@ -125,7 +125,7 @@ def check():
             assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
             assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
             assert set(registered) == hippocampal.BINDINGS
-            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
+            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
             for identifier, expected in registered.items():
                 prior = before_spl_reference_fields(identifier, {'source_native_inspectors': references[identifier]})
                 assert prior['source_native_inspectors'] == expected

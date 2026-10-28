@@ -1,0 +1,32 @@
+from pathlib import Path
+import hashlib,json,gzip,sys,time
+ROOT=Path.cwd();D=ROOT/'.research/openear-native-20261027';OUT=D/'source';OUT.mkdir(exist_ok=True)
+ORIGINAL=Path('/Users/peter/Documents/ChatGPT/Primer/.research/temporal-bone-native-source-review/ZETA-volume-review')
+proof=json.loads((ROOT/'docs/openear-native-source-review/ZETA-original-volume-readback.json').read_bytes())
+metadata=(ROOT/'docs/openear-native-source-review/zenodo-1473724.json').read_bytes();assert json.loads(metadata)['metadata']['license']['id']=='cc-by-4.0'
+rows=[r for r in proof['volumes']if r['member']!='04_Reconstruction_Microslicing/Microslicing_Zeta.nrrd']
+def copy_verified(src,dst,expected,size=None):
+ if dst.exists():
+  digest=hashlib.file_digest(dst.open('rb'),'sha256').hexdigest();assert digest==expected,(dst,'Existing cache differs');return dst.stat().st_size
+ digest=hashlib.sha256();total=0;part=dst.with_suffix(dst.suffix+'.part')
+ with src.open('rb')as i,part.open('wb')as o:
+  for block in iter(lambda:i.read(8*1024*1024),b''):o.write(block);digest.update(block);total+=len(block)
+ assert digest.hexdigest()==expected,(src,'source bytes differ');assert size is None or total==size;part.rename(dst);return total
+report={'dataset':'OpenEar ZETA','record':1473724,'license':'CC BY 4.0','metadataSHA256':hashlib.sha256(metadata).hexdigest(),'volumes':[],'allPassed':False,'clinicalApproval':False,'patientOrientationApproved':False,'sourceIntensityIsHU':False}
+for r in rows:
+ name=Path(r['member']).name;copy_verified(ORIGINAL/(name+'.raw'),OUT/(name+'.raw'),r['decoded_sha256'],r['decoded_bytes']);n=copy_verified(ORIGINAL/name,OUT/name,r['original_member_sha256']);print('Copied and verified',name,n,r['decoded_bytes'],flush=True)
+ with (OUT/name).open('rb')as f:
+  header=[]
+  while True:
+   line=f.readline();assert line
+   if not line.strip():break
+   header.append(line)
+  original_header=b''.join(header).decode().rstrip('\n');assert original_header==r['original_header']
+  digest=hashlib.sha256();total=0
+  with gzip.GzipFile(fileobj=f)as g,(OUT/(name+'.raw')).open('rb')as raw:
+   for block in iter(lambda:g.read(8*1024*1024),b''):
+    assert raw.read(len(block))==block;digest.update(block);total+=len(block)
+   assert not raw.read(1)
+ assert total==r['decoded_bytes']and digest.hexdigest()==r['decoded_sha256'];report['volumes'].append(dict(r,sourceFile=name,originalBytes=n,originalAndDecodedBytesIndependentlyCompared=True))
+ (D/'source-preparation.json').write_text(json.dumps(report,indent=2)+'\n')
+report['allPassed']=True;(D/'source-preparation.json').write_text(json.dumps(report,indent=2)+'\n');print('All source streams independently verified',sum(r['decoded_bytes']for r in rows),flush=True)
