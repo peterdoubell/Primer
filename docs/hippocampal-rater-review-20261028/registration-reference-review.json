@@ -1,0 +1,22 @@
+{
+  "annotationReferenceVolume": "mean",
+  "rawRepetitionAnatomicalRegistrationVerified": false,
+  "sharedGridIsNotRegistrationProof": true,
+  "primarySource": "https://discovery.ucl.ac.uk/id/eprint/10175701/1/s41597-023-02449-9.pdf#page=18",
+  "sourceMethodSummary": "The authors describe denoising individual high-resolution images, then registering and averaging them before manual annotation. The supplied mean is the documented reference; anatomical registration of the supplied raw repetitions has not been independently established.",
+  "sameReferenceImageInBothAnnotationFolders": {
+    "completeNiftiBytesEqual": true,
+    "sha256": "8757ead3ca70dd77ea7dcab0ebe686416b3be44ae1455a0ede5475efc036027e",
+    "bytes": 28213600,
+    "proof": "second-rater-reference-proof.json",
+    "publisherArchiveAuthenticationStillPending": true
+  },
+  "readerBehavior": "All original images retained. Overlays, region navigation and 3D use the prepared mean only. Raw repetitions show images and intensities without an annotation correspondence claim; stale mean decodes cannot restore labels/3D over raw images.",
+  "doesNotEstablish": [
+    "Clinical hippocampal volume thresholds or disease diagnosis",
+    "Separate boundaries within the source combined categories",
+    "Complete fornix, mammillary-body, cortical or skull-base reporting coverage",
+    "Certification or clinical approval"
+  ],
+  "wholeGoalComplete": false
+}

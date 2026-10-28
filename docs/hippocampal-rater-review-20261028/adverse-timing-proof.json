@@ -1,0 +1,309 @@
+{
+  "sourceSHA256": {
+    "web/anatomy/dryad-hippocampal-case10/viewer.js": "c08e97395a3a6800062101e7b1b4328bcf197b893c2ffcd3021b5fc5b43a27ba",
+    "web/anatomy/dryad-hippocampal-case10/transport.js": "2db3146e35fd52d6f5c2f0452c194e4a50c0b6ee330bb73147b0a8b38a44d10b",
+    "tools/check_hippocampal_rater_adverse.cjs": "7de87d18efd7903c74b38b11d9f4000fe81e0e4cfe3b2e377e152f22684f28a3",
+    "tools/check_hippocampal_rater_reader.py": "af0fa76fed8993381d39fc8a57c8f397eb602f735b2c43cbfb9a1e1da594ff8e"
+  },
+  "localSourceFixture": true,
+  "authenticatedLessonVerified": false,
+  "productionVerified": false,
+  "errors": [],
+  "cases": [
+    {
+      "name": "initial",
+      "ijk": [
+        112,
+        185,
+        24
+      ],
+      "code": 3,
+      "rater": "primary",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 3,
+        "second": 1,
+        "intensity": 118.84222849085927
+      },
+      "pixelSHA256": [
+        "a107ec2965716a682cdd703fbdad90852713486df0acee2915377ee9ee886e41",
+        "5c9b97579759d921f82d70277e30b1c179b70e870edfe50464d0827ce42a3f33",
+        "405a0eefb25c530eefe7b5076881ef964efe93af10dbce0a18d9a05d92b99942"
+      ],
+      "positionsSHA256": "be70a14cbb6a6d58399929e510099c9887666fd5b253ca1531b6badfe3754ed3",
+      "indicesSHA256": "1142fb0446e9c19adf452631bea8fb29a49b75e64457b36dd3e15aff91877f39",
+      "glError": 0,
+      "meshKey": "primary:3",
+      "contextEpoch": 0,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "new selection before stale decode",
+      "ijk": [
+        224,
+        184,
+        32
+      ],
+      "code": 2,
+      "rater": "second",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 1,
+        "second": 2,
+        "intensity": 121.11877312324941
+      },
+      "pixelSHA256": [
+        "bc120f51aadb3fe80507ff2e035fb18f34fc0aabbeac2a708001fc27cea3fd12",
+        "23dfbca7d48e2053c73575d4de5ef04ac47a789757c709d564a2b377af018334",
+        "1bb905a48109c27397a4f42efe864b15c08659fb49e2dd3c580c7852b687fc99"
+      ],
+      "positionsSHA256": "7121eeaeaf4731e365027077325fdb0934adf3c66c7f5449b163ed5e40a0ed98",
+      "indicesSHA256": "ba8662f2582a017588c899a5a19d334b55ae4ed571304af02fc4e37e03a28b5c",
+      "glError": 0,
+      "meshKey": "second:2",
+      "contextEpoch": 0,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "new selection after stale decode",
+      "ijk": [
+        224,
+        184,
+        32
+      ],
+      "code": 2,
+      "rater": "second",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 1,
+        "second": 2,
+        "intensity": 121.11877312324941
+      },
+      "pixelSHA256": [
+        "bc120f51aadb3fe80507ff2e035fb18f34fc0aabbeac2a708001fc27cea3fd12",
+        "23dfbca7d48e2053c73575d4de5ef04ac47a789757c709d564a2b377af018334",
+        "1bb905a48109c27397a4f42efe864b15c08659fb49e2dd3c580c7852b687fc99"
+      ],
+      "positionsSHA256": "7121eeaeaf4731e365027077325fdb0934adf3c66c7f5449b163ed5e40a0ed98",
+      "indicesSHA256": "ba8662f2582a017588c899a5a19d334b55ae4ed571304af02fc4e37e03a28b5c",
+      "glError": 0,
+      "meshKey": "second:2",
+      "contextEpoch": 0,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "restored context before old decode",
+      "ijk": [
+        125,
+        186,
+        24
+      ],
+      "code": 4,
+      "rater": "second",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 4,
+        "second": 4,
+        "intensity": 118.39131868444383
+      },
+      "pixelSHA256": [
+        "a107ec2965716a682cdd703fbdad90852713486df0acee2915377ee9ee886e41",
+        "24e089414d7ae7a1b7b343777d62e48f31795b91f220157c5964208292353770",
+        "5ca5a6cc65907c543a906a3329a511e8f370a88eef306735cd51321a2986f4fd"
+      ],
+      "positionsSHA256": "4a49ee0415b5ebdeb8890d5e408ca1eeb678197fbbfdd8e90e655517f88b5832",
+      "indicesSHA256": "ad986b668265702465e36f07b842bc5a80faa2569932c461c2fbde8cba4036ea",
+      "glError": 0,
+      "meshKey": "second:4",
+      "contextEpoch": 1,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "restored context after old decode",
+      "ijk": [
+        125,
+        186,
+        24
+      ],
+      "code": 4,
+      "rater": "second",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 4,
+        "second": 4,
+        "intensity": 118.39131868444383
+      },
+      "pixelSHA256": [
+        "a107ec2965716a682cdd703fbdad90852713486df0acee2915377ee9ee886e41",
+        "24e089414d7ae7a1b7b343777d62e48f31795b91f220157c5964208292353770",
+        "5ca5a6cc65907c543a906a3329a511e8f370a88eef306735cd51321a2986f4fd"
+      ],
+      "positionsSHA256": "4a49ee0415b5ebdeb8890d5e408ca1eeb678197fbbfdd8e90e655517f88b5832",
+      "indicesSHA256": "ad986b668265702465e36f07b842bc5a80faa2569932c461c2fbde8cba4036ea",
+      "glError": 0,
+      "meshKey": "second:4",
+      "contextEpoch": 1,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "new plane before stale decode",
+      "ijk": [
+        125,
+        186,
+        21
+      ],
+      "code": 4,
+      "rater": "second",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 0,
+        "second": 0,
+        "intensity": 62.9624058958143
+      },
+      "pixelSHA256": [
+        "83408c1be67f57b4bd66d3f7721a6d6a7ac4b254bf8636b780bfbc5759122a2a",
+        "24e089414d7ae7a1b7b343777d62e48f31795b91f220157c5964208292353770",
+        "5ca5a6cc65907c543a906a3329a511e8f370a88eef306735cd51321a2986f4fd"
+      ],
+      "positionsSHA256": "4a49ee0415b5ebdeb8890d5e408ca1eeb678197fbbfdd8e90e655517f88b5832",
+      "indicesSHA256": "ad986b668265702465e36f07b842bc5a80faa2569932c461c2fbde8cba4036ea",
+      "glError": 0,
+      "meshKey": "second:4",
+      "contextEpoch": 1,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "new plane after stale decode",
+      "ijk": [
+        125,
+        186,
+        21
+      ],
+      "code": 4,
+      "rater": "second",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 0,
+        "second": 0,
+        "intensity": 62.9624058958143
+      },
+      "pixelSHA256": [
+        "83408c1be67f57b4bd66d3f7721a6d6a7ac4b254bf8636b780bfbc5759122a2a",
+        "24e089414d7ae7a1b7b343777d62e48f31795b91f220157c5964208292353770",
+        "5ca5a6cc65907c543a906a3329a511e8f370a88eef306735cd51321a2986f4fd"
+      ],
+      "positionsSHA256": "4a49ee0415b5ebdeb8890d5e408ca1eeb678197fbbfdd8e90e655517f88b5832",
+      "indicesSHA256": "ad986b668265702465e36f07b842bc5a80faa2569932c461c2fbde8cba4036ea",
+      "glError": 0,
+      "meshKey": "second:4",
+      "contextEpoch": 1,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "raw repetition excludes annotations before old mean decode",
+      "ijk": [
+        137,
+        210,
+        27
+      ],
+      "code": 5,
+      "rater": "second",
+      "image": "repeat0008",
+      "mode": "mri",
+      "low": 1,
+      "high": 226,
+      "probe": {
+        "primary": null,
+        "second": null,
+        "intensity": 132
+      },
+      "pixelSHA256": [
+        "fad940b769e1dacaca5bfdb546660a747f3b06aa937baf2178476f12db16f6dd",
+        "4cfbc640a9940a6c9bf5bfd905afe231a6dff3dee8467531ec986306ebebb87e",
+        "b53293522664d7328cab8696e82f07fdde7ef1f816c8574704cba8313f56c6ec"
+      ],
+      "meshKey": "unregistered",
+      "glError": 0,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "raw repetition excludes annotations after old mean decode",
+      "ijk": [
+        137,
+        210,
+        27
+      ],
+      "code": 5,
+      "rater": "second",
+      "image": "repeat0008",
+      "mode": "mri",
+      "low": 1,
+      "high": 226,
+      "probe": {
+        "primary": null,
+        "second": null,
+        "intensity": 132
+      },
+      "pixelSHA256": [
+        "fad940b769e1dacaca5bfdb546660a747f3b06aa937baf2178476f12db16f6dd",
+        "4cfbc640a9940a6c9bf5bfd905afe231a6dff3dee8467531ec986306ebebb87e",
+        "b53293522664d7328cab8696e82f07fdde7ef1f816c8574704cba8313f56c6ec"
+      ],
+      "meshKey": "unregistered",
+      "glError": 0,
+      "sourceBytesMatched": true
+    },
+    {
+      "name": "same-length corrupt mesh rejected and retry restored source",
+      "ijk": [
+        125,
+        186,
+        24
+      ],
+      "code": 4,
+      "rater": "second",
+      "image": "mean",
+      "mode": "mri",
+      "low": -1.4077184200286865,
+      "high": 229.85402327030897,
+      "probe": {
+        "primary": 4,
+        "second": 4,
+        "intensity": 118.39131868444383
+      },
+      "pixelSHA256": [
+        "a107ec2965716a682cdd703fbdad90852713486df0acee2915377ee9ee886e41",
+        "24e089414d7ae7a1b7b343777d62e48f31795b91f220157c5964208292353770",
+        "5ca5a6cc65907c543a906a3329a511e8f370a88eef306735cd51321a2986f4fd"
+      ],
+      "positionsSHA256": "4a49ee0415b5ebdeb8890d5e408ca1eeb678197fbbfdd8e90e655517f88b5832",
+      "indicesSHA256": "ad986b668265702465e36f07b842bc5a80faa2569932c461c2fbde8cba4036ea",
+      "glError": 0,
+      "meshKey": "second:4",
+      "contextEpoch": 1,
+      "sourceBytesMatched": true
+    }
+  ],
+  "allPassed": true
+}

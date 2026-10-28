@@ -1,0 +1,48 @@
+{
+  "allPassed": true,
+  "transportSHA256": "2db3146e35fd52d6f5c2f0452c194e4a50c0b6ee330bb73147b0a8b38a44d10b",
+  "configuredTimeoutMs": 45000,
+  "timersTriggeredDeterministicallyForTest": true,
+  "cases": [
+    {
+      "name": "exact range without exposed Content-Range",
+      "passed": true
+    },
+    {
+      "name": "ignored range fails closed",
+      "passed": true
+    },
+    {
+      "name": "same-length corruption fails closed",
+      "passed": true
+    },
+    {
+      "name": "oversized body canceled",
+      "passed": true
+    },
+    {
+      "name": "stalled headers reach configured45s deadline",
+      "passed": true
+    },
+    {
+      "name": "stalled body reaches configured45s deadline",
+      "passed": true
+    },
+    {
+      "name": "caller cancellation stays distinct from timeout",
+      "passed": true
+    },
+    {
+      "name": "already canceled request stops",
+      "passed": true
+    },
+    {
+      "name": "source origin restricted; local payload exception only on loopback",
+      "passed": true
+    },
+    {
+      "name": "gzip decoded length and hash independently enforced",
+      "passed": true
+    }
+  ]
+}

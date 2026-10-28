@@ -52,11 +52,13 @@ class Handler(BaseHTTPRequestHandler):
   q=json.loads(self.rfile.read(length));codes=nib.aff2axcodes(images[q['image']].affine);opposite={'R':'L','L':'R','A':'P','P':'A','S':'I','I':'S'};edges=[]
   for axis in [2,1,0]:
    u,v=[i for i in range(3)if i!=axis];edges.append([opposite[codes[u]],codes[u],codes[v],opposite[codes[v]]])
-  result={'pixelSHA256':[pixels(dict(q,axis=a))for a in [2,1,0]],'orientation':edges,'probe':{'primary':int(images['primary'].dataobj[tuple(q['ijk'])]),'second':int(images['second'].dataobj[tuple(q['ijk'])]),'intensity':None if q['mode']=='schematic'else float(images[q['image']].dataobj[tuple(q['ijk'])])}};key=q['rater']+':'+str(q['code'])
-  if key in m['meshes']:
+  result={'pixelSHA256':[pixels(dict(q,axis=a))for a in [2,1,0]],'orientation':edges,'probe':{'primary':int(images['primary'].dataobj[tuple(q['ijk'])])if q['image']=='mean'else None,'second':int(images['second'].dataobj[tuple(q['ijk'])])if q['image']=='mean'else None,'intensity':None if q['mode']=='schematic'else float(images[q['image']].dataobj[tuple(q['ijk'])])}};key=q['rater']+':'+str(q['code'])
+  if q['image']=='mean' and key in m['meshes']:
    z=np.load(D/'case10-boundaries'/f"{q['rater']}-{q['code']}.npz");result['positionsSHA256']=sha(z['world'].astype('<f4').tobytes());result['indicesSHA256']=sha(z['triangles'].astype('<u4').tobytes())
   return self.respond(json.dumps(result).encode(),'application/json')
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler);thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
 try:
- result=subprocess.run(['node',str(ROOT/'tools/check_hippocampal_rater_reader.cjs')],input=json.dumps({'url':f'http://127.0.0.1:{server.server_port}'}),text=True,cwd=ROOT);sys.exit(result.returncode)
+ if sys.argv[1:] not in [[],['--adverse']]:raise ValueError('Only --adverse is supported')
+ script='check_hippocampal_rater_adverse.cjs'if sys.argv[1:]else'check_hippocampal_rater_reader.cjs'
+ result=subprocess.run(['node',str(ROOT/'tools'/script)],input=json.dumps({'url':f'http://127.0.0.1:{server.server_port}'}),text=True,cwd=ROOT);sys.exit(result.returncode)
 finally:server.shutdown();server.server_close()

@@ -14,6 +14,7 @@ assert hashlib.sha256(acquisitionPath.read_bytes()).hexdigest()=='dfab764bc92a28
 for sourceRow in json.loads(acquisitionPath.read_bytes())['files']:
  assert hashlib.sha256((D/sourceRow['file']).read_bytes()).hexdigest()==sourceRow['sha256']
 
+assert m['annotationReferenceVolume']=='mean' and m['rawRepetitionAnatomicalRegistrationVerified'] is False
 for name,row in m['packs'].items():
  b=(O/name).read_bytes();assert len(b)==row['bytes'] and sha(b)==row['sha256'];packs[name]=b
 for key,row in m['volumes'].items():
