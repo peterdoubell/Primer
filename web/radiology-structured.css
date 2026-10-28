@@ -12,3 +12,15 @@
 .rad-anatomic-sheet .rad-report-preview{top:96px}.rad-anatomic-sheet .rad-report-text{max-height:75vh;overflow:auto}
 @media(max-width:600px){.rad-sheet-heading{gap:5px}.rad-sheet-actions{width:100%}.rad-sheet-actions .rad-copy-report{margin-left:auto}.rad-anatomic-group{scroll-margin-top:120px}}
 .rad-repeat-instance{margin:10px 0;padding:10px;border:1px solid var(--rad-line);border-radius:7px}.rad-repeat-instance h6{font:600 13px/1.5 system-ui,sans-serif;margin:0}.rad-repeat-instance+.rad-small-button{margin-top:6px}
+
+/* Anatomical compartments remain open by default: no extra reporting clicks. */
+.rad-report-compartment{border:1px solid var(--rad-line);border-radius:10px;margin:0 0 16px;scroll-margin-top:110px;overflow:clip}
+.rad-report-compartment>summary{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--rad-panel);cursor:pointer;list-style:none;font-weight:650;border-bottom:1px solid var(--rad-line)}
+.rad-report-compartment>summary::-webkit-details-marker{display:none}
+.rad-report-compartment>summary:before{content:'▸';flex:none}.rad-report-compartment[open]>summary:before{content:'▾'}
+.rad-compartment-title{flex:1;min-width:0}.rad-compartment-count{font-size:11px;font-weight:400;white-space:nowrap;color:var(--rad-muted)}
+.rad-compartment-body{padding:0 14px 10px}.rad-compartment-actions{display:flex;justify-content:flex-end;padding:10px 0 0}
+.rad-compartment-body .rad-anatomic-group{margin-top:10px;padding:8px 0;border-top:0;border-bottom:1px solid var(--rad-line)}
+.rad-compartment-body .rad-anatomic-group h4{font-size:12px;letter-spacing:.025em;color:var(--rad-muted)}
+.rad-report-compartment>summary:focus-visible{outline:2px solid currentColor;outline-offset:-3px}
+@media(max-width:600px){.rad-report-compartment>summary{padding:12px 10px}.rad-compartment-body{padding:0 10px 8px}.rad-compartment-count{font-size:10px}}
