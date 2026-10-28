@@ -1,0 +1,79 @@
+{
+  "allPassed": false,
+  "findings": [
+    {
+      "severity": "P2",
+      "title": "Old decoded GPU buffers are released after context restoration",
+      "errors": [
+        "3D draw failed"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "name": "old decompression completes after restored replacement mesh",
+      "passed": true,
+      "heldDecoders": 7,
+      "error": 0,
+      "code": 29,
+      "meshReady": "29"
+    }
+  ],
+  "pageErrors": [
+    "3D draw failed"
+  ],
+  "sourceSHA256": {
+    "viewer.js": "aec69df347f00b2f41f8e1bf7d49e8c96e913c273e5f773a4877ad34beacb0b7",
+    "transport.js": "80242ac1f48874293cfdc605e9060a401c3e93998619b1e3c49d773886553f46",
+    "index.html": "d6b73be453206a23a02c322f0c7850001d34448d5490972b61d83a3f94e0db41",
+    "viewer.css": "db020da3b555b35b2c7f6addc9ce7b8f272426633e7840814720c0c119a13ef0",
+    "manifest.json": "dfe1e6c2a50398175bc8e280dacec4f541c16f0c7327ce864c0b3f884dd7ad54",
+    "config.json": "53965f4d529bfb7c0e9f4ee0b8e57227558f053f6c05c619e04c5342886ee501",
+    "labels.json": "6551fe15fe9c2bda1f4d5d0cbb25a8ec276c0b1dd6b9299828a8ea0d7e9304a9"
+  },
+  "bufferEvents": [
+    {
+      "owner": {
+        "id": 1,
+        "epoch": 0
+      },
+      "currentEpoch": 0,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57345/viewer.js:65:30)\n    at loadMesh (http://127.0.0.1:57345/viewer.js:85:42)\n    at HTMLSelectElement.choose (http://127.0.0.1:57345/viewer.js:111:42)"
+    },
+    {
+      "owner": {
+        "id": 2,
+        "epoch": 0
+      },
+      "currentEpoch": 0,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57345/viewer.js:65:59)\n    at loadMesh (http://127.0.0.1:57345/viewer.js:85:42)\n    at HTMLSelectElement.choose (http://127.0.0.1:57345/viewer.js:111:42)"
+    },
+    {
+      "owner": {
+        "id": 3,
+        "epoch": 0
+      },
+      "currentEpoch": 1,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57345/viewer.js:65:30)\n    at loadMesh (http://127.0.0.1:57345/viewer.js:104:13)"
+    },
+    {
+      "owner": {
+        "id": 4,
+        "epoch": 0
+      },
+      "currentEpoch": 1,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57345/viewer.js:65:59)\n    at loadMesh (http://127.0.0.1:57345/viewer.js:104:13)"
+    }
+  ],
+  "glErrors": [
+    {
+      "code": 1282,
+      "epoch": 1,
+      "stack": "Error\n    at WebGL2RenderingContext.getError (<anonymous>:2:1078)\n    at draw (http://127.0.0.1:57345/viewer.js:74:9)\n    at rotate (http://127.0.0.1:57345/viewer.js:117:90)\n    at $.onclick (http://127.0.0.1:57345/viewer.js:118:60)"
+    }
+  ]
+}

@@ -15,7 +15,7 @@ def test_independent_current_base_ten_oracle(kind):
   for path,h in p['sourceSHA256'].items():assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==h
 
 def test_only_the_five_lesson_teaching_and_companions_change():
- scope=json.loads((D/'initial-scope.json').read_bytes());data=json.loads((ROOT/'data/curriculum/01-mathematics.json').read_bytes());bindings=json.loads((ROOT/'data/module-models.json').read_bytes());originals={n['id']:n for n in scope['originalNodes']};old_bindings={n['node_id']:n for n in scope['originalBindings']};assert set(originals)==IDS and sum(len(n['quiz'])for n in originals.values())==35
+ scope=json.loads((D/'initial-scope.json').read_bytes());data=json.loads(before_nextbrain_bytes('data/curriculum/01-mathematics.json',(ROOT/'data/curriculum/01-mathematics.json').read_bytes()));bindings=json.loads(before_nextbrain_bytes('data/module-models.json',(ROOT/'data/module-models.json').read_bytes()));originals={n['id']:n for n in scope['originalNodes']};old_bindings={n['node_id']:n for n in scope['originalBindings']};assert set(originals)==IDS and sum(len(n['quiz'])for n in originals.values())==35
  for n in data['nodes']:
   if n['id']not in IDS:continue
   old=originals[n['id']];_validate_authored_lesson(n);_validate_lesson_media(n);assert n['quiz']==old['quiz']and n['prereqs']==old['prereqs']and n['lesson_media'][:2]==old['lesson_media'];assert len(n['learning_outcomes'])==5

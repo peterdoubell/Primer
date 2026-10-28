@@ -51,7 +51,7 @@ async function renderPlanes(){
   }catch(e){if(generation===planeGeneration&&!signal.aborted){clearPlanes();$('status').textContent='Planes unavailable: '+e.message+'. Use Retry.';}}
 }
 const canvas=$('mesh'),gl=canvas.getContext('webgl2',{preserveDrawingBuffer:true,antialias:true});
-let program,uniforms,attribute;
+let program,uniforms,attribute,contextEpoch=0;
 function setupGL(){
   const shaders=[ [gl.VERTEX_SHADER,`#version 300 es
 in vec3 position;uniform vec3 center;uniform float radius,yaw,pitch,aspect;out vec3 p;
@@ -62,7 +62,9 @@ void main(){vec3 n=normalize(cross(dFdx(p),dFdy(p)));float light=.48+.52*abs(dot
   gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('3D program unavailable');
   uniforms=Object.fromEntries(['center','radius','yaw','pitch','aspect'].map(k=>[k,gl.getUniformLocation(program,k)]));attribute=gl.getAttribLocation(program,'position');
 }
-function release(m){if(m){gl.deleteBuffer(m.positions);gl.deleteBuffer(m.indices);}}
+// A restored WebGL context owns new resources; stale decode cleanup must not
+// delete opaque buffer handles from an invalidated context.
+function release(m){if(m&&m.contextEpoch===contextEpoch&&!gl.isContextLost()){gl.deleteBuffer(m.positions);gl.deleteBuffer(m.indices);}}
 function clearMesh(){if(gl){gl.clearColor(.965,.949,.906,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}}
 function draw(){
   if(!gl||!gpu||gl.isContextLost())return;
@@ -84,7 +86,7 @@ async function loadMesh(){
   meshController?.abort();meshController=new AbortController();const signal=meshController.signal,generation=++meshGeneration,code=state.code;
   delete document.body.dataset.meshReady;release(gpu);gpu=null;clearMesh();
   if(!gl||gl.isContextLost()){$('mesh-status').textContent='3D requires WebGL 2. MRI and schematics remain available.';return;}
-  const row=manifest.meshParts[code],pending={...row,code,positions:gl.createBuffer(),indices:gl.createBuffer()};
+  const row=manifest.meshParts[code],pending={...row,code,contextEpoch,positions:gl.createBuffer(),indices:gl.createBuffer()};
   $('mesh-status').textContent=`Loading source region ${code} in bounded chunks…`;
   try{
     for(const [kind,target]of [['positions',gl.ARRAY_BUFFER],['indices',gl.ELEMENT_ARRAY_BUFFER]]){
@@ -119,7 +121,7 @@ $('left').onclick=()=>rotate(-.2,0);$('right').onclick=()=>rotate(.2,0);$('up').
 $('reset').onclick=()=>{state.yaw=2.65;state.pitch=.25;state.zoom=1;$('zoom').value=1;draw();};$('zoom').oninput=()=>{state.zoom=Number($('zoom').value);draw();};
 let drag;canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);};canvas.onpointermove=e=>{if(drag){rotate((e.clientX-drag[0])*.008,(e.clientY-drag[1])*.008);drag=[e.clientX,e.clientY];}};canvas.onpointerup=canvas.onpointercancel=()=>{drag=null;};
 canvas.onkeydown=e=>{const v={ArrowLeft:[-.2,0],ArrowRight:[.2,0],ArrowUp:[0,.2],ArrowDown:[0,-.2]}[e.key];if(v){e.preventDefault();rotate(...v);}};
-canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();meshController?.abort();++meshGeneration;gpu=null;delete document.body.dataset.meshReady;$('mesh-status').textContent='3D context lost. Waiting for recovery.';});
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();contextEpoch++;meshController?.abort();++meshGeneration;gpu=null;delete document.body.dataset.meshReady;$('mesh-status').textContent='3D context lost. Waiting for recovery.';});
 canvas.addEventListener('webglcontextrestored',()=>{try{setupGL();loadMesh();}catch(e){$('mesh-status').textContent=e.message;}});
 async function jsonFile(name,hash){const response=await fetch(name,{credentials:'same-origin'});if(!response.ok)throw Error('Metadata unavailable');const bytes=await response.arrayBuffer();if(hash&&await sha(bytes)!==hash)throw Error('Metadata identity differs');return JSON.parse(new TextDecoder().decode(bytes));}
 async function initialize(){try{

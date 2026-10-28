@@ -9,7 +9,7 @@ PREFIX = '/app/anatomy/nextbrain/'
 IDENTIFIER = 'nextbrain-exvivo-reference'
 BLOB_HOST = 'https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com'
 REGISTRY = ROOT / 'data/radiology/nextbrain-reference.json'
-REGISTRY_SHA256 = '769f550bcfdec6fe85532e1f02a5a53df25ce1faecd2744c1a434b9683f91968'
+REGISTRY_SHA256 = 'd5d1c0432cf5691aae8316fc93099c07a55766c72608d36935368ebfc556ffc2'
 FLAGS = ('clinical_approval', 'fine_anatomical_approval', 'current_patient_registration',
          'normal_anatomical_atlas_approval', 'complete_reporting_anatomy_approved')
 AUTHORED = frozenset({'index.html','viewer.js','transport.js','viewer.css','config.json','manifest.json','labels.json'})

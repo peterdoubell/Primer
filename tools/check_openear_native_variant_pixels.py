@@ -1,0 +1,23 @@
+from pathlib import Path
+import gzip,hashlib,json,numpy as np
+D=Path(__file__).resolve().parents[1]/'.research/openear-native-20261027';m=json.loads((D/'package/manifest.json').read_bytes());proof=json.loads((D/'variant-proof/browser-proof.json').read_bytes());assert proof['allPassed'];count=0
+for case in proof['cases']:
+ for plane in case['planes']:
+  axis=plane['axis'];index=case['ijk'][axis]
+  def load(name):
+   v=m['volumes'][name];r=v['planes'][str(axis)][index]
+   with (D/'package'/r['file']).open('rb')as f:f.seek(r['offset']);raw=gzip.decompress(f.read(r['gzipBytes']))
+   return np.frombuffer(raw,dtype=v['dtype']).reshape(r['shape'][1],r['shape'][0])
+  masks=load('masks');hit=(masks&(1<<case['code']))!=0
+  if case['display']=='cbct':grey=np.floor(np.clip((load(case['contrast']).astype(float)-case['low'])/(case['high']-case['low']),0,1)*255+.5).astype(np.uint8)
+  else:grey=np.where((masks!=0)&case['context'],100,20).astype(np.uint8)
+  rgba=np.empty((*grey.shape,4),np.uint8);rgba[:,:,:3]=grey[:,:,None];rgba[:,:,3]=255
+  if case['outline']:
+   padded=np.pad(hit,1);inside=padded[1:-1,:-2]&padded[1:-1,2:]&padded[:-2,1:-1]&padded[2:,1:-1];hit&=~inside
+  if case['display']=='schematic'or case['overlay']:rgba[hit]=[20,180,175,255]
+  if case['overlaps']:
+   original=masks&8191;multiple=(original&(original-1))!=0;rgba[multiple]=[245,145,45,255]
+  rgba=rgba[::-1]
+  assert hashlib.sha256(rgba.tobytes()).hexdigest()==plane['sha'],(case['width'],case['code'],case['display'],case['contrast'],axis)
+  count+=rgba.shape[0]*rgba.shape[1]
+p={'allPassed':True,'browserProofSHA256':hashlib.sha256((D/'variant-proof/browser-proof.json').read_bytes()).hexdigest(),'states':len(proof['cases']),'planes':len(proof['cases'])*3,'pixelsCompared':count,'clinicalApproval':False};(D/'variant-proof/pixel-proof.json').write_text(json.dumps(p,indent=2)+'\n');print(p)

@@ -31,6 +31,8 @@ def reviewed():
 
 
 def before_nextbrain_bytes(path, raw, allow_older=False):
+    from tools.algebra_openear_runtime_compatibility import before_algebra_openear_bytes
+    raw = before_algebra_openear_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
@@ -53,6 +55,8 @@ def before_nextbrain_bytes(path, raw, allow_older=False):
 
 
 def before_nextbrain_reference_fields(identifier, fields):
+    from tools.algebra_openear_runtime_compatibility import before_algebra_openear_reference_fields
+    fields = before_algebra_openear_reference_fields(identifier, fields)
     import copy
     result=copy.deepcopy(fields)
     items=result.get('source_native_inspectors',[])

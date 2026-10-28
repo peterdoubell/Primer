@@ -1,0 +1,455 @@
+{
+  "base_commit": "e2d2003d22f0e8516d9066ab15fc9ac5346c795d",
+  "scope": "exact_algebra_openear_and_native_context_recovery",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false,
+  "bindings": [
+    "ra.ct-temporal-bone",
+    "ra.tinnitus"
+  ],
+  "added_inspector": {
+    "id": "openear-zeta-native-reference",
+    "title": "OpenEar ZETA: matched CBCT, independent masks and original surfaces",
+    "modality": "Registered source CBCT, independent source-mask schematics and original author surfaces",
+    "coordinate_context": "prepared-specimen-source-world-mm",
+    "src": "/app/anatomy/openear-zeta-native/index.html",
+    "manifest_url": "/app/anatomy/openear-zeta-native/manifest.json",
+    "sha256": "1dbeca05316b0677d09e536fc45fd17eb8a5c0fe4e0023b92114bb89e6e69930",
+    "manifest_sha256": "4337a7bf103fc6d53cb438338aa12c7eeca468091122f95fe0eda7314c680cc9",
+    "bound_source_ids": [
+      "openear-zeta-native-reference"
+    ],
+    "clinical_approval": false,
+    "fine_anatomical_approval": false,
+    "current_patient_registration": false,
+    "normal_anatomical_atlas_approval": false,
+    "complete_reporting_anatomy_approved": false,
+    "source_url": "https://zenodo.org/records/1473724",
+    "publication_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6326113/",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "source_grant": {
+      "publisher_explicitly_applies_license_to_data": true,
+      "terms_url": "https://creativecommons.org/licenses/by/4.0/legalcode",
+      "attribution_url": "/app/anatomy/openear-zeta-native/ATTRIBUTION.txt",
+      "marked_derived_version": true
+    },
+    "caption": "Explore both supplied registered CBCT volumes, all 13 independent segmentation channels, the separate full Bone mask and all original source surfaces in one prepared temporal-bone specimen. Source masks combine CBCT and microscopy information; overlay presence does not establish CBCT detectability. Overlaps and source islands are retained. This does not establish all fine reporting anatomy, image-specific visibility, physiological findings or patient registration.",
+    "attribution": "Sieber, Daniel Manuel, Erfurt, Peter, John, Samuel, Ribeiro dos Santos, Gabriel, Schurzig, Daniel, Sørensen, Mads Sølvsten, Lenarz, Thomas\nThe OpenEar library, ZETA specimen. Zenodo record 1473724; DOI 10.5281/zenodo.1473724.\nhttps://zenodo.org/records/1473724\n\nSource data and derived viewer assets: Creative Commons Attribution 4.0 International.\nhttps://creativecommons.org/licenses/by/4.0/\n\nPrimer derivations: lossless native-plane repacking, reversible independent-mask bit encoding, source component navigation, and bounded transport of all original float32 positions and original face indices. No source values, overlapping masks or original triangles are removed. Display normals/shading and mask colours are visualization choices, not original photographic tissue colour. Original author processing and specimen preparation remain. Source-coordinate consistency is not independent clinical boundary validation or patient registration. No endorsement by the source authors is implied.\n",
+    "source_grain": {
+      "kind": "prepared adult cadaveric temporal-bone specimen",
+      "specimen": "ZETA",
+      "originalSegmentationChannels": 13,
+      "separateFullBoneMask": true,
+      "overlappingOriginalPositions": 773,
+      "registeredGridMm": [
+        0.125,
+        0.125,
+        0.125
+      ],
+      "reportedAcquisitionVoxelMm": {
+        "embedded": 0.125,
+        "unembedded": 0.25
+      },
+      "effectiveSpatialResolutionEstablished": false,
+      "sourceIntensityIsVerifiedHU": false,
+      "patientLateralityApproved": false,
+      "patientOrientationApproved": false,
+      "photographicTextureApplied": false,
+      "nativeSourceTriangles": 7349910
+    }
+  },
+  "lessons": {
+    "rad.5.temporal-bone": {
+      "added_media": {
+        "id": "module-native-inspectors-rad.5.temporal-bone",
+        "kind": "source-native-inspectors",
+        "title": "OpenEar specimen CBCT and anatomy",
+        "instructions": "Compare both supplied registered CBCT volumes, the independent overlapping segmentation channels, the separate full Bone mask and original author surfaces. Read specimen preparation, source sampling and correspondence limits. The overlay does not establish that every labelled structure is resolved in CBCT, and source coordinates are not verified patient directions.",
+        "investigation_ids": [
+          "ra.ct-temporal-bone"
+        ]
+      }
+    },
+    "rad.5.tinnitus": {
+      "added_media": {
+        "id": "module-native-inspectors-rad.5.tinnitus",
+        "kind": "source-native-inspectors",
+        "title": "OpenEar specimen CBCT and anatomy",
+        "instructions": "Compare both supplied registered CBCT volumes, the independent overlapping segmentation channels, the separate full Bone mask and original author surfaces. Read specimen preparation, source sampling and correspondence limits. The overlay does not establish that every labelled structure is resolved in CBCT, and source coordinates are not verified patient directions.",
+        "investigation_ids": [
+          "ra.tinnitus"
+        ]
+      }
+    }
+  },
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "b3f1c786ca47001e7f06251e397146df3f4d579340ffe0f131bdd16c28b98a61",
+      "after_sha256": "f23781f99eea4a33ec0c13775282182b7c0051ba94f36f5df2a600454ac41b55",
+      "changes": [
+        {
+          "start": 3545,
+          "end": 3546,
+          "before": "          \"id\": \"math.3.linear.model\",\n",
+          "after": "          \"id\": \"math.3.linear-algebra-functions\",\n"
+        },
+        {
+          "start": 3547,
+          "end": 3550,
+          "before": "          \"renderer\": \"concept-lab\",\n          \"title\": \"Keep both sides equal\",\n          \"instructions\": \"Apply the same operation on both sides to isolate x.\",\n",
+          "after": "          \"renderer\": \"algebra-functions-lab\",\n          \"title\": \"Linear Equations · equations and graphs\",\n          \"instructions\": \"Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.\",\n"
+        },
+        {
+          "start": 3554,
+          "end": 3569,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Translate an affine equality, including parentheses and terms on both sides, into coefficients.\",\n        \"Apply the same addition, subtraction or nonzero division to both sides.\",\n        \"Distinguish one solution, no solutions and an identity.\",\n        \"Verify a solution by substituting it into the original equality.\",\n        \"Rearrange a linear formula while keeping its parameters explicit.\",\n        \"Relate a solution to an intersection of the two sides as functions of x.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"An equation states that two expressions have equal values. Its solutions are the values of x that make that statement true. Both sides can contain x, constants, fractions and outside factors. Expanding parentheses changes the form without changing values; adding or subtracting the same expression on both sides preserves the solution set. Dividing both sides requires a nonzero divisor.\",\n        \"worked_example\": \"For 2(x + 3) = x + 10, expand to 2x + 6 = x + 10. Subtract x from both sides to get x + 6 = 10, then subtract 6: x = 4. Substitution gives 14 on each original side. For 5x + 2 = 3x + 14, the same steps give 2x = 12 and x = 6; both sides are then 32. By contrast, 4x + 9 = 4x + 2 reduces to 9 = 2, so no x works. If the two sides are identical, every x works. From C = 5(F − 32)/9, multiply both sides by 9/5 and then add 32 to obtain F = 9C/5 + 32. This identity follows algebraically for any C, not just one selected temperature.\",\n        \"activity\": \"Choose the worked examples for parentheses, fractions, the taxi fare and the phone-plan fee. Move through the equivalent-equation stages and compare their exact ledgers with the plotted sides. Try equal x coefficients with unequal constants, then identical expressions. Change the outside factors and check the resulting equality. The workbench and its 3D chart share accepted inputs. Rotate the chart to inspect the same coordinate plane; camera motion does not change the equation.\",\n        \"reflection\": \"An equation is not solved by changing only part of one side. In 3x + 5 = 20, subtracting 5 gives 3x = 15 and hence x = 5. If dividing first, the entire equality becomes x + 5/3 = 20/3, which still gives 5. When collecting x terms leaves a zero coefficient, classify the remaining statement rather than dividing by zero. A graph is a finite view of the relation; the exact algebra establishes its solution set.\"\n      }\n"
+        },
+        {
+          "start": 3701,
+          "end": 3702,
+          "before": "          \"id\": \"math.3.slope.model\",\n",
+          "after": "          \"id\": \"math.3.slope-algebra-functions\",\n"
+        },
+        {
+          "start": 3703,
+          "end": 3706,
+          "before": "          \"renderer\": \"concept-lab\",\n          \"title\": \"Rise, run and intercept\",\n          \"instructions\": \"Change rise, run and intercept to explore a straight line.\",\n",
+          "after": "          \"renderer\": \"algebra-functions-lab\",\n          \"title\": \"Slope and Lines · equations and graphs\",\n          \"instructions\": \"Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.\",\n"
+        },
+        {
+          "start": 3710,
+          "end": 3725,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Compute signed rise and run from two distinct points.\",\n        \"Construct a line from a slope and a point or from Ax + By = C.\",\n        \"Find intercepts and evaluate a relation at a chosen x.\",\n        \"Distinguish horizontal and vertical lines without division by zero.\",\n        \"Construct parallel and perpendicular lines through a chosen point.\",\n        \"Separate a mathematical line from the physical domain and units of an application.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"Slope measures change in y divided by change in x. For two distinct points, m = (y₂ − y₁)/(x₂ − x₁) when the denominator is nonzero. The signs matter: a negative slope falls as x increases. A horizontal line has slope zero, while a vertical line has no finite slope. The form Ax + By = C includes both cases without pretending that every relation is a function y(x).\",\n        \"worked_example\": \"The line through (1, 2) and (4, 11) has rise 9 and run 3, so its slope is 3. A line of slope 4 through (2, 3) satisfies y − 3 = 4(x − 2), or y = 4x − 5; at x = 5 it has y = 15. For 2x + 3y = 12, rearranging gives y = −2x/3 + 4, with slope −2/3 and intercepts (0, 4) and (6, 0). A perpendicular to a line of slope 3 has slope −1/3. Horizontal and vertical lines form a perpendicular pair and require their own classification, not a numerical reciprocal of zero.\",\n        \"activity\": \"Choose two points, a slope and point, or a general equation. Read the exact signed rise/run and intercepts, then evaluate the relation at another x. Try horizontal and vertical cases. Construct a parallel or perpendicular relation through a specified point, including a parallel that is actually the same line. Use the tank example to distinguish a rate from a starting value. Changes update both coordinate views together.\",\n        \"reflection\": \"For V = 200 − 8t, the coefficient −8 means a loss of 8 litres per minute; 200 litres is the initial amount. A mathematical line extends indefinitely, but this simple draining model only describes nonnegative volume for 0 ≤ t ≤ 25. The 2D graph uses equal coordinate scales. The 3D chart retains the same coordinates in its plane, but an oblique camera view changes apparent angles. Use the 2D graph or exact equations to judge perpendicularity. The equation 0x + 0y = 0 describes every point, and 0x + 0y = 1 describes none; neither defines a unique line or a slope. One repeated point alone does not determine a line.\"\n      }\n"
+        },
+        {
+          "start": 3994,
+          "end": 3995,
+          "before": "          \"id\": \"math.3.quadratics.model\",\n",
+          "after": "          \"id\": \"math.3.quadratics-algebra-functions\",\n"
+        },
+        {
+          "start": 3996,
+          "end": 3999,
+          "before": "          \"renderer\": \"concept-lab\",\n          \"title\": \"Vertex, turning point and roots\",\n          \"instructions\": \"Move the vertex and change the opening direction to explore real roots.\",\n",
+          "after": "          \"renderer\": \"algebra-functions-lab\",\n          \"title\": \"Quadratic Equations · equations and graphs\",\n          \"instructions\": \"Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.\",\n"
+        },
+        {
+          "start": 4003,
+          "end": 4018,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Relate general coefficients ax² + bx + c to a parabola and its opening direction.\",\n        \"Compute the exact vertex and completed-square form.\",\n        \"Classify real roots using the discriminant, including repeated and irrational roots.\",\n        \"Connect root sums and products to the coefficients.\",\n        \"Apply algebraic roots to the physical constraints of a problem.\",\n        \"Classify the lower-degree relation when a is zero.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"A quadratic function has the form f(x) = ax² + bx + c with a nonzero. Its graph is a parabola. Completing the square gives a(x − h)² + k, where h = −b/(2a) and k = c − b²/(4a). These coordinates need not be integers. The vertex is a minimum when a is positive and a maximum when a is negative.\",\n        \"worked_example\": \"For x² − 5x + 6, the factorization (x − 2)(x − 3) gives roots 2 and 3. Its vertex is (5/2, −1/4), so the displayed parabola needs fractional coordinates. The discriminant b² − 4ac tells whether there are two, one repeated, or no real roots. For x² + kx + 9, a repeated root requires k² − 36 = 0, so k = 6 or k = −6. Completing the square in x² + 6x + 1 gives (x + 3)² − 8. A ball with h(t) = −5t² + 30t has roots 0 and 6: launch and return to the ground, with its highest point at t = 3. Expanding a(x − r₁)(x − r₂) shows that r₁ + r₂ = −b/a and r₁r₂ = c/a, counting multiplicity. Thus the roots of x² − 7x + 10 sum to 7 and multiply to 10. These coefficient identities also hold for complex roots; a negative discriminant still means no real x-axis crossings.\",\n        \"activity\": \"Reproduce the illustrated quadratic and inspect its exact fractional vertex. Compare positive, zero and negative discriminants; distinguish a repeated root from two distinct roots. Try the irrational-root example and compare its exact radical expressions with approximate plot markers. Work through the projectile and rectangle examples. Set a to zero and observe the explicit change to a linear or constant relation.\",\n        \"reflection\": \"The quadratic formula solves an algebraic equation; the context decides which roots are physically meaningful. A rectangle with width x, length x + 3 and area 40 satisfies x² + 3x − 40 = 0. Its roots are 5 and −8, but only 5 is a positive width. A negative discriminant means no real roots, not that the function has no values. When a = 0, the quadratic formula no longer applies; solve the lower-degree relation instead. The chart is sampled with a stated error bound, while the ledger preserves exact expressions.\"\n      }\n"
+        },
+        {
+          "start": 4294,
+          "end": 4295,
+          "before": "          \"id\": \"math.3.polynomials.model\",\n",
+          "after": "          \"id\": \"math.3.polynomials-algebra-functions\",\n"
+        },
+        {
+          "start": 4296,
+          "end": 4299,
+          "before": "          \"renderer\": \"concept-lab\",\n          \"title\": \"Factors, multiplicity and coefficients\",\n          \"instructions\": \"Move cubic roots, merge them, and compare factors with expanded coefficients.\",\n",
+          "after": "          \"renderer\": \"algebra-functions-lab\",\n          \"title\": \"Polynomials · equations and graphs\",\n          \"instructions\": \"Choose a worked example or enter exact integers, fractions and decimals. Inspect the calculation ledger, then compare the same accepted state in the coordinate graph and linked 3D chart.\",\n"
+        },
+        {
+          "start": 4303,
+          "end": 4318,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Expand and add polynomials by collecting coefficients of equal powers.\",\n        \"Derive quadratic factors from coefficients where real factors exist.\",\n        \"Distinguish supplied roots from roots that have been solved for.\",\n        \"Divide polynomials and verify P = Q × quotient + remainder.\",\n        \"Use the remainder theorem for division by a linear factor.\",\n        \"Relate degree, leading sign and root multiplicity to graph behavior.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"A polynomial is a finite sum of coefficients times nonnegative integer powers of x. Its degree is the largest power with a nonzero coefficient; the zero polynomial has no ordinary finite degree. Multiplication distributes every term and collects equal powers. Division by a nonzero polynomial produces a quotient and a remainder that is zero or has lower degree than the divisor.\",\n        \"worked_example\": \"Expanding (x + 3)(x − 2) gives x² + x − 6. The degree of (x³ + 1)(x² − x) is 5 because its leading product is x⁵. From coefficients, x² − 9 factors as (x − 3)(x + 3), and x² + 7x + 12 factors as (x + 3)(x + 4). If the roots 1, 2 and 3 are given with leading coefficient 1, expanding their factors yields x³ − 6x² + 11x − 6. Dividing x³ − 2x + 5 by x − 2 gives quotient x² + 2x + 2 and remainder 9; substituting x = 2 into the original polynomial also gives 9.\",\n        \"activity\": \"Use separate investigations for expansion from given roots, quadratic factoring from coefficients, addition, multiplication and division. Inspect the exact coefficient and division ledgers, and compare the resulting polynomial with its graph. Try repeated roots, positive even-degree leading terms and negative odd-degree leading terms. Change a highest coefficient to zero and watch the degree change. Attempt a zero divisor to see why division cannot proceed.\",\n        \"reflection\": \"Far from the origin, the leading nonzero term determines end behavior. A positive degree-four polynomial rises at both ends; a negative degree-three polynomial rises to the left and falls to the right. A supplied factor (x − r) guarantees a root at r, and its multiplicity determines crossing or touching. Coefficient-driven factoring here is explicitly limited to degree at most two; expansion from supplied roots is a different operation. P and Q accept degree at most four each, so multiplication may produce degree eight. Visible graph bounds do not establish global end behavior—the leading-term argument does.\"\n      }\n"
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "aa4c2f14591b3fcd358a07ac05a4c7a4c472e3aabc8cc50c930aa60556f8d3f8",
+      "after_sha256": "4ebcf44fd98c9e05ccc9d1560438dcecfda166d72f717343d00f7c36842cc484",
+      "changes": [
+        {
+          "start": 205,
+          "end": 210,
+          "before": "      \"family\": \"balance\",\n      \"title\": \"Equal-arm balance · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Linear Equations: Use a physical equality comparison to discuss which changes preserve or break a balance; signed numbers and algebraic symbols need the lesson’s separate definitions.\",\n      \"mode\": \"context\"\n",
+          "after": "      \"family\": \"algebra-functions-linear\",\n      \"title\": \"Linked algebra coordinate chart · 3D inspection\",\n      \"instructions\": \"Change the algebra in the linked workbench, then rotate this chart to inspect the same coordinate plane. Camera controls preserve the accepted equation and graph.\",\n      \"context\": \"This chart uses the same accepted algebraic state as the workbench. Both coordinate directions use one scale; special-point markers identify positions rather than quantities.\",\n      \"mode\": \"model\"\n"
+        },
+        {
+          "start": 213,
+          "end": 217,
+          "before": "      \"family\": \"surface\",\n      \"title\": \"Coordinate surface · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Slope and Lines: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.\",\n",
+          "after": "      \"family\": \"algebra-functions-slope\",\n      \"title\": \"Linked algebra coordinate chart · 3D inspection\",\n      \"instructions\": \"Change the algebra in the linked workbench, then rotate this chart to inspect the same coordinate plane. Camera controls preserve the accepted equation and graph.\",\n      \"context\": \"This chart uses the same accepted algebraic state as the workbench. Both coordinate directions use one scale; special-point markers identify positions rather than quantities.\",\n"
+        },
+        {
+          "start": 229,
+          "end": 233,
+          "before": "      \"family\": \"surface\",\n      \"title\": \"Coordinate surface · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Quadratic Equations: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.\",\n",
+          "after": "      \"family\": \"algebra-functions-quadratics\",\n      \"title\": \"Linked algebra coordinate chart · 3D inspection\",\n      \"instructions\": \"Change the algebra in the linked workbench, then rotate this chart to inspect the same coordinate plane. Camera controls preserve the accepted equation and graph.\",\n      \"context\": \"This chart uses the same accepted algebraic state as the workbench. Both coordinate directions use one scale; special-point markers identify positions rather than quantities.\",\n"
+        },
+        {
+          "start": 245,
+          "end": 249,
+          "before": "      \"family\": \"surface\",\n      \"title\": \"Coordinate surface · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Polynomials: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.\",\n",
+          "after": "      \"family\": \"algebra-functions-polynomials\",\n      \"title\": \"Linked algebra coordinate chart · 3D inspection\",\n      \"instructions\": \"Change the algebra in the linked workbench, then rotate this chart to inspect the same coordinate plane. Camera controls preserve the accepted equation and graph.\",\n      \"context\": \"This chart uses the same accepted algebraic state as the workbench. Both coordinate directions use one scale; special-point markers identify positions rather than quantities.\",\n"
+        }
+      ]
+    },
+    "data/radiology/nextbrain-reference.json": {
+      "before_sha256": "769f550bcfdec6fe85532e1f02a5a53df25ce1faecd2744c1a434b9683f91968",
+      "after_sha256": "d5d1c0432cf5691aae8316fc93099c07a55766c72608d36935368ebfc556ffc2",
+      "changes": [
+        {
+          "start": 29,
+          "end": 31,
+          "before": "      \"bytes\": 13620,\n      \"sha256\": \"aec69df347f00b2f41f8e1bf7d49e8c96e913c273e5f773a4877ad34beacb0b7\"\n",
+          "after": "      \"bytes\": 13854,\n      \"sha256\": \"717c65c4bb9976f52ca04526ce4698c38276afb1a646787010804df084c6de40\"\n"
+        }
+      ]
+    },
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "678a640f261ee1994798ab2177a5dcf68525dd41e6e8226dbb05f42d4271b0d6",
+      "after_sha256": "83695c191269ae7258c51cde705d520a796fab911fecd042dec642e7a7bfbe90",
+      "changes": [
+        {
+          "start": 85452,
+          "end": 85506,
+          "before": "        \"source_native_inspectors\": null\n",
+          "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"openear-zeta-native-reference\",\n            \"title\": \"OpenEar ZETA: matched CBCT, independent masks and original surfaces\",\n            \"modality\": \"Registered source CBCT, independent source-mask schematics and original author surfaces\",\n            \"coordinate_context\": \"prepared-specimen-source-world-mm\",\n            \"src\": \"/app/anatomy/openear-zeta-native/index.html\",\n            \"manifest_url\": \"/app/anatomy/openear-zeta-native/manifest.json\",\n            \"sha256\": \"1dbeca05316b0677d09e536fc45fd17eb8a5c0fe4e0023b92114bb89e6e69930\",\n            \"manifest_sha256\": \"4337a7bf103fc6d53cb438338aa12c7eeca468091122f95fe0eda7314c680cc9\",\n            \"bound_source_ids\": [\n              \"openear-zeta-native-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false,\n            \"source_url\": \"https://zenodo.org/records/1473724\",\n            \"publication_url\": \"https://pmc.ncbi.nlm.nih.gov/articles/PMC6326113/\",\n            \"license\": \"CC BY 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"https://creativecommons.org/licenses/by/4.0/legalcode\",\n              \"attribution_url\": \"/app/anatomy/openear-zeta-native/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true\n            },\n            \"caption\": \"Explore both supplied registered CBCT volumes, all 13 independent segmentation channels, the separate full Bone mask and all original source surfaces in one prepared temporal-bone specimen. Source masks combine CBCT and microscopy information; overlay presence does not establish CBCT detectability. Overlaps and source islands are retained. This does not establish all fine reporting anatomy, image-specific visibility, physiological findings or patient registration.\",\n            \"attribution\": \"Sieber, Daniel Manuel, Erfurt, Peter, John, Samuel, Ribeiro dos Santos, Gabriel, Schurzig, Daniel, Sørensen, Mads Sølvsten, Lenarz, Thomas\\nThe OpenEar library, ZETA specimen. Zenodo record 1473724; DOI 10.5281/zenodo.1473724.\\nhttps://zenodo.org/records/1473724\\n\\nSource data and derived viewer assets: Creative Commons Attribution 4.0 International.\\nhttps://creativecommons.org/licenses/by/4.0/\\n\\nPrimer derivations: lossless native-plane repacking, reversible independent-mask bit encoding, source component navigation, and bounded transport of all original float32 positions and original face indices. No source values, overlapping masks or original triangles are removed. Display normals/shading and mask colours are visualization choices, not original photographic tissue colour. Original author processing and specimen preparation remain. Source-coordinate consistency is not independent clinical boundary validation or patient registration. No endorsement by the source authors is implied.\\n\",\n            \"source_grain\": {\n              \"kind\": \"prepared adult cadaveric temporal-bone specimen\",\n              \"specimen\": \"ZETA\",\n              \"originalSegmentationChannels\": 13,\n              \"separateFullBoneMask\": true,\n              \"overlappingOriginalPositions\": 773,\n              \"registeredGridMm\": [\n                0.125,\n                0.125,\n                0.125\n              ],\n              \"reportedAcquisitionVoxelMm\": {\n                \"embedded\": 0.125,\n                \"unembedded\": 0.25\n              },\n              \"effectiveSpatialResolutionEstablished\": false,\n              \"sourceIntensityIsVerifiedHU\": false,\n              \"patientLateralityApproved\": false,\n              \"patientOrientationApproved\": false,\n              \"photographicTextureApplied\": false,\n              \"nativeSourceTriangles\": 7349910\n            }\n          }\n        ]\n"
+        },
+        {
+          "start": 86677,
+          "end": 86731,
+          "before": "        \"source_native_inspectors\": null\n",
+          "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"openear-zeta-native-reference\",\n            \"title\": \"OpenEar ZETA: matched CBCT, independent masks and original surfaces\",\n            \"modality\": \"Registered source CBCT, independent source-mask schematics and original author surfaces\",\n            \"coordinate_context\": \"prepared-specimen-source-world-mm\",\n            \"src\": \"/app/anatomy/openear-zeta-native/index.html\",\n            \"manifest_url\": \"/app/anatomy/openear-zeta-native/manifest.json\",\n            \"sha256\": \"1dbeca05316b0677d09e536fc45fd17eb8a5c0fe4e0023b92114bb89e6e69930\",\n            \"manifest_sha256\": \"4337a7bf103fc6d53cb438338aa12c7eeca468091122f95fe0eda7314c680cc9\",\n            \"bound_source_ids\": [\n              \"openear-zeta-native-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false,\n            \"source_url\": \"https://zenodo.org/records/1473724\",\n            \"publication_url\": \"https://pmc.ncbi.nlm.nih.gov/articles/PMC6326113/\",\n            \"license\": \"CC BY 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"https://creativecommons.org/licenses/by/4.0/legalcode\",\n              \"attribution_url\": \"/app/anatomy/openear-zeta-native/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true\n            },\n            \"caption\": \"Explore both supplied registered CBCT volumes, all 13 independent segmentation channels, the separate full Bone mask and all original source surfaces in one prepared temporal-bone specimen. Source masks combine CBCT and microscopy information; overlay presence does not establish CBCT detectability. Overlaps and source islands are retained. This does not establish all fine reporting anatomy, image-specific visibility, physiological findings or patient registration.\",\n            \"attribution\": \"Sieber, Daniel Manuel, Erfurt, Peter, John, Samuel, Ribeiro dos Santos, Gabriel, Schurzig, Daniel, Sørensen, Mads Sølvsten, Lenarz, Thomas\\nThe OpenEar library, ZETA specimen. Zenodo record 1473724; DOI 10.5281/zenodo.1473724.\\nhttps://zenodo.org/records/1473724\\n\\nSource data and derived viewer assets: Creative Commons Attribution 4.0 International.\\nhttps://creativecommons.org/licenses/by/4.0/\\n\\nPrimer derivations: lossless native-plane repacking, reversible independent-mask bit encoding, source component navigation, and bounded transport of all original float32 positions and original face indices. No source values, overlapping masks or original triangles are removed. Display normals/shading and mask colours are visualization choices, not original photographic tissue colour. Original author processing and specimen preparation remain. Source-coordinate consistency is not independent clinical boundary validation or patient registration. No endorsement by the source authors is implied.\\n\",\n            \"source_grain\": {\n              \"kind\": \"prepared adult cadaveric temporal-bone specimen\",\n              \"specimen\": \"ZETA\",\n              \"originalSegmentationChannels\": 13,\n              \"separateFullBoneMask\": true,\n              \"overlappingOriginalPositions\": 773,\n              \"registeredGridMm\": [\n                0.125,\n                0.125,\n                0.125\n              ],\n              \"reportedAcquisitionVoxelMm\": {\n                \"embedded\": 0.125,\n                \"unembedded\": 0.25\n              },\n              \"effectiveSpatialResolutionEstablished\": false,\n              \"sourceIntensityIsVerifiedHU\": false,\n              \"patientLateralityApproved\": false,\n              \"patientOrientationApproved\": false,\n              \"photographicTextureApplied\": false,\n              \"nativeSourceTriangles\": 7349910\n            }\n          }\n        ]\n"
+        },
+        {
+          "start": 186818,
+          "end": 186827,
+          "before": "",
+          "after": "            \"id\": \"module-native-inspectors-rad.5.temporal-bone\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"OpenEar specimen CBCT and anatomy\",\n            \"instructions\": \"Compare both supplied registered CBCT volumes, the independent overlapping segmentation channels, the separate full Bone mask and original author surfaces. Read specimen preparation, source sampling and correspondence limits. The overlay does not establish that every labelled structure is resolved in CBCT, and source coordinates are not verified patient directions.\",\n            \"investigation_ids\": [\n              \"ra.ct-temporal-bone\"\n            ]\n          },\n          {\n"
+        },
+        {
+          "start": 187015,
+          "end": 187016,
+          "before": "      \"module_contract_sha256\": \"203c1da355981baa85ae5d228cdd019d204b5a364ed33b334e990acb9378d5f6\",\n",
+          "after": "      \"module_contract_sha256\": \"91595da6c47cfd75150b5645a07b3bf74445708bdc27ba83c097ec2ce187ff53\",\n"
+        },
+        {
+          "start": 188656,
+          "end": 188665,
+          "before": "",
+          "after": "            \"id\": \"module-native-inspectors-rad.5.tinnitus\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"OpenEar specimen CBCT and anatomy\",\n            \"instructions\": \"Compare both supplied registered CBCT volumes, the independent overlapping segmentation channels, the separate full Bone mask and original author surfaces. Read specimen preparation, source sampling and correspondence limits. The overlay does not establish that every labelled structure is resolved in CBCT, and source coordinates are not verified patient directions.\",\n            \"investigation_ids\": [\n              \"ra.tinnitus\"\n            ]\n          },\n          {\n"
+        },
+        {
+          "start": 188843,
+          "end": 188844,
+          "before": "      \"module_contract_sha256\": \"f024eb9485be46a2a2a633d18ec515c230e86d399e34326aa8fd99f5e70fcebd\",\n",
+          "after": "      \"module_contract_sha256\": \"5cc4b21a3d92ca0874f44392fd1f38db705b76aa62252ea55770670f92451e33\",\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "6e1eea5a3bcd4a378cf5fdfd2c538179fba3e70d94d17ae64d041de3beec55b1",
+      "after_sha256": "24a11572be7f544609192ff5bd5010366e985101a0c743fecfa73b029fd8c702",
+      "changes": [
+        {
+          "start": 178,
+          "end": 179,
+          "before": "    \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n",
+          "after": "    \"algebra-functions-lab\", \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n"
+        },
+        {
+          "start": 503,
+          "end": 506,
+          "before": "",
+          "after": "            elif renderer == \"algebra-functions-lab\":\n                if node.get(\"id\") not in {\"math.3.linear\", \"math.3.slope\", \"math.3.quadratics\", \"math.3.polynomials\"} or props != {\"scenario\": node.get(\"id\")}:\n                    raise ValueError(\"{} algebra model has an unknown or cross-lesson scenario\".format(node.get(\"id\")))\n"
+        }
+      ]
+    },
+    "primer/module_media.py": {
+      "before_sha256": "162a30a0988391c0f46f9df36b91b00041e31fc674d85d9916df0f82f83d0b65",
+      "after_sha256": "6cb2fbb5f06345230b8159e37eaaa678cda293184102e95a7ebc78a4c68902bd",
+      "changes": [
+        {
+          "start": 129,
+          "end": 131,
+          "before": "                                    'Original curated thoracic anatomy' if node['id'] == 'rad.5.pleura' else 'Native source anatomy inspection'),\n",
+          "after": "                                    'Original curated thoracic anatomy' if node['id'] == 'rad.5.pleura' else\n                                    'OpenEar specimen CBCT and anatomy' if node['id'] in {'rad.5.temporal-bone', 'rad.5.tinnitus'} else 'Native source anatomy inspection'),\n"
+        },
+        {
+          "start": 141,
+          "end": 143,
+          "before": "",
+          "after": "                                           'Compare both supplied registered CBCT volumes, the independent overlapping segmentation channels, the separate full Bone mask and original author surfaces. Read specimen preparation, source sampling and correspondence limits. The overlay does not establish that every labelled structure is resolved in CBCT, and source coordinates are not verified patient directions.'\n                                           if node['id'] in {'rad.5.temporal-bone', 'rad.5.tinnitus'} else\n"
+        }
+      ]
+    },
+    "primer/nextbrain_reference.py": {
+      "before_sha256": "ad34b3649c6f8947513c7071ee2f6b4393b9287f20fc69404a3523eee6a3efc7",
+      "after_sha256": "d6474d8e83d9762a9c6914e48d41b755e3290c7757982990f5b6955296c35fd6",
+      "changes": [
+        {
+          "start": 11,
+          "end": 12,
+          "before": "REGISTRY_SHA256 = '769f550bcfdec6fe85532e1f02a5a53df25ce1faecd2744c1a434b9683f91968'\n",
+          "after": "REGISTRY_SHA256 = 'd5d1c0432cf5691aae8316fc93099c07a55766c72608d36935368ebfc556ffc2'\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "10d0142aa3662dd1133280822bfb97e007853e22ea41233eaf495d459e0b769f",
+      "after_sha256": "70e407423c430ccce2e656065b74dabf45bf4d8695cd4a5356592bb33e078ef0",
+      "changes": [
+        {
+          "start": 3553,
+          "end": 3555,
+          "before": "                     \"base-ten-core.js\", \"base-ten-lab.js\", \"base-ten-lab.css\", \"base-ten-spatial.js\"):\n",
+          "after": "                     \"base-ten-core.js\", \"base-ten-lab.js\", \"base-ten-lab.css\", \"base-ten-spatial.js\",\n                     \"algebra-functions-core.js\", \"algebra-functions-lab.js\", \"algebra-functions-lab.css\", \"algebra-functions-spatial.js\"):\n"
+        },
+        {
+          "start": 3965,
+          "end": 3980,
+          "before": "",
+          "after": "@app.api_route(\"/app/anatomy/openear-zeta-native/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def openear_native_reference_delivery(asset: str, request: Request):\n    from .openear_native_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file\n    src = PREFIX + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:\n        return JSONResponse({'detail': 'Unknown OpenEar native reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(asset)\n    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\").replace(\"connect-src 'self';\", \"connect-src 'self' \" + BLOB_HOST + \";\")\n    return response\n\n\n"
+        }
+      ]
+    },
+    "primer/source_native_inspectors.py": {
+      "before_sha256": "7bca9e444ee6283660d9d96942d436a335aad4d41327e8a45b5416760cd35298",
+      "after_sha256": "902f09a4eb777a92a9a984db4d0b344d2ec973ef738179737dd8f51e72c025f6",
+      "changes": [
+        {
+          "start": 110,
+          "end": 113,
+          "before": "",
+          "after": "    from .openear_native_reference import references as openear_references\n    for identifier, entries in openear_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+        }
+      ]
+    },
+    "web/anatomy/nextbrain/viewer.js": {
+      "before_sha256": "aec69df347f00b2f41f8e1bf7d49e8c96e913c273e5f773a4877ad34beacb0b7",
+      "after_sha256": "717c65c4bb9976f52ca04526ce4698c38276afb1a646787010804df084c6de40",
+      "changes": [
+        {
+          "start": 53,
+          "end": 54,
+          "before": "let program,uniforms,attribute;\n",
+          "after": "let program,uniforms,attribute,contextEpoch=0;\n"
+        },
+        {
+          "start": 64,
+          "end": 67,
+          "before": "function release(m){if(m){gl.deleteBuffer(m.positions);gl.deleteBuffer(m.indices);}}\n",
+          "after": "// A restored WebGL context owns new resources; stale decode cleanup must not\n// delete opaque buffer handles from an invalidated context.\nfunction release(m){if(m&&m.contextEpoch===contextEpoch&&!gl.isContextLost()){gl.deleteBuffer(m.positions);gl.deleteBuffer(m.indices);}}\n"
+        },
+        {
+          "start": 88,
+          "end": 89,
+          "before": "  const row=manifest.meshParts[code],pending={...row,code,positions:gl.createBuffer(),indices:gl.createBuffer()};\n",
+          "after": "  const row=manifest.meshParts[code],pending={...row,code,contextEpoch,positions:gl.createBuffer(),indices:gl.createBuffer()};\n"
+        },
+        {
+          "start": 123,
+          "end": 124,
+          "before": "canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();meshController?.abort();++meshGeneration;gpu=null;delete document.body.dataset.meshReady;$('mesh-status').textContent='3D context lost. Waiting for recovery.';});\n",
+          "after": "canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();contextEpoch++;meshController?.abort();++meshGeneration;gpu=null;delete document.body.dataset.meshReady;$('mesh-status').textContent='3D context lost. Waiting for recovery.';});\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "62484f6787939554164d80a93d3f7c532de3034183e76c08c289ed91e26c533e",
+      "after_sha256": "d322070f300d8a5646d3c46a36dff0edb26473adeb881604d3f20cb43f5406bc",
+      "changes": [
+        {
+          "start": 2038,
+          "end": 2039,
+          "before": "",
+          "after": "  const temporalCBCT = asset.id === 'openear-zeta-native-reference';\n"
+        },
+        {
+          "start": 2048,
+          "end": 2049,
+          "before": "    radiologySourceLink(exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n",
+          "after": "    radiologySourceLink(temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n"
+        },
+        {
+          "start": 2051,
+          "end": 2052,
+          "before": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI) {\n",
+          "after": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT) {\n"
+        },
+        {
+          "start": 2053,
+          "end": 2054,
+          "before": "    const openLabel = exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n",
+          "after": "    const openLabel = temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "91efb42889c5f02e72d6e605baa642a2c15953ec945a4257fb34085788ea77d5",
+      "after_sha256": "0cae9cc5bda830da233c878f47ec86248de59034990f3d35b2e92048f527bffc",
+      "changes": [
+        {
+          "start": 35,
+          "end": 36,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/algebra-functions-lab.css\">\n"
+        },
+        {
+          "start": 85,
+          "end": 87,
+          "before": "",
+          "after": "  <script src=\"/app/algebra-functions-core.js\"></script>\n  <script src=\"/app/algebra-functions-spatial.js\"></script>\n"
+        },
+        {
+          "start": 133,
+          "end": 134,
+          "before": "",
+          "after": "  <script src=\"/app/algebra-functions-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "191633ab4f1dcfb6aeb010689736a4a3819098813f72277fd07e385a722f87b1",
+      "after_sha256": "ebe2a7611ea7f7bfb17c04295103b7cde99c7b707907723caf2e90f913fc2e74",
+      "changes": [
+        {
+          "start": 6169,
+          "end": 6170,
+          "before": "",
+          "after": "    'algebra-functions-lab': (item, hooks) => window.PrimerAlgebraFunctionsLab?.render(item, hooks) || null,\n"
+        }
+      ]
+    },
+    "web/lesson-state.js": {
+      "before_sha256": "aac296f9901ed929474ba2f76d781f3bca8cf2ed5b79d039c71974451cfaa8d8",
+      "after_sha256": "6e322202244c25f70097fe53a7c1b91d2d797ec59545622d7c49fa43e0740871",
+      "changes": [
+        {
+          "start": 3,
+          "end": 4,
+          "before": "  const allowed = new Set(['math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory']);\n",
+          "after": "  const allowed = new Set(['math.3.linear', 'math.3.slope', 'math.3.quadratics', 'math.3.polynomials', 'math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory']);\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "4f4e3874cf058c6fa6a670aca8fd98f0081004e19bd2d730cd41e8aa61be6633",
+      "after_sha256": "b8f72d82b77cfd173bf64b3a140ce0b2720a8fe76cf31d58cfe4714c31ba5e6d",
+      "changes": [
+        {
+          "start": 73,
+          "end": 93,
+          "before": "",
+          "after": "\n  const algebraFunctionsBindings = {\n  \"module.math.3.linear\": [\n    \"algebra-functions-linear\",\n    \"Linear Equations\"\n  ],\n  \"module.math.3.slope\": [\n    \"algebra-functions-slope\",\n    \"Slope and Lines\"\n  ],\n  \"module.math.3.quadratics\": [\n    \"algebra-functions-quadratics\",\n    \"Quadratic Equations\"\n  ],\n  \"module.math.3.polynomials\": [\n    \"algebra-functions-polynomials\",\n    \"Polynomials\"\n  ]\n};\n  if (window.PrimerAlgebraFunctionsSpatialFamilies) for (const [scenario, [family]] of Object.entries(algebraFunctionsBindings)) families[family] = window.PrimerAlgebraFunctionsSpatialFamilies[scenario.slice(7)];\n"
+        },
+        {
+          "start": 1002,
+          "end": 1004,
+          "before": "",
+          "after": "    if ((Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family.startsWith('algebra-functions-'))\n        && (!Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family !== algebraFunctionsBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== algebraFunctionsBindings[p.scenario][1])) return false;\n"
+        }
+      ]
+    }
+  }
+}

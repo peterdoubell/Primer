@@ -176,7 +176,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-topology-lab", "physics-relativity-lab", "math-algebra-lab", "physics-quantum-info-lab", "physics-qft-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
-    "base-ten-lab", "fraction-equivalence-lab", "fraction-arithmetic-lab", "atom-element-builder", "cell-microscope",
+    "algebra-functions-lab", "base-ten-lab", "fraction-equivalence-lab", "fraction-arithmetic-lab", "atom-element-builder", "cell-microscope",
     "counterexample-lab", "function-composition-lab", "circulation-route-lab",
     "allele-segregation-lab",
     "truth-table-lab", "stack-queue-lab", "matrix-transform-lab", "linear-algebra-lab",
@@ -501,6 +501,9 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "algorithm-tracer":
                 if props != {"scenario": "jam-sandwich"}:
                     raise ValueError("{} algorithm tracer has an unknown scenario".format(node.get("id")))
+            elif renderer == "algebra-functions-lab":
+                if node.get("id") not in {"math.3.linear", "math.3.slope", "math.3.quadratics", "math.3.polynomials"} or props != {"scenario": node.get("id")}:
+                    raise ValueError("{} algebra model has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "base-ten-lab":
                 if node.get("id") not in {"math.1.place-value", "math.1.addition", "math.1.subtraction", "math.1.multiplication", "math.1.division"} or props != {"scenario": node.get("id")}:
                     raise ValueError("{} base-ten model has an unknown or cross-lesson scenario".format(node.get("id")))

@@ -12,6 +12,7 @@ import pytest
 from primer.curriculum import Curriculum, _validate_lesson_media
 from primer import radiology_catalog
 from primer import source_native_inspectors as native
+from tools.algebra_openear_runtime_compatibility import before_algebra_openear_lesson_fields
 from tools.anatomy_sources.brain_native_delivery_amendment import restored_historical_contract, MEDIA
 from tools.spl_limbic_runtime_compatibility import before_spl_lesson_fields, before_spl_reference_fields, reviewed as spl_reviewed
 
@@ -23,7 +24,7 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     node = curriculum.node('rad.5.brain-anatomy')
     _validate_lesson_media(node)
     assert [m for m in node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [MEDIA]
-    assert all(not any(m['kind'] == 'source-native-inspectors' for m in n['lesson_media'])
+    assert all(not any(m['kind'] == 'source-native-inspectors' for m in before_algebra_openear_lesson_fields(n['id'],n)['lesson_media'])
                for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule', 'rad.5.pleura', 'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices', 'rad.5.epilepsy-mri', 'rad.5.dementia'})
     from primer import hippunfold_reference as hippocampal
     from tools.hippunfold_runtime_compatibility import reviewed

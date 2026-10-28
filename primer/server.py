@@ -3551,7 +3551,8 @@ def app_shell():
                      "math-probability-lab.js", "math-probability-lab.css", "speech-chunks.js", "physics-buoyancy-lab.js", "physics-buoyancy-lab.css", "physics-thermal-lab.js", "physics-thermal-lab.css", "physics-phase-lab.js", "physics-phase-lab.css", "math-measure-lab.js", "math-measure-lab.css", "physics-cycle-lab.js", "physics-cycle-lab.css", "math-operator-lab.js", "math-operator-lab.css", "physics-ensemble-lab.js", "physics-ensemble-lab.css", "math-curvature-lab.js", "math-curvature-lab.css", "physics-constraints-lab.js", "physics-constraints-lab.css", "spatial-fidelity.js", "spatial-quantum-information.js", "spatial-algebra.js", "spatial-logic.js", "spatial-number-theory.js", "math-systems-lab.js", "math-systems-lab.css", "math-number-theory-lab.js", "math-number-theory-lab.css", "number-theory-diagrams.js", "number-theory-diagrams.css", "spatial-number-theory-relations.js", "spatial-maxwell.js", "spatial-cosmology.js", "math-logic-lab.js", "math-logic-lab.css", "physics-maxwell-lab.js", "physics-maxwell-lab.css", "physics-cosmology-lab.js", "physics-cosmology-lab.css", "lesson-state.js", "math-topology-lab.js", "math-topology-lab.css", "math-algebra-lab.js", "math-algebra-lab.css", "physics-qft-lab.js", "physics-qft-lab.css", "spatial-qft.js", "physics-quantum-info-lab.js", "physics-quantum-info-lab.css", "physics-relativity-lab.js", "physics-relativity-lab.css", "math-complex-lab.js", "math-complex-lab.css", "physics-quantum-lab.js", "physics-quantum-lab.css", "math-convergence-lab.js", "math-convergence-lab.css", "math-numerical-lab.js", "math-numerical-lab.css",
                      "decimal-core.js", "decimal-lab.js", "decimal-lab.css", "decimal-spatial.js",
                      "ratio-core.js", "ratio-lab.js", "ratio-lab.css", "ratio-spatial.js",
-                     "base-ten-core.js", "base-ten-lab.js", "base-ten-lab.css", "base-ten-spatial.js"):
+                     "base-ten-core.js", "base-ten-lab.js", "base-ten-lab.css", "base-ten-spatial.js",
+                     "algebra-functions-core.js", "algebra-functions-lab.js", "algebra-functions-lab.css", "algebra-functions-spatial.js"):
         html = html.replace("/app/" + filename, "/app/" + filename + "?v=" + _asset_tag(filename))
     html = html.replace("/app/app.js", "/app/app.js?v=" + _asset_tag("app.js"))
     return HTMLResponse(html, headers={"Cache-Control": "no-cache"})
@@ -3956,6 +3957,21 @@ async def nextbrain_reference_delivery(asset: str, request: Request):
     references()
     validate_file(asset)
     response = await app.state.source_static.get_response('anatomy/nextbrain/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")
+    return response
+
+
+@app.api_route("/app/anatomy/openear-zeta-native/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def openear_native_reference_delivery(asset: str, request: Request):
+    from .openear_native_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:
+        return JSONResponse({'detail': 'Unknown OpenEar native reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
     response.headers['Cache-Control'] = 'private, no-store'
     if asset == 'index.html':
         response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")

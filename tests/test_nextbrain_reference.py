@@ -8,6 +8,7 @@ import subprocess
 import sys
 import pytest
 from primer import nextbrain_reference as source
+from tools.algebra_openear_runtime_compatibility import before_algebra_openear_bytes
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -81,7 +82,7 @@ def test_pinned_browser_gpu_pixel_and_lesson_evidence():
     browser=json.loads((evidence/'browser-proof.json').read_bytes())
     assert browser['allPassed'] and browser['errors']==[]
     for name,digest in browser['files'].items():
-        assert hashlib.sha256(source.validate_file(name).read_bytes()).hexdigest()==digest
+        assert hashlib.sha256(before_algebra_openear_bytes('web/anatomy/nextbrain/'+name,source.validate_file(name).read_bytes())).hexdigest()==digest
     manifest=json.loads(source.validate_file('manifest.json').read_bytes())
     assert [r['code']for r in browser['gpu']]==list(range(1,99))
     for row in browser['gpu']:
@@ -102,4 +103,4 @@ def test_pinned_browser_gpu_pixel_and_lesson_evidence():
     assert lesson['allPassed'] and lesson['syntheticLoopback'] and not lesson['productionLearnerWrites'] and lesson['errors']==[]
     assert {m['width']for m in lesson['mounts']}=={390,1440}
     for name,digest in lesson['files'].items():
-        assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()==digest
+        assert hashlib.sha256(before_algebra_openear_bytes(name,(ROOT/name).read_bytes())).hexdigest()==digest

@@ -555,6 +555,11 @@ function collectRemainingModels() {
           if (wave) waveEntries++; else probabilityEntries++;
           continue;
         }
+        if (media.renderer === 'algebra-functions-lab') {
+          assert.ok(['math.3.linear','math.3.slope','math.3.quadratics','math.3.polynomials'].includes(lesson.id));
+          assert.deepEqual(media.props,{scenario:lesson.id});
+          continue; // Authenticated linked-algebra reader and exact oracles cover this renderer.
+        }
         if (media.renderer === 'base-ten-lab') {
           assert.ok(["math.1.place-value", "math.1.addition", "math.1.subtraction", "math.1.multiplication", "math.1.division"].includes(lesson.id));
           assert.equal(media.kind, 'model'); assert.deepEqual(media.props, {scenario:lesson.id});

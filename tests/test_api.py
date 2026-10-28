@@ -1398,7 +1398,7 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
             assert media[-1]['props'] == {'scenario': 'math.5.logic.diagonal-models-proof'}
         assert [entry['kind'] for entry in media] == expected_kinds
         model = authored_media(illustrated.json())[1]
-        assert model['renderer'] == 'concept-lab'
+        assert model['renderer'] == ('algebra-functions-lab' if node_id=='math.3.slope' else 'concept-lab')
         assert model['props'] == {'scenario': node_id}
 
     graph = client.get('/api/curriculum').json()
@@ -2187,8 +2187,18 @@ def test_the_answer_key_is_not_simply_published(client, onboarded):
     n = client.get("/api/curriculum/node/math.3.linear").json()
     assert "quiz" not in n, "the bank must not ship with the lesson"
     assert n.get("question_count", 0) > 0, "the count is fine to publish"
-    blob = json.dumps(n)
     import primer.server as srv
+    # Authored teaching may explain the same mathematics as an assessment.
+    # The bank, keys and explanations must still be absent from the payload.
+    assert n['lesson'] == srv.curr.nodes['math.3.linear']['lesson']
+    def no_bank_fields(value):
+        if isinstance(value, dict):
+            assert not {'quiz', 'answer', 'explain'} & set(value)
+            for child in value.values(): no_bank_fields(child)
+        elif isinstance(value, list):
+            for child in value: no_bank_fields(child)
+    no_bank_fields(n)
+    blob = json.dumps({k:v for k,v in n.items() if k != 'lesson'})
     for item in srv.curr.nodes["math.3.linear"]["quiz"]:
         assert str(item.get("answer", "")) not in blob or len(str(item.get("answer", ""))) < 2
         assert item.get("explain", "zzz") not in blob
