@@ -6167,6 +6167,7 @@
       const reference = window.PrimerRadiologyReferenceModels;
       return reference ? reference.render(reference.specification(item.props?.node_id), hooks) : null;
     },
+    'vector-components-lab': (item, hooks) => window.PrimerVectorComponentsLab?.render(item, hooks) || null,
     'geometry-measures-lab': (item, hooks) => window.PrimerGeometryMeasuresLab?.render(item, hooks) || null,
     'coordinate-plane-lab': (item, hooks) => window.PrimerCoordinatePlaneLab?.render(item, hooks) || null,
     'algebra-functions-lab': (item, hooks) => window.PrimerAlgebraFunctionsLab?.render(item, hooks) || null,
