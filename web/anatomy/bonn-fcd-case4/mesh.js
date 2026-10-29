@@ -1,4 +1,4 @@
-import {payload,decode} from './transport.js';
+import {payload,decode,payloadPrefix} from './transport.js';
 export function installMesh(manifest){
 const $=id=>document.getElementById(id),state={yaw:.3,pitch:.2,zoom:1};let gpu,meshController,meshGeneration=0,contextEpoch=0;
 const canvas=$('mesh'),gl=canvas.getContext('webgl2',{preserveDrawingBuffer:true,antialias:true});
@@ -38,7 +38,7 @@ async function loadMesh(){
  if(!gl||gl.isContextLost()){$('mesh-status').textContent='3D requires WebGL 2. MRI, labels and comparisons remain available.';return;}
  const epoch=contextEpoch;let pending;
  try{
-  $('mesh-status').textContent='Loading complete source boundary…';const bytes=await payload('/payload/',row.file,{bytes:row.compressedBytes,sha256:row.compressedSHA256},null,signal),raw=await decode(bytes,row.bytes,row.sha256);if(signal.aborted||generation!==meshGeneration||gl.isContextLost()||epoch!==contextEpoch)return;
+  $('mesh-status').textContent='Loading complete source boundary…';const bytes=await payload(payloadPrefix,row.file,{bytes:row.compressedBytes,sha256:row.compressedSHA256},null,signal),raw=await decode(bytes,row.bytes,row.sha256);if(signal.aborted||generation!==meshGeneration||gl.isContextLost()||epoch!==contextEpoch)return;
   const view=new DataView(raw.buffer,raw.byteOffset,raw.byteLength),magic=String.fromCharCode(...raw.slice(0,4)),nv=view.getUint32(4,true),nt=view.getUint32(8,true);if(magic!=='HVX1'||nv!==row.vertices||nt!==row.triangles||view.getUint32(12,true)!==0||raw.length!==16+nv*12+nt*12)throw Error('Unexpected mesh layout');
   const xyz=new Float32Array(nv*3),indices=new Uint32Array(nt*3);for(let i=0;i<xyz.length;i++)xyz[i]=view.getFloat32(16+i*4,true);for(let i=0;i<indices.length;i++)indices[i]=view.getUint32(16+nv*12+i*4,true);if(xyz.some(x=>!Number.isFinite(x))||indices.some(x=>x>=nv))throw Error('Invalid source geometry');
   const lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];for(let i=0;i<nv;i++)for(let a=0;a<3;a++){lo[a]=Math.min(lo[a],xyz[i*3+a]);hi[a]=Math.max(hi[a],xyz[i*3+a]);}

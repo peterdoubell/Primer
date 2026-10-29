@@ -15,3 +15,7 @@ The local reader now shows upright native oblique planes using an exact display-
 ## Hosted payload delivery
 
 All ten runtime objects (79,020,140 bytes) and all five original source files have been uploaded to the existing public Blob store. Complete remote readback matched each SHA256 and byte length. `runtime-delivery.json` records the immutable content-addressed URLs. The reader still uses loopback delivery: hosted reader checks and authenticated lesson binding remain pending. The archived upload script records the executed workflow and expects its original research-directory inputs; it is not a standalone deployment command.
+
+## Hosted reader verification
+
+The reader now defaults to the verified immutable Blob prefix. Only a loopback-only test option permits local payload fixtures. Desktop and mobile browser receipts record real hosted responses, exact GPU buffer checks and recovery checks, bound to current reader source hashes. Independent original-NIfTI comparison passes for all 147,456 displayed FLAIR lesion-overlay pixels at each width. Authenticated lesson integration and production deployment are still pending.
