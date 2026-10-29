@@ -146,7 +146,7 @@
     "primer/module_media.py": "3114eb65a9d26a3a3595ff924fd1b3be9bdf3f3ec10f32a1ed44f7e79ecd547f",
     "web/app.js": "16bb880057d7229dcd0ff08c3e75c1c962810ce246a05e18841ebeea7a0e9ccc"
   },
-  "gap": "The bound lattice offers cells and spacing controls, but does not explicitly represent the lesson perimeter, square-unit area, triangle dissection, composite cutout area, or cuboid volume relationships. No dedicated node-specific lab binding was found in module_media.py or app.js.",
+  "gap": "The existing dedicated 1..4 unit cuboid layer activity does not provide interactive perimeter, triangle area, corner-cutout area, equal-perimeter comparison, scaling or centimetre/metre capacity conversion.",
   "requiredNextWork": [
     "Trace perimeter separately from counted square units; vary rectangle dimensions and compare equal-perimeter cases",
     "Show triangle as half of matching base-height rectangle, with perpendicular height explicit",
@@ -156,5 +156,6 @@
     "Verify actual lesson display at desktop and mobile widths without changing existing quiz meaning"
   ],
   "completionClaimed": false,
-  "releaseUnderTestUnchanged": true
+  "releaseUnderTestUnchanged": true,
+  "correction": "Runtime tracing found authored spatial-3d math.2.geometry in web/spatial-math.js, with assembled and separated cuboid layers. module_media.py suppresses the generic lattice companion when an authored spatial-3d item exists. The original lattice-display inference was incorrect. The new activity supplements, rather than replaces, this dedicated layer model."
 }
