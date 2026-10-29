@@ -122,7 +122,7 @@ def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
     assert allowed.status_code == 200
     assert allowed.json()["counts"] == {
         "lessons": 558, "illustrations": 561,
-        "models": 853, "items": 1414,  # Five calibrated whole-number workbenches.
+        "models": 854, "items": 1415,  # Includes the geometry measurement companion.
     }
     assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
             if item.get('renderer') == 'fluids-concept-lab'] == [
