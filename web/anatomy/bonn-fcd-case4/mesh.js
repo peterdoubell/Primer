@@ -54,7 +54,7 @@ $('reset').onclick=()=>{state.yaw=.3;state.pitch=.2;state.zoom=1;$('zoom').value
 canvas.onkeydown=e=>{const d={ArrowLeft:[-.2,0],ArrowRight:[.2,0],ArrowUp:[0,.2],ArrowDown:[0,-.2]}[e.key];if(d){e.preventDefault();rotate(...d);}};
 canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();++contextEpoch;meshController?.abort();++meshGeneration;gpu=null;delete document.body.dataset.meshReady;$('mesh-status').textContent='3D context lost; waiting for recovery.';});
 canvas.addEventListener('webglcontextrestored',()=>{try{setupGL();loadMesh();}catch(e){$('mesh-status').textContent=e.message;}});
-if(gl)setupGL();
+if(gl)try{setupGL();}catch(error){$('mesh-status').textContent='3D unavailable: '+error.message;return {loadMesh(){},draw(){},gl:null,gpu:null};}
 loadMesh();
 return {loadMesh,draw,gl,get gpu(){return gpu;}};
 }
