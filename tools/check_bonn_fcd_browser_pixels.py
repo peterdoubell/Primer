@@ -9,6 +9,6 @@ rows=json.loads((S/'browser-lesion-pixels.json').read_bytes());assert len(rows)=
 for row in rows:
  a=row['axis'];selection=[slice(None)]*3;selection[a]=focus[a];grey=np.floor(255*np.clip(image[tuple(selection)]/350,0,1)+.5);labels=mask[tuple(selection)]==1
  rgb=np.repeat(grey[:,:,None],3,axis=2);rgb[labels]=np.floor(.55*rgb[labels]+.45*np.array([255,100,20])+.5);rgba=np.empty((*grey.shape,4),np.uint8);rgba[:,:,:3]=rgb;rgba[:,:,3]=255
- actual=np.array(row['pixels'],np.uint8).reshape(row['height'],row['width'],4);assert np.array_equal(actual,rgba[::-1]);count+=grey.size
+ actual=np.array(row['pixels'],np.uint8).reshape(row['height'],row['width'],4);assert np.array_equal(actual,rgba.transpose(1,0,2)[::-1]);count+=grey.size
 proof=dict(allPassed=True,sourceLabelledFocusIJK=focus.tolist(),nativePlanes=3,actualBrowserPixelsCompared=count,crosshairsSeparateFromMRI=True,productionVerified=False,clinicalApproval=False)
 (S/'browser-pixel-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps(proof))

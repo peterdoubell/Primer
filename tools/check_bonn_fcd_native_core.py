@@ -13,13 +13,13 @@ with tempfile.TemporaryDirectory() as folder:
    for index in [0,stored.shape[axis]//2,stored.shape[axis]-1]:
     selection=[slice(None)]*3;selection[axis]=index;raw=stored[tuple(selection)];source=d/f'{len(cases)}.bin';source.write_bytes(np.asarray(raw,dtype='<i2').tobytes())
     grey=np.floor(255*np.clip(scaled[tuple(selection)]/350,0,1)+.5).astype(np.uint8);rgba=np.empty((*grey.shape,4),np.uint8);rgba[:,:,:3]=grey[:,:,None];rgba[:,:,3]=255
-    expected.append(rgba[::-1].copy().tobytes());cases.append(dict(volume=v,axis=axis,index=index,file=str(source),output=str(d/f'{len(cases)}.rgba')))
+    expected.append(rgba.transpose(1,0,2)[::-1].copy().tobytes());remaining=[a for a in range(3) if a!=axis];u,w=remaining;codes=nib.aff2axcodes(im.affine);opposite=dict(R='L',L='R',A='P',P='A',S='I',I='S');edges=[opposite[codes[u]],codes[u],codes[w],opposite[codes[w]]];cases.append(dict(volume=v,axis=axis,index=index,file=str(source),output=str(d/f'{len(cases)}.rgba'),edges=edges,uAxis=u,vAxis=w))
  fixture=d/'cases.json';fixture.write_text(json.dumps(cases));script=d/'check.mjs'
  script.write_text('''import fs from 'node:fs';
 const core=await import('data:text/javascript;base64,'+fs.readFileSync(process.argv[2]).toString('base64'));
 const cases=JSON.parse(fs.readFileSync(process.argv[3]));
 for(const c of cases){const raw=fs.readFileSync(c.file),values=core.decodeStored(raw,c.volume.dtype),r=core.renderNative(values,c.volume,c.axis,0,350);fs.writeFileSync(c.output,r.pixels);
-const g=r.geometry;for(const [x,y] of [[0,0],[g.width-1,g.height-1]]){const ijk=core.pixelToVoxel(c.volume,c.axis,c.index,x,y);if(ijk[c.axis]!==c.index||ijk[g.uAxis]!==x||ijk[g.vAxis]!==g.height-1-y)throw Error('Picking mismatch');}}
+const g=r.geometry;if(g.uAxis!==c.uAxis||g.vAxis!==c.vAxis||JSON.stringify(g.edges)!==JSON.stringify(c.edges))throw Error('Header orientation mismatch');for(const [x,y] of [[0,0],[g.width-1,g.height-1]]){const ijk=core.pixelToVoxel(c.volume,c.axis,c.index,x,y);if(ijk[c.axis]!==c.index||ijk[g.uAxis]!==x||ijk[g.vAxis]!==g.height-1-y)throw Error('Picking mismatch');}}
 if(core.annotationAllowed('t1')||!core.annotationAllowed('flair'))throw Error('Registration guard');
 let rejected=false;try{core.renderNative(new Int16Array(1),cases[0].volume,0,10,10);}catch{rejected=true;}if(!rejected)throw Error('Invalid window accepted');
 ''')

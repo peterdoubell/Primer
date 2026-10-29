@@ -2,7 +2,7 @@
 export function planeGeometry(volume, axis) {
   if (!Number.isInteger(axis) || axis < 0 || axis > 2) throw Error('Invalid plane axis');
   const remaining = [0, 1, 2].filter(a => a !== axis);
-  const [vAxis, uAxis] = remaining;
+  const [uAxis, vAxis] = remaining;
   const spacing = a => Math.hypot(...volume.affine.slice(0, 3).map(row => row[a]));
   const direction = (a, positive) => {
     const column = volume.affine.slice(0, 3).map(row => row[a]);
@@ -37,7 +37,7 @@ export function renderNative(values, volume, axis, low, high, labels = null, mod
   if (mode !== 'mri' && !labels) throw Error('Annotation unavailable');
   const pixels = new Uint8ClampedArray(values.length * 4);
   for (let v = 0; v < g.height; v++) for (let u = 0; u < g.width; u++) {
-    const source = v * g.width + u, target = ((g.height - 1 - v) * g.width + u) * 4;
+    const source = u * g.height + v, target = ((g.height - 1 - v) * g.width + u) * 4;
     if (labels && labels[source] !== 0 && labels[source] !== 1) throw Error('Unexpected lesion label');
     const grey = Math.round(255 * Math.max(0, Math.min(1, (values[source] * volume.slope + volume.intercept - low) / (high - low))));
     const on = labels && labels[source] === 1;
