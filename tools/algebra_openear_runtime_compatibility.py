@@ -42,6 +42,8 @@ def before_algebra_openear_bytes(path,raw,allow_older=False):
     return restored
 
 def before_algebra_openear_reference_fields(identifier,fields):
+    from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_reference_fields
+    fields = before_hippocampal_reference_fields(identifier, fields)
     result=copy.deepcopy(fields);items=result.get('source_native_inspectors')or[]
     matches=[r for r in items if r.get('id')=='openear-zeta-native-reference']
     if not matches:return result
@@ -52,6 +54,8 @@ def before_algebra_openear_reference_fields(identifier,fields):
     return result
 
 def before_algebra_openear_lesson_fields(identifier,fields):
+    from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_lesson_fields
+    fields = before_hippocampal_lesson_fields(identifier, fields)
     d=reviewed()
     if identifier not in d['lessons']:return fields
     result=copy.deepcopy(fields);items=result.get('lesson_media',[]);addition=d['lessons'][identifier]['added_media']

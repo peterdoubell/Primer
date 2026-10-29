@@ -3978,6 +3978,21 @@ async def openear_native_reference_delivery(asset: str, request: Request):
     return response
 
 
+@app.api_route("/app/anatomy/dryad-hippocampal-case10/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def hippocampal_rater_reference_delivery(asset: str, request: Request):
+    from .hippocampal_rater_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:
+        return JSONResponse({'detail': 'Unknown hippocampal reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' " + BLOB_HOST + ";")
+    return response
+
+
 async def cardiac_wall_context_delivery(identifier: str, asset: str, request: Request):
     from .cardiac_wall_context import registry, references, validate_file
     group = registry()['groups'][identifier]

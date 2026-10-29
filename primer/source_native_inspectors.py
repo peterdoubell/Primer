@@ -111,4 +111,7 @@ def references():
     from .openear_native_reference import references as openear_references
     for identifier, entries in openear_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .hippocampal_rater_reference import references as hippocampal_references
+    for identifier, entries in hippocampal_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

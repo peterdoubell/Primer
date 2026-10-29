@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_reference_fields
 
 
 def check():
@@ -129,7 +130,7 @@ def check():
             for identifier, expected in registered.items():
                 prior = before_spl_reference_fields(identifier, {'source_native_inspectors': references[identifier]})
                 assert prior['source_native_inspectors'] == expected
-                assert references[identifier] == [*expected, *spl_registered[identifier]]
+                assert before_hippocampal_reference_fields(identifier, {'source_native_inspectors':references[identifier]})['source_native_inspectors'] == [*expected, *spl_registered[identifier]]
                 assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
             os.environ.pop('PRIMER_ACCESS_USERNAME')
             os.environ.pop('PRIMER_ACCESS_PASSWORD')

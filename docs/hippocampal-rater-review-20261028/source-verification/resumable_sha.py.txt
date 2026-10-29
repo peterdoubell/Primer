@@ -1,0 +1,19 @@
+"""Portable block-aligned SHA256 state; arbitrary tails are persisted separately."""
+import sha256
+class ResumableSHA256:
+ def __init__(self,snapshot=None):
+  self.h=sha256.sha256();self.tail=b''
+  if snapshot:
+   self.h.state=(bytes.fromhex(snapshot['state']),snapshot['blockBytes']);self.tail=bytes.fromhex(snapshot['tail'])
+   assert len(self.tail)<64 and self.h.state[1]%64==0
+ def update(self,data):
+  data=self.tail+data;complete=len(data)//64*64
+  # Avoid the extension's repeated large-buffer slicing: feed small blocks.
+  for offset in range(0,complete,4096):self.h.update(data[offset:min(offset+4096,complete)])
+  self.tail=data[complete:]
+ @property
+ def count(self):return self.h.state[1]+len(self.tail)
+ def snapshot(self):
+  state,count=self.h.state;return {'state':state.hex(),'blockBytes':count,'tail':self.tail.hex()}
+ def hexdigest(self):
+  copy=sha256.sha256();copy.state=self.h.state;copy.update(self.tail);return copy.hexdigest()

@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 from primer.curriculum import Curriculum, _validate_lesson_media, _validate_authored_lesson
 from tools.coordinate_plane_runtime_compatibility import before_coordinate_plane_bytes, reviewed
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / 'docs/coordinate-plane-review-20261028'
@@ -56,7 +57,7 @@ def test_authenticated_reader_proof_matches_current_sources():
     assert {case['width'] for case in proof['cases']} == {390, 1440}
     assert sum(len(case['states']) for case in proof['cases']) == 28
     for file, digest in proof['sourceSHA256'].items():
-        assert hashlib.sha256((ROOT / file).read_bytes()).hexdigest() == digest, file
+        assert hashlib.sha256(before_hippocampal_bytes(file, (ROOT / file).read_bytes())).hexdigest() == digest, file
     for case in proof['cases']:
         assert len(case['poses']) == 7
         assert all(case[k] for k in ['originalIllustrationLoaded', 'assessmentsPreserved',

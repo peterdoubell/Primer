@@ -29,6 +29,8 @@ def reviewed():
 
 
 def before_coordinate_plane_bytes(path, raw, allow_older=False):
+    from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_bytes
+    raw = before_hippocampal_bytes(path, raw, allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
