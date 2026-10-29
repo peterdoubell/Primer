@@ -30,3 +30,14 @@ with TestClient(server.app)as client:
     result=subprocess.run([sys.executable,'-c',code],cwd=ROOT,env=env,text=True,capture_output=True,timeout=180)
     assert result.returncode==0,result.stdout+result.stderr
 
+
+def test_authenticated_lesson_current_source_evidence():
+    proof=json.loads((ROOT/'docs/fcd-native-source-review-20261028/lesson/proof.json').read_bytes())
+    assert proof['allPassed'] and proof['browserChecksPassed'] and proof['hostedPixelComparisonPassed']
+    assert proof['hostedPixelsComparedToOriginalNifti']==884736
+    assert proof['syntheticLoopback'] and not proof['productionLearnerWrites'] and not proof['errors']
+    assert {r['width'] for r in proof['mounts']}=={390,1440}
+    for row in proof['mounts']:
+        assert len(row['states'])==3 and row['T1RegistrationGuardVerified'] and row['openedAndClosed']
+    for file,digest in proof['files'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest
+    assert proof['responses'] and all(r['status']==(206 if r['range'] else 200) for r in proof['responses'])

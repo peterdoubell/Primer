@@ -9,7 +9,7 @@ PREFIX='/app/anatomy/'+ATLAS+'/'
 BLOB_HOST='https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com'
 BLOB_PREFIX=BLOB_HOST+'/radiology-native/bonn-fcd-case4-v1.0.6/runtime/'
 REGISTRY=ROOT/'web/anatomy'/ATLAS/'registry.json'
-REGISTRY_SHA256='ccb8eff74e4332fdd4fa970ac8d3f8f54df941cb2cf3974114e5b767da434a0e'
+REGISTRY_SHA256='d060496a8dbe27a3a346704b61397f50644c65fc55ff7bfa36ae7ab0e910d54a'
 AUTHORED=frozenset(['ATTRIBUTION.txt', 'index.html', 'manifest.json', 'mesh.js', 'native-core.js', 'transport.js', 'viewer.css', 'viewer.js'])
 MANIFEST_SHA256='17c57029b09ab6eddfb9648dfdc4df3d570a04d778a90fa37aedec42e39fde6b'
 
