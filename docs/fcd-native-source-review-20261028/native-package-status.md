@@ -11,3 +11,7 @@ Remaining work: reader implementation, native display orientation and pixel chec
 ## Reader progress
 
 The local reader now shows upright native oblique planes using an exact display-axis permutation, with no interpolation. Header-based direction labels and source-scaled pixels are checked against nibabel. It supports FLAIR lesion overlays, source-labelled voxel navigation, separate crosshairs, and the complete 3D lesion surface. GPU buffers are checked against the verified mesh bytes. Desktop and 390-pixel mobile browser checks cover metadata retry, context recovery and invalid-window recovery. These are local checks, not production verification. Hosted delivery, authenticated lesson integration, broader adverse transport checks and release remain outstanding.
+
+## Hosted payload delivery
+
+All ten runtime objects (79,020,140 bytes) and all five original source files have been uploaded to the existing public Blob store. Complete remote readback matched each SHA256 and byte length. `runtime-delivery.json` records the immutable content-addressed URLs. The reader still uses loopback delivery: hosted reader checks and authenticated lesson binding remain pending. The archived upload script records the executed workflow and expects its original research-directory inputs; it is not a standalone deployment command.
