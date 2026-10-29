@@ -19,3 +19,7 @@ All ten runtime objects (79,020,140 bytes) and all five original source files ha
 ## Hosted reader verification
 
 The reader now defaults to the verified immutable Blob prefix. Only a loopback-only test option permits local payload fixtures. Desktop and mobile browser receipts record real hosted responses, exact GPU buffer checks and recovery checks, bound to current reader source hashes. Independent original-NIfTI comparison passes for all 147,456 displayed FLAIR lesion-overlay pixels at each width. Authenticated lesson integration and production deployment are still pending.
+
+## Authenticated route integration
+
+The source descriptor is bound only to `ra.mri-epilepsy`. Nine authored reader files are registered by SHA256 and served through an exact-path authenticated route. The route test passes anonymous rejection, authenticated GET/HEAD byte identity, CSP, private no-store caching, unknown/encoded-path rejection and the actual module API descriptor. The main lesson UI has a dedicated FCD reader button. Full authenticated browser lesson verification, historical source-proof reconciliation, full regression and deployment remain outstanding.
