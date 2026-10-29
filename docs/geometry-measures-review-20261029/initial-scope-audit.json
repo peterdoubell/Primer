@@ -1,0 +1,160 @@
+{
+  "node": {
+    "id": "math.2.geometry",
+    "title": "Area, Perimeter and Volume",
+    "stage": 2,
+    "goal": "Measure flat shapes and solids.",
+    "articles": [
+      "Area",
+      "Perimeter",
+      "Volume"
+    ],
+    "practice": "area-perimeter",
+    "quiz": [
+      {
+        "kind": "numeric",
+        "prompt": "A rectangle measures 8 cm by 5 cm. What is its perimeter in centimeters?",
+        "answer": "26",
+        "explain": "Perimeter = 2 x (8 + 5) = 2 x 13 = 26 cm."
+      },
+      {
+        "kind": "choice",
+        "prompt": "A rectangular box measures 4 cm by 3 cm by 2 cm. What is its volume?",
+        "answer": "24 cm^3",
+        "explain": "Volume = length x width x height = 4 x 3 x 2 = 24 cm^3.",
+        "choices": [
+          "26 cm^3",
+          "18 cm^3",
+          "9 cm^3",
+          "24 cm^3"
+        ]
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A triangle has a base of 10 cm and a height of 6 cm. What is its area in square centimetres?",
+        "answer": "30",
+        "explain": "The area of a triangle is half the base times the height: (10 x 6) / 2 = 30."
+      },
+      {
+        "kind": "choice",
+        "prompt": "Two rectangles each have a perimeter of 20 cm. One measures 8 cm by 2 cm, the other 5 cm by 5 cm. Which has the larger area?",
+        "answer": "The 5 by 5 square",
+        "choices": [
+          "The 5 by 5 square",
+          "The 8 by 2 rectangle",
+          "Their areas are equal",
+          "Perimeter alone fixes the area"
+        ],
+        "explain": "The square covers 25 square cm and the long thin rectangle only 16, so equal perimeters do not mean equal areas."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A cube has a volume of 27 cubic centimetres. How long is one edge, in centimetres?",
+        "answer": "3",
+        "explain": "The volume of a cube is edge x edge x edge, and 3 x 3 x 3 = 27, so the edge is 3 cm."
+      },
+      {
+        "kind": "choice",
+        "prompt": "An L-shaped floor is made by cutting a 2 m by 3 m corner out of a 6 m by 5 m rectangle. What is the floor's area?",
+        "answer": "24 m^2",
+        "choices": [
+          "36 m^2",
+          "30 m^2",
+          "6 m^2",
+          "24 m^2"
+        ],
+        "explain": "The big rectangle is 30 square metres and the cut-out corner is 6, leaving 30 - 6 = 24 square metres."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A square has an area of 49 square centimetres. What is its perimeter in centimetres?",
+        "answer": "28",
+        "explain": "The side is the number that squares to 49, which is 7, and the perimeter is 4 x 7 = 28 cm."
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A cuboid measures 5 cm by 2 cm by 4 cm. What is its volume in cubic centimetres?",
+        "answer": "40",
+        "explain": "Volume of a cuboid is length x width x height: 5 x 2 x 4 = 40 cubic centimetres."
+      },
+      {
+        "kind": "choice",
+        "prompt": "A student doubles both sides of a 3 cm by 4 cm rectangle and expects the area to double. Predict what really happens to the area.",
+        "answer": "It becomes four times as large",
+        "choices": [
+          "It becomes four times as large",
+          "It becomes twice as large",
+          "It becomes eight times bigger",
+          "It stays the same size"
+        ],
+        "explain": "The new rectangle is 6 cm by 8 cm, so the area goes from 12 to 48 square centimetres - both directions doubled, so the area grew by 2 x 2."
+      },
+      {
+        "kind": "choice",
+        "prompt": "Which unit suits the amount of water a fish tank can hold?",
+        "answer": "Litres",
+        "choices": [
+          "Litres",
+          "Square metres",
+          "Centimetres",
+          "Metres"
+        ],
+        "explain": "Litres are a practical unit for a fish tank's liquid capacity. Cubic units also measure volume, while square units measure area and plain centimetres measure length."
+      }
+    ],
+    "prereqs": [
+      "math.1.addition",
+      "math.1.multiplication",
+      "math.1.measurement",
+      "math.0.shapes"
+    ],
+    "lesson_media": [
+      {
+        "id": "measurement-dimensions-plate",
+        "kind": "illustration",
+        "src": "/app/illustrations/sapling/math/math-2-geometry-800.webp",
+        "srcset": "/app/illustrations/sapling/math/math-2-geometry-800.webp 800w, /app/illustrations/sapling/math/math-2-geometry-1600.webp 1600w",
+        "alt": "An eight-by-two rectangle and a five-by-five square both have perimeter twenty but areas sixteen and twenty-five. Two four-by-three layer plans represent the twenty-four unit cubes in a four-by-three-by-two cuboid.",
+        "caption": "Length uses units, area square units, and volume cubic units.",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "id": "math-2-geometry-spatial-3d",
+        "kind": "model",
+        "renderer": "spatial-3d",
+        "title": "Build volume one layer at a time",
+        "instructions": "Change the three whole-number dimensions, separate the layers, then rotate to count hidden cubes.",
+        "props": {
+          "scenario": "math.2.geometry"
+        }
+      }
+    ]
+  },
+  "existingModel": {
+    "node_id": "math.2.geometry",
+    "family": "lattice",
+    "title": "Crystal lattice \u00b7 3D study",
+    "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+    "context": "Area, Perimeter and Volume: Inspect edges, equal distances and repeated positions in three perpendicular directions.",
+    "mode": "model"
+  },
+  "evidenceSHA256": {
+    "data/curriculum/01-mathematics.json": "f3e28e26d9b713473fb6a8e8a43b7ea107f4f7f202779b0bf154785cb733d759",
+    "data/module-models.json": "0fa89c3f9e880494c6400806303ef5c172bb58484a15e124821083a3cbb66c70",
+    "web/spatial-module-objects.js": "5d2c1be5d11b539f1348f3fe99515a454f950e1c888b0224bfbb5bf9fe7b5bf3",
+    "primer/module_media.py": "3114eb65a9d26a3a3595ff924fd1b3be9bdf3f3ec10f32a1ed44f7e79ecd547f",
+    "web/app.js": "16bb880057d7229dcd0ff08c3e75c1c962810ce246a05e18841ebeea7a0e9ccc"
+  },
+  "gap": "The bound lattice offers cells and spacing controls, but does not explicitly represent the lesson perimeter, square-unit area, triangle dissection, composite cutout area, or cuboid volume relationships. No dedicated node-specific lab binding was found in module_media.py or app.js.",
+  "requiredNextWork": [
+    "Trace perimeter separately from counted square units; vary rectangle dimensions and compare equal-perimeter cases",
+    "Show triangle as half of matching base-height rectangle, with perpendicular height explicit",
+    "Model L-shaped area as retained unit squares after a corner cutout",
+    "Count complete cuboid unit cubes by layers; preserve units and cubic scaling",
+    "Link 2D and 3D states, keyboard controls, readouts and source-independent arithmetic/geometry oracles",
+    "Verify actual lesson display at desktop and mobile widths without changing existing quiz meaning"
+  ],
+  "completionClaimed": false,
+  "releaseUnderTestUnchanged": true
+}
