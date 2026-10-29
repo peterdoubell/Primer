@@ -31,7 +31,7 @@ with TestClient(server.app)as client:
     assert result.returncode==0,result.stdout+result.stderr
 
 
-def test_authenticated_lesson_current_source_evidence():
+def test_authenticated_lesson_exact_pre_geometry_source_evidence():
     proof=json.loads((ROOT/'docs/fcd-native-source-review-20261028/lesson/proof.json').read_bytes())
     assert proof['allPassed'] and proof['browserChecksPassed'] and proof['hostedPixelComparisonPassed']
     assert proof['hostedPixelsComparedToOriginalNifti']==884736
@@ -39,7 +39,8 @@ def test_authenticated_lesson_current_source_evidence():
     assert {r['width'] for r in proof['mounts']}=={390,1440}
     for row in proof['mounts']:
         assert len(row['states'])==3 and row['T1RegistrationGuardVerified'] and row['openedAndClosed']
-    for file,digest in proof['files'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest
+    from tools.geometry_measures_runtime_compatibility import before_geometry_measures_bytes
+    for file,digest in proof['files'].items():assert hashlib.sha256(before_geometry_measures_bytes(file,(ROOT/file).read_bytes())).hexdigest()==digest
     assert proof['responses'] and all(r['status']==(206 if r['range'] else 200) for r in proof['responses'])
 
 

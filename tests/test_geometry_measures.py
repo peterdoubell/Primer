@@ -27,3 +27,13 @@ def test_authenticated_geometry_lesson_evidence_matches_current_sources():
         assert row['originalIllustrationLoaded'] and row['invalidInputClearsGeometry']
     for file,digest in proof['sourceSHA256'].items():
         assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
+
+def test_exact_geometry_integration_inverse_rejects_unrelated_changes():
+    import hashlib
+    import pytest
+    from tools.geometry_measures_runtime_compatibility import reviewed,before_geometry_measures_bytes
+    for file,row in reviewed()['files'].items():
+        raw=(ROOT/file).read_bytes();before=before_geometry_measures_bytes(file,raw)
+        assert hashlib.sha256(before).hexdigest()==row['before_sha256']
+        assert before_geometry_measures_bytes(file,before)==before
+        with pytest.raises(ValueError):before_geometry_measures_bytes(file,raw+b'foreign edit')
