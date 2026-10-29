@@ -111972,6 +111972,45 @@
               "combinedLabelsRetained": true,
               "fullPublisherArchiveSHA256Verified": true
             }
+          },
+          {
+            "id": "bonn-fcd-case4-native-reference",
+            "title": "Focal cortical dysplasia: native FLAIR and source lesion annotation",
+            "modality": "FLAIR MRI, separate T1 MRI and source lesion boundary",
+            "coordinate_context": "single-participant-original-FLAIR-ROI-world-mm",
+            "src": "/app/anatomy/bonn-fcd-case4/index.html",
+            "manifest_url": "/app/anatomy/bonn-fcd-case4/manifest.json",
+            "sha256": "dc73a2663298b928d27b60c8439bb67e250df989cdc4996ca9e870452ca69848",
+            "manifest_sha256": "17c57029b09ab6eddfb9648dfdc4df3d570a04d778a90fa37aedec42e39fde6b",
+            "bound_source_ids": [
+              "bonn-fcd-case4-native-reference"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false,
+            "source_url": "https://doi.org/10.18112/openneuro.ds004199.v1.0.6",
+            "publication_url": "https://doi.org/10.1038/s41597-023-02386-7",
+            "license": "CC0-1.0",
+            "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "source_grant": {
+              "publisher_explicitly_applies_license_to_data": true,
+              "terms_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+              "attribution_url": "/app/anatomy/bonn-fcd-case4/ATTRIBUTION.txt",
+              "marked_derived_version": true
+            },
+            "caption": "Inspect native FLAIR and its source lesion annotation from one presurgical epilepsy research participant. Source metadata reports left-frontal FCD IIb and MRI suspicion; Primer does not infer diagnosis from appearance. T1 remains a separate source grid with unverified registration. All native planes and lesion-cell faces are retained. This example does not establish complete epilepsy reporting coverage.",
+            "attribution": "An open presurgery MRI dataset of people with epilepsy and focal cortical dysplasia type II\nFabiane Schuch, Lennart Walger, Matthias Schmitz, Bastian David, Tobias Bauer, Antonia Harms, Laura Fischbach, Freya Schulte, Martin Schidlowski, Johannes Reiter, Felix Bitzer, Randi von Wrede, Attila Rácz, Tobias Baumgartner, Valeri Borger, Matthias Schneider, Achim Flender, Albert Becker, Hartmut Vatter, Bernd Weber, Louisa Specht-Riemenschneider, Alexander Radbruch, Rainer Surges, Theodor Rüber\nDataset: https://doi.org/10.18112/openneuro.ds004199.v1.0.6\nPublication: https://doi.org/10.1038/s41597-023-02386-7\nLicense: CC0 (source dataset_description.json).\nSelected source: sub-00004. Original samples and affines retained.\nPrimer produces lossless native-plane packs and complete voxel-cell lesion boundaries.\nT1 registration to FLAIR is unverified. This reference is not a current-patient reconstruction.\n",
+            "source_grain": {
+              "sourceParticipant": "sub-00004",
+              "nativePlanes": 2192,
+              "annotationReferenceVolume": "flair",
+              "T1RegistrationVerified": false,
+              "sourceBoundaryTriangles": 4028,
+              "sourceComponents26": 1,
+              "effectiveSpatialResolutionEstablished": false
+            }
           }
         ]
       },

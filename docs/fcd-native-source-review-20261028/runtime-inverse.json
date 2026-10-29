@@ -1,0 +1,118 @@
+{
+  "base_commit": "333d4819aa600304dd087cf6a6bb85802fc97e90",
+  "scope": "exact_bonn_fcd_reference_integration",
+  "bindings": [
+    "ra.mri-epilepsy"
+  ],
+  "lesson": "rad.5.epilepsy-mri",
+  "files": {
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "7b79e01cf6a5d74d6090551ad8ad1e8fd6217321721e76e96a3d36bf813f4857",
+      "after_sha256": "678cd68db2fe50b0511da493f02e07a46ceeb39a64fabdc10f4e6154ca1f1623",
+      "changes": [
+        {
+          "start": 111974,
+          "end": 112013,
+          "before": "",
+          "after": "          },\n          {\n            \"id\": \"bonn-fcd-case4-native-reference\",\n            \"title\": \"Focal cortical dysplasia: native FLAIR and source lesion annotation\",\n            \"modality\": \"FLAIR MRI, separate T1 MRI and source lesion boundary\",\n            \"coordinate_context\": \"single-participant-original-FLAIR-ROI-world-mm\",\n            \"src\": \"/app/anatomy/bonn-fcd-case4/index.html\",\n            \"manifest_url\": \"/app/anatomy/bonn-fcd-case4/manifest.json\",\n            \"sha256\": \"dc73a2663298b928d27b60c8439bb67e250df989cdc4996ca9e870452ca69848\",\n            \"manifest_sha256\": \"17c57029b09ab6eddfb9648dfdc4df3d570a04d778a90fa37aedec42e39fde6b\",\n            \"bound_source_ids\": [\n              \"bonn-fcd-case4-native-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false,\n            \"source_url\": \"https://doi.org/10.18112/openneuro.ds004199.v1.0.6\",\n            \"publication_url\": \"https://doi.org/10.1038/s41597-023-02386-7\",\n            \"license\": \"CC0-1.0\",\n            \"license_url\": \"https://creativecommons.org/publicdomain/zero/1.0/\",\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"https://creativecommons.org/publicdomain/zero/1.0/legalcode\",\n              \"attribution_url\": \"/app/anatomy/bonn-fcd-case4/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true\n            },\n            \"caption\": \"Inspect native FLAIR and its source lesion annotation from one presurgical epilepsy research participant. Source metadata reports left-frontal FCD IIb and MRI suspicion; Primer does not infer diagnosis from appearance. T1 remains a separate source grid with unverified registration. All native planes and lesion-cell faces are retained. This example does not establish complete epilepsy reporting coverage.\",\n            \"attribution\": \"An open presurgery MRI dataset of people with epilepsy and focal cortical dysplasia type II\\nFabiane Schuch, Lennart Walger, Matthias Schmitz, Bastian David, Tobias Bauer, Antonia Harms, Laura Fischbach, Freya Schulte, Martin Schidlowski, Johannes Reiter, Felix Bitzer, Randi von Wrede, Attila R\u00e1cz, Tobias Baumgartner, Valeri Borger, Matthias Schneider, Achim Flender, Albert Becker, Hartmut Vatter, Bernd Weber, Louisa Specht-Riemenschneider, Alexander Radbruch, Rainer Surges, Theodor R\u00fcber\\nDataset: https://doi.org/10.18112/openneuro.ds004199.v1.0.6\\nPublication: https://doi.org/10.1038/s41597-023-02386-7\\nLicense: CC0 (source dataset_description.json).\\nSelected source: sub-00004. Original samples and affines retained.\\nPrimer produces lossless native-plane packs and complete voxel-cell lesion boundaries.\\nT1 registration to FLAIR is unverified. This reference is not a current-patient reconstruction.\\n\",\n            \"source_grain\": {\n              \"sourceParticipant\": \"sub-00004\",\n              \"nativePlanes\": 2192,\n              \"annotationReferenceVolume\": \"flair\",\n              \"T1RegistrationVerified\": false,\n              \"sourceBoundaryTriangles\": 4028,\n              \"sourceComponents26\": 1,\n              \"effectiveSpatialResolutionEstablished\": false\n            }\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "a6127a7a0185f8acebdd0bda0d6a77e012889d56e369282355cd3596c6a5450a",
+      "after_sha256": "963b2024dedaa0e67efe55177825b4da1771793e47579f09af04fce76b3c9924",
+      "changes": [
+        {
+          "start": 3995,
+          "end": 4010,
+          "before": "",
+          "after": "@app.api_route(\"/app/anatomy/bonn-fcd-case4/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def bonn_fcd_reference_delivery(asset: str, request: Request):\n    from .bonn_fcd_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file\n    src = PREFIX + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:\n        return JSONResponse({'detail': 'Unknown FCD reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(asset)\n    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\").replace(\"connect-src 'self';\", \"connect-src 'self' \" + BLOB_HOST + \";\")\n    return response\n\n\n"
+        }
+      ]
+    },
+    "primer/source_native_inspectors.py": {
+      "before_sha256": "cdd6ca60c9d2b73c5784665f4a4fd097323dfb83071a0d714c4a7f4786670b3d",
+      "after_sha256": "12a0077bf54f1a2f007e67acd2a00d2a317221701b1a794e1cff27ae59eff9fe",
+      "changes": [
+        {
+          "start": 116,
+          "end": 119,
+          "before": "",
+          "after": "    from .bonn_fcd_reference import references as fcd_references\n    for identifier, entries in fcd_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "8727930bf91446ef2b066e2df26c86e93346222a9035cb03586c8ca9b7228cad",
+      "after_sha256": "16bb880057d7229dcd0ff08c3e75c1c962810ce246a05e18841ebeea7a0e9ccc",
+      "changes": [
+        {
+          "start": 2039,
+          "end": 2040,
+          "before": "",
+          "after": "  const fcdMRI = asset.id === 'bonn-fcd-case4-native-reference';\n"
+        },
+        {
+          "start": 2050,
+          "end": 2052,
+          "before": "    radiologySourceLink(hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' \u00b7 ', radiologySourceLink(hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' \u00b7 ',\n",
+          "after": "    radiologySourceLink(fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' \u00b7 ', radiologySourceLink(fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' \u00b7 ',\n"
+        },
+        {
+          "start": 2053,
+          "end": 2054,
+          "before": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters) {\n",
+          "after": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI) {\n"
+        },
+        {
+          "start": 2055,
+          "end": 2056,
+          "before": "    const openLabel = hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n",
+          "after": "    const openLabel = fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n"
+        }
+      ]
+    }
+  },
+  "inspector": {
+    "id": "bonn-fcd-case4-native-reference",
+    "title": "Focal cortical dysplasia: native FLAIR and source lesion annotation",
+    "modality": "FLAIR MRI, separate T1 MRI and source lesion boundary",
+    "coordinate_context": "single-participant-original-FLAIR-ROI-world-mm",
+    "src": "/app/anatomy/bonn-fcd-case4/index.html",
+    "manifest_url": "/app/anatomy/bonn-fcd-case4/manifest.json",
+    "sha256": "dc73a2663298b928d27b60c8439bb67e250df989cdc4996ca9e870452ca69848",
+    "manifest_sha256": "17c57029b09ab6eddfb9648dfdc4df3d570a04d778a90fa37aedec42e39fde6b",
+    "bound_source_ids": [
+      "bonn-fcd-case4-native-reference"
+    ],
+    "clinical_approval": false,
+    "fine_anatomical_approval": false,
+    "current_patient_registration": false,
+    "normal_anatomical_atlas_approval": false,
+    "complete_reporting_anatomy_approved": false,
+    "source_url": "https://doi.org/10.18112/openneuro.ds004199.v1.0.6",
+    "publication_url": "https://doi.org/10.1038/s41597-023-02386-7",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_grant": {
+      "publisher_explicitly_applies_license_to_data": true,
+      "terms_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+      "attribution_url": "/app/anatomy/bonn-fcd-case4/ATTRIBUTION.txt",
+      "marked_derived_version": true
+    },
+    "caption": "Inspect native FLAIR and its source lesion annotation from one presurgical epilepsy research participant. Source metadata reports left-frontal FCD IIb and MRI suspicion; Primer does not infer diagnosis from appearance. T1 remains a separate source grid with unverified registration. All native planes and lesion-cell faces are retained. This example does not establish complete epilepsy reporting coverage.",
+    "attribution": "An open presurgery MRI dataset of people with epilepsy and focal cortical dysplasia type II\nFabiane Schuch, Lennart Walger, Matthias Schmitz, Bastian David, Tobias Bauer, Antonia Harms, Laura Fischbach, Freya Schulte, Martin Schidlowski, Johannes Reiter, Felix Bitzer, Randi von Wrede, Attila R\u00e1cz, Tobias Baumgartner, Valeri Borger, Matthias Schneider, Achim Flender, Albert Becker, Hartmut Vatter, Bernd Weber, Louisa Specht-Riemenschneider, Alexander Radbruch, Rainer Surges, Theodor R\u00fcber\nDataset: https://doi.org/10.18112/openneuro.ds004199.v1.0.6\nPublication: https://doi.org/10.1038/s41597-023-02386-7\nLicense: CC0 (source dataset_description.json).\nSelected source: sub-00004. Original samples and affines retained.\nPrimer produces lossless native-plane packs and complete voxel-cell lesion boundaries.\nT1 registration to FLAIR is unverified. This reference is not a current-patient reconstruction.\n",
+    "source_grain": {
+      "sourceParticipant": "sub-00004",
+      "nativePlanes": 2192,
+      "annotationReferenceVolume": "flair",
+      "T1RegistrationVerified": false,
+      "sourceBoundaryTriangles": 4028,
+      "sourceComponents26": 1,
+      "effectiveSpatialResolutionEstablished": false
+    }
+  },
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

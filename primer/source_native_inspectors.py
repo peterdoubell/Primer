@@ -114,4 +114,7 @@ def references():
     from .hippocampal_rater_reference import references as hippocampal_references
     for identifier, entries in hippocampal_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .bonn_fcd_reference import references as fcd_references
+    for identifier, entries in fcd_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result

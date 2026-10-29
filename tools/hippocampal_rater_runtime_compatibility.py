@@ -21,6 +21,8 @@ def reviewed():
     return data
 
 def before_hippocampal_bytes(path,raw,allow_older=False):
+    from tools.bonn_fcd_runtime_compatibility import before_fcd_bytes
+    raw=before_fcd_bytes(path,raw,allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]
@@ -37,6 +39,8 @@ def before_hippocampal_bytes(path,raw,allow_older=False):
     return restored
 
 def before_hippocampal_reference_fields(identifier,fields):
+    from tools.bonn_fcd_runtime_compatibility import before_fcd_reference_fields
+    fields=before_fcd_reference_fields(identifier,fields)
     result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);addition=reviewed()['inspector'];matches=[r for r in items if r.get('id')==addition['id']]
     if not matches:return result
     if identifier!='ra.mri-epilepsy' or matches!=[addition]:raise ValueError('Unreviewed hippocampal descriptor')

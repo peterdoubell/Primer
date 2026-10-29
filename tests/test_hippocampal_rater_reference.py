@@ -41,14 +41,15 @@ with TestClient(server.app)as client:
     result=subprocess.run([sys.executable,'-c',code],cwd=ROOT,env=env,text=True,capture_output=True,timeout=180)
     assert result.returncode==0,result.stdout+result.stderr
 
-def test_authenticated_lesson_and_hosted_bytes_match_current_sources():
+def test_authenticated_lesson_evidence_matches_exact_pre_fcd_sources():
     p=json.loads((ROOT/'docs/hippocampal-rater-review-20261028/lesson/proof.json').read_bytes())
     assert p['allPassed'] and p['browserChecksPassed'] and p['hostedPixelComparisonPassed'] and p['hostedPixelsComparedToOriginalNifti']==3291136
     assert p['syntheticLoopback'] and p['productionLearnerWrites'] is False and p['errors']==[]
     assert {r['width']for r in p['mounts']}=={390,1440}
     for row in p['mounts']:
         assert len(row['states'])==8 and row['rawRegistrationGuardVerified'] and row['openedAndClosed']
-    for file,digest in p['files'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
+    from tools.bonn_fcd_runtime_compatibility import before_fcd_bytes
+    for file,digest in p['files'].items():assert hashlib.sha256(before_fcd_bytes(file,(ROOT/file).read_bytes())).hexdigest()==digest,file
     assert p['responses'] and all(r['status']==(206 if r['range']else 200)for r in p['responses'])
 
 def test_historical_inverse_is_exact_and_does_not_extend_approval():
