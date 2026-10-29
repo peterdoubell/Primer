@@ -21,6 +21,8 @@ def reviewed():
     return data
 
 def before_fcd_bytes(path,raw,allow_older=False):
+    from tools.geometry_measures_runtime_compatibility import before_geometry_measures_bytes
+    raw=before_geometry_measures_bytes(path,raw,allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]
