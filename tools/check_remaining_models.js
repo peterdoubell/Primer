@@ -436,6 +436,7 @@ function collectRemainingModels() {
           continue;
         }
         const fullLessonBinding = {
+          'vector-components-lab': ['math.3.vectors','math.3.vectors'],
           'geometry-measures-lab': ['math.2.geometry', 'math.2.geometry'],
           'coordinate-plane-lab': ['math.2.coordinates', 'math.2.coordinates'],
           'math-logic-lab': ['math.5.logic', 'math.5.logic.diagonal-models-proof'],

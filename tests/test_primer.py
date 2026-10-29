@@ -438,6 +438,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         assert len(models) == 1 and models[0]['props'] == {'scenario': nid}
         assert curr.nodes[nid]['stage'] == 1
     expected = {
+        'math.3.vectors': (3, 'vector-components-lab'),
         'math.2.geometry': (2, 'geometry-measures-lab'),
         'math.2.coordinates': (2, 'coordinate-plane-lab'),
         'math.3.linear': (3, 'algebra-functions-lab'),

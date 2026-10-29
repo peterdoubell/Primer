@@ -20,3 +20,12 @@ def test_actual_vector_lesson_evidence_matches_current_sources():
     assert p['workedExamples']==7 and p['invalidRecoveryVerified']
     assert p['originalSpatialModelPresent'] and p['originalIllustrationLoaded']
     for file,digest in p['sourceSHA256'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
+
+def test_exact_vector_inverse_rejects_unrelated_changes():
+    import pytest
+    from tools.vector_components_runtime_compatibility import reviewed,before_vector_components_bytes
+    for file,row in reviewed()['files'].items():
+        raw=(ROOT/file).read_bytes();restored=before_vector_components_bytes(file,raw)
+        assert hashlib.sha256(restored).hexdigest()==row['before_sha256']
+        assert before_vector_components_bytes(file,restored)==restored
+        with pytest.raises(ValueError):before_vector_components_bytes(file,raw+b'foreign change')
