@@ -15,3 +15,15 @@ def test_geometry_activity_preserves_quiz_and_dedicated_layer_view():
         ('geometry-measures-lab',{'scenario':'math.2.geometry'}),
         ('spatial-3d',{'scenario':'math.2.geometry'})]
     assert not any(m['props'].get('family')=='lattice' for m in models)
+
+def test_authenticated_geometry_lesson_evidence_matches_current_sources():
+    import hashlib
+    proof=json.loads((ROOT/'docs/geometry-measures-review-20261029/lesson/proof.json').read_bytes())
+    assert proof['allPassed'] and proof['syntheticLoopback'] and not proof['productionVerified']
+    assert not proof['errors'] and {r['width'] for r in proof['cases']}=={390,1440}
+    for row in proof['cases']:
+        assert len(row['states'])==12 and row['quizItemsPreserved']==10
+        assert row['originalLayerModelPresent'] and row['layerSeparationAndCameraChecked']
+        assert row['originalIllustrationLoaded'] and row['invalidInputClearsGeometry']
+    for file,digest in proof['sourceSHA256'].items():
+        assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
