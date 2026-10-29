@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_lesson_fields, before_hippocampal_reference_fields
 import subprocess
 import sys
 
@@ -43,13 +44,13 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
         # Recover only the exact reviewed SPL lesson wording, then keep the frozen HippUnfold assertion.
         previous_node = before_spl_lesson_fields(lesson_id, companion_node)
         companions = [m for m in previous_node['lesson_media'] if m['kind'] == 'source-native-inspectors']
-        assert [m for m in companion_node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [spl_reviewed()['lessons'][lesson_id]['after']]
+        assert [m for m in before_hippocampal_lesson_fields(lesson_id, companion_node)['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [spl_reviewed()['lessons'][lesson_id]['after']]
         assert companions == reviewed()['lessons'][lesson_id]['added_media']
         assert companions[0]['id'] == 'module-native-inspectors-' + lesson_id
         assert companions[0]['investigation_ids'] == [investigation_id]
         companion_ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve(investigation_id))['radiology_reference']
         assert before_spl_reference_fields(investigation_id, companion_ref)['source_native_inspectors'] == registered[investigation_id]
-        assert companion_ref['source_native_inspectors'] == [*registered[investigation_id], *spl_registered[investigation_id]]
+        assert before_hippocampal_reference_fields(investigation_id, companion_ref)['source_native_inspectors'] == [*registered[investigation_id], *spl_registered[investigation_id]]
         assert [asset['id'] for asset in registered[investigation_id]] == [hippocampal.IDENTIFIER]
     thoracic = curriculum.node('rad.5.pleura')
     thoracic_media, = [m for m in thoracic['lesson_media'] if m['kind'] == 'source-native-inspectors']

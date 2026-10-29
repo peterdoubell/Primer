@@ -129,8 +129,10 @@ def attach_module_media(node):
                                     'Separate cardiac source anatomy contexts' if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else
                                     'Original curated thoracic anatomy' if node['id'] == 'rad.5.pleura' else
                                     'OpenEar specimen CBCT and anatomy' if node['id'] in {'rad.5.temporal-bone', 'rad.5.tinnitus'} else 'Native source anatomy inspection'),
-                          'instructions': ('Compare the original SPL atlas MRI, label-cell boundaries and publisher surfaces with the separate registered HippUnfold reference. Each source retains its own grid, labels and limits; neither is a patient-specific reconstruction or a normal-volume standard.'
-                                           if node['id'] in {'rad.5.epilepsy-mri', 'rad.5.dementia'} else
+                          'instructions': ('Inspect the SPL atlas, registered HippUnfold reference and separate healthy-adult hippocampal study in their own coordinates. Compare both manual hippocampal annotations on their shared prepared mean. Raw repetitions are image-only views with unverified anatomical registration. Source annotations are not a normal-volume standard or a current-patient reconstruction.'
+                                           if node['id'] == 'rad.5.epilepsy-mri' else
+                                           'Compare the original SPL atlas MRI, label-cell boundaries and publisher surfaces with the separate registered HippUnfold reference. Each source retains its own grid, labels and limits; neither is a patient-specific reconstruction or a normal-volume standard.'
+                                           if node['id'] == 'rad.5.dementia' else
                                            'Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
                                            if node['id'] == 'rad.4.stroke' else
                                            'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'

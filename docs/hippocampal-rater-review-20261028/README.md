@@ -2,7 +2,7 @@
 
 This source candidate extends the epilepsy anatomy work with original high-resolution T2 MRI and two manual source annotation sets. It is not complete epilepsy reporting coverage or clinical approval.
 
-Publisher: Clark and Maguire, Dryad DOI 10.5061/dryad.2v6wwpzt3, version 7 (version ID 288011). The publisher API explicitly grants CC0. Its authenticated download API was unavailable without credentials. A public mirror at revision c6f92135179823a6d1ba4ac2f0cd0e4e547bdc28 advertises the identical archive size and SHA-256; label and README bytes independently match publisher fingerprints. Full archive streaming verification is running separately and must pass before publication. Acquired members have CRC verification and fixed SHA-256 fingerprints.
+Publisher: Clark and Maguire, Dryad DOI 10.5061/dryad.2v6wwpzt3, version 7 (version ID 288011). The publisher API explicitly grants CC0. Its authenticated download API was unavailable without credentials. A public mirror at revision c6f92135179823a6d1ba4ac2f0cd0e4e547bdc28 advertises the identical archive size and SHA-256; label and README bytes independently match publisher fingerprints. The complete 13.05 GB archive now matches the publisher SHA256; all 19 selected acquisition ranges also match. Acquired members have CRC verification and fixed SHA-256 fingerprints.
 
 Case 10 was selected because both Main Sample and DICE annotations are supplied for the same MRI. All six original NIfTI files remain intact. The operative sforms agree; inactive qforms in the raw repetitions do not override them. The prepared mean requires its nonunit intensity scale. The separately named 0009 and 0010 raw files are byte-identical and must not be counted as independent image contents. The paper's general 104-partition description differs from this supplied 112-plane grid; no reconciliation is inferred.
 
@@ -14,13 +14,15 @@ The local reader now provides MRI, selected annotations, schematic and disagreem
 
 The original-array browser oracle passed 204 states at 390 and 1440 pixels, comparing all displayed plane pixels and actual GPU buffer bytes. It also checks source-header orientation, screen millimetre scales, camera framing, keyboard zoom scrolling, context recovery, failed-transfer recovery, no-WebGL image fallback and a forced-pending manifest at a non-loopback origin. The first unsigned-image oracle wrapped subtraction; its deterministic reproducer and correction are retained. One desktop readiness timeout was not fully diagnosed; the revised harness records failure state and waits beyond the transport deadline. Subsequent full runs passed.
 
-The first full archive stream ended prematurely at 4.90 GB. The second attempt used bounded ranges but stopped after connection timeouts at 6.68 GB. A third attempt now persists SHA256 state and a small chunk cache, allowing continuation after process or network failure. Its save/restore logic passed 271 independent hashlib comparisons. The prior prefixes must be reread once because those attempts did not persist hash state. No claim of full publisher-archive authentication is made yet.
+The first full archive stream ended prematurely at 4.90 GB. The second attempt used bounded ranges but stopped after connection timeouts at 6.68 GB. The third attempt persisted SHA256 state and a small chunk cache, and completed all 389 chunks. Its save/restore logic passed 271 independent hashlib comparisons. The prior prefixes must be reread once because those attempts did not persist hash state. The final full-archive receipt is retained, including every bounded-range digest.
 
 The transport harness passed 10 cases, including corruption, ignored ranges, oversize responses, caller aborts and deterministic deadlines. Ten adverse browser snapshots verify late decoded data cannot replace a newer selection, restored context, newer slice or a raw image; corrupted geometry is rejected and retry recovers.
 
 The source methods identify the prepared mean as the annotation reference. Overlays and annotation navigation are now restricted to that image. All raw repetitions remain available as images, without assuming anatomical registration from matching file grids. A direct archive-member comparison also confirms the Main Sample and DICE folders contain byte-identical reference images.
 
-Remaining: complete archive authentication, authenticated lesson integration, whole reporting-structure coverage review, then CI and staged deployment verification. This is a local development reader, not a deployed clinical product.
+All 34 runtime objects and eight originals have complete remote readback hashes. The authenticated epilepsy lesson opens and closes the hosted reader at both widths; 176 real Blob responses, source GPU buffers and 3,291,136 rendered pixels were checked. Route tests confirm authentication, canonical paths and narrowly scoped CSP.
+
+Remaining: complete regression and historical-evidence reconciliation, CI and staged deployment verification, then release. Whole reporting-structure coverage remains incomplete. The app changes are not yet deployed.
 
 Primary publication: https://doi.org/10.1038/s41597-023-02449-9
 Publisher data: https://doi.org/10.5061/dryad.2v6wwpzt3

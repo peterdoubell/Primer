@@ -8,6 +8,9 @@ acquisitionPath=D/'dryad-case10-acquisition.json'
 assert sha(acquisitionPath.read_bytes())=='dfab764bc92a28f6366c926cb90eae0201a20acd2c23db00bfb47893ddb5f63b'
 for sourceRow in json.loads(acquisitionPath.read_bytes())['files']:assert sha((D/sourceRow['file']).read_bytes())==sourceRow['sha256']
 packageProof=json.loads((D/'native-package-independent-proof.json').read_bytes());assert packageProof['allPassed'] and packageProof['manifestSHA256']==sha(manifestRaw)
+assert packageProof['archiveSourceAuthenticationPending']==m['fullArchiveVerificationPending']
+if not m['fullArchiveVerificationPending']:
+ receipt=(D/'dryad-stream-verification.json').read_bytes();auth=json.loads(receipt);assert sha(receipt)==m['sourceArchiveAuthentication']['verificationReceiptSHA256'] and auth['matchesPublisherSHA256'] is True and auth['sha256']=='e76586274bba73f64f2355b093da3ae671fb8e77bb62c13528cfac9d4893ba2e'
 def pixels(q):
  axis=q['axis'];idx=q['ijk'][axis];selection=[slice(None)]*3;selection[axis]=idx
  a=np.asarray(images['primary'].dataobj[tuple(selection)]).T[::-1];b=np.asarray(images['second'].dataobj[tuple(selection)]).T[::-1];labels=a if q['rater']=='primary'else b

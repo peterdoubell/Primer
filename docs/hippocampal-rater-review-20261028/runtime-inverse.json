@@ -1,0 +1,184 @@
+{
+  "base_commit": "ba86c0671693da95e9906f2bca5b6252376122e4",
+  "scope": "exact_hippocampal_rater_reference_integration",
+  "bindings": [
+    "ra.mri-epilepsy"
+  ],
+  "lesson": "rad.5.epilepsy-mri",
+  "files": {
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "83695c191269ae7258c51cde705d520a796fab911fecd042dec642e7a7bfbe90",
+      "after_sha256": "7b79e01cf6a5d74d6090551ad8ad1e8fd6217321721e76e96a3d36bf813f4857",
+      "changes": [
+        {
+          "start": 111913,
+          "end": 111974,
+          "before": "",
+          "after": "          },\n          {\n            \"id\": \"dryad-hippocampal-case10-rater-reference\",\n            \"title\": \"Hippocampal T2 MRI: two manual source annotations\",\n            \"modality\": \"Prepared-mean T2 MRI, separate manual annotations and exact source-cell boundaries\",\n            \"coordinate_context\": \"single-participant-source-mean-world-mm\",\n            \"src\": \"/app/anatomy/dryad-hippocampal-case10/index.html\",\n            \"manifest_url\": \"/app/anatomy/dryad-hippocampal-case10/manifest.json\",\n            \"sha256\": \"618e1ba06b66bf9a5cda62d4f45a7991348017ce60e6170e9366bac5348f140e\",\n            \"manifest_sha256\": \"2df71533dd1e3d08c416dc929b3a00cd62d7af449f00b5ae96f88823ea557608\",\n            \"bound_source_ids\": [\n              \"dryad-hippocampal-case10-rater-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false,\n            \"source_url\": \"https://doi.org/10.5061/dryad.2v6wwpzt3\",\n            \"publication_url\": \"https://doi.org/10.1038/s41597-023-02449-9\",\n            \"license\": \"CC0-1.0\",\n            \"license_url\": \"https://creativecommons.org/publicdomain/zero/1.0/\",\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"https://creativecommons.org/publicdomain/zero/1.0/legalcode\",\n              \"attribution_url\": \"/app/anatomy/dryad-hippocampal-case10/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true\n            },\n            \"caption\": \"Inspect the supplied high-resolution T2 mean and two manual hippocampal annotation sets from one healthy-adult research participant. All native planes, components and label-cell boundaries are retained. Compare rater differences without treating either annotation as anatomical truth. Annotations are tied to the prepared mean; raw repetitions remain separate image-only views. This does not establish diagnosis, normal-volume thresholds or complete reporting anatomy.\",\n            \"attribution\": \"Clark, Ian A.; Maguire, Eleanor A. (2023). Release of cognitive and multimodal MRI data including real-world tasks and hippocampal subfield segmentations. Dryad version7, DOI10.5061/dryad.2v6wwpzt3. Source publication: Scientific Data10:540, DOI10.1038/s41597-023-02449-9. CC0-1.0.\\n\\nSelected source: Main Sample participant10 and DICE participant10. Primer adaptations: lossless native-plane transport, separate manual label schematics and complete source voxel-cell boundaries. No additional source resampling, smoothing or component deletion. The prepared mean retains its original intensity scale. Both annotation folders contain identical reference-image bytes. Annotations belong to the prepared mean; raw-repetition anatomical registration is unverified. Files0009 and0010 are byte-identical.\\n\\nThese are research source annotations, not histological truth, a normal-population standard, a current-patient registration or complete clinical reporting coverage. Source combined labels remain combined. The source Cyst category appears only in the reliability annotation and is not independently diagnosed here.\\n\",\n            \"source_grain\": {\n              \"sourceParticipant\": \"10\",\n              \"sourceCohort\": \"healthy-adult research cohort\",\n              \"nativeGridShape\": [\n                328,\n                384,\n                112\n              ],\n              \"sourceGridMm\": [\n                0.5208332538604736,\n                0.5208333134651184,\n                0.5\n              ],\n              \"effectiveSpatialResolutionEstablished\": false,\n              \"annotationReferenceVolume\": \"mean\",\n              \"rawRepetitionAnatomicalRegistrationVerified\": false,\n              \"sourceNiftiFiles\": 6,\n              \"sourceImageFileEntries\": 4,\n              \"uniqueImageContents\": 3,\n              \"manualAnnotationSets\": 2,\n              \"sourceLabelCounts\": {\n                \"primary\": 6,\n                \"second\": 7\n              },\n              \"nativePlanes\": 4944,\n              \"sourceBoundaryMeshes\": 13,\n              \"sourceBoundaryTriangles\": 167796,\n              \"sourceComponents26\": 29,\n              \"combinedLabelsRetained\": true,\n              \"fullPublisherArchiveSHA256Verified\": true\n            }\n"
+        },
+        {
+          "start": 163497,
+          "end": 163498,
+          "before": "            \"instructions\": \"Compare the original SPL atlas MRI, label-cell boundaries and publisher surfaces with the separate registered HippUnfold reference. Each source retains its own grid, labels and limits; neither is a patient-specific reconstruction or a normal-volume standard.\",\n",
+          "after": "            \"instructions\": \"Inspect the SPL atlas, registered HippUnfold reference and separate healthy-adult hippocampal study in their own coordinates. Compare both manual hippocampal annotations on their shared prepared mean. Raw repetitions are image-only views with unverified anatomical registration. Source annotations are not a normal-volume standard or a current-patient reconstruction.\",\n"
+        },
+        {
+          "start": 163666,
+          "end": 163667,
+          "before": "      \"module_contract_sha256\": \"76f3ceec7aebe21b7364375241d9243f6c9c443ad2cd934fdc71f7bf57ffe8b9\",\n",
+          "after": "      \"module_contract_sha256\": \"57736cd73bbaf73301d81de031eeec2d400849ee739c21274df8cad3b0862bd3\",\n"
+        }
+      ]
+    },
+    "primer/module_media.py": {
+      "before_sha256": "6cb2fbb5f06345230b8159e37eaaa678cda293184102e95a7ebc78a4c68902bd",
+      "after_sha256": "3114eb65a9d26a3a3595ff924fd1b3be9bdf3f3ec10f32a1ed44f7e79ecd547f",
+      "changes": [
+        {
+          "start": 131,
+          "end": 135,
+          "before": "                          'instructions': ('Compare the original SPL atlas MRI, label-cell boundaries and publisher surfaces with the separate registered HippUnfold reference. Each source retains its own grid, labels and limits; neither is a patient-specific reconstruction or a normal-volume standard.'\n                                           if node['id'] in {'rad.5.epilepsy-mri', 'rad.5.dementia'} else\n",
+          "after": "                          'instructions': ('Inspect the SPL atlas, registered HippUnfold reference and separate healthy-adult hippocampal study in their own coordinates. Compare both manual hippocampal annotations on their shared prepared mean. Raw repetitions are image-only views with unverified anatomical registration. Source annotations are not a normal-volume standard or a current-patient reconstruction.'\n                                           if node['id'] == 'rad.5.epilepsy-mri' else\n                                           'Compare the original SPL atlas MRI, label-cell boundaries and publisher surfaces with the separate registered HippUnfold reference. Each source retains its own grid, labels and limits; neither is a patient-specific reconstruction or a normal-volume standard.'\n                                           if node['id'] == 'rad.5.dementia' else\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "fe266d2a5c6cb0d3c6349751db198b93aed6a2e0ac2bac7a87653a8257acc6c6",
+      "after_sha256": "a6127a7a0185f8acebdd0bda0d6a77e012889d56e369282355cd3596c6a5450a",
+      "changes": [
+        {
+          "start": 3980,
+          "end": 3995,
+          "before": "",
+          "after": "@app.api_route(\"/app/anatomy/dryad-hippocampal-case10/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def hippocampal_rater_reference_delivery(asset: str, request: Request):\n    from .hippocampal_rater_reference import AUTHORED, ATLAS, PREFIX, BLOB_HOST, references, validate_file\n    src = PREFIX + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in AUTHORED:\n        return JSONResponse({'detail': 'Unknown hippocampal reference asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(asset)\n    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\").replace(\"connect-src 'self';\", \"connect-src 'self' \" + BLOB_HOST + \";\")\n    return response\n\n\n"
+        }
+      ]
+    },
+    "primer/source_native_inspectors.py": {
+      "before_sha256": "902f09a4eb777a92a9a984db4d0b344d2ec973ef738179737dd8f51e72c025f6",
+      "after_sha256": "cdd6ca60c9d2b73c5784665f4a4fd097323dfb83071a0d714c4a7f4786670b3d",
+      "changes": [
+        {
+          "start": 113,
+          "end": 116,
+          "before": "",
+          "after": "    from .hippocampal_rater_reference import references as hippocampal_references\n    for identifier, entries in hippocampal_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "d322070f300d8a5646d3c46a36dff0edb26473adeb881604d3f20cb43f5406bc",
+      "after_sha256": "8727930bf91446ef2b066e2df26c86e93346222a9035cb03586c8ca9b7228cad",
+      "changes": [
+        {
+          "start": 2039,
+          "end": 2040,
+          "before": "",
+          "after": "  const hippocampalRaters = asset.id === 'dryad-hippocampal-case10-rater-reference';\n"
+        },
+        {
+          "start": 2049,
+          "end": 2051,
+          "before": "    radiologySourceLink(temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',\n",
+          "after": "    radiologySourceLink(hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),\n    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',\n"
+        },
+        {
+          "start": 2052,
+          "end": 2053,
+          "before": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT) {\n",
+          "after": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters) {\n"
+        },
+        {
+          "start": 2054,
+          "end": 2055,
+          "before": "    const openLabel = temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n",
+          "after": "    const openLabel = hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n"
+        }
+      ]
+    }
+  },
+  "inspector": {
+    "id": "dryad-hippocampal-case10-rater-reference",
+    "title": "Hippocampal T2 MRI: two manual source annotations",
+    "modality": "Prepared-mean T2 MRI, separate manual annotations and exact source-cell boundaries",
+    "coordinate_context": "single-participant-source-mean-world-mm",
+    "src": "/app/anatomy/dryad-hippocampal-case10/index.html",
+    "manifest_url": "/app/anatomy/dryad-hippocampal-case10/manifest.json",
+    "sha256": "618e1ba06b66bf9a5cda62d4f45a7991348017ce60e6170e9366bac5348f140e",
+    "manifest_sha256": "2df71533dd1e3d08c416dc929b3a00cd62d7af449f00b5ae96f88823ea557608",
+    "bound_source_ids": [
+      "dryad-hippocampal-case10-rater-reference"
+    ],
+    "clinical_approval": false,
+    "fine_anatomical_approval": false,
+    "current_patient_registration": false,
+    "normal_anatomical_atlas_approval": false,
+    "complete_reporting_anatomy_approved": false,
+    "source_url": "https://doi.org/10.5061/dryad.2v6wwpzt3",
+    "publication_url": "https://doi.org/10.1038/s41597-023-02449-9",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_grant": {
+      "publisher_explicitly_applies_license_to_data": true,
+      "terms_url": "https://creativecommons.org/publicdomain/zero/1.0/legalcode",
+      "attribution_url": "/app/anatomy/dryad-hippocampal-case10/ATTRIBUTION.txt",
+      "marked_derived_version": true
+    },
+    "caption": "Inspect the supplied high-resolution T2 mean and two manual hippocampal annotation sets from one healthy-adult research participant. All native planes, components and label-cell boundaries are retained. Compare rater differences without treating either annotation as anatomical truth. Annotations are tied to the prepared mean; raw repetitions remain separate image-only views. This does not establish diagnosis, normal-volume thresholds or complete reporting anatomy.",
+    "attribution": "Clark, Ian A.; Maguire, Eleanor A. (2023). Release of cognitive and multimodal MRI data including real-world tasks and hippocampal subfield segmentations. Dryad version7, DOI10.5061/dryad.2v6wwpzt3. Source publication: Scientific Data10:540, DOI10.1038/s41597-023-02449-9. CC0-1.0.\n\nSelected source: Main Sample participant10 and DICE participant10. Primer adaptations: lossless native-plane transport, separate manual label schematics and complete source voxel-cell boundaries. No additional source resampling, smoothing or component deletion. The prepared mean retains its original intensity scale. Both annotation folders contain identical reference-image bytes. Annotations belong to the prepared mean; raw-repetition anatomical registration is unverified. Files0009 and0010 are byte-identical.\n\nThese are research source annotations, not histological truth, a normal-population standard, a current-patient registration or complete clinical reporting coverage. Source combined labels remain combined. The source Cyst category appears only in the reliability annotation and is not independently diagnosed here.\n",
+    "source_grain": {
+      "sourceParticipant": "10",
+      "sourceCohort": "healthy-adult research cohort",
+      "nativeGridShape": [
+        328,
+        384,
+        112
+      ],
+      "sourceGridMm": [
+        0.5208332538604736,
+        0.5208333134651184,
+        0.5
+      ],
+      "effectiveSpatialResolutionEstablished": false,
+      "annotationReferenceVolume": "mean",
+      "rawRepetitionAnatomicalRegistrationVerified": false,
+      "sourceNiftiFiles": 6,
+      "sourceImageFileEntries": 4,
+      "uniqueImageContents": 3,
+      "manualAnnotationSets": 2,
+      "sourceLabelCounts": {
+        "primary": 6,
+        "second": 7
+      },
+      "nativePlanes": 4944,
+      "sourceBoundaryMeshes": 13,
+      "sourceBoundaryTriangles": 167796,
+      "sourceComponents26": 29,
+      "combinedLabelsRetained": true,
+      "fullPublisherArchiveSHA256Verified": true
+    }
+  },
+  "lessonWrapper": {
+    "before": {
+      "id": "module-native-inspectors-rad.5.epilepsy-mri",
+      "kind": "source-native-inspectors",
+      "title": "MRI and limbic source anatomy",
+      "instructions": "Compare the original SPL atlas MRI, label-cell boundaries and publisher surfaces with the separate registered HippUnfold reference. Each source retains its own grid, labels and limits; neither is a patient-specific reconstruction or a normal-volume standard.",
+      "investigation_ids": [
+        "ra.mri-epilepsy"
+      ]
+    },
+    "after": {
+      "id": "module-native-inspectors-rad.5.epilepsy-mri",
+      "kind": "source-native-inspectors",
+      "title": "MRI and limbic source anatomy",
+      "instructions": "Inspect the SPL atlas, registered HippUnfold reference and separate healthy-adult hippocampal study in their own coordinates. Compare both manual hippocampal annotations on their shared prepared mean. Raw repetitions are image-only views with unverified anatomical registration. Source annotations are not a normal-volume standard or a current-patient reconstruction.",
+      "investigation_ids": [
+        "ra.mri-epilepsy"
+      ]
+    }
+  },
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

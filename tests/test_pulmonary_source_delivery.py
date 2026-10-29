@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_reference_fields
 import re
 import shutil
 import subprocess
@@ -218,7 +219,7 @@ def test_old_source_registries_and_bindings_are_preserved():
     for identifier, expected in registered.items():
         prior = before_spl_reference_fields(identifier, {'source_native_inspectors': refs[identifier]})
         assert prior['source_native_inspectors'] == expected
-        assert refs[identifier] == [*expected, *spl_registered[identifier]]
+        assert before_hippocampal_reference_fields(identifier, {'source_native_inspectors':refs[identifier]})['source_native_inspectors'] == [*expected, *spl_registered[identifier]]
         assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
     from primer.thoracic_native_inspectors import references as thoracic_references
     from primer.thoracic_lung_native import references as lung_references

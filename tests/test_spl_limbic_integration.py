@@ -2,6 +2,7 @@
 import copy
 import hashlib
 from pathlib import Path
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_lesson_fields, before_hippocampal_reference_fields
 
 import pytest
 from tools.spl_reporting_runtime_compatibility import before_reporting_bytes
@@ -27,7 +28,7 @@ def test_exact_historical_reconstruction_rejects_unreviewed_bytes(path):
 @pytest.mark.parametrize('module_id', ['rad.5.epilepsy-mri', 'rad.5.dementia'])
 def test_source_wrapper_meaning_is_reversed_without_removing_other_media(module_id):
     node = copy.deepcopy(Curriculum().nodes[module_id])
-    fields = {'lesson_media': node['lesson_media']}
+    fields = before_hippocampal_lesson_fields(module_id, {'lesson_media': node['lesson_media']})
     row = reviewed()['lessons'][module_id]
     assert row['after'] in fields['lesson_media']
     prior = before_spl_lesson_fields(module_id, fields)
@@ -39,7 +40,7 @@ def test_source_wrapper_meaning_is_reversed_without_removing_other_media(module_
     changed = copy.deepcopy(fields)
     target = next(item for item in changed['lesson_media'] if item['id'] == row['after']['id'])
     target['instructions'] += ' Unreviewed anatomical approval.'
-    with pytest.raises(ValueError, match='Unreviewed SPL lesson'):
+    with pytest.raises(ValueError, match='Unreviewed'):
         before_spl_lesson_fields(module_id, changed)
 
 

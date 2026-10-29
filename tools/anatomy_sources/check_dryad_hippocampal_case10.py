@@ -15,6 +15,9 @@ for sourceRow in json.loads(acquisitionPath.read_bytes())['files']:
  assert hashlib.sha256((D/sourceRow['file']).read_bytes()).hexdigest()==sourceRow['sha256']
 
 assert m['annotationReferenceVolume']=='mean' and m['rawRepetitionAnatomicalRegistrationVerified'] is False
+assert isinstance(m['fullArchiveVerificationPending'],bool)
+if not m['fullArchiveVerificationPending']:
+ receipt=(D/'dryad-stream-verification.json').read_bytes();auth=json.loads(receipt);assert sha(receipt)==m['sourceArchiveAuthentication']['verificationReceiptSHA256'];assert auth['state']=='complete' and auth['matchesPublisherSHA256'] is True and auth['sha256']=='e76586274bba73f64f2355b093da3ae671fb8e77bb62c13528cfac9d4893ba2e' and auth['bytes']==13046575553
 for name,row in m['packs'].items():
  b=(O/name).read_bytes();assert len(b)==row['bytes'] and sha(b)==row['sha256'];packs[name]=b
 for key,row in m['volumes'].items():
@@ -50,4 +53,4 @@ for key,row in m['meshes'].items():
  triangles=world[faces];normal=np.cross(triangles[:,1]-triangles[:,0],triangles[:,2]-triangles[:,0]);outward=np.linalg.inv(aff[:3,:3]).T[:,axis].T*sign[:,None];assert np.all(np.einsum('ij,ij->i',normal,outward)>0)
  volume=float(np.einsum('ij,ij->i',triangles[:,0],np.cross(triangles[:,1],triangles[:,2])).sum()/6);cellVolume=int(mask.sum())*abs(np.linalg.det(aff[:3,:3]));assert abs(volume-cellVolume)<max(.001,cellVolume*1e-5)
  meshProof.append({'key':key,'sourceVoxels':int(mask.sum()),'independentlyReconstructedExposedFaces':len(expected),'triangles':nt,'allTrianglesTileOriginalFacesExactly':True,'outwardWinding':True,'signedFloat32MeshVolume':volume,'sourceCellVolume':cellVolume});print(key,'independent complete face comparison passed',flush=True)
-p={'allPassed':True,'planes':planes,'sourceSamplesCompared':samples,'meshes':meshProof,'manifestSHA256':sha((O/'manifest.json').read_bytes()),'archiveSourceAuthenticationPending':True,'clinicalApproval':False,'wholeGoalComplete':False};(D/'native-package-independent-proof.json').write_text(json.dumps(p,indent=2)+'\n');print(json.dumps({'allPassed':True,'planes':planes,'samples':samples,'meshes':len(meshProof)}),flush=True)
+p={'allPassed':True,'planes':planes,'sourceSamplesCompared':samples,'meshes':meshProof,'manifestSHA256':sha((O/'manifest.json').read_bytes()),'archiveSourceAuthenticationPending':m['fullArchiveVerificationPending'],'clinicalApproval':False,'wholeGoalComplete':False};(D/'native-package-independent-proof.json').write_text(json.dumps(p,indent=2)+'\n');print(json.dumps({'allPassed':True,'planes':planes,'samples':samples,'meshes':len(meshProof)}),flush=True)
