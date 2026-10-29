@@ -41,3 +41,18 @@ def test_authenticated_lesson_current_source_evidence():
         assert len(row['states'])==3 and row['T1RegistrationGuardVerified'] and row['openedAndClosed']
     for file,digest in proof['files'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest
     assert proof['responses'] and all(r['status']==(206 if r['range'] else 200) for r in proof['responses'])
+
+
+def test_exact_fcd_inverse_rejects_unknown_bytes_and_approval_changes():
+    import copy
+    import pytest
+    from tools import bonn_fcd_runtime_compatibility as bridge
+    proof=bridge.reviewed()
+    for name,row in proof['files'].items():
+        raw=(ROOT/name).read_bytes()
+        assert hashlib.sha256(bridge.before_fcd_bytes(name,raw)).hexdigest()==row['before_sha256']
+        with pytest.raises(ValueError):bridge.before_fcd_bytes(name,raw+b'foreign edit')
+    fields={'source_native_inspectors':[proof['inspector']]}
+    assert bridge.before_fcd_reference_fields('ra.mri-epilepsy',fields)=={'source_native_inspectors':[]}
+    bad=copy.deepcopy(fields);bad['source_native_inspectors'][0]['clinical_approval']=True
+    with pytest.raises(ValueError):bridge.before_fcd_reference_fields('ra.mri-epilepsy',bad)
