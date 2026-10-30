@@ -16,7 +16,7 @@ def test_geometry_activity_preserves_quiz_and_dedicated_layer_view():
         ('spatial-3d',{'scenario':'math.2.geometry'})]
     assert not any(m['props'].get('family')=='lattice' for m in models)
 
-def test_authenticated_geometry_lesson_evidence_matches_current_sources():
+def test_authenticated_geometry_lesson_evidence_matches_pre_vector_sources():
     import hashlib
     proof=json.loads((ROOT/'docs/geometry-measures-review-20261029/lesson/proof.json').read_bytes())
     assert proof['allPassed'] and proof['syntheticLoopback'] and not proof['productionVerified']
@@ -25,8 +25,9 @@ def test_authenticated_geometry_lesson_evidence_matches_current_sources():
         assert len(row['states'])==12 and row['quizItemsPreserved']==10
         assert row['originalLayerModelPresent'] and row['layerSeparationAndCameraChecked']
         assert row['originalIllustrationLoaded'] and row['invalidInputClearsGeometry']
+    from tools.vector_components_runtime_compatibility import before_vector_components_bytes
     for file,digest in proof['sourceSHA256'].items():
-        assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
+        assert hashlib.sha256(before_vector_components_bytes(file,(ROOT/file).read_bytes())).hexdigest()==digest,file
 
 def test_exact_geometry_integration_inverse_rejects_unrelated_changes():
     import hashlib

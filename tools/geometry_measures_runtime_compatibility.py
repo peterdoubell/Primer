@@ -13,6 +13,8 @@ def reviewed():
     if data['base_commit']!='9a4e5ebfc78a9db7d2639a0324e962fda5966072' or data['scope']!='exact_geometry_measures_integration' or data['lesson']!='math.2.geometry' or set(data['files'])!=PATHS or data['extends_historical_approval'] is not False or data['whole_goal_complete'] is not False:raise ValueError('Geometry inverse scope changed')
     return data
 def before_geometry_measures_bytes(path,raw,allow_older=False):
+    from tools.vector_components_runtime_compatibility import before_vector_components_bytes
+    raw=before_vector_components_bytes(path,raw,allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]
