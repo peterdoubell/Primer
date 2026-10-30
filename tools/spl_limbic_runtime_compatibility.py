@@ -74,6 +74,8 @@ def before_spl_lesson_fields(module_id, fields):
 
 
 def before_spl_reference_fields(identifier, fields):
+    from tools.spl_unmarked_runtime_compatibility import before_unmarked_reference_fields
+    fields=before_unmarked_reference_fields(identifier,fields)
     from tools.spl_reporting_runtime_compatibility import before_reporting_reference_fields
     fields = before_reporting_reference_fields(identifier, fields)
     proof = reviewed()
@@ -98,6 +100,7 @@ STANDALONE_SHA = '81608f66cb5505b3d3fc113e09d851cacfb16913ada8fd5fda5d25245d3f30
 
 def validate_refresh(step):
     """Validate the frozen SPL wrapper proof; later exact additions remain separate."""
+    from tools.spl_unmarked_runtime_compatibility import before_unmarked_bytes
     row = reviewed()['files']['web/app.js']
     if (step.get('id') != '2026-10-16-spl-native-limbic-reference'
             or step.get('files') != {'web/app.js': {'before': row['before_sha256'], 'after': row['after_sha256']}}
@@ -136,11 +139,11 @@ def validate_refresh(step):
     if proof.get('authentication') != [{'asset': name, 'status': 401} for name in expected_auth]:
         raise ValueError('SPL reader access-gate evidence differs')
     for name, expected in proof['sourcePins'].items():
-        if sha((ROOT / 'web/anatomy/spl-nac-limbic' / name).read_bytes()) != expected:
+        if sha(before_unmarked_bytes('web/anatomy/spl-nac-limbic/'+name,(ROOT / 'web/anatomy/spl-nac-limbic' / name).read_bytes())) != expected:
             raise ValueError('Current SPL viewer no longer matches reader evidence')
     if proof['sourcePins'] != standalone['sourcePins']:
         raise ValueError('Standalone and actual reader source identities differ')
-    if sha((ROOT / 'data/radiology/spl-limbic-reference.json').read_bytes()) != proof['registrySHA256']:
+    if sha(before_unmarked_bytes('data/radiology/spl-limbic-reference.json',(ROOT / 'data/radiology/spl-limbic-reference.json').read_bytes())) != proof['registrySHA256']:
         raise ValueError('Current SPL registry differs from reader evidence')
     # Reconstruct only the recorded later linear-algebra include/mount. This is a
     # historical reader view; the current combined application needs its own smoke.

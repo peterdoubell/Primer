@@ -1,0 +1,484 @@
+{
+  "investigation_id": "ra.mri-epilepsy",
+  "module_id": "rad.5.epilepsy-mri",
+  "sourceContractSHA256": "9949ba564088960cd881af231d01e0b96b3de14c8a2ec5436880965ba5374f85",
+  "snapshotSHA256": "226a95cf78b072e561cb507e78d128176d074768effe12e5c92946839109414a",
+  "authoritativeScopeStatus": "required_not_yet_expanded",
+  "candidateGroups": [
+    {
+      "candidate_group": "hippocampi",
+      "contract_evidence": [
+        {
+          "path": "/reporting/protocol/0",
+          "text": "Use HARNESS structural sequences: isotropic 3D T1, isotropic 3D FLAIR and high-resolution coronal T2 perpendicular to the hippocampal long axis; add sequences for the clinical question."
+        },
+        {
+          "path": "/reporting/checklist/0/label",
+          "text": "Hippocampi"
+        },
+        {
+          "path": "/reporting/checklist/2/detail",
+          "text": "Search the entire brain even after detecting hippocampal sclerosis."
+        },
+        {
+          "path": "/reporting/measurements/1/name",
+          "text": "Hippocampal asymmetry"
+        },
+        {
+          "path": "/reporting/template_sections/0/body",
+          "text": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/2/body",
+          "text": "Use HARNESS structural sequences: isotropic 3D T1, isotropic 3D FLAIR and high-resolution coronal T2 perpendicular to the hippocampal long axis; add sequences for the clinical question.\nReview seizure semiology, EEG localisation and timing of recent seizures; consider age-related myelination when adapting paediatric protocols.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/3/body",
+          "text": "[IMG 1: Coronal hippocampal plane; series __ image __]\n[IMG 2: High-resolution cortical abnormality; series __ image __]\n[IMG 3: Matched FLAIR/T2 finding; series __ image __]"
+        },
+        {
+          "path": "/report_templates/0/sections/4/body",
+          "text": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/0/label",
+          "text": "Hippocampi"
+        },
+        {
+          "path": "/walkthrough/steps/0/detail",
+          "text": "Compare hippocampal size, signal and internal architecture bilaterally."
+        },
+        {
+          "path": "/walkthrough/steps/0/normal/MESIAL TEMPORAL STRUCTURES",
+          "text": "Hippocampi symmetric with normal size, signal and internal architecture."
+        },
+        {
+          "path": "/walkthrough/steps/0/findings/0",
+          "text": "[Left] hippocampal sclerosis: volume loss, increased T2/FLAIR signal and loss of internal architecture."
+        },
+        {
+          "path": "/walkthrough/steps/0/measurements/0",
+          "text": "Hippocampal asymmetry"
+        },
+        {
+          "path": "/walkthrough/steps/0/landmark",
+          "text": "hippocampi"
+        },
+        {
+          "path": "/walkthrough/steps/0/look",
+          "text": "High-resolution coronal T2 perpendicular to the hippocampal long axis; 3D FLAIR."
+        },
+        {
+          "path": "/walkthrough/steps/0/tip",
+          "text": "Look at the whole brain even after finding hippocampal sclerosis: dual pathology is common."
+        },
+        {
+          "path": "/walkthrough/steps/3/findings/1",
+          "text": "Second lesion: [ ] in addition to hippocampal sclerosis."
+        },
+        {
+          "path": "/walkthrough/steps/3/landmark",
+          "text": "hippocampi"
+        },
+        {
+          "path": "/walkthrough/steps/4/findings/1",
+          "text": "Transient cortical and hippocampal diffusion and FLAIR change, compatible with peri-ictal change; follow-up to confirm resolution."
+        },
+        {
+          "path": "/walkthrough/spatial_model/instructions",
+          "text": "Drag to rotate; choose a reporting landmark and move the section plane. Rotate to the medial temporal long axes and relate a coronal plane to the hippocampi."
+        },
+        {
+          "path": "/walkthrough/spatial_model/focus/0",
+          "text": "hippocampi"
+        },
+        {
+          "path": "/walkthrough/spatial_model/reporting_aim",
+          "text": "Rotate to the medial temporal long axes and relate a coronal plane to the hippocampi."
+        },
+        {
+          "path": "/reading/0/headings/5",
+          "text": "Differential of hippocampal hyperintensity"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "fornices",
+      "contract_evidence": [
+        {
+          "path": "/reporting/template_sections/0/body",
+          "text": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/4/body",
+          "text": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/0/findings/1",
+          "text": "Atrophy of the ipsilateral fornix and mammillary body."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "mammillary-bodies",
+      "contract_evidence": [
+        {
+          "path": "/reporting/template_sections/0/body",
+          "text": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/4/body",
+          "text": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/0/findings/1",
+          "text": "Atrophy of the ipsilateral fornix and mammillary body."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "cortical-ribbon",
+      "contract_evidence": [
+        {
+          "path": "/reporting/template_sections/1/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/5/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/1/detail",
+          "text": "Inspect cortical thickness, sulcation, grey–white junction, heterotopia and transmantle signal."
+        },
+        {
+          "path": "/walkthrough/steps/1/normal/CORTEX AND MIGRATION",
+          "text": "Normal cortical thickness and grey–white junction; no heterotopia."
+        },
+        {
+          "path": "/walkthrough/steps/1/findings/0",
+          "text": "Blurring of the grey–white junction with cortical thickening and a transmantle sign in the [right] [frontal] lobe (focal cortical dysplasia type II pattern)."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "sulci",
+      "contract_evidence": [
+        {
+          "path": "/reporting/checklist/1/detail",
+          "text": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "path": "/reporting/template_sections/1/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/5/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/1/detail",
+          "text": "Inspect cortical thickness, sulcation, grey–white junction, heterotopia and transmantle signal."
+        },
+        {
+          "path": "/walkthrough/steps/1/findings/2",
+          "text": "Polymicrogyria of the [ ]."
+        },
+        {
+          "path": "/reading/0/headings/21",
+          "text": "Polymicrogyria"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "grey-white-junction",
+      "contract_evidence": [
+        {
+          "path": "/reporting/checklist/1/detail",
+          "text": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "path": "/reporting/template_sections/1/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/5/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/1/detail",
+          "text": "Inspect cortical thickness, sulcation, grey–white junction, heterotopia and transmantle signal."
+        },
+        {
+          "path": "/walkthrough/steps/1/normal/CORTEX AND MIGRATION",
+          "text": "Normal cortical thickness and grey–white junction; no heterotopia."
+        },
+        {
+          "path": "/walkthrough/steps/1/findings/0",
+          "text": "Blurring of the grey–white junction with cortical thickening and a transmantle sign in the [right] [frontal] lobe (focal cortical dysplasia type II pattern)."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "periventricular-migration-context",
+      "contract_evidence": [
+        {
+          "path": "/reporting/template_sections/1/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/5/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/1/detail",
+          "text": "Inspect cortical thickness, sulcation, grey–white junction, heterotopia and transmantle signal."
+        },
+        {
+          "path": "/walkthrough/steps/1/normal/CORTEX AND MIGRATION",
+          "text": "Normal cortical thickness and grey–white junction; no heterotopia."
+        },
+        {
+          "path": "/walkthrough/steps/1/findings/1",
+          "text": "Subependymal nodular heterotopia along the [ ] ventricle."
+        },
+        {
+          "path": "/reading/0/headings/22",
+          "text": "Heterotopia"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "cortex-to-ventricle-white-matter-context",
+      "contract_evidence": [
+        {
+          "path": "/reporting/checklist/1/detail",
+          "text": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "path": "/reporting/template_sections/1/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/5/body",
+          "text": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/1/detail",
+          "text": "Inspect cortical thickness, sulcation, grey–white junction, heterotopia and transmantle signal."
+        },
+        {
+          "path": "/walkthrough/steps/1/findings/0",
+          "text": "Blurring of the grey–white junction with cortical thickening and a transmantle sign in the [right] [frontal] lobe (focal cortical dysplasia type II pattern)."
+        },
+        {
+          "path": "/walkthrough/steps/1/findings/1",
+          "text": "Subependymal nodular heterotopia along the [ ] ventricle."
+        },
+        {
+          "path": "/walkthrough/steps/1/tip",
+          "text": "A funnel-shaped T2/FLAIR abnormality extending from the cortex towards the ventricle supports focal cortical dysplasia type II, most often IIb; imaging does not establish the histological subtype."
+        },
+        {
+          "path": "/reading/0/headings/7",
+          "text": "Transmantle sign"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "temporal-pole",
+      "contract_evidence": [
+        {
+          "path": "/reporting/checklist/3/detail",
+          "text": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        },
+        {
+          "path": "/reporting/template_sections/3/body",
+          "text": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/7/body",
+          "text": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/3/label",
+          "text": "Temporal encephalocele and dual pathology"
+        },
+        {
+          "path": "/walkthrough/steps/3/detail",
+          "text": "Look for temporal encephalocele, prior injury and any second relevant lesion."
+        },
+        {
+          "path": "/walkthrough/steps/3/normal/SKULL BASE AND DUAL PATHOLOGY",
+          "text": "No encephalocele; no second lesion."
+        },
+        {
+          "path": "/walkthrough/steps/3/findings/0",
+          "text": "Temporal pole encephalocele through a middle cranial fossa defect."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "middle-cranial-fossa-floor",
+      "contract_evidence": [
+        {
+          "path": "/walkthrough/steps/3/findings/0",
+          "text": "Temporal pole encephalocele through a middle cranial fossa defect."
+        },
+        {
+          "path": "/walkthrough/steps/3/look",
+          "text": "Coronal and sagittal images of the middle cranial fossa floor."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    },
+    {
+      "candidate_group": "focal-lesion-context",
+      "contract_evidence": [
+        {
+          "path": "/reporting/checklist/3/detail",
+          "text": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        },
+        {
+          "path": "/reporting/template_sections/2/body",
+          "text": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ × __ × __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+        },
+        {
+          "path": "/report_templates/0/sections/6/body",
+          "text": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ × __ × __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/2/detail",
+          "text": "Look for tumours, vascular malformations, gliosis and encephalomalacia."
+        },
+        {
+          "path": "/walkthrough/steps/2/normal/FOCAL LESIONS",
+          "text": "No tumour, vascular malformation or gliosis."
+        },
+        {
+          "path": "/walkthrough/steps/2/findings/0",
+          "text": "Cavernoma __ mm in the [ ] with a haemosiderin rim."
+        },
+        {
+          "path": "/walkthrough/steps/2/findings/1",
+          "text": "Cortically based cystic lesion (DNET / ganglioglioma pattern)."
+        },
+        {
+          "path": "/walkthrough/steps/2/findings/2",
+          "text": "Post-traumatic encephalomalacia and gliosis in the [ ]."
+        },
+        {
+          "path": "/walkthrough/steps/2/look",
+          "text": "Susceptibility images for cavernomas; post-contrast images when acquired."
+        },
+        {
+          "path": "/reading/0/headings/9",
+          "text": "Cavernoma"
+        },
+        {
+          "path": "/reading/0/headings/11",
+          "text": "Epilepsy associated tumours"
+        },
+        {
+          "path": "/reading/0/headings/12",
+          "text": "Ganglioglioma"
+        },
+        {
+          "path": "/reading/0/headings/13",
+          "text": "DNET"
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "3d_model"
+      ],
+      "per_structure_source_mapping": "not yet verified",
+      "clinical_validation": "not established"
+    }
+  ],
+  "candidateNativeReferences": [
+    "hippunfold-hcp101006-registered-reference",
+    "spl-nac-limbic-native-reference",
+    "dryad-hippocampal-case10-rater-reference",
+    "bonn-fcd-case4-native-reference"
+  ],
+  "sourcePresenceDoesNotEstablishCoverage": true,
+  "nextSteps": [
+    "Expand candidate groups into side-specific named structures and reportable feature requirements",
+    "Check existing sources per structure and per image/schematic/model representation",
+    "Identify unresolved structures and pathology variants before adding source assets",
+    "Review clinical adequacy separately from byte integrity and UI presence"
+  ],
+  "draftOnly": true,
+  "complete": false
+}

@@ -124,7 +124,8 @@ def check():
             from tools.spl_limbic_runtime_compatibility import before_spl_reference_fields, reviewed as spl_reviewed
             spl_registered = spl_references()
             assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
-            assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
+            from tools.spl_unmarked_runtime_compatibility import before_unmarked_reference_fields
+            assert all(before_unmarked_reference_fields(key,{'source_native_inspectors':items})['source_native_inspectors']==[spl_reviewed()['source_inspector_addition']] for key,items in spl_registered.items())
             assert set(registered) == hippocampal.BINDINGS
             assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
             for identifier, expected in registered.items():
