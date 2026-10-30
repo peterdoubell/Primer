@@ -200,7 +200,8 @@ def test_old_source_registries_and_bindings_are_preserved():
     from primer.spl_limbic_reference import references as spl_references
     spl_registered = spl_references()
     assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
-    assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
+    from tools.spl_unmarked_runtime_compatibility import before_unmarked_reference_fields
+    assert all(before_unmarked_reference_fields(key,{'source_native_inspectors':items})['source_native_inspectors']==[spl_reviewed()['source_inspector_addition']] for key,items in spl_registered.items())
     prior_brain = before_spl_reference_fields('ra.brain-anatomy', {'source_native_inspectors': refs['ra.brain-anatomy']})
     assert prior_brain['source_native_inspectors'] == expected_brain
     from primer.spl_reporting_reference import references as reporting_references

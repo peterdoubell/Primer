@@ -13,6 +13,8 @@ def reviewed():
     if data['base_commit']!='054efd15b86ab93a1f31b48fa95ca9fc88dd504a' or data['scope']!='exact_vector_components_integration' or data['lesson']!='math.3.vectors' or set(data['files'])!=PATHS or data['extends_historical_approval'] is not False or data['whole_goal_complete'] is not False:raise ValueError('Vector inverse scope changed')
     return data
 def before_vector_components_bytes(path,raw,allow_older=False):
+    from tools.spl_unmarked_runtime_compatibility import before_unmarked_bytes
+    raw=before_unmarked_bytes(path,raw,allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]

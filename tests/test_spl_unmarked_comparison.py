@@ -20,3 +20,18 @@ def test_actual_authenticated_comparison_covers_all_bound_entry_points():
     assert hashlib.sha256((ROOT/'data/radiology/spl-limbic-reference.json').read_bytes()).hexdigest()==p['registrySHA256']
     for name,digest in p['sourcePins'].items():
         assert hashlib.sha256((ROOT/'web/anatomy/spl-nac-limbic'/name).read_bytes()).hexdigest()==digest
+
+def test_exact_comparison_inverse_rejects_source_and_approval_drift():
+    import copy,pytest
+    from tools.spl_unmarked_runtime_compatibility import reviewed,before_unmarked_bytes,before_unmarked_reference_fields
+    p=reviewed()
+    for name,row in p['files'].items():
+        raw=(ROOT/name).read_bytes();before=before_unmarked_bytes(name,raw)
+        assert hashlib.sha256(before).hexdigest()==row['before_sha256']
+        assert before_unmarked_bytes(name,before)==before
+        with pytest.raises(ValueError):before_unmarked_bytes(name,raw+b'foreign change')
+    for identifier in p['bindings']:
+        fields={'source_native_inspectors':[p['descriptor']['after']]}
+        assert before_unmarked_reference_fields(identifier,fields)=={'source_native_inspectors':[p['descriptor']['before']]}
+        bad=copy.deepcopy(fields);bad['source_native_inspectors'][0]['clinical_approval']=True
+        with pytest.raises(ValueError):before_unmarked_reference_fields(identifier,bad)
