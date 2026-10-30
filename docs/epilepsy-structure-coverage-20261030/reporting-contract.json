@@ -1,0 +1,362 @@
+{
+  "reporting": {
+    "protocol": [
+      "Use HARNESS structural sequences: isotropic 3D T1, isotropic 3D FLAIR and high-resolution coronal T2 perpendicular to the hippocampal long axis; add sequences for the clinical question.",
+      "Review seizure semiology, EEG localisation and timing of recent seizures; consider age-related myelination when adapting paediatric protocols."
+    ],
+    "checklist": [
+      {
+        "label": "Hippocampi",
+        "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+      },
+      {
+        "label": "Cortical development",
+        "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+      },
+      {
+        "label": "Dual pathology",
+        "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+      },
+      {
+        "label": "Other substrates",
+        "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+      },
+      {
+        "label": "Concordance",
+        "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+      }
+    ],
+    "measurements": [
+      {
+        "name": "Lesion dimensions",
+        "method": "Measure a suspected epileptogenic structural lesion in three planes and identify sequences.",
+        "pitfall": "Transient peri-ictal swelling can alter apparent extent."
+      },
+      {
+        "name": "Hippocampal asymmetry",
+        "method": "Use visual comparison or validated volumetry with age-appropriate reference data.",
+        "pitfall": "Oblique planes and segmentation errors can create false asymmetry."
+      }
+    ],
+    "classification": {
+      "name": "HARNESS-MRI",
+      "version": "ILAE 2019 structural protocol",
+      "applicability": "Dedicated structural epilepsy MRI; adapt for infants and specific clinical questions.",
+      "summary": "A standard acquisition protocol, not a diagnostic severity score. A normal study does not exclude epilepsy."
+    },
+    "pitfalls": [
+      "Normal MRI does not exclude epilepsy or subtle focal cortical dysplasia.",
+      "Peri-ictal diffusion and FLAIR change may be reversible; use the clinical timeline."
+    ],
+    "impression_prompts": [
+      "Is there a structural lesion plausibly relevant to seizures?",
+      "Which side/region and associated second lesion are involved?",
+      "Is the examination adequate or is targeted expert review warranted?"
+    ],
+    "escalation": [
+      "Communicate acute haemorrhage, infarction, encephalitis pattern or a mass with threatening pressure effect."
+    ],
+    "template_sections": [
+      {
+        "heading": "MESIAL TEMPORAL STRUCTURES",
+        "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+      },
+      {
+        "heading": "CORTEX AND MIGRATION",
+        "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+      },
+      {
+        "heading": "FOCAL LESIONS",
+        "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ × __ × __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+      },
+      {
+        "heading": "SKULL BASE AND DUAL PATHOLOGY",
+        "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+      },
+      {
+        "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+        "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+      }
+    ],
+    "sources": [
+      {
+        "title": "ILAE structural MRI recommendations / HARNESS",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+      },
+      {
+        "title": "Radiology Assistant: Epilepsy MRI",
+        "url": "https://radiologyassistant.nl/neuroradiology/epilepsy/role-of-mri"
+      }
+    ],
+    "reviewed_at": "2026-09-23"
+  },
+  "report_templates": [
+    {
+      "id": "epilepsy-mri-report",
+      "title": "MRI EPILEPSY",
+      "description": "Exam-specific reporting fields. Complete observations and remove unused alternatives.",
+      "sections": [
+        {
+          "heading": "INDICATION",
+          "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+        },
+        {
+          "heading": "COMPARISON",
+          "body": "[None available / date and examination]. Relevant interval change: [ ]."
+        },
+        {
+          "heading": "TECHNIQUE AND QUALITY",
+          "body": "Use HARNESS structural sequences: isotropic 3D T1, isotropic 3D FLAIR and high-resolution coronal T2 perpendicular to the hippocampal long axis; add sequences for the clinical question.\nReview seizure semiology, EEG localisation and timing of recent seizures; consider age-related myelination when adapting paediatric protocols.\n\nModality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+        },
+        {
+          "heading": "KEY IMAGES",
+          "body": "[IMG 1: Coronal hippocampal plane; series __ image __]\n[IMG 2: High-resolution cortical abnormality; series __ image __]\n[IMG 3: Matched FLAIR/T2 finding; series __ image __]"
+        },
+        {
+          "heading": "MESIAL TEMPORAL STRUCTURES",
+          "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "heading": "CORTEX AND MIGRATION",
+          "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "heading": "FOCAL LESIONS",
+          "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ × __ × __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+        },
+        {
+          "heading": "SKULL BASE AND DUAL PATHOLOGY",
+          "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+        },
+        {
+          "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+          "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+        },
+        {
+          "heading": "IMPRESSION",
+          "body": "1. [Is there a structural lesion plausibly relevant to seizures?]\n2. [Which side/region and associated second lesion are involved?]\n3. [Is the examination adequate or is targeted expert review warranted?]"
+        },
+        {
+          "heading": "RECOMMENDATION AND COMMUNICATION",
+          "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+        }
+      ],
+      "notes": [
+        "A normal structural MRI does not exclude epilepsy; record whether an epilepsy-specific acquisition was adequate.",
+        "Normal MRI does not exclude epilepsy or subtle focal cortical dysplasia.",
+        "Peri-ictal diffusion and FLAIR change may be reversible; use the clinical timeline."
+      ],
+      "sources": [
+        {
+          "title": "Epilepsy - Role of MRI",
+          "url": "https://radiologyassistant.nl/neuroradiology/epilepsy/role-of-mri"
+        },
+        {
+          "title": "ILAE structural MRI recommendations / HARNESS",
+          "url": "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+        }
+      ]
+    }
+  ],
+  "walkthrough": {
+    "reviewed_at": "2026-09-25",
+    "complete": true,
+    "template_id": "epilepsy-mri-report",
+    "start": {
+      "sections": [
+        "INDICATION",
+        "COMPARISON",
+        "TECHNIQUE AND QUALITY",
+        "KEY IMAGES"
+      ],
+      "images": []
+    },
+    "steps": [
+      {
+        "label": "Hippocampi",
+        "detail": "Compare hippocampal size, signal and internal architecture bilaterally.",
+        "sections": [
+          "MESIAL TEMPORAL STRUCTURES"
+        ],
+        "normal": {
+          "MESIAL TEMPORAL STRUCTURES": "Hippocampi symmetric with normal size, signal and internal architecture."
+        },
+        "findings": [
+          "[Left] hippocampal sclerosis: volume loss, increased T2/FLAIR signal and loss of internal architecture.",
+          "Atrophy of the ipsilateral fornix and mammillary body."
+        ],
+        "images": [
+          "epilepsy-mri-image-1",
+          "open-epilepsy-pmc4557590-fig1",
+          "open-epilepsy-pmc8353251-fig4"
+        ],
+        "measurements": [
+          "Hippocampal asymmetry"
+        ],
+        "landmark": "hippocampi",
+        "parts": [
+          "FJ1814",
+          "FJ1767"
+        ],
+        "look": "High-resolution coronal T2 perpendicular to the hippocampal long axis; 3D FLAIR.",
+        "tip": "Look at the whole brain even after finding hippocampal sclerosis: dual pathology is common."
+      },
+      {
+        "label": "Cortex and neuronal migration",
+        "detail": "Inspect cortical thickness, sulcation, grey–white junction, heterotopia and transmantle signal.",
+        "sections": [
+          "CORTEX AND MIGRATION"
+        ],
+        "normal": {
+          "CORTEX AND MIGRATION": "Normal cortical thickness and grey–white junction; no heterotopia."
+        },
+        "findings": [
+          "Blurring of the grey–white junction with cortical thickening and a transmantle sign in the [right] [frontal] lobe (focal cortical dysplasia type II pattern).",
+          "Subependymal nodular heterotopia along the [ ] ventricle.",
+          "Polymicrogyria of the [ ]."
+        ],
+        "images": [
+          "epilepsy-mri-image-2",
+          "open-epilepsy-pmc8353251-fig3"
+        ],
+        "measurements": [],
+        "landmark": "territories",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "3D T1 and 3D FLAIR in all planes; compare with the other hemisphere.",
+        "tip": "A funnel-shaped T2/FLAIR abnormality extending from the cortex towards the ventricle supports focal cortical dysplasia type II, most often IIb; imaging does not establish the histological subtype."
+      },
+      {
+        "label": "Focal lesions",
+        "detail": "Look for tumours, vascular malformations, gliosis and encephalomalacia.",
+        "sections": [
+          "FOCAL LESIONS"
+        ],
+        "normal": {
+          "FOCAL LESIONS": "No tumour, vascular malformation or gliosis."
+        },
+        "findings": [
+          "Cavernoma __ mm in the [ ] with a haemosiderin rim.",
+          "Cortically based cystic lesion (DNET / ganglioglioma pattern).",
+          "Post-traumatic encephalomalacia and gliosis in the [ ]."
+        ],
+        "images": [
+          "epilepsy-mri-image-3",
+          "open-epilepsy-pmc4557590-fig6",
+          "open-epilepsy-pmc4557590-fig7"
+        ],
+        "measurements": [
+          "Lesion dimensions"
+        ],
+        "landmark": "territories",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Susceptibility images for cavernomas; post-contrast images when acquired."
+      },
+      {
+        "label": "Temporal encephalocele and dual pathology",
+        "detail": "Look for temporal encephalocele, prior injury and any second relevant lesion.",
+        "sections": [
+          "SKULL BASE AND DUAL PATHOLOGY"
+        ],
+        "normal": {
+          "SKULL BASE AND DUAL PATHOLOGY": "No encephalocele; no second lesion."
+        },
+        "findings": [
+          "Temporal pole encephalocele through a middle cranial fossa defect.",
+          "Second lesion: [ ] in addition to hippocampal sclerosis."
+        ],
+        "images": [
+          "open-epilepsy-pmc8353251-fig2"
+        ],
+        "measurements": [],
+        "landmark": "hippocampi",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Coronal and sagittal images of the middle cranial fossa floor."
+      },
+      {
+        "label": "Electroclinical concordance",
+        "detail": "Relate the lesion to the supplied EEG and semiology localisation without assuming causality, and consider peri-ictal change.",
+        "sections": [
+          "ACUTE AND ELECTROCLINICAL CORRELATION"
+        ],
+        "normal": {
+          "ACUTE AND ELECTROCLINICAL CORRELATION": "No peri-ictal change. No structural lesion; this does not exclude epilepsy."
+        },
+        "findings": [
+          "Lesion concordant with the supplied [left temporal] EEG focus.",
+          "Transient cortical and hippocampal diffusion and FLAIR change, compatible with peri-ictal change; follow-up to confirm resolution."
+        ],
+        "images": [],
+        "measurements": [],
+        "landmark": "territories",
+        "parts": [
+          "FMA67292",
+          "FMA61819"
+        ],
+        "look": "Supplied EEG and semiology; the timing of the last seizure.",
+        "tip": "A normal MRI does not exclude epilepsy or subtle focal cortical dysplasia."
+      }
+    ],
+    "finish": {
+      "sections": [
+        "IMPRESSION",
+        "RECOMMENDATION AND COMMUNICATION"
+      ]
+    },
+    "spatial_model": {
+      "id": "radiology-model-rad.5.epilepsy-mri",
+      "title": "Epilepsy · 3D landmarks",
+      "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Rotate to the medial temporal long axes and relate a coronal plane to the hippocampi.",
+      "scenario": "radiology-reference:rad.5.epilepsy-mri",
+      "family": "brain",
+      "focus": [
+        "hippocampi"
+      ],
+      "reporting_aim": "Rotate to the medial temporal long axes and relate a coronal plane to the hippocampi."
+    }
+  },
+  "reading": [
+    {
+      "id": "ra-8f1a4b346e61",
+      "title": "Epilepsy - Role of MRI",
+      "url": "https://radiologyassistant.nl/neuroradiology/epilepsy/role-of-mri",
+      "section": "Neuroradiology",
+      "topic": "Epilepsy",
+      "module_id": "rad.5.epilepsy-mri",
+      "headings": [
+        "Introduction",
+        "Common causes of Epilepsy",
+        "Seizures and Epilepsy",
+        "MRI epilepsy protocol",
+        "Mesial temporal sclerosis",
+        "Differential of hippocampal hyperintensity",
+        "Focal Cortical Dysplasia",
+        "Transmantle sign",
+        "Cortical and glial scars - Ulegyria",
+        "Cavernoma",
+        "Differential diagnosis of microbleeds",
+        "Epilepsy associated tumours",
+        "Ganglioglioma",
+        "DNET",
+        "Pleomorphic xanthoastrocytoma",
+        "Hypothalamic hamartoma",
+        "Hemimegalencephaly",
+        "Rasmussen's Encephalitis",
+        "Tuberous Sclerosis",
+        "Sturge-Weber Syndrome",
+        "Diffuse choroidal hemangioma",
+        "Polymicrogyria",
+        "Heterotopia",
+        "Schizencephaly"
+      ]
+    }
+  ]
+}
