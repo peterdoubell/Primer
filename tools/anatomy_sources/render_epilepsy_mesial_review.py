@@ -16,7 +16,7 @@ def main():
     views=[('Sagittal',2,0,1),('Coronal',0,2,1),('Axial',1,2,0)]
     for structure in anchors['structures']:
         code=structure['code'];positions=np.argwhere(labels==code);world=transform(np.asarray(lv['voxelToRAS']),positions)
-        fig,axes=plt.subplots(2,6,figsize=(18,9));panels=[]
+        fig,axes=plt.subplots(2,6,figsize=(18,9),dpi=150);panels=[]
         for row,(modality,scan)in enumerate(scans.items()):
             descriptor=m['volumes'][modality];affine=np.asarray(descriptor['voxelToRAS']);ijk=structure['MRIAnchors'][modality]['sourceIJK'];native=transform(np.linalg.inv(affine),world)
             # Bounds include every source-label centre plus eight millimetres.
@@ -30,11 +30,16 @@ def main():
                 def direction(axis,sign):
                     a=affine[:3,axis];dominant=int(np.argmax(abs(a)));return names[dominant][int(a[dominant]*sign>0)]
                 for offset,image in enumerate([rgb,marked]):
-                    ax=axes[row,column*2+offset];ax.imshow(image,interpolation='nearest',origin='upper',aspect=spacing[v]/spacing[u]);ax.set_title(modality+' '+view+'\n'+('MRI + source label' if offset else 'Unmarked MRI'));ax.set_xticks([]);ax.set_yticks([]);ax.set_xlabel(f'{direction(u,-1)} ← → {direction(u,1)} | top {direction(v,-1)}, bottom {direction(v,1)}\n{values.shape[1]*spacing[u]:.1f} × {values.shape[0]*spacing[v]:.1f} mm')
+                    ax=axes[row,column*2+offset];ax.imshow(image,interpolation='nearest',origin='upper',aspect=spacing[v]/spacing[u]);ax.set_title(modality+' '+view+'\n'+('MRI + source label' if offset else 'Unmarked MRI'));ax.set_xticks([]);ax.set_yticks([]);[spine.set_visible(False) for spine in ax.spines.values()];ax.set_xlabel(f'{direction(u,-1)} ← → {direction(u,1)} | top {direction(v,-1)}, bottom {direction(v,1)}\n{values.shape[1]*spacing[u]:.1f} × {values.shape[0]*spacing[v]:.1f} mm')
                 panels.append({'modality':modality,'view':view,'normalSourceAxis':normal,'sourceSlice':ijk[normal],'horizontalSourceAxis':u,'verticalSourceAxis':v,'sourceCropLower':lower.tolist(),'sourceCropUpperExclusive':upper.tolist(),'window':[low,high],'shape':list(values.shape),'originalPlaneSampleSHA256':sha(values.tobytes()),'unmarkedRGB_SHA256':sha(rgb.tobytes()),'annotatedRGB_SHA256':sha(marked.tobytes()),'labelPixels':int(mask.sum())})
         fig.suptitle(structure['sourceName']+' — native MRI inspection samples',fontsize=18)
         fig.text(.5,.025,'SPL source grids; crop includes label bounds + 8 mm. Nearest source-label display only. No MRI interpolation.\nSelected planes do not prove whole-structure visibility, normality, registration to a patient, or clinical adequacy.',ha='center',fontsize=11)
-        fig.subplots_adjust(left=.025,right=.98,bottom=.16,top=.84,wspace=.3,hspace=.9);name=f'source-label-{code}.png';fig.savefig(destination/name,dpi=150);plt.close(fig)
+        fig.subplots_adjust(left=.025,right=.98,bottom=.16,top=.84,wspace=.3,hspace=.9)
+        fig.canvas.draw()
+        for index,panel in enumerate(panels):
+            row,column=divmod(index,3)
+            panel['sourcePixelToFigureMatrices']=[axes[row,column*2+offset].transData.get_affine().get_matrix().tolist() for offset in [0,1]]
+        name=f'source-label-{code}.png';fig.savefig(destination/name,dpi=150);plt.close(fig)
         evidence.append({'code':code,'name':structure['sourceName'],'image':name,'sha256':sha((destination/name).read_bytes()),'panels':panels,'clinicalVisibilityReviewed':False})
     proof={'sourceManifestSHA256':MANIFEST_SHA256,'generatorSHA256':sha(Path(__file__).read_bytes()),'reviewSheets':evidence,'MRIResampled':False,'sourceLabelsDisplayedBy':'Nearest native label-cell assignment in declared source world coordinates','clinicalApproval':False,'completeReportingCoverage':False}
     (destination/'proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(json.dumps({'reviewSheets':len(evidence),'pairedPlanes':sum(len(x['panels'])for x in evidence),'clinicalAdequacyClaimed':False}))
