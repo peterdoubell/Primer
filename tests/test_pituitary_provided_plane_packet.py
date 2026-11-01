@@ -64,3 +64,10 @@ def test_portable_original_planes_and_initial_render_match_without_large_volume_
     index=json.loads((D/'evidence-index.json').read_bytes())
     for name,digest in index['evidenceSHA256'].items():assert sha((D/name).read_bytes())==digest,name
     for name,digest in index['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name
+
+
+
+def test_source_fetch_failures_and_context_loss_have_verified_recovery():
+    proof=json.loads((D/'browser/lifecycle-proof.json').read_bytes())
+    assert proof['allPassed']and proof['controlledFixture']and proof['errors']==[]and not proof['clinicalApproval']
+    assert all(proof[k]for k in ['metadataFailureRetryPreservesIndependentModels','invalidRangeRejectedAndRetryRecovers','rapidChangesRetainLatestContrastAndSourcePoint','modelFailureRetryPreservesIndependentMRI','contextLossRestoresOriginalModels'])

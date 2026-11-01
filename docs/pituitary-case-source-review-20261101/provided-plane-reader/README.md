@@ -20,3 +20,5 @@ python tools/anatomy_sources/check_pituitary_provided_planes.py
 The tools accept explicit source/output locations. Historical preview and model-generation recipes are under `recipes/`; run from the repository root against the original ignored staging directory. No publisher shell script is executed. No source MRI/header is rewritten, and no fitting, smoothing, repair or extra component deletion is applied by Primer.
 
 The original dataset remains CC BY 4.0 with the source attribution and limits in the parent evidence packet. This preview is not application-integrated, hosted, clinically approved or complete sellar coverage. The complete radiology/math/physics goal remains active.
+
+The reader now bounds metadata, model and plane responses, uses per-request timeouts, aborts invalid range responses and supports metadata retry without disrupting independent 3D source models. Controlled tests verify metadata-failure recovery, HTTP-200 rejection for range requests, rapid contrast/source-index changes, model-fetch recovery and WebGL restoration. These controls do not resolve or alter the source coordinate conflict.
