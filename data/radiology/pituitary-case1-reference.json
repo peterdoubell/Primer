@@ -1,0 +1,656 @@
+{
+  "schema_version": 1,
+  "bindings": [
+    "ra.mri-sella"
+  ],
+  "source_dataset_doi": "10.6084/m9.figshare.27894084.v1",
+  "source_file_id": 50793273,
+  "blob_store_id": "store_JA2lsNp9UCA4bivw",
+  "blob_host": "ja2lsnp9uca4bivw.public.blob.vercel-storage.com",
+  "blob_prefix": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/",
+  "inspector": {
+    "id": "pandit-pituitary-case1-processed-reference",
+    "title": "Provided pituitary MRI case 1 and published source annotations",
+    "modality": "Provided processed contrast-enhanced MRI, registered T2 and source-mask boundaries",
+    "src": "/app/anatomy/pituitary-pandit-case1/provided-plane-viewer/index.html",
+    "manifest_url": "/app/anatomy/pituitary-pandit-case1/plane-package/manifest.json",
+    "sha256": "45fa20f211b28b6128397a88b162cf285f9bdb9643c505f2daf08ba4ff17e70d",
+    "manifest_sha256": "120c2ba139319d92cd1880671a5c17e441dbab0df3a98ca84e1c7772a44fe52f",
+    "caption": "Inspect a separate published source case with T1 contrast-enhanced MRI, supplied registered T2, a tumour\u2013gland complex annotation and combined carotid annotation. The provided grid is 0.5 mm; reported T1 acquisition was 0.488 \u00d7 0.488 \u00d7 1.5 mm. Display uses supplied sforms; the annotation qform displacement of 22.5 mm is retained and disclosed. No current-patient or SPL-atlas registration is applied.",
+    "attribution": "Source: A. S. Pandit, A. Keenlyside, D. Z. Khan, G. Reischer, M. A. Kamal, N. Yoh, Z. Jaunmuktane, A. Borg, N. L. Dorward, S. E. Baldeweg, I. Davagnanam, H. Hyare, P. Nachev and H. J. Marcus.\nMapping pituitary neuroendocrine tumors: an annotated MRI dataset profiling tumor and carotid characteristics.\nDataset: https://doi.org/10.6084/m9.figshare.27894084.v1\nPaper: https://doi.org/10.1038/s41597-024-04218-8\nDataset licence: Creative Commons Attribution4.0 International, https://creativecommons.org/licenses/by/4.0/\nThe source publisher explicitly applies this licence to the data; source metadata and unmodified original small annotation files are retained.\nMarked adaptation, Primer, 2026-11-01: coordinate-header analysis and comparison display from original provided processed MRI samples with original-mask display lookup. No source sample/header changes or corrective registration were made. Not an independent anatomical, biological-boundary or clinical approval. No source-author or institutional endorsement is implied.\n",
+    "source_url": "https://doi.org/10.6084/m9.figshare.27894084.v1",
+    "publication_url": "https://doi.org/10.1038/s41597-024-04218-8",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "source_grain": {
+      "kind": "single published processed clinical source case",
+      "subject_count": 1,
+      "provided_grid_mm": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "T1_acquisition_mm": [
+        0.488,
+        0.488,
+        1.5
+      ],
+      "T2_acquisition_parameters": "unspecified in source workbook",
+      "acquisition_native": false,
+      "tumour_and_gland_independently_separated": false,
+      "carotid_wall_branches_laterality_separately_labelled": false,
+      "annotation_qform_displacement_mm": 22.5,
+      "source_header_conflict_resolved": false,
+      "source_mask_model_count": 2,
+      "source_planes": 4980
+    },
+    "source_grant": {
+      "publisher_explicitly_applies_license_to_data": true,
+      "terms_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution_url": "/app/anatomy/pituitary-pandit-case1/provided-plane-viewer/ATTRIBUTION.txt",
+      "marked_derived_version": true
+    },
+    "bound_source_ids": [
+      "pandit-pituitary-case1-processed-reference"
+    ],
+    "clinical_approval": false,
+    "fine_anatomical_approval": false,
+    "current_patient_registration": false,
+    "normal_anatomical_atlas_approval": false,
+    "complete_reporting_anatomy_approved": false
+  },
+  "files": {
+    "plane-package/manifest.json": {
+      "bytes": 3118684,
+      "sha256": "120c2ba139319d92cd1880671a5c17e441dbab0df3a98ca84e1c7772a44fe52f"
+    },
+    "plane-package/view-config.json": {
+      "bytes": 1046,
+      "sha256": "fbff9f30ff31de926e3f24c167aeba7269b3e73c9dd1d085d3122a61d92cec58"
+    },
+    "provided-plane-viewer/ATTRIBUTION.txt": {
+      "bytes": 1032,
+      "sha256": "e6df0ee962557635981914fc5cf3b28e2e23cb7b4654aeb89d66ff0f05214a39"
+    },
+    "provided-plane-viewer/README.md": {
+      "bytes": 5343,
+      "sha256": "b484ace9a0e045a0b6837b8a1f61a6d3976545743cdc6dd198f37ea91a379e6b"
+    },
+    "provided-plane-viewer/index.html": {
+      "bytes": 4324,
+      "sha256": "45fa20f211b28b6128397a88b162cf285f9bdb9643c505f2daf08ba4ff17e70d"
+    },
+    "provided-plane-viewer/model-metadata.json": {
+      "bytes": 4499,
+      "sha256": "201b31bd6eac30a063f98611a3f803bf4eff63b6d75b1b3fb898a07f315fed39"
+    },
+    "provided-plane-viewer/models.js": {
+      "bytes": 6834,
+      "sha256": "471a57561155a23dbdaa69a05ac5cf2525ff107d80093f6724e3afbca4451925"
+    },
+    "provided-plane-viewer/network.js": {
+      "bytes": 1503,
+      "sha256": "af5c4e018904d8d7c61bc13e62faff8c112f7886aa3f29f71a8106383fff74f2"
+    },
+    "provided-plane-viewer/viewer.js": {
+      "bytes": 10698,
+      "sha256": "9d831053d4cdbba3fa1401a7843100cddd76441ef2577881200c400b3f8dabba"
+    }
+  },
+  "virtual_metadata": {
+    "plane-package/manifest.json": {
+      "path": "data/radiology/pituitary-case1-manifest.json.gz",
+      "bytes": 286307,
+      "sha256": "5d7f4478ea6f51047948b1bfddf912842ac942c327442c870e461aed096af661",
+      "decodedBytes": 3118684,
+      "decodedSHA256": "120c2ba139319d92cd1880671a5c17e441dbab0df3a98ca84e1c7772a44fe52f"
+    },
+    "plane-package/view-config.json": {
+      "path": "data/radiology/pituitary-case1-view-config.json.gz",
+      "bytes": 576,
+      "sha256": "9678340552c3d00bca997f6fa284e7981fbf0fd5ec135ae497271bc5984c7ee4",
+      "decodedBytes": 1046,
+      "decodedSHA256": "fbff9f30ff31de926e3f24c167aeba7269b3e73c9dd1d085d3122a61d92cec58"
+    },
+    "provided-plane-viewer/model-metadata.json": {
+      "path": "data/radiology/pituitary-case1-model-metadata.json.gz",
+      "bytes": 1219,
+      "sha256": "9012770745cee86b62179bf3a755c987be441f8e7c0e4d96912d290fbfd235b9",
+      "decodedBytes": 4499,
+      "decodedSHA256": "201b31bd6eac30a063f98611a3f803bf4eff63b6d75b1b3fb898a07f315fed39"
+    }
+  },
+  "payloads": {
+    "plane-package/payloads/T1CE-axis-0-part-0.pack": {
+      "bytes": 16566600,
+      "sha256": "e16857317af6693f156a9bf19acd04687e6a0657d76def4e1fe0d9812e05fef5",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/e16857317af6693f156a9bf19acd04687e6a0657d76def4e1fe0d9812e05fef5/T1CE-axis-0-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-0.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-1.pack": {
+      "bytes": 16440274,
+      "sha256": "3930d90d62a2b73da5e021a7bd2696d69123913ab4187b8fef66ddae8c3e9a3e",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/3930d90d62a2b73da5e021a7bd2696d69123913ab4187b8fef66ddae8c3e9a3e/T1CE-axis-0-part-1.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-1.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-2.pack": {
+      "bytes": 16424682,
+      "sha256": "aca429ad76646c13dcb865b3eac6d891dded896adb591a0825c5f5f7664ece7c",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/aca429ad76646c13dcb865b3eac6d891dded896adb591a0825c5f5f7664ece7c/T1CE-axis-0-part-2.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-2.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-3.pack": {
+      "bytes": 16710879,
+      "sha256": "6e4aaaf02f6c4cc1fd48145183c6b8a84be9e7f2b5f592d0547f33f7c5909233",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/6e4aaaf02f6c4cc1fd48145183c6b8a84be9e7f2b5f592d0547f33f7c5909233/T1CE-axis-0-part-3.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-3.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-4.pack": {
+      "bytes": 16752553,
+      "sha256": "f839af416afa4714dfbfe2ea7b07febff80965c802c0811af2c784d49fc729f3",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/f839af416afa4714dfbfe2ea7b07febff80965c802c0811af2c784d49fc729f3/T1CE-axis-0-part-4.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-4.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-5.pack": {
+      "bytes": 16655483,
+      "sha256": "3bb234b207fea0084b0e1ebb271f58e9f5a39c31e350fd076ca17bc39bd8d405",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/3bb234b207fea0084b0e1ebb271f58e9f5a39c31e350fd076ca17bc39bd8d405/T1CE-axis-0-part-5.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-5.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-6.pack": {
+      "bytes": 16632163,
+      "sha256": "e0bcb979519453d6d170b510de8220309162981736837905361f3ea6e3a99e83",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/e0bcb979519453d6d170b510de8220309162981736837905361f3ea6e3a99e83/T1CE-axis-0-part-6.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-6.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-7.pack": {
+      "bytes": 16660180,
+      "sha256": "650668304fafe8ccc05d2a3aa99c70703399c89dc6159f7cb5e6e1f316271d08",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/650668304fafe8ccc05d2a3aa99c70703399c89dc6159f7cb5e6e1f316271d08/T1CE-axis-0-part-7.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-7.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-8.pack": {
+      "bytes": 16646403,
+      "sha256": "a6716d281746568f62af1c8d8a2d612a09124c3f210f8a41feb0d65312d388f5",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/a6716d281746568f62af1c8d8a2d612a09124c3f210f8a41feb0d65312d388f5/T1CE-axis-0-part-8.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-8.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-9.pack": {
+      "bytes": 16704903,
+      "sha256": "0f6620b994a103e38d6d00fff435861b83e69cfae4f739d39d25d18662b33b38",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/0f6620b994a103e38d6d00fff435861b83e69cfae4f739d39d25d18662b33b38/T1CE-axis-0-part-9.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-9.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-10.pack": {
+      "bytes": 16728879,
+      "sha256": "c7d0d1bf6186ce19afce3b32dfff8028033b8a5e4721d6f117dd0c7d4cc1361d",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/c7d0d1bf6186ce19afce3b32dfff8028033b8a5e4721d6f117dd0c7d4cc1361d/T1CE-axis-0-part-10.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-10.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-11.pack": {
+      "bytes": 16536804,
+      "sha256": "eace66f4835a617b9bdd05bdfe83793487261c55ee027d77fefb15c44e5f768b",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/eace66f4835a617b9bdd05bdfe83793487261c55ee027d77fefb15c44e5f768b/T1CE-axis-0-part-11.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-11.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-12.pack": {
+      "bytes": 16450509,
+      "sha256": "220203a2ab544db5229ac2fcfc7ef1e71bc5444c46895ce9370a9b0ffd61b1f0",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/220203a2ab544db5229ac2fcfc7ef1e71bc5444c46895ce9370a9b0ffd61b1f0/T1CE-axis-0-part-12.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-12.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-13.pack": {
+      "bytes": 16406009,
+      "sha256": "16585dd5846f2c41133ab3529a7f0747581b18a12cbbb3e4d916cd2ccf7083d5",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/16585dd5846f2c41133ab3529a7f0747581b18a12cbbb3e4d916cd2ccf7083d5/T1CE-axis-0-part-13.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-13.pack"
+    },
+    "plane-package/payloads/T1CE-axis-0-part-14.pack": {
+      "bytes": 6442060,
+      "sha256": "63e8e7f966552a7db6d982e7b81959514347b44c8df8c22ccf6273b4204d30c1",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/63e8e7f966552a7db6d982e7b81959514347b44c8df8c22ccf6273b4204d30c1/T1CE-axis-0-part-14.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-0-part-14.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-0.pack": {
+      "bytes": 16737711,
+      "sha256": "6dbaa600af694756d0e8a20d0a667652546b22694fc0cbfab5b07d344270f02c",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/6dbaa600af694756d0e8a20d0a667652546b22694fc0cbfab5b07d344270f02c/T1CE-axis-1-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-0.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-1.pack": {
+      "bytes": 16285051,
+      "sha256": "e388c7ea13898fa058aeb6f47e5c15faf817ec5f7914cae0ab8574c872f0b031",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/e388c7ea13898fa058aeb6f47e5c15faf817ec5f7914cae0ab8574c872f0b031/T1CE-axis-1-part-1.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-1.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-2.pack": {
+      "bytes": 16604350,
+      "sha256": "6a61280f767ad6970ee8c898eca1c60e9864ab006d7a7fce564f274bbf78b387",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/6a61280f767ad6970ee8c898eca1c60e9864ab006d7a7fce564f274bbf78b387/T1CE-axis-1-part-2.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-2.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-3.pack": {
+      "bytes": 16183136,
+      "sha256": "e08fbd4bf517e021176b21e51b4a23e8d386cf91a936b190b54c119dedbf7862",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/e08fbd4bf517e021176b21e51b4a23e8d386cf91a936b190b54c119dedbf7862/T1CE-axis-1-part-3.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-3.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-4.pack": {
+      "bytes": 16312063,
+      "sha256": "f93872963e9b52033354c38ff3879887bcdb08cfef3ec58cc09def8da25ba05b",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/f93872963e9b52033354c38ff3879887bcdb08cfef3ec58cc09def8da25ba05b/T1CE-axis-1-part-4.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-4.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-5.pack": {
+      "bytes": 16396462,
+      "sha256": "54d75494e26b5eb3bcc96e81d13381bf9ef5a15e2cba3673c34c13483ed7becc",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/54d75494e26b5eb3bcc96e81d13381bf9ef5a15e2cba3673c34c13483ed7becc/T1CE-axis-1-part-5.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-5.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-6.pack": {
+      "bytes": 16414567,
+      "sha256": "1d5911784e496d1bd7a8855d1fd40270ec820efdaf6dda70889a2cb018479cca",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/1d5911784e496d1bd7a8855d1fd40270ec820efdaf6dda70889a2cb018479cca/T1CE-axis-1-part-6.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-6.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-7.pack": {
+      "bytes": 16455779,
+      "sha256": "9a07f04e3c1b9b2c63b8e971a89e3259a8c74b030c903de664f291b45df574a2",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/9a07f04e3c1b9b2c63b8e971a89e3259a8c74b030c903de664f291b45df574a2/T1CE-axis-1-part-7.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-7.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-8.pack": {
+      "bytes": 16477693,
+      "sha256": "5598b80e25cffcdf7abc79e5a9f6639252b9206f5fceda3069c7eab9d0e604da",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/5598b80e25cffcdf7abc79e5a9f6639252b9206f5fceda3069c7eab9d0e604da/T1CE-axis-1-part-8.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-8.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-9.pack": {
+      "bytes": 16462697,
+      "sha256": "fa0dc5ea81918d7fe1f84a58f2e3716c53248926682662790302daaebb5234f7",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/fa0dc5ea81918d7fe1f84a58f2e3716c53248926682662790302daaebb5234f7/T1CE-axis-1-part-9.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-9.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-10.pack": {
+      "bytes": 16435322,
+      "sha256": "648c56db9155f09e1cb6b2f20f1c93989da08100c8569ba401099a841aa1700a",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/648c56db9155f09e1cb6b2f20f1c93989da08100c8569ba401099a841aa1700a/T1CE-axis-1-part-10.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-10.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-11.pack": {
+      "bytes": 16406011,
+      "sha256": "e3293c06d3d1fe8a07bd1a63e498268c0e35e1e1bfe491941e83cdc7ee303fe0",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/e3293c06d3d1fe8a07bd1a63e498268c0e35e1e1bfe491941e83cdc7ee303fe0/T1CE-axis-1-part-11.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-11.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-12.pack": {
+      "bytes": 16424797,
+      "sha256": "67245a2e8fe6a11706f1b30c820466a136fd8873dd9615ac1a1eca3208963b6b",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/67245a2e8fe6a11706f1b30c820466a136fd8873dd9615ac1a1eca3208963b6b/T1CE-axis-1-part-12.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-12.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-13.pack": {
+      "bytes": 16356419,
+      "sha256": "41f48b731881cf46de0317dd38fcfb9d428609880f022d4ae523f73322d42a46",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/41f48b731881cf46de0317dd38fcfb9d428609880f022d4ae523f73322d42a46/T1CE-axis-1-part-13.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-13.pack"
+    },
+    "plane-package/payloads/T1CE-axis-1-part-14.pack": {
+      "bytes": 11946695,
+      "sha256": "19c5fe34d45e255d7bb0eb78c845d9279543780cb1607713012ae887826fae99",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/19c5fe34d45e255d7bb0eb78c845d9279543780cb1607713012ae887826fae99/T1CE-axis-1-part-14.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-1-part-14.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-0.pack": {
+      "bytes": 16514024,
+      "sha256": "4dbfcf2f7d701acbb2b9638412be0984adc475ed0b72564955ebb29c3687dd88",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/4dbfcf2f7d701acbb2b9638412be0984adc475ed0b72564955ebb29c3687dd88/T1CE-axis-2-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-0.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-1.pack": {
+      "bytes": 16497930,
+      "sha256": "b03ccae890045e7483581e865d93d96144c06da40717de217491acce9bde7d78",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/b03ccae890045e7483581e865d93d96144c06da40717de217491acce9bde7d78/T1CE-axis-2-part-1.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-1.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-2.pack": {
+      "bytes": 16484607,
+      "sha256": "e3ce3079fd04d89acda5eb980dfa4e79879ceae91dbf0bd9ce1c5117a78a00e6",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/e3ce3079fd04d89acda5eb980dfa4e79879ceae91dbf0bd9ce1c5117a78a00e6/T1CE-axis-2-part-2.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-2.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-3.pack": {
+      "bytes": 16506428,
+      "sha256": "f1d9eaeaa1bbcf4cd43f809c75ec007fcd21e02b1b31a6b13563b608287ee7d4",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/f1d9eaeaa1bbcf4cd43f809c75ec007fcd21e02b1b31a6b13563b608287ee7d4/T1CE-axis-2-part-3.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-3.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-4.pack": {
+      "bytes": 16557846,
+      "sha256": "9dec60d77a70426239ad8c17d6716c6a5f13c783d3fa704a11f2d8da72af0474",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/9dec60d77a70426239ad8c17d6716c6a5f13c783d3fa704a11f2d8da72af0474/T1CE-axis-2-part-4.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-4.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-5.pack": {
+      "bytes": 16539418,
+      "sha256": "65eb90e64781b1bed3579430cacbac0edd42d7344eaab57c5c73277b73df6ac1",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/65eb90e64781b1bed3579430cacbac0edd42d7344eaab57c5c73277b73df6ac1/T1CE-axis-2-part-5.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-5.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-6.pack": {
+      "bytes": 16404449,
+      "sha256": "a55f6abd6dd911c3f1cb6366ea05f76f6060c3ecf597bf1b738fbc8065ce7a74",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/a55f6abd6dd911c3f1cb6366ea05f76f6060c3ecf597bf1b738fbc8065ce7a74/T1CE-axis-2-part-6.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-6.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-7.pack": {
+      "bytes": 16355292,
+      "sha256": "10e49a400f889fbbb2f997d2cd463bea71e383b89ffe3f333e7e45d967ceae7f",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/10e49a400f889fbbb2f997d2cd463bea71e383b89ffe3f333e7e45d967ceae7f/T1CE-axis-2-part-7.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-7.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-8.pack": {
+      "bytes": 16379980,
+      "sha256": "dc813c4a8333610f7be727311a35cff7703817163229cfac89f7dfbdb7aa2b45",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/dc813c4a8333610f7be727311a35cff7703817163229cfac89f7dfbdb7aa2b45/T1CE-axis-2-part-8.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-8.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-9.pack": {
+      "bytes": 16311334,
+      "sha256": "c804b1637987cfef33aa590a8e29c5af1addd0f7e8e4e158e82d769ae3a04b8a",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/c804b1637987cfef33aa590a8e29c5af1addd0f7e8e4e158e82d769ae3a04b8a/T1CE-axis-2-part-9.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-9.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-10.pack": {
+      "bytes": 16352621,
+      "sha256": "578e0b94d90d09ed0a456ab706e91f3cb9ae6a35372d3782f1bc0fb560aa61b0",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/578e0b94d90d09ed0a456ab706e91f3cb9ae6a35372d3782f1bc0fb560aa61b0/T1CE-axis-2-part-10.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-10.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-11.pack": {
+      "bytes": 16399887,
+      "sha256": "446e1b1bb705bdb924dd8182924d0ba4b1f9d9b0b503b89420e3e58d15b743a1",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/446e1b1bb705bdb924dd8182924d0ba4b1f9d9b0b503b89420e3e58d15b743a1/T1CE-axis-2-part-11.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-11.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-12.pack": {
+      "bytes": 16287122,
+      "sha256": "b208e4f7140440f66d28adc5825bcd8da0490c8991b207c2d9a3a72679a05541",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/b208e4f7140440f66d28adc5825bcd8da0490c8991b207c2d9a3a72679a05541/T1CE-axis-2-part-12.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-12.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-13.pack": {
+      "bytes": 16131761,
+      "sha256": "bbaa66997d2827ff4784aa60436c0dda634b5a11ca89853d71ef18fdd692a269",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/bbaa66997d2827ff4784aa60436c0dda634b5a11ca89853d71ef18fdd692a269/T1CE-axis-2-part-13.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-13.pack"
+    },
+    "plane-package/payloads/T1CE-axis-2-part-14.pack": {
+      "bytes": 12429589,
+      "sha256": "862658e0349879a3ce8fe355a856c5b0d9f30a78ec606e8e0b88e45899a12ffe",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/862658e0349879a3ce8fe355a856c5b0d9f30a78ec606e8e0b88e45899a12ffe/T1CE-axis-2-part-14.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T1CE-axis-2-part-14.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-0.pack": {
+      "bytes": 16679303,
+      "sha256": "5ccdd832c75f3a5ce6cc13a7b52e933123939da80e2b4911e4a74d22b8db9a9f",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/5ccdd832c75f3a5ce6cc13a7b52e933123939da80e2b4911e4a74d22b8db9a9f/T2-axis-0-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-0.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-1.pack": {
+      "bytes": 16500796,
+      "sha256": "420d0f2fa594093fd1e08fc9d072b8d890fe86ae7043f3d921efbf7619aa80b7",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/420d0f2fa594093fd1e08fc9d072b8d890fe86ae7043f3d921efbf7619aa80b7/T2-axis-0-part-1.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-1.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-2.pack": {
+      "bytes": 16464835,
+      "sha256": "f4ff2c49abd0bdbd25a3ac10fcc22c7152faa6aa6e67f45f28efe72f3c78f1ad",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/f4ff2c49abd0bdbd25a3ac10fcc22c7152faa6aa6e67f45f28efe72f3c78f1ad/T2-axis-0-part-2.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-2.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-3.pack": {
+      "bytes": 16332524,
+      "sha256": "843060634e3c0e2babd5244b3618170a6b3ebbd9fee2b9e1d856cf651f67504a",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/843060634e3c0e2babd5244b3618170a6b3ebbd9fee2b9e1d856cf651f67504a/T2-axis-0-part-3.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-3.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-4.pack": {
+      "bytes": 16347437,
+      "sha256": "89e3b8e5e4d1807228e719f620412a5957c3bf37d650a2e0f1fcdd80b6272d4b",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/89e3b8e5e4d1807228e719f620412a5957c3bf37d650a2e0f1fcdd80b6272d4b/T2-axis-0-part-4.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-4.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-5.pack": {
+      "bytes": 16339129,
+      "sha256": "0e5c4d40093d019b36669f5edb216d6b72fc16c1e96abdfff72acde5a8757d2d",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/0e5c4d40093d019b36669f5edb216d6b72fc16c1e96abdfff72acde5a8757d2d/T2-axis-0-part-5.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-5.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-6.pack": {
+      "bytes": 16358610,
+      "sha256": "66cba35f5aa6c40ebc28ded930b3fa20a102913649143ecbd3e5fca96812eda4",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/66cba35f5aa6c40ebc28ded930b3fa20a102913649143ecbd3e5fca96812eda4/T2-axis-0-part-6.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-6.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-7.pack": {
+      "bytes": 16518643,
+      "sha256": "ddfc34bec4121130dd21d96d54b2b0592da805630c84d4edc4d59a92a188a442",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/ddfc34bec4121130dd21d96d54b2b0592da805630c84d4edc4d59a92a188a442/T2-axis-0-part-7.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-7.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-8.pack": {
+      "bytes": 16565304,
+      "sha256": "29466a32f62e1e3d97e505d13d3ab33014ff7b846fe2a7d9b8f6ca0c10774f9e",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/29466a32f62e1e3d97e505d13d3ab33014ff7b846fe2a7d9b8f6ca0c10774f9e/T2-axis-0-part-8.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-8.pack"
+    },
+    "plane-package/payloads/T2-axis-0-part-9.pack": {
+      "bytes": 16579644,
+      "sha256": "fc34d5e5566a62f31f776e2b6f025e566b9f4c26bd7fe7cfa686f2975aeea2ac",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/fc34d5e5566a62f31f776e2b6f025e566b9f4c26bd7fe7cfa686f2975aeea2ac/T2-axis-0-part-9.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-0-part-9.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-0.pack": {
+      "bytes": 16393040,
+      "sha256": "cfeb6df02ce9f70aaf7415f803539d2a034e1109c26ec3e1c0d0d3f9f426c769",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/cfeb6df02ce9f70aaf7415f803539d2a034e1109c26ec3e1c0d0d3f9f426c769/T2-axis-1-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-0.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-1.pack": {
+      "bytes": 16496990,
+      "sha256": "4142bab23c9873a397014917192778bdc026db53d3a6d9fd6c93ea2131fff21a",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/4142bab23c9873a397014917192778bdc026db53d3a6d9fd6c93ea2131fff21a/T2-axis-1-part-1.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-1.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-2.pack": {
+      "bytes": 16766415,
+      "sha256": "6d29f80818c3e5370bdf4de27ba69b6d0e61305e5463da2f638bff622ec02c56",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/6d29f80818c3e5370bdf4de27ba69b6d0e61305e5463da2f638bff622ec02c56/T2-axis-1-part-2.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-2.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-3.pack": {
+      "bytes": 16367066,
+      "sha256": "c38e264977f24d6387d658e51adb4f4960beb92ed16a5172a6f76cc7b910f795",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/c38e264977f24d6387d658e51adb4f4960beb92ed16a5172a6f76cc7b910f795/T2-axis-1-part-3.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-3.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-4.pack": {
+      "bytes": 16755039,
+      "sha256": "191bd752ec44118de4bd52a841592fd808a0e999ca60b446cc454ccae4388b82",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/191bd752ec44118de4bd52a841592fd808a0e999ca60b446cc454ccae4388b82/T2-axis-1-part-4.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-4.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-5.pack": {
+      "bytes": 16723120,
+      "sha256": "fe669d5a00896bbb2ed69f386d73b7e3193d4a6d59e48a81fca26498b5fe828c",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/fe669d5a00896bbb2ed69f386d73b7e3193d4a6d59e48a81fca26498b5fe828c/T2-axis-1-part-5.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-5.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-6.pack": {
+      "bytes": 16669588,
+      "sha256": "a82d99ac0fa07560c51e91d0c4bccbd456a0c2afb0f1c675c95faaa28538e64d",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/a82d99ac0fa07560c51e91d0c4bccbd456a0c2afb0f1c675c95faaa28538e64d/T2-axis-1-part-6.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-6.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-7.pack": {
+      "bytes": 16496877,
+      "sha256": "556dce171ba8f232df8e4b8b8fa9fc5b9e5658036321f7e6b088766fdd0ea747",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/556dce171ba8f232df8e4b8b8fa9fc5b9e5658036321f7e6b088766fdd0ea747/T2-axis-1-part-7.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-7.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-8.pack": {
+      "bytes": 16661631,
+      "sha256": "892134bb94ae90ef9ed2b22c1b37a7e004044c592ea2cc5603953ab326cdf4eb",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/892134bb94ae90ef9ed2b22c1b37a7e004044c592ea2cc5603953ab326cdf4eb/T2-axis-1-part-8.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-8.pack"
+    },
+    "plane-package/payloads/T2-axis-1-part-9.pack": {
+      "bytes": 16309749,
+      "sha256": "39300d1a38d6e1e02332973c3396f8f02a1522ad1e4f8f418ca50cf7ea636999",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/39300d1a38d6e1e02332973c3396f8f02a1522ad1e4f8f418ca50cf7ea636999/T2-axis-1-part-9.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-1-part-9.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-0.pack": {
+      "bytes": 16272594,
+      "sha256": "7a171ac36f1a89a0dcbb2ba458b461c9bc8c41ff4360d463c7a7f20bdff9b5f8",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/7a171ac36f1a89a0dcbb2ba458b461c9bc8c41ff4360d463c7a7f20bdff9b5f8/T2-axis-2-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-0.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-1.pack": {
+      "bytes": 16484726,
+      "sha256": "4460c4bef67afbe8ec255c0d360c24b5b3042dba0bc182f15983f05ab091a6d9",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/4460c4bef67afbe8ec255c0d360c24b5b3042dba0bc182f15983f05ab091a6d9/T2-axis-2-part-1.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-1.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-2.pack": {
+      "bytes": 16536922,
+      "sha256": "a58c3b193bdfcfdd12507c3ab5d1c9e6d2e1b4f53ba20d7f5707fb1f6b74f11d",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/a58c3b193bdfcfdd12507c3ab5d1c9e6d2e1b4f53ba20d7f5707fb1f6b74f11d/T2-axis-2-part-2.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-2.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-3.pack": {
+      "bytes": 16509329,
+      "sha256": "8f5f32f3fc910b743e2687d2b0ffc0fbb47c7ee10a7fe7deba466dd4839c4258",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/8f5f32f3fc910b743e2687d2b0ffc0fbb47c7ee10a7fe7deba466dd4839c4258/T2-axis-2-part-3.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-3.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-4.pack": {
+      "bytes": 16482226,
+      "sha256": "c461de5203fa8a6c907f3b9a9f29f94bd8f259240d57fbafe8fc90d8cb3b9013",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/c461de5203fa8a6c907f3b9a9f29f94bd8f259240d57fbafe8fc90d8cb3b9013/T2-axis-2-part-4.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-4.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-5.pack": {
+      "bytes": 16491262,
+      "sha256": "f920cf6b2fea8910b95281779cba8599b75cdccfe5001a414133295d773f962f",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/f920cf6b2fea8910b95281779cba8599b75cdccfe5001a414133295d773f962f/T2-axis-2-part-5.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-5.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-6.pack": {
+      "bytes": 16473773,
+      "sha256": "7d78c0b30acf282a6ca50b63dd953eb6dce25e70d5228cba120e8aae812ebf3d",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/7d78c0b30acf282a6ca50b63dd953eb6dce25e70d5228cba120e8aae812ebf3d/T2-axis-2-part-6.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-6.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-7.pack": {
+      "bytes": 16492292,
+      "sha256": "bf7a0bc2d28feee363e04fd3bdc916189b8eca356b23e6fe779d92dd845d1595",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/bf7a0bc2d28feee363e04fd3bdc916189b8eca356b23e6fe779d92dd845d1595/T2-axis-2-part-7.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-7.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-8.pack": {
+      "bytes": 16511334,
+      "sha256": "7425264f03866622bfe98bfb824bd692d3b41b49083bb1f596a0277b7c72980a",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/7425264f03866622bfe98bfb824bd692d3b41b49083bb1f596a0277b7c72980a/T2-axis-2-part-8.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-8.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-9.pack": {
+      "bytes": 16746652,
+      "sha256": "7c968902ba3cc064d0831024b1a970f62f5a22e45ea8152775225e126be3a741",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/7c968902ba3cc064d0831024b1a970f62f5a22e45ea8152775225e126be3a741/T2-axis-2-part-9.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-9.pack"
+    },
+    "plane-package/payloads/T2-axis-2-part-10.pack": {
+      "bytes": 624177,
+      "sha256": "85d2c84ddbdeb315a0a10975ee5bf583f722d8fd2236817402d6c04ca5a74026",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/85d2c84ddbdeb315a0a10975ee5bf583f722d8fd2236817402d6c04ca5a74026/T2-axis-2-part-10.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/T2-axis-2-part-10.pack"
+    },
+    "plane-package/payloads/tumourGland-axis-0-part-0.pack": {
+      "bytes": 1224848,
+      "sha256": "6ce5c529961bfcb211b35d953b7831ed9e33010490775502dcaa89f8cdfd17b8",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/6ce5c529961bfcb211b35d953b7831ed9e33010490775502dcaa89f8cdfd17b8/tumourGland-axis-0-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/tumourGland-axis-0-part-0.pack"
+    },
+    "plane-package/payloads/tumourGland-axis-1-part-0.pack": {
+      "bytes": 1220551,
+      "sha256": "2bb5ba26eb1ef175d528a3a4e2708f8cdb5027d624fee8c589d25c08e413ff63",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/2bb5ba26eb1ef175d528a3a4e2708f8cdb5027d624fee8c589d25c08e413ff63/tumourGland-axis-1-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/tumourGland-axis-1-part-0.pack"
+    },
+    "plane-package/payloads/tumourGland-axis-2-part-0.pack": {
+      "bytes": 1218753,
+      "sha256": "b59958c639e1d1d1e2359a85459377e018b359b1378386c9d61113a95b239bc5",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/b59958c639e1d1d1e2359a85459377e018b359b1378386c9d61113a95b239bc5/tumourGland-axis-2-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/tumourGland-axis-2-part-0.pack"
+    },
+    "plane-package/payloads/carotids-axis-0-part-0.pack": {
+      "bytes": 323819,
+      "sha256": "e1d25bda731c4690bd187131ef96b8e36c5927a52e053895424d61154622e08e",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/e1d25bda731c4690bd187131ef96b8e36c5927a52e053895424d61154622e08e/carotids-axis-0-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/carotids-axis-0-part-0.pack"
+    },
+    "plane-package/payloads/carotids-axis-1-part-0.pack": {
+      "bytes": 321481,
+      "sha256": "18bea5fc169431738f5a2941e280a80e93ce7fe807bc1e7bb5d0a8997be18fc1",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/18bea5fc169431738f5a2941e280a80e93ce7fe807bc1e7bb5d0a8997be18fc1/carotids-axis-1-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/carotids-axis-1-part-0.pack"
+    },
+    "plane-package/payloads/carotids-axis-2-part-0.pack": {
+      "bytes": 319535,
+      "sha256": "d022887042039ce11e2c2b9f52afe267f037f90f36f8320a50623adddf4ea9dd",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/d022887042039ce11e2c2b9f52afe267f037f90f36f8320a50623adddf4ea9dd/carotids-axis-2-part-0.pack",
+      "local_cache": ".research/pituitary-case-source-20261101/plane-package/payloads/carotids-axis-2-part-0.pack"
+    },
+    "source-models/1_tumor_f.sform.mesh.gz": {
+      "bytes": 39654,
+      "sha256": "1c79f630cd82e547194d5f8d998be7a8dfe8eb5286b93ac4677d84e6e2f41d1e",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/1c79f630cd82e547194d5f8d998be7a8dfe8eb5286b93ac4677d84e6e2f41d1e/1_tumor_f.sform.mesh.gz",
+      "local_cache": ".research/pituitary-case-source-20261101/source-models/1_tumor_f.sform.mesh.gz"
+    },
+    "source-models/1_carotids_f.sform.mesh.gz": {
+      "bytes": 72736,
+      "sha256": "07746b62587c11b2674ffd6967390020a2e0b0b0b0b2f8cf994147a119304cd0",
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/runtime/07746b62587c11b2674ffd6967390020a2e0b0b0b0b2f8cf994147a119304cd0/1_carotids_f.sform.mesh.gz",
+      "local_cache": ".research/pituitary-case-source-20261101/source-models/1_carotids_f.sform.mesh.gz"
+    }
+  },
+  "originals": {
+    "originals/1_carotids_f.nii.gz": {
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/originals/5d82a615b48f1626efd47e110e087c41ef6115cebbca775f5022ea492baea665/1_carotids_f.nii.gz",
+      "bytes": 70323,
+      "sha256": "5d82a615b48f1626efd47e110e087c41ef6115cebbca775f5022ea492baea665"
+    },
+    "originals/1_tumor_f.nii.gz": {
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/originals/7a7681de7159981bf333ca67b68cd66e9f18f2b5eee199c4f645209aefae0246/1_tumor_f.nii.gz",
+      "bytes": 270042,
+      "sha256": "7a7681de7159981bf333ca67b68cd66e9f18f2b5eee199c4f645209aefae0246"
+    },
+    "originals/1_T1.nii.gz": {
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/originals/8a3c6fb9c28fa8cff0d5c643cd799b9665826a7f4b84d02549b87cf588b1908f/1_T1.nii.gz",
+      "bytes": 239891419,
+      "sha256": "8a3c6fb9c28fa8cff0d5c643cd799b9665826a7f4b84d02549b87cf588b1908f"
+    },
+    "originals/1_T2_f.nii.gz": {
+      "url": "https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/pituitary-pandit-v1/case-1/originals/20e26d09e21310b9fd78a895dd5316858110af6c9874fc6a962a22e8ac9c7953/1_T2_f.nii.gz",
+      "bytes": 164415910,
+      "sha256": "20e26d09e21310b9fd78a895dd5316858110af6c9874fc6a962a22e8ac9c7953"
+    }
+  },
+  "remote_delivery_verified": true,
+  "remote_delivery_receipt_sha256": "fb704e38be0515bd0136de85035927c3eb0fdb3a0c1a01148689a864f335982b",
+  "clinicalApproval": false,
+  "completeReportingCoverage": false,
+  "wholeGoalComplete": false
+}

@@ -65,7 +65,8 @@ def test_new_inverse_rejects_unknown_edits_or_descriptor_approval_drift():
     from tools.sellar_interface_runtime_compatibility import reviewed,before_interfaces_bytes,before_interfaces_fields
     proof=reviewed()
     for name,row in proof['files'].items():
-        raw=(R/name).read_bytes();before=before_interfaces_bytes(name,raw)
+        from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes
+        raw=before_pituitary_bytes(name,(R/name).read_bytes());before=before_interfaces_bytes(name,raw)
         assert hashlib.sha256(before).hexdigest()==row['before_sha256']
         assert before_interfaces_bytes(name,before)==before
         with pytest.raises(ValueError):before_interfaces_bytes(name,raw+b'foreign')
