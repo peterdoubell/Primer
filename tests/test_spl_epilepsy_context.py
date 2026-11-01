@@ -2,6 +2,7 @@
 from pathlib import Path
 import hashlib,json,os,subprocess,sys
 from primer import spl_epilepsy_reference as context,spl_reporting_reference as source
+from tools.spl_additional_runtime_compatibility import before_additional_bytes
 R=Path(__file__).resolve().parents[1];D=R/'docs/epilepsy-source-context-review-20261101'
 sha=lambda raw:hashlib.sha256(raw).hexdigest()
 
@@ -67,10 +68,10 @@ def test_actual_lesson_and_reporting_views_match_native_pixels_and_gpu_data():
         assert case['initial']['selected']==4 and case['initial']['comparison']==43
         assert case['initial']['imageState']['overlay']=='pair'
         assert {r['code']for r in case['gpu']}==set(context.CONTEXT_CODES)
-    for name,digest in proof['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name
+    for name,digest in proof['sourceSHA256'].items():assert sha(before_additional_bytes(name,(R/name).read_bytes()))==digest,name
     index=json.loads((D/'evidence-index.json').read_bytes())
     assert not index['clinicalApproval'] and not index['completeReportingCoverage'] and not index['wholeGoalComplete']
-    for name,digest in index['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name
+    for name,digest in index['sourceSHA256'].items():assert sha(before_additional_bytes(name,(R/name).read_bytes()))==digest,name
     for name,digest in index['proofSHA256'].items():assert sha((D/name).read_bytes())==digest,name
 
 
@@ -81,7 +82,7 @@ def test_source_granularity_does_not_convert_partial_context_to_fine_anatomy():
     assert proof['combinedClassesRemainCombined']and not proof['automaticClinicalApproval']and not proof['completeReportingCoverage']
     assert all(not p['requiredPartIndependentlyVerified']for r in proof['pairedRequirements']for p in r['requiredParts'])
     assert all(not r['clinicalApproval']for r in proof['pairedRequirements'])
-    for name,digest in proof['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name
+    for name,digest in proof['sourceSHA256'].items():assert sha(before_additional_bytes(name,(R/name).read_bytes()))==digest,name
 
 
 def test_context_inverse_rejects_unrelated_edits_and_approval_drift():

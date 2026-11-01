@@ -102,6 +102,9 @@ def references():
     from .spl_epilepsy_reference import references as epilepsy_context_references
     for identifier, entries in epilepsy_context_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .spl_additional_reference import references as additional_references
+    for identifier, entries in additional_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     from .holiatlas_reference import references as holiatlas_references
     for identifier, entries in holiatlas_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
