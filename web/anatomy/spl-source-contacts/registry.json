@@ -6,8 +6,8 @@
   ],
   "files": {
     "index.html": {
-      "bytes": 1829,
-      "sha256": "aef6b468a3bab044509bfd342c85990260b9fa3039fe5d4564224537f5a74bfa"
+      "bytes": 2593,
+      "sha256": "bc8732aa3c1960a1a739a6ab73e7a1e904d49108c632b40a148b84cb4d5bf197"
     },
     "mesh.js": {
       "bytes": 8549,
@@ -32,18 +32,26 @@
     "LICENSE.txt": {
       "bytes": 10513,
       "sha256": "70e2a0ad66ad7b936a2118a27d87dbb8d18a4687bac34c7088a304a7464364c5"
+    },
+    "mri.js": {
+      "bytes": 8323,
+      "sha256": "371ccdff77cedcf082518a9e29cfef6b231bd0e5003a6a2d24cac6a753f205aa"
+    },
+    "mri-source.json": {
+      "bytes": 160154,
+      "sha256": "09a1f6f40628741b4339ce69020bf615ba29c63ebb9f3bd0ab8c19dd202d2c6e"
     }
   },
   "inspector": {
     "id": "spl-cortical-source-contacts-reference",
-    "modality": "Categorical source contact surfaces",
+    "modality": "Native T1/T2 MRI and categorical source contact surfaces",
     "coordinate_context": "single-SPL-source-label-grid-RAS-mm",
     "title": "Cortical and white-matter source-label contacts",
     "src": "/app/anatomy/spl-source-contacts/index.html",
     "manifest_url": "/app/anatomy/spl-source-contacts/manifest.json",
-    "sha256": "aef6b468a3bab044509bfd342c85990260b9fa3039fe5d4564224537f5a74bfa",
+    "sha256": "bc8732aa3c1960a1a739a6ab73e7a1e904d49108c632b40a148b84cb4d5bf197",
     "manifest_sha256": "c5ca712f4ee1a0b92f97e2ca50c8260f2dc09ad6669556835cfeef4703b31c2e",
-    "caption": "Inspect the exact shared cell faces between source white-matter and cortical parcel labels. All 77 source pairs and 31 opposite-side-named contacts are retained for review. These categorical contacts do not establish biological grey\u2013white boundary accuracy, cortical thickness, dysplasia or patient-specific anatomy. Use the separate native SPL MRI reader to inspect the source images.",
+    "caption": "Inspect all 77 categorical source-label contact pairs alongside the original T1/T2 MRI. Native axial, coronal and sagittal slices, unmarked comparisons and separate crosshairs permit source-context exploration and return to a verified contact anchor. All 31 opposite-side-named contacts remain included for review. These source labels do not establish biological grey\u2013white boundary accuracy, cortical thickness, dysplasia, patient-specific anatomy or clinical adequacy.",
     "attribution": "All or portions of this licensed product (such portions are the \"Software\") have been obtained under license from The Brigham and Women's Hospital, Inc. and are subject to the following terms and conditions:\n\nThe complete 3D Slicer license, including all Part B conditions, accompanies this package as LICENSE.txt. It applies to the SPL atlas data. Retain the license and this notice in redistributed copies and documentation.\n\nSPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl and Ron Kikinis; Brigham and Women's Hospital, Harvard Medical School, Massachusetts General Hospital and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56.\nhttps://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html\nhttps://github.com/mhalle/spl-brain-atlas\n\nPublisher-listed additional contributors: Ilwoo Lyu and Martin Styner (Sulcal Curves); Samira Farough (Ventricular System); Ibraheem Naeem and Maria Naeem (Head and Neck Muscles); George Papadimitriou (Cerebellar Parcellation); Madiha Tahir (White Matter). The original source README, including funding acknowledgements and citation instructions, accompanies this package as SOURCE-README.md.\n\nModified transport and derived visualization version by Primer, 2026-10-16. Exact categorical label-boundary meshes are newly derived from every exposed original label voxel-cell face; they are not original publisher VTK files. No components, cavities, or faces are deleted. The original publisher VTK models are separately retained for comparison.\nConversion: native MRI/label sample bytes are unchanged; original NRRD gzip bodies and headers permit exact source-file reconstruction. VTK coordinate/normal/strip bits are retained; triangle strips are expanded without deleting any implied triangle. Display colors follow the original lookup table. No MRI resampling, coordinate fitting, smoothing, capping, merging or anatomical repair is applied.\nThis single source case and its processed anatomical labels/surfaces do not establish normal populations, pathology, current-patient registration, complete fine anatomy or clinical approval. The source license states that clinical applications are neither recommended nor advised. No source institution endorsement is implied.\n\nAdditional marked adaptation: exact shared voxel-cell faces between source white-matter classes 2/41 and the source cortical parcel classes. No smoothing or gap bridging. These categorical interfaces are not validated biological boundaries, cortical-thickness measurements or patient-specific anatomy. Opposite-side-named source contacts are retained for review.\n",
     "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
     "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
@@ -99,5 +107,15 @@
     "putReportedError": false,
     "runtimeBound": false,
     "clinicalApproval": false
+  },
+  "native_mri": {
+    "manifest_path": "web/anatomy/spl-nac-limbic/manifest.json",
+    "manifest_sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+    "config_sha256": "09a1f6f40628741b4339ce69020bf615ba29c63ebb9f3bd0ab8c19dd202d2c6e",
+    "source_pairs": 77,
+    "source_anchor_samples": 308,
+    "resampled": false,
+    "anatomical_visibility_verified": false,
+    "clinical_approval": false
   }
 }

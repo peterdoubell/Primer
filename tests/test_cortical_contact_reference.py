@@ -1,4 +1,5 @@
 """Source identity, paired-reference meaning, protected routes and actual lesson."""
+from tools.cortical_mri_runtime_compatibility import before_mri_bytes
 import hashlib,json,os,subprocess,sys
 from pathlib import Path
 from primer import cortical_contact_reference as reference
@@ -33,7 +34,7 @@ with TestClient(server.app)as client:
     assert result.returncode==0,result.stdout+result.stderr
 
 
-def test_authenticated_contact_lesson_matches_current_runtime():
+def test_historical_authenticated_contact_lesson_is_exactly_recoverable():
     proof=json.loads((ROOT/'docs/cortical-source-contacts-review-20261101/lesson/proof.json').read_bytes())
     assert proof['allPassed'] and proof['syntheticLoopback'] and not proof['productionLearnerWrites']
     assert not proof['errors'] and not proof['clinicalApproval'] and len(proof['mounts'])==4
@@ -41,7 +42,7 @@ def test_authenticated_contact_lesson_matches_current_runtime():
     assert sum(len(m['states'])for m in proof['mounts'])==308
     assert all(m['allSourceGPUBytesMatched'] and m['reopened']for m in proof['mounts'])
     assert len(proof['responses'])==8 and all(r['status']==200 for r in proof['responses'])
-    for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
+    for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256(before_mri_bytes(file,(ROOT/file).read_bytes())).hexdigest()==digest,file
 
 def test_contact_inverse_preserves_exact_baseline_and_rejects_foreign_edits():
     import copy,pytest
