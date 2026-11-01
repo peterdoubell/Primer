@@ -3909,6 +3909,26 @@ async def spl_reporting_reference_delivery(asset: str, request: Request):
         response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
     return response
 
+@app.api_route("/app/anatomy/spl-epilepsy-context/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def epilepsy_context_reference_delivery(asset: str, request: Request):
+    from .spl_epilepsy_reference import ATLAS, AUTHORED, PREFIX, references, validate_file, manifest_bytes
+    from . import spl_reporting_reference as source
+    src = PREFIX + asset
+    if (not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or
+            asset not in AUTHORED and asset not in set(source.registry()['files']) - source.AUTHORED):
+        return JSONResponse({'detail': 'Unknown epilepsy source context resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    if asset not in AUTHORED:
+        return RedirectResponse(source.PREFIX + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})
+    validate_file(asset)
+    if asset == 'manifest.json':
+        return Response(manifest_bytes(), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
 @app.api_route("/app/anatomy/holiatlas/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def holiatlas_reference_delivery(asset: str, request: Request):
     from .holiatlas_reference import AUTHORED, ATLAS, PREFIX, registry, references, validate_file, metadata_bytes
