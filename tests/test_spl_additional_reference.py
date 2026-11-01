@@ -10,6 +10,7 @@ import sys
 import pytest
 from primer import spl_additional_reference as source
 from tools.spl_additional_runtime_compatibility import reviewed, before_additional_bytes, before_additional_fields
+from tools.sellar_interface_runtime_compatibility import before_interfaces_bytes
 
 R=Path(__file__).resolve().parents[1]
 D=R/'docs/spl-additional-source-review-20261101'
@@ -113,7 +114,7 @@ def test_authenticated_app_and_independent_native_pixel_evidence():
     for name,digest in browser['sourceSHA256'].items():
         assert sha((R/'web/anatomy/spl-additional-source'/name).read_bytes())==digest
     index=json.loads((D/'evidence-index.json').read_bytes())
-    for name,digest in index['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name
+    for name,digest in index['sourceSHA256'].items():assert sha(before_interfaces_bytes(name,(R/name).read_bytes()))==digest,name
     for name,digest in index['proofSHA256'].items():assert sha((D/name).read_bytes())==digest,name
     assert not index['clinicalApproval']and not index['wholeGoalComplete']
 

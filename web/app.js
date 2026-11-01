@@ -2039,7 +2039,7 @@ function sourceNativeInspector(asset) {
   const additionalMRI = asset.id === 'spl-additional-native-source-reference';
   const reportingMRI = asset.id === 'spl-nac-reporting-native-reference' || epilepsyContextMRI || additionalMRI;
   const temporalCBCT = asset.id === 'openear-zeta-native-reference';
-  const sourceContacts = asset.id === 'spl-cortical-source-contacts-reference';
+  const sourceContacts = ['spl-cortical-source-contacts-reference', 'spl-sellar-source-interfaces-reference'].includes(asset.id);
   const fcdMRI = asset.id === 'bonn-fcd-case4-native-reference';
   const hippocampalRaters = asset.id === 'dryad-hippocampal-case10-rater-reference';
   const exVivoMRI = asset.id === 'nextbrain-exvivo-reference';
@@ -2955,7 +2955,7 @@ async function renderRadiologyDesk(page, nodeId) {
   const motionReferences = ref.source_motion_references || [];
   const cardiacContext = (ref.source_native_inspectors || []).filter(asset => ['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const hippocampalContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
-  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['spl-additional-native-source-reference', 'spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));
+  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));
   const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' && asset.id !== 'bp3d-cardiac-original-context' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));
   const studyReferences = ref.source_study_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
@@ -3324,8 +3324,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const reportingContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-reporting-native-reference' || asset.id === 'spl-epilepsy-temporal-ventricular-source-context');
   const templateContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'holiatlas-source-template-reference');
   const limbicContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-limbic-native-reference');
-  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
-  const curatedSurface = sourceModels.some(asset => !['spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
+  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
+  const curatedSurface = sourceModels.some(asset => !['spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,

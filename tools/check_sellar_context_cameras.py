@@ -13,7 +13,7 @@ def read_mesh(path):
     return points,indices
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path,default=ROOT/'docs/sellar-source-interfaces-review-20261101');parser.add_argument('--browser-proof',type=Path);parser.add_argument('--output',type=Path);args=parser.parse_args();d=args.evidence
+    parser=argparse.ArgumentParser();parser.add_argument('--evidence',type=Path,default=ROOT/'docs/sellar-source-interfaces-review-20261101');parser.add_argument('--browser-proof',type=Path);parser.add_argument('--output',type=Path);parser.add_argument('--mounts',type=int,default=2);args=parser.parse_args();d=args.evidence
     manifest=json.loads((d/'viewer/manifest.json').read_bytes());context=json.loads((d/'viewer/context-source.json').read_bytes());browser=json.loads((args.browser_proof or d/'browser-proof.json').read_bytes())
     points,indices=read_mesh(d/'viewer/source-contacts.mesh.gz')
     classes={row['code']:read_mesh(ROOT/'web/anatomy'/row['sourceAtlas']/row['file'])[0]for row in context['meshes']}
@@ -39,7 +39,7 @@ def main():
         relative=selected-center;world=np.column_stack([relative[:,0],relative[:,2],-relative[:,1]])
         projected=np.einsum('ij,kj->ik',world,basis)/np.array([camera['radius']*camera['aspect'],camera['radius'],4*camera['radius']])
         clip=float(np.max(abs(projected)));assert clip<1;maximum_clip=max(maximum_clip,clip)
-    assert context_states==216 and contact_states==144
+    assert context_states==108*args.mounts and contact_states==72*args.mounts
     result={'allPassed':True,'actualGPUUniformCameraStates':len(browser['cameras']),'wholeContextFramingStates':context_states,'contactOnlyFramingStates':contact_states,'allIntendedSourceVerticesInsideFrustum':True,'allVisibleLayersUseIdenticalGPUCameraUniforms':True,'maxAbsoluteClipCoordinate':maximum_clip,'maxGPUCameraBasisRigidError':maximum_rigid,'sourceCoordinatesFitted':False,'clinicalApproval':False}
     if args.output:args.output.write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result))
