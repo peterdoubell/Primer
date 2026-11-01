@@ -33,3 +33,13 @@ def test_delivery_package_evidence_matches_current_metadata_and_tools():
     assert package['packagerSHA256']==hashlib.sha256((R/'tools/anatomy_sources/package_cortical_source_contacts.py').read_bytes()).hexdigest()
     assert independent['checkerSHA256']==hashlib.sha256((R/'tools/anatomy_sources/check_cortical_contact_package.py').read_bytes()).hexdigest()
     assert not package['runtimeBound'] and not independent['clinicalApproval']
+
+def test_real_hosted_reader_uses_the_verified_immutable_source():
+    proof=json.loads((D/'hosted-proof.json').read_bytes())
+    delivery=json.loads((R/'docs/cortical-source-contacts-review-20261101/runtime-delivery.json').read_bytes())
+    expected=delivery['files']['source-contacts.mesh.gz']['url']
+    assert proof['allPassed'] and proof['hostedDelivery'] and not proof['errors']
+    assert len(proof['hostedResponses'])==2
+    assert all(row=={'url':expected,'status':200}for row in proof['hostedResponses'])
+    assert all(row['allSourceBuffersMatched'] and row['actualDrawRangesVerified']for row in proof['states'])
+    for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256((R/file).read_bytes()).hexdigest()==digest

@@ -1,4 +1,5 @@
-export const payloadPrefix='/payload/';
+const HOSTED_PREFIX='https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com/radiology-native/spl-source-contacts-v1/runtime/';
+export const payloadPrefix=location.hostname==='127.0.0.1'&&new URLSearchParams(location.search).get('local')==='1'?'/payload/':HOSTED_PREFIX;
 export const sha = async bytes => [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(n => n.toString(16).padStart(2, '0')).join('');
 export async function verified(bytes, size, digest) {
   if (bytes.byteLength !== size || await sha(bytes) !== digest) throw Error('Source integrity check failed');
@@ -18,7 +19,8 @@ export async function decode(bytes, size, digest) {
 export function payloadURL(prefix, file, digest) {
   if (!/^[a-zA-Z0-9.-]+$/.test(file) || !/^[a-f0-9]{64}$/.test(digest)) throw Error('Invalid source address');
   if (location.hostname === '127.0.0.1' && prefix === '/payload/') return prefix + file;
-  throw Error('Review prototype is local only');
+  if(prefix!==HOSTED_PREFIX)throw Error('Unexpected source host');
+  return prefix+digest+'/'+file;
 }
 export async function payload(prefix, file, identity, member, signal) {
   const url = payloadURL(prefix, file, identity.sha256);
