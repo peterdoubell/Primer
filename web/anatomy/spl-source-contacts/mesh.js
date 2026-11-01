@@ -5,13 +5,13 @@ const canvas=$('mesh'),gl=canvas.getContext('webgl2',{preserveDrawingBuffer:true
 let program,uniforms,attribute;
 function setupGL(){
   const shaders=[ [gl.VERTEX_SHADER,`#version 300 es
-in vec3 position;uniform vec3 center;uniform float radius,yaw,pitch,aspect;out vec3 p;
-void main(){vec3 q=position-center,b=vec3(q.x,q.z,-q.y);float c=cos(yaw),s=sin(yaw),a=cos(pitch),d=sin(pitch);vec3 r=vec3(c*b.x+s*b.z,b.y,-s*b.x+c*b.z);p=vec3(r.x,a*r.y-d*r.z,d*r.y+a*r.z);gl_Position=vec4(p.x/(radius*aspect),p.y/radius,-p.z/(4.0*radius),1.0);}`], [gl.FRAGMENT_SHADER,`#version 300 es
+in vec3 position;uniform vec3 center;uniform float radius,aspect;uniform vec3 basisRight,basisUp,basisDepth;out vec3 p;
+void main(){vec3 q=position-center,b=vec3(q.x,q.z,-q.y);p=vec3(dot(basisRight,b),dot(basisUp,b),dot(basisDepth,b));gl_Position=vec4(p.x/(radius*aspect),p.y/radius,-p.z/(4.0*radius),1.0);}`], [gl.FRAGMENT_SHADER,`#version 300 es
 precision highp float;in vec3 p;out vec4 color;
 void main(){vec3 n=normalize(cross(dFdx(p),dFdy(p)));float light=.48+.52*abs(dot(n,normalize(vec3(.3,.5,1.0))));color=vec4(vec3(1.0,.55,.20)*light,1.0);}`]];
   program=gl.createProgram();for(const [type,text]of shaders){const s=gl.createShader(type);gl.shaderSource(s,text);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error('3D shader unavailable');gl.attachShader(program,s);gl.deleteShader(s);}
   gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('3D program unavailable');
-  uniforms=Object.fromEntries(['center','radius','yaw','pitch','aspect'].map(k=>[k,gl.getUniformLocation(program,k)]));attribute=gl.getAttribLocation(program,'position');
+  uniforms=Object.fromEntries(['center','radius','aspect','basisRight','basisUp','basisDepth'].map(k=>[k,gl.getUniformLocation(program,k)]));attribute=gl.getAttribLocation(program,'position');
 }
 function release(m){if(m&&gl&&!gl.isContextLost()&&m.contextEpoch===contextEpoch){gl.deleteBuffer(m.positions);gl.deleteBuffer(m.indices);}}
 function clearMesh(){if(gl&&!gl.isContextLost()){gl.clearColor(.063,.094,.125,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}}
@@ -20,7 +20,7 @@ function draw(){
   const group=manifest.groups.find(g=>g.whiteCode+':'+g.corticalCode===$('pair').value),focused=!!group;const [lo,hi]=group?group.boundsRAS:gpu.boundsSourceWorld,center=lo.map((n,i)=>(n+hi[i])/2);
   const radius=Math.hypot(...lo.map((n,i)=>(hi[i]-n)/2))*1.12/(state.zoom*Math.min(1,canvas.width/canvas.height));
   gl.useProgram(program);gl.viewport(0,0,canvas.width,canvas.height);clearMesh();gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);
-  gl.uniform3fv(uniforms.center,center);gl.uniform1f(uniforms.radius,radius);gl.uniform1f(uniforms.yaw,state.yaw);gl.uniform1f(uniforms.pitch,state.pitch);gl.uniform1f(uniforms.aspect,canvas.width/canvas.height);
+  gl.uniform3fv(uniforms.center,center);gl.uniform1f(uniforms.radius,radius);const cy=Math.cos(state.yaw),sy=Math.sin(state.yaw),cp=Math.cos(state.pitch),sp=Math.sin(state.pitch);gl.uniform3fv(uniforms.basisRight,[cy,0,sy]);gl.uniform3fv(uniforms.basisUp,[sp*sy,cp,-sp*cy]);gl.uniform3fv(uniforms.basisDepth,[-cp*sy,sp,cp*cy]);canvas.dataset.cameraState=JSON.stringify({yaw:state.yaw,pitch:state.pitch});gl.uniform1f(uniforms.aspect,canvas.width/canvas.height);
   gl.bindBuffer(gl.ARRAY_BUFFER,gpu.positions);gl.vertexAttribPointer(attribute,3,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(attribute);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,gpu.indices);gl.drawElements(gl.TRIANGLES,(group?group.triangles:gpu.triangles)*3,gl.UNSIGNED_INT,(group?group.firstTriangle:0)*12);canvas.dataset.selection=JSON.stringify({pair:$('pair').value,firstTriangle:group?group.firstTriangle:0,triangles:group?group.triangles:gpu.triangles});$('pair-note').textContent=group?group.whiteName+' → '+group.corticalName+'; '+group.triangles/2+' source contact faces.'+(group.oppositeNamedSides?' Opposite-side source names: retained for review, not classified as pathology.':''):'All source contact pairs are shown.';
   if(gl.getError()!==gl.NO_ERROR)throw Error('3D draw failed');
   const ctx=$('orientation').getContext('2d');ctx.clearRect(0,0,160,150);ctx.font='bold 15px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';

@@ -43,3 +43,12 @@ def test_real_hosted_reader_uses_the_verified_immutable_source():
     assert all(row=={'url':expected,'status':200}for row in proof['hostedResponses'])
     assert all(row['allSourceBuffersMatched'] and row['actualDrawRangesVerified']for row in proof['states'])
     for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256((R/file).read_bytes()).hexdigest()==digest
+
+def test_actual_gpu_camera_feedback_matches_independent_rotation():
+    proof=json.loads((D/'camera-proof.json').read_bytes())
+    assert proof['allPassed'] and proof['poses']==16 and proof['GPUVertexTransformsCompared']==2198352
+    assert max(r['maxGPUTransformErrorMm']for r in proof['cases'])<0.00005
+    assert all(r['maxAbsoluteNDC']<=1.000001 for r in proof['cases'])
+    assert not proof['clinicalAnatomicalAccuracyVerified'] and not proof['sourceGeometryChanged']
+    for mapping in ['sourceSHA256','toolsSHA256']:
+        for name,digest in proof[mapping].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest

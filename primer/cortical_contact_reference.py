@@ -9,7 +9,7 @@ PREFIX='/app/anatomy/'+ATLAS+'/'
 BLOB_HOST='https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com'
 BLOB_PREFIX=BLOB_HOST+'/radiology-native/spl-source-contacts-v1/runtime/'
 REGISTRY=ROOT/'web/anatomy'/ATLAS/'registry.json'
-REGISTRY_SHA256='68b56cdb48da80d6515339cefbc07109a54d30a58c5ee5601b6752c51cb1af28'
+REGISTRY_SHA256='d1b8bda5d8a7dcb8c3afad57733d17aeb80bd8f4eaf8f5756c64edc2e8ca8077'
 AUTHORED=frozenset(['ATTRIBUTION.txt', 'LICENSE.txt', 'index.html', 'manifest.json', 'mesh.js', 'transport.js', 'viewer.js'])
 MANIFEST_SHA256='c5ca712f4ee1a0b92f97e2ca50c8260f2dc09ad6669556835cfeef4703b31c2e'
 
