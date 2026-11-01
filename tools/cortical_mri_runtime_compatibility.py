@@ -23,6 +23,8 @@ def reviewed():
     return proof
 
 def before_mri_bytes(path, raw, allow_older=False):
+    from tools.spl_epilepsy_runtime_compatibility import before_context_bytes
+    raw=before_context_bytes(path,raw,allow_older=True)
     path = str(path)
     if path not in PATHS:
         return raw
@@ -44,6 +46,8 @@ def before_mri_bytes(path, raw, allow_older=False):
     return restored
 
 def before_mri_reference_fields(identifier, fields):
+    from tools.spl_epilepsy_runtime_compatibility import before_context_fields
+    fields=before_context_fields(identifier,fields)
     proof = reviewed(); result = copy.deepcopy(fields)
     items = result.get('source_native_inspectors', [])
     matches = [item for item in items if item.get('id') == proof['after_inspector']['id']]

@@ -1,0 +1,267 @@
+{
+  "base_commit": "bcac80df81b4dee23b4d62cc1c98c5d0dfadd496",
+  "scope": "exact_epilepsy_temporal_ventricular_source_context",
+  "files": {
+    ".vercelignore": {
+      "before_sha256": "93fc95e1396920b726680445a7b459a26e5dd4b089ca7f29104e07a8b90a97ab",
+      "after_sha256": "b372189a1e4a2c5f619a2d5bc381cc74ec594a6871843cbedec14a094aaa3bb0",
+      "changes": [
+        {
+          "start": 86,
+          "end": 89,
+          "before": "",
+          "after": "\n# Virtual runtime manifest is served from its pinned gzip metadata.\nweb/anatomy/spl-epilepsy-context/manifest.json\n"
+        }
+      ]
+    },
+    "data/radiology/spl-reporting-reference.json": {
+      "before_sha256": "059c703cf857d9963a09e5479a23588e67197f7a10b7fee46a6c463400f3a0a4",
+      "after_sha256": "37ec02f21599194ad14c9995cf4eae0094b6bb9d62c250cc01702d896967b8ba",
+      "changes": [
+        {
+          "start": 1729,
+          "end": 1731,
+          "before": "      \"bytes\": 33758,\n      \"sha256\": \"77bccc9bf141ac4797002c8560daf387cef6bc8e95c690d8d019541ca5e64d5d\"\n",
+          "after": "      \"bytes\": 33975,\n      \"sha256\": \"9de93fbf471d82626555e59cbec80d7a909fb9a72ca3752dc25936e4763bbb36\"\n"
+        }
+      ]
+    },
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "dff388e6cf5e0c11eb4d10b11e12dd8057cf31697c86dae0e509d2232521ed0c",
+      "after_sha256": "a05a2ad83daa9e70ae17b9e7537c3f215752bda25a92079ae494e6fad6b989e9",
+      "changes": [
+        {
+          "start": 111963,
+          "end": 112031,
+          "before": "",
+          "after": "            \"id\": \"spl-epilepsy-temporal-ventricular-source-context\",\n            \"modality\": \"Native MRI and categorical temporal/ventricular source boundaries\",\n            \"coordinate_context\": \"source-native-mri-and-separate-label-grid-in-declared-RAS\",\n            \"title\": \"Temporal and ventricular context in original SPL MRI\",\n            \"src\": \"/app/anatomy/spl-epilepsy-context/index.html\",\n            \"manifest_url\": \"/app/anatomy/spl-epilepsy-context/manifest.json\",\n            \"sha256\": \"8844b0523f24cf20681ae986aa751e270166dd2ffd910617b68952902b83487c\",\n            \"manifest_sha256\": \"3411a7ac20f249849c82a9c59cdcdf664a57bb3598277643796f55848f778779\",\n            \"caption\": \"Inspect 18 selected source classes for temporal and periventricular context, including paired lateral ventricular spaces, temporal horns, whole source white matter and selected temporal parcels. Native T1/T2, source-label overlays and original categorical-cell boundaries share the declared source affines. Ventricular-wall layers, complete sulcal/grey\\u2013white anatomy, hippocampal subdivisions and migration/dysplastic lesions remain unverified or absent. Other source relationship groups remain available; their presence grants no complete reporting coverage.\",\n            \"attribution\": \"SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original native MRI and categorical label samples are retained. Primer\\u2019s marked adaptation derives exact label-cell boundaries and adds grouped native-image relationship controls, preserving source components without fitted registration or cleanup. Full original source notices and licensing terms accompany the reference. Additional marked adaptation, 2026-11-01: focused temporal/ventricular source-context selection and paired initial views; original sample and boundary payloads are unchanged.\",\n            \"source_url\": \"https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html\",\n            \"publication_url\": \"https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56\",\n            \"license\": \"3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C\",\n            \"license_url\": \"https://www.openanatomy.org/atlas-pages/slicer-license.html\",\n            \"source_grain\": {\n              \"kind\": \"single-subject anatomical research atlas\",\n              \"subject_count\": 1,\n              \"MRI\": \"native 0.75 mm T1/T2\",\n              \"categorical_labels\": \"separate native 1 mm Int16 grid\",\n              \"selected_label_classes\": 217,\n              \"additional_source_classes\": 205,\n              \"generated_boundary_payload_sets\": 207,\n              \"reused_boundary_payload_sets\": 10,\n              \"default_surface\": \"exact categorical voxel-cell boundaries\",\n              \"separately_labelled_CA_fields_or_subiculum\": false,\n              \"initial_context_codes\": [\n                4,\n                43,\n                5,\n                44,\n                2,\n                41,\n                1001,\n                2001,\n                1009,\n                2009,\n                1015,\n                2015,\n                1030,\n                2030,\n                1033,\n                2033,\n                1034,\n                2034\n              ],\n              \"initial_context_label_classes\": 18,\n              \"all_available_source_label_classes\": 217,\n              \"ventricular_wall_layers_separately_labelled\": false,\n              \"hippocampal_subdivisions_separately_labelled\": false,\n              \"epilepsy_pathology_validated\": false\n            },\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"/app/anatomy/spl-nac-limbic/LICENSE.txt\",\n              \"attribution_url\": \"/app/anatomy/spl-nac-limbic/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true,\n              \"reuse_terms\": \"Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied.\"\n            },\n            \"bound_source_ids\": [\n              \"spl-epilepsy-temporal-ventricular-source-context\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          },\n          {\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "f800f78879527e1509ee0df3fcf143516ab4df7a70a321f9d9c706e935ab35d7",
+      "after_sha256": "0d15f022c21c0af7469419b16f9eb9f33a88c321a3779a6eca1ecad04c5c732c",
+      "changes": [
+        {
+          "start": 3911,
+          "end": 3931,
+          "before": "",
+          "after": "@app.api_route(\"/app/anatomy/spl-epilepsy-context/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def epilepsy_context_reference_delivery(asset: str, request: Request):\n    from .spl_epilepsy_reference import ATLAS, AUTHORED, PREFIX, references, validate_file, manifest_bytes\n    from . import spl_reporting_reference as source\n    src = PREFIX + asset\n    if (not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or\n            asset not in AUTHORED and asset not in set(source.registry()['files']) - source.AUTHORED):\n        return JSONResponse({'detail': 'Unknown epilepsy source context resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    if asset not in AUTHORED:\n        return RedirectResponse(source.PREFIX + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})\n    validate_file(asset)\n    if asset == 'manifest.json':\n        return Response(manifest_bytes(), media_type='application/json', headers={'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n    return response\n\n\n"
+        }
+      ]
+    },
+    "primer/source_native_inspectors.py": {
+      "before_sha256": "e046845481245fc4f9d52a85cfec4bb4a5c994eec16319587e7d1ff74b66bdaf",
+      "after_sha256": "60135aea31f06edc2d82d940325af73fbeb581aae8b5e14c99dcb724176b8dbc",
+      "changes": [
+        {
+          "start": 101,
+          "end": 104,
+          "before": "",
+          "after": "    from .spl_epilepsy_reference import references as epilepsy_context_references\n    for identifier, entries in epilepsy_context_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+        }
+      ]
+    },
+    "primer/spl_reporting_reference.py": {
+      "before_sha256": "5f1751a8d13ae6b6db6e43a952037786548d4330643df49c106c5fa0ca845d11",
+      "after_sha256": "8d0663fe0d528b719315c6569f4cc5c13fd6932eb8de57172b068d297736db72",
+      "changes": [
+        {
+          "start": 13,
+          "end": 14,
+          "before": "REGISTRY_SHA256='059c703cf857d9963a09e5479a23588e67197f7a10b7fee46a6c463400f3a0a4'\n",
+          "after": "REGISTRY_SHA256='37ec02f21599194ad14c9995cf4eae0094b6bb9d62c250cc01702d896967b8ba'\n"
+        }
+      ]
+    },
+    "web/anatomy/spl-nac-reporting/viewer.js": {
+      "before_sha256": "77bccc9bf141ac4797002c8560daf387cef6bc8e95c690d8d019541ca5e64d5d",
+      "after_sha256": "9de93fbf471d82626555e59cbec80d7a909fb9a72ca3752dc25936e4763bbb36",
+      "changes": [
+        {
+          "start": 299,
+          "end": 300,
+          "before": "      manifest=validateManifest(await response.json());await validateShared();$('group').replaceChildren();$('comparison').replaceChildren();\n",
+          "after": "      manifest=validateManifest(await response.json());if(manifest.defaultComparisonCode!==undefined&&!manifest.labels.some(row=>row.code===manifest.defaultComparisonCode))throw Error('Initial comparison leaves the source inventory');await validateShared();$('group').replaceChildren();$('comparison').replaceChildren();\n"
+        },
+        {
+          "start": 301,
+          "end": 302,
+          "before": "      for(const row of manifest.labels)$('comparison').add(new Option(row.name+' \u00b7 '+row.code,String(row.code)));$('comparison').value='12';\n",
+          "after": "      for(const row of manifest.labels)$('comparison').add(new Option(row.name+' \u00b7 '+row.code,String(row.code)));$('comparison').value=String(manifest.defaultComparisonCode??12);\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "9b39e664b6e03b21d0035b89e5b17c779f74713826bbe7d72089e57a1d795c28",
+      "after_sha256": "af28cf9b865e1612b4d57858392f8cb42ca0d8a6f79921d7fed26bc4cf7ec1b1",
+      "changes": [
+        {
+          "start": 2037,
+          "end": 2039,
+          "before": "  const reportingMRI = asset.id === 'spl-nac-reporting-native-reference';\n",
+          "after": "  const epilepsyContextMRI = asset.id === 'spl-epilepsy-temporal-ventricular-source-context';\n  const reportingMRI = asset.id === 'spl-nac-reporting-native-reference' || epilepsyContextMRI;\n"
+        },
+        {
+          "start": 2057,
+          "end": 2058,
+          "before": "    const openLabel = sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n",
+          "after": "    const openLabel = sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n"
+        },
+        {
+          "start": 2956,
+          "end": 2957,
+          "before": "  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'holiatlas-source-template-reference'].includes(asset.id));\n",
+          "after": "  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));\n"
+        },
+        {
+          "start": 3321,
+          "end": 3323,
+          "before": "  const reportingContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-reporting-native-reference');\n",
+          "after": "  const epilepsyContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-epilepsy-temporal-ventricular-source-context');\n  const reportingContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-reporting-native-reference' || asset.id === 'spl-epilepsy-temporal-ventricular-source-context');\n"
+        },
+        {
+          "start": 3325,
+          "end": 3327,
+          "before": "  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n  const curatedSurface = sourceModels.some(asset => !['holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));\n",
+          "after": "  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n  const curatedSurface = sourceModels.some(asset => !['holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));\n"
+        },
+        {
+          "start": 3583,
+          "end": 3584,
+          "before": "      visualNote.textContent = templateContext ? 'These source references stay separate. The holiAtlas population template supplies 332 present categorical regions, with 18 named regions absent; its sulcal labels are assigned CSF territories and its WMn-like contrast is synthesized. The SPL source supplies different single-subject anatomy. Neither is registered to the current patient or establishes complete reporting anatomy.' : reportingContext ? 'The grouped SPL reference links 217 source-defined classes to native T1/T2 and exact label-cell boundaries. Source components, partial labels and naming conflicts remain explicit. Capsule subdivisions, cisterns, vascular territories and other source gaps remain unfilled; diagnostic accuracy and complete reporting anatomy are unproven.' : limbicContext ? 'The SPL atlas provides original MRI, twelve label classes and exact label-cell boundaries, with differing publisher surfaces shown separately. The HippUnfold reference, where present, is a distinct registered training source. Their grids and anatomical meanings are not interchangeable; complete reporting anatomy and clinical validation remain unproven.' : hippocampalContext ? 'Published registered T2 crops and eight research classes show hippocampal source context. The upsampled grids do not establish native volume, pathology, patient laterality or complete reporting anatomy.' : curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';\n",
+          "after": "      visualNote.textContent = epilepsyContext ? 'The focused SPL view starts with paired ventricular spaces and temporal horns, whole source white matter and selected temporal parcels. Original native MRI and exact categorical-cell boundaries share this one source case. Ependymal layers, complete sulcal and grey\u2013white anatomy, hippocampal subdivisions and migration/dysplastic lesions remain unverified or absent. Other source references retain their own cases and label limits; no current-patient registration or complete epilepsy reporting anatomy is supplied.' : templateContext ? 'These source references stay separate. The holiAtlas population template supplies 332 present categorical regions, with 18 named regions absent; its sulcal labels are assigned CSF territories and its WMn-like contrast is synthesized. The SPL source supplies different single-subject anatomy. Neither is registered to the current patient or establishes complete reporting anatomy.' : reportingContext ? 'The grouped SPL reference links 217 source-defined classes to native T1/T2 and exact label-cell boundaries. Source components, partial labels and naming conflicts remain explicit. Capsule subdivisions, cisterns, vascular territories and other source gaps remain unfilled; diagnostic accuracy and complete reporting anatomy are unproven.' : limbicContext ? 'The SPL atlas provides original MRI, twelve label classes and exact label-cell boundaries, with differing publisher surfaces shown separately. The HippUnfold reference, where present, is a distinct registered training source. Their grids and anatomical meanings are not interchangeable; complete reporting anatomy and clinical validation remain unproven.' : hippocampalContext ? 'Published registered T2 crops and eight research classes show hippocampal source context. The upsampled grids do not establish native volume, pathology, patient laterality or complete reporting anatomy.' : curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';\n"
+        }
+      ]
+    },
+    "tools/cortical_mri_runtime_compatibility.py": {
+      "before_sha256": "5b4c46ea5056c6124dc3d07352cade5bebc1e258b520dfb50141ab11cae08963",
+      "after_sha256": "28cd6881f72cabe6a6edea149b279d3c2efc8fe026a6f36480dec3b2ec9f73ac",
+      "changes": [
+        {
+          "start": 25,
+          "end": 27,
+          "before": "",
+          "after": "    from tools.spl_epilepsy_runtime_compatibility import before_context_bytes\n    raw=before_context_bytes(path,raw,allow_older=True)\n"
+        },
+        {
+          "start": 48,
+          "end": 50,
+          "before": "",
+          "after": "    from tools.spl_epilepsy_runtime_compatibility import before_context_fields\n    fields=before_context_fields(identifier,fields)\n"
+        }
+      ]
+    },
+    "tools/cortical_contact_runtime_compatibility.py": {
+      "before_sha256": "c4302df9a3a2281aeb13475b39dbc11369beae3f9766e5deb5b9310a0d4e8c8e",
+      "after_sha256": "3685dce25ed5ff90c8c0a73ad40daba200d7d21e1863613da9404d0530485542",
+      "changes": [
+        {
+          "start": 15,
+          "end": 17,
+          "before": "",
+          "after": "    from tools.spl_epilepsy_runtime_compatibility import before_context_bytes\n    raw=before_context_bytes(path,raw,allow_older=True)\n"
+        },
+        {
+          "start": 34,
+          "end": 36,
+          "before": "",
+          "after": "    from tools.spl_epilepsy_runtime_compatibility import before_context_fields\n    fields=before_context_fields(identifier,fields)\n"
+        }
+      ]
+    },
+    "tools/spl_reporting_runtime_compatibility.py": {
+      "before_sha256": "6961f72df047946b5b80796a329ee3ee85af569d5d3dbe17efcd97052559f23c",
+      "after_sha256": "9a8c033b6df9332f5a99109fc749ec31797b6e1392587e15f4eecd44aa46e1c1",
+      "changes": [
+        {
+          "start": 72,
+          "end": 73,
+          "before": "",
+          "after": "    from tools.spl_epilepsy_runtime_compatibility import before_context_bytes\n"
+        },
+        {
+          "start": 75,
+          "end": 78,
+          "before": "            if sha((ROOT/'web/anatomy/spl-nac-reporting'/name).read_bytes())!=pin:raise ValueError('SPL reporting viewer changed')\n    if reader['registrySHA256']!=sha((ROOT/'data/radiology/spl-reporting-reference.json').read_bytes()):raise ValueError('SPL reporting registry differs')\n",
+          "after": "            file='web/anatomy/spl-nac-reporting/'+name\n            if sha(before_context_bytes(file,(ROOT/file).read_bytes()))!=pin:raise ValueError('Historical SPL reporting viewer changed')\n    if reader['registrySHA256']!=sha(before_context_bytes('data/radiology/spl-reporting-reference.json',(ROOT/'data/radiology/spl-reporting-reference.json').read_bytes())):raise ValueError('Historical SPL reporting registry differs')\n"
+        }
+      ]
+    }
+  },
+  "bindings": [
+    "ra.mri-epilepsy"
+  ],
+  "inspector": {
+    "id": "spl-epilepsy-temporal-ventricular-source-context",
+    "modality": "Native MRI and categorical temporal/ventricular source boundaries",
+    "coordinate_context": "source-native-mri-and-separate-label-grid-in-declared-RAS",
+    "title": "Temporal and ventricular context in original SPL MRI",
+    "src": "/app/anatomy/spl-epilepsy-context/index.html",
+    "manifest_url": "/app/anatomy/spl-epilepsy-context/manifest.json",
+    "sha256": "8844b0523f24cf20681ae986aa751e270166dd2ffd910617b68952902b83487c",
+    "manifest_sha256": "3411a7ac20f249849c82a9c59cdcdf664a57bb3598277643796f55848f778779",
+    "caption": "Inspect 18 selected source classes for temporal and periventricular context, including paired lateral ventricular spaces, temporal horns, whole source white matter and selected temporal parcels. Native T1/T2, source-label overlays and original categorical-cell boundaries share the declared source affines. Ventricular-wall layers, complete sulcal/grey\u2013white anatomy, hippocampal subdivisions and migration/dysplastic lesions remain unverified or absent. Other source relationship groups remain available; their presence grants no complete reporting coverage.",
+    "attribution": "SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original native MRI and categorical label samples are retained. Primer\u2019s marked adaptation derives exact label-cell boundaries and adds grouped native-image relationship controls, preserving source components without fitted registration or cleanup. Full original source notices and licensing terms accompany the reference. Additional marked adaptation, 2026-11-01: focused temporal/ventricular source-context selection and paired initial views; original sample and boundary payloads are unchanged.",
+    "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+    "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+    "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+    "license_url": "https://www.openanatomy.org/atlas-pages/slicer-license.html",
+    "source_grain": {
+      "kind": "single-subject anatomical research atlas",
+      "subject_count": 1,
+      "MRI": "native 0.75 mm T1/T2",
+      "categorical_labels": "separate native 1 mm Int16 grid",
+      "selected_label_classes": 217,
+      "additional_source_classes": 205,
+      "generated_boundary_payload_sets": 207,
+      "reused_boundary_payload_sets": 10,
+      "default_surface": "exact categorical voxel-cell boundaries",
+      "separately_labelled_CA_fields_or_subiculum": false,
+      "initial_context_codes": [
+        4,
+        43,
+        5,
+        44,
+        2,
+        41,
+        1001,
+        2001,
+        1009,
+        2009,
+        1015,
+        2015,
+        1030,
+        2030,
+        1033,
+        2033,
+        1034,
+        2034
+      ],
+      "initial_context_label_classes": 18,
+      "all_available_source_label_classes": 217,
+      "ventricular_wall_layers_separately_labelled": false,
+      "hippocampal_subdivisions_separately_labelled": false,
+      "epilepsy_pathology_validated": false
+    },
+    "source_grant": {
+      "publisher_explicitly_applies_license_to_data": true,
+      "terms_url": "/app/anatomy/spl-nac-limbic/LICENSE.txt",
+      "attribution_url": "/app/anatomy/spl-nac-limbic/ATTRIBUTION.txt",
+      "marked_derived_version": true,
+      "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+    },
+    "bound_source_ids": [
+      "spl-epilepsy-temporal-ventricular-source-context"
+    ],
+    "clinical_approval": false,
+    "fine_anatomical_approval": false,
+    "current_patient_registration": false,
+    "normal_anatomical_atlas_approval": false,
+    "complete_reporting_anatomy_approved": false
+  },
+  "sourcePayloadsChanged": false,
+  "clinicalApproval": false,
+  "extendsHistoricalApproval": false,
+  "wholeGoalComplete": false
+}

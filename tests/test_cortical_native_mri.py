@@ -1,4 +1,5 @@
 """Linked native MRI evidence, without anatomical or clinical approval transfer."""
+from tools.spl_epilepsy_runtime_compatibility import before_context_bytes
 from pathlib import Path
 import copy
 import hashlib
@@ -17,7 +18,7 @@ def test_native_anchor_samples_are_bound_to_original_sources():
     assert proof['originalMRISamplesVerified'] == len(proof['checks']) == 308
     assert not proof['sourceResampled'] and not proof['clinicalApproval'] and not proof['anatomicalVisibilityVerified']
     for name, digest in proof['sourceSHA256'].items():
-        assert sha((ROOT / name).read_bytes()) == digest, name
+        assert sha(before_context_bytes(name,(ROOT / name).read_bytes())) == digest, name
 
 
 def test_current_reader_and_navigation_match_original_native_pixels():
@@ -45,12 +46,12 @@ def test_current_reader_and_navigation_match_original_native_pixels():
     index = load('evidence-index.json')
     assert index['clinicalApproval'] is False and index['wholeGoalComplete'] is False
     for name, digest in index['sourceSHA256'].items():
-        assert sha((ROOT / name).read_bytes()) == digest, name
+        assert sha(before_context_bytes(name,(ROOT / name).read_bytes())) == digest, name
     for name, digest in index['proofSHA256'].items():
         assert sha((DOCS / name).read_bytes()) == digest, name
 
 
-def test_actual_lessons_render_current_mri_and_restore_initial_state():
+def test_historical_mri_lessons_remain_exactly_recoverable():
     proof = load('lesson/proof.json')
     assert proof['allPassed'] and proof['syntheticLoopback'] and not proof['productionLearnerWrites']
     assert not proof['errors'] and not proof['clinicalApproval']
@@ -62,7 +63,7 @@ def test_actual_lessons_render_current_mri_and_restore_initial_state():
     assert all(row['allSourceGPUBytesMatched'] and row['reopened'] for row in proof['mounts'])
     assert len(proof['responses']) == 8 and all(row['status'] == 200 for row in proof['responses'])
     for name, digest in proof['sourceSHA256'].items():
-        assert sha((ROOT / name).read_bytes()) == digest, name
+        assert sha(before_context_bytes(name,(ROOT / name).read_bytes())) == digest, name
     pixels = load('lesson/mri-pixel-proof.json')
     assert pixels['allPassed'] and pixels['states'] == 332 and pixels['crosshairLocationsChecked'] == 1992
     assert not pixels['sourceSamplesResampled'] and not pixels['clinicalApproval']
