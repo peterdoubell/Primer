@@ -32,3 +32,13 @@ with TestClient(server.app)as client:
     result=subprocess.run([sys.executable,'-c',code],cwd=ROOT,env=env,text=True,capture_output=True,timeout=180)
     assert result.returncode==0,result.stdout+result.stderr
 
+
+def test_authenticated_contact_lesson_matches_current_runtime():
+    proof=json.loads((ROOT/'docs/cortical-source-contacts-review-20261101/lesson/proof.json').read_bytes())
+    assert proof['allPassed'] and proof['syntheticLoopback'] and not proof['productionLearnerWrites']
+    assert not proof['errors'] and not proof['clinicalApproval'] and len(proof['mounts'])==4
+    assert {(m['width'],m['identifier'])for m in proof['mounts']}=={(w,i)for w in [390,1440]for i in ['ra.brain-anatomy','ra.mri-epilepsy']}
+    assert sum(len(m['states'])for m in proof['mounts'])==308
+    assert all(m['allSourceGPUBytesMatched'] and m['reopened']for m in proof['mounts'])
+    assert len(proof['responses'])==8 and all(r['status']==200 for r in proof['responses'])
+    for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
