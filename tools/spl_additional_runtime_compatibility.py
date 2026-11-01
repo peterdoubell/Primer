@@ -16,6 +16,8 @@ def reviewed():
  return p
 
 def before_additional_bytes(path,raw,allow_older=False):
+ from tools.sellar_interface_runtime_compatibility import before_interfaces_bytes
+ raw=before_interfaces_bytes(path,raw,allow_older=True)
  path=str(path)
  if path not in PATHS:return raw
  row=reviewed()['files'][path]
@@ -32,6 +34,8 @@ def before_additional_bytes(path,raw,allow_older=False):
  return restored
 
 def before_additional_fields(identifier,fields):
+ from tools.sellar_interface_runtime_compatibility import before_interfaces_fields
+ fields=before_interfaces_fields(identifier,fields)
  p=reviewed();result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);addition=p['inspector'];matches=[item for item in items if item.get('id')==addition['id']]
  if not matches:return result
  if identifier not in p['bindings']or matches!=[addition]:raise ValueError('Unreviewed additional SPL descriptor')

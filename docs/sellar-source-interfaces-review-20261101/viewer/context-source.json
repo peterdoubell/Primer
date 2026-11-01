@@ -1,0 +1,3451 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+  "sourceManifests": {
+    "spl-nac-limbic": {
+      "file": "/app/anatomy/spl-nac-limbic/manifest.json",
+      "sha256": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6"
+    },
+    "spl-nac-reporting": {
+      "file": "/app/anatomy/spl-nac-reporting/manifest.json",
+      "sha256": "b5b1666410a9ee367bff1d4556afb128e44d41ae339b73660b2191c7a46789d3"
+    },
+    "spl-additional-source": {
+      "file": "/app/anatomy/spl-additional-source/manifest.json",
+      "sha256": "f1bddb9677404e83d8a38b990b97032ad43f3e6a9933a8f84dd61367a0bb4676"
+    }
+  },
+  "meshes": [
+    {
+      "file": "label-3003.mesh.gz",
+      "byteLength": 4216,
+      "gzipBytes": 1154,
+      "gzipSHA256": "703ad7c7e2f3fc384c7e7c800e2fac6da780a27ea29fb212c2d2f18daff9c20c",
+      "decodedSHA256": "a2bda3e67f728b2c21c4f0032968de191a0e263569eb7bda367320a25f92ece5",
+      "code": 3003,
+      "name": "left mammillary body",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_mammillary_body",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 3003,
+      "sourceVoxelCount": 67,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 118,
+      "triangleCount": 232,
+      "exposedFaceCount": 116,
+      "positionByteSHA256": "a39669fe2dbc3339a7805382479c076b369e23ce59fa63e6731bedb96534426b",
+      "indexByteSHA256": "d0a46a7cb6609e9743dc044dbc75b89963ef4065d988a52a789018aba866447d",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 118
+        },
+        "triangles": {
+          "offset": 1432,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 232
+        }
+      },
+      "boundsRAS": [
+        [
+          -5.5,
+          2.5,
+          -18.5
+        ],
+        [
+          -1.5,
+          7.5,
+          -13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3003-faces.bin.gz",
+        "byteLength": 1160,
+        "gzipBytes": 303,
+        "gzipSHA256": "e06322b71d5285207358e100c0a164bb5810acb955554e5731e2366ebabe057a",
+        "decodedSHA256": "0014317ef63b158b9c41e0d46eae80a6bf1d043680fe51baf2377d3e4b1fe35a",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 116,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-nac-limbic"
+    },
+    {
+      "file": "label-3002.mesh.gz",
+      "byteLength": 4720,
+      "gzipBytes": 1292,
+      "gzipSHA256": "045f575420c07389cd34c73f02b54c6d4cb544ff60f9535b6d01d6d248cbf029",
+      "decodedSHA256": "1a92680f126df5b31a06225d9612dfbb5ee35d362420dafbf49004a83f1081c5",
+      "code": 3002,
+      "name": "right mammillary body",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_mammillary_body",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 3002,
+      "sourceVoxelCount": 76,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 132,
+      "triangleCount": 260,
+      "exposedFaceCount": 130,
+      "positionByteSHA256": "ed4d18ddab0f97b23cc0c56ce57973a72adf8af9c4dd34cd15e6074644ac364d",
+      "indexByteSHA256": "506e155d7e6e8c2b4b2695b18965a232045a1a20c4c149d255d6a71b02deaf57",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 132
+        },
+        "triangles": {
+          "offset": 1600,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 260
+        }
+      },
+      "boundsRAS": [
+        [
+          -1.5,
+          2.5,
+          -18.5
+        ],
+        [
+          3.5,
+          7.5,
+          -13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3002-faces.bin.gz",
+        "byteLength": 1300,
+        "gzipBytes": 332,
+        "gzipSHA256": "94d153c4f28cbfffb9f530a6e9941793ae817d8322308bd07ffc9b49eef00393",
+        "decodedSHA256": "75a9856b035f4e765658ce62066512e410f0e65007246cf9fbd4f4cfb0ffc3a0",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 130,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-nac-limbic"
+    },
+    {
+      "file": "label-24.mesh.gz",
+      "byteLength": 59404,
+      "gzipBytes": 16541,
+      "gzipSHA256": "1610208daa8e361117454e2bf486d55f709f991e263f9bd898f546ad90ce2a73",
+      "decodedSHA256": "e336b626e3c0d957e6b28ef8317848a56536a7616c57990e8b7f967e004d80b1",
+      "code": 24,
+      "name": "third ventricle",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "third_ventricle",
+      "source": {
+        "repositoryPath": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "url": "https://raw.githubusercontent.com/mhalle/spl-brain-atlas/bec24db25aad5f7600e2df3becfb1f883e61ff56/slicer/volumes/labels/hncma-atlas.nrrd",
+        "bytes": 466100,
+        "sha256": "d40a8b7d3adc1e8bec3c276a895db6aaed913aa83a2161015da1083face636ae",
+        "gitBlobSHA1": "84de10e6381961b3f1d553a3d8d6f4a27489e2a7"
+      },
+      "sourceLabelCode": 24,
+      "sourceVoxelCount": 1212,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 1645,
+      "triangleCount": 3304,
+      "exposedFaceCount": 1652,
+      "positionByteSHA256": "1b8cf466aa0a4fcc985c84f874dcf5a9e2ca0c8364241f877bc5b4b1d6baa756",
+      "indexByteSHA256": "1644fbcf20e0bf63076ec624dccfe1011d85ab5b5eccab27eb7534faba39eed5",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 1645
+        },
+        "triangles": {
+          "offset": 19756,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 3304
+        }
+      },
+      "boundsRAS": [
+        [
+          -2.5,
+          -24.5,
+          -11.5
+        ],
+        [
+          4.5,
+          10.5,
+          10.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-24-faces.bin.gz",
+        "byteLength": 16520,
+        "gzipBytes": 4052,
+        "gzipSHA256": "c824a67a648578b173daaa59c3ae104776001298c3b00ed62d5836603922a7a9",
+        "decodedSHA256": "be770183fc071feb2ddd1c2b6a686a131f60e8c1b9800c448c2b88c33241e25e",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 1652,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-nac-reporting"
+    },
+    {
+      "file": "label-77.mesh.gz",
+      "byteLength": 29236,
+      "gzipBytes": 7809,
+      "gzipSHA256": "01d3302d12949975ece2e1e1b354888c8315589fd7f70f3591571fd718d002c7",
+      "decodedSHA256": "55c3ce690b5d7093befdc13acfabc4b1b3fcc7afb1d32419cabda630651b7d8d",
+      "code": 77,
+      "name": "left_optic_nerve",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_optic_nerve",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 77,
+      "sourceVoxelCount": 466,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 811,
+      "triangleCount": 1624,
+      "exposedFaceCount": 812,
+      "positionByteSHA256": "663f11189a06b02f5cfcac330cc4176eb84f06b25e5febcbb7d2df24564b7721",
+      "indexByteSHA256": "70cba382d64a585e00c497923c82d2a84d90af05bc595483f7317139552759c6",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 811
+        },
+        "triangles": {
+          "offset": 9748,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 1624
+        }
+      },
+      "boundsRAS": [
+        [
+          -32.5,
+          23.5,
+          -24.5
+        ],
+        [
+          -6.5,
+          58.5,
+          -17.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-77-faces.bin.gz",
+        "byteLength": 8120,
+        "gzipBytes": 2042,
+        "gzipSHA256": "3e63cfbc4ef8d177f5dcfcdcad265aca397c62bdda70d8d6424e8ac518eba35b",
+        "decodedSHA256": "be8da240e5d14ebdf2eea14e3b673ad8b52c4eb7cd7991940fb50002c005e9f5",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 812,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-78.mesh.gz",
+      "byteLength": 23368,
+      "gzipBytes": 6208,
+      "gzipSHA256": "7672cbdb4b41a0800beeec847c284cca28e69ef6840f9442d45ee4254ba1f3e5",
+      "decodedSHA256": "79843089aef4ef25c9e4dab0da3bd0e8d1e8a33d495f35d7f673a3eb7c7c1519",
+      "code": 78,
+      "name": "left_optic_tract",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_optic_tract",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 78,
+      "sourceVoxelCount": 330,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 650,
+      "triangleCount": 1296,
+      "exposedFaceCount": 648,
+      "positionByteSHA256": "0d9cea73bd549357c289bf4026c101a31d523e71d47d53d0f0521e60c6c9f0a6",
+      "indexByteSHA256": "b414de5a2d9b7b4474e0b821fa36333ca78ac38877b5f1f98307e774784c0780",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 650
+        },
+        "triangles": {
+          "offset": 7816,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 1296
+        }
+      },
+      "boundsRAS": [
+        [
+          -23.5,
+          -14.5,
+          -18.5
+        ],
+        [
+          21.5,
+          14.5,
+          -9.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-78-faces.bin.gz",
+        "byteLength": 6480,
+        "gzipBytes": 1612,
+        "gzipSHA256": "72aa84be586227c2f2919ad10d88c759745d07cc9f388bfb59b2ee9f278fced1",
+        "decodedSHA256": "e1fed529cf515e182c07673ffd505dd463be7dd0fb4f2f277ce60cb64c919e7b",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 648,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-85.mesh.gz",
+      "byteLength": 22456,
+      "gzipBytes": 6197,
+      "gzipSHA256": "28b217866acb4c2a4e3a09d482fb02df2bd38d0acbcd212d50120ef15b10fd41",
+      "decodedSHA256": "468ac8506931fe02de65b53f928b891676a661c9839ee04db6ca29ee21cfdee1",
+      "code": 85,
+      "name": "optic_chiasm",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "optic_chiasm",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 85,
+      "sourceVoxelCount": 398,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 622,
+      "triangleCount": 1248,
+      "exposedFaceCount": 624,
+      "positionByteSHA256": "d09dd7c5f3cb062dce904aa50737ade15c27ebfdc19bc216f7e2902d97f7be4e",
+      "indexByteSHA256": "a971439b0b96fcfce5d7b17fb0927cdcfe5973d6cdc8e9996694581e894fc260",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 622
+        },
+        "triangles": {
+          "offset": 7480,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 1248
+        }
+      },
+      "boundsRAS": [
+        [
+          -11.5,
+          14.5,
+          -22.5
+        ],
+        [
+          6.5,
+          23.5,
+          -13.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-85-faces.bin.gz",
+        "byteLength": 6240,
+        "gzipBytes": 1428,
+        "gzipSHA256": "6d0651480979471dea32508a1717c1af06000325fdaea5ad0fc0472c4b60e603",
+        "decodedSHA256": "a90862971c6ca6d48643cd46c36259783f3eba63e5959e75e7b1931232a724d0",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 624,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-215.mesh.gz",
+      "byteLength": 29764,
+      "gzipBytes": 7898,
+      "gzipSHA256": "96bb26cee94abac024b96b28f8ad3b978735b676777fe0040bbb3c8efbba8853",
+      "decodedSHA256": "e8e647510d8a21dc07917757c95e78340cb86e4e28404ef848c443056e28b95b",
+      "code": 215,
+      "name": "right_optic_nerve",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_optic_nerve",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 215,
+      "sourceVoxelCount": 500,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 827,
+      "triangleCount": 1652,
+      "exposedFaceCount": 826,
+      "positionByteSHA256": "324947ab73c3a979f92da81abcb53a6cc7e783a9f12b71f9af4ec8b937ed2359",
+      "indexByteSHA256": "adde732656e8d2738b41cc1a96c7b4d58d1274266fdd1f15bd5c87b7efe2b7e5",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 827
+        },
+        "triangles": {
+          "offset": 9940,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 1652
+        }
+      },
+      "boundsRAS": [
+        [
+          1.5,
+          23.5,
+          -26.5
+        ],
+        [
+          26.5,
+          60.5,
+          -17.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-215-faces.bin.gz",
+        "byteLength": 8260,
+        "gzipBytes": 2047,
+        "gzipSHA256": "e754d4848e44c2d626cd42295c9a573834fac2ea6ef389b298928a5097ddcbd6",
+        "decodedSHA256": "20f461fce3b56df34a2899a67a83fd0d4d04c476965cc41db3688cef895f09e4",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 826,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-216.mesh.gz",
+      "byteLength": 25672,
+      "gzipBytes": 6857,
+      "gzipSHA256": "bb8855b4ec5434d92fad6ad25a8a143494d07ac09ac9765e36efcbbcac2b5dd8",
+      "decodedSHA256": "3072fc17ae98ff9d228c84235d92aebdaf2f162bb49814b01b7a925044fda866",
+      "code": 216,
+      "name": "right_optic_tract",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_optic_tract",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 216,
+      "sourceVoxelCount": 357,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 714,
+      "triangleCount": 1424,
+      "exposedFaceCount": 712,
+      "positionByteSHA256": "70847412805573fc129a841b48c6b1d19cf05ed3f2785a6b2fb5be597d945627",
+      "indexByteSHA256": "66f612b34b69ee62df3f10c7b061ae00e0a9261b522b08336edd7333e74b4fa1",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 714
+        },
+        "triangles": {
+          "offset": 8584,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 1424
+        }
+      },
+      "boundsRAS": [
+        [
+          -20.5,
+          -14.5,
+          -18.5
+        ],
+        [
+          24.5,
+          14.5,
+          -9.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-216-faces.bin.gz",
+        "byteLength": 7120,
+        "gzipBytes": 1777,
+        "gzipSHA256": "ddab8374932112dcc9c28bbabe13319ec5802c42dd627e711d093cba0c20d4b3",
+        "decodedSHA256": "966b907b422def1cc855b18227a8889b9e1c0c51e25db6bd49b032970851adae",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 712,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-380.mesh.gz",
+      "byteLength": 3064,
+      "gzipBytes": 850,
+      "gzipSHA256": "2d4280d359cb316361a319aec77c86d91c16ad5f0319a1dd781abfbbd38134a3",
+      "decodedSHA256": "22ed97641fabddf1cb06147d93077ac8e1f9bf7af9da7b78647b9e33e2de9c10",
+      "code": 380,
+      "name": "left_anterior_superior_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_anterior_superior_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 380,
+      "sourceVoxelCount": 46,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 86,
+      "triangleCount": 168,
+      "exposedFaceCount": 84,
+      "positionByteSHA256": "7fe51a58b2dbccfc6e918c504dee6c197d1be5431978e64cf86d1c14a79020ec",
+      "indexByteSHA256": "35bcb4be7cd87b4c9de3f11d778186993e5b51680ef780acfaa8be8e11c9e7c7",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 86
+        },
+        "triangles": {
+          "offset": 1048,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 168
+        }
+      },
+      "boundsRAS": [
+        [
+          -6.5,
+          13.5,
+          -8.5
+        ],
+        [
+          -1.5,
+          17.5,
+          -5.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-380-faces.bin.gz",
+        "byteLength": 840,
+        "gzipBytes": 219,
+        "gzipSHA256": "a82d643ccbf00510b9477084dadf4b1eb76184f8b4098a82e12d08f1798dc306",
+        "decodedSHA256": "b71d4265efa62f16c54095241463379925613324941b10d9c6f75a05ea6919f1",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 84,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-381.mesh.gz",
+      "byteLength": 2920,
+      "gzipBytes": 807,
+      "gzipSHA256": "dc8919013e5e16f33697109f3c54db15e677450293e0a5cb2d97a576d149ce2e",
+      "decodedSHA256": "c4f934feb9a00253d650361737b66f762dc054e49287d29ca4788af02804a5a3",
+      "code": 381,
+      "name": "left_anterior_inferior_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_anterior_inferior_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 381,
+      "sourceVoxelCount": 27,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 82,
+      "triangleCount": 160,
+      "exposedFaceCount": 80,
+      "positionByteSHA256": "5aa3b0dd9ffae469a85a92870163b2d803526709323f63eba61a1fce3404cc3f",
+      "indexByteSHA256": "de232848453c9717b1e914d1254664ddd24903929ee1f56b08fe70265f7eeff7",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 82
+        },
+        "triangles": {
+          "offset": 1000,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 160
+        }
+      },
+      "boundsRAS": [
+        [
+          -7.5,
+          13.5,
+          -11.5
+        ],
+        [
+          -1.5,
+          16.5,
+          -8.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-381-faces.bin.gz",
+        "byteLength": 800,
+        "gzipBytes": 200,
+        "gzipSHA256": "07f28dd4feee247f6c38925464c0494947439d1f8e07ffd6ed0c4499d68c97c1",
+        "decodedSHA256": "f4571108d58e91e27e3f4827e0da1a0dbf3b0e499757a8574abd8542bba773d1",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 80,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-382.mesh.gz",
+      "byteLength": 10048,
+      "gzipBytes": 2786,
+      "gzipSHA256": "bcebaff69fb680ada872bc1484245a741aaedeeabe440f6a2b9b073dce4d551b",
+      "decodedSHA256": "a64c6226ed456bfb49baf9717b40104724ddb94f914991922424d5dd6c71e0c9",
+      "code": 382,
+      "name": "left_superior_tuberal_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_superior_tuberal_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 382,
+      "sourceVoxelCount": 247,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 280,
+      "triangleCount": 556,
+      "exposedFaceCount": 278,
+      "positionByteSHA256": "6201ab06e48c5ac834347152d3ef51173bc9291fdec926b4e010a064d2be3d88",
+      "indexByteSHA256": "2a55aa5c48f062f4a67643e560ea5169b24fc219a49a6bc1e6600ff56164d29c",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 280
+        },
+        "triangles": {
+          "offset": 3376,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 556
+        }
+      },
+      "boundsRAS": [
+        [
+          -7.5,
+          5.5,
+          -11.5
+        ],
+        [
+          -1.5,
+          13.5,
+          -4.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-382-faces.bin.gz",
+        "byteLength": 2780,
+        "gzipBytes": 653,
+        "gzipSHA256": "cabcc4d408885e071a49ea14f7fea4c0d3821587e51a5647f4da490080e835bc",
+        "decodedSHA256": "d2da157d4206d6865ec3bb194626f195cafd31190e3efa5376ae68a49219d729",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 278,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-383.mesh.gz",
+      "byteLength": 11620,
+      "gzipBytes": 3247,
+      "gzipSHA256": "03ab8a5612745d5ed128fc160372501b15dfbc23c4e1011c5ab635afec1da9ec",
+      "decodedSHA256": "462da1d4f9136aa537dd554e2b180c38252a2f050a12128553fa856edb0ffa41",
+      "code": 383,
+      "name": "left_inferior_tuberal_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_inferior_tuberal_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 383,
+      "sourceVoxelCount": 200,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 323,
+      "triangleCount": 644,
+      "exposedFaceCount": 322,
+      "positionByteSHA256": "2ec564b4ffdde6601625b1a8467487c0c922e8142f572662b3cebedb870595a0",
+      "indexByteSHA256": "d081273e7a2958e6b89c10324bbebd6f78d03e9be923ef887117613e239ef50c",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 323
+        },
+        "triangles": {
+          "offset": 3892,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 644
+        }
+      },
+      "boundsRAS": [
+        [
+          -10.5,
+          6.5,
+          -16.5
+        ],
+        [
+          -1.5,
+          14.5,
+          -8.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-383-faces.bin.gz",
+        "byteLength": 3220,
+        "gzipBytes": 780,
+        "gzipSHA256": "32f0eb805e5ff901f7714fc343af7cf665fc64fa07ff7b3c549132d3bb8be955",
+        "decodedSHA256": "109719c943ab04889c137f4b97c60b0e0e63b17de5c187a7e85d910e246b9c50",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 322,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-384.mesh.gz",
+      "byteLength": 7564,
+      "gzipBytes": 2048,
+      "gzipSHA256": "10cd275fc9da9f00c38bd6eaa32b058daa8ece28a3a0ade0fce5aacfc0368375",
+      "decodedSHA256": "b06d460cb23ab68cc71612fedb46a23ef6d34980457cc0256db729ae4554f03c",
+      "code": 384,
+      "name": "left_posterior_superior_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "left_posterior_superior_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 384,
+      "sourceVoxelCount": 93,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 209,
+      "triangleCount": 420,
+      "exposedFaceCount": 210,
+      "positionByteSHA256": "5d7394ecf91979c5c87869197445707c8b15afcf67e448c7d43ba2a9531b9faf",
+      "indexByteSHA256": "c5ac6123f8287014eec4f222e99c4d1a87c53ae94a2eecfc8a5904428bdb40a4",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 209
+        },
+        "triangles": {
+          "offset": 2524,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 420
+        }
+      },
+      "boundsRAS": [
+        [
+          -7.5,
+          -1.5,
+          -14.5
+        ],
+        [
+          -0.5,
+          6.5,
+          -7.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-384-faces.bin.gz",
+        "byteLength": 2100,
+        "gzipBytes": 526,
+        "gzipSHA256": "2d3dc5115a3347587a8fa729b8ff8a27b7f0b470a75004e67a4eadb28ccd3fd3",
+        "decodedSHA256": "4d30b0aac7056b9428c79cfcb51acde1b3f019f7a853604582d93d003c83e197",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 210,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-385.mesh.gz",
+      "byteLength": 3208,
+      "gzipBytes": 887,
+      "gzipSHA256": "3ff3a98282dd9beee1d6ff53dd52c9134272665b549fbaf22347bac62dd75489",
+      "decodedSHA256": "1d4e9f7c33c57e9c3ce36d3238f0ccf204f4a9b4f5320fab03c70255cb5df491",
+      "code": 385,
+      "name": "right_anterior_superior_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_anterior_superior_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 385,
+      "sourceVoxelCount": 46,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 90,
+      "triangleCount": 176,
+      "exposedFaceCount": 88,
+      "positionByteSHA256": "abf6f69993d85c8d631a1090f502f351776c5cbba6773db49a1084113be3e7dd",
+      "indexByteSHA256": "283c72a69c86d833ba17d79ad7a1149a54c2d218e5f9cb59e92fec691ffbb6e7",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 90
+        },
+        "triangles": {
+          "offset": 1096,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 176
+        }
+      },
+      "boundsRAS": [
+        [
+          -0.5,
+          13.5,
+          -8.5
+        ],
+        [
+          5.5,
+          17.5,
+          -5.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-385-faces.bin.gz",
+        "byteLength": 880,
+        "gzipBytes": 231,
+        "gzipSHA256": "089539bf1fbec8105aa0237610a8f840d1523006315f4fb48fa51126c8566cf4",
+        "decodedSHA256": "ae5df4e6d9303a01d9a5753161b3286c5693cdb936802e60bec1fb3e2f0a687b",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 88,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-386.mesh.gz",
+      "byteLength": 2920,
+      "gzipBytes": 814,
+      "gzipSHA256": "b49fd14e5d3a922ecfa0c1dd111280ecc8536389372e4574b38f44e9ab5301ec",
+      "decodedSHA256": "7c1291ed03a364e66e280acabbe58ced4f2e5ee70bdc5b704b8166e7380d320a",
+      "code": 386,
+      "name": "right_anterior_inferior_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_anterior_inferior_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 386,
+      "sourceVoxelCount": 27,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 82,
+      "triangleCount": 160,
+      "exposedFaceCount": 80,
+      "positionByteSHA256": "6dfc351f272fa72cc112451f83799373888c5f1ed5db0058d5463e9bb96cd054",
+      "indexByteSHA256": "952e266d9ff4d11a7e8a406ced6af8d988c7aa1e3ce6c861828daa13f45bc3ae",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 82
+        },
+        "triangles": {
+          "offset": 1000,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 160
+        }
+      },
+      "boundsRAS": [
+        [
+          0.5,
+          13.5,
+          -11.5
+        ],
+        [
+          6.5,
+          16.5,
+          -8.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-386-faces.bin.gz",
+        "byteLength": 800,
+        "gzipBytes": 201,
+        "gzipSHA256": "5f1901a9aceb3b0eb992dbfda23ff6008821adea07357a55b2a3f5f1d65c41c2",
+        "decodedSHA256": "5337e27c1f191eb15864e2d25d194c2bc7e6fafd7527aeadcf8b30eace5ecf99",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 80,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-387.mesh.gz",
+      "byteLength": 10768,
+      "gzipBytes": 2991,
+      "gzipSHA256": "4a219746e2450e43b983ede60cba7805834cf93edc68a3da0c49477bbc5b0ea9",
+      "decodedSHA256": "1f28959f28ee7ee4b8f72d105a73dabfdf029a591c259fd871214415c1e4f5bb",
+      "code": 387,
+      "name": "right_superior_tuberal_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_superior_tuberal_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 387,
+      "sourceVoxelCount": 256,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 300,
+      "triangleCount": 596,
+      "exposedFaceCount": 298,
+      "positionByteSHA256": "1616f146ae9faf5e2dc68a0a6eefe34bd74818866c8dafaea0054794b8d23b75",
+      "indexByteSHA256": "345f27d89f5f3a180ee61de9724882ec65740e38b31517db32f3e2c5b6924200",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 300
+        },
+        "triangles": {
+          "offset": 3616,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 596
+        }
+      },
+      "boundsRAS": [
+        [
+          -0.5,
+          5.5,
+          -11.5
+        ],
+        [
+          6.5,
+          13.5,
+          -3.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-387-faces.bin.gz",
+        "byteLength": 2980,
+        "gzipBytes": 691,
+        "gzipSHA256": "5949f92ccdc7a7af90b5845668bd887eb0b350d5f04b364d5e331bfef361a04d",
+        "decodedSHA256": "c1416acb84cb3f5a8fba68072ebc9d4c9c346e8e1e08cc5c1edd3729dddc60ed",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 298,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-388.mesh.gz",
+      "byteLength": 12124,
+      "gzipBytes": 3388,
+      "gzipSHA256": "1558b1bee7576a144781b07970c72e7e79033c3ac11ee1e4949222332659d5b5",
+      "decodedSHA256": "6d86cabdd1914c651e0daa16444b5eafb60cedf15bc568dd10c0b086f4c9c396",
+      "code": 388,
+      "name": "right_inferior_tuberal_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_inferior_tuberal_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 388,
+      "sourceVoxelCount": 209,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 337,
+      "triangleCount": 672,
+      "exposedFaceCount": 336,
+      "positionByteSHA256": "81cfa92254f04baf8c6f85afa4e7eac3ecf66a7fd0e8eb64922e487a1c772e5a",
+      "indexByteSHA256": "eb154252ade1beeb76206f53d82ac38662f62b6b9af3a0e6b4130e7f29e5fc5d",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 337
+        },
+        "triangles": {
+          "offset": 4060,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 672
+        }
+      },
+      "boundsRAS": [
+        [
+          -1.5,
+          6.5,
+          -16.5
+        ],
+        [
+          8.5,
+          14.5,
+          -8.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-388-faces.bin.gz",
+        "byteLength": 3360,
+        "gzipBytes": 805,
+        "gzipSHA256": "e18bfeca7c5d2d238e3bd0060899709f94b547234a2b5587e1beb42ff5510985",
+        "decodedSHA256": "6dff97b592ce2d6cc0352da558e4dbf4d0ad12f3ae2355c231403961a0acc601",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 336,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-389.mesh.gz",
+      "byteLength": 5956,
+      "gzipBytes": 1617,
+      "gzipSHA256": "7d21567f505ce0bfc2b8b7bd75c62e02c7cd68cb6c88b0bf50704b22e2adb5d6",
+      "decodedSHA256": "8763e3b9aa6a8ef79197a74996986f22605e994557fe70c2b063716391210f8a",
+      "code": 389,
+      "name": "right_posterior_superior_hypothalamus",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "right_posterior_superior_hypothalamus",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 389,
+      "sourceVoxelCount": 56,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 167,
+      "triangleCount": 328,
+      "exposedFaceCount": 164,
+      "positionByteSHA256": "30b674133425770a219b3799e083db9b91c3f6a4c4b90ed01619c8d1a92c6032",
+      "indexByteSHA256": "33a9a86b519363bfa2dbf346f137219649cac6924f469c4eb88f280ddd2f8353",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 167
+        },
+        "triangles": {
+          "offset": 2020,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 328
+        }
+      },
+      "boundsRAS": [
+        [
+          -1.5,
+          0.5,
+          -16.5
+        ],
+        [
+          5.5,
+          7.5,
+          -6.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-389-faces.bin.gz",
+        "byteLength": 1640,
+        "gzipBytes": 411,
+        "gzipSHA256": "ed59d7a7a24073168d3a8661007f1aec6e3491d90c2ce8eed2089353b46c9aef",
+        "decodedSHA256": "fc9536cade657ec15d05dfc38eea0a8363531916b10d606726b1585d0a75c431",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 164,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-3008.mesh.gz",
+      "byteLength": 5584,
+      "gzipBytes": 1507,
+      "gzipSHA256": "e3a4bcb4bc01597181613f390cc9d0e9c3c4624cd6c1c2ec687defed49f02058",
+      "decodedSHA256": "c69bbde9c904f00d51ea978441f5d8e42f3b967224307061a81714c413a41556",
+      "code": 3008,
+      "name": "infundibulum_of_neurohypophysis",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "infundibulum_of_neurohypophysis",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 3008,
+      "sourceVoxelCount": 78,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 156,
+      "triangleCount": 308,
+      "exposedFaceCount": 154,
+      "positionByteSHA256": "7d45e3fc0f56edf6428f6ddbe3f1744cf59c6f58b457cdacb809decf4e67303b",
+      "indexByteSHA256": "41c93cca9d143098fd8219f77bafde480cbe1d042b45250606f64dcb2bdff442",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 156
+        },
+        "triangles": {
+          "offset": 1888,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 308
+        }
+      },
+      "boundsRAS": [
+        [
+          -3.5,
+          10.5,
+          -26.5
+        ],
+        [
+          -0.5,
+          17.5,
+          -16.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3008-faces.bin.gz",
+        "byteLength": 1540,
+        "gzipBytes": 385,
+        "gzipSHA256": "195e8e7b4bb917d8f48b381b6d71e85a2c67a6c06c915654a576309e49c8baf2",
+        "decodedSHA256": "8c25633fe383a4da60a35219c325b19f49c1a72432ddd85683a25f5c5bfeb0eb",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 154,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-3011.mesh.gz",
+      "byteLength": 10264,
+      "gzipBytes": 2884,
+      "gzipSHA256": "933c3a8a28006307940c693fb463d014b87d50c1949c9fc357d142da595e44cf",
+      "decodedSHA256": "e429a7d85102dac3cc83072508a4b74156eea278586c11e75e919c566924cd8a",
+      "code": 3011,
+      "name": "adenohypophysis",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "adenohypophysis",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 3011,
+      "sourceVoxelCount": 227,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 286,
+      "triangleCount": 568,
+      "exposedFaceCount": 284,
+      "positionByteSHA256": "c2ba88a72a9269b64a504aa898ab193572cf9c534324317b8d7887b062431291",
+      "indexByteSHA256": "92b59aa2523a818fd85067119fa42eb134d817fb90fe85038a6250269ad9f4ba",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 286
+        },
+        "triangles": {
+          "offset": 3448,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 568
+        }
+      },
+      "boundsRAS": [
+        [
+          -9.5,
+          15.5,
+          -30.5
+        ],
+        [
+          3.5,
+          21.5,
+          -26.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3011-faces.bin.gz",
+        "byteLength": 2840,
+        "gzipBytes": 644,
+        "gzipSHA256": "e75e2e67b68a96efda0e66e68395464f3a9643d6f0dbb418c3864787b4c7b5d8",
+        "decodedSHA256": "629cc46562743a811ec0e75d57ece4f38a2707fcb4df44558e5aefa6ca139aa6",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 284,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    },
+    {
+      "file": "label-3012.mesh.gz",
+      "byteLength": 10624,
+      "gzipBytes": 2961,
+      "gzipSHA256": "c352bcd92eb9f92c80d21b1fd466aeed33ad8e87eabbfdf2a27b56da054a4515",
+      "decodedSHA256": "e273d7bdc7b5e5bf1d716b1dd1e033ae8e5afd0260dc1b98cc9676294a9702f9",
+      "code": 3012,
+      "name": "neurohypophysis",
+      "kind": "exact-categorical-voxel-cell-boundary",
+      "structure": "neurohypophysis",
+      "source": {
+        "repository": "mhalle/spl-brain-atlas",
+        "commit": "bec24db25aad5f7600e2df3becfb1f883e61ff56",
+        "labelFile": "slicer/volumes/labels/hncma-atlas.nrrd",
+        "decodedLabelSHA256": "ed9b125a08d723336ccb9bb0ae3df5bcdeb8a37a4c7cd85507ce7d981e0e620a"
+      },
+      "sourceLabelCode": 3012,
+      "sourceVoxelCount": 177,
+      "coordinateSystem": "RAS",
+      "spaceUnits": "mm",
+      "sourceAffine": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "voxelToRAS": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sourceLabelVoxelToRAS": [
+        [
+          0.0,
+          0.0,
+          -1.0,
+          128.0
+        ],
+        [
+          -1.0,
+          0.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          128.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "positionsAlreadyRAS": true,
+      "sourceGridPosition": false,
+      "vertexCount": 296,
+      "triangleCount": 588,
+      "exposedFaceCount": 294,
+      "positionByteSHA256": "bbbb55d62b21ba01d7d257cd483b463d80a13a257cef339029b758813f597a21",
+      "indexByteSHA256": "42104c1b357fbf14ae9f3d3ab4f8ed62982a9965230ab61090601b041d7e1fea",
+      "layout": {
+        "headerBytes": 16,
+        "magic": "HVX1",
+        "byteOrder": "little",
+        "headerFields": [
+          "magic[4]",
+          "vertexCount:uint32",
+          "triangleCount:uint32",
+          "reserved:uint32=0"
+        ],
+        "positions": {
+          "offset": 16,
+          "dtype": "<f4",
+          "components": 3,
+          "count": 296
+        },
+        "triangles": {
+          "offset": 3568,
+          "dtype": "<u4",
+          "components": 3,
+          "count": 588
+        }
+      },
+      "boundsRAS": [
+        [
+          -9.5,
+          11.5,
+          -30.5
+        ],
+        [
+          3.5,
+          18.5,
+          -25.5
+        ]
+      ],
+      "faceProvenance": {
+        "file": "label-3012-faces.bin.gz",
+        "byteLength": 2940,
+        "gzipBytes": 702,
+        "gzipSHA256": "0cbf52b5188fd4708acee250f080de7096e7254addf5d8e6bfa0d97907c3eb10",
+        "decodedSHA256": "44acb950780d9c95610db45554d0318be4db0cc54701a1289222c25c393da1c2",
+        "dtype": "<i2",
+        "components": 5,
+        "count": 294,
+        "layout": [
+          "i",
+          "j",
+          "k",
+          "native_axis",
+          "outward_sign"
+        ]
+      },
+      "allComponentsAndCavitiesRetained": true,
+      "allCellFacesExact": true,
+      "smoothedOrRepairedByPrimer": false,
+      "interpretation": "Exact boundaries of this original categorical label class, including voxel stair steps and small components. This is not an independently validated anatomical truth or a smooth patient surface.",
+      "sourceAtlas": "spl-additional-source"
+    }
+  ],
+  "allOriginalSourceLabelComponentsRetained": true,
+  "positionsAlreadyRAS": true,
+  "sourceCoordinatesFitted": false,
+  "clinicalApproval": false,
+  "completeReportingCoverage": false
+}
