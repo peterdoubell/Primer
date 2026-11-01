@@ -1,3 +1,4 @@
+from tools.cortical_mri_runtime_compatibility import before_mri_bytes
 from pathlib import Path
 import hashlib,json,re
 R=Path(__file__).resolve().parents[1]
@@ -10,7 +11,7 @@ def test_contact_review_viewer_matches_verified_gpu_evidence():
     assert {r['width']for r in proof['states']}=={390,1440}
     for row in proof['states']:
         assert row['allSourceBuffersMatched'] and row['sourcePairsSelected']==77 and row['actualDrawRangesVerified']
-    for name,digest in proof['sourceSHA256'].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest
+    for name,digest in proof['sourceSHA256'].items():assert hashlib.sha256(before_mri_bytes(name,(R/name).read_bytes())).hexdigest()==digest
     raw=(A/'manifest.json').read_bytes();manifest=json.loads(raw)
     pin=re.search(r"const expected='([a-f0-9]{64})'",(A/'viewer.js').read_text()).group(1)
     assert hashlib.sha256(raw).hexdigest()==pin
@@ -42,7 +43,7 @@ def test_real_hosted_reader_uses_the_verified_immutable_source():
     assert len(proof['hostedResponses'])==2
     assert all(row=={'url':expected,'status':200}for row in proof['hostedResponses'])
     assert all(row['allSourceBuffersMatched'] and row['actualDrawRangesVerified']for row in proof['states'])
-    for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256((R/file).read_bytes()).hexdigest()==digest
+    for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256(before_mri_bytes(file,(R/file).read_bytes())).hexdigest()==digest
 
 def test_actual_gpu_camera_feedback_matches_independent_rotation():
     proof=json.loads((D/'camera-proof.json').read_bytes())
@@ -51,4 +52,4 @@ def test_actual_gpu_camera_feedback_matches_independent_rotation():
     assert all(r['maxAbsoluteNDC']<=1.000001 for r in proof['cases'])
     assert not proof['clinicalAnatomicalAccuracyVerified'] and not proof['sourceGeometryChanged']
     for mapping in ['sourceSHA256','toolsSHA256']:
-        for name,digest in proof[mapping].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest
+        for name,digest in proof[mapping].items():assert hashlib.sha256(before_mri_bytes(name,(R/name).read_bytes())).hexdigest()==digest

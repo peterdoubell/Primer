@@ -13,10 +13,12 @@ def reviewed():
     if p['base_commit']!='9eefed98a433128b1a800759dfea4fd97c27168e' or p['scope']!='exact_cortical_contact_reference_integration' or set(p['files'])!=PATHS or p['bindings']!=['ra.brain-anatomy','ra.mri-epilepsy'] or p['inspector']['id']!='spl-cortical-source-contacts-reference' or any(p[k]is not False for k in ['clinicalApproval','extendsHistoricalApproval','wholeGoalComplete']):raise ValueError('Contact inverse scope differs')
     return p
 def before_contact_bytes(path,raw,allow_older=False):
+    from tools.cortical_mri_runtime_compatibility import before_mri_bytes
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]
     if sha(raw)==row['before_sha256']:return raw
+    raw=before_mri_bytes(path,raw,allow_older=allow_older)
     if sha(raw)!=row['after_sha256']:
         if allow_older:return raw
         raise ValueError('Unreviewed contact integration byte change')
@@ -28,6 +30,8 @@ def before_contact_bytes(path,raw,allow_older=False):
     if sha(restored)!=row['before_sha256']:raise ValueError('Contact inverse altered unrelated bytes')
     return restored
 def before_contact_reference_fields(identifier,fields):
+    from tools.cortical_mri_runtime_compatibility import before_mri_reference_fields
+    fields=before_mri_reference_fields(identifier,fields)
     p=reviewed();result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);addition=p['inspector'];matches=[x for x in items if x.get('id')==addition['id']]
     if not matches:return result
     if identifier not in p['bindings'] or matches!=[addition]:raise ValueError('Unreviewed contact descriptor')
