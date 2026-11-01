@@ -42,3 +42,19 @@ def test_authenticated_contact_lesson_matches_current_runtime():
     assert all(m['allSourceGPUBytesMatched'] and m['reopened']for m in proof['mounts'])
     assert len(proof['responses'])==8 and all(r['status']==200 for r in proof['responses'])
     for file,digest in proof['sourceSHA256'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
+
+def test_contact_inverse_preserves_exact_baseline_and_rejects_foreign_edits():
+    import copy,pytest
+    from tools.cortical_contact_runtime_compatibility import reviewed,before_contact_bytes,before_contact_reference_fields
+    proof=reviewed()
+    for name,row in proof['files'].items():
+        raw=(ROOT/name).read_bytes();before=before_contact_bytes(name,raw)
+        assert hashlib.sha256(before).hexdigest()==row['before_sha256']
+        assert before_contact_bytes(name,before)==before
+        with pytest.raises(ValueError):before_contact_bytes(name,raw+b'foreign edit')
+    for identifier in proof['bindings']:
+        fields={'source_native_inspectors':[proof['inspector']]}
+        assert before_contact_reference_fields(identifier,fields)=={'source_native_inspectors':[]}
+        bad=copy.deepcopy(fields);bad['source_native_inspectors'][0]['clinical_approval']=True
+        with pytest.raises(ValueError):before_contact_reference_fields(identifier,bad)
+    with pytest.raises(ValueError):before_contact_reference_fields('ra.mri-dementia',fields)

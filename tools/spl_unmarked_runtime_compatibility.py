@@ -13,6 +13,8 @@ def reviewed():
     if p['base_commit']!='9a940214cb5aeff900710e45ccbf28d1acb4b597' or p['scope']!='exact_spl_unmarked_comparison' or set(p['files'])!=PATHS or p['bindings']!=['ra.brain-anatomy','ra.mri-dementia','ra.mri-epilepsy'] or any(p[k]is not False for k in ['sourcePayloadsChanged','sourceManifestChanged','clinicalApproval','extendsHistoricalApproval','wholeGoalComplete']):raise ValueError('Comparison inverse scope differs')
     return p
 def before_unmarked_bytes(path,raw,allow_older=False):
+    from tools.cortical_contact_runtime_compatibility import before_contact_bytes
+    raw=before_contact_bytes(path,raw,allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]
@@ -28,6 +30,8 @@ def before_unmarked_bytes(path,raw,allow_older=False):
     if sha(restored)!=row['before_sha256']:raise ValueError('Comparison inverse altered unrelated bytes')
     return restored
 def before_unmarked_reference_fields(identifier,fields):
+    from tools.cortical_contact_runtime_compatibility import before_contact_reference_fields
+    fields=before_contact_reference_fields(identifier,fields)
     p=reviewed();result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);row=p['descriptor'];matches=[x for x in items if x.get('id')==row['after']['id']]
     if not matches:return result
     if identifier not in p['bindings'] or matches not in [[row['before']],[row['after']]]:raise ValueError('Unreviewed SPL source comparison descriptor')

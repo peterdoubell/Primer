@@ -105769,6 +105769,54 @@
             "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
             "caption": "Explore 98 source-labelled regions with matched ex vivo MRI, native-label schematics and complete source-cell boundaries. The publisher describes a right-hemisphere reference; conflicting side prefixes remain visible in original label names. Source regions are not approved as complete clinical reporting structures.",
             "attribution": "NextBrain Data Extension, OpenNeuro ds005422 v1.0.1, DOI 10.18112/openneuro.ds005422.v1.0.1; CC0. Upstream MRI: Edlow and colleagues, OpenNeuro ds002179 v1.1.0; CC0. Primer derivations retain the supplied voxel values and cell boundaries. The supplied derivative uses a 0.2 mm grid; its exact contrast lineage remains unresolved. This is one fixed postmortem specimen, not a normal-population template or a patient registration."
+          },
+          {
+            "id": "spl-cortical-source-contacts-reference",
+            "modality": "Categorical source contact surfaces",
+            "coordinate_context": "single-SPL-source-label-grid-RAS-mm",
+            "title": "Cortical and white-matter source-label contacts",
+            "src": "/app/anatomy/spl-source-contacts/index.html",
+            "manifest_url": "/app/anatomy/spl-source-contacts/manifest.json",
+            "sha256": "aef6b468a3bab044509bfd342c85990260b9fa3039fe5d4564224537f5a74bfa",
+            "manifest_sha256": "c5ca712f4ee1a0b92f97e2ca50c8260f2dc09ad6669556835cfeef4703b31c2e",
+            "caption": "Inspect the exact shared cell faces between source white-matter and cortical parcel labels. All 77 source pairs and 31 opposite-side-named contacts are retained for review. These categorical contacts do not establish biological grey–white boundary accuracy, cortical thickness, dysplasia or patient-specific anatomy. Use the separate native SPL MRI reader to inspect the source images.",
+            "attribution": "All or portions of this licensed product (such portions are the \"Software\") have been obtained under license from The Brigham and Women's Hospital, Inc. and are subject to the following terms and conditions:\n\nThe complete 3D Slicer license, including all Part B conditions, accompanies this package as LICENSE.txt. It applies to the SPL atlas data. Retain the license and this notice in redistributed copies and documentation.\n\nSPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl and Ron Kikinis; Brigham and Women's Hospital, Harvard Medical School, Massachusetts General Hospital and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56.\nhttps://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html\nhttps://github.com/mhalle/spl-brain-atlas\n\nPublisher-listed additional contributors: Ilwoo Lyu and Martin Styner (Sulcal Curves); Samira Farough (Ventricular System); Ibraheem Naeem and Maria Naeem (Head and Neck Muscles); George Papadimitriou (Cerebellar Parcellation); Madiha Tahir (White Matter). The original source README, including funding acknowledgements and citation instructions, accompanies this package as SOURCE-README.md.\n\nModified transport and derived visualization version by Primer, 2026-10-16. Exact categorical label-boundary meshes are newly derived from every exposed original label voxel-cell face; they are not original publisher VTK files. No components, cavities, or faces are deleted. The original publisher VTK models are separately retained for comparison.\nConversion: native MRI/label sample bytes are unchanged; original NRRD gzip bodies and headers permit exact source-file reconstruction. VTK coordinate/normal/strip bits are retained; triangle strips are expanded without deleting any implied triangle. Display colors follow the original lookup table. No MRI resampling, coordinate fitting, smoothing, capping, merging or anatomical repair is applied.\nThis single source case and its processed anatomical labels/surfaces do not establish normal populations, pathology, current-patient registration, complete fine anatomy or clinical approval. The source license states that clinical applications are neither recommended nor advised. No source institution endorsement is implied.\n\nAdditional marked adaptation: exact shared voxel-cell faces between source white-matter classes 2/41 and the source cortical parcel classes. No smoothing or gap bridging. These categorical interfaces are not validated biological boundaries, cortical-thickness measurements or patient-specific anatomy. Opposite-side-named source contacts are retained for review.\n",
+            "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+            "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+            "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+            "license_url": "/app/anatomy/spl-source-contacts/LICENSE.txt",
+            "source_grain": {
+              "sourceSubjectCount": 1,
+              "sourceLabelGridMm": [
+                1,
+                1,
+                1
+              ],
+              "whiteClasses": 2,
+              "corticalClasses": 70,
+              "sourcePairs": 77,
+              "contactFaces": 274109,
+              "triangles": 548218,
+              "oppositeNamedSideFacesRetained": 31,
+              "anatomicalBoundaryValidated": false,
+              "sourceResampled": false,
+              "sourceSmoothing": false
+            },
+            "source_grant": {
+              "publisher_explicitly_applies_license_to_data": true,
+              "terms_url": "/app/anatomy/spl-source-contacts/LICENSE.txt",
+              "attribution_url": "/app/anatomy/spl-source-contacts/ATTRIBUTION.txt",
+              "marked_derived_version": true,
+              "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+            },
+            "bound_source_ids": [
+              "spl-cortical-source-contacts-reference"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false
           }
         ]
       },
@@ -112011,6 +112059,54 @@
               "sourceComponents26": 1,
               "effectiveSpatialResolutionEstablished": false
             }
+          },
+          {
+            "id": "spl-cortical-source-contacts-reference",
+            "modality": "Categorical source contact surfaces",
+            "coordinate_context": "single-SPL-source-label-grid-RAS-mm",
+            "title": "Cortical and white-matter source-label contacts",
+            "src": "/app/anatomy/spl-source-contacts/index.html",
+            "manifest_url": "/app/anatomy/spl-source-contacts/manifest.json",
+            "sha256": "aef6b468a3bab044509bfd342c85990260b9fa3039fe5d4564224537f5a74bfa",
+            "manifest_sha256": "c5ca712f4ee1a0b92f97e2ca50c8260f2dc09ad6669556835cfeef4703b31c2e",
+            "caption": "Inspect the exact shared cell faces between source white-matter and cortical parcel labels. All 77 source pairs and 31 opposite-side-named contacts are retained for review. These categorical contacts do not establish biological grey–white boundary accuracy, cortical thickness, dysplasia or patient-specific anatomy. Use the separate native SPL MRI reader to inspect the source images.",
+            "attribution": "All or portions of this licensed product (such portions are the \"Software\") have been obtained under license from The Brigham and Women's Hospital, Inc. and are subject to the following terms and conditions:\n\nThe complete 3D Slicer license, including all Part B conditions, accompanies this package as LICENSE.txt. It applies to the SPL atlas data. Retain the license and this notice in redistributed copies and documentation.\n\nSPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl and Ron Kikinis; Brigham and Women's Hospital, Harvard Medical School, Massachusetts General Hospital and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56.\nhttps://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html\nhttps://github.com/mhalle/spl-brain-atlas\n\nPublisher-listed additional contributors: Ilwoo Lyu and Martin Styner (Sulcal Curves); Samira Farough (Ventricular System); Ibraheem Naeem and Maria Naeem (Head and Neck Muscles); George Papadimitriou (Cerebellar Parcellation); Madiha Tahir (White Matter). The original source README, including funding acknowledgements and citation instructions, accompanies this package as SOURCE-README.md.\n\nModified transport and derived visualization version by Primer, 2026-10-16. Exact categorical label-boundary meshes are newly derived from every exposed original label voxel-cell face; they are not original publisher VTK files. No components, cavities, or faces are deleted. The original publisher VTK models are separately retained for comparison.\nConversion: native MRI/label sample bytes are unchanged; original NRRD gzip bodies and headers permit exact source-file reconstruction. VTK coordinate/normal/strip bits are retained; triangle strips are expanded without deleting any implied triangle. Display colors follow the original lookup table. No MRI resampling, coordinate fitting, smoothing, capping, merging or anatomical repair is applied.\nThis single source case and its processed anatomical labels/surfaces do not establish normal populations, pathology, current-patient registration, complete fine anatomy or clinical approval. The source license states that clinical applications are neither recommended nor advised. No source institution endorsement is implied.\n\nAdditional marked adaptation: exact shared voxel-cell faces between source white-matter classes 2/41 and the source cortical parcel classes. No smoothing or gap bridging. These categorical interfaces are not validated biological boundaries, cortical-thickness measurements or patient-specific anatomy. Opposite-side-named source contacts are retained for review.\n",
+            "source_url": "https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html",
+            "publication_url": "https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56",
+            "license": "3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C",
+            "license_url": "/app/anatomy/spl-source-contacts/LICENSE.txt",
+            "source_grain": {
+              "sourceSubjectCount": 1,
+              "sourceLabelGridMm": [
+                1,
+                1,
+                1
+              ],
+              "whiteClasses": 2,
+              "corticalClasses": 70,
+              "sourcePairs": 77,
+              "contactFaces": 274109,
+              "triangles": 548218,
+              "oppositeNamedSideFacesRetained": 31,
+              "anatomicalBoundaryValidated": false,
+              "sourceResampled": false,
+              "sourceSmoothing": false
+            },
+            "source_grant": {
+              "publisher_explicitly_applies_license_to_data": true,
+              "terms_url": "/app/anatomy/spl-source-contacts/LICENSE.txt",
+              "attribution_url": "/app/anatomy/spl-source-contacts/ATTRIBUTION.txt",
+              "marked_derived_version": true,
+              "reuse_terms": "Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied."
+            },
+            "bound_source_ids": [
+              "spl-cortical-source-contacts-reference"
+            ],
+            "clinical_approval": false,
+            "fine_anatomical_approval": false,
+            "current_patient_registration": false,
+            "normal_anatomical_atlas_approval": false,
+            "complete_reporting_anatomy_approved": false
           }
         ]
       },
