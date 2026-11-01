@@ -117,4 +117,7 @@ def references():
     from .bonn_fcd_reference import references as fcd_references
     for identifier, entries in fcd_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .cortical_contact_reference import references as contact_references
+    for identifier, entries in contact_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     return result
