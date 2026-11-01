@@ -1,8 +1,11 @@
 import {payload,decode,payloadPrefix} from './transport.js';
+import {installContext} from './context.js';
 export function installMesh(manifest){
 const $=id=>document.getElementById(id),state={yaw:.3,pitch:.2,zoom:1};let gpu,meshController,meshGeneration=0,contextEpoch=0;
 const canvas=$('mesh'),gl=canvas.getContext('webgl2',{preserveDrawingBuffer:true,antialias:true});
 let program,uniforms,attribute;
+const currentGroup=()=>manifest.groups.find(g=>g.firstCode+':'+g.secondCode===$('pair').value);
+const context=installContext(gl,()=>draw());
 function setupGL(){
   const shaders=[ [gl.VERTEX_SHADER,`#version 300 es
 in vec3 position;uniform vec3 center;uniform float radius,aspect;uniform vec3 basisRight,basisUp,basisDepth;out vec3 p;
@@ -17,11 +20,12 @@ function release(m){if(m&&gl&&!gl.isContextLost()&&m.contextEpoch===contextEpoch
 function clearMesh(){if(gl&&!gl.isContextLost()){gl.clearColor(.063,.094,.125,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);}}
 function draw(){
   if(!gl||!gpu||gl.isContextLost()||gpu.contextEpoch!==contextEpoch)return;
-  const group=manifest.groups.find(g=>g.firstCode+':'+g.secondCode===$('pair').value),focused=!!group;const [lo,hi]=group?group.boundsRAS:gpu.boundsSourceWorld,center=lo.map((n,i)=>(n+hi[i])/2);
+  const group=manifest.groups.find(g=>g.firstCode+':'+g.secondCode===$('pair').value),focused=!!group;const contextBounds=$('show-context').checked&&$('framing').value==='context'?context.bounds():null;const [lo,hi]=contextBounds||(group?group.boundsRAS:gpu.boundsSourceWorld),center=lo.map((n,i)=>(n+hi[i])/2);
   const radius=Math.hypot(...lo.map((n,i)=>(hi[i]-n)/2))*1.12/(state.zoom*Math.min(1,canvas.width/canvas.height));
   gl.useProgram(program);gl.viewport(0,0,canvas.width,canvas.height);clearMesh();gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);
-  gl.uniform3fv(uniforms.center,center);gl.uniform1f(uniforms.radius,radius);const cy=Math.cos(state.yaw),sy=Math.sin(state.yaw),cp=Math.cos(state.pitch),sp=Math.sin(state.pitch);gl.uniform3fv(uniforms.basisRight,[cy,0,sy]);gl.uniform3fv(uniforms.basisUp,[sp*sy,cp,-sp*cy]);gl.uniform3fv(uniforms.basisDepth,[-cp*sy,sp,cp*cy]);canvas.dataset.cameraState=JSON.stringify({yaw:state.yaw,pitch:state.pitch});gl.uniform1f(uniforms.aspect,canvas.width/canvas.height);
-  gl.bindBuffer(gl.ARRAY_BUFFER,gpu.positions);gl.vertexAttribPointer(attribute,3,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(attribute);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,gpu.indices);gl.drawElements(gl.TRIANGLES,(group?group.triangles:gpu.triangles)*3,gl.UNSIGNED_INT,(group?group.firstTriangle:0)*12);canvas.dataset.selection=JSON.stringify({pair:$('pair').value,firstTriangle:group?group.firstTriangle:0,triangles:group?group.triangles:gpu.triangles});$('pair-note').textContent=group?group.firstName+' → '+group.secondName+'; '+group.triangles/2+' source contact faces.'+(group.oppositeNamedSides?' Opposite-side source names: retained for review, not classified as pathology.':''):'All source contact pairs are shown.';
+  gl.uniform3fv(uniforms.center,center);gl.uniform1f(uniforms.radius,radius);const cy=Math.cos(state.yaw),sy=Math.sin(state.yaw),cp=Math.cos(state.pitch),sp=Math.sin(state.pitch);gl.uniform3fv(uniforms.basisRight,[cy,0,sy]);gl.uniform3fv(uniforms.basisUp,[sp*sy,cp,-sp*cy]);gl.uniform3fv(uniforms.basisDepth,[-cp*sy,sp,cp*cy]);canvas.dataset.cameraState=JSON.stringify({yaw:state.yaw,pitch:state.pitch,framing:contextBounds?'context':'contact',zoom:state.zoom});gl.uniform1f(uniforms.aspect,canvas.width/canvas.height);
+  if($('show-context').checked)context.draw({center,radius,aspect:canvas.width/canvas.height,basisRight:[cy,0,sy],basisUp:[sp*sy,cp,-sp*cy],basisDepth:[-cp*sy,sp,cp*cy]});gl.useProgram(program);
+  gl.bindBuffer(gl.ARRAY_BUFFER,gpu.positions);gl.vertexAttribPointer(attribute,3,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(attribute);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,gpu.indices);gl.drawElements(gl.TRIANGLES,(group?group.triangles:gpu.triangles)*3,gl.UNSIGNED_INT,(group?group.firstTriangle:0)*12);canvas.dataset.selection=JSON.stringify({pair:$('pair').value,firstTriangle:group?group.firstTriangle:0,triangles:group?group.triangles:gpu.triangles});$('pair-note').textContent=group?group.firstName+' / '+group.secondName+'; '+group.triangles/2+' source contact faces.'+(group.oppositeNamedSides?' Opposite-side source names: retained for review, not classified as pathology.':''):'All source contact pairs are shown.';
   if(gl.getError()!==gl.NO_ERROR)throw Error('3D draw failed');
   const ctx=$('orientation').getContext('2d');ctx.clearRect(0,0,160,150);ctx.font='bold 15px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
   for(const [vector,name,color]of [[[1,0,0],'R','#a33'],[[0,1,0],'A','#176c43'],[[0,0,1],'S','#275bba']]){
@@ -29,7 +33,7 @@ function draw(){
     const r=[c*b[0]+s*b[2],b[1],-s*b[0]+c*b[2]],x=r[0],y=a*r[1]-d*r[2];
     ctx.strokeStyle=ctx.fillStyle=color;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(80,75);ctx.lineTo(80+45*x,75-45*y);ctx.stroke();ctx.fillText(name,80+60*x,75-60*y);
   }
-  $('mesh-scale').textContent=`Orthographic frame height: ${(radius*2).toFixed(1)} mm in source coordinates. ${focused?'Selected source pair only; all other pairs remain in the GPU buffer and can be selected.':state.zoom>1?'Zoomed view may crop source geometry.':'Complete model fits within the view.'}`;
+  $('mesh-scale').textContent=`Orthographic frame height: ${(radius*2).toFixed(1)} mm in source coordinates. ${state.zoom>1?'Zoomed view may crop source geometry.':focused?(contextBounds?'Complete selected source-label context fits the frame.':'Selected source contact fits the frame; context may extend outside the view.'):state.zoom>1?'Zoomed view may crop source geometry.':'Complete model fits within the view.'}`;
 }
 async function loadMesh(){
  meshController?.abort();meshController=new AbortController();const signal=meshController.signal,generation=++meshGeneration;delete document.body.dataset.meshReady;release(gpu);gpu=null;clearMesh();
@@ -51,10 +55,12 @@ for(const [id,y,p] of [['left',-.2,0],['right',.2,0],['up',0,.2],['down',0,-.2]]
 $('zoom').oninput=()=>{state.zoom=Number($('zoom').value);draw();};
 $('reset').onclick=()=>{state.yaw=.3;state.pitch=.2;state.zoom=1;$('zoom').value=1;draw();};
 canvas.onkeydown=e=>{const d={ArrowLeft:[-.2,0],ArrowRight:[.2,0],ArrowUp:[0,.2],ArrowDown:[0,-.2]}[e.key];if(d){e.preventDefault();rotate(...d);}};
-canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();++contextEpoch;meshController?.abort();++meshGeneration;gpu=null;delete document.body.dataset.meshReady;$('mesh-status').textContent='3D context lost; waiting for recovery.';});
-canvas.addEventListener('webglcontextrestored',()=>{try{setupGL();loadMesh();}catch(e){$('mesh-status').textContent=e.message;}});
-for(const g of manifest.groups){const option=document.createElement('option');option.value=g.firstCode+':'+g.secondCode;option.textContent=g.firstName+' → '+g.secondName;$('pair').append(option);}$('pair').onchange=()=>{state.zoom=1;$('zoom').value=1;draw();};
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();++contextEpoch;context.lost();meshController?.abort();++meshGeneration;gpu=null;delete document.body.dataset.meshReady;$('mesh-status').textContent='3D context lost; waiting for recovery.';});
+canvas.addEventListener('webglcontextrestored',()=>{try{setupGL();context.restored();context.select(currentGroup());loadMesh();}catch(e){$('mesh-status').textContent=e.message;}});
+for(const g of manifest.groups){const option=document.createElement('option');option.value=g.firstCode+':'+g.secondCode;option.textContent=g.firstName+' / '+g.secondName;$('pair').append(option);}$('pair').onchange=()=>{state.zoom=1;$('zoom').value=1;context.select(currentGroup());draw();};
+$('retry-context').onclick=()=>context.select(currentGroup());
+$('show-context').onchange=()=>{$('framing').disabled=!$('show-context').checked;draw();};$('framing').onchange=()=>{state.zoom=1;$('zoom').value=1;draw();};
 if(gl)try{setupGL();}catch(error){$('mesh-status').textContent='3D unavailable: '+error.message;return {loadMesh(){},draw(){},gl:null,gpu:null};}
 loadMesh();
-return {loadMesh,draw,gl,get gpu(){return gpu;}};
+return {loadMesh,draw,gl,context,get gpu(){return gpu;}};
 }
