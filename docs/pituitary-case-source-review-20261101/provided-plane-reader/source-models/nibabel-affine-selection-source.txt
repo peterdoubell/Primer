@@ -1,0 +1,9 @@
+Installed nibabel 5.3.2
+    def get_best_affine(self):
+        """Select best of available transforms"""
+        hdr = self._structarr
+        if hdr['sform_code'] != 0:
+            return self.get_sform()
+        if hdr['qform_code'] != 0:
+            return self.get_qform()
+        return self.get_base_affine()
