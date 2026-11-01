@@ -5,7 +5,7 @@ import hashlib
 import json
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/spl-additional-source-review-20261101/runtime-inverse.json'
-PROOF_SHA256='fb31349f04def6a0976db4be71a1341f946d6771954378c8bebffe42a52f4790'
+PROOF_SHA256='b80ab178bba389cefa6e3a4c310115b62de75989de6c10cadd6060f43793c7e1'
 PATHS=frozenset(['.vercelignore','primer/server.py','primer/source_native_inspectors.py','web/app.js','tools/spl_epilepsy_runtime_compatibility.py','tests/test_spl_epilepsy_context.py','tools/hippocampal_rater_runtime_compatibility.py','tests/test_pulmonary_source_delivery.py','tools/check_pulmonary_delivery.py','docs/radiology-fidelity-scope.json','vercel.json'])
 sha=lambda raw:hashlib.sha256(raw).hexdigest()
 def reviewed():
