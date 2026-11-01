@@ -16,13 +16,13 @@
     },
     "primer/server.py": {
       "before_sha256": "0d15f022c21c0af7469419b16f9eb9f33a88c321a3779a6eca1ecad04c5c732c",
-      "after_sha256": "70fe675ff8a7eff318d3606059eacc345936aaf73d3a312d445e6334d4162ab0",
+      "after_sha256": "2cefedd530f71f68533e326d4e66907c2680e065414a32d6e69dea6878ac2c4f",
       "changes": [
         {
           "start": 3931,
-          "end": 3948,
+          "end": 3950,
           "before": "",
-          "after": "@app.api_route(\"/app/anatomy/spl-additional-source/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def spl_additional_reference_delivery(asset: str, request: Request):\n    from .spl_additional_reference import ATLAS, PREFIX, registry, references, validate_file, manifest_bytes\n    src = PREFIX + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:\n        return JSONResponse({'detail': 'Unknown additional SPL source resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(asset)\n    if asset == 'manifest.json':\n        return Response(manifest_bytes(), media_type='application/json', headers={'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n    return response\n\n\n"
+          "after": "@app.api_route(\"/app/anatomy/spl-additional-source/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def spl_additional_reference_delivery(asset: str, request: Request):\n    from .spl_additional_reference import ATLAS, PREFIX, registry, references, validate_file, manifest_bytes\n    src = PREFIX + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:\n        return JSONResponse({'detail': 'Unknown additional SPL source resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(asset)\n    if asset == 'manifest.json':\n        return Response(manifest_bytes(), media_type='application/json', headers={'Cache-Control': 'private, no-store'})\n    if asset.endswith('.gz') and os.environ.get('VERCEL'):\n        return RedirectResponse('/source-media/anatomy/' + ATLAS + '/' + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n    return response\n\n\n"
         }
       ]
     },
@@ -115,6 +115,108 @@
           "after": "    for name,digest in proof['sourceSHA256'].items():assert sha(before_additional_bytes(name,(R/name).read_bytes()))==digest,name\n"
         }
       ]
+    },
+    "tools/hippocampal_rater_runtime_compatibility.py": {
+      "before_sha256": "83ba67c9c52d13689339a8687adc79d7e051227ecad661fbe8acae01e86934d7",
+      "after_sha256": "0a316e1da609ef5a46db4344eb9cc9201a0cada8f9aaaa4d6bc84375551c725d",
+      "changes": [
+        {
+          "start": 49,
+          "end": 51,
+          "before": "",
+          "after": "    from tools.spl_additional_runtime_compatibility import before_additional_lesson_fields\n    fields=before_additional_lesson_fields(identifier,fields)\n"
+        }
+      ]
+    },
+    "tests/test_pulmonary_source_delivery.py": {
+      "before_sha256": "511e3c13148dd0648d61d9182532bae11f94630d046add70ce7d961096347b31",
+      "after_sha256": "dbde167533a6d9ab59f93d6f30116c2622bbce09757397530a68758046e3eca9",
+      "changes": [
+        {
+          "start": 219,
+          "end": 221,
+          "before": "    assert set(refs) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n",
+          "after": "    from tools.spl_additional_runtime_compatibility import before_additional_bindings\n    assert set(before_additional_bindings(refs)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n"
+        }
+      ]
+    },
+    "tools/check_pulmonary_delivery.py": {
+      "before_sha256": "e911beca1378951c199bf2086ff3c313c4c686a3dbe3d10e3ccc5136498830b0",
+      "after_sha256": "7cb98067c743c1b3e2d1367a84e52e8ac9b3e12c3bcf00d50793626ec092a573",
+      "changes": [
+        {
+          "start": 129,
+          "end": 131,
+          "before": "            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n",
+          "after": "            from tools.spl_additional_runtime_compatibility import before_additional_bindings\n            assert set(before_additional_bindings(references)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}\n"
+        }
+      ]
+    },
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "a05a2ad83daa9e70ae17b9e7537c3f215752bda25a92079ae494e6fad6b989e9",
+      "after_sha256": "7b8a322890f9fbd5b2e3f6f989dc5ab6226657655357d35ac63bc0ee19e56d80",
+      "changes": [
+        {
+          "start": 79065,
+          "end": 79112,
+          "before": "        \"source_native_inspectors\": null\n",
+          "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"spl-additional-native-source-reference\",\n            \"modality\": \"Native MRI, original publisher surfaces and exact categorical-cell boundaries\",\n            \"coordinate_context\": \"source-native-mri-and-separate-label-grid-in-declared-RAS\",\n            \"title\": \"Optic, pituitary and head/neck source anatomy\",\n            \"src\": \"/app/anatomy/spl-additional-source/index.html\",\n            \"manifest_url\": \"/app/anatomy/spl-additional-source/manifest.json\",\n            \"sha256\": \"ef49b5d6362f81ca45a80f9c1228a17e12731b0f2f1d374e664025c963f4f2c1\",\n            \"manifest_sha256\": \"f1bddb9677404e83d8a38b990b97032ad43f3e6a9933a8f84dd61367a0bb4676\",\n            \"caption\": \"Explore 94 additional named source classes in one SPL atlas subject: optic nerves, tracts and chiasm; pituitary source parts; regional hypothalamic classes; pineal body; and 75 head/neck classes. Compare original publisher surfaces with exact source-cell boundaries in native T1/T2. These are source references, with incomplete reporting coverage and unverified biological boundaries. Class 4084 retains an unresolved remote publisher-surface component.\",\n            \"attribution\": \"SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original native MRI and categorical label samples are retained. Primer\\u2019s marked adaptation derives exact label-cell boundaries and adds grouped native-image relationship controls, preserving source components without fitted registration or cleanup. Full original source notices and licensing terms accompany the reference. Additional marked adaptation, 2026-11-01: 94 additional named source classes, original publisher-surface and exact source-cell representations. Original surface positions, components and strip triangles are retained; no mesh cleanup or fitted registration is applied.\",\n            \"source_url\": \"https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html\",\n            \"publication_url\": \"https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56\",\n            \"license\": \"3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C\",\n            \"license_url\": \"https://www.openanatomy.org/atlas-pages/slicer-license.html\",\n            \"source_grain\": {\n              \"kind\": \"single-subject anatomical research atlas\",\n              \"subject_count\": 1,\n              \"MRI\": \"native 0.75 mm T1/T2\",\n              \"categorical_labels\": \"separate native 1 mm Int16 grid\",\n              \"selected_label_classes\": 94,\n              \"brain_classes\": 19,\n              \"head_neck_classes\": 75,\n              \"surface_representations\": 188,\n              \"default_surface\": \"exact categorical voxel-cell boundaries\",\n              \"source_code_4084_correspondence_resolved\": false,\n              \"separately_validated_hypothalamic_nuclei\": false,\n              \"cavernous_sinus_and_carotid_reporting_coverage\": false\n            },\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"/app/anatomy/spl-additional-source/LICENSE.txt\",\n              \"attribution_url\": \"/app/anatomy/spl-additional-source/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true,\n              \"reuse_terms\": \"Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied.\"\n            },\n            \"bound_source_ids\": [\n              \"spl-additional-native-source-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          }\n        ]\n"
+        },
+        {
+          "start": 105698,
+          "end": 105743,
+          "before": "",
+          "after": "            \"id\": \"spl-additional-native-source-reference\",\n            \"modality\": \"Native MRI, original publisher surfaces and exact categorical-cell boundaries\",\n            \"coordinate_context\": \"source-native-mri-and-separate-label-grid-in-declared-RAS\",\n            \"title\": \"Optic, pituitary and head/neck source anatomy\",\n            \"src\": \"/app/anatomy/spl-additional-source/index.html\",\n            \"manifest_url\": \"/app/anatomy/spl-additional-source/manifest.json\",\n            \"sha256\": \"ef49b5d6362f81ca45a80f9c1228a17e12731b0f2f1d374e664025c963f4f2c1\",\n            \"manifest_sha256\": \"f1bddb9677404e83d8a38b990b97032ad43f3e6a9933a8f84dd61367a0bb4676\",\n            \"caption\": \"Explore 94 additional named source classes in one SPL atlas subject: optic nerves, tracts and chiasm; pituitary source parts; regional hypothalamic classes; pineal body; and 75 head/neck classes. Compare original publisher surfaces with exact source-cell boundaries in native T1/T2. These are source references, with incomplete reporting coverage and unverified biological boundaries. Class 4084 retains an unresolved remote publisher-surface component.\",\n            \"attribution\": \"SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original native MRI and categorical label samples are retained. Primer\\u2019s marked adaptation derives exact label-cell boundaries and adds grouped native-image relationship controls, preserving source components without fitted registration or cleanup. Full original source notices and licensing terms accompany the reference. Additional marked adaptation, 2026-11-01: 94 additional named source classes, original publisher-surface and exact source-cell representations. Original surface positions, components and strip triangles are retained; no mesh cleanup or fitted registration is applied.\",\n            \"source_url\": \"https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html\",\n            \"publication_url\": \"https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56\",\n            \"license\": \"3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C\",\n            \"license_url\": \"https://www.openanatomy.org/atlas-pages/slicer-license.html\",\n            \"source_grain\": {\n              \"kind\": \"single-subject anatomical research atlas\",\n              \"subject_count\": 1,\n              \"MRI\": \"native 0.75 mm T1/T2\",\n              \"categorical_labels\": \"separate native 1 mm Int16 grid\",\n              \"selected_label_classes\": 94,\n              \"brain_classes\": 19,\n              \"head_neck_classes\": 75,\n              \"surface_representations\": 188,\n              \"default_surface\": \"exact categorical voxel-cell boundaries\",\n              \"source_code_4084_correspondence_resolved\": false,\n              \"separately_validated_hypothalamic_nuclei\": false,\n              \"cavernous_sinus_and_carotid_reporting_coverage\": false\n            },\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"/app/anatomy/spl-additional-source/LICENSE.txt\",\n              \"attribution_url\": \"/app/anatomy/spl-additional-source/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true,\n              \"reuse_terms\": \"Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied.\"\n            },\n            \"bound_source_ids\": [\n              \"spl-additional-native-source-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          },\n          {\n"
+        },
+        {
+          "start": 117058,
+          "end": 117105,
+          "before": "        \"source_native_inspectors\": null\n",
+          "after": "        \"source_native_inspectors\": [\n          {\n            \"id\": \"spl-additional-native-source-reference\",\n            \"modality\": \"Native MRI, original publisher surfaces and exact categorical-cell boundaries\",\n            \"coordinate_context\": \"source-native-mri-and-separate-label-grid-in-declared-RAS\",\n            \"title\": \"Optic, pituitary and head/neck source anatomy\",\n            \"src\": \"/app/anatomy/spl-additional-source/index.html\",\n            \"manifest_url\": \"/app/anatomy/spl-additional-source/manifest.json\",\n            \"sha256\": \"ef49b5d6362f81ca45a80f9c1228a17e12731b0f2f1d374e664025c963f4f2c1\",\n            \"manifest_sha256\": \"f1bddb9677404e83d8a38b990b97032ad43f3e6a9933a8f84dd61367a0bb4676\",\n            \"caption\": \"Explore 94 additional named source classes in one SPL atlas subject: optic nerves, tracts and chiasm; pituitary source parts; regional hypothalamic classes; pineal body; and 75 head/neck classes. Compare original publisher surfaces with exact source-cell boundaries in native T1/T2. These are source references, with incomplete reporting coverage and unverified biological boundaries. Class 4084 retains an unresolved remote publisher-surface component.\",\n            \"attribution\": \"SPL-PNL/NAC Brain Atlas: Michael Halle, Florin Talos, Marianna Jakab, Nikos Makris, Dominic Meier, Laurence Wald, Bruce Fischl, Ron Kikinis and collaborators. Source commit bec24db25aad5f7600e2df3becfb1f883e61ff56. Original native MRI and categorical label samples are retained. Primer\\u2019s marked adaptation derives exact label-cell boundaries and adds grouped native-image relationship controls, preserving source components without fitted registration or cleanup. Full original source notices and licensing terms accompany the reference. Additional marked adaptation, 2026-11-01: 94 additional named source classes, original publisher-surface and exact source-cell representations. Original surface positions, components and strip triangles are retained; no mesh cleanup or fitted registration is applied.\",\n            \"source_url\": \"https://www.openanatomy.org/atlas-pages/atlas-spl-nac-brain.html\",\n            \"publication_url\": \"https://github.com/mhalle/spl-brain-atlas/tree/bec24db25aad5f7600e2df3becfb1f883e61ff56\",\n            \"license\": \"3D Slicer Contribution and Software License Agreement v1.0, Part B and applicable Part C\",\n            \"license_url\": \"https://www.openanatomy.org/atlas-pages/slicer-license.html\",\n            \"source_grain\": {\n              \"kind\": \"single-subject anatomical research atlas\",\n              \"subject_count\": 1,\n              \"MRI\": \"native 0.75 mm T1/T2\",\n              \"categorical_labels\": \"separate native 1 mm Int16 grid\",\n              \"selected_label_classes\": 94,\n              \"brain_classes\": 19,\n              \"head_neck_classes\": 75,\n              \"surface_representations\": 188,\n              \"default_surface\": \"exact categorical voxel-cell boundaries\",\n              \"source_code_4084_correspondence_resolved\": false,\n              \"separately_validated_hypothalamic_nuclei\": false,\n              \"cavernous_sinus_and_carotid_reporting_coverage\": false\n            },\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"/app/anatomy/spl-additional-source/LICENSE.txt\",\n              \"attribution_url\": \"/app/anatomy/spl-additional-source/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true,\n              \"reuse_terms\": \"Part B permits proprietary incorporation subject to all license conditions; retain the full terms, required Brigham notice, applicable third-party notices and research-use/clinical-application language. No institutional endorsement is implied.\"\n            },\n            \"bound_source_ids\": [\n              \"spl-additional-native-source-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n          }\n        ]\n"
+        },
+        {
+          "start": 162203,
+          "end": 162212,
+          "before": "",
+          "after": "            \"id\": \"module-native-inspectors-rad.5.deep-neck-spaces\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n            \"investigation_ids\": [\n              \"ra.mri-neck-spaces\"\n            ]\n          },\n          {\n"
+        },
+        {
+          "start": 162380,
+          "end": 162381,
+          "before": "      \"module_contract_sha256\": \"51ed941b3f201963210b129a487f2a85b88353116f3af9d67801aaad8f29671a\",\n",
+          "after": "      \"module_contract_sha256\": \"f9dd4a9d790123225f77dcd0c348deb1d6fbcf3216505f0c9c27c85bcae17d05\",\n"
+        },
+        {
+          "start": 184600,
+          "end": 184609,
+          "before": "",
+          "after": "            \"id\": \"module-native-inspectors-rad.5.sella\",\n            \"kind\": \"source-native-inspectors\",\n            \"title\": \"Native source anatomy inspection\",\n            \"instructions\": \"Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.\",\n            \"investigation_ids\": [\n              \"ra.mri-sella\"\n            ]\n          },\n          {\n"
+        },
+        {
+          "start": 184841,
+          "end": 184842,
+          "before": "      \"module_contract_sha256\": \"4d63168dc4a810dfd86ac26fad330c5b9605a3c1e8851899eef941de48104260\",\n",
+          "after": "      \"module_contract_sha256\": \"9c3f25ccb854ffa0f4d975695c8b68517defd03b5323e8a2fe9c422ac85aeea5\",\n"
+        }
+      ]
+    },
+    "vercel.json": {
+      "before_sha256": "9d025c50da0a9801949c8a3a785df37893d6f1f591afbd326f981d0cf2d05f7b",
+      "after_sha256": "98633a8345b1c4d9c021be6908a6ba755d04fe78e8768eda8e99cf7f65ce4756",
+      "changes": [
+        {
+          "start": 7,
+          "end": 8,
+          "before": "        \"excludeFiles\": \"{.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp}\"\n",
+          "after": "        \"excludeFiles\": \"{.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json}\"\n"
+        },
+        {
+          "start": 136,
+          "end": 140,
+          "before": "",
+          "after": "      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/anatomy/spl-additional-source/*.gz\",\n"
+        }
+      ]
     }
   },
   "bindings": [
@@ -169,5 +271,413 @@
   },
   "clinicalApproval": false,
   "extendsHistoricalApproval": false,
-  "wholeGoalComplete": false
+  "wholeGoalComplete": false,
+  "lessons": {
+    "rad.5.sella": {
+      "fields": {
+        "lesson_media": {
+          "before": [
+            {
+              "id": "rad-5-sella-reasoning-plate",
+              "kind": "illustration",
+              "src": "/app/illustrations/forest/radiology/rad-5-sella-800.webp",
+              "srcset": "/app/illustrations/forest/radiology/rad-5-sella-800.webp 800w, /app/illustrations/forest/radiology/rad-5-sella-1600.webp 1600w",
+              "alt": "A radiology reasoning diagram for Sella and Parasellar MRI linking Gland + lesion, Optic structures, and Lateral extension.",
+              "caption": "Assess the cavernous sinuses, carotids and adjacent skull base.",
+              "long_description": {
+                "title": "Sella and Parasellar MRI",
+                "mode": "map",
+                "items": [
+                  {
+                    "heading": "Gland + lesion",
+                    "label": "Gland + lesion",
+                    "detail": "Measure the gland and lesion; inspect signal and enhancement."
+                  },
+                  {
+                    "heading": "Optic structures",
+                    "label": "Optic structures",
+                    "detail": "Describe the stalk, chiasm and suprasellar extension."
+                  },
+                  {
+                    "heading": "Lateral extension",
+                    "label": "Lateral extension",
+                    "detail": "Assess the cavernous sinuses, carotids and adjacent skull base."
+                  }
+                ],
+                "takeaway": "Assess the cavernous sinuses, carotids and adjacent skull base."
+              },
+              "width": 1600,
+              "height": 1000
+            },
+            {
+              "id": "module-source-figures-rad.5.sella",
+              "kind": "source-gallery",
+              "title": "Original source figures",
+              "instructions": "Read the complete source captions and case context. Published imaging, drawings, specimens and processed displays retain their separate evidence roles. Selected figures do not replace a complete examination or establish every anatomical boundary.",
+              "investigation_ids": [
+                "ra.mri-sella"
+              ]
+            },
+            {
+              "id": "module-anatomy-rad.5.sella",
+              "kind": "model",
+              "renderer": "radiology-anatomy",
+              "title": "Sella and Parasellar MRI \u00b7 3D landmarks",
+              "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Rotate to see the superior chiasm, lateral carotids and pituitary stalk around the sellar contents.",
+              "props": {
+                "node_id": "rad.5.sella",
+                "family": "sella",
+                "source_references": [
+                  {
+                    "id": "bp3d-sella-4.3-sella-gross-default",
+                    "label": "sella gross default \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "sella-gross-default",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-gland-source-2011",
+                    "label": "gland source 2011 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "gland-source-2011",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-gland-source-2014",
+                    "label": "gland source 2014 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "gland-source-2014",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-optic-reduced-source",
+                    "label": "optic reduced source \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "optic-reduced-source",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-optic-elongated-source",
+                    "label": "optic elongated source \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "optic-elongated-source",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-right-ICA-source-2011",
+                    "label": "right ICA source 2011 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "right-ICA-source-2011",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-right-ICA-source-2014",
+                    "label": "right ICA source 2014 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "right-ICA-source-2014",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  }
+                ]
+              }
+            }
+          ],
+          "after": [
+            {
+              "id": "rad-5-sella-reasoning-plate",
+              "kind": "illustration",
+              "src": "/app/illustrations/forest/radiology/rad-5-sella-800.webp",
+              "srcset": "/app/illustrations/forest/radiology/rad-5-sella-800.webp 800w, /app/illustrations/forest/radiology/rad-5-sella-1600.webp 1600w",
+              "alt": "A radiology reasoning diagram for Sella and Parasellar MRI linking Gland + lesion, Optic structures, and Lateral extension.",
+              "caption": "Assess the cavernous sinuses, carotids and adjacent skull base.",
+              "long_description": {
+                "title": "Sella and Parasellar MRI",
+                "mode": "map",
+                "items": [
+                  {
+                    "heading": "Gland + lesion",
+                    "label": "Gland + lesion",
+                    "detail": "Measure the gland and lesion; inspect signal and enhancement."
+                  },
+                  {
+                    "heading": "Optic structures",
+                    "label": "Optic structures",
+                    "detail": "Describe the stalk, chiasm and suprasellar extension."
+                  },
+                  {
+                    "heading": "Lateral extension",
+                    "label": "Lateral extension",
+                    "detail": "Assess the cavernous sinuses, carotids and adjacent skull base."
+                  }
+                ],
+                "takeaway": "Assess the cavernous sinuses, carotids and adjacent skull base."
+              },
+              "width": 1600,
+              "height": 1000
+            },
+            {
+              "id": "module-source-figures-rad.5.sella",
+              "kind": "source-gallery",
+              "title": "Original source figures",
+              "instructions": "Read the complete source captions and case context. Published imaging, drawings, specimens and processed displays retain their separate evidence roles. Selected figures do not replace a complete examination or establish every anatomical boundary.",
+              "investigation_ids": [
+                "ra.mri-sella"
+              ]
+            },
+            {
+              "id": "module-native-inspectors-rad.5.sella",
+              "kind": "source-native-inspectors",
+              "title": "Native source anatomy inspection",
+              "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+              "investigation_ids": [
+                "ra.mri-sella"
+              ]
+            },
+            {
+              "id": "module-anatomy-rad.5.sella",
+              "kind": "model",
+              "renderer": "radiology-anatomy",
+              "title": "Sella and Parasellar MRI \u00b7 3D landmarks",
+              "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Rotate to see the superior chiasm, lateral carotids and pituitary stalk around the sellar contents.",
+              "props": {
+                "node_id": "rad.5.sella",
+                "family": "sella",
+                "source_references": [
+                  {
+                    "id": "bp3d-sella-4.3-sella-gross-default",
+                    "label": "sella gross default \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "sella-gross-default",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-gland-source-2011",
+                    "label": "gland source 2011 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "gland-source-2011",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-gland-source-2014",
+                    "label": "gland source 2014 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "gland-source-2014",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-optic-reduced-source",
+                    "label": "optic reduced source \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "optic-reduced-source",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-optic-elongated-source",
+                    "label": "optic elongated source \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "optic-elongated-source",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-right-ICA-source-2011",
+                    "label": "right ICA source 2011 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "right-ICA-source-2011",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  },
+                  {
+                    "id": "bp3d-sella-4.3-right-ICA-source-2014",
+                    "label": "right ICA source 2014 \u00b7 partial source inspection",
+                    "atlas": "bp3d-sella-4.3",
+                    "family": "right-ICA-source-2014",
+                    "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+                    "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+                    "initial_layer": "source-surfaces",
+                    "initial_cropped": false,
+                    "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "rad.5.deep-neck-spaces": {
+      "fields": {
+        "lesson_media": {
+          "before": [
+            {
+              "id": "rad-5-deep-neck-spaces-reasoning-plate",
+              "kind": "illustration",
+              "src": "/app/illustrations/forest/radiology/rad-5-deep-neck-spaces-800.webp",
+              "srcset": "/app/illustrations/forest/radiology/rad-5-deep-neck-spaces-800.webp 800w, /app/illustrations/forest/radiology/rad-5-deep-neck-spaces-1600.webp 1600w",
+              "alt": "A radiology reasoning diagram for Deep Neck Spaces: Supra- and Infrahyoid linking Localise space, Read displacement, and Map spread.",
+              "caption": "Displaced parapharyngeal fat reveals the space where a neck process began.",
+              "long_description": {
+                "title": "Deep Neck Spaces: Supra- and Infrahyoid",
+                "mode": "map",
+                "items": [
+                  {
+                    "heading": "Localise space",
+                    "label": "Localise space",
+                    "detail": "Fascial boundaries organise both masses and infection."
+                  },
+                  {
+                    "heading": "Read displacement",
+                    "label": "Read displacement",
+                    "detail": "Direction of fat and vessel displacement indicates origin."
+                  },
+                  {
+                    "heading": "Map spread",
+                    "label": "Map spread",
+                    "detail": "Airway, mediastinum and perineural routes determine urgency."
+                  }
+                ],
+                "takeaway": "Displaced parapharyngeal fat reveals the space where a neck process began."
+              },
+              "width": 1600,
+              "height": 1000
+            },
+            {
+              "id": "module-source-figures-rad.5.deep-neck-spaces",
+              "kind": "source-gallery",
+              "title": "Original source figures",
+              "instructions": "Read the complete source captions and case context. Published imaging, drawings, specimens and processed displays retain their separate evidence roles. Selected figures do not replace a complete examination or establish every anatomical boundary.",
+              "investigation_ids": [
+                "ra.mri-neck-spaces",
+                "ra.head-neck-malignancy"
+              ]
+            },
+            {
+              "id": "module-anatomy-rad.5.deep-neck-spaces",
+              "kind": "model",
+              "renderer": "radiology-anatomy",
+              "title": "Deep Neck Spaces \u00b7 3D landmarks",
+              "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Inspect the relationship of pharyngeal, parapharyngeal, retropharyngeal and carotid spaces.",
+              "props": {
+                "node_id": "rad.5.deep-neck-spaces",
+                "family": "neck"
+              }
+            }
+          ],
+          "after": [
+            {
+              "id": "rad-5-deep-neck-spaces-reasoning-plate",
+              "kind": "illustration",
+              "src": "/app/illustrations/forest/radiology/rad-5-deep-neck-spaces-800.webp",
+              "srcset": "/app/illustrations/forest/radiology/rad-5-deep-neck-spaces-800.webp 800w, /app/illustrations/forest/radiology/rad-5-deep-neck-spaces-1600.webp 1600w",
+              "alt": "A radiology reasoning diagram for Deep Neck Spaces: Supra- and Infrahyoid linking Localise space, Read displacement, and Map spread.",
+              "caption": "Displaced parapharyngeal fat reveals the space where a neck process began.",
+              "long_description": {
+                "title": "Deep Neck Spaces: Supra- and Infrahyoid",
+                "mode": "map",
+                "items": [
+                  {
+                    "heading": "Localise space",
+                    "label": "Localise space",
+                    "detail": "Fascial boundaries organise both masses and infection."
+                  },
+                  {
+                    "heading": "Read displacement",
+                    "label": "Read displacement",
+                    "detail": "Direction of fat and vessel displacement indicates origin."
+                  },
+                  {
+                    "heading": "Map spread",
+                    "label": "Map spread",
+                    "detail": "Airway, mediastinum and perineural routes determine urgency."
+                  }
+                ],
+                "takeaway": "Displaced parapharyngeal fat reveals the space where a neck process began."
+              },
+              "width": 1600,
+              "height": 1000
+            },
+            {
+              "id": "module-source-figures-rad.5.deep-neck-spaces",
+              "kind": "source-gallery",
+              "title": "Original source figures",
+              "instructions": "Read the complete source captions and case context. Published imaging, drawings, specimens and processed displays retain their separate evidence roles. Selected figures do not replace a complete examination or establish every anatomical boundary.",
+              "investigation_ids": [
+                "ra.mri-neck-spaces",
+                "ra.head-neck-malignancy"
+              ]
+            },
+            {
+              "id": "module-native-inspectors-rad.5.deep-neck-spaces",
+              "kind": "source-native-inspectors",
+              "title": "Native source anatomy inspection",
+              "instructions": "Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.",
+              "investigation_ids": [
+                "ra.mri-neck-spaces"
+              ]
+            },
+            {
+              "id": "module-anatomy-rad.5.deep-neck-spaces",
+              "kind": "model",
+              "renderer": "radiology-anatomy",
+              "title": "Deep Neck Spaces \u00b7 3D landmarks",
+              "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Inspect the relationship of pharyngeal, parapharyngeal, retropharyngeal and carotid spaces.",
+              "props": {
+                "node_id": "rad.5.deep-neck-spaces",
+                "family": "neck"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
 }

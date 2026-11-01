@@ -14,6 +14,8 @@ Original surfaces contain 232,954 vertices and 449,222 triangles. Source class 4
 
 ## Validation
 
+Geometry payloads use the existing public source-media static delivery path in hosted deployments, reached through the authenticated viewer’s private redirect. Metadata, viewer scripts and module APIs remain protected. Payloads are excluded from the Python function bundle and hash-checked by the viewer and independent release readbacks.
+
 The protected application routes and module API are tested with isolated synthetic data. The actual browser runs at 390 and 1440 pixels wide, loads both representations of all 94 classes (188 meshes per viewport), compares GPU position/index/world buffers with pinned source-derived bytes, and mounts/reopens inline viewers through all three reporting modules at both widths. Independent NumPy reconstruction compares 1,128 native MRI canvas states (82,202,624 pixels) with original MRI arrays and source-label samples. These are engineering checks; all clinical and anatomical approval flags remain false.
 
 Reproduce the authenticated reader run with the installed requirements and Playwright:

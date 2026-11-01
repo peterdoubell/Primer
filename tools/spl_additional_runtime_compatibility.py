@@ -5,14 +5,14 @@ import hashlib
 import json
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/spl-additional-source-review-20261101/runtime-inverse.json'
-PROOF_SHA256='ff587d696076080611afb61a352450f67222024f81973ddd660204dfa9564ad5'
-PATHS=frozenset(['.vercelignore','primer/server.py','primer/source_native_inspectors.py','web/app.js','tools/spl_epilepsy_runtime_compatibility.py','tests/test_spl_epilepsy_context.py'])
+PROOF_SHA256='fb31349f04def6a0976db4be71a1341f946d6771954378c8bebffe42a52f4790'
+PATHS=frozenset(['.vercelignore','primer/server.py','primer/source_native_inspectors.py','web/app.js','tools/spl_epilepsy_runtime_compatibility.py','tests/test_spl_epilepsy_context.py','tools/hippocampal_rater_runtime_compatibility.py','tests/test_pulmonary_source_delivery.py','tools/check_pulmonary_delivery.py','docs/radiology-fidelity-scope.json','vercel.json'])
 sha=lambda raw:hashlib.sha256(raw).hexdigest()
 def reviewed():
  raw=(ROOT/PROOF).read_bytes()
  if sha(raw)!=PROOF_SHA256:raise ValueError('Additional SPL inverse evidence changed')
  p=json.loads(raw)
- if p['base_commit']!='69c1b1e8fed3c3edb891f84cedc93a4d4f7eca3d' or p['scope']!='exact_additional_94_source_classes' or set(p['files'])!=PATHS or p['bindings']!=['ra.brain-anatomy','ra.mri-sella','ra.mri-neck-spaces'] or p['inspector']['id']!='spl-additional-native-source-reference' or any(p[k]is not False for k in ['clinicalApproval','extendsHistoricalApproval','wholeGoalComplete']):raise ValueError('Additional SPL inverse scope differs')
+ if p['base_commit']!='69c1b1e8fed3c3edb891f84cedc93a4d4f7eca3d' or p['scope']!='exact_additional_94_source_classes' or set(p['files'])!=PATHS or p['bindings']!=['ra.brain-anatomy','ra.mri-sella','ra.mri-neck-spaces'] or set(p['lessons'])!={'rad.5.sella','rad.5.deep-neck-spaces'} or p['inspector']['id']!='spl-additional-native-source-reference' or any(p[k]is not False for k in ['clinicalApproval','extendsHistoricalApproval','wholeGoalComplete']):raise ValueError('Additional SPL inverse scope differs')
  return p
 
 def before_additional_bytes(path,raw,allow_older=False):
@@ -35,4 +35,25 @@ def before_additional_fields(identifier,fields):
  p=reviewed();result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);addition=p['inspector'];matches=[item for item in items if item.get('id')==addition['id']]
  if not matches:return result
  if identifier not in p['bindings']or matches!=[addition]:raise ValueError('Unreviewed additional SPL descriptor')
+ items.remove(matches[0]);return result
+
+
+def before_additional_bindings(bindings):
+ result={}
+ for identifier,items in bindings.items():
+  restored=before_additional_fields(identifier,{'source_native_inspectors':items})['source_native_inspectors']
+  if restored or identifier not in ['ra.mri-sella','ra.mri-neck-spaces']:result[identifier]=restored
+ return result
+
+
+def before_additional_lesson_fields(identifier,fields):
+ p=reviewed();result=copy.deepcopy(fields)
+ if identifier not in p['lessons']:return result
+ row=p['lessons'][identifier];items=result.get('lesson_media',[])
+ before=row['fields']['lesson_media']['before'];after=row['fields']['lesson_media']['after']
+ additions=[item for item in after if item not in before]
+ if len(additions)!=1 or [item for item in after if item not in additions]!=before or additions[0]['kind']!='source-native-inspectors':raise ValueError('Additional SPL lesson evidence differs')
+ addition=additions[0];matches=[item for item in items if item.get('id')==addition['id']]
+ if not matches:return result
+ if matches!=[addition]:raise ValueError('Unreviewed additional SPL lesson wrapper')
  items.remove(matches[0]);return result

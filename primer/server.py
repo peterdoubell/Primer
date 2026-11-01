@@ -3939,6 +3939,8 @@ async def spl_additional_reference_delivery(asset: str, request: Request):
     validate_file(asset)
     if asset == 'manifest.json':
         return Response(manifest_bytes(), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    if asset.endswith('.gz') and os.environ.get('VERCEL'):
+        return RedirectResponse('/source-media/anatomy/' + ATLAS + '/' + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})
     response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
     response.headers['Cache-Control'] = 'private, no-store'
     if asset == 'index.html':

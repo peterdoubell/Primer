@@ -4,6 +4,7 @@ from pathlib import Path
 import gzip
 import hashlib
 import json
+import os
 
 ROOT = Path(__file__).resolve().parents[1]
 ATLAS = 'spl-additional-source'
@@ -56,6 +57,10 @@ def validate_file(asset):
     if asset not in registry()['files']:
         raise ValueError('Unknown additional SPL resource')
     path = ROOT / 'web/anatomy' / ATLAS / asset
+    if any(p.is_symlink() for p in [path,*path.parents] if p == ROOT or ROOT in p.parents):
+        raise ValueError('Additional SPL resource must be a regular file')
+    if not path.exists() and asset.endswith('.gz') and os.environ.get('VERCEL'):
+        return path
     raw = manifest_bytes() if asset == 'manifest.json' else None
     if raw is None:
         regular(path)
@@ -91,7 +96,15 @@ def references():
         if {row['code'] for row in manifest[collection]} != codes:
             raise ValueError('Additional SPL surface classes differ')
         for row in manifest[collection]:
-            packed = validate_file(row['file']).read_bytes()
+            file = validate_file(row['file'])
+            if data['files'][row['file']] != {'bytes':row['gzipBytes'],'sha256':row['gzipSHA256']}:
+                raise ValueError('Additional SPL transport descriptor differs')
+            if (row['coordinateSystem'] != 'RAS' or row['positionsAlreadyRAS'] is not True or row['spaceUnits'] != 'mm' or
+                    row['sourceAffine'] != [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]):
+                raise ValueError('Additional SPL coordinate convention differs')
+            if not file.is_file():
+                continue  # Static runtime payloads are independently hashed by the browser and release readbacks.
+            packed = file.read_bytes()
             raw = gzip.decompress(packed)
             n = row['vertexCount']
             if (sha(packed) != row['gzipSHA256'] or len(packed) != row['gzipBytes'] or

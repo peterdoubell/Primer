@@ -51,7 +51,7 @@ def test_protected_routes_and_module_bindings(tmp_path):
     code='''
 from fastapi.testclient import TestClient
 from primer import server,spl_additional_reference as c
-import hashlib,gzip
+import hashlib,gzip,os
 with TestClient(server.app)as client:
  auth=('synthetic-additional','synthetic-password')
  for asset in ['index.html','manifest.json','publisher-4084.mesh.gz','label-85.mesh.gz']:
@@ -69,6 +69,12 @@ with TestClient(server.app)as client:
   response=client.get('/api/radiology/modules/'+identifier,auth=auth);assert response.status_code==200
   found=[i for i in response.json()['radiology_reference'].get('source_native_inspectors',[])if i['id']==c.IDENTIFIER]
   assert found==([c.registry()['inspector']]if identifier in c.BINDINGS else [])
+ os.environ['VERCEL']='1'
+ for asset in ['publisher-4084.mesh.gz','label-85.mesh.gz','label-85-faces.bin.gz']:
+  response=client.get(c.PREFIX+asset,auth=auth,follow_redirects=False)
+  assert response.status_code==307 and response.headers['location']=='/source-media/anatomy/'+c.ATLAS+'/'+asset
+  assert response.headers['cache-control']=='private, no-store'
+ assert client.get(c.PREFIX+'manifest.json',auth=auth).status_code==200
 '''
     result=subprocess.run([sys.executable,'-c',code],cwd=R,env=env,capture_output=True,text=True,timeout=180)
     assert result.returncode==0,result.stdout+result.stderr
@@ -110,3 +116,49 @@ def test_authenticated_app_and_independent_native_pixel_evidence():
     for name,digest in index['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name
     for name,digest in index['proofSHA256'].items():assert sha((D/name).read_bytes())==digest,name
     assert not index['clinicalApproval']and not index['wholeGoalComplete']
+
+
+def test_exact_lesson_additions_and_binding_projection_reject_drift():
+    from primer.curriculum import Curriculum
+    from primer.source_native_inspectors import references
+    from tools.spl_additional_runtime_compatibility import before_additional_lesson_fields,before_additional_bindings
+    proof=reviewed();curriculum=Curriculum()
+    for identifier,row in proof['lessons'].items():
+        current=curriculum.node(identifier)
+        restored=before_additional_lesson_fields(identifier,current)
+        assert restored['lesson_media']==row['fields']['lesson_media']['before']
+        assert before_additional_lesson_fields(identifier,restored)==restored
+        changed=copy.deepcopy(current)
+        addition=next(item for item in changed['lesson_media']if item['kind']=='source-native-inspectors')
+        addition['title']+=' unreviewed'
+        with pytest.raises(ValueError):before_additional_lesson_fields(identifier,changed)
+    original=references();restored=before_additional_bindings(original)
+    assert set(original)-set(restored)=={'ra.mri-sella','ra.mri-neck-spaces'}
+    assert all(item['id']!=source.IDENTIFIER for rows in restored.values()for item in rows)
+
+
+
+def test_static_hosted_payloads_remain_outside_function_bundle(tmp_path,monkeypatch):
+    import shutil
+    config=json.loads((R/'vercel.json').read_bytes())
+    assert {'src':'web/anatomy/spl-additional-source/*.gz','use':'@vercel/static'}in config['builds']
+    excludes=config['builds'][0]['config']['excludeFiles']
+    assert 'web/anatomy/spl-additional-source/*.gz'in excludes
+    assert 'web/anatomy/spl-additional-source/manifest.json'in excludes
+    target=tmp_path/'web/anatomy'/source.ATLAS;target.mkdir(parents=True)
+    for path in (R/'web/anatomy'/source.ATLAS).iterdir():
+        if not path.name.endswith('.gz'):shutil.copyfile(path,target/path.name)
+    metadata=tmp_path/'data/radiology';metadata.mkdir(parents=True)
+    for name in ['spl-additional-reference.json','spl-additional-manifest.json.gz']:
+        shutil.copyfile(R/'data/radiology'/name,metadata/name)
+    source.registry.cache_clear();source.manifest_bytes.cache_clear();source.references.cache_clear()
+    try:
+        with monkeypatch.context()as patch:
+            patch.setattr(source,'ROOT',tmp_path);patch.setattr(source,'REGISTRY',metadata/'spl-additional-reference.json');patch.setenv('VERCEL','1')
+            assert set(source.references())==set(source.BINDINGS)
+            assert not source.validate_file('publisher-4084.mesh.gz').exists()
+            with pytest.raises(ValueError):source.validate_file('unknown.gz')
+            (target/'viewer.js').unlink()
+            with pytest.raises(ValueError):source.validate_file('viewer.js')
+    finally:
+        source.registry.cache_clear();source.manifest_bytes.cache_clear();source.references.cache_clear()
