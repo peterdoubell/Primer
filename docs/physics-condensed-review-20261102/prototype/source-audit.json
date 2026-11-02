@@ -1,0 +1,24 @@
+{
+  "lesson": "phys.5.condensed",
+  "sourceFile": "web/lesson-models.js",
+  "sourceSHA256": "a86e70786d1db5b40d5ff37fbbd694676a0a096caf17fc79ea249d14d6d18282",
+  "evidenceKind": "Static source trace: physicsGraphPoints samples 61 values and physicsCurvePath joins successive samples",
+  "scenario": {
+    "fieldMilliTesla": 30,
+    "criticalTemperatureK": 7.2,
+    "exactModelTransitionTemperatureK": 5.692099788303083,
+    "sampleBeforeK": 5.666666666666666,
+    "sampleAfterK": 5.833333333333333,
+    "artificialBridgeWidthK": 0.16666666666666696
+  },
+  "issue": "The stated abrupt transition is drawn as a sloping segment across a finite temperature interval when the transition falls between samples.",
+  "nextFix": [
+    "Insert exact transition coordinates and separate stable branches",
+    "Retain a clear boundary/coexistence convention rather than invent intermediate homogeneous order values",
+    "Calibrate temperature axis in kelvin and distinguish mu0 H in mT from H in A/m",
+    "Verify actual rendered paths on both sides of the transition"
+  ],
+  "reference": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6687606/",
+  "currentReleaseAffected": false,
+  "wholeGoalComplete": false
+}
