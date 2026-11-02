@@ -94,11 +94,17 @@
     },
     "web/lesson-models.js": {
       "before_sha256": "26af9ebb81e4ef9cc5f31bf33e6dd9a8fa7a643f3676095b97115870a77e14a4",
-      "after_sha256": "6fdb37f7cbe89e5f5aabd3263bbd579fa5d457d537c9b783085bf5914de9dcfa",
+      "after_sha256": "a86e70786d1db5b40d5ff37fbbd694676a0a096caf17fc79ea249d14d6d18282",
       "changes": [
         {
-          "start": 6114,
-          "end": 6115,
+          "start": 5915,
+          "end": 5916,
+          "before": "    'phys.5.frontier': {\n      controls: [\n        physicsControl('halo', 'Halo contribution', 0, 100, 5, 65, '%', 'visible matter only', 'strong halo'),\n        physicsControl('baryons', 'Visible-mass scale', 50, 150, 5, 100, '%', 'low visible mass', 'high visible mass'),\n      ],\n      caveat: 'The plotted interval samples the outer disk and excludes the galactic center. Rotation curves alone do not uniquely identify dark matter; distance, gas, stellar mass, geometry, and alternative dynamics matter.',\n      compute(state) {\n        const observed = physicsGraphPoints(() => 0.72);\n        const predictionFn = x => {\n          const baryonSpeed = Math.sqrt(state.baryons / 100) * 0.78 / Math.sqrt(1 + 3.5 * x);\n          const haloSpeed = Math.sqrt(state.halo / 100) * 0.62 * Math.sqrt(1 - Math.exp(-4 * x));\n          return Math.max(0, Math.min(1, Math.sqrt(baryonSpeed ** 2 + haloSpeed ** 2)));\n        };\n        const predicted = physicsGraphPoints(predictionFn);\n        const residual = Math.sqrt(predicted.reduce((sum, point) => sum + (point[1] - 0.72) ** 2, 0) / predicted.length);\n        return {\n          readout: 'Visible-mass scale ' + state.baryons + '% plus halo contribution ' + state.halo +\n            '% gives rotation-curve RMS mismatch ' + physicsFixed(residual, 3) +\n            '. Lower mismatch improves this fit but does not prove a unique model.',\n          visual: { kind: 'graph', xLabel: 'outer-disk radius', yLabel: 'orbital speed', curves: [\n            { points: observed, label: 'synthetic flat observation', tone: 'primary' },\n            { points: predicted, label: 'selected model prediction', tone: 'secondary' },\n          ], marker: [0.82, predictionFn(0.82)],\n          note: 'component squared speeds add; RMS mismatch ' + physicsFixed(residual, 3) },\n        };\n      },\n    },\n",
+          "after": "\n"
+        },
+        {
+          "start": 6088,
+          "end": 6089,
           "before": "",
           "after": "      if (item.props?.scenario === 'module.phys.5.frontier' && item.props?.family === 'rotation-density-geometry') return window.PrimerRotationLab?.render({ ...item, props: { scenario: 'phys.5.frontier.rotation' } }, hooks) || null;\n"
         }
@@ -179,6 +185,96 @@
           "end": 9,
           "before": " data=json.loads((ROOT/'data/curriculum/03-physics.json').read_text());old={n['id']:n for n in original['nodes']}\n",
           "after": " from tools.rotation_runtime_compatibility import before_rotation_bytes\n data=json.loads(before_rotation_bytes('data/curriculum/03-physics.json',(ROOT/'data/curriculum/03-physics.json').read_bytes()));old={n['id']:n for n in original['nodes']}\n"
+        }
+      ]
+    },
+    "tests/test_hosted_safety.py": {
+      "before_sha256": "e34d0394153d9c59d9823784cfac8a7c8bf6fddb6bd4d729fb9f49e45eb66ad3",
+      "after_sha256": "8188bb75e314fdf2de82a33bafea5779d7603373f4964a11ab1b29937ccf5621",
+      "changes": [
+        {
+          "start": 124,
+          "end": 125,
+          "before": "        \"models\": 855, \"items\": 1416,  # Includes geometry and vector component companions.\n",
+          "after": "        \"models\": 854, \"items\": 1415,  # Rotation combines its chart and spatial companion.\n"
+        }
+      ]
+    },
+    "tests/test_module_models.py": {
+      "before_sha256": "9adafa64ec59be63e6f38e3f53b7a657a5b60ed50d15ed63f8068227b16f86fe",
+      "after_sha256": "5afdf60bb5e5e18588d64ad73e9c16fa7122b5aac1e0a838c5c6e8ff36182f30",
+      "changes": [
+        {
+          "start": 34,
+          "end": 35,
+          "before": "    assert '462 lesson bindings, 76 object families' in result.stdout\n",
+          "after": "    assert '462 lesson bindings, 77 object families' in result.stdout\n"
+        }
+      ]
+    },
+    "tools/check_cross_subject_models.js": {
+      "before_sha256": "6ee26623590e3013c255ea7b65fac8eb068b816cde4d4e905e92bf9387f4d7f7",
+      "after_sha256": "7924a5c3601365315770d2d277c78c8cb7bbbcc5bea969881f412b0d90b1a723",
+      "changes": [
+        {
+          "start": 1362,
+          "end": 1363,
+          "before": "  69, 'The other 69 earlier models remain; fractions has its exact dedicated replacement below');\n",
+          "after": "  68, 'Earlier models remain except the dedicated fractions and calibrated rotation replacements');\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "3ed30ef274c72cb04f67164915409e5377abd7b9b81a73488471b2f1bc795b21",
+      "after_sha256": "a8425dbc77ce2cbef7e1c95e813ab1e2e9971610b251c4be198c37113b4dfd7f",
+      "changes": [
+        {
+          "start": 227,
+          "end": 228,
+          "before": "    \"phys.5.condensed\", \"phys.5.quantum-info\", \"phys.5.frontier\",\n",
+          "after": "    \"phys.5.condensed\", \"phys.5.quantum-info\",\n"
+        }
+      ]
+    },
+    "tests/test_primer.py": {
+      "before_sha256": "474c5ce7bed0d8b9e849c741a651c5d76031c3f5e0d71623d556351c9eebe3c1",
+      "after_sha256": "ccdccc05228c50699b5126e810b513a36ce255dcee85f4f1b92b966db56dad2b",
+      "changes": [
+        {
+          "start": 604,
+          "end": 605,
+          "before": "",
+          "after": "        'phys.5.frontier': 'spatial-3d',\n"
+        },
+        {
+          "start": 613,
+          "end": 616,
+          "before": "",
+          "after": "        if nid == 'phys.5.frontier':\n            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')=='rotation-density-geometry']\n            assert base_media[1]['props']['scenario']=='module.phys.5.frontier'\n"
+        },
+        {
+          "start": 2272,
+          "end": 2278,
+          "before": "    assert len(scenario_keys) == 35\n    assert registry.count('controls: [') == 35\n    assert registry.count('caveat:') == 35\n    assert registry.count('compute(state)') == 35\n    assert registry.count('readout:') >= 35\n    assert registry.count('visual:') == 35\n",
+          "after": "    assert len(scenario_keys) == 34\n    assert registry.count('controls: [') == 34\n    assert registry.count('caveat:') == 34\n    assert registry.count('compute(state)') == 34\n    assert registry.count('readout:') >= 34\n    assert registry.count('visual:') == 34\n"
+        },
+        {
+          "start": 2306,
+          "end": 2307,
+          "before": "    assert '35 scenarios, 84 independently exercised legacy range controls' in result.stdout\n",
+          "after": "    assert '34 scenarios, 82 independently exercised legacy range controls' in result.stdout\n"
+        }
+      ]
+    },
+    "tools/check_physics_models.js": {
+      "before_sha256": "c0ad819839617ea3406a6909f7e6c69936b417a43bb905bc79d5b44d3d256903",
+      "after_sha256": "117147171e3d262aeea370b3cc2e8e223151a86b088dcadd01b12ae22511950b",
+      "changes": [
+        {
+          "start": 17,
+          "end": 18,
+          "before": "const EXPECTED_SCENARIO_COUNT = 35;\n",
+          "after": "const EXPECTED_SCENARIO_COUNT = 34;\n"
         }
       ]
     }

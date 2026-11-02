@@ -3,8 +3,8 @@ from pathlib import Path
 import hashlib,json
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/physics-rotation-review-20261102/runtime-inverse.json'
-PROOF_SHA256='7baea32a1114887c94b62a3cee4355d5fdb8c2fb0c2e2865209fde2806c8ace4'
-PATHS=frozenset(['data/curriculum/03-physics.json', 'data/module-models.json', 'tools/check_module_models.js', 'tools/check_spatial_models.js', 'web/index.html', 'web/lesson-models.js', 'web/spatial-models.js', 'web/spatial-module-objects.js', 'tools/cavernous_photo_runtime_compatibility.py', 'tests/test_api.py', 'tests/test_circuits_lesson_integration.py'])
+PROOF_SHA256='e66c99c38eae89d0ad1c95a1c3a007b9a1ec9e15d278ddcd52a6181785ff9c58'
+PATHS=frozenset(['data/curriculum/03-physics.json', 'data/module-models.json', 'tools/check_module_models.js', 'tools/check_spatial_models.js', 'web/index.html', 'web/lesson-models.js', 'web/spatial-models.js', 'web/spatial-module-objects.js', 'tools/cavernous_photo_runtime_compatibility.py', 'tests/test_api.py', 'tests/test_circuits_lesson_integration.py', 'tests/test_hosted_safety.py', 'tests/test_module_models.py', 'tools/check_cross_subject_models.js', 'primer/curriculum.py', 'tests/test_primer.py', 'tools/check_physics_models.js'])
 sha=lambda b:hashlib.sha256(b).hexdigest()
 def reviewed():
  raw=(ROOT/PROOF).read_bytes()

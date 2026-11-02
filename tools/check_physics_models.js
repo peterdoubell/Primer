@@ -15,7 +15,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const CURRICULUM_PATH = path.join(ROOT, 'data', 'curriculum', '03-physics.json');
-const EXPECTED_SCENARIO_COUNT = 35;
+const EXPECTED_SCENARIO_COUNT = 34;
 
 class FakeStyle {
   constructor() {

@@ -225,7 +225,7 @@ PHYSICS_MODEL_SCENARIOS = frozenset({
     "phys.4.em-maxwell", "phys.4.quantum", "phys.4.statmech",
     "phys.4.relativity", "phys.4.solid-state", "phys.4.particles",
     "phys.4.experiment", "phys.5.qft", "phys.5.gr-cosmo",
-    "phys.5.condensed", "phys.5.quantum-info", "phys.5.frontier",
+    "phys.5.condensed", "phys.5.quantum-info",
 })
 
 
