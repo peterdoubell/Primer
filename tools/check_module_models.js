@@ -53,6 +53,7 @@ require('../web/algebra-functions-core.js');
 require('../web/algebra-functions-spatial.js');
 require('../web/coordinate-plane-core.js');
 require('../web/coordinate-plane-spatial.js');
+require('../web/physics-rotation-density.js');
 require('../web/spatial-module-objects.js');
 const spatial = context.window.PrimerSpatial, objects = context.window.PrimerModuleObjects;
 const prior = [...spatial.supported];
@@ -88,7 +89,7 @@ for(const value of [null,{}, {props:{}}, {props:{scenario:'constructor'}}, {prop
 let builds=0,controls=0;
 function verify(id,state={}) {
   const scene=spatial.build(id,state);
-  assert.ok(scene&&scene.primitives.length>0&&scene.primitives.length<=(id==='module.phys.5.qft'&&scene.qft?.state?.mode==='casimir'?50000:3000),id+': geometry budget');
+  assert.ok(scene&&scene.primitives.length>0&&scene.primitives.length<=(id==='module.phys.5.frontier'?40000:id==='module.phys.5.qft'&&scene.qft?.state?.mode==='casimir'?50000:3000),id+': geometry budget');
   assert.equal(JSON.stringify(scene),JSON.stringify(spatial.build(id,state)),id+': deterministic geometry');
   assert.ok(scene.note.length>30&&scene.readout.length>30&&scene.legend.length>0,id+': explanatory text');
   for(const primitive of scene.primitives){
@@ -97,7 +98,8 @@ function verify(id,state={}) {
     if(primitive.opacity!==undefined)assert.ok(primitive.opacity>=0&&primitive.opacity<=1);
   }
   const points=scene.primitives.filter(p=>p.kind!=='label').flatMap(p=>p.points.flatMap(point=>p.radius?[-1,1].map(sign=>point.map(v=>v+sign*p.radius)):[point]));
-  for(let axis=0;axis<3;axis++)assert.ok(Math.max(...points.map(p=>p[axis]))-Math.min(...points.map(p=>p[axis]))>.04,id+': real spatial extent on axis '+axis);
+  if(id==='module.phys.5.frontier'&&scene.state.diskMass===0){assert.equal(points.length,0);assert.equal(scene.primitives.length,1);assert.equal(scene.primitives[0].kind,'label');}
+  else for(let axis=0;axis<3;axis++)assert.ok(Math.max(...points.map(p=>p[axis]))-Math.min(...points.map(p=>p[axis]))>.04,id+': real spatial extent on axis '+axis);
   builds++;return scene;
 }
 for(const [family,id] of familyIds){
@@ -142,7 +144,7 @@ for(const [family,id] of familyIds){
     continue;
   }
   for(const control of spatial.controls(id)){
-    const coordinated=family.startsWith('base-ten-')||['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);
+    const coordinated=family==='rotation-density-geometry'||family.startsWith('base-ten-')||['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);
     // Large batch/seed ranges have no useful million-state exhaustive sweep.
     // Their distributions and geometry have separate independent oracles.
     const values=control.options?control.options.map(o=>o.value):coordinated

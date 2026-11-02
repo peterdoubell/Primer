@@ -1200,11 +1200,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 855, 'items': 1416,  # Includes geometry and vector component companions.
+        'models': 854, 'items': 1415,  # Rotation now combines its chart and density companion.
     }
 
     expected_domain_counts = {
-        'math': (59, 137), 'language': (40, 61), 'physics': (39, 92 + 1),
+        'math': (59, 137), 'language': (40, 61), 'physics': (39, 92),
         'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
@@ -1235,6 +1235,10 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
         )
     assert [(item['lesson_id'], item['media_id'], item['kind'])
             for item in body['items']] == expected_order
+    assert [(item['media_id'], item['renderer'], item['title']) for item in body['items']
+            if item['lesson_id']=='phys.5.frontier' and item['kind']=='model'] == [
+        ('module-object-phys.5.frontier','spatial-3d','Calibrated Galaxy Rotation Lab')]
+
     assert [(item['lesson_id'], item['renderer']) for item in body['items']
             if item.get('renderer') == 'prenatal-sequence'] == [
         ('bio.2.reproduction', 'prenatal-sequence'),
