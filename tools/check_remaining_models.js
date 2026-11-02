@@ -410,6 +410,7 @@ const INTERACTIONS = Object.freeze({
 });
 
 function collectRemainingModels() {
+  let particleEntries=0;
   const baseTenLessons = new Set();
   const entries = [];
   const lessonIds = new Set();
@@ -569,6 +570,10 @@ function collectRemainingModels() {
           assert.ok(!baseTenLessons.has(lesson.id), 'duplicate base-ten lesson'); baseTenLessons.add(lesson.id);
           continue; // Exact calculations and actual child-reader geometry have dedicated checks.
         }
+        if(media.renderer==='physics-particle-lab'){
+          assert.equal(lesson.id,'phys.4.particles');assert.deepEqual(media.props,{scenario:lesson.id});
+          particleEntries++;continue; // Actual authenticated reader and independent kinematics have dedicated checks.
+        }
         if (media.kind !== 'model' || media.renderer === 'physics-concept-lab' ||
             ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(media.renderer) ||
             BIOLOGY_CHECKED.has(media.renderer)) continue;
@@ -579,6 +584,7 @@ function collectRemainingModels() {
     }
   }
   assert.deepEqual([...baseTenLessons].sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
+  assert.equal(particleEntries,1,'exactly one separately verified particle activity');
   assert.equal(fluidsEntries, 1, 'exactly one new fluids companion');
   assert.equal(numberTheoryEntries, 1, 'exactly one separately verified full number-theory binding');
   assert.equal(systemsEntries, 1, 'exactly one separately verified general-form systems binding');

@@ -7,8 +7,8 @@ from pathlib import Path
 import hashlib,json
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/physics-particle-review-20261102/runtime-inverse.json'
-PROOF_SHA256='a62763aff4345ff972e2e46e2d5a060dedae2f66772a8d0e138e526fabbd6c73'
-PATHS=frozenset(['data/curriculum/03-physics.json','primer/curriculum.py','tests/test_condensed_lesson.py','tests/test_primer.py','tests/test_linear_algebra_integration.py','tools/check_physics_models.js','tools/condensed_runtime_compatibility.py','web/index.html','web/app.js','web/lesson-models.js'])
+PROOF_SHA256='5e3fc273d0ee2044700980f26795d9e6fa502c92f0e3445c4979956bf85ef46a'
+PATHS=frozenset(['data/curriculum/03-physics.json','primer/curriculum.py','tests/test_condensed_lesson.py','tests/test_primer.py','tests/test_linear_algebra_integration.py','tools/check_physics_models.js','tools/check_remaining_models.js','tools/condensed_runtime_compatibility.py','web/index.html','web/app.js','web/lesson-models.js'])
 sha=lambda b:hashlib.sha256(b).hexdigest()
 def reviewed():
     raw=(ROOT/PROOF).read_bytes()

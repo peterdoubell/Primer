@@ -131,6 +131,30 @@
         }
       ]
     },
+    "tools/check_remaining_models.js": {
+      "before_sha256": "a93b70d42ffec47c9ff779d41351284e0aae20fb45398225cd2bd0d808f53440",
+      "after_sha256": "d6a82e0ebcc7705e5bc9fcfe02d1140a029d2dba91a75fcf48029942e4d84a74",
+      "changes": [
+        {
+          "start": 412,
+          "end": 413,
+          "before": "",
+          "after": "  let particleEntries=0;\n"
+        },
+        {
+          "start": 572,
+          "end": 576,
+          "before": "",
+          "after": "        if(media.renderer==='physics-particle-lab'){\n          assert.equal(lesson.id,'phys.4.particles');assert.deepEqual(media.props,{scenario:lesson.id});\n          particleEntries++;continue; // Actual authenticated reader and independent kinematics have dedicated checks.\n        }\n"
+        },
+        {
+          "start": 586,
+          "end": 587,
+          "before": "",
+          "after": "  assert.equal(particleEntries,1,'exactly one separately verified particle activity');\n"
+        }
+      ]
+    },
     "tools/condensed_runtime_compatibility.py": {
       "before_sha256": "e63a8233ee85134697adca7e87620067c2f6ed22fef4e1c7cd86cec8dea09ae8",
       "after_sha256": "8428db8298dff1be569f34d4ce31e0035c3d29c7583ae4c3aa235ca5a8a591ba",

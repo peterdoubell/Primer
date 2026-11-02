@@ -62,8 +62,9 @@ retained in the momentum sum.
 
 ## Verification
 
-The tools execute the shipped browser core and ledger in a VM, rather than a
-second implementation. Independent checks use Fraction arithmetic and Decimal
+The tools directly import the shipped core and ledger through their CommonJS
+exports, rather than evaluating source text or using a second implementation.
+The same modules expose their APIs to the browser. Independent checks use Fraction arithmetic and Decimal
 arithmetic at 50 or 60 digits:
 
 - `tools/check_particle_ledger.py`: 516 channels, exact additive numbers and
