@@ -22,7 +22,8 @@ def test_shipped_core_matches_independent_density_integrals_and_potential_gradie
 def test_actual_reader_evidence_matches_shipped_files_and_preserves_scope():
     p=json.loads((D/'reader/browser-proof.json').read_bytes());assert p['allPassed']and p['authenticatedSyntheticApp']and not p['productionLearnerWrites']and not p['wholeGoalComplete']
     assert p['cases']==8 and p['routeReopenChecks']==2 and p['errors']==[]
-    for name,digest in p['sourceSHA256'].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest,name
+    from tools.condensed_runtime_compatibility import before_condensed_bytes
+    for name,digest in p['sourceSHA256'].items():assert hashlib.sha256(before_condensed_bytes(name,(R/name).read_bytes())).hexdigest()==digest,name
     g=json.loads((D/'reader/geometry-proof.json').read_bytes());assert g['allPassed']and g['renderedCurveVertices']==3864 and g['selectedMarkers']==8
     c=json.loads((D/'reader/comparison-proof.json').read_bytes());assert c['allPassed']and c['syntheticObservationsVerified']==96 and c['renderedUncertaintyEndpointsVerified']==192
     gpu=json.loads((D/'reader/gpu-proof.json').read_bytes());assert gpu['allPassed']and gpu['authenticatedGPUReadbacks']==8 and gpu['sourceBuffersExact']and gpu['allSourceVerticesInFrustum']

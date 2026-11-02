@@ -1360,7 +1360,7 @@ for (const { node, item } of crossEntries) {
   assert.equal(item.renderer, CROSS_SPATIAL.includes(node.id) ? 'spatial-3d' : 'concept-lab');
 }
 assert.equal(entries.filter(({ item }) => !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
-  68, 'Earlier models remain except the dedicated fractions and calibrated rotation replacements');
+  67, 'Earlier models remain except the dedicated fractions, rotation and transition replacements');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-ode-lab').length,
   1, 'The separately checked second-order ODE activity remains reachable');
 assert.equal(entries.filter(({ item }) => item.renderer === 'math-field-lab').length,

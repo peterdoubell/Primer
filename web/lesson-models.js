@@ -5845,37 +5845,6 @@
         };
       },
     },
-    'phys.5.condensed': {
-      controls: [
-        physicsControl('temperature', 'Temperature', 0.5, 10, 0.5, 5, 'K', '0.5 K', '10 K'),
-        physicsControl('field', 'Applied magnetic field', 0, 100, 5, 30, 'mT', 'no field', '100 mT'),
-      ],
-      caveat: 'This lead-like bulk type-I teaching model uses Tc = 7.2 K and Hc(0) = 80 mT, and makes the field transition abrupt. Demagnetization can create an intermediate state; real samples add shape and history effects.',
-      compute(state) {
-        const critical = 7.2;
-        const criticalField = state.temperature < critical
-          ? 80 * (1 - (state.temperature / critical) ** 2) : 0;
-        const inMeissnerState = state.temperature < critical && state.field < criticalField;
-        const order = inMeissnerState ? Math.sqrt(1 - state.temperature / critical) : 0;
-        const curve = physicsGraphPoints(x => {
-          const temp = 10 * x;
-          const hc = temp < critical ? 80 * (1 - (temp / critical) ** 2) : 0;
-          return temp < critical && state.field < hc ? Math.sqrt(1 - temp / critical) : 0;
-        });
-        return {
-          readout: 'In the lead-like type-I example, at ' + physicsFixed(state.temperature, 1) +
-            ' K with Tc = 7.2 K, order-parameter index = ' + physicsFixed(order, 3) +
-            '. Hc(T) ≈ ' + physicsFixed(criticalField, 1) + ' mT, so applied field ' + state.field + ' mT' +
-            (inMeissnerState ? ' remains in the Meissner regime.' :
-              ' drives or leaves the sample normal; the ideal field transition is abrupt.'),
-          visual: { kind: 'graph', xLabel: 'temperature', yLabel: 'superconducting order',
-            curves: [{ points: curve, label: 'bulk order; jump where H = Hc(T)', tone: 'primary' }],
-            marker: [state.temperature / 10, order],
-            note: physicsFixed(state.temperature, 1) + ' K, H=' + state.field + ' mT: ' +
-              (inMeissnerState ? 'Meissner state' : 'normal state') },
-        };
-      },
-    },
     'phys.5.quantum-info': {
       controls: [
         physicsControl('angle', 'Bob setting angle θ', 0, 90, 5, 45, '°', 'same Bob settings', '90 degrees'),
@@ -6086,6 +6055,7 @@
       if (item.props?.scenario?.startsWith('module.')) {
         if (!window.PrimerModuleObjects || !window.PrimerModuleObjects.ensure(item)) return null;
       }
+      if (item.props?.scenario === 'module.phys.5.condensed' && item.props?.family === 'type-i-field-geometry') return window.PrimerCondensedLab?.render({ ...item, props: { scenario: 'phys.5.condensed.transition' } }, hooks) || null;
       if (item.props?.scenario === 'module.phys.5.frontier' && item.props?.family === 'rotation-density-geometry') return window.PrimerRotationLab?.render({ ...item, props: { scenario: 'phys.5.frontier.rotation' } }, hooks) || null;
       if (item.props?.scenario === 'module.math.4.numtheory' && window.PrimerNumberTheoryDiagrams) return window.PrimerNumberTheoryDiagrams.renderSpatial(item, hooks);
       return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;

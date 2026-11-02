@@ -603,6 +603,7 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
         'phys.1.light': 'light-paths',
         'phys.4.fluids': 'venturi-flow-lab',
         'phys.5.frontier': 'spatial-3d',
+        'phys.5.condensed': 'spatial-3d',
     }
     for nid, node in physics.items():
         companions = [item for item in node['lesson_media']
@@ -611,9 +612,9 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
             [('explore-fluid-forces-and-flow', 'model', {'scenario': 'phys.4.fluids'})]
             if nid == 'phys.4.fluids' else []), nid
         base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'}]
-        if nid == 'phys.5.frontier':
-            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')=='rotation-density-geometry']
-            assert base_media[1]['props']['scenario']=='module.phys.5.frontier'
+        if nid in {'phys.5.frontier','phys.5.condensed'}:
+            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')in {'rotation-density-geometry','type-i-field-geometry'}]
+            assert base_media[1]['props']['scenario']=='module.'+nid
         assert [item['kind'] for item in base_media] == [
             'illustration', 'model'], nid
         plate, model = base_media
@@ -671,7 +672,7 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
     sound = str(curr.nodes['phys.1.sound']).lower()
     forces = str(curr.nodes['phys.2.forces']).lower()
     all_physics = (' '.join(str(node).lower() for nid, node in curr.nodes.items()
-                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower())
+                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower() + ' ' + _web('physics-condensed-lab.js').lower())
     assert 'slow big wiggles' not in sound
     assert 'vibration frequency changes pitch' in sound
     assert 'different from how fast the sound travels' in sound
@@ -696,7 +697,7 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'not total or virial mass',
         'no p-value or unique physical conclusion is inferred',
         'not the edge of the disk',
-        'makes the field transition abrupt',
+        'no sloped line joins the jump',
         'the density integrates to one',
         'gravity and acceleration require additional treatment',
         'absolute temperatures in kelvin',
@@ -2273,12 +2274,12 @@ def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
         any(media.get('renderer') == 'physics-concept-lab' for media in node['lesson_media'])
     }
     assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
-    assert len(scenario_keys) == 34
-    assert registry.count('controls: [') == 34
-    assert registry.count('caveat:') == 34
-    assert registry.count('compute(state)') == 34
-    assert registry.count('readout:') >= 34
-    assert registry.count('visual:') == 34
+    assert len(scenario_keys) == 33
+    assert registry.count('controls: [') == 33
+    assert registry.count('caveat:') == 33
+    assert registry.count('compute(state)') == 33
+    assert registry.count('readout:') >= 33
+    assert registry.count('visual:') == 33
 
 
 def test_physics_model_has_native_controls_resets_live_copy_and_fail_closed_lookup():
@@ -2307,7 +2308,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '34 scenarios, 82 independently exercised legacy range controls' in result.stdout
+    assert '33 scenarios, 80 independently exercised legacy range controls' in result.stdout
     assert 'Dedicated circuits: 2 lesson bindings and 10 station mounts verified.' in result.stdout
 
 

@@ -101,7 +101,7 @@ def test_all_stage4_duration_effects_follow_only_the_exact_quiz_counterfactual(t
     assignment=next(n for n in ast.parse(historical_source).body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name)and t.id=='PHYSICS_MODEL_SCENARIOS'for t in n.targets))
     assert isinstance(assignment.value,ast.Call)and assignment.value.func.id=='frozenset'
     historical_scenarios=frozenset(ast.literal_eval(assignment.value.args[0]))
-    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier'}
+    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier','phys.5.condensed'}
     assert not curriculum.PHYSICS_MODEL_SCENARIOS-historical_scenarios
     with monkeypatch.context()as historical:
         historical.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path))
