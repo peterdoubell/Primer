@@ -171,6 +171,18 @@
           "after": "        from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes\n        raw=before_pituitary_bytes(name,(R/name).read_bytes());before=before_interfaces_bytes(name,raw)\n"
         }
       ]
+    },
+    "tests/test_sellar_source_interfaces.py": {
+      "before_sha256": "d213e8a9c02aa2524914a04032d1cf3d6b05075009ac720327e0b1f8302ecb1d",
+      "after_sha256": "2cbb919dba4fe16a0385118d44012584784c9610cc9f20fdcf34ec7961214a5e",
+      "changes": [
+        {
+          "start": 57,
+          "end": 59,
+          "before": "    for name,digest in index['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name\n",
+          "after": "    from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes\n    for name,digest in index['sourceSHA256'].items():assert sha(before_pituitary_bytes(name,(R/name).read_bytes()))==digest,name\n"
+        }
+      ]
     }
   }
 }

@@ -55,7 +55,8 @@ def test_all_sellar_requirements_and_opposite_side_contacts_remain_explicit():
     assert sum(row['sourceFaces']for row in opposite)==23
     index=json.loads((D/'evidence-index.json').read_bytes())
     for name,digest in index['evidenceSHA256'].items():assert sha((D/name).read_bytes())==digest,name
-    for name,digest in index['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name
+    from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes
+    for name,digest in index['sourceSHA256'].items():assert sha(before_pituitary_bytes(name,(R/name).read_bytes()))==digest,name
 
 
 

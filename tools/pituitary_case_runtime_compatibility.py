@@ -3,8 +3,8 @@ from pathlib import Path
 import copy,hashlib,json
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/pituitary-case-source-review-20261101/runtime-inverse.json'
-PROOF_SHA256='0124c4a2516d0ee832595d4003edc267904226810b168b6fae9179a9cbe83373'
-PATHS=frozenset(['.vercelignore','primer/server.py','primer/source_native_inspectors.py','web/app.js','docs/radiology-fidelity-scope.json','tools/sellar_interface_runtime_compatibility.py','tests/test_sellar_interface_runtime.py'])
+PROOF_SHA256='b7cb096505b792892e1aaae2c888356950ecacbf3376401b22c901c338a4d067'
+PATHS=frozenset(['.vercelignore','primer/server.py','primer/source_native_inspectors.py','web/app.js','docs/radiology-fidelity-scope.json','tools/sellar_interface_runtime_compatibility.py','tests/test_sellar_interface_runtime.py','tests/test_sellar_source_interfaces.py'])
 sha=lambda raw:hashlib.sha256(raw).hexdigest()
 def reviewed():
  raw=(ROOT/PROOF).read_bytes()
