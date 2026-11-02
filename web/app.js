@@ -3664,7 +3664,7 @@ function renderTeachingLesson(n) {
 }
 
 async function renderNode(page, nodeId) {
-  const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));
+  const n = await reportingGuard(page, () => api.get('/api/curriculum/node/' + nodeId));
   if (!n) return;
   const d = domainById(n.domain);
   // pagehead's kicker is also its spoken text, so it stays a string — and the

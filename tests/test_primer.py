@@ -496,6 +496,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     expected['math.4.numtheory'] = (4, 'math-number-theory-lab')
     expected['math.3.systems'] = (3, 'math-systems-lab')
     expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
+    expected['phys.4.particles'] = (4, 'physics-particle-lab')
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
         for node_id in PHYSICS_MODEL_SCENARIOS
@@ -604,6 +605,7 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
         'phys.4.fluids': 'venturi-flow-lab',
         'phys.5.frontier': 'spatial-3d',
         'phys.5.condensed': 'spatial-3d',
+        'phys.4.particles': 'physics-particle-lab',
     }
     for nid, node in physics.items():
         companions = [item for item in node['lesson_media']
@@ -2252,7 +2254,7 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'morphogen-gradient-lab', 'ct-window-lab',
                      'alphabet-explorer', 'inclusive-family-timeline',
                      'day-night-rotation-lab', 'classroom-paint-mixer',
-                     'physics-concept-lab'):
+                     'physics-concept-lab', 'physics-particle-lab'):
         assert renderer in js
     _assert_models_stay_local(js)
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
@@ -2274,12 +2276,12 @@ def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
         any(media.get('renderer') == 'physics-concept-lab' for media in node['lesson_media'])
     }
     assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
-    assert len(scenario_keys) == 33
-    assert registry.count('controls: [') == 33
-    assert registry.count('caveat:') == 33
-    assert registry.count('compute(state)') == 33
-    assert registry.count('readout:') >= 33
-    assert registry.count('visual:') == 33
+    assert len(scenario_keys) == 32
+    assert registry.count('controls: [') == 32
+    assert registry.count('caveat:') == 32
+    assert registry.count('compute(state)') == 32
+    assert registry.count('readout:') >= 32
+    assert registry.count('visual:') == 32
 
 
 def test_physics_model_has_native_controls_resets_live_copy_and_fail_closed_lookup():
@@ -2308,7 +2310,7 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '33 scenarios, 80 independently exercised legacy range controls' in result.stdout
+    assert '32 scenarios, 79 independently exercised legacy range controls' in result.stdout
     assert 'Dedicated circuits: 2 lesson bindings and 10 station mounts verified.' in result.stdout
 
 

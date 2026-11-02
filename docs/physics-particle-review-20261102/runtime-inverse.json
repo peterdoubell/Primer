@@ -1,0 +1,195 @@
+{
+  "base_commit": "086e516b2a4a6616ce87acceb086f6365efd993e",
+  "lesson": "phys.4.particles",
+  "clinicalApproval": false,
+  "extendsHistoricalApproval": false,
+  "wholeGoalComplete": false,
+  "files": {
+    "data/curriculum/03-physics.json": {
+      "before_sha256": "2cd41997425843cc87105366a1c0b6f76be4f0fcb03203e1ea36ecfaec9f5866",
+      "after_sha256": "37d24f64f96703e75191d5f1d887210437b50044016fedc40f36bad1f19f1a78",
+      "changes": [
+        {
+          "start": 4713,
+          "end": 4716,
+          "before": "          \"renderer\": \"physics-concept-lab\",\n          \"title\": \"Decay Conservation Lab\",\n          \"instructions\": \"Choose a candidate decay channel and audit its conserved quantum numbers.\",\n",
+          "after": "          \"renderer\": \"physics-particle-lab\",\n          \"title\": \"Conservation values and three-dimensional beta-decay momentum\",\n          \"instructions\": \"Compute candidate-channel quantum numbers and rest-energy budgets. For complete neutron beta decay, vary electron energy and opening angle, then rotate the calibrated momentum triangle.\",\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "c25726a18a454c26a7eb6121e6867edbca6cdc0757515cf8d6584c452b85a2c5",
+      "after_sha256": "fae5cbef56686c48dd19302b8e08d070c997646f23dcd2ad39295f267e0fa0c3",
+      "changes": [
+        {
+          "start": 188,
+          "end": 189,
+          "before": "    \"art-elements-composer\", \"integer-number-line-lab\", \"physics-concept-lab\",\n",
+          "after": "    \"art-elements-composer\", \"integer-number-line-lab\", \"physics-concept-lab\", \"physics-particle-lab\",\n"
+        },
+        {
+          "start": 213,
+          "end": 214,
+          "before": "# These scenarios intentionally exclude the six physics lessons with bespoke\n",
+          "after": "# These scenarios intentionally exclude the seven physics lessons with bespoke\n"
+        },
+        {
+          "start": 225,
+          "end": 226,
+          "before": "    \"phys.4.relativity\", \"phys.4.solid-state\", \"phys.4.particles\",\n",
+          "after": "    \"phys.4.relativity\", \"phys.4.solid-state\",\n"
+        },
+        {
+          "start": 757,
+          "end": 761,
+          "before": "",
+          "after": "            elif renderer == \"physics-particle-lab\":\n                if set(props) != {\"scenario\"} or props.get(\"scenario\") != \"phys.4.particles\" \\\n                        or node.get(\"id\") != \"phys.4.particles\":\n                    raise ValueError(\"Particle conservation activity requires its matching lesson\")\n"
+        }
+      ]
+    },
+    "tests/test_condensed_lesson.py": {
+      "before_sha256": "984ede2bcc85ad0736a73ea9b484af9c4b3a045d95f937a0fa4d3e50494cb652",
+      "after_sha256": "14958cd4e9bd7cb89ce0efc20c9e5a053147c0f13b655fa894b5077027068672",
+      "changes": [
+        {
+          "start": 4,
+          "end": 5,
+          "before": "",
+          "after": "from tools.particle_runtime_compatibility import before_particle_bytes\n"
+        },
+        {
+          "start": 19,
+          "end": 20,
+          "before": "    for name,digest in b['sourceSHA256'].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest,name\n",
+          "after": "    for name,digest in b['sourceSHA256'].items():assert hashlib.sha256(before_particle_bytes(name,(R/name).read_bytes())).hexdigest()==digest,name\n"
+        }
+      ]
+    },
+    "tests/test_primer.py": {
+      "before_sha256": "1736c99e1bfd7a6cc6932f3783e49792f6b8cc5941697fc193d9d98772d8d075",
+      "after_sha256": "03a5413be0f453e1ee1066a3c9db8fe5b51b137f9618aa349b47820569fd6211",
+      "changes": [
+        {
+          "start": 498,
+          "end": 499,
+          "before": "",
+          "after": "    expected['phys.4.particles'] = (4, 'physics-particle-lab')\n"
+        },
+        {
+          "start": 607,
+          "end": 608,
+          "before": "",
+          "after": "        'phys.4.particles': 'physics-particle-lab',\n"
+        },
+        {
+          "start": 2256,
+          "end": 2257,
+          "before": "                     'physics-concept-lab'):\n",
+          "after": "                     'physics-concept-lab', 'physics-particle-lab'):\n"
+        },
+        {
+          "start": 2278,
+          "end": 2284,
+          "before": "    assert len(scenario_keys) == 33\n    assert registry.count('controls: [') == 33\n    assert registry.count('caveat:') == 33\n    assert registry.count('compute(state)') == 33\n    assert registry.count('readout:') >= 33\n    assert registry.count('visual:') == 33\n",
+          "after": "    assert len(scenario_keys) == 32\n    assert registry.count('controls: [') == 32\n    assert registry.count('caveat:') == 32\n    assert registry.count('compute(state)') == 32\n    assert registry.count('readout:') >= 32\n    assert registry.count('visual:') == 32\n"
+        },
+        {
+          "start": 2312,
+          "end": 2313,
+          "before": "    assert '33 scenarios, 80 independently exercised legacy range controls' in result.stdout\n",
+          "after": "    assert '32 scenarios, 79 independently exercised legacy range controls' in result.stdout\n"
+        }
+      ]
+    },
+    "tests/test_linear_algebra_integration.py": {
+      "before_sha256": "0d857bd06b9d4b34f208539c6b6157eb4d18f503be6548c3f334d1f67f79a8ee",
+      "after_sha256": "d60abe9571ae268ebb72c198c964ce2881f4f47ed33fb9e09c7439bec80b57b3",
+      "changes": [
+        {
+          "start": 103,
+          "end": 104,
+          "before": "    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier','phys.5.condensed'}\n",
+          "after": "    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier','phys.5.condensed','phys.4.particles'}\n"
+        },
+        {
+          "start": 112,
+          "end": 121,
+          "before": "        assert bridge.semantic(now.node(ident))==proof['lesson_semantics'][ident]['current_sha256']\n",
+          "after": "        current_fields=copy.deepcopy(now.node(ident))\n        if ident=='phys.4.particles':\n            from tools.particle_runtime_compatibility import before_particle_bytes\n            path='data/curriculum/03-physics.json';raw=(ROOT/path).read_bytes()\n            authored=next(n for n in json.loads(raw)['nodes']if n['id']==ident)\n            historical=next(n for n in json.loads(before_particle_bytes(path,raw))['nodes']if n['id']==ident)\n            assert current_fields['lesson_media'][1]==authored['lesson_media'][1]\n            current_fields['lesson_media'][1]=historical['lesson_media'][1]\n        assert bridge.semantic(current_fields)==proof['lesson_semantics'][ident]['current_sha256']\n"
+        }
+      ]
+    },
+    "tools/check_physics_models.js": {
+      "before_sha256": "ea16bdf94c2dcb218d21e7d34f98e8c58a56a4a7544b956635c15ea00db499c6",
+      "after_sha256": "9fcee95426cd01114f8c82638236be7416212863095759dc6eac2612381e15b3",
+      "changes": [
+        {
+          "start": 17,
+          "end": 18,
+          "before": "const EXPECTED_SCENARIO_COUNT = 33;\n",
+          "after": "const EXPECTED_SCENARIO_COUNT = 32;\n"
+        }
+      ]
+    },
+    "tools/condensed_runtime_compatibility.py": {
+      "before_sha256": "e63a8233ee85134697adca7e87620067c2f6ed22fef4e1c7cd86cec8dea09ae8",
+      "after_sha256": "8428db8298dff1be569f34d4ce31e0035c3d29c7583ae4c3aa235ca5a8a591ba",
+      "changes": [
+        {
+          "start": 16,
+          "end": 18,
+          "before": "",
+          "after": " from tools.particle_runtime_compatibility import before_particle_bytes\n raw=before_particle_bytes(path,raw,allow_older=True)\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "23903ad13e324b507b27df3640d218b73af470a57dde3ecc113a563f7c4d8b0b",
+      "after_sha256": "366bb7c63a0fdc214ceb6552d48127c145c5f76e6596dc170aff9f2accd5b55e",
+      "changes": [
+        {
+          "start": 44,
+          "end": 45,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/physics-particle-lab.css\">\n"
+        },
+        {
+          "start": 111,
+          "end": 114,
+          "before": "",
+          "after": "  <script src=\"/app/physics-particle-core.js\"></script>\n  <script src=\"/app/physics-particle-ledger.js\"></script>\n  <script src=\"/app/physics-particle-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "4facd1405f22bc09f04de3b767070e8f9d7c6925535f5a4af7467527c667b803",
+      "after_sha256": "8f23310b3267619457d7fa09fb1eca1a96a41809570f8007446e81e475fc11ac",
+      "changes": [
+        {
+          "start": 3666,
+          "end": 3667,
+          "before": "  const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));\n",
+          "after": "  const n = await reportingGuard(page, () => api.get('/api/curriculum/node/' + nodeId));\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "0835237ee008d3b56cb4a4da4da072d4c31c161a6b94df777fa23f3cdfb48f18",
+      "after_sha256": "6d85ae428bc92154f053b5cf0df435e1ca9de491dc7f2b03171948a9b6458902",
+      "changes": [
+        {
+          "start": 5756,
+          "end": 5756,
+          "before": "    'phys.4.particles': {\n      controls: [{ ...physicsControl('channel', 'Candidate decay channel', 0, 2, 1, 0, '',\n        'complete beta decay', 'free proton proposal'),\n        names: ['n \u2192 p + e\u207b + antineutrino', 'n \u2192 p + e\u207b', 'p \u2192 n + positron'] }],\n      caveat: 'A full decay audit also checks energy, momentum, spin, and every relevant flavor quantum number.',\n      compute(state) {\n        const channels = [\n          { name: 'n \u2192 p + e\u207b + antineutrino', q: true, b: true, l: true, allowed: true },\n          { name: 'n \u2192 p + e\u207b', q: true, b: true, l: false, allowed: false },\n          { name: 'p \u2192 n + positron', q: true, b: true, l: false, allowed: false },\n        ];\n        const selected = channels[state.channel];\n        return {\n          readout: selected.name + ': electric charge ' + (selected.q ? 'balances' : 'fails') +\n            ', baryon number ' + (selected.b ? 'balances' : 'fails') + ', and lepton number ' +\n            (selected.l ? 'balances' : 'fails') + '. This ledger ' + (selected.allowed ? 'passes' : 'rejects the channel') + '.',\n          visual: { kind: 'ledger', label: selected.name, segments: [\n            { label: 'charge ' + (selected.q ? '\u2713' : '\u00d7'), value: selected.q ? 1 : .42 },\n            { label: 'baryon ' + (selected.b ? '\u2713' : '\u00d7'), value: selected.b ? 1 : .42 },\n            { label: 'lepton ' + (selected.l ? '\u2713' : '\u00d7'), value: selected.l ? 1 : .42 },\n          ], equation: selected.allowed ? 'required additive numbers balance' : 'one failed law is enough to reject',\n          note: selected.allowed ? 'ledger passes these three checks' : 'ledger fails: missing required products' },\n        };\n      },\n    },\n",
+          "after": ""
+        },
+        {
+          "start": 6176,
+          "end": 6177,
+          "before": "",
+          "after": "    'physics-particle-lab': (item,hooks) => window.PrimerParticleLab?.render(item,hooks) || null,\n"
+        }
+      ]
+    }
+  }
+}

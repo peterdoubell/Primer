@@ -101,7 +101,7 @@ def test_all_stage4_duration_effects_follow_only_the_exact_quiz_counterfactual(t
     assignment=next(n for n in ast.parse(historical_source).body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name)and t.id=='PHYSICS_MODEL_SCENARIOS'for t in n.targets))
     assert isinstance(assignment.value,ast.Call)and assignment.value.func.id=='frozenset'
     historical_scenarios=frozenset(ast.literal_eval(assignment.value.args[0]))
-    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier','phys.5.condensed'}
+    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier','phys.5.condensed','phys.4.particles'}
     assert not curriculum.PHYSICS_MODEL_SCENARIOS-historical_scenarios
     with monkeypatch.context()as historical:
         historical.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path))
@@ -110,7 +110,15 @@ def test_all_stage4_duration_effects_follow_only_the_exact_quiz_counterfactual(t
     for row in current['rows']:
         ident=row['id'];old=next(r for r in prior['rows'] if r['id']==ident)
         assert now.node(ident)['minutes']==row['minutes'] and before.node(ident)['minutes']==old['minutes']
-        assert bridge.semantic(now.node(ident))==proof['lesson_semantics'][ident]['current_sha256']
+        current_fields=copy.deepcopy(now.node(ident))
+        if ident=='phys.4.particles':
+            from tools.particle_runtime_compatibility import before_particle_bytes
+            path='data/curriculum/03-physics.json';raw=(ROOT/path).read_bytes()
+            authored=next(n for n in json.loads(raw)['nodes']if n['id']==ident)
+            historical=next(n for n in json.loads(before_particle_bytes(path,raw))['nodes']if n['id']==ident)
+            assert current_fields['lesson_media'][1]==authored['lesson_media'][1]
+            current_fields['lesson_media'][1]=historical['lesson_media'][1]
+        assert bridge.semantic(current_fields)==proof['lesson_semantics'][ident]['current_sha256']
         assert bridge.semantic(before.node(ident))==proof['lesson_semantics'][ident]['before_sha256']
     for ident in [bridge.MODULE,'math.4.numtheory','math.4.multivar','phys.4.classical']:
         original=copy.deepcopy(now.node(ident))
