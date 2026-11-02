@@ -61,9 +61,11 @@ const entries = nodes.flatMap(node => (node.lesson_media || []).filter(item => i
 assert.equal(entries.length, expected.length, 'Every spatial scene must be reachable from its curriculum lesson');
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
+const rotationBinding = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/module-models.json'),'utf8')).models.find(row=>row.node_id==='phys.5.frontier');
+assert.equal(rotationBinding.family,'rotation-density-geometry');assert.equal(rotationBinding.mode,'model');assert.equal(nodes.find(node=>node.id==='phys.5.frontier').lesson_media.filter(item=>item.kind==='model').length,0,'Rotation is provided exactly once by its module binding');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
   !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,
-  69, 'The other 69 earlier models remain; fractions has its exact dedicated replacement below');
+  68, 'The earlier models remain except the dedicated fractions and calibrated rotation replacements');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'doppler-angle-lab').length,

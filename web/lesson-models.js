@@ -5913,33 +5913,7 @@
         };
       },
     },
-    'phys.5.frontier': {
-      controls: [
-        physicsControl('halo', 'Halo contribution', 0, 100, 5, 65, '%', 'visible matter only', 'strong halo'),
-        physicsControl('baryons', 'Visible-mass scale', 50, 150, 5, 100, '%', 'low visible mass', 'high visible mass'),
-      ],
-      caveat: 'The plotted interval samples the outer disk and excludes the galactic center. Rotation curves alone do not uniquely identify dark matter; distance, gas, stellar mass, geometry, and alternative dynamics matter.',
-      compute(state) {
-        const observed = physicsGraphPoints(() => 0.72);
-        const predictionFn = x => {
-          const baryonSpeed = Math.sqrt(state.baryons / 100) * 0.78 / Math.sqrt(1 + 3.5 * x);
-          const haloSpeed = Math.sqrt(state.halo / 100) * 0.62 * Math.sqrt(1 - Math.exp(-4 * x));
-          return Math.max(0, Math.min(1, Math.sqrt(baryonSpeed ** 2 + haloSpeed ** 2)));
-        };
-        const predicted = physicsGraphPoints(predictionFn);
-        const residual = Math.sqrt(predicted.reduce((sum, point) => sum + (point[1] - 0.72) ** 2, 0) / predicted.length);
-        return {
-          readout: 'Visible-mass scale ' + state.baryons + '% plus halo contribution ' + state.halo +
-            '% gives rotation-curve RMS mismatch ' + physicsFixed(residual, 3) +
-            '. Lower mismatch improves this fit but does not prove a unique model.',
-          visual: { kind: 'graph', xLabel: 'outer-disk radius', yLabel: 'orbital speed', curves: [
-            { points: observed, label: 'synthetic flat observation', tone: 'primary' },
-            { points: predicted, label: 'selected model prediction', tone: 'secondary' },
-          ], marker: [0.82, predictionFn(0.82)],
-          note: 'component squared speeds add; RMS mismatch ' + physicsFixed(residual, 3) },
-        };
-      },
-    },
+
   });
 
   function formatPhysicsControl(control, value) {
@@ -6112,6 +6086,7 @@
       if (item.props?.scenario?.startsWith('module.')) {
         if (!window.PrimerModuleObjects || !window.PrimerModuleObjects.ensure(item)) return null;
       }
+      if (item.props?.scenario === 'module.phys.5.frontier' && item.props?.family === 'rotation-density-geometry') return window.PrimerRotationLab?.render({ ...item, props: { scenario: 'phys.5.frontier.rotation' } }, hooks) || null;
       if (item.props?.scenario === 'module.math.4.numtheory' && window.PrimerNumberTheoryDiagrams) return window.PrimerNumberTheoryDiagrams.renderSpatial(item, hooks);
       return window.PrimerSpatial ? window.PrimerSpatial.render(item, hooks) : null;
     },

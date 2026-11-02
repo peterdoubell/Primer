@@ -998,6 +998,16 @@
     return result(`Slit separation d = ${s.gap}; screen distance L = ${s.distance}; wavelength λ = ${wavelength}, all in the same model units. Approximate central fringe spacing λL/d = ${fmt(wavelength*s.distance/s.gap,3)}. Bands use the actual path-length difference from the two slit centers.`, 'Ideal coherent, monochromatic light with equal amplitudes at each point. Display intensity is proportional to cos²(πΔ/λ). Finite-slit diffraction envelopes, spreading losses, alignment error and quantum detection events are omitted. Wavelength and slit widths are enlarged for visibility; this is not a laboratory setup guide.',[['Gray: two-slit barrier',colors.metal],['Gold bands: relative intensity',g.colors.gold],['Coral: source housing',g.colors.coral]],g);
   });
 
+  define('rotation-density-geometry','Calibrated disk density',{diskMass:6e10,diskA:3,diskB:.3},[
+    range('diskMass','Disk mass (solar masses)',0,15e10,5e9),range('diskA','Radial scale a (kpc)',0,10,.25),range('diskB','Vertical scale b (kpc)',.1,2,.1)
+  ],(state,g)=>{
+    const mesh=window.RotationDensity.densitySurface(state,.1,128,128);
+    for(const face of mesh.triangles)g.polygon(face.map(i=>mesh.positions[i]),g.colors.gold);
+    if(mesh.empty)g.label([0,0,0],'Zero disk mass: no density surface');
+    return result('Density contour at '+mesh.density+' solar masses/kpc³. Positions use kpc.','The contour is not a material boundary or the full disk extent. Halo density is not drawn.',[['Gold: 10% of central disk density',g.colors.gold]],g);
+  });
+  families['rotation-density-geometry'].requires='RotationDensity';
+
   function ensure(item) {
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
@@ -1014,6 +1024,7 @@
         && (p.scenario !== 'module.math.2.decimals' || p.family !== 'decimal-base-ten' || p.mode !== 'model' || p.lesson !== 'Decimals')) return false;
     if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')
         && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;
+    if ((p.scenario === 'module.phys.5.frontier' || p.family === 'rotation-density-geometry') && (p.scenario !== 'module.phys.5.frontier' || p.family !== 'rotation-density-geometry' || p.mode !== 'model' || p.lesson !== 'Open Problems')) return false;
     if (!['model','context'].includes(p.mode) || typeof p.context !== 'string' || typeof p.lesson !== 'string') return false;
     const binding = JSON.stringify([p.family,p.mode,p.context,p.lesson]);
     if (registered.has(p.scenario)) return registered.get(p.scenario) === binding;

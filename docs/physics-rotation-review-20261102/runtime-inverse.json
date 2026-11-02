@@ -1,0 +1,315 @@
+{
+  "base_commit": "a245d6da5f6ad62f461a1347d5c20052bc451bcf",
+  "lesson": "phys.5.frontier",
+  "files": {
+    "data/curriculum/03-physics.json": {
+      "before_sha256": "c68682500d2237c01b6cee765b122957d038d67fe7ae2438791683d7d47ae8b0",
+      "after_sha256": "cad21a8ebd177e82c7a81d0167ec6956be0743a90dcb9f40e276749059db663c",
+      "changes": [
+        {
+          "start": 5632,
+          "end": 5632,
+          "before": "        },\n        {\n          \"id\": \"phys-5-frontier-concept-lab\",\n          \"kind\": \"model\",\n          \"renderer\": \"physics-concept-lab\",\n          \"title\": \"Evidence Comparison Lab\",\n          \"instructions\": \"Change model assumptions and compare their rotation-curve predictions with evidence.\",\n          \"props\": {\n            \"scenario\": \"phys.5.frontier\"\n          }\n",
+          "after": ""
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "0fa89c3f9e880494c6400806303ef5c172bb58484a15e124821083a3cbb66c70",
+      "after_sha256": "af8c30a688822bcd0de2823b3f31b522e2b163af671087046243d64e32c87974",
+      "changes": [
+        {
+          "start": 1101,
+          "end": 1106,
+          "before": "      \"family\": \"detector\",\n      \"title\": \"Layered particle detector \u00b7 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Open Problems: Inspect concentric sensing regions around a particle-interaction point as a physical context for testing theories against measurements; no collision event or field dynamics is simulated.\",\n      \"mode\": \"context\"\n",
+          "after": "      \"family\": \"rotation-density-geometry\",\n      \"title\": \"Calibrated Galaxy Rotation Lab\",\n      \"instructions\": \"Change physical disk and halo parameters, compare the fixed synthetic sample, and rotate the matching disk-density surface. Test two disk thicknesses with identical midplane rotation curves.\",\n      \"context\": \"Open Problems: inspect calibrated circular speeds and the same model\u2019s three-dimensional disk density. Synthetic data and model assumptions remain explicit; this does not model quantum gravity or establish unique dark-matter physics.\",\n      \"mode\": \"model\"\n"
+        }
+      ]
+    },
+    "tools/check_module_models.js": {
+      "before_sha256": "2057d6df919eac7c1cc13b838cbb597293da2e179731e2795239433bcfa1fe13",
+      "after_sha256": "630561fab5b2c01c74343f8564807e4085895b45608bbb18afd51302d263b825",
+      "changes": [
+        {
+          "start": 55,
+          "end": 56,
+          "before": "",
+          "after": "require('../web/physics-rotation-density.js');\n"
+        },
+        {
+          "start": 91,
+          "end": 92,
+          "before": "  assert.ok(scene&&scene.primitives.length>0&&scene.primitives.length<=(id==='module.phys.5.qft'&&scene.qft?.state?.mode==='casimir'?50000:3000),id+': geometry budget');\n",
+          "after": "  assert.ok(scene&&scene.primitives.length>0&&scene.primitives.length<=(id==='module.phys.5.frontier'?40000:id==='module.phys.5.qft'&&scene.qft?.state?.mode==='casimir'?50000:3000),id+': geometry budget');\n"
+        },
+        {
+          "start": 100,
+          "end": 102,
+          "before": "  for(let axis=0;axis<3;axis++)assert.ok(Math.max(...points.map(p=>p[axis]))-Math.min(...points.map(p=>p[axis]))>.04,id+': real spatial extent on axis '+axis);\n",
+          "after": "  if(id==='module.phys.5.frontier'&&scene.state.diskMass===0){assert.equal(points.length,0);assert.equal(scene.primitives.length,1);assert.equal(scene.primitives[0].kind,'label');}\n  else for(let axis=0;axis<3;axis++)assert.ok(Math.max(...points.map(p=>p[axis]))-Math.min(...points.map(p=>p[axis]))>.04,id+': real spatial extent on axis '+axis);\n"
+        },
+        {
+          "start": 146,
+          "end": 147,
+          "before": "    const coordinated=family.startsWith('base-ten-')||['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);\n",
+          "after": "    const coordinated=family==='rotation-density-geometry'||family.startsWith('base-ten-')||['complex-function-domain','quantum-state-geometry','topology-open-set-geometry','relativistic-event-geometry','algebra-operation-geometry','quantum-information-geometry','logic-witness-geometry','maxwell-field-geometry','cosmology-chart-geometry','qft-observable-geometry'].includes(family);\n"
+        }
+      ]
+    },
+    "tools/check_spatial_models.js": {
+      "before_sha256": "2909321579115e9010d1cba2f3b8f72c8b699411e20c7f68cff491bc211d7a89",
+      "after_sha256": "b4ae3fde5ac4f064af2b02c67ae0a2292fab5632ca35930b10d6d89de0525c1b",
+      "changes": [
+        {
+          "start": 63,
+          "end": 65,
+          "before": "",
+          "after": "const rotationBinding = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/module-models.json'),'utf8')).models.find(row=>row.node_id==='phys.5.frontier');\nassert.equal(rotationBinding.family,'rotation-density-geometry');assert.equal(rotationBinding.mode,'model');assert.equal(nodes.find(node=>node.id==='phys.5.frontier').lesson_media.filter(item=>item.kind==='model').length,0,'Rotation is provided exactly once by its module binding');\n"
+        },
+        {
+          "start": 67,
+          "end": 68,
+          "before": "  69, 'The other 69 earlier models remain; fractions has its exact dedicated replacement below');\n",
+          "after": "  68, 'The earlier models remain except the dedicated fractions and calibrated rotation replacements');\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "11e95a805507f98124ba314899bdf1c88763d1f3c00fff57323ff9ccc2442b7a",
+      "after_sha256": "d582f76a3f9ea5c425bdbc3306884c3f5042f6a3d588ff7ce4ac86c7ab165893",
+      "changes": [
+        {
+          "start": 42,
+          "end": 43,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/physics-rotation-lab.css\">\n"
+        },
+        {
+          "start": 106,
+          "end": 109,
+          "before": "",
+          "after": "  <script src=\"/app/physics-rotation-core.js\"></script>\n  <script src=\"/app/physics-rotation-density.js\"></script>\n  <script src=\"/app/physics-rotation-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "26af9ebb81e4ef9cc5f31bf33e6dd9a8fa7a643f3676095b97115870a77e14a4",
+      "after_sha256": "a86e70786d1db5b40d5ff37fbbd694676a0a096caf17fc79ea249d14d6d18282",
+      "changes": [
+        {
+          "start": 5915,
+          "end": 5916,
+          "before": "    'phys.5.frontier': {\n      controls: [\n        physicsControl('halo', 'Halo contribution', 0, 100, 5, 65, '%', 'visible matter only', 'strong halo'),\n        physicsControl('baryons', 'Visible-mass scale', 50, 150, 5, 100, '%', 'low visible mass', 'high visible mass'),\n      ],\n      caveat: 'The plotted interval samples the outer disk and excludes the galactic center. Rotation curves alone do not uniquely identify dark matter; distance, gas, stellar mass, geometry, and alternative dynamics matter.',\n      compute(state) {\n        const observed = physicsGraphPoints(() => 0.72);\n        const predictionFn = x => {\n          const baryonSpeed = Math.sqrt(state.baryons / 100) * 0.78 / Math.sqrt(1 + 3.5 * x);\n          const haloSpeed = Math.sqrt(state.halo / 100) * 0.62 * Math.sqrt(1 - Math.exp(-4 * x));\n          return Math.max(0, Math.min(1, Math.sqrt(baryonSpeed ** 2 + haloSpeed ** 2)));\n        };\n        const predicted = physicsGraphPoints(predictionFn);\n        const residual = Math.sqrt(predicted.reduce((sum, point) => sum + (point[1] - 0.72) ** 2, 0) / predicted.length);\n        return {\n          readout: 'Visible-mass scale ' + state.baryons + '% plus halo contribution ' + state.halo +\n            '% gives rotation-curve RMS mismatch ' + physicsFixed(residual, 3) +\n            '. Lower mismatch improves this fit but does not prove a unique model.',\n          visual: { kind: 'graph', xLabel: 'outer-disk radius', yLabel: 'orbital speed', curves: [\n            { points: observed, label: 'synthetic flat observation', tone: 'primary' },\n            { points: predicted, label: 'selected model prediction', tone: 'secondary' },\n          ], marker: [0.82, predictionFn(0.82)],\n          note: 'component squared speeds add; RMS mismatch ' + physicsFixed(residual, 3) },\n        };\n      },\n    },\n",
+          "after": "\n"
+        },
+        {
+          "start": 6088,
+          "end": 6089,
+          "before": "",
+          "after": "      if (item.props?.scenario === 'module.phys.5.frontier' && item.props?.family === 'rotation-density-geometry') return window.PrimerRotationLab?.render({ ...item, props: { scenario: 'phys.5.frontier.rotation' } }, hooks) || null;\n"
+        }
+      ]
+    },
+    "web/spatial-models.js": {
+      "before_sha256": "9520bb0096b41b056f90269c457ba5489524fe74bacbfa6db46f652b0889e42f",
+      "after_sha256": "1f2142bbdbc298580eb7a7d4ca62f0b9608127a1ee0b74e48b2667a060ae6aaf",
+      "changes": [
+        {
+          "start": 100,
+          "end": 102,
+          "before": "    const limit = trustedQft ? 50000 : 3000;\n",
+          "after": "    const trustedRotation = id === 'module.phys.5.frontier' && spec.familyId === 'rotation-density-geometry';\n    const limit = trustedRotation ? 40000 : trustedQft ? 50000 : 3000;\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "5d2c1be5d11b539f1348f3fe99515a454f950e1c888b0224bfbb5bf9fe7b5bf3",
+      "after_sha256": "d6db2dde20db26ac588a01a134e01a80ece6e11fdb6ddbefefc75e8d441b8b12",
+      "changes": [
+        {
+          "start": 1000,
+          "end": 1010,
+          "before": "",
+          "after": "  define('rotation-density-geometry','Calibrated disk density',{diskMass:6e10,diskA:3,diskB:.3},[\n    range('diskMass','Disk mass (solar masses)',0,15e10,5e9),range('diskA','Radial scale a (kpc)',0,10,.25),range('diskB','Vertical scale b (kpc)',.1,2,.1)\n  ],(state,g)=>{\n    const mesh=window.RotationDensity.densitySurface(state,.1,128,128);\n    for(const face of mesh.triangles)g.polygon(face.map(i=>mesh.positions[i]),g.colors.gold);\n    if(mesh.empty)g.label([0,0,0],'Zero disk mass: no density surface');\n    return result('Density contour at '+mesh.density+' solar masses/kpc\u00b3. Positions use kpc.','The contour is not a material boundary or the full disk extent. Halo density is not drawn.',[['Gold: 10% of central disk density',g.colors.gold]],g);\n  });\n  families['rotation-density-geometry'].requires='RotationDensity';\n\n"
+        },
+        {
+          "start": 1026,
+          "end": 1027,
+          "before": "",
+          "after": "    if ((p.scenario === 'module.phys.5.frontier' || p.family === 'rotation-density-geometry') && (p.scenario !== 'module.phys.5.frontier' || p.family !== 'rotation-density-geometry' || p.mode !== 'model' || p.lesson !== 'Open Problems')) return false;\n"
+        }
+      ]
+    },
+    "tools/cavernous_photo_runtime_compatibility.py": {
+      "before_sha256": "7cf21a7955182feedb27ab4c9c626a3c38bc4a6963dd33249c713fb4ed580cf8",
+      "after_sha256": "ed0d30ad9d80889b694097efbda46c0a3b37652b060f1fdab4482f8b65199a03",
+      "changes": [
+        {
+          "start": 16,
+          "end": 18,
+          "before": "",
+          "after": " from tools.rotation_runtime_compatibility import before_rotation_bytes\n raw=before_rotation_bytes(path,raw,allow_older=True)\n"
+        }
+      ]
+    },
+    "tests/test_api.py": {
+      "before_sha256": "194d5f9167349a5ccf0f88bbb3e5f652e9768085af1d6b01e9d0e77ee4bff3b9",
+      "after_sha256": "047697f178cef1a1f883433de7eb1af333034bb819f85e2dfecec5ae07e2b503",
+      "changes": [
+        {
+          "start": 1202,
+          "end": 1203,
+          "before": "        'models': 855, 'items': 1416,  # Includes geometry and vector component companions.\n",
+          "after": "        'models': 854, 'items': 1415,  # Rotation now combines its chart and density companion.\n"
+        },
+        {
+          "start": 1206,
+          "end": 1207,
+          "before": "        'math': (59, 137), 'language': (40, 61), 'physics': (39, 92 + 1),\n",
+          "after": "        'math': (59, 137), 'language': (40, 61), 'physics': (39, 92),\n"
+        },
+        {
+          "start": 1237,
+          "end": 1241,
+          "before": "",
+          "after": "    assert [(item['media_id'], item['renderer'], item['title']) for item in body['items']\n            if item['lesson_id']=='phys.5.frontier' and item['kind']=='model'] == [\n        ('module-object-phys.5.frontier','spatial-3d','Calibrated Galaxy Rotation Lab')]\n\n"
+        }
+      ]
+    },
+    "tests/test_circuits_lesson_integration.py": {
+      "before_sha256": "94ec7bd01a13bb6f902b825c8ab90975d416d0642d536e1fe0eb38bcf83c1b05",
+      "after_sha256": "66eac7ea439bd4d6a52be690be7901a30340c87f58a5e8d09d22b200eeaee34e",
+      "changes": [
+        {
+          "start": 7,
+          "end": 9,
+          "before": " data=json.loads((ROOT/'data/curriculum/03-physics.json').read_text());old={n['id']:n for n in original['nodes']}\n",
+          "after": " from tools.rotation_runtime_compatibility import before_rotation_bytes\n data=json.loads(before_rotation_bytes('data/curriculum/03-physics.json',(ROOT/'data/curriculum/03-physics.json').read_bytes()));old={n['id']:n for n in original['nodes']}\n"
+        }
+      ]
+    },
+    "tests/test_hosted_safety.py": {
+      "before_sha256": "e34d0394153d9c59d9823784cfac8a7c8bf6fddb6bd4d729fb9f49e45eb66ad3",
+      "after_sha256": "8188bb75e314fdf2de82a33bafea5779d7603373f4964a11ab1b29937ccf5621",
+      "changes": [
+        {
+          "start": 124,
+          "end": 125,
+          "before": "        \"models\": 855, \"items\": 1416,  # Includes geometry and vector component companions.\n",
+          "after": "        \"models\": 854, \"items\": 1415,  # Rotation combines its chart and spatial companion.\n"
+        }
+      ]
+    },
+    "tests/test_module_models.py": {
+      "before_sha256": "9adafa64ec59be63e6f38e3f53b7a657a5b60ed50d15ed63f8068227b16f86fe",
+      "after_sha256": "5afdf60bb5e5e18588d64ad73e9c16fa7122b5aac1e0a838c5c6e8ff36182f30",
+      "changes": [
+        {
+          "start": 34,
+          "end": 35,
+          "before": "    assert '462 lesson bindings, 76 object families' in result.stdout\n",
+          "after": "    assert '462 lesson bindings, 77 object families' in result.stdout\n"
+        }
+      ]
+    },
+    "tools/check_cross_subject_models.js": {
+      "before_sha256": "6ee26623590e3013c255ea7b65fac8eb068b816cde4d4e905e92bf9387f4d7f7",
+      "after_sha256": "7924a5c3601365315770d2d277c78c8cb7bbbcc5bea969881f412b0d90b1a723",
+      "changes": [
+        {
+          "start": 1362,
+          "end": 1363,
+          "before": "  69, 'The other 69 earlier models remain; fractions has its exact dedicated replacement below');\n",
+          "after": "  68, 'Earlier models remain except the dedicated fractions and calibrated rotation replacements');\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "3ed30ef274c72cb04f67164915409e5377abd7b9b81a73488471b2f1bc795b21",
+      "after_sha256": "f918d09c7ed1b7a974833ba3ce854ddbab60f0c273196905a4305fc3ac6f742b",
+      "changes": [
+        {
+          "start": 213,
+          "end": 214,
+          "before": "# These scenarios intentionally exclude the four physics lessons with bespoke\n",
+          "after": "# These scenarios intentionally exclude the five physics lessons with bespoke\n"
+        },
+        {
+          "start": 227,
+          "end": 228,
+          "before": "    \"phys.5.condensed\", \"phys.5.quantum-info\", \"phys.5.frontier\",\n",
+          "after": "    \"phys.5.condensed\", \"phys.5.quantum-info\",\n"
+        }
+      ]
+    },
+    "tests/test_primer.py": {
+      "before_sha256": "474c5ce7bed0d8b9e849c741a651c5d76031c3f5e0d71623d556351c9eebe3c1",
+      "after_sha256": "2f5af5968212f9e07d22b279c43ad0dccdcd35e7a2aa51d99ab8c7ed339b0940",
+      "changes": [
+        {
+          "start": 604,
+          "end": 605,
+          "before": "",
+          "after": "        'phys.5.frontier': 'spatial-3d',\n"
+        },
+        {
+          "start": 613,
+          "end": 616,
+          "before": "",
+          "after": "        if nid == 'phys.5.frontier':\n            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')=='rotation-density-geometry']\n            assert base_media[1]['props']['scenario']=='module.phys.5.frontier'\n"
+        },
+        {
+          "start": 673,
+          "end": 674,
+          "before": "                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower())\n",
+          "after": "                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower())\n"
+        },
+        {
+          "start": 694,
+          "end": 698,
+          "before": "        'outer disk and excludes the galactic center',\n",
+          "after": "        'not measured galaxy data',\n        'not total or virial mass',\n        'no p-value or unique physical conclusion is inferred',\n        'not the edge of the disk',\n"
+        },
+        {
+          "start": 2275,
+          "end": 2281,
+          "before": "    assert len(scenario_keys) == 35\n    assert registry.count('controls: [') == 35\n    assert registry.count('caveat:') == 35\n    assert registry.count('compute(state)') == 35\n    assert registry.count('readout:') >= 35\n    assert registry.count('visual:') == 35\n",
+          "after": "    assert len(scenario_keys) == 34\n    assert registry.count('controls: [') == 34\n    assert registry.count('caveat:') == 34\n    assert registry.count('compute(state)') == 34\n    assert registry.count('readout:') >= 34\n    assert registry.count('visual:') == 34\n"
+        },
+        {
+          "start": 2309,
+          "end": 2310,
+          "before": "    assert '35 scenarios, 84 independently exercised legacy range controls' in result.stdout\n",
+          "after": "    assert '34 scenarios, 82 independently exercised legacy range controls' in result.stdout\n"
+        }
+      ]
+    },
+    "tools/check_physics_models.js": {
+      "before_sha256": "c0ad819839617ea3406a6909f7e6c69936b417a43bb905bc79d5b44d3d256903",
+      "after_sha256": "117147171e3d262aeea370b3cc2e8e223151a86b088dcadd01b12ae22511950b",
+      "changes": [
+        {
+          "start": 17,
+          "end": 18,
+          "before": "const EXPECTED_SCENARIO_COUNT = 35;\n",
+          "after": "const EXPECTED_SCENARIO_COUNT = 34;\n"
+        }
+      ]
+    },
+    "tests/test_linear_algebra_integration.py": {
+      "before_sha256": "86154c95360f3352f7b31add11375295e70e3dc1c38dadcca8bd4dd0ac3b89a2",
+      "after_sha256": "1c736f5b8c6e0b1757cc8ce2f0239a20e139345309dce4bcf3c66c7dbf41a427",
+      "changes": [
+        {
+          "start": 95,
+          "end": 109,
+          "before": "    monkeypatch.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path));before=Curriculum()\n",
+          "after": "    # The frozen corpus predates the rotation replacement. Pair it with its\n    # byte-verified historical scenario registry only for this counterfactual.\n    import ast\n    from tools.rotation_runtime_compatibility import before_rotation_bytes\n    historical_source=before_rotation_bytes('primer/curriculum.py',(ROOT/'primer/curriculum.py').read_bytes())\n    assignment=next(n for n in ast.parse(historical_source).body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name)and t.id=='PHYSICS_MODEL_SCENARIOS'for t in n.targets))\n    assert isinstance(assignment.value,ast.Call)and assignment.value.func.id=='frozenset'\n    historical_scenarios=frozenset(ast.literal_eval(assignment.value.args[0]))\n    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier'}\n    assert not curriculum.PHYSICS_MODEL_SCENARIOS-historical_scenarios\n    with monkeypatch.context()as historical:\n        historical.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path))\n        historical.setattr(curriculum,'PHYSICS_MODEL_SCENARIOS',historical_scenarios)\n        before=Curriculum()\n"
+        }
+      ]
+    }
+  },
+  "clinicalApproval": false,
+  "extendsHistoricalApproval": false,
+  "wholeGoalComplete": false
+}

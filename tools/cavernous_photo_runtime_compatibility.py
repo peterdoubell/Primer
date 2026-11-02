@@ -14,6 +14,8 @@ def reviewed():
  return data
 
 def before_cavernous_bytes(path,raw,allow_older=False):
+ from tools.rotation_runtime_compatibility import before_rotation_bytes
+ raw=before_rotation_bytes(path,raw,allow_older=True)
  path=str(path)
  if path not in PATHS:return raw
  row=reviewed()['files'][path]

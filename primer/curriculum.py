@@ -211,7 +211,7 @@ CONCEPT_MODEL_SCENARIOS = frozenset({
     "hist.3.economics-intro", "lang.4.linguistics", "mind.5.logic-advanced",
 })
 
-# These scenarios intentionally exclude the four physics lessons with bespoke
+# These scenarios intentionally exclude the five physics lessons with bespoke
 # renderers.  A scenario is bound to the matching node id below, so authored
 # curriculum data cannot silently reuse a scientific model in the wrong lesson.
 PHYSICS_MODEL_SCENARIOS = frozenset({
@@ -225,7 +225,7 @@ PHYSICS_MODEL_SCENARIOS = frozenset({
     "phys.4.em-maxwell", "phys.4.quantum", "phys.4.statmech",
     "phys.4.relativity", "phys.4.solid-state", "phys.4.particles",
     "phys.4.experiment", "phys.5.qft", "phys.5.gr-cosmo",
-    "phys.5.condensed", "phys.5.quantum-info", "phys.5.frontier",
+    "phys.5.condensed", "phys.5.quantum-info",
 })
 
 
