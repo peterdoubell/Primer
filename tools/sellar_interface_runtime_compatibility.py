@@ -14,6 +14,8 @@ def reviewed():
  return data
 
 def before_interfaces_bytes(path,raw,allow_older=False):
+ from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes
+ raw=before_pituitary_bytes(path,raw,allow_older=True)
  path=str(path)
  if path not in PATHS:return raw
  row=reviewed()['files'][path]
@@ -30,6 +32,8 @@ def before_interfaces_bytes(path,raw,allow_older=False):
  return restored
 
 def before_interfaces_fields(identifier,fields):
+ from tools.pituitary_case_runtime_compatibility import before_pituitary_fields
+ fields=before_pituitary_fields(identifier,fields)
  proof=reviewed();result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);addition=proof['inspector'];matches=[r for r in items if r.get('id')==addition['id']]
  if not matches:return result
  if identifier not in proof['bindings']or matches!=[addition]:raise ValueError('Unreviewed sellar source descriptor')

@@ -1,0 +1,188 @@
+{
+  "base_commit": "ce3ef51494c0c055cdffd4d6ded9acb1e0479126",
+  "bindings": [
+    "ra.mri-sella"
+  ],
+  "inspector": {
+    "id": "pandit-pituitary-case1-processed-reference",
+    "title": "Provided pituitary MRI case 1 and published source annotations",
+    "modality": "Provided processed contrast-enhanced MRI, registered T2 and source-mask boundaries",
+    "src": "/app/anatomy/pituitary-pandit-case1/provided-plane-viewer/index.html",
+    "manifest_url": "/app/anatomy/pituitary-pandit-case1/plane-package/manifest.json",
+    "sha256": "45fa20f211b28b6128397a88b162cf285f9bdb9643c505f2daf08ba4ff17e70d",
+    "manifest_sha256": "120c2ba139319d92cd1880671a5c17e441dbab0df3a98ca84e1c7772a44fe52f",
+    "caption": "Inspect a separate published source case with T1 contrast-enhanced MRI, supplied registered T2, a tumour\u2013gland complex annotation and combined carotid annotation. The provided grid is 0.5 mm; reported T1 acquisition was 0.488 \u00d7 0.488 \u00d7 1.5 mm. Display uses supplied sforms; the annotation qform displacement of 22.5 mm is retained and disclosed. No current-patient or SPL-atlas registration is applied.",
+    "attribution": "Source: A. S. Pandit, A. Keenlyside, D. Z. Khan, G. Reischer, M. A. Kamal, N. Yoh, Z. Jaunmuktane, A. Borg, N. L. Dorward, S. E. Baldeweg, I. Davagnanam, H. Hyare, P. Nachev and H. J. Marcus.\nMapping pituitary neuroendocrine tumors: an annotated MRI dataset profiling tumor and carotid characteristics.\nDataset: https://doi.org/10.6084/m9.figshare.27894084.v1\nPaper: https://doi.org/10.1038/s41597-024-04218-8\nDataset licence: Creative Commons Attribution4.0 International, https://creativecommons.org/licenses/by/4.0/\nThe source publisher explicitly applies this licence to the data; source metadata and unmodified original small annotation files are retained.\nMarked adaptation, Primer, 2026-11-01: coordinate-header analysis and comparison display from original provided processed MRI samples with original-mask display lookup. No source sample/header changes or corrective registration were made. Not an independent anatomical, biological-boundary or clinical approval. No source-author or institutional endorsement is implied.\n",
+    "source_url": "https://doi.org/10.6084/m9.figshare.27894084.v1",
+    "publication_url": "https://doi.org/10.1038/s41597-024-04218-8",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "source_grain": {
+      "kind": "single published processed clinical source case",
+      "subject_count": 1,
+      "provided_grid_mm": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "T1_acquisition_mm": [
+        0.488,
+        0.488,
+        1.5
+      ],
+      "T2_acquisition_parameters": "unspecified in source workbook",
+      "acquisition_native": false,
+      "tumour_and_gland_independently_separated": false,
+      "carotid_wall_branches_laterality_separately_labelled": false,
+      "annotation_qform_displacement_mm": 22.5,
+      "source_header_conflict_resolved": false,
+      "source_mask_model_count": 2,
+      "source_planes": 4980
+    },
+    "source_grant": {
+      "publisher_explicitly_applies_license_to_data": true,
+      "terms_url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution_url": "/app/anatomy/pituitary-pandit-case1/provided-plane-viewer/ATTRIBUTION.txt",
+      "marked_derived_version": true
+    },
+    "bound_source_ids": [
+      "pandit-pituitary-case1-processed-reference"
+    ],
+    "clinical_approval": false,
+    "fine_anatomical_approval": false,
+    "current_patient_registration": false,
+    "normal_anatomical_atlas_approval": false,
+    "complete_reporting_anatomy_approved": false
+  },
+  "clinicalApproval": false,
+  "extendsHistoricalApproval": false,
+  "wholeGoalComplete": false,
+  "files": {
+    ".vercelignore": {
+      "before_sha256": "3065d547c731e66d4a4cf68477e03d6cb719038499ca809c78d78a540216c0d5",
+      "after_sha256": "4d43751e89fea68f90036b1345191bb5f17ef2fd95eddea13247c3208f05f382",
+      "changes": [
+        {
+          "start": 97,
+          "end": 102,
+          "before": "",
+          "after": "\n# Byte-pinned processed pituitary metadata is served from gzip resources.\nweb/anatomy/pituitary-pandit-case1/plane-package/manifest.json\nweb/anatomy/pituitary-pandit-case1/plane-package/view-config.json\nweb/anatomy/pituitary-pandit-case1/provided-plane-viewer/model-metadata.json\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "b67653d466591bffb3efa971455a4c5edb35ec216c60c9995bf826dbac83fe57",
+      "after_sha256": "76e517d3fc8a3c90fd34428f72377f0f1019949dff57dfd43ed04e4d948a9880",
+      "changes": [
+        {
+          "start": 3969,
+          "end": 4021,
+          "before": "",
+          "after": "@app.api_route(\"/app/anatomy/pituitary-pandit-case1/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def pituitary_case_delivery(asset: str, request: Request):\n    from .pituitary_case_reference import ATLAS, PREFIX, registry, references, validate_file, metadata_bytes, local_payload\n    src = PREFIX + asset\n    data = registry()\n    if (not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or\n            asset not in set(data['files']) | set(data['payloads']) | set(data['originals'])):\n        return JSONResponse({'detail': 'Unknown processed pituitary source resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    if asset in data['payloads'] or asset in data['originals']:\n        row = data['payloads'].get(asset, data['originals'].get(asset))\n        requested_range = request.headers.get('range')\n        if requested_range:\n            import re\n            match = re.fullmatch(r'bytes=(\\d+)-(\\d+)', requested_range)\n            if not match or not 0 <= int(match[1]) <= int(match[2]) < row['bytes']:\n                return Response(status_code=416, headers={'Content-Range': 'bytes */' + str(row['bytes']), 'Cache-Control': 'private, no-store'})\n        path = local_payload(asset) if asset in data['payloads'] else None\n        if path is not None:\n            return FileResponse(path, media_type='application/octet-stream', headers={'Cache-Control': 'private, no-store'})\n        if requested_range:\n            from .pituitary_case_reference import remote_range\n            start, end = int(match[1]), int(match[2])\n            if end - start + 1 > 2 * 1024 * 1024:\n                return Response(status_code=416, headers={'Content-Range': 'bytes */' + str(row['bytes']), 'Cache-Control': 'private, no-store'})\n            if request.method == 'HEAD':\n                return Response(status_code=206, headers={'Content-Range': f'bytes {start}-{end}/{row[\"bytes\"]}', 'Content-Length': str(end-start+1), 'Cache-Control': 'private, no-store'})\n            try:\n                content = await remote_range(asset, start, end)\n            except (ValueError, OSError):\n                return JSONResponse({'detail': 'Source range temporarily unavailable'}, status_code=502, headers={'Cache-Control': 'private, no-store'})\n            return Response(content, status_code=206, media_type='application/octet-stream', headers={'Content-Range': f'bytes {start}-{end}/{row[\"bytes\"]}', 'Accept-Ranges': 'bytes', 'Cache-Control': 'private, no-store'})\n        if asset.startswith('source-models/'):\n            from .pituitary_case_reference import remote_range\n            if request.method == 'HEAD':\n                return Response(headers={'Content-Length': str(row['bytes']), 'Cache-Control': 'private, no-store'})\n            try:\n                content = await remote_range(asset, 0, row['bytes'] - 1)\n            except (ValueError, OSError):\n                return JSONResponse({'detail': 'Source model temporarily unavailable'}, status_code=502, headers={'Cache-Control': 'private, no-store'})\n            return Response(content, media_type='application/octet-stream', headers={'Cache-Control': 'private, no-store'})\n        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})\n    validate_file(asset)\n    if asset in data['virtual_metadata']:\n        return Response(metadata_bytes(asset), media_type='application/json', headers={'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'provided-plane-viewer/index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\").replace(\"connect-src 'self';\", \"connect-src 'self' https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com;\")\n    return response\n\n\n"
+        }
+      ]
+    },
+    "primer/source_native_inspectors.py": {
+      "before_sha256": "68d7ff9b33992c04abce3bf873812bd75009c55669478f3b21550b9b82329cce",
+      "after_sha256": "2ad8d032aef106fdf746a34c2a0b5c35538ad738ee05b59994c16c782057598c",
+      "changes": [
+        {
+          "start": 110,
+          "end": 113,
+          "before": "",
+          "after": "    from .pituitary_case_reference import references as pituitary_references\n    for identifier, entries in pituitary_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "9cf3db0591793c6be9cc7d7ab06ee73d3c030b1bce6146526c347cd89ab71091",
+      "after_sha256": "6230faf016077cf0dba5e50bc54d2ae392d8e443ffb746739afe69357cb017f0",
+      "changes": [
+        {
+          "start": 2042,
+          "end": 2043,
+          "before": "",
+          "after": "  const pituitaryCase = asset.id === 'pandit-pituitary-case1-processed-reference';\n"
+        },
+        {
+          "start": 2057,
+          "end": 2058,
+          "before": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts) {\n",
+          "after": "  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase) {\n"
+        },
+        {
+          "start": 2059,
+          "end": 2060,
+          "before": "    const openLabel = sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n",
+          "after": "    const openLabel = pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n"
+        },
+        {
+          "start": 2958,
+          "end": 2959,
+          "before": "  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));\n",
+          "after": "  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));\n"
+        },
+        {
+          "start": 3327,
+          "end": 3329,
+          "before": "  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n  const curatedSurface = sourceModels.some(asset => !['spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));\n",
+          "after": "  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n  const curatedSurface = sourceModels.some(asset => !['pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));\n"
+        }
+      ]
+    },
+    "docs/radiology-fidelity-scope.json": {
+      "before_sha256": "dcfa010a144885deae761fd3a50fdcd67ad9d637e98642aeb9eedc24d5fd01bf",
+      "after_sha256": "99b7f49ee92dc1a17bbef99859a0eae7d37306aaa11a988cb4e3634ec3d1e38e",
+      "changes": [
+        {
+          "start": 117195,
+          "end": 117246,
+          "before": "",
+          "after": "          },\n          {\n            \"id\": \"pandit-pituitary-case1-processed-reference\",\n            \"title\": \"Provided pituitary MRI case 1 and published source annotations\",\n            \"modality\": \"Provided processed contrast-enhanced MRI, registered T2 and source-mask boundaries\",\n            \"src\": \"/app/anatomy/pituitary-pandit-case1/provided-plane-viewer/index.html\",\n            \"manifest_url\": \"/app/anatomy/pituitary-pandit-case1/plane-package/manifest.json\",\n            \"sha256\": \"45fa20f211b28b6128397a88b162cf285f9bdb9643c505f2daf08ba4ff17e70d\",\n            \"manifest_sha256\": \"120c2ba139319d92cd1880671a5c17e441dbab0df3a98ca84e1c7772a44fe52f\",\n            \"caption\": \"Inspect a separate published source case with T1 contrast-enhanced MRI, supplied registered T2, a tumour\\u2013gland complex annotation and combined carotid annotation. The provided grid is 0.5 mm; reported T1 acquisition was 0.488 \\u00d7 0.488 \\u00d7 1.5 mm. Display uses supplied sforms; the annotation qform displacement of 22.5 mm is retained and disclosed. No current-patient or SPL-atlas registration is applied.\",\n            \"attribution\": \"Source: A. S. Pandit, A. Keenlyside, D. Z. Khan, G. Reischer, M. A. Kamal, N. Yoh, Z. Jaunmuktane, A. Borg, N. L. Dorward, S. E. Baldeweg, I. Davagnanam, H. Hyare, P. Nachev and H. J. Marcus.\\nMapping pituitary neuroendocrine tumors: an annotated MRI dataset profiling tumor and carotid characteristics.\\nDataset: https://doi.org/10.6084/m9.figshare.27894084.v1\\nPaper: https://doi.org/10.1038/s41597-024-04218-8\\nDataset licence: Creative Commons Attribution4.0 International, https://creativecommons.org/licenses/by/4.0/\\nThe source publisher explicitly applies this licence to the data; source metadata and unmodified original small annotation files are retained.\\nMarked adaptation, Primer, 2026-11-01: coordinate-header analysis and comparison display from original provided processed MRI samples with original-mask display lookup. No source sample/header changes or corrective registration were made. Not an independent anatomical, biological-boundary or clinical approval. No source-author or institutional endorsement is implied.\\n\",\n            \"source_url\": \"https://doi.org/10.6084/m9.figshare.27894084.v1\",\n            \"publication_url\": \"https://doi.org/10.1038/s41597-024-04218-8\",\n            \"license\": \"CC BY 4.0\",\n            \"license_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n            \"source_grain\": {\n              \"kind\": \"single published processed clinical source case\",\n              \"subject_count\": 1,\n              \"provided_grid_mm\": [\n                0.5,\n                0.5,\n                0.5\n              ],\n              \"T1_acquisition_mm\": [\n                0.488,\n                0.488,\n                1.5\n              ],\n              \"T2_acquisition_parameters\": \"unspecified in source workbook\",\n              \"acquisition_native\": false,\n              \"tumour_and_gland_independently_separated\": false,\n              \"carotid_wall_branches_laterality_separately_labelled\": false,\n              \"annotation_qform_displacement_mm\": 22.5,\n              \"source_header_conflict_resolved\": false,\n              \"source_mask_model_count\": 2,\n              \"source_planes\": 4980\n            },\n            \"source_grant\": {\n              \"publisher_explicitly_applies_license_to_data\": true,\n              \"terms_url\": \"https://creativecommons.org/licenses/by/4.0/\",\n              \"attribution_url\": \"/app/anatomy/pituitary-pandit-case1/provided-plane-viewer/ATTRIBUTION.txt\",\n              \"marked_derived_version\": true\n            },\n            \"bound_source_ids\": [\n              \"pandit-pituitary-case1-processed-reference\"\n            ],\n            \"clinical_approval\": false,\n            \"fine_anatomical_approval\": false,\n            \"current_patient_registration\": false,\n            \"normal_anatomical_atlas_approval\": false,\n            \"complete_reporting_anatomy_approved\": false\n"
+        }
+      ]
+    },
+    "tools/sellar_interface_runtime_compatibility.py": {
+      "before_sha256": "a6ad2c48b0ec66730b4f7181c9f47bb64069b3ee4c56505381ddda202b4b7841",
+      "after_sha256": "56180ee55bcd8b6c53df4705ee5b1736c88c084dbe584e2e148f102bcb8a9a3f",
+      "changes": [
+        {
+          "start": 16,
+          "end": 18,
+          "before": "",
+          "after": " from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes\n raw=before_pituitary_bytes(path,raw,allow_older=True)\n"
+        },
+        {
+          "start": 34,
+          "end": 36,
+          "before": "",
+          "after": " from tools.pituitary_case_runtime_compatibility import before_pituitary_fields\n fields=before_pituitary_fields(identifier,fields)\n"
+        }
+      ]
+    },
+    "tests/test_sellar_interface_runtime.py": {
+      "before_sha256": "aa59edc33fe90d915a81fdbf8c6e76a544640d9cea20407561e5672ad9a50929",
+      "after_sha256": "3ef368e921c6d022d75c8bcd6ff1c1500f9a615d37461c35d7d97ba24f53343d",
+      "changes": [
+        {
+          "start": 67,
+          "end": 69,
+          "before": "        raw=(R/name).read_bytes();before=before_interfaces_bytes(name,raw)\n",
+          "after": "        from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes\n        raw=before_pituitary_bytes(name,(R/name).read_bytes());before=before_interfaces_bytes(name,raw)\n"
+        }
+      ]
+    },
+    "tests/test_sellar_source_interfaces.py": {
+      "before_sha256": "d213e8a9c02aa2524914a04032d1cf3d6b05075009ac720327e0b1f8302ecb1d",
+      "after_sha256": "2cbb919dba4fe16a0385118d44012584784c9610cc9f20fdcf34ec7961214a5e",
+      "changes": [
+        {
+          "start": 57,
+          "end": 59,
+          "before": "    for name,digest in index['sourceSHA256'].items():assert sha((R/name).read_bytes())==digest,name\n",
+          "after": "    from tools.pituitary_case_runtime_compatibility import before_pituitary_bytes\n    for name,digest in index['sourceSHA256'].items():assert sha(before_pituitary_bytes(name,(R/name).read_bytes()))==digest,name\n"
+        }
+      ]
+    }
+  }
+}

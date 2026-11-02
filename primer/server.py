@@ -3967,6 +3967,58 @@ async def sellar_interface_delivery(asset: str, request: Request):
     return response
 
 
+@app.api_route("/app/anatomy/pituitary-pandit-case1/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def pituitary_case_delivery(asset: str, request: Request):
+    from .pituitary_case_reference import ATLAS, PREFIX, registry, references, validate_file, metadata_bytes, local_payload
+    src = PREFIX + asset
+    data = registry()
+    if (not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or
+            asset not in set(data['files']) | set(data['payloads']) | set(data['originals'])):
+        return JSONResponse({'detail': 'Unknown processed pituitary source resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    if asset in data['payloads'] or asset in data['originals']:
+        row = data['payloads'].get(asset, data['originals'].get(asset))
+        requested_range = request.headers.get('range')
+        if requested_range:
+            import re
+            match = re.fullmatch(r'bytes=(\d+)-(\d+)', requested_range)
+            if not match or not 0 <= int(match[1]) <= int(match[2]) < row['bytes']:
+                return Response(status_code=416, headers={'Content-Range': 'bytes */' + str(row['bytes']), 'Cache-Control': 'private, no-store'})
+        path = local_payload(asset) if asset in data['payloads'] else None
+        if path is not None:
+            return FileResponse(path, media_type='application/octet-stream', headers={'Cache-Control': 'private, no-store'})
+        if requested_range:
+            from .pituitary_case_reference import remote_range
+            start, end = int(match[1]), int(match[2])
+            if end - start + 1 > 2 * 1024 * 1024:
+                return Response(status_code=416, headers={'Content-Range': 'bytes */' + str(row['bytes']), 'Cache-Control': 'private, no-store'})
+            if request.method == 'HEAD':
+                return Response(status_code=206, headers={'Content-Range': f'bytes {start}-{end}/{row["bytes"]}', 'Content-Length': str(end-start+1), 'Cache-Control': 'private, no-store'})
+            try:
+                content = await remote_range(asset, start, end)
+            except (ValueError, OSError):
+                return JSONResponse({'detail': 'Source range temporarily unavailable'}, status_code=502, headers={'Cache-Control': 'private, no-store'})
+            return Response(content, status_code=206, media_type='application/octet-stream', headers={'Content-Range': f'bytes {start}-{end}/{row["bytes"]}', 'Accept-Ranges': 'bytes', 'Cache-Control': 'private, no-store'})
+        if asset.startswith('source-models/'):
+            from .pituitary_case_reference import remote_range
+            if request.method == 'HEAD':
+                return Response(headers={'Content-Length': str(row['bytes']), 'Cache-Control': 'private, no-store'})
+            try:
+                content = await remote_range(asset, 0, row['bytes'] - 1)
+            except (ValueError, OSError):
+                return JSONResponse({'detail': 'Source model temporarily unavailable'}, status_code=502, headers={'Cache-Control': 'private, no-store'})
+            return Response(content, media_type='application/octet-stream', headers={'Cache-Control': 'private, no-store'})
+        return RedirectResponse(row['url'], status_code=307, headers={'Cache-Control': 'private, no-store'})
+    validate_file(asset)
+    if asset in data['virtual_metadata']:
+        return Response(metadata_bytes(asset), media_type='application/json', headers={'Cache-Control': 'private, no-store'})
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'provided-plane-viewer/index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("connect-src 'self';", "connect-src 'self' https://ja2lsnp9uca4bivw.public.blob.vercel-storage.com;")
+    return response
+
+
 @app.api_route("/app/anatomy/holiatlas/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def holiatlas_reference_delivery(asset: str, request: Request):
     from .holiatlas_reference import AUTHORED, ATLAS, PREFIX, registry, references, validate_file, metadata_bytes
