@@ -3967,6 +3967,21 @@ async def sellar_interface_delivery(asset: str, request: Request):
     return response
 
 
+@app.api_route("/app/anatomy/cavernous-source-photographs/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
+async def cavernous_photo_delivery(asset: str, request: Request):
+    from .cavernous_photo_reference import ATLAS, PREFIX, registry, references, validate_file
+    src = PREFIX + asset
+    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:
+        return JSONResponse({'detail': 'Unknown dissection resource'}, status_code=404, headers={'Cache-Control': 'private, no-store'})
+    references()
+    validate_file(asset)
+    response = await app.state.source_static.get_response('anatomy/' + ATLAS + '/' + asset, request.scope)
+    response.headers['Cache-Control'] = 'private, no-store'
+    if asset == 'viewer/index.html':
+        response.headers['Content-Security-Policy'] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';").replace("img-src 'self' data:", "img-src 'self' blob: data:")
+    return response
+
+
 @app.api_route("/app/anatomy/pituitary-pandit-case1/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def pituitary_case_delivery(asset: str, request: Request):
     from .pituitary_case_reference import ATLAS, PREFIX, registry, references, validate_file, metadata_bytes, local_payload

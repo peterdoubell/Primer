@@ -14,6 +14,8 @@ def reviewed():
  return data
 
 def before_pituitary_bytes(path,raw,allow_older=False):
+ from tools.cavernous_photo_runtime_compatibility import before_cavernous_bytes
+ raw=before_cavernous_bytes(path,raw,allow_older=True)
  path=str(path)
  if path not in PATHS:return raw
  row=reviewed()['files'][path]
@@ -30,6 +32,8 @@ def before_pituitary_bytes(path,raw,allow_older=False):
  return restored
 
 def before_pituitary_fields(identifier,fields):
+ from tools.cavernous_photo_runtime_compatibility import before_cavernous_fields
+ fields=before_cavernous_fields(identifier,fields)
  proof=reviewed();result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);addition=proof['inspector'];matches=[r for r in items if r.get('id')==addition['id']]
  if not matches:return result
  if identifier not in proof['bindings']or matches!=[addition]:raise ValueError('Unreviewed pituitary source descriptor')
