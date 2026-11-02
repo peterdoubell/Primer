@@ -7,3 +7,5 @@ The source figure 3 title and image labels identify VI. Its original caption ref
 The research viewer supports full-figure fitting, native-pixel magnification and keyboard/pointer panning. Ten phone/desktop figure checks passed. This establishes viewer behavior and original image delivery only. No anatomical completeness or clinical approval follows from it.
 
 The requirement map identifies candidate references for three left-sided nerve structures and explicitly leaves all 18 associated reporting parts unapproved. The source supplies no raw 3D coordinates or MRI/CT volumes. This packet is not integrated into the application or deployed.
+
+Figure 2 also retains an unresolved source terminology discrepancy: the abstract uses cerebral peduncle, while the figure caption and results use cerebellar peduncle. The preview discloses this disagreement.
