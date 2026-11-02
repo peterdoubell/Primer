@@ -108,6 +108,9 @@ def references():
     from .sellar_interface_reference import references as sellar_references
     for identifier, entries in sellar_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .cavernous_photo_reference import references as cavernous_references
+    for identifier, entries in cavernous_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     from .pituitary_case_reference import references as pituitary_references
     for identifier, entries in pituitary_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
