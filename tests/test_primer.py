@@ -671,7 +671,7 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
     sound = str(curr.nodes['phys.1.sound']).lower()
     forces = str(curr.nodes['phys.2.forces']).lower()
     all_physics = (' '.join(str(node).lower() for nid, node in curr.nodes.items()
-                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower())
+                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower())
     assert 'slow big wiggles' not in sound
     assert 'vibration frequency changes pitch' in sound
     assert 'different from how fast the sound travels' in sound
@@ -692,7 +692,10 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'two phases can coexist',
         'one free bosonic mode',
         'a finite mock fluctuation above it is not an experimental bell proof',
-        'outer disk and excludes the galactic center',
+        'not measured galaxy data',
+        'not total or virial mass',
+        'no p-value or unique physical conclusion is inferred',
+        'not the edge of the disk',
         'makes the field transition abrupt',
         'the density integrates to one',
         'gravity and acceleration require additional treatment',

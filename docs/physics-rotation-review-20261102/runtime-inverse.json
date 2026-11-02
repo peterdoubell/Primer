@@ -226,8 +226,14 @@
     },
     "primer/curriculum.py": {
       "before_sha256": "3ed30ef274c72cb04f67164915409e5377abd7b9b81a73488471b2f1bc795b21",
-      "after_sha256": "a8425dbc77ce2cbef7e1c95e813ab1e2e9971610b251c4be198c37113b4dfd7f",
+      "after_sha256": "f918d09c7ed1b7a974833ba3ce854ddbab60f0c273196905a4305fc3ac6f742b",
       "changes": [
+        {
+          "start": 213,
+          "end": 214,
+          "before": "# These scenarios intentionally exclude the four physics lessons with bespoke\n",
+          "after": "# These scenarios intentionally exclude the five physics lessons with bespoke\n"
+        },
         {
           "start": 227,
           "end": 228,
@@ -238,7 +244,7 @@
     },
     "tests/test_primer.py": {
       "before_sha256": "474c5ce7bed0d8b9e849c741a651c5d76031c3f5e0d71623d556351c9eebe3c1",
-      "after_sha256": "ccdccc05228c50699b5126e810b513a36ce255dcee85f4f1b92b966db56dad2b",
+      "after_sha256": "2f5af5968212f9e07d22b279c43ad0dccdcd35e7a2aa51d99ab8c7ed339b0940",
       "changes": [
         {
           "start": 604,
@@ -253,14 +259,26 @@
           "after": "        if nid == 'phys.5.frontier':\n            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')=='rotation-density-geometry']\n            assert base_media[1]['props']['scenario']=='module.phys.5.frontier'\n"
         },
         {
-          "start": 2272,
-          "end": 2278,
+          "start": 673,
+          "end": 674,
+          "before": "                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower())\n",
+          "after": "                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower())\n"
+        },
+        {
+          "start": 694,
+          "end": 698,
+          "before": "        'outer disk and excludes the galactic center',\n",
+          "after": "        'not measured galaxy data',\n        'not total or virial mass',\n        'no p-value or unique physical conclusion is inferred',\n        'not the edge of the disk',\n"
+        },
+        {
+          "start": 2275,
+          "end": 2281,
           "before": "    assert len(scenario_keys) == 35\n    assert registry.count('controls: [') == 35\n    assert registry.count('caveat:') == 35\n    assert registry.count('compute(state)') == 35\n    assert registry.count('readout:') >= 35\n    assert registry.count('visual:') == 35\n",
           "after": "    assert len(scenario_keys) == 34\n    assert registry.count('controls: [') == 34\n    assert registry.count('caveat:') == 34\n    assert registry.count('compute(state)') == 34\n    assert registry.count('readout:') >= 34\n    assert registry.count('visual:') == 34\n"
         },
         {
-          "start": 2306,
-          "end": 2307,
+          "start": 2309,
+          "end": 2310,
           "before": "    assert '35 scenarios, 84 independently exercised legacy range controls' in result.stdout\n",
           "after": "    assert '34 scenarios, 82 independently exercised legacy range controls' in result.stdout\n"
         }
@@ -275,6 +293,18 @@
           "end": 18,
           "before": "const EXPECTED_SCENARIO_COUNT = 35;\n",
           "after": "const EXPECTED_SCENARIO_COUNT = 34;\n"
+        }
+      ]
+    },
+    "tests/test_linear_algebra_integration.py": {
+      "before_sha256": "86154c95360f3352f7b31add11375295e70e3dc1c38dadcca8bd4dd0ac3b89a2",
+      "after_sha256": "1c736f5b8c6e0b1757cc8ce2f0239a20e139345309dce4bcf3c66c7dbf41a427",
+      "changes": [
+        {
+          "start": 95,
+          "end": 109,
+          "before": "    monkeypatch.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path));before=Curriculum()\n",
+          "after": "    # The frozen corpus predates the rotation replacement. Pair it with its\n    # byte-verified historical scenario registry only for this counterfactual.\n    import ast\n    from tools.rotation_runtime_compatibility import before_rotation_bytes\n    historical_source=before_rotation_bytes('primer/curriculum.py',(ROOT/'primer/curriculum.py').read_bytes())\n    assignment=next(n for n in ast.parse(historical_source).body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name)and t.id=='PHYSICS_MODEL_SCENARIOS'for t in n.targets))\n    assert isinstance(assignment.value,ast.Call)and assignment.value.func.id=='frozenset'\n    historical_scenarios=frozenset(ast.literal_eval(assignment.value.args[0]))\n    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier'}\n    assert not curriculum.PHYSICS_MODEL_SCENARIOS-historical_scenarios\n    with monkeypatch.context()as historical:\n        historical.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path))\n        historical.setattr(curriculum,'PHYSICS_MODEL_SCENARIOS',historical_scenarios)\n        before=Curriculum()\n"
         }
       ]
     }

@@ -93,7 +93,20 @@ def test_all_stage4_duration_effects_follow_only_the_exact_quiz_counterfactual(t
     now=Curriculum();corpus=bridge.source_corpus()
     for path,raw in corpus.items():
         (tmp_path/Path(path).name).write_bytes(bridge.before_linear_algebra_bytes(path,raw))
-    monkeypatch.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path));before=Curriculum()
+    # The frozen corpus predates the rotation replacement. Pair it with its
+    # byte-verified historical scenario registry only for this counterfactual.
+    import ast
+    from tools.rotation_runtime_compatibility import before_rotation_bytes
+    historical_source=before_rotation_bytes('primer/curriculum.py',(ROOT/'primer/curriculum.py').read_bytes())
+    assignment=next(n for n in ast.parse(historical_source).body if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name)and t.id=='PHYSICS_MODEL_SCENARIOS'for t in n.targets))
+    assert isinstance(assignment.value,ast.Call)and assignment.value.func.id=='frozenset'
+    historical_scenarios=frozenset(ast.literal_eval(assignment.value.args[0]))
+    assert historical_scenarios-curriculum.PHYSICS_MODEL_SCENARIOS=={'phys.5.frontier'}
+    assert not curriculum.PHYSICS_MODEL_SCENARIOS-historical_scenarios
+    with monkeypatch.context()as historical:
+        historical.setattr(curriculum,'CURRICULUM_DIR',str(tmp_path))
+        historical.setattr(curriculum,'PHYSICS_MODEL_SCENARIOS',historical_scenarios)
+        before=Curriculum()
     for row in current['rows']:
         ident=row['id'];old=next(r for r in prior['rows'] if r['id']==ident)
         assert now.node(ident)['minutes']==row['minutes'] and before.node(ident)['minutes']==old['minutes']
