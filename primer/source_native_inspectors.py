@@ -111,6 +111,8 @@ def references():
     from .cavernous_photo_reference import references as cavernous_references
     for identifier, entries in cavernous_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .glioblastoma_reference import case_inspector
+    result.setdefault('ra.mri-brain-tumours', []).append(case_inspector())
     from .pituitary_case_reference import references as pituitary_references
     for identifier, entries in pituitary_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
