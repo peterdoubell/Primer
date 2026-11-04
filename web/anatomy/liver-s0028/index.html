@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Liver CT in three planes · Primer</title>
+<style>body{font:1rem/1.5 system-ui;margin:1rem auto;padding:0 1rem;max-width:76rem;background:#172128;color:#f1f4f5}a{color:#a4dfff}.views{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem}figure{margin:0}canvas{display:block;width:100%;background:black;image-rendering:pixelated;cursor:crosshair}label{display:inline-block;margin:.3rem .6rem .3rem 0}input,select{vertical-align:middle}h1{line-height:1.2}</style>
+<main><a href="/app/#/node/rad.4.liver">Return to The Liver Lesion</a><h1>Liver CT in three planes</h1>
+<p>Follow the liver outline through case s0028. Select a point in any image or move the slice controls to inspect the same source voxel in all three planes.</p>
+<label>Display window <select id="window"><option value="400">Soft tissue · centre 50, width 400</option><option value="150">Narrow · centre 70, width 150</option></select></label>
+<label><input id="outline" type="checkbox" checked> Liver label outline</label>
+<div class="views"></div><output id="point" aria-live="polite">Loading CT…</output>
+<p><a href="/app/anatomy/totalseg-s0028-basal-context/index.html">Open the full CT and rotate the matching liver surface</a></p>
+<p>The crop includes the complete supplied liver label and a 15 mm margin on its 1.5 mm grid. The outline follows the segmentation, including its detached two-voxel component. This case provides organ anatomy for the lesson. Lesion characterisation requires separate imaging evidence.</p>
+<p>CT and segmentation by Jakob Wasserthal and colleagues. Primer cropped the arrays and added display windows and contours. <a href="https://zenodo.org/records/22688904">TotalSegmentator v3</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p></main><script src="planes.js"></script></html>
