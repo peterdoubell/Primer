@@ -8,6 +8,11 @@ PROOF_SHA256 = "bb094f31f6d187d89cf28111e7fa57f47e6b8566a5814d2d83400cbfb0c9871d
 
 
 def before_glioblastoma_bytes(path, raw, allow_older=False):
+    # Project the later experiment link only when the entire reader matches.
+    if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "d1d756aeaac40ea52afaf81732b9559b4a7bbff1076954d75dcce09ae1d80823":
+        raw = raw.replace(
+            b"  if (n.id === 'phys.4.experiment') page.append(el('a', { class: 'btn ghost', href: '/app/physics/lab-comparison/index.html' },\n"
+            b"    'Compare two laboratory measurements'));\n", b"", 1)
     if str(path) not in {"web/app.js", "primer/server.py", "tools/language_computation_runtime_compatibility.py"}:
         return raw
     proof = PROOF.read_bytes()
