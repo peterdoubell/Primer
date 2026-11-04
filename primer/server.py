@@ -3786,6 +3786,13 @@ async def native_pulmonary_payload_delivery(asset: str, request: Request):
                         media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
 
 
+@app.api_route("/app/anatomy/glioblastoma-ba2/index.html", methods=["GET", "HEAD"], include_in_schema=False)
+async def glioblastoma_viewer(request: Request):
+    response = await app.state.source_static.get_response("anatomy/glioblastoma-ba2/index.html", request.scope)
+    response.headers["Content-Security-Policy"] = CSP.replace("frame-ancestors 'none';", "frame-ancestors 'self';")
+    return response
+
+
 @app.api_route("/app/anatomy/bp3d-thoracic-4.3/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def thoracic_source_delivery(asset: str, request: Request):
     from .thoracic_native_inspectors import AUTHORED, PREFIX, registry, references, validate_file

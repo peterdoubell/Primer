@@ -2027,6 +2027,21 @@ function sourceStudyReference(asset, { createElement = el, sourceLink = radiolog
     sourceLink('Source dataset', asset.source_url), ' · ', sourceLink(asset.license, asset.license_url));
 }
 
+function glioblastomaCaseViewer() {
+  const details = el('details', { class: 'card' },
+    el('summary', {}, 'Compare glioblastoma MRI sequences and 3D compartments'));
+  details.addEventListener('toggle', () => {
+    if (details.open && !details.querySelector('iframe')) {
+      details.append(el('iframe', { src: '/app/anatomy/glioblastoma-ba2/index.html',
+        title: 'Glioblastoma MRI and tumour compartments', loading: 'lazy',
+        style: 'display:block;width:100%;height:850px;border:0' }));
+    } else if (!details.open) {
+      details.querySelector('iframe')?.remove();
+    }
+  });
+  return details;
+}
+
 function sourceNativeInspector(asset) {
   const sourceCase = Boolean(asset.publication_url);
   const noduleCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';
@@ -3024,6 +3039,7 @@ async function renderRadiologyDesk(page, nodeId) {
     ...(ref.annotated_anatomy_links?.length ? [['anatomy', 'Annotated anatomy', panel => panel.append(renderAnnotatedAnatomy(ref))]] : []),
     ['template', 'Report template', panel => panel.append(templates)],
     ['images', limbicContext.length ? 'Images and MRI sources' : hippocampalContext.length ? 'Images and registered MRI' : ref.source_native_inspectors?.length ? 'Images and native source' : studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+      if (n.id === 'ra.mri-brain-tumours') panel.append(glioblastomaCaseViewer());
       (ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
       if (ref.source_context_documents?.length) panel.append(sourceContextDocuments(ref.source_context_documents));
       studyReferences.forEach(asset => panel.append(sourceStudyReference(asset)));
@@ -3791,6 +3807,7 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
+  if (n.id === 'rad.5.brain-tumour') page.append(glioblastomaCaseViewer());
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {
     if (n.domain === 'radiology' || n.strand === 'music') lessonMedia.setAttribute('tabindex', '-1');

@@ -17,6 +17,8 @@ def reviewed():
     return data
 
 def before_language_computation_bytes(path,raw,allow_older=False):
+    from tools.glioblastoma_runtime_compatibility import before_glioblastoma_bytes
+    raw = before_glioblastoma_bytes(path, raw, allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]
