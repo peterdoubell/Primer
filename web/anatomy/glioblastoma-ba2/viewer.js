@@ -64,6 +64,9 @@
     const [i,j,k] = positions;
     const label = volumes.mask[i + dimensions[0] * (j + dimensions[1] * k)];
     // The source NIfTI sform maps this LAS voxel grid into RAS millimetres.
+    document.dispatchEvent(new CustomEvent('mri-section', {
+      detail: {axis, coordinate: [90-i, j-126, k-72][axis]}
+    }));
     document.querySelector('#point').textContent =
       'MNI152 (R, A, S): ' + [90-i, j-126, k-72].join(', ') + ' mm · ' + labels[label];
     const orientation = ['P → A, superior up','R → L, superior up','R → L, anterior up'][axis];
