@@ -3807,6 +3807,8 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
+  if (n.id === 'phys.4.experiment') page.append(el('a', { class: 'btn ghost', href: '/app/physics/lab-comparison/index.html' },
+    'Compare two laboratory measurements'));
   if (n.id === 'rad.5.brain-tumour') page.append(glioblastomaCaseViewer());
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {

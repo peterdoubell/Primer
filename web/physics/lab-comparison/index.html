@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare two laboratory measurements · Primer</title>
+<style>
+body{font:1rem/1.5 system-ui;background:#fbfaf6;color:#182e37;margin:auto;max-width:52rem;padding:1rem}label{display:inline-grid;margin:.4rem;gap:.2rem}input,button{font:inherit;padding:.45rem}input{width:9rem}fieldset{border:1px solid #a3b4b8;border-radius:.4rem}figure{margin:1rem 0}svg{width:100%;max-height:16rem;background:white}output{display:block;font-weight:600}
+</style>
+<main><a href="/app/#/node/phys.4.experiment">Return to The Art of Experiment</a>
+<h1>Do the two laboratories agree?</h1><p>Both laboratories measure the same dimensionless constant. Start with the lesson’s measurements, then change either result or its uncertainty.</p>
+<fieldset><legend>Laboratory results</legend>
+<label>Estimate A<input type="number" id="a" value="1.652" step="any" required></label>
+<label>Standard uncertainty A<input type="number" id="ua" value=".001" min="0" step="any" required></label>
+<label>Estimate B<input type="number" id="b" value="1.641" step="any" required></label>
+<label>Standard uncertainty B<input type="number" id="ub" value=".002" min="0" step="any" required></label>
+<label>Error correlation ρ<input type="number" id="rho" value="0" min="-1" max="1" step="any" required></label>
+</fieldset><figure><svg viewBox="0 0 600 165" role="img" aria-label="Two estimates and their one-standard-uncertainty intervals on a shared scale"></svg><figcaption>Each bar spans one standard uncertainty on either side of its estimate. Both bars use the same horizontal scale.</figcaption></figure>
+<output id="result" aria-live="polite"></output>
+<p>The comparison uses Δ = A − B and u(Δ)² = u(A)² + u(B)² − 2ρu(A)u(B). A positive correlation reduces uncertainty in the difference because shared errors tend to move both readings together.</p>
+<p>A large standardized difference calls for checking the measurement model, uncertainty estimates and possible bias. The difference alone cannot identify which laboratory, if either, has a bias.</p></main><script src="compare.js"></script></html>
