@@ -14,6 +14,8 @@ def reviewed():
  return data
 
 def before_condensed_bytes(path,raw,allow_older=False):
+ from tools.particle_runtime_compatibility import before_particle_bytes
+ raw=before_particle_bytes(path,raw,allow_older=True)
  path=str(path)
  if path not in PATHS:return raw
  row=reviewed()['files'][path]

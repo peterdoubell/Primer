@@ -186,7 +186,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "alphabet-explorer", "inclusive-family-timeline",
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
-    "art-elements-composer", "integer-number-line-lab", "physics-concept-lab",
+    "art-elements-composer", "integer-number-line-lab", "physics-concept-lab", "physics-particle-lab",
     "radiology-anatomy",
 })
 
@@ -211,7 +211,7 @@ CONCEPT_MODEL_SCENARIOS = frozenset({
     "hist.3.economics-intro", "lang.4.linguistics", "mind.5.logic-advanced",
 })
 
-# These scenarios intentionally exclude the six physics lessons with bespoke
+# These scenarios intentionally exclude the seven physics lessons with bespoke
 # renderers.  A scenario is bound to the matching node id below, so authored
 # curriculum data cannot silently reuse a scientific model in the wrong lesson.
 PHYSICS_MODEL_SCENARIOS = frozenset({
@@ -223,7 +223,7 @@ PHYSICS_MODEL_SCENARIOS = frozenset({
     "phys.3.optics-waves", "phys.3.thermo", "phys.3.nuclear",
     "phys.3.relativity-intro", "phys.3.modern", "phys.4.classical",
     "phys.4.em-maxwell", "phys.4.quantum", "phys.4.statmech",
-    "phys.4.relativity", "phys.4.solid-state", "phys.4.particles",
+    "phys.4.relativity", "phys.4.solid-state",
     "phys.4.experiment", "phys.5.qft", "phys.5.gr-cosmo",
     "phys.5.quantum-info",
 })
@@ -755,6 +755,10 @@ def _validate_lesson_media(node: Dict) -> None:
                         or len(start_elements) != len(set(start_elements)):
                     raise ValueError("{} art elements composer has unknown settings".format(
                         node.get("id")))
+            elif renderer == "physics-particle-lab":
+                if set(props) != {"scenario"} or props.get("scenario") != "phys.4.particles" \
+                        or node.get("id") != "phys.4.particles":
+                    raise ValueError("Particle conservation activity requires its matching lesson")
             elif renderer == "physics-concept-lab":
                 scenario = props.get("scenario")
                 if set(props) != {"scenario"} or not isinstance(scenario, str) \

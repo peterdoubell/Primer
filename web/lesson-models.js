@@ -5754,31 +5754,6 @@
         };
       },
     },
-    'phys.4.particles': {
-      controls: [{ ...physicsControl('channel', 'Candidate decay channel', 0, 2, 1, 0, '',
-        'complete beta decay', 'free proton proposal'),
-        names: ['n → p + e⁻ + antineutrino', 'n → p + e⁻', 'p → n + positron'] }],
-      caveat: 'A full decay audit also checks energy, momentum, spin, and every relevant flavor quantum number.',
-      compute(state) {
-        const channels = [
-          { name: 'n → p + e⁻ + antineutrino', q: true, b: true, l: true, allowed: true },
-          { name: 'n → p + e⁻', q: true, b: true, l: false, allowed: false },
-          { name: 'p → n + positron', q: true, b: true, l: false, allowed: false },
-        ];
-        const selected = channels[state.channel];
-        return {
-          readout: selected.name + ': electric charge ' + (selected.q ? 'balances' : 'fails') +
-            ', baryon number ' + (selected.b ? 'balances' : 'fails') + ', and lepton number ' +
-            (selected.l ? 'balances' : 'fails') + '. This ledger ' + (selected.allowed ? 'passes' : 'rejects the channel') + '.',
-          visual: { kind: 'ledger', label: selected.name, segments: [
-            { label: 'charge ' + (selected.q ? '✓' : '×'), value: selected.q ? 1 : .42 },
-            { label: 'baryon ' + (selected.b ? '✓' : '×'), value: selected.b ? 1 : .42 },
-            { label: 'lepton ' + (selected.l ? '✓' : '×'), value: selected.l ? 1 : .42 },
-          ], equation: selected.allowed ? 'required additive numbers balance' : 'one failed law is enough to reject',
-          note: selected.allowed ? 'ledger passes these three checks' : 'ledger fails: missing required products' },
-        };
-      },
-    },
     'phys.4.experiment': {
       controls: [
         physicsControl('bias', 'Calibration offset', -5, 5, 0.5, 1, 'units', 'negative bias', 'positive bias'),
@@ -6199,6 +6174,7 @@
     'timeline-order-lab': renderTimelineOrder,
     'seasons-tilt-lab': renderSeasonsTilt,
     'art-elements-composer': renderArtElementsComposer,
+    'physics-particle-lab': (item,hooks) => window.PrimerParticleLab?.render(item,hooks) || null,
     'physics-concept-lab': renderPhysicsConceptLab,
   });
 
