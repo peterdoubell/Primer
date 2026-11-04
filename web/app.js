@@ -3807,6 +3807,8 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
+  if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
+    'Compare the same scores on two scales'));
   if (n.id === 'lang.1.dictionary') page.append(el('a', { class: 'btn ghost', href: '/app/language/dictionary/index.html' },
     'Play the guide-word hunt'));
   if (n.id === 'phys.4.experiment') page.append(el('a', { class: 'btn ghost', href: '/app/physics/lab-comparison/index.html' },
