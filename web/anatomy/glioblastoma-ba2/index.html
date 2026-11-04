@@ -5,6 +5,7 @@
 <label><input class="layer" type="checkbox" checked> Necrotic core</label>
 <label><input class="layer" type="checkbox" checked> Non-enhancing or edematous tumour</label>
 <label><input class="layer" type="checkbox" checked> Contrast-enhancing tumour</label>
+<label><input id="section-cut" type="checkbox"> Cut the 3D surfaces at the selected MRI slice</label><p id="cut-info">Whole surfaces shown.</p>
 <label>Rotation <input id="rotation" type="range" min="-180" max="180" value="25"></label>
 <label>Tilt <input id="tilt" type="range" min="-90" max="90" value="15"></label>
 <canvas width="640" height="480" id="surface" style="max-width:640px;display:block" aria-label="Three tumour compartments in provided world coordinates"></canvas><output id="surface-status" aria-live="polite"></output></section><script src="surface.js"></script><p>Filimonova and colleagues. <a href="https://doi.org/10.18112/openneuro.ds007045.v2.0.1">OpenNeuro dataset, CC0</a> · <a href="https://doi.org/10.1038/s41597-026-07953-2">Study methods</a></p><script src="viewer.js"></script></html>
