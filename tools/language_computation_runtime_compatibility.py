@@ -3,8 +3,8 @@ from pathlib import Path
 import hashlib,json
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/language-computation-review-20261104/runtime-inverse.json'
-PROOF_SHA256='4bc2955ab4477904b197cc9447a6240553918621f65f1814bc103184712357e7'
-PATHS=frozenset(['data/curriculum/02-language.json','primer/curriculum.py','tests/test_api.py','tests/test_hosted_safety.py','tests/test_primer.py','tests/test_particle_lesson.py','tools/check_remaining_models.js','tools/particle_runtime_compatibility.py','web/index.html','web/lesson-models.js'])
+PROOF_SHA256='5d2dc6cf749190957da4df90116b033b13b1ae0f7a349a201f9af5946a4c3518'
+PATHS=frozenset(['data/curriculum/02-language.json','primer/curriculum.py','tests/test_api.py','tests/test_hosted_safety.py','tests/test_primer.py','tests/test_particle_lesson.py','tools/check_remaining_models.js','tools/check_spatial_models.js','tools/check_cross_subject_models.js','tools/particle_runtime_compatibility.py','web/index.html','web/lesson-models.js'])
 sha=lambda b:hashlib.sha256(b).hexdigest()
 def reviewed():
     raw=(ROOT/PROOF).read_bytes()
