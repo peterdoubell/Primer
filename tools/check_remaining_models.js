@@ -410,7 +410,7 @@ const INTERACTIONS = Object.freeze({
 });
 
 function collectRemainingModels() {
-  let particleEntries=0;
+  let particleEntries=0,languageComputationEntries=0;
   const baseTenLessons = new Set();
   const entries = [];
   const lessonIds = new Set();
@@ -570,6 +570,10 @@ function collectRemainingModels() {
           assert.ok(!baseTenLessons.has(lesson.id), 'duplicate base-ten lesson'); baseTenLessons.add(lesson.id);
           continue; // Exact calculations and actual child-reader geometry have dedicated checks.
         }
+        if(media.renderer==='language-computation-lab'){
+          assert.equal(lesson.id,'lang.5.comp-ling');assert.deepEqual(media.props,{scenario:lesson.id});
+          languageComputationEntries++;continue; // Actual reader, independent Earley parses and exact fraction checks cover this activity.
+        }
         if(media.renderer==='physics-particle-lab'){
           assert.equal(lesson.id,'phys.4.particles');assert.deepEqual(media.props,{scenario:lesson.id});
           particleEntries++;continue; // Actual authenticated reader and independent kinematics have dedicated checks.
@@ -584,6 +588,7 @@ function collectRemainingModels() {
     }
   }
   assert.deepEqual([...baseTenLessons].sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
+  assert.equal(languageComputationEntries,1,'exactly one separately verified language computation studio');
   assert.equal(particleEntries,1,'exactly one separately verified particle activity');
   assert.equal(fluidsEntries, 1, 'exactly one new fluids companion');
   assert.equal(numberTheoryEntries, 1, 'exactly one separately verified full number-theory binding');

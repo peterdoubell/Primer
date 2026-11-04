@@ -187,7 +187,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
     "art-elements-composer", "integer-number-line-lab", "physics-concept-lab", "physics-particle-lab",
-    "radiology-anatomy",
+    "radiology-anatomy", "language-computation-lab",
 })
 
 # Each 3D scene teaches a specific lesson. Camera state stays local to the UI.
@@ -755,6 +755,10 @@ def _validate_lesson_media(node: Dict) -> None:
                         or len(start_elements) != len(set(start_elements)):
                     raise ValueError("{} art elements composer has unknown settings".format(
                         node.get("id")))
+            elif renderer == "language-computation-lab":
+                if set(props) != {"scenario"} or props.get("scenario") != "lang.5.comp-ling" \
+                        or node.get("id") != "lang.5.comp-ling":
+                    raise ValueError("Language computation studio requires its matching lesson")
             elif renderer == "physics-particle-lab":
                 if set(props) != {"scenario"} or props.get("scenario") != "phys.4.particles" \
                         or node.get("id") != "phys.4.particles":

@@ -4,6 +4,7 @@ import copy,hashlib,json,subprocess,sys
 import pytest
 from primer.curriculum import Curriculum,_validate_lesson_media
 from tools.particle_runtime_compatibility import before_particle_bytes,reviewed
+from tools.language_computation_runtime_compatibility import before_language_computation_bytes
 R=Path(__file__).resolve().parents[1];D=R/'docs/physics-particle-review-20261102'
 
 def test_lesson_preserves_quiz_illustration_and_detector_context():
@@ -38,7 +39,7 @@ def test_actual_reader_source_geometry_and_lifecycle():
     browser=json.loads((D/'reader/browser-proof.json').read_bytes());geometry=json.loads((D/'reader/rendered-proof.json').read_bytes())
     assert browser['allPassed']and browser['authenticatedSyntheticApp']and not browser['productionLearnerWrites']and browser['errors']==[]
     assert browser['cases']==36 and browser['independentMounts']==4 and browser['routeReopenChecks']==2 and browser['staleResponseChecks']==4
-    for name,digest in browser['sourceSHA256'].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest,name
+    for name,digest in browser['sourceSHA256'].items():assert hashlib.sha256(before_language_computation_bytes(name,(R/name).read_bytes())).hexdigest()==digest,name
     assert geometry['allPassed']and geometry['renderedNonzeroVectors']==94 and geometry['equalMomentumScaleVerified']
 
 

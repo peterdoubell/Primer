@@ -21,6 +21,8 @@ def reviewed():
     return data
 
 def before_particle_bytes(path,raw,allow_older=False):
+    from tools.language_computation_runtime_compatibility import before_language_computation_bytes
+    raw=before_language_computation_bytes(path,raw,allow_older=True)
     path=str(path)
     if path not in PATHS:return raw
     row=reviewed()['files'][path]

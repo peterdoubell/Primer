@@ -497,6 +497,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     expected['math.3.systems'] = (3, 'math-systems-lab')
     expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
     expected['phys.4.particles'] = (4, 'physics-particle-lab')
+    expected['lang.5.comp-ling'] = (5, 'language-computation-lab')
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
         for node_id in PHYSICS_MODEL_SCENARIOS
@@ -2254,7 +2255,7 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'morphogen-gradient-lab', 'ct-window-lab',
                      'alphabet-explorer', 'inclusive-family-timeline',
                      'day-night-rotation-lab', 'classroom-paint-mixer',
-                     'physics-concept-lab', 'physics-particle-lab'):
+                     'physics-concept-lab', 'physics-particle-lab', 'language-computation-lab'):
         assert renderer in js
     _assert_models_stay_local(js)
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js

@@ -1,0 +1,213 @@
+{
+  "base_commit": "1745be69605caec443708330884b0d7db34440b8",
+  "lesson": "lang.5.comp-ling",
+  "clinicalApproval": false,
+  "extendsHistoricalApproval": false,
+  "wholeGoalComplete": false,
+  "files": {
+    "data/curriculum/02-language.json": {
+      "before_sha256": "a9c6603b03958b12a131c82afc37286fb822cd67e4fc8b5538aec9c04e16bed9",
+      "after_sha256": "4173e452dd2df2fc9b6ddea93c880cd79bff0a061d610ae589f7b1479fc0a5b3",
+      "changes": [
+        {
+          "start": 5545,
+          "end": 5555,
+          "before": "",
+          "after": "    },\n    {\n     \"id\": \"lang-5-comp-ling-computation-studio\",\n     \"kind\": \"model\",\n     \"renderer\": \"language-computation-lab\",\n     \"title\": \"Language from rules and data\",\n     \"instructions\": \"Step through a parse chart, inspect alternative trees, compare exact next-token probabilities and audit classifier metrics. Practice with the same calculated values.\",\n     \"props\": {\n      \"scenario\": \"lang.5.comp-ling\"\n     }\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "fae5cbef56686c48dd19302b8e08d070c997646f23dcd2ad39295f267e0fa0c3",
+      "after_sha256": "ff6e9d48c56c3ec846c74232398ea17b4ca4ae9d3e4d9875ae8ba0b804fb035a",
+      "changes": [
+        {
+          "start": 189,
+          "end": 190,
+          "before": "    \"radiology-anatomy\",\n",
+          "after": "    \"radiology-anatomy\", \"language-computation-lab\",\n"
+        },
+        {
+          "start": 757,
+          "end": 761,
+          "before": "",
+          "after": "            elif renderer == \"language-computation-lab\":\n                if set(props) != {\"scenario\"} or props.get(\"scenario\") != \"lang.5.comp-ling\" \\\n                        or node.get(\"id\") != \"lang.5.comp-ling\":\n                    raise ValueError(\"Language computation studio requires its matching lesson\")\n"
+        }
+      ]
+    },
+    "tests/test_api.py": {
+      "before_sha256": "f22e7ea2ba7d776e622db3288df1d3c5e25f6bcc4567a8e3b0f20ac8ccf4a80d",
+      "after_sha256": "3919d2b92220a63428fbaea10253dd523db7b6b80909d09b4907200695fab849",
+      "changes": [
+        {
+          "start": 1202,
+          "end": 1203,
+          "before": "        'models': 853, 'items': 1414,  # Rotation and transition each combine chart and spatial companion.\n",
+          "after": "        'models': 854, 'items': 1415,  # Includes the computational-linguistics studio.\n"
+        },
+        {
+          "start": 1206,
+          "end": 1207,
+          "before": "        'math': (59, 137), 'language': (40, 61), 'physics': (39, 91),\n",
+          "after": "        'math': (59, 137), 'language': (40, 62), 'physics': (39, 91),\n"
+        }
+      ]
+    },
+    "tests/test_hosted_safety.py": {
+      "before_sha256": "26db8caf0ebd6562e4fc18a64e2fe5020ba46ca23ffa4e7d8ffb2e6c4a693064",
+      "after_sha256": "84a188d475ad645debbcee37a0fcdc4dc7265aad3b8ede28aae93a8b0efdf311",
+      "changes": [
+        {
+          "start": 124,
+          "end": 125,
+          "before": "        \"models\": 853, \"items\": 1414,  # Two calibrated activities combine chart and spatial companions.\n",
+          "after": "        \"models\": 854, \"items\": 1415,  # Includes the computational-linguistics studio.\n"
+        }
+      ]
+    },
+    "tests/test_primer.py": {
+      "before_sha256": "03a5413be0f453e1ee1066a3c9db8fe5b51b137f9618aa349b47820569fd6211",
+      "after_sha256": "892a60548b879c7552657c08792c717ace52deea8c4ae7af8af8fb639231f405",
+      "changes": [
+        {
+          "start": 499,
+          "end": 500,
+          "before": "",
+          "after": "    expected['lang.5.comp-ling'] = (5, 'language-computation-lab')\n"
+        },
+        {
+          "start": 2257,
+          "end": 2258,
+          "before": "                     'physics-concept-lab', 'physics-particle-lab'):\n",
+          "after": "                     'physics-concept-lab', 'physics-particle-lab', 'language-computation-lab'):\n"
+        }
+      ]
+    },
+    "tests/test_particle_lesson.py": {
+      "before_sha256": "fbed88b9b868b4764b67de0c80599db3fb64572d3ef56580c5fa2fea7ab69f39",
+      "after_sha256": "2936d13bb4f9820016cd34a60416d41b899ea0e7de909fd892a46ae9891186f5",
+      "changes": [
+        {
+          "start": 6,
+          "end": 7,
+          "before": "",
+          "after": "from tools.language_computation_runtime_compatibility import before_language_computation_bytes\n"
+        },
+        {
+          "start": 41,
+          "end": 42,
+          "before": "    for name,digest in browser['sourceSHA256'].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest,name\n",
+          "after": "    for name,digest in browser['sourceSHA256'].items():assert hashlib.sha256(before_language_computation_bytes(name,(R/name).read_bytes())).hexdigest()==digest,name\n"
+        }
+      ]
+    },
+    "tools/check_remaining_models.js": {
+      "before_sha256": "d6a82e0ebcc7705e5bc9fcfe02d1140a029d2dba91a75fcf48029942e4d84a74",
+      "after_sha256": "a9f83a7dc5b158b255c342b49408b90ca831f524f66bccf06067472f8827b6eb",
+      "changes": [
+        {
+          "start": 412,
+          "end": 413,
+          "before": "  let particleEntries=0;\n",
+          "after": "  let particleEntries=0,languageComputationEntries=0;\n"
+        },
+        {
+          "start": 572,
+          "end": 576,
+          "before": "",
+          "after": "        if(media.renderer==='language-computation-lab'){\n          assert.equal(lesson.id,'lang.5.comp-ling');assert.deepEqual(media.props,{scenario:lesson.id});\n          languageComputationEntries++;continue; // Actual reader, independent Earley parses and exact fraction checks cover this activity.\n        }\n"
+        },
+        {
+          "start": 590,
+          "end": 591,
+          "before": "",
+          "after": "  assert.equal(languageComputationEntries,1,'exactly one separately verified language computation studio');\n"
+        }
+      ]
+    },
+    "tools/check_spatial_models.js": {
+      "before_sha256": "4430b44ab57a5e2b0061f0f06d903dd7a63534273b8f787ec6e5c22738a45745",
+      "after_sha256": "9ba3b83cb31185c06fadf994637cd48150f0258cb55240832a2111e391fcfb84",
+      "changes": [
+        {
+          "start": 66,
+          "end": 67,
+          "before": "  !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,\n",
+          "after": "  !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab', 'language-computation-lab'].includes(item.renderer)).length,\n"
+        },
+        {
+          "start": 68,
+          "end": 73,
+          "before": "",
+          "after": "\nconst languageComputationEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='language-computation-lab').map(item=>({node,item})));\nassert.deepEqual(languageComputationEntries.map(({node,item})=>[node.id,item.id,item.kind,item.props]),[['lang.5.comp-ling','lang-5-comp-ling-computation-studio','model',{scenario:'lang.5.comp-ling'}]],'The independently checked language studio is bound exactly once');\nconsole.log('LANGUAGE_COMPUTATION_BINDING lang.5.comp-ling = lang-5-comp-ling-computation-studio');\n\n"
+        }
+      ]
+    },
+    "tools/check_cross_subject_models.js": {
+      "before_sha256": "82d40e542a22ecbca2ae2d6d3d148ec5ec81b82c7572b61e722c2ce6f3d469cf",
+      "after_sha256": "a8c2bac20623687e67f9b2faf1062cc8e4b5622bc350dedeeb7e18128e756a74",
+      "changes": [
+        {
+          "start": 1361,
+          "end": 1362,
+          "before": "assert.equal(entries.filter(({ item }) => !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab'].includes(item.renderer)).length,\n",
+          "after": "assert.equal(entries.filter(({ item }) => !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab', 'language-computation-lab'].includes(item.renderer)).length,\n"
+        },
+        {
+          "start": 1363,
+          "end": 1368,
+          "before": "",
+          "after": "\nconst languageComputationEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='language-computation-lab').map(item=>({node,item})));\nassert.deepEqual(languageComputationEntries.map(({node,item})=>[node.id,item.id,item.kind,item.props]),[['lang.5.comp-ling','lang-5-comp-ling-computation-studio','model',{scenario:'lang.5.comp-ling'}]],'The independently checked language studio is bound exactly once');\nconsole.log('LANGUAGE_COMPUTATION_BINDING lang.5.comp-ling = lang-5-comp-ling-computation-studio');\n\n"
+        }
+      ]
+    },
+    "tools/particle_runtime_compatibility.py": {
+      "before_sha256": "90dd8bd5d4c11e98b7ce7c29f52b0a38d408cd514d35d598357eb07ee10edeb1",
+      "after_sha256": "996ec8474036717d82298c4ee07d5c0d141d77491e95eb142b3f5717fa482c83",
+      "changes": [
+        {
+          "start": 23,
+          "end": 25,
+          "before": "",
+          "after": "    from tools.language_computation_runtime_compatibility import before_language_computation_bytes\n    raw=before_language_computation_bytes(path,raw,allow_older=True)\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "366bb7c63a0fdc214ceb6552d48127c145c5f76e6596dc170aff9f2accd5b55e",
+      "after_sha256": "bfb3fcf886d87cb6c3f85e4b97acfea2c225172273c4f68698ca615b5724b0f1",
+      "changes": [
+        {
+          "start": 45,
+          "end": 46,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/language-computation-lab.css\">\n"
+        },
+        {
+          "start": 112,
+          "end": 114,
+          "before": "",
+          "after": "  <script src=\"/app/language-computation-core.js\"></script>\n  <script src=\"/app/language-computation-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "6d85ae428bc92154f053b5cf0df435e1ca9de491dc7f2b03171948a9b6458902",
+      "after_sha256": "2adf36fcdd11b2d47be70d159d8e27cc19099f4af8133112f03b8fbcb6e8f5bc",
+      "changes": [
+        {
+          "start": 6176,
+          "end": 6177,
+          "before": "",
+          "after": "    'language-computation-lab': (item,hooks) => window.PrimerLanguageComputationLab?.render(item,hooks) || null,\n"
+        },
+        {
+          "start": 6188,
+          "end": 6189,
+          "before": "      if (['fraction-arithmetic-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;\n",
+          "after": "      if (['language-computation-lab', 'fraction-arithmetic-lab', 'physics-qft-lab', 'math-number-theory-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;\n"
+        }
+      ]
+    }
+  }
+}
