@@ -2027,6 +2027,21 @@ function sourceStudyReference(asset, { createElement = el, sourceLink = radiolog
     sourceLink('Source dataset', asset.source_url), ' · ', sourceLink(asset.license, asset.license_url));
 }
 
+function glioblastomaCaseViewer() {
+  const details = el('details', { class: 'card' },
+    el('summary', {}, 'Compare glioblastoma MRI sequences and 3D compartments'));
+  details.addEventListener('toggle', () => {
+    if (details.open && !details.querySelector('iframe')) {
+      details.append(el('iframe', { src: '/app/anatomy/glioblastoma-ba2/index.html',
+        title: 'Glioblastoma MRI and tumour compartments', loading: 'lazy',
+        style: 'display:block;width:100%;height:850px;border:0' }));
+    } else if (!details.open) {
+      details.querySelector('iframe')?.remove();
+    }
+  });
+  return details;
+}
+
 function sourceNativeInspector(asset) {
   const sourceCase = Boolean(asset.publication_url);
   const noduleCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';
@@ -2041,7 +2056,6 @@ function sourceNativeInspector(asset) {
   const temporalCBCT = asset.id === 'openear-zeta-native-reference';
   const sourceContacts = ['spl-cortical-source-contacts-reference', 'spl-sellar-source-interfaces-reference'].includes(asset.id);
   const dissectionPhotos = asset.id === 'mosteiro-cavernous-dissection-reference';
-  const glioblastomaCase = asset.id === 'openneuro-glioblastoma-ba2';
   const pituitaryCase = asset.id === 'pandit-pituitary-case1-processed-reference';
   const fcdMRI = asset.id === 'bonn-fcd-case4-native-reference';
   const hippocampalRaters = asset.id === 'dryad-hippocampal-case10-rater-reference';
@@ -2054,12 +2068,12 @@ function sourceNativeInspector(asset) {
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit', style: 'overflow-wrap:anywhere' }, asset.attribution),
-    radiologySourceLink(glioblastomaCase ? 'OpenNeuro glioblastoma MRI dataset' : sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
-    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(glioblastomaCase || sourceContacts || fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
+    radiologySourceLink(sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
+    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(sourceContacts || fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
-  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || glioblastomaCase || dissectionPhotos) {
+  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || dissectionPhotos) {
     if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
-    const openLabel = glioblastomaCase ? 'Compare glioblastoma MRI sequences and 3D compartments' : dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const openLabel = dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
     const host = el('div', { class: 'source-native-inline-host' });
     let frame = null;
     const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
@@ -3025,6 +3039,7 @@ async function renderRadiologyDesk(page, nodeId) {
     ...(ref.annotated_anatomy_links?.length ? [['anatomy', 'Annotated anatomy', panel => panel.append(renderAnnotatedAnatomy(ref))]] : []),
     ['template', 'Report template', panel => panel.append(templates)],
     ['images', limbicContext.length ? 'Images and MRI sources' : hippocampalContext.length ? 'Images and registered MRI' : ref.source_native_inspectors?.length ? 'Images and native source' : studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+      if (n.id === 'ra.mri-brain-tumours') panel.append(glioblastomaCaseViewer());
       (ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
       if (ref.source_context_documents?.length) panel.append(sourceContextDocuments(ref.source_context_documents));
       studyReferences.forEach(asset => panel.append(sourceStudyReference(asset)));
@@ -3792,6 +3807,7 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
+  if (n.id === 'rad.5.brain-tumour') page.append(glioblastomaCaseViewer());
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {
     if (n.domain === 'radiology' || n.strand === 'music') lessonMedia.setAttribute('tabindex', '-1');
