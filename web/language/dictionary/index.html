@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide-word hunt · Primer</title>
+<style>
+body{font:1.15rem/1.5 system-ui;color:#243d38;background:#faf8ed;margin:auto;max-width:48rem;padding:1rem}h1,h2{line-height:1.15}button{font:inherit;padding:.65rem .8rem;background:white;color:#243d38;border:2px solid #478478;border-radius:.4rem;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #bd6019;outline-offset:3px}#pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:.6rem}#pages button{display:grid;text-align:left;border-left:.4rem solid #478478}#pages small{color:#38564b}#choices{display:grid;gap:.5rem}#choices button{text-align:left}#feedback{min-height:2em}article{background:white;border:1px solid #9caf9c;padding:1rem}a{color:#20584f}
+</style>
+<main><a href="/app/#/node/lang.1.dictionary">Return to Using a Dictionary</a><h1>Guide-word hunt</h1>
+<p>The two guide words on each page tell you its first and last entries. Find the page for your word, then use its entry to solve the clue.</p>
+<h2 id="prompt"></h2><div id="pages" aria-label="Dictionary page map"></div>
+<article id="entry" hidden><h2 id="heading" tabindex="-1"></h2><p id="definition"></p><h3>Which sentence fits this meaning?</h3><div id="choices"></div></article>
+<p role="status" id="feedback"></p><button id="next" hidden>Find another word</button></main><script src="hunt.js"></script></html>

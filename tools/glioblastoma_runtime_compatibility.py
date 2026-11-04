@@ -8,6 +8,8 @@ PROOF_SHA256 = "bb094f31f6d187d89cf28111e7fa57f47e6b8566a5814d2d83400cbfb0c9871d
 
 
 def before_glioblastoma_bytes(path, raw, allow_older=False):
+    if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "fc0c36850c32b17eb0fcaa8d8da40aa3b0d6c37cd739b8f1254157efce5c3790":
+        raw = raw.replace(b"  if (n.id === 'lang.1.dictionary') page.append(el('a', { class: 'btn ghost', href: '/app/language/dictionary/index.html' },\n    'Play the guide-word hunt'));\n", b"", 1)
     # Project the later experiment link only when the entire reader matches.
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "d1d756aeaac40ea52afaf81732b9559b4a7bbff1076954d75dcce09ae1d80823":
         raw = raw.replace(
