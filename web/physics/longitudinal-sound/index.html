@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sound and moving air · Primer</title>
+<style>body{font:1.05rem/1.5 system-ui;background:#f8f7ef;color:#203c43;max-width:60rem;margin:auto;padding:1rem}canvas{width:100%;display:block;background:#14232c}label{display:grid;grid-template-columns:12rem 1fr 5rem;gap:.5rem;margin:.7rem 0;align-items:center}input{min-width:0;width:100%}button{font:inherit;padding:.6rem}figure{margin:1rem 0}a{color:#23676b}#motion{background:#fff}output{font-variant-numeric:tabular-nums}@media(max-width:500px){label{grid-template-columns:8rem 1fr 4rem}}</style>
+<main><a href="/app/#/node/phys.1.sound">Return to Sound</a><h1>Sound and moving air</h1>
+<p>Move the time control to follow a sound wave. Each dot tracks a small parcel of air. Watch the gold parcel move back and forth while the coloured pressure pattern travels through the medium.</p>
+<label>Time in periods<input id="time" type="range" min="0" max="2" step=".01" value="0"><output for="time"></output></label>
+<label>Wavelength<input id="wavelength" type="range" min=".5" max="2" step=".1" value="1"><output for="wavelength"></output></label>
+<label>Displacement size<input id="fraction" type="range" min=".1" max="1" step=".1" value="1"><output for="fraction"></output></label>
+<label>Rotate view<input id="yaw" type="range" min="-60" max="60" value="25"><output for="yaw"></output></label>
+<label>Tilt view<input id="pitch" type="range" min="-30" max="30" value="20"><output for="pitch"></output></label>
+<button id="reset">Return to the start</button>
+<figure><canvas id="wave" width="840" height="460" role="img" aria-label="Three-dimensional longitudinal wave of air parcels"></canvas><figcaption>Red shows higher pressure, blue lower pressure, and pale dots the undisturbed pressure. Gold marks one parcel. The colour scale stays fixed as displacement size changes.</figcaption></figure>
+<figure><canvas id="motion" width="840" height="180" role="img" aria-label="Magnified displacement of the gold parcel about its rest position"></canvas><figcaption>The gold parcel’s displacement is magnified 100 times here. The grey mark is its rest position.</figcaption></figure>
+<p id="reading" aria-live="polite"></p>
+<details><summary>Model and units</summary><p>This ideal plane wave uses dimensionless length units, sound speed 1 and bulk modulus 1. Its period equals its wavelength. Displacement stays within 1% of a wavelength, using the small-amplitude approximation. Dots represent parcels of the medium; molecular thermal motion and damping are omitted.</p><p>Displacement ξ = A cos(kx − kt), velocity = kA sin(kx − kt), and pressure perturbation = kA sin(kx − kt), with k = 2π/λ. Pressure follows −∂ξ/∂x in these units.</p><p><a href="https://openstax.org/books/university-physics-volume-1/pages/17-1-sound-waves">Sound waves</a> · <a href="https://openstax.org/books/university-physics-volume-1/pages/17-3-sound-intensity">Pressure and displacement relation</a>, OpenStax University Physics.</p></details>
+</main><script src="core.js"></script><script src="view.js"></script></html>
