@@ -11,6 +11,7 @@ function resize(){
 async function showFigure(){
   const attempt=++generation;
   selection.disabled=true;image.hidden=true;retry.hidden=true;
+  get('caption').textContent='';
   status.textContent='Loading verified source figure…';
   try{
     if(!figures){

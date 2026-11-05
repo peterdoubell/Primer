@@ -9,12 +9,12 @@ const crypto=require('node:crypto');
   const browser=await chromium.launch();
   try{
     const page=await browser.newPage({viewport:{width:320,height:900}});
-    let corrupt=true;
+    const corrupt=new Set(['13244_2024_1879_Fig9_HTML.png','13244_2024_1879_Fig10_HTML.png']);
     await page.route('http://localhost:4100/**',async route=>{
       const file=path.basename(new URL(route.request().url()).pathname);
       const asset=file==='radiology-detailed-anatomy.js'?path.join(root,'../../',file):path.join(root,file);
       let body=await fs.readFile(asset);
-      if(file.endsWith('Fig9_HTML.png')&&corrupt){body=Buffer.from(body);body[body.length-1]^=1;corrupt=false;}
+      if(corrupt.has(file)){body=Buffer.from(body);body[body.length-1]^=1;corrupt.delete(file);}
       const contentType=file.endsWith('.js')?'text/javascript':file.endsWith('.html')?'text/html':file.endsWith('.json')?'application/json':'image/png';
       await route.fulfill({body,contentType});
     });
@@ -26,6 +26,11 @@ const crypto=require('node:crypto');
     const figures=JSON.parse(await fs.readFile(path.join(root,'figures.json'))).figures;
     for(const figure of figures){
       await page.selectOption('#figure',figure.id);
+      if(figure.id==='10'){
+        await page.getByRole('button',{name:'Retry figure'}).waitFor();
+        assert.ok(await page.locator('#image').isHidden(),'Previous source figure must be hidden after failure');
+        await page.getByRole('button',{name:'Retry figure'}).click();
+      }
       await page.locator('#status').filter({hasText:'Original Figure '+figure.id}).waitFor();
       const data=(await page.locator('#image').getAttribute('src')).split(',')[1];
       assert.equal(crypto.createHash('sha256').update(Buffer.from(data,'base64')).digest('hex'),figure.sha256);
