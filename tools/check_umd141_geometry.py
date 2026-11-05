@@ -20,6 +20,24 @@ def audit():
     full = json.loads((ROOT / "full-mri.json").read_bytes())
     rows = json.loads((ROOT / "surfaces.json").read_bytes())
     mask = np.frombuffer(decoded("mask.gz", grid["decodedSHA256"]["mask"]), "u1").reshape(grid["shape"], order="F")
+    sources = json.loads((ROOT / "sources.json").read_bytes())
+    proof_raw = (ROOT / sources["sourcePixelGeometryProofFile"]).read_bytes()
+    if hashlib.sha256(proof_raw).hexdigest() != sources["sourcePixelGeometryProofSHA256"]:
+        raise ValueError("Original DICOM geometry proof changed")
+    proof = json.loads(proof_raw)
+    if (proof["allFramesVerified"] is not True
+            or proof["frames"] != full["shape"][2]
+            or proof["matchingSourcePixels"] != int(np.prod(full["shape"]))
+            or proof["maxPositionErrorVoxels"] >= .001):
+        raise ValueError("Original DICOM/NIfTI correspondence is incomplete")
+    frames = proof["framesSourceIdentities"]
+    if sorted(frame["index"] for frame in frames) != list(range(full["shape"][2])):
+        raise ValueError("Original DICOM frame coverage differs")
+    for frame in frames:
+        if frame["sliceThicknessMM"] != grid["sliceThicknessMM"]:
+            raise ValueError("Acquired slice thickness changed")
+        if abs(frame["spacingBetweenSlicesMM"] - grid["spacing"][2]) > .00001:
+            raise ValueError("Acquired slice spacing changed")
     next_plane = 0
     for chunk in full["chunks"]:
         raw = decoded(chunk["file"], chunk["sha256"])
