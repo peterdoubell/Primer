@@ -8,6 +8,8 @@ PROOF_SHA256 = "bb094f31f6d187d89cf28111e7fa57f47e6b8566a5814d2d83400cbfb0c9871d
 
 
 def before_glioblastoma_bytes(path, raw, allow_older=False):
+    if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "e778eb7a79d73b133b742520aebdf456c0ac46124393019a6400761fc2b5e5cd":
+        raw = raw.replace(b"  if (n.id === 'rad.5.uterine-mr') page.append(el('a', { class: 'btn ghost', href: '/app/reference-studies/mullerian-2025/index.html' },\n    'Compare uterine cavity and external contour on source images'));\n", b"", 1)
     from tools.module_mission_compatibility import previous_shell_bytes
     raw = previous_shell_bytes(str(path), raw)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "e8da7f9a2e01343b6855367a61e48907248ad9de8d27455a901e9602eba63a0a":
