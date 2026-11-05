@@ -8,6 +8,8 @@ PROOF_SHA256 = "bb094f31f6d187d89cf28111e7fa57f47e6b8566a5814d2d83400cbfb0c9871d
 
 
 def before_glioblastoma_bytes(path, raw, allow_older=False):
+    if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "2c25e11089024f917cfcbb6559f5a6ef4a77fcad2ce0029cab88ab01e931ac58":
+        raw = raw.replace(b"  if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },\n    'Explore a longitudinal sound wave'));\n", b"", 1)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "bab461f1add850f4914266490dbda16c8a55a0751c8ba52fb7f5a44722af5834":
         raw = raw.replace(b"  if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },\n    'Inspect kidneys and adrenal glands on CT and in 3D'));\n", b"", 1)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "122458094c0eb1eddd8b31214695bf0c88a88fe1ad748cc3fe35c9b70f39e167":
