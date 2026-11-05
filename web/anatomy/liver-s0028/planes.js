@@ -15,7 +15,7 @@ async function load() {
     return data;
   }
   const [ct,mask] = await Promise.all([array('ct',Int16Array), array('mask',Uint8Array)]);
-  const point = [193,161,232].map((v,i) => v-origin[i]);
+  const point = (grid.initialVoxel || [193,161,232]).map((v,i) => v-origin[i]);
   const stride = [1,shape[0],shape[0]*shape[1]];
   const windowControl = document.querySelector('#window');
   const outline = document.querySelector('#outline');
@@ -28,11 +28,18 @@ async function load() {
       for (let y=0;y<canvas.height;y++) for (let x=0;x<canvas.width;x++) {
         const index = point[axis]*stride[axis]+(shape[h]-1-x)*stride[h]+(shape[v]-1-y)*stride[v];
         const intensity = 255*((ct[index]-centre)/width+.5);
-        const edge = outline.checked && mask[index] && (!mask[index-stride[h]] || !mask[index+stride[h]] || !mask[index-stride[v]] || !mask[index+stride[v]]);
+        const label = mask[index];
+        // Compare only in-plane neighbours inside the crop, avoiding wrapped rows.
+        const edge = outline.checked && label && (
+          (x > 0 && mask[index+stride[h]] !== label) ||
+          (x+1 < canvas.width && mask[index-stride[h]] !== label) ||
+          (y > 0 && mask[index+stride[v]] !== label) ||
+          (y+1 < canvas.height && mask[index-stride[v]] !== label));
+        const tumourEdge = edge && label === 2;
         const offset=4*(x+y*canvas.width);
         image.data[offset]=edge?255:intensity;
-        image.data[offset+1]=edge?184:intensity;
-        image.data[offset+2]=edge?35:intensity;
+        image.data[offset+1]=tumourEdge?82:edge?184:intensity;
+        image.data[offset+2]=tumourEdge?87:edge?35:intensity;
         image.data[offset+3]=255;
       }
       ctx.putImageData(image,0,0);
@@ -42,7 +49,8 @@ async function load() {
       ctx.stroke();
     }
     const index=point.reduce((sum,value,i)=>sum+value*stride[i],0);
-    document.querySelector('#point').textContent='Source voxel ('+point.map((x,i)=>x+origin[i]).join(', ')+') · CT value '+ct[index]+' · '+(mask[index]?'inside':'outside')+' the supplied liver label.';
+    const description = grid.labels ? grid.labels[mask[index]] : (mask[index]?'inside':'outside')+' the supplied liver label.';
+    document.querySelector('#point').textContent=(grid.labels?'RAS grid voxel (':'Source voxel (')+point.map((x,i)=>x+origin[i]).join(', ')+') · CT value '+ct[index]+' · '+description;
   }
   for (const [name,axis,h,v] of [['Axial',2,0,1],['Coronal',1,0,2],['Sagittal',0,1,2]]) {
     const figure=document.createElement('figure'), canvas=document.createElement('canvas');
@@ -50,6 +58,7 @@ async function load() {
     slider.type='range'; slider.min=0; slider.max=shape[axis]-1;
     label.append(name+' slice ',slider);
     canvas.width=shape[h]; canvas.height=shape[v]; canvas.setAttribute('aria-label',name+' liver CT');
+    if (grid.spacing) canvas.style.aspectRatio = (shape[h]*grid.spacing[h])+' / '+(shape[v]*grid.spacing[v]);
     canvas.onclick=event=>{
       const rect=canvas.getBoundingClientRect();
       const sample=(position,size,extent)=>Math.min(extent-1,Math.max(0,Math.floor(position*extent/size)));
