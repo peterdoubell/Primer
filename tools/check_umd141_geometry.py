@@ -15,6 +15,25 @@ def decoded(file, expected):
     return raw
 
 
+
+def source_face_centres(selected, origin):
+    """Encode each source boundary by doubled XY, source section and slab side."""
+    locations = np.argwhere(selected) + origin
+    caps = []
+    for side in [-1, 1]:
+        caps.append(np.column_stack((2 * locations[:, :2], locations[:, 2], np.full(len(locations), side))))
+    for axis in [0, 1]:
+        for direction in [-1, 1]:
+            neighbour = np.roll(selected, -direction, axis=axis)
+            boundary = [slice(None)] * 3
+            boundary[axis] = -1 if direction > 0 else 0
+            neighbour[tuple(boundary)] = False
+            cells = np.argwhere(selected & ~neighbour) + origin
+            xy = 2 * cells[:, :2]
+            xy[:, axis] += direction
+            caps.append(np.column_stack((xy, cells[:, 2], np.zeros(len(cells), dtype=int))))
+    return np.unique(np.concatenate(caps), axis=0)
+
 def audit():
     grid = json.loads((ROOT / "grid.json").read_bytes())
     full = json.loads((ROOT / "full-mri.json").read_bytes())
@@ -67,6 +86,21 @@ def audit():
         np.testing.assert_allclose(np.abs((voxel[:, 2] - plane) * spacing[2]), thickness / 2, atol=.0001)
         if not np.all(plane[faces] == plane[faces[:, :1]]):
             raise ValueError("A triangle bridges separate acquired slabs")
+        pairs = faces.reshape(-1, 6)
+        if not np.all(pairs[:, 0] == pairs[:, 3]) or not np.all(pairs[:, 2] == pairs[:, 4]):
+            raise ValueError("Annotation face triangulation changed")
+        quad_ids = pairs[:, [0, 1, 2, 5]]
+        centres = voxel[quad_ids].mean(axis=1)
+        xy = np.rint(2 * centres[:, :2]).astype(int)
+        section = np.rint(centres[:, 2]).astype(int)
+        slab_offset = (centres[:, 2] - section) * spacing[2]
+        side = np.rint(slab_offset / (thickness / 2)).astype(int)
+        np.testing.assert_allclose(2 * centres[:, :2], xy, atol=.0002)
+        np.testing.assert_allclose(slab_offset, side * thickness / 2, atol=.0001)
+        actual, occurrences = np.unique(np.column_stack((xy, section, side)), axis=0, return_counts=True)
+        expected_centres = source_face_centres(mask == row["label"], np.asarray(grid["origin"]))
+        if not np.all(occurrences == 1) or not np.array_equal(actual, expected_centres):
+            raise ValueError("Model faces differ from source annotation boundaries")
         count = int(np.count_nonzero(mask == row["label"]))
         if count != row["sourceVoxels"]:
             raise ValueError("Label voxels omitted from model")
