@@ -110,4 +110,4 @@ async function loadSurfaces() {
   document.querySelector('#group').disabled = false;
   document.querySelector('#fit').disabled = false;
 }
-loadSurfaces().catch(()=>{document.querySelector('#surface-status').textContent='Surface loading failed. Reload to retry.';});
+loadSurfaces().catch(error=>{console.error(error);document.querySelector('#surface-status').textContent='Surface loading failed. Reload to retry.';});
