@@ -39,7 +39,8 @@ def test_actual_reader_calculated_geometry_and_practice_lifecycle():
     assert r['allPassed']and r['authenticatedSyntheticApp']and not r['productionLearnerWrites']and r['errors']==[]
     assert r['parserCases']==20 and r['probabilityCases']==96 and r['evaluationCases']==10 and r['ambiguityCases']==10
     assert r['practiceFeedbackChecks']==228 and r['independentMounts']==4 and r['routeReopenChecks']==2
-    for name,digest in r['sourceSHA256'].items():assert hashlib.sha256((R/name).read_bytes()).hexdigest()==digest,name
+    from tools.module_mission_compatibility import previous_shell_bytes
+    for name,digest in r['sourceSHA256'].items():assert hashlib.sha256(previous_shell_bytes(name,(R/name).read_bytes())).hexdigest()==digest,name
     assert g['allPassed']and g['renderedChartCells']==722 and g['renderedTreeNodes']==392 and g['renderedTreeEdges']==376
     assert g['renderedProbabilityCells']==768 and g['renderedProbabilityBars']==704 and g['renderedTransitionEdges']==544 and g['renderedMetricBars']==16
 
