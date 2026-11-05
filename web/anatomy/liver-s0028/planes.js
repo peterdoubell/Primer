@@ -81,7 +81,7 @@ async function load() {
     const label=document.createElement('label'), slider=document.createElement('input');
     slider.type='range'; slider.min=0; slider.max=shape[axis]-1;
     label.append(name+' slice ',slider);
-    canvas.width=shape[h]; canvas.height=shape[v]; canvas.setAttribute('aria-label',name+' liver CT');
+    canvas.width=shape[h]; canvas.height=shape[v]; canvas.setAttribute('aria-label',name+' '+(grid.organ || 'liver')+' CT');
     if (grid.spacing) canvas.style.aspectRatio = (shape[h]*grid.spacing[h])+' / '+(shape[v]*grid.spacing[v]);
     canvas.onclick=event=>{
       const rect=canvas.getBoundingClientRect();

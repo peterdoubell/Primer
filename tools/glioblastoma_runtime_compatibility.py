@@ -8,6 +8,8 @@ PROOF_SHA256 = "bb094f31f6d187d89cf28111e7fa57f47e6b8566a5814d2d83400cbfb0c9871d
 
 
 def before_glioblastoma_bytes(path, raw, allow_older=False):
+    if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "895b371767517c736e9c7c7aa10e9641007ee06e04bd6478f852a5a3e90d2a6c":
+        raw = raw.replace(b"  if (n.id === 'rad.5.pancreas-tumour') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/msd-pancreas/index.html' },\n    'Inspect a pancreatic mass on CT and in 3D'));\n", b"", 1)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "02e4552f25ce70d115dd18c953b6107ec79807176fbf5deb4a522249ec4c628c":
         raw = raw.replace(b"  if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },\n    'Inspect liver CT in three planes'));\n", b"", 1)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "ec5a4bf40d5f478da3d80736bd1c9dd2b43417260ff2cc6a2808b217a6079591":
