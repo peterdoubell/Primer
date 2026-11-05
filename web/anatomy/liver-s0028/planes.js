@@ -92,6 +92,14 @@ async function load() {
     label.append(name+' slice ',slider);
     canvas.width=shape[h]; canvas.height=shape[v]; canvas.setAttribute('aria-label',name+' '+(grid.organ || 'liver')+' CT');
     if (grid.spacing) canvas.style.aspectRatio = (shape[h]*grid.spacing[h])+' / '+(shape[v]*grid.spacing[v]);
+    canvas.tabIndex = 0;
+    canvas.addEventListener('keydown', event => {
+      const step = {ArrowLeft:[h,1], ArrowRight:[h,-1], ArrowUp:[v,1], ArrowDown:[v,-1]}[event.key];
+      if (!step) return;
+      event.preventDefault();
+      point[step[0]] = Math.max(0, Math.min(shape[step[0]]-1, point[step[0]]+step[1]));
+      render();
+    });
     canvas.onclick=event=>{
       const rect=canvas.getBoundingClientRect();
       const sample=(position,size,extent)=>Math.min(extent-1,Math.max(0,Math.floor(position*extent/size)));
@@ -138,10 +146,12 @@ async function load() {
     clear.onclick = plane.onchange = () => { measurement = null; render(); updateRuler(); };
     document.querySelector('.views').addEventListener('input',updateRuler);
     document.querySelector('.views').addEventListener('click',updateRuler);
+    document.querySelector('.views').addEventListener('keydown',updateRuler);
     organControl?.addEventListener('organ-positioned', updateRuler);
     ruler.disabled = false;
   }
   windowControl.onchange=outline.onchange=render;
   render();
+  if (organControl) organControl.disabled = false;
 }
 load().catch(()=>{document.querySelector('#point').textContent='The CT could not be loaded. Reload the page to retry.';});
