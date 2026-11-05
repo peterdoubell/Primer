@@ -23,14 +23,14 @@ function update(){
   }
   for(const tick of [0,ceiling/2,ceiling]){
     const y=180-140*tick/ceiling;
-    shape('line',{x1:70,x2:600,y1:y,y2:y,stroke:'#bcc8c5'});
-    shape('text',{x:60,y:y+5,'text-anchor':'end'},format(tick));
+    shape('line',{x1:60,x2:345,y1:y,y2:y,stroke:'#bcc8c5'});
+    shape('text',{x:50,y:y+5,'text-anchor':'end'},format(tick));
   }
   rates.forEach((rate,i)=>{
-    const height=140*rate/ceiling,x=150+260*i;
-    shape('rect',{x,y:180-height,width:80,height,fill:i?'#a65a29':'#227e79','data-period':i});
-    shape('text',{x:x+40,y:170-height,'text-anchor':'middle'},format(rate));
-    shape('text',{x:x+40,y:210,'text-anchor':'middle'},i?'Later':'Earlier');
+    const height=140*rate/ceiling,x=100+130*i;
+    shape('rect',{x,y:180-height,width:50,height,fill:i?'#a65a29':'#227e79','data-period':i});
+    shape('text',{x:x+25,y:170-height,'text-anchor':'middle'},format(rate));
+    shape('text',{x:x+25,y:210,'text-anchor':'middle'},i?'Later':'Earlier');
   });
   const countChange=before===0?null:100*(after-before)/before;
   const rateChange=rates[0]===0?null:100*(rates[1]-rates[0])/rates[0];
