@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Renal lesion CT and original contours · Primer</title>
+<style>
+body{font:1rem/1.5 system-ui;background:#172128;color:#f3f5f6;max-width:70rem;margin:auto;padding:1rem}a{color:#a4dfff}label{display:inline-block;margin:.5rem}input,select{vertical-align:middle}.views{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:1rem}canvas{display:block;width:100%;background:#111a20;image-rendering:pixelated}figure{margin:0}figcaption{margin:.5rem 0}
+</style>
+<main><a href="/app/#/node/rad.4.kidney">Return to The Renal Mass</a><h1>Renal lesion CT and original contours</h1>
+<p>Move through the CT slices and follow the highlighted outline in the 3D contour stack. The source labels this lesion “RT KIDNEY - 1”.</p>
+<label>CT slice <input id="slice" type="range" disabled></label>
+<label>Window <select id="window"><option value="400">Centre 50, width 400</option><option value="150">Centre 70, width 150</option></select></label>
+<label><input id="overlay" type="checkbox" checked> Outline on CT</label>
+<div class="views"><figure><canvas id="ct" aria-label="Axial CT with original lesion outline"></canvas><figcaption>Right to left · anterior at the top</figcaption></figure>
+<figure><canvas id="contours" width="640" height="480" aria-label="Rotatable stack of original lesion contours"></canvas><figcaption>Gold shows all source outlines. Cyan marks the selected CT plane.</figcaption>
+<label>Rotation <input id="rotation" type="range" min="-180" max="180" value="20"></label>
+<label>Tilt <input id="tilt" type="range" min="-90" max="90" value="15"></label></figure></div>
+<p id="status" role="status">Loading source CT…</p>
+<p>Case C3N-03018, acquisition 1. The 75 closed planar annotations retain the author’s coordinates and referenced CT slices. Spatial placement follows the acquired plane positions, spaced 0.625 mm apart. The source also records a 2.5 mm spacing tag. Whole-kidney anatomy, histology and lesion-volume interpretation require further evidence.</p>
+<p>The original contours and author-reported volume have an unresolved discrepancy of approximately 8% under simple contour-integration methods. Read the source annotations as observations on their referenced planes.</p>
+<p>CPTAC-CCRCC and CPTAC-CCRCC Tumor Annotations, The Cancer Imaging Archive. Primer cropped the CT, applied display windows and projected the original outlines. <a href="https://doi.org/10.7937/K9/TCIA.2018.OBLAMN27">CT source</a> · <a href="https://doi.org/10.7937/SKQ4-QX48">Annotation source</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+</main><script src="viewer.js"></script></html>
