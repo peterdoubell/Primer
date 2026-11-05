@@ -8,6 +8,8 @@ PROOF_SHA256 = "bb094f31f6d187d89cf28111e7fa57f47e6b8566a5814d2d83400cbfb0c9871d
 
 
 def before_glioblastoma_bytes(path, raw, allow_older=False):
+    from tools.module_mission_compatibility import previous_shell_bytes
+    raw = previous_shell_bytes(str(path), raw)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "e8da7f9a2e01343b6855367a61e48907248ad9de8d27455a901e9602eba63a0a":
         raw = raw.replace(b"  if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },\n    'Explore a longitudinal sound wave'));\n", b"", 1)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "2c25e11089024f917cfcbb6559f5a6ef4a77fcad2ce0029cab88ab01e931ac58":
