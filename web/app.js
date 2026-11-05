@@ -3645,46 +3645,6 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   return root;
 }
 
-// A common mission trail for every curriculum module. Navigation is study
-// activity only; assessment, XP and prerequisite gates remain server-owned.
-function renderModuleMission(n, targets) {
-  const root = el('section', { class: 'module-mission card', 'aria-label': 'Module mission' });
-  const status = el('p', { class: 'muted', role: 'status', 'aria-live': 'polite' });
-  const progress = el('progress', { max: targets.length, value: 0, 'aria-label': 'Study steps visited' });
-  const trail = el('div', { class: 'module-mission-trail' });
-  const visited = new Set();
-  const buttons = [];
-  const profile = S.state && S.state.profile || {};
-  root.append(el('div', { class: 'module-mission-heading' },
-    el('div', {}, el('span', { class: 'module-mission-kicker' }, 'YOUR MODULE MISSION'),
-      el('h3', {}, 'One idea. A few small steps.')),
-    el('span', { class: 'module-mission-reward' },
-      (profile.xp || 0) + ' growth · ' + (profile.streak || 0) + ' day streak')),
-    el('p', { class: 'muted' }, 'Learn, experiment, then test what sticks. Go at your own pace.'),
-    progress, trail, status);
-  targets.forEach(({ title, hint, target }, index) => {
-    const button = btn({ class: 'module-mission-stop', onclick: () => {
-      visited.add(index);
-      progress.value = visited.size;
-      buttons.forEach((item, i) => {
-        item.classList.toggle('visited', visited.has(i));
-        if (i === index) item.setAttribute('aria-current', 'step');
-        else item.removeAttribute('aria-current');
-      });
-      status.textContent = visited.size + ' of ' + targets.length + ' study steps visited. '
-        + (visited.size === targets.length ? 'Ready to put it into practice? Take the challenge below.' : hint);
-      target.setAttribute('tabindex', '-1');
-      target.scrollIntoView({ block: 'start', behavior: 'instant' });
-      target.focus({ preventScroll: true });
-    } }, el('span', { class: 'module-mission-number', 'aria-hidden': 'true' }, index + 1),
-      el('span', {}, el('b', {}, title), el('small', {}, hint)));
-    buttons.push(button);
-    trail.append(button);
-  });
-  status.textContent = 'Choose a step to begin. Study steps do not award mastery; quiz results do.';
-  return root;
-}
-
 function renderTeachingLesson(n) {
   const lesson = n.lesson || {};
   const parts = [
@@ -3714,27 +3674,6 @@ function renderTeachingLesson(n) {
     lesson[key].split(/\n\s*\n/).filter(Boolean).forEach(text => section.append(el('p', {}, text)));
     root.append(section);
   });
-  const steps = Array.from(root.querySelectorAll('.teaching-step'));
-  if (steps.length > 1) {
-    let current = 0, showAll = false;
-    const label = el('span', { class: 'teaching-step-count', role: 'status', 'aria-live': 'polite' });
-    const update = (focus = false) => {
-      steps.forEach((step, i) => { step.hidden = !showAll && i !== current; });
-      previous.disabled = current === 0 || showAll;
-      next.disabled = current === steps.length - 1 || showAll;
-      label.textContent = showAll ? 'All learning steps' : 'Step ' + (current + 1) + ' of ' + steps.length;
-      toggle.textContent = showAll ? 'One step at a time' : 'Show full lesson';
-      if (focus) {
-        const heading = steps[current].querySelector('h4');
-        heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true });
-      }
-    };
-    const previous = btn({ class: 'btn ghost small', onclick: () => { current--; update(true); } }, 'Back');
-    const next = btn({ class: 'btn gold small', onclick: () => { current++; update(true); } }, 'Continue');
-    const toggle = btn({ class: 'btn ghost small', onclick: () => { showAll = !showAll; update(); } });
-    root.append(el('div', { class: 'teaching-step-controls' }, previous, label, next, toggle));
-    update();
-  }
   if (n.stage <= 1) root.append(el('p', { class: 'lesson-together-note' },
     'For young learners: explore with a grown-up. Point, talk, move or draw to share what you notice.'));
   return root;
@@ -3848,9 +3787,6 @@ async function renderNode(page, nodeId) {
   // A specialist module is opened mid-dictation, so its framework comes
   // first — before the reading list, before the plate. Everything below this
   // is for the reader who has time; this is for the one who does not.
-  const missionAnchor = el('div', { class: 'module-mission-anchor' });
-  page.append(missionAnchor);
-  const learnStart = page.children.length;
   const musicStudy = renderMusicStudy(n);
   if (musicStudy) page.append(musicStudy);
   const reference = renderReference(n.reference, n.title);
@@ -3868,7 +3804,6 @@ async function renderNode(page, nodeId) {
   const teaching = renderTeachingLesson(n);
   if (teaching) page.append(teaching);
 
-  const exploreStart = page.children.length;
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
@@ -3895,7 +3830,6 @@ async function renderNode(page, nodeId) {
     page.append(sectionLabel(n.domain === 'radiology' ? 'Visual reference' : (S.stage <= 1 ? 'Try it' : 'Explore the idea')), lessonMedia);
   }
 
-  const readStart = page.children.length;
   const young = S.stage <= 1;
   page.append(sectionLabel(radiologyReference ? 'Supplementary Wikipedia reading' : (young ? 'Look and see' : 'Read')));
   const cards = el('div', { class: 'grid auto' });
@@ -3930,13 +3864,6 @@ async function renderNode(page, nodeId) {
       onclick: canAssess ? () => startPractice(nodeId, n.practice, n.stage) : null }, glyph('target', 16), ' Practice') : null,
     n.articles && n.articles.length ? btn({ class: 'btn ghost', onclick: () => go('reader', { title: n.articles[0], node: nodeId }) }, glyph('story', 16), ' Start reading') : null);
   page.append(actions);
-  const missionTargets = [
-    { title: 'Learn', hint: 'Discover the idea', target: exploreStart > learnStart ? page.children[learnStart] : null },
-    { title: 'Explore', hint: 'Investigate the visuals', target: readStart > exploreStart ? page.children[exploreStart] : null },
-    { title: 'Read', hint: 'Make connections', target: cards.children.length ? cards : null },
-    { title: 'Challenge', hint: canAssess ? 'Show what you know' : 'See what unlocks this lesson', target: canAssess ? actions : page.querySelector('.req-chip')?.parentElement },
-  ].filter(item => item.target);
-  missionAnchor.replaceWith(renderModuleMission(n, missionTargets));
   if (!canAssess) page.append(el('p', { class: 'muted locked-why', style: 'margin-top:10px' },
     glyph('lock', 14), ' Questions wait until this lesson is open to you. You are welcome to read it meanwhile — the book will not set questions on what it has not yet taught you.'));
 }

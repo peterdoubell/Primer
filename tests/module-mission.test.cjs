@@ -6,14 +6,16 @@ const path = require('node:path');
 const { chromium } = require('playwright');
 const source = fs.readFileSync(path.join(__dirname, '../web/app.js'), 'utf8');
 const helpers = source.slice(source.indexOf('function el('), source.indexOf('/* ---------------- drawn glyphs'));
-const mission = source.slice(source.indexOf('function renderModuleMission('), source.indexOf('async function renderNode('));
+const teaching = source.slice(source.indexOf('function renderTeachingLesson('), source.indexOf('async function renderNode('));
+const mission = teaching + '\n' + fs.readFileSync(path.join(__dirname, '../web/module-mission.js'), 'utf8');
 (async () => {
   const browser = await chromium.launch({ headless: true, ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}) });
   try {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
     await page.setContent('<main></main>');
     await page.addStyleTag({ path: path.join(__dirname, '../web/styles.css') });
-    await page.addScriptTag({ content: `const S = { stage: 3, state: { profile: { xp: 120, streak: 3 } } }; ${helpers}\n${mission}` });
+    await page.addStyleTag({ path: path.join(__dirname, '../web/module-mission.css') });
+    await page.addScriptTag({ content: `async function renderNode() {} const S = { stage: 3, state: { profile: { xp: 120, streak: 3 } } }; ${helpers}\n${mission}` });
     await page.evaluate(() => {
       const main = document.querySelector('main');
       const lesson = renderTeachingLesson({ stage: 3, lesson: {

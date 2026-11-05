@@ -5085,23 +5085,3 @@ h1, h2, h3, h4 { letter-spacing: -0.01em; }
 .rad-neurology-point:focus { outline: none; stroke: #121212; stroke-width: 3; }
 .rad-neurology-detail { border-left: 4px solid #b54418; padding: .5rem 1rem; margin-bottom: 1rem; }
 .rad-neurology-map .rad-image-credit span { display: inline; }
-
-/* Shared curriculum missions: study navigation and bite-sized teaching. */
-.module-mission { border: 1px solid var(--gold); }
-.module-mission-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
-.module-mission-heading h3 { margin:6px 0; }
-.module-mission-kicker { font: 700 11px var(--sans); letter-spacing:.12em; color:var(--gold-ink); }
-.module-mission-reward { font:600 13px var(--sans); color:var(--green-ink); }
-.module-mission progress { width:100%; height:10px; accent-color:var(--green); margin:8px 0 18px; }
-.module-mission-trail { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
-.module-mission-stop { display:flex; align-items:center; gap:10px; padding:14px; border:1px solid var(--gold); border-radius:12px; color:inherit; background:transparent; text-align:left; cursor:pointer; font-family:var(--sans); }
-.module-mission-stop small { display:block; margin-top:5px; line-height:1.4; }
-.module-mission-number { display:grid; place-items:center; border:1px solid currentColor; border-radius:50%; width:30px; height:30px; flex-shrink:0; }
-.module-mission-stop.visited { background:var(--tint-green); }
-.module-mission-stop[aria-current] { outline:2px solid var(--green); outline-offset:2px; }
-.module-mission-stop:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
-.teaching-step[hidden] { display:none !important; }
-.teaching-step-controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:22px; }
-.teaching-step-count { font:600 13px var(--sans); }
-.teaching-lesson, .lesson-media, .module-mission ~ .grid { scroll-margin-top:100px; }
-@media(max-width:480px) { .module-mission-trail { grid-template-columns:1fr 1fr; } .module-mission-stop { padding:10px; align-items:flex-start; } }
