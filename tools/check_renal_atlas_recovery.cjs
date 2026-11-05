@@ -33,6 +33,18 @@ const assert=require('node:assert/strict');
       const count=rows.filter(row=>row.source_fma===group).reduce((sum,row)=>sum+row.triangles,0);
       assert.ok((await page.locator('#surface-status').textContent()).includes(count.toLocaleString()));
     }
-    console.log('HTTP failure locked geometry controls; retry restored all 31 objects and 14 group selections.');
+    await page.locator('#surface').evaluate(canvas => {
+      const gl = canvas.getContext('webgl2');
+      const extension = gl.getExtension('WEBGL_lose_context');
+      if (!extension) throw Error('Context-loss test extension unavailable');
+      extension.loseContext();
+    });
+    await page.locator('#surface-status').filter({hasText:'graphics context was lost'}).waitFor();
+    for(const selector of ['#group','#fit','.layer','#rotation','#tilt'])
+      assert.ok(await page.locator(selector).first().isDisabled());
+    await page.getByRole('button',{name:'Retry source geometry'}).click();
+    await page.locator('#surface-status').filter({hasText:'46,322'}).waitFor();
+    assert.ok(await page.locator('#group').isEnabled());
+    console.log('Context loss and HTTP failure locked geometry controls; retry restored all 31 objects and 14 group selections.');
   } finally {await browser.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});

@@ -1,7 +1,20 @@
 'use strict';
+function setControlsEnabled(enabled) {
+  for (const id of ['group','fit','pieces','rotation','tilt'])
+    document.getElementById(id).disabled = !enabled;
+}
+function showFailure(message) {
+  setControlsEnabled(false);
+  document.querySelector('#surface-status').textContent = message;
+  document.querySelector('#retry').hidden = false;
+}
 async function loadSurfaces() {
   const canvas = document.querySelector('#surface');
   const status = document.querySelector('#surface-status');
+  canvas.addEventListener('webglcontextlost', event => {
+    event.preventDefault();
+    showFailure('The graphics context was lost. Retry to reload the source geometry.');
+  });
   const gl = canvas.getContext('webgl2', {preserveDrawingBuffer:true});
   if (!gl) {status.textContent='WebGL 2 is required for the surface view.';return;}
   const manifest = await fetch('surfaces.json');
@@ -65,6 +78,7 @@ async function loadSurfaces() {
   const colors=[[242,82,87],[77,171,245],[255,199,61]];
   const layers=Array.from(document.querySelectorAll('.layer'));
   function draw(){
+    if (gl.isContextLost()) return;
     gl.clearColor(.06,.09,.12,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);
     for(const [id,key] of [['rotation','yaw'],['tilt','pitch']])gl.uniform1f(gl.getUniformLocation(program,key),Number(document.getElementById(id).value)*Math.PI/180);
     let triangles=0;
@@ -85,15 +99,11 @@ async function loadSurfaces() {
   };
   for(const control of [...layers,document.querySelector('#rotation'),document.querySelector('#tilt')])control?.addEventListener('input',draw);
   draw();
-  document.querySelector('#group').disabled = false;
-  document.querySelector('#fit').disabled = false;
-  document.querySelector('#pieces').disabled = false;
-  document.querySelector('#rotation').disabled = false;
-  document.querySelector('#tilt').disabled = false;
+  if (gl.isContextLost()) throw Error('Graphics context lost during source loading');
+  setControlsEnabled(true);
 }
 document.querySelector('#retry').onclick = () => location.reload();
 loadSurfaces().catch(error => {
   console.error(error);
-  document.querySelector('#surface-status').textContent = 'Source geometry could not be loaded. Retry to reload the verified source files.';
-  document.querySelector('#retry').hidden = false;
+  showFailure('Source geometry could not be loaded. Retry to reload the verified source files.');
 });
