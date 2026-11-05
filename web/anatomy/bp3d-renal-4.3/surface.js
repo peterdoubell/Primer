@@ -2,18 +2,11 @@
 async function loadSurfaces() {
   const canvas = document.querySelector('#surface');
   const status = document.querySelector('#surface-status');
-  // Subscribe before fetching meshes so MRI navigation during loading is retained.
-  let section = null;
-  let redraw = null;
-  document.addEventListener('mri-section', event => {
-    if (section && section.axis === event.detail.axis && section.coordinate === event.detail.coordinate) return;
-    section = event.detail;
-    if (redraw && cut?.checked) redraw();
-  });
-  const cut = document.querySelector('#section-cut');
   const gl = canvas.getContext('webgl2', {preserveDrawingBuffer:true});
   if (!gl) {status.textContent='WebGL 2 is required for the surface view.';return;}
-  const rows = await (await fetch('surfaces.json')).json();
+  const manifest = await fetch('surfaces.json');
+  if (!manifest.ok) throw Error('Missing source manifest');
+  const rows = await manifest.json();
   const program = gl.createProgram();
   const shaders = [
     [gl.VERTEX_SHADER, `#version 300 es
@@ -21,9 +14,7 @@ async function loadSurfaces() {
     uniform vec3 center;
     uniform float yaw, pitch, radius;
     out vec3 view;
-    out vec3 world;
     void main() {
-      world=position;
       vec3 p=position-center;
       float x=cos(yaw)*p.x-sin(yaw)*p.y;
       float d=sin(yaw)*p.x+cos(yaw)*p.y;
@@ -33,13 +24,9 @@ async function loadSurfaces() {
     [gl.FRAGMENT_SHADER, `#version 300 es
     precision highp float;
     in vec3 view;
-    in vec3 world;
-    uniform int cutAxis;
-    uniform float cutCoordinate;
     uniform vec3 tint;
     out vec4 color;
     void main(){vec3 normal=normalize(cross(dFdx(view),dFdy(view)));
-      if(cutAxis >= 0 && world[cutAxis] > cutCoordinate) discard;
       color=vec4(tint*(.5+.5*abs(dot(normal,normalize(vec3(.3,.5,1.))))),1.);}`]
   ];
   for(const [type,source] of shaders){
@@ -80,14 +67,6 @@ async function loadSurfaces() {
   function draw(){
     gl.clearColor(.06,.09,.12,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);
     for(const [id,key] of [['rotation','yaw'],['tilt','pitch']])gl.uniform1f(gl.getUniformLocation(program,key),Number(document.getElementById(id).value)*Math.PI/180);
-    const clipped = cut?.checked && section !== null;
-    gl.uniform1i(gl.getUniformLocation(program,'cutAxis'),clipped ? section.axis : -1);
-    gl.uniform1f(gl.getUniformLocation(program,'cutCoordinate'),clipped ? section.coordinate : 0);
-    const axisNames = ['R','A','S'];
-    const cutInfo = document.querySelector('#cut-info');
-    if (cutInfo) cutInfo.textContent = clipped
-      ? 'Open surfaces at MNI152 ' + axisNames[section.axis] + ' = ' + section.coordinate + ' mm. Showing the ' + ['left','posterior','inferior'][section.axis] + ' side of the plane.'
-      : 'Whole surfaces shown.';
     let triangles=0;
     meshes.forEach(({vao,row},i)=>{
       if(!layers[i].checked)return;
@@ -95,7 +74,7 @@ async function loadSurfaces() {
       gl.bindVertexArray(vao);gl.drawElements(gl.TRIANGLES,row.triangles*3,gl.UNSIGNED_INT,0);
       triangles+=row.triangles;
     });
-    status.textContent=triangles.toLocaleString()+(clipped ? ' source triangles before clipping' : ' source triangles visible');
+    status.textContent=triangles.toLocaleString()+' source triangles visible';
   }
   fit();
   document.querySelector('#fit').onclick=()=>{fit();draw();};
@@ -104,10 +83,17 @@ async function loadSurfaces() {
     layers.forEach((layer,i)=>{layer.checked=group==='all'||rows[i].source_fma===group;});
     fit();draw();
   };
-  redraw = draw;
-  for(const control of [cut,...layers,document.querySelector('#rotation'),document.querySelector('#tilt')])control?.addEventListener('input',draw);
+  for(const control of [...layers,document.querySelector('#rotation'),document.querySelector('#tilt')])control?.addEventListener('input',draw);
   draw();
   document.querySelector('#group').disabled = false;
   document.querySelector('#fit').disabled = false;
+  document.querySelector('#pieces').disabled = false;
+  document.querySelector('#rotation').disabled = false;
+  document.querySelector('#tilt').disabled = false;
 }
-loadSurfaces().catch(error=>{console.error(error);document.querySelector('#surface-status').textContent='Surface loading failed. Reload to retry.';});
+document.querySelector('#retry').onclick = () => location.reload();
+loadSurfaces().catch(error => {
+  console.error(error);
+  document.querySelector('#surface-status').textContent = 'Source geometry could not be loaded. Retry to reload the verified source files.';
+  document.querySelector('#retry').hidden = false;
+});
