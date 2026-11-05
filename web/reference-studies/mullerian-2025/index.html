@@ -6,10 +6,13 @@
 <label>Figure <select id="figure" disabled></select></label><label>Image size <select id="zoom"><option value="fit">Fit width</option><option value="1">Original pixels</option><option value="2">Double size</option></select></label>
 <p id="status" role="status">Loading source figures…</p><button id="retry" hidden>Retry figure</button>
 <figure><div class="image-region" tabindex="0" role="region" aria-label="Source figure; scroll to inspect enlarged panels"><img id="image" hidden></div><figcaption id="caption"></figcaption></figure>
+<details><summary>Separate 3D pelvic reference</summary>
+<p>This HRA female reference provides authored uterine regions, cervix, tubes, ovaries and neighbouring pelvic anatomy. The source has no explicit endometrial-cavity or myometrial-layer labels. Its coordinates are independent of these MRI examples.</p>
+<button id="load-anatomy">Load pelvic reference</button><p id="anatomy-status" role="status"></p><div id="anatomy-host"></div></details>
 <details><summary>Classification differences in the sources</summary>
 <p>The review’s Table 4 and MRI captions refer to 1.5 cm for internal indentation; its Figure 11 diagram uses 1 cm. These original labels are retained.</p>
 <p>ASRM MAC2021 defines a septate uterus using septum length greater than 1 cm measured from the bicornual line and leading-edge angle below 90°. It defines bicornuate morphology using external fundal indentation greater than 1 cm. Apply the selected framework with appropriate imaging and clinical review.</p>
 <p><a href="https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/">Read the primary ASRM definition</a></p></details>
 <p>Figures 9–11 by Rashmi Dixit, Chitty Suvarna Duggireddy and Gaurav Shanker Pradhan (2025). Primer adds figure selection, zoom and source checks. <a href="https://doi.org/10.1186/s13244-024-01879-2">Article and original captions</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
 <p>These published figures provide image examples. Calibrated patient measurements and full acquired volumes require separate source data.</p>
-</main><script src="viewer.js"></script></html>
+</main><script src="/app/radiology-detailed-anatomy.js"></script><script src="viewer.js"></script></html>

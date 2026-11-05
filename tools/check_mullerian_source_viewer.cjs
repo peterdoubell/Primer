@@ -12,7 +12,8 @@ const crypto=require('node:crypto');
     let corrupt=true;
     await page.route('http://localhost:4100/**',async route=>{
       const file=path.basename(new URL(route.request().url()).pathname);
-      let body=await fs.readFile(path.join(root,file));
+      const asset=file==='radiology-detailed-anatomy.js'?path.join(root,'../../',file):path.join(root,file);
+      let body=await fs.readFile(asset);
       if(file.endsWith('Fig9_HTML.png')&&corrupt){body=Buffer.from(body);body[body.length-1]^=1;corrupt=false;}
       const contentType=file.endsWith('.js')?'text/javascript':file.endsWith('.html')?'text/html':file.endsWith('.json')?'application/json':'image/png';
       await route.fulfill({body,contentType});

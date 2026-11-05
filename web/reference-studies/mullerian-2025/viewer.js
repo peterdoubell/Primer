@@ -56,3 +56,44 @@ selection.onchange=showFigure;
 get('zoom').onchange=resize;
 retry.onclick=showFigure;
 showFigure();
+
+const anatomyButton=get('load-anatomy');
+const anatomyHost=get('anatomy-host');
+const anatomyStatus=get('anatomy-status');
+let anatomyRoot=null;
+let anatomyObserver=null;
+anatomyButton.onclick=()=>{
+  anatomyObserver?.disconnect();
+  anatomyRoot?.dispose();
+  anatomyHost.replaceChildren();
+  anatomyStatus.textContent='Loading original pelvic source geometry…';
+  anatomyButton.textContent='Reload pelvic reference';
+  if(!window.PrimerDetailedAnatomy){
+    anatomyStatus.textContent='The anatomy renderer could not be loaded. Reload the page to retry.';
+    return;
+  }
+  const root=window.PrimerDetailedAnatomy.render({
+    atlas:'hra-female-pelvis-v1.10',family:'female-pelvis-source',
+    initialLayer:'source-surfaces',initialCropped:false,
+    populationNote:'Original HRA female assembly in native glTF coordinates. This is a separate partial reference for the source-labelled pelvic structures.'
+  });
+  anatomyRoot=root;
+  root.style.visibility='hidden';
+  root.setAttribute('aria-hidden','true');
+  anatomyObserver=new MutationObserver(()=>{
+    if(root!==anatomyRoot)return;
+    if(root.dataset.ready==='true'){
+      root.style.visibility='';
+      root.removeAttribute('aria-hidden');
+      anatomyStatus.textContent='';
+      anatomyObserver.disconnect();
+    }else if(root.dataset.error==='true'){
+      anatomyStatus.textContent='The source geometry could not be loaded. Reload the pelvic reference to retry.';
+      anatomyObserver.disconnect();
+      root.dispose();
+      anatomyHost.replaceChildren();
+    }
+  });
+  anatomyObserver.observe(root,{attributes:true,attributeFilter:['data-ready','data-error']});
+  anatomyHost.append(root);
+};
