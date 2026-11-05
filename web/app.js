@@ -3809,6 +3809,8 @@ async function renderNode(page, nodeId) {
 
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
     'Explore a longitudinal sound wave'));
+  if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
+    'Edit a headline using counts and rates'));
   if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },
     'Inspect kidneys and adrenal glands on CT and in 3D'));
   if (n.id === 'rad.4.kidney') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/cptac-renal-contours/index.html' },
