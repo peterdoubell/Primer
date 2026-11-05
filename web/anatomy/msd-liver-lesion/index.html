@@ -7,6 +7,11 @@
 <label>Display window <select id="window"><option value="400">Soft tissue · centre 50, width 400</option><option value="150">Narrow · centre 70, width 150</option></select></label>
 <label><input id="outline" type="checkbox" checked> Show label outlines</label>
 <div class="views"></div><output id="point" aria-live="polite">Loading CT…</output>
+<fieldset id="ruler" disabled><legend>Measure lesion size</legend>
+<p>Choose a plane and find the slice with the clearest margins. Place the cyan cursor at one margin and mark the start. In the same slice, place it at the opposite margin and mark the end. The slice sliders also position the cursor.</p>
+<label>Measurement plane <select id="ruler-plane"><option value="2">Axial</option><option value="1">Coronal</option><option value="0">Sagittal</option></select></label>
+<button id="ruler-start">Mark start</button> <button id="ruler-end" disabled>Mark end</button> <button id="ruler-clear" disabled>Clear</button>
+<p><output id="ruler-reading" aria-live="polite">Choose the first margin.</output></p></fieldset>
 <h2>Largest connected tumour label</h2><p>Case liver_14 has 2,612 tumour-labelled voxels in this crop. The model follows the largest face-connected component (2,610 voxels). The CT overlay also retains the separate two-voxel fragment. Voxel spacing is 0.686 × 0.686 × 1 mm.</p>
 <label><input class="layer" type="checkbox" checked> Tumour surface</label>
 <label>Rotation <input id="rotation" type="range" min="-180" max="180" value="25"></label>
