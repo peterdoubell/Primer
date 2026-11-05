@@ -15,11 +15,20 @@ async function load() {
     return data;
   }
   const [ct,mask] = await Promise.all([array('ct',Int16Array), array('mask',Uint8Array)]);
-  const point = (grid.initialVoxel || [193,161,232]).map((v,i) => v-origin[i]);
+  let point = (grid.initialVoxel || [193,161,232]).map((v,i) => v-origin[i]);
   const stride = [1,shape[0],shape[0]*shape[1]];
   const windowControl = document.querySelector('#window');
   const outline = document.querySelector('#outline');
   const views = [];
+  const organControl = document.querySelector('#organ');
+  if (organControl) {
+    organControl.addEventListener('change', () => {
+      point = grid.centers[Number(organControl.value)].map((value,i)=>value-origin[i]);
+      measurement = null;
+      render();
+      organControl.dispatchEvent(new Event('organ-positioned'));
+    });
+  }
   const ruler = document.querySelector('#ruler');
   let measurement = null;
   function drawCaliper(ctx, axis, h, v) {
@@ -57,11 +66,11 @@ async function load() {
           (x+1 < canvas.width && mask[index-stride[h]] !== label) ||
           (y > 0 && mask[index+stride[v]] !== label) ||
           (y+1 < canvas.height && mask[index-stride[v]] !== label));
-        const tumourEdge = edge && label === 2;
+        const color = grid.colors?.[label] || (label === 2 ? [255,82,87] : [255,184,35]);
         const offset=4*(x+y*canvas.width);
-        image.data[offset]=edge?255:intensity;
-        image.data[offset+1]=tumourEdge?82:edge?184:intensity;
-        image.data[offset+2]=tumourEdge?87:edge?35:intensity;
+        image.data[offset]=edge?color[0]:intensity;
+        image.data[offset+1]=edge?color[1]:intensity;
+        image.data[offset+2]=edge?color[2]:intensity;
         image.data[offset+3]=255;
       }
       ctx.putImageData(image,0,0);
@@ -129,6 +138,7 @@ async function load() {
     clear.onclick = plane.onchange = () => { measurement = null; render(); updateRuler(); };
     document.querySelector('.views').addEventListener('input',updateRuler);
     document.querySelector('.views').addEventListener('click',updateRuler);
+    organControl?.addEventListener('organ-positioned', updateRuler);
     ruler.disabled = false;
   }
   windowControl.onchange=outline.onchange=render;

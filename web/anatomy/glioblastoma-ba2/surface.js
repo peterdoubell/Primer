@@ -86,7 +86,7 @@ async function loadSurfaces() {
     let triangles=0;
     meshes.forEach(({vao,row},i)=>{
       if(!layers[i].checked)return;
-      gl.uniform3fv(gl.getUniformLocation(program,'tint'),colors[i].map(x=>x/255));
+      gl.uniform3fv(gl.getUniformLocation(program,'tint'),(row.color || colors[i]).map(x=>x/255));
       gl.bindVertexArray(vao);gl.drawElements(gl.TRIANGLES,row.triangles*3,gl.UNSIGNED_INT,0);
       triangles+=row.triangles;
     });
