@@ -107,5 +107,7 @@ async function loadSurfaces() {
   redraw = draw;
   for(const control of [cut,...layers,document.querySelector('#rotation'),document.querySelector('#tilt')])control?.addEventListener('input',draw);
   draw();
+  document.querySelector('#group').disabled = false;
+  document.querySelector('#fit').disabled = false;
 }
 loadSurfaces().catch(()=>{document.querySelector('#surface-status').textContent='Surface loading failed. Reload to retry.';});
