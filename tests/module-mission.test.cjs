@@ -15,7 +15,13 @@ const mission = teaching + '\n' + fs.readFileSync(path.join(__dirname, '../web/m
     await page.setContent('<main></main>');
     await page.addStyleTag({ path: path.join(__dirname, '../web/styles.css') });
     await page.addStyleTag({ path: path.join(__dirname, '../web/module-mission.css') });
-    await page.addScriptTag({ content: `async function renderNode() {} const S = { stage: 3, state: { profile: { xp: 120, streak: 3 } } }; ${helpers}\n${mission}` });
+    await page.addScriptTag({ content: `async function renderNode(page) {
+      page.append(el('h1', {}, 'Module'), el('nav', {}, 'Path'),
+        renderTeachingLesson({stage:3,lesson:{overview:'Idea',activity:'Try'}}),
+        el('section', {class:'lesson-media'}, 'Visual'),
+        el('div', {}, el('div', {class:'lesson-card'}, 'Article')),
+        el('div', {}, btn({}, 'Take the quiz')));
+    } const S = { stage: 3, state: { profile: { xp: 120, streak: 3 } } }; ${helpers}\n${mission}` });
     await page.evaluate(() => {
       const main = document.querySelector('main');
       const lesson = renderTeachingLesson({ stage: 3, lesson: {
@@ -41,6 +47,13 @@ const mission = teaching + '\n' + fs.readFileSync(path.join(__dirname, '../web/m
     assert.equal(await page.locator('progress').evaluate(e => e.value), 2);
     assert.equal(await page.locator('[aria-current="step"]').count(), 1);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'Mobile has no horizontal overflow');
+    await page.evaluate(async () => {
+      const main = document.querySelector('main'); main.replaceChildren();
+      await renderNode(main, 'fixture');
+    });
+    assert.equal(await page.locator('.module-mission-stop').count(), 4, 'Module route installs all available mission steps');
+    await page.getByRole('button', { name: /Challenge/ }).click();
+    assert.equal(await page.evaluate(() => document.activeElement.textContent), 'Take the quiz');
     console.log('Module mission: navigation, progress, focus, plain text, full lesson and mobile checks passed.');
   } finally { await browser.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });
