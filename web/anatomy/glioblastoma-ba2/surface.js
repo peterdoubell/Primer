@@ -8,7 +8,7 @@ async function loadSurfaces() {
   document.addEventListener('mri-section', event => {
     if (section && section.axis === event.detail.axis && section.coordinate === event.detail.coordinate) return;
     section = event.detail;
-    if (redraw && cut.checked) redraw();
+    if (redraw && cut?.checked) redraw();
   });
   const cut = document.querySelector('#section-cut');
   const gl = canvas.getContext('webgl2', {preserveDrawingBuffer:true});
@@ -75,11 +75,12 @@ async function loadSurfaces() {
   function draw(){
     gl.clearColor(.06,.09,.12,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);
     for(const [id,key] of [['rotation','yaw'],['tilt','pitch']])gl.uniform1f(gl.getUniformLocation(program,key),Number(document.getElementById(id).value)*Math.PI/180);
-    const clipped = cut.checked && section !== null;
+    const clipped = cut?.checked && section !== null;
     gl.uniform1i(gl.getUniformLocation(program,'cutAxis'),clipped ? section.axis : -1);
     gl.uniform1f(gl.getUniformLocation(program,'cutCoordinate'),clipped ? section.coordinate : 0);
     const axisNames = ['R','A','S'];
-    document.querySelector('#cut-info').textContent = clipped
+    const cutInfo = document.querySelector('#cut-info');
+    if (cutInfo) cutInfo.textContent = clipped
       ? 'Open surfaces at MNI152 ' + axisNames[section.axis] + ' = ' + section.coordinate + ' mm. Showing the ' + ['left','posterior','inferior'][section.axis] + ' side of the plane.'
       : 'Whole surfaces shown.';
     let triangles=0;
@@ -92,7 +93,7 @@ async function loadSurfaces() {
     status.textContent=triangles.toLocaleString()+(clipped ? ' source triangles before clipping' : ' source triangles visible');
   }
   redraw = draw;
-  for(const control of [cut,...layers,document.querySelector('#rotation'),document.querySelector('#tilt')])control.addEventListener('input',draw);
+  for(const control of [cut,...layers,document.querySelector('#rotation'),document.querySelector('#tilt')])control?.addEventListener('input',draw);
   draw();
 }
 loadSurfaces().catch(()=>{document.querySelector('#surface-status').textContent='Surface loading failed. Reload to retry.';});
