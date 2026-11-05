@@ -3807,6 +3807,8 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
+  if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },
+    'Inspect kidneys and adrenal glands on CT and in 3D'));
   if (n.id === 'rad.4.kidney') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/cptac-renal-contours/index.html' },
     'Inspect renal lesion CT and original contours'));
   if (n.id === 'rad.5.pancreas-tumour') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/msd-pancreas/index.html' },
