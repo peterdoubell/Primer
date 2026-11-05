@@ -8,8 +8,8 @@ PROOF_SHA256='e8f9e61f8f4781c81952d896980c5ee0287421a1f2d087f94db467e56b97aba9'
 
 
 def previous_runtime_bytes(relative,raw):
-    from tools.thoracic_native_runtime_compatibility import previous_runtime_bytes as before_native
-    raw=before_native(relative,raw,allow_older=True)
+    from tools.module_mission_compatibility import previous_shell_bytes
+    raw=previous_shell_bytes(relative,raw)
     evidence=(ROOT/PROOF).read_bytes()
     if hashlib.sha256(evidence).hexdigest()!=PROOF_SHA256:
         raise ValueError('Systems exact inverse evidence changed')
