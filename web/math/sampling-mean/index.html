@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spread of observations and means · Primer</title>
+<style>body{font:1rem/1.5 system-ui;background:#faf8ef;color:#213e44;max-width:55rem;padding:1rem;margin:auto}a{color:#25656a}label{display:grid;grid-template-columns:12rem 1fr 4rem;gap:.5rem;align-items:center;margin:.7rem 0}input{min-width:0;width:100%}figure{margin:1rem 0}svg{display:block;width:100%;background:white}table{border-collapse:collapse;width:100%}th,td{padding:.5rem;text-align:left;border-bottom:1px solid #adbfba}.table-scroll{overflow:auto;max-width:100%}td.exact{white-space:nowrap;min-width:12rem}summary{cursor:pointer}output{font-variant-numeric:tabular-nums}@media(max-width:500px){label{grid-template-columns:8rem 1fr 3rem}}</style>
+<main><a href="/app/#/node/math.3.statistics">Return to Statistics</a><h1>Spread of observations and means</h1>
+<p>Each trial returns 1 for success and 0 for failure. Assume independent trials with the same known probability p. Compare one observation with the average of n observations.</p>
+<label>Independent trials n<input id="n" type="range" min="1" max="60" value="10"><output for="n"></output></label>
+<label>Success probability p<input id="p" type="range" min="0" max="10" value="5"><output for="p"></output></label>
+<table><caption>Two different measures of spread</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Standard deviation</th></tr></thead><tbody id="summary"></tbody></table>
+<figure><svg viewBox="0 0 360 240" role="img" aria-label="Exact sampling distribution of the mean"></svg><figcaption>Bars show probability mass at each possible mean. Teal marks means within 0.2 of p. The dashed line marks p; both axes keep fixed scales.</figcaption></figure>
+<p id="reading" aria-live="polite"></p>
+<p>The individual population spread stays fixed when n changes. The mean’s standard deviation is its standard error, √(p(1−p)/n), in this specified model. Exact fixed-band probabilities can change in steps as the possible means move.</p>
+<details><summary>Inspect exact outcome probabilities</summary><div class="table-scroll" tabindex="0" role="region" aria-label="Exact binomial probabilities; scroll for all columns"><table><thead><tr><th scope="col">Successes k</th><th scope="col">Mean k/n</th><th scope="col">Exact probability</th></tr></thead><tbody id="outcomes"></tbody></table></div></details>
+<p>The calculation uses binomial weights C(n,k)aᵏ(10−a)ⁿ⁻ᵏ/10ⁿ, where a=10p. These are exact model probabilities for the stated independence assumption. The displayed population p is a supplied model parameter.</p></main><script src="core.js"></script><script src="view.js"></script></html>
