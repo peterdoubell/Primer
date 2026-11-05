@@ -29,6 +29,7 @@ const crypto=require('node:crypto');
       if(figure.id==='10'){
         await page.getByRole('button',{name:'Retry figure'}).waitFor();
         assert.ok(await page.locator('#image').isHidden(),'Previous source figure must be hidden after failure');
+        assert.equal(await page.locator('#caption').textContent(),'');
         await page.getByRole('button',{name:'Retry figure'}).click();
       }
       await page.locator('#status').filter({hasText:'Original Figure '+figure.id}).waitFor();
