@@ -1,9 +1,20 @@
 <!doctype html>
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Annotated liver tumour · Primer</title>
-<style>body{font:1rem/1.5 system-ui;margin:1rem auto;padding:0 1rem;max-width:76rem;background:#172128;color:#f1f4f5}a{color:#a4dfff}.views{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem}figure{margin:0}canvas{display:block;width:100%;background:black;image-rendering:pixelated;cursor:crosshair}label{display:inline-block;margin:.3rem .6rem .3rem 0}input,select{vertical-align:middle}h1{line-height:1.2}</style>
+<style>body{font:1rem/1.5 system-ui;margin:1rem auto;padding:0 1rem;max-width:76rem;background:#172128;color:#f1f4f5}a{color:#a4dfff}.views,.context-views{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem}figure{margin:0}canvas{display:block;width:100%;background:black;image-rendering:pixelated;cursor:crosshair}label{display:inline-block;margin:.3rem .6rem .3rem 0}input,select{vertical-align:middle}h1{line-height:1.2}</style>
 <main><a href="/app/#/node/rad.4.liver">Return to The Liver Lesion</a><h1>Annotated liver tumour on CT</h1>
 <p>Follow the red tumour contour across the three portal-venous CT planes. Gold traces the liver label. Click an image or move a slice control to inspect the corresponding source voxel.</p>
+<details><summary>Locate the tumour on the full CT</summary>
+<p>These reference sections pass through the initial tumour cursor. Gold outlines the liver including the tumour, red outlines the tumour, and the cyan box marks the field shown in the detailed views below.</p>
+<div class="context-views"><figure><figcaption>Axial · slice 354<br>Right to left · anterior up</figcaption>
+<svg viewBox="0 0 512 512" preserveAspectRatio="none" style="width:100%;aspect-ratio:1.0000000000;display:block" role="img" aria-label="Axial CT localiser showing the tumour within the liver and the bounds of the detailed view">
+<image href="context-axial.png" width="512" height="512"></image><rect x="208" y="145" width="69" height="66" fill="none" stroke="#55eeea" stroke-width="1.5"></rect></svg></figure>
+<figure><figcaption>Coronal · slice 333<br>Right to left · superior up</figcaption>
+<svg viewBox="0 0 512 588" preserveAspectRatio="none" style="width:100%;aspect-ratio:0.5969387755;display:block" role="img" aria-label="Coronal CT localiser showing the tumour within the liver and the bounds of the detailed view">
+<image href="context-coronal.png" width="512" height="588"></image><rect x="208" y="210" width="69" height="46" fill="none" stroke="#55eeea" stroke-width="1.5"></rect></svg></figure>
+<figure><figcaption>Sagittal · slice 272<br>Anterior to posterior · superior up</figcaption>
+<svg viewBox="0 0 512 588" preserveAspectRatio="none" style="width:100%;aspect-ratio:0.5969387755;display:block" role="img" aria-label="Sagittal CT localiser showing the tumour within the liver and the bounds of the detailed view">
+<image href="context-sagittal.png" width="512" height="588"></image><rect x="145" y="210" width="66" height="46" fill="none" stroke="#55eeea" stroke-width="1.5"></rect></svg></figure></div></details>
 <label>Display window <select id="window"><option value="400">Soft tissue · centre 50, width 400</option><option value="150">Narrow · centre 70, width 150</option></select></label>
 <label><input id="outline" type="checkbox" checked> Show label outlines</label>
 <div class="views"></div><output id="point" aria-live="polite">Loading CT…</output>
