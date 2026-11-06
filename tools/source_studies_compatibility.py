@@ -1,6 +1,7 @@
 """Recover the exact reader before the scoped source-study navigation."""
 import hashlib
 import json
+from tools.liver_regions_compatibility import before_liver_regions_bytes
 from tools.colonvessels_compatibility import before_colonvessels_bytes, before_vessel_navigation_bytes
 
 MENU = b"""function renderUterineSourceStudies(nodeId) {
@@ -93,6 +94,7 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    raw = before_liver_regions_bytes(path, raw)
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '1bcc58db62c46a558d7e1c691e1b9db44b09cd92bea386c2bf1b8b338d6d113b':
         raw = raw.replace(b"  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },\n    'Balance nucleons and charge in nuclear reactions'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != 'd278fa8be990e8bf83ce8dbaa3d1e2fcf2ac0b87d8ffe5b1bd0d38ed5b0288f9':

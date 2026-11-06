@@ -2947,6 +2947,14 @@ function renderUterineSourceStudies(nodeId) {
       el('p', { class: 'muted' }, study.context)))));
 }
 
+function renderLiverRegionStudy(nodeId) {
+  if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;
+  return el('section', {class:'card', 'aria-label':'Liver region source study'},
+    el('h2', {}, 'Source MRI with liver-region labels'),
+    el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
+    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'));
+}
+
 function renderAbdominalVesselStudies(nodeId) {
   const groups = {
   "renal": [
@@ -3104,6 +3112,8 @@ async function renderRadiologyDesk(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -3941,6 +3951,8 @@ async function renderNode(page, nodeId) {
     'Inspect renal lesion CT and original contours'));
   if (n.id === 'rad.5.pancreas-tumour') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/msd-pancreas/index.html' },
     'Inspect a pancreatic mass on CT and in 3D'));
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
   if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
     'Inspect liver CT in three planes'));
   if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
