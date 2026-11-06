@@ -92,6 +92,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '20dbae365478bf43a41ebd6208714fd5f0d51932c7cfada862387cacbbd185b2':
+        raw = raw.replace(b"  if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },\n    'Explore replacement and conditional probability'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '877916899eeaffb7acc23f19517304b3f20b0ed99fb9650b9bcd25a418a13c5a':
+            raise ValueError('Probability study link changed unrelated reader bytes')
     raw = before_endometrial_delivery_bytes(path, raw)
     if str(path) != "web/app.js" or hashlib.sha256(raw).hexdigest() != "877916899eeaffb7acc23f19517304b3f20b0ed99fb9650b9bcd25a418a13c5a":
         return raw
