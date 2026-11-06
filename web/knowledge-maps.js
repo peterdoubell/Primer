@@ -253,44 +253,193 @@ function mapBridges(index, stage, domain) {
     return [{ label, source, target }];
   });
 }
+// Coordinates describe the fixed geography of each commissioned atlas plate.
+// The same landmarks are retained while the learning level adds live detail.
+const MAP_LANDMARKS = {
+  math: { domain: 'formal', point: [.24, .47], crop: [0, 0, .56, 1], world: [.14, .21] },
+  cs: { domain: 'formal', point: [.76, .47], crop: [.44, 0, .56, 1], world: [.35, .28] },
+  physics: { domain: 'natural', point: [.23, .23], crop: [0, 0, .57, .58], world: [.70, .14] },
+  chemistry: { domain: 'natural', point: [.76, .23], crop: [.43, 0, .57, .58], world: [.81, .28] },
+  biology: { domain: 'natural', point: [.24, .76], crop: [0, .42, .57, .58], world: [.91, .31] },
+  earth: { domain: 'natural', point: [.77, .76], crop: [.43, .42, .57, .58], world: [.54, .13] },
+  engineering: { domain: 'applied', point: [.24, .24], crop: [0, 0, .55, .58], world: [.78, .51] },
+  design: { domain: 'applied', point: [.76, .24], crop: [.45, 0, .55, .58], world: [.79, .73] },
+  environment: { domain: 'applied', point: [.17, .76], crop: [0, .43, .43, .57], world: [.93, .64] },
+  health: { domain: 'applied', point: [.50, .78], crop: [.28, .43, .44, .57], world: [.73, .91] },
+  radiology: { domain: 'applied', point: [.84, .76], crop: [.57, .43, .43, .57], world: [.91, .85] },
+  history: { domain: 'society', point: [.23, .23], crop: [0, 0, .55, .58], world: [.31, .85] },
+  mind: { domain: 'society', point: [.76, .23], crop: [.45, 0, .55, .58], world: [.65, .74] },
+  business: { domain: 'society', point: [.17, .76], crop: [0, .43, .43, .57], world: [.49, .83] },
+  civics: { domain: 'society', point: [.50, .78], crop: [.28, .43, .44, .57], world: [.44, .68] },
+  education: { domain: 'society', point: [.84, .76], crop: [.57, .43, .43, .57], world: [.67, .92] },
+  language: { domain: 'culture', point: [.23, .27], crop: [0, 0, .55, .65], world: [.16, .72] },
+  arts: { domain: 'culture', point: [.50, .76], crop: [.15, .35, .70, .65], world: [.09, .53] },
+  media: { domain: 'culture', point: [.77, .27], crop: [.45, 0, .55, .65], world: [.15, .88] },
+};
+const WORLD_TERRITORIES = {
+  formal: { point: [.19, .23], radius: [.20, .24], label: [65, 222], width: 850, columns: 2 },
+  natural: { point: [.77, .24], radius: [.23, .25], label: [1250, 222], width: 1060, columns: 2 },
+  culture: { point: [.17, .72], radius: [.20, .25], label: [65, 1975], width: 700, columns: 1 },
+  society: { point: [.47, .81], radius: [.20, .17], label: [850, 1975], width: 690, columns: 1 },
+  applied: { point: [.83, .73], radius: [.18, .25], label: [1650, 1975], width: 680, columns: 1 },
+};
+function mapRaster(parent, asset, x, y, width, height, subjects = [], fallbackFrame = { x, y, width, height }) {
+  const group = mapSvg('g', { class: 'km-artwork-layer' });
+  const image = mapSvg('image', { href: '/app/knowledge-art/' + asset + '.webp', x, y, width, height,
+    preserveAspectRatio: 'xMidYMid meet', class: 'km-artwork' });
+  image.append(mapSvg('title', {}, 'Original illustrated ' + asset + ' knowledge landscape'));
+  group.append(image);
+  image.addEventListener('error', () => {
+    image.remove();
+    const columns = Math.max(1, Math.ceil(Math.sqrt(subjects.length)));
+    const rows = Math.max(1, Math.ceil(subjects.length / columns));
+    subjects.forEach((subject, i) => group.append(mapSvg('use', { href: '#plate-' + subject.id,
+      x: fallbackFrame.x + i % columns * fallbackFrame.width / columns, y: fallbackFrame.y + Math.floor(i / columns) * fallbackFrame.height / rows,
+      width: fallbackFrame.width / columns, height: fallbackFrame.height / rows })));
+    group.dispatchEvent(new CustomEvent('map-artwork-error', { bubbles: true }));
+  }, { once: true });
+  parent.append(group);
+  return group;
+}
+function mapSubjectLandscape(parent, subject, x, y, width, height, href) {
+  const landmark = MAP_LANDMARKS[subject.id];
+  if (!landmark) return mapDrawing(parent, subject, x, y, width, height, href);
+  const link = parent.localName === 'a' ? parent : mapSvgLink(parent, href, subject.name + ' illustrated learning landscape');
+  const [cx, cy, cw, ch] = landmark.crop;
+  const crop = mapSvg('svg', { x, y, width, height, viewBox: `${cx * 1536} ${cy * 1024} ${cw * 1536} ${ch * 1024}`,
+    preserveAspectRatio: 'xMidYMid slice', overflow: 'hidden' });
+  mapRaster(crop, landmark.domain, 0, 0, 1536, 1024, [subject], { x: cx * 1536, y: cy * 1024, width: cw * 1536, height: ch * 1024 });
+  link.append(crop);
+  return link;
+}
+function mapLessonLandmarks(subject, stage) {
+  // One persistent landmark per introduced level gives the overview a legible
+  // cumulative spine. Every module remains in the full subject map and index.
+  const landmarks = [];
+  for (let level = 0; level <= stage; level++) {
+    const node = subject.nodes.find(item => item.stage === level);
+    if (node) landmarks.push(node);
+  }
+  return landmarks;
+}
+function mapSubjectCallout(svg, subject, stage, x, y, width, anchor) {
+  const group = mapSvg('g', { class: 'km-landscape-callout km-subject-island', 'data-subject': subject.id });
+  svg.append(group);
+  const title = mapSvgLink(group, mapHref('subject', subject.id), subject.name + ' subject map');
+  const chars = Math.max(24, Math.floor(width / 13));
+  let at = y;
+  at += mapText(title, subject.name, x, at, chars, 'km-svg-heading', 29) + 8;
+  const content = MAP_SUBJECTS[subject.id] || [subject.tagline, ''];
+  at += mapText(group, content[0], x, at, Math.floor(width / 10.5), 'km-svg-copy', 24) + 20;
+  const landmarks = mapLessonLandmarks(subject, stage);
+  landmarks.forEach(node => {
+    const link = mapSvgLink(group, mapHref('module', node.id), node.title + ' module map');
+    link.setAttribute('data-landmark', node.id);
+    mapText(link, STAGE_NAMES[node.stage].toUpperCase(), x, at, 30, 'km-svg-small', 17);
+    at += 24;
+    at += mapText(link, '↗ ' + node.title, x, at, chars, 'km-svg-topic', 25) + 13;
+  });
+  const current = landmarks[landmarks.length - 1];
+  if (current) {
+    at += 7;
+    at += mapText(group, current.goal || '', x, at, Math.floor(width / 10.5), 'km-svg-copy', 24);
+  }
+  if (anchor) {
+    const edge = x < anchor.x ? x + width + 10 : x - 10;
+    group.insertBefore(mapSvg('path', { d: `M${edge} ${y + 20}Q${(edge + anchor.x) / 2} ${y + 20} ${anchor.x} ${anchor.y}`,
+      class: 'km-callout-leader', fill: 'none', stroke: subject.color, 'stroke-width': 2 }), group.firstChild);
+    group.append(mapSvg('circle', { cx: anchor.x, cy: anchor.y, r: 7, fill: '#fbf7ed', stroke: subject.color, 'stroke-width': 3 }));
+  }
+  return at - y;
+}
 function overviewScene(index, stage, domain, artwork) {
-  const examplesHeight = Math.max(...[...index.subjects.values()].map(subject => subject.nodes.filter(n => n.stage === stage).slice(0, 2).reduce((height, n) => height + mapTextLines('↗ ' + n.title, 30).length * 24 + 12, 0)));
-  const width = 2180, rowHeight = 410 + examplesHeight;
-  const height = 300 + Math.max(...index.domains.map(d => d.subjects.length)) * rowHeight;
-  const svg = mapScene(domain?.title || 'How ideas connect',
-    'Explore through ' + STAGE_NAMES[stage] + ' · illustrations, topics and bridges between subjects', width, height, artwork);
-  const paths = mapSvg('g', { class: 'km-connections' });
-  svg.append(paths);
+  if (domain) return domainLandscapeScene(index, stage, domain, artwork);
+  const width = 2400, height = 2445;
+  const svg = mapScene('A landscape of knowledge', 'Follow the paths between ideas · explore through ' + STAGE_NAMES[stage], width, height, artwork);
+  const image = { x: 50, y: 390, width: 2300, height: 1533 };
+  mapRaster(svg, 'world', image.x, image.y, image.width, image.height, [...index.subjects.values()]);
+  mapText(svg, 'Illustrated overview', 65, 1949, 50, 'km-svg-small');
   const positions = new Map();
-  index.domains.forEach((d, column) => {
-    const x = 45 + column * 426;
-    const domainLink = mapSvgLink(svg, mapHref('domain', d.id), d.title + ' domain map');
-    mapText(domainLink, d.title, x + 14, 212, 23, 'km-svg-domain', 27);
-    svg.append(mapSvg('path', { d: `M${x + 12} 255H${x + 382}`, stroke: d.color, 'stroke-width': 4 }));
-    d.subjects.forEach((subject, row) => {
-      const y = 277 + row * rowHeight;
-      positions.set(subject.id, { x: x + 200, y: y + 160, id: subject.id });
-      const group = mapSvg('g', { class: 'km-subject-island', 'data-subject': subject.id,
-        opacity: domain && d.id !== domain.id ? .55 : 1 });
+  for (const subject of index.subjects.values()) {
+    const point = MAP_LANDMARKS[subject.id]?.world;
+    if (point) positions.set(subject.id, { x: image.x + point[0] * image.width, y: image.y + point[1] * image.height, id: subject.id });
+  }
+  const paths = mapSvg('g', { class: 'km-connections km-landscape-connections' });
+  svg.append(paths);
+  const bridges = mapBridges(index, stage).filter(bridge => positions.has(bridge.source.domain) && positions.has(bridge.target.domain));
+  bridges.forEach((bridge, i) => mapCurve(paths, positions.get(bridge.source.domain), positions.get(bridge.target.domain), String(i), bridge.label));
+  index.domains.forEach(domain => {
+    const region = WORLD_TERRITORIES[domain.id];
+    if (!region) return;
+    const hotspot = mapSvgLink(svg, mapHref('domain', domain.id), 'Explore ' + domain.title + ' in the illustration');
+    hotspot.classList.add('km-region-hotspot');
+    hotspot.append(mapSvg('ellipse', { cx: image.x + region.point[0] * image.width, cy: image.y + region.point[1] * image.height,
+      rx: region.radius[0] * image.width, ry: region.radius[1] * image.height, fill: 'transparent', stroke: 'transparent', 'stroke-width': 4 }));
+    const [x, y] = region.label;
+    const heading = mapSvgLink(svg, mapHref('domain', domain.id), domain.title + ' domain map');
+    mapText(heading, domain.title, x, y, 45, 'km-svg-domain', 30);
+    svg.append(mapSvg('path', { d: `M${x} ${y + 12}h${region.width}`, stroke: domain.color, 'stroke-width': 3 }));
+    domain.subjects.forEach((subject, i) => {
+      const sx = x + (i % region.columns) * region.width / region.columns;
+      const sy = y + 49 + Math.floor(i / region.columns) * 69;
+      const group = mapSvg('g', { class: 'km-subject-island km-landscape-label', 'data-subject': subject.id });
       svg.append(group);
-      group.append(mapSvg('path', { d: `M${x + 14} ${y + 25}Q${x + 180} ${y - 14} ${x + 380} ${y + 22}L${x + 385} ${y + rowHeight - 48}Q${x + 200} ${y + rowHeight - 20} ${x + 10} ${y + rowHeight - 44}Z`,
-        fill: d.color, 'fill-opacity': .07, stroke: d.color, 'stroke-opacity': .35 }));
-      mapDrawing(group, subject, x + 52, y + 67, 280, 196, mapHref('subject', subject.id));
-      const heading = mapSvgLink(group, mapHref('subject', subject.id), subject.name + ' subject map');
-      mapText(heading, subject.name, x + 24, y + 33, 28, 'km-svg-heading', 25);
-      const content = MAP_SUBJECTS[subject.id] || [subject.tagline, ''];
-      mapText(group, content[0], x + 24, y + 285, 39, 'km-svg-copy', 20);
-      mapText(group, content[1].split('|')[stage] || STAGE_NAMES[stage], x + 24, y + 335, 39, 'km-svg-focus', 20);
-      const examples = subject.nodes.filter(node => node.stage === stage).slice(0, 2);
-      let topicY = y + 372;
-      examples.forEach(node => {
-        const link = mapSvgLink(group, mapHref('module', node.id), node.title + ' module map');
-        topicY += mapText(link, '↗ ' + node.title, x + 24, topicY, 30, 'km-svg-topic', 24) + 12;
-      });
+      const link = mapSvgLink(group, mapHref('subject', subject.id), subject.name + ' subject map');
+      mapText(link, subject.name + ' ↗', sx, sy, Math.floor(region.width / region.columns / 13), 'km-svg-topic', 24);
+      mapText(group, MAP_SUBJECTS[subject.id]?.[1].split('|')[stage] || subject.tagline, sx, sy + 28,
+        Math.floor(region.width / region.columns / 10), 'km-svg-focus', 20);
     });
   });
+  mapText(svg, 'Connections grow with your learning', 850, 1060, 34, 'km-svg-heading', 30);
+  mapText(svg, 'Select a named bridge below to trace a prerequisite from one subject into another.', 850, 1107, 43, 'km-svg-copy', 27);
+  return { svg, bridges };
+}
+function domainLandscapeScene(index, stage, domain, artwork) {
+  const width = 2580, height = 2990;
+  const svg = mapScene(domain.title, domain.description + ' · through ' + STAGE_NAMES[stage], width, height, artwork);
+  const image = { x: 430, y: 330, width: 1720, height: 1147 };
+  mapRaster(svg, domain.id, image.x, image.y, image.width, image.height, domain.subjects);
+  mapText(svg, 'Illustrated overview', image.x, image.y + image.height + 28, 50, 'km-svg-small');
+  const positions = new Map();
+  domain.subjects.forEach(subject => {
+    const point = MAP_LANDMARKS[subject.id]?.point || [.5, .5];
+    positions.set(subject.id, { x: image.x + point[0] * image.width, y: image.y + point[1] * image.height, id: subject.id });
+  });
+  const paths = mapSvg('g', { class: 'km-connections km-landscape-connections' });
+  svg.append(paths);
   const bridges = mapBridges(index, stage, domain);
+  const external = [...new Set(bridges.flatMap(bridge => [bridge.source.domain, bridge.target.domain]))]
+    .filter(id => !positions.has(id));
+  if (external.length) {
+    mapText(svg, 'PATHS INTO OTHER DOMAINS', 65, 2490, 70, 'km-svg-kicker');
+    external.forEach((id, i) => {
+      const subject = index.subjects.get(id);
+      const x = 65 + i % 3 * 825, y = 2540 + Math.floor(i / 3) * 72;
+      const group = mapSvg('g', { class: 'km-landscape-label', 'data-subject': id });
+      svg.append(group);
+      const link = mapSvgLink(group, mapHref('subject', id), subject.name + ' subject map');
+      mapText(link, subject.name + ' ↗', x, y, 58, 'km-svg-topic', 24);
+      positions.set(id, { x: x + 15, y: y - 10, id });
+    });
+  }
   bridges.forEach((bridge, i) => mapCurve(paths, positions.get(bridge.source.domain), positions.get(bridge.target.domain), String(i), bridge.label));
+  const slots = domain.subjects.length <= 2 ? [[65, 390, 350], [2185, 390, 330]]
+    : domain.subjects.length === 3 ? [[65, 390, 350], [920, 1590, 740], [2185, 390, 330]]
+    : [[65, 390, 350], [2185, 390, 330], [65, 1590, 650], [920, 1590, 740], [1835, 1590, 650]];
+  const ordered = domain.subjects.length === 4 ? [slots[0], slots[1], slots[2], slots[4]] : slots;
+  domain.subjects.forEach((subject, i) => {
+    const anchor = positions.get(subject.id);
+    const hotspot = mapSvgLink(svg, mapHref('subject', subject.id), 'Explore ' + subject.name + ' in the illustration');
+    hotspot.classList.add('km-region-hotspot');
+    hotspot.setAttribute('data-subject', subject.id);
+    hotspot.append(mapSvg('ellipse', { cx: anchor.x, cy: anchor.y, rx: 245, ry: 210, fill: 'transparent', stroke: 'transparent', 'stroke-width': 4 }));
+    const [x, y, boxWidth] = ordered[i] || [920, 1590, 740];
+    mapSubjectCallout(svg, subject, stage, x, y, boxWidth, anchor);
+  });
+  if (domain.subjects.length <= 2) {
+    mapText(svg, 'Shared foundations', 750, 1680, 60, 'km-svg-heading');
+    mapText(svg, 'Each level adds another learning landmark. Open a subject to explore the full web of topics, explanations and prerequisites.', 750, 1730, 90, 'km-svg-copy', 28);
+  }
   return { svg, bridges };
 }
 function subjectScene(subject, index, stage, artwork) {
@@ -311,22 +460,32 @@ function subjectScene(subject, index, stage, artwork) {
   for (let i = 0; i < groups.length; i += columns) rows.push(groups.slice(i, i + columns));
   const rowHeights = rows.map(row => 180 + Math.max(...row.map(g => g.nodes.reduce((height, node) =>
     height + Math.max(100, mapTextLines(node.title, 30).length * 25 + 52), 0))));
-  const height = 490 + rowHeights.reduce((sum, value) => sum + value, 0);
+  const heroHeight = Math.max(1250, 1110 + Math.max(...mapLessonLandmarks(subject, stage).map(item => mapTextLines(item.goal, Math.floor((width - 170) / 21)).length * 27)));
+  const height = heroHeight + 25 + rowHeights.reduce((sum, value) => sum + value, 0);
   const content = MAP_SUBJECTS[subject.id] || [subject.tagline, ''];
   const svg = mapScene(subject.name, content[0] + ' · through ' + STAGE_NAMES[stage], width, height, artwork);
-  mapDrawing(svg, subject, 60, 180, 340, 238, mapHref('module', subject.nodes.find(n => n.stage === stage)?.id || subject.nodes[0].id));
-  mapText(svg, content[1].split('|')[stage] || 'Explore the subject', 440, 240, 45, 'km-svg-heading', 30);
-  mapText(svg, 'Follow a topic to its lesson map. Arrows run from a prerequisite to the idea it supports.', 440, 285, 55, 'km-svg-copy', 26);
-  mapText(svg, 'Focus or point to a topic to trace its connections.', 440, 375, 58, 'km-svg-focus', 23);
+  const landmark = subject.nodes.find(n => n.stage === stage) || subject.nodes[0];
+  mapSubjectLandscape(svg, subject, 50, 215, width - 100, 650, mapHref('module', landmark.id));
+  const calloutWidth = (width - 170) / 2;
+  const representative = mapLessonLandmarks(subject, stage);
+  const lessons = [representative[0], representative[representative.length - 1]].filter((item, i, items) => item && items.indexOf(item) === i);
+  lessons.forEach((item, i) => {
+    const x = 60 + i * (calloutWidth + 50);
+    const link = mapSvgLink(svg, mapHref('module', item.id), item.title + ' module map');
+    mapText(link, STAGE_NAMES[item.stage].toUpperCase(), x, 918, 35, 'km-svg-kicker');
+    const used = mapText(link, item.title + ' ↗', x, 958, Math.floor(calloutWidth / 13), 'km-svg-heading', 30);
+    mapText(svg, item.goal || '', x, 978 + used, Math.floor(calloutWidth / 10.5), 'km-svg-copy', 27);
+  });
+  mapText(svg, 'Illustrated overview', 60, 890, 50, 'km-svg-small');
+  mapText(svg, 'THE SUBJECT IN DEPTH', 60, heroHeight - 43, 70, 'km-svg-kicker');
   const paths = mapSvg('g', { class: 'km-connections' });
   svg.append(paths);
   const positions = new Map();
-  let y = 465;
+  let y = heroHeight;
   rows.forEach((row, rowIndex) => {
     row.forEach((group, col) => {
       const x = 45 + col * columnWidth;
-      svg.append(mapSvg('rect', { x, y, width: 365, height: rowHeights[rowIndex] - 28, rx: 32,
-        fill: subject.color, 'fill-opacity': .05, stroke: subject.color, 'stroke-opacity': .3 }));
+      svg.append(mapSvg('path', { d: `M${x + 14} ${y + 14}h335M${x + 14} ${y + 14}v${rowHeights[rowIndex] - 50}`, fill: 'none', stroke: subject.color, 'stroke-opacity': .4, 'stroke-width': 2 }));
       mapText(svg, STAGE_NAMES[group.stage].toUpperCase(), x + 22, y + 34, 30, 'km-svg-kicker');
       const headingHeight = mapText(svg, group.label, x + 22, y + 67, 27, 'km-svg-heading', 25);
       let nodeY = y + 83 + headingHeight;
@@ -336,7 +495,7 @@ function subjectScene(subject, index, stage, artwork) {
         const link = mapSvgLink(svg, mapHref('module', node.id), node.title + ' module map');
         link.setAttribute('data-topic', node.id);
         link.append(mapSvg('rect', { x: x + 16, y: nodeY - 7, width: 333, height: itemHeight - 14,
-          rx: 13, fill: '#fbf7ed', stroke: '#bbc6b9' }), mapSvg('circle', { cx: x + 16, cy: nodeY + 28, r: 5, fill: subject.color }));
+          rx: 3, fill: '#fbf7ed', stroke: 'none' }), mapSvg('circle', { cx: x + 16, cy: nodeY + 28, r: 5, fill: subject.color }));
         const used = mapText(link, node.title, x + 32, nodeY + 21, 30, 'km-svg-topic', 25);
         mapText(link, 'Explore idea ↗', x + 32, nodeY + 29 + used, 40, 'km-svg-small', 20);
         nodeY += itemHeight;
@@ -384,14 +543,14 @@ function moduleScene(node, detail, subject, index, stage, artwork) {
   connect(prerequisites, 60, true); connect(onward, 1280, false);
   if (!prerequisites.length) mapText(svg, 'No earlier modules listed at this level.', 60, 292, 27);
   if (!onward.length) mapText(svg, 'Raise the level to explore later connections.', 1280, 292, 28);
-  svg.append(mapSvg('ellipse', { cx: 860, cy: 470, rx: 365, ry: 260, fill: subject.color, 'fill-opacity': .08, stroke: subject.color, 'stroke-opacity': .4 }));
+  svg.append(mapSvg('path', { d: 'M540 230H1180M540 725H1180', stroke: subject.color, 'stroke-opacity': .45, 'stroke-width': 2 }));
   const visual = (detail.lesson_media || []).find(item => item.kind === 'illustration' && item.src);
   const link = mapSvgLink(svg, hashFor('node', node.id), 'Open lesson ' + node.title);
   if (visual) {
     const image = mapSvg('image', { href: largestSrcFromSet(visual.srcset, visual.src), x: 600, y: 264, width: 520, height: 310, preserveAspectRatio: 'xMidYMid meet' });
-    image.addEventListener('error', () => image.replaceWith(mapSvg('use', { href: '#plate-' + subject.id, x: 650, y: 260, width: 420, height: 294 })), { once: true });
+    image.addEventListener('error', () => { image.remove(); mapSubjectLandscape(link, subject, 560, 260, 600, 330, hashFor('node', node.id)); }, { once: true });
     link.append(image);
-  } else link.append(mapSvg('use', { href: '#plate-' + subject.id, x: 650, y: 260, width: 420, height: 294 }));
+  } else mapSubjectLandscape(link, subject, 560, 260, 600, 330, hashFor('node', node.id));
   mapText(link, node.title, 610, 610, 41, 'km-svg-heading', 30);
   mapText(link, 'Open the lesson ↗', 610, 691, 50, 'km-svg-topic');
   mapText(svg, node.goal || '', 540, 776, 61, 'km-svg-copy', 26);
@@ -456,7 +615,12 @@ async function renderKnowledgeMaps(page, [level, id, selectedStage] = []) {
   const levelControl = el('section', { class: 'km-level-control', 'aria-label': 'Map learning level' },
     el('label', { for: 'km-stage' }, 'Grow the map ', stageReadout), slider,
     el('div', { class: 'km-stage-stops' }, ...stageButtons), stageHelp);
+  const artworkStatus = el('p', { class: 'km-artwork-status', role: 'status', hidden: '' });
   const sceneHost = el('div', { class: 'km-scene-host' });
+  sceneHost.addEventListener('map-artwork-error', () => {
+    artworkStatus.hidden = false;
+    artworkStatus.replaceChildren('The landscape illustration could not load. ', btn({ class: 'btn ghost small', onclick: () => renderRoute() }, 'Retry illustration'));
+  });
   const viewport = el('div', { class: 'km-viewport', tabindex: 0, role: 'region', 'aria-label': 'Illustrated map canvas',
     'aria-describedby': 'km-map-help' }, sceneHost);
   const output = el('output', { class: 'km-scale', 'aria-live': 'polite' }, '100%');
@@ -472,7 +636,7 @@ async function renderKnowledgeMaps(page, [level, id, selectedStage] = []) {
       btn({ class: 'btn ghost small', onclick: () => { setZoom(100); viewport.scrollTo(0, 0); } }, 'Fit map'),
       btn({ class: 'btn ghost small', onclick: () => setZoom(Math.round(currentScene.svg.viewBox.baseVal.width / viewport.clientWidth * 100)) }, 'Read size'),
       el('label', {}, connections, ' Connections')));
-  const sheet = el('section', { class: 'km-sheet' }, toolbar, viewport);
+  const sheet = el('section', { class: 'km-sheet' }, toolbar, artworkStatus, viewport);
   const bridgesPanel = el('section', { class: 'km-bridges', 'aria-label': 'Connections between subjects' });
   const textIndex = el('details', { class: 'km-text-index' }, el('summary', {}, 'Browse the wiki index'));
   const search = el('input', { type: 'search', 'aria-label': 'Search this map', placeholder: 'Find a topic in this map…', oninput: paintIndex });
@@ -493,6 +657,7 @@ async function renderKnowledgeMaps(page, [level, id, selectedStage] = []) {
     });
   }
   function paint() {
+    artworkStatus.hidden = true;
     selectedBridge = null;
     stageReadout.textContent = 'through ' + STAGE_NAMES[knowledgeMapStage];
     slider.value = knowledgeMapStage;
