@@ -3,6 +3,17 @@
 (() => {
   const canvas = document.querySelector('#surface');
   const status = document.querySelector('#surface-status');
+  const frame = document.createElement('div');
+  frame.className = 'surface-frame';
+  canvas.before(frame);
+  frame.append(canvas);
+  const scale = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  scale.setAttribute('viewBox', '0 0 640 480');
+  scale.setAttribute('role', 'img');
+  scale.setAttribute('aria-label', 'Source model scale in millimetres, parallel to the viewing plane');
+  scale.classList.add('surface-scale');
+  scale.setAttribute('hidden', '');
+  frame.append(scale);
   const layers = [...document.querySelectorAll('.layer')];
   const rotation = document.querySelector('#rotation');
   const tilt = document.querySelector('#tilt');
@@ -126,7 +137,8 @@
     const low = [0,1,2].map(axis => Math.min(...framed.map(mesh => mesh.row.bounds[0][axis])));
     const high = [0,1,2].map(axis => Math.max(...framed.map(mesh => mesh.row.bounds[1][axis])));
     gl.uniform3fv(gl.getUniformLocation(program, 'center'), low.map((value,axis) => (value + high[axis])/2));
-    gl.uniform1f(gl.getUniformLocation(program, 'radius'), .52*Math.hypot(...high.map((value,axis) => value - low[axis])));
+    const radius = .52*Math.hypot(...high.map((value,axis) => value - low[axis]));
+    gl.uniform1f(gl.getUniformLocation(program, 'radius'), radius);
     gl.uniform1f(gl.getUniformLocation(program, 'yaw'), rotation.valueAsNumber*Math.PI/180);
     gl.uniform1f(gl.getUniformLocation(program, 'pitch'), tilt.valueAsNumber*Math.PI/180);
     let triangles = 0;
@@ -138,6 +150,19 @@
       triangles += mesh.row.triangles;
     }
     status.textContent = triangles.toLocaleString() + ' source triangles visible';
+    const desired = radius / 2;
+    const power = 10 ** Math.floor(Math.log10(desired));
+    const length = [1, 2, 5, 10].map(value => value * power).filter(value => value <= desired).at(-1);
+    const pixels = length * 240 / radius;
+    scale.replaceChildren();
+    const bar = document.createElementNS(scale.namespaceURI, 'line');
+    for (const [key,value] of Object.entries({x1:30,x2:30+pixels,y1:440,y2:440,stroke:'#ffffff','stroke-width':3})) bar.setAttribute(key,value);
+    const text = document.createElementNS(scale.namespaceURI, 'text');
+    for (const [key,value] of Object.entries({x:30,y:425,fill:'#ffffff','font-size':18*640/Math.max(1,canvas.clientWidth)})) text.setAttribute(key,value);
+    text.textContent = Number(length.toPrecision(6)) + ' mm';
+    scale.append(bar,text);
+    scale.dataset.lengthMm = length;
+    scale.removeAttribute('hidden');
   }
 
   async function start() {
@@ -147,6 +172,7 @@
     const signal = pending.signal;
     retry.hidden = true;
     canvas.hidden = true;
+    scale.setAttribute('hidden', '');
     dispose(scene);
     scene = null;
     if (!gl) {
@@ -189,6 +215,7 @@
     pending?.abort();
     scene = null;
     canvas.hidden = true;
+    scale.setAttribute('hidden', '');
     status.textContent = 'The 3D graphics context was lost. Waiting for recovery.';
     retry.textContent = 'Reload page to retry';
     retry.hidden = false;
@@ -199,5 +226,6 @@
     if (gl?.isContextLost()) location.reload();
     else start();
   });
+  new ResizeObserver(draw).observe(frame);
   start();
 })();
