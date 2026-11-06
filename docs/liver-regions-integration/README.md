@@ -16,3 +16,9 @@ The record says nine segments, but the archive schema contains background plus e
 The browser checker refuses non-loopback origins because it creates a synthetic learner profile. Production validation must use a separate read-only checker.
 
 `source-review.json`, `geometry-proof.json` and `expected-raster-hashes.json` preserve source review and independent expected values. `runtime-inverse.json` restricts compatibility normalization to exact reviewed changes in shared files; unknown edits are not normalized.
+
+## Visual orientation review
+
+Desktop/mobile inspection identified missing model direction cues and an absent all-region colour key. The viewer now projects the R/A/S patient axes with the same yaw/pitch convention as the model, identifies the opposite L/P/I directions, and distinguishes near-end-on axes with filled/towards and open/away circles. The verified region inventory supplies the colour key and selected/hidden status.
+
+`node tools/check_liver_region_orientation.cjs` compares 48 rotation/tilt pairs against independently projected unit vectors and the actual GPU uniforms. It checks selected-region keys, narrow layout and loss/restoration of the WebGL context. Source geometry and MRI samples are unchanged.
