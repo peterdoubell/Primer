@@ -93,6 +93,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '862d500cc4b19a5a8b10d542d8117c1eb183e39172436bd641f9466ece78eb91':
+        raw = raw.replace(b"  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },\n    'Balance nucleons and charge in nuclear reactions'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'fe5e3f2d9ae2721ea09f3f25cdee65b058525bfb5a7b2eac16d14866c697058f':
+            raise ValueError('Nuclear study link changed unrelated reader bytes')
     raw = before_colonvessels_bytes(path, raw)
     raw = before_endometrial_delivery_bytes(path, raw)
     if str(path) != "web/app.js" or hashlib.sha256(raw).hexdigest() != "877916899eeaffb7acc23f19517304b3f20b0ed99fb9650b9bcd25a418a13c5a":
