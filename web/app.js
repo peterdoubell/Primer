@@ -2947,6 +2947,63 @@ function renderUterineSourceStudies(nodeId) {
       el('p', { class: 'muted' }, study.context)))));
 }
 
+function renderAbdominalVesselStudies(nodeId) {
+  const groups = {
+  "renal": [
+    {
+      "title": "Left renal artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:7"
+    },
+    {
+      "title": "Right renal arteries",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:8"
+    },
+    {
+      "title": "Left renal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:3"
+    },
+    {
+      "title": "Right renal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:4"
+    }
+  ],
+  "pancreatic": [
+    {
+      "title": "Coeliac trunk",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:4"
+    },
+    {
+      "title": "Common hepatic artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4"
+    },
+    {
+      "title": "Superior mesenteric artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:1"
+    },
+    {
+      "title": "Portal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7"
+    },
+    {
+      "title": "Superior mesenteric vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:11"
+    }
+  ]
+};
+  let shown;
+  if (['ra.solid-renal-masses', 'rad.4.kidney'].includes(nodeId)) shown = groups.renal;
+  else if (['ra.ct-pancreatic-cancer', 'rad.5.pancreas-tumour'].includes(nodeId)) shown = groups.pancreatic;
+  else if (['ra.ct-abdominal-trauma', 'ra.ct-bowel-ischaemia'].includes(nodeId)) shown = [
+    {title:'Inspect arterial CT and vessel models',href:'/app/anatomy/colonvessels-pat012/arterial/index.html'},
+    {title:'Inspect venous CT and vessel models',href:'/app/anatomy/colonvessels-pat012/venous/index.html'},
+  ];
+  if (!shown) return null;
+  return el('section', {class:'card', 'aria-label':'Original vascular anatomy reference'},
+    el('h2', {}, 'Original vascular anatomy reference'),
+    el('p', {}, 'Study source-labelled vessels from one ColonVessels case. Arterial and venous acquisitions are independent. Lesion extent, vessel-wall invasion and injury assessment require separate case-specific evidence.'),
+    el('ul', {}, ...shown.map(row => el('li', {}, el('a', {href:row.href + (row.href.includes('?') ? '&' : '?') + 'from=' + encodeURIComponent(nodeId)}, row.title)))));
+}
+
 async function renderRadiologyDesk(page, nodeId) {
   if (!nodeId) {
     const catalog = await reportingGuard(page, () => api.get('/api/radiology/modules'));
@@ -3045,12 +3102,8 @@ async function renderRadiologyDesk(page, nodeId) {
       (ref.key_images.length + (ref.structure_atlas || []).length + referenceImages.length) + ' source figures · ' + (detailedAnatomy || ref.source_anatomy_references?.length ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
   const sourceStudies = renderUterineSourceStudies(n.id);
   if (sourceStudies) page.append(sourceStudies);
-  if (['ra.ct-abdominal-trauma', 'ra.ct-bowel-ischaemia'].includes(n.id)) page.append(el('section', { class: 'card' },
-    el('h2', {}, 'Original abdominal vessel study'),
-    el('p', {}, 'Compare the source vessel labels with their own arterial or venous CT acquisition. These scans provide anatomical reference; vascular injury and ischaemia are not annotated.'),
-    el('a', { href: '/app/anatomy/colonvessels-pat012/arterial/index.html' }, 'Inspect arterial CT and vessel models'),
-    el('span', {}, ' · '),
-    el('a', { href: '/app/anatomy/colonvessels-pat012/venous/index.html' }, 'Inspect venous CT and vessel models')));
+  const vascularStudies = renderAbdominalVesselStudies(n.id);
+  if (vascularStudies) page.append(vascularStudies);
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -3862,6 +3915,8 @@ async function renderNode(page, nodeId) {
 
   const sourceStudies = renderUterineSourceStudies(n.id);
   if (sourceStudies) page.append(sourceStudies);
+  const vascularStudies = renderAbdominalVesselStudies(n.id);
+  if (vascularStudies) page.append(vascularStudies);
   if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
     'Explore derivative signs and optimization'));
   if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },
@@ -3870,6 +3925,8 @@ async function renderNode(page, nodeId) {
     'Compare population spread and sampling uncertainty'));
   if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },
     'Explore observed galaxy rotation curves'));
+  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
+    'Balance nucleons and charge in nuclear reactions'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
     'Explore a longitudinal sound wave'));
   if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },
