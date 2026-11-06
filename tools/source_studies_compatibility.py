@@ -94,6 +94,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'aca03148e7fd7e4126b8f465d0d5dc62557e3ff4018e053c82ad717df5f7c7e6':
+        raw = raw.replace(b"  if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },\n    'Explore every child and a tree: two scope orders'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'fbd9bb7a78d48db44f5d1e4ee256778aba03213aa041589c565f91a10bf616f1':
+            raise ValueError('Quantifier scope link changed unrelated reader bytes')
     raw = before_liver_regions_bytes(path, raw)
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '1bcc58db62c46a558d7e1c691e1b9db44b09cd92bea386c2bf1b8b338d6d113b':
         raw = raw.replace(b"  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },\n    'Balance nucleons and charge in nuclear reactions'));\n", b'', 1)
