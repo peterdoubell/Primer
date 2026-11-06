@@ -2947,6 +2947,34 @@ function renderUterineSourceStudies(nodeId) {
       el('p', { class: 'muted' }, study.context)))));
 }
 
+function renderLiverRegionStudy(nodeId) {
+  if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;
+  return el('section', {class:'card', 'aria-label':'Liver region source study'},
+    el('h2', {}, 'Source MRI with liver-region labels'),
+    el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
+    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),
+    el('h3', {}, 'Vascular references from a separate CT case'),
+    el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),
+    el('ul', {}, ...[
+  {
+    "title": "Common hepatic artery on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4"
+  },
+  {
+    "title": "Right hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:1"
+  },
+  {
+    "title": "Left hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:2"
+  },
+  {
+    "title": "Portal vein on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7"
+  }
+].map(row => el('li', {}, el('a', {href:row.href + '&from=' + encodeURIComponent(nodeId)}, row.title)))));
+}
+
 function renderAbdominalVesselStudies(nodeId) {
   const groups = {
   "renal": [
@@ -3104,6 +3132,8 @@ async function renderRadiologyDesk(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -3929,6 +3959,8 @@ async function renderNode(page, nodeId) {
     'Balance nucleons and charge in nuclear reactions'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
     'Explore a longitudinal sound wave'));
+  if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },
+    'Explore every child and a tree: two scope orders'));
   if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },
     'Inspect evidence and repair an argument'));
   if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },
@@ -3941,6 +3973,8 @@ async function renderNode(page, nodeId) {
     'Inspect renal lesion CT and original contours'));
   if (n.id === 'rad.5.pancreas-tumour') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/msd-pancreas/index.html' },
     'Inspect a pancreatic mass on CT and in 3D'));
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
   if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
     'Inspect liver CT in three planes'));
   if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
