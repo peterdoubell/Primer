@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manuscript families · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script src="core.js" defer></script>
+<script src="viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/lang.5.philology">Return to Philology and Textual Criticism</a>
+  <h1>Which manuscripts travel together?</h1>
+  <p>Four fictional copies of a harbour chronicle disagree in several places. Compare their readings, then predict which family tree needs the fewest copying changes.</p>
+  <label for="case">Evidence set</label>
+  <select id="case"></select>
+  <p id="case-note"></p>
+  <div class="scroll" role="region" tabindex="0" aria-label="Witness collation">
+    <table id="collation">
+      <caption>Collation of the four witnesses</caption>
+      <thead><tr><th scope="col">Use passage</th><th scope="col">A</th><th scope="col">B</th><th scope="col">C</th><th scope="col">D</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p><strong>Omitted</strong> records an observed absence. <strong>Unreadable</strong> leaves the reading unknown.</p>
+  <form id="prediction">
+    <fieldset>
+      <legend>Predict the lowest score</legend>
+      <div id="choices" class="choices"></div>
+      <button type="submit">Check prediction</button>
+      <button id="reveal" type="button">Show comparison</button>
+    </fieldset>
+  </form>
+  <p id="feedback" role="status"></p>
+  <section id="comparison" hidden>
+    <h2>Compare the three splits</h2>
+    <div class="scroll" role="region" tabindex="0" aria-label="Minimum changes by passage">
+      <table id="scores"><caption>Minimum changes by passage and split</caption></table>
+    </div>
+    <p id="best"></p>
+    <h2>Inspect a passage on the relationship map</h2>
+    <div class="choices">
+      <label>Split <select id="split"></select></label>
+      <label>Passage <select id="passage"></select></label>
+    </div>
+    <figure>
+      <svg id="map" viewBox="0 0 400 230" role="img" aria-labelledby="map-title"></svg>
+      <figcaption id="map-note"></figcaption>
+    </figure>
+    <h2>How the score works</h2>
+    <ol>
+      <li>Choose a split and one passage. The diagram has two interior nodes and five edges.</li>
+      <li>Try each observed reading at each interior node. Count one change across every edge whose two readings differ. An unreadable leaf can match its neighbour and adds zero.</li>
+      <li>Keep the lowest count for that passage. Add the counts for the selected passages and compare the three totals.</li>
+    </ol>
+  </section>
+  <p>The score assumes equal change costs and a single tree for all selected passages. Repeated changes and borrowing between branches can produce conflicting readings. The diagram has no root, so its edges give no direction of copying and cannot identify an author's wording.</p>
+  <p><a href="https://doi.org/10.1093/sysbio/20.4.406">Minimum change on a tree</a> · <a href="https://www.uni-muenster.de/INTF/en/forschung/cbgm/index.html">How the INTF studies relationships among textual witnesses</a></p>
+</main>
+</body>
+</html>
