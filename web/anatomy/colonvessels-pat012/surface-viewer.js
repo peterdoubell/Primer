@@ -11,6 +11,16 @@
   retry.textContent = 'Retry 3D view';
   retry.hidden = true;
   status.after(retry);
+  let frameSelection = true;
+  const framing = document.createElement('button');
+  framing.type = 'button';
+  framing.textContent = 'Use full reference extent';
+  retry.after(framing);
+  framing.addEventListener('click', () => {
+    frameSelection = !frameSelection;
+    framing.textContent = frameSelection ? 'Use full reference extent' : 'Fit selected vessel';
+    draw();
+  });
 
   const gl = canvas.getContext('webgl2', {preserveDrawingBuffer: true});
   const verified = new Map();
@@ -100,10 +110,7 @@
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indices);
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, decoded[i].indices, gl.STATIC_DRAW);
     }
-    const low = [0,1,2].map(axis => Math.min(...rows.map(row => row.bounds[0][axis])));
-    const high = [0,1,2].map(axis => Math.max(...rows.map(row => row.bounds[1][axis])));
-    gl.uniform3fv(gl.getUniformLocation(program, 'center'), low.map((value,axis) => (value + high[axis])/2));
-    gl.uniform1f(gl.getUniformLocation(program, 'radius'), .52*Math.hypot(...high.map((value,axis) => value - low[axis])));
+
   }
 
   function draw() {
@@ -114,6 +121,12 @@
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.DEPTH_TEST);
     gl.useProgram(program);
+    const selected = meshes.filter((mesh,i) => layers[i].checked);
+    const framed = frameSelection && selected.length ? selected : meshes;
+    const low = [0,1,2].map(axis => Math.min(...framed.map(mesh => mesh.row.bounds[0][axis])));
+    const high = [0,1,2].map(axis => Math.max(...framed.map(mesh => mesh.row.bounds[1][axis])));
+    gl.uniform3fv(gl.getUniformLocation(program, 'center'), low.map((value,axis) => (value + high[axis])/2));
+    gl.uniform1f(gl.getUniformLocation(program, 'radius'), .52*Math.hypot(...high.map((value,axis) => value - low[axis])));
     gl.uniform1f(gl.getUniformLocation(program, 'yaw'), rotation.valueAsNumber*Math.PI/180);
     gl.uniform1f(gl.getUniformLocation(program, 'pitch'), tilt.valueAsNumber*Math.PI/180);
     let triangles = 0;
