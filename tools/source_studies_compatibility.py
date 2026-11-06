@@ -1,6 +1,7 @@
 """Recover the exact reader before the scoped source-study navigation."""
 import hashlib
 import json
+from tools.liver_regions_compatibility import before_liver_regions_bytes
 from tools.colonvessels_compatibility import before_colonvessels_bytes
 
 MENU = b"""function renderUterineSourceStudies(nodeId) {
@@ -93,6 +94,7 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    raw = before_liver_regions_bytes(path, raw)
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'b8bfd780d07072654d06081e7728219619824dfb33ad58289960d9c5e8cf194e':
         raw = raw.replace(b"  if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },\n    'Explore replacement and conditional probability'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != '0a1e531b708254ae4700e7cf5fb5eea728f9cc8fc346b407c2a737f4f226499d':
