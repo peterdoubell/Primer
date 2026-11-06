@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Base rates and positive tests · Primer</title><link rel="stylesheet" href="../viewer.css"><script src="viewer.js" defer></script>
+<style>#bar{display:flex;height:2rem;background:#30383c}#true-bar{background:#1f8e7d}#false-bar{background:#de9c44}#bar span{height:100%}input[type=number]{width:7rem}[hidden]{display:none!important}</style></head><body><main>
+<a href="../index.html">Return to marble draws</a> · <a href="/app/#/node/math.3.probability">Return to Probability</a>
+<h1>What does a positive test tell us?</h1>
+<p>A fictional factory screens items for defects. Specify the defect rate and the screening test’s performance, then count the positive results from each group.</p>
+<div class="controls">
+<label>Defective items per 10,000 <input id="rate" type="number" min="0" max="10000" step="1" value="1"></label>
+<label>Sensitivity (%) <input id="sensitivity" type="number" min="0" max="100" step="1" value="99"></label>
+<label>Specificity (%) <input id="specificity" type="number" min="0" max="100" step="1" value="99"></label>
+</div>
+<p>Sensitivity is the positive-test rate among defective items. Specificity is the negative-test rate among items without defects.</p>
+<p id="status" role="status"></p>
+<section id="results">
+<div class="scroll" tabindex="0" role="region" aria-label="Expected test outcomes"><table><caption>Expected counts per 1,000,000 items under these assumptions</caption>
+<thead><tr><th scope="col">Actual condition</th><th scope="col">Positive test</th><th scope="col">Negative test</th><th scope="col">Total</th></tr></thead><tbody id="counts"></tbody></table></div>
+<h2>Focus on positive tests</h2>
+<div id="bar" role="img"><span id="true-bar"></span><span id="false-bar"></span></div>
+<p>Teal represents true positives. Gold represents false positives. The full bar represents all positive results.</p>
+<p id="posterior"></p>
+</section>
+<p>The table scales the assumed rates to a common population of one million so these input steps give exact integer counts. It describes expected frequencies under the model; observed batches can differ.</p>
+<p>To calculate P(defective | positive), divide the defective-and-positive count by the total positive count. Both groups can contribute positive results.</p>
+<button id="reset">Restore the rare-defect example</button>
+</main></body></html>

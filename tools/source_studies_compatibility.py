@@ -93,6 +93,14 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'b8bfd780d07072654d06081e7728219619824dfb33ad58289960d9c5e8cf194e':
+        raw = raw.replace(b"  if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },\n    'Explore replacement and conditional probability'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '0a1e531b708254ae4700e7cf5fb5eea728f9cc8fc346b407c2a737f4f226499d':
+            raise ValueError('Probability study link changed unrelated reader bytes')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '0a1e531b708254ae4700e7cf5fb5eea728f9cc8fc346b407c2a737f4f226499d':
+        raw = raw.replace(b"  if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },\n    'Inspect evidence and repair an argument'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'fe5e3f2d9ae2721ea09f3f25cdee65b058525bfb5a7b2eac16d14866c697058f':
+            raise ValueError('Rhetoric study link changed unrelated reader bytes')
     raw = before_colonvessels_bytes(path, raw)
     raw = before_endometrial_delivery_bytes(path, raw)
     if str(path) != "web/app.js" or hashlib.sha256(raw).hexdigest() != "877916899eeaffb7acc23f19517304b3f20b0ed99fb9650b9bcd25a418a13c5a":
