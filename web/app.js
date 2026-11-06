@@ -55,7 +55,7 @@ function radiologyPresentation(data) {
 }
 
 const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null,
-  visualGallery: null, restoreFocus: null, readerTitle: null };
+  visualGallery: null, knowledgeMapIndex: null, restoreFocus: null, readerTitle: null };
 // The review deck's document-level keydown handler, held here so leaving the
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
@@ -420,6 +420,7 @@ function speakBtn(getText, label) {
 
 /* ---------------- routing (hash-based) ---------------- */
 function hashFor(view, arg) {
+  if (view === 'maps') return '#/maps' + (arg ? '/' + arg.map(encodeURIComponent).join('/') : '');
   if (view === 'node') return '#/node/' + encodeURIComponent(arg);
   if (view === 'radiology') return '#/radiology' + (arg ? '/' + encodeURIComponent(arg) : '');
   if ((view === 'atlas' || view === 'math-images') && arg) {
@@ -442,8 +443,11 @@ const KNOWN_VIEWS = new Set(['today', 'atlas', 'math-images', 'review', 'review-
                              'journey', 'roadmap', 'library', 'node', 'read', 'reader', 'account', 'radiology']);
 function parseHash() {
   const h = (location.hash || '#/today').replace(/^#\/?/, '');
-  const parts = h.split('/').map(decodeURIComponent);
+  let parts;
+  try { parts = h.split('/').map(decodeURIComponent); }
+  catch (e) { if (e instanceof URIError) return { view: 'today', corrected: true }; throw e; }
   const view = parts[0] || 'today';
+  if (view === 'maps') return { view, arg: parts.slice(1) };
   if (view === 'node') return { view, arg: parts[1] };
   if (view === 'radiology') return { view, arg: parts[1] || null };
   if (view === 'atlas' || view === 'math-images') return { view, arg: {
@@ -489,13 +493,16 @@ function renderRoute() {
   // Falling back to Today while leaving the address bar on a bogus route left
   // no nav item marked current, and a reload landed nowhere.
   if (corrected) { location.replace('#/' + view); return; }
+  if (view !== 'maps') S.knowledgeMapIndex = null;
   S.view = view;
   document.querySelectorAll('.navbtn').forEach(b => {
-    const active = b.dataset.nav === view || (view === 'review-game' && b.dataset.nav === 'review');
+    const active = b.dataset.nav === view || (view === 'review-game' && b.dataset.nav === 'review')
+      || (view === 'maps' && b.dataset.nav === 'atlas');
     b.classList.toggle('active', active);
     if (active) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
   const routes = { today: renderToday, atlas: renderAtlas, 'math-images': renderVisualGallery,
+    maps: renderKnowledgeMaps,
     review: renderReview, 'review-game': renderMemoryGame, 'library-search': renderSearch, roadmap: renderRoadmap,
     library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode,
     reader: renderReader, account: renderAccount, radiology: renderRadiologyDesk };
@@ -3691,6 +3698,8 @@ async function renderNode(page, nodeId) {
   if (nodeKicker) nodeKicker.prepend(el('span', { class: 'kicker-mark', 'aria-hidden': 'true' }, domainMark(d, 14)), ' ');
   page.append(nodeHead);
   page.append(el('nav', { class: 'lesson-pathway-links', 'aria-label': 'Explore this learning pathway' },
+    el('a', { class: 'btn ghost small', href: hashFor('maps', ['module', n.id]) },
+      glyph('atlas', 16), ' Module map'),
     el('a', { class: 'btn ghost small', href: hashFor('atlas', { domain: n.domain, stage: n.stage }) },
       glyph('path', 16), ' ', d.name, ' pathway'),
     el('a', { class: 'btn ghost small', href: hashFor('math-images', { domain: n.domain, stage: n.stage }) },
@@ -5818,6 +5827,7 @@ async function renderAtlas(page, selection = {}) {
       el('label', { for: 'atlas-lesson-search' }, 'Search lessons', search)),
     stageChoices,
     el('div', { class: 'pathway-actions' },
+      el('a', { class: 'btn gold small', href: hashFor('maps') }, glyph('atlas', 16), ' Explore knowledge maps'),
       btn({ class: 'btn ghost small', onclick: () => { selectedStage = null; paint(); } }, 'Show all stages'),
       btn({ class: 'btn ghost small', onclick: () => go('math-images', { domain: fieldFilter.value, stage: selectedStage }) },
         glyph('gallery', 16), ' Explore these visuals'), clearPathway),
@@ -6000,6 +6010,7 @@ async function renderAtlas(page, selection = {}) {
       el('div', { class: 'dh-text' }, el('h3', {}, d.name),
         el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')),
         stageStrip(d)),
+      el('a', { class: 'btn ghost small', href: hashFor('maps', ['subject', d.id]) }, 'Subject map'),
       jump));
     for (const stage of stages) {
       const s = stage.i;
