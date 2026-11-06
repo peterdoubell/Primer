@@ -93,6 +93,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '1bcc58db62c46a558d7e1c691e1b9db44b09cd92bea386c2bf1b8b338d6d113b':
+        raw = raw.replace(b"  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },\n    'Balance nucleons and charge in nuclear reactions'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'd278fa8be990e8bf83ce8dbaa3d1e2fcf2ac0b87d8ffe5b1bd0d38ed5b0288f9':
+            raise ValueError('Nuclear study link changed unrelated reader bytes')
     raw = before_vessel_navigation_bytes(path, raw)
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'b8bfd780d07072654d06081e7728219619824dfb33ad58289960d9c5e8cf194e':
         raw = raw.replace(b"  if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },\n    'Explore replacement and conditional probability'));\n", b'', 1)
