@@ -200,3 +200,18 @@
 }
 .km-edge-label { display: none; font: 600 19px system-ui, sans-serif; paint-order: stroke fill; stroke: #fbf7ed; stroke-width: 6px; stroke-linejoin: round; }
 .km-traced .km-edge-label { display: block; }
+
+/* Live callouts sit on the paper around a unified illustrated landscape. */
+.km-landscape-label text, .km-landscape-callout text { paint-order: stroke fill; stroke: #fbf7ed; stroke-width: 5px; stroke-linejoin: round; }
+.km-landscape-callout .km-svg-small { letter-spacing: .1em; }
+.km-region-hotspot ellipse { transition: stroke .15s ease, fill .15s ease; }
+.km-region-hotspot:hover ellipse, .km-region-hotspot:focus ellipse { fill: #fff9e516; stroke: #507e70; stroke-dasharray: 12 8; }
+.km-region-hotspot:focus { outline: none; }
+.km-landscape-connections { pointer-events: none; }
+.km-landscape-connections .km-connection { opacity: .18; }
+.km-landscape-connections .km-connection.km-traced { opacity: 1; }
+.km-landscape-connections .km-traced path { paint-order: stroke; stroke-width: 7px; }
+.km-callout-leader { opacity: .6; }
+.km-artwork-status { margin: 0; padding: 10px 16px; color: var(--ink-soft); background: var(--paper-hi); font: 14px/1.5 var(--sans); }
+@media (prefers-reduced-motion: reduce) { .km-region-hotspot ellipse { transition: none; } }
+.km-callout-leader, .km-landscape-callout > circle { pointer-events: none; }
