@@ -57,6 +57,12 @@ _MAP_CHANGES = {
 
 def before_knowledge_maps_bytes(path, raw):
     """Project only the known Knowledge Maps additions out of a shared file."""
+    # Remove the two later lesson links only from the exact reviewed reader.
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '5273aa946196c7275d761dda3c42b52b753127da96d12094b4090cbd58bfda62':
+        raw = raw.replace(b"  if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },\n    'Explore observed galaxy rotation curves'));\n", b'', 1)
+        raw = raw.replace(b"  if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },\n    'Compare manuscript families'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '35698cc1fa6e713a975d6008765701965187ae1b49f07f06a76867f49b130d3e':
+            raise ValueError('Source and learning links changed unrelated reader bytes')
     record = _MAP_CHANGES.get(str(path))
     if record is None:
         return raw
