@@ -4203,6 +4203,19 @@ async def thoracic_source_label_delivery(asset: str, request: Request):
     return response
 
 
+@app.api_route("/app/anatomy/cptac-endometrial/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def endometrial_source_delivery(asset: str, request: Request):
+    directory = os.path.join(WEB_DIR, "anatomy", "cptac-endometrial")
+    with open(os.path.join(directory, "source.json"), encoding="utf-8") as source:
+        manifest = json.load(source)
+    chunks = {chunk["file"] for sequence in manifest["sequences"].values() for chunk in sequence["chunks"]}
+    if asset not in chunks | {"index.html", "viewer.js", "viewer.css", "source.json"}:
+        return JSONResponse({"detail": "Unknown endometrial source asset"}, status_code=404)
+    if asset in chunks and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/cptac-endometrial/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/cptac-endometrial/" + asset, request.scope)
+
+
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     allowed = {"bodyparts3d", "hra-female-pelvis-v1.10", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
@@ -4286,7 +4299,7 @@ async def stroke_publication_blob_delivery(asset: str, request: Request):
     return FileResponse(os.path.join(WEB_DIR, src.removeprefix('/app/')), media_type=row['content_type'], headers={'Cache-Control': 'private, no-store'})
 
 
-@app.api_route("/app/reference-media/radiology-open/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+@app.api_route("/app/reference-media/radiology-open/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def radiology_image_delivery(asset: str, request: Request):
     import json
     url = "/app/reference-media/radiology-open/" + asset
@@ -4297,7 +4310,7 @@ async def radiology_image_delivery(asset: str, request: Request):
         return JSONResponse({"detail": "Unknown source image"}, status_code=404)
     if os.environ.get("VERCEL"):
         from urllib.parse import quote, urlencode
-        target = "/source-media/reference-media/radiology-open/" + quote(asset, safe="")
+        target = "/source-media/reference-media/radiology-open/" + quote(asset, safe="/")
         query = urlencode(request.query_params.multi_items())
         if query:
             target += "?" + query
