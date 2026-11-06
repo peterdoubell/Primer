@@ -1,7 +1,28 @@
 'use strict';
 const get=id=>document.getElementById(id);
 let volume,rows,position,generation=0,current=null;
+const requestedSegment = new URLSearchParams(location.search).get('segment');
+const initialIndex = [...get('segment').options].findIndex(option => option.dataset.source === requestedSegment);
+if (initialIndex >= 0) {
+  get('segment').value = initialIndex;
+  document.querySelectorAll('.layer').forEach((input,index) => {input.checked = index === initialIndex;});
+}
 const cache=new Map();
+const returnTargets = {
+  'ra.solid-renal-masses':['radiology','Renal mass reporting reference'],
+  'rad.4.kidney':['node','Kidney lesson'],
+  'ra.ct-pancreatic-cancer':['radiology','Pancreatic cancer reporting reference'],
+  'rad.5.pancreas-tumour':['node','Pancreatic tumour lesson'],
+  'ra.ct-abdominal-trauma':['radiology','Abdominal trauma reference'],
+  'ra.ct-bowel-ischaemia':['radiology','Bowel ischaemia reference'],
+};
+const from = new URLSearchParams(location.search).get('from');
+if (Object.hasOwn(returnTargets, from)) {
+  const [route,label] = returnTargets[from];
+  get('return-context').href = '/app/#/' + route + '/' + from;
+  get('return-context').textContent = 'Return to ' + label;
+  get('return-context').hidden = false;
+}
 async function decode(row,Type){
   if(!cache.has(row.file)){
     const task=(async()=>{
@@ -68,12 +89,18 @@ async function start(){
       if(digest!==document.querySelector('main').dataset[name+'Sha256'])throw Error('Source metadata differs');
       return JSON.parse(new TextDecoder().decode(bytes));
     }));
+    const requested = new URLSearchParams(location.search).get('segment');
+    if (requested !== null) {
+      const index = rows.findIndex(row => row.sourceSegment.layer + ':' + row.sourceSegment.value === requested);
+      if (index >= 0) get('segment').value = index;
+      else get('request-note').textContent = 'The requested segment is unavailable in this phase. Showing the default vessel; choose another source label.';
+    }
     get('slice').min=0;get('slice').max=volume.shape[2]-1;get('slice').disabled=false;
     selectSegment();
   }catch{volume=undefined;rows=undefined;get('slice').disabled=true;get('status').textContent='Source metadata could not be verified.';get('retry').hidden=false;}
 }
 for(const id of ['slice','black','white','overlay'])get(id).addEventListener('input',()=>{if(volume)draw();});
-get('segment').addEventListener('change',()=>{if(volume)selectSegment();});
+get('segment').addEventListener('change',()=>{if(volume){get('request-note').textContent='';selectSegment();}});
 get('retry').addEventListener('click',()=>volume?draw():start());
 get('ct').addEventListener('keydown',event=>{
   if(!current||!['ArrowLeft','ArrowRight'].includes(event.key))return;
