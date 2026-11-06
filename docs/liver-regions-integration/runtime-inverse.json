@@ -30,8 +30,8 @@
     ]
   },
   "web/app.js": {
-    "before": "b8bfd780d07072654d06081e7728219619824dfb33ad58289960d9c5e8cf194e",
-    "after": "48e6d36f8397e918d5355d6ffd4b58aec3ef383f94c808aa8a8808945e9d6202",
+    "before": "1bcc58db62c46a558d7e1c691e1b9db44b09cd92bea386c2bf1b8b338d6d113b",
+    "after": "fbd9bb7a78d48db44f5d1e4ee256778aba03213aa041589c565f91a10bf616f1",
     "changes": [
       {
         "start": 2949,
@@ -40,14 +40,14 @@
         "after": "function renderLiverRegionStudy(nodeId) {\n  if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;\n  return el('section', {class:'card', 'aria-label':'Liver region source study'},\n    el('h2', {}, 'Source MRI with liver-region labels'),\n    el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),\n    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'));\n}\n\n"
       },
       {
-        "start": 3061,
-        "end": 3063,
+        "start": 3114,
+        "end": 3116,
         "before": "",
         "after": "  const liverStudy = renderLiverRegionStudy(n.id);\n  if (liverStudy) page.append(liverStudy);\n"
       },
       {
-        "start": 3896,
-        "end": 3898,
+        "start": 3953,
+        "end": 3955,
         "before": "",
         "after": "  const liverStudy = renderLiverRegionStudy(n.id);\n  if (liverStudy) page.append(liverStudy);\n"
       }
