@@ -2,6 +2,8 @@
 
 import hashlib
 
+from tools.source_studies_compatibility import before_source_studies_bytes
+
 
 _MAP_CHANGES = {
     'web/app.js': (
@@ -57,6 +59,7 @@ _MAP_CHANGES = {
 
 def before_knowledge_maps_bytes(path, raw):
     """Project only the known Knowledge Maps additions out of a shared file."""
+    raw = before_source_studies_bytes(path, raw)
     # Recover the exact reader before the native endometrial case links.
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '6b81721dd7418583d432c5a225847399425492bd3cea07c374a6314cd95eb30c':
         raw = raw.replace(b"  if (n.id === 'rad.5.uterine-mr') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },\n    el('a', { class: 'btn ghost', href: '/app/anatomy/cptac-endometrial/index.html' },\n      'Inspect an endometrial tumour on original MRI'),\n    el('a', { class: 'btn ghost', href: '/app/reference-studies/mullerian-2025/index.html' },\n      'Compare uterine cavity and external contour on source images')));\n", b"  if (n.id === 'rad.5.uterine-mr') page.append(el('a', { class: 'btn ghost', href: '/app/reference-studies/mullerian-2025/index.html' },\n    'Compare uterine cavity and external contour on source images'));\n", 1)
