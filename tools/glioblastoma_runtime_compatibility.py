@@ -3,11 +3,14 @@ import hashlib
 import json
 from pathlib import Path
 
+from tools.knowledge_maps_compatibility import before_knowledge_maps_bytes
+
 PROOF = Path(__file__).resolve().parents[1] / "docs/glioblastoma-review-20261104/runtime-inverse.json"
 PROOF_SHA256 = "bb094f31f6d187d89cf28111e7fa57f47e6b8566a5814d2d83400cbfb0c9871d"
 
 
 def before_glioblastoma_bytes(path, raw, allow_older=False):
+    raw = before_knowledge_maps_bytes(path, raw)
     if str(path) == "web/app.js" and hashlib.sha256(raw).hexdigest() == "e778eb7a79d73b133b742520aebdf456c0ac46124393019a6400761fc2b5e5cd":
         raw = raw.replace(b"  if (n.id === 'rad.5.uterine-mr') page.append(el('a', { class: 'btn ghost', href: '/app/reference-studies/mullerian-2025/index.html' },\n    'Compare uterine cavity and external contour on source images'));\n", b"", 1)
     from tools.module_mission_compatibility import previous_shell_bytes
