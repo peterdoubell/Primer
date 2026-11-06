@@ -20,5 +20,6 @@ def test_historical_chain_entry_projects_the_exact_shell():
     from tools.glioblastoma_runtime_compatibility import before_glioblastoma_bytes
     raw=(ROOT/'web/index.html').read_bytes()
     previous=before_knowledge_maps_bytes('web/index.html',raw)
+    assert previous_shell_bytes('web/index.html',raw)==previous_shell_bytes('web/index.html',previous)
     assert before_glioblastoma_bytes('web/index.html',raw)==previous_shell_bytes('web/index.html',previous)
     assert before_glioblastoma_bytes('web/index.html',raw+b'foreign')==raw+b'foreign'
