@@ -1,0 +1,217 @@
+.km-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 10px;
+  margin-bottom: 16px;
+  font: 600 13px/1.45 var(--sans);
+}
+.km-breadcrumb a,
+.km-sources a { color: var(--accent-2); text-underline-offset: .22em; }
+.km-breadcrumb a + a::before {
+  content: '›';
+  color: var(--ink-faint);
+  display: inline-block;
+  margin-right: 10px;
+}
+.km-sheet {
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  border-radius: var(--r-sheet);
+  background: var(--paper-hi);
+}
+.km-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--rule);
+}
+.km-toolbar p { margin: 0; color: var(--ink-soft); font: 13px/1.45 var(--sans); }
+.km-controls { display: flex; gap: 5px; align-items: center; }
+.km-controls .btn { min-height: 38px; min-width: 38px; }
+.km-scale { min-width: 4ch; text-align: center; font: 12px var(--mono); color: var(--ink-soft); }
+.km-viewport {
+  max-height: min(80vh, 940px);
+  overflow: auto;
+  background: var(--paper-2);
+  scrollbar-color: var(--edge) var(--paper-2);
+}
+.km-viewport:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+.km-label {
+  display: block;
+  color: var(--ink-soft);
+  font: 700 10px/1.4 var(--sans);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.km-territory { position: relative; }
+.km-poster-subject .km-territory::before,
+.km-poster-module .km-territory::before {
+  content: '';
+  position: absolute;
+  width: 18px;
+  left: -21px;
+  top: 26px;
+  border-top: 1px dashed var(--edge);
+}
+.km-territory {
+  --km-ink: color-mix(in srgb, var(--map-accent) 45%, var(--ink));
+  border: 1px solid color-mix(in srgb, var(--map-accent) 42%, var(--rule));
+  border-left: 3px solid var(--km-ink);
+  padding: clamp(12px, 1.8vw, 24px);
+  border-radius: 2px 12px 12px 2px;
+  background: color-mix(in srgb, var(--map-accent) 7%, var(--paper-hi));
+}
+.km-territory > header {
+  position: relative;
+  margin-bottom: 15px;
+  padding-bottom: 9px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--map-accent) 52%, var(--rule));
+}
+.km-territory h3 { margin: 3px 0 0; color: var(--ink); font: 600 23px/1.2 var(--serif); }
+.km-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 11px;
+}
+.km-tile {
+  --km-ink: color-mix(in srgb, var(--map-accent) 45%, var(--ink));
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: var(--ink);
+  background: var(--paper-hi);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px;
+  text-decoration: none;
+}
+.km-tile:hover,
+.km-tile:focus-visible {
+  color: var(--ink);
+  border-color: var(--km-ink);
+  background: color-mix(in srgb, var(--map-accent) 12%, var(--paper-hi));
+}
+.km-tile:hover strong,
+.km-tile:focus-visible strong { text-decoration: underline; text-underline-offset: .16em; }
+.km-tile-domain {
+  grid-column: 1 / -1;
+  border-color: var(--edge);
+  background: color-mix(in srgb, var(--map-accent) 12%, var(--paper-hi));
+}
+.km-tile-copy { display: grid; gap: 3px; overflow-wrap: anywhere; }
+.km-tile strong { font: 600 16px/1.25 var(--serif); }
+.km-tile-domain strong, .km-tile-lesson strong { font-size: 21px; }
+.km-detail { color: var(--ink-soft); font: 12px/1.4 var(--sans); }
+.km-arrow { align-self: start; font: 15px var(--sans); color: var(--km-ink); }
+.km-emblem {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  aspect-ratio: 1;
+  color: var(--km-ink);
+  background: color-mix(in srgb, var(--map-accent) 13%, var(--paper-hi));
+  border-radius: 50%;
+  font: 600 18px var(--serif);
+}
+.km-emblem > span { grid-area: 1 / 1; }
+.km-emblem > span:first-child { width: 100%; line-height: 0; }
+.km-emblem svg { width: 100%; height: auto; }
+.km-emblem-domain, .km-emblem-lesson { width: 66px; font-size: 26px; }
+.km-emblem-compass {
+  width: clamp(51px, 8vw, 112px);
+  background: var(--paper-hi);
+  font: 700 clamp(16px, 2.3vw, 32px) var(--serif);
+}
+.km-image {
+  display: block;
+  width: 66px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.km-tile-lesson:has(.km-image) { grid-template-columns: minmax(110px, 34%) minmax(0, 1fr) auto; }
+.km-tile-lesson .km-image { width: 100%; height: auto; max-height: 220px; object-fit: contain; background: var(--paper-2); }
+.km-sources { margin-top: 14px; color: var(--ink-soft); font: 13px/1.5 var(--sans); }
+.km-sources p { margin: 0; }
+.km-sources ul { display: flex; flex-wrap: wrap; list-style: none; gap: 6px 20px; padding: 0; margin: 5px 0 0; }
+
+@media (max-width: 600px) {
+  .km-plate { gap: 8px; min-height: 130px; }
+  .km-emblem-domain, .km-emblem-lesson { width: 48px; font-size: 22px; }
+  .km-tile-lesson:has(.km-image) { grid-template-columns: minmax(0, 1fr) auto; }
+  .km-tile-lesson .km-image { grid-column: 1 / -1; }
+}
+
+/* The illustration is the navigation surface. SVG coordinates and text stay
+   aligned at every scale, including high pixel density displays. */
+.km-level-control { background: var(--paper-hi); padding: 18px 22px; border: 1px solid var(--rule); border-radius: 12px; margin-bottom: 16px; }
+.km-level-control > label { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; font: 16px var(--sans); }
+.km-level-control strong { font: 600 23px var(--serif); color: var(--accent-2); }
+.km-level-control input[type=range] { display: block; width: 100%; margin: 17px 0 8px; accent-color: var(--accent-2); }
+.km-stage-stops { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
+.km-stage-stop { padding: 9px 3px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--ink-soft); cursor: pointer; font: 600 13px var(--sans); }
+.km-stage-stop[aria-pressed=true] { color: var(--ink); border-color: var(--edge); background: var(--paper-2); }
+.km-stage-help { margin: 9px 0 0; color: var(--ink-soft); font: 13px/1.5 var(--sans); }
+.km-viewport { height: min(76vh, 1000px); min-height: 400px; max-height: none; background: #e5e7dc; }
+.km-scene-host { width: 100%; }
+.km-scene { display: block; height: auto; max-width: none; font-family: Georgia, 'Times New Roman', serif; color: #273d34; }
+.km-scene text { fill: #273d34; }
+.km-svg-title { font-size: 44px; font-weight: 500; }
+.km-svg-kicker { font: 600 14px system-ui, sans-serif; letter-spacing: 2px; fill: #596d60 !important; }
+.km-svg-domain { font-size: 27px; font-weight: 600; }
+.km-svg-heading { font-size: 25px; font-weight: 600; }
+.km-svg-copy { font: 19px system-ui, sans-serif; }
+.km-svg-focus { font: italic 18px Georgia, serif; fill: #795532 !important; }
+.km-svg-topic { font-size: 21px; font-weight: 600; fill: #325b64 !important; }
+.km-svg-small { font: 15px system-ui, sans-serif; fill: #52675a !important; }
+.km-svg-link { cursor: pointer; }
+.km-svg-link:hover text, .km-svg-link:focus text { text-decoration: underline; }
+.km-svg-link:focus { outline: 4px solid #336e8b; outline-offset: 5px; }
+.km-svg-link:hover rect, .km-svg-link:focus rect { fill: #e7eee0; stroke: #426c59; stroke-width: 2; }
+.km-connection { opacity: .28; pointer-events: none; }
+.km-connection.km-traced { opacity: 1; }
+.km-connection.km-traced path { stroke: #a35c2b; stroke-width: 6; }
+.km-hide-connections .km-connection { visibility: hidden; }
+.km-controls > label { font: 13px var(--sans); display: flex; align-items: center; gap: 5px; }
+.km-bridges h3 { font: 600 25px var(--serif); margin: 24px 0 5px; }
+.km-bridges > p { font: 14px/1.5 var(--sans); color: var(--ink-soft); }
+.km-bridge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 12px; }
+.km-bridge { border-top: 2px solid var(--rule); padding: 12px 0; font: 14px/1.5 var(--sans); }
+.km-bridge p { margin: 4px 0 8px; color: var(--ink-soft); }
+.km-bridge a { color: var(--accent-2); text-underline-offset: .2em; }
+.km-bridge-trace { background: var(--paper-hi); border: 1px solid var(--edge); border-radius: 7px; padding: 8px 12px; color: var(--ink); cursor: pointer; font: 600 17px var(--serif); }
+.km-bridge-trace[aria-pressed=true] { background: var(--paper-2); box-shadow: inset 3px 0 var(--accent-2); }
+.km-text-index { margin-top: 24px; border-top: 1px solid var(--rule); padding: 16px 0; }
+.km-text-index > summary { cursor: pointer; font: 600 20px var(--serif); }
+.km-text-index > input { margin: 14px 0; width: 100%; }
+.km-index-body > p { color: var(--ink-soft); font: 14px var(--sans); }
+@media(max-width:600px) {
+  .km-level-control { padding: 12px; }
+  .km-stage-stops { gap: 0; }
+  .km-stage-stop { font-size: 10px; padding: 10px 2px; }
+  .km-toolbar { padding: 10px; }
+  .km-controls { flex-wrap: wrap; }
+  .km-viewport { min-height: 350px; }
+}
+.km-edge-label { display: none; font: 600 19px system-ui, sans-serif; paint-order: stroke fill; stroke: #fbf7ed; stroke-width: 6px; stroke-linejoin: round; }
+.km-traced .km-edge-label { display: block; }
+
+/* Live callouts sit on the paper around a unified illustrated landscape. */
+.km-landscape-label text, .km-landscape-callout text { paint-order: stroke fill; stroke: #fbf7ed; stroke-width: 5px; stroke-linejoin: round; }
+.km-landscape-callout .km-svg-small { letter-spacing: .1em; }
+.km-region-hotspot ellipse { transition: stroke .15s ease, fill .15s ease; }
+.km-region-hotspot:hover ellipse, .km-region-hotspot:focus ellipse { fill: #fff9e516; stroke: #507e70; stroke-dasharray: 12 8; }
+.km-region-hotspot:focus { outline: none; }
+.km-landscape-connections { pointer-events: none; }
+.km-landscape-connections .km-connection { opacity: .18; }
+.km-landscape-connections .km-connection.km-traced { opacity: 1; }
+.km-landscape-connections .km-traced path { paint-order: stroke; stroke-width: 7px; }
+.km-callout-leader { opacity: .6; }
+.km-artwork-status { margin: 0; padding: 10px 16px; color: var(--ink-soft); background: var(--paper-hi); font: 14px/1.5 var(--sans); }
+@media (prefers-reduced-motion: reduce) { .km-region-hotspot ellipse { transition: none; } }
+.km-callout-leader, .km-landscape-callout > circle { pointer-events: none; }
