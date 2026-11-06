@@ -3864,6 +3864,8 @@ async function renderNode(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
     'Explore derivative signs and optimization'));
+  if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },
+    'Explore replacement and conditional probability'));
   if (n.id === 'math.3.statistics') page.append(el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },
     'Compare population spread and sampling uncertainty'));
   if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },
