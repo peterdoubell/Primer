@@ -2911,6 +2911,42 @@ function renderRadiologyQuickReference(ref) {
   return section;
 }
 
+function renderUterineSourceStudies(nodeId) {
+  const studies = [
+    { modules: ['ra.mri-endometrial-cancer'],
+      title: 'Inspect an endometrial tumour on original MRI',
+      href: '/app/anatomy/cptac-endometrial/index.html',
+      context: 'One tumour case with post-contrast MRI, T2 MRI and original lesion contours. The two acquisitions are navigated independently.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Inspect original cervical cancer MRI contours',
+      href: '/app/anatomy/ccth-a01/index.html',
+      context: 'One cervical cancer case with 30 acquired T2 sections and the original contour stack.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Compare cervical cancer staging images across modalities',
+      href: '/app/reference-studies/cervical-staging-2024/index.html',
+      context: 'Selected publication figures for cervical stroma, parametria, vagina, adjacent organs and lymph nodes.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Explore the cervical canal and stroma on pregnancy MRI',
+      href: '/app/anatomy/kcl-cervix/055t/index.html',
+      context: 'Two pregnancy population atlases with three cervical layers. These references describe pregnancy anatomy.' },
+    { modules: [],
+      title: 'Study a uterine myoma MRI case with wall and cavity annotations',
+      href: '/app/anatomy/umd-141/index.html',
+      context: 'One myoma case with the original MRI and sampled wall, cavity, myoma and cyst labels.' },
+    { modules: ['ra.mullerian-anomalies'],
+      title: 'Compare uterine cavity and external contour on source images',
+      href: '/app/reference-studies/mullerian-2025/index.html',
+      context: 'Published anomaly examples and a separate 3D pelvic reference.' },
+  ];
+  const shown = studies.filter(study => nodeId === 'rad.5.uterine-mr' || study.modules.includes(nodeId));
+  if (!shown.length) return null;
+  return el('section', { class: 'card', 'aria-label': 'Original MRI and anatomy studies' },
+    el('h2', {}, 'Original MRI and anatomy studies'),
+    el('ul', {}, ...shown.map(study => el('li', {},
+      el('a', { href: study.href }, study.title),
+      el('p', { class: 'muted' }, study.context)))));
+}
+
 async function renderRadiologyDesk(page, nodeId) {
   if (!nodeId) {
     const catalog = await reportingGuard(page, () => api.get('/api/radiology/modules'));
@@ -3007,6 +3043,8 @@ async function renderRadiologyDesk(page, nodeId) {
     el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
       plural(ref.walkthrough.steps.length, 'reporting step') + ' · ' +
       (ref.key_images.length + (ref.structure_atlas || []).length + referenceImages.length) + ' source figures · ' + (detailedAnatomy || ref.source_anatomy_references?.length ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
+  const sourceStudies = renderUterineSourceStudies(n.id);
+  if (sourceStudies) page.append(sourceStudies);
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -3816,8 +3854,10 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
-  if (n.id === 'rad.5.uterine-mr') page.append(el('a', { class: 'btn ghost', href: '/app/reference-studies/mullerian-2025/index.html' },
-    'Compare uterine cavity and external contour on source images'));
+  const sourceStudies = renderUterineSourceStudies(n.id);
+  if (sourceStudies) page.append(sourceStudies);
+  if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
+    'Explore derivative signs and optimization'));
   if (n.id === 'math.3.statistics') page.append(el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },
     'Compare population spread and sampling uncertainty'));
   if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },

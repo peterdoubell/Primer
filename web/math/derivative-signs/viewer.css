@@ -1,0 +1,44 @@
+body {
+  margin: auto;
+  max-width: 74rem;
+  padding: 1rem;
+  background: #172128;
+  color: #f2f5f6;
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+a { color: #a4dfff; }
+select, button, input { font: inherit; max-width: 100%; }
+select, button { padding: .35rem .55rem; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible, select:focus-visible, .plot-scroll:focus-visible {
+  outline: 3px solid #a4dfff;
+  outline-offset: 3px;
+}
+.controls { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; align-items: center; }
+.controls label { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+output { min-width: 3rem; font-variant-numeric: tabular-nums; }
+.presets { display: flex; flex-wrap: wrap; gap: .4rem; margin: .7rem 0; }
+.plot-scroll, .table-scroll { max-width: 100%; overflow-x: auto; }
+.plot-scroll { margin: .8rem 0; background: #10191e; }
+svg { display: block; width: 100%; min-width: 35rem; max-width: 48rem; }
+#pen-plan { min-width: 28rem; }
+.pen-plots { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,27rem),1fr)); gap: 1rem; }
+svg text { fill: #e7f2f4; font: 14px system-ui,sans-serif; }
+svg .title { font-size: 17px; font-weight: 600; }
+svg .grid { stroke: #455760; stroke-width: .6; }
+svg .axis { stroke: #e7f2f4; stroke-width: 1.2; }
+svg .function { fill: none; stroke: #72ceff; stroke-width: 2.6; }
+svg .derivative { fill: none; stroke: #ffe095; stroke-width: 2.6; }
+svg .tangent { stroke: #ff9b96; stroke-width: 2; }
+svg .probe { stroke: #e7f2f4; stroke-width: 1; stroke-dasharray: 4 4; }
+svg .point { fill: #ff9b96; stroke: #10191e; stroke-width: 1; }
+svg .stationary { fill: #10191e; stroke: #96e8c8; stroke-width: 2; }
+svg .plan { fill: #83dfba38; stroke: #83dfba; stroke-width: 3; }
+table { border-collapse: collapse; width: 100%; }
+caption { text-align: left; font-weight: 600; padding: .5rem 0; }
+th, td { padding: .4rem .6rem; border-bottom: 1px solid #52656b; text-align: left; }
+fieldset { min-width: 0; border: 1px solid #52656b; }
+fieldset label { display: block; margin: .35rem 0; }
+summary { cursor: pointer; }
+#feedback { min-height: 1.5em; }
+[hidden] { display: none !important; }
