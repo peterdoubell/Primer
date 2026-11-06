@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from tools.glioblastoma_runtime_compatibility import PROOF, before_glioblastoma_bytes
+from tools.knowledge_maps_compatibility import before_knowledge_maps_bytes
 
 ROOT = Path(__file__).resolve().parents[1]
 STATISTICS = (
@@ -19,6 +20,7 @@ STATISTICS = (
 def test_current_and_previous_reader_restore_the_exact_historical_bytes(include_statistics):
     raw = (ROOT / 'web/app.js').read_bytes()
     if not include_statistics:
+        raw = before_knowledge_maps_bytes('web/app.js', raw)
         raw = raw.replace(STATISTICS, b'', 1)
     restored = before_glioblastoma_bytes('web/app.js', raw)
     expected = json.loads(PROOF.read_bytes())['web/app.js']['before_sha256']
