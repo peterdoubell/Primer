@@ -20,3 +20,7 @@ The liver-mass and LI-RADS inventories retain all 246 and 210 structure/interfac
 ## Verification
 
 The authenticated local reader check follows all four links from each of the three entry points, checks the selected source layer/value, compares actual GPU buffers with the source hashes and follows every scoped return link. Existing delivery and historical-compatibility tests remain in force. `runtime-inverse.json` limits shared-reader compatibility normalization to the exact navigation edit.
+
+## Read-only production check
+
+`tools/check_hepatic_vessel_production.cjs` accepts a JSON fixture on stdin with `url`, `username` and `password`. The origin is fixed to Primer production and browser requests are restricted to GET on that origin. It does not create a profile or change learner data. Supply credentials through a private pipe, never command-line arguments or a committed fixture. The checker compares the deployed reader and vessel delivery files with `production-files.json`, then follows all twelve paths and verifies selected labels and actual GPU buffers. A changed production reader requires an explicitly reviewed update to the pins.
