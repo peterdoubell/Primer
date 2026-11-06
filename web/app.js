@@ -2952,7 +2952,27 @@ function renderLiverRegionStudy(nodeId) {
   return el('section', {class:'card', 'aria-label':'Liver region source study'},
     el('h2', {}, 'Source MRI with liver-region labels'),
     el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
-    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'));
+    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),
+    el('h3', {}, 'Vascular references from a separate CT case'),
+    el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),
+    el('ul', {}, ...[
+  {
+    "title": "Common hepatic artery on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4"
+  },
+  {
+    "title": "Right hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:1"
+  },
+  {
+    "title": "Left hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:2"
+  },
+  {
+    "title": "Portal vein on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7"
+  }
+].map(row => el('li', {}, el('a', {href:row.href + '&from=' + encodeURIComponent(nodeId)}, row.title)))));
 }
 
 function renderAbdominalVesselStudies(nodeId) {
