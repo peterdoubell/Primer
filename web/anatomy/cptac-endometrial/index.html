@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Endometrial tumour MRI and source contours · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script src="viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/rad.5.uterine-mr">Return to Uterus and Cervix</a>
+  <a href="/app/#/radiology/ra.mri-endometrial-cancer">Return to endometrial cancer reporting reference</a>
+  <h1>Endometrial tumour MRI and source contours</h1>
+  <p>Inspect the original post-contrast and T2 MRI from CPTAC-UCEC case C3L-00963. The annotation names a malignant uterine lesion, “UTERUS - 1”. Its 27 original outlines are shown on the post-contrast sections they reference.</p>
+  <p id="status" role="status">Loading source inventory…</p>
+  <button id="retry" type="button" hidden>Retry source files</button>
+  <fieldset id="controls" disabled>
+    <legend>MRI display</legend>
+    <div class="controls">
+      <label>Sequence <select id="sequence"><option value="postcontrast">Post-contrast T1 · 68 sagittal sections</option><option value="t2">T2 · 31 oblique sagittal sections</option></select></label>
+      <label>Acquired section <input id="slice" type="range" min="0" step="1"><output id="section" for="slice"></output></label>
+      <label>Display black <input id="black" type="number" step="any"></label>
+      <label>Display white <input id="white" type="number" step="any"></label>
+      <button id="source-window" type="button">Use this frame’s source window</button>
+      <label><input id="overlay" type="checkbox" checked> Original lesion outlines</label>
+    </div>
+  </fieldset>
+  <p id="sequence-note"></p>
+  <div class="views">
+    <figure>
+      <canvas id="mri" width="512" height="512" tabindex="0" aria-label="Native sagittal MRI. Arrow keys change acquired sections." hidden></canvas>
+      <figcaption>Anterior at left, superior at top. The T2 plane is slightly oblique. Select a pixel to inspect its original intensity and patient coordinate. Arrow keys change sections.</figcaption>
+      <p id="sample" role="status"></p>
+    </figure>
+    <figure>
+      <canvas id="stack" width="640" height="480" aria-label="Rotatable original lesion outlines in patient coordinates" hidden></canvas>
+      <figcaption>Original post-contrast contour planes in patient coordinates. A brighter loop marks the selected post-contrast section.</figcaption>
+      <div class="controls">
+        <label>Rotation <input id="yaw" type="range" min="-180" max="180" value="35"></label>
+        <label>Tilt <input id="pitch" type="range" min="-90" max="90" value="20"></label>
+      </div>
+      <p id="contour-status" role="status"></p>
+    </figure>
+  </div>
+  <p>The sequences share a source study and coordinate frame. Their acquisitions can differ because of motion and tissue deformation. T2 navigation is independent, and the lesion outlines remain attached to their original post-contrast sections.</p>
+  <p>The post-contrast images have 4.6 mm slice thickness and approximately 2.3 mm between slice centres. The T2 images have 4 mm thickness and approximately 4.5 mm centre spacing. The 3D display retains individual contour loops at their original positions.</p>
+  <p>This source labels the lesion. Separate endometrium, myometrium and junctional-zone boundaries require additional evidence. Source contours alone do not establish histological invasion depth or stage.</p>
+  <p>Images from the National Cancer Institute Clinical Proteomic Tumor Analysis Consortium. Lesion annotations by Rozenfeld and Jordan (2023). Primer preserves the original pixel values and contour coordinates and adds window controls, section navigation and a rotatable contour stack. <a href="https://doi.org/10.7937/K9/TCIA.2018.3R3JUISW">Image collection</a> · <a href="https://doi.org/10.7937/89M3-KQ43">Annotation collection and protocol</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="source.json">Source files, geometry and provenance</a></p>
+</main>
+</body>
+</html>

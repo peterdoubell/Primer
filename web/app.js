@@ -3007,6 +3007,9 @@ async function renderRadiologyDesk(page, nodeId) {
     el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
       plural(ref.walkthrough.steps.length, 'reporting step') + ' · ' +
       (ref.key_images.length + (ref.structure_atlas || []).length + referenceImages.length) + ' source figures · ' + (detailedAnatomy || ref.source_anatomy_references?.length ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
+  if (n.id === 'ra.mri-endometrial-cancer') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/anatomy/cptac-endometrial/index.html' },
+      'Inspect an endometrial tumour on original MRI')));
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -3816,8 +3819,11 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
-  if (n.id === 'rad.5.uterine-mr') page.append(el('a', { class: 'btn ghost', href: '/app/reference-studies/mullerian-2025/index.html' },
-    'Compare uterine cavity and external contour on source images'));
+  if (n.id === 'rad.5.uterine-mr') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/anatomy/cptac-endometrial/index.html' },
+      'Inspect an endometrial tumour on original MRI'),
+    el('a', { class: 'btn ghost', href: '/app/reference-studies/mullerian-2025/index.html' },
+      'Compare uterine cavity and external contour on source images')));
   if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
     'Explore derivative signs and optimization'));
   if (n.id === 'math.3.statistics') page.append(el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },

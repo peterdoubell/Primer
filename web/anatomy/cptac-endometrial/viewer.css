@@ -1,0 +1,22 @@
+body {
+  margin: auto;
+  max-width: 76rem;
+  padding: 1rem;
+  background: #172128;
+  color: #f2f5f6;
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+a { color: #a4dfff; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+label { display: inline-block; max-width: 100%; }
+input, select, button { font: inherit; max-width: 100%; box-sizing: border-box; }
+input[type=number] { width: 6rem; }
+input[type=range] { vertical-align: middle; }
+fieldset { min-width: 0; margin: .6rem 0; border: 1px solid #78919b; }
+.views { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,24rem),1fr)); gap: 1rem; }
+figure { margin: .6rem 0; }
+canvas { display: block; width: 100%; height: auto; background: #0f171c; }
+#mri { image-rendering: pixelated; }
+figcaption { margin: .4rem 0; }
+#sample { min-height: 3em; }
+[hidden] { display: none !important; }
