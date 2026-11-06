@@ -496,6 +496,7 @@ async function renderKnowledgeMaps(page, [level, id, selectedStage] = []) {
     selectedBridge = null;
     stageReadout.textContent = 'through ' + STAGE_NAMES[knowledgeMapStage];
     slider.value = knowledgeMapStage;
+    syncRangeFill(slider);
     slider.setAttribute('aria-valuetext', STAGE_NAMES[knowledgeMapStage]);
     stageButtons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === knowledgeMapStage)));
     stageHelp.textContent = 'Includes every earlier level. ' + stageLabel(knowledgeMapStage)
