@@ -57,6 +57,11 @@ _MAP_CHANGES = {
 
 def before_knowledge_maps_bytes(path, raw):
     """Project only the known Knowledge Maps additions out of a shared file."""
+    # Recover the reviewed reader before the differential-calculus study link.
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '031524a17ba08bdb3e17531acbabae2fc16d731c3f693dd2d4aaec84d173db17':
+        raw = raw.replace(b"  if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },\n    'Explore derivative signs and optimization'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '5273aa946196c7275d761dda3c42b52b753127da96d12094b4090cbd58bfda62':
+            raise ValueError('Differential calculus link changed unrelated reader bytes')
     # Remove the two later lesson links only from the exact reviewed reader.
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '5273aa946196c7275d761dda3c42b52b753127da96d12094b4090cbd58bfda62':
         raw = raw.replace(b"  if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },\n    'Explore observed galaxy rotation curves'));\n", b'', 1)
