@@ -3822,6 +3822,8 @@ async function renderNode(page, nodeId) {
     'Compare population spread and sampling uncertainty'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
     'Explore a longitudinal sound wave'));
+  if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },
+    'Compare manuscript families'));
   if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
     'Edit a headline using counts and rates'));
   if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },
