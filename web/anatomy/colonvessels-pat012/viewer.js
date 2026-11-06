@@ -60,10 +60,17 @@ function selectSegment(){
 }
 async function start(){
   try{
-    [volume,rows]=await Promise.all(['volume.json','surfaces.json'].map(async file=>{const r=await fetch(file);if(!r.ok)throw Error('Missing metadata');return r.json();}));
+    [volume,rows]=await Promise.all(['volume','surfaces'].map(async name=>{
+      const response=await fetch(name+'.json');
+      if(!response.ok)throw Error('Missing source metadata');
+      const bytes=await response.arrayBuffer();
+      const digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(value=>value.toString(16).padStart(2,'0')).join('');
+      if(digest!==document.querySelector('main').dataset[name+'Sha256'])throw Error('Source metadata differs');
+      return JSON.parse(new TextDecoder().decode(bytes));
+    }));
     get('slice').min=0;get('slice').max=volume.shape[2]-1;get('slice').disabled=false;
     selectSegment();
-  }catch{get('status').textContent='Source metadata could not be loaded.';get('retry').hidden=false;}
+  }catch{volume=undefined;rows=undefined;get('slice').disabled=true;get('status').textContent='Source metadata could not be verified.';get('retry').hidden=false;}
 }
 for(const id of ['slice','black','white','overlay'])get(id).addEventListener('input',()=>{if(volume)draw();});
 get('segment').addEventListener('change',()=>{if(volume)selectSegment();});

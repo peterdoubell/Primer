@@ -160,7 +160,11 @@
     try {
       const response = await fetch('surfaces.json', {signal});
       if (!response.ok) throw Error('Missing surface inventory');
-      const rows = await response.json();
+      const metadata = await response.arrayBuffer();
+      const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', metadata))]
+        .map(value => value.toString(16).padStart(2, '0')).join('');
+      if (digest !== document.querySelector('main').dataset.surfacesSha256) throw Error('Surface inventory checksum differs');
+      const rows = JSON.parse(new TextDecoder().decode(metadata));
       if (rows.length !== layers.length) throw Error('Surface inventory differs');
       const decoded = await Promise.all(rows.map(row => decode(row, signal)));
       if (!current()) return;
