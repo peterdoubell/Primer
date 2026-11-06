@@ -358,7 +358,9 @@ function moduleScene(node, detail, subject, index, stage, artwork) {
   const articles = node.articles || [];
   const cardHeight = item => Math.max(100, mapTextLines(item.title, 29).length * 24 + 55);
   const columnHeight = items => items.reduce((sum, item) => sum + cardHeight(item) + 15, 0);
-  const height = Math.max(1130, 360 + Math.max(columnHeight(prerequisites), columnHeight(onward)), 930 + articles.length * 80);
+  const readingY = 812 + mapTextLines(node.goal, 61).length * 26;
+  const articlesHeight = articles.reduce((sum, title) => sum + mapTextLines('↗ ' + title, 47).length * 24 + 28, 0);
+  const height = Math.max(1130, 360 + Math.max(columnHeight(prerequisites), columnHeight(onward)), readingY + 100 + articlesHeight);
   const svg = mapScene(node.title, subject.name + ' · ' + STAGE_NAMES[node.stage] + ' module · connections through ' + STAGE_NAMES[stage], 1720, height, artwork);
   const paths = mapSvg('g', { class: 'km-connections' });
   svg.append(paths);
@@ -393,10 +395,11 @@ function moduleScene(node, detail, subject, index, stage, artwork) {
   mapText(link, node.title, 610, 610, 41, 'km-svg-heading', 30);
   mapText(link, 'Open the lesson ↗', 610, 691, 50, 'km-svg-topic');
   mapText(svg, node.goal || '', 540, 776, 61, 'km-svg-copy', 26);
-  mapText(svg, 'READ INTO THE IDEA', 550, 875, 50, 'km-svg-kicker');
-  articles.forEach((title, i) => {
+  mapText(svg, 'READ INTO THE IDEA', 550, readingY, 50, 'km-svg-kicker');
+  let articleY = readingY + 48;
+  articles.forEach(title => {
     const article = mapSvgLink(svg, hashFor('reader', { title, node: node.id }), 'Read ' + title);
-    mapText(article, '↗ ' + title, 550, 923 + i * 80, 47, 'km-svg-topic', 24);
+    articleY += mapText(article, '↗ ' + title, 550, articleY, 47, 'km-svg-topic', 24) + 28;
   });
   return { svg, bridges: [] };
 }
