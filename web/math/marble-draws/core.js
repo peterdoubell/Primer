@@ -11,7 +11,7 @@
     if (!Number.isInteger(total) || total < 1 || total > 10 ||
         !Number.isInteger(red) || red < 0 || red > total || typeof replacement !== 'boolean' ||
         !['none','red','blue'].includes(condition) ||
-        !['both-red','second-red','different'].includes(event)) throw RangeError('Unsupported draw settings');
+        !['both-red','second-red','different','at-least-red'].includes(event)) throw RangeError('Unsupported draw settings');
     const marbles = Array.from({length: total}, (_,i) => ({
       id: (i < red ? 'R' : 'B') + (i < red ? i + 1 : i - red + 1),
       color: i < red ? 'red' : 'blue',
@@ -21,8 +21,13 @@
       for (const [j, second] of marbles.entries()) {
         const possible = replacement || i !== j;
         const given = possible && (condition === 'none' || first.color === condition);
-        const hit = event === 'both-red' ? first.color === 'red' && second.color === 'red' :
-          event === 'second-red' ? second.color === 'red' : first.color !== second.color;
+        const matches = {
+          'both-red': first.color === 'red' && second.color === 'red',
+          'second-red': second.color === 'red',
+          'different': first.color !== second.color,
+          'at-least-red': first.color === 'red' || second.color === 'red',
+        };
+        const hit = matches[event];
         outcomes.push({first: first.id, second: second.id, possible, given, favorable: given && hit});
       }
     }
