@@ -14,6 +14,18 @@
   scale.classList.add('surface-scale');
   scale.setAttribute('hidden', '');
   frame.append(scale);
+  const orientation = document.createElementNS(scale.namespaceURI, 'svg');
+  orientation.setAttribute('viewBox', '0 0 220 180');
+  orientation.setAttribute('role', 'img');
+  orientation.setAttribute('aria-label', 'Patient directions under the current model rotation');
+  orientation.classList.add('surface-orientation');
+  orientation.setAttribute('hidden', '');
+  const directionNote = document.createElement('p');
+  directionNote.textContent = '3D directions: R = patient right, A = anterior, S = superior. Opposite directions are left, posterior and inferior. A filled circle marks a direction towards you; an open circle marks a direction away from you.';
+  const key = document.createElement('ul');
+  key.className = 'region-key';
+  key.setAttribute('aria-label', 'Source region colour key');
+  frame.after(orientation, directionNote, key);
   const layers = [...document.querySelectorAll('.layer')];
   const rotation = document.querySelector('#rotation');
   const tilt = document.querySelector('#tilt');
@@ -163,6 +175,37 @@
     scale.append(bar,text);
     scale.dataset.lengthMm = length;
     scale.removeAttribute('hidden');
+    orientation.replaceChildren();
+    const yaw = rotation.valueAsNumber * Math.PI / 180, pitch = tilt.valueAsNumber * Math.PI / 180;
+    const axes = [
+      ['R', Math.cos(yaw), -Math.sin(pitch)*Math.sin(yaw), Math.cos(pitch)*Math.sin(yaw)],
+      ['A', -Math.sin(yaw), -Math.sin(pitch)*Math.cos(yaw), Math.cos(pitch)*Math.cos(yaw)],
+      ['S', 0, Math.cos(pitch), Math.sin(pitch)],
+    ];
+    for (const [name, x, y, depth] of axes) {
+      const line = document.createElementNS(scale.namespaceURI, 'line');
+      for (const [attr,value] of Object.entries({x1:110,y1:90,x2:110+60*x,y2:90-60*y,stroke:'#dce9ed','stroke-width':2,'data-axis':name,'data-depth':depth})) line.setAttribute(attr,value);
+      const label = document.createElementNS(scale.namespaceURI, 'text');
+      label.setAttribute('x',110+78*x);label.setAttribute('y',90-78*y+(name==='R'?-10:name==='A'?10:0));
+      label.setAttribute('text-anchor','middle');label.setAttribute('dominant-baseline','middle');
+      label.setAttribute('fill','#ffffff');label.setAttribute('font-size','18');
+      label.textContent = name;
+      if (Math.hypot(x,y) < .15) {
+        const mark = document.createElementNS(scale.namespaceURI, 'circle');
+        for (const [attr,value] of Object.entries({cx:110,cy:90,r:7,fill:depth>0?'#dce9ed':'none',stroke:'#dce9ed'})) mark.setAttribute(attr,value);
+        orientation.append(mark);label.setAttribute('x','135');label.setAttribute('y','90');
+      }
+      orientation.append(line,label);
+    }
+    orientation.removeAttribute('hidden');
+    key.replaceChildren(...meshes.map((mesh,i) => {
+      const item = document.createElement('li'),swatch = document.createElement('span');
+      swatch.style.backgroundColor = 'rgb(' + mesh.row.color.join(',') + ')';
+      swatch.setAttribute('aria-hidden','true');
+      item.append(swatch,document.createTextNode('Segment '+mesh.row.label+(layers[i].checked?' — shown':' — hidden')));
+      return item;
+    }));
+
   }
 
   async function start() {
@@ -173,6 +216,8 @@
     retry.hidden = true;
     canvas.hidden = true;
     scale.setAttribute('hidden', '');
+    orientation.setAttribute('hidden', '');
+    key.replaceChildren();
     dispose(scene);
     scene = null;
     if (!gl) {
@@ -216,6 +261,8 @@
     scene = null;
     canvas.hidden = true;
     scale.setAttribute('hidden', '');
+    orientation.setAttribute('hidden', '');
+    key.replaceChildren();
     status.textContent = 'The 3D graphics context was lost. Waiting for recovery.';
     retry.textContent = 'Reload page to retry';
     retry.hidden = false;
