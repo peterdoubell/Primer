@@ -3045,6 +3045,12 @@ async function renderRadiologyDesk(page, nodeId) {
       (ref.key_images.length + (ref.structure_atlas || []).length + referenceImages.length) + ' source figures · ' + (detailedAnatomy || ref.source_anatomy_references?.length ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
   const sourceStudies = renderUterineSourceStudies(n.id);
   if (sourceStudies) page.append(sourceStudies);
+  if (['ra.ct-abdominal-trauma', 'ra.ct-bowel-ischaemia'].includes(n.id)) page.append(el('section', { class: 'card' },
+    el('h2', {}, 'Original abdominal vessel study'),
+    el('p', {}, 'Compare the source vessel labels with their own arterial or venous CT acquisition. These scans provide anatomical reference; vascular injury and ischaemia are not annotated.'),
+    el('a', { href: '/app/anatomy/colonvessels-pat012/arterial/index.html' }, 'Inspect arterial CT and vessel models'),
+    el('span', {}, ' · '),
+    el('a', { href: '/app/anatomy/colonvessels-pat012/venous/index.html' }, 'Inspect venous CT and vessel models')));
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);

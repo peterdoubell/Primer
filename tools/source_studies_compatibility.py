@@ -1,6 +1,7 @@
 """Recover the exact reader before the scoped source-study navigation."""
 import hashlib
 import json
+from tools.colonvessels_compatibility import before_colonvessels_bytes
 
 MENU = b"""function renderUterineSourceStudies(nodeId) {
   const studies = [
@@ -92,6 +93,7 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    raw = before_colonvessels_bytes(path, raw)
     raw = before_endometrial_delivery_bytes(path, raw)
     if str(path) != "web/app.js" or hashlib.sha256(raw).hexdigest() != "877916899eeaffb7acc23f19517304b3f20b0ed99fb9650b9bcd25a418a13c5a":
         return raw
