@@ -5,8 +5,8 @@ import hashlib
 
 _MAP_CHANGES = {
     'web/app.js': (
-        'e778eb7a79d73b133b742520aebdf456c0ac46124393019a6400761fc2b5e5cd',
-        '8f2687e1572bd21f1c33140b6c2ca230bbacff041bfc2689bc1445976f858112',
+        '9d93a0f6dd960989e74a874d7617da89e420785e33971fe607acebc3cd926868',
+        '35698cc1fa6e713a975d6008765701965187ae1b49f07f06a76867f49b130d3e',
         (
             (57,
              b'  visualGallery: null, knowledgeMapIndex: null, restoreFocus: null, readerTitle: null };\n',
@@ -32,10 +32,10 @@ _MAP_CHANGES = {
             (3700,
              b"    el('a', { class: 'btn ghost small', href: hashFor('maps', ['module', n.id]) },\n      glyph('atlas', 16), ' Module map'),\n",
              b''),
-            (5827,
+            (5829,
              b"      el('a', { class: 'btn gold small', href: hashFor('maps') }, glyph('atlas', 16), ' Explore knowledge maps'),\n",
              b''),
-            (6010,
+            (6012,
              b"      el('a', { class: 'btn ghost small', href: hashFor('maps', ['subject', d.id]) }, 'Subject map'),\n",
              b''),
         ),
