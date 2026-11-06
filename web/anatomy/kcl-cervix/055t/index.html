@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cervical canal and stroma on pregnancy MRI · Primer</title>
+<link rel="stylesheet" href="../viewer.css">
+<script src="../viewer.js" defer></script>
+<script src="../surface-viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/rad.5.uterine-mr">Return to Uterus and Cervix</a>
+  <h1>Cervical canal and stroma on pregnancy MRI</h1>
+  <p>This T2 atlas averages reconstructed MRI from 81 pregnancy examinations at 0.55 T. It represents the study’s population reference in pregnancy. The other atlas was built from a separate cohort and acquisition protocol.</p>
+  <p><a href="../3t/index.html">Explore the 3 T atlas</a></p>
+  <p id="status" role="status">Verifying the original MRI and label files…</p>
+  <button id="retry" type="button" hidden>Retry source files</button>
+  <section id="sections" hidden>
+    <h2>Three views of one atlas point</h2>
+    <p>Choose a section or select a point on an image to move the shared crosshair. The atlas grid has 0.8 mm spacing on all three axes.</p>
+    <div class="controls">
+      <label><input id="contours" type="checkbox" checked> Label outlines</label>
+      <label>Display white <input id="white" type="range" min="100" max="550" value="460"><output id="white-value"></output></label>
+    </div>
+    <div class="planes">
+      <figure data-axis="2">
+        <label>Sagittal section <input type="range" min="0"></label>
+        <div class="frame"><canvas aria-label="Sagittal MRI. Anterior left, superior top."></canvas></div>
+        <figcaption>Anterior left · superior top</figcaption>
+      </figure>
+      <figure data-axis="1">
+        <label>Axial section <input type="range" min="0"></label>
+        <div class="frame"><canvas aria-label="Axial MRI. Anatomical right displayed right, anterior top."></canvas></div>
+        <figcaption>Right displayed right · anterior top</figcaption>
+      </figure>
+      <figure data-axis="0">
+        <label>Coronal section <input type="range" min="0"></label>
+        <div class="frame"><canvas aria-label="Coronal MRI. Anatomical right displayed right, superior top."></canvas></div>
+        <figcaption>Right displayed right · superior top</figcaption>
+      </figure>
+    </div>
+    <p id="sample" role="status"></p>
+  </section>
+  <section>
+    <h2>3D label boundaries</h2>
+    <p>Turn layers on or off to see how the inner stroma surrounds the canal. The surfaces follow the edges of the source voxels.</p>
+    <canvas id="surface" width="640" height="480" aria-label="Rotatable atlas label surfaces"></canvas>
+    <fieldset><legend>Visible source labels</legend>
+      <label><input class="layer" type="checkbox" checked> <span class="swatch" style="background:rgb(66,215,229)"></span> Endocervical canal</label>
+      <label><input class="layer" type="checkbox" checked> <span class="swatch" style="background:rgb(219,77,126)"></span> Inner stroma (subglandular zone)</label>
+      <label><input class="layer" type="checkbox"> <span class="swatch" style="background:rgb(237,156,111)"></span> Outer stroma</label>
+    </fieldset>
+    <div class="controls">
+      <label>Rotation <input id="rotation" type="range" min="-180" max="180" value="35"></label>
+      <label>Tilt <input id="tilt" type="range" min="-90" max="90" value="15"></label>
+    </div>
+    <p id="surface-status" role="status">Loading source surfaces…</p>
+
+  </section>
+  <p>The authors used a segmentation network to parcellate each population atlas. The layer names follow their published parcellation diagram. These averages describe pregnancy anatomy and do not establish cancer extent or patient measurements.</p>
+  <p>Source by the King’s College London Centre for the Developing Brain. <a href="https://gin.g-node.org/kcl_cdb/cervix_mri_atlas">Atlas repository</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12770406/">Study and parcellation diagram</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a> · <a href="atlas.json">Source file hashes</a> · <a href="surfaces.json">Geometry inventory</a></p>
+</main>
+</body>
+</html>

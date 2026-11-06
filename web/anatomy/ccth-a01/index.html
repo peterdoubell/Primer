@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cervical cancer MRI source contours · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script src="viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/rad.5.uterine-mr">Return to Uterus and Cervix</a>
+  <h1>Cervical cancer MRI source contours</h1>
+  <p>Follow two manually drawn regions through 30 acquired sagittal T2 sections from the same case. The source uses the same name for both regions and distinguishes them by ROI number. Their separate clinical meanings are unspecified.</p>
+  <p id="status" role="status">Loading MRI and original contours…</p>
+  <button id="retry" type="button" hidden>Retry source files</button>
+  <section id="reader" hidden aria-label="MRI and contour stack">
+    <div class="views">
+      <figure>
+        <label for="slice">Acquired section</label>
+        <input id="slice" type="range" min="1" max="30" value="15">
+        <output id="section" for="slice"></output>
+        <canvas id="mri" width="256" height="256" tabindex="0" aria-label="Sagittal MRI section. Use left and right arrows to change section."></canvas>
+        <figcaption>Anterior at left, superior at top. Select a pixel to read its source intensity.</figcaption>
+        <output id="sample"></output>
+        <div class="controls">
+          <label>Display black <input id="black" type="number" min="0" max="2718" value="0"></label>
+          <label>Display white <input id="white" type="number" min="1" max="2719" value="1700"></label>
+        </div>
+        <p id="window-status" role="status"></p>
+      </figure>
+      <figure>
+        <canvas id="stack" width="640" height="480" aria-label="Rotatable contour stack in patient coordinates"></canvas>
+        <figcaption>Original closed outlines in patient coordinates. Brighter lines mark the current section. Each loop stays on its original acquisition plane. Slice centres are 4 mm apart.</figcaption>
+        <div class="controls">
+          <label>Rotation <input id="yaw" type="range" min="-180" max="180" value="35"></label>
+          <label>Tilt <input id="pitch" type="range" min="-90" max="90" value="20"></label>
+        </div>
+      </figure>
+    </div>
+    <fieldset>
+      <legend>Show source regions in both views</legend>
+      <label><input id="roi-1" type="checkbox" checked> ROI 1 · magenta</label>
+      <label><input id="roi-2" type="checkbox" checked> ROI 2 · cyan</label>
+    </fieldset>
+    <p id="contour-status" role="status"></p>
+  </section>
+  <p>These outlines represent the sampled annotations. Assessing the parametria, vaginal wall, bladder, rectum and lymph nodes requires separate structure evidence.</p>
+  <p>Source case CCTH-A01, study MR1, Mayr and colleagues (2023), The Cancer Imaging Archive. Primer decodes the original MRI samples, projects the RTSTRUCT outlines onto their referenced image planes and displays their original 3D coordinates. <a href="https://doi.org/10.7937/ERZ5-QZ59">Dataset and citation</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="source.json">Source geometry and file hashes</a></p>
+</main>
+</body>
+</html>
