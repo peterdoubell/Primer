@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repair an argument · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script src="core.js" defer></script>
+<script src="viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/lang.3.rhetoric">Return to Rhetoric</a>
+  <h1>Does the support reach the conclusion?</h1>
+  <p>Harbour Library is considering a Saturday-opening trial. Read the fictional record, inspect each argument, and choose a repair grounded in the information supplied.</p>
+  <label for="scenario">Argument to examine</label>
+  <select id="scenario"></select>
+  <div class="workspace">
+    <section aria-labelledby="evidence-title">
+      <h2 id="evidence-title">The record</h2>
+      <p>These invented documents supply the evidence for the activity.</p>
+      <ol id="facts"></ol>
+    </section>
+    <section aria-labelledby="map-title">
+      <h2 id="map-title">Argument map</h2>
+      <p id="map-state" role="status"></p>
+      <div id="map"></div>
+      <p class="map-key">The first two cards supply premises. The connecting claim explains how the speaker moves from them to the conclusion. An arrow shows that claimed link.</p>
+      <button type="button" id="restore">Restore original argument</button>
+    </section>
+  </div>
+  <form id="repair-form">
+    <fieldset>
+      <legend>Which repair addresses this argument using the record?</legend>
+      <div id="choices"></div>
+      <button type="submit">Test repair</button>
+    </fieldset>
+  </form>
+  <p id="feedback" role="status"></p>
+  <details id="diagnosis"><summary>Explain the original problem</summary><p id="diagnosis-text"></p></details>
+
+  <section aria-labelledby="appeals-title">
+    <h2 id="appeals-title">How the words persuade</h2>
+    <p>A speaker can combine credibility, emotion and reasoning. These sentences concern Harbour Library’s proposal. Inspect them separately from the map’s inferential links.</p>
+    <label for="appeal">Sentence to inspect</label>
+    <select id="appeal"></select>
+    <blockquote id="appeal-quote"></blockquote>
+    <p id="appeal-explanation" role="status"></p>
+  </section>
+  <details>
+    <summary>A repeatable argument check</summary>
+    <ol>
+      <li>Write the actual conclusion and proposal in full, preserving their scope.</li>
+      <li>Separate what the record establishes from assumptions and claims about it.</li>
+      <li>State the link that would let the premises support the conclusion.</li>
+      <li>Check for a changed proposal, omitted alternatives or an unsupported causal claim.</li>
+      <li>Repair the claim or identify the additional evidence needed, keeping the remaining uncertainty visible.</li>
+    </ol>
+  </details>
+  <p>The feedback concerns these supplied arguments and records. Words such as “either” or “after” can occur in sound reasoning too. Judge the stated alternatives and support in context.</p>
+</main>
+</body>
+</html>

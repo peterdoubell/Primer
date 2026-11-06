@@ -3864,6 +3864,8 @@ async function renderNode(page, nodeId) {
     'Explore observed galaxy rotation curves'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
     'Explore a longitudinal sound wave'));
+  if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },
+    'Inspect evidence and repair an argument'));
   if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },
     'Compare manuscript families'));
   if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },

@@ -92,6 +92,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_source_studies_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '3af395da96326bc98e7284e8752e4e3e4467c66603219e288fa85d1ce3a927ce':
+        raw = raw.replace(b"  if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },\n    'Inspect evidence and repair an argument'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '877916899eeaffb7acc23f19517304b3f20b0ed99fb9650b9bcd25a418a13c5a':
+            raise ValueError('Rhetoric study link changed unrelated reader bytes')
     raw = before_endometrial_delivery_bytes(path, raw)
     if str(path) != "web/app.js" or hashlib.sha256(raw).hexdigest() != "877916899eeaffb7acc23f19517304b3f20b0ed99fb9650b9bcd25a418a13c5a":
         return raw
