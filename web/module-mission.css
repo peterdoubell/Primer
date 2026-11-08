@@ -17,3 +17,14 @@
 .teaching-step-count { font:600 13px var(--sans); }
 .teaching-lesson, .lesson-media, .module-mission ~ .grid { scroll-margin-top:100px; }
 @media(max-width:480px) { .module-mission-trail { grid-template-columns:1fr 1fr; } .module-mission-stop { padding:10px; align-items:flex-start; } }
+
+.divisibility-game { scroll-margin-top:100px; }
+.divisibility-game progress { width:100%; accent-color:var(--green); }
+.divisibility-number { font:700 clamp(20px,4vw,32px) var(--sans); overflow-wrap:anywhere; letter-spacing:.04em; }
+.divisibility-choices { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0; }
+.divisibility-choices [aria-pressed="true"] { outline:3px solid var(--green); outline-offset:2px; }
+.divisibility-game details { margin-top:24px; }
+.divisibility-game summary { cursor:pointer; margin-bottom:16px; }
+.divisibility-game label { display:block; margin:12px 0; }
+.divisibility-game input { width:100%; max-width:32ch; box-sizing:border-box; }
+.divisibility-game [hidden] { display:none !important; }
