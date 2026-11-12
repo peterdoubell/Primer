@@ -2234,7 +2234,7 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   const content = el('div', { class: 'rad-template-content' });
   if (template.description) content.append(el('p', {}, template.description));
   const uid = 'rad-report-' + nodeId + '-' + index;
-  const original = radiologyReportText(template);
+  const original = template.text ?? radiologyReportText(template);
   const status = el('p', { class: 'rad-report-status', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' },
     'Template ready. Changes last until you leave or reload this page.');
   const hint = el('p', { id: uid + '-hint', class: 'rad-report-hint' },
@@ -2323,6 +2323,14 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   return panel;
 }
 
+function renderQuickReport(report, nodeId) {
+  // Two editable texts in the reporting-system layout: the fast template and the all-normal report.
+  return [['template', 'Fast template', report.template, 'Under each heading the first line is normal. Delete the lines that do not apply, choose within [a / b] and fill [ ].'],
+    ['normal', 'Normal report', report.normal, 'Every heading normal. Add the clinical history and keep one study title.']]
+    .map(([kind, title, text, description], index) => renderRadiologyTemplate({ id: nodeId + '-' + kind, title, description, text },
+      'quick-' + index, nodeId, true));
+}
+
 function renderRadiologyReference(n) {
   const ref = n.radiology_reference;
   if (!ref) return null;
@@ -2369,9 +2377,10 @@ function renderRadiologyReference(n) {
     section.append(el('p', { class: 'muted' },
       ref.supplementary ? 'Additional module extending the foundation reference.' : 'Open the source index above to explore the foundation reference.'));
   }
-  if (templates.length) section.append(el('div', { class: 'rad-report-templates' },
+  if (templates.length || ref.quick_report) section.append(el('div', { class: 'rad-report-templates' },
+    ...(ref.quick_report ? renderQuickReport(ref.quick_report, n.id) : []),
     ref.structured_form && window.PrimerStructuredReporting ? window.PrimerStructuredReporting.render(ref.structured_form) : null,
-    ...(ref.structured_form?.descriptor_form && window.PrimerStructuredReporting ? [] : [
+    ...(ref.quick_report || ref.structured_form?.descriptor_form && window.PrimerStructuredReporting ? [] : [
       el('h3', {}, 'Structured report templates'),
       el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
       ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))])));
@@ -3064,6 +3073,7 @@ async function renderRadiologyDesk(page, nodeId) {
   if (ref.descriptor_only && window.PrimerStructuredReporting) {
     page.append(btn({class:'btn ghost small',onclick:()=>go('radiology')},backward('Back to references')),
       pagehead(n.modality + ' · ' + n.topic,n.title,n.goal),
+      ...(ref.quick_report ? [el('div', { class: 'rad-report-templates' }, ...renderQuickReport(ref.quick_report, n.id))] : []),
       window.PrimerStructuredReporting.render(ref.structured_form,{investigationId:n.id}),
       el('details',{class:'rad-protocol'},el('summary',{},'References'),
         el('ul',{},...(guide.sources||[]).map(source=>el('li',{},radiologySourceLink(source.title,source.url))))));
