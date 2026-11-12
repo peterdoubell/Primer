@@ -1,0 +1,443 @@
+{
+  "schema": "primer.fast-report-templates/1",
+  "revision": "2026-11-12",
+  "templates": {
+    "ra.arthritis": {
+      "title": "Hand radiographs, arthritis / Hand and foot radiographs, arthritis",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Distribution", "normal": "No inflammatory or degenerative arthropathy.",
+         "options": ["[Symmetrical / Asymmetrical] involvement of the [MCP / PIP / DIP / wrist / MTP] joints [ ]."]},
+        {"heading": "Joint spaces", "normal": "Preserved joint spaces.", "options": ["[Uniform / Non-uniform] joint space narrowing at [ ]."]},
+        {"heading": "Erosions and bone", "normal": "No erosions. Normal bone density.",
+         "options": ["[Marginal / Central / Overhanging edge / Pencil-in-cup] erosions at [ ].",
+                     "[Periarticular osteopenia / Periostitis / Subchondral cysts / Osteophytes] [ ]."]},
+        {"heading": "Alignment", "normal": "Normal alignment.", "options": ["[Ulnar deviation / Swan-neck deformity / Boutonnière deformity / Subluxation] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling, tophi or calcification.",
+         "options": ["[Soft tissue swelling / Tophi / Chondrocalcinosis / Calcinosis] [ ]."]}
+      ],
+      "impression": "No radiographic arthropathy."
+    },
+    "xr.sacroiliac": {
+      "title": "Sacroiliac joint radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Sacroiliac joints", "normal": "Normal sacroiliac joints. No erosion, sclerosis or ankylosis.",
+         "options": ["[Right / Left / Bilateral] sacroiliitis, modified New York grade [1 / 2 / 3 / 4].", "[Osteitis condensans ilii / Degenerative change] [ ]."]},
+        {"heading": "Spine and hips", "normal": "No syndesmophytes. Normal hip joints.", "options": ["[Syndesmophytes / Enthesophytes / Hip arthropathy] [ ]."]}
+      ],
+      "impression": "Normal sacroiliac joints."
+    },
+    "msk.mri-sacroiliac": {
+      "title": "MRI sacroiliac joints",
+      "radiograph": false,
+      "technique": {"normal": "MRI sacroiliac joints with T1 and STIR in oblique coronal and axial planes."},
+      "sections": [
+        {"heading": "Active inflammation", "normal": "No subchondral bone marrow oedema.",
+         "options": ["Subchondral bone marrow oedema at the [right / left] [iliac / sacral] side, [ ] quadrants, [ ] consecutive slices.",
+                     "[Capsulitis / Enthesitis / Joint fluid] [ ]."]},
+        {"heading": "Structural change", "normal": "No erosion, sclerosis, fat metaplasia or ankylosis.",
+         "options": ["[Erosions / Backfill / Fat metaplasia / Ankylosis / Sclerosis] [ ]."]},
+        {"heading": "ASAS definition", "normal": "ASAS MRI definition of active sacroiliitis not met.", "options": ["ASAS MRI definition of active sacroiliitis met."]},
+        {"heading": "Spine and other findings", "normal": "No inflammatory lesion in the visualised lumbar spine.",
+         "options": ["[Osteitis condensans ilii / Insufficiency fracture / Degenerative change] [ ]."]}
+      ],
+      "impression": "No MRI evidence of sacroiliitis."
+    },
+    "ra.ankle-fractures": {
+      "title": "Right ankle radiographs / Left ankle radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Fracture", "normal": "No fracture.",
+         "options": ["[Lateral malleolus / Medial malleolus / Posterior malleolus / Talus / Base of fifth metatarsal] fracture [ ].",
+                     "Weber [A / B / C] fibular fracture, [undisplaced / displaced] [ ].",
+                     "[Unimalleolar / Bimalleolar / Trimalleolar] fracture; proximal fibula [intact / fractured]."]},
+        {"heading": "Mortise and syndesmosis", "normal": "Congruent mortise. Normal medial clear space and tibiofibular overlap.",
+         "options": ["Medial clear space [ ] mm; tibiofibular clear space [ ] mm.", "Talar shift [ ]."]},
+        {"heading": "Joint and hindfoot", "normal": "Preserved joint space. Normal visualised hindfoot.",
+         "options": ["[Joint effusion / Osteochondral lesion / Calcaneal fracture / Degenerative change] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No significant soft tissue swelling.", "options": ["[Lateral / Medial] soft tissue swelling [ ]."]}
+      ],
+      "impression": "No fracture. Congruent ankle mortise."
+    },
+    "xr.ankle": {
+      "title": "Right ankle radiographs / Left ankle radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Fracture", "normal": "No fracture.",
+         "options": ["[Lateral malleolus / Medial malleolus / Posterior malleolus / Talus / Base of fifth metatarsal] fracture [ ].",
+                     "Weber [A / B / C] fibular fracture, [undisplaced / displaced] [ ]."]},
+        {"heading": "Mortise and syndesmosis", "normal": "Congruent mortise. Normal medial clear space and tibiofibular overlap.",
+         "options": ["Medial clear space [ ] mm; tibiofibular clear space [ ] mm."]},
+        {"heading": "Joints", "normal": "Preserved joint spaces.", "options": ["[Joint effusion / Osteochondral lesion / Degenerative change] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No significant soft tissue swelling.", "options": ["[Lateral / Medial] soft tissue swelling [ ]."]}
+      ],
+      "impression": "No fracture. Congruent ankle mortise."
+    },
+    "ra.foot-ankle-cases": {
+      "title": "Right foot and ankle radiographs / Left foot and ankle radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Ankle", "normal": "No malleolar fracture. Congruent mortise.",
+         "options": ["[Lateral / Medial / Posterior] malleolar fracture, Weber [A / B / C] [ ].", "Medial clear space [ ] mm."]},
+        {"heading": "Hindfoot", "normal": "No talar or calcaneal fracture.",
+         "options": ["[Talar neck / Talar dome / Lateral process / Calcaneal] fracture [ ]."]},
+        {"heading": "Midfoot and forefoot", "normal": "No fracture. Normal Lisfranc alignment.",
+         "options": ["Fracture of the [ ] [ ].", "[Lisfranc widening / Navicular fracture / Fifth metatarsal fracture] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling or foreign body.", "options": ["[Soft tissue swelling / Foreign body / Gas] [ ]."]}
+      ],
+      "impression": "No foot or ankle fracture."
+    },
+    "xr.tibia-fibula": {
+      "title": "Right tibia and fibula radiographs / Left tibia and fibula radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Tibia and fibula", "normal": "No tibial or fibular fracture.",
+         "options": ["[Transverse / Oblique / Spiral / Comminuted] fracture of the [proximal / mid / distal] [tibia / fibula], [ ] displacement, [ ] angulation.",
+                     "[Periosteal reaction / Lytic lesion / Stress fracture] [ ]."]},
+        {"heading": "Knee and ankle", "normal": "Normal alignment at the knee and ankle.", "options": ["[Tibial plateau / Ankle] involvement [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling, gas or foreign body.", "options": ["[Soft tissue swelling / Gas / Foreign body] [ ]."]}
+      ],
+      "impression": "No tibial or fibular fracture."
+    },
+    "xr.foot": {
+      "title": "Right foot radiographs / Left foot radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Fracture", "normal": "No fracture.",
+         "options": ["Fracture of the [ ] [metatarsal / phalanx / tarsal bone] [ ].",
+                     "[Fifth metatarsal base avulsion / Jones fracture / Lisfranc injury / Stress fracture] [ ]."]},
+        {"heading": "Alignment", "normal": "Normal tarsometatarsal and midfoot alignment.",
+         "options": ["[Lisfranc widening / Hallux valgus / Pes planus / Pes cavus] [ ]."]},
+        {"heading": "Joints", "normal": "Preserved joint spaces. No erosion.", "options": ["[Osteoarthritis / Erosions / Charcot change / Gout] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling, gas or foreign body.", "options": ["[Soft tissue swelling / Gas / Radiopaque foreign body] [ ]."]}
+      ],
+      "impression": "No fracture. Normal alignment."
+    },
+    "xr.toe": {
+      "title": "Right toe radiographs / Left toe radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Fracture", "normal": "No fracture or dislocation.",
+         "options": ["Fracture of the [proximal / middle / distal] phalanx of the [ ] toe, [intra-articular / extra-articular] [ ].",
+                     "Dislocation of the [ ] joint."]},
+        {"heading": "Joints and sesamoids", "normal": "Normal alignment and joint spaces. Normal sesamoids.",
+         "options": ["Hallux valgus angle [ ] degrees; intermetatarsal angle [ ] degrees.", "[Osteoarthritis / Erosion / Sesamoid fracture] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling or foreign body.", "options": ["[Soft tissue swelling / Foreign body] [ ]."]}
+      ],
+      "impression": "No fracture or dislocation."
+    },
+    "xr.calcaneus": {
+      "title": "Right calcaneus radiographs / Left calcaneus radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Calcaneus", "normal": "No calcaneal fracture. Normal Böhler angle.",
+         "options": ["[Intra-articular / Extra-articular] calcaneal fracture [ ]; Böhler angle [ ] degrees.",
+                     "[Avulsion fracture / Stress fracture / Plantar spur / Posterior spur] [ ]."]},
+        {"heading": "Subtalar and calcaneocuboid joints", "normal": "Normal subtalar and calcaneocuboid joints.", "options": ["[Joint involvement / Coalition] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling.", "options": ["[Soft tissue swelling / Achilles thickening] [ ]."]}
+      ],
+      "impression": "No calcaneal fracture."
+    },
+    "msk.ultrasound-ankle": {
+      "title": "Ultrasound right ankle / Ultrasound left ankle",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the ankle tendons and ligaments with dynamic assessment."},
+      "sections": [
+        {"heading": "Tendons", "normal": "Normal Achilles, peroneal, posterior tibial and anterior tendons.",
+         "options": ["[Tendinosis / Tenosynovitis / Partial tear / Full-thickness tear] of the [ ] tendon [ ].", "Peroneal tendon subluxation on dynamic assessment."]},
+        {"heading": "Ligaments", "normal": "Intact anterior talofibular and calcaneofibular ligaments.",
+         "options": ["[Thickened / Partially torn / Completely torn] [ATFL / CFL / AITFL] [ ]."]},
+        {"heading": "Joint and soft tissues", "normal": "No effusion, ganglion or bursitis. Normal plantar fascia.",
+         "options": ["Plantar fascia [ ] mm.", "[Effusion / Ganglion / Retrocalcaneal bursitis] [ ]."]}
+      ],
+      "impression": "Normal ankle ultrasound."
+    },
+    "msk.ultrasound-foot": {
+      "title": "Ultrasound right foot / Ultrasound left foot",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the foot."},
+      "sections": [
+        {"heading": "Plantar fascia", "normal": "Normal plantar fascia thickness.", "options": ["Plantar fascia [ ] mm with [hypoechogenicity / tear / fibroma] [ ]."]},
+        {"heading": "Forefoot", "normal": "No Morton neuroma or intermetatarsal bursitis.",
+         "options": ["[ ] mm Morton neuroma in the [second / third] intermetatarsal space.", "[Plantar plate tear / Intermetatarsal bursitis / Stress fracture] [ ]."]},
+        {"heading": "Tendons", "normal": "Normal flexor and extensor tendons.", "options": ["[Tenosynovitis / Tear] of the [ ] tendon."]},
+        {"heading": "Soft tissues", "normal": "No mass, collection or foreign body.", "options": ["[Mass / Collection / Foreign body] [ ]."]}
+      ],
+      "impression": "Normal foot ultrasound."
+    },
+    "msk.mri-foot": {
+      "title": "MRI right foot / MRI left foot",
+      "radiograph": false,
+      "technique": {"normal": "MRI foot with proton density, fat-suppressed and T1 imaging in three planes."},
+      "sections": [
+        {"heading": "Bones", "normal": "No fracture, stress reaction or bone marrow oedema.",
+         "options": ["[Stress fracture / Bone marrow oedema / Freiberg infraction / Osteomyelitis] at [ ]."]},
+        {"heading": "Lisfranc and midfoot", "normal": "Intact Lisfranc ligament. Normal midfoot alignment.", "options": ["[Partial / Complete] Lisfranc ligament tear [ ]."]},
+        {"heading": "Forefoot", "normal": "Intact plantar plates. No Morton neuroma.",
+         "options": ["[Plantar plate tear / Morton neuroma / Sesamoiditis / Intermetatarsal bursitis] [ ]."]},
+        {"heading": "Tendons and plantar fascia", "normal": "Intact tendons and plantar fascia.", "options": ["[Tendinosis / Tear / Plantar fasciitis] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No collection or mass.", "options": ["[Collection / Mass / Ganglion] [ ]."]}
+      ],
+      "impression": "Normal MRI foot."
+    },
+    "ra.mri-ankle": {
+      "title": "MRI right ankle / MRI left ankle",
+      "radiograph": false,
+      "technique": {"normal": "MRI ankle with proton density, fat-suppressed and T1 imaging in three planes."},
+      "sections": [
+        {"heading": "Bones and osteochondral surfaces", "normal": "No fracture, bone marrow oedema or osteochondral lesion.",
+         "options": ["[Osteochondral lesion / Bone bruise / Stress fracture / Avascular necrosis] at [ ]."]},
+        {"heading": "Lateral ligaments and syndesmosis", "normal": "Intact talofibular, calcaneofibular and syndesmotic ligaments.",
+         "options": ["[Sprain / Partial tear / Complete tear] of the [ATFL / CFL / PTFL / AITFL] [ ]."]},
+        {"heading": "Medial ligaments and sinus tarsi", "normal": "Intact deltoid and spring ligaments. Normal sinus tarsi.",
+         "options": ["[Deltoid / Spring ligament] [sprain / tear] [ ].", "Sinus tarsi [oedema / fibrosis] [ ]."]},
+        {"heading": "Tendons", "normal": "Intact Achilles, peroneal, posterior tibial, flexor and extensor tendons.",
+         "options": ["[Tendinosis / Tenosynovitis / Partial tear / Full-thickness tear] of the [ ] tendon [ ].", "Peroneal tendon [subluxation / split tear] [ ]."]},
+        {"heading": "Joints and soft tissues", "normal": "No effusion, synovitis or impingement. Normal plantar fascia.",
+         "options": ["[Anterolateral impingement / Plantar fasciitis / Ganglion / Os trigonum syndrome] [ ]."]}
+      ],
+      "impression": "Normal MRI ankle."
+    },
+    "ra.hip-arthroplasty": {
+      "title": "Pelvis and right hip radiographs / Pelvis and left hip radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Components", "normal": "Hip arthroplasty components in satisfactory position.",
+         "options": ["[Total hip arthroplasty / Hemiarthroplasty / Resurfacing], [cemented / uncemented / hybrid] [ ].",
+                     "Acetabular inclination [ ] degrees; leg length difference [ ] mm."]},
+        {"heading": "Interfaces", "normal": "No periprosthetic lucency or osteolysis.",
+         "options": ["Lucency [ ] mm in [Gruen / DeLee-Charnley] zone [ ].", "Osteolysis [ ]."]},
+        {"heading": "Bearing and hardware", "normal": "Concentric femoral head. Intact hardware.",
+         "options": ["[Eccentric head / Polyethylene wear / Dislocation / Hardware fracture] [ ]."]},
+        {"heading": "Periprosthetic bone", "normal": "No periprosthetic fracture or stem subsidence.",
+         "options": ["Periprosthetic fracture, Vancouver [A / B1 / B2 / B3 / C] [ ].", "Stem subsidence [ ] mm."]},
+        {"heading": "Soft tissues", "normal": "No heterotopic ossification.", "options": ["Brooker grade [I / II / III / IV] heterotopic ossification."]}
+      ],
+      "impression": "Satisfactory hip arthroplasty. No complication."
+    },
+    "ra.hip-fai": {
+      "title": "Pelvis and hip radiographs, impingement views",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Femoral head-neck junction", "normal": "Normal femoral head-neck offset. No cam morphology.",
+         "options": ["Cam morphology; alpha angle [ ] degrees on the [Dunn / frog-leg / cross-table] view."]},
+        {"heading": "Acetabulum", "normal": "Normal acetabular coverage and version.",
+         "options": ["Lateral centre-edge angle [ ] degrees; Tönnis angle [ ] degrees.",
+                     "[Crossover sign / Posterior wall sign / Ischial spine sign / Coxa profunda / Protrusio] [ ]."]},
+        {"heading": "Joint space", "normal": "Preserved hip joint space.", "options": ["Tönnis grade [1 / 2 / 3] osteoarthritis."]},
+        {"heading": "Other findings", "normal": "No other pain generator identified.",
+         "options": ["[Os acetabuli / Herniation pit / Enthesopathy / Sacroiliitis] [ ]."]}
+      ],
+      "impression": "No femoroacetabular impingement morphology."
+    },
+    "xr.pelvis": {
+      "title": "Pelvis radiograph",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Pelvic ring", "normal": "Intact pelvic ring. No fracture.",
+         "options": ["[Pubic ramus / Acetabular / Sacral / Iliac wing / Avulsion] fracture [ ].", "[Symphyseal / Sacroiliac] diastasis [ ] mm."]},
+        {"heading": "Hips", "normal": "Normal hip joints.",
+         "options": ["[Right / Left] [osteoarthritis / femoral neck fracture / avascular necrosis] [ ]."]},
+        {"heading": "Sacroiliac joints and symphysis", "normal": "Normal sacroiliac joints and pubic symphysis.", "options": ["[Sacroiliitis / Osteitis pubis] [ ]."]},
+        {"heading": "Bones and soft tissues", "normal": "No focal bone lesion.", "options": ["[Lytic / Sclerotic] lesion in the [ ]."]}
+      ],
+      "impression": "No pelvic fracture."
+    },
+    "xr.hip": {
+      "title": "Right hip radiographs / Left hip radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Proximal femur", "normal": "No proximal femoral fracture.",
+         "options": ["[Subcapital / Transcervical / Basicervical / Intertrochanteric / Subtrochanteric] fracture [ ].",
+                     "Garden [I / II / III / IV] femoral neck fracture.", "[Lytic / Sclerotic] lesion [ ]."]},
+        {"heading": "Hip joint", "normal": "Preserved hip joint space. Normal femoral head contour.",
+         "options": ["[Osteoarthritis / Avascular necrosis / Cam morphology / Acetabular dysplasia] [ ]."]},
+        {"heading": "Pelvis", "normal": "No visualised pelvic fracture.", "options": ["[Pubic ramus / Acetabular] fracture [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.", "options": ["[Calcification / Gas] [ ]."]}
+      ],
+      "impression": "No hip fracture."
+    },
+    "xr.femur": {
+      "title": "Right femur radiographs / Left femur radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Femur", "normal": "No femoral fracture.",
+         "options": ["[Transverse / Oblique / Spiral / Comminuted / Atypical] fracture of the [proximal / mid / distal] femoral shaft [ ].",
+                     "[Lateral cortical thickening / Periosteal reaction / Lytic lesion] [ ]."]},
+        {"heading": "Hip and knee", "normal": "Normal hip and knee joints.", "options": ["[ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.", "options": ["[Soft tissue swelling / Gas / Calcification] [ ]."]}
+      ],
+      "impression": "No femoral fracture."
+    },
+    "msk.ultrasound-hip": {
+      "title": "Ultrasound right hip / Ultrasound left hip",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the hip joint and peritrochanteric region."},
+      "sections": [
+        {"heading": "Joint", "normal": "No joint effusion or synovial thickening.", "options": ["Joint effusion [ ] mm.", "Synovial thickening [ ]."]},
+        {"heading": "Anterior structures", "normal": "Normal iliopsoas tendon and bursa. Normal rectus femoris origin.",
+         "options": ["[Iliopsoas bursitis / Snapping iliopsoas / Rectus femoris tear] [ ]."]},
+        {"heading": "Lateral structures", "normal": "Normal gluteus medius and minimus tendons. No trochanteric bursitis.",
+         "options": ["[Tendinosis / Partial tear / Full-thickness tear] of the gluteus [medius / minimus].", "Trochanteric bursitis [ ] mm."]},
+        {"heading": "Other findings", "normal": "No mass or collection.", "options": ["[ ]."]}
+      ],
+      "impression": "Normal hip ultrasound."
+    },
+    "msk.mri-hip": {
+      "title": "MRI right hip / MRI left hip",
+      "radiograph": false,
+      "technique": {"normal": "MRI hip with proton density, fluid-sensitive and oblique axial imaging."},
+      "sections": [
+        {"heading": "Bones", "normal": "Normal marrow signal. No fracture, stress reaction or avascular necrosis.",
+         "options": ["[Stress fracture / Avascular necrosis / Bone marrow oedema / Insufficiency fracture] [ ]."]},
+        {"heading": "Labrum and cartilage", "normal": "Intact labrum. Preserved articular cartilage.",
+         "options": ["Labral tear from [ ] to [ ] o'clock [ ].", "[Chondral delamination / Full-thickness cartilage loss] at [ ]."]},
+        {"heading": "Morphology", "normal": "No cam or pincer morphology.", "options": ["Alpha angle [ ] degrees; centre-edge angle [ ] degrees."]},
+        {"heading": "Tendons and bursae", "normal": "Intact gluteal, iliopsoas, hamstring and adductor tendons. No bursitis.",
+         "options": ["[Gluteus medius / Gluteus minimus / Hamstring / Adductor] [tendinosis / partial tear / full-thickness tear] [ ].",
+                     "[Trochanteric / Iliopsoas] bursitis."]},
+        {"heading": "Joint and soft tissues", "normal": "No effusion or synovitis.", "options": ["[Effusion / Synovitis / Paralabral cyst] [ ]."]}
+      ],
+      "impression": "Normal MRI hip."
+    },
+    "ra.mri-knee": {
+      "title": "MRI right knee / MRI left knee",
+      "radiograph": false,
+      "technique": {"normal": "MRI knee with proton density, fat-suppressed and T1 imaging in three planes."},
+      "sections": [
+        {"heading": "Menisci", "normal": "Intact medial and lateral menisci.",
+         "options": ["[Horizontal / Vertical / Radial / Complex / Bucket-handle / Root] tear of the [medial / lateral] meniscus, [posterior horn / body / anterior horn].",
+                     "Meniscal extrusion [ ] mm."]},
+        {"heading": "Cruciate ligaments", "normal": "Intact anterior and posterior cruciate ligaments.",
+         "options": ["[Partial / Complete] tear of the [ACL / PCL] [ ]."]},
+        {"heading": "Collateral ligaments and corners", "normal": "Intact medial and lateral collateral ligaments and posterolateral corner.",
+         "options": ["[MCL / LCL / Posterolateral corner] [sprain / partial tear / complete tear] [ ]."]},
+        {"heading": "Extensor mechanism and patellofemoral joint", "normal": "Intact quadriceps and patellar tendons. Normal patellar position.",
+         "options": ["[Patellar tendinosis / Quadriceps tendon tear / Patellar dislocation sequelae / Trochlear dysplasia] [ ]."]},
+        {"heading": "Cartilage and bone", "normal": "Preserved articular cartilage. No bone marrow oedema or fracture.",
+         "options": ["Grade [1 / 2 / 3 / 4] chondral lesion of the [ ], [ ] mm.",
+                     "[Bone bruise / Fracture / Osteochondral lesion / Insufficiency fracture] at [ ]."]},
+        {"heading": "Joint and soft tissues", "normal": "No effusion, loose body or Baker's cyst.",
+         "options": ["[Small / Moderate / Large] effusion [ ].", "[Synovitis / Loose body / Baker's cyst] [ ]."]}
+      ],
+      "impression": "Normal MRI knee."
+    },
+    "xr.knee": {
+      "title": "Right knee radiographs / Left knee radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Fracture", "normal": "No fracture.", "options": ["[Tibial plateau / Patellar / Distal femoral / Fibular head / Segond] fracture [ ]."]},
+        {"heading": "Joint", "normal": "No effusion. Preserved joint spaces.",
+         "options": ["[Small / Moderate / Large] joint effusion [ ].", "Lipohaemarthrosis.",
+                     "[Medial / Lateral / Patellofemoral] joint space narrowing, Kellgren-Lawrence grade [1 / 2 / 3 / 4]."]},
+        {"heading": "Alignment and patella", "normal": "Normal alignment. Normal patellar position.",
+         "options": ["[Patella alta / Patella baja / Patellar tilt / Lateral subluxation] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.", "options": ["[Chondrocalcinosis / Loose body / Soft tissue calcification] [ ]."]}
+      ],
+      "impression": "Normal knee radiographs."
+    },
+    "xr.lower-limb-alignment": {
+      "title": "Standing lower limb alignment radiograph",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Mechanical axis", "normal": "Neutral mechanical alignment.",
+         "options": ["Mechanical axis passes [ ] mm [medial / lateral] to the knee centre.",
+                     "Hip-knee-ankle angle: right [ ] degrees, left [ ] degrees."]},
+        {"heading": "Leg length", "normal": "Equal leg lengths.", "options": ["[Right / Left] leg shorter by [ ] mm (femur [ ] mm, tibia [ ] mm)."]},
+        {"heading": "Joint angles", "normal": "Normal mechanical lateral distal femoral and medial proximal tibial angles.",
+         "options": ["mLDFA [ ] degrees; MPTA [ ] degrees; JLCA [ ] degrees."]},
+        {"heading": "Bones and hardware", "normal": "No bone lesion or hardware.", "options": ["[Hardware / Deformity / Bone lesion] [ ]."]}
+      ],
+      "impression": "Neutral alignment. Equal leg lengths."
+    },
+    "msk.mri-knee-postoperative": {
+      "title": "MRI right knee, postoperative / MRI left knee, postoperative",
+      "radiograph": false,
+      "technique": {"normal": "MRI knee with proton density, fat-suppressed and T1 imaging, with metal artefact reduction."},
+      "sections": [
+        {"heading": "Graft", "normal": "Intact ACL graft with satisfactory tunnel position.",
+         "options": ["[Partial / Complete] graft tear [ ].", "Femoral tunnel [ ]; tibial tunnel [ ]; tunnel widening [ ] mm."]},
+        {"heading": "Menisci", "normal": "Postoperative meniscus without new tear.",
+         "options": ["[Re-tear / New tear] of the [medial / lateral] meniscus [ ].", "[Meniscal repair / Partial meniscectomy] at [ ]."]},
+        {"heading": "Complications", "normal": "No cyclops lesion, arthrofibrosis or graft impingement.",
+         "options": ["[Cyclops lesion / Arthrofibrosis / Graft impingement / Tunnel ganglion] [ ]."]},
+        {"heading": "Cartilage and bone", "normal": "Preserved cartilage. No bone marrow oedema.", "options": ["[Chondral loss / Bone marrow oedema] at [ ]."]},
+        {"heading": "Ligaments and joint", "normal": "Intact collateral ligaments. No effusion.", "options": ["[Effusion / Synovitis / Collateral ligament injury] [ ]."]}
+      ],
+      "impression": "Intact reconstruction. No complication."
+    },
+    "msk.ultrasound-knee": {
+      "title": "Ultrasound right knee / Ultrasound left knee",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the knee."},
+      "sections": [
+        {"heading": "Extensor mechanism", "normal": "Normal quadriceps and patellar tendons.",
+         "options": ["[Tendinosis / Partial tear / Full-thickness tear] of the [quadriceps / patellar] tendon [ ]."]},
+        {"heading": "Medial and lateral structures", "normal": "Normal collateral ligaments, pes anserinus and iliotibial band.",
+         "options": ["[MCL thickening / Pes anserine bursitis / Iliotibial band friction / Meniscal cyst] [ ]."]},
+        {"heading": "Joint and bursae", "normal": "No effusion, synovitis or bursitis.", "options": ["[Effusion / Synovitis / Prepatellar bursitis / Infrapatellar bursitis] [ ]."]},
+        {"heading": "Posterior knee", "normal": "No Baker's cyst.", "options": ["Baker's cyst [ ] x [ ] mm, [intact / ruptured]."]}
+      ],
+      "impression": "Normal knee ultrasound."
+    },
+    "xr.knee-arthroplasty": {
+      "title": "Right knee arthroplasty radiographs / Left knee arthroplasty radiographs",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Components", "normal": "Knee arthroplasty components in satisfactory alignment.",
+         "options": ["[Total / Unicompartmental / Patellofemoral] knee arthroplasty [ ].", "[Varus / Valgus] component alignment [ ]."]},
+        {"heading": "Interfaces", "normal": "No periprosthetic lucency or osteolysis.",
+         "options": ["Lucency [ ] mm at the [femoral / tibial / patellar] interface [ ].", "[Osteolysis / Subsidence] [ ]."]},
+        {"heading": "Periprosthetic bone", "normal": "No periprosthetic fracture.", "options": ["Periprosthetic fracture of the [ ] [ ]."]},
+        {"heading": "Patella and joint space", "normal": "Normal patellar tracking. Symmetrical joint space.",
+         "options": ["[Patellar maltracking / Polyethylene wear / Patellar fracture] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No effusion or heterotopic ossification.", "options": ["[Effusion / Heterotopic ossification] [ ]."]}
+      ],
+      "impression": "Satisfactory knee arthroplasty. No complication."
+    },
+    "ra.mri-diabetic-foot": {
+      "title": "MRI right foot with contrast / MRI left foot with contrast",
+      "radiograph": false,
+      "technique": {"normal": "MRI foot with T1, fat-suppressed T2 and post-contrast imaging."},
+      "sections": [
+        {"heading": "Ulcer and sinus tract", "normal": "No ulcer or sinus tract.", "options": ["Ulcer at the [ ] [with / without] a sinus tract to the [ ]."]},
+        {"heading": "Bone marrow", "normal": "No osteomyelitis. Normal T1 marrow signal.",
+         "options": ["Osteomyelitis of the [ ]: confluent low T1 and high T2 signal.", "Reactive marrow oedema without T1 change at the [ ]."]},
+        {"heading": "Joints and neuroarthropathy", "normal": "No septic arthritis or Charcot neuroarthropathy.",
+         "options": ["[Septic arthritis / Active Charcot neuroarthropathy / Chronic Charcot neuroarthropathy] at the [ ]."]},
+        {"heading": "Soft tissues", "normal": "No abscess, cellulitis or devitalised tissue.",
+         "options": ["[Abscess / Cellulitis / Devitalised tissue / Tenosynovitis] [ ]."]}
+      ],
+      "impression": "No osteomyelitis or abscess."
+    },
+    "ra.mri-hamstring": {
+      "title": "MRI thigh, hamstrings",
+      "radiograph": false,
+      "technique": {"normal": "MRI pelvis and thigh with T1 and fluid-sensitive imaging."},
+      "sections": [
+        {"heading": "Proximal tendons", "normal": "Intact conjoint tendon and semimembranosus origin.",
+         "options": ["[Partial / Complete] avulsion of the [conjoint / semimembranosus] tendon, [ ] tendons involved, retraction [ ] cm."]},
+        {"heading": "Muscles", "normal": "No muscle strain.",
+         "options": ["[Myofascial / Musculotendinous / Intratendinous] injury of the [biceps femoris long head / semitendinosus / semimembranosus], [ ] cm, BAMIC grade [ ]."]},
+        {"heading": "Haematoma", "normal": "No haematoma.", "options": ["[ ] mm haematoma [ ]."]},
+        {"heading": "Sciatic nerve", "normal": "Normal sciatic nerve.", "options": ["Sciatic nerve [contact / tethering / oedema] [ ]."]}
+      ],
+      "impression": "No hamstring injury."
+    },
+    "msk.ultrasound-nerves-lower-limb": {
+      "title": "Ultrasound peripheral nerves, lower limb",
+      "radiograph": false,
+      "technique": {"normal": "High-resolution ultrasound of the sciatic, common peroneal and tibial nerves."},
+      "sections": [
+        {"heading": "Sciatic nerve", "normal": "Normal sciatic nerve.", "options": ["[Thickening / Compression / Neuroma / Mass] of the sciatic nerve at [ ]."]},
+        {"heading": "Common peroneal nerve", "normal": "Normal common peroneal nerve at the fibular neck.",
+         "options": ["[Compression / Intraneural ganglion / Neuroma] [ ]; cross-sectional area [ ] mm²."]},
+        {"heading": "Tibial nerve", "normal": "Normal tibial nerve in the tarsal tunnel.", "options": ["[Compression / Mass / Varicosities] in the tarsal tunnel [ ]."]},
+        {"heading": "Other nerves and muscles", "normal": "Normal sural, saphenous and femoral nerves. No denervation change.",
+         "options": ["[ ] nerve [ ].", "Denervation of the [ ]."]}
+      ],
+      "impression": "No peripheral nerve abnormality."
+    }
+  }
+}
