@@ -17,12 +17,18 @@ def catalog():
 def test_every_structure_has_one_compartment_and_all_clinical_content_is_preserved():
     previous = json.loads(gzip.decompress((ROOT/f'data/radiology/descriptor-history/{OLD}.json.gz').read_bytes()))
     current = catalog()
-    count = 0
+    count = new = 0
     for guide, form in current['forms'].items():
         old_exams = {e['id']: e for e in previous['forms'][guide]['investigations']}
         for exam in form['investigations']:
-            old = {s['id']: s for s in old_exams[exam['id']]['sections']}
             rows = {s['id']: s for s in exam['sections']}
+            if exam['id'] not in old_exams:
+                # Examinations added after this archive: one compartment per structure.
+                membership = [key for c in exam['compartments'] for key in c['section_ids']]
+                assert sorted(membership) == sorted(rows) and all(s['compartment'] for s in rows.values())
+                new += 1
+                continue
+            old = {s['id']: s for s in old_exams[exam['id']]['sections']}
             assert rows.keys() == old.keys()
             membership = [key for c in exam['compartments'] for key in c['section_ids']]
             assert len(membership) == len(set(membership)) == len(rows)
@@ -31,7 +37,7 @@ def test_every_structure_has_one_compartment_and_all_clinical_content_is_preserv
                 assert section['compartment']
                 assert {k:v for k,v in section.items() if k not in ('compartment','report_section_id','report_section_label')} == {k:v for k,v in old[key].items() if k not in ('report_section_id','report_section_label')}
             count += 1
-    assert count == 225
+    assert count == 225 and new == 109
 
 
 def test_knee_compartments_join_related_tissues_and_keep_patella_out_of_medial_compartment():

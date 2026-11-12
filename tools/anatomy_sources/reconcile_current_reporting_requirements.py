@@ -230,8 +230,10 @@ def reporting_reconciliation(root, inventory):
     missing = set(current) - set(required)
     prior = read("docs/holiatlas-hierarchy-review-20261025/pr167-reporting-inventory-audit.json", root)
     prior_missing = {r["investigation_id"] for r in prior["global_exact_id_gaps"]}
-    additions_path = root / "data/radiology/anatomic-additions-20261026.json"
-    additions = json.loads(additions_path.read_text())["investigations"] if additions_path.exists() else {}
+    # Each dated additions file is a reviewed new scope of examinations.
+    additions = {}
+    for additions_path in sorted((root / "data/radiology").glob("anatomic-additions-*.json")):
+        additions.update(json.loads(additions_path.read_text())["investigations"])
     if set(additions) & (set(required) | prior_missing):
         raise ValueError("New report additions cannot relabel historical investigation identities")
     if missing != prior_missing | set(additions) or set(RELATED_SCOPES) - missing:
