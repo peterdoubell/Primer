@@ -1,0 +1,548 @@
+{
+  "sourceDOI": "10.5281/zenodo.20746820",
+  "sourceRecordLicense": "CC BY 4.0",
+  "archiveConfigurationLicense": "Apache 2.0",
+  "sourceCountDiscrepancy": "Record says nine Couinaud segments; dataset.json defines eight foreground regions plus background.",
+  "selectedCase": "a1B8NQX1CHIcaQqs",
+  "selectionScope": "Best maximum-axis sampling among six inspected cases with all eight labels away from array edges.",
+  "shape": [
+    512,
+    512,
+    76
+  ],
+  "sourceAxes": [
+    "R",
+    "A",
+    "S"
+  ],
+  "sourceMaskDataType": "uint8",
+  "sourceScaling": {
+    "slope": 5.066394805908203e-07,
+    "intercept": 1088.0
+  },
+  "sourceIntensityRange": [
+    0.0,
+    2175.9999994933605
+  ],
+  "sourceAffine": [
+    [
+      0.7422000169754028,
+      0.0,
+      0.0,
+      -193.41021728515625
+    ],
+    [
+      0.0,
+      0.7422000169754028,
+      0.0,
+      -159.53521728515625
+    ],
+    [
+      0.0,
+      0.0,
+      4.4000091552734375,
+      -78.07566833496094
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "imageAndMaskAffinesEqual": true,
+  "decodedImageSHA256": "fdc7a4c36cf1b7a0178a3e32d1ae3147b180111ad9849e1d6fb7bff10cc9ef08",
+  "decodedMaskSHA256": "04a62ab8da7ba932b5f387b77247704cbb009f7562d27fbc8a1d15f5fb39d623",
+  "labels": {
+    "background": 0,
+    "liver_segment_1": 1,
+    "liver_segment_2": 2,
+    "liver_segment_3": 3,
+    "liver_segment_4": 4,
+    "liver_segment_5": 5,
+    "liver_segment_6": 6,
+    "liver_segment_7": 7,
+    "liver_segment_8": 8
+  },
+  "limits": [
+    "No separate IVa/IVb labels",
+    "No native acquisition DICOM or slice-thickness verification",
+    "Source-defined functional regions do not establish visible physical septa",
+    "Independent clinical/anatomical review pending"
+  ],
+  "clinicalApproval": false,
+  "decodedImageDataType": "float64",
+  "storedImageDataType": "int32",
+  "storedType": "int32 little endian",
+  "maskType": "uint8",
+  "chunks": [
+    {
+      "firstSlice": 0,
+      "slices": 3,
+      "mri": {
+        "file": "mri-000.gz",
+        "decodedBytes": 3145728,
+        "sha256": "d6b9672b473c723c5ceabf5aee20c56413d106ad9fb0a94ba86da73ca7306b9f",
+        "compressedBytes": 759640
+      },
+      "labels": {
+        "file": "labels-000.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 3,
+      "slices": 3,
+      "mri": {
+        "file": "mri-003.gz",
+        "decodedBytes": 3145728,
+        "sha256": "5a83a582b644fdb7e51d3dabfcc934720eff319c0e4ac8b1dc3a91559bea0585",
+        "compressedBytes": 831628
+      },
+      "labels": {
+        "file": "labels-003.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 6,
+      "slices": 3,
+      "mri": {
+        "file": "mri-006.gz",
+        "decodedBytes": 3145728,
+        "sha256": "cf3599c4ed40a6a83c4e0be106f84ab0a323a660b90e6ec09471e07b8c1a98dd",
+        "compressedBytes": 870419
+      },
+      "labels": {
+        "file": "labels-006.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 9,
+      "slices": 3,
+      "mri": {
+        "file": "mri-009.gz",
+        "decodedBytes": 3145728,
+        "sha256": "03e1c21d576e49762bfbc6d7ee192b416b6f8d317f254404546ae6ba02615454",
+        "compressedBytes": 886783
+      },
+      "labels": {
+        "file": "labels-009.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 12,
+      "slices": 3,
+      "mri": {
+        "file": "mri-012.gz",
+        "decodedBytes": 3145728,
+        "sha256": "ebd71bc21187c10c43da2b057f4ae7d268e5e624c41ed8f463ae5fe7f3175b73",
+        "compressedBytes": 888301
+      },
+      "labels": {
+        "file": "labels-012.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 15,
+      "slices": 3,
+      "mri": {
+        "file": "mri-015.gz",
+        "decodedBytes": 3145728,
+        "sha256": "bf3138bfc17fe9d9fbd1004a8cae49e0c3da8c6c24baac274301cd4e03a5b748",
+        "compressedBytes": 888741
+      },
+      "labels": {
+        "file": "labels-015.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 18,
+      "slices": 3,
+      "mri": {
+        "file": "mri-018.gz",
+        "decodedBytes": 3145728,
+        "sha256": "9283ecc1fb209d0394781d861f20058e3380c0b72e74aa9f1264e60dffd7a7cc",
+        "compressedBytes": 884254
+      },
+      "labels": {
+        "file": "labels-018.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 21,
+      "slices": 3,
+      "mri": {
+        "file": "mri-021.gz",
+        "decodedBytes": 3145728,
+        "sha256": "37b8bf65da76c3bcbece20584b579e7d9f9cc8f4740c71f23e90e1d70203052d",
+        "compressedBytes": 885892
+      },
+      "labels": {
+        "file": "labels-021.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 24,
+      "slices": 3,
+      "mri": {
+        "file": "mri-024.gz",
+        "decodedBytes": 3145728,
+        "sha256": "d42ce6f0427deb1280404eb511ee1f7c755627ec666d56957d089ddccd1c8240",
+        "compressedBytes": 887521
+      },
+      "labels": {
+        "file": "labels-024.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 27,
+      "slices": 3,
+      "mri": {
+        "file": "mri-027.gz",
+        "decodedBytes": 3145728,
+        "sha256": "458281b30986c5a55c070c02d25326b80092cf114b3756458a72592882befa74",
+        "compressedBytes": 888732
+      },
+      "labels": {
+        "file": "labels-027.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 30,
+      "slices": 3,
+      "mri": {
+        "file": "mri-030.gz",
+        "decodedBytes": 3145728,
+        "sha256": "4b18a4a4394076f14306c984bc0d4ae735419aaf15a08aff76451d8a71fabce6",
+        "compressedBytes": 890009
+      },
+      "labels": {
+        "file": "labels-030.gz",
+        "decodedBytes": 786432,
+        "sha256": "1cb46b3b22b00312fa012cb4c78d125f1f2ed10d61166f83f904c95e81d19158",
+        "compressedBytes": 900
+      }
+    },
+    {
+      "firstSlice": 33,
+      "slices": 3,
+      "mri": {
+        "file": "mri-033.gz",
+        "decodedBytes": 3145728,
+        "sha256": "a250b0b5f61020b8e0c959f5a7894be572dc14aa943886ddf2f3753a21012e75",
+        "compressedBytes": 897269
+      },
+      "labels": {
+        "file": "labels-033.gz",
+        "decodedBytes": 786432,
+        "sha256": "ac589c33882b8c75dea3aac7069a70a3350ce6ad13b9950b07c32d8fc3eb81e4",
+        "compressedBytes": 1520
+      }
+    },
+    {
+      "firstSlice": 36,
+      "slices": 3,
+      "mri": {
+        "file": "mri-036.gz",
+        "decodedBytes": 3145728,
+        "sha256": "f0b944831f469793d8027d83e4864c4faa057ffbc493e59168629ffd8fc520da",
+        "compressedBytes": 910179
+      },
+      "labels": {
+        "file": "labels-036.gz",
+        "decodedBytes": 786432,
+        "sha256": "948270db1786d589b5001329175fd7af8de9db523e4f96e83aa4da6ede86053f",
+        "compressedBytes": 1952
+      }
+    },
+    {
+      "firstSlice": 39,
+      "slices": 3,
+      "mri": {
+        "file": "mri-039.gz",
+        "decodedBytes": 3145728,
+        "sha256": "08cdb6e05861d96bd05ef072914f7726507af5a409d4e425fc77c6ea30b031d8",
+        "compressedBytes": 919606
+      },
+      "labels": {
+        "file": "labels-039.gz",
+        "decodedBytes": 786432,
+        "sha256": "666673a711c4dc412c4abd0cc00e5e4a6dc81615958613322898836fa699a40e",
+        "compressedBytes": 2547
+      }
+    },
+    {
+      "firstSlice": 42,
+      "slices": 3,
+      "mri": {
+        "file": "mri-042.gz",
+        "decodedBytes": 3145728,
+        "sha256": "a7840b78de08a8db6ba02cba41a827c11eda45ebf94a55d7572b6c1278613153",
+        "compressedBytes": 923873
+      },
+      "labels": {
+        "file": "labels-042.gz",
+        "decodedBytes": 786432,
+        "sha256": "76fd8f4df329fd1e062dcf60fd832d55f22ce0bad20b1ce9fc38004e681de177",
+        "compressedBytes": 2961
+      }
+    },
+    {
+      "firstSlice": 45,
+      "slices": 3,
+      "mri": {
+        "file": "mri-045.gz",
+        "decodedBytes": 3145728,
+        "sha256": "25a7d79f6aabc2adf126c6ae71c7b96606939c952e5f741729fc4f898487d0bb",
+        "compressedBytes": 932825
+      },
+      "labels": {
+        "file": "labels-045.gz",
+        "decodedBytes": 786432,
+        "sha256": "3bede70dfc9d5e43456661eddf3a60cbeb4de85317f09921dc499877215de41b",
+        "compressedBytes": 4134
+      }
+    },
+    {
+      "firstSlice": 48,
+      "slices": 3,
+      "mri": {
+        "file": "mri-048.gz",
+        "decodedBytes": 3145728,
+        "sha256": "cf13792dc5a94b308335fac570dd6c203242559811b015d7b9beb01bfa3b16a0",
+        "compressedBytes": 941342
+      },
+      "labels": {
+        "file": "labels-048.gz",
+        "decodedBytes": 786432,
+        "sha256": "16fee8fd42da50678adf0e412d277db87bcd88021036bcc62dc0663b17be4de9",
+        "compressedBytes": 4104
+      }
+    },
+    {
+      "firstSlice": 51,
+      "slices": 3,
+      "mri": {
+        "file": "mri-051.gz",
+        "decodedBytes": 3145728,
+        "sha256": "72d9f9655b9222d2ddc089a20d2235e6803cdcaf09a61c5e8c873603c8b0cc80",
+        "compressedBytes": 939252
+      },
+      "labels": {
+        "file": "labels-051.gz",
+        "decodedBytes": 786432,
+        "sha256": "e32bc4149a649f9257bf8ad51388bacd81010d92e69dbed78489a6ce4fdbcf52",
+        "compressedBytes": 3553
+      }
+    },
+    {
+      "firstSlice": 54,
+      "slices": 3,
+      "mri": {
+        "file": "mri-054.gz",
+        "decodedBytes": 3145728,
+        "sha256": "e9cd59f254d0f8660a5a564482c1ccfcd9345255839dcd825ab584fe2fa96b80",
+        "compressedBytes": 932369
+      },
+      "labels": {
+        "file": "labels-054.gz",
+        "decodedBytes": 786432,
+        "sha256": "b75688a488634b4e6a1b2d459c0a580c272f4520402228639fbf663597f48e41",
+        "compressedBytes": 3337
+      }
+    },
+    {
+      "firstSlice": 57,
+      "slices": 3,
+      "mri": {
+        "file": "mri-057.gz",
+        "decodedBytes": 3145728,
+        "sha256": "4d7cfe9cad60690d66568d0d2e58ac6ff996efc06f797f39699a52e24b0d2523",
+        "compressedBytes": 921485
+      },
+      "labels": {
+        "file": "labels-057.gz",
+        "decodedBytes": 786432,
+        "sha256": "43116da131b6199e63e34762c530de1d90c42685864def590714fc0428e9c0fc",
+        "compressedBytes": 2525
+      }
+    },
+    {
+      "firstSlice": 60,
+      "slices": 3,
+      "mri": {
+        "file": "mri-060.gz",
+        "decodedBytes": 3145728,
+        "sha256": "37d76c7156e01b5117d83ea625db2328a74c0143aca2d64f08cb41e0b0c6a214",
+        "compressedBytes": 919761
+      },
+      "labels": {
+        "file": "labels-060.gz",
+        "decodedBytes": 786432,
+        "sha256": "0f8ae438710903a241569fc56807ec33e3dd9ecdc97989ad3e8a43e5e75f1ed3",
+        "compressedBytes": 2007
+      }
+    },
+    {
+      "firstSlice": 63,
+      "slices": 3,
+      "mri": {
+        "file": "mri-063.gz",
+        "decodedBytes": 3145728,
+        "sha256": "b05c9e4420aea510db10f38388b80cc2ccbf7d28173c6c91d584a9e37eb65ae8",
+        "compressedBytes": 916542
+      },
+      "labels": {
+        "file": "labels-063.gz",
+        "decodedBytes": 786432,
+        "sha256": "5d060689a6b83e701cb3841e6d6ebb8b0f1c7ccb4e9f8a82d9508f946eefac8a",
+        "compressedBytes": 1713
+      }
+    },
+    {
+      "firstSlice": 66,
+      "slices": 3,
+      "mri": {
+        "file": "mri-066.gz",
+        "decodedBytes": 3145728,
+        "sha256": "01960314a87467d5b4d89b1110d9e11f8231a3e7e07ec23057de611a012bda5e",
+        "compressedBytes": 918103
+      },
+      "labels": {
+        "file": "labels-066.gz",
+        "decodedBytes": 786432,
+        "sha256": "b2d10d75bc688333ae917a8ef5a850423a2a3764039c9b3ef3d8570c583be6ed",
+        "compressedBytes": 1174
+      }
+    },
+    {
+      "firstSlice": 69,
+      "slices": 3,
+      "mri": {
+        "file": "mri-069.gz",
+        "decodedBytes": 3145728,
+        "sha256": "f409e45cb8bf378b22d0b94879d6810e77e74f5e36b9212d85bae6abe3b9aad3",
+        "compressedBytes": 899087
+      },
+      "labels": {
+        "file": "labels-069.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 72,
+      "slices": 3,
+      "mri": {
+        "file": "mri-072.gz",
+        "decodedBytes": 3145728,
+        "sha256": "b38a3851e7dc6e15e5c813581f05b15ee3993fa14e66accca8662886de081252",
+        "compressedBytes": 841307
+      },
+      "labels": {
+        "file": "labels-072.gz",
+        "decodedBytes": 786432,
+        "sha256": "599c1bb5ffd4b87229a81958f33f1060821cd01cd7aa7ccafa0d862f4522f3f6",
+        "compressedBytes": 797
+      }
+    },
+    {
+      "firstSlice": 75,
+      "slices": 1,
+      "mri": {
+        "file": "mri-075.gz",
+        "decodedBytes": 1048576,
+        "sha256": "a6b5aa137d5ee6a208b2f8d77308020f47934084eb148ae3f84291c9c8f67ce9",
+        "compressedBytes": 259297
+      },
+      "labels": {
+        "file": "labels-075.gz",
+        "decodedBytes": 262144,
+        "sha256": "8a39d2abd3999ab73c34db2476849cddf303ce389b35826850f9a700589b4a90",
+        "compressedBytes": 289
+      }
+    }
+  ],
+  "colors": [
+    [
+      217,
+      101,
+      111
+    ],
+    [
+      80,
+      174,
+      225
+    ],
+    [
+      115,
+      191,
+      117
+    ],
+    [
+      210,
+      159,
+      85
+    ],
+    [
+      165,
+      136,
+      220
+    ],
+    [
+      235,
+      134,
+      97
+    ],
+    [
+      113,
+      196,
+      188
+    ],
+    [
+      202,
+      159,
+      191
+    ]
+  ],
+  "initialSlice": 50,
+  "sourceFiles": {
+    "imageMember": "Dataset576_liver_segments_mr/imagesTr/a1B8NQX1CHIcaQqs_0000.nii.gz",
+    "maskMember": "Dataset576_liver_segments_mr/labelsTr/a1B8NQX1CHIcaQqs.nii.gz",
+    "imageSHA256": "e004cbeef87ff03c6fa52eac984588bdffc5e95b10977e74d36f5c1dc9ebbc4f",
+    "maskSHA256": "cf82d2eaceabc656ce03b6929848e3e890122cbfdfe43dfe7e470514d22e94bd",
+    "memberCRCsVerified": true,
+    "wholeArchiveChecksumVerified": false
+  },
+  "sourceCredit": "Jakob Wasserthal, University Hospital of Basel, 2026"
+}

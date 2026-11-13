@@ -222,7 +222,11 @@ def test_responses_without_a_template_are_unchanged():
 
 @pytest.mark.parametrize('path', sorted(CHANGES))
 def test_shared_file_inverse_restores_the_previous_bytes_exactly(path):
-    raw = (ROOT / path).read_bytes()
+    from tools.source_studies_compatibility import before_combined_source_release_bytes
+
+    current = (ROOT / path).read_bytes()
+    raw = before_combined_source_release_bytes(path, current)
+    assert before_combined_source_release_bytes(path, current + b'\n') == current + b'\n'
     restored = before_fast_templates_bytes(path, raw)
     assert hashlib.sha256(raw).hexdigest() == CHANGES[path]['after']
     assert hashlib.sha256(restored).hexdigest() == CHANGES[path]['before']
