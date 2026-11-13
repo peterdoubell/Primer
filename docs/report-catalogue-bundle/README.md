@@ -1,7 +1,7 @@
-# Report catalogue bundle
+# Offline reporting material in the Vercel bundle
 
-Vercel excludes the plain descriptor reporting catalogue. The hosted reader already loads the gzip copy when it is present. The plain catalogue remains available to authoring and tests in the repository.
+The Python deployment excludes the plain reporting catalogue, historical catalogue snapshots and offline fidelity inventories and audits. The runtime uses the gzip catalogue. The files remain available in Git for authoring, tests and fidelity review.
 
-The plain file is 79,348,349 bytes. The gzip file is 3,875,305 bytes and decompresses to the same SHA-256 `decc8effb8b98dbaf39075404885a4b1b68dab920f5b12d9ec51e5150752f84c`. The deployment exclusion removes the duplicate plain file from the Python function input. A packed-only runtime check and historical compatibility tests verify the change.
+The plain catalogue is 79,348,349 bytes and the gzip decompresses to identical bytes. The reader loaded all 98 forms with only the gzip present. A comparison using the Vercel builder's file matcher omitted another 227,670,255 bytes of offline material. It added no files. The preview build measures the deployed bundle separately because its Git input already omits some files.
 
-The catalogue path is the first member of the exclusion expression. The Vercel file matcher removed exactly that path in a full file-set comparison. The same path later in the expression matched neither catalogue file.
+These exclusions name the offline reports individually and retain the runtime's separately referenced scope-review evidence. The historical configuration inverse remains pinned to the exact bytes.
