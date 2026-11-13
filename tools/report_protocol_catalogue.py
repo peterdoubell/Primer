@@ -55,7 +55,7 @@ PROTOCOLS = [
         'In-phase and opposed-phase T1-weighted imaging through both adrenal glands.',
         'Adrenal T2-weighted images.',
         'Dynamic postcontrast T1-weighted images through the adrenal glands.',
-    ), (RA + 'abdomen/unsorted/characterization-of-adrenal-lesions', BODY)),
+    ), (RA + 'abdomen/adrenals/lesion-characterization-1', BODY)),
     ('ra.mri-bladder', 'Bladder VI-RADS series', (
         'High-resolution multiplanar T2-weighted imaging through the bladder.',
         'Bladder DWI and ADC maps.', 'Dynamic postcontrast T1-weighted imaging of the bladder.',
@@ -83,7 +83,7 @@ PROTOCOLS = [
         'Bilateral T2-weighted imaging.',
         'Bilateral precontrast and dynamic postcontrast fat-suppressed T1-weighted imaging with subtraction.',
         'Breast DWI and ADC maps.',
-    ), (RA + 'breast/bi-rads/bi-rads-for-mammography-and-ultrasound-2013', RP + 'breast-protocol-mri')),
+    ), (RA + 'breast/mri/mri-of-the-breast', RP + 'breast-protocol-mri')),
     ('ra.mri-cardiomyopathy', 'Ventricular function and tissue series', (
         'ECG-synchronised cine images in long-axis views and a contiguous ventricular short-axis stack.',
         'Native myocardial T1 mapping.', 'Myocardial T2 mapping.',
@@ -93,11 +93,11 @@ PROTOCOLS = [
     ('ra.mri-neck-spaces neck.mri-post-treatment mri.neck-tumour', 'Neck and nodal staging series', (
         'Multiplanar T1 and fat-suppressed T2-weighted imaging through the neck and nodal stations.',
         'Neck DWI and ADC maps.', 'Postcontrast fat-suppressed T1-weighted images through the neck.',
-    ), (RA + 'head-neck/suprahyoid-neck/suprahyoid-neck-mr-pathology', BODY)),
+    ), (RA + 'head-neck/infrahyoid-neck/MR-anatomy-and-pathology', BODY)),
     ('ra.mri-dementia', 'Atrophy and vascular burden series', (
         'Volumetric T1-weighted brain imaging with coronal reformats through the medial temporal lobes.',
         'Brain FLAIR imaging.', 'Susceptibility-weighted or T2*-weighted imaging.', 'DWI and ADC maps.',
-    ), (RA + 'neuroradiology/dementia/role-of-mri', BRAIN)),
+    ), (RA + 'neuroradiology/dementia/update', BRAIN)),
     ('mri.both-hips msk.mri-hip', 'Hip joint and marrow series', (
         'Coronal pelvis T1-weighted and fluid-sensitive survey.',
         'Small-field multiplanar imaging of the symptomatic hip.',
@@ -142,7 +142,7 @@ PROTOCOLS = [
         'Multiplanar T1- and T2-weighted imaging through the mediastinum.',
         'In-phase and opposed-phase T1-weighted images through the thymic bed.',
         'Postcontrast fat-suppressed T1-weighted imaging of the mediastinal lesion.',
-    ), (RA + 'chest/thymic-masses/thymic-masses', BODY)),
+    ), (RA + 'chest/thymus/thymus', BODY)),
     ('template:msk-mri-report', 'Regional musculoskeletal acquisition', (
         'T1-weighted images through the named structure.',
         'Orthogonal fluid-sensitive images through the named structure.',
@@ -157,7 +157,7 @@ PROTOCOLS = [
         'Multiplanar pelvic T2-weighted imaging.',
         'T1-weighted imaging with and without fat suppression.',
         'Pelvic DWI and ADC maps.', 'Dynamic postcontrast pelvic T1-weighted imaging.',
-    ), (RA + 'abdomen/ovarium/roadmap-to-evaluate-ovarian-cysts', BODY)),
+    ), (RA + 'abdomen/unsorted/roadmap-to-evaluate-ovarian-cysts', BODY)),
     ('mri.paediatric-abdomen-cystic mri.paediatric-abdomen-solid mri.paediatric-renal-tumour',
      'Paediatric abdominal mass series', (
         'Multiplanar T2-weighted imaging covering the abdominal mass and its organ of origin.',
