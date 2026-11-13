@@ -344,7 +344,9 @@ test('knee compartments keep every row, scope normal actions, and retain collaps
   assert(Object.keys(choices).length>0);
   assert(Object.keys(choices).every(id=>exam.sections.find(s=>s.id===id).compartment==='Medial compartment'));
   assert.equal(named('Lateral compartment').open,false);
-  assert.match(root.getReport(),/^MEDIAL COMPARTMENT\n/);
+  assert.match(root.getReport(), /^MEDIAL COMPARTMENT:\n• /);
+  assert.match(root.getReport(), /No tear of the medial meniscal anterior horn, body or posterior horn/);
+  assert.doesNotMatch(root.getReport(), /The medial meniscus anterior horn has no tear/);
   assert(!root.getReport().includes('LATERAL COMPARTMENT'));
   assert.equal(find(named('Medial compartment'), 'Normal remaining').disabled, true);
   const selectedState = root.getState();

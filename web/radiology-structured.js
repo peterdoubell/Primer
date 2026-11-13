@@ -169,6 +169,17 @@ window.PrimerStructuredReporting = (() => {
     const expanded = expandRepeated(investigation, state.selections || {});
     investigation = expanded.investigation; state = {...state,selections:expanded.selections}; missing.push(...expanded.missing);
     const blocked = blockedNormals(investigation, state.selections);
+    const compact = investigation.report_format === 2;
+    const normalSummaries = new Map();
+    if (compact) {
+      const activeSections = new Set(investigation.sections.map(section => section.id));
+      for (const summary of investigation.normal_summaries || []) {
+        if (summary.section_ids.every(id => activeSections.has(id) && !blocked.has(id)
+            && state.selections?.[id]?.normal === true)) {
+          summary.section_ids.forEach((id, index) => normalSummaries.set(id, index ? '' : summary.text));
+        }
+      }
+    }
     let selectedCount = 0;
     for (const section of investigation.sections || []) {
       const selected = state.selections?.[section.id] ?? {}, lines = [];
@@ -180,7 +191,7 @@ window.PrimerStructuredReporting = (() => {
       if (selected.normal && blocked.has(section.id)) { missing.push({section_id:section.id,label:"Normal conflicts with a related finding: " + section.label}); continue; }
       if (selected.normal && section.normal) {
         const result = descriptorText(section.normal, {}, context);
-        lines.push(result.text); missing.push(...result.missing); selectedCount++;
+        lines.push(normalSummaries.get(section.id) ?? result.text); missing.push(...result.missing); selectedCount++;
       } else if (selected.not_assessed) {
         lines.push(section.label + ': not assessed.'); selectedCount++;
       } else {
@@ -190,7 +201,10 @@ window.PrimerStructuredReporting = (() => {
           if (!findingActive(finding, selected.findings, section)) { missing.push({label:'Inactive detail: ' + finding.label}); continue; }
           if (finding.exclusive_group) { if (exclusive.has(finding.exclusive_group)) missing.push({label:'Conflicting findings: ' + section.label}); exclusive.add(finding.exclusive_group); }
           const result = descriptorText(finding, selected.findings[finding.id], section.repeat_instance_label ? {} : context);
-          if (finding.report !== false) {lines.push(result.text);selectedCount++;} missing.push(...result.missing);
+          if (finding.report !== false) {lines.push(result.text);selectedCount++;}
+          missing.push(...result.missing.map(item => compact
+            ? {...item, label: [section.compartment, section.label, finding.label, item.label].filter(Boolean).join(' › ')}
+            : item));
         }
       }
       let linesWithText = lines.filter(Boolean);
@@ -203,7 +217,7 @@ window.PrimerStructuredReporting = (() => {
         for (const line of linesWithText) if (!group.lines.includes(line)) group.lines.push(line);
       }
     }
-    return {text: [...grouped.values()].map(group => group.label + '\n' + group.lines.join('\n')).join('\n\n'), missing, complete: selectedCount > 0 && missing.length === 0, selected_count: selectedCount};
+    return {text: [...grouped.values()].map(group => group.label + (compact ? ':\n' : '\n') + group.lines.map(line => compact ? '• ' + line : line).join('\n')).join('\n\n'), missing, complete: selectedCount > 0 && missing.length === 0, selected_count: selectedCount};
   }
   function selectControl(label, options, value, change) {
     const control = element('select');
@@ -486,7 +500,13 @@ window.PrimerStructuredReporting = (() => {
         panel.open = !closedCompartments.has(key);
         const heading = element('summary'), caption = element('span',name,'rad-compartment-title');
         const reviewed = rows.filter(row => sectionHasSelection(selected(row))).length;
-        heading.append(caption,element('span',reviewed + '/' + rows.length + ' selected','rad-compartment-count'));
+        const groups = [...new Set(rows.map(row => row.group).filter(group => group && group !== name))];
+        const summaryText = element('span', undefined, 'rad-compartment-summary-text');
+        summaryText.append(caption);
+        if (groups.length && exam.report_format === 2) {
+          summaryText.append(element('small', groups.join(' · '), 'rad-search-pattern'));
+        }
+        heading.append(summaryText,element('span',reviewed + '/' + rows.length + ' selected','rad-compartment-count'));
         panel.append(heading);
         panels.set(panel, key);
         panel.ontoggle = () => {

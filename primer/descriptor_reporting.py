@@ -148,6 +148,20 @@ def render_descriptors(form, state):
             return None
         return ''.join(part.get('text', '') if 'text' in part else rendered[part['slot']] for part in descriptor['segments'])
 
+    compact = investigation.get('report_format') == 2
+    normal_summaries = {}
+    if compact:
+        active_sections = {section['id'] for section in investigation['sections']}
+        for summary in investigation.get('normal_summaries', []):
+            members = summary['section_ids']
+            if all(key in active_sections and key not in blocked_normals
+                   and isinstance(selections.get(key), dict)
+                   and selections[key].get('normal') is True for key in members):
+                normal_summaries.update({
+                    key: summary['text'] if index == 0 else ''
+                    for index, key in enumerate(members)
+                })
+
     grouped = {}
     selected_count = 0
     for section in investigation['sections']:
@@ -176,7 +190,9 @@ def render_descriptors(form, state):
                 problem('normal_not_available', section_id=key)
             else:
                 line = statement(section['normal'], {}, key)
-                if line: lines.append(line)
+                if line:
+                    line = normal_summaries.get(key, line)
+                    if line: lines.append(line)
         elif unassessed:
             lines.append(section['label'] + ': not assessed.')
         else:
@@ -207,8 +223,8 @@ def render_descriptors(form, state):
             if not unassessed: group['status'] = 'provided'
             for line in lines:
                 if line not in group['lines']: group['lines'].append(line)
-    rendered_sections = [{'section_id': x['section_id'], 'label': x['label'], 'text': '\n'.join(x['lines']), 'status': x['status']} for x in grouped.values()]
+    rendered_sections = [{'section_id': x['section_id'], 'label': x['label'], 'text': '\n'.join(('• ' + line if compact else line) for line in x['lines']), 'status': x['status']} for x in grouped.values()]
     valid = not issues
     return {'valid': valid, 'issues': issues, 'sections': rendered_sections,
-            'text': '\n\n'.join(x['label'] + '\n' + x['text'] for x in rendered_sections) if valid else '',
+            'text': '\n\n'.join(x['label'] + (':\n' if compact else '\n') + x['text'] for x in rendered_sections) if valid else '',
             'investigation_id': investigation['id'], 'selected_finding_count': selected_count}

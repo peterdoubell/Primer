@@ -67,59 +67,89 @@
   "navigation_upgrade": {
     "web/radiology-structured.js": {
       "before_sha256": "d1f02da891d1dff7d52050b38399ecf2ea0e85e1dae6be090d906e5b8962c7e8",
-      "after_sha256": "5411839c3d49c8340335dbd6844b1b65596a77c94523919ee9896d7ebbdfde7c",
+      "after_sha256": "dd6d6af45abba5b897db04690fe8cfe55b2027a33ba30f1a5f8691748557737f",
       "changes": [
         {
-          "start": 317,
-          "end": 328,
+          "start": 171,
+          "end": 182,
+          "before": "",
+          "after": "    const compact = investigation.report_format === 2;\n    const normalSummaries = new Map();\n    if (compact) {\n      const activeSections = new Set(investigation.sections.map(section => section.id));\n      for (const summary of investigation.normal_summaries || []) {\n        if (summary.section_ids.every(id => activeSections.has(id) && !blocked.has(id)\n            && state.selections?.[id]?.normal === true)) {\n          summary.section_ids.forEach((id, index) => normalSummaries.set(id, index ? '' : summary.text));\n        }\n      }\n    }\n"
+        },
+        {
+          "start": 193,
+          "end": 194,
+          "before": "        lines.push(result.text); missing.push(...result.missing); selectedCount++;\n",
+          "after": "        lines.push(normalSummaries.get(section.id) ?? result.text); missing.push(...result.missing); selectedCount++;\n"
+        },
+        {
+          "start": 203,
+          "end": 207,
+          "before": "          if (finding.report !== false) {lines.push(result.text);selectedCount++;} missing.push(...result.missing);\n",
+          "after": "          if (finding.report !== false) {lines.push(result.text);selectedCount++;}\n          missing.push(...result.missing.map(item => compact\n            ? {...item, label: [section.compartment, section.label, finding.label, item.label].filter(Boolean).join(' \u203a ')}\n            : item));\n"
+        },
+        {
+          "start": 219,
+          "end": 220,
+          "before": "    return {text: [...grouped.values()].map(group => group.label + '\\n' + group.lines.join('\\n')).join('\\n\\n'), missing, complete: selectedCount > 0 && missing.length === 0, selected_count: selectedCount};\n",
+          "after": "    return {text: [...grouped.values()].map(group => group.label + (compact ? ':\\n' : '\\n') + group.lines.map(line => compact ? '\u2022 ' + line : line).join('\\n')).join('\\n\\n'), missing, complete: selectedCount > 0 && missing.length === 0, selected_count: selectedCount};\n"
+        },
+        {
+          "start": 331,
+          "end": 342,
           "before": "    actions.append(copy); draft.append(element('h4', 'Report draft'), preview, feedback); fields.append(descriptorFields, calculatorFields); sheet.append(fields, draft); root.append(sheet);\n",
           "after": "    const draftHeading = element('h4', 'Report draft');\n    draftHeading.tabIndex = -1;\n    const showPreview = button('Preview', () => {\n      draftHeading.focus?.({preventScroll: true});\n      draftHeading.scrollIntoView?.({block: 'nearest'});\n    }, 'rad-small-button');\n    actions.append(showPreview, copy);\n    draft.append(draftHeading, preview, feedback);\n    fields.append(descriptorFields, calculatorFields);\n    sheet.append(fields, draft);\n    root.append(sheet);\n"
         },
         {
-          "start": 330,
-          "end": 336,
+          "start": 344,
+          "end": 350,
           "before": "    function fillNormal(group, compartment) {\n",
           "after": "    const compartmentOf = section => section.compartment || section.group || section.label;\n    const canFillNormal = (section, blocked) =>\n      sectionScopeActive(section, state.selections) && section.normal\n      && !section.exclude_from_bulk_normal && !blocked.has(section.id)\n      && !sectionHasSelection(selected(section));\n    function fillNormal(compartment) {\n"
         },
         {
-          "start": 338,
-          "end": 341,
+          "start": 352,
+          "end": 355,
           "before": "        const value = selected(section);\n        if (sectionScopeActive(section,state.selections) && section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && (!compartment || (section.compartment || section.group || section.label) === compartment) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};\n",
           "after": "        if ((!compartment || compartmentOf(section) === compartment) && canFillNormal(section, blocked)) {\n          state.selections[section.id] = {normal: true, findings: {}};\n        }\n"
         },
         {
-          "start": 455,
-          "end": 459,
+          "start": 469,
+          "end": 473,
           "before": "",
           "after": "    function rememberPanel(panel, key) {\n      if (panel.open) closedCompartments.delete(key);\n      else closedCompartments.add(key);\n    }\n"
         },
         {
-          "start": 466,
-          "end": 478,
+          "start": 480,
+          "end": 492,
           "before": "      const compartmentOf = section => section.compartment || section.group || section.label;\n",
           "after": "      const panels = new Map();\n      const foldAll = button('Collapse all', () => {\n        const open = ![...panels.keys()].some(panel => panel.open);\n        for (const [panel, key] of panels) {\n          panel.open = open;\n          rememberPanel(panel, key);\n        }\n        syncFoldButton();\n      }, 'rad-small-button rad-fold-compartments');\n      const syncFoldButton = () => {\n        foldAll.textContent = [...panels.keys()].some(panel => panel.open) ? 'Collapse all' : 'Expand all';\n      };\n"
         },
         {
-          "start": 490,
-          "end": 496,
+          "start": 502,
+          "end": 509,
+          "before": "        heading.append(caption,element('span',reviewed + '/' + rows.length + ' selected','rad-compartment-count'));\n",
+          "after": "        const groups = [...new Set(rows.map(row => row.group).filter(group => group && group !== name))];\n        const summaryText = element('span', undefined, 'rad-compartment-summary-text');\n        summaryText.append(caption);\n        if (groups.length && exam.report_format === 2) {\n          summaryText.append(element('small', groups.join(' \u00b7 '), 'rad-search-pattern'));\n        }\n        heading.append(summaryText,element('span',reviewed + '/' + rows.length + ' selected','rad-compartment-count'));\n"
+        },
+        {
+          "start": 510,
+          "end": 516,
           "before": "        panel.ontoggle=()=>{if(panel.open)closedCompartments.delete(key);else closedCompartments.add(key);};\n",
           "after": "        panels.set(panel, key);\n        panel.ontoggle = () => {\n          if (descriptorFields.contains && !descriptorFields.contains(panel)) return;\n          rememberPanel(panel, key);\n          syncFoldButton();\n        };\n"
         },
         {
-          "start": 499,
-          "end": 509,
+          "start": 519,
+          "end": 529,
           "before": "          const normal = button('Normal remaining',()=>{fillNormal(null,name);drawSections();update(true);},'rad-small-button');\n          normal.setAttribute('aria-label','Normal remaining in '+name); controls.append(normal);body.append(controls);\n",
           "after": "          const normal = button('Normal remaining', () => {\n            if (!rows.some(row => canFillNormal(row, blocked))) return;\n            fillNormal(name);\n            drawSections();\n            update(true);\n          }, 'rad-small-button');\n          normal.disabled = !rows.some(row => canFillNormal(row, blocked));\n          normal.setAttribute('aria-label', 'Normal remaining in ' + name);\n          controls.append(normal);\n          body.append(controls);\n"
         },
         {
-          "start": 511,
-          "end": 516,
+          "start": 531,
+          "end": 536,
           "before": "        groupNavigation.append(button(name,()=>{panel.open=true;closedCompartments.delete(key);panel.scrollIntoView?.({behavior:'smooth',block:'start'});},'rad-small-button'));\n",
           "after": "        groupNavigation.append(button(name,()=>{panel.open=true;rememberPanel(panel,key);syncFoldButton();panel.scrollIntoView?.({behavior:'smooth',block:'start'});},'rad-small-button'));\n      }\n      if (panels.size > 1) {\n        syncFoldButton();\n        groupNavigation.append(foldAll);\n"
         },
         {
-          "start": 587,
-          "end": 590,
+          "start": 607,
+          "end": 610,
           "before": "      normal.disabled = !(investigation()?.sections || []).some(section => section.normal);\n",
           "after": "      const exam = investigation();\n      const blocked = blockedNormals(exam, state.selections);\n      normal.disabled = !(exam?.sections || []).some(section => canFillNormal(section, blocked));\n"
         }
@@ -127,15 +157,45 @@
     },
     "web/radiology-structured.css": {
       "before_sha256": "2e899aa9367ac1b4cde6d1e7abbe52420f5cf11445e8f00ac8ceb04d2b20efbe",
-      "after_sha256": "2bc8ba65700ec97ab4ad236e36b26225a30f94da30e3c6233518da8e57e63bad",
+      "after_sha256": "b0bcabb34b1f60c1538f28a9c922c3a99452e7fe632ebeb79de548ef5570d0d7",
       "changes": [
         {
           "start": 26,
-          "end": 33,
+          "end": 46,
           "before": "",
-          "after": "\n.rad-fold-compartments {\n  background: var(--rad-fill);\n}\n.rad-report-preview h4 {\n  scroll-margin-top: 96px;\n}\n"
+          "after": "\n.rad-fold-compartments {\n  background: var(--rad-fill);\n}\n.rad-report-preview h4 {\n  scroll-margin-top: 96px;\n}\n\n.rad-compartment-summary-text {\n  flex: 1;\n  min-width: 0;\n}\n.rad-search-pattern {\n  display: block;\n  margin-top: 2px;\n  font-size: 11px;\n  font-weight: 400;\n  line-height: 1.4;\n  opacity: .8;\n}\n"
         }
       ]
     }
+  },
+  "report_format_engine": {
+    "before_sha256": "7add45b636ba3c45d0d7047dcfde28cd1281aa6c387a65e987f12c5d5d166c1c",
+    "after_sha256": "723681b95a92763f9fefdcac08d2fe6985f368cce98ddc8fdc1fe9214eef9279",
+    "changes": [
+      {
+        "start": 150,
+        "end": 164,
+        "before": "",
+        "after": "    compact = investigation.get('report_format') == 2\n    normal_summaries = {}\n    if compact:\n        active_sections = {section['id'] for section in investigation['sections']}\n        for summary in investigation.get('normal_summaries', []):\n            members = summary['section_ids']\n            if all(key in active_sections and key not in blocked_normals\n                   and isinstance(selections.get(key), dict)\n                   and selections[key].get('normal') is True for key in members):\n                normal_summaries.update({\n                    key: summary['text'] if index == 0 else ''\n                    for index, key in enumerate(members)\n                })\n\n"
+      },
+      {
+        "start": 192,
+        "end": 195,
+        "before": "                if line: lines.append(line)\n",
+        "after": "                if line:\n                    line = normal_summaries.get(key, line)\n                    if line: lines.append(line)\n"
+      },
+      {
+        "start": 225,
+        "end": 226,
+        "before": "    rendered_sections = [{'section_id': x['section_id'], 'label': x['label'], 'text': '\\n'.join(x['lines']), 'status': x['status']} for x in grouped.values()]\n",
+        "after": "    rendered_sections = [{'section_id': x['section_id'], 'label': x['label'], 'text': '\\n'.join(('\u2022 ' + line if compact else line) for line in x['lines']), 'status': x['status']} for x in grouped.values()]\n"
+      },
+      {
+        "start": 228,
+        "end": 229,
+        "before": "            'text': '\\n\\n'.join(x['label'] + '\\n' + x['text'] for x in rendered_sections) if valid else '',\n",
+        "after": "            'text': '\\n\\n'.join(x['label'] + (':\\n' if compact else '\\n') + x['text'] for x in rendered_sections) if valid else '',\n"
+      }
+    ]
   }
 }
