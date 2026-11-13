@@ -81,7 +81,7 @@ def served_ids(curriculum):
 
 
 def test_every_served_examination_has_exactly_one_template(served_ids):
-    assert len(served_ids) == len(set(served_ids)) == 225
+    assert len(served_ids) == len(set(served_ids)) == 334
     assert set(served_ids) == set(rt.library())
 
 

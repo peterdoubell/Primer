@@ -17,7 +17,7 @@ def state(iid,selections):return {'investigation_id':iid,'selections':selections
 def test_new_examination_scope_is_exact_and_complete():
  ids=set(ADDITIONS['investigations'])
  assert len(ids)==69 and len([k for k in ids if k.startswith('xr.')])==29
- assert len(EXAMS)==225 and CURRENT['summary']['context_slots']==0
+ assert len(EXAMS)==334 and CURRENT['summary']['context_slots']==0
  for key in ['msk.mri-knee-postoperative','msk.mri-shoulder-postoperative','msk.mri-sacroiliac','msk.mri-soft-tissue-mass','msk.ultrasound-soft-tissue-mass','msk.mri-brachial-plexus','msk.mri-lumbosacral-plexus','msk.ct-spine-postoperative','us.venous-duplex-lower-limb','us.venous-duplex-upper-limb','us.venous-insufficiency','ct.kub','ct.urography','us.abdomen','us.renal-bladder','us.scrotum-adult','chest.ct-lung-screening','ct.colonography','neck.ct-post-treatment','neck.mri-post-treatment']:
   assert key in ids
 
