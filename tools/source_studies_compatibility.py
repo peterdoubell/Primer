@@ -97,7 +97,11 @@ def before_endometrial_delivery_bytes(path, raw):
 
 def before_combined_source_release_bytes(path, raw):
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hva-ct-318/runtime-inverse.json', 'cf6d8d69cca4edd5c88918152f7c664a7991efe2bee5f35fba3a9f2c93c4cb54')
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hva-ct-318/runtime-inverse.json', 'e6234cdbf3342f1b5773b3e39376de51ddaf77e8c3934a7b4c6fe9c69f2bbc44')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':
+        raw = raw.replace(b"  if (n.id === 'phys.5.condensed') page.append(el('a', { class: 'btn ghost', href: '/app/physics/ising/index.html' },\n    'Explore spin order and temperature'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'f4c23a904f8e527c6a292fb56d8241bece656f19908b1f2d7e7d4d5f6743c6ea':
+            raise ValueError('Ising link changed unrelated reader bytes')
     if str(path) == 'web/app.js':
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hepatic-vessel-navigation/runtime-inverse.json', '41b11d4a5301b0f6120e1ae95b2c2b992e617b499cf52b29a8442b9cbe1744ad')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '12a7c5b6d8a8a48728be5ab918574ee89f9bf53671ca57b8b6355ba4cdc9b15e':
