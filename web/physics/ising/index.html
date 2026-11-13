@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spin order and temperature · Primer</title><link rel="stylesheet" href="viewer.css">
+<script defer src="core.js"></script><script defer src="viewer.js"></script><script defer src="meissner.js"></script>
+</head>
+<body><main>
+<p><a href="/app/#/node/phys.5.condensed">Return to Condensed Matter</a></p>
+<h1>Spin order and temperature</h1>
+<p>Explore a 4 × 4 square Ising lattice. Neighbours favour alignment, and the lattice wraps across both edges. Each of its 65,536 configurations contributes to the equilibrium distribution.</p>
+<label for="temperature">Temperature <i>k</i><sub>B</sub><i>T</i>/<i>J</i></label>
+<input id="temperature" type="range" min="0.5" max="8" step="0.01" value="2.27">
+<output id="temperature-value" for="temperature"></output>
+<div class="presets"><button data-temperature="1.2">Cool</button><button data-temperature="2.27">Near the critical temperature</button><button data-temperature="5">Warm</button></div>
+<div class="panels">
+<section aria-labelledby="configuration"><h2 id="configuration">Spin configuration</h2>
+<p>Choose a spin to flip it. Draw a new configuration from equilibrium at the current temperature.</p>
+<div id="spins" class="spins"></div>
+<p id="configuration-values" role="status"></p><button id="sample">Draw from equilibrium</button></section>
+<section aria-labelledby="distribution-title"><h2 id="distribution-title">Equilibrium magnetisation</h2>
+<canvas id="histogram" width="640" height="330" role="img" aria-label="Probability distribution of magnetisation per spin"></canvas>
+<p id="averages" role="status"></p>
+<details><summary>Probability table</summary><table><thead><tr><th scope="col">Magnetisation per spin</th><th scope="col">Probability</th></tr></thead><tbody id="probabilities"></tbody></table></details></section>
+</div>
+<p>At zero applied field, the distribution is symmetric. The mean signed magnetisation is zero even when most configurations are strongly ordered. The mean magnitude measures order without cancelling opposite directions.</p>
+<p>The infinite square lattice has a transition at <i>k</i><sub>B</sub><i>T</i><sub>c</sub>/<i>J</i> ≈ 2.269. This 16-spin lattice shows a smooth crossover. The plotted probabilities are equilibrium weights, and each draw is independent.</p>
+<p><a href="https://doi.org/10.1103/PhysRev.65.117">Onsager’s square-lattice result</a></p>
+<section class="screening" aria-labelledby="screening-title">
+<h2 id="screening-title">Magnetic screening in a superconductor</h2>
+<p>Compare a slab in the Meissner state with an ideal conductor whose internal field stays fixed once its resistance falls to zero. The final applied field is parallel to the slab faces and has the same strength in both cooling histories.</p>
+<label for="field-history">Cooling history</label>
+<select id="field-history"><option value="field-cooled">Field applied before cooling</option><option value="zero-field">Field applied after cooling</option></select>
+<p><label for="penetration-ratio">Half-thickness divided by penetration depth <i>a</i>/λ</label>
+<input id="penetration-ratio" type="range" min="0.25" max="20" step="0.25" value="4">
+<output id="penetration-value" for="penetration-ratio"></output></p>
+<figure><canvas id="magnetic-field" width="640" height="326" role="img" aria-label="Relative magnetic field through the slab, from one face to the other"></canvas>
+<figcaption>Vertical axis is field divided by the applied field. Solid blue is the London superconductor. Dashed orange is the ideal conductor.</figcaption></figure>
+<p id="field-values" role="status"></p>
+<p>The London profile is <i>B</i>(<i>x</i>)/<i>B</i><sub>applied</sub> = cosh(<i>x</i>/λ) / cosh(<i>a</i>/λ), where <i>x</i> is measured from the centre. In a thick slab, the field is concentrated within a penetration depth of each face. The model assumes a uniform material, equilibrium in the Meissner state, and negligible edge effects and flux pinning.</p>
+<p><a href="https://doi.org/10.1098/rspa.1935.0048">London and London’s electromagnetic equations</a></p>
+</section>
+</main></body></html>
