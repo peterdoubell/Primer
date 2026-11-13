@@ -10,7 +10,7 @@ Clinical history and comparison sit above the inserted template in Prism.
 RadProof markup: ** toggles bold, __ toggles underline; a short line ending in a colon is a
 heading, so subheadings carry no colon.
 
-Usage: python3 tools/authoring/radproof_export.py OUTPUT.json
+Usage: python3 tools/authoring/radproof_export.py > radproof-templates.json
 """
 import json
 import re
@@ -72,5 +72,5 @@ def export():
 
 if __name__ == '__main__':
     result = export()
-    Path(sys.argv[1]).write_text(json.dumps(result, ensure_ascii=False, separators=(',', ':')))
-    print(len(result), 'templates;', sum(len(t['names']) for t in result), 'Prism titles')
+    sys.stdout.write(json.dumps(result, ensure_ascii=False, separators=(',', ':')))
+    print(len(result), 'templates;', sum(len(t['names']) for t in result), 'Prism titles', file=sys.stderr)
