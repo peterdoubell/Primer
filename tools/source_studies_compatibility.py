@@ -96,6 +96,8 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'vercel.json':
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/report-catalogue-bundle/runtime-inverse.json', '8915b76c18befc76086b70da8645e73c48d734c0ba01f95801cd1c83a4fde0a9')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-biliary-4.3/runtime-inverse.json', '0a297b7ab3312d91afa29a9375c0094855944e70535959e505d567762076bd21')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':
