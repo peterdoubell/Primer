@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/report-compartments-20261028/runtime-inverse.json'
-PROOF_SHA256='14f351af7ac2b8cd9b43b0461d81ac8cfc7cb2851bbc7eb5c155668f6397a4de'
+PROOF_SHA256='0523744453d87fc6362e8e8e7becf555da4211e8c0db623160b10d0bd15a8db2'
 
 def before_compartments_bytes(path,raw,allow_older=False):
  if str(path) not in ('web/radiology-structured.js','web/radiology-structured.css'):return raw
@@ -12,11 +12,20 @@ def before_compartments_bytes(path,raw,allow_older=False):
  if hashlib.sha256(encoded).hexdigest()!=PROOF_SHA256:raise ValueError('Compartment inverse evidence changed')
  proof=json.loads(encoded)
  if proof['scope']!='report_compartment_presentation_only' or proof['clinical_approval'] is not False or set(proof['files'])!={'web/radiology-structured.js','web/radiology-structured.css'}:raise ValueError('Compartment inverse scope changed')
- row=proof['files'][str(path)];digest=hashlib.sha256(raw).hexdigest()
+ row=proof['files'][str(path)]
+ upgrade=proof['navigation_upgrade'][str(path)]
+ if upgrade['before_sha256']!=row['after_sha256']:
+  raise ValueError('Navigation inverse does not match the compartment release')
+ if hashlib.sha256(raw).hexdigest()==upgrade['after_sha256']:
+  raw=restore_presentation_bytes(raw,upgrade)
+ digest=hashlib.sha256(raw).hexdigest()
  if digest==row['before_sha256']:return raw
  if digest!=row['after_sha256']:
   if allow_older:return raw
   raise ValueError('Unreviewed compartment presentation change')
+ return restore_presentation_bytes(raw,row)
+
+def restore_presentation_bytes(raw,row):
  lines=raw.decode().splitlines(keepends=True)
  for change in reversed(row['changes']):
   if ''.join(lines[change['start']:change['end']])!=change['after']:raise ValueError('Compartment inverse literal differs')
