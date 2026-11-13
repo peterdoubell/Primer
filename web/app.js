@@ -2956,6 +2956,14 @@ function renderUterineSourceStudies(nodeId) {
       el('p', { class: 'muted' }, study.context)))));
 }
 
+function renderBiliaryAtlasStudy(nodeId) {
+  if (!['rad.5.biliary', 'ra.biliary-duct-pathology', 'ra.ultrasound-gallbladder'].includes(nodeId)) return null;
+  return el('section', {class:'card', 'aria-label':'Biliary source atlas'},
+    el('h2', {}, 'Biliary ducts and gallbladder in 3D'),
+    el('p', {}, 'Inspect original BodyParts3D objects for the gallbladder, hepatic ducts and selected tributaries.'),
+    el('a', {href:'/app/anatomy/bp3d-biliary-4.3/index.html?from=' + encodeURIComponent(nodeId)}, 'Explore the biliary source atlas'));
+}
+
 function renderLiverRegionStudy(nodeId) {
   if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;
   return el('section', {class:'card', 'aria-label':'Liver region source study'},
@@ -2963,6 +2971,7 @@ function renderLiverRegionStudy(nodeId) {
     el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
     el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),
     el('p', {}, el('a', {href:'/app/anatomy/phlf-center2-24/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect a tumour across two liver regions on MRI and in 3D')),
+    el('p', {}, el('a', {href:'/app/anatomy/hva-ct-318/index.html?from=' + encodeURIComponent(nodeId)}, 'Compare portal and hepatic veins on labelled CT and in 3D')),
     el('h3', {}, 'Vascular references from a separate CT case'),
     el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),
     el('ul', {}, ...[
@@ -3143,6 +3152,8 @@ async function renderRadiologyDesk(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);
+  if (biliaryAtlas) page.append(biliaryAtlas);
   const liverStudy = renderLiverRegionStudy(n.id);
   if (liverStudy) page.append(liverStudy);
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
@@ -3986,6 +3997,8 @@ async function renderNode(page, nodeId) {
     'Inspect renal lesion CT and original contours'));
   if (n.id === 'rad.5.pancreas-tumour') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/msd-pancreas/index.html' },
     'Inspect a pancreatic mass on CT and in 3D'));
+  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);
+  if (biliaryAtlas) page.append(biliaryAtlas);
   const liverStudy = renderLiverRegionStudy(n.id);
   if (liverStudy) page.append(liverStudy);
   if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },

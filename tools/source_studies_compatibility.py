@@ -97,7 +97,9 @@ def before_endometrial_delivery_bytes(path, raw):
 
 def before_combined_source_release_bytes(path, raw):
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', 'fe9c1e12dc7f3c19d814dfb85f072be9ebadaf9d28468c0909ceb2e81f18a126')
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', 'e04a2cc2b02adac33dcb361a3c07d463e0bbd3056f9f955b8db4115de39bfd6c')
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-biliary-4.3/runtime-inverse.json', '0a297b7ab3312d91afa29a9375c0094855944e70535959e505d567762076bd21')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':
         raw = raw.replace(b"  if (n.id === 'phys.5.condensed') page.append(el('a', { class: 'btn ghost', href: '/app/physics/ising/index.html' },\n    'Explore spin order and temperature'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != 'f4c23a904f8e527c6a292fb56d8241bece656f19908b1f2d7e7d4d5f6743c6ea':

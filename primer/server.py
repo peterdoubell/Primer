@@ -4239,6 +4239,17 @@ async def liver_region_delivery(asset: str, request: Request):
     return await app.state.source_static.get_response("anatomy/liver-regions-mri/" + asset, request.scope)
 
 
+@app.api_route("/app/anatomy/bp3d-biliary-4.3/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def biliary_source_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "bp3d-biliary-4.3", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown biliary source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/bp3d-biliary-4.3/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/bp3d-biliary-4.3/" + asset, request.scope)
+
+
 @app.api_route("/app/anatomy/phlf-center2-24/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
 async def phlf_tumour_delivery(asset: str, request: Request):
     with open(os.path.join(WEB_DIR, "anatomy", "phlf-center2-24", "delivery.json"), encoding="utf-8") as source:
@@ -4248,6 +4259,17 @@ async def phlf_tumour_delivery(asset: str, request: Request):
     if asset.endswith(".gz") and os.environ.get("VERCEL"):
         return RedirectResponse("/source-media/anatomy/phlf-center2-24/" + asset, status_code=307)
     return await app.state.source_static.get_response("anatomy/phlf-center2-24/" + asset, request.scope)
+
+
+@app.api_route("/app/anatomy/hva-ct-318/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def hva_ct_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "hva-ct-318", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown HVA-CT source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/hva-ct-318/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/hva-ct-318/" + asset, request.scope)
 
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
