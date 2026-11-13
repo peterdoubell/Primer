@@ -3963,6 +3963,8 @@ async function renderNode(page, nodeId) {
     'Explore replacement and conditional probability'));
   if (n.id === 'math.3.statistics') page.append(el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },
     'Compare population spread and sampling uncertainty'));
+  if (n.id === 'phys.5.condensed') page.append(el('a', { class: 'btn ghost', href: '/app/physics/ising/index.html' },
+    'Explore spin order and temperature'));
   if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },
     'Explore observed galaxy rotation curves'));
   if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },

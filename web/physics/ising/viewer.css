@@ -1,0 +1,16 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #172128; color: #eef4f7; }
+body { margin: 0; }
+main { max-width: 1050px; margin: auto; padding: 1.1rem; }
+a { color: #a4dfff; }
+p { line-height: 1.55; }
+input, button { font: inherit; }
+button { padding: .5rem .7rem; border: 1px solid #8399a5; border-radius: .35rem; background: #233942; color: inherit; }
+button:focus-visible, input:focus-visible { outline: 3px solid #f9c977; outline-offset: 2px; }
+.presets { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; }
+.spins { display: grid; grid-template-columns: repeat(4, minmax(40px, 64px)); gap: .35rem; }
+.spins button { aspect-ratio: 1; font-size: 1.45rem; background: #a2d2f1; color: #14212a; }
+.spins button[aria-pressed=true] { background: #f6ba81; }
+canvas { display: block; width: 100%; height: auto; background: #111b23; }
+table { margin-top: .6rem; border-collapse: collapse; }
+th, td { text-align: right; padding: .3rem .6rem; border-bottom: 1px solid #59717b; }
