@@ -1,11 +1,35 @@
 {
-  "primer/server.py": {
-    "before": "33b88d44e2e45132098b39ea79dbf9bfa681ff913fcf25912c111fa7775e67b3",
-    "after": "3f51c28e11d384ad58af9df73f17ddc4f0368d659734b93ad29fc49cde9b4737",
+  "web/app.js": {
+    "before": "4b36894adc650ada89f1518f152cf64c1e5385c59587d31dafd690de0b0e7d4b",
+    "after": "2fa2dbf4e88e2179d7811cea6d1f1852653bd12c3a753135b057cac4986e3656",
     "changes": [
       {
-        "start": 4229,
-        "end": 4240,
+        "start": 2958,
+        "end": 2966,
+        "before": "",
+        "after": "function renderLiverRegionStudy(nodeId) {\n  if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;\n  return el('section', {class:'card', 'aria-label':'Liver region source study'},\n    el('h2', {}, 'Source MRI with liver-region labels'),\n    el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),\n    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'));\n}\n\n"
+      },
+      {
+        "start": 3124,
+        "end": 3126,
+        "before": "",
+        "after": "  const liverStudy = renderLiverRegionStudy(n.id);\n  if (liverStudy) page.append(liverStudy);\n"
+      },
+      {
+        "start": 3963,
+        "end": 3965,
+        "before": "",
+        "after": "  const liverStudy = renderLiverRegionStudy(n.id);\n  if (liverStudy) page.append(liverStudy);\n"
+      }
+    ]
+  },
+  "primer/server.py": {
+    "before": "8c92004c98c75dec1e63a1067415859de5669235bfdd79464632586e2fd02f32",
+    "after": "55503cad47cd959812330241afd303ef602822ce784890a43156fe02d733820d",
+    "changes": [
+      {
+        "start": 4230,
+        "end": 4241,
         "before": "",
         "after": "@app.api_route(\"/app/anatomy/liver-regions-mri/{asset}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def liver_region_delivery(asset: str, request: Request):\n    with open(os.path.join(WEB_DIR, \"anatomy\", \"liver-regions-mri\", \"delivery.json\"), encoding=\"utf-8\") as source:\n        files = json.load(source)[\"files\"]\n    if asset not in files and asset != \"delivery.json\":\n        return JSONResponse({\"detail\": \"Unknown liver source asset\"}, status_code=404)\n    if asset.endswith(\".gz\") and os.environ.get(\"VERCEL\"):\n        return RedirectResponse(\"/source-media/anatomy/liver-regions-mri/\" + asset, status_code=307)\n    return await app.state.source_static.get_response(\"anatomy/liver-regions-mri/\" + asset, request.scope)\n\n\n"
       }
@@ -26,30 +50,6 @@
         "end": 176,
         "before": "",
         "after": "      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/anatomy/liver-regions-mri/*.gz\",\n"
-      }
-    ]
-  },
-  "web/app.js": {
-    "before": "1bcc58db62c46a558d7e1c691e1b9db44b09cd92bea386c2bf1b8b338d6d113b",
-    "after": "fbd9bb7a78d48db44f5d1e4ee256778aba03213aa041589c565f91a10bf616f1",
-    "changes": [
-      {
-        "start": 2949,
-        "end": 2957,
-        "before": "",
-        "after": "function renderLiverRegionStudy(nodeId) {\n  if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;\n  return el('section', {class:'card', 'aria-label':'Liver region source study'},\n    el('h2', {}, 'Source MRI with liver-region labels'),\n    el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),\n    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'));\n}\n\n"
-      },
-      {
-        "start": 3114,
-        "end": 3116,
-        "before": "",
-        "after": "  const liverStudy = renderLiverRegionStudy(n.id);\n  if (liverStudy) page.append(liverStudy);\n"
-      },
-      {
-        "start": 3953,
-        "end": 3955,
-        "before": "",
-        "after": "  const liverStudy = renderLiverRegionStudy(n.id);\n  if (liverStudy) page.append(liverStudy);\n"
       }
     ]
   }

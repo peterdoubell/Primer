@@ -1,0 +1,230 @@
+{
+  "schema": "primer.fast-report-templates/1",
+  "revision": "2026-11-13",
+  "templates": {
+    "template:modalities-report": {
+      "title": "Imaging request review",
+      "radiograph": false,
+      "technique": {"normal": "Review of the clinical request, prior imaging and patient factors.",
+                    "options": []},
+      "sections": [
+        {"heading": "Clinical question", "normal": "Clinical question clearly stated.",
+         "options": ["Clinical question: [ ]."]},
+        {"heading": "Recommended examination", "normal": "Requested examination is appropriate for the clinical question.",
+         "options": ["Recommend [CT / MRI / ultrasound / radiographs / nuclear medicine] [ ] instead, because [ ]."]},
+        {"heading": "Contrast and safety", "normal": "No contrast or safety contraindication.",
+         "options": ["[Contrast allergy / Renal impairment / Pregnancy / MRI-unsafe implant] [ ]."]},
+        {"heading": "Priority", "normal": "Routine priority.",
+         "options": ["[Urgent / Emergency] priority because [ ]."]}
+      ],
+      "impression": "Requested examination is appropriate."
+    },
+    "template:radiation-safety-report": {
+      "title": "Radiation dose review",
+      "radiograph": false,
+      "technique": {"normal": "Review of examination justification, protocol and dose report.",
+                    "options": []},
+      "sections": [
+        {"heading": "Justification", "normal": "Examination justified for the clinical question.",
+         "options": ["[Not justified / Non-ionising alternative preferred] [ ]."]},
+        {"heading": "Protocol and coverage", "normal": "Appropriate protocol and scan coverage.",
+         "options": ["[Excess coverage / Repeat acquisition / Unnecessary multiphase imaging] [ ]."]},
+        {"heading": "Dose", "normal": "Dose within local diagnostic reference levels.",
+         "options": ["CTDIvol [ ] mGy; DLP [ ] mGy·cm; effective dose [ ] mSv.",
+                     "Dose above the diagnostic reference level by [ ] percent."]},
+        {"heading": "Pregnancy and special groups", "normal": "No pregnancy or special risk group.",
+         "options": ["[Pregnant / Paediatric / Repeatedly exposed] patient [ ]."]}
+      ],
+      "impression": "Justified examination with dose within reference levels."
+    },
+    "template:ct-image-report": {
+      "title": "CT image quality review",
+      "radiograph": false,
+      "technique": {"normal": "Review of CT acquisition, contrast timing and reconstructions.",
+                    "options": []},
+      "sections": [
+        {"heading": "Acquisition", "normal": "Appropriate coverage, phase and slice thickness.",
+         "options": ["[Incomplete coverage / Wrong phase / Thick sections] [ ]."]},
+        {"heading": "Contrast timing", "normal": "Adequate opacification for the clinical question.",
+         "options": ["[Early / Late / Suboptimal] contrast timing [ ]."]},
+        {"heading": "Artefacts", "normal": "No significant artefact.",
+         "options": ["[Motion / Beam hardening / Metal / Streak / Noise] artefact limiting [ ]."]},
+        {"heading": "Reconstructions", "normal": "Appropriate kernels and multiplanar reconstructions.",
+         "options": ["[Missing bone kernel / Missing multiplanar reconstructions] [ ]."]}
+      ],
+      "impression": "Diagnostic quality CT."
+    },
+    "template:mri-sequences-report": {
+      "title": "MRI sequence and quality review",
+      "radiograph": false,
+      "technique": {"normal": "Review of MRI sequences, planes and image quality.",
+                    "options": []},
+      "sections": [
+        {"heading": "Sequences", "normal": "Protocol complete for the clinical question.",
+         "options": ["Missing [ ] sequence.",
+                     "[Additional / Repeat] sequence required: [ ]."]},
+        {"heading": "Image quality", "normal": "No significant motion or artefact.",
+         "options": ["[Motion / Susceptibility / Wrap-around / Chemical shift / Inhomogeneous fat suppression] artefact [ ]."]},
+        {"heading": "Contrast", "normal": "Appropriate contrast administration.",
+         "options": ["[Not given / Extravasation / Inadequate timing] [ ]."]}
+      ],
+      "impression": "Diagnostic quality MRI."
+    },
+    "template:structured-reporting-report": {
+      "title": "Report completeness review",
+      "radiograph": false,
+      "technique": {"normal": "Review of the report against the structured template.",
+                    "options": []},
+      "sections": [
+        {"heading": "Required elements", "normal": "All required headings and measurements present.",
+         "options": ["Missing [ ]."]},
+        {"heading": "Classification", "normal": "Appropriate classification system applied.",
+         "options": ["[Incorrect / Missing] category: [ ]."]},
+        {"heading": "Impression and recommendation", "normal": "Impression answers the clinical question. Recommendation is actionable.",
+         "options": ["[ ]."]},
+        {"heading": "Communication", "normal": "Urgent findings communicated and documented.",
+         "options": ["[ ] communicated to [ ] at [ ]."]}
+      ],
+      "impression": "Complete structured report."
+    },
+    "template:ultrasound-physics-report": {
+      "title": "Ultrasound acquisition and Doppler review",
+      "radiograph": false,
+      "technique": {"normal": "Review of transducer, preset and Doppler settings.",
+                    "options": []},
+      "sections": [
+        {"heading": "Grey-scale", "normal": "Appropriate transducer, depth, focus and gain.",
+         "options": ["[Inappropriate depth / Focus / Gain / Transducer] [ ]."]},
+        {"heading": "Doppler", "normal": "Appropriate angle, scale, gate and wall filter.",
+         "options": ["Insonation angle [ ] degrees; [aliasing / low scale / high wall filter] [ ]."]},
+        {"heading": "Artefacts", "normal": "No artefact limiting interpretation.",
+         "options": ["[Reverberation / Mirror image / Acoustic shadowing / Twinkle] artefact [ ]."]}
+      ],
+      "impression": "Diagnostic quality ultrasound."
+    },
+    "template:biopsy-safety-report": {
+      "title": "Image-guided biopsy / Image-guided drainage",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound-guided procedure with aseptic technique after informed consent and safety checklist.",
+                    "options": ["CT-guided procedure.", "Local anaesthetic [ ] mL [ ]; sedation [ ]."]},
+      "sections": [
+        {"heading": "Target", "normal": "Target identified with a safe access route.",
+         "options": ["[ ] mm lesion in the [ ]; route via [ ]."]},
+        {"heading": "Procedure", "normal": "Needle tip confirmed in the target.",
+         "options": ["[ ] passes with a [ ] gauge [core / fine-needle] needle; [ ] cores obtained.",
+                     "[ ] Fr drain placed; [ ] mL of [ ] fluid aspirated."]},
+        {"heading": "Specimens", "normal": "Specimens sent for histology.",
+         "options": ["Specimens sent for [cytology / microbiology / flow cytometry] [ ]."]},
+        {"heading": "Complications", "normal": "No immediate complication.",
+         "options": ["[Haematoma / Pneumothorax / Vasovagal episode] [ ]."]}
+      ],
+      "impression": "Successful image-guided procedure. No immediate complication."
+    },
+    "template:nuclear-general-report": {
+      "title": "Nuclear medicine study",
+      "radiograph": false,
+      "technique": {"normal": "Planar and SPECT imaging after IV administration of the radiopharmaceutical.",
+                    "options": ["Radiopharmaceutical [ ], activity [ ] MBq, imaging at [ ] hours.", "SPECT/CT [ ]."]},
+      "sections": [
+        {"heading": "Distribution", "normal": "Normal physiological tracer distribution.",
+         "options": ["[Increased / Decreased] uptake in the [ ] [ ]."]},
+        {"heading": "Quantification", "normal": "Quantitative values within normal limits.",
+         "options": ["[ ]: [ ]."]},
+        {"heading": "Correlation", "normal": "No discordance with correlative imaging.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "Normal study."
+    },
+    "template:pet-ct-report": {
+      "title": "FDG PET/CT",
+      "radiograph": false,
+      "technique": {"normal": "FDG PET/CT from the skull base to the mid-thighs after a 6-hour fast.",
+                    "options": ["FDG [ ] MBq; blood glucose [ ] mmol/L; uptake time [ ] minutes.", "Liver SUVmean [ ]; mediastinal blood pool SUVmean [ ]."]},
+      "sections": [
+        {"heading": "Head and neck", "normal": "No abnormal FDG uptake.",
+         "options": ["FDG-avid [ ] in the [ ], SUVmax [ ]."]},
+        {"heading": "Chest", "normal": "No abnormal FDG uptake.",
+         "options": ["FDG-avid [ ] in the [ ], SUVmax [ ]."]},
+        {"heading": "Abdomen and pelvis", "normal": "No abnormal FDG uptake.",
+         "options": ["FDG-avid [ ] in the [ ], SUVmax [ ]."]},
+        {"heading": "Musculoskeletal", "normal": "No abnormal FDG uptake.",
+         "options": ["FDG-avid [ ] in the [ ], SUVmax [ ]."]},
+        {"heading": "Response assessment", "normal": "No metabolically active disease.",
+         "options": ["Deauville score [1 / 2 / 3 / 4 / 5].",
+                     "[Complete metabolic response / Partial metabolic response / Stable metabolic disease / Progressive metabolic disease] (PERCIST)."]}
+      ],
+      "impression": "No FDG-avid disease."
+    },
+    "template:theranostics-report": {
+      "title": "PSMA PET/CT / SSTR PET/CT",
+      "radiograph": false,
+      "technique": {"normal": "PSMA PET/CT from the skull vertex to the mid-thighs.",
+                    "options": ["SSTR PET/CT with [ ]-DOTATATE.", "Activity [ ] MBq; uptake time [ ] minutes."]},
+      "sections": [
+        {"heading": "Primary site", "normal": "No abnormal uptake at the primary site or treatment bed.",
+         "options": ["Uptake in the [ ], SUVmax [ ]; miT[ ]."]},
+        {"heading": "Lymph nodes", "normal": "No abnormal nodal uptake.",
+         "options": ["[Pelvic / Retroperitoneal / Supradiaphragmatic] nodal uptake, SUVmax [ ], [ ] mm; miN[ ] or miM[ ]."]},
+        {"heading": "Bones", "normal": "No abnormal bone uptake.",
+         "options": ["[Unifocal / Oligometastatic / Disseminated / Diffuse] bone uptake [ ]."]},
+        {"heading": "Viscera", "normal": "No abnormal visceral uptake.",
+         "options": ["[Liver / Lung / Other] uptake [ ]."]},
+        {"heading": "Expression for therapy", "normal": "No disease to assess for radioligand therapy.",
+         "options": ["Tumour uptake [above / below] liver; [suitable / not suitable] for radioligand therapy [ ].",
+                     "Krenning score [1 / 2 / 3 / 4]."]}
+      ],
+      "impression": "No receptor-avid disease."
+    },
+    "ra.ct-contrast-protocols": {
+      "title": "CT contrast administration record",
+      "radiograph": false,
+      "technique": {"normal": "IV contrast via a peripheral cannula with a power injector.",
+                    "options": ["[ ] mL of [ ] at [ ] mL/s via a [ ] gauge cannula in the [ ]."]},
+      "sections": [
+        {"heading": "Indication", "normal": "Contrast indicated for the clinical question.",
+         "options": ["[ ]."]},
+        {"heading": "Patient assessment", "normal": "No renal, allergic or other contrast risk factor.",
+         "options": ["eGFR [ ] mL/min/1.73 m²; [prior reaction / asthma / metformin / pregnancy] [ ]."]},
+        {"heading": "Administration", "normal": "Uneventful administration.",
+         "options": ["[Extravasation / Mild reaction / Moderate reaction / Severe reaction] [ ]; treated with [ ]."]},
+        {"heading": "Aftercare", "normal": "Routine aftercare.",
+         "options": ["[Observation / Follow-up eGFR / Referral] [ ]."]}
+      ],
+      "impression": "Uneventful contrast administration."
+    },
+    "ra.recist": {
+      "title": "CT chest, abdomen and pelvis, RECIST 1.1 baseline",
+      "radiograph": false,
+      "technique": {"normal": "Portal venous phase CT chest, abdomen and pelvis with IV contrast.",
+                    "options": []},
+      "sections": [
+        {"heading": "Target lesions", "normal": "No measurable target lesion.",
+         "options": ["Target [ ]: [ ] in the [ ], [ ] mm (series [ ], image [ ]).",
+                     "Sum of diameters [ ] mm."]},
+        {"heading": "Non-target lesions", "normal": "No non-target lesion.",
+         "options": ["Non-target: [ ] in the [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No measurable disease."
+    },
+    "oncology.recist-follow-up": {
+      "title": "CT chest, abdomen and pelvis, RECIST 1.1 follow-up",
+      "radiograph": false,
+      "technique": {"normal": "Portal venous phase CT chest, abdomen and pelvis with IV contrast, matched to the baseline protocol.",
+                    "options": []},
+      "sections": [
+        {"heading": "Target lesions", "normal": "All target lesions resolved. Pathological nodes under 10 mm short axis.",
+         "options": ["Target [ ]: [ ] mm (baseline [ ] mm, nadir [ ] mm).",
+                     "Sum of diameters [ ] mm; [ ] percent from baseline, [ ] percent from nadir."]},
+        {"heading": "Non-target lesions", "normal": "All non-target lesions resolved.",
+         "options": ["Non-target: [non-CR non-PD / unequivocal progression] [ ]."]},
+        {"heading": "New lesions", "normal": "No new lesion.",
+         "options": ["New [ ] in the [ ]."]},
+        {"heading": "Overall response", "normal": "Complete response (RECIST 1.1).",
+         "options": ["[Partial response / Stable disease / Progressive disease] (RECIST 1.1)."]}
+      ],
+      "impression": "Complete response (RECIST 1.1)."
+    }
+  }
+}

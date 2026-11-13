@@ -1,0 +1,690 @@
+{
+  "schema": "primer.fast-report-templates/1",
+  "revision": "2026-11-13",
+  "templates": {
+    "ra.acute-abdomen": {
+      "title": "CT abdomen and pelvis with contrast / CT abdomen and pelvis without contrast",
+      "radiograph": false,
+      "technique": {"normal": "Portal venous phase CT abdomen and pelvis with IV contrast.",
+                    "options": ["CT abdomen and pelvis without IV contrast.", "Oral contrast [ ]."]},
+      "sections": [
+        {"heading": "Liver, gallbladder and bile ducts", "normal": "Normal liver and gallbladder. No biliary dilatation.",
+         "options": ["[Steatosis / Focal lesion / Cirrhotic morphology] [ ].",
+                     "[Gallstones / Cholecystitis / Biliary dilatation] [ ]."]},
+        {"heading": "Pancreas and spleen", "normal": "Normal pancreas and spleen.",
+         "options": ["[Pancreatitis / Pancreatic mass / Splenomegaly / Splenic infarct] [ ]."]},
+        {"heading": "Kidneys, ureters and bladder", "normal": "Normal kidneys, ureters and bladder. No calculus or hydronephrosis.",
+         "options": ["[ ] mm calculus in the [right / left] [kidney / proximal ureter / mid ureter / distal ureter / VUJ] [with / without] hydronephrosis.",
+                     "[Pyelonephritis / Renal mass / Bladder wall thickening] [ ]."]},
+        {"heading": "Bowel and appendix", "normal": "Normal appendix. No bowel obstruction or wall thickening.",
+         "options": ["[Appendicitis / Diverticulitis / Colitis / Enteritis] [ ].",
+                     "[Small bowel / Large bowel] obstruction with transition point in the [ ]."]},
+        {"heading": "Peritoneum", "normal": "No free fluid, free gas or collection.",
+         "options": ["[Free fluid / Pneumoperitoneum / Collection] [ ]."]},
+        {"heading": "Vessels and lymph nodes", "normal": "Normal calibre aorta. Patent mesenteric vessels. No lymphadenopathy.",
+         "options": ["[Aortic aneurysm / Mesenteric vessel occlusion / Lymphadenopathy] [ ]."]},
+        {"heading": "Pelvic organs", "normal": "Normal pelvic organs.",
+         "options": ["[Ovarian cyst / Adnexal mass / Uterine abnormality / Enlarged prostate] [ ]."]},
+        {"heading": "Abdominal wall", "normal": "No hernia.",
+         "options": ["[Inguinal / Femoral / Umbilical / Incisional] hernia containing [ ], [with / without] obstruction."]},
+        {"heading": "Lung bases and bones", "normal": "Clear lung bases. No aggressive bone lesion.",
+         "options": ["[Basal consolidation / Pleural effusion / Fracture / Bone lesion] [ ]."]}
+      ],
+      "impression": "No acute abdominal or pelvic abnormality."
+    },
+    "xr.abdomen": {
+      "title": "Abdominal radiograph, supine / Abdominal radiographs, supine and erect",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Bowel gas pattern", "normal": "Normal bowel gas pattern. No dilated bowel.",
+         "options": ["Dilated [small bowel / large bowel] to [ ] cm [ ].",
+                     "[Sigmoid volvulus / Caecal volvulus / Toxic megacolon] [ ]."]},
+        {"heading": "Free gas", "normal": "No free intraperitoneal gas.",
+         "options": ["Pneumoperitoneum: [Rigler sign / football sign / subdiaphragmatic gas] [ ].",
+                     "[Pneumatosis / Portal venous gas] [ ]."]},
+        {"heading": "Calcification", "normal": "No abnormal calcification.",
+         "options": ["[Renal / Ureteric / Gallstone / Pancreatic / Vascular] calcification [ ]."]},
+        {"heading": "Soft tissues and bones", "normal": "Normal soft tissue outlines. No bone abnormality.",
+         "options": ["[Organomegaly / Mass effect / Bone lesion / Fracture] [ ]."]},
+        {"heading": "Lines and devices", "normal": "No foreign body or device.",
+         "options": ["[Foreign body / Stent / Drain / Feeding tube] [ ]."]}
+      ],
+      "impression": "Normal abdominal radiograph."
+    },
+    "us.abdomen": {
+      "title": "Ultrasound abdomen",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the upper abdomen and kidneys.",
+                    "options": []},
+      "sections": [
+        {"heading": "Liver", "normal": "Normal size and echotexture. No focal lesion. Patent portal vein with hepatopetal flow.",
+         "options": ["[Increased echogenicity / Coarse echotexture / Nodular surface] [ ].",
+                     "[ ] mm [cyst / haemangioma / solid lesion] in segment [ ].",
+                     "Liver span [ ] cm."]},
+        {"heading": "Gallbladder and bile ducts", "normal": "Normal gallbladder without gallstones. No biliary dilatation.",
+         "options": ["[Gallstones / Sludge / Polyp / Wall thickening] [ ].",
+                     "CBD [ ] mm.",
+                     "[Intrahepatic / Extrahepatic] biliary dilatation [ ]."]},
+        {"heading": "Pancreas", "normal": "Normal visualised pancreas.",
+         "options": ["[Pancreatitis / Pancreatic duct dilatation / Pancreatic mass] [ ].",
+                     "Pancreas obscured by bowel gas."]},
+        {"heading": "Spleen", "normal": "Normal spleen.",
+         "options": ["Splenomegaly, [ ] cm.",
+                     "[Focal lesion / Splenule] [ ]."]},
+        {"heading": "Kidneys", "normal": "Normal kidneys. No hydronephrosis, calculus or mass.",
+         "options": ["Right kidney [ ] cm, left kidney [ ] cm.",
+                     "[Hydronephrosis / Calculus / Simple cyst / Solid mass] in the [right / left] kidney [ ]."]},
+        {"heading": "Aorta and IVC", "normal": "Normal calibre abdominal aorta and IVC.",
+         "options": ["Abdominal aorta [ ] cm."]},
+        {"heading": "Other findings", "normal": "No free fluid.",
+         "options": ["[Free fluid / Pleural effusion / Lymphadenopathy] [ ]."]}
+      ],
+      "impression": "Normal ultrasound abdomen."
+    },
+    "ra.ultrasound-acute-abdomen": {
+      "title": "Ultrasound abdomen, acute pain",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the abdomen and pelvis with graded compression of the symptomatic region.",
+                    "options": []},
+      "sections": [
+        {"heading": "Symptomatic region", "normal": "No abnormality at the site of maximal tenderness.",
+         "options": ["[ ] at the site of maximal tenderness."]},
+        {"heading": "Bowel and appendix", "normal": "Normal appendix. No bowel wall thickening or dilated loops.",
+         "options": ["[Inflamed appendix / Diverticulitis / Bowel wall thickening / Dilated small bowel] [ ].",
+                     "Appendix not visualised."]},
+        {"heading": "Hepatobiliary and pancreas", "normal": "Normal liver, gallbladder, bile ducts and pancreas.",
+         "options": ["[Cholecystitis / Gallstones / Biliary dilatation / Pancreatitis] [ ]."]},
+        {"heading": "Kidneys and bladder", "normal": "No hydronephrosis or calculus.",
+         "options": ["[Right / Left] hydronephrosis, [mild / moderate / severe].",
+                     "[ ] mm calculus at [ ]."]},
+        {"heading": "Pelvis and peritoneum", "normal": "No free fluid or collection.",
+         "options": ["[Free fluid / Collection / Ovarian cyst / Adnexal mass] [ ]."]},
+        {"heading": "Aorta", "normal": "Normal calibre abdominal aorta.",
+         "options": ["Abdominal aortic aneurysm [ ] cm."]}
+      ],
+      "impression": "No sonographic cause for acute abdominal pain."
+    },
+    "ra.transvaginal-nongynaecology": {
+      "title": "Transvaginal ultrasound pelvis",
+      "radiograph": false,
+      "technique": {"normal": "Transvaginal ultrasound of the pelvis for non-gynaecological pain.",
+                    "options": []},
+      "sections": [
+        {"heading": "Bowel", "normal": "Normal rectosigmoid and pelvic bowel loops.",
+         "options": ["[Wall thickening / Diverticulitis / Inflamed fat] in the [ ]."]},
+        {"heading": "Appendix", "normal": "No inflamed appendix in the pelvis.",
+         "options": ["Inflamed pelvic appendix, [ ] mm, [with / without] appendicolith."]},
+        {"heading": "Ureters and bladder", "normal": "Normal distal ureters and bladder.",
+         "options": ["[ ] mm calculus at the [right / left] VUJ.",
+                     "[Bladder wall thickening / Ureterocele] [ ]."]},
+        {"heading": "Fluid", "normal": "No pelvic free fluid or collection.",
+         "options": ["[Free fluid / Collection / Abscess] [ ]."]},
+        {"heading": "Uterus and ovaries", "normal": "Normal uterus and ovaries.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No pelvic abnormality."
+    },
+    "ra.appendicitis": {
+      "title": "Ultrasound appendix",
+      "radiograph": false,
+      "technique": {"normal": "Graded-compression ultrasound of the right iliac fossa.",
+                    "options": []},
+      "sections": [
+        {"heading": "Appendix", "normal": "Normal compressible appendix, under 6 mm in diameter.",
+         "options": ["Non-compressible appendix, [ ] mm diameter, [with / without] appendicolith.",
+                     "Appendix not visualised."]},
+        {"heading": "Periappendiceal region", "normal": "No periappendiceal fat stranding or fluid.",
+         "options": ["[Fat stranding / Free fluid / Hyperaemia] [ ]."]},
+        {"heading": "Complications", "normal": "No perforation, abscess or phlegmon.",
+         "options": ["[Perforation / Abscess / Phlegmon], [ ] mm."]},
+        {"heading": "Alternative findings", "normal": "No alternative cause for pain.",
+         "options": ["[Mesenteric adenitis / Terminal ileitis / Ovarian cyst / Ureteric calculus] [ ]."]}
+      ],
+      "impression": "Normal appendix. No appendicitis."
+    },
+    "ra.ultrasound-bile-duct-stones": {
+      "title": "Ultrasound liver and biliary tree",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the liver, gallbladder and bile ducts, fasting.",
+                    "options": []},
+      "sections": [
+        {"heading": "Bile ducts", "normal": "No biliary dilatation.",
+         "options": ["CBD [ ] mm.",
+                     "[Intrahepatic / Extrahepatic] biliary dilatation to the level of [ ]."]},
+        {"heading": "Duct contents", "normal": "No choledocholithiasis.",
+         "options": ["[ ] mm [shadowing / non-shadowing] stone in the [proximal / distal] CBD.",
+                     "Distal CBD obscured by bowel gas."]},
+        {"heading": "Gallbladder", "normal": "Normal gallbladder without gallstones.",
+         "options": ["[Gallstones / Sludge / Wall thickening / Cholecystitis] [ ]."]},
+        {"heading": "Liver and pancreas", "normal": "Normal liver and pancreatic head.",
+         "options": ["[Pancreatitis / Pancreatic head mass / Liver abscess] [ ]."]}
+      ],
+      "impression": "No choledocholithiasis or biliary dilatation."
+    },
+    "ra.ultrasound-gallbladder": {
+      "title": "Ultrasound gallbladder",
+      "radiograph": false,
+      "technique": {"normal": "Ultrasound of the right upper quadrant, fasting.",
+                    "options": []},
+      "sections": [
+        {"heading": "Gallbladder contents", "normal": "No gallstones or sludge.",
+         "options": ["[Mobile / Impacted] gallstones, largest [ ] mm.",
+                     "[Sludge / Polyp] [ ]."]},
+        {"heading": "Gallbladder wall", "normal": "Normal wall thickness. No pericholecystic fluid. Negative sonographic Murphy sign.",
+         "options": ["Wall thickness [ ] mm [with / without] pericholecystic fluid.",
+                     "Positive sonographic Murphy sign.",
+                     "[Gas in the wall / Intraluminal membranes / Wall defect] [ ]."]},
+        {"heading": "Bile ducts", "normal": "No biliary dilatation.",
+         "options": ["CBD [ ] mm.",
+                     "[Intrahepatic / Extrahepatic] biliary dilatation [ ]."]},
+        {"heading": "Liver and pancreas", "normal": "Normal liver and visualised pancreas.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "Normal gallbladder. No cholelithiasis or cholecystitis."
+    },
+    "ra.biliary-duct-pathology": {
+      "title": "MRCP",
+      "radiograph": false,
+      "technique": {"normal": "MRCP with heavily T2-weighted 2D and 3D sequences.",
+                    "options": ["Contrast-enhanced liver MRI [ ]."]},
+      "sections": [
+        {"heading": "Intrahepatic ducts", "normal": "Normal calibre intrahepatic ducts.",
+         "options": ["[Dilated / Beaded / Strictured] intrahepatic ducts in the [ ]."]},
+        {"heading": "Extrahepatic ducts", "normal": "Normal calibre common hepatic and common bile ducts. No filling defect.",
+         "options": ["CBD [ ] mm.",
+                     "[ ] mm filling defect in the [ ], consistent with [stone / sludge / tumour].",
+                     "[Stricture / Mass] at [ ], [ ] cm long."]},
+        {"heading": "Pancreatic duct", "normal": "Normal pancreatic duct.",
+         "options": ["Pancreatic duct [ ] mm, [dilated / strictured / divisum] [ ]."]},
+        {"heading": "Gallbladder", "normal": "Normal gallbladder.",
+         "options": ["[Gallstones / Wall thickening / Mass] [ ]."]},
+        {"heading": "Liver and vessels", "normal": "Normal liver. Patent portal vein and hepatic artery.",
+         "options": ["[Lobar atrophy / Mass / Portal vein involvement] [ ]."]}
+      ],
+      "impression": "Normal biliary tree."
+    },
+    "ra.liver-masses": {
+      "title": "MRI liver with contrast, focal lesion",
+      "radiograph": false,
+      "technique": {"normal": "MRI liver with dynamic contrast, hepatobiliary phase and diffusion-weighted imaging.",
+                    "options": []},
+      "sections": [
+        {"heading": "Background liver", "normal": "Normal liver size and contour. No steatosis or iron overload.",
+         "options": ["[Steatosis / Iron overload / Cirrhotic morphology] [ ]."]},
+        {"heading": "Focal lesions", "normal": "No focal liver lesion.",
+         "options": ["[ ] mm lesion in segment [ ] with [arterial hyperenhancement / washout / peripheral nodular enhancement / hepatobiliary phase hypointensity] [ ].",
+                     "Features of [cyst / haemangioma / focal nodular hyperplasia / adenoma / metastasis / hepatocellular carcinoma]."]},
+        {"heading": "Vessels and bile ducts", "normal": "Patent hepatic and portal veins. No biliary dilatation.",
+         "options": ["[Portal vein thrombus / Tumour in vein / Biliary dilatation] [ ]."]},
+        {"heading": "Other findings", "normal": "Normal spleen. No ascites or lymphadenopathy.",
+         "options": ["[Splenomegaly / Ascites / Varices / Lymphadenopathy] [ ]."]}
+      ],
+      "impression": "No focal liver lesion."
+    },
+    "ra.liver-lirads": {
+      "title": "MRI liver, HCC surveillance",
+      "radiograph": false,
+      "technique": {"normal": "Multiphase MRI liver with extracellular contrast and diffusion-weighted imaging.",
+                    "options": ["Hepatobiliary agent [ ]."]},
+      "sections": [
+        {"heading": "Background liver", "normal": "Cirrhotic liver morphology.",
+         "options": ["Non-cirrhotic liver.",
+                     "[Steatosis / Iron overload] [ ]."]},
+        {"heading": "Observations", "normal": "No focal observation.",
+         "options": ["Observation [ ] in segment [ ], [ ] mm: [nonrim APHE / nonperipheral washout / enhancing capsule / threshold growth] [ ].",
+                     "LR-[1 / 2 / 3 / 4 / 5 / M / TIV]."]},
+        {"heading": "Vessels", "normal": "Patent portal and hepatic veins. No tumour in vein.",
+         "options": ["[Bland thrombus / Tumour in vein] in the [ ]."]},
+        {"heading": "Portal hypertension", "normal": "No ascites, varices or splenomegaly.",
+         "options": ["[Ascites / Varices / Splenomegaly / Recanalised umbilical vein] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No LI-RADS observation; negative surveillance examination.",
+      "recommendation": "Continue surveillance in 6 months."
+    },
+    "liver.lirads-calculated": {
+      "title": "MRI liver, LI-RADS v2018",
+      "radiograph": false,
+      "technique": {"normal": "Multiphase MRI liver with extracellular contrast.",
+                    "options": []},
+      "sections": [
+        {"heading": "Observation", "normal": "No focal observation.",
+         "options": ["Observation [ ] in segment [ ], [ ] mm, series [ ] image [ ].",
+                     "Major features: [nonrim APHE / nonperipheral washout / enhancing capsule / threshold growth] [ ].",
+                     "Ancillary features: [ ]."]},
+        {"heading": "Category", "normal": "No LI-RADS category assigned.",
+         "options": ["LR-[1 / 2 / 3 / 4 / 5 / M / TIV] (calculated v2018)."]},
+        {"heading": "Vessels", "normal": "Patent portal and hepatic veins. No tumour in vein.",
+         "options": ["[Bland thrombus / Tumour in vein] in the [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No LI-RADS observation.",
+      "recommendation": "Continue surveillance in 6 months."
+    },
+    "ra.ct-abdominal-trauma": {
+      "title": "CT abdomen and pelvis, trauma",
+      "radiograph": false,
+      "technique": {"normal": "Arterial and portal venous phase CT abdomen and pelvis with IV contrast.",
+                    "options": ["Delayed excretory phase [ ]."]},
+      "sections": [
+        {"heading": "Liver", "normal": "No liver injury.",
+         "options": ["AAST grade [I / II / III / IV / V] liver [laceration / haematoma] in segment [ ], [ ] cm."]},
+        {"heading": "Spleen", "normal": "No splenic injury.",
+         "options": ["AAST grade [I / II / III / IV / V] splenic [laceration / haematoma], [ ] cm.",
+                     "[Active extravasation / Pseudoaneurysm] [ ]."]},
+        {"heading": "Kidneys and urinary tract", "normal": "No renal, ureteric or bladder injury.",
+         "options": ["AAST grade [I / II / III / IV / V] [right / left] renal injury [ ].",
+                     "[Urinary extravasation / Bladder rupture] [ ]."]},
+        {"heading": "Pancreas, bowel and mesentery", "normal": "No pancreatic, bowel or mesenteric injury.",
+         "options": ["[Bowel wall discontinuity / Mesenteric haematoma / Pancreatic laceration / Extraluminal gas] [ ]."]},
+        {"heading": "Haemorrhage and vessels", "normal": "No haemoperitoneum, retroperitoneal haematoma or active extravasation.",
+         "options": ["[Small / Moderate / Large] haemoperitoneum [ ].",
+                     "Active [arterial / venous] extravasation from [ ]."]},
+        {"heading": "Bones and lung bases", "normal": "No fracture. No pneumothorax or basal lung injury.",
+         "options": ["[Pelvic / Spinal / Rib] fracture [ ].",
+                     "[Pneumothorax / Haemothorax / Lung contusion] [ ]."]}
+      ],
+      "impression": "No traumatic abdominal or pelvic injury."
+    },
+    "ra.ct-bowel-ischaemia": {
+      "title": "CT angiogram abdomen and pelvis, mesenteric ischaemia",
+      "radiograph": false,
+      "technique": {"normal": "Non-contrast, arterial and portal venous phase CT abdomen and pelvis.",
+                    "options": []},
+      "sections": [
+        {"heading": "Mesenteric arteries", "normal": "Patent coeliac axis, SMA and IMA.",
+         "options": ["[Embolus / Thrombosis / Dissection / Stenosis] of the [ ] [ ]."]},
+        {"heading": "Mesenteric veins", "normal": "Patent SMV, splenic and portal veins.",
+         "options": ["Thrombus in the [SMV / portal vein / splenic vein] [ ]."]},
+        {"heading": "Bowel wall", "normal": "Normal bowel wall thickness and enhancement.",
+         "options": ["[Reduced / Absent / Increased] enhancement of a [ ] cm segment of [ ].",
+                     "Bowel wall [thickening / thinning / pneumatosis] [ ]."]},
+        {"heading": "Mesentery and peritoneum", "normal": "No mesenteric oedema, free fluid or free gas.",
+         "options": ["[Mesenteric oedema / Free fluid / Pneumoperitoneum / Portal venous gas] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No CT evidence of mesenteric ischaemia."
+    },
+    "ra.ct-bowel-wall": {
+      "title": "CT abdomen and pelvis with contrast, bowel wall thickening",
+      "radiograph": false,
+      "technique": {"normal": "Portal venous phase CT abdomen and pelvis with IV contrast.",
+                    "options": ["Oral contrast [ ]."]},
+      "sections": [
+        {"heading": "Bowel wall", "normal": "No bowel wall thickening.",
+         "options": ["[Focal / Segmental / Diffuse] wall thickening of the [ ], [ ] mm.",
+                     "[Target / Homogeneous / Heterogeneous / Hypoattenuating] enhancement pattern."]},
+        {"heading": "Mesentery and vessels", "normal": "Normal mesentery and vessels.",
+         "options": ["[Fat stranding / Engorged vasa recta / Lymphadenopathy / Vascular occlusion] [ ]."]},
+        {"heading": "Lumen and complications", "normal": "No obstruction, perforation or collection.",
+         "options": ["[Obstruction / Perforation / Abscess / Fistula] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No bowel wall abnormality."
+    },
+    "ra.ct-bowel-obstruction": {
+      "title": "CT abdomen and pelvis with contrast, bowel obstruction",
+      "radiograph": false,
+      "technique": {"normal": "Portal venous phase CT abdomen and pelvis with IV contrast.",
+                    "options": []},
+      "sections": [
+        {"heading": "Small bowel", "normal": "Normal calibre small bowel.",
+         "options": ["Dilated small bowel to [ ] cm with transition point in the [ ].",
+                     "Cause: [adhesion / hernia / tumour / intussusception / gallstone / volvulus] [ ]."]},
+        {"heading": "Large bowel", "normal": "Normal calibre large bowel.",
+         "options": ["Dilated large bowel, [caecum / transverse colon / sigmoid] [ ] cm [ ]."]},
+        {"heading": "Closed loop and ischaemia", "normal": "No closed loop or bowel ischaemia.",
+         "options": ["[Closed loop / Whirl sign / Reduced wall enhancement / Mesenteric oedema / Pneumatosis] [ ]."]},
+        {"heading": "Peritoneum", "normal": "No free fluid or free gas.",
+         "options": ["[Free fluid / Pneumoperitoneum] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No bowel obstruction."
+    },
+    "ra.ct-small-bowel-tumours": {
+      "title": "CT enterography",
+      "radiograph": false,
+      "technique": {"normal": "CT enterography with neutral oral contrast and IV contrast in the enteric phase.",
+                    "options": []},
+      "sections": [
+        {"heading": "Small bowel", "normal": "No small bowel mass or wall thickening.",
+         "options": ["[ ] mm [enhancing / ulcerated / aneurysmal] mass in the [duodenum / jejunum / ileum].",
+                     "[Intussusception / Obstruction] [ ]."]},
+        {"heading": "Mesentery and lymph nodes", "normal": "No mesenteric mass or lymphadenopathy.",
+         "options": ["[Mesenteric mass with desmoplasia / Lymphadenopathy] [ ]."]},
+        {"heading": "Liver and peritoneum", "normal": "No liver metastasis or peritoneal disease.",
+         "options": ["[Liver metastasis / Peritoneal deposit / Ascites] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No small bowel tumour."
+    },
+    "ct.colonography": {
+      "title": "CT colonography",
+      "radiograph": false,
+      "technique": {"normal": "Low-dose CT colonography, supine and prone, after bowel preparation, faecal tagging and CO2 distension.",
+                    "options": []},
+      "sections": [
+        {"heading": "Preparation and distension", "normal": "Adequate preparation and distension of all segments.",
+         "options": ["Suboptimal [distension / tagging] of the [ ]."]},
+        {"heading": "Colon", "normal": "No polyp or mass of 6 mm or more.",
+         "options": ["[ ] mm [sessile / pedunculated / flat] polyp in the [ ] colon.",
+                     "[ ] mm mass in the [ ] colon."]},
+        {"heading": "Extracolonic findings", "normal": "No important extracolonic finding (E1).",
+         "options": ["[E2 / E3 / E4]: [ ]."]},
+        {"heading": "C-RADS", "normal": "C1: normal colon or benign lesion.",
+         "options": ["[C2 / C3 / C4]: [ ]."]}
+      ],
+      "impression": "No colonic polyp or mass (C1, E1).",
+      "recommendation": "Continue routine screening in 5 years."
+    },
+    "ra.ultrasound-gi-tract": {
+      "title": "Ultrasound bowel",
+      "radiograph": false,
+      "technique": {"normal": "High-frequency ultrasound of the bowel with graded compression.",
+                    "options": []},
+      "sections": [
+        {"heading": "Bowel wall", "normal": "Normal bowel wall thickness and stratification.",
+         "options": ["Wall thickening of the [ ], [ ] mm, [preserved / lost] stratification.",
+                     "[Hyperaemia / Fat wrap] [ ]."]},
+        {"heading": "Lumen and motility", "normal": "Normal peristalsis. No dilated loops.",
+         "options": ["[Dilated loops / Reduced peristalsis / Intussusception] [ ]."]},
+        {"heading": "Surroundings", "normal": "No free fluid, collection or lymphadenopathy.",
+         "options": ["[Free fluid / Collection / Mesenteric lymphadenopathy] [ ]."]}
+      ],
+      "impression": "Normal bowel ultrasound."
+    },
+    "ra.ultrasound-ibd": {
+      "title": "Intestinal ultrasound",
+      "radiograph": false,
+      "technique": {"normal": "High-frequency intestinal ultrasound of the small bowel and colon.",
+                    "options": []},
+      "sections": [
+        {"heading": "Terminal ileum", "normal": "Normal wall thickness and stratification.",
+         "options": ["Wall thickness [ ] mm, [preserved / lost] stratification, [ ] cm segment."]},
+        {"heading": "Colon", "normal": "Normal colonic wall thickness.",
+         "options": ["Wall thickening of the [ ] colon, [ ] mm."]},
+        {"heading": "Activity", "normal": "No hyperaemia or inflamed fat.",
+         "options": ["Limberg grade [1 / 2 / 3 / 4] hyperaemia.",
+                     "Inflamed mesenteric fat [ ]."]},
+        {"heading": "Complications", "normal": "No stricture, fistula or abscess.",
+         "options": ["[Stricture with prestenotic dilatation / Fistula / Abscess] [ ]."]}
+      ],
+      "impression": "No sonographic evidence of active inflammatory bowel disease."
+    },
+    "ra.mri-crohn": {
+      "title": "MR enterography",
+      "radiograph": false,
+      "technique": {"normal": "MR enterography with oral contrast, antiperistaltic agent, diffusion and dynamic contrast imaging.",
+                    "options": []},
+      "sections": [
+        {"heading": "Small bowel", "normal": "No bowel wall thickening or abnormal enhancement.",
+         "options": ["Active inflammation of the [ ], [ ] cm, wall [ ] mm, with [mural oedema / ulceration / restricted diffusion / layered enhancement]."]},
+        {"heading": "Strictures", "normal": "No stricture.",
+         "options": ["Stricture of the [ ], [ ] cm, with prestenotic dilatation to [ ] cm."]},
+        {"heading": "Penetrating disease", "normal": "No fistula, sinus or abscess.",
+         "options": ["[Fistula / Sinus / Abscess] [ ]."]},
+        {"heading": "Colon", "normal": "Normal colon.",
+         "options": ["[Active colitis / Stricture] in the [ ]."]},
+        {"heading": "Mesentery", "normal": "No mesenteric inflammation or lymphadenopathy.",
+         "options": ["[Comb sign / Fibrofatty proliferation / Lymphadenopathy] [ ]."]},
+        {"heading": "Perianal region", "normal": "No perianal fistula or abscess.",
+         "options": ["[Perianal fistula / Abscess] [ ]."]}
+      ],
+      "impression": "No active Crohn's disease."
+    },
+    "ra.mri-perianal-fistula": {
+      "title": "MRI perianal fistula",
+      "radiograph": false,
+      "technique": {"normal": "MRI pelvis with high-resolution T2, fat-suppressed T2 and contrast-enhanced images.",
+                    "options": []},
+      "sections": [
+        {"heading": "Primary tract", "normal": "No perianal fistula.",
+         "options": ["[Intersphincteric / Transsphincteric / Suprasphincteric / Extrasphincteric] fistula, internal opening at [ ] o'clock, [ ] cm from the anal verge.",
+                     "External opening at [ ]."]},
+        {"heading": "Extensions", "normal": "No secondary tract or horseshoe extension.",
+         "options": ["[Horseshoe / Ischioanal / Supralevator] extension [ ]."]},
+        {"heading": "Abscess", "normal": "No abscess.",
+         "options": ["[ ] mm abscess in the [ ]."]},
+        {"heading": "Activity", "normal": "No active inflammation.",
+         "options": ["[Active / Fibrotic] tract with [ ]."]},
+        {"heading": "Sphincters", "normal": "Intact internal and external sphincters.",
+         "options": ["[Sphincter defect / Scarring] at [ ]."]}
+      ],
+      "impression": "No perianal fistula or abscess."
+    },
+    "ra.mri-rectal-cancer": {
+      "title": "MRI rectum, staging / MRI rectum, restaging",
+      "radiograph": false,
+      "technique": {"normal": "High-resolution T2-weighted MRI of the rectum with diffusion-weighted imaging.",
+                    "options": []},
+      "sections": [
+        {"heading": "Tumour", "normal": "No rectal tumour.",
+         "options": ["[ ] cm [annular / semi-annular / polypoid] tumour, lower edge [ ] cm from the anal verge, [low / mid / high] rectum.",
+                     "Extramural spread [ ] mm, T[1 / 2 / 3a / 3b / 3c / 3d / 4a / 4b].",
+                     "Tumour regression grade mrTRG [1 / 2 / 3 / 4 / 5]."]},
+        {"heading": "Mesorectal fascia and EMVI", "normal": "Clear mesorectal fascia. No extramural venous invasion.",
+         "options": ["Tumour [ ] mm from the mesorectal fascia at [ ] o'clock.",
+                     "EMVI positive at [ ]."]},
+        {"heading": "Anal sphincter", "normal": "No sphincter involvement.",
+         "options": ["Involvement of the [internal sphincter / intersphincteric plane / external sphincter / levator ani] [ ]."]},
+        {"heading": "Nodes and deposits", "normal": "No suspicious mesorectal or lateral pelvic lymph nodes. No tumour deposits.",
+         "options": ["[ ] suspicious [mesorectal / lateral pelvic] nodes, largest [ ] mm.",
+                     "Tumour deposits [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No rectal tumour."
+    },
+    "ra.mri-anal-cancer": {
+      "title": "MRI anal canal, staging",
+      "radiograph": false,
+      "technique": {"normal": "High-resolution T2-weighted MRI of the anal canal and pelvis with diffusion-weighted imaging.",
+                    "options": []},
+      "sections": [
+        {"heading": "Primary tumour", "normal": "No anal canal tumour.",
+         "options": ["[ ] cm tumour of the [anal canal / anal margin] from [ ] to [ ] o'clock, extending [ ] cm.",
+                     "T[1 / 2 / 3 / 4] by size and invasion."]},
+        {"heading": "Sphincters and adjacent organs", "normal": "No invasion of the sphincters, vagina, urethra, prostate or bladder.",
+         "options": ["Invasion of the [external sphincter / levator ani / vagina / urethra / prostate] [ ]."]},
+        {"heading": "Lymph nodes", "normal": "No suspicious mesorectal, inguinal or pelvic sidewall lymph nodes.",
+         "options": ["Suspicious [mesorectal / internal iliac / external iliac / inguinal] nodes, largest [ ] mm."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No anal canal tumour."
+    },
+    "ra.esophagus": {
+      "title": "Barium swallow",
+      "radiograph": false,
+      "technique": {"normal": "Barium swallow with double-contrast and single-contrast views.",
+                    "options": ["Water-soluble contrast swallow for suspected leak."]},
+      "sections": [
+        {"heading": "Oesophageal lumen", "normal": "Normal calibre oesophagus. No stricture or filling defect.",
+         "options": ["[Stricture / Web / Ring / Mass] at [ ] cm, [smooth / irregular] [ ].",
+                     "[Diverticulum / Hiatus hernia] [ ]."]},
+        {"heading": "Mucosa", "normal": "Normal mucosal pattern.",
+         "options": ["[Ulceration / Plaques / Nodularity / Reflux oesophagitis] [ ]."]},
+        {"heading": "Motility", "normal": "Normal primary peristalsis and lower oesophageal sphincter opening.",
+         "options": ["[Tertiary contractions / Achalasia pattern / Reduced peristalsis] [ ].",
+                     "Gastro-oesophageal reflux to the [ ]."]},
+        {"heading": "Leak", "normal": "No contrast leak.",
+         "options": ["Contrast leak at [ ] [ ]."]}
+      ],
+      "impression": "Normal oesophagus."
+    },
+    "ra.swallowing": {
+      "title": "Videofluoroscopic swallow study",
+      "radiograph": false,
+      "technique": {"normal": "Videofluoroscopic swallow with thin, mildly thick, moderately thick and solid consistencies, lateral and AP views.",
+                    "options": []},
+      "sections": [
+        {"heading": "Oral phase", "normal": "Normal bolus formation, control and transit.",
+         "options": ["[Premature spillage / Oral residue / Prolonged transit] [ ]."]},
+        {"heading": "Pharyngeal phase", "normal": "Timely swallow initiation. No pharyngeal residue.",
+         "options": ["[Delayed initiation / Vallecular residue / Pyriform sinus residue / Reduced laryngeal elevation] [ ]."]},
+        {"heading": "Airway protection", "normal": "No penetration or aspiration (PAS 1).",
+         "options": ["[Penetration / Aspiration] with [ ], PAS [ ], [with / without] cough."]},
+        {"heading": "Oesophageal phase", "normal": "Normal oesophageal clearance.",
+         "options": ["[Stasis / Retrograde flow / Delayed clearance] [ ]."]},
+        {"heading": "Structural findings", "normal": "No structural abnormality.",
+         "options": ["[Cricopharyngeal bar / Zenker diverticulum / Osteophyte impression] [ ]."]}
+      ],
+      "impression": "Safe swallow for all consistencies tested."
+    },
+    "ra.dynamic-rectal-examination": {
+      "title": "Fluoroscopic defecography",
+      "radiograph": false,
+      "technique": {"normal": "Fluoroscopic defecography with rectal barium paste and small bowel and vaginal opacification.",
+                    "options": []},
+      "sections": [
+        {"heading": "Rest and squeeze", "normal": "Normal anorectal angle at rest and squeeze.",
+         "options": ["[Paradoxical puborectalis contraction / Abnormal anorectal angle] [ ]."]},
+        {"heading": "Pelvic floor descent", "normal": "Normal pelvic floor descent.",
+         "options": ["Perineal descent [ ] cm."]},
+        {"heading": "Rectocele", "normal": "No significant rectocele.",
+         "options": ["[Anterior / Posterior] rectocele, [ ] cm depth, [with / without] barium trapping."]},
+        {"heading": "Intussusception and enterocele", "normal": "No intussusception or enterocele.",
+         "options": ["[Intrarectal / Intra-anal / External] intussusception.",
+                     "[Enterocele / Sigmoidocele] [ ]."]},
+        {"heading": "Evacuation", "normal": "Complete, prompt evacuation.",
+         "options": ["[Incomplete / Prolonged] evacuation [ ]."]}
+      ],
+      "impression": "Normal defecography."
+    },
+    "ra.gi-foreign-bodies": {
+      "title": "Foreign body radiographs, neck, chest and abdomen",
+      "radiograph": true,
+      "sections": [
+        {"heading": "Foreign body", "normal": "No radiopaque foreign body.",
+         "options": ["[Coin / Button battery / Magnet / Sharp object] in the [oesophagus / stomach / small bowel / colon / airway] [ ].",
+                     "[Double-ring / Step-off] sign [ ]."]},
+        {"heading": "Airway and soft tissues", "normal": "Normal airway and prevertebral soft tissues.",
+         "options": ["[Prevertebral swelling / Soft tissue gas / Airway narrowing] [ ]."]},
+        {"heading": "Bowel and free gas", "normal": "Normal bowel gas pattern. No free gas.",
+         "options": ["[Bowel obstruction / Pneumoperitoneum / Pneumomediastinum] [ ]."]}
+      ],
+      "impression": "No radiopaque foreign body."
+    },
+    "ra.ct-pancreatitis": {
+      "title": "CT pancreas with contrast",
+      "radiograph": false,
+      "technique": {"normal": "Pancreatic and portal venous phase CT abdomen and pelvis with IV contrast.",
+                    "options": []},
+      "sections": [
+        {"heading": "Pancreas", "normal": "Normal pancreatic enhancement and contour.",
+         "options": ["[Interstitial oedematous / Necrotising] pancreatitis, necrosis [less than 30 / 30 to 50 / more than 50] percent.",
+                     "Modified CT severity index [ ]."]},
+        {"heading": "Collections", "normal": "No peripancreatic collection.",
+         "options": ["[Acute peripancreatic fluid collection / Pseudocyst / Acute necrotic collection / Walled-off necrosis], [ ] cm, [ ].",
+                     "Gas in a collection [ ]."]},
+        {"heading": "Vessels", "normal": "Patent splenic, portal and mesenteric veins. No pseudoaneurysm.",
+         "options": ["[Splenic vein thrombosis / Pseudoaneurysm / Haemorrhage] [ ]."]},
+        {"heading": "Ducts and gallbladder", "normal": "No biliary or pancreatic duct dilatation. No gallstones.",
+         "options": ["[Gallstones / Biliary dilatation / Pancreatic duct disruption] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[Ascites / Pleural effusion / Bowel involvement] [ ]."]}
+      ],
+      "impression": "No CT features of acute pancreatitis."
+    },
+    "ra.ct-pancreatic-cancer": {
+      "title": "CT pancreas protocol",
+      "radiograph": false,
+      "technique": {"normal": "Pancreatic protocol CT with pancreatic and portal venous phases.",
+                    "options": []},
+      "sections": [
+        {"heading": "Primary tumour", "normal": "No pancreatic mass.",
+         "options": ["[ ] mm hypoattenuating mass in the pancreatic [head / uncinate process / neck / body / tail].",
+                     "Pancreatic duct [ ] mm; CBD [ ] mm."]},
+        {"heading": "Arterial contact", "normal": "No contact with the SMA, coeliac axis or common hepatic artery.",
+         "options": ["[Abutment / Encasement] of the [SMA / coeliac axis / common hepatic artery], [ ] degrees.",
+                     "Variant arterial anatomy: [ ]."]},
+        {"heading": "Venous contact", "normal": "No contact with the SMV or portal vein.",
+         "options": ["[ ] degrees contact with the [SMV / portal vein], [with / without] contour deformity, [ ] cm length."]},
+        {"heading": "Metastases", "normal": "No liver, peritoneal or distant nodal metastasis.",
+         "options": ["[Liver metastasis / Peritoneal deposit / Ascites / Distant lymphadenopathy] [ ]."]},
+        {"heading": "Resectability", "normal": "No tumour to stage.",
+         "options": ["[Resectable / Borderline resectable / Locally advanced / Metastatic] (NCCN)."]}
+      ],
+      "impression": "No pancreatic mass."
+    },
+    "ra.pancreatic-cysts": {
+      "title": "MRI pancreas and MRCP",
+      "radiograph": false,
+      "technique": {"normal": "MRI pancreas with MRCP and IV contrast.",
+                    "options": []},
+      "sections": [
+        {"heading": "Cysts", "normal": "No pancreatic cyst.",
+         "options": ["[ ] mm [unilocular / multilocular / microcystic] cyst in the pancreatic [head / body / tail], [communicating / not communicating] with the duct.",
+                     "Most likely [side-branch IPMN / serous cystadenoma / mucinous cystic neoplasm / pseudocyst]."]},
+        {"heading": "Worrisome features", "normal": "No worrisome feature or high-risk stigma.",
+         "options": ["[Enhancing mural nodule / Thickened enhancing wall / Main duct 5 to 9 mm / Main duct 10 mm or more / Growth of 5 mm or more in 2 years] [ ]."]},
+        {"heading": "Pancreatic duct", "normal": "Normal calibre main pancreatic duct.",
+         "options": ["Main pancreatic duct [ ] mm."]},
+        {"heading": "Pancreas", "normal": "Normal pancreatic parenchyma.",
+         "options": ["[Atrophy / Pancreatitis / Solid mass] [ ]."]}
+      ],
+      "impression": "No pancreatic cyst."
+    },
+    "ra.ct-peritoneum": {
+      "title": "CT abdomen and pelvis with contrast, peritoneum and mesentery",
+      "radiograph": false,
+      "technique": {"normal": "Portal venous phase CT abdomen and pelvis with IV contrast.",
+                    "options": []},
+      "sections": [
+        {"heading": "Peritoneum", "normal": "No ascites, peritoneal thickening or nodularity.",
+         "options": ["[Ascites / Smooth peritoneal thickening / Nodular peritoneal thickening / Collection] [ ]."]},
+        {"heading": "Omentum and mesentery", "normal": "Normal omentum and mesentery.",
+         "options": ["[Omental cake / Misty mesentery / Mesenteric mass / Fat necrosis / Epiploic appendagitis] [ ]."]},
+        {"heading": "Bowel", "normal": "No bowel involvement or obstruction.",
+         "options": ["[Tethering / Obstruction / Serosal deposit] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "Normal peritoneum and mesentery."
+    },
+    "ra.ct-peritoneal-carcinomatosis": {
+      "title": "CT chest, abdomen and pelvis with contrast, peritoneal disease",
+      "radiograph": false,
+      "technique": {"normal": "Portal venous phase CT chest, abdomen and pelvis with IV contrast.",
+                    "options": []},
+      "sections": [
+        {"heading": "Peritoneal disease", "normal": "No peritoneal nodules or ascites.",
+         "options": ["Peritoneal deposits in the [ ], largest [ ] mm.",
+                     "Estimated peritoneal cancer index [ ]."]},
+        {"heading": "Omentum", "normal": "Normal omentum.",
+         "options": ["Omental cake [ ] cm."]},
+        {"heading": "Small bowel and mesentery", "normal": "No small bowel serosal or mesenteric root disease.",
+         "options": ["[Serosal disease / Mesenteric retraction / Obstruction] [ ]."]},
+        {"heading": "Critical sites", "normal": "No disease at the porta hepatis, lesser sac, hepatic hilum or diaphragm.",
+         "options": ["Disease at the [porta hepatis / lesser sac / subdiaphragmatic space / mesenteric root] [ ]."]},
+        {"heading": "Primary and other spread", "normal": "No primary tumour, nodal or distant metastasis identified.",
+         "options": ["[Ovarian mass / Colonic mass / Gastric mass / Lymphadenopathy / Liver metastasis] [ ]."]}
+      ],
+      "impression": "No peritoneal carcinomatosis."
+    },
+    "ra.abdominal-wall-hernias": {
+      "title": "CT abdomen and pelvis, abdominal wall hernia",
+      "radiograph": false,
+      "technique": {"normal": "CT abdomen and pelvis with IV contrast.",
+                    "options": ["Valsalva images [ ]."]},
+      "sections": [
+        {"heading": "Hernia", "normal": "No abdominal wall hernia.",
+         "options": ["[Inguinal / Femoral / Umbilical / Incisional / Spigelian / Lumbar / Obturator] hernia, defect [ ] cm.",
+                     "Contents: [fat / small bowel / large bowel / bladder] [ ]."]},
+        {"heading": "Complications", "normal": "No obstruction, incarceration or strangulation.",
+         "options": ["[Obstruction / Incarceration / Strangulation] [ ]."]},
+        {"heading": "Abdominal wall", "normal": "Normal abdominal wall musculature.",
+         "options": ["[Rectus diastasis / Mesh / Seroma / Haematoma] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
+      ],
+      "impression": "No abdominal wall hernia."
+    }
+  }
+}

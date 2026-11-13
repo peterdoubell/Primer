@@ -95,14 +95,20 @@ def before_endometrial_delivery_bytes(path, raw):
         raise ValueError("Endometrial source delivery changed unrelated bytes")
     return restored
 
-def before_source_studies_bytes(path, raw):
+def before_combined_source_release_bytes(path, raw):
     if str(path) == 'web/app.js':
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hepatic-vessel-navigation/runtime-inverse.json', '4da81c30d94c9998119e7263a30b6b798b0bbcf28cb4f64aff3cab491d2f23c7')
-    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'aca03148e7fd7e4126b8f465d0d5dc62557e3ff4018e053c82ad717df5f7c7e6':
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hepatic-vessel-navigation/runtime-inverse.json', '41b11d4a5301b0f6120e1ae95b2c2b992e617b499cf52b29a8442b9cbe1744ad')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '12a7c5b6d8a8a48728be5ab918574ee89f9bf53671ca57b8b6355ba4cdc9b15e':
         raw = raw.replace(b"  if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },\n    'Explore every child and a tree: two scope orders'));\n", b'', 1)
-        if hashlib.sha256(raw).hexdigest() != 'fbd9bb7a78d48db44f5d1e4ee256778aba03213aa041589c565f91a10bf616f1':
+        if hashlib.sha256(raw).hexdigest() != '2fa2dbf4e88e2179d7811cea6d1f1852653bd12c3a753135b057cac4986e3656':
             raise ValueError('Quantifier scope link changed unrelated reader bytes')
-    raw = before_liver_regions_bytes(path, raw)
+    return before_liver_regions_bytes(path, raw)
+
+
+def before_source_studies_bytes(path, raw):
+    raw = before_combined_source_release_bytes(path, raw)
+    from tools.fast_report_templates_compatibility import before_fast_templates_bytes
+    raw = before_fast_templates_bytes(path, raw)
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '1bcc58db62c46a558d7e1c691e1b9db44b09cd92bea386c2bf1b8b338d6d113b':
         raw = raw.replace(b"  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },\n    'Balance nucleons and charge in nuclear reactions'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != 'd278fa8be990e8bf83ce8dbaa3d1e2fcf2ac0b87d8ffe5b1bd0d38ed5b0288f9':

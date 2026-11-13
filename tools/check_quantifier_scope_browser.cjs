@@ -22,7 +22,7 @@ const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),ass
  await p.locator('#challenge').selectOption('only-one');await p.locator('#check').click();assert.match(await p.locator('#feedback').textContent(),/No scene/);
  await p.locator('#example').selectOption('273');await p.locator('#link-0-1').focus();await p.keyboard.press('Space');assert.ok(await p.locator('#link-0-1').isChecked());
  for(const width of [320,390,1440]){await p.setViewportSize({width,height:1000});assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));}
- 
+
  assert.deepEqual(errors,[]);console.log('All 512 rendered relations, SVG edges, challenges, stale-state clearing, keyboard and responsive layouts passed.');
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

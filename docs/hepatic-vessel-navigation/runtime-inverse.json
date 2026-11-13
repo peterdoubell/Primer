@@ -1,11 +1,11 @@
 {
   "web/app.js": {
-    "before": "aca03148e7fd7e4126b8f465d0d5dc62557e3ff4018e053c82ad717df5f7c7e6",
-    "after": "f2342d9c3db59cf2df0f171fb69976d1c2a0baad473d63f5485c099a24098be2",
+    "before": "12a7c5b6d8a8a48728be5ab918574ee89f9bf53671ca57b8b6355ba4cdc9b15e",
+    "after": "f4c23a904f8e527c6a292fb56d8241bece656f19908b1f2d7e7d4d5f6743c6ea",
     "changes": [
       {
-        "start": 2954,
-        "end": 2975,
+        "start": 2963,
+        "end": 2984,
         "before": "    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'));\n",
         "after": "    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),\n    el('h3', {}, 'Vascular references from a separate CT case'),\n    el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),\n    el('ul', {}, ...[\n  {\n    \"title\": \"Common hepatic artery on source CT\",\n    \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4\"\n  },\n  {\n    \"title\": \"Right hepatic arterial branch on source CT\",\n    \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:1\"\n  },\n  {\n    \"title\": \"Left hepatic arterial branch on source CT\",\n    \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:2\"\n  },\n  {\n    \"title\": \"Portal vein on source CT\",\n    \"href\": \"/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7\"\n  }\n].map(row => el('li', {}, el('a', {href:row.href + '&from=' + encodeURIComponent(nodeId)}, row.title)))));\n"
       }

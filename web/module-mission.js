@@ -98,3 +98,46 @@ renderNode = async function(page, nodeId) {
   ].filter(item => item.target);
   if (targets.length) page.insertBefore(renderModuleMission({}, targets), page.children[2] || null);
 };
+
+// Load the original game only for its mapped lesson; source records stay static.
+let divisibilityGameAssets;
+function loadDivisibilityGame() {
+  if (!divisibilityGameAssets) {
+    divisibilityGameAssets = Promise.all([
+      new Promise((resolve, reject) => {
+        if (window.PrimerDivisibility) return resolve();
+        const script = document.createElement('script');
+        script.src = '/app/learning-games/divisibility/game.js';
+        script.onload = resolve;
+        script.onerror = () => { script.remove(); reject(new Error('Game script unavailable')); };
+        document.head.append(script);
+      }),
+      fetch('/app/learning-games/divisibility/model.json').then(response => {
+        if (!response.ok) throw new Error('Game model unavailable');
+        return response.json();
+      }),
+    ]).then(([, model]) => model).catch(error => { divisibilityGameAssets = null; throw error; });
+  }
+  return divisibilityGameAssets;
+}
+const divisibilityOriginalRenderNode = renderNode;
+renderNode = async function(page, nodeId) {
+  await divisibilityOriginalRenderNode(page, nodeId);
+  if (nodeId !== 'math.2.primes' || !page.isConnected || !page.querySelector('.lesson-card')) return;
+  const game = el('section', { class: 'card divisibility-game' });
+  game.append(el('p', {}, 'Loading Last-Digit Detective…'));
+  const trail = page.querySelector('.module-mission');
+  if (trail) trail.after(game); else page.append(game);
+  async function mountGame() {
+    try {
+      const model = await loadDivisibilityGame();
+      if (!game.isConnected) return;
+      game.replaceChildren(); window.PrimerDivisibility.mount(game, model);
+    } catch (error) {
+      if (!game.isConnected) return;
+      game.replaceChildren(el('p', {}, 'The game could not load. Your lesson is still available.'),
+        btn({ class: 'btn', onclick: mountGame }, 'Retry game'));
+    }
+  }
+  await mountGame();
+};

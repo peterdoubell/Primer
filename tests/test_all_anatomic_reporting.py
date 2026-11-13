@@ -85,7 +85,8 @@ def test_every_native_investigation_and_source_worksheet_is_curated_without_fall
     original_ids = {inv['id'] for form in SOURCE['forms'].values() for inv in form['investigations']}
     new_mri_exams = {'msk.mri-hip', 'msk.mri-foot', 'msk.mri-wrist', 'msk.mri-hand'}
     authored_ids = [iid for _, authored in AUTHORED for iid in authored['investigations']]
-    additions = set(json.loads((ROOT / 'data/radiology/anatomic-additions-20261026.json').read_text())['investigations'])
+    additions = {iid for path in sorted((ROOT / 'data/radiology').glob('anatomic-additions-*.json'))
+                 for iid in json.loads(path.read_text())['investigations']}
     expected = 156 + len(additions)
     assert len(CATALOG['forms']) == 98
     assert len(EXAMS) == len(authored_ids) == len(set(authored_ids)) == expected

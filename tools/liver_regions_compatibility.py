@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 PROOF = Path(__file__).resolve().parents[1] / "docs/liver-regions-integration/runtime-inverse.json"
-PIN = "60e66a6f0ba4f1bf67d7beec2e5532da5c2998ecd73d42690e5c680cacf8f016"
+PIN = "97052607ee56341fd5d08d3552ab61d7f1b2354dd4a35d76c1dab5d84f53156c"
 
 def before_liver_regions_bytes(path, raw):
     if str(path) not in {"primer/server.py", "vercel.json", "web/app.js"}:
