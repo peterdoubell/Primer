@@ -1,0 +1,56 @@
+{
+  "web/app.js": {
+    "before": "f4c23a904f8e527c6a292fb56d8241bece656f19908b1f2d7e7d4d5f6743c6ea",
+    "after": "1de6477573a397fcf62b4aecb31e21a2e4d777ffd4423ca530fd00d449d36ab7",
+    "changes": [
+      {
+        "start": 2958,
+        "end": 2966,
+        "before": "",
+        "after": "function renderBiliaryAtlasStudy(nodeId) {\n  if (!['rad.5.biliary', 'ra.biliary-duct-pathology', 'ra.ultrasound-gallbladder'].includes(nodeId)) return null;\n  return el('section', {class:'card', 'aria-label':'Biliary source atlas'},\n    el('h2', {}, 'Biliary ducts and gallbladder in 3D'),\n    el('p', {}, 'Inspect original BodyParts3D objects for the gallbladder, hepatic ducts and selected tributaries.'),\n    el('a', {href:'/app/anatomy/bp3d-biliary-4.3/index.html?from=' + encodeURIComponent(nodeId)}, 'Explore the biliary source atlas'));\n}\n\n"
+      },
+      {
+        "start": 3152,
+        "end": 3154,
+        "before": "",
+        "after": "  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);\n  if (biliaryAtlas) page.append(biliaryAtlas);\n"
+      },
+      {
+        "start": 3995,
+        "end": 3997,
+        "before": "",
+        "after": "  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);\n  if (biliaryAtlas) page.append(biliaryAtlas);\n"
+      }
+    ]
+  },
+  "primer/server.py": {
+    "before": "55503cad47cd959812330241afd303ef602822ce784890a43156fe02d733820d",
+    "after": "51139bcc221dcaa25588a41c444170af82d441b19d7bd678fc47e33e9900356d",
+    "changes": [
+      {
+        "start": 4241,
+        "end": 4252,
+        "before": "",
+        "after": "@app.api_route(\"/app/anatomy/bp3d-biliary-4.3/{asset}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def biliary_source_delivery(asset: str, request: Request):\n    with open(os.path.join(WEB_DIR, \"anatomy\", \"bp3d-biliary-4.3\", \"delivery.json\"), encoding=\"utf-8\") as source:\n        files = json.load(source)[\"files\"]\n    if asset not in files and asset != \"delivery.json\":\n        return JSONResponse({\"detail\": \"Unknown biliary source asset\"}, status_code=404)\n    if asset.endswith(\".gz\") and os.environ.get(\"VERCEL\"):\n        return RedirectResponse(\"/source-media/anatomy/bp3d-biliary-4.3/\" + asset, status_code=307)\n    return await app.state.source_static.get_response(\"anatomy/bp3d-biliary-4.3/\" + asset, request.scope)\n\n\n"
+      }
+    ]
+  },
+  "vercel.json": {
+    "before": "4b1483320f19ea7619bf36db06c932c40a3f065c427048e553dab1b2a58aae71",
+    "after": "5141e3ce92f0eda514600316e668e1fc14b558720c89cac9d2ede4ffcfab3e34",
+    "changes": [
+      {
+        "start": 7,
+        "end": 8,
+        "before": "        \"excludeFiles\": \"{.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz}\"\n",
+        "after": "        \"excludeFiles\": \"{.git/**,.github/**,.research/**,tests/**,tools/**,docs/*/**,public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**,web/anatomy/totalseg-s0028-basal-context/originals/**,web/anatomy/totalseg-s0028-basal-context/surfaces/**,web/anatomy/totalseg-v1-s0028-cardiac/originals/**,web/anatomy/totalseg-v1-s0028-cardiac/surfaces/**,web/anatomy/bp3d-cardiac-4.3/originals/**,web/anatomy/bp3d-cardiac-4.3/transport/**,web/reference-media/cardiac-comparisons-2020/images/**,web/anatomy/hippunfold-hcp101006-registered/*.gz,web/anatomy/spl-nac-limbic/*.gz,web/anatomy/spl-nac-reporting/*.gz,web/anatomy/spl-nac-reporting/manifest.json,web/anatomy/spl-nac-limbic/originals/**,web/anatomy/holiatlas/*.pack,web/anatomy/holiatlas/*.mesh.gz,web/anatomy/holiatlas/*-faces.bin.gz,web/anatomy/holiatlas/manifest.json,web/anatomy/holiatlas/labels.json,web/anatomy/holiatlas/hierarchy.json,web/anatomy/schirmer-vascular/*.pack,web/anatomy/schirmer-vascular/*.mesh.gz,web/anatomy/schirmer-vascular/*.faces.gz,web/anatomy/schirmer-vascular/originals/**,web/anatomy/schirmer-vascular/manifest.json,web/anatomy/schirmer-vascular/labels.json,web/anatomy/schirmer-vascular/hierarchy.json,web/anatomy/schirmer-vascular/publication-figure1.webp,web/anatomy/spl-additional-source/*.gz,web/anatomy/spl-additional-source/manifest.json,web/anatomy/verse521/ct-reference.html,web/anatomy/totalseg-v3-s0358/ct-reference.html,web/anatomy/spl-sellar-interfaces/**/*.svg,web/anatomy/spl-sellar-interfaces/**/*.mesh.gz,web/anatomy/spl-sellar-interfaces/viewer/*.json,web/anatomy/cptac-endometrial/*.gz,web/anatomy/colonvessels-pat012/**/*.gz,web/anatomy/liver-regions-mri/*.gz,web/anatomy/bp3d-biliary-4.3/*.gz}\"\n"
+      },
+      {
+        "start": 172,
+        "end": 176,
+        "before": "",
+        "after": "      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/anatomy/bp3d-biliary-4.3/*.gz\",\n"
+      }
+    ]
+  }
+}
