@@ -236,7 +236,7 @@ def reporting_reconciliation(root, inventory):
         additions.update(json.loads(additions_path.read_text())["investigations"])
     if set(additions) & (set(required) | prior_missing):
         raise ValueError("New report additions cannot relabel historical investigation identities")
-    expanded_since_prior = {'ra.mri-epilepsy', 'ra.mullerian-anomalies'} & set(required)
+    expanded_since_prior = {'ra.mri-epilepsy', 'ra.mullerian-anomalies', 'ra.intracranial-haemorrhage'} & set(required)
     if missing != (prior_missing - expanded_since_prior) | set(additions) or set(RELATED_SCOPES) - missing - expanded_since_prior:
         raise ValueError("Current reporting identities changed; review the complete new scope")
     def norm(text):
@@ -313,9 +313,9 @@ def replace_brain_bytes(raw, brain):
 def before_recent_reporting_inventories(raw):
     """Recover the historical inventory from the exact reviewed extension."""
     encoded = raw.encode() if isinstance(raw, str) else raw
-    if hashlib.sha256(encoded).hexdigest() != 'ba7c95a8033ebb2516e38052945f0920839950ab284e5d411a489fc8c63bcd21':
+    if hashlib.sha256(encoded).hexdigest() != '31fdf084790bb82c1d010649dd19baeb0e0475077a9b0e41d98ed1e153a86374':
         return raw
-    restored = encoded[:2306] + encoded[2363:26375747] + encoded[26492338:]
+    restored = encoded[:2306] + encoded[2400:26375784] + encoded[26567631:]
     if hashlib.sha256(restored).hexdigest() != '62cfde66f51d394d62df95b9721a989c1bea32a74baa2cf56df2de1cabce17cf':
         raise ValueError('Recent reporting inventory inverse changed unrelated bytes')
     return restored.decode() if isinstance(raw, str) else restored

@@ -78,7 +78,8 @@
       "ra.acute-stroke",
       "ra.ct-pulmonary-nodules",
       "ra.mullerian-anomalies",
-      "ra.mri-epilepsy"
+      "ra.mri-epilepsy",
+      "ra.intracranial-haemorrhage"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -527455,6 +527456,1973 @@
           "targets": [
             "Every affected gyrus, sulcus and cortical interface",
             "Each lesion, side, extent, relevant acquired sequence and linked electroclinical finding"
+          ]
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.intracranial-haemorrhage",
+      "module_id": "rad.5.intracranial-haemorrhage",
+      "title": "Non-traumatic intracranial haemorrhage imaging",
+      "modality": "Multimodality",
+      "scope_type": "nontraumatic_intracranial_blood_and_case_specific_cause",
+      "clinical_validation_status": "draft_requires_neuroradiologist_review",
+      "source_contract_sha256": "f0427e74028a05d1d69c01875d8a8b492f93047045bbb057aa02079fccd20bc0",
+      "reporting_checklist": [
+        {
+          "label": "Haemorrhage Compartment",
+          "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+        },
+        {
+          "label": "Parenchymal Distribution",
+          "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+        },
+        {
+          "label": "Subarachnoid And Ventricular Extension",
+          "detail": "Map cisternal/sulcal blood and ventricular involvement."
+        },
+        {
+          "label": "Mass Effect",
+          "detail": "Assess ventricular obstruction, shift and cisterns."
+        },
+        {
+          "label": "Underlying Cause",
+          "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "HAEMORRHAGE COMPARTMENT",
+          "body": "Compartment: [ ]. Site/side: [ ]."
+        },
+        {
+          "heading": "PARENCHYMAL DISTRIBUTION",
+          "body": "Distribution: [ ]. Dimensions: [ ]. Oedema: [ ]."
+        },
+        {
+          "heading": "SUBARACHNOID AND VENTRICULAR EXTENSION",
+          "body": "Subarachnoid pattern: [ ]. Intraventricular blood: [ ]."
+        },
+        {
+          "heading": "MASS EFFECT",
+          "body": "Hydrocephalus: [ ]. Shift: [ ] mm. Cisterns/herniation: [ ]."
+        },
+        {
+          "heading": "UNDERLYING CAUSE",
+          "body": "CTA/MRA/MRI findings: [ ]. Suspected cause/evidence: [ ]. Unassessed cause: [ ]."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "structures": [
+        {
+          "id": "nontraumatic_ich.left.frontal.bleed",
+          "name": "Left frontal haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.parietal.bleed",
+          "name": "Left parietal haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.temporal.bleed",
+          "name": "Left temporal haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.occipital.bleed",
+          "name": "Left occipital haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.insular.bleed",
+          "name": "Left insular haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.thalamic.bleed",
+          "name": "Left thalamic haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.basal_ganglia.bleed",
+          "name": "Left basal ganglia haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.cerebellar.bleed",
+          "name": "Left cerebellar haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.subdural",
+          "name": "Left subdural collection",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.subdural.collection_extent",
+              "name": "Collection extent"
+            },
+            {
+              "id": "nontraumatic_ich.left.subdural.dural_and_cortical_interfaces",
+              "name": "Dural and cortical interfaces"
+            },
+            {
+              "id": "nontraumatic_ich.left.subdural.local_compression",
+              "name": "Local compression"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.sulcal",
+          "name": "Left sulcal subarachnoid blood",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.sulcal.acquired_involved_sulci",
+              "name": "Acquired involved sulci"
+            },
+            {
+              "id": "nontraumatic_ich.left.sulcal.sulcal_blood_extent",
+              "name": "Sulcal blood extent"
+            },
+            {
+              "id": "nontraumatic_ich.left.sulcal.adjacent_cortex_interface",
+              "name": "Adjacent cortex interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.ventricular",
+          "name": "Left lateral ventricle",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.ventricular.frontal_horn",
+              "name": "Frontal horn"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.body",
+              "name": "Body"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.atrium",
+              "name": "Atrium"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.occipital_horn",
+              "name": "Occipital horn"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.temporal_horn",
+              "name": "Temporal horn"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.intraventricular_blood_when_present",
+              "name": "Intraventricular blood when present"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.foramen_of_monro_interface",
+              "name": "Foramen of Monro interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.microbleeds",
+          "name": "Left susceptibility findings",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.microbleeds.lobar_microbleed_sites",
+              "name": "Lobar microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.left.microbleeds.deep_microbleed_sites",
+              "name": "Deep microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.left.microbleeds.infratentorial_microbleed_sites",
+              "name": "Infratentorial microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.left.microbleeds.cortical_superficial_siderosis_extent",
+              "name": "Cortical superficial siderosis extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.frontal.bleed",
+          "name": "Right frontal haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.parietal.bleed",
+          "name": "Right parietal haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.temporal.bleed",
+          "name": "Right temporal haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.occipital.bleed",
+          "name": "Right occipital haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.insular.bleed",
+          "name": "Right insular haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.thalamic.bleed",
+          "name": "Right thalamic haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.basal_ganglia.bleed",
+          "name": "Right basal ganglia haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.cerebellar.bleed",
+          "name": "Right cerebellar haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.subdural",
+          "name": "Right subdural collection",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.subdural.collection_extent",
+              "name": "Collection extent"
+            },
+            {
+              "id": "nontraumatic_ich.right.subdural.dural_and_cortical_interfaces",
+              "name": "Dural and cortical interfaces"
+            },
+            {
+              "id": "nontraumatic_ich.right.subdural.local_compression",
+              "name": "Local compression"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.sulcal",
+          "name": "Right sulcal subarachnoid blood",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.sulcal.acquired_involved_sulci",
+              "name": "Acquired involved sulci"
+            },
+            {
+              "id": "nontraumatic_ich.right.sulcal.sulcal_blood_extent",
+              "name": "Sulcal blood extent"
+            },
+            {
+              "id": "nontraumatic_ich.right.sulcal.adjacent_cortex_interface",
+              "name": "Adjacent cortex interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.ventricular",
+          "name": "Right lateral ventricle",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.ventricular.frontal_horn",
+              "name": "Frontal horn"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.body",
+              "name": "Body"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.atrium",
+              "name": "Atrium"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.occipital_horn",
+              "name": "Occipital horn"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.temporal_horn",
+              "name": "Temporal horn"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.intraventricular_blood_when_present",
+              "name": "Intraventricular blood when present"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.foramen_of_monro_interface",
+              "name": "Foramen of Monro interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.microbleeds",
+          "name": "Right susceptibility findings",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.microbleeds.lobar_microbleed_sites",
+              "name": "Lobar microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.right.microbleeds.deep_microbleed_sites",
+              "name": "Deep microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.right.microbleeds.infratentorial_microbleed_sites",
+              "name": "Infratentorial microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.right.microbleeds.cortical_superficial_siderosis_extent",
+              "name": "Cortical superficial siderosis extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.midbrain",
+          "name": "Midbrain haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.midbrain.core_and_margin",
+              "name": "Core and margin"
+            },
+            {
+              "id": "nontraumatic_ich.midbrain.adjacent_parenchymal_oedema",
+              "name": "Adjacent parenchymal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.midbrain.ventricular_or_cisternal_interface",
+              "name": "Ventricular or cisternal interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.pons",
+          "name": "Pons haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.pons.core_and_margin",
+              "name": "Core and margin"
+            },
+            {
+              "id": "nontraumatic_ich.pons.adjacent_parenchymal_oedema",
+              "name": "Adjacent parenchymal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.pons.ventricular_or_cisternal_interface",
+              "name": "Ventricular or cisternal interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.medulla",
+          "name": "Medulla haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.medulla.core_and_margin",
+              "name": "Core and margin"
+            },
+            {
+              "id": "nontraumatic_ich.medulla.adjacent_parenchymal_oedema",
+              "name": "Adjacent parenchymal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.medulla.ventricular_or_cisternal_interface",
+              "name": "Ventricular or cisternal interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.cisternal",
+          "name": "Cisternal subarachnoid blood",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.cisternal.suprasellar",
+              "name": "Suprasellar"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.interpeduncular",
+              "name": "Interpeduncular"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.prepontine",
+              "name": "Prepontine"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.ambient",
+              "name": "Ambient"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.quadrigeminal",
+              "name": "Quadrigeminal"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.sylvian_fissure",
+              "name": "Sylvian fissure"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.interhemispheric_fissure",
+              "name": "Interhemispheric fissure"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.midline_ventricles",
+          "name": "Midline ventricular pathways",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.midline_ventricles.third_ventricle",
+              "name": "Third ventricle"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.cerebral_aqueduct",
+              "name": "Cerebral aqueduct"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.fourth_ventricle",
+              "name": "Fourth ventricle"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.fourth_ventricular_outlets",
+              "name": "Fourth ventricular outlets"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.blood_or_obstruction_extent",
+              "name": "Blood or obstruction extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.mass_effect",
+          "name": "Mass effect and herniation",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.mass_effect.midline_landmarks",
+              "name": "Midline landmarks"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.ventricular_compression",
+              "name": "Ventricular compression"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.ventricular_enlargement",
+              "name": "Ventricular enlargement"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.transependymal_fluid_signal",
+              "name": "Transependymal fluid signal"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.subfalcine_interface",
+              "name": "Subfalcine interface"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.uncal_and_transtentorial_interfaces",
+              "name": "Uncal and transtentorial interfaces"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.foramen_magnum_and_tonsillar_interface",
+              "name": "Foramen magnum and tonsillar interface"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.effaced_basal_cisterns",
+              "name": "Effaced basal cisterns"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.arterial_cause",
+          "name": "Demonstrated arterial source",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.arterial_cause.aneurysm_sac_and_neck",
+              "name": "Aneurysm sac and neck"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.parent_vessel_and_involved_branch",
+              "name": "Parent vessel and involved branch"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.arteriovenous_malformation_nidus",
+              "name": "Arteriovenous malformation nidus"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.feeding_artery_and_draining_vein",
+              "name": "Feeding artery and draining vein"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.dural_fistula_site_and_venous_drainage",
+              "name": "Dural fistula site and venous drainage"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.acquired_contrast_extravasation_site",
+              "name": "Acquired contrast extravasation site"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.venous_cause",
+          "name": "Demonstrated venous source",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.venous_cause.involved_cortical_vein",
+              "name": "Involved cortical vein"
+            },
+            {
+              "id": "nontraumatic_ich.venous_cause.involved_dural_sinus",
+              "name": "Involved dural sinus"
+            },
+            {
+              "id": "nontraumatic_ich.venous_cause.thrombus_extent",
+              "name": "Thrombus extent"
+            },
+            {
+              "id": "nontraumatic_ich.venous_cause.venous_infarct_and_bleed_interface",
+              "name": "Venous infarct and bleed interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.structural_cause",
+          "name": "Demonstrated structural source",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.structural_cause.underlying_mass_and_interface",
+              "name": "Underlying mass and interface"
+            },
+            {
+              "id": "nontraumatic_ich.structural_cause.enhancing_component_when_acquired",
+              "name": "Enhancing component when acquired"
+            },
+            {
+              "id": "nontraumatic_ich.structural_cause.cavernous_malformation_and_susceptibility_rim",
+              "name": "Cavernous malformation and susceptibility rim"
+            },
+            {
+              "id": "nontraumatic_ich.structural_cause.haemorrhagic_infarct_extent",
+              "name": "Haemorrhagic infarct extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.callosum",
+          "name": "Corpus callosum haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.callosum.genu",
+              "name": "Genu and adjacent interface"
+            },
+            {
+              "id": "nontraumatic_ich.callosum.body",
+              "name": "Callosal body and adjacent interface"
+            },
+            {
+              "id": "nontraumatic_ich.callosum.splenium",
+              "name": "Splenium and adjacent interface"
+            },
+            {
+              "id": "nontraumatic_ich.callosum.bleed",
+              "name": "Blood extent within the affected callosal part"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        "https://doi.org/10.1161/STR.0000000000000407",
+        "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+      ],
+      "functional_evidence_requirements": [
+        {
+          "name": "Original scan orientation, calibration and acquired extent",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Noncontrast CT, susceptibility MRI or vascular phase identity",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Acquired interval change and image matching",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Actual vascular or structural cause evidence and limitations",
+          "status": "requires_case_specific_evidence"
+        }
+      ],
+      "source_scope_issues": [
+        "Traumatic source cases do not establish non-traumatic pathology.",
+        "Candidate datasets require source review of original CT and mask rights.",
+        "Separate blood, oedema and displacement labels require case-specific evidence."
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual haemorrhage site, named compartment and involved structure",
+            "Each acquired cause-specific vessel, lesion, imaging phase and unassessed feature"
           ]
         }
       ]
