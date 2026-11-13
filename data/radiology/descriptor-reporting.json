@@ -69354,20 +69354,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Biopsy acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Limited CT localization for needle planning.",
+              "Serial CT images confirming needle position.",
+              "Limited post-procedure CT assessment."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiopaedia.org/articles/ct-guided-biopsy"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -69500,7 +69496,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "8805af76668a6ff2ffe63988da1d40a1c932d16f144f2b83d0836b75c8769b2f",
+      "schema_hash": "c7eb07a40ef469c15959ddf32402d58ff77b98c2f659bd4a1051b4fa9e39e75a",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -91778,17 +91774,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "SI joint series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Oblique coronal T1-weighted images through both SI joints.",
+              "Oblique coronal and oblique axial fluid-sensitive images through both SI joints."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/sacroiliac-joint-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -92458,15 +92452,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the knee.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -93404,7 +93398,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "9cc403fca04d442555e72f92b2c464de680b660f5e8b0b75b2535de9ce55bafe",
+      "schema_hash": "83dc78057c19623bf1fc61778cae7244846e226ca41b18e0ddf44b84bbda0386",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -122838,15 +122832,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the lungs at full inspiration.",
+              "Thin-section high-spatial-frequency reconstructions.",
+              "Expiratory series.",
+              "Prone inspiratory series."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -122890,7 +122886,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "fbb174f06d287a08643ad6f1542341a7137a19ff2570dea7b9b82f7270760874",
+      "schema_hash": "b00008438159bd5b3711d3904546653b5386f2fa02778288aae032a0861e6e6d",
       "anatomic_sources": {
         "anatomic-cardiorespiratory:ref-cystic-lung-disease-differential-diagnosis": {
           "id": "ref-cystic-lung-disease-differential-diagnosis",
@@ -140702,15 +140698,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the urinary tract from kidneys to bladder.",
+              "Thin axial and coronal urinary tract reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -154051,17 +154047,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Renal MRI series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Renal T2-weighted and precontrast T1-weighted imaging.",
+              "Dynamic renal postcontrast T1-weighted imaging.",
+              "Subtraction images from matched precontrast and postcontrast acquisitions.",
+              "Renal DWI and ADC maps."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/kidney/solid-masses",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -158920,17 +158917,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Renal MRI series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Renal T2-weighted and precontrast T1-weighted imaging.",
+              "Dynamic renal postcontrast T1-weighted imaging.",
+              "Subtraction images from matched precontrast and postcontrast acquisitions.",
+              "Renal DWI and ADC maps."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/kidney/solid-masses",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -159719,17 +159717,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Renal MRI series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Renal T2-weighted and precontrast T1-weighted imaging.",
+              "Dynamic renal postcontrast T1-weighted imaging.",
+              "Subtraction images from matched precontrast and postcontrast acquisitions.",
+              "Renal DWI and ADC maps."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/kidney/solid-masses",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -160853,7 +160852,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "724a6fb91b3d4aea6a626fa52867f48b7d77dcac19b693ae982f926f0d6bd6d4",
+      "schema_hash": "5e46a5c9f7f352fe3ed853243a720532e0da5d0638ddc89685380aa07ed235a5",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-parameters": {
           "id": "acr-parameters",
@@ -210948,20 +210947,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Chest and staging coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Postcontrast chest acquisition after IV iodinated contrast.",
+              "Portal venous phase through the included abdomen and pelvis.",
+              "Thin-section lung and soft-tissue reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -210996,7 +210991,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "b4e4501d7f829e7a3bb88b5de74b8fc892c1354b1ee0a5c48917e5ceadcb84b6",
+      "schema_hash": "da2d3ddabcba1c3b8bf8318515679aa1bc13dd64032fa0ce66693ba945749116",
       "anatomic_sources": {
         "anatomic-cardiorespiratory:ref-lung-adenocarcinoma": {
           "id": "ref-lung-adenocarcinoma",
@@ -214240,20 +214235,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Chest and staging coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Postcontrast chest acquisition after IV iodinated contrast.",
+              "Portal venous phase through the included abdomen and pelvis.",
+              "Thin-section lung and soft-tissue reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -214293,7 +214284,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "82e562e8f3b09d121dacf0fe103468bc33b41036ddb87102332ffe4a7c18d6d5",
+      "schema_hash": "56dcdac5ce580a34f45c75dcd286935ec39df6a8011818c9d1bad05ca4db4d3a",
       "anatomic_sources": {
         "anatomic-additions-20261026:recist": {
           "id": "recist",
@@ -226739,15 +226730,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the lungs.",
+              "Thin-section lung reconstructions for nodule comparison."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -236273,15 +236264,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the lungs with a low-dose screening acquisition.",
+              "Thin-section lung reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -236913,7 +236904,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "706ee4009596cc139fa577fd5d266a2de47f8c1d74f87bb6c64a248f6fe29163",
+      "schema_hash": "1eaf2dc84743a8d51dbcbff408040442085bc75e1e22c3ec16024c6797ac462e",
       "anatomic_sources": {
         "anatomic-additions-20261026:anatomic-cardiorespiratory:ref-bts-guideline-of-pulmonary-nodules": {
           "id": "anatomic-cardiorespiratory:ref-bts-guideline-of-pulmonary-nodules",
@@ -270602,17 +270593,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Lumbar disc and canal series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal lumbar T1- and T2-weighted images.",
+              "Axial T2-weighted images through the assessed disc levels.",
+              "Sagittal lumbar STIR or equivalent fat-suppressed fluid-sensitive images."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/lumbar-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -352574,17 +352564,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Plexus neurography series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted anatomical coverage of the named plexus and adjacent muscles.",
+              "Multiplanar fat-suppressed fluid-sensitive imaging along the plexus.",
+              "Volumetric fat-suppressed neurography with multiplanar reformats.",
+              "Postcontrast fat-suppressed T1-weighted images through the plexus."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/magnetic-resonance-neurography"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -363456,17 +363446,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Postoperative spine series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal T1- and T2-weighted images and axial T2-weighted images through operated levels.",
+              "Fluid-sensitive images with metal artefact reduction.",
+              "Precontrast and postcontrast T1-weighted imaging through the operative bed."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cervical-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -382708,17 +382697,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Postoperative spine series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal T1- and T2-weighted images and axial T2-weighted images through operated levels.",
+              "Fluid-sensitive images with metal artefact reduction.",
+              "Precontrast and postcontrast T1-weighted imaging through the operative bed."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cervical-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -393651,17 +393639,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Postoperative spine series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal T1- and T2-weighted images and axial T2-weighted images through operated levels.",
+              "Fluid-sensitive images with metal artefact reduction.",
+              "Precontrast and postcontrast T1-weighted imaging through the operative bed."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cervical-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -394864,15 +394851,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the operated spinal levels.",
+              "Multiplanar bone and soft-tissue reconstructions.",
+              "Metal artefact reduction reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -404689,17 +404677,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Spine and cord series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal T1- and T2-weighted images through the named spinal region.",
+              "Axial T2-weighted images through the assessed levels.",
+              "Sagittal fat-suppressed fluid-sensitive images."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cervical-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -422566,17 +422553,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Spine and cord series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal T1- and T2-weighted images through the named spinal region.",
+              "Axial T2-weighted images through the assessed levels.",
+              "Sagittal fat-suppressed fluid-sensitive images."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cervical-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -436208,17 +436194,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Spine trauma series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal T1, T2 and STIR or equivalent fluid-sensitive imaging through the injured region.",
+              "Axial T2-weighted images at the levels of suspected injury."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cervical-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -443409,17 +443393,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Spine trauma series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal T1, T2 and STIR or equivalent fluid-sensitive imaging through the injured region.",
+              "Axial T2-weighted images at the levels of suspected injury."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cervical-spine-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -444685,7 +444667,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "1df9a1f661711c713f402669ae6c67af25e72d7fd0c0aa3504ae2a33968286c4",
+      "schema_hash": "3637a054947930367be818806348a501fb4bbde913eca4f1daa3679b512cea4f",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -476929,17 +476911,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Adrenal characterization series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "In-phase and opposed-phase T1-weighted imaging through both adrenal glands.",
+              "Adrenal T2-weighted images.",
+              "Dynamic postcontrast T1-weighted images through the adrenal glands."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/unsorted/characterization-of-adrenal-lesions",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -476966,7 +476948,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "f3bc72aadf8b43fcaab9f5b287f7a7e07bfb98620e74bd76a8136f02a4d3115c",
+      "schema_hash": "80008279164068fd0f3a0c990008ea74ef4d08d8025204ab65962ed7c73889a6",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -495371,15 +495353,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the tracheobronchial tree.",
+              "Thin-section multiplanar airway reconstructions.",
+              "Expiratory airway series."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -495406,7 +495389,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "8c3970d234c0780dd773e4e4b6fdcb0a818ae5c0adea0665690257aa131f35f6",
+      "schema_hash": "5800fa542bd34be5385b2ce26e171b2b645f7672e22894dde180d693e7cbe3c3",
       "anatomic_sources": {
         "anatomic-cardiorespiratory:ref-large-airway-disease": {
           "id": "ref-large-airway-disease",
@@ -595981,15 +595964,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the ankle and foot.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -620205,17 +620188,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Foot MRI acquisition",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted images through the foot.",
+              "Long- and short-axis fluid-sensitive images through the foot."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -620292,7 +620273,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "2e44558bf38fb6b765c8cdad6f5c8eeb4fb223989bd3fda313b744df5a58bf08",
+      "schema_hash": "3c92be79657fddf8ad7d6d29bfd4caa808487eaa9083b72e562a2f822d7df613",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -641312,20 +641293,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Thoracic vascular acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Arterial phase after IV iodinated contrast.",
+              "ECG-synchronised thoracic aortic acquisition.",
+              "Delayed venous phase through the vascular anomaly.",
+              "Double-oblique multiplanar aortic reformats."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols",
+              "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -641351,7 +641330,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "81bccd461a6592246f46ff5117fd88177b6930c8ef59206f4b5da8a417915a65",
+      "schema_hash": "ef2d7aadc95ff7b3a96f5e0ada65f3d81a860d7f9a7b14c7d28382b1676362dd",
       "anatomic_sources": {
         "anatomic-body:aortic-aneurysm-rupture": {
           "id": "aortic-aneurysm-rupture",
@@ -651758,20 +651737,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acute abdominal acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase abdomen and pelvis after IV iodinated contrast.",
+              "Unenhanced abdomen and pelvis acquisition.",
+              "Oral enteric contrast administered."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -651802,7 +651777,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "405a6270db13a2452d3e38f98f285a8e07f43ca5d3c8cef1b617f14da2b99127",
+      "schema_hash": "d02fbe8272c58a1401ffe1898ca769663a5c5cfee156ae7a24f74184f70eeb1d",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -668306,17 +668281,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Bladder VI-RADS series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "High-resolution multiplanar T2-weighted imaging through the bladder.",
+              "Bladder DWI and ADC maps.",
+              "Dynamic postcontrast T1-weighted imaging of the bladder."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -670035,7 +670009,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "1cf2acabff6c07f1d40b360095acd9876499bca01e293419a97588ce88cdac23",
+      "schema_hash": "40d17450ac906291671db30d4b295892c7b7521c6aa487cbae1687e15e572b54",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -677844,17 +677818,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Mass and local staging series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted and fluid-sensitive images covering the entire mass and its anatomical compartment.",
+              "High-resolution axial images through the mass and adjacent neurovascular structures.",
+              "Precontrast and postcontrast fat-suppressed T1-weighted imaging through the mass."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/soft-tissue-mass"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -685854,17 +685827,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Whole-body survey series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Whole-body T1-weighted anatomical survey.",
+              "Whole-body STIR or equivalent fat-suppressed fluid-sensitive survey.",
+              "Whole-body diffusion-weighted imaging with ADC maps."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/whole-body-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -685917,7 +685889,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "6d9df1f66e957574bf5fef912cbfa85ab27dec149c1ad7e0e078fecf99d2efad",
+      "schema_hash": "09d94eeb242e67712e1e8d34d84314a87acaf1812b115b80f3afd9664859d71d",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -702244,20 +702216,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acute abdominal acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase abdomen and pelvis after IV iodinated contrast.",
+              "Unenhanced abdomen and pelvis acquisition.",
+              "Oral enteric contrast administered."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -703299,7 +703267,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "d35284811c44c8d4cf96f8af3d2baa6fecc0a77649514e06e43e279d508a18f9",
+      "schema_hash": "30f75046884f30473ed472167bbc0748af91449b170101303edd2d6a87aa22ce",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -711812,20 +711780,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acute abdominal acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase abdomen and pelvis after IV iodinated contrast.",
+              "Unenhanced abdomen and pelvis acquisition.",
+              "Oral enteric contrast administered."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -711847,7 +711811,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "6b922201f1d7d3311c0b522b786f07d46640b309e4f869fe30506445e1055426",
+      "schema_hash": "a2b43e92577af8b78250f8d204bb3bd5c8fe557eac1209db527d4ed22228cee2",
       "anatomic_sources": {
         "anatomic-body:closed-loop-in-small-bowel-obstruction": {
           "id": "closed-loop-in-small-bowel-obstruction",
@@ -726758,17 +726722,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Brain survey series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Brain T1, T2 and FLAIR imaging.",
+              "Brain DWI and ADC maps.",
+              "Susceptibility-weighted or T2*-weighted imaging."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/brain-screen-protocol-mri-1"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -733268,15 +733231,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the head from skull base to vertex.",
+              "Brain and bone reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -739955,17 +739918,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Brain survey series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Brain T1, T2 and FLAIR imaging.",
+              "Brain DWI and ADC maps.",
+              "Susceptibility-weighted or T2*-weighted imaging."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/brain-screen-protocol-mri-1"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -739992,7 +739954,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "d6b7cecce5a05fafaa24d8ebe546b7dc9209f00165d0468bd2db5ec9645b08b9",
+      "schema_hash": "915785d87e8941a385299e71289b5772deb94d212e62bf2a0e8a23d3975524c8",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-parameters": {
           "id": "acr-parameters",
@@ -747177,17 +747139,19 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Brain lesion and enhancement series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
+              "Brain T2 and FLAIR imaging.",
               "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Matched precontrast and postcontrast volumetric T1-weighted imaging.",
+              "Susceptibility-weighted imaging.",
+              "Perfusion imaging through the lesion."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiologyassistant.nl/neuroradiology/brain-tumor/systematic-approach",
+              "https://radiopaedia.org/articles/brain-screen-protocol-mri-1"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -747205,7 +747169,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "5edb4e5bc90393a503ba85fc30f7b90673630ef14387692a5d81bcc361c22595",
+      "schema_hash": "dc03e5ac6963378d8ad64ea9ada3d0180804b85dbf41310b4efd60c48ba15900",
       "anatomic_sources": {
         "anatomic-neuro:neuro-ref-21": {
           "id": "neuro-ref-21",
@@ -802560,17 +802524,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Breast lesion series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Bilateral T2-weighted imaging.",
+              "Bilateral precontrast and dynamic postcontrast fat-suppressed T1-weighted imaging with subtraction.",
+              "Breast DWI and ADC maps."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiologyassistant.nl/breast/bi-rads/bi-rads-for-mammography-and-ultrasound-2013",
+              "https://radiopaedia.org/articles/breast-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -802609,7 +802573,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "0ab91a514c554663ed071b9470d804f8e21dbfa4b388e5d99f0463c886de6b1f",
+      "schema_hash": "41f541bc324f4d6da58ef3ec81513b240da6e224734efe0c3d70a2247232d936",
       "anatomic_sources": {
         "anatomic-cardiorespiratory:ref-bi-rads-v2025-manual-ultrasound": {
           "id": "ref-bi-rads-v2025-manual-ultrasound",
@@ -815093,20 +815057,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Chest and staging coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Postcontrast chest acquisition after IV iodinated contrast.",
+              "Portal venous phase through the included abdomen and pelvis.",
+              "Thin-section lung and soft-tissue reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -818100,7 +818060,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "8afb7c50ad5f0f5e281930bef56f39985c6ea57aa005728d3b79d51d378a637b",
+      "schema_hash": "0a8f3f30d087c0de1519c94f96cd78fbcd9ea1fb3e95337152d6df78304bd1ff",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -828801,17 +828761,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Ventricular function and tissue series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "ECG-synchronised cine images in long-axis views and a contiguous ventricular short-axis stack.",
+              "Native myocardial T1 mapping.",
+              "Myocardial T2 mapping.",
+              "Late gadolinium enhancement imaging in matching ventricular planes.",
+              "Stress and rest myocardial perfusion imaging."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/cardiac-mri-protocol"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -828838,7 +828799,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "e549ce9c262a291a55097c5d9d3c1a120dd9369d9037ef76e670028060afd2d2",
+      "schema_hash": "824f806041f750872cc0f44adb25a02207d70b629bfefc2b18288daf8cc9bf29",
       "anatomic_sources": {
         "anatomic-cardiorespiratory:ref-cardiac-anatomy": {
           "id": "ref-cardiac-anatomy",
@@ -837212,15 +837173,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the lungs.",
+              "Thin-section lung and soft-tissue reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -849660,7 +849621,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "2e6fb199e5b1f7e941628795596618d09e1731c16df69ff0f3ae25f5f0db4e76",
+      "schema_hash": "81f6f64375cbce06b78300a85c01a0e4e012790a74739e9ef694a50978d8bdc0",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -859673,17 +859634,19 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Brain lesion and enhancement series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
+              "Brain T2 and FLAIR imaging.",
               "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Matched precontrast and postcontrast volumetric T1-weighted imaging.",
+              "Susceptibility-weighted imaging.",
+              "Perfusion imaging through the lesion."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiologyassistant.nl/neuroradiology/brain-tumor/systematic-approach",
+              "https://radiopaedia.org/articles/brain-screen-protocol-mri-1"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -859701,7 +859664,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "d6485b080dbda46d0996bece437e8bdf379d7951de248f27c2950edb533e0268",
+      "schema_hash": "ba5bb356d2a46cd6a5d8e763ef5c357d079102faad0945fb6b336efac4f34830",
       "anatomic_sources": {
         "anatomic-neuro:neuro-ref-22": {
           "id": "neuro-ref-22",
@@ -861604,16 +861567,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Thoracic vascular acquisition",
             "options": [
               "Arterial phase after IV iodinated contrast.",
-              "Bolus tracking.",
-              "Multiplanar and maximum-intensity-projection reformats."
+              "ECG-synchronised thoracic aortic acquisition.",
+              "Delayed venous phase through the vascular anomaly.",
+              "Double-oblique multiplanar aortic reformats."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols",
+              "https://radiologyassistant.nl/cardiovascular/thoracic-aorta/vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -861631,7 +861596,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "c8429de51aa5886871032a4b3cd0bdd93d3918b23a4dba598ee20596bb2b9ead",
+      "schema_hash": "652bf9f3e90d6dd64ba40dec7770e376b067aad2700ccb4214d0379a63a5164c",
       "anatomic_sources": {
         "anatomic-cardiorespiratory:ref-vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels": {
           "id": "ref-vascular-anomalies-of-aorta-pulmonary-and-systemic-vessels",
@@ -876260,15 +876225,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the coronary arteries with ECG synchronisation.",
+              "Coronary calcium scoring reconstruction."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -876299,7 +876264,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "1b0dab134e292a5dd001287a7244fde7e5c237b40c05ccb8738dd859bfcc3afa",
+      "schema_hash": "b664c4b0082d318e987ca3f6e484dc1b43389828b49ba74488d28e94972877a5",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -900529,17 +900494,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Neck and nodal staging series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T1 and fat-suppressed T2-weighted imaging through the neck and nodal stations.",
+              "Neck DWI and ADC maps.",
+              "Postcontrast fat-suppressed T1-weighted images through the neck."
             ],
             "sources": [
+              "https://radiologyassistant.nl/head-neck/suprahyoid-neck/suprahyoid-neck-mr-pathology",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -927496,20 +927461,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Contrast neck acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Postcontrast soft-tissue neck acquisition including cervical nodal stations.",
+              "Multiplanar neck reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -935078,17 +935038,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Neck and nodal staging series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T1 and fat-suppressed T2-weighted imaging through the neck and nodal stations.",
+              "Neck DWI and ADC maps.",
+              "Postcontrast fat-suppressed T1-weighted images through the neck."
             ],
             "sources": [
+              "https://radiologyassistant.nl/head-neck/suprahyoid-neck/suprahyoid-neck-mr-pathology",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -953160,17 +953120,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Neck and nodal staging series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T1 and fat-suppressed T2-weighted imaging through the neck and nodal stations.",
+              "Neck DWI and ADC maps.",
+              "Postcontrast fat-suppressed T1-weighted images through the neck."
             ],
             "sources": [
+              "https://radiologyassistant.nl/head-neck/suprahyoid-neck/suprahyoid-neck-mr-pathology",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -953211,7 +953171,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "6691b34a6301d21df7431cd0c53f26907fc604e5e9441238277eb9ad7ea2085f",
+      "schema_hash": "9a03839cb8914437a502a02e9882f6bb58ff9c46dfe0f048e9761a2a0986399e",
       "anatomic_sources": {
         "anatomic-additions-20261026:ni-rads": {
           "id": "ni-rads",
@@ -958362,17 +958322,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Atrophy and vascular burden series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Volumetric T1-weighted brain imaging with coronal reformats through the medial temporal lobes.",
+              "Brain FLAIR imaging.",
+              "Susceptibility-weighted or T2*-weighted imaging.",
+              "DWI and ADC maps."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiologyassistant.nl/neuroradiology/dementia/role-of-mri",
+              "https://radiopaedia.org/articles/brain-screen-protocol-mri-1"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -958390,7 +958351,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "ea24ef90e5b9359a404571e51de30b3a1d38fed74badb676c4915247d5c87225",
+      "schema_hash": "c1808f0d06331231597f69ecc24ca1a45aeb0f49ff0c4ccf0a50f3fc236f9db5",
       "anatomic_sources": {
         "anatomic-neuro:neuro-ref-23": {
           "id": "neuro-ref-23",
@@ -969072,17 +969033,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Elbow MRI acquisition",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted images through the elbow.",
+              "Axial, coronal and sagittal fluid-sensitive images through the elbow."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/mri-of-the-elbow-an-approach"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -986534,7 +986493,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "32989ee71ed40e122d50c15fd1d80897fe09e6d2dfa7788a2c5fec8b88857a15",
+      "schema_hash": "ee60455e4f0517d6d72ca7c7a0ca8a7bbd929fc527b0c4bac8206275d1790a4b",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -999397,20 +999356,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Oesophageal acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Chest CT following oral water-soluble contrast.",
+              "Postcontrast chest acquisition following IV iodinated contrast.",
+              "Additional delayed images through the suspected leak."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols",
+              "https://radiopaedia.org/articles/oesophageal-perforation"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1001504,7 +1001460,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "b18bdbb3e037bf353d1e3f0db730a397051eec95a9536ae903fa4e028c4c26a5",
+      "schema_hash": "0978be9ecc4781c04b23fc13ad010b2492916304f2384f562acd5abe44be197f",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1008863,20 +1008819,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Small-bowel lesion phases",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Neutral oral enteric contrast for bowel distension.",
+              "Enteric or late arterial phase after IV iodinated contrast.",
+              "Portal venous phase through the abdomen and pelvis."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiologyassistant.nl/abdomen/bowel/small-bowel-tumors",
+              "https://radiopaedia.org/articles/ct-enterography-protocol"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1020224,20 +1020177,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Colonography acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Colonic distension with gas and supine low-dose acquisition.",
+              "Prone or decubitus acquisition.",
+              "Oral faecal tagging.",
+              "Postcontrast staging acquisition after IV iodinated contrast."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiopaedia.org/articles/ct-colonography-protocol"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1020264,7 +1020214,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "79d071998bdedc774b3c2be1f580ee118877867ee70108013cc729b7164e74ff",
+      "schema_hash": "b66b799c753e049d0c34127f92c84c2c08d7ef05ccebc6b60c36a036d807ba4d",
       "anatomic_sources": {
         "anatomic-additions-20261026:c-rads": {
           "id": "c-rads",
@@ -1061519,15 +1061469,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the hip.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1062199,20 +1062149,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Abdominal or pelvic lesion coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase after IV iodinated contrast through the prescribed abdominal or pelvic coverage.",
+              "Delayed postcontrast images through the region of concern."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1062989,15 +1062934,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the pelvis and hips.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1064102,17 +1064047,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Hip joint and marrow series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Coronal pelvis T1-weighted and fluid-sensitive survey.",
+              "Small-field multiplanar imaging of the symptomatic hip.",
+              "Oblique axial images along the femoral neck.",
+              "Fat-suppressed T1-weighted imaging following intra-articular contrast."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/hip-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1076937,17 +1076882,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Hip joint and marrow series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Coronal pelvis T1-weighted and fluid-sensitive survey.",
+              "Small-field multiplanar imaging of the symptomatic hip.",
+              "Oblique axial images along the femoral neck.",
+              "Fat-suppressed T1-weighted imaging following intra-articular contrast."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/hip-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1076989,7 +1076934,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "1029f1d097769e88e6bbfa3370ed5d3d49f95e0254597c55449fea99873b4f87",
+      "schema_hash": "d012e5744af3727da5baa7d3f4c955b57bea1de180bc502001c4ed924473dd35",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -1086720,17 +1086665,19 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "MR enterography series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Small-bowel distension with oral enteric contrast.",
+              "Axial and coronal T2-weighted bowel imaging including fat-suppressed images.",
+              "Precontrast and postcontrast T1-weighted bowel imaging.",
+              "Bowel DWI and ADC maps.",
+              "Cine imaging of bowel motility."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/bowel/crohn-s-disease",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1097072,7 +1097019,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "11a80ca82588832aa539996de56e394586c7202ccad51c2863bba902dd1918af",
+      "schema_hash": "ff978b5b8c0ead8d30411712a03d226887070e99a19dd8bb1074322b229ccdaf",
       "anatomic_sources": {
         "anatomic-body:crohn-s-disease-role-of-mri": {
           "id": "crohn-s-disease-role-of-mri",
@@ -1104448,15 +1104395,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the head from skull base to vertex.",
+              "Brain and bone reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1117099,16 +1117046,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Intracranial CTA coverage",
             "options": [
-              "Arterial phase after IV iodinated contrast.",
-              "Bolus tracking.",
-              "Multiplanar and maximum-intensity-projection reformats."
+              "Arterial-phase CTA of the intracranial circulation after IV iodinated contrast.",
+              "Thin source images and maximum-intensity projections."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols",
+              "https://radiopaedia.org/articles/ct-angiography-of-the-cerebral-arteries-protocol"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1117792,17 +1117739,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Intracranial arterial series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Intracranial 3D time-of-flight MR angiography.",
+              "Source images and maximum-intensity projections of the intracranial arteries.",
+              "Contrast-enhanced intracranial MR angiography."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/time-of-flight-mr-angiography"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1117829,7 +1117775,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "d39a2727c3c95ed8248ac1cf1ca1c6b6aa49a8217cb52b90541db81ffea9c2be",
+      "schema_hash": "abaaf6d5e3b79d09268531fabbb13555c0ccf13c40bf02b1ae6029119dbc5f77",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1191691,17 +1191637,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Ulcer and marrow series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Small-field T1-weighted and fat-suppressed fluid-sensitive images covering the ulcer and adjacent bones.",
+              "Postcontrast fat-suppressed T1-weighted imaging through the ulcer and deep tissues."
             ],
             "sources": [
+              "https://radiologyassistant.nl/musculoskeletal/diabetic-foot/mri-examination",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1208622,17 +1208567,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Muscle compartment series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Axial T1-weighted and fat-suppressed fluid-sensitive images through the involved muscle compartments.",
+              "Long-axis fluid-sensitive images through the symptomatic muscle and myotendinous junction.",
+              "T1-weighted Dixon water and fat reconstructions."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1214165,17 +1214109,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Muscle compartment series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Axial T1-weighted and fat-suppressed fluid-sensitive images through the involved muscle compartments.",
+              "Long-axis fluid-sensitive images through the symptomatic muscle and myotendinous junction.",
+              "T1-weighted Dixon water and fat reconstructions."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1218773,17 +1218716,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Muscle compartment series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Axial T1-weighted and fat-suppressed fluid-sensitive images through the involved muscle compartments.",
+              "Long-axis fluid-sensitive images through the symptomatic muscle and myotendinous junction.",
+              "T1-weighted Dixon water and fat reconstructions."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1227366,15 +1227308,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the femur.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1228159,17 +1228101,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Pelvic marrow series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Coronal T1-weighted and STIR or equivalent fluid-sensitive images covering the bony pelvis.",
+              "Axial fluid-sensitive images through the symptomatic region."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1228724,17 +1228664,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Muscle compartment series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Axial T1-weighted and fat-suppressed fluid-sensitive images through the involved muscle compartments.",
+              "Long-axis fluid-sensitive images through the symptomatic muscle and myotendinous junction.",
+              "T1-weighted Dixon water and fat reconstructions."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1229289,17 +1229228,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Muscle compartment series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Axial T1-weighted and fat-suppressed fluid-sensitive images through the involved muscle compartments.",
+              "Long-axis fluid-sensitive images through the symptomatic muscle and myotendinous junction.",
+              "T1-weighted Dixon water and fat reconstructions."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1229348,7 +1229286,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "5b1de53fd32f7f0aced7e9da5e9e8aa167415be080aa3d1439528ae83d9c4544",
+      "schema_hash": "1e5a4e5deeff719708839df5e82cde927c15e86cbdc4beed48d86504a04574be",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -1237664,20 +1237602,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Chest and staging coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Postcontrast chest acquisition after IV iodinated contrast.",
+              "Portal venous phase through the included abdomen and pelvis.",
+              "Thin-section lung and soft-tissue reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1246122,17 +1246056,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Mediastinal characterization series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T1- and T2-weighted imaging through the mediastinum.",
+              "In-phase and opposed-phase T1-weighted images through the thymic bed.",
+              "Postcontrast fat-suppressed T1-weighted imaging of the mediastinal lesion."
             ],
             "sources": [
+              "https://radiologyassistant.nl/chest/thymic-masses/thymic-masses",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1246163,7 +1246097,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "a2dbbea970675c16e42b1c6a506642962c874783df2507fbd6caa89bf7e9d64d",
+      "schema_hash": "93c7ef3233650a80bc4783fcbfbe27c618b1d03e313a35a3f800287062430ef8",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1255991,17 +1255925,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Regional musculoskeletal acquisition",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted images through the named structure.",
+              "Orthogonal fluid-sensitive images through the named structure.",
+              "Targeted small-field acquisition through the area of concern."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1256028,7 +1255961,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "119830d76273261053cc5f066c757bf0e38e647349166283dde8f24968049bcf",
+      "schema_hash": "424ffa6606a395cfd9afecb0c673c4dbc856f766bdafa4a22cd156fa17fb90a9",
       "anatomic_sources": {
         "msk-anatomic-general:icri-msk-2021": {
           "id": "icri-msk-2021",
@@ -1279182,20 +1279115,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Contrast neck acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Postcontrast soft-tissue neck acquisition including cervical nodal stations.",
+              "Multiplanar neck reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1279218,7 +1279146,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "e1765402023d43f39eef5a2cd49d74a1da91291e9035d84837e588c2661b71ac",
+      "schema_hash": "f60827019acb9a7db80e4be53694b20b5c0d8ede939c82b448a7fde6ba860677",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1297415,17 +1297343,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Orbital series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Small-field axial and coronal orbital T1-weighted images.",
+              "Fat-suppressed T2 or STIR images along the optic nerves and through the chiasm.",
+              "Axial and coronal postcontrast fat-suppressed T1-weighted images."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/orbits-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1298194,15 +1298121,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the facial bones.",
+              "Multiplanar bone and soft-tissue reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1299977,7 +1299904,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "6ad5692d95695072ed1137330c5627014df0fb633991e847390946d66f587feb",
+      "schema_hash": "c044e831f315069b57f9604b7d5e41d483345b85237b661f04df5308e2267f85",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1309899,17 +1309826,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Pelvic characterization series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar pelvic T2-weighted imaging.",
+              "T1-weighted imaging with and without fat suppression.",
+              "Pelvic DWI and ADC maps.",
+              "Dynamic postcontrast pelvic T1-weighted imaging."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/ovarium/roadmap-to-evaluate-ovarian-cysts",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1309949,7 +1309877,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "f7bcb0bd3fae8ecd49d6e3ac74ced6b7c181d4ba4a9684cf0ea45124b97924ce",
+      "schema_hash": "8a2412261362e1294e9a5a084e49752400b366e1bd75cc1ebf2c70bc231b7f04",
       "anatomic_sources": {
         "anatomic-additions-20261026:orads": {
           "id": "orads",
@@ -1336429,20 +1336357,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Chest and staging coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Postcontrast chest acquisition after IV iodinated contrast.",
+              "Portal venous phase through the included abdomen and pelvis.",
+              "Thin-section lung and soft-tissue reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1340970,17 +1340894,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Mediastinal characterization series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T1- and T2-weighted imaging through the mediastinum.",
+              "In-phase and opposed-phase T1-weighted images through the thymic bed.",
+              "Postcontrast fat-suppressed T1-weighted imaging of the mediastinal lesion."
             ],
             "sources": [
+              "https://radiologyassistant.nl/chest/thymic-masses/thymic-masses",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1341030,7 +1340954,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "541ec502f14baf06d1ec3c67899c8f0aad095d6d7a7419c7c4c632f9e97016ab",
+      "schema_hash": "262420d70965889deb742050eb7fc73da03841c92fba73b1e2bb1ca7e62f77b3",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1347963,15 +1347887,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the elbow.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1348002,7 +1347926,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "cf92a53e540c1b6b510198ea4afc5535208c474f353fb976c30a1f4bd6ab2a6a",
+      "schema_hash": "9b82f1bee355a810a14f64a64318c8431afb50f03ac8f36ca17c5c0f1ee855aa",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1401495,17 +1401419,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Paediatric abdominal mass series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T2-weighted imaging covering the abdominal mass and its organ of origin.",
+              "Precontrast T1-weighted imaging and DWI with ADC maps.",
+              "Postcontrast T1-weighted imaging through the mass and adjacent vessels."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1409998,20 +1409921,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Abdominal or pelvic lesion coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase after IV iodinated contrast through the prescribed abdominal or pelvic coverage.",
+              "Delayed postcontrast images through the region of concern."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1418504,17 +1418422,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Paediatric abdominal mass series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T2-weighted imaging covering the abdominal mass and its organ of origin.",
+              "Precontrast T1-weighted imaging and DWI with ADC maps.",
+              "Postcontrast T1-weighted imaging through the mass and adjacent vessels."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1427180,17 +1427097,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Paediatric abdominal mass series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T2-weighted imaging covering the abdominal mass and its organ of origin.",
+              "Precontrast T1-weighted imaging and DWI with ADC maps.",
+              "Postcontrast T1-weighted imaging through the mass and adjacent vessels."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1427234,7 +1427150,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "3b1f7e5e5bd04fddae5aad7fe9b355dc4fd8cc0aa2f9a5e79a73f82df9f2f513",
+      "schema_hash": "ef2b94240e7c04277631547d4578b7a0814b2a8e72cea81c25121577722f48ec",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1478422,17 +1478338,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Peripheral arterial series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Contrast-enhanced arterial MR angiography of the requested vascular territory.",
+              "Multistation arterial runoff acquisition.",
+              "Time-resolved distal arterial imaging."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiologyassistant.nl/cardiovascular/peripheral-mra/contrast-enhanced-mra-of-peripheral-vessels"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1513839,16 +1513754,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Head and neck vascular coverage",
             "options": [
-              "Arterial phase after IV iodinated contrast.",
-              "Bolus tracking.",
-              "Multiplanar and maximum-intensity-projection reformats."
+              "Arterial-phase CTA of the cervical and intracranial arteries after IV iodinated contrast.",
+              "Arch-to-vertex coverage.",
+              "Additional venous-phase acquisition."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols",
+              "https://radiopaedia.org/articles/ct-angiography-of-the-cerebral-arteries-protocol"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1519550,17 +1519466,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Cervical arterial series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "MR angiography covering the cervical carotid and vertebral arteries.",
+              "Contrast-enhanced arterial acquisition from the aortic arch through the cervical vessels.",
+              "Fat-suppressed T1-weighted vessel-wall images through the neck."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/magnetic-resonance-angiography"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1520353,16 +1520268,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Limb arterial coverage",
             "options": [
-              "Arterial phase after IV iodinated contrast.",
+              "Arterial-phase CTA after IV iodinated contrast through the named limb and its arterial inflow.",
               "Bolus tracking.",
-              "Multiplanar and maximum-intensity-projection reformats."
+              "Additional delayed distal runoff acquisition."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1520929,16 +1520844,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Limb arterial coverage",
             "options": [
-              "Arterial phase after IV iodinated contrast.",
+              "Arterial-phase CTA after IV iodinated contrast through the named limb and its arterial inflow.",
               "Bolus tracking.",
-              "Multiplanar and maximum-intensity-projection reformats."
+              "Additional delayed distal runoff acquisition."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1520980,7 +1520895,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "0cb5c72f3c64611420dad2a54de5456389e922f94b40597556a92fb8eac904ce",
+      "schema_hash": "4a70bdc17c9ff3c9faad2981c9870cccdc6e467b4fe98c107d5978784055c6f2",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -1529619,20 +1529534,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acute abdominal acquisition",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase abdomen and pelvis after IV iodinated contrast.",
+              "Unenhanced abdomen and pelvis acquisition.",
+              "Oral enteric contrast administered."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1539647,20 +1539558,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Abdominal or pelvic lesion coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase after IV iodinated contrast through the prescribed abdominal or pelvic coverage.",
+              "Delayed postcontrast images through the region of concern."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1549962,20 +1549868,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Abdominal or pelvic lesion coverage",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Portal venous phase after IV iodinated contrast through the prescribed abdominal or pelvic coverage.",
+              "Delayed postcontrast images through the region of concern."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1550570,7 +1550471,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "3b80a2c1a3265dd1238844cddaeb4768fcc1fa30d89c524a10425a5a9b73d1f9",
+      "schema_hash": "ff0a463a6ad426e9cd89e4653b6feac1fe80ed88807e946ddbbe078d2e6efaea",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1576126,17 +1576027,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Perianal tract series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Oblique axial and coronal T2-weighted images aligned to the anal canal.",
+              "Fat-suppressed fluid-sensitive imaging including ischioanal and supralevator coverage.",
+              "Postcontrast fat-suppressed T1-weighted imaging through the fistula tract."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/rectum/perianal-fistulas",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1576163,7 +1576064,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "266c49f90393fd1d1f80716599c01b73fd1622786cb9acc9b0c133b15ce9b175",
+      "schema_hash": "a88b13502137106554e44156b615b59d0c6fabc216d6cca8c71c1279b6ef95cf",
       "anatomic_sources": {
         "anatomic-body:rectal-cancer-mr-staging-and-restaging-update-2026": {
           "id": "rectal-cancer-mr-staging-and-restaging-update-2026",
@@ -1588673,17 +1588574,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Sellar series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Thin-section coronal and sagittal sellar T1-weighted images.",
+              "Coronal T2-weighted imaging through the sella.",
+              "Dynamic contrast-enhanced coronal pituitary imaging.",
+              "Thin-section postcontrast sellar T1-weighted images."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/pituitary-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1588705,7 +1588606,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "e2f3ad3273c9f4de819c35bb52b578c377a4c7ee2f53b4e4b0f25bb1e2743e5f",
+      "schema_hash": "51c9b2bf23b269f825aeab746a0a37b10a3681afee820d1cf7e7088205d2e3c8",
       "anatomic_sources": {
         "anatomic-neuro:neuro-ref-31": {
           "id": "neuro-ref-31",
@@ -1656111,17 +1656012,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Plexus neurography series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted anatomical coverage of the named plexus and adjacent muscles.",
+              "Multiplanar fat-suppressed fluid-sensitive imaging along the plexus.",
+              "Volumetric fat-suppressed neurography with multiplanar reformats.",
+              "Postcontrast fat-suppressed T1-weighted images through the plexus."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/magnetic-resonance-neurography"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1659728,15 +1659629,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the shoulder.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1660023,7 +1659924,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "89e568e0c4dbf2ca5620ccb82cae6e2cb607e4251d980f1b9771aad08b62ce13",
+      "schema_hash": "213e5e86b969a274509854d15e9deebe7a937676e6ab1f875dcc3fbf5193e342",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -1667110,17 +1667011,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Sinonasal soft-tissue series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar T1 and fat-suppressed T2-weighted imaging of the paranasal sinuses and skull base.",
+              "Postcontrast fat-suppressed T1-weighted imaging through the sinonasal region.",
+              "DWI and ADC maps through the lesion."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1673766,15 +1673666,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the paranasal sinuses.",
+              "Thin-section coronal and sagittal bone reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1674357,7 +1674257,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "61815d92673043f9d5825eecd5334080d841dd246a40ca26d1e32257efe2ce5f",
+      "schema_hash": "ad8884608b16dd2f51c308ff82aa9ca40ff84bf643095dabbbd2f7c0f357f5f7",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1687188,20 +1687088,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced series.",
-              "IV iodinated contrast administered.",
-              "Arterial phase.",
-              "Portal venous phase.",
-              "Delayed phase.",
-              "Oral contrast administered.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the temporal bones.",
+              "Small-field high-resolution bone reconstructions."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1687752,15 +1687647,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the temporomandibular joints.",
+              "Closed-mouth acquisition.",
+              "Open-mouth acquisition."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1688218,7 +1688114,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "2f409996edf14aa2bccb6dfccf23caeb46a5cde211fbc69ac2f4d3225e865120",
+      "schema_hash": "a8b78f206f72f7db04744b4701a257a451a7c3345c227191177b98c3221a0daa",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1707017,16 +1706913,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Head and neck vascular coverage",
             "options": [
-              "Arterial phase after IV iodinated contrast.",
-              "Bolus tracking.",
-              "Multiplanar and maximum-intensity-projection reformats."
+              "Arterial-phase CTA of the cervical and intracranial arteries after IV iodinated contrast.",
+              "Arch-to-vertex coverage.",
+              "Additional venous-phase acquisition."
             ],
             "sources": [
-              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
+              "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols",
+              "https://radiopaedia.org/articles/ct-angiography-of-the-cerebral-arteries-protocol"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1707053,7 +1706950,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "61aa0c3e3fb763cecc6d37228bce8bcb41ece2c7884e109a12540158c1237bd8",
+      "schema_hash": "cae09bafd6597d71a2db4148eaace1bb97e1193dc76b04a83d70660ba0e1db78",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1711076,17 +1710973,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Trigeminal nerve series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Thin-section 3D heavily T2-weighted images through the cisternal trigeminal nerves.",
+              "Intracranial time-of-flight angiography through the root entry zones.",
+              "Postcontrast T1-weighted imaging through Meckel caves and skull base."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/trigeminal-neuralgia"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1711108,7 +1711004,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "87c1b91e58cbd527af7bc0ab46b1eb56a98491c66e506afad1e5fcdfd39dfb58",
+      "schema_hash": "7afdf8b49e6e8d8b3322e824bc3a586370a6d9983cd406ed59572348c7d5c61d",
       "anatomic_sources": {
         "anatomic-neuro:neuro-ref-53": {
           "id": "neuro-ref-53",
@@ -1723877,17 +1723773,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Endometriosis mapping series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar high-resolution pelvic T2-weighted imaging.",
+              "Pelvic T1-weighted images with and without fat suppression."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/unsorted/endometriosis-mri-detection",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1729811,17 +1729706,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Cervical staging series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Small-field T2-weighted images aligned to the cervical canal.",
+              "DWI and ADC maps matched to the tumour planes.",
+              "Large-field pelvic survey including nodal stations.",
+              "Postcontrast T1-weighted imaging through the cervix."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/unsorted/mr-in-cervical-cancer-1",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1735874,17 +1735770,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Endometrial staging series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal and oblique axial T2-weighted images aligned to the uterine cavity.",
+              "Uterine DWI and ADC maps.",
+              "Dynamic postcontrast T1-weighted imaging through the uterus."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/unsorted/mr-in-endometrial-cancer",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1744338,17 +1744234,18 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Pelvic characterization series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Multiplanar pelvic T2-weighted imaging.",
+              "T1-weighted imaging with and without fat suppression.",
+              "Pelvic DWI and ADC maps.",
+              "Dynamic postcontrast pelvic T1-weighted imaging."
             ],
             "sources": [
+              "https://radiologyassistant.nl/abdomen/ovarium/roadmap-to-evaluate-ovarian-cysts",
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1744947,7 +1744844,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "5cb38735c9cb2686598b25e5a0e06d6333013366ee985f269b5944ff80be475c",
+      "schema_hash": "8f0940d1d56983f9f9ee18f337a853376948d6d29abf3840fd19e003434f02d0",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1752357,17 +1752254,17 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Intracranial hypotension series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Sagittal brain T1 and axial FLAIR imaging.",
+              "Postcontrast volumetric T1-weighted brain imaging.",
+              "Heavily T2-weighted spinal survey for extradural fluid."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiologyassistant.nl/neuroradiology/white-matter-disease-1/spontaneous-intracranial-hypotension",
+              "https://radiopaedia.org/articles/brain-screen-protocol-mri-1"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1757594,17 +1757491,16 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Intracranial venous series",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "Intracranial time-of-flight or phase-contrast MR venography.",
+              "Contrast-enhanced intracranial MR venography.",
+              "Source images and venographic maximum-intensity projections."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/mr-venography"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1757848,7 +1757744,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "a3cdc708b91c3f7364026d73ae4692ff7ab7a202210344ef45620a61de30489b",
+      "schema_hash": "23a49513ba2515a123a043baf4809557d0a48ef02f77ca3adca8b3a839077b3e",
       "anatomic_sources": {
         "anatomic-additions-20261112:acr-parameters": {
           "id": "acr-parameters",
@@ -1837951,15 +1837847,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired CT series",
+            "label": "Acquisition and reconstruction",
             "options": [
-              "Unenhanced CT acquisition.",
-              "Multiplanar reformats."
+              "Unenhanced CT of the wrist and hand.",
+              "Thin-section bone reconstruction with orthogonal reformats."
             ],
             "sources": [
               "https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1858478,17 +1858374,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Wrist MRI acquisition",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted images through the wrist.",
+              "Axial, coronal and sagittal fluid-sensitive images through the wrist."
             ],
             "sources": [
-              "https://radiopaedia.org/articles/mri-sequences-overview"
+              "https://radiopaedia.org/articles/wrist-protocol-mri"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         },
         {
@@ -1898157,17 +1898051,15 @@
           "presentation_revision": "2026-10-28",
           "report_format": 3,
           "report_protocol": {
-            "label": "Acquired sequences",
+            "label": "Hand or symptomatic digits MRI acquisition",
             "options": [
-              "Multiplanar T1-weighted imaging.",
-              "Multiplanar fluid-sensitive imaging.",
-              "DWI and ADC maps.",
-              "Postcontrast T1-weighted imaging."
+              "T1-weighted images through the hand or symptomatic digits.",
+              "Orthogonal small-field fluid-sensitive images through the hand or symptomatic digits."
             ],
             "sources": [
               "https://radiopaedia.org/articles/mri-sequences-overview"
             ],
-            "study_specific": false
+            "study_specific": true
           }
         }
       ],
@@ -1898209,7 +1898101,7 @@
         "defaults": "none",
         "anatomic_expansion": "Original structure-specific reporting choices; references retained; no clinical approval implied."
       },
-      "schema_hash": "44149770bd946b16481f8dfce8b2072ce50d1d94f064557301d7ad949f716bdd",
+      "schema_hash": "06505b31995dc6a7695d2898b8deed25cf6b1b73118737fec2e20c85acb6cfb6",
       "anatomic_sources": {
         "anatomic-additions-20261026:acr-xr": {
           "id": "acr-xr",
@@ -1908327,5 +1908219,5 @@
     "number_policy": "Only actual supplied measurements; no numeric defaults. A number picker is an input method, not a measurement source.",
     "report_policy": "All slots in selected statements must resolve before a report is complete. Preserve source statement wording."
   },
-  "schema_hash": "610f2b800f4d46e74cd4ed33336868dac95babe01e7af9c197616917ff3caa44"
+  "schema_hash": "fe828cbabbddbac3f42f0a4a2ba4810666e76f39a5f40dcf323be5c842b08847"
 }

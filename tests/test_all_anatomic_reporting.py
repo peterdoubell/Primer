@@ -225,7 +225,7 @@ def test_unselected_anatomy_and_absent_normals_are_never_filled_in(form, inv):
         result = ENGINE.render_descriptors(form, scoped_state(inv,section,{section['id']: {'normal': True}}))
         if section['normal']:
             assert result['valid'], (section['id'], result['issues'])
-            assert result['text'].endswith(section['normal']['text'])
+            assert any(block['text'].endswith(section['normal']['text']) for block in result['sections'])
             assert len(result['sections']) == 1 + int(bool(section.get('requires_scope')))
             assert not section['normal']['slots']
         else:

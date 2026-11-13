@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/report-compartments-20261028/runtime-inverse.json'
 PROOF_SHA256='273fd02dcd7b799bc8484e2e0fa87f2b0e933f031245326bbad4b91a0e2a9d90'
 
-def before_compartments_bytes(path,raw,allow_older=False):
+def before_compartments_bytes(path,raw,allow_older=False, *, retain_compartments=False):
  if str(path) not in ('web/radiology-structured.js','web/radiology-structured.css','primer/descriptor_reporting.py'):return raw
  encoded=(ROOT/PROOF).read_bytes()
  if hashlib.sha256(encoded).hexdigest()!=PROOF_SHA256:raise ValueError('Compartment inverse evidence changed')
@@ -27,6 +27,7 @@ def before_compartments_bytes(path,raw,allow_older=False):
  if hashlib.sha256(raw).hexdigest()==upgrade['after_sha256']:
   raw=restore_presentation_bytes(raw,upgrade)
  digest=hashlib.sha256(raw).hexdigest()
+ if retain_compartments and digest==row['after_sha256']:return raw
  if digest==row['before_sha256']:return raw
  if digest!=row['after_sha256']:
   if allow_older:return raw

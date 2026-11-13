@@ -1,4 +1,9 @@
 """Report acquisition choices. A choice records an acquisition the reader confirms."""
+try:
+    from tools.report_protocol_catalogue import ADDITIONAL_PROTOCOLS
+except ModuleNotFoundError:
+    from report_protocol_catalogue import ADDITIONAL_PROTOCOLS
+
 CT = 'https://radiologyassistant.nl/more/ct-protocols/ct-contrast-injection-and-protocols'
 MRI = 'https://radiopaedia.org/articles/mri-sequences-overview'
 PE = 'https://radiopaedia.org/articles/ct-pulmonary-angiogram-protocol'
@@ -81,15 +86,6 @@ PROFILES = [
 ]
 
 BY_ID = {identifier: profile for identifiers, profile in PROFILES for identifier in identifiers}
-UNENHANCED_CT = {
-    'ct.kub', 'ct.calcium-score', 'ra.hrct-lung', 'chest.ct-lung-screening',
-    'ra.ct-traumatic-haemorrhage', 'neuro.ct-brain-routine', 'ct.sinuses', 'ct.temporal-bone',
-    'ct.facial-bones', 'ct.knee', 'ct.ankle-foot', 'ct.hip', 'ct.femur', 'ct.elbow',
-    'ct.shoulder', 'ct.wrist-hand', 'ct.tmj', 'ct.pelvis-hips', 'msk.ct-spine-postoperative',
-    'ra.ct-pulmonary-nodules', 'ra.ct-covid', 'ra.ct-airways',
-}
-
-
 def report_protocol(exam):
     modality = exam.get('modality')
     if modality not in ('MRI', 'CT'):
@@ -100,16 +96,6 @@ def report_protocol(exam):
         if identifier == 'msk.mri-knee-postoperative':
             options += ('Metal artefact reduction sequences.',)
         return {'label': label, 'options': options, 'sources': sources, 'study_specific': True}
-    if modality == 'MRI':
-        return {'label': 'Acquired sequences', 'options': (
-            'Multiplanar T1-weighted imaging.', 'Multiplanar fluid-sensitive imaging.',
-            'DWI and ADC maps.', 'Postcontrast T1-weighted imaging.',
-        ), 'sources': (MRI,), 'study_specific': False}
-    if identifier in UNENHANCED_CT:
-        options = ('Unenhanced CT acquisition.', 'Multiplanar reformats.')
-    elif identifier.startswith('ct.angiogram-') or identifier == 'ra.vascular-anomalies':
-        options = ('Arterial phase after IV iodinated contrast.', 'Bolus tracking.', 'Multiplanar and maximum-intensity-projection reformats.')
-    else:
-        options = ('Unenhanced series.', 'IV iodinated contrast administered.', 'Arterial phase.',
-                   'Portal venous phase.', 'Delayed phase.', 'Oral contrast administered.', 'Multiplanar reformats.')
-    return {'label': 'Acquired CT series', 'options': options, 'sources': (CT,), 'study_specific': False}
+    if identifier in ADDITIONAL_PROTOCOLS:
+        return ADDITIONAL_PROTOCOLS[identifier]
+    raise ValueError(f'Missing study-specific {modality} acquisition choices for {identifier}')
