@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '777e6065902c1e78c943040145f5fac1ea02342cb737c8d5a38fc23ea42ca95d':
+        raw = raw.replace(b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n    'Predict English plural sounds'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':
+            raise ValueError('Plural sounds link changed unrelated reader bytes')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':
         raw = raw.replace(b"  if (n.id === 'phys.5.condensed') page.append(el('a', { class: 'btn ghost', href: '/app/physics/ising/index.html' },\n    'Explore spin order and temperature'));\n", b'', 1)
         if hashlib.sha256(raw).hexdigest() != 'f4c23a904f8e527c6a292fb56d8241bece656f19908b1f2d7e7d4d5f6743c6ea':
