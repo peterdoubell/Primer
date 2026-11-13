@@ -438,10 +438,20 @@ window.PrimerStructuredReporting = (() => {
         reportOpening.append(choices);
         const references = element('details', undefined, 'rad-calculation-references');
         references.append(element('summary', 'Protocol references'));
-        for (const [index, url] of protocol.sources.entries()) {
-          const link = element('a', (url.includes('radiologyassistant.nl') ? 'Radiology Assistant' :
-            url.includes('radiopaedia.org') ? 'Radiopaedia' : 'ESSR') + ' · ' + (index + 1));
-          link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+        const publishers = new Map([
+          ['https://radiologyassistant.nl', 'Radiology Assistant'],
+          ['https://radiopaedia.org', 'Radiopaedia'],
+          ['https://pmc.ncbi.nlm.nih.gov', 'ESSR'],
+        ]);
+        for (const [index, source] of protocol.sources.entries()) {
+          let url;
+          try { url = new URL(source); } catch { continue; }
+          const publisher = publishers.get(url.origin);
+          if (!publisher || url.username || url.password) continue;
+          const link = element('a', publisher + ' · ' + (index + 1));
+          link.href = url.href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
           references.append(link);
         }
         reportOpening.append(references, element('h4', 'Findings', 'rad-report-study'));

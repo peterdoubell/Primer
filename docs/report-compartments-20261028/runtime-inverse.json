@@ -201,7 +201,7 @@
   "report_document_structure": {
     "web/radiology-structured.js": {
       "before_sha256": "dd6d6af45abba5b897db04690fe8cfe55b2027a33ba30f1a5f8691748557737f",
-      "after_sha256": "5e67b36f71ca32a81b63cfe8d59910ca57bbec369181e46776d1db22970739f5",
+      "after_sha256": "5cf307fcb663871cb354f03a65485216bf0f82f8f3d0f1c79138248cab7731f4",
       "changes": [
         {
           "start": 155,
@@ -241,49 +241,49 @@
         },
         {
           "start": 395,
-          "end": 452,
+          "end": 462,
           "before": "",
-          "after": "    const reportOpening = element('div', undefined, 'rad-report-opening');\n    const reportClosing = element('div', undefined, 'rad-report-closing');\n    fields.replaceChildren(reportOpening, descriptorFields, calculatorFields, reportClosing);\n    function drawReportFields() {\n      reportOpening.replaceChildren();\n      reportClosing.replaceChildren();\n      const exam = investigation();\n      if (exam?.report_format !== 3) return;\n      const edit = (parent, key, title = reportFieldLabels[key]) => {\n        const label = element('label', title, 'rad-report-field');\n        const input = element('textarea');\n        input.rows = 2;\n        input.maxLength = 4000;\n        input.value = state.report_fields[key] || '';\n        input.oninput = () => {\n          state.report_fields[key] = input.value;\n          update(true);\n        };\n        label.append(input);\n        parent.append(label);\n      };\n      edit(reportOpening, 'clinical_history');\n      edit(reportOpening, 'comparison');\n      reportOpening.append(element('h4', exam.title, 'rad-report-study'));\n      const protocol = exam.report_protocol;\n      if (protocol) {\n        edit(reportOpening, 'protocol', exam.modality === 'MRI' ? 'Protocol' : 'Technique');\n        const choices = element('div', undefined, 'rad-choices rad-protocol-choices');\n        choices.setAttribute('role', 'group');\n        choices.setAttribute('aria-label', protocol.label);\n        for (const description of protocol.options) {\n          const choice = button(description, () => {\n            const selected = new Set(state.report_fields.protocol_options || []);\n            if (selected.has(description)) selected.delete(description);\n            else selected.add(description);\n            state.report_fields.protocol_options = protocol.options.filter(item => selected.has(item));\n            choose(choice, selected.has(description));\n            update(true);\n          });\n          choose(choice, (state.report_fields.protocol_options || []).includes(description));\n          choices.append(choice);\n        }\n        reportOpening.append(choices);\n        const references = element('details', undefined, 'rad-calculation-references');\n        references.append(element('summary', 'Protocol references'));\n        for (const [index, url] of protocol.sources.entries()) {\n          const link = element('a', (url.includes('radiologyassistant.nl') ? 'Radiology Assistant' :\n            url.includes('radiopaedia.org') ? 'Radiopaedia' : 'ESSR') + ' \u00b7 ' + (index + 1));\n          link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';\n          references.append(link);\n        }\n        reportOpening.append(references, element('h4', 'Findings', 'rad-report-study'));\n      }\n      edit(reportClosing, 'impression');\n      edit(reportClosing, 'recommendation');\n    }\n\n"
+          "after": "    const reportOpening = element('div', undefined, 'rad-report-opening');\n    const reportClosing = element('div', undefined, 'rad-report-closing');\n    fields.replaceChildren(reportOpening, descriptorFields, calculatorFields, reportClosing);\n    function drawReportFields() {\n      reportOpening.replaceChildren();\n      reportClosing.replaceChildren();\n      const exam = investigation();\n      if (exam?.report_format !== 3) return;\n      const edit = (parent, key, title = reportFieldLabels[key]) => {\n        const label = element('label', title, 'rad-report-field');\n        const input = element('textarea');\n        input.rows = 2;\n        input.maxLength = 4000;\n        input.value = state.report_fields[key] || '';\n        input.oninput = () => {\n          state.report_fields[key] = input.value;\n          update(true);\n        };\n        label.append(input);\n        parent.append(label);\n      };\n      edit(reportOpening, 'clinical_history');\n      edit(reportOpening, 'comparison');\n      reportOpening.append(element('h4', exam.title, 'rad-report-study'));\n      const protocol = exam.report_protocol;\n      if (protocol) {\n        edit(reportOpening, 'protocol', exam.modality === 'MRI' ? 'Protocol' : 'Technique');\n        const choices = element('div', undefined, 'rad-choices rad-protocol-choices');\n        choices.setAttribute('role', 'group');\n        choices.setAttribute('aria-label', protocol.label);\n        for (const description of protocol.options) {\n          const choice = button(description, () => {\n            const selected = new Set(state.report_fields.protocol_options || []);\n            if (selected.has(description)) selected.delete(description);\n            else selected.add(description);\n            state.report_fields.protocol_options = protocol.options.filter(item => selected.has(item));\n            choose(choice, selected.has(description));\n            update(true);\n          });\n          choose(choice, (state.report_fields.protocol_options || []).includes(description));\n          choices.append(choice);\n        }\n        reportOpening.append(choices);\n        const references = element('details', undefined, 'rad-calculation-references');\n        references.append(element('summary', 'Protocol references'));\n        const publishers = new Map([\n          ['https://radiologyassistant.nl', 'Radiology Assistant'],\n          ['https://radiopaedia.org', 'Radiopaedia'],\n          ['https://pmc.ncbi.nlm.nih.gov', 'ESSR'],\n        ]);\n        for (const [index, source] of protocol.sources.entries()) {\n          let url;\n          try { url = new URL(source); } catch { continue; }\n          const publisher = publishers.get(url.origin);\n          if (!publisher || url.username || url.password) continue;\n          const link = element('a', publisher + ' \u00b7 ' + (index + 1));\n          link.href = url.href;\n          link.target = '_blank';\n          link.rel = 'noopener noreferrer';\n          references.append(link);\n        }\n        reportOpening.append(references, element('h4', 'Findings', 'rad-report-study'));\n      }\n      edit(reportClosing, 'impression');\n      edit(reportClosing, 'recommendation');\n    }\n\n"
         },
         {
-          "start": 453,
-          "end": 459,
+          "start": 463,
+          "end": 469,
           "before": "    const compartmentOf = section => section.compartment || section.group || section.label;\n",
           "after": "    const compartmentOf = section => {\n      const name = section.compartment || section.group || section.label;\n      const exam = investigation();\n      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)\n        ? 'Examination details' : name;\n    };\n"
         },
         {
-          "start": 619,
-          "end": 620,
+          "start": 629,
+          "end": 630,
           "before": "        if (groups.length && exam.report_format === 2) {\n",
           "after": "        if (groups.length && [2, 3].includes(exam.report_format)) {\n"
         },
         {
-          "start": 656,
-          "end": 658,
+          "start": 666,
+          "end": 668,
           "before": "        if (section.group && section.group !== compartmentName && groupKey !== lastGroup) {\n",
           "after": "        if (section.group && section.group !== compartmentName && groupKey !== lastGroup\n            && !(compartmentName === 'Examination details' && /^(technique|protocol)$/i.test(section.group))) {\n"
         },
         {
-          "start": 709,
-          "end": 710,
+          "start": 719,
+          "end": 720,
           "before": "      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),\n",
           "after": "      const assessments = [...completeCalculations.map(value => 'CALCULATED ASSESSMENT\\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),\n"
         },
         {
-          "start": 716,
-          "end": 721,
+          "start": 726,
+          "end": 731,
           "before": "      return {...result, missing, text: parts.join('\\n\\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0 || completeBound.length > 0)};\n",
           "after": "      const exam = investigation();\n      const text = exam?.report_format === 3\n        ? (result.text || !result.missing.length ? formatStudyReport(exam, state.report_fields, result.sections || [], assessments) : '')\n        : [result.text, ...assessments].filter(Boolean).join('\\n\\n');\n      return {...result, missing, text, complete: missing.length === 0 && (result.complete || completeCalculations.length > 0 || completeBound.length > 0)};\n"
         },
         {
-          "start": 766,
-          "end": 767,
+          "start": 776,
+          "end": 777,
           "before": "      return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};\n",
           "after": "      return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections, ...(investigation()?.report_format === 3 ? {report_fields: snapshot.report_fields} : {})}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};\n"
         },
         {
-          "start": 773,
-          "end": 774,
+          "start": 783,
+          "end": 784,
           "before": "    drawSections(); drawCalculators(); update(); return root;\n",
           "after": "    drawReportFields(); drawSections(); drawCalculators(); update(); return root;\n"
         }

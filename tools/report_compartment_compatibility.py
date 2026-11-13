@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/report-compartments-20261028/runtime-inverse.json'
-PROOF_SHA256='273fd02dcd7b799bc8484e2e0fa87f2b0e933f031245326bbad4b91a0e2a9d90'
+PROOF_SHA256='62a914d24f7c50e2f4bd7a932adfb0410200f2f77fe699a87169493fdb7ce628'
 
 def before_compartments_bytes(path,raw,allow_older=False, *, retain_compartments=False):
  if str(path) not in ('web/radiology-structured.js','web/radiology-structured.css','primer/descriptor_reporting.py'):return raw
