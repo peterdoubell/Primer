@@ -27,14 +27,13 @@ def test_knee_compacts_only_complete_normal_groups_and_preserves_previous_output
     }}
     compact = render_descriptors(current, state)
     assert compact['valid']
-    assert compact['text'] == (
-        'MEDIAL COMPARTMENT:\n'
+    assert compact['sections'][0]['text'] == (
         '• No tear of the medial meniscal anterior horn, body or posterior horn.'
     )
     original = render_descriptors(old, state)
     assert original['valid'] and original['text'].startswith('MEDIAL COMPARTMENT\n')
     assert len(original['sections'][0]['text'].splitlines()) == 3
-    assert len(compact['text'].split()) < len(original['text'].split())
+    assert len(compact['sections'][0]['text'].split()) < len(original['sections'][0]['text'].split())
 
     row = prefix + 'body'
     finding = KNEE + ':medial-meniscus-body:bucket-handle'

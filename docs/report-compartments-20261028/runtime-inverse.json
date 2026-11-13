@@ -197,5 +197,151 @@
         "after": "            'text': '\\n\\n'.join(x['label'] + (':\\n' if compact else '\\n') + x['text'] for x in rendered_sections) if valid else '',\n"
       }
     ]
+  },
+  "report_document_structure": {
+    "web/radiology-structured.js": {
+      "before_sha256": "dd6d6af45abba5b897db04690fe8cfe55b2027a33ba30f1a5f8691748557737f",
+      "after_sha256": "5e67b36f71ca32a81b63cfe8d59910ca57bbec369181e46776d1db22970739f5",
+      "changes": [
+        {
+          "start": 155,
+          "end": 179,
+          "before": "",
+          "after": "  const reportFieldLabels = {\n    clinical_history: 'Clinical history', comparison: 'Comparison', protocol: 'Protocol',\n    impression: 'Impression', recommendation: 'Recommendation',\n  };\n  function formatStudyReport(exam, fields, sections, assessments = []) {\n    if (!Object.values(fields).some(value => Array.isArray(value) ? value.length : value.trim())\n        && !sections.length && !assessments.length) return '';\n    const block = (label, body) => label + ':\\n' + (body || '\u2014');\n    const acquisition = exam.report_protocol;\n    const protocol = [fields.protocol?.trim(), ...(acquisition?.options || []).filter(option => fields.protocol_options?.includes(option))];\n    const findings = [];\n    const examination = [];\n    for (const section of sections) {\n      if (['technique', 'protocol'].includes(section.label.toLowerCase())) {\n        (acquisition ? protocol : examination).push(section.text);\n      } else findings.push(block(section.label, section.text));\n    }\n    findings.push(...assessments);\n    const study = acquisition\n      ? [exam.title, block(exam.modality === 'MRI' ? 'Protocol' : 'Technique', protocol.filter(Boolean).join('\\n')), block('Findings', findings.join('\\n\\n'))]\n      : [exam.title, ...examination, ...findings];\n    return [block('Clinical history', fields.clinical_history?.trim()), block('Comparison', fields.comparison?.trim()),\n      ...study, block('Impression', fields.impression?.trim()), block('Recommendation', fields.recommendation?.trim())].join('\\n\\n');\n  }\n"
+        },
+        {
+          "start": 195,
+          "end": 196,
+          "before": "    const compact = investigation.report_format === 2;\n",
+          "after": "    const compact = [2, 3].includes(investigation.report_format);\n"
+        },
+        {
+          "start": 243,
+          "end": 260,
+          "before": "    return {text: [...grouped.values()].map(group => group.label + (compact ? ':\\n' : '\\n') + group.lines.map(line => compact ? '\u2022 ' + line : line).join('\\n')).join('\\n\\n'), missing, complete: selectedCount > 0 && missing.length === 0, selected_count: selectedCount};\n",
+          "after": "    const sections = [...grouped.values()].map(group => ({\n      label: group.label, text: group.lines.map(line => compact ? '\u2022 ' + line : line).join('\\n'),\n    }));\n    const structured = investigation.report_format === 3;\n    const fields = structured && dictionary(state.report_fields) ? state.report_fields : {};\n    if (structured && (Object.keys(fields).some(key => key !== 'protocol_options' && (!own(reportFieldLabels, key)\n        || typeof fields[key] !== 'string' || fields[key].length > 4000 || /[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]/.test(fields[key])))\n        || (!investigation.report_protocol && (own(fields, 'protocol') || own(fields, 'protocol_options')))\n        || (own(fields, 'protocol_options') && (!Array.isArray(fields.protocol_options)\n          || new Set(fields.protocol_options).size !== fields.protocol_options.length\n          || fields.protocol_options.some(option => !investigation.report_protocol?.options.includes(option)))))) {\n      missing.push({label: 'Review report fields and protocol choices'});\n      return {text: '', sections, missing, complete: false, selected_count: selectedCount};\n    }\n    const text = structured ? formatStudyReport(investigation, fields, sections)\n      : sections.map(section => section.label + (compact ? ':\\n' : '\\n') + section.text).join('\\n\\n');\n    return {text, sections, missing, complete: (structured ? Boolean(text) : selectedCount > 0) && missing.length === 0, selected_count: selectedCount};\n"
+        },
+        {
+          "start": 333,
+          "end": 334,
+          "before": "    state = {schema_version: '1.0', investigation_id: options.investigationId || state.investigation_id || schema.selected_investigation_id || form.selected_investigation_id || (schema.investigations?.length === 1 ? schema.investigations[0].id : ''), selections: state.selections || {}, calculator_inputs: state.calculator_inputs || {}};\n",
+          "after": "    state = {schema_version: '1.0', investigation_id: options.investigationId || state.investigation_id || schema.selected_investigation_id || form.selected_investigation_id || (schema.investigations?.length === 1 ? schema.investigations[0].id : ''), selections: state.selections || {}, calculator_inputs: state.calculator_inputs || {}, report_fields: state.report_fields || {}};\n"
+        },
+        {
+          "start": 343,
+          "end": 351,
+          "before": "    const clear = button('Clear', () => { state.selections = {}; state.calculator_inputs = {}; calculations.clear(); drawSections(); drawCalculators(); update(true); }, 'rad-small-button');\n",
+          "after": "    const clear = button('Clear', () => {\n      state.selections = {};\n      state.calculator_inputs = {};\n      delete state.report_fields.impression;\n      delete state.report_fields.recommendation;\n      calculations.clear();\n      drawReportFields(); drawSections(); drawCalculators(); update(true);\n    }, 'rad-small-button');\n"
+        },
+        {
+          "start": 358,
+          "end": 364,
+          "before": "        const choice = button(item.title, () => { if (state.investigation_id === item.id) return; state.investigation_id = item.id; state.selections = {}; state.calculator_inputs = {}; calculations.clear(); drawSections(); drawCalculators(); update(true); });\n",
+          "after": "        const choice = button(item.title, () => { if (state.investigation_id === item.id) return; state.investigation_id = item.id; state.selections = {}; state.calculator_inputs = {}; state.report_fields = {...state.report_fields};\n          delete state.report_fields.protocol;\n          delete state.report_fields.protocol_options;\n          delete state.report_fields.impression;\n          delete state.report_fields.recommendation;\n          calculations.clear(); drawReportFields(); drawSections(); drawCalculators(); update(true); });\n"
+        },
+        {
+          "start": 395,
+          "end": 452,
+          "before": "",
+          "after": "    const reportOpening = element('div', undefined, 'rad-report-opening');\n    const reportClosing = element('div', undefined, 'rad-report-closing');\n    fields.replaceChildren(reportOpening, descriptorFields, calculatorFields, reportClosing);\n    function drawReportFields() {\n      reportOpening.replaceChildren();\n      reportClosing.replaceChildren();\n      const exam = investigation();\n      if (exam?.report_format !== 3) return;\n      const edit = (parent, key, title = reportFieldLabels[key]) => {\n        const label = element('label', title, 'rad-report-field');\n        const input = element('textarea');\n        input.rows = 2;\n        input.maxLength = 4000;\n        input.value = state.report_fields[key] || '';\n        input.oninput = () => {\n          state.report_fields[key] = input.value;\n          update(true);\n        };\n        label.append(input);\n        parent.append(label);\n      };\n      edit(reportOpening, 'clinical_history');\n      edit(reportOpening, 'comparison');\n      reportOpening.append(element('h4', exam.title, 'rad-report-study'));\n      const protocol = exam.report_protocol;\n      if (protocol) {\n        edit(reportOpening, 'protocol', exam.modality === 'MRI' ? 'Protocol' : 'Technique');\n        const choices = element('div', undefined, 'rad-choices rad-protocol-choices');\n        choices.setAttribute('role', 'group');\n        choices.setAttribute('aria-label', protocol.label);\n        for (const description of protocol.options) {\n          const choice = button(description, () => {\n            const selected = new Set(state.report_fields.protocol_options || []);\n            if (selected.has(description)) selected.delete(description);\n            else selected.add(description);\n            state.report_fields.protocol_options = protocol.options.filter(item => selected.has(item));\n            choose(choice, selected.has(description));\n            update(true);\n          });\n          choose(choice, (state.report_fields.protocol_options || []).includes(description));\n          choices.append(choice);\n        }\n        reportOpening.append(choices);\n        const references = element('details', undefined, 'rad-calculation-references');\n        references.append(element('summary', 'Protocol references'));\n        for (const [index, url] of protocol.sources.entries()) {\n          const link = element('a', (url.includes('radiologyassistant.nl') ? 'Radiology Assistant' :\n            url.includes('radiopaedia.org') ? 'Radiopaedia' : 'ESSR') + ' \u00b7 ' + (index + 1));\n          link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';\n          references.append(link);\n        }\n        reportOpening.append(references, element('h4', 'Findings', 'rad-report-study'));\n      }\n      edit(reportClosing, 'impression');\n      edit(reportClosing, 'recommendation');\n    }\n\n"
+        },
+        {
+          "start": 453,
+          "end": 459,
+          "before": "    const compartmentOf = section => section.compartment || section.group || section.label;\n",
+          "after": "    const compartmentOf = section => {\n      const name = section.compartment || section.group || section.label;\n      const exam = investigation();\n      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)\n        ? 'Examination details' : name;\n    };\n"
+        },
+        {
+          "start": 619,
+          "end": 620,
+          "before": "        if (groups.length && exam.report_format === 2) {\n",
+          "after": "        if (groups.length && [2, 3].includes(exam.report_format)) {\n"
+        },
+        {
+          "start": 656,
+          "end": 658,
+          "before": "        if (section.group && section.group !== compartmentName && groupKey !== lastGroup) {\n",
+          "after": "        if (section.group && section.group !== compartmentName && groupKey !== lastGroup\n            && !(compartmentName === 'Examination details' && /^(technique|protocol)$/i.test(section.group))) {\n"
+        },
+        {
+          "start": 709,
+          "end": 710,
+          "before": "      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),\n",
+          "after": "      const assessments = [...completeCalculations.map(value => 'CALCULATED ASSESSMENT\\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),\n"
+        },
+        {
+          "start": 716,
+          "end": 721,
+          "before": "      return {...result, missing, text: parts.join('\\n\\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0 || completeBound.length > 0)};\n",
+          "after": "      const exam = investigation();\n      const text = exam?.report_format === 3\n        ? (result.text || !result.missing.length ? formatStudyReport(exam, state.report_fields, result.sections || [], assessments) : '')\n        : [result.text, ...assessments].filter(Boolean).join('\\n\\n');\n      return {...result, missing, text, complete: missing.length === 0 && (result.complete || completeCalculations.length > 0 || completeBound.length > 0)};\n"
+        },
+        {
+          "start": 766,
+          "end": 767,
+          "before": "      return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};\n",
+          "after": "      return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections, ...(investigation()?.report_format === 3 ? {report_fields: snapshot.report_fields} : {})}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};\n"
+        },
+        {
+          "start": 773,
+          "end": 774,
+          "before": "    drawSections(); drawCalculators(); update(); return root;\n",
+          "after": "    drawReportFields(); drawSections(); drawCalculators(); update(); return root;\n"
+        }
+      ]
+    },
+    "web/radiology-structured.css": {
+      "before_sha256": "b0bcabb34b1f60c1538f28a9c922c3a99452e7fe632ebeb79de548ef5570d0d7",
+      "after_sha256": "5a53605e807501dbe63b48e60e10820c8563a3dbab6edd5317530daa0c34e340",
+      "changes": [
+        {
+          "start": 46,
+          "end": 56,
+          "before": "",
+          "after": "\n.rad-report-opening, .rad-report-closing { display: grid; gap: 10px; margin: 0 0 14px; }\n.rad-report-opening:empty, .rad-report-closing:empty { display: none; }\n.rad-report-field { display: grid; gap: 4px; font-size: 13px; font-weight: 600; }\n.rad-report-field textarea {\n  width: 100%; padding: 8px; resize: vertical; border: 1px solid var(--rad-line);\n  border-radius: 6px; background: var(--rad-fill); color: inherit; font: inherit; font-weight: 400;\n}\n.rad-report-study { margin: 4px 0; font-size: 15px; }\n.rad-protocol-choices .rad-choice { font-size: 12px; }\n"
+        }
+      ]
+    },
+    "primer/descriptor_reporting.py": {
+      "before_sha256": "723681b95a92763f9fefdcac08d2fe6985f368cce98ddc8fdc1fe9214eef9279",
+      "after_sha256": "e7acd6b6ca198c44ea6a4b6f44c1f4bc57942dded492521edc6b7d90186d2f4b",
+      "changes": [
+        {
+          "start": 54,
+          "end": 88,
+          "before": "",
+          "after": "\nREPORT_FIELDS = ('clinical_history', 'comparison', 'protocol', 'impression', 'recommendation')\n\n\ndef format_study_report(investigation, fields, sections, assessments=()):\n    \"\"\"Compose the document in reading order using only supplied observations.\"\"\"\n    acquisition = investigation.get('report_protocol')\n    protocol = [fields.get('protocol', ''), *fields.get('protocol_options', [])]\n    findings = []\n    examination = []\n    for section in sections:\n        if section['label'].casefold() in ('technique', 'protocol'):\n            if acquisition:\n                protocol.append(section['text'])\n            else:\n                examination.append(section['text'])\n        else:\n            findings.append(section['label'] + ':\\n' + section['text'])\n    findings.extend(assessments)\n    if not any(fields.values()) and not sections and not assessments:\n        return ''\n    def block(label, body):\n        return label + ':\\n' + (body or '\u2014')\n    study = [investigation['title']]\n    if acquisition:\n        study.extend((block('Protocol' if investigation['modality'] == 'MRI' else 'Technique',\n                            '\\n'.join(filter(None, protocol))), block('Findings', '\\n\\n'.join(findings))))\n    else:\n        study.extend(examination + findings)\n    return '\\n\\n'.join((block('Clinical history', fields.get('clinical_history')),\n                        block('Comparison', fields.get('comparison')), '\\n\\n'.join(study),\n                        block('Impression', fields.get('impression')),\n                        block('Recommendation', fields.get('recommendation'))))\n\n"
+        },
+        {
+          "start": 94,
+          "end": 95,
+          "before": "    if not isinstance(state, dict) or set(state) - {'investigation_id', 'selections'}:\n",
+          "after": "    if not isinstance(state, dict) or set(state) - {'investigation_id', 'selections', 'report_fields'}:\n"
+        },
+        {
+          "start": 99,
+          "end": 123,
+          "before": "",
+          "after": "    fields = state.get('report_fields', {})\n    if 'report_fields' in state:\n        protocol = investigation.get('report_protocol')\n        valid_keys = set(REPORT_FIELDS) | {'protocol_options'}\n        if investigation.get('report_format') != 3 or not isinstance(fields, dict) or set(fields) - valid_keys:\n            problem('invalid_report_fields')\n            fields = {}\n        else:\n            options = fields.get('protocol_options', [])\n            if (not isinstance(options, list) or any(not isinstance(value, str) for value in options)\n                    or len(options) != len(set(options))\n                    or set(options) - set((protocol or {}).get('options', []))\n                    or (not protocol and ('protocol' in fields or 'protocol_options' in fields))):\n                problem('invalid_report_protocol')\n                fields = {}\n            elif any(not isinstance(value, str) or len(value) > 4000\n                     or re.search(r'[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]', value)\n                     for key, value in fields.items() if key != 'protocol_options'):\n                problem('invalid_report_fields')\n                fields = {}\n            else:\n                fields = {key: value.strip() for key, value in fields.items() if key != 'protocol_options' and value.strip()}\n                if options:\n                    fields['protocol_options'] = [item for item in protocol['options'] if item in options]\n"
+        },
+        {
+          "start": 208,
+          "end": 209,
+          "before": "    compact = investigation.get('report_format') == 2\n",
+          "after": "    compact = investigation.get('report_format') in (2, 3)\n"
+        },
+        {
+          "start": 285,
+          "end": 287,
+          "before": "",
+          "after": "    text = ('\\n\\n'.join(x['label'] + (':\\n' if compact else '\\n') + x['text'] for x in rendered_sections)\n            if investigation.get('report_format') != 3 else format_study_report(investigation, fields, rendered_sections))\n"
+        },
+        {
+          "start": 288,
+          "end": 289,
+          "before": "            'text': '\\n\\n'.join(x['label'] + (':\\n' if compact else '\\n') + x['text'] for x in rendered_sections) if valid else '',\n",
+          "after": "            'text': text if valid else '',\n"
+        }
+      ]
+    }
   }
 }

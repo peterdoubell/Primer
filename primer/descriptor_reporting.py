@@ -52,17 +52,75 @@ def expand_repeated_sections(investigation, selections):
     return dict(investigation, sections=expanded), values, issues
 
 
+
+REPORT_FIELDS = ('clinical_history', 'comparison', 'protocol', 'impression', 'recommendation')
+
+
+def format_study_report(investigation, fields, sections, assessments=()):
+    """Compose the document in reading order using only supplied observations."""
+    acquisition = investigation.get('report_protocol')
+    protocol = [fields.get('protocol', ''), *fields.get('protocol_options', [])]
+    findings = []
+    examination = []
+    for section in sections:
+        if section['label'].casefold() in ('technique', 'protocol'):
+            if acquisition:
+                protocol.append(section['text'])
+            else:
+                examination.append(section['text'])
+        else:
+            findings.append(section['label'] + ':\n' + section['text'])
+    findings.extend(assessments)
+    if not any(fields.values()) and not sections and not assessments:
+        return ''
+    def block(label, body):
+        return label + ':\n' + (body or '—')
+    study = [investigation['title']]
+    if acquisition:
+        study.extend((block('Protocol' if investigation['modality'] == 'MRI' else 'Technique',
+                            '\n'.join(filter(None, protocol))), block('Findings', '\n\n'.join(findings))))
+    else:
+        study.extend(examination + findings)
+    return '\n\n'.join((block('Clinical history', fields.get('clinical_history')),
+                        block('Comparison', fields.get('comparison')), '\n\n'.join(study),
+                        block('Impression', fields.get('impression')),
+                        block('Recommendation', fields.get('recommendation'))))
+
 def render_descriptors(form, state):
     issues = []
 
     def problem(code, **location):
         issues.append({'code': code, 'severity': 'error', **location})
 
-    if not isinstance(state, dict) or set(state) - {'investigation_id', 'selections'}:
+    if not isinstance(state, dict) or set(state) - {'investigation_id', 'selections', 'report_fields'}:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'invalid_descriptor_state', 'severity': 'error'}]}
     investigation = next((x for x in form['investigations'] if x['id'] == state.get('investigation_id')), None)
     if investigation is None:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'unknown_investigation', 'severity': 'error'}]}
+    fields = state.get('report_fields', {})
+    if 'report_fields' in state:
+        protocol = investigation.get('report_protocol')
+        valid_keys = set(REPORT_FIELDS) | {'protocol_options'}
+        if investigation.get('report_format') != 3 or not isinstance(fields, dict) or set(fields) - valid_keys:
+            problem('invalid_report_fields')
+            fields = {}
+        else:
+            options = fields.get('protocol_options', [])
+            if (not isinstance(options, list) or any(not isinstance(value, str) for value in options)
+                    or len(options) != len(set(options))
+                    or set(options) - set((protocol or {}).get('options', []))
+                    or (not protocol and ('protocol' in fields or 'protocol_options' in fields))):
+                problem('invalid_report_protocol')
+                fields = {}
+            elif any(not isinstance(value, str) or len(value) > 4000
+                     or re.search(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', value)
+                     for key, value in fields.items() if key != 'protocol_options'):
+                problem('invalid_report_fields')
+                fields = {}
+            else:
+                fields = {key: value.strip() for key, value in fields.items() if key != 'protocol_options' and value.strip()}
+                if options:
+                    fields['protocol_options'] = [item for item in protocol['options'] if item in options]
     selections = state.get('selections', {})
     if not isinstance(selections, dict) or len(selections) > 1000:
         return {'valid': False, 'text': '', 'sections': [], 'issues': [{'code': 'invalid_descriptor_selections', 'severity': 'error'}]}
@@ -148,7 +206,7 @@ def render_descriptors(form, state):
             return None
         return ''.join(part.get('text', '') if 'text' in part else rendered[part['slot']] for part in descriptor['segments'])
 
-    compact = investigation.get('report_format') == 2
+    compact = investigation.get('report_format') in (2, 3)
     normal_summaries = {}
     if compact:
         active_sections = {section['id'] for section in investigation['sections']}
@@ -225,6 +283,8 @@ def render_descriptors(form, state):
                 if line not in group['lines']: group['lines'].append(line)
     rendered_sections = [{'section_id': x['section_id'], 'label': x['label'], 'text': '\n'.join(('• ' + line if compact else line) for line in x['lines']), 'status': x['status']} for x in grouped.values()]
     valid = not issues
+    text = ('\n\n'.join(x['label'] + (':\n' if compact else '\n') + x['text'] for x in rendered_sections)
+            if investigation.get('report_format') != 3 else format_study_report(investigation, fields, rendered_sections))
     return {'valid': valid, 'issues': issues, 'sections': rendered_sections,
-            'text': '\n\n'.join(x['label'] + (':\n' if compact else '\n') + x['text'] for x in rendered_sections) if valid else '',
+            'text': text if valid else '',
             'investigation_id': investigation['id'], 'selected_finding_count': selected_count}

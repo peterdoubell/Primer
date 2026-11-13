@@ -44,3 +44,13 @@
   line-height: 1.4;
   opacity: .8;
 }
+
+.rad-report-opening, .rad-report-closing { display: grid; gap: 10px; margin: 0 0 14px; }
+.rad-report-opening:empty, .rad-report-closing:empty { display: none; }
+.rad-report-field { display: grid; gap: 4px; font-size: 13px; font-weight: 600; }
+.rad-report-field textarea {
+  width: 100%; padding: 8px; resize: vertical; border: 1px solid var(--rad-line);
+  border-radius: 6px; background: var(--rad-fill); color: inherit; font: inherit; font-weight: 400;
+}
+.rad-report-study { margin: 4px 0; font-size: 15px; }
+.rad-protocol-choices .rad-choice { font-size: 12px; }

@@ -134,7 +134,7 @@ def test_routine_ultrasound_measurements_can_accompany_normal_organs():
 def clinical_observations(exam):
  import copy
  value=copy.deepcopy(exam)
- value.pop('compartments',None);value.pop('presentation_revision',None);value.pop('report_format',None)
+ value.pop('compartments',None);value.pop('presentation_revision',None);value.pop('report_format',None);value.pop('report_protocol',None)
  for row in value['sections']:
   for key in ('compartment','report_section_id','report_section_label'):row.pop(key,None)
  value['sections'].sort(key=lambda row:row['id'])

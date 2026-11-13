@@ -1,5 +1,10 @@
 """Versioned formatting and authored normal summaries for reporting templates."""
 
+try:
+    from tools.report_protocols import report_protocol
+except ModuleNotFoundError:
+    from report_protocols import report_protocol
+
 KNEE_NORMAL_GROUPS = (
     (
         tuple(f'{side}-meniscus-{segment}' for segment in ('anterior-horn', 'body', 'posterior-horn')),
@@ -22,7 +27,10 @@ KNEE_NORMAL_GROUPS = tuple(KNEE_NORMAL_GROUPS) + (
 def apply_report_format(forms, digest):
     for form in forms.values():
         for exam in form['investigations']:
-            exam['report_format'] = 2
+            exam['report_format'] = 3
+            protocol = report_protocol(exam)
+            if protocol:
+                exam['report_protocol'] = protocol
             if exam['id'] != 'ra.mri-knee':
                 continue
             rows = {row['anatomy_id']: row for row in exam['sections']}

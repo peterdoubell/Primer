@@ -153,6 +153,30 @@ window.PrimerStructuredReporting = (() => {
       ||(own(value,'findings')&&!dictionary(value.findings))||(own(value,'instances')&&!Array.isArray(value.instances))
       ||Boolean(value.normal||value.not_assessed||Object.keys(value.findings || {}).length||value.instances?.length);
   }
+  const reportFieldLabels = {
+    clinical_history: 'Clinical history', comparison: 'Comparison', protocol: 'Protocol',
+    impression: 'Impression', recommendation: 'Recommendation',
+  };
+  function formatStudyReport(exam, fields, sections, assessments = []) {
+    if (!Object.values(fields).some(value => Array.isArray(value) ? value.length : value.trim())
+        && !sections.length && !assessments.length) return '';
+    const block = (label, body) => label + ':\n' + (body || '—');
+    const acquisition = exam.report_protocol;
+    const protocol = [fields.protocol?.trim(), ...(acquisition?.options || []).filter(option => fields.protocol_options?.includes(option))];
+    const findings = [];
+    const examination = [];
+    for (const section of sections) {
+      if (['technique', 'protocol'].includes(section.label.toLowerCase())) {
+        (acquisition ? protocol : examination).push(section.text);
+      } else findings.push(block(section.label, section.text));
+    }
+    findings.push(...assessments);
+    const study = acquisition
+      ? [exam.title, block(exam.modality === 'MRI' ? 'Protocol' : 'Technique', protocol.filter(Boolean).join('\n')), block('Findings', findings.join('\n\n'))]
+      : [exam.title, ...examination, ...findings];
+    return [block('Clinical history', fields.clinical_history?.trim()), block('Comparison', fields.comparison?.trim()),
+      ...study, block('Impression', fields.impression?.trim()), block('Recommendation', fields.recommendation?.trim())].join('\n\n');
+  }
   function compose(form, state = {}, context = {}) {
     const schema = descriptorForm(form);
     let investigation = (schema.investigations || []).find(item => item.id === state.investigation_id);
@@ -169,7 +193,7 @@ window.PrimerStructuredReporting = (() => {
     const expanded = expandRepeated(investigation, state.selections || {});
     investigation = expanded.investigation; state = {...state,selections:expanded.selections}; missing.push(...expanded.missing);
     const blocked = blockedNormals(investigation, state.selections);
-    const compact = investigation.report_format === 2;
+    const compact = [2, 3].includes(investigation.report_format);
     const normalSummaries = new Map();
     if (compact) {
       const activeSections = new Set(investigation.sections.map(section => section.id));
@@ -217,7 +241,23 @@ window.PrimerStructuredReporting = (() => {
         for (const line of linesWithText) if (!group.lines.includes(line)) group.lines.push(line);
       }
     }
-    return {text: [...grouped.values()].map(group => group.label + (compact ? ':\n' : '\n') + group.lines.map(line => compact ? '• ' + line : line).join('\n')).join('\n\n'), missing, complete: selectedCount > 0 && missing.length === 0, selected_count: selectedCount};
+    const sections = [...grouped.values()].map(group => ({
+      label: group.label, text: group.lines.map(line => compact ? '• ' + line : line).join('\n'),
+    }));
+    const structured = investigation.report_format === 3;
+    const fields = structured && dictionary(state.report_fields) ? state.report_fields : {};
+    if (structured && (Object.keys(fields).some(key => key !== 'protocol_options' && (!own(reportFieldLabels, key)
+        || typeof fields[key] !== 'string' || fields[key].length > 4000 || /[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(fields[key])))
+        || (!investigation.report_protocol && (own(fields, 'protocol') || own(fields, 'protocol_options')))
+        || (own(fields, 'protocol_options') && (!Array.isArray(fields.protocol_options)
+          || new Set(fields.protocol_options).size !== fields.protocol_options.length
+          || fields.protocol_options.some(option => !investigation.report_protocol?.options.includes(option)))))) {
+      missing.push({label: 'Review report fields and protocol choices'});
+      return {text: '', sections, missing, complete: false, selected_count: selectedCount};
+    }
+    const text = structured ? formatStudyReport(investigation, fields, sections)
+      : sections.map(section => section.label + (compact ? ':\n' : '\n') + section.text).join('\n\n');
+    return {text, sections, missing, complete: (structured ? Boolean(text) : selectedCount > 0) && missing.length === 0, selected_count: selectedCount};
   }
   function selectControl(label, options, value, change) {
     const control = element('select');
@@ -291,7 +331,7 @@ window.PrimerStructuredReporting = (() => {
     let context = clone(options.contextValues || {}), state = clone(options.initialState || {}), copying = false;
     if (state.descriptor_state) state = {...state, ...state.descriptor_state};
     if (!state.calculator_inputs && Array.isArray(state.calculations)) state.calculator_inputs = Object.fromEntries(state.calculations.map(item => [item.calculator_id, item.inputs]));
-    state = {schema_version: '1.0', investigation_id: options.investigationId || state.investigation_id || schema.selected_investigation_id || form.selected_investigation_id || (schema.investigations?.length === 1 ? schema.investigations[0].id : ''), selections: state.selections || {}, calculator_inputs: state.calculator_inputs || {}};
+    state = {schema_version: '1.0', investigation_id: options.investigationId || state.investigation_id || schema.selected_investigation_id || form.selected_investigation_id || (schema.investigations?.length === 1 ? schema.investigations[0].id : ''), selections: state.selections || {}, calculator_inputs: state.calculator_inputs || {}, report_fields: state.report_fields || {}};
     const allowedCalculators = new Set([...(form.calculator_ids || []), ...(schema.calculator_ids || [])]);
     for (const id of Object.keys(state.calculator_inputs)) if (!allowedCalculators.has(id)) delete state.calculator_inputs[id];
     const calculations = new Map(), calculatorControllers = new Map(), pending = new Set();
@@ -301,7 +341,14 @@ window.PrimerStructuredReporting = (() => {
       fillNormal();
       drawSections(); update(true);
     }, 'rad-small-button');
-    const clear = button('Clear', () => { state.selections = {}; state.calculator_inputs = {}; calculations.clear(); drawSections(); drawCalculators(); update(true); }, 'rad-small-button');
+    const clear = button('Clear', () => {
+      state.selections = {};
+      state.calculator_inputs = {};
+      delete state.report_fields.impression;
+      delete state.report_fields.recommendation;
+      calculations.clear();
+      drawReportFields(); drawSections(); drawCalculators(); update(true);
+    }, 'rad-small-button');
     actions.append(normal, clear); heading.append(element('h3', 'Report findings'), actions); root.append(heading);
     normal.title = 'Fill unselected structures only; retain existing findings.';
     const groupNavigation = element('nav', undefined, 'rad-group-navigation'); groupNavigation.setAttribute('aria-label', 'Anatomical groups'); root.append(groupNavigation);
@@ -309,7 +356,12 @@ window.PrimerStructuredReporting = (() => {
     if (!options.investigationId && (schema.investigations || []).length > 1) {
       investigationPicker.setAttribute('role', 'group'); investigationPicker.setAttribute('aria-label', 'Examination');
       for (const item of schema.investigations) {
-        const choice = button(item.title, () => { if (state.investigation_id === item.id) return; state.investigation_id = item.id; state.selections = {}; state.calculator_inputs = {}; calculations.clear(); drawSections(); drawCalculators(); update(true); });
+        const choice = button(item.title, () => { if (state.investigation_id === item.id) return; state.investigation_id = item.id; state.selections = {}; state.calculator_inputs = {}; state.report_fields = {...state.report_fields};
+          delete state.report_fields.protocol;
+          delete state.report_fields.protocol_options;
+          delete state.report_fields.impression;
+          delete state.report_fields.recommendation;
+          calculations.clear(); drawReportFields(); drawSections(); drawCalculators(); update(true); });
         choice.dataset.investigationId = item.id; investigationPicker.append(choice);
       }
       root.append(investigationPicker);
@@ -341,8 +393,70 @@ window.PrimerStructuredReporting = (() => {
     sheet.append(fields, draft);
     root.append(sheet);
     const investigation = () => (schema.investigations || []).find(item => item.id === state.investigation_id);
+    const reportOpening = element('div', undefined, 'rad-report-opening');
+    const reportClosing = element('div', undefined, 'rad-report-closing');
+    fields.replaceChildren(reportOpening, descriptorFields, calculatorFields, reportClosing);
+    function drawReportFields() {
+      reportOpening.replaceChildren();
+      reportClosing.replaceChildren();
+      const exam = investigation();
+      if (exam?.report_format !== 3) return;
+      const edit = (parent, key, title = reportFieldLabels[key]) => {
+        const label = element('label', title, 'rad-report-field');
+        const input = element('textarea');
+        input.rows = 2;
+        input.maxLength = 4000;
+        input.value = state.report_fields[key] || '';
+        input.oninput = () => {
+          state.report_fields[key] = input.value;
+          update(true);
+        };
+        label.append(input);
+        parent.append(label);
+      };
+      edit(reportOpening, 'clinical_history');
+      edit(reportOpening, 'comparison');
+      reportOpening.append(element('h4', exam.title, 'rad-report-study'));
+      const protocol = exam.report_protocol;
+      if (protocol) {
+        edit(reportOpening, 'protocol', exam.modality === 'MRI' ? 'Protocol' : 'Technique');
+        const choices = element('div', undefined, 'rad-choices rad-protocol-choices');
+        choices.setAttribute('role', 'group');
+        choices.setAttribute('aria-label', protocol.label);
+        for (const description of protocol.options) {
+          const choice = button(description, () => {
+            const selected = new Set(state.report_fields.protocol_options || []);
+            if (selected.has(description)) selected.delete(description);
+            else selected.add(description);
+            state.report_fields.protocol_options = protocol.options.filter(item => selected.has(item));
+            choose(choice, selected.has(description));
+            update(true);
+          });
+          choose(choice, (state.report_fields.protocol_options || []).includes(description));
+          choices.append(choice);
+        }
+        reportOpening.append(choices);
+        const references = element('details', undefined, 'rad-calculation-references');
+        references.append(element('summary', 'Protocol references'));
+        for (const [index, url] of protocol.sources.entries()) {
+          const link = element('a', (url.includes('radiologyassistant.nl') ? 'Radiology Assistant' :
+            url.includes('radiopaedia.org') ? 'Radiopaedia' : 'ESSR') + ' · ' + (index + 1));
+          link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+          references.append(link);
+        }
+        reportOpening.append(references, element('h4', 'Findings', 'rad-report-study'));
+      }
+      edit(reportClosing, 'impression');
+      edit(reportClosing, 'recommendation');
+    }
+
     const selected = section => state.selections[section.id] || {normal: false, not_assessed: false, findings: {}};
-    const compartmentOf = section => section.compartment || section.group || section.label;
+    const compartmentOf = section => {
+      const name = section.compartment || section.group || section.label;
+      const exam = investigation();
+      return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)
+        ? 'Examination details' : name;
+    };
     const canFillNormal = (section, blocked) =>
       sectionScopeActive(section, state.selections) && section.normal
       && !section.exclude_from_bulk_normal && !blocked.has(section.id)
@@ -503,7 +617,7 @@ window.PrimerStructuredReporting = (() => {
         const groups = [...new Set(rows.map(row => row.group).filter(group => group && group !== name))];
         const summaryText = element('span', undefined, 'rad-compartment-summary-text');
         summaryText.append(caption);
-        if (groups.length && exam.report_format === 2) {
+        if (groups.length && [2, 3].includes(exam.report_format)) {
           summaryText.append(element('small', groups.join(' · '), 'rad-search-pattern'));
         }
         heading.append(summaryText,element('span',reviewed + '/' + rows.length + ' selected','rad-compartment-count'));
@@ -540,7 +654,8 @@ window.PrimerStructuredReporting = (() => {
         if (!sectionScopeActive(section,state.selections)) continue;
         const compartmentName = compartmentOf(section), container = containers.get(compartmentName);
         const groupKey = compartmentName + ':' + section.group;
-        if (section.group && section.group !== compartmentName && groupKey !== lastGroup) {
+        if (section.group && section.group !== compartmentName && groupKey !== lastGroup
+            && !(compartmentName === 'Examination details' && /^(technique|protocol)$/i.test(section.group))) {
           lastGroup = groupKey;
           const groupHeader = element('div', undefined, 'rad-anatomic-group');
           groupHeader.append(element('h4', section.group));
@@ -592,14 +707,18 @@ window.PrimerStructuredReporting = (() => {
       const completeCalculations = [...allowedCalculators].map(id => calculations.get(id)).filter(value => value?.status === 'complete');
       const jobs=result.missing.length ? [] : descriptorCalculationJobs(schema,materializedState()), boundResults=jobs.map(job=>({job,result:boundCalculations.get(job.binding_id)?.result}));
       const completeBound=boundResults.filter(entry=>entry.result?.status==='complete');
-      const parts = [result.text, ...completeCalculations.map(value => 'CALCULATED ASSESSMENT\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),
+      const assessments = [...completeCalculations.map(value => 'CALCULATED ASSESSMENT\n' + (value.summary || value.category || '') + (value.version ? ' (' + value.version + ')' : '')),
         ...completeBound.map(({job,result:value})=>'CALCULATED ASSESSMENT\n'+job.context_label+': '+(value.summary || value.category || '')+(value.version?' ('+value.version+')':''))].filter(Boolean);
       const incompleteCalculators = [...allowedCalculators].filter(id => Object.values(state.calculator_inputs[id] || {}).some(present) && !['complete','not_applicable'].includes(calculations.get(id)?.status));
       const duplicateCalculators = [...new Set(jobs.map(job=>job.calculator_id))].filter(id=>Object.values(state.calculator_inputs[id] || {}).some(present));
       const missing = [...result.missing, ...incompleteCalculators.map(id => ({calculator_id: id, label: title(id)})),
         ...boundResults.filter(entry=>!['complete','not_applicable'].includes(entry.result?.status)).map(({job})=>({binding_id:job.binding_id,label:job.context_label+' — '+job.label})),
         ...duplicateCalculators.map(id=>({calculator_id:id,label:'Clear the separate '+title(id)+' calculation'}))];
-      return {...result, missing, text: parts.join('\n\n'), complete: missing.length === 0 && (result.selected_count > 0 || completeCalculations.length > 0 || completeBound.length > 0)};
+      const exam = investigation();
+      const text = exam?.report_format === 3
+        ? (result.text || !result.missing.length ? formatStudyReport(exam, state.report_fields, result.sections || [], assessments) : '')
+        : [result.text, ...assessments].filter(Boolean).join('\n\n');
+      return {...result, missing, text, complete: missing.length === 0 && (result.complete || completeCalculations.length > 0 || completeBound.length > 0)};
     }
     function update(notify = false) {
       if(notify)for(const section of investigation()?.sections || [])if(!sectionScopeActive(section,state.selections))delete state.selections[section.id];
@@ -645,14 +764,14 @@ window.PrimerStructuredReporting = (() => {
     }
     root.getState = () => {
       const snapshot = materializedState();
-      return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};
+      return {...snapshot, descriptor_version: form.descriptor_version || schema.version || schema.schema_hash, descriptor_state: {investigation_id: snapshot.investigation_id, selections: snapshot.selections, ...(investigation()?.report_format === 3 ? {report_fields: snapshot.report_fields} : {})}, calculations: Object.entries(snapshot.calculator_inputs).filter(([, inputs]) => Object.values(inputs).some(present)).map(([calculator_id, inputs]) => ({calculator_id, inputs}))};
     };
     root.getReport = () => reportResult().text;
     root.getReportResult = () => clone(reportResult());
     root.flush = async () => { while (pending.size) await Promise.all([...pending]); return root.getReportResult(); };
     root.updateContext = values => { context = clone(values || {}); calculations.clear(); for(const entry of boundCalculations.values()) pending.delete(entry.pending); boundCalculations.clear(); drawSections(); drawCalculators(); update(true); };
     root.dispose = () => { disposed=true;for(const entry of boundCalculations.values()) pending.delete(entry.pending);boundCalculations.clear();for (const controller of calculatorControllers.values()) controller.dispose(); };
-    drawSections(); drawCalculators(); update(); return root;
+    drawReportFields(); drawSections(); drawCalculators(); update(); return root;
   }
   function calculator(id, inputs, send, onResult, track) {
     const panel = element('section', undefined, 'rad-structured-calculator'), heading = element('h4', 'Calculation'), controls = element('div'), result = element('p', 'Loading calculation…', 'rad-calculation-result');
