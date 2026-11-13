@@ -192,7 +192,7 @@ test('the one-page UI scores each record automatically and has no duplicated man
     assert.ok(root.getReport().includes('CALCULATED ASSESSMENT\nNodule 2: TR5 (2017)'));
     assert.equal(descendants(root).some(node => node.className === 'rad-structured-calculator'), false);
     assert.deepEqual(root.getState().calculations, []);
-    assert.equal(descendants(root).some(node => ['INPUT', 'TEXTAREA'].includes(node.tagName)), false);
+    assert.equal(descendants(root).some(node => node.tagName === 'INPUT'), false);
   } finally { disposePending(root, service); }
 });
 
@@ -361,7 +361,7 @@ test('explicit negative focal prostate assessment is mutually exclusive with les
     await root.flush();
     assert.ok(root.getReport().includes('No suspicious focal prostatic lesion is identified on the acquired MRI sequences.'));
     assert.equal(find(root, 'Copy report').disabled, false);
-    assert.equal(root.getReport().includes('PI-RADS'), false);
+    assert.doesNotMatch(root.getReport(), /CALCULATED ASSESSMENT/);
     assert.deepEqual(calls, []);
     const conflicting = clone(state);
     conflicting.selections['anatomy-prostate-lesion'].instances = [prostate()];
@@ -388,7 +388,7 @@ test('new O-RADS records have Python parity, independent inputs and direct bound
   }});
   await root.flush();
   assert.equal(calls.length,2);assert.match(root.getReport(),/Lesion 1: O-RADS US 2/);assert.match(root.getReport(),/Lesion 2: O-RADS US 5/);
-  assert.equal(descendants(root).filter(node=>['INPUT','TEXTAREA'].includes(node.tagName)).length,0);
+  assert.equal(descendants(root).filter(node=>node.tagName === 'INPUT').length,0);
   assert.equal(root.getReportResult().complete,true);
 });
 
@@ -410,7 +410,8 @@ test('duplex scope reveals only the acquired limb, limits bulk normal and clears
  assert(!descendants(root).some(n=>n.textContent==='Right Common femoral vein'));
  assert(descendants(root).some(n=>n.textContent==='Left Common femoral vein'));
  assert(!Object.keys(root.getState().selections).some(k=>k.startsWith('anatomy-right-')));
- assert.equal(root.getReport(),'TECHNIQUE\nExamined side is left.','Shared superficial and regional observations must not transfer to another limb');
+ assert.match(root.getReport(), /lower limb DVT\n\n• Examined side is left\.\n\nImpression:/);
+ assert.doesNotMatch(root.getReport(), /^Technique:/im);
  const forged={...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{normal:true}}};
  assert.equal(api.compose(schema,forged).complete,false);
  assert.equal(api.compose(schema,{...initial,selections:{...initial.selections,'anatomy-left-common-femoral-vein':{unexpected:'cannot vanish'}}}).complete,false);

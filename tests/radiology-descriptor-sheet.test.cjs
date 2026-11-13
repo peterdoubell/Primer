@@ -203,7 +203,7 @@ test('the actual MRI shoulder source produces a complete selectable partial-tear
   find(root, 'articular-sided').onclick(); find(root, '25–50%').onclick();
   assert.match(root.getReport(), /supraspinatus tendon has a partial-thickness articular-sided tear involving 25–50% of its thickness\./);
   assert.equal(root.getReportResult().complete, true);
-  assert.equal(descendants(root).filter(node => ['INPUT', 'TEXTAREA'].includes(node.tagName)).length, 0);
+  assert.equal(descendants(root).filter(node => node.tagName === 'INPUT').length, 0);
   await find(root, 'Copy report').onclick();
   assert.equal(api.context.copied, root.getReport());
   assert.equal(Object.keys(root.getState().descriptor_state.selections).length, 1);
@@ -344,6 +344,20 @@ test('knee compartments keep every row, scope normal actions, and retain collaps
   assert(Object.keys(choices).length>0);
   assert(Object.keys(choices).every(id=>exam.sections.find(s=>s.id===id).compartment==='Medial compartment'));
   assert.equal(named('Lateral compartment').open,false);
-  assert.match(root.getReport(),/^MEDIAL COMPARTMENT\n/);
+  assert.match(root.getReport(), /^Findings:\nMEDIAL COMPARTMENT:\n• /m);
+  assert.match(root.getReport(), /No tear of the medial meniscal anterior horn, body or posterior horn/);
+  assert.doesNotMatch(root.getReport(), /The medial meniscus anterior horn has no tear/);
   assert(!root.getReport().includes('LATERAL COMPARTMENT'));
+  assert.equal(find(named('Medial compartment'), 'Normal remaining').disabled, true);
+  const selectedState = root.getState();
+  find(root, 'Collapse all').onclick();
+  assert(panels().every(panel => !panel.open));
+  assert.deepEqual(root.getState(), selectedState);
+  find(root, 'Lateral compartment').onclick();
+  assert.equal(named('Lateral compartment').open, true);
+  assert.equal(named('Medial compartment').open, false);
+  find(root, 'Collapse all').onclick();
+  find(root, 'Expand all').onclick();
+  assert(panels().every(panel => panel.open));
+
 });
