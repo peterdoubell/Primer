@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PROOF='docs/report-compartments-20261028/runtime-inverse.json'
-PROOF_SHA256='730b597bddb3a963dfd29a57dbbc1d8ec02264e30284d99e0c29860a3fe3e324'
+PROOF_SHA256='14f351af7ac2b8cd9b43b0461d81ac8cfc7cb2851bbc7eb5c155668f6397a4de'
 
 def before_compartments_bytes(path,raw,allow_older=False):
  if str(path) not in ('web/radiology-structured.js','web/radiology-structured.css'):return raw

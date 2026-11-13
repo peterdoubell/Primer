@@ -315,14 +315,30 @@ window.PrimerStructuredReporting = (() => {
       } catch (error) { feedback.textContent = error.message || 'Copy unavailable. Select the report text to copy it.'; }
       finally { copying = false; copy.disabled = !reportResult().complete; }
     }, 'btn rad-copy-report');
-    actions.append(copy); draft.append(element('h4', 'Report draft'), preview, feedback); fields.append(descriptorFields, calculatorFields); sheet.append(fields, draft); root.append(sheet);
+    const draftHeading = element('h4', 'Report draft');
+    draftHeading.tabIndex = -1;
+    const showPreview = button('Preview', () => {
+      draftHeading.focus?.({preventScroll: true});
+      draftHeading.scrollIntoView?.({block: 'nearest'});
+    }, 'rad-small-button');
+    actions.append(showPreview, copy);
+    draft.append(draftHeading, preview, feedback);
+    fields.append(descriptorFields, calculatorFields);
+    sheet.append(fields, draft);
+    root.append(sheet);
     const investigation = () => (schema.investigations || []).find(item => item.id === state.investigation_id);
     const selected = section => state.selections[section.id] || {normal: false, not_assessed: false, findings: {}};
-    function fillNormal(group, compartment) {
+    const compartmentOf = section => section.compartment || section.group || section.label;
+    const canFillNormal = (section, blocked) =>
+      sectionScopeActive(section, state.selections) && section.normal
+      && !section.exclude_from_bulk_normal && !blocked.has(section.id)
+      && !sectionHasSelection(selected(section));
+    function fillNormal(compartment) {
       const blocked = blockedNormals(investigation(), state.selections);
       for (const section of investigation()?.sections || []) {
-        const value = selected(section);
-        if (sectionScopeActive(section,state.selections) && section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && (!compartment || (section.compartment || section.group || section.label) === compartment) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};
+        if ((!compartment || compartmentOf(section) === compartment) && canFillNormal(section, blocked)) {
+          state.selections[section.id] = {normal: true, findings: {}};
+        }
       }
     }
     const changeSection = (section, value) => {
@@ -437,6 +453,10 @@ window.PrimerStructuredReporting = (() => {
       return jobs;
     }
     const closedCompartments = new Set();
+    function rememberPanel(panel, key) {
+      if (panel.open) closedCompartments.delete(key);
+      else closedCompartments.add(key);
+    }
     function drawSections() {
       const focusKey = document.activeElement?.dataset?.radFocus;
       descriptorFields.replaceChildren(); groupNavigation.replaceChildren(); boundNodes.clear();
@@ -444,7 +464,18 @@ window.PrimerStructuredReporting = (() => {
       if (!exam) { descriptorFields.append(element('p', 'Choose the examination above.')); return; }
       const blocked = blockedNormals(exam, state.selections); let lastGroup = null;
       const containers = new Map();
-      const compartmentOf = section => section.compartment || section.group || section.label;
+      const panels = new Map();
+      const foldAll = button('Collapse all', () => {
+        const open = ![...panels.keys()].some(panel => panel.open);
+        for (const [panel, key] of panels) {
+          panel.open = open;
+          rememberPanel(panel, key);
+        }
+        syncFoldButton();
+      }, 'rad-small-button rad-fold-compartments');
+      const syncFoldButton = () => {
+        foldAll.textContent = [...panels.keys()].some(panel => panel.open) ? 'Collapse all' : 'Expand all';
+      };
       for (const section of exam.sections || []) {
         if (!sectionScopeActive(section,state.selections)) continue;
         const name = compartmentOf(section);
@@ -457,15 +488,32 @@ window.PrimerStructuredReporting = (() => {
         const reviewed = rows.filter(row => sectionHasSelection(selected(row))).length;
         heading.append(caption,element('span',reviewed + '/' + rows.length + ' selected','rad-compartment-count'));
         panel.append(heading);
-        panel.ontoggle=()=>{if(panel.open)closedCompartments.delete(key);else closedCompartments.add(key);};
+        panels.set(panel, key);
+        panel.ontoggle = () => {
+          if (descriptorFields.contains && !descriptorFields.contains(panel)) return;
+          rememberPanel(panel, key);
+          syncFoldButton();
+        };
         const body = element('div',undefined,'rad-compartment-body');
         if (rows.some(row => row.normal && !row.exclude_from_bulk_normal)) {
           const controls = element('div',undefined,'rad-compartment-actions');
-          const normal = button('Normal remaining',()=>{fillNormal(null,name);drawSections();update(true);},'rad-small-button');
-          normal.setAttribute('aria-label','Normal remaining in '+name); controls.append(normal);body.append(controls);
+          const normal = button('Normal remaining', () => {
+            if (!rows.some(row => canFillNormal(row, blocked))) return;
+            fillNormal(name);
+            drawSections();
+            update(true);
+          }, 'rad-small-button');
+          normal.disabled = !rows.some(row => canFillNormal(row, blocked));
+          normal.setAttribute('aria-label', 'Normal remaining in ' + name);
+          controls.append(normal);
+          body.append(controls);
         }
         panel.append(body); descriptorFields.append(panel); containers.set(name,body);
-        groupNavigation.append(button(name,()=>{panel.open=true;closedCompartments.delete(key);panel.scrollIntoView?.({behavior:'smooth',block:'start'});},'rad-small-button'));
+        groupNavigation.append(button(name,()=>{panel.open=true;rememberPanel(panel,key);syncFoldButton();panel.scrollIntoView?.({behavior:'smooth',block:'start'});},'rad-small-button'));
+      }
+      if (panels.size > 1) {
+        syncFoldButton();
+        groupNavigation.append(foldAll);
       }
       root.classList?.toggle('rad-anatomic-sheet', exam.presentation === 'anatomic_rows');
       for (const section of exam.sections || []) {
@@ -537,7 +585,9 @@ window.PrimerStructuredReporting = (() => {
       if(notify)for(const section of investigation()?.sections || [])if(!sectionScopeActive(section,state.selections))delete state.selections[section.id];
       syncBoundCalculations();
       for (const node of investigationPicker.children) choose(node, node.dataset.investigationId === state.investigation_id);
-      normal.disabled = !(investigation()?.sections || []).some(section => section.normal);
+      const exam = investigation();
+      const blocked = blockedNormals(exam, state.selections);
+      normal.disabled = !(exam?.sections || []).some(section => canFillNormal(section, blocked));
       const result = reportResult();
       preview.textContent = result.text || 'Select findings to build the report.';
       copy.disabled = copying || !result.complete;

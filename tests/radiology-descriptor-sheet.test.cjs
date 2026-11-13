@@ -346,4 +346,16 @@ test('knee compartments keep every row, scope normal actions, and retain collaps
   assert.equal(named('Lateral compartment').open,false);
   assert.match(root.getReport(),/^MEDIAL COMPARTMENT\n/);
   assert(!root.getReport().includes('LATERAL COMPARTMENT'));
+  assert.equal(find(named('Medial compartment'), 'Normal remaining').disabled, true);
+  const selectedState = root.getState();
+  find(root, 'Collapse all').onclick();
+  assert(panels().every(panel => !panel.open));
+  assert.deepEqual(root.getState(), selectedState);
+  find(root, 'Lateral compartment').onclick();
+  assert.equal(named('Lateral compartment').open, true);
+  assert.equal(named('Medial compartment').open, false);
+  find(root, 'Collapse all').onclick();
+  find(root, 'Expand all').onclick();
+  assert(panels().every(panel => panel.open));
+
 });
