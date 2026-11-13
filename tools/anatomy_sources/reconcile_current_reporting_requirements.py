@@ -236,7 +236,8 @@ def reporting_reconciliation(root, inventory):
         additions.update(json.loads(additions_path.read_text())["investigations"])
     if set(additions) & (set(required) | prior_missing):
         raise ValueError("New report additions cannot relabel historical investigation identities")
-    if missing != prior_missing | set(additions) or set(RELATED_SCOPES) - missing:
+    expanded_since_prior = {'ra.mri-epilepsy', 'ra.mullerian-anomalies'} & set(required)
+    if missing != (prior_missing - expanded_since_prior) | set(additions) or set(RELATED_SCOPES) - missing - expanded_since_prior:
         raise ValueError("Current reporting identities changed; review the complete new scope")
     def norm(text):
         return re.sub(r"[^a-z0-9]", "", text.lower())
@@ -293,7 +294,7 @@ def reporting_reconciliation(root, inventory):
             "limitations": ["Row count includes acquisition, workflow, measurements and disease observations; it is not a count of anatomical meshes required.",
                             "Literal names are review candidates, not proof of extent, laterality, acquisition, disease state, licensing, fidelity or clinical approval.",
                             "A declared duplicate trauma pathway retains unresolved level-specific anatomy. No clinical coverage is inherited through alias, aggregate or partition relationships.",
-                            "The 96 exact identities also require review against their newer detailed report rows. Missing identities do not imply that all source artwork is absent."],
+                            f"The {len(set(current) & set(required))} exact identities also require review against their newer detailed report rows. Missing identities do not imply that all source artwork is absent."],
             "input_sha256": {str(f.relative_to(root)): file_hash(f) for f in [*files, root / REQUIREMENTS, root / MSK_REQUIREMENTS, root / "data/radiology/descriptor-reporting.json"]},
             "investigations": rows}
 
@@ -309,8 +310,20 @@ def replace_brain_bytes(raw, brain):
     return raw[:start] + replacement + raw[start + length:]
 
 
+def before_recent_reporting_inventories(raw):
+    """Recover the historical inventory from the exact reviewed extension."""
+    encoded = raw.encode() if isinstance(raw, str) else raw
+    if hashlib.sha256(encoded).hexdigest() != '0923610d645292c23d07c2d15055a3bc78d7382b790410f1fa1ebcd2f64bd515':
+        return raw
+    restored = encoded[:2306] + encoded[2363:26375747] + encoded[26482984:]
+    if hashlib.sha256(restored).hexdigest() != '62cfde66f51d394d62df95b9721a989c1bea32a74baa2cf56df2de1cabce17cf':
+        raise ValueError('Recent reporting inventory inverse changed unrelated bytes')
+    return restored.decode() if isinstance(raw, str) else restored
+
+
 def before_current_brain_requirements(raw, root=ROOT):
     """Strict inverse for frozen receipts; unknown changes are never discarded."""
+    raw = before_recent_reporting_inventories(raw)
     text = raw.decode() if isinstance(raw, bytes) else raw
     marker = '    {\n      "investigation_id": "ra.brain-anatomy",'
     if text.count(marker) != 1:

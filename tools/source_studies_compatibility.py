@@ -96,6 +96,9 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'data/radiology/non-msk-structure-requirements.json':
+        from tools.anatomy_sources.reconcile_current_reporting_requirements import before_recent_reporting_inventories
+        raw = before_recent_reporting_inventories(raw)
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-biliary-4.3/runtime-inverse.json', '0a297b7ab3312d91afa29a9375c0094855944e70535959e505d567762076bd21')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':
