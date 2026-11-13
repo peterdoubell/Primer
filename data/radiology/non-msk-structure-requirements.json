@@ -525327,6 +525327,123 @@
               "name": "Relevant duplicated vaginal compartments"
             }
           ]
+        },
+        {
+          "id": "mullerian.bladder",
+          "name": "Acquired urinary bladder",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.bladder.outline",
+              "name": "Bladder outline"
+            },
+            {
+              "id": "mullerian.bladder.lumen",
+              "name": "Bladder lumen"
+            },
+            {
+              "id": "mullerian.bladder.pelvic_relationship",
+              "name": "Relationship to adjacent genital tract"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.ovary",
+          "name": "Right acquired ovary",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.ovary.location",
+              "name": "Ovarian location"
+            },
+            {
+              "id": "mullerian.right.ovary.extent",
+              "name": "Ovarian parenchymal extent"
+            },
+            {
+              "id": "mullerian.right.ovary.relationship",
+              "name": "Relationship to uterine or vaginal components"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.ovary",
+          "name": "Left acquired ovary",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.ovary.location",
+              "name": "Ovarian location"
+            },
+            {
+              "id": "mullerian.left.ovary.extent",
+              "name": "Ovarian parenchymal extent"
+            },
+            {
+              "id": "mullerian.left.ovary.relationship",
+              "name": "Relationship to uterine or vaginal components"
+            }
+          ]
         }
       ],
       "sources": [
@@ -527157,6 +527274,148 @@
             {
               "id": "epilepsy.dual_lesion.independent_sequence_correspondence",
               "name": "Independent sequence correspondence"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.midline",
+          "name": "Midline and herniation interfaces",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.midline.midline_landmarks",
+              "name": "Midline landmarks and displacement"
+            },
+            {
+              "id": "epilepsy.midline.subfalcine",
+              "name": "Subfalcine interface"
+            },
+            {
+              "id": "epilepsy.midline.transtentorial",
+              "name": "Transtentorial interface"
+            },
+            {
+              "id": "epilepsy.midline.foramen_magnum",
+              "name": "Foramen magnum and tonsillar interface"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.ventricles",
+          "name": "Acquired ventricular system",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.ventricles.left_lateral",
+              "name": "Left lateral ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.right_lateral",
+              "name": "Right lateral ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.third",
+              "name": "Third ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.fourth",
+              "name": "Fourth ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.outflow",
+              "name": "Acquired outflow and obstruction level"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.cisterns",
+          "name": "Basal cisterns",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.cisterns.suprasellar",
+              "name": "Suprasellar cistern"
+            },
+            {
+              "id": "epilepsy.cisterns.ambient",
+              "name": "Ambient cisterns"
+            },
+            {
+              "id": "epilepsy.cisterns.quadrigeminal",
+              "name": "Quadrigeminal cistern"
+            },
+            {
+              "id": "epilepsy.cisterns.prepontine",
+              "name": "Prepontine cistern"
             }
           ]
         }

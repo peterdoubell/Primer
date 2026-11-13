@@ -38,7 +38,7 @@
     "data/radiology/msk-anatomic-general.json": "a751b8c19f4a01a707c1d8fef349806e7e362d89b66b705cafdb09b50c6ce063",
     "data/radiology/msk-anatomic-lower.json": "cf0dee65f3f2eb82ab38f0ed66e5733e73b658296c63c97d86f14b0976c26ba5",
     "data/radiology/msk-anatomic-upper.json": "b3a45a93136c9b2389c177c386ae8c2efc59a9353131c3367882b111f7233632",
-    "data/radiology/non-msk-structure-requirements.json": "0923610d645292c23d07c2d15055a3bc78d7382b790410f1fa1ebcd2f64bd515",
+    "data/radiology/non-msk-structure-requirements.json": "ba7c95a8033ebb2516e38052945f0920839950ab284e5d411a489fc8c63bcd21",
     "data/radiology/msk-structure-requirements.json": "46c9eb76d2160fa4a46e7ee2c6c9c9d1046fc64ecd953471c19af1c737d0aa18",
     "data/radiology/descriptor-reporting.json": "decc8effb8b98dbaf39075404885a4b1b68dab920f5b12d9ec51e5150752f84c"
   },
@@ -50420,7 +50420,7 @@
           "investigation_id": "ra.mri-epilepsy",
           "title": "MRI epilepsy",
           "module_id": "rad.5.epilepsy-mri",
-          "inventory_sha256": "26abbc39cc8ddeb034770e636255ddf70639dce5ad6a670214bb08a381d04925",
+          "inventory_sha256": "37f7b9fc98508db101356d1b065f289b676fd391d0fb15f4d009608b1e95d8f7",
           "structure_ids": [
             "epilepsy.left.hippocampus",
             "epilepsy.left.hippocampus.sclerosis",
@@ -50460,7 +50460,10 @@
             "epilepsy.vascular",
             "epilepsy.injury",
             "epilepsy.peri_ictal",
-            "epilepsy.dual_lesion"
+            "epilepsy.dual_lesion",
+            "epilepsy.midline",
+            "epilepsy.ventricles",
+            "epilepsy.cisterns"
           ]
         }
       ],
@@ -50733,8 +50736,14 @@
           "section_id": "cisterns",
           "label": "Basal cisterns",
           "section_sha256": "37646cfa4cacaee129c0e984ad163b85d385c08f4d9349f6509751c3dc85101b",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "candidate_requirements": [
+            {
+              "investigation_id": "ra.mri-epilepsy",
+              "requirement_id": "epilepsy.cisterns",
+              "relationship": "literal_name_correspondence_only_extent_unverified"
+            }
+          ],
+          "reconciliation_status": "candidate_extent_modality_and_representation_review_required",
           "representation_completion_claim": false
         }
       ]
@@ -57967,7 +57976,7 @@
           "investigation_id": "ra.mullerian-anomalies",
           "title": "M\u00fcllerian duct anomaly imaging",
           "module_id": "rad.5.uterine-mr",
-          "inventory_sha256": "09a5cbf9366e19d41ad4f6c81c3181558b62fd4aafb131fd0f252d7c374c6e51",
+          "inventory_sha256": "b083b2cd719eafd910bfc6e9f241bfa23e5f4fef0a67e9f8079292c7241b6a94",
           "structure_ids": [
             "mullerian.fundus",
             "mullerian.septum",
@@ -57986,7 +57995,10 @@
             "mullerian.right.hemivagina",
             "mullerian.right.urinary",
             "mullerian.retained_products",
-            "mullerian.complex"
+            "mullerian.complex",
+            "mullerian.bladder",
+            "mullerian.right.ovary",
+            "mullerian.left.ovary"
           ]
         }
       ],

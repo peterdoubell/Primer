@@ -1,6 +1,6 @@
 # Epilepsy MRI reporting inventory
 
-The current reporting contract for `ra.mri-epilepsy` defines 39 groups and 128 named representation requirements. Each requires an image, schematic and model. The draft keeps separate sides and subdivisions of the hippocampus, fornix and other mesial structures. It adds lobar cortical interfaces, migration context, temporal encephalocele and the positive findings required for focal dysplasia, hippocampal sclerosis, heterotopia, tumour, vascular malformation, injury, peri-ictal change and a second lesion.
+The current reporting contract for `ra.mri-epilepsy` defines 42 groups and 141 named representation requirements. Each requires an image, schematic and model. The draft keeps separate sides and subdivisions of the hippocampus, fornix and other mesial structures. It adds lobar cortical interfaces, migration context, temporal encephalocele and the positive findings required for focal dysplasia, hippocampal sclerosis, heterotopia, tumour, vascular malformation, injury, peri-ictal change and a second lesion.
 
 The source references include the [ILAE structural MRI recommendations](https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy) and the prior scope and granularity reviews. All requirements remain subject to case-specific instantiation and neuroradiology review. The draft inventory grants no asset coverage. The original reporting checklist, template and source contract are fingerprinted.
 
