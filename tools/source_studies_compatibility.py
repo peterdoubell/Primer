@@ -97,7 +97,11 @@ def before_endometrial_delivery_bytes(path, raw):
 
 def before_combined_source_release_bytes(path, raw):
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', 'e04a2cc2b02adac33dcb361a3c07d463e0bbd3056f9f955b8db4115de39bfd6c')
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', '438fe8a56c1f2029ffc6de80a91c29df089dd8607e8d06a9c77e481cdde4c359')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'c98fe23e8efa2ea0e292f8d436079801d99e160bf57f74196a24957aed55cc13':
+        raw = raw.replace(b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n    'Predict English plural sounds'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'c954d529f0f2a5b26583f63b61a77390e712e75863ba1e5255c2c076ba5d2a80':
+            raise ValueError('Plural sounds link changed unrelated reader bytes')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-biliary-4.3/runtime-inverse.json', '0a297b7ab3312d91afa29a9375c0094855944e70535959e505d567762076bd21')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '05befa3f6b6d865f5dd6743a00825a2e02b821fec5656ef8c601a170d0769cb8':
