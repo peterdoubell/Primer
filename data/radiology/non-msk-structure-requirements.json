@@ -76,7 +76,8 @@
       "ra.mri-myelopathy",
       "ra.ct-traumatic-haemorrhage",
       "ra.acute-stroke",
-      "ra.ct-pulmonary-nodules"
+      "ra.ct-pulmonary-nodules",
+      "ra.mullerian-anomalies"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -524379,6 +524380,989 @@
       "clinical_validation_status": "draft_requires_thoracic_radiologist_review",
       "original_source_scope_proposal_sha256": "40c42c54706b8b82dd585c65824290f0ddaad400279287e9c76f0287a1106e40",
       "original_shared_curriculum_quiz_sha256": "c8d6acf6a66bd97d13bdb33dabc7f3e2ea5603208d861a5227e8fe3dcd68ab77"
+    },
+    {
+      "investigation_id": "ra.mullerian-anomalies",
+      "module_id": "rad.5.uterine-mr",
+      "title": "M\u00fcllerian duct anomaly imaging",
+      "modality": "Multimodality",
+      "scope_type": "mullerian_anomaly_acquired_anatomy_and_case_specific_findings",
+      "clinical_validation_status": "draft_requires_gynaecologic_radiology_review",
+      "source_contract_sha256": "e428180d480c426feb02fcf31fc89a877bd21c2a0df8a38ddf6352d5b026c80a",
+      "reporting_checklist": [
+        {
+          "label": "External Fundal Contour",
+          "detail": "Assess the external fundal shape independently of the cavity."
+        },
+        {
+          "label": "Uterine Cavities",
+          "detail": "Define number, configuration and communication of cavities."
+        },
+        {
+          "label": "Cervix",
+          "detail": "Identify the number and configuration of cervical canals."
+        },
+        {
+          "label": "Vagina",
+          "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+        },
+        {
+          "label": "Associated Anatomy",
+          "detail": "Look for urinary anomalies and retained menstrual products."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "EXTERNAL FUNDAL CONTOUR",
+          "body": "Contour: [ ]. External cleft: [ ] mm."
+        },
+        {
+          "heading": "UTERINE CAVITIES",
+          "body": "Cavities: [ ]. Septum/indentation: [ ]. Communication: [ ]."
+        },
+        {
+          "heading": "CERVIX",
+          "body": "Cervices/canals: [ ]. Atresia/obstruction: [ ]."
+        },
+        {
+          "heading": "VAGINA",
+          "body": "Vaginal anatomy/septum: [ ]. Haematocolpos: [ ]."
+        },
+        {
+          "heading": "ASSOCIATED ANATOMY",
+          "body": "Renal/urinary anatomy: [ ]. Haematometra: [ ]. Rudimentary horn/endometrium: [ ]."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "structures": [
+        {
+          "id": "mullerian.fundus",
+          "name": "External fundal contour",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.fundus.fundal_serosal_surface",
+              "name": "Fundal serosal surface"
+            },
+            {
+              "id": "mullerian.fundus.external_cleft_apex",
+              "name": "External cleft apex"
+            },
+            {
+              "id": "mullerian.fundus.right_external_cleft_shoulder",
+              "name": "Right external cleft shoulder"
+            },
+            {
+              "id": "mullerian.fundus.left_external_cleft_shoulder",
+              "name": "Left external cleft shoulder"
+            },
+            {
+              "id": "mullerian.fundus.external_cleft_measurement_plane",
+              "name": "External cleft measurement plane"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.septum",
+          "name": "Uterine septum or internal indentation",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.septum.bicornual_reference_landmarks",
+              "name": "Bicornual reference landmarks"
+            },
+            {
+              "id": "mullerian.septum.indentation_apex",
+              "name": "Indentation apex"
+            },
+            {
+              "id": "mullerian.septum.leading_edge_angle_landmarks",
+              "name": "Leading edge angle landmarks"
+            },
+            {
+              "id": "mullerian.septum.septum_superior_attachment",
+              "name": "Septum superior attachment"
+            },
+            {
+              "id": "mullerian.septum.septum_inferior_extent",
+              "name": "Septum inferior extent"
+            },
+            {
+              "id": "mullerian.septum.septum_tissue_and_cavity_interface",
+              "name": "Septum tissue and cavity interface"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.communication",
+          "name": "Cavity communication",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.communication.cavity_confluence",
+              "name": "Cavity confluence"
+            },
+            {
+              "id": "mullerian.communication.communicating_tract",
+              "name": "Communicating tract"
+            },
+            {
+              "id": "mullerian.communication.communication_with_cervical_canal",
+              "name": "Communication with cervical canal"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.cervical_obstruction",
+          "name": "Cervical agenesis or obstruction",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.cervical_obstruction.present_cervical_tissue_or_remnant",
+              "name": "Present cervical tissue or remnant"
+            },
+            {
+              "id": "mullerian.cervical_obstruction.atretic_or_obstructed_extent",
+              "name": "Atretic or obstructed extent"
+            },
+            {
+              "id": "mullerian.cervical_obstruction.proximal_cavity_and_obstruction_interface",
+              "name": "Proximal cavity and obstruction interface"
+            },
+            {
+              "id": "mullerian.cervical_obstruction.distal_vaginal_relationship",
+              "name": "Distal vaginal relationship"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.vaginal_septum",
+          "name": "Vaginal septum",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.vaginal_septum.longitudinal_septum_extent",
+              "name": "Longitudinal septum extent"
+            },
+            {
+              "id": "mullerian.vaginal_septum.transverse_septum_level",
+              "name": "Transverse septum level"
+            },
+            {
+              "id": "mullerian.vaginal_septum.septum_thickness_landmarks",
+              "name": "Septum thickness landmarks"
+            },
+            {
+              "id": "mullerian.vaginal_septum.patent_opening_if_present",
+              "name": "Patent opening if present"
+            },
+            {
+              "id": "mullerian.vaginal_septum.distal_and_proximal_vaginal_interfaces",
+              "name": "Distal and proximal vaginal interfaces"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.vaginal_extent",
+          "name": "Vaginal canal",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.vaginal_extent.upper_vaginal_canal",
+              "name": "Upper vaginal canal"
+            },
+            {
+              "id": "mullerian.vaginal_extent.lower_vaginal_canal_and_outlet",
+              "name": "Lower vaginal canal and outlet"
+            },
+            {
+              "id": "mullerian.vaginal_extent.cervicovaginal_junction",
+              "name": "Cervicovaginal junction"
+            },
+            {
+              "id": "mullerian.vaginal_extent.absent_or_shortened_segment_when_present",
+              "name": "Absent or shortened segment when present"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.horn",
+          "name": "Left uterine horn or corpus",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.horn.outer_contour",
+              "name": "Outer contour"
+            },
+            {
+              "id": "mullerian.left.horn.myometrial_extent",
+              "name": "Myometrial extent"
+            },
+            {
+              "id": "mullerian.left.horn.endometrial_cavity",
+              "name": "Endometrial cavity"
+            },
+            {
+              "id": "mullerian.left.horn.cornual_landmark",
+              "name": "Cornual landmark"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.rudimentary_horn",
+          "name": "Left rudimentary horn",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.rudimentary_horn.horn_outline",
+              "name": "Horn outline"
+            },
+            {
+              "id": "mullerian.left.rudimentary_horn.endometrial_lining_if_present",
+              "name": "Endometrial lining if present"
+            },
+            {
+              "id": "mullerian.left.rudimentary_horn.connection_to_dominant_uterus",
+              "name": "Connection to dominant uterus"
+            },
+            {
+              "id": "mullerian.left.rudimentary_horn.retained_contents_if_present",
+              "name": "Retained contents if present"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.cervix",
+          "name": "Left cervical component",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.cervix.cervical_stroma",
+              "name": "Cervical stroma"
+            },
+            {
+              "id": "mullerian.left.cervix.cervical_canal",
+              "name": "Cervical canal"
+            },
+            {
+              "id": "mullerian.left.cervix.internal_os",
+              "name": "Internal os"
+            },
+            {
+              "id": "mullerian.left.cervix.external_os",
+              "name": "External os"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.hemivagina",
+          "name": "Left hemivagina",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.hemivagina.luminal_compartment",
+              "name": "Luminal compartment"
+            },
+            {
+              "id": "mullerian.left.hemivagina.wall_interface",
+              "name": "Wall interface"
+            },
+            {
+              "id": "mullerian.left.hemivagina.outlet_and_obstruction_site",
+              "name": "Outlet and obstruction site"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.urinary",
+          "name": "Left acquired urinary anatomy",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.urinary.kidney_and_renal_fossa",
+              "name": "Kidney and renal fossa"
+            },
+            {
+              "id": "mullerian.left.urinary.ectopic_kidney_if_present",
+              "name": "Ectopic kidney if present"
+            },
+            {
+              "id": "mullerian.left.urinary.collecting_system",
+              "name": "Collecting system"
+            },
+            {
+              "id": "mullerian.left.urinary.acquired_ureter_course_and_insertion",
+              "name": "Acquired ureter course and insertion"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.horn",
+          "name": "Right uterine horn or corpus",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.horn.outer_contour",
+              "name": "Outer contour"
+            },
+            {
+              "id": "mullerian.right.horn.myometrial_extent",
+              "name": "Myometrial extent"
+            },
+            {
+              "id": "mullerian.right.horn.endometrial_cavity",
+              "name": "Endometrial cavity"
+            },
+            {
+              "id": "mullerian.right.horn.cornual_landmark",
+              "name": "Cornual landmark"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.rudimentary_horn",
+          "name": "Right rudimentary horn",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.rudimentary_horn.horn_outline",
+              "name": "Horn outline"
+            },
+            {
+              "id": "mullerian.right.rudimentary_horn.endometrial_lining_if_present",
+              "name": "Endometrial lining if present"
+            },
+            {
+              "id": "mullerian.right.rudimentary_horn.connection_to_dominant_uterus",
+              "name": "Connection to dominant uterus"
+            },
+            {
+              "id": "mullerian.right.rudimentary_horn.retained_contents_if_present",
+              "name": "Retained contents if present"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.cervix",
+          "name": "Right cervical component",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.cervix.cervical_stroma",
+              "name": "Cervical stroma"
+            },
+            {
+              "id": "mullerian.right.cervix.cervical_canal",
+              "name": "Cervical canal"
+            },
+            {
+              "id": "mullerian.right.cervix.internal_os",
+              "name": "Internal os"
+            },
+            {
+              "id": "mullerian.right.cervix.external_os",
+              "name": "External os"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.hemivagina",
+          "name": "Right hemivagina",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.hemivagina.luminal_compartment",
+              "name": "Luminal compartment"
+            },
+            {
+              "id": "mullerian.right.hemivagina.wall_interface",
+              "name": "Wall interface"
+            },
+            {
+              "id": "mullerian.right.hemivagina.outlet_and_obstruction_site",
+              "name": "Outlet and obstruction site"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.urinary",
+          "name": "Right acquired urinary anatomy",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.urinary.kidney_and_renal_fossa",
+              "name": "Kidney and renal fossa"
+            },
+            {
+              "id": "mullerian.right.urinary.ectopic_kidney_if_present",
+              "name": "Ectopic kidney if present"
+            },
+            {
+              "id": "mullerian.right.urinary.collecting_system",
+              "name": "Collecting system"
+            },
+            {
+              "id": "mullerian.right.urinary.acquired_ureter_course_and_insertion",
+              "name": "Acquired ureter course and insertion"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.retained_products",
+          "name": "Retained menstrual products",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.retained_products.haematometra_extent",
+              "name": "Haematometra extent"
+            },
+            {
+              "id": "mullerian.retained_products.haematocolpos_extent",
+              "name": "Haematocolpos extent"
+            },
+            {
+              "id": "mullerian.retained_products.haematometrocolpos_continuity",
+              "name": "Haematometrocolpos continuity"
+            },
+            {
+              "id": "mullerian.retained_products.wall_interface_and_obstruction_level",
+              "name": "Wall interface and obstruction level"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.complex",
+          "name": "Complex uterine, cervical or vaginal anomaly",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.complex.uterine_remnants_if_present",
+              "name": "Uterine remnants if present"
+            },
+            {
+              "id": "mullerian.complex.separate_uterine_bodies_when_present",
+              "name": "Separate uterine bodies when present"
+            },
+            {
+              "id": "mullerian.complex.separate_cervical_canals_when_present",
+              "name": "Separate cervical canals when present"
+            },
+            {
+              "id": "mullerian.complex.relevant_duplicated_vaginal_compartments",
+              "name": "Relevant duplicated vaginal compartments"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+        "https://doi.org/10.1186/s13244-024-01879-2"
+      ],
+      "functional_evidence_requirements": [
+        {
+          "name": "True coronal acquisition and calibrated cleft landmarks",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Selected classification framework and version",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Cavity communication and obstruction on appropriate acquired imaging",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Acquired urinary coverage and laterality",
+          "status": "requires_case_specific_evidence"
+        }
+      ],
+      "source_scope_issues": [
+        "The published examples contain selected views and schematic panels. Exact source grids, case-specific measurements and full native 3D models remain open.",
+        "The separate HRA atlas contributes regional context. It supplies no anomaly-specific cavity, septum or wall-layer evidence."
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every acquired uterine, cervical, vaginal and urinary component, including the actual side, variant and obstruction site",
+            "Every reported communication, retained content boundary and measurement landmark"
+          ]
+        }
+      ]
     }
   ],
   "additional_scope": [],
