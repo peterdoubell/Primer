@@ -11,6 +11,9 @@ const cache=new Map();
 const returnTargets = {
   'ra.solid-renal-masses':['radiology','Renal mass reporting reference'],
   'rad.4.kidney':['node','Kidney lesson'],
+  'rad.4.liver':['node','Liver lesson'],
+  'ra.liver-masses':['radiology','Liver mass reporting reference'],
+  'ra.liver-lirads':['radiology','LI-RADS reporting reference'],
   'ra.ct-pancreatic-cancer':['radiology','Pancreatic cancer reporting reference'],
   'rad.5.pancreas-tumour':['node','Pancreatic tumour lesson'],
   'ra.ct-abdominal-trauma':['radiology','Abdominal trauma reference'],

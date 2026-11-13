@@ -1,6 +1,9 @@
 """Recover the exact reader before the scoped source-study navigation."""
 import hashlib
 import json
+from pathlib import Path
+from tools.colonvessels_compatibility import _restore
+from tools.liver_regions_compatibility import before_liver_regions_bytes
 from tools.colonvessels_compatibility import before_colonvessels_bytes, before_vessel_navigation_bytes
 
 MENU = b"""function renderUterineSourceStudies(nodeId) {
@@ -92,7 +95,18 @@ def before_endometrial_delivery_bytes(path, raw):
         raise ValueError("Endometrial source delivery changed unrelated bytes")
     return restored
 
+def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js':
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/hepatic-vessel-navigation/runtime-inverse.json', '41b11d4a5301b0f6120e1ae95b2c2b992e617b499cf52b29a8442b9cbe1744ad')
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '12a7c5b6d8a8a48728be5ab918574ee89f9bf53671ca57b8b6355ba4cdc9b15e':
+        raw = raw.replace(b"  if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },\n    'Explore every child and a tree: two scope orders'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '2fa2dbf4e88e2179d7811cea6d1f1852653bd12c3a753135b057cac4986e3656':
+            raise ValueError('Quantifier scope link changed unrelated reader bytes')
+    return before_liver_regions_bytes(path, raw)
+
+
 def before_source_studies_bytes(path, raw):
+    raw = before_combined_source_release_bytes(path, raw)
     from tools.fast_report_templates_compatibility import before_fast_templates_bytes
     raw = before_fast_templates_bytes(path, raw)
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '1bcc58db62c46a558d7e1c691e1b9db44b09cd92bea386c2bf1b8b338d6d113b':

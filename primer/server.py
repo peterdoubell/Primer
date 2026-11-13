@@ -4228,6 +4228,17 @@ async def colonvessels_source_delivery(asset: str, request: Request):
     return await app.state.source_static.get_response("anatomy/colonvessels-pat012/" + asset, request.scope)
 
 
+@app.api_route("/app/anatomy/liver-regions-mri/{asset}", methods=["GET", "HEAD"], include_in_schema=False)
+async def liver_region_delivery(asset: str, request: Request):
+    with open(os.path.join(WEB_DIR, "anatomy", "liver-regions-mri", "delivery.json"), encoding="utf-8") as source:
+        files = json.load(source)["files"]
+    if asset not in files and asset != "delivery.json":
+        return JSONResponse({"detail": "Unknown liver source asset"}, status_code=404)
+    if asset.endswith(".gz") and os.environ.get("VERCEL"):
+        return RedirectResponse("/source-media/anatomy/liver-regions-mri/" + asset, status_code=307)
+    return await app.state.source_static.get_response("anatomy/liver-regions-mri/" + asset, request.scope)
+
+
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
     allowed = {"bodyparts3d", "hra-female-pelvis-v1.10", "bp3d-carotid-4.3", "bp3d-sella-4.3", "msk-atlas", "msk-cervical", "msk-mri-knee", "msk-mri-ankle", "liu-lumbosacral-sub03", "verse521", "hvsmr2-pat7", "openear-zeta", "totalseg-v3-s0358", "totalseg-v3-esophagus-s0358", "ispy1-expert1002", "prostate-biopsy0001"}
