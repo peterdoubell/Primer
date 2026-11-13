@@ -1,6 +1,6 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-12",
+  "revision": "2026-11-13",
   "templates": {
     "ra.chest-radiography": {
       "title": "Chest radiographs, PA and lateral / Chest radiograph, AP",
@@ -61,7 +61,8 @@
     "ra.ct-lung-cancer": {
       "title": "CT chest and upper abdomen with contrast",
       "radiograph": false,
-      "technique": {"normal": "Portal venous phase CT chest and upper abdomen with IV contrast."},
+      "technique": {"normal": "Portal venous phase CT chest and upper abdomen with IV contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Primary tumour", "normal": "No lung mass.",
          "options": ["[ ] mm [solid / part-solid / cavitating] mass in the [ ] lobe.",
@@ -76,12 +77,13 @@
          "options": ["[Emphysema / Interstitial lung disease / Post-obstructive collapse] [ ]."]},
         {"heading": "Stage", "normal": "No evidence of tumour.",
          "options": ["cT[ ] N[ ] M[ ] (TNM 9th edition)."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No lung mass, nodal or metastatic disease."
     },
     "ra.ct-pulmonary-nodules": {
-      "title": "CT chest without contrast / CT chest with contrast",
+      "title": "CT chest, pulmonary nodule",
       "radiograph": false,
       "technique": {"normal": "Volumetric thin-section CT chest without IV contrast.",
                     "options": ["CT chest with IV contrast."]},
@@ -94,14 +96,16 @@
          "options": ["[Emphysema / Bronchiectasis / Interstitial abnormality] [ ]."]},
         {"heading": "Mediastinum and pleura", "normal": "No lymphadenopathy or pleural effusion.",
          "options": ["[Lymphadenopathy / Pleural effusion] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No pulmonary nodule."
     },
     "chest.ct-lung-screening": {
       "title": "Low-dose CT chest, lung cancer screening",
       "radiograph": false,
-      "technique": {"normal": "Volumetric low-dose CT chest without IV contrast."},
+      "technique": {"normal": "Volumetric low-dose CT chest without IV contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Nodules", "normal": "No lung nodule.",
          "options": ["[Solid / Part-solid / Ground-glass] nodule in the [ ] lobe, [ ] mm mean diameter, [baseline / new / stable / growing].",
@@ -121,7 +125,8 @@
     "oncology.lesion-growth": {
       "title": "CT chest, nodule follow-up",
       "radiograph": false,
-      "technique": {"normal": "Volumetric thin-section CT chest without IV contrast, reconstructed to match the prior examination."},
+      "technique": {"normal": "Volumetric thin-section CT chest without IV contrast, reconstructed to match the prior examination.",
+                    "options": []},
       "sections": [
         {"heading": "Index nodule", "normal": "No growth of the index nodule.",
          "options": ["[Solid / Part-solid / Ground-glass] nodule in the [ ] lobe, [ ] mm, previously [ ] mm on [ ].",
@@ -129,14 +134,16 @@
                      "New solid component [ ] mm."]},
         {"heading": "Other nodules", "normal": "No new nodule.",
          "options": ["New [ ] mm nodule in the [ ] lobe."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Stable nodule with no measurable growth."
     },
     "ra.ct-airways": {
       "title": "CT chest, airways",
       "radiograph": false,
-      "technique": {"normal": "Volumetric thin-section CT chest in inspiration and expiration, with multiplanar and minimum-intensity reconstructions."},
+      "technique": {"normal": "Volumetric thin-section CT chest in inspiration and expiration, with multiplanar and minimum-intensity reconstructions.",
+                    "options": []},
       "sections": [
         {"heading": "Trachea and main bronchi", "normal": "Normal trachea and main bronchi.",
          "options": ["[Stenosis / Tracheomalacia / Wall thickening / Endoluminal lesion] at [ ], [ ] mm.",
@@ -146,14 +153,16 @@
                      "[Tracheal / Accessory cardiac / Displaced] bronchus [ ]."]},
         {"heading": "Lungs", "normal": "No collapse, consolidation or air trapping.",
          "options": ["[Collapse / Air trapping / Mosaic attenuation / Tree-in-bud nodules] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal central and segmental airways."
     },
     "ra.ct-covid": {
-      "title": "CT chest without contrast",
+      "title": "CT chest without contrast, COVID-19",
       "radiograph": false,
-      "technique": {"normal": "Volumetric CT chest without IV contrast."},
+      "technique": {"normal": "Volumetric CT chest without IV contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Lungs", "normal": "No ground-glass opacity or consolidation.",
          "options": ["[Bilateral / Unilateral] [peripheral / diffuse] [ground-glass opacity / consolidation / crazy paving] [ ].",
@@ -162,12 +171,13 @@
          "options": ["[Pleural effusion / Lymphadenopathy] [ ]."]},
         {"heading": "CO-RADS", "normal": "CO-RADS 1: very low suspicion.",
          "options": ["CO-RADS [2 / 3 / 4 / 5]: [low / equivocal / high / very high] suspicion."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No CT features of COVID-19 pneumonia (CO-RADS 1)."
     },
     "ra.tuberculosis": {
-      "title": "Chest radiographs, PA and lateral / Chest radiograph, AP",
+      "title": "Chest radiographs, tuberculosis",
       "radiograph": true,
       "sections": [
         {"heading": "Lungs", "normal": "No consolidation, cavitation or nodules.",
@@ -185,7 +195,8 @@
     "ra.ct-mediastinum": {
       "title": "CT chest with contrast",
       "radiograph": false,
-      "technique": {"normal": "CT chest with IV contrast."},
+      "technique": {"normal": "CT chest with IV contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Mediastinum", "normal": "No mediastinal mass.",
          "options": ["[Prevascular / Visceral / Paravertebral] mediastinal [solid / cystic / fat-containing] mass, [ ] mm.",
@@ -196,12 +207,13 @@
          "options": ["[Pericardial effusion / Vascular encasement / SVC compression] [ ]."]},
         {"heading": "Lungs and pleura", "normal": "Clear lungs. No pleural effusion.",
          "options": ["[Lung nodule / Pleural effusion / Pleural nodularity] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No mediastinal mass or lymphadenopathy."
     },
     "ra.thymus": {
-      "title": "CT chest with contrast",
+      "title": "CT chest with contrast, thymus",
       "radiograph": false,
       "technique": {"normal": "CT chest with IV contrast.",
                     "options": []},
@@ -213,14 +225,16 @@
          "options": ["[Pericardial / Pleural / Vascular / Lung] invasion [ ]."]},
         {"heading": "Pleura and lymph nodes", "normal": "No pleural nodules, effusion or lymphadenopathy.",
          "options": ["[Pleural drop metastases / Lymphadenopathy] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal thymus."
     },
     "ra.pulmonary-hypertension": {
       "title": "CT pulmonary angiogram",
       "radiograph": false,
-      "technique": {"normal": "CT pulmonary angiogram with IV contrast."},
+      "technique": {"normal": "CT pulmonary angiogram with IV contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Pulmonary arteries", "normal": "No pulmonary embolism. Normal pulmonary artery calibre.",
          "options": ["Main pulmonary artery [ ] mm; pulmonary artery to aorta ratio [ ].",
@@ -230,12 +244,13 @@
          "options": ["[Right ventricular dilatation / Septal flattening / Contrast reflux into the IVC] [ ]."]},
         {"heading": "Lungs", "normal": "No mosaic attenuation, emphysema or interstitial lung disease.",
          "options": ["[Mosaic attenuation / Emphysema / Interstitial lung disease / Centrilobular ground-glass nodules] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No CT features of pulmonary hypertension or thromboembolic disease."
     },
     "ra.paediatric-chest-ct": {
-      "title": "CT chest with contrast / CT chest without contrast",
+      "title": "CT chest, paediatric",
       "radiograph": false,
       "technique": {"normal": "Low-dose CT chest with IV contrast, weight-based protocol.",
                     "options": ["Low-dose CT chest without IV contrast."]},
@@ -248,7 +263,8 @@
          "options": ["[Mediastinal mass / Lymphadenopathy / Vascular anomaly] [ ]."]},
         {"heading": "Pleura and chest wall", "normal": "No pleural effusion or pneumothorax. Normal chest wall.",
          "options": ["[Pleural effusion / Empyema / Pneumothorax / Chest wall mass] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal CT chest."
     },
@@ -275,7 +291,7 @@
       "impression": "Normal neonatal chest radiograph."
     },
     "ra.paediatric-mediastinum": {
-      "title": "CT chest with contrast",
+      "title": "CT chest with contrast, paediatric mediastinal mass",
       "radiograph": false,
       "technique": {"normal": "CT chest with IV contrast, weight-based protocol.",
                     "options": []},
@@ -290,14 +306,16 @@
          "options": ["[Pleural effusion / Pericardial effusion / Lung nodules] [ ]."]},
         {"heading": "Spinal canal", "normal": "No intraspinal extension.",
          "options": ["Extension through the [ ] neural foramen [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No mediastinal mass."
     },
     "ra.thoracic-ultrasound": {
       "title": "Ultrasound chest",
       "radiograph": false,
-      "technique": {"normal": "Point-of-care thoracic ultrasound, anterior, lateral and posterior zones bilaterally."},
+      "technique": {"normal": "Point-of-care thoracic ultrasound, anterior, lateral and posterior zones bilaterally.",
+                    "options": []},
       "sections": [
         {"heading": "Pleura", "normal": "Lung sliding present bilaterally. No pleural effusion.",
          "options": ["[Right / Left] pleural effusion, [anechoic / complex / septated], [ ] cm depth.",
@@ -311,9 +329,10 @@
       "impression": "No pleural effusion, pneumothorax or consolidation."
     },
     "ra.ct-cardiovascular-pearls": {
-      "title": "CT chest with contrast / CT chest without contrast",
+      "title": "CT chest, cardiovascular findings",
       "radiograph": false,
-      "technique": {"normal": "CT chest with IV contrast.", "options": ["CT chest without IV contrast."]},
+      "technique": {"normal": "CT chest with IV contrast.",
+                    "options": ["CT chest without IV contrast."]},
       "sections": [
         {"heading": "Heart and pericardium", "normal": "Normal heart size. No pericardial effusion.",
          "options": ["[Cardiomegaly / Pericardial effusion / Myocardial thinning / Intracardiac thrombus] [ ]."]},
@@ -325,7 +344,8 @@
                      "[Aortic aneurysm / Pulmonary embolism / Aortic plaque] [ ]."]},
         {"heading": "Lungs and pleura", "normal": "Clear lungs. No pleural effusion.",
          "options": ["[Pulmonary oedema / Pleural effusion / Nodule] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No cardiovascular abnormality on CT chest."
     }

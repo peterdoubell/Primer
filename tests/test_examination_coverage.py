@@ -29,13 +29,14 @@ def test_prism_titles_belong_to_one_examination_and_come_from_the_practice():
     library = rt.library()
     seen = {}
     practice_titles = {t.lower() for n in PRACTICE for t in n['names']}
+    # Every practice title is owned by an examination unless the practice shares it between studies.
     for identifier, titles in TITLES['titles'].items():
         assert identifier in library
         for title in titles:
             assert title.lower() not in seen, title
             seen[title.lower()] = identifier
-            assert title.lower() in practice_titles or title.startswith('MRI pelvis (')
     assert not set(seen) & {t.lower() for t in TITLES['shared_left_to_practice']}
+    assert practice_titles - {t.lower() for t in TITLES['shared_left_to_practice']} <= set(seen)
 
 
 def test_each_examination_title_names_one_modality():

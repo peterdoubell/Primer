@@ -37,7 +37,7 @@ def test_every_structure_has_one_compartment_and_all_clinical_content_is_preserv
                 assert section['compartment']
                 assert {k:v for k,v in section.items() if k not in ('compartment','report_section_id','report_section_label')} == {k:v for k,v in old[key].items() if k not in ('report_section_id','report_section_label')}
             count += 1
-    assert count == 225 and new == 109
+    assert count == 225 and new == 108
 
 
 def test_knee_compartments_join_related_tissues_and_keep_patella_out_of_medial_compartment():

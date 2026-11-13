@@ -9,7 +9,7 @@
   "Barium meal": "fl.barium-meal",
   "Barium swallow": "ra.esophagus",
   "Bone age": "xr.bone-age",
-  "Bone densitometry": "dxa.dxa",
+  "Bone densitometry": "dxa.bone-densitometry",
   "Calcaneus radiograph": "xr.calcaneus",
   "Cervical spine flexion and extension radiographs": "xr.cervical-spine-flexion-extension",
   "Cervical spine radiograph": "xr.spine-cervical",
@@ -18,10 +18,10 @@
   "Contrast enema": "fl.contrast-enema",
   "CT abdomen and pelvis": "ra.acute-abdomen",
   "CT abdomen and pelvis (multiphase)": "ct.abdomen-multiphase",
-  "CT angiogram of the brain": "ct.brain",
-  "CT angiogram of the lower limbs": "ct.lower-limbs",
-  "CT angiogram of the neck vessels": "ra.carotid-obstruction",
-  "CT angiogram of the upper limb": "ct.upper-limb",
+  "CT angiogram of the brain": "ct.angiogram-brain",
+  "CT angiogram of the lower limbs": "ct.angiogram-lower-limbs",
+  "CT angiogram of the neck vessels": "ct.angiogram-carotids",
+  "CT angiogram of the upper limb": "ct.angiogram-upper-limb",
   "CT ankle and foot": "ct.ankle-foot",
   "CT aortogram": "ra.ct-acute-aortic-syndrome",
   "CT brain": "ra.acute-stroke",
@@ -46,7 +46,7 @@
   "CT pelvis and hips": "ct.pelvis-hips",
   "CT pulmonary angiogram": "ra.pulmonary-hypertension",
   "CT shoulder": "ct.shoulder",
-  "CT sinuses": "ra.mri-sinuses",
+  "CT sinuses": "ct.sinuses",
   "CT skull base to pubic symphysis": "ct.oncology-staging",
   "CT temporal bones": "ra.ct-temporal-bone",
   "CT temporomandibular joints": "ct.tmj",
@@ -78,8 +78,8 @@
   "Mandible radiograph": "xr.mandible",
   "Micturating cystourethrogram": "fl.mcug",
   "Mobile chest radiograph": "ra.chest-radiography",
-  "MR angiogram of the brain": "mri.brain",
-  "MR angiogram of the neck vessels": "mri.neck",
+  "MR angiogram of the brain": "mri.angiogram-brain",
+  "MR angiogram of the neck vessels": "mri.angiogram-carotids",
   "MRCP": "ra.biliary-duct-pathology",
   "MRI ankle": "ra.mri-ankle",
   "MRI bony pelvis": "mri.bony-pelvis",
@@ -100,7 +100,7 @@
   "MRI lumbar spine": "ra.mri-lumbar-disc",
   "MRI lumbar spine with contrast": "msk.mri-spine-lumbar-postoperative",
   "MRI neck": "ra.mri-neck-spaces",
-  "MRI orbits": "ra.ct-mri-eye",
+  "MRI orbits": "mri.orbits",
   "MRI perianal fistula": "ra.mri-perianal-fistula",
   "MRI pituitary": "ra.mri-sella",
   "MRI prostate": "ra.mri-prostate",
@@ -143,8 +143,8 @@
   "Toe radiograph": "xr.toe",
   "Transcranial Doppler": "us.transcranial-doppler",
   "Ultrasound abdomen": "us.abdomen",
-  "Ultrasound abdomen and pelvis (female)": "us.abdomen-acute",
-  "Ultrasound abdomen and pelvis (male)": "us.us-abdomen-acute",
+  "Ultrasound abdomen and pelvis (female)": "us.abdomen-pelvis-female",
+  "Ultrasound abdomen and pelvis (male)": "us.abdomen-pelvis-male",
   "Ultrasound abdominal wall": "us.abdominal-wall",
   "Ultrasound ankle": "msk.ultrasound-ankle",
   "Ultrasound both lower limb veins": "us.lower-limb-veins-bilateral",
@@ -234,15 +234,6 @@
    "hand for bone age",
    "bone age study"
   ],
-  "dxa.dxa": [
-   "bone densitometry",
-   "DXA",
-   "DEXA",
-   "bone density",
-   "bone mineral density",
-   "DXA scan",
-   "DEXA scan"
-  ],
   "xr.calcaneus": [
    "calcaneus x-ray",
    "heel x-ray",
@@ -306,41 +297,13 @@
    "CT adrenals",
    "CT renal mass protocol"
   ],
-  "ct.brain": [
-   "CT angiogram brain",
-   "CTA brain",
-   "CT angiogram circle of Willis",
-   "CT intracranial angiogram",
-   "CT cerebral angiogram",
-   "CT brain angiogram"
-  ],
-  "ct.lower-limbs": [
-   "CT angiogram lower limbs",
-   "CTA lower limbs",
-   "CT runoff",
-   "CT peripheral angiogram",
-   "CT angiogram legs",
-   "CT angiogram aorta and lower limbs"
-  ],
   "ra.carotid-obstruction": [
-   "CT angiogram neck",
-   "CTA carotids",
-   "CT carotid angiogram",
-   "CT angiogram carotids",
-   "CT angiogram extracranial",
-   "CTA neck vessels",
    "carotid Doppler",
    "carotid ultrasound",
    "ultrasound carotids",
    "carotid duplex",
    "Doppler carotids",
    "ultrasound carotid arteries"
-  ],
-  "ct.upper-limb": [
-   "CT angiogram upper limb",
-   "CTA upper limb",
-   "CT angiogram arm",
-   "CT angiogram upper limbs"
   ],
   "ct.ankle-foot": [
    "CT ankle",
@@ -472,10 +435,7 @@
   "ra.ct-mri-eye": [
    "CT orbits",
    "orbital CT",
-   "CT of the orbits",
-   "MRI orbits",
-   "MR orbits",
-   "orbital MRI"
+   "CT of the orbits"
   ],
   "ct.pelvis": [
    "CT pelvis",
@@ -500,9 +460,9 @@
    "shoulder CT"
   ],
   "ra.mri-sinuses": [
-   "CT sinuses",
-   "CT paranasal sinuses",
-   "sinus CT"
+   "MRI paranasal sinuses",
+   "MRI sinuses",
+   "MR sinuses"
   ],
   "ct.oncology-staging": [
    "CT skull base to pubic symphysis",
@@ -708,21 +668,6 @@
    "VCUG",
    "voiding cystourethrogram",
    "micturating cystogram"
-  ],
-  "mri.brain": [
-   "MR angiogram brain",
-   "MRA brain",
-   "MR angiogram circle of Willis",
-   "intracranial MRA",
-   "MRA circle of Willis",
-   "MR brain angiogram"
-  ],
-  "mri.neck": [
-   "MR angiogram neck",
-   "MRA neck",
-   "MRA carotids",
-   "MR carotid angiogram",
-   "MR angiogram extracranial"
   ],
   "ra.biliary-duct-pathology": [
    "MRCP",
@@ -1120,12 +1065,6 @@
    "ultrasound upper abdomen",
    "upper abdominal ultrasound"
   ],
-  "us.abdomen-acute": [
-   "female ultrasound abdomen and pelvis"
-  ],
-  "us.us-abdomen-acute": [
-   "male ultrasound abdomen and pelvis"
-  ],
   "us.abdominal-wall": [
    "ultrasound abdominal wall",
    "abdominal wall ultrasound",
@@ -1340,6 +1279,713 @@
    "wrist x-ray",
    "wrist radiograph",
    "x-ray wrist"
+  ],
+  "ct.angiogram-brain": [
+   "CT angiogram brain",
+   "CTA brain",
+   "CT angiogram circle of Willis",
+   "CT intracranial angiogram",
+   "CT cerebral angiogram",
+   "CT brain angiogram"
+  ],
+  "mri.angiogram-brain": [
+   "MR angiogram brain",
+   "MRA brain",
+   "MR angiogram circle of Willis",
+   "intracranial MRA",
+   "MRA circle of Willis",
+   "MR brain angiogram"
+  ],
+  "ct.angiogram-lower-limbs": [
+   "CT angiogram lower limbs",
+   "CTA lower limbs",
+   "CT runoff",
+   "CT peripheral angiogram",
+   "CT angiogram legs",
+   "CT angiogram aorta and lower limbs"
+  ],
+  "ct.angiogram-upper-limb": [
+   "CT angiogram upper limb",
+   "CTA upper limb",
+   "CT angiogram arm",
+   "CT angiogram upper limbs"
+  ],
+  "us.abdomen-pelvis-female": [
+   "female ultrasound abdomen and pelvis"
+  ],
+  "us.abdomen-pelvis-male": [
+   "male ultrasound abdomen and pelvis"
+  ],
+  "dxa.bone-densitometry": [
+   "bone densitometry",
+   "DXA",
+   "DEXA",
+   "bone density",
+   "bone mineral density",
+   "DXA scan",
+   "DEXA scan"
+  ],
+  "mri.angiogram-carotids": [
+   "MR angiogram neck",
+   "MRA neck",
+   "MRA carotids",
+   "MR carotid angiogram",
+   "MR angiogram extracranial",
+   "MR angiogram carotids neck"
+  ],
+  "ct.angiogram-carotids": [
+   "CT angiogram neck",
+   "CTA carotids",
+   "CT carotid angiogram",
+   "CT angiogram carotids",
+   "CT angiogram extracranial",
+   "CTA neck vessels",
+   "CT angiogram carotids neck"
+  ],
+  "ct.sinuses": [
+   "CT sinuses",
+   "CT paranasal sinuses",
+   "sinus CT"
+  ],
+  "mri.orbits": [
+   "MRI orbits",
+   "MR orbits",
+   "orbital MRI"
+  ],
+  "ra.ultrasound-acute-abdomen": [
+   "ultrasound abdomen acute",
+   "acute abdomen ultrasound"
+  ],
+  "ra.transvaginal-nongynaecology": [
+   "transvaginal ultrasound non-gynaecological",
+   "TV ultrasound pelvis"
+  ],
+  "ra.appendicitis": [
+   "ultrasound appendix",
+   "appendix ultrasound",
+   "ultrasound right iliac fossa"
+  ],
+  "ra.ultrasound-bile-duct-stones": [
+   "ultrasound liver and biliary tree",
+   "ultrasound bile ducts",
+   "ultrasound CBD"
+  ],
+  "ra.ultrasound-gallbladder": [
+   "ultrasound gallbladder",
+   "gallbladder ultrasound",
+   "ultrasound RUQ"
+  ],
+  "ra.liver-lirads": [
+   "MRI liver HCC surveillance",
+   "MRI liver cirrhosis"
+  ],
+  "liver.lirads-calculated": [
+   "MRI liver LI-RADS",
+   "MRI liver primovist"
+  ],
+  "ra.ct-abdominal-trauma": [
+   "CT abdomen and pelvis trauma",
+   "CT abdomen trauma"
+  ],
+  "ra.ct-bowel-ischaemia": [
+   "CT angiogram abdomen and pelvis",
+   "CT mesenteric angiogram",
+   "CTA mesenteric"
+  ],
+  "ra.ct-bowel-wall": [
+   "CT abdomen and pelvis bowel"
+  ],
+  "ra.ct-bowel-obstruction": [
+   "CT abdomen and pelvis bowel obstruction",
+   "CT small bowel obstruction"
+  ],
+  "ra.ct-small-bowel-tumours": [
+   "CT enterography",
+   "CT small bowel enterography"
+  ],
+  "ra.ultrasound-gi-tract": [
+   "ultrasound bowel",
+   "bowel ultrasound"
+  ],
+  "ra.ultrasound-ibd": [
+   "intestinal ultrasound",
+   "ultrasound IBD",
+   "ultrasound small bowel"
+  ],
+  "ra.mri-crohn": [
+   "MR enterography",
+   "MRI small bowel",
+   "MRE"
+  ],
+  "ra.mri-anal-cancer": [
+   "MRI anal canal",
+   "MRI anal cancer"
+  ],
+  "ra.swallowing": [
+   "videofluoroscopic swallow",
+   "VFSS",
+   "modified barium swallow"
+  ],
+  "ra.dynamic-rectal-examination": [
+   "defecating proctogram",
+   "defecography",
+   "evacuation proctogram"
+  ],
+  "ra.gi-foreign-bodies": [
+   "foreign body x-ray",
+   "swallowed foreign body x-ray",
+   "mouth to anus x-ray"
+  ],
+  "ra.ct-pancreatitis": [
+   "CT pancreas",
+   "CT pancreatitis"
+  ],
+  "ra.ct-pancreatic-cancer": [
+   "CT pancreas protocol",
+   "pancreatic protocol CT"
+  ],
+  "ra.pancreatic-cysts": [
+   "MRI pancreas and MRCP",
+   "MRI pancreatic cyst"
+  ],
+  "ra.ct-peritoneum": [
+   "CT abdomen and pelvis peritoneum"
+  ],
+  "ra.ct-peritoneal-carcinomatosis": [
+   "CT peritoneal carcinomatosis"
+  ],
+  "ra.abdominal-wall-hernias": [
+   "CT abdominal wall",
+   "CT hernia"
+  ],
+  "ct.appendix": [
+   "CT appendix",
+   "CT appendicitis"
+  ],
+  "ct.liver-mass": [
+   "CT liver multiphase",
+   "CT liver lesion"
+  ],
+  "ct.liver-lirads": [
+   "CT liver HCC surveillance",
+   "CT liver cirrhosis"
+  ],
+  "ct.liver-lirads-calculated": [
+   "CT liver LI-RADS"
+  ],
+  "ct.oesophagus": [
+   "CT chest with oral contrast",
+   "CT oesophagus"
+  ],
+  "us.breast-implants": [
+   "ultrasound breast implants",
+   "breast implant ultrasound"
+  ],
+  "ct.cardiac-mass": [
+   "CT heart",
+   "cardiac CT mass"
+  ],
+  "mri.thymus": [
+   "MRI thymus",
+   "MRI mediastinum"
+  ],
+  "mri.paediatric-mediastinum": [
+   "MRI chest paediatric",
+   "MRI chest child"
+  ],
+  "mri.renal-cyst": [
+   "MRI kidneys renal cyst",
+   "MRI renal cyst"
+  ],
+  "mri.renal-mass": [
+   "MRI kidneys renal mass",
+   "MRI renal mass"
+  ],
+  "mri.adrenals": [
+   "MRI adrenal glands",
+   "MRI adrenal"
+  ],
+  "mri.adnexal-mass": [
+   "MRI pelvis adnexal mass",
+   "MRI adnexa"
+  ],
+  "us.uterus-3d": [
+   "3D ultrasound uterus",
+   "ultrasound uterus 3D"
+  ],
+  "xr.bone-lesion": [
+   "x-ray bone lesion",
+   "bone lesion x-ray"
+  ],
+  "xr.cartilage-lesion": [
+   "x-ray cartilage lesion"
+  ],
+  "xr.stress-injury": [
+   "x-ray stress fracture",
+   "stress fracture x-ray"
+  ],
+  "mri.brain-stroke": [
+   "MRI brain stroke protocol",
+   "MRI brain stroke",
+   "MRI stroke"
+  ],
+  "mri.brain-haemorrhage": [
+   "MRI brain haemorrhage"
+  ],
+  "mri.venogram": [
+   "MR venogram",
+   "MRV brain",
+   "MR venography"
+  ],
+  "ct.angiogram-head-neck-tinnitus": [
+   "CT angiogram pulsatile tinnitus",
+   "CTA tinnitus"
+  ],
+  "mri.neck-tumour": [
+   "MRI neck cancer staging",
+   "MRI neck tumour"
+  ],
+  "ct.neck-nodes": [
+   "CT neck lymph nodes"
+  ],
+  "mri.paediatric-abdomen-cystic": [
+   "MRI abdomen paediatric cystic mass"
+  ],
+  "ct.paediatric-abdomen-solid": [
+   "CT abdomen paediatric",
+   "CT abdomen child"
+  ],
+  "mri.paediatric-abdomen-solid": [
+   "MRI abdomen paediatric",
+   "MRI abdomen child"
+  ],
+  "mri.paediatric-renal-tumour": [
+   "MRI abdomen paediatric renal tumour",
+   "MRI Wilms"
+  ],
+  "mri.thoracolumbar-trauma": [
+   "MRI thoracolumbar spine trauma",
+   "MRI spine trauma"
+  ],
+  "us.male-breast": [
+   "ultrasound male breast",
+   "ultrasound gynaecomastia"
+  ],
+  "mri.cervical-spine-trauma": [
+   "MRI cervical spine trauma",
+   "MRI c-spine trauma"
+  ],
+  "template:breast-calcifications-report": [
+   "magnification mammogram",
+   "mammogram magnification views"
+  ],
+  "ra.mri-breast": [
+   "MRI breasts",
+   "MRI breast",
+   "breast MRI",
+   "MR breast"
+  ],
+  "ra.breast-implants": [
+   "MRI breast implants",
+   "breast implant MRI"
+  ],
+  "ra.male-breast": [
+   "male mammogram",
+   "mammogram male breast"
+  ],
+  "ra.breast-cancer-staging": [
+   "MRI breasts staging",
+   "MRI breast cancer staging"
+  ],
+  "cardiology.echocardiography": [
+   "echocardiogram",
+   "transthoracic echocardiogram",
+   "TTE",
+   "echo"
+  ],
+  "cardiology.percutaneous-angiography": [
+   "coronary angiogram",
+   "cardiac catheterisation",
+   "angiogram coronary"
+  ],
+  "ra.ct-tavi": [
+   "CT TAVI",
+   "TAVI CT",
+   "CT TAVR",
+   "TAVI planning CT"
+  ],
+  "ra.thoracic-aorta-measurement": [
+   "CT angiogram thoracic aorta",
+   "CTA thoracic aorta"
+  ],
+  "ra.aortic-aneurysm-rupture": [
+   "CT angiogram abdominal aorta",
+   "CTA abdominal aorta",
+   "CT AAA"
+  ],
+  "ra.cardiac-masses": [
+   "MRI heart mass",
+   "cardiac MRI mass"
+  ],
+  "ra.mri-cardiomyopathy": [
+   "cardiac MRI",
+   "MRI heart",
+   "CMR",
+   "cardiac MR"
+  ],
+  "ra.cardiovascular-devices": [
+   "chest x-ray pacemaker",
+   "chest x-ray device check"
+  ],
+  "ra.vascular-anomalies": [
+   "CT angiogram chest",
+   "CTA chest"
+  ],
+  "ra.mra-peripheral-vessels": [
+   "MR angiogram lower limbs",
+   "MRA lower limbs",
+   "MR runoff"
+  ],
+  "us.venous-duplex-upper-limb": [
+   "upper limb venous Doppler",
+   "ultrasound arm DVT",
+   "arm DVT ultrasound"
+  ],
+  "us.venous-insufficiency": [
+   "venous insufficiency Doppler",
+   "varicose veins ultrasound",
+   "venous reflux study"
+  ],
+  "ra.ct-lung-cancer": [
+   "CT chest and upper abdomen",
+   "CT lung cancer staging"
+  ],
+  "ra.ct-pulmonary-nodules": [
+   "CT chest nodule",
+   "CT pulmonary nodule"
+  ],
+  "chest.ct-lung-screening": [
+   "low-dose CT chest",
+   "lung cancer screening CT",
+   "LDCT chest"
+  ],
+  "oncology.lesion-growth": [
+   "CT chest nodule follow-up",
+   "CT chest follow-up"
+  ],
+  "ra.ct-airways": [
+   "CT chest airways",
+   "CT bronchiectasis"
+  ],
+  "ra.ct-covid": [
+   "CT chest COVID",
+   "CT chest without contrast COVID"
+  ],
+  "ra.tuberculosis": [
+   "chest x-ray tuberculosis",
+   "chest x-ray TB"
+  ],
+  "ra.thymus": [
+   "CT chest thymus",
+   "CT thymus"
+  ],
+  "ra.paediatric-chest-ct": [
+   "CT chest paediatric",
+   "CT chest child"
+  ],
+  "ra.neonatal-chest-xray": [
+   "neonatal chest x-ray",
+   "NICU chest x-ray",
+   "babygram"
+  ],
+  "ra.paediatric-mediastinum": [
+   "CT chest paediatric mediastinal mass"
+  ],
+  "ra.ct-cardiovascular-pearls": [
+   "CT chest cardiovascular"
+  ],
+  "template:nuclear-general-report": [
+   "nuclear medicine study",
+   "bone scan",
+   "thyroid scan",
+   "VQ scan"
+  ],
+  "template:pet-ct-report": [
+   "FDG PET/CT",
+   "PET/CT",
+   "PET CT",
+   "FDG PET"
+  ],
+  "template:theranostics-report": [
+   "PSMA PET/CT",
+   "SSTR PET/CT",
+   "DOTATATE PET/CT"
+  ],
+  "oncology.recist-follow-up": [
+   "CT chest abdomen and pelvis RECIST follow-up",
+   "CT CAP follow-up"
+  ],
+  "ra.renal-cysts-bosniak": [
+   "CT kidneys renal cyst",
+   "CT renal cyst"
+  ],
+  "ra.solid-renal-masses": [
+   "CT kidneys renal mass",
+   "CT renal mass"
+  ],
+  "ct.urography": [
+   "CT urogram",
+   "CT urography",
+   "CTU"
+  ],
+  "ra.adrenal-lesions": [
+   "CT adrenals washout",
+   "adrenal protocol CT"
+  ],
+  "ra.mri-bladder": [
+   "MRI bladder",
+   "bladder MRI",
+   "MRI bladder VI-RADS"
+  ],
+  "ra.ultrasound-paediatric-scrotum": [
+   "ultrasound scrotum paediatric",
+   "ultrasound testes child"
+  ],
+  "ra.ovarian-cysts": [
+   "ultrasound adnexa",
+   "ultrasound ovarian cyst"
+  ],
+  "us.adnexal-orads": [
+   "ultrasound adnexa O-RADS",
+   "transvaginal ultrasound adnexa"
+  ],
+  "ra.mri-endometriosis": [
+   "MRI pelvis endometriosis",
+   "MRI endometriosis"
+  ],
+  "ra.mri-cervical-cancer": [
+   "MRI pelvis cervical cancer",
+   "MRI cervix"
+  ],
+  "ra.mri-endometrial-cancer": [
+   "MRI pelvis endometrial cancer",
+   "MRI endometrium"
+  ],
+  "ra.mullerian-anomalies": [
+   "MRI pelvis uterine anomaly",
+   "MRI uterine anatomy"
+  ],
+  "ra.arthritis": [
+   "hands x-ray arthritis",
+   "hands and feet x-ray",
+   "x-ray hands and feet"
+  ],
+  "ra.ankle-fractures": [
+   "ankle x-ray trauma",
+   "ankle fracture x-ray"
+  ],
+  "ra.foot-ankle-cases": [
+   "foot and ankle x-ray",
+   "x-ray foot and ankle"
+  ],
+  "ra.hip-fai": [
+   "hip x-ray impingement",
+   "hip x-ray FAI",
+   "Dunn view hip"
+  ],
+  "msk.mri-knee-postoperative": [
+   "MRI knee postoperative",
+   "MRI knee post-op"
+  ],
+  "xr.knee-arthroplasty": [
+   "knee replacement x-ray",
+   "knee arthroplasty x-ray",
+   "TKR x-ray"
+  ],
+  "ra.mri-diabetic-foot": [
+   "MRI foot with contrast",
+   "MRI diabetic foot",
+   "MRI foot osteomyelitis"
+  ],
+  "msk.ultrasound-nerves-lower-limb": [
+   "ultrasound nerves lower limb",
+   "ultrasound peroneal nerve"
+  ],
+  "msk.mri-shoulder-postoperative": [
+   "MRI shoulder postoperative",
+   "MRI shoulder post-op"
+  ],
+  "xr.shoulder-arthroplasty": [
+   "shoulder replacement x-ray",
+   "shoulder arthroplasty x-ray"
+  ],
+  "ra.wrist-instability": [
+   "wrist instability series",
+   "wrist x-ray instability",
+   "clenched fist view"
+  ],
+  "msk.ultrasound-hand": [
+   "hand ultrasound",
+   "ultrasound finger"
+  ],
+  "msk.mri-hand": [
+   "MRI finger",
+   "hand MRI"
+  ],
+  "msk.ultrasound-nerves-upper-limb": [
+   "ultrasound nerves upper limb",
+   "ultrasound carpal tunnel",
+   "ultrasound ulnar nerve"
+  ],
+  "ra.bone-tumours": [
+   "MRI bone lesion",
+   "MRI bone tumour"
+  ],
+  "ra.cartilage-tumours": [
+   "MRI cartilage lesion",
+   "MRI enchondroma"
+  ],
+  "msk.mri-soft-tissue-mass": [
+   "MRI soft tissue mass",
+   "MRI lump"
+  ],
+  "ra.mri-muscle-injury": [
+   "MRI muscle injury",
+   "MRI muscle tear"
+  ],
+  "ra.mri-muscle-disease": [
+   "MRI muscles myositis",
+   "MRI myopathy"
+  ],
+  "ra.stress-fractures": [
+   "MRI stress fracture",
+   "MRI stress injury"
+  ],
+  "ra.ultrasound-joint-injection": [
+   "ultrasound guided joint injection",
+   "ultrasound guided injection"
+  ],
+  "ra.ct-traumatic-haemorrhage": [
+   "CT brain trauma",
+   "CT head trauma",
+   "CT head injury"
+  ],
+  "ra.intracranial-haemorrhage": [
+   "CT brain and CT angiogram",
+   "CT brain haemorrhage"
+  ],
+  "ra.mri-brain-tumours": [
+   "MRI brain tumour",
+   "MRI brain metastases"
+  ],
+  "ra.mri-cns-enhancement": [
+   "MRI brain enhancing lesion"
+  ],
+  "ra.mri-dementia": [
+   "MRI brain dementia",
+   "MRI brain memory",
+   "MRI brain cognitive"
+  ],
+  "ra.mri-epilepsy": [
+   "MRI brain epilepsy",
+   "MRI epilepsy protocol",
+   "MRI seizure"
+  ],
+  "ra.mri-ms": [
+   "MRI brain MS",
+   "MRI brain demyelination",
+   "MRI multiple sclerosis"
+  ],
+  "ra.venous-sinus-thrombosis": [
+   "CT venogram",
+   "CTV brain",
+   "CT venography"
+  ],
+  "ra.intracranial-hypotension": [
+   "MRI brain and spine with contrast",
+   "MRI intracranial hypotension"
+  ],
+  "ra.mri-trigeminal": [
+   "MRI trigeminal nerves",
+   "MRI trigeminal neuralgia"
+  ],
+  "ra.craniosynostosis": [
+   "CT head 3D",
+   "CT craniosynostosis",
+   "CT skull 3D"
+  ],
+  "neck.ct-post-treatment": [
+   "CT neck post-treatment",
+   "CT neck surveillance"
+  ],
+  "neck.mri-post-treatment": [
+   "MRI neck post-treatment",
+   "MRI neck surveillance"
+  ],
+  "ra.paediatric-elbow-fractures": [
+   "elbow x-ray paediatric",
+   "elbow x-ray child"
+  ],
+  "ra.paediatric-hip": [
+   "hip x-ray paediatric",
+   "pelvis x-ray child",
+   "frog leg x-ray"
+  ],
+  "ra.neonatal-acute-abdomen": [
+   "abdominal x-ray neonatal",
+   "neonatal abdominal x-ray"
+  ],
+  "ra.necrotising-enterocolitis": [
+   "abdominal x-ray NEC",
+   "decubitus abdomen x-ray neonatal"
+  ],
+  "ra.paediatric-neck-masses": [
+   "ultrasound neck paediatric",
+   "ultrasound neck child"
+  ],
+  "ra.paediatric-cystic-abdominal-masses": [
+   "ultrasound abdomen paediatric cystic mass"
+  ],
+  "ra.paediatric-solid-abdominal-masses": [
+   "ultrasound abdomen paediatric",
+   "ultrasound abdomen child"
+  ],
+  "ra.paediatric-renal-tumours": [
+   "CT abdomen paediatric renal tumour"
+  ],
+  "ra.thoracolumbar-fractures": [
+   "CT thoracolumbar spine",
+   "CT TL spine"
+  ],
+  "ra.mri-myelopathy": [
+   "MRI spine myelopathy",
+   "MRI cord compression"
+  ],
+  "msk.mri-lumbosacral-plexus": [
+   "MR neurography lumbosacral plexus",
+   "MRI lumbosacral plexus"
+  ],
+  "msk.mri-brachial-plexus": [
+   "MR neurography brachial plexus",
+   "MRI brachial plexus"
+  ],
+  "msk.mri-spine-cervical-postoperative": [
+   "MRI cervical spine postoperative",
+   "MRI c-spine post-op"
+  ],
+  "msk.mri-spine-thoracic-postoperative": [
+   "MRI thoracic spine postoperative",
+   "MRI t-spine post-op"
+  ],
+  "msk.ct-spine-postoperative": [
+   "CT spine postoperative",
+   "CT spine post-op",
+   "CT spine fusion"
+  ],
+  "ra.ultrasound-neonatal-spine": [
+   "ultrasound spine neonatal",
+   "neonatal spine ultrasound",
+   "ultrasound spine infant"
   ]
  },
  "shared_left_to_practice": [
@@ -1349,5 +1995,20 @@
   "ultrasound abdomen and pelvis",
   "ultrasound whole abdomen",
   "whole abdomen ultrasound"
+ ],
+ "not_performed_studies": [
+  "template:modalities-report",
+  "template:radiation-safety-report",
+  "template:ct-image-report",
+  "template:mri-sequences-report",
+  "template:structured-reporting-report",
+  "template:ultrasound-physics-report",
+  "ra.ct-contrast-protocols",
+  "ra.brain-anatomy",
+  "mri.brain-anatomy",
+  "ra.paediatric-ultrasound-values",
+  "template:head-trauma-report",
+  "template:msk-mri-report",
+  "template:fracture-description-report"
  ]
 }

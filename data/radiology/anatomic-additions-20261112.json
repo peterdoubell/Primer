@@ -643,7 +643,7 @@
   },
   "ct.liver-mass": {
    "guide_id": "rad.4.liver",
-   "title": "CT liver, multiphase",
+   "title": "CT liver, multiphase, focal lesion",
    "modality": "CT",
    "base_investigation_id": "ra.liver-masses",
    "sections": [
@@ -4401,7 +4401,7 @@
   },
   "ct.cardiac-mass": {
    "guide_id": "rad.5.cardiac-masses-devices",
-   "title": "CT heart",
+   "title": "CT heart, cardiac mass",
    "modality": "CT",
    "base_investigation_id": "ra.cardiac-masses",
    "sections": [
@@ -4783,7 +4783,7 @@
   },
   "ct.angiogram-carotids": {
    "guide_id": "rad.5.peripheral-vascular",
-   "title": "CT angiogram carotids",
+   "title": "CT angiogram neck vessels",
    "modality": "CT",
    "base_investigation_id": "ra.carotid-obstruction",
    "sections": [
@@ -5514,7 +5514,7 @@
   },
   "mri.angiogram-carotids": {
    "guide_id": "rad.5.peripheral-vascular",
-   "title": "MR angiogram carotids",
+   "title": "MR angiogram neck vessels",
    "modality": "MRI",
    "base_investigation_id": "ra.carotid-obstruction",
    "sections": [
@@ -21083,7 +21083,7 @@
   },
   "mri.paediatric-abdomen-cystic": {
    "guide_id": "rad.5.paeds-masses-neuro",
-   "title": "MRI abdomen, paediatric",
+   "title": "MRI abdomen, paediatric cystic mass",
    "modality": "MRI",
    "base_investigation_id": "ra.paediatric-cystic-abdominal-masses",
    "sections": [
@@ -22056,7 +22056,7 @@
   },
   "ct.paediatric-abdomen-solid": {
    "guide_id": "rad.5.paeds-masses-neuro",
-   "title": "CT abdomen with contrast, paediatric",
+   "title": "CT abdomen with contrast, paediatric solid mass",
    "modality": "CT",
    "base_investigation_id": "ra.paediatric-solid-abdominal-masses",
    "sections": [
@@ -23075,7 +23075,7 @@
   },
   "mri.paediatric-abdomen-solid": {
    "guide_id": "rad.5.paeds-masses-neuro",
-   "title": "MRI abdomen, paediatric",
+   "title": "MRI abdomen, paediatric solid mass",
    "modality": "MRI",
    "base_investigation_id": "ra.paediatric-solid-abdominal-masses",
    "sections": [
@@ -28687,7 +28687,7 @@
   },
   "xr.acute-abdomen-series": {
    "guide_id": "rad.3.acute-abdomen",
-   "title": "Abdominal and erect chest radiographs",
+   "title": "Abdominal radiograph, supine, and chest radiograph, erect",
    "modality": "Radiography",
    "base_investigation_id": "ra.acute-abdomen",
    "sections": [
@@ -28872,7 +28872,7 @@
   },
   "xr.ankle-stress": {
    "guide_id": "rad.5.ankle-foot",
-   "title": "Ankle stress radiograph",
+   "title": "Right ankle stress radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.ankle-fractures",
    "sections": [
@@ -29082,7 +29082,7 @@
   },
   "xr.bone-age": {
    "guide_id": "rad.5.paeds-hip-elbow",
-   "title": "Bone age radiograph",
+   "title": "Bone age radiograph, left hand",
    "modality": "Radiography",
    "base_investigation_id": "ra.paediatric-hip",
    "sections": [
@@ -29137,50 +29137,9 @@
     }
    ]
   },
-  "dxa.dxa": {
-   "guide_id": "rad.4.arthritis",
-   "title": "Bone densitometry",
-   "modality": "DXA",
-   "base_investigation_id": "ra.arthritis",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "vertebral-level",
-     "label": "Vertebral level",
-     "group": "Findings",
-     "normal": "No vertebral level was excluded.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Vertebral level",
-       "text": "Vertebral level: a [fracture / dislocation / lytic lesion / sclerotic lesion / degenerative change] is present."
-      }
-     ]
-    }
-   ]
-  },
   "xr.cervical-spine-flexion-extension": {
    "guide_id": "rad.4.spine-imaging",
-   "title": "Cervical spine flexion and extension radiographs",
+   "title": "Cervical spine radiographs, flexion and extension",
    "modality": "Radiography",
    "base_investigation_id": "ra.cervical-spine-injury",
    "sections": [
@@ -29285,7 +29244,7 @@
   },
   "fl.contrast-enema": {
    "guide_id": "rad.5.bowel-ischaemia",
-   "title": "Contrast enema",
+   "title": "Barium enema",
    "modality": "Fluoroscopy",
    "base_investigation_id": "ra.ct-bowel-wall",
    "sections": [
@@ -29374,7 +29333,7 @@
   },
   "ct.abdomen-multiphase": {
    "guide_id": "rad.4.liver",
-   "title": "CT abdomen and pelvis (multiphase)",
+   "title": "CT abdomen and pelvis, multiphase",
    "modality": "CT",
    "base_investigation_id": "ra.liver-masses",
    "sections": [
@@ -29605,340 +29564,9 @@
     }
    ]
   },
-  "ct.brain": {
-   "guide_id": "rad.5.intracranial-haemorrhage",
-   "title": "CT angiogram of the brain",
-   "modality": "CT",
-   "base_investigation_id": "ra.intracranial-haemorrhage",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "intracranial-internal-carotid-arteries",
-     "label": "Intracranial internal carotid arteries",
-     "group": "Findings",
-     "normal": "The intracranial internal carotid arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Intracranial internal carotid arteries",
-       "text": "Intracranial internal carotid arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "anterior",
-     "label": "Anterior",
-     "group": "Findings",
-     "normal": "The anterior, middle and posterior cerebral arteries are patent, with no stenosis or occlusion.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Anterior",
-       "text": "Anterior: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "vertebral-and-basilar-arteries",
-     "label": "Vertebral and basilar arteries",
-     "group": "Findings",
-     "normal": "The vertebral and basilar arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Vertebral and basilar arteries",
-       "text": "Vertebral and basilar arteries: a [fracture / dislocation / lytic lesion / sclerotic lesion / degenerative change] is present."
-      }
-     ]
-    },
-    {
-     "id": "intracranial-aneurysm",
-     "label": "Intracranial aneurysm",
-     "group": "Findings",
-     "normal": "No intracranial aneurysm.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Intracranial aneurysm",
-       "text": "Intracranial aneurysm: there is [haemorrhage / infarction / a mass / atrophy / hydrocephalus / white matter change]."
-      }
-     ]
-    },
-    {
-     "id": "arteriovenous-malformation",
-     "label": "Arteriovenous malformation",
-     "group": "Findings",
-     "normal": "No arteriovenous malformation.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Arteriovenous malformation",
-       "text": "Arteriovenous malformation: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "dural-venous-sinuses",
-     "label": "Dural venous sinuses",
-     "group": "Findings",
-     "normal": "The dural venous sinuses are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Dural venous sinuses",
-       "text": "Dural venous sinuses: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    }
-   ]
-  },
-  "ct.lower-limbs": {
-   "guide_id": "rad.5.peripheral-vascular",
-   "title": "CT angiogram of the lower limbs",
-   "modality": "CT",
-   "base_investigation_id": "ra.mra-peripheral-vessels",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "abdominal-aorta",
-     "label": "Abdominal aorta",
-     "group": "Findings",
-     "normal": "The abdominal aorta is normal in calibre, with no aneurysm.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Abdominal aorta",
-       "text": "Abdominal aorta: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "common",
-     "label": "Common",
-     "group": "Findings",
-     "normal": "The common, internal and external iliac arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Common",
-       "text": "Common: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "common-femoral",
-     "label": "Common femoral",
-     "group": "Findings",
-     "normal": "The common femoral, profunda femoris and superficial femoral arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Common femoral",
-       "text": "Common femoral: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "popliteal-arteries",
-     "label": "Popliteal arteries",
-     "group": "Findings",
-     "normal": "The popliteal arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Popliteal arteries",
-       "text": "Popliteal arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "three-vessel-runoff-to-the-ankle-on",
-     "label": "Three-vessel runoff to the ankle on",
-     "group": "Findings",
-     "normal": "Three-vessel runoff to the ankle on both sides.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Three-vessel runoff to the ankle on",
-       "text": "Three-vessel runoff to the ankle on: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "significant-stenosis-or-occlusion",
-     "label": "Significant stenosis or occlusion",
-     "group": "Findings",
-     "normal": "No significant stenosis or occlusion.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Significant stenosis or occlusion",
-       "text": "Significant stenosis or occlusion: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    }
-   ]
-  },
-  "ct.upper-limb": {
-   "guide_id": "rad.5.peripheral-vascular",
-   "title": "CT angiogram of the upper limb",
-   "modality": "CT",
-   "base_investigation_id": "ra.mra-peripheral-vessels",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "subclavian-and-axillary-arteries",
-     "label": "Subclavian and axillary arteries",
-     "group": "Findings",
-     "normal": "The subclavian and axillary arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Subclavian and axillary arteries",
-       "text": "Subclavian and axillary arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "brachial-artery",
-     "label": "Brachial artery",
-     "group": "Findings",
-     "normal": "The brachial artery is patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Brachial artery",
-       "text": "Brachial artery: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "radial-and-ulnar-arteries",
-     "label": "Radial and ulnar arteries",
-     "group": "Findings",
-     "normal": "The radial and ulnar arteries are patent to the wrist.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Radial and ulnar arteries",
-       "text": "Radial and ulnar arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "stenosis",
-     "label": "Stenosis",
-     "group": "Findings",
-     "normal": "No stenosis, occlusion or aneurysm.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Stenosis",
-       "text": "Stenosis: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    }
-   ]
-  },
   "ct.ankle-foot": {
    "guide_id": "rad.5.ankle-foot",
-   "title": "CT ankle and foot",
+   "title": "CT right ankle and foot",
    "modality": "CT",
    "base_investigation_id": "ra.foot-ankle-cases",
    "sections": [
@@ -30059,7 +29687,7 @@
   },
   "ct.calcium-score": {
    "guide_id": "rad.5.coronary-ct",
-   "title": "CT calcium score",
+   "title": "CT coronary calcium score",
    "modality": "CT",
    "base_investigation_id": "ra.ct-coronary",
    "sections": [
@@ -30164,7 +29792,7 @@
   },
   "ct.elbow": {
    "guide_id": "rad.5.paeds-hip-elbow",
-   "title": "CT elbow",
+   "title": "CT right elbow",
    "modality": "CT",
    "base_investigation_id": "ra.paediatric-elbow-fractures",
    "sections": [
@@ -30390,7 +30018,7 @@
   },
   "ct.femur": {
    "guide_id": "rad.5.marrow-muscle",
-   "title": "CT femur",
+   "title": "CT right femur",
    "modality": "CT",
    "base_investigation_id": "ra.stress-fractures",
    "sections": [
@@ -30479,7 +30107,7 @@
   },
   "ct.hip": {
    "guide_id": "rad.5.hip",
-   "title": "CT hip",
+   "title": "CT right hip",
    "modality": "CT",
    "base_investigation_id": "ra.hip-fai",
    "sections": [
@@ -30584,7 +30212,7 @@
   },
   "ct.knee": {
    "guide_id": "rad.4.arthritis",
-   "title": "CT knee",
+   "title": "CT right knee",
    "modality": "CT",
    "base_investigation_id": "ra.arthritis",
    "sections": [
@@ -30689,7 +30317,7 @@
   },
   "ct.pelvis": {
    "guide_id": "rad.5.hip",
-   "title": "CT pelvis",
+   "title": "CT pelvis with contrast",
    "modality": "CT",
    "base_investigation_id": "ra.hip-arthroplasty",
    "sections": [
@@ -30915,7 +30543,7 @@
   },
   "ct.shoulder": {
    "guide_id": "rad.5.shoulder",
-   "title": "CT shoulder",
+   "title": "CT right shoulder",
    "modality": "CT",
    "base_investigation_id": "ra.mri-shoulder",
    "sections": [
@@ -31036,7 +30664,7 @@
   },
   "ct.oncology-staging": {
    "guide_id": "rad.4.oncology-response",
-   "title": "CT skull base to pubic symphysis (oncology staging)",
+   "title": "CT skull base to pubic symphysis with contrast, oncology staging",
    "modality": "CT",
    "base_investigation_id": "ra.recist",
    "sections": [
@@ -31230,7 +30858,7 @@
   },
   "ct.trauma-panscan": {
    "guide_id": "rad.5.abdominal-trauma",
-   "title": "CT trauma (pan-scan)",
+   "title": "CT trauma, whole body",
    "modality": "CT",
    "base_investigation_id": "ra.ct-abdominal-trauma",
    "sections": [
@@ -31335,7 +30963,7 @@
   },
   "ct.wrist-hand": {
    "guide_id": "rad.5.wrist-hand",
-   "title": "CT wrist and hand",
+   "title": "CT right wrist and hand",
    "modality": "CT",
    "base_investigation_id": "ra.wrist-fractures",
    "sections": [
@@ -31586,7 +31214,7 @@
   },
   "xr.facial-bones": {
    "guide_id": "rad.5.orbit",
-   "title": "Facial bones radiograph",
+   "title": "Facial bones radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.ct-mri-eye",
    "sections": [
@@ -31675,7 +31303,7 @@
   },
   "fl.lumbar-puncture": {
    "guide_id": "rad.5.venous-csf",
-   "title": "Fluoroscopy-guided lumbar puncture",
+   "title": "Lumbar puncture, fluoroscopy-guided",
    "modality": "Fluoroscopy",
    "base_investigation_id": "ra.intracranial-hypotension",
    "sections": [
@@ -31716,7 +31344,7 @@
   },
   "fl.hip-arthrogram": {
    "guide_id": "rad.5.hip",
-   "title": "Hip arthrogram injection",
+   "title": "Right hip arthrogram injection",
    "modality": "Fluoroscopy",
    "base_investigation_id": "ra.hip-fai",
    "sections": [
@@ -31846,7 +31474,7 @@
   },
   "xr.chest-immigration": {
    "guide_id": "rad.5.chest-infection",
-   "title": "Immigration chest radiograph",
+   "title": "Chest radiograph, immigration",
    "modality": "Radiography",
    "base_investigation_id": "ra.tuberculosis",
    "sections": [
@@ -32056,7 +31684,7 @@
   },
   "xr.lumbar-spine-flexion-extension": {
    "guide_id": "rad.4.spine-imaging",
-   "title": "Lumbar spine flexion and extension radiographs",
+   "title": "Lumbar spine radiographs, flexion and extension",
    "modality": "Radiography",
    "base_investigation_id": "ra.thoracolumbar-fractures",
    "sections": [
@@ -32145,7 +31773,7 @@
   },
   "xr.mandible": {
    "guide_id": "rad.5.orbit",
-   "title": "Mandible radiograph",
+   "title": "Mandible radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.ct-mri-eye",
    "sections": [
@@ -32316,200 +31944,6 @@
        "id": "abnormal",
        "label": "Complete bladder emptying",
        "text": "Complete bladder emptying: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    }
-   ]
-  },
-  "mri.brain": {
-   "guide_id": "rad.5.intracranial-haemorrhage",
-   "title": "MR angiogram of the brain",
-   "modality": "MRI",
-   "base_investigation_id": "ra.intracranial-haemorrhage",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "intracranial-internal-carotid-arteries",
-     "label": "Intracranial internal carotid arteries",
-     "group": "Findings",
-     "normal": "The intracranial internal carotid arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Intracranial internal carotid arteries",
-       "text": "Intracranial internal carotid arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "anterior",
-     "label": "Anterior",
-     "group": "Findings",
-     "normal": "The anterior, middle and posterior cerebral arteries are patent, with no stenosis or occlusion.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Anterior",
-       "text": "Anterior: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "vertebral-and-basilar-arteries",
-     "label": "Vertebral and basilar arteries",
-     "group": "Findings",
-     "normal": "The vertebral and basilar arteries are patent.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Vertebral and basilar arteries",
-       "text": "Vertebral and basilar arteries: a [fracture / dislocation / lytic lesion / sclerotic lesion / degenerative change] is present."
-      }
-     ]
-    },
-    {
-     "id": "intracranial-aneurysm",
-     "label": "Intracranial aneurysm",
-     "group": "Findings",
-     "normal": "No intracranial aneurysm.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Intracranial aneurysm",
-       "text": "Intracranial aneurysm: there is [haemorrhage / infarction / a mass / atrophy / hydrocephalus / white matter change]."
-      }
-     ]
-    },
-    {
-     "id": "arteriovenous-malformation",
-     "label": "Arteriovenous malformation",
-     "group": "Findings",
-     "normal": "No arteriovenous malformation.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Arteriovenous malformation",
-       "text": "Arteriovenous malformation: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    }
-   ]
-  },
-  "mri.neck": {
-   "guide_id": "rad.5.peripheral-vascular",
-   "title": "MR angiogram of the neck vessels",
-   "modality": "MRI",
-   "base_investigation_id": "ra.carotid-obstruction",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "three-vessel-aortic-arch",
-     "label": "Three-vessel aortic arch",
-     "group": "Findings",
-     "normal": "Normal three-vessel aortic arch.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Three-vessel aortic arch",
-       "text": "Three-vessel aortic arch: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "common",
-     "label": "Common",
-     "group": "Findings",
-     "normal": "The common, internal and external carotid arteries are patent, with no stenosis.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Common",
-       "text": "Common: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "vertebral-arteries",
-     "label": "Vertebral arteries",
-     "group": "Findings",
-     "normal": "The vertebral arteries are patent, with no stenosis.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Vertebral arteries",
-       "text": "Vertebral arteries: a [fracture / dislocation / lytic lesion / sclerotic lesion / degenerative change] is present."
-      }
-     ]
-    },
-    {
-     "id": "dissection",
-     "label": "Dissection",
-     "group": "Findings",
-     "normal": "No dissection.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Dissection",
-       "text": "Dissection: [abnormal appearance / indeterminate appearance / not assessed]."
       }
      ]
     }
@@ -32928,7 +32362,7 @@
   },
   "mri.forearm": {
    "guide_id": "rad.5.marrow-muscle",
-   "title": "MRI forearm",
+   "title": "MRI right forearm",
    "modality": "MRI",
    "base_investigation_id": "ra.mri-muscle-injury",
    "sections": [
@@ -33138,7 +32572,7 @@
   },
   "mri.lower-leg": {
    "guide_id": "rad.5.marrow-muscle",
-   "title": "MRI lower leg",
+   "title": "MRI right lower leg",
    "modality": "MRI",
    "base_investigation_id": "ra.stress-fractures",
    "sections": [
@@ -33389,7 +32823,7 @@
   },
   "xr.orbits": {
    "guide_id": "rad.5.orbit",
-   "title": "Orbits radiograph",
+   "title": "Orbit radiographs, foreign body screen",
    "modality": "Radiography",
    "base_investigation_id": "ra.ct-mri-eye",
    "sections": [
@@ -33446,7 +32880,7 @@
   },
   "fl.retrograde-pyelogram": {
    "guide_id": "rad.4.kidney",
-   "title": "Retrograde pyelogram in theatre",
+   "title": "Right retrograde pyelogram",
    "modality": "Fluoroscopy",
    "base_investigation_id": "ra.solid-renal-masses",
    "sections": [
@@ -33624,7 +33058,7 @@
   },
   "xr.scapula": {
    "guide_id": "rad.5.wrist-hand",
-   "title": "Scapula radiograph",
+   "title": "Right scapula radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.wrist-fractures",
    "sections": [
@@ -33697,7 +33131,7 @@
   },
   "xr.sesamoid": {
    "guide_id": "rad.5.ankle-foot",
-   "title": "Sesamoid radiograph",
+   "title": "Right sesamoid radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.foot-ankle-cases",
    "sections": [
@@ -33770,7 +33204,7 @@
   },
   "fl.shoulder-arthrogram": {
    "guide_id": "rad.5.shoulder",
-   "title": "Shoulder arthrogram injection",
+   "title": "Right shoulder arthrogram injection",
    "modality": "Fluoroscopy",
    "base_investigation_id": "ra.mri-shoulder",
    "sections": [
@@ -33811,7 +33245,7 @@
   },
   "xr.sinuses": {
    "guide_id": "rad.5.sinuses",
-   "title": "Sinuses radiograph",
+   "title": "Paranasal sinus radiograph",
    "modality": "Radiography",
    "base_investigation_id": "ra.mri-sinuses",
    "sections": [
@@ -33900,7 +33334,7 @@
   },
   "xr.skull": {
    "guide_id": "rad.5.craniosynostosis",
-   "title": "Skull radiograph",
+   "title": "Skull radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.craniosynostosis",
    "sections": [
@@ -34062,7 +33496,7 @@
   },
   "xr.soft-tissue-neck": {
    "guide_id": "rad.5.esophagus-swallowing",
-   "title": "Soft tissue neck radiograph",
+   "title": "Soft tissue neck radiograph, lateral",
    "modality": "Radiography",
    "base_investigation_id": "ra.esophagus",
    "sections": [
@@ -34167,7 +33601,7 @@
   },
   "xr.standing-feet": {
    "guide_id": "rad.5.ankle-foot",
-   "title": "Standing foot radiographs (both)",
+   "title": "Foot radiographs, both, weight-bearing",
    "modality": "Radiography",
    "base_investigation_id": "ra.foot-ankle-cases",
    "sections": [
@@ -34288,7 +33722,7 @@
   },
   "xr.standing-knees": {
    "guide_id": "rad.4.arthritis",
-   "title": "Standing knee radiographs (both)",
+   "title": "Knee radiographs, both, weight-bearing",
    "modality": "Radiography",
    "base_investigation_id": "ra.arthritis",
    "sections": [
@@ -34393,7 +33827,7 @@
   },
   "mg.stereotactic-biopsy": {
    "guide_id": "rad.4.breast",
-   "title": "Stereotactic breast biopsy",
+   "title": "Right stereotactic breast biopsy",
    "modality": "Mammography",
    "base_investigation_id": "ra.mammography",
    "sections": [
@@ -34450,7 +33884,7 @@
   },
   "mg.stereotactic-localisation": {
    "guide_id": "rad.4.breast",
-   "title": "Stereotactic breast localisation",
+   "title": "Right stereotactic breast localisation",
    "modality": "Mammography",
    "base_investigation_id": "ra.mammography",
    "sections": [
@@ -34507,7 +33941,7 @@
   },
   "xr.sternoclavicular": {
    "guide_id": "rad.3.chest-xray",
-   "title": "Sternoclavicular joint radiograph",
+   "title": "Sternoclavicular joint radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.chest-radiography",
    "sections": [
@@ -34580,7 +34014,7 @@
   },
   "xr.sternum": {
    "guide_id": "rad.3.chest-xray",
-   "title": "Sternum radiograph",
+   "title": "Sternum radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.chest-radiography",
    "sections": [
@@ -34669,7 +34103,7 @@
   },
   "xr.tmj": {
    "guide_id": "rad.5.temporal-bone",
-   "title": "Temporomandibular joint radiograph",
+   "title": "Temporomandibular joint radiographs",
    "modality": "Radiography",
    "base_investigation_id": "ra.ct-temporal-bone",
    "sections": [
@@ -34838,296 +34272,6 @@
     }
    ]
   },
-  "us.abdomen-acute": {
-   "guide_id": "rad.3.acute-abdomen",
-   "title": "Ultrasound abdomen",
-   "modality": "Ultrasound",
-   "base_investigation_id": "ra.ultrasound-acute-abdomen",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "liver",
-     "label": "Liver",
-     "group": "Findings",
-     "normal": "The liver is normal in size and echotexture, with no focal lesion.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Liver",
-       "text": "Liver: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "portal-vein",
-     "label": "Portal vein",
-     "group": "Findings",
-     "normal": "The portal vein is patent, with hepatopetal flow.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Portal vein",
-       "text": "Portal vein: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "gallbladder",
-     "label": "Gallbladder",
-     "group": "Findings",
-     "normal": "The gallbladder is normal, with no calculi or wall thickening.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Gallbladder",
-       "text": "Gallbladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "pancreas",
-     "label": "Pancreas",
-     "group": "Findings",
-     "normal": "The pancreas is unremarkable.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Pancreas",
-       "text": "Pancreas: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "abdominal-aorta",
-     "label": "Abdominal aorta",
-     "group": "Findings",
-     "normal": "The abdominal aorta is normal in calibre.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Abdominal aorta",
-       "text": "Abdominal aorta: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "bladder",
-     "label": "Bladder",
-     "group": "Findings",
-     "normal": "The bladder is unremarkable.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Bladder",
-       "text": "Bladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "both-ovaries",
-     "label": "Both ovaries",
-     "group": "Findings",
-     "normal": "Both ovaries are normal. No adnexal mass.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Both ovaries",
-       "text": "Both ovaries: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "free-fluid",
-     "label": "Free fluid",
-     "group": "Findings",
-     "normal": "No free fluid.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Free fluid",
-       "text": "Free fluid: there is [free fluid / a collection / an effusion / free gas]."
-      }
-     ]
-    }
-   ]
-  },
-  "us.us-abdomen-acute": {
-   "guide_id": "rad.3.acute-abdomen",
-   "title": "Ultrasound abdomen",
-   "modality": "Ultrasound",
-   "base_investigation_id": "ra.ultrasound-acute-abdomen",
-   "sections": [
-    {
-     "id": "technique",
-     "label": "Examination performed",
-     "group": "Technique",
-     "normal": null,
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "exclude_from_bulk_normal": true,
-     "findings": [
-      {
-       "id": "assessment",
-       "label": "Examination performed",
-       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
-      }
-     ]
-    },
-    {
-     "id": "liver",
-     "label": "Liver",
-     "group": "Findings",
-     "normal": "The liver is normal in size and echotexture, with no focal lesion.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Liver",
-       "text": "Liver: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "portal-vein",
-     "label": "Portal vein",
-     "group": "Findings",
-     "normal": "The portal vein is patent, with hepatopetal flow.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Portal vein",
-       "text": "Portal vein: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "gallbladder",
-     "label": "Gallbladder",
-     "group": "Findings",
-     "normal": "The gallbladder is normal, with no calculi or wall thickening.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Gallbladder",
-       "text": "Gallbladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "pancreas",
-     "label": "Pancreas",
-     "group": "Findings",
-     "normal": "The pancreas is unremarkable.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Pancreas",
-       "text": "Pancreas: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "abdominal-aorta",
-     "label": "Abdominal aorta",
-     "group": "Findings",
-     "normal": "The abdominal aorta is normal in calibre.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Abdominal aorta",
-       "text": "Abdominal aorta: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
-      }
-     ]
-    },
-    {
-     "id": "bladder",
-     "label": "Bladder",
-     "group": "Findings",
-     "normal": "The bladder is unremarkable, with no wall thickening or calculus.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Bladder",
-       "text": "Bladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
-      }
-     ]
-    },
-    {
-     "id": "free-fluid",
-     "label": "Free fluid",
-     "group": "Findings",
-     "normal": "No free fluid.",
-     "source_ids": [
-      "acr-parameters"
-     ],
-     "findings": [
-      {
-       "id": "abnormal",
-       "label": "Free fluid",
-       "text": "Free fluid: there is [free fluid / a collection / an effusion / free gas]."
-      }
-     ]
-    }
-   ]
-  },
   "us.abdominal-wall": {
    "guide_id": "rad.5.peritoneum",
    "title": "Ultrasound abdominal wall",
@@ -35219,7 +34363,7 @@
   },
   "us.lower-limb-veins-bilateral": {
    "guide_id": "rad.5.pe-pulm-htn",
-   "title": "Ultrasound both lower limb veins",
+   "title": "Venous duplex ultrasound, both lower limbs",
    "modality": "Ultrasound",
    "base_investigation_id": "ra.pulmonary-hypertension",
    "sections": [
@@ -35698,6 +34842,773 @@
        "id": "abnormal",
        "label": "Aspiration",
        "text": "Aspiration: [abnormal appearance / indeterminate appearance / not assessed]."
+      }
+     ]
+    }
+   ]
+  },
+  "ct.angiogram-brain": {
+   "guide_id": "rad.5.intracranial-haemorrhage",
+   "title": "CT angiogram brain",
+   "modality": "CT",
+   "base_investigation_id": "ra.intracranial-haemorrhage",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "exclude_from_bulk_normal": true,
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ]
+    },
+    {
+     "id": "intracranial-internal-carotid-arteries",
+     "label": "Intracranial internal carotid arteries",
+     "group": "Findings",
+     "normal": "The intracranial internal carotid arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Intracranial internal carotid arteries",
+       "text": "Intracranial internal carotid arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "anterior",
+     "label": "Anterior",
+     "group": "Findings",
+     "normal": "The anterior, middle and posterior cerebral arteries are patent, with no stenosis or occlusion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Anterior",
+       "text": "Anterior: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "vertebral-and-basilar-arteries",
+     "label": "Vertebral and basilar arteries",
+     "group": "Findings",
+     "normal": "The vertebral and basilar arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Vertebral and basilar arteries",
+       "text": "Vertebral and basilar arteries: a [fracture / dislocation / lytic lesion / sclerotic lesion / degenerative change] is present."
+      }
+     ]
+    },
+    {
+     "id": "intracranial-aneurysm",
+     "label": "Intracranial aneurysm",
+     "group": "Findings",
+     "normal": "No intracranial aneurysm.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Intracranial aneurysm",
+       "text": "Intracranial aneurysm: there is [haemorrhage / infarction / a mass / atrophy / hydrocephalus / white matter change]."
+      }
+     ]
+    },
+    {
+     "id": "arteriovenous-malformation",
+     "label": "Arteriovenous malformation",
+     "group": "Findings",
+     "normal": "No arteriovenous malformation.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Arteriovenous malformation",
+       "text": "Arteriovenous malformation: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "dural-venous-sinuses",
+     "label": "Dural venous sinuses",
+     "group": "Findings",
+     "normal": "The dural venous sinuses are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Dural venous sinuses",
+       "text": "Dural venous sinuses: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    }
+   ]
+  },
+  "mri.angiogram-brain": {
+   "guide_id": "rad.5.intracranial-haemorrhage",
+   "title": "MR angiogram brain",
+   "modality": "MRI",
+   "base_investigation_id": "ra.intracranial-haemorrhage",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "exclude_from_bulk_normal": true,
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ]
+    },
+    {
+     "id": "intracranial-internal-carotid-arteries",
+     "label": "Intracranial internal carotid arteries",
+     "group": "Findings",
+     "normal": "The intracranial internal carotid arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Intracranial internal carotid arteries",
+       "text": "Intracranial internal carotid arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "anterior",
+     "label": "Anterior",
+     "group": "Findings",
+     "normal": "The anterior, middle and posterior cerebral arteries are patent, with no stenosis or occlusion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Anterior",
+       "text": "Anterior: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "vertebral-and-basilar-arteries",
+     "label": "Vertebral and basilar arteries",
+     "group": "Findings",
+     "normal": "The vertebral and basilar arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Vertebral and basilar arteries",
+       "text": "Vertebral and basilar arteries: a [fracture / dislocation / lytic lesion / sclerotic lesion / degenerative change] is present."
+      }
+     ]
+    },
+    {
+     "id": "intracranial-aneurysm",
+     "label": "Intracranial aneurysm",
+     "group": "Findings",
+     "normal": "No intracranial aneurysm.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Intracranial aneurysm",
+       "text": "Intracranial aneurysm: there is [haemorrhage / infarction / a mass / atrophy / hydrocephalus / white matter change]."
+      }
+     ]
+    },
+    {
+     "id": "arteriovenous-malformation",
+     "label": "Arteriovenous malformation",
+     "group": "Findings",
+     "normal": "No arteriovenous malformation.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Arteriovenous malformation",
+       "text": "Arteriovenous malformation: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    }
+   ]
+  },
+  "ct.angiogram-lower-limbs": {
+   "guide_id": "rad.5.peripheral-vascular",
+   "title": "CT angiogram aorta and lower limbs",
+   "modality": "CT",
+   "base_investigation_id": "ra.mra-peripheral-vessels",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "exclude_from_bulk_normal": true,
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ]
+    },
+    {
+     "id": "abdominal-aorta",
+     "label": "Abdominal aorta",
+     "group": "Findings",
+     "normal": "The abdominal aorta is normal in calibre, with no aneurysm.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Abdominal aorta",
+       "text": "Abdominal aorta: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "common",
+     "label": "Common",
+     "group": "Findings",
+     "normal": "The common, internal and external iliac arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Common",
+       "text": "Common: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "common-femoral",
+     "label": "Common femoral",
+     "group": "Findings",
+     "normal": "The common femoral, profunda femoris and superficial femoral arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Common femoral",
+       "text": "Common femoral: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "popliteal-arteries",
+     "label": "Popliteal arteries",
+     "group": "Findings",
+     "normal": "The popliteal arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Popliteal arteries",
+       "text": "Popliteal arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "three-vessel-runoff-to-the-ankle-on",
+     "label": "Three-vessel runoff to the ankle on",
+     "group": "Findings",
+     "normal": "Three-vessel runoff to the ankle on both sides.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Three-vessel runoff to the ankle on",
+       "text": "Three-vessel runoff to the ankle on: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "significant-stenosis-or-occlusion",
+     "label": "Significant stenosis or occlusion",
+     "group": "Findings",
+     "normal": "No significant stenosis or occlusion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Significant stenosis or occlusion",
+       "text": "Significant stenosis or occlusion: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    }
+   ]
+  },
+  "ct.angiogram-upper-limb": {
+   "guide_id": "rad.5.peripheral-vascular",
+   "title": "CT angiogram right upper limb",
+   "modality": "CT",
+   "base_investigation_id": "ra.mra-peripheral-vessels",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "exclude_from_bulk_normal": true,
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ]
+    },
+    {
+     "id": "subclavian-and-axillary-arteries",
+     "label": "Subclavian and axillary arteries",
+     "group": "Findings",
+     "normal": "The subclavian and axillary arteries are patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Subclavian and axillary arteries",
+       "text": "Subclavian and axillary arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "brachial-artery",
+     "label": "Brachial artery",
+     "group": "Findings",
+     "normal": "The brachial artery is patent.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Brachial artery",
+       "text": "Brachial artery: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "radial-and-ulnar-arteries",
+     "label": "Radial and ulnar arteries",
+     "group": "Findings",
+     "normal": "The radial and ulnar arteries are patent to the wrist.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Radial and ulnar arteries",
+       "text": "Radial and ulnar arteries: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "stenosis",
+     "label": "Stenosis",
+     "group": "Findings",
+     "normal": "No stenosis, occlusion or aneurysm.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Stenosis",
+       "text": "Stenosis: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    }
+   ]
+  },
+  "us.abdomen-pelvis-female": {
+   "guide_id": "rad.3.acute-abdomen",
+   "title": "Ultrasound abdomen and pelvis, female",
+   "modality": "Ultrasound",
+   "base_investigation_id": "ra.ultrasound-acute-abdomen",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "exclude_from_bulk_normal": true,
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ]
+    },
+    {
+     "id": "liver",
+     "label": "Liver",
+     "group": "Findings",
+     "normal": "The liver is normal in size and echotexture, with no focal lesion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Liver",
+       "text": "Liver: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "portal-vein",
+     "label": "Portal vein",
+     "group": "Findings",
+     "normal": "The portal vein is patent, with hepatopetal flow.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Portal vein",
+       "text": "Portal vein: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "gallbladder",
+     "label": "Gallbladder",
+     "group": "Findings",
+     "normal": "The gallbladder is normal, with no calculi or wall thickening.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Gallbladder",
+       "text": "Gallbladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "pancreas",
+     "label": "Pancreas",
+     "group": "Findings",
+     "normal": "The pancreas is unremarkable.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Pancreas",
+       "text": "Pancreas: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "abdominal-aorta",
+     "label": "Abdominal aorta",
+     "group": "Findings",
+     "normal": "The abdominal aorta is normal in calibre.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Abdominal aorta",
+       "text": "Abdominal aorta: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "bladder",
+     "label": "Bladder",
+     "group": "Findings",
+     "normal": "The bladder is unremarkable.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Bladder",
+       "text": "Bladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "both-ovaries",
+     "label": "Both ovaries",
+     "group": "Findings",
+     "normal": "Both ovaries are normal. No adnexal mass.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Both ovaries",
+       "text": "Both ovaries: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "free-fluid",
+     "label": "Free fluid",
+     "group": "Findings",
+     "normal": "No free fluid.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Free fluid",
+       "text": "Free fluid: there is [free fluid / a collection / an effusion / free gas]."
+      }
+     ]
+    }
+   ]
+  },
+  "us.abdomen-pelvis-male": {
+   "guide_id": "rad.3.acute-abdomen",
+   "title": "Ultrasound abdomen and pelvis, male",
+   "modality": "Ultrasound",
+   "base_investigation_id": "ra.ultrasound-acute-abdomen",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "exclude_from_bulk_normal": true,
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ]
+    },
+    {
+     "id": "liver",
+     "label": "Liver",
+     "group": "Findings",
+     "normal": "The liver is normal in size and echotexture, with no focal lesion.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Liver",
+       "text": "Liver: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "portal-vein",
+     "label": "Portal vein",
+     "group": "Findings",
+     "normal": "The portal vein is patent, with hepatopetal flow.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Portal vein",
+       "text": "Portal vein: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "gallbladder",
+     "label": "Gallbladder",
+     "group": "Findings",
+     "normal": "The gallbladder is normal, with no calculi or wall thickening.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Gallbladder",
+       "text": "Gallbladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "pancreas",
+     "label": "Pancreas",
+     "group": "Findings",
+     "normal": "The pancreas is unremarkable.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Pancreas",
+       "text": "Pancreas: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "abdominal-aorta",
+     "label": "Abdominal aorta",
+     "group": "Findings",
+     "normal": "The abdominal aorta is normal in calibre.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Abdominal aorta",
+       "text": "Abdominal aorta: there is [stenosis / occlusion / thrombus / an aneurysm / abnormal flow]."
+      }
+     ]
+    },
+    {
+     "id": "bladder",
+     "label": "Bladder",
+     "group": "Findings",
+     "normal": "The bladder is unremarkable, with no wall thickening or calculus.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Bladder",
+       "text": "Bladder: there is [a focal lesion / diffuse abnormality / enlargement / atrophy / calculus / dilatation]."
+      }
+     ]
+    },
+    {
+     "id": "free-fluid",
+     "label": "Free fluid",
+     "group": "Findings",
+     "normal": "No free fluid.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Free fluid",
+       "text": "Free fluid: there is [free fluid / a collection / an effusion / free gas]."
+      }
+     ]
+    }
+   ]
+  },
+  "dxa.bone-densitometry": {
+   "guide_id": "rad.4.arthritis",
+   "title": "Bone densitometry (DXA)",
+   "modality": "DXA",
+   "base_investigation_id": "ra.arthritis",
+   "sections": [
+    {
+     "id": "technique",
+     "label": "Examination performed",
+     "group": "Technique",
+     "normal": null,
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "exclude_from_bulk_normal": true,
+     "findings": [
+      {
+       "id": "assessment",
+       "label": "Examination performed",
+       "text": "The examination was performed [to the standard protocol / with a modified protocol / as a limited examination]."
+      }
+     ]
+    },
+    {
+     "id": "vertebral-level",
+     "label": "Vertebral level",
+     "group": "Findings",
+     "normal": "No vertebral level was excluded.",
+     "source_ids": [
+      "acr-parameters"
+     ],
+     "findings": [
+      {
+       "id": "abnormal",
+       "label": "Vertebral level",
+       "text": "Vertebral level: a [fracture / dislocation / lytic lesion / sclerotic lesion / degenerative change] is present."
       }
      ]
     }
@@ -36806,7 +36717,7 @@
    ]
   },
   {
-   "investigation_id": "dxa.dxa",
+   "investigation_id": "dxa.bone-densitometry",
    "expected_anatomy_ids": [
     "technique",
     "vertebral-level"
@@ -36853,7 +36764,7 @@
    ]
   },
   {
-   "investigation_id": "ct.brain",
+   "investigation_id": "ct.angiogram-brain",
    "expected_anatomy_ids": [
     "technique",
     "intracranial-internal-carotid-arteries",
@@ -36865,7 +36776,7 @@
    ]
   },
   {
-   "investigation_id": "ct.lower-limbs",
+   "investigation_id": "ct.angiogram-lower-limbs",
    "expected_anatomy_ids": [
     "technique",
     "abdominal-aorta",
@@ -36877,7 +36788,7 @@
    ]
   },
   {
-   "investigation_id": "ct.upper-limb",
+   "investigation_id": "ct.angiogram-upper-limb",
    "expected_anatomy_ids": [
     "technique",
     "subclavian-and-axillary-arteries",
@@ -37147,7 +37058,7 @@
    ]
   },
   {
-   "investigation_id": "mri.brain",
+   "investigation_id": "mri.angiogram-brain",
    "expected_anatomy_ids": [
     "technique",
     "intracranial-internal-carotid-arteries",
@@ -37155,16 +37066,6 @@
     "vertebral-and-basilar-arteries",
     "intracranial-aneurysm",
     "arteriovenous-malformation"
-   ]
-  },
-  {
-   "investigation_id": "mri.neck",
-   "expected_anatomy_ids": [
-    "technique",
-    "three-vessel-aortic-arch",
-    "common",
-    "vertebral-arteries",
-    "dissection"
    ]
   },
   {
@@ -37433,7 +37334,7 @@
    ]
   },
   {
-   "investigation_id": "us.abdomen-acute",
+   "investigation_id": "us.abdomen-pelvis-female",
    "expected_anatomy_ids": [
     "technique",
     "liver",
@@ -37447,7 +37348,7 @@
    ]
   },
   {
-   "investigation_id": "us.us-abdomen-acute",
+   "investigation_id": "us.abdomen-pelvis-male",
    "expected_anatomy_ids": [
     "technique",
     "liver",

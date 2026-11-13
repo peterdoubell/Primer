@@ -2,10 +2,10 @@
   "schema_version": 1,
   "reviewed_at": "2026-10-26",
   "scope": "Every current authored and compiled reporting investigation, including supplementary cardiology and general templates",
-  "current_investigations": 334,
-  "current_report_rows": 7052,
+  "current_investigations": 333,
+  "current_report_rows": 7047,
   "expanded_investigation_identities": 96,
-  "without_dedicated_inventory": 238,
+  "without_dedicated_inventory": 237,
   "relationship_counts": {
     "aggregate_with_additional_targets": 7,
     "declared_duplicate_pathway_with_unresolved_instantiation": 1,
@@ -20,7 +20,7 @@
     "related_region_new_dedicated_scope": 1,
     "related_region_new_trauma_scope": 1,
     "same_investigation_identity_requires_row_reconciliation": 96,
-    "unexpanded_distinct_investigation": 194,
+    "unexpanded_distinct_investigation": 193,
     "unexpanded_procedure_or_general_template": 15
   },
   "clinical_completion_claim": false,
@@ -32,7 +32,7 @@
   ],
   "input_sha256": {
     "data/radiology/anatomic-additions-20261026.json": "21c15143ab0b8c7efc24bad14e4d80ccaec82770549d5168c6b2f89bc5618d42",
-    "data/radiology/anatomic-additions-20261112.json": "19c368c1c9e23d75f2045817413e543a9542be832cbab095a57580938cec23d5",
+    "data/radiology/anatomic-additions-20261112.json": "ac4ad83d4622ce1a7ffe50fdbe6a731dc73fd525520e9def131124680fa2335b",
     "data/radiology/anatomic-body.json": "8a7088d7be07384a87934e5fc2e9e04c18de43152c8402f807e986ae5697f1c5",
     "data/radiology/anatomic-cardiorespiratory.json": "448688b1193ae5054ac1dcf81c7bd6c846c2b6f24488b63117e178223ebd73a0",
     "data/radiology/anatomic-neuro.json": "e34d5008fdb16620a3fb1a846f569be50b624ed2488d8b07d5f323be66f93ba3",
@@ -41,7 +41,7 @@
     "data/radiology/msk-anatomic-upper.json": "b3a45a93136c9b2389c177c386ae8c2efc59a9353131c3367882b111f7233632",
     "data/radiology/non-msk-structure-requirements.json": "62cfde66f51d394d62df95b9721a989c1bea32a74baa2cf56df2de1cabce17cf",
     "data/radiology/msk-structure-requirements.json": "46c9eb76d2160fa4a46e7ee2c6c9c9d1046fc64ecd953471c19af1c737d0aa18",
-    "data/radiology/descriptor-reporting.json": "22f6bd06c7cb4fc02b10fda3c1cce58c838e999738b5fc26d6f6faaf0086c6aa"
+    "data/radiology/descriptor-reporting.json": "decc8effb8b98dbaf39075404885a4b1b68dab920f5b12d9ec51e5150752f84c"
   },
   "investigations": [
     {
@@ -1362,9 +1362,9 @@
     {
       "investigation_id": "ct.abdomen-multiphase",
       "guide_id": "rad.4.liver",
-      "title": "CT abdomen and pelvis (multiphase)",
+      "title": "CT abdomen and pelvis, multiphase",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "2cb4e846c6abc2c480eb5941aac35f0a999d2ed44ad2fb4976006517d59c780d",
+      "report_investigation_sha256": "1aa72c69ed1e31778e58c4c03a619ffba168545be4d156ac2cf376d7715c6eab",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -1492,11 +1492,86 @@
       ]
     },
     {
+      "investigation_id": "ct.angiogram-brain",
+      "guide_id": "rad.5.intracranial-haemorrhage",
+      "title": "CT angiogram brain",
+      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
+      "report_investigation_sha256": "58898b41df9f4146158a8fbaf71c340a69df5f4156c2482c27b58262280b6f91",
+      "relationship": "unexpanded_distinct_investigation",
+      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
+      "related_expanded_investigation_ids": [],
+      "related_inventory_evidence": [],
+      "same_module_ids_not_accepted_as_equivalent": [
+        "ra.ct-traumatic-haemorrhage"
+      ],
+      "existing_additional_scope_evidence": [],
+      "has_dedicated_requirement_inventory": false,
+      "clinical_representation_complete": false,
+      "report_rows": [
+        {
+          "section_id": "technique",
+          "label": "Examination performed",
+          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "intracranial-internal-carotid-arteries",
+          "label": "Intracranial internal carotid arteries",
+          "section_sha256": "ea0a880e3200473e69a02219fa104d87e7f2654f9c824a6a7f6bafc56a6b5511",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "anterior",
+          "label": "Anterior",
+          "section_sha256": "99527d5daefee14877022e52ea093f5d7c6bd13ec968cd00a86a084e06fd4393",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "vertebral-and-basilar-arteries",
+          "label": "Vertebral and basilar arteries",
+          "section_sha256": "916af93342143f6a332a4f9a6d92f2d234715590c20fccb688ca8639bbee192a",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "intracranial-aneurysm",
+          "label": "Intracranial aneurysm",
+          "section_sha256": "60f5e4016350a359603a351989b3339b413fa8a33d706f89259b85e20a7a335c",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "arteriovenous-malformation",
+          "label": "Arteriovenous malformation",
+          "section_sha256": "2dd35c4553b6377ed42e7ed7d3b6853aab0cfbee0a90ee3837302d30b9e40eae",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "dural-venous-sinuses",
+          "label": "Dural venous sinuses",
+          "section_sha256": "770d904448766556eddfe56c105bafacf2b013f2af075b9b42ef9eb80020939f",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        }
+      ]
+    },
+    {
       "investigation_id": "ct.angiogram-carotids",
       "guide_id": "rad.5.peripheral-vascular",
-      "title": "CT angiogram carotids",
+      "title": "CT angiogram neck vessels",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "95777ce816a6ee5d55df896c78a84d150965babdc8d0f47dd9aa40e6e686751f",
+      "report_investigation_sha256": "5eaf8c16aef83e062889a8a920fccaaf0b03704dc511e61767dce680c1bd8ff6",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -1835,11 +1910,147 @@
       ]
     },
     {
+      "investigation_id": "ct.angiogram-lower-limbs",
+      "guide_id": "rad.5.peripheral-vascular",
+      "title": "CT angiogram aorta and lower limbs",
+      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
+      "report_investigation_sha256": "b420a6427d1f2af929eb9096a52d630882cc91c08d137fc1359d98447016fb37",
+      "relationship": "unexpanded_distinct_investigation",
+      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
+      "related_expanded_investigation_ids": [],
+      "related_inventory_evidence": [],
+      "same_module_ids_not_accepted_as_equivalent": [
+        "ra.mra-peripheral-vessels",
+        "ra.carotid-obstruction"
+      ],
+      "existing_additional_scope_evidence": [],
+      "has_dedicated_requirement_inventory": false,
+      "clinical_representation_complete": false,
+      "report_rows": [
+        {
+          "section_id": "technique",
+          "label": "Examination performed",
+          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "abdominal-aorta",
+          "label": "Abdominal aorta",
+          "section_sha256": "4ca49712ba1d967714239f9b4af006a6f9b8feb35bbbee3b5d76f4358a983ee8",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "common",
+          "label": "Common",
+          "section_sha256": "6d0973c2f85557fae49dc0f2652310e3811a2374dcdd9161400f415b8f1433d0",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "common-femoral",
+          "label": "Common femoral",
+          "section_sha256": "600472132b02863c6254cb6352076367a4dd7f85e228889c96b51a63c913039f",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "popliteal-arteries",
+          "label": "Popliteal arteries",
+          "section_sha256": "b0427a0e685b1038ff314e22ad1b5c92baeac78b874084261ed76c57a73bb79d",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "three-vessel-runoff-to-the-ankle-on",
+          "label": "Three-vessel runoff to the ankle on",
+          "section_sha256": "fc4f9cc26a4f60206e192c6e166ecd536616738a66b696df055f49af00a827f4",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "significant-stenosis-or-occlusion",
+          "label": "Significant stenosis or occlusion",
+          "section_sha256": "1085d6209f4aeef74c25b773c3bac77dbaa4fc781db296c20dbdd23b8d9c81c3",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        }
+      ]
+    },
+    {
+      "investigation_id": "ct.angiogram-upper-limb",
+      "guide_id": "rad.5.peripheral-vascular",
+      "title": "CT angiogram right upper limb",
+      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
+      "report_investigation_sha256": "f71d40d553e7f8fcf3539b0003ab3ade2c1ff717a17a366860b63197eb9c8e3f",
+      "relationship": "unexpanded_distinct_investigation",
+      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
+      "related_expanded_investigation_ids": [],
+      "related_inventory_evidence": [],
+      "same_module_ids_not_accepted_as_equivalent": [
+        "ra.mra-peripheral-vessels",
+        "ra.carotid-obstruction"
+      ],
+      "existing_additional_scope_evidence": [],
+      "has_dedicated_requirement_inventory": false,
+      "clinical_representation_complete": false,
+      "report_rows": [
+        {
+          "section_id": "technique",
+          "label": "Examination performed",
+          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "subclavian-and-axillary-arteries",
+          "label": "Subclavian and axillary arteries",
+          "section_sha256": "13e0da88ed26e3297dfc202edb6e8acb021b47fa31c91c9302b403966c28029f",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "brachial-artery",
+          "label": "Brachial artery",
+          "section_sha256": "b6616594928b5946f4fae10478342f2c9365534eaf0b9905101e2791ce19cfa2",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "radial-and-ulnar-arteries",
+          "label": "Radial and ulnar arteries",
+          "section_sha256": "125c728988dd253f3b3b5d1d8a60635b2db53e53567c3e8cf14d2ec7222dd89b",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "stenosis",
+          "label": "Stenosis",
+          "section_sha256": "ebf23e9e7b22ef4fb646f7aa094bde7df7fb2305b20fc6ce589ea1b338a16072",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        }
+      ]
+    },
+    {
       "investigation_id": "ct.ankle-foot",
       "guide_id": "rad.5.ankle-foot",
-      "title": "CT ankle and foot",
+      "title": "CT right ankle and foot",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "017f36f69505f1cf1d84e58de3c3096792cef03f87dbdb43b270e6077b6b902a",
+      "report_investigation_sha256": "5ca0152810c5d0584333203588e45fedccc4dc271a260b7f58afaa8d212466a0",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -2078,86 +2289,11 @@
       ]
     },
     {
-      "investigation_id": "ct.brain",
-      "guide_id": "rad.5.intracranial-haemorrhage",
-      "title": "CT angiogram of the brain",
-      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "662f782945b982451f4f9e61fd0cc2c8e9bc607110308e270df65a4b9dd096c7",
-      "relationship": "unexpanded_distinct_investigation",
-      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
-      "related_expanded_investigation_ids": [],
-      "related_inventory_evidence": [],
-      "same_module_ids_not_accepted_as_equivalent": [
-        "ra.ct-traumatic-haemorrhage"
-      ],
-      "existing_additional_scope_evidence": [],
-      "has_dedicated_requirement_inventory": false,
-      "clinical_representation_complete": false,
-      "report_rows": [
-        {
-          "section_id": "technique",
-          "label": "Examination performed",
-          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "intracranial-internal-carotid-arteries",
-          "label": "Intracranial internal carotid arteries",
-          "section_sha256": "ea0a880e3200473e69a02219fa104d87e7f2654f9c824a6a7f6bafc56a6b5511",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "anterior",
-          "label": "Anterior",
-          "section_sha256": "99527d5daefee14877022e52ea093f5d7c6bd13ec968cd00a86a084e06fd4393",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "vertebral-and-basilar-arteries",
-          "label": "Vertebral and basilar arteries",
-          "section_sha256": "916af93342143f6a332a4f9a6d92f2d234715590c20fccb688ca8639bbee192a",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "intracranial-aneurysm",
-          "label": "Intracranial aneurysm",
-          "section_sha256": "60f5e4016350a359603a351989b3339b413fa8a33d706f89259b85e20a7a335c",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "arteriovenous-malformation",
-          "label": "Arteriovenous malformation",
-          "section_sha256": "2dd35c4553b6377ed42e7ed7d3b6853aab0cfbee0a90ee3837302d30b9e40eae",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "dural-venous-sinuses",
-          "label": "Dural venous sinuses",
-          "section_sha256": "770d904448766556eddfe56c105bafacf2b013f2af075b9b42ef9eb80020939f",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        }
-      ]
-    },
-    {
       "investigation_id": "ct.calcium-score",
       "guide_id": "rad.5.coronary-ct",
-      "title": "CT calcium score",
+      "title": "CT coronary calcium score",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "c7125dc2d06bb1ca065639ec3f5e157748c3f3125066beef8a10ba81c98ae802",
+      "report_investigation_sha256": "7e7c959abf650967545f0d3c27df559985bb3928f2550283e6e1c84be4d15b4e",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -2222,9 +2358,9 @@
     {
       "investigation_id": "ct.cardiac-mass",
       "guide_id": "rad.5.cardiac-masses-devices",
-      "title": "CT heart",
+      "title": "CT heart, cardiac mass",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "98feca438790f2221d099e8eda916ad35ee39e6d5d357eb7580ebbb99468516f",
+      "report_investigation_sha256": "cde3a3d3c14906459c0d49db255c12ba70b37a2503dc8dda3cf7b3d09014fab8",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -2471,9 +2607,9 @@
     {
       "investigation_id": "ct.elbow",
       "guide_id": "rad.5.paeds-hip-elbow",
-      "title": "CT elbow",
+      "title": "CT right elbow",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "9d3abedac8a3a546ebc4dc15d2f733e150d68bbc085d0d3577129dbdfd646099",
+      "report_investigation_sha256": "ccd4dd810549adb2afa34a51e3dcc3ddf00e2fd0827f81b52b5e36eb2c43b1b5",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -2613,9 +2749,9 @@
     {
       "investigation_id": "ct.femur",
       "guide_id": "rad.5.marrow-muscle",
-      "title": "CT femur",
+      "title": "CT right femur",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "8094a93f6d353dee41341ec8613bfd53cd100550febc34b489e7a6638094af72",
+      "report_investigation_sha256": "6659ed603fb3b8ea86e4a672b1c380023fa874a314c204954f048f0ef5b8e201",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -2730,9 +2866,9 @@
     {
       "investigation_id": "ct.hip",
       "guide_id": "rad.5.hip",
-      "title": "CT hip",
+      "title": "CT right hip",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "e1490794cfbc52505ac242a6417337c3e121f25cb0ecdc0de27bf61e5f4db1f5",
+      "report_investigation_sha256": "735d97ea2ae63429c1d9f9658096c4df30b2b14c516a325b9dc792a7cecda70d",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -2816,9 +2952,9 @@
     {
       "investigation_id": "ct.knee",
       "guide_id": "rad.4.arthritis",
-      "title": "CT knee",
+      "title": "CT right knee",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "9b0258497f287e62fb64d54bc34e9bddc21cd892dd38f38e498e9f34532de310",
+      "report_investigation_sha256": "cf84f5a27f1fb3836ce797306b60b8bbcb2923e96c5ad76a661ec3a353bffd21",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -3624,9 +3760,9 @@
     {
       "investigation_id": "ct.liver-mass",
       "guide_id": "rad.4.liver",
-      "title": "CT liver, multiphase",
+      "title": "CT liver, multiphase, focal lesion",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "3c86b684dcc30fe3f3e83de017283d1b7bb45a1a49d4c0886bbfcbbc22e3b6ae",
+      "report_investigation_sha256": "e3c908ace521b20ff0092adffb61f72ce1e10460b1e7c9bf3faea398b832e8ac",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -3883,82 +4019,6 @@
           "section_id": "free-gas",
           "label": "Extraluminal gas",
           "section_sha256": "e7c01db3b7ce6ba0bc5bce7aaf96b7d666bf39f2f6676dcfbf1d225b9550bee4",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        }
-      ]
-    },
-    {
-      "investigation_id": "ct.lower-limbs",
-      "guide_id": "rad.5.peripheral-vascular",
-      "title": "CT angiogram of the lower limbs",
-      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "0a544e92c116e0bccfd35a7a43a668912450202ad294a183f5057d9d77baa1f9",
-      "relationship": "unexpanded_distinct_investigation",
-      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
-      "related_expanded_investigation_ids": [],
-      "related_inventory_evidence": [],
-      "same_module_ids_not_accepted_as_equivalent": [
-        "ra.mra-peripheral-vessels",
-        "ra.carotid-obstruction"
-      ],
-      "existing_additional_scope_evidence": [],
-      "has_dedicated_requirement_inventory": false,
-      "clinical_representation_complete": false,
-      "report_rows": [
-        {
-          "section_id": "technique",
-          "label": "Examination performed",
-          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "abdominal-aorta",
-          "label": "Abdominal aorta",
-          "section_sha256": "4ca49712ba1d967714239f9b4af006a6f9b8feb35bbbee3b5d76f4358a983ee8",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "common",
-          "label": "Common",
-          "section_sha256": "6d0973c2f85557fae49dc0f2652310e3811a2374dcdd9161400f415b8f1433d0",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "common-femoral",
-          "label": "Common femoral",
-          "section_sha256": "600472132b02863c6254cb6352076367a4dd7f85e228889c96b51a63c913039f",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "popliteal-arteries",
-          "label": "Popliteal arteries",
-          "section_sha256": "b0427a0e685b1038ff314e22ad1b5c92baeac78b874084261ed76c57a73bb79d",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "three-vessel-runoff-to-the-ankle-on",
-          "label": "Three-vessel runoff to the ankle on",
-          "section_sha256": "fc4f9cc26a4f60206e192c6e166ecd536616738a66b696df055f49af00a827f4",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "significant-stenosis-or-occlusion",
-          "label": "Significant stenosis or occlusion",
-          "section_sha256": "1085d6209f4aeef74c25b773c3bac77dbaa4fc781db296c20dbdd23b8d9c81c3",
           "candidate_requirements": [],
           "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
           "representation_completion_claim": false
@@ -4327,9 +4387,9 @@
     {
       "investigation_id": "ct.oncology-staging",
       "guide_id": "rad.4.oncology-response",
-      "title": "CT skull base to pubic symphysis (oncology staging)",
+      "title": "CT skull base to pubic symphysis with contrast, oncology staging",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "d5afe03b8e7228433e0837ac67305edd55b6b6b5b32acfe129b9610f18efd072",
+      "report_investigation_sha256": "1e94e07281be870fe299d542167e0a046c5bfae4a0c2782dbb8cfb58fa27748a",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -4392,9 +4452,9 @@
     {
       "investigation_id": "ct.paediatric-abdomen-solid",
       "guide_id": "rad.5.paeds-masses-neuro",
-      "title": "CT abdomen with contrast, paediatric",
+      "title": "CT abdomen with contrast, paediatric solid mass",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "7da078348b8f3e19982997c96cc0de29de5a06ae6271f91542be3855d1c6c319",
+      "report_investigation_sha256": "3c76dd4bf48627450209226baf14137d8e2ed5e8a97794dc4d7e4a49d055ae08",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -4641,9 +4701,9 @@
     {
       "investigation_id": "ct.pelvis",
       "guide_id": "rad.5.hip",
-      "title": "CT pelvis",
+      "title": "CT pelvis with contrast",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "2d21bc3b47a65075a776bc0530c23b611c0cf25736ff063a85b625c0515b23e5",
+      "report_investigation_sha256": "3cbb912d2323c0156c5ec8f2c57822e8b68fb9ba58bdf40d3d37337c7197ec36",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -4821,9 +4881,9 @@
     {
       "investigation_id": "ct.shoulder",
       "guide_id": "rad.5.shoulder",
-      "title": "CT shoulder",
+      "title": "CT right shoulder",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "68fff0cb542e3d6f1c9846fc8e5f7c9f6e5d7dea6c371ca58ac77e29d1ba744a",
+      "report_investigation_sha256": "3d06c65ecde6330d9585feddd70097f20ef0351c0c8cfdda792ffff78a1c29f7",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -5241,9 +5301,9 @@
     {
       "investigation_id": "ct.trauma-panscan",
       "guide_id": "rad.5.abdominal-trauma",
-      "title": "CT trauma (pan-scan)",
+      "title": "CT trauma, whole body",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "81e9fe68ad66d620b823ddc6478575eb58f0130b64deb487439c475ef050f823",
+      "report_investigation_sha256": "af2fe91de8f86529fa61c0422865d8d29f21c4269e8676acb089b58b44611d2a",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -5299,66 +5359,6 @@
           "section_id": "lines-tubes-and-devices",
           "label": "Lines, tubes and devices",
           "section_sha256": "316658a55eec510eca52cd87cd1f39bea8e7b582fe9252914990f97056950cd5",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        }
-      ]
-    },
-    {
-      "investigation_id": "ct.upper-limb",
-      "guide_id": "rad.5.peripheral-vascular",
-      "title": "CT angiogram of the upper limb",
-      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "f4412fd9f8443a26b1f36b1253965f9f9ab07eb3a44c4650c3e2120d6849639b",
-      "relationship": "unexpanded_distinct_investigation",
-      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
-      "related_expanded_investigation_ids": [],
-      "related_inventory_evidence": [],
-      "same_module_ids_not_accepted_as_equivalent": [
-        "ra.mra-peripheral-vessels",
-        "ra.carotid-obstruction"
-      ],
-      "existing_additional_scope_evidence": [],
-      "has_dedicated_requirement_inventory": false,
-      "clinical_representation_complete": false,
-      "report_rows": [
-        {
-          "section_id": "technique",
-          "label": "Examination performed",
-          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "subclavian-and-axillary-arteries",
-          "label": "Subclavian and axillary arteries",
-          "section_sha256": "13e0da88ed26e3297dfc202edb6e8acb021b47fa31c91c9302b403966c28029f",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "brachial-artery",
-          "label": "Brachial artery",
-          "section_sha256": "b6616594928b5946f4fae10478342f2c9365534eaf0b9905101e2791ce19cfa2",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "radial-and-ulnar-arteries",
-          "label": "Radial and ulnar arteries",
-          "section_sha256": "125c728988dd253f3b3b5d1d8a60635b2db53e53567c3e8cf14d2ec7222dd89b",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "stenosis",
-          "label": "Stenosis",
-          "section_sha256": "ebf23e9e7b22ef4fb646f7aa094bde7df7fb2305b20fc6ce589ea1b338a16072",
           "candidate_requirements": [],
           "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
           "representation_completion_claim": false
@@ -5660,9 +5660,9 @@
     {
       "investigation_id": "ct.wrist-hand",
       "guide_id": "rad.5.wrist-hand",
-      "title": "CT wrist and hand",
+      "title": "CT right wrist and hand",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "f9c974833ee018410c3ca89bde8440c0b6ab4052298fd514b6be06a48dbec6bf",
+      "report_investigation_sha256": "34a29a1c314080da26b24cef73824a4a0c577482cc69ceec9baa404f3f6aa112",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -5752,11 +5752,11 @@
       ]
     },
     {
-      "investigation_id": "dxa.dxa",
+      "investigation_id": "dxa.bone-densitometry",
       "guide_id": "rad.4.arthritis",
-      "title": "Bone densitometry",
+      "title": "Bone densitometry (DXA)",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "fce03a31e0b5603990436e278003b1bb2bd1e6f8673cc07634023d76ddc85900",
+      "report_investigation_sha256": "a6a13aad374ad2dbb1d51088b16b14fb1f8263c60a1ab08b72f0fec3052152c0",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -5882,9 +5882,9 @@
     {
       "investigation_id": "fl.contrast-enema",
       "guide_id": "rad.5.bowel-ischaemia",
-      "title": "Contrast enema",
+      "title": "Barium enema",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "ec707862b6dcd0f9f36884509f3786dbc78cbafd998d071fe9202420072cf06b",
+      "report_investigation_sha256": "3d2af61fae4f986152a2786487f5c426fa4f5147a417537e5f0c56b12c96b377",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -6061,9 +6061,9 @@
     {
       "investigation_id": "fl.hip-arthrogram",
       "guide_id": "rad.5.hip",
-      "title": "Hip arthrogram injection",
+      "title": "Right hip arthrogram injection",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "7c7391df42280fb6640240d0c21b4826fe4bb71f7d7f0008a867bb92633f2eeb",
+      "report_investigation_sha256": "27f5806ee459990d879842ae690a2bde2c1434c965681ce000a0c53bf9530ca2",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -6176,9 +6176,9 @@
     {
       "investigation_id": "fl.lumbar-puncture",
       "guide_id": "rad.5.venous-csf",
-      "title": "Fluoroscopy-guided lumbar puncture",
+      "title": "Lumbar puncture, fluoroscopy-guided",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "1c6e15406f89e24288cefd304e6e7c9396b3af0bb306feb34be1298b5e041259",
+      "report_investigation_sha256": "f2f690be840d3a26195335be20c363b267d1c8695b38116fcafe5c9fdcd10ced",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -6268,9 +6268,9 @@
     {
       "investigation_id": "fl.retrograde-pyelogram",
       "guide_id": "rad.4.kidney",
-      "title": "Retrograde pyelogram in theatre",
+      "title": "Right retrograde pyelogram",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "9485d05e0e4cd1b7f201ea63759c7681b39ff0d5742c577073eba23ab0d5f6c2",
+      "report_investigation_sha256": "d045a74f0bbb886c0367751ba3172591c3cacf322276a51c8b980c7c31a01ee9",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -6328,9 +6328,9 @@
     {
       "investigation_id": "fl.shoulder-arthrogram",
       "guide_id": "rad.5.shoulder",
-      "title": "Shoulder arthrogram injection",
+      "title": "Right shoulder arthrogram injection",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "8517b921ac75c153df64e2011d01cad4a2b5e313c709989e09b9bd7c1411c91e",
+      "report_investigation_sha256": "ca7df66439e76c9741d699402d513fa00837e034e01d9cef45866d42e386325f",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -6835,9 +6835,9 @@
     {
       "investigation_id": "mg.stereotactic-biopsy",
       "guide_id": "rad.4.breast",
-      "title": "Stereotactic breast biopsy",
+      "title": "Right stereotactic breast biopsy",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "15771c56417fed967f90634cf9da05a9ebd4d45d44c3c883301b51dc289ac232",
+      "report_investigation_sha256": "a35cbe7991121b2b3326df73273499795aefa28c54e528edba9aab49ea211671",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -6878,9 +6878,9 @@
     {
       "investigation_id": "mg.stereotactic-localisation",
       "guide_id": "rad.4.breast",
-      "title": "Stereotactic breast localisation",
+      "title": "Right stereotactic breast localisation",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "0c81ca615aeaf7194e8b3159b9e57b92749d5c07d03c7490dd0b758cb501efb1",
+      "report_investigation_sha256": "4b02a4c23f9164220242bc74279aefdfef1208a998220296ce060529bb09b94c",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -7107,11 +7107,78 @@
       ]
     },
     {
+      "investigation_id": "mri.angiogram-brain",
+      "guide_id": "rad.5.intracranial-haemorrhage",
+      "title": "MR angiogram brain",
+      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
+      "report_investigation_sha256": "1e23350bb3d2039f72f1632d1aa3c2bd70ea2aea4a8603c7d3c97fd3e6483d64",
+      "relationship": "unexpanded_distinct_investigation",
+      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
+      "related_expanded_investigation_ids": [],
+      "related_inventory_evidence": [],
+      "same_module_ids_not_accepted_as_equivalent": [
+        "ra.ct-traumatic-haemorrhage"
+      ],
+      "existing_additional_scope_evidence": [],
+      "has_dedicated_requirement_inventory": false,
+      "clinical_representation_complete": false,
+      "report_rows": [
+        {
+          "section_id": "technique",
+          "label": "Examination performed",
+          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "intracranial-internal-carotid-arteries",
+          "label": "Intracranial internal carotid arteries",
+          "section_sha256": "ea0a880e3200473e69a02219fa104d87e7f2654f9c824a6a7f6bafc56a6b5511",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "anterior",
+          "label": "Anterior",
+          "section_sha256": "99527d5daefee14877022e52ea093f5d7c6bd13ec968cd00a86a084e06fd4393",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "vertebral-and-basilar-arteries",
+          "label": "Vertebral and basilar arteries",
+          "section_sha256": "916af93342143f6a332a4f9a6d92f2d234715590c20fccb688ca8639bbee192a",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "intracranial-aneurysm",
+          "label": "Intracranial aneurysm",
+          "section_sha256": "60f5e4016350a359603a351989b3339b413fa8a33d706f89259b85e20a7a335c",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "arteriovenous-malformation",
+          "label": "Arteriovenous malformation",
+          "section_sha256": "2dd35c4553b6377ed42e7ed7d3b6853aab0cfbee0a90ee3837302d30b9e40eae",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        }
+      ]
+    },
+    {
       "investigation_id": "mri.angiogram-carotids",
       "guide_id": "rad.5.peripheral-vascular",
-      "title": "MR angiogram carotids",
+      "title": "MR angiogram neck vessels",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "411924d590223dbe003fd985ebcc04a5d2fd81d7a55c3a86f0a45d22a45907f7",
+      "report_investigation_sha256": "eebac890b767b287da7ff8cc83d83ceddd632e93bfeea8ab578eb93b708efe1f",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -7482,73 +7549,6 @@
           "section_id": "pelvis",
           "label": "Pelvis",
           "section_sha256": "c2aa1cb2bc7741b7dc3119964c32bc800f7e79b85cf636b29086babb243eeccb",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        }
-      ]
-    },
-    {
-      "investigation_id": "mri.brain",
-      "guide_id": "rad.5.intracranial-haemorrhage",
-      "title": "MR angiogram of the brain",
-      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "0be37e713b7784a51401a0fdedcaa48429ada38eab1a5de17d7c034ea746aad5",
-      "relationship": "unexpanded_distinct_investigation",
-      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
-      "related_expanded_investigation_ids": [],
-      "related_inventory_evidence": [],
-      "same_module_ids_not_accepted_as_equivalent": [
-        "ra.ct-traumatic-haemorrhage"
-      ],
-      "existing_additional_scope_evidence": [],
-      "has_dedicated_requirement_inventory": false,
-      "clinical_representation_complete": false,
-      "report_rows": [
-        {
-          "section_id": "technique",
-          "label": "Examination performed",
-          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "intracranial-internal-carotid-arteries",
-          "label": "Intracranial internal carotid arteries",
-          "section_sha256": "ea0a880e3200473e69a02219fa104d87e7f2654f9c824a6a7f6bafc56a6b5511",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "anterior",
-          "label": "Anterior",
-          "section_sha256": "99527d5daefee14877022e52ea093f5d7c6bd13ec968cd00a86a084e06fd4393",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "vertebral-and-basilar-arteries",
-          "label": "Vertebral and basilar arteries",
-          "section_sha256": "916af93342143f6a332a4f9a6d92f2d234715590c20fccb688ca8639bbee192a",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "intracranial-aneurysm",
-          "label": "Intracranial aneurysm",
-          "section_sha256": "60f5e4016350a359603a351989b3339b413fa8a33d706f89259b85e20a7a335c",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "arteriovenous-malformation",
-          "label": "Arteriovenous malformation",
-          "section_sha256": "2dd35c4553b6377ed42e7ed7d3b6853aab0cfbee0a90ee3837302d30b9e40eae",
           "candidate_requirements": [],
           "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
           "representation_completion_claim": false
@@ -9048,9 +9048,9 @@
     {
       "investigation_id": "mri.forearm",
       "guide_id": "rad.5.marrow-muscle",
-      "title": "MRI forearm",
+      "title": "MRI right forearm",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "f965fc2c23b32ed3d529934f69cc269f53014d2c0eb54875dc3456161eeda614",
+      "report_investigation_sha256": "9e9bbf7901907e21757c825afc4429a9b6ff2660f3a7395ebf4904130bdd3705",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -9208,9 +9208,9 @@
     {
       "investigation_id": "mri.lower-leg",
       "guide_id": "rad.5.marrow-muscle",
-      "title": "MRI lower leg",
+      "title": "MRI right lower leg",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "d4bef2d9fc71f48c814fe74025446d9e9bf07abb9675145ab9ba85e02ef2c99e",
+      "report_investigation_sha256": "2ce39e932e0b03eb88be9f371c7024df3297021068c31800d8111c2f983b57d7",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -9283,66 +9283,6 @@
           "section_id": "neurovascular-bundles",
           "label": "Neurovascular bundles",
           "section_sha256": "5feec5012d5724ff8768849d808886741236e1d5d323e498bbb1d03255054d1d",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        }
-      ]
-    },
-    {
-      "investigation_id": "mri.neck",
-      "guide_id": "rad.5.peripheral-vascular",
-      "title": "MR angiogram of the neck vessels",
-      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "b8089caa76f2d6375a15d11cb431e07283d141ba0d59274f71aba7fe370bc8fc",
-      "relationship": "unexpanded_distinct_investigation",
-      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
-      "related_expanded_investigation_ids": [],
-      "related_inventory_evidence": [],
-      "same_module_ids_not_accepted_as_equivalent": [
-        "ra.mra-peripheral-vessels",
-        "ra.carotid-obstruction"
-      ],
-      "existing_additional_scope_evidence": [],
-      "has_dedicated_requirement_inventory": false,
-      "clinical_representation_complete": false,
-      "report_rows": [
-        {
-          "section_id": "technique",
-          "label": "Examination performed",
-          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "three-vessel-aortic-arch",
-          "label": "Three-vessel aortic arch",
-          "section_sha256": "a64344f9bd575d11671ee0a0900d087602bc1dc57ac9f96f2cf5981e9eee55ae",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "common",
-          "label": "Common",
-          "section_sha256": "4712a39b213a5ba6051a0aad98125451e8e563ac0b56f39b14b28c9ea5c4a033",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "vertebral-arteries",
-          "label": "Vertebral arteries",
-          "section_sha256": "0d73d5acfc761fd31f0fc078090436982b1a412698e5bf83d7573c4e26031100",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "dissection",
-          "label": "Dissection",
-          "section_sha256": "933c56c13e2ad8eb8e3e8b2bbad53cfd847d6c5ec26baaa2ca1d8e2130a844de",
           "candidate_requirements": [],
           "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
           "representation_completion_claim": false
@@ -10239,9 +10179,9 @@
     {
       "investigation_id": "mri.paediatric-abdomen-cystic",
       "guide_id": "rad.5.paeds-masses-neuro",
-      "title": "MRI abdomen, paediatric",
+      "title": "MRI abdomen, paediatric cystic mass",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "8a4e917c204c130a8136715516c15dd4870640a0e5a463ffbb0fd2264faad693",
+      "report_investigation_sha256": "717da1355c7edb641a13eeec552f663aec59927c8460a83acfd538b643ed44ed",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -10472,9 +10412,9 @@
     {
       "investigation_id": "mri.paediatric-abdomen-solid",
       "guide_id": "rad.5.paeds-masses-neuro",
-      "title": "MRI abdomen, paediatric",
+      "title": "MRI abdomen, paediatric solid mass",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "d1dde3a4b11d09e2ab52928d218e8f6e2489d9448776c86a8970de011b5f370d",
+      "report_investigation_sha256": "e52c4095e45e0497c3e49b510a12efa42d0e61ea31fd5c675b3161b0a1461885",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -73230,11 +73170,11 @@
       ]
     },
     {
-      "investigation_id": "us.abdomen-acute",
+      "investigation_id": "us.abdomen-pelvis-female",
       "guide_id": "rad.3.acute-abdomen",
-      "title": "Ultrasound abdomen",
+      "title": "Ultrasound abdomen and pelvis, female",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "8536c701cb776df100ff83147e904cfc56a435d786da03f9ad90524fde8a8cd4",
+      "report_investigation_sha256": "152826bcdb188db610aa06aae2c00630732790d188b89d50347691454eaf2176",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -73306,6 +73246,89 @@
           "section_id": "both-ovaries",
           "label": "Both ovaries",
           "section_sha256": "2997ad6d90be3892e1bd52067d26f0e09233775e643c9cacbcd0bdb9bf7b56ea",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "free-fluid",
+          "label": "Free fluid",
+          "section_sha256": "6dd5ca60e36bcf65cb273c3dcd05a11606a9355ddf866920c41a891ecbe76fcc",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        }
+      ]
+    },
+    {
+      "investigation_id": "us.abdomen-pelvis-male",
+      "guide_id": "rad.3.acute-abdomen",
+      "title": "Ultrasound abdomen and pelvis, male",
+      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
+      "report_investigation_sha256": "84b7ef605ff0e57b546b33ed09c5091c97fdde075fcf19ff3899c15917ac02fa",
+      "relationship": "unexpanded_distinct_investigation",
+      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
+      "related_expanded_investigation_ids": [],
+      "related_inventory_evidence": [],
+      "same_module_ids_not_accepted_as_equivalent": [
+        "ra.acute-abdomen"
+      ],
+      "existing_additional_scope_evidence": [],
+      "has_dedicated_requirement_inventory": false,
+      "clinical_representation_complete": false,
+      "report_rows": [
+        {
+          "section_id": "technique",
+          "label": "Examination performed",
+          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "liver",
+          "label": "Liver",
+          "section_sha256": "c7cfd6bd189103faa47022ee348d9e40836f53929136c13421dc52581b492b0a",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "portal-vein",
+          "label": "Portal vein",
+          "section_sha256": "968794cc2696d216b0b00ecb64136532ec618a009462971cba8b8fc3ebbf03f7",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "gallbladder",
+          "label": "Gallbladder",
+          "section_sha256": "b92aa19a38260f53c01a8ca6a606e1f6437885173c82910fdab65b1612eedba1",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "pancreas",
+          "label": "Pancreas",
+          "section_sha256": "bdfa893083fa1003a7c532326b4e9fdba7d79447e25e5fd667c56388095cc3ac",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "abdominal-aorta",
+          "label": "Abdominal aorta",
+          "section_sha256": "506dcda5f7a2dcfe835643cf7df6812b5ef8ea9f80fe902b9ed59df72a74ff45",
+          "candidate_requirements": [],
+          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
+          "representation_completion_claim": false
+        },
+        {
+          "section_id": "bladder",
+          "label": "Bladder",
+          "section_sha256": "24b7bf36d4ab23892be99687edf348c44468f51d1399f8a9f5e0cd5ba4c964bb",
           "candidate_requirements": [],
           "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
           "representation_completion_claim": false
@@ -73666,9 +73689,9 @@
     {
       "investigation_id": "us.lower-limb-veins-bilateral",
       "guide_id": "rad.5.pe-pulm-htn",
-      "title": "Ultrasound both lower limb veins",
+      "title": "Venous duplex ultrasound, both lower limbs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "51f5ec985d9d6a32d85a143be3ab1c353038060478a14ec7805fa6deacc8744c",
+      "report_investigation_sha256": "aa22212e543931f45c1525db8fd0f968ab0980f6fb1ad21bde19389ae672bfc5",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -74543,89 +74566,6 @@
           "section_id": "basilar-and-vertebral-arteries",
           "label": "Basilar and vertebral arteries",
           "section_sha256": "1baa0461ffe9d2ab19a85fe81b9e988ed9ac59ce0e3cb5ba3a285c158847e473",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        }
-      ]
-    },
-    {
-      "investigation_id": "us.us-abdomen-acute",
-      "guide_id": "rad.3.acute-abdomen",
-      "title": "Ultrasound abdomen",
-      "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "a949c50658651bcb8bb70f520dcaa8f30029dbaa2f51487a93c982065efd3f13",
-      "relationship": "unexpanded_distinct_investigation",
-      "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
-      "related_expanded_investigation_ids": [],
-      "related_inventory_evidence": [],
-      "same_module_ids_not_accepted_as_equivalent": [
-        "ra.acute-abdomen"
-      ],
-      "existing_additional_scope_evidence": [],
-      "has_dedicated_requirement_inventory": false,
-      "clinical_representation_complete": false,
-      "report_rows": [
-        {
-          "section_id": "technique",
-          "label": "Examination performed",
-          "section_sha256": "4336137a743c189c369d53954401608f8386c3ae5c4b63e0a6a85201df0f23f3",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "liver",
-          "label": "Liver",
-          "section_sha256": "c7cfd6bd189103faa47022ee348d9e40836f53929136c13421dc52581b492b0a",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "portal-vein",
-          "label": "Portal vein",
-          "section_sha256": "968794cc2696d216b0b00ecb64136532ec618a009462971cba8b8fc3ebbf03f7",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "gallbladder",
-          "label": "Gallbladder",
-          "section_sha256": "b92aa19a38260f53c01a8ca6a606e1f6437885173c82910fdab65b1612eedba1",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "pancreas",
-          "label": "Pancreas",
-          "section_sha256": "bdfa893083fa1003a7c532326b4e9fdba7d79447e25e5fd667c56388095cc3ac",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "abdominal-aorta",
-          "label": "Abdominal aorta",
-          "section_sha256": "506dcda5f7a2dcfe835643cf7df6812b5ef8ea9f80fe902b9ed59df72a74ff45",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "bladder",
-          "label": "Bladder",
-          "section_sha256": "24b7bf36d4ab23892be99687edf348c44468f51d1399f8a9f5e0cd5ba4c964bb",
-          "candidate_requirements": [],
-          "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
-          "representation_completion_claim": false
-        },
-        {
-          "section_id": "free-fluid",
-          "label": "Free fluid",
-          "section_sha256": "6dd5ca60e36bcf65cb273c3dcd05a11606a9355ddf866920c41a891ecbe76fcc",
           "candidate_requirements": [],
           "reconciliation_status": "explicit_row_expansion_or_typed_nonanatomical_disposition_required",
           "representation_completion_claim": false
@@ -75549,9 +75489,9 @@
     {
       "investigation_id": "xr.acute-abdomen-series",
       "guide_id": "rad.3.acute-abdomen",
-      "title": "Abdominal and erect chest radiographs",
+      "title": "Abdominal radiograph, supine, and chest radiograph, erect",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "a48546109ddeb9161d9f710ecb7e758147e7c44a6fc40acf946b63f3aced8d69",
+      "report_investigation_sha256": "b9be838edcfc44222074a251c593a2ec533a397e5bc3ed4793ff69a7426bfdfc",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -75800,9 +75740,9 @@
     {
       "investigation_id": "xr.ankle-stress",
       "guide_id": "rad.5.ankle-foot",
-      "title": "Ankle stress radiograph",
+      "title": "Right ankle stress radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "ad0c7ac2512b948c81cde71ac0f18d2742d2ef81c6bc202ed578d4c67e7ce30f",
+      "report_investigation_sha256": "fe98dcfd983d5e5a8e95c6c9fcb6676738b01bdbf1fb49acd7d4c50f7afe4247",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -75880,9 +75820,9 @@
     {
       "investigation_id": "xr.bone-age",
       "guide_id": "rad.5.paeds-hip-elbow",
-      "title": "Bone age radiograph",
+      "title": "Bone age radiograph, left hand",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "0f0a3a79c5f690f0e3b9fc5bed44654231c76563b06a48a460dbb2186dfff9a0",
+      "report_investigation_sha256": "f42c3bd09d3c26aa6c22015e6b1a1611986092bc0cc7c49782cfcc9b29110d3d",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -76456,9 +76396,9 @@
     {
       "investigation_id": "xr.cervical-spine-flexion-extension",
       "guide_id": "rad.4.spine-imaging",
-      "title": "Cervical spine flexion and extension radiographs",
+      "title": "Cervical spine radiographs, flexion and extension",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "22a6c44958beda73441d19a94959f57f2c42ebcb49267aa907a28122bb12e7d3",
+      "report_investigation_sha256": "f957bb99f9fe0c31015c4d389cf216aea5ef9b679c82beda85106749b2ed97c0",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -76524,9 +76464,9 @@
     {
       "investigation_id": "xr.chest-immigration",
       "guide_id": "rad.5.chest-infection",
-      "title": "Immigration chest radiograph",
+      "title": "Chest radiograph, immigration",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "7fc23089bcf2268c2cba0b2c7b25a4491de7123d666b96d27c5cfc2472a776cf",
+      "report_investigation_sha256": "0cb29c0e6f326517569fcc0ef288940b853d191321f4aa6439ca9692df44095e",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -76841,9 +76781,9 @@
     {
       "investigation_id": "xr.facial-bones",
       "guide_id": "rad.5.orbit",
-      "title": "Facial bones radiograph",
+      "title": "Facial bones radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "ace809cd1bc03adff0e5006ad4731aa8f52587a51c6cfa5d9260681363b17d92",
+      "report_investigation_sha256": "4d042115b7c9eeb177f12e148a493f61445c4c8bd8387725cb1e81947a131f8c",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -78706,9 +78646,9 @@
     {
       "investigation_id": "xr.lumbar-spine-flexion-extension",
       "guide_id": "rad.4.spine-imaging",
-      "title": "Lumbar spine flexion and extension radiographs",
+      "title": "Lumbar spine radiographs, flexion and extension",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "ac606d60ca015480a8f1df65aef75e2e3e97b469f412c3ef5f78ad58a9a7b5e0",
+      "report_investigation_sha256": "d88d903ebe56676932f5466d210d757f49b0e7c3262ebfcf5fddfab0f88d7b36",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -78766,9 +78706,9 @@
     {
       "investigation_id": "xr.mandible",
       "guide_id": "rad.5.orbit",
-      "title": "Mandible radiograph",
+      "title": "Mandible radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "1e5c2770418a230992d06d0381c23d2f2d3a239cb6e418f181511a3d4399115c",
+      "report_investigation_sha256": "4d05079e97039490485a6f73221685772d1a43a137390a3186942fb74e36e6d2",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -78868,9 +78808,9 @@
     {
       "investigation_id": "xr.orbits",
       "guide_id": "rad.5.orbit",
-      "title": "Orbits radiograph",
+      "title": "Orbit radiographs, foreign body screen",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "2505ffeba297ab71bf6074890dffe6d1bf311ff1bd6fab4541a9065194f11a51",
+      "report_investigation_sha256": "f754609964d841381fda0a414291c5da5d097e3eee47bcd753738c55a24d4203",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -79400,9 +79340,9 @@
     {
       "investigation_id": "xr.scapula",
       "guide_id": "rad.5.wrist-hand",
-      "title": "Scapula radiograph",
+      "title": "Right scapula radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "170fb7a2ac72e800f0955d29c3e2566918bf0d245aa9d0bd73eb9d3c089cfed1",
+      "report_investigation_sha256": "78bec90842e33f528af1b65a3f80b6a0b493d50dbce0d3de1015351c54d85493",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -79538,9 +79478,9 @@
     {
       "investigation_id": "xr.sesamoid",
       "guide_id": "rad.5.ankle-foot",
-      "title": "Sesamoid radiograph",
+      "title": "Right sesamoid radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "0ba9cebad58ae63f6647c9ba12cb8ef6f1b4a96ab205cec229171248c003b47c",
+      "report_investigation_sha256": "c41a170651c13156593e6259a85568d1d0aaa53fdb36e593619088b179e2b135",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -79830,9 +79770,9 @@
     {
       "investigation_id": "xr.sinuses",
       "guide_id": "rad.5.sinuses",
-      "title": "Sinuses radiograph",
+      "title": "Paranasal sinus radiograph",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "ac946a169101d32ea212f949ab7d09737a7038bb24931b6213426a8cfd5295b3",
+      "report_investigation_sha256": "dd6c535b56a4a3ab8e631c1635ba994542768043136e610a67236ac4a7e915d0",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -79889,9 +79829,9 @@
     {
       "investigation_id": "xr.skull",
       "guide_id": "rad.5.craniosynostosis",
-      "title": "Skull radiograph",
+      "title": "Skull radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "83d7aafef0d64b8d5eb8b6872c98c75cc59f0d33a39bcf2f6b739b76c307e225",
+      "report_investigation_sha256": "1013c72dfee32c1ea3c85c52ec7e7c9a40316559f629489ffec362934b847bf2",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -79946,9 +79886,9 @@
     {
       "investigation_id": "xr.soft-tissue-neck",
       "guide_id": "rad.5.esophagus-swallowing",
-      "title": "Soft tissue neck radiograph",
+      "title": "Soft tissue neck radiograph, lateral",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "4dd43dd818c124df0d2008cf12ed1bab0853cd44b778a56d71062fbc4a6ef328",
+      "report_investigation_sha256": "5678238dda94372307bfedcb3cf1fca497d9556cce827bfa38cbfade080ef336",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -80562,9 +80502,9 @@
     {
       "investigation_id": "xr.standing-feet",
       "guide_id": "rad.5.ankle-foot",
-      "title": "Standing foot radiographs (both)",
+      "title": "Foot radiographs, both, weight-bearing",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "0ad235dcf0e10ceac782e2d0ac31f6d4a6bd11bdc09bd558ba547d3bb88c3088",
+      "report_investigation_sha256": "2a24ea7a5b4ce4405f6444ffe91c40155d651b0c8dec27790b32a00c66408678",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -80658,9 +80598,9 @@
     {
       "investigation_id": "xr.standing-knees",
       "guide_id": "rad.4.arthritis",
-      "title": "Standing knee radiographs (both)",
+      "title": "Knee radiographs, both, weight-bearing",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "b31b9d5a854c7b9bfa2c7eece231bf697323c5ea5163c02f6cd1038792a1211a",
+      "report_investigation_sha256": "0f186d9aa1fd85eb951108596cbebaff885c6411d35a1680faa97bfc7ba7351e",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -80742,9 +80682,9 @@
     {
       "investigation_id": "xr.sternoclavicular",
       "guide_id": "rad.3.chest-xray",
-      "title": "Sternoclavicular joint radiograph",
+      "title": "Sternoclavicular joint radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "d505624d6dd4bd4c7c79322155a42492eb8b64d2d3e08b58c9c44cae0786e5cc",
+      "report_investigation_sha256": "6cc62a0ad1890951dfcd0657bd56d24bdcda9e6a8dbd87573645b6f7cc419973",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -80793,9 +80733,9 @@
     {
       "investigation_id": "xr.sternum",
       "guide_id": "rad.3.chest-xray",
-      "title": "Sternum radiograph",
+      "title": "Sternum radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "1743a5407892a14eb7b213fcdcfa7ca2ef787690380ce038704cee265897324b",
+      "report_investigation_sha256": "13f3c941763f04047e1fd762b7523d2397ed528abf50f1c6a411a0908578b611",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
@@ -81104,9 +81044,9 @@
     {
       "investigation_id": "xr.tmj",
       "guide_id": "rad.5.temporal-bone",
-      "title": "Temporomandibular joint radiograph",
+      "title": "Temporomandibular joint radiographs",
       "report_source_file": "data/radiology/anatomic-additions-20261112.json",
-      "report_investigation_sha256": "5b33222cd7d29a4259b089431192825491d58d3297b4220688ca61591e054393",
+      "report_investigation_sha256": "52f47dd42750d11395eea886b55a7b49b18f756bb5d6c0277fe1a60022b288ad",
       "relationship": "unexpanded_distinct_investigation",
       "rationale": "No equivalent expanded investigation has been established. Current named report rows remain explicit expansion work; shared adult regions, titles or module membership cannot supply paediatric, developmental, disease or modality-specific scope.",
       "related_expanded_investigation_ids": [],
