@@ -1,11 +1,12 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-12",
+  "revision": "2026-11-13",
   "templates": {
     "cardiology.echocardiography": {
       "title": "Transthoracic echocardiogram",
       "radiograph": false,
-      "technique": {"normal": "Transthoracic echocardiography with 2D, M-mode, colour and spectral Doppler imaging."},
+      "technique": {"normal": "Transthoracic echocardiography with 2D, M-mode, colour and spectral Doppler imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Left ventricle", "normal": "Normal left ventricular size, wall thickness and systolic function. No regional wall motion abnormality.",
          "options": ["LVEF [ ] percent by [biplane Simpson / visual estimate].",
@@ -14,7 +15,8 @@
         {"heading": "Diastolic function", "normal": "Normal diastolic function.",
          "options": ["Grade [I / II / III] diastolic dysfunction; E/e' [ ]."]},
         {"heading": "Right ventricle", "normal": "Normal right ventricular size and systolic function.",
-         "options": ["TAPSE [ ] mm; estimated RVSP [ ] mmHg.", "[Dilated / Hypokinetic] right ventricle [ ]."]},
+         "options": ["TAPSE [ ] mm; estimated RVSP [ ] mmHg.",
+                     "[Dilated / Hypokinetic] right ventricle [ ]."]},
         {"heading": "Atria", "normal": "Normal atrial sizes.",
          "options": ["[Left atrial / Right atrial / Biatrial] dilatation; LA volume index [ ] mL/m²."]},
         {"heading": "Valves", "normal": "Structurally normal valves. No significant stenosis or regurgitation.",
@@ -22,7 +24,8 @@
                      "Aortic valve peak velocity [ ] m/s, mean gradient [ ] mmHg, area [ ] cm².",
                      "[Mechanical / Bioprosthetic] [aortic / mitral] valve, mean gradient [ ] mmHg."]},
         {"heading": "Pericardium and aorta", "normal": "No pericardial effusion. Normal aortic root.",
-         "options": ["[Small / Moderate / Large] pericardial effusion [with / without] tamponade physiology.", "Aortic root [ ] mm."]},
+         "options": ["[Small / Moderate / Large] pericardial effusion [with / without] tamponade physiology.",
+                     "Aortic root [ ] mm."]},
         {"heading": "Inferior vena cava", "normal": "Normal IVC size with normal respiratory variation.",
          "options": ["Dilated IVC with [reduced / absent] respiratory variation."]}
       ],
@@ -34,15 +37,18 @@
       "technique": {"normal": "Selective coronary angiography via the right radial artery.",
                     "options": ["Access via the [left radial / right femoral / left femoral] artery.", "Left ventriculography [ ]."]},
       "sections": [
-        {"heading": "Dominance", "normal": "Right dominant circulation.", "options": ["[Left dominant / Codominant] circulation."]},
+        {"heading": "Dominance", "normal": "Right dominant circulation.",
+         "options": ["[Left dominant / Codominant] circulation."]},
         {"heading": "Left main stem", "normal": "Normal left main stem.",
          "options": ["[ ] percent stenosis of the [ostial / mid / distal] left main stem."]},
         {"heading": "Left anterior descending", "normal": "Normal LAD and diagonal branches.",
-         "options": ["[ ] percent stenosis of the [proximal / mid / distal] LAD.", "[ ] percent stenosis of [D1 / D2]."]},
+         "options": ["[ ] percent stenosis of the [proximal / mid / distal] LAD.",
+                     "[ ] percent stenosis of [D1 / D2]."]},
         {"heading": "Circumflex", "normal": "Normal circumflex and obtuse marginal branches.",
          "options": ["[ ] percent stenosis of the [proximal circumflex / distal circumflex / OM1 / OM2]."]},
         {"heading": "Right coronary artery", "normal": "Normal right coronary artery.",
-         "options": ["[ ] percent stenosis of the [proximal / mid / distal] RCA.", "[ ] percent stenosis of the [PDA / PLV]."]},
+         "options": ["[ ] percent stenosis of the [proximal / mid / distal] RCA.",
+                     "[ ] percent stenosis of the [PDA / PLV]."]},
         {"heading": "Other findings", "normal": "No coronary anomaly, dissection or fistula.",
          "options": ["[Chronic total occlusion / Collaterals / Dissection / Thrombus / Stent restenosis] [ ]."]}
       ],
@@ -77,10 +83,12 @@
     "ra.ct-tavi": {
       "title": "CT TAVI planning",
       "radiograph": false,
-      "technique": {"normal": "ECG-gated CT angiogram of the aortic root with CT angiogram of the aorta, iliac and femoral arteries."},
+      "technique": {"normal": "ECG-gated CT angiogram of the aortic root with CT angiogram of the aorta, iliac and femoral arteries.",
+                    "options": []},
       "sections": [
         {"heading": "Aortic valve", "normal": "Tricuspid aortic valve.",
-         "options": ["[Bicuspid / Unicuspid] aortic valve, [ ] type.", "[Mild / Moderate / Severe] valve calcification; calcium score [ ] AU."]},
+         "options": ["[Bicuspid / Unicuspid] aortic valve, [ ] type.",
+                     "[Mild / Moderate / Severe] valve calcification; calcium score [ ] AU."]},
         {"heading": "Annulus and LVOT", "normal": "Annulus and LVOT suitable for transcatheter valve sizing.",
          "options": ["Annulus perimeter [ ] mm, area [ ] mm², diameters [ ] x [ ] mm.",
                      "[No / Mild / Moderate / Severe] annular and LVOT calcification."]},
@@ -90,14 +98,16 @@
         {"heading": "Access", "normal": "Iliofemoral arteries suitable for transfemoral access.",
          "options": ["Minimal luminal diameter: right [ ] mm, left [ ] mm.",
                      "[Calcification / Tortuosity / Stenosis] of the [ ]."]},
-        {"heading": "Other findings", "normal": "No significant extracardiac finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No significant extracardiac finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Anatomy suitable for transfemoral TAVI."
     },
     "ra.thoracic-aorta-measurement": {
       "title": "CT angiogram thoracic aorta",
       "radiograph": false,
-      "technique": {"normal": "ECG-gated CT angiogram of the thoracic aorta; diameters measured inner edge to inner edge in double-oblique planes."},
+      "technique": {"normal": "ECG-gated CT angiogram of the thoracic aorta; diameters measured inner edge to inner edge in double-oblique planes.",
+                    "options": []},
       "sections": [
         {"heading": "Aortic root and ascending aorta", "normal": "Normal calibre aortic root and ascending aorta.",
          "options": ["Sinuses [ ] mm, sinotubular junction [ ] mm, mid ascending aorta [ ] mm."]},
@@ -106,32 +116,38 @@
                      "[Coarctation / Aberrant subclavian artery / Common origin of the brachiocephalic and left common carotid arteries] [ ]."]},
         {"heading": "Aortic wall", "normal": "No dissection, intramural haematoma or penetrating ulcer.",
          "options": ["[Dissection / Intramural haematoma / Penetrating ulcer / Mural thrombus] [ ]."]},
-        {"heading": "Aortic valve", "normal": "Tricuspid aortic valve.", "options": ["Bicuspid aortic valve [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Aortic valve", "normal": "Tricuspid aortic valve.",
+         "options": ["Bicuspid aortic valve [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal calibre thoracic aorta."
     },
     "ra.ct-acute-aortic-syndrome": {
       "title": "CT angiogram aorta",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast and ECG-gated arterial phase CT angiogram of the chest, abdomen and pelvis."},
+      "technique": {"normal": "Non-contrast and ECG-gated arterial phase CT angiogram of the chest, abdomen and pelvis.",
+                    "options": []},
       "sections": [
         {"heading": "Aortic wall", "normal": "No dissection, intramural haematoma or penetrating atherosclerotic ulcer.",
          "options": ["[Stanford A / Stanford B] dissection from [ ] to [ ]; primary entry tear at [ ].",
                      "[Intramural haematoma / Penetrating atherosclerotic ulcer], [ ] mm, at [ ]."]},
         {"heading": "Branch vessels", "normal": "Normal perfusion of the coronary, arch, visceral, renal and iliac branches.",
          "options": ["[ ] arises from the [true / false] lumen [with / without] malperfusion."]},
-        {"heading": "Aortic calibre", "normal": "Normal aortic calibre.", "options": ["Maximum diameter [ ] mm at [ ]."]},
+        {"heading": "Aortic calibre", "normal": "Normal aortic calibre.",
+         "options": ["Maximum diameter [ ] mm at [ ]."]},
         {"heading": "Complications", "normal": "No haemopericardium, mediastinal haematoma or haemothorax.",
          "options": ["[Haemopericardium / Mediastinal haematoma / Haemothorax / Periaortic haematoma] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No acute aortic syndrome."
     },
     "ra.aortic-aneurysm-rupture": {
       "title": "CT angiogram abdominal aorta",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast and arterial phase CT angiogram of the abdomen and pelvis."},
+      "technique": {"normal": "Non-contrast and arterial phase CT angiogram of the abdomen and pelvis.",
+                    "options": []},
       "sections": [
         {"heading": "Abdominal aorta", "normal": "Normal calibre abdominal aorta. No aneurysm.",
          "options": ["[Infrarenal / Juxtarenal / Suprarenal] aneurysm, maximum diameter [ ] mm, neck length [ ] mm.",
@@ -139,13 +155,15 @@
         {"heading": "Rupture", "normal": "No periaortic haematoma or contrast extravasation.",
          "options": ["[Retroperitoneal haematoma / Active extravasation / Draped aorta / Hyperattenuating crescent] [ ]."]},
         {"heading": "Branch and iliac arteries", "normal": "Normal renal, visceral and iliac arteries.",
-         "options": ["[Right / Left] common iliac aneurysm [ ] mm.", "[Accessory renal artery / Branch occlusion] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+         "options": ["[Right / Left] common iliac aneurysm [ ] mm.",
+                     "[Accessory renal artery / Branch occlusion] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No abdominal aortic aneurysm or rupture."
     },
     "ra.cardiac-masses": {
-      "title": "MRI heart",
+      "title": "MRI heart, cardiac mass",
       "radiograph": false,
       "technique": {"normal": "Cardiac MRI with cine, T1, T2, first-pass perfusion and late gadolinium enhancement.",
                     "options": []},
@@ -153,25 +171,29 @@
         {"heading": "Mass", "normal": "No intracardiac or pericardial mass.",
          "options": ["[ ] x [ ] mm [pedunculated / sessile / infiltrative] mass in the [ ], attached to [ ].",
                      "T1 [ ], T2 [ ]; [enhancing / non-enhancing] on perfusion and late gadolinium enhancement."]},
-        {"heading": "Thrombus", "normal": "No thrombus.", "options": ["Non-enhancing thrombus in the [ ], [ ] mm."]},
+        {"heading": "Thrombus", "normal": "No thrombus.",
+         "options": ["Non-enhancing thrombus in the [ ], [ ] mm."]},
         {"heading": "Ventricles and valves", "normal": "Normal biventricular size and function. No valve obstruction.",
          "options": ["[Inflow obstruction / Outflow obstruction / Valve involvement] [ ]."]},
         {"heading": "Pericardium", "normal": "No pericardial effusion or thickening.",
          "options": ["[Pericardial effusion / Pericardial invasion] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No cardiac mass."
     },
     "ra.mri-cardiomyopathy": {
-      "title": "MRI heart",
+      "title": "MRI heart, cardiomyopathy",
       "radiograph": false,
-      "technique": {"normal": "Cardiac MRI with cine, T1 and T2 mapping and late gadolinium enhancement."},
+      "technique": {"normal": "Cardiac MRI with cine, T1 and T2 mapping and late gadolinium enhancement.",
+                    "options": []},
       "sections": [
         {"heading": "Left ventricle", "normal": "Normal left ventricular size, wall thickness and systolic function.",
          "options": ["LVEDVi [ ] mL/m², LVEF [ ] percent, maximal wall thickness [ ] mm.",
                      "[Dilated / Hypertrophied / Non-compacted] left ventricle [ ]."]},
         {"heading": "Right ventricle", "normal": "Normal right ventricular size and systolic function.",
-         "options": ["RVEDVi [ ] mL/m², RVEF [ ] percent.", "[Regional dyskinesia / Aneurysm] of the right ventricle [ ]."]},
+         "options": ["RVEDVi [ ] mL/m², RVEF [ ] percent.",
+                     "[Regional dyskinesia / Aneurysm] of the right ventricle [ ]."]},
         {"heading": "Tissue characterisation", "normal": "Normal native T1 and T2. No late gadolinium enhancement.",
          "options": ["[Subendocardial / Transmural / Midwall / Subepicardial / Diffuse] late gadolinium enhancement in the [ ].",
                      "Native T1 [ ] ms, T2 [ ] ms, ECV [ ] percent."]},
@@ -179,7 +201,8 @@
          "options": ["[ ] regurgitation, regurgitant fraction [ ] percent."]},
         {"heading": "Pericardium", "normal": "No pericardial effusion or thickening.",
          "options": ["[Pericardial effusion / Pericardial thickening / Pericardial enhancement] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal cardiac MRI. No evidence of cardiomyopathy."
     },
@@ -194,7 +217,8 @@
         {"heading": "Valves and occluders", "normal": "No prosthetic valve or occluder device.",
          "options": ["[Aortic / Mitral / Tricuspid] [mechanical / bioprosthetic / transcatheter] valve [ ].",
                      "[Atrial septal / Left atrial appendage] occluder [ ]."]},
-        {"heading": "Lines and tubes", "normal": "No lines or tubes.", "options": ["[ ] catheter tip at [ ]."]},
+        {"heading": "Lines and tubes", "normal": "No lines or tubes.",
+         "options": ["[ ] catheter tip at [ ]."]},
         {"heading": "Heart and lungs", "normal": "Normal heart size. Clear lungs. No pneumothorax.",
          "options": ["[Pneumothorax / Pleural effusion / Pulmonary oedema / Cardiomegaly] [ ]."]}
       ],
@@ -203,7 +227,8 @@
     "ra.vascular-anomalies": {
       "title": "CT angiogram chest",
       "radiograph": false,
-      "technique": {"normal": "CT angiogram of the chest with multiplanar and 3D reconstructions."},
+      "technique": {"normal": "CT angiogram of the chest with multiplanar and 3D reconstructions.",
+                    "options": []},
       "sections": [
         {"heading": "Aortic arch", "normal": "Left aortic arch with normal branching.",
          "options": ["[Right aortic arch / Double aortic arch / Cervical arch] [ ].",
@@ -216,7 +241,8 @@
          "options": ["[Partial / Total] anomalous pulmonary venous return from the [ ] to the [ ]."]},
         {"heading": "Systemic veins", "normal": "Normal systemic venous anatomy.",
          "options": ["[Persistent left SVC / Azygos continuation of the IVC / Duplicated SVC] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No thoracic vascular anomaly."
     },
@@ -236,7 +262,8 @@
                      "[Occlusion / Near occlusion / Dissection] of the internal carotid artery."]},
         {"heading": "Vertebral arteries", "normal": "Antegrade flow in both vertebral arteries.",
          "options": ["[Retrograde / Absent / Biphasic] flow in the [right / left] vertebral artery."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No carotid stenosis."
     },
@@ -253,14 +280,16 @@
         {"heading": "Crural arteries", "normal": "Three-vessel run-off to both feet.",
          "options": ["[One / Two] vessel run-off on the [right / left] via the [ ].",
                      "[Stenosis / Occlusion] of the [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[Aneurysm / Popliteal entrapment / Cystic adventitial disease] [ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[Aneurysm / Popliteal entrapment / Cystic adventitial disease] [ ]."]}
       ],
       "impression": "No peripheral arterial stenosis or occlusion."
     },
     "us.venous-duplex-lower-limb": {
       "title": "Venous duplex ultrasound, right lower limb / Venous duplex ultrasound, left lower limb",
       "radiograph": false,
-      "technique": {"normal": "Compression and colour Doppler ultrasound from the common femoral to the calf veins."},
+      "technique": {"normal": "Compression and colour Doppler ultrasound from the common femoral to the calf veins.",
+                    "options": []},
       "sections": [
         {"heading": "Femoral and popliteal veins", "normal": "Fully compressible with normal spontaneous, phasic flow.",
          "options": ["[Occlusive / Non-occlusive] [acute / chronic] thrombus in the [common femoral / femoral / popliteal] vein, extending [ ]."]},
@@ -276,7 +305,8 @@
     "us.venous-duplex-upper-limb": {
       "title": "Venous duplex ultrasound, right upper limb / Venous duplex ultrasound, left upper limb",
       "radiograph": false,
-      "technique": {"normal": "Compression and colour Doppler ultrasound of the jugular, subclavian, axillary, brachial and forearm veins."},
+      "technique": {"normal": "Compression and colour Doppler ultrasound of the jugular, subclavian, axillary, brachial and forearm veins.",
+                    "options": []},
       "sections": [
         {"heading": "Central veins", "normal": "Patent internal jugular and subclavian veins with normal respiratory variation and cardiac pulsatility.",
          "options": ["Thrombus in the [internal jugular / subclavian / brachiocephalic] vein [ ].",
@@ -285,24 +315,28 @@
          "options": ["[Occlusive / Non-occlusive] thrombus in the [axillary / brachial] vein."]},
         {"heading": "Superficial veins", "normal": "Patent cephalic and basilic veins.",
          "options": ["Thrombus in the [cephalic / basilic] vein [ ]."]},
-        {"heading": "Lines and other findings", "normal": "No catheter-related thrombus or other abnormality.", "options": ["[ ]."]}
+        {"heading": "Lines and other findings", "normal": "No catheter-related thrombus or other abnormality.",
+         "options": ["[ ]."]}
       ],
       "impression": "No upper limb deep vein thrombosis."
     },
     "us.venous-insufficiency": {
       "title": "Venous duplex ultrasound, reflux mapping",
       "radiograph": false,
-      "technique": {"normal": "Duplex ultrasound of the deep and superficial veins, standing, with distal augmentation."},
+      "technique": {"normal": "Duplex ultrasound of the deep and superficial veins, standing, with distal augmentation.",
+                    "options": []},
       "sections": [
         {"heading": "Deep veins", "normal": "Patent deep veins without reflux.",
          "options": ["Deep venous reflux in the [common femoral / femoral / popliteal] vein, [ ] s.",
                      "Post-thrombotic change in the [ ]."]},
         {"heading": "Great saphenous vein", "normal": "Competent saphenofemoral junction and great saphenous vein.",
-         "options": ["Saphenofemoral junction reflux [ ] s.", "GSV reflux from [ ] to [ ]; diameter [ ] mm."]},
+         "options": ["Saphenofemoral junction reflux [ ] s.",
+                     "GSV reflux from [ ] to [ ]; diameter [ ] mm."]},
         {"heading": "Small saphenous vein", "normal": "Competent saphenopopliteal junction and small saphenous vein.",
          "options": ["Saphenopopliteal junction reflux [ ] s; SSV diameter [ ] mm."]},
         {"heading": "Perforators and tributaries", "normal": "No incompetent perforator.",
-         "options": ["Incompetent perforator [ ] cm from the [heel / knee], [ ] mm.", "Refluxing tributary [ ]."]}
+         "options": ["Incompetent perforator [ ] cm from the [heel / knee], [ ] mm.",
+                     "Refluxing tributary [ ]."]}
       ],
       "impression": "No superficial or deep venous reflux."
     }

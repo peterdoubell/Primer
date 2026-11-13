@@ -1,6 +1,6 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-12",
+  "revision": "2026-11-13",
   "templates": {
     "ra.acute-stroke": {
       "title": "CT brain, stroke protocol",
@@ -9,14 +9,17 @@
                     "options": []},
       "sections": [
         {"heading": "Brain parenchyma", "normal": "No established infarct. ASPECTS 10.",
-         "options": ["Early ischaemic change in the [ ] territory; ASPECTS [ ].", "Established infarct in the [ ]."]},
+         "options": ["Early ischaemic change in the [ ] territory; ASPECTS [ ].",
+                     "Established infarct in the [ ]."]},
         {"heading": "Haemorrhage", "normal": "No intracranial haemorrhage.",
-         "options": ["[Intraparenchymal / Subarachnoid / Subdural] haemorrhage [ ].", "Haemorrhagic transformation [ ]."]},
+         "options": ["[Intraparenchymal / Subarachnoid / Subdural] haemorrhage [ ].",
+                     "Haemorrhagic transformation [ ]."]},
         {"heading": "Arteries", "normal": "No large vessel occlusion, stenosis or dissection.",
          "options": ["Occlusion of the [ICA terminus / M1 / M2 / basilar artery / vertebral artery] [ ].",
                      "[Stenosis / Dissection / Tandem lesion] of the [ ] [ ]."]},
         {"heading": "Collaterals and perfusion", "normal": "No perfusion deficit.",
-         "options": ["[Good / Moderate / Poor] collaterals.", "Core [ ] mL, penumbra [ ] mL, mismatch ratio [ ]."]},
+         "options": ["[Good / Moderate / Poor] collaterals.",
+                     "Core [ ] mL, penumbra [ ] mL, mismatch ratio [ ]."]},
         {"heading": "Other findings", "normal": "No mass effect. No other significant finding.",
          "options": ["[Hyperdense vessel / Midline shift / Old infarct / Small vessel disease] [ ]."]}
       ],
@@ -25,35 +28,42 @@
     "ra.brain-anatomy": {
       "title": "CT brain",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast CT brain.", "options": []},
+      "technique": {"normal": "Non-contrast CT brain.",
+                    "options": []},
       "sections": [
         {"heading": "Cerebral hemispheres", "normal": "Normal grey-white matter differentiation. No focal lesion.",
          "options": ["[Infarct / Mass / Haemorrhage / White matter lesions] in the [ ] [ ]."]},
         {"heading": "Deep grey matter and brainstem", "normal": "Normal basal ganglia, thalami, internal capsules and brainstem.",
          "options": ["[Lacunar infarct / Haemorrhage / Mass] in the [ ]."]},
-        {"heading": "Cerebellum", "normal": "Normal cerebellum.", "options": ["[Infarct / Mass / Atrophy] in the [ ]."]},
+        {"heading": "Cerebellum", "normal": "Normal cerebellum.",
+         "options": ["[Infarct / Mass / Atrophy] in the [ ]."]},
         {"heading": "Ventricles and extra-axial spaces", "normal": "Normal ventricles and sulci for age. No extra-axial collection.",
          "options": ["[Hydrocephalus / Atrophy / Subdural collection] [ ]."]},
-        {"heading": "Vessels", "normal": "No vascular abnormality.", "options": ["[Hyperdense vessel / Aneurysm / Malformation] [ ]."]},
-        {"heading": "Skull and sinuses", "normal": "Normal skull, paranasal sinuses and mastoids.", "options": ["[ ]."]}
+        {"heading": "Vessels", "normal": "No vascular abnormality.",
+         "options": ["[Hyperdense vessel / Aneurysm / Malformation] [ ]."]},
+        {"heading": "Skull and sinuses", "normal": "Normal skull, paranasal sinuses and mastoids.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal brain imaging."
     },
     "neuro.mri-brain-routine": {
       "title": "MRI brain / MRI brain with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI brain with T1, T2, FLAIR, diffusion and SWI.", "options": ["Post-gadolinium T1 imaging."]},
+      "technique": {"normal": "MRI brain with T1, T2, FLAIR, diffusion and SWI.",
+                    "options": ["Post-gadolinium T1 imaging."]},
       "sections": [
         {"heading": "Brain parenchyma", "normal": "Normal signal and morphology of the cerebral and cerebellar hemispheres, deep grey matter and brainstem.",
          "options": ["[ ] mm [T2 hyperintense / enhancing / diffusion restricting] lesion in the [ ].",
                      "White matter hyperintensities, Fazekas grade [1 / 2 / 3]."]},
         {"heading": "Diffusion and susceptibility", "normal": "No restricted diffusion. No microhaemorrhage.",
-         "options": ["Restricted diffusion in the [ ].", "[Microhaemorrhages / Superficial siderosis / Cavernoma] [ ]."]},
+         "options": ["Restricted diffusion in the [ ].",
+                     "[Microhaemorrhages / Superficial siderosis / Cavernoma] [ ]."]},
         {"heading": "Ventricles and extra-axial spaces", "normal": "Normal ventricles and sulci for age. No extra-axial collection.",
          "options": ["[Hydrocephalus / Atrophy / Subdural collection / Arachnoid cyst] [ ]."]},
         {"heading": "Midline structures", "normal": "Normal pituitary, corpus callosum and craniocervical junction.",
          "options": ["[Pituitary lesion / Callosal lesion / Tonsillar ectopia] [ ]."]},
-        {"heading": "Vessels", "normal": "Normal intracranial flow voids.", "options": ["[Aneurysm / Absent flow void / Malformation] [ ]."]},
+        {"heading": "Vessels", "normal": "Normal intracranial flow voids.",
+         "options": ["[Aneurysm / Absent flow void / Malformation] [ ]."]},
         {"heading": "Orbits, sinuses and mastoids", "normal": "Normal visualised orbits, paranasal sinuses and mastoids.",
          "options": ["[Sinus mucosal thickening / Mastoid effusion] [ ]."]}
       ],
@@ -62,7 +72,8 @@
     "neuro.ct-brain-routine": {
       "title": "CT brain without contrast / CT brain with contrast",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast CT brain.", "options": ["Post-contrast CT brain."]},
+      "technique": {"normal": "Non-contrast CT brain.",
+                    "options": ["Post-contrast CT brain."]},
       "sections": [
         {"heading": "Brain parenchyma", "normal": "Normal grey-white matter differentiation. No haemorrhage, infarct or mass.",
          "options": ["[Acute infarct / Old infarct / Haemorrhage / Mass / Oedema] in the [ ].",
@@ -71,15 +82,18 @@
          "options": ["[Subdural / Extradural / Subarachnoid] haemorrhage [ ]."]},
         {"heading": "Ventricles", "normal": "Normal ventricular size. No midline shift.",
          "options": ["[Hydrocephalus / Effacement / Midline shift] [ ]."]},
-        {"heading": "Skull and soft tissues", "normal": "No skull fracture or scalp haematoma.", "options": ["[Fracture / Bone lesion / Scalp haematoma] [ ]."]},
-        {"heading": "Sinuses and mastoids", "normal": "Clear paranasal sinuses and mastoids.", "options": ["[Sinus opacification / Mastoid opacification] [ ]."]}
+        {"heading": "Skull and soft tissues", "normal": "No skull fracture or scalp haematoma.",
+         "options": ["[Fracture / Bone lesion / Scalp haematoma] [ ]."]},
+        {"heading": "Sinuses and mastoids", "normal": "Clear paranasal sinuses and mastoids.",
+         "options": ["[Sinus opacification / Mastoid opacification] [ ]."]}
       ],
       "impression": "Normal CT brain."
     },
     "template:head-trauma-report": {
-      "title": "CT brain, head injury",
+      "title": "CT brain, head injury review worksheet",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast CT brain with bone and soft tissue reconstructions.", "options": ["CT cervical spine [ ]."]},
+      "technique": {"normal": "Non-contrast CT brain with bone and soft tissue reconstructions.",
+                    "options": ["CT cervical spine [ ]."]},
       "sections": [
         {"heading": "Extra-axial haemorrhage", "normal": "No extradural, subdural or subarachnoid haemorrhage.",
          "options": ["[Extradural / Subdural / Subarachnoid] haemorrhage over the [ ], [ ] mm thick."]},
@@ -90,30 +104,35 @@
         {"heading": "Ventricles", "normal": "Normal ventricles. No intraventricular haemorrhage.",
          "options": ["[Intraventricular haemorrhage / Hydrocephalus / Effacement] [ ]."]},
         {"heading": "Skull and face", "normal": "No skull or facial fracture.",
-         "options": ["[Linear / Depressed / Skull base] fracture [ ].", "Pneumocephalus [ ]."]},
-        {"heading": "Soft tissues", "normal": "No scalp haematoma.", "options": ["Scalp haematoma over the [ ]."]}
+         "options": ["[Linear / Depressed / Skull base] fracture [ ].",
+                     "Pneumocephalus [ ]."]},
+        {"heading": "Soft tissues", "normal": "No scalp haematoma.",
+         "options": ["Scalp haematoma over the [ ]."]}
       ],
       "impression": "No acute traumatic intracranial injury."
     },
     "ra.ct-traumatic-haemorrhage": {
       "title": "CT brain, head injury",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast CT brain with bone and soft tissue reconstructions."},
+      "technique": {"normal": "Non-contrast CT brain with bone and soft tissue reconstructions.",
+                    "options": []},
       "sections": [
         {"heading": "Extra-axial blood", "normal": "No extradural, subdural or subarachnoid haemorrhage.",
-         "options": ["[Extradural / Subdural / Subarachnoid] haemorrhage over the [ ], [ ] mm thick.", "[Acute / Subacute / Chronic / Mixed] density [ ]."]},
+         "options": ["[Extradural / Subdural / Subarachnoid] haemorrhage over the [ ], [ ] mm thick.",
+                     "[Acute / Subacute / Chronic / Mixed] density [ ]."]},
         {"heading": "Parenchymal injury", "normal": "No contusion or intraparenchymal haemorrhage.",
          "options": ["[Contusion / Intraparenchymal haematoma / Shear haemorrhage] in the [ ], [ ] mL."]},
         {"heading": "Ventricles", "normal": "Normal ventricles. No intraventricular haemorrhage.",
          "options": ["[Intraventricular haemorrhage / Hydrocephalus / Trapped ventricle] [ ]."]},
         {"heading": "Mass effect", "normal": "No midline shift, effacement or herniation.",
          "options": ["Midline shift [ ] mm; [subfalcine / uncal / tonsillar] herniation; basal cisterns [patent / effaced]."]},
-        {"heading": "Bones", "normal": "No skull fracture.", "options": ["[Linear / Depressed / Skull base] fracture [ ]."]}
+        {"heading": "Bones", "normal": "No skull fracture.",
+         "options": ["[Linear / Depressed / Skull base] fracture [ ]."]}
       ],
       "impression": "No acute traumatic intracranial haemorrhage."
     },
     "ra.intracranial-haemorrhage": {
-      "title": "CT brain and CT angiogram",
+      "title": "CT brain and CT angiogram, haemorrhage",
       "radiograph": false,
       "technique": {"normal": "Non-contrast CT brain with CT angiogram of the intracranial arteries.",
                     "options": []},
@@ -122,17 +141,20 @@
          "options": ["[Lobar / Deep / Infratentorial] haemorrhage in the [ ], [ ] mL (ABC/2).",
                      "[Subarachnoid / Intraventricular / Subdural] extension [ ]."]},
         {"heading": "Underlying cause", "normal": "No aneurysm, vascular malformation, mass or venous thrombosis.",
-         "options": ["[Aneurysm / AVM / Cavernoma / Tumour / Venous thrombosis] [ ].", "Spot sign [present / absent]."]},
-        {"heading": "Mass effect", "normal": "No mass effect or hydrocephalus.", "options": ["Midline shift [ ] mm; [hydrocephalus / herniation] [ ]."]},
+         "options": ["[Aneurysm / AVM / Cavernoma / Tumour / Venous thrombosis] [ ].",
+                     "Spot sign [present / absent]."]},
+        {"heading": "Mass effect", "normal": "No mass effect or hydrocephalus.",
+         "options": ["Midline shift [ ] mm; [hydrocephalus / herniation] [ ]."]},
         {"heading": "Background brain", "normal": "No other significant finding.",
          "options": ["[Small vessel disease / Old haemorrhage / Microhaemorrhages / Superficial siderosis] [ ]."]}
       ],
       "impression": "No intracranial haemorrhage."
     },
     "ra.mri-brain-tumours": {
-      "title": "MRI brain with contrast",
+      "title": "MRI brain with contrast, tumour",
       "radiograph": false,
-      "technique": {"normal": "MRI brain with T1 before and after gadolinium, T2, FLAIR, diffusion, SWI and perfusion."},
+      "technique": {"normal": "MRI brain with T1 before and after gadolinium, T2, FLAIR, diffusion, SWI and perfusion.",
+                    "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No intracranial mass.",
          "options": ["[ ] x [ ] x [ ] mm [intra-axial / extra-axial] mass in the [ ].",
@@ -144,14 +166,16 @@
         {"heading": "Response", "normal": "No residual or recurrent tumour.",
          "options": ["RANO [complete response / partial response / stable disease / progressive disease] [ ].",
                      "[Pseudoprogression / Radiation necrosis] favoured [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No intracranial mass."
     },
     "ra.mri-cns-enhancement": {
-      "title": "MRI brain with contrast",
+      "title": "MRI brain with contrast, enhancing lesion",
       "radiograph": false,
-      "technique": {"normal": "MRI brain with T1 before and after gadolinium, FLAIR, diffusion and SWI."},
+      "technique": {"normal": "MRI brain with T1 before and after gadolinium, FLAIR, diffusion and SWI.",
+                    "options": []},
       "sections": [
         {"heading": "Meninges", "normal": "No pachymeningeal or leptomeningeal enhancement.",
          "options": ["[Smooth / Nodular] [pachymeningeal / leptomeningeal] enhancement over the [ ]."]},
@@ -159,19 +183,24 @@
          "options": ["[Ring / Nodular / Patchy / Open-ring] enhancing lesion in the [ ], [ ] mm."]},
         {"heading": "Cranial nerves and ependyma", "normal": "No cranial nerve or ependymal enhancement.",
          "options": ["Enhancement of the [ ] [cranial nerve / ependyma] [ ]."]},
-        {"heading": "Extra-axial spaces", "normal": "No extra-axial collection.", "options": ["[Subdural empyema / Epidural collection] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Extra-axial spaces", "normal": "No extra-axial collection.",
+         "options": ["[Subdural empyema / Epidural collection] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No abnormal intracranial enhancement."
     },
     "ra.mri-dementia": {
       "title": "MRI brain, cognitive impairment",
       "radiograph": false,
-      "technique": {"normal": "MRI brain with 3D T1, FLAIR, diffusion and SWI, with coronal hippocampal reconstructions."},
+      "technique": {"normal": "MRI brain with 3D T1, FLAIR, diffusion and SWI, with coronal hippocampal reconstructions.",
+                    "options": []},
       "sections": [
-        {"heading": "Global atrophy", "normal": "Normal brain volume for age.", "options": ["Global cortical atrophy grade [1 / 2 / 3]."]},
+        {"heading": "Global atrophy", "normal": "Normal brain volume for age.",
+         "options": ["Global cortical atrophy grade [1 / 2 / 3]."]},
         {"heading": "Medial temporal lobes", "normal": "Hippocampal volumes normal for age.",
-         "options": ["MTA score right [0 / 1 / 2 / 3 / 4], left [0 / 1 / 2 / 3 / 4].", "Posterior atrophy (Koedam) grade [1 / 2 / 3]."]},
+         "options": ["MTA score right [0 / 1 / 2 / 3 / 4], left [0 / 1 / 2 / 3 / 4].",
+                     "Posterior atrophy (Koedam) grade [1 / 2 / 3]."]},
         {"heading": "Frontal and temporal lobes", "normal": "No disproportionate frontal or anterior temporal atrophy.",
          "options": ["[Frontal / Anterior temporal / Asymmetric] atrophy [ ]."]},
         {"heading": "Small vessel disease", "normal": "No significant white matter hyperintensities or lacunes.",
@@ -186,7 +215,8 @@
     "ra.mri-epilepsy": {
       "title": "MRI brain, epilepsy protocol",
       "radiograph": false,
-      "technique": {"normal": "MRI brain epilepsy protocol with 3D T1, 3D FLAIR, coronal T2 and SWI."},
+      "technique": {"normal": "MRI brain epilepsy protocol with 3D T1, 3D FLAIR, coronal T2 and SWI.",
+                    "options": []},
       "sections": [
         {"heading": "Hippocampi", "normal": "Symmetrical hippocampi with normal size, signal and internal architecture.",
          "options": ["[Right / Left] hippocampal [atrophy / T2 hyperintensity / loss of internal architecture], consistent with hippocampal sclerosis."]},
@@ -194,7 +224,8 @@
          "options": ["[Focal cortical dysplasia / Heterotopia / Polymicrogyria / Transmantle sign] in the [ ]."]},
         {"heading": "Focal lesions", "normal": "No tumour, cavernoma, encephalomalacia or gliosis.",
          "options": ["[Tumour / Cavernoma / Encephalomalacia / Gliosis] in the [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No epileptogenic lesion."
     },
@@ -210,10 +241,12 @@
         {"heading": "Spinal cord and optic nerves", "normal": "No cord or optic nerve lesion on the imaged segments.",
          "options": ["[Cord lesion / Optic nerve lesion] at [ ]."]},
         {"heading": "Activity", "normal": "No enhancing, new or enlarging lesion.",
-         "options": ["[ ] enhancing lesions [ ].", "[ ] new or enlarging T2 lesions since [ ]."]},
+         "options": ["[ ] enhancing lesions [ ].",
+                     "[ ] new or enlarging T2 lesions since [ ]."]},
         {"heading": "Dissemination", "normal": "No dissemination in space or time.",
          "options": ["Dissemination in space [met / not met]; in time [met / not met] (McDonald criteria)."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No MRI evidence of demyelination."
     },
@@ -230,50 +263,62 @@
          "options": ["Thrombus in the [internal cerebral veins / vein of Galen / cortical veins] [ ]."]},
         {"heading": "Parenchyma", "normal": "No venous infarct, oedema or haemorrhage.",
          "options": ["[Venous infarct / Oedema / Haemorrhage] in the [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No cerebral venous thrombosis."
     },
     "ra.intracranial-hypotension": {
       "title": "MRI brain and spine with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI brain with contrast and MRI whole spine with heavily T2-weighted fat-suppressed imaging."},
+      "technique": {"normal": "MRI brain with contrast and MRI whole spine with heavily T2-weighted fat-suppressed imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Dura and veins", "normal": "No pachymeningeal enhancement or venous distension.",
          "options": ["[Pachymeningeal enhancement / Venous distension sign / Pituitary engorgement] [ ]."]},
         {"heading": "Brain position", "normal": "Normal brain position. No sagging.",
          "options": ["[Brain sagging / Tonsillar descent / Reduced mamillopontine distance / Effaced suprasellar cistern] [ ]."]},
-        {"heading": "Subdural collections", "normal": "No subdural collection.", "options": ["Bilateral subdural [hygromas / haematomas] [ ]."]},
+        {"heading": "Subdural collections", "normal": "No subdural collection.",
+         "options": ["Bilateral subdural [hygromas / haematomas] [ ]."]},
         {"heading": "Spine", "normal": "No spinal epidural fluid collection.",
-         "options": ["[Ventral / Dorsal] epidural fluid collection from [ ] to [ ].", "[Meningeal diverticulum / Disc osteophyte spicule] at [ ]."]},
-        {"heading": "Bern score", "normal": "Bern score 0.", "options": ["Bern score [ ] ([low / intermediate / high] probability)."]}
+         "options": ["[Ventral / Dorsal] epidural fluid collection from [ ] to [ ].",
+                     "[Meningeal diverticulum / Disc osteophyte spicule] at [ ]."]},
+        {"heading": "Bern score", "normal": "Bern score 0.",
+         "options": ["Bern score [ ] ([low / intermediate / high] probability)."]}
       ],
       "impression": "No MRI features of intracranial hypotension."
     },
     "ra.mri-sella": {
       "title": "MRI pituitary",
       "radiograph": false,
-      "technique": {"normal": "Dedicated MRI pituitary with thin coronal and sagittal T1 and T2 and dynamic contrast imaging."},
+      "technique": {"normal": "Dedicated MRI pituitary with thin coronal and sagittal T1 and T2 and dynamic contrast imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Pituitary gland", "normal": "Normal size, signal and enhancement. No adenoma.",
          "options": ["[ ] mm [microadenoma / macroadenoma] in the [right / left / central] gland, [hypoenhancing / cystic / haemorrhagic].",
                      "Gland height [ ] mm."]},
         {"heading": "Stalk and hypothalamus", "normal": "Midline stalk. Normal hypothalamus.",
-         "options": ["[Thickened / Deviated] stalk [ ].", "[Rathke cleft cyst / Craniopharyngioma / Absent posterior bright spot] [ ]."]},
-        {"heading": "Optic chiasm", "normal": "No chiasmal compression.", "options": ["Suprasellar extension [with / without] chiasmal compression."]},
-        {"heading": "Cavernous sinuses", "normal": "No cavernous sinus invasion.", "options": ["Knosp grade [0 / 1 / 2 / 3A / 3B / 4] on the [right / left]."]},
-        {"heading": "Sella and skull base", "normal": "Normal sella and sphenoid sinus.", "options": ["[Sellar expansion / Floor erosion / Sphenoid invasion] [ ]."]}
+         "options": ["[Thickened / Deviated] stalk [ ].",
+                     "[Rathke cleft cyst / Craniopharyngioma / Absent posterior bright spot] [ ]."]},
+        {"heading": "Optic chiasm", "normal": "No chiasmal compression.",
+         "options": ["Suprasellar extension [with / without] chiasmal compression."]},
+        {"heading": "Cavernous sinuses", "normal": "No cavernous sinus invasion.",
+         "options": ["Knosp grade [0 / 1 / 2 / 3A / 3B / 4] on the [right / left]."]},
+        {"heading": "Sella and skull base", "normal": "Normal sella and sphenoid sinus.",
+         "options": ["[Sellar expansion / Floor erosion / Sphenoid invasion] [ ]."]}
       ],
       "impression": "Normal pituitary gland."
     },
     "ra.mri-trigeminal": {
       "title": "MRI trigeminal nerves",
       "radiograph": false,
-      "technique": {"normal": "MRI brain with high-resolution 3D T2 and post-contrast 3D T1 of the posterior fossa."},
+      "technique": {"normal": "MRI brain with high-resolution 3D T2 and post-contrast 3D T1 of the posterior fossa.",
+                    "options": []},
       "sections": [
         {"heading": "Root entry zone and cisternal segment", "normal": "No neurovascular contact at either root entry zone.",
          "options": ["[Contact / Distortion / Displacement] of the [right / left] trigeminal nerve by the [superior cerebellar artery / AICA / a vein] at [ ]."]},
-        {"heading": "Brainstem", "normal": "No brainstem lesion.", "options": ["[Demyelinating plaque / Infarct / Mass] [ ]."]},
+        {"heading": "Brainstem", "normal": "No brainstem lesion.",
+         "options": ["[Demyelinating plaque / Infarct / Mass] [ ]."]},
         {"heading": "Meckel cave and cavernous sinus", "normal": "Normal Meckel caves and cavernous sinuses.",
          "options": ["[Schwannoma / Meningioma / Perineural spread] [ ]."]},
         {"heading": "Peripheral branches", "normal": "Normal foramina and peripheral branches. No denervation change.",
@@ -284,7 +329,8 @@
     "ra.craniosynostosis": {
       "title": "CT head, 3D skull",
       "radiograph": false,
-      "technique": {"normal": "Low-dose CT head with 3D skull reconstruction."},
+      "technique": {"normal": "Low-dose CT head with 3D skull reconstruction.",
+                    "options": []},
       "sections": [
         {"heading": "Sutures", "normal": "Patent sagittal, coronal, metopic and lambdoid sutures.",
          "options": ["Fusion of the [sagittal / right coronal / left coronal / metopic / right lambdoid / left lambdoid] suture [ ]."]},
@@ -300,11 +346,13 @@
     "ra.ct-mri-eye": {
       "title": "CT orbits",
       "radiograph": false,
-      "technique": {"normal": "CT orbits with IV contrast.", "options": []},
+      "technique": {"normal": "CT orbits with IV contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Globes", "normal": "Normal globes and lenses.",
          "options": ["[Retinal detachment / Choroidal detachment / Globe rupture / Intraocular mass / Foreign body] [ ]."]},
-        {"heading": "Preseptal tissues", "normal": "No preseptal swelling.", "options": ["Preseptal [cellulitis / haematoma] [ ]."]},
+        {"heading": "Preseptal tissues", "normal": "No preseptal swelling.",
+         "options": ["Preseptal [cellulitis / haematoma] [ ]."]},
         {"heading": "Orbital compartments", "normal": "No orbital mass, collection or inflammation.",
          "options": ["[Subperiosteal abscess / Orbital cellulitis / Mass / Lacrimal gland enlargement] [ ]."]},
         {"heading": "Extraocular muscles and optic nerves", "normal": "Normal extraocular muscles and optic nerves.",
@@ -317,9 +365,11 @@
     "ra.ct-temporal-bone": {
       "title": "CT temporal bones",
       "radiograph": false,
-      "technique": {"normal": "High-resolution CT temporal bones without contrast."},
+      "technique": {"normal": "High-resolution CT temporal bones without contrast.",
+                    "options": []},
       "sections": [
-        {"heading": "External auditory canals", "normal": "Normal external auditory canals.", "options": ["[Exostoses / Atresia / Soft tissue] [ ]."]},
+        {"heading": "External auditory canals", "normal": "Normal external auditory canals.",
+         "options": ["[Exostoses / Atresia / Soft tissue] [ ]."]},
         {"heading": "Middle ear and ossicles", "normal": "Aerated middle ear cavities. Intact ossicles.",
          "options": ["[Opacification / Cholesteatoma / Ossicular erosion / Ossicular dislocation] [ ]."]},
         {"heading": "Mastoids and tegmen", "normal": "Well-aerated mastoids. Intact tegmen and sigmoid plate.",
@@ -345,29 +395,36 @@
          "options": ["[Labyrinthitis / Middle ear mass / Otosclerosis] [ ]."]},
         {"heading": "Vascular", "normal": "No vascular cause for pulsatile tinnitus.",
          "options": ["[Glomus tumour / Dural arteriovenous fistula / Sigmoid sinus diverticulum / Aberrant ICA / High jugular bulb / Venous sinus stenosis] [ ]."]},
-        {"heading": "Brain", "normal": "No other intracranial abnormality.", "options": ["[ ]."]}
+        {"heading": "Brain", "normal": "No other intracranial abnormality.",
+         "options": ["[ ]."]}
       ],
       "impression": "No structural cause for tinnitus."
     },
     "ra.mri-sinuses": {
       "title": "MRI paranasal sinuses",
       "radiograph": false,
-      "technique": {"normal": "MRI paranasal sinuses with contrast.", "options": []},
+      "technique": {"normal": "MRI paranasal sinuses with contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Sinuses", "normal": "Clear paranasal sinuses.",
-         "options": ["Mucosal thickening of the [maxillary / ethmoid / frontal / sphenoid] sinuses [ ].", "Lund-Mackay score [ ]."]},
+         "options": ["Mucosal thickening of the [maxillary / ethmoid / frontal / sphenoid] sinuses [ ].",
+                     "Lund-Mackay score [ ]."]},
         {"heading": "Drainage pathways", "normal": "Patent ostiomeatal units and sphenoethmoidal recesses.",
          "options": ["Obstructed [right / left] [ostiomeatal unit / sphenoethmoidal recess / frontal recess] [ ]."]},
-        {"heading": "Nasal cavity", "normal": "Normal nasal cavity and septum.", "options": ["[Polyps / Septal deviation / Concha bullosa / Mass] [ ]."]},
-        {"heading": "Focal lesion and bone", "normal": "No mass or bone erosion.", "options": ["[Mass / Mucocele / Bone erosion / Fungal sinusitis] [ ]."]},
-        {"heading": "Orbit and skull base", "normal": "No orbital or intracranial extension.", "options": ["[Orbital / Intracranial] extension [ ]."]}
+        {"heading": "Nasal cavity", "normal": "Normal nasal cavity and septum.",
+         "options": ["[Polyps / Septal deviation / Concha bullosa / Mass] [ ]."]},
+        {"heading": "Focal lesion and bone", "normal": "No mass or bone erosion.",
+         "options": ["[Mass / Mucocele / Bone erosion / Fungal sinusitis] [ ]."]},
+        {"heading": "Orbit and skull base", "normal": "No orbital or intracranial extension.",
+         "options": ["[Orbital / Intracranial] extension [ ]."]}
       ],
       "impression": "Normal paranasal sinuses."
     },
     "ra.mri-neck-spaces": {
       "title": "MRI neck with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI neck with T1, T2, fat-suppressed T2, diffusion and post-contrast T1."},
+      "technique": {"normal": "MRI neck with T1, T2, fat-suppressed T2, diffusion and post-contrast T1.",
+                    "options": []},
       "sections": [
         {"heading": "Suprahyoid neck", "normal": "Normal parapharyngeal, masticator, parotid, carotid and retropharyngeal spaces.",
          "options": ["[ ] mm mass centred in the [ ] space [ ]."]},
@@ -375,36 +432,47 @@
          "options": ["[ ] mm mass centred in the [ ] space [ ]."]},
         {"heading": "Lymph nodes", "normal": "No enlarged or suspicious lymph nodes.",
          "options": ["Level [ ] node, [ ] mm short axis, [necrotic / extranodal extension / round]."]},
-        {"heading": "Airway and glands", "normal": "Normal airway, thyroid and salivary glands.", "options": ["[ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Airway and glands", "normal": "Normal airway, thyroid and salivary glands.",
+         "options": ["[ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal MRI neck."
     },
     "ra.head-neck-malignancy": {
-      "title": "CT neck with contrast",
+      "title": "CT neck with contrast, cancer staging",
       "radiograph": false,
-      "technique": {"normal": "CT neck with IV contrast.", "options": []},
+      "technique": {"normal": "CT neck with IV contrast.",
+                    "options": []},
       "sections": [
-        {"heading": "Primary tumour", "normal": "No primary tumour identified.", "options": ["[ ] mm mass of the [ ] [ ]."]},
+        {"heading": "Primary tumour", "normal": "No primary tumour identified.",
+         "options": ["[ ] mm mass of the [ ] [ ]."]},
         {"heading": "Local extent", "normal": "No deep space, bone or cartilage invasion.",
          "options": ["Invasion of the [prevertebral fascia / mandible / laryngeal cartilage / skull base / pre-epiglottic space] [ ]."]},
-        {"heading": "Perineural spread", "normal": "No perineural spread.", "options": ["Perineural spread along [ ]."]},
-        {"heading": "Vessels and airway", "normal": "No carotid encasement. Patent airway.", "options": ["Carotid contact [ ] degrees.", "Airway narrowing [ ]."]},
+        {"heading": "Perineural spread", "normal": "No perineural spread.",
+         "options": ["Perineural spread along [ ]."]},
+        {"heading": "Vessels and airway", "normal": "No carotid encasement. Patent airway.",
+         "options": ["Carotid contact [ ] degrees.",
+                     "Airway narrowing [ ]."]},
         {"heading": "Lymph nodes", "normal": "No suspicious cervical lymph nodes.",
          "options": ["Level [ ] [right / left] node, [ ] mm, [necrotic / extranodal extension] [ ]."]},
-        {"heading": "Stage", "normal": "No tumour to stage.", "options": ["cT[ ] N[ ] M[ ] (AJCC 8th edition)."]}
+        {"heading": "Stage", "normal": "No tumour to stage.",
+         "options": ["cT[ ] N[ ] M[ ] (AJCC 8th edition)."]}
       ],
       "impression": "No head and neck malignancy identified."
     },
     "neck.ct-post-treatment": {
       "title": "CT neck with contrast, post-treatment surveillance",
       "radiograph": false,
-      "technique": {"normal": "CT neck with IV contrast."},
+      "technique": {"normal": "CT neck with IV contrast.",
+                    "options": []},
       "sections": [
         {"heading": "Primary site", "normal": "Expected post-treatment change. No mass at the primary site.",
-         "options": ["[Discrete nodule / Mass / Ill-defined enhancement] at the primary site, [ ] mm.", "NI-RADS primary [1 / 2a / 2b / 3 / 4]."]},
+         "options": ["[Discrete nodule / Mass / Ill-defined enhancement] at the primary site, [ ] mm.",
+                     "NI-RADS primary [1 / 2a / 2b / 3 / 4]."]},
         {"heading": "Neck", "normal": "No new or enlarging lymph node.",
-         "options": ["Level [ ] node, [ ] mm, [new / enlarging / necrotic].", "NI-RADS neck [1 / 2 / 3 / 4]."]},
+         "options": ["Level [ ] node, [ ] mm, [new / enlarging / necrotic].",
+                     "NI-RADS neck [1 / 2 / 3 / 4]."]},
         {"heading": "Other findings", "normal": "No other significant finding.",
          "options": ["[Osteoradionecrosis / Soft tissue necrosis / Lung nodule] [ ]."]}
       ],
@@ -414,12 +482,15 @@
     "neck.mri-post-treatment": {
       "title": "MRI neck with contrast, post-treatment surveillance",
       "radiograph": false,
-      "technique": {"normal": "MRI neck with T2, diffusion and post-contrast T1."},
+      "technique": {"normal": "MRI neck with T2, diffusion and post-contrast T1.",
+                    "options": []},
       "sections": [
         {"heading": "Primary site", "normal": "Expected post-treatment change. No mass at the primary site.",
-         "options": ["[Discrete nodule / Mass / Ill-defined enhancement] at the primary site, [ ] mm, ADC [ ].", "NI-RADS primary [1 / 2a / 2b / 3 / 4]."]},
+         "options": ["[Discrete nodule / Mass / Ill-defined enhancement] at the primary site, [ ] mm, ADC [ ].",
+                     "NI-RADS primary [1 / 2a / 2b / 3 / 4]."]},
         {"heading": "Neck", "normal": "No new or enlarging lymph node.",
-         "options": ["Level [ ] node, [ ] mm, [new / enlarging / necrotic].", "NI-RADS neck [1 / 2 / 3 / 4]."]},
+         "options": ["Level [ ] node, [ ] mm, [new / enlarging / necrotic].",
+                     "NI-RADS neck [1 / 2 / 3 / 4]."]},
         {"heading": "Other findings", "normal": "No other significant finding.",
          "options": ["[Osteoradionecrosis / Perineural spread / Skull base marrow change] [ ]."]}
       ],
@@ -429,20 +500,23 @@
     "ra.cervical-lymph-nodes": {
       "title": "Ultrasound neck, lymph nodes",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound of the cervical lymph node levels with colour Doppler.", "options": ["CT neck with IV contrast."]},
+      "technique": {"normal": "Ultrasound of the cervical lymph node levels with colour Doppler.",
+                    "options": []},
       "sections": [
         {"heading": "Right neck", "normal": "No abnormal lymph nodes in levels I to VI.",
          "options": ["Level [I / II / III / IV / V / VI] node, [ ] x [ ] mm, [loss of fatty hilum / round shape / necrosis / calcification / peripheral vascularity]."]},
         {"heading": "Left neck", "normal": "No abnormal lymph nodes in levels I to VI.",
          "options": ["Level [I / II / III / IV / V / VI] node, [ ] x [ ] mm, [loss of fatty hilum / round shape / necrosis / calcification / peripheral vascularity]."]},
-        {"heading": "Other findings", "normal": "Normal thyroid and salivary glands.", "options": ["[ ]."]}
+        {"heading": "Other findings", "normal": "Normal thyroid and salivary glands.",
+         "options": ["[ ]."]}
       ],
       "impression": "No abnormal cervical lymph nodes."
     },
     "ra.ultrasound-thyroid": {
       "title": "Ultrasound thyroid",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound of the thyroid and cervical lymph nodes."},
+      "technique": {"normal": "Ultrasound of the thyroid and cervical lymph nodes.",
+                    "options": []},
       "sections": [
         {"heading": "Thyroid gland", "normal": "Normal size and echotexture.",
          "options": ["Right lobe [ ] x [ ] x [ ] mm, left lobe [ ] x [ ] x [ ] mm, isthmus [ ] mm.",
@@ -451,8 +525,10 @@
          "options": ["Nodule [ ] in the [right lobe / left lobe / isthmus], [ ] x [ ] x [ ] mm.",
                      "[Cystic / Spongiform / Mixed / Solid], [anechoic / hyperechoic / isoechoic / hypoechoic / very hypoechoic], [wider-than-tall / taller-than-wide], [smooth / lobulated / extrathyroidal extension], [no echogenic foci / macrocalcification / rim calcification / punctate echogenic foci].",
                      "ACR TI-RADS [TR1 / TR2 / TR3 / TR4 / TR5], [ ] points."]},
-        {"heading": "Lymph nodes", "normal": "No suspicious cervical lymph nodes.", "options": ["Suspicious level [ ] node, [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[Parathyroid lesion / Salivary gland lesion] [ ]."]}
+        {"heading": "Lymph nodes", "normal": "No suspicious cervical lymph nodes.",
+         "options": ["Suspicious level [ ] node, [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[Parathyroid lesion / Salivary gland lesion] [ ]."]}
       ],
       "impression": "Normal thyroid ultrasound."
     }

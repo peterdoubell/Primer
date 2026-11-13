@@ -1,9 +1,9 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-12",
+  "revision": "2026-11-13",
   "templates": {
     "ra.thoracolumbar-fractures": {
-      "title": "CT thoracic and lumbar spine",
+      "title": "CT thoracic and lumbar spine, fracture classification",
       "radiograph": false,
       "technique": {"normal": "CT thoracic and lumbar spine with sagittal and coronal reconstructions.",
                     "options": []},
@@ -33,26 +33,31 @@
         {"heading": "Alignment", "normal": "Normal alignment. Normal craniocervical and atlantoaxial relationships.",
          "options": ["[Anterolisthesis / Retrolisthesis / Facet subluxation / Perched facet / Facet dislocation] at [ ]."]},
         {"heading": "Fractures", "normal": "No fracture.",
-         "options": ["Fracture of [ ] [ ].", "[Occipital condyle / Jefferson / Odontoid / Hangman / Teardrop / Clay-shoveler] fracture [ ]."]},
+         "options": ["Fracture of [ ] [ ].",
+                     "[Occipital condyle / Jefferson / Odontoid / Hangman / Teardrop / Clay-shoveler] fracture [ ]."]},
         {"heading": "Ligaments and discs", "normal": "No ligamentous injury or traumatic disc herniation on the available imaging.",
          "options": ["[Anterior longitudinal ligament / Posterior longitudinal ligament / Ligamentum flavum / Interspinous ligament] injury at [ ].",
                      "Traumatic disc herniation at [ ]."]},
         {"heading": "Canal and cord", "normal": "No canal compromise. Normal cord signal.",
          "options": ["[Cord oedema / Cord haemorrhage / Epidural haematoma / Canal narrowing] at [ ]."]},
         {"heading": "Soft tissues and vessels", "normal": "Normal prevertebral soft tissues.",
-         "options": ["Prevertebral swelling [ ] mm at [ ].", "Fracture through the transverse foramen at [ ]; vertebral artery assessment advised."]},
-        {"heading": "Classification", "normal": "No injury to classify.", "options": ["SLIC score [ ]; AO Spine [ ]."]}
+         "options": ["Prevertebral swelling [ ] mm at [ ].",
+                     "Fracture through the transverse foramen at [ ]; vertebral artery assessment advised."]},
+        {"heading": "Classification", "normal": "No injury to classify.",
+         "options": ["SLIC score [ ]; AO Spine [ ]."]}
       ],
       "impression": "No cervical spine fracture or malalignment."
     },
     "ra.mri-lumbar-disc": {
       "title": "MRI lumbar spine",
       "radiograph": false,
-      "technique": {"normal": "MRI lumbar spine with sagittal T1, T2 and STIR and axial T2."},
+      "technique": {"normal": "MRI lumbar spine with sagittal T1, T2 and STIR and axial T2.",
+                    "options": []},
       "sections": [
         {"heading": "Alignment and vertebrae", "normal": "Normal alignment. Normal vertebral heights and marrow signal.",
          "options": ["[Anterolisthesis / Retrolisthesis] of [ ] on [ ], grade [1 / 2 / 3 / 4].",
-                     "Modic type [1 / 2 / 3] endplate change at [ ].", "Transitional lumbosacral vertebra [ ]."]},
+                     "Modic type [1 / 2 / 3] endplate change at [ ].",
+                     "Transitional lumbosacral vertebra [ ]."]},
         {"heading": "Discs", "normal": "Normal disc hydration and height. No disc herniation.",
          "options": ["[L1-2 / L2-3 / L3-4 / L4-5 / L5-S1]: [bulge / protrusion / extrusion / sequestration], [central / right paracentral / left paracentral / foraminal / extraforaminal].",
                      "Annular fissure at [ ]."]},
@@ -62,12 +67,13 @@
         {"heading": "Foramina", "normal": "Patent neural foramina.",
          "options": ["[Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis at [ ] with [contact / compression] of the exiting [ ] nerve root."]},
         {"heading": "Conus and other findings", "normal": "Normal conus and cauda equina. No paraspinal abnormality.",
-         "options": ["Conus terminates at [ ].", "[Facet arthropathy / Synovial cyst / Paraspinal mass / Renal cyst] [ ]."]}
+         "options": ["Conus terminates at [ ].",
+                     "[Facet arthropathy / Synovial cyst / Paraspinal mass / Renal cyst] [ ]."]}
       ],
       "impression": "No disc herniation, canal stenosis or foraminal stenosis."
     },
     "ra.mri-myelopathy": {
-      "title": "MRI cervical spine / MRI thoracic spine",
+      "title": "MRI cervical spine, myelopathy / MRI thoracic spine, myelopathy",
       "radiograph": false,
       "technique": {"normal": "MRI spine with sagittal T1, T2 and STIR and axial T2 and gradient echo.",
                     "options": ["Post-gadolinium T1 imaging."]},
@@ -77,7 +83,8 @@
                      "[Cord expansion / Cord atrophy / Syrinx] [ ]."]},
         {"heading": "Compression", "normal": "No cord compression.",
          "options": ["Cord compression at [ ] by [disc osteophyte complex / ossified ligament / ligamentum flavum / mass] [ ]."]},
-        {"heading": "Enhancement", "normal": "No abnormal enhancement.", "options": ["[Patchy / Ring / Linear dorsal] enhancement at [ ]."]},
+        {"heading": "Enhancement", "normal": "No abnormal enhancement.",
+         "options": ["[Patchy / Ring / Linear dorsal] enhancement at [ ]."]},
         {"heading": "Vertebrae and discs", "normal": "No significant degenerative or destructive change.",
          "options": ["[Degenerative stenosis / Vertebral lesion / Discitis] at [ ]."]},
         {"heading": "Other findings", "normal": "No other significant finding.",
@@ -88,15 +95,18 @@
     "ra.thoracolumbar-injury": {
       "title": "CT thoracic and lumbar spine, trauma",
       "radiograph": false,
-      "technique": {"normal": "CT thoracic and lumbar spine with sagittal and coronal reconstructions."},
+      "technique": {"normal": "CT thoracic and lumbar spine with sagittal and coronal reconstructions.",
+                    "options": []},
       "sections": [
         {"heading": "Levels and alignment", "normal": "Normal vertebral numbering and alignment.",
-         "options": ["[Kyphosis / Translation / Scoliosis] at [ ] [ ].", "Numbering: [ ] rib-bearing vertebrae, [ ] lumbar-type vertebrae."]},
+         "options": ["[Kyphosis / Translation / Scoliosis] at [ ] [ ].",
+                     "Numbering: [ ] rib-bearing vertebrae, [ ] lumbar-type vertebrae."]},
         {"heading": "Vertebral bodies", "normal": "No fracture.",
          "options": ["[Compression / Burst / Chance / Translation] fracture of [ ], [ ] percent height loss."]},
         {"heading": "Posterior structures", "normal": "Intact posterior elements.",
          "options": ["[Facet / Lamina / Pedicle / Spinous process / Transverse process] fracture at [ ]."]},
-        {"heading": "Canal", "normal": "No canal compromise.", "options": ["Retropulsed fragment narrowing the canal by [ ] percent at [ ]."]},
+        {"heading": "Canal", "normal": "No canal compromise.",
+         "options": ["Retropulsed fragment narrowing the canal by [ ] percent at [ ]."]},
         {"heading": "Associated findings", "normal": "No paraspinal haematoma or associated injury.",
          "options": ["[Paraspinal haematoma / Rib fracture / Visceral injury] [ ]."]}
       ],
@@ -106,8 +116,10 @@
       "title": "Sacrum and coccyx radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Sacrum", "normal": "No sacral fracture.", "options": ["[Transverse / Vertical / Insufficiency] sacral fracture [ ]."]},
-        {"heading": "Coccyx", "normal": "Normal coccygeal alignment. No fracture.", "options": ["[Fracture / Dislocation / Angulation] of the coccyx [ ]."]},
+        {"heading": "Sacrum", "normal": "No sacral fracture.",
+         "options": ["[Transverse / Vertical / Insufficiency] sacral fracture [ ]."]},
+        {"heading": "Coccyx", "normal": "Normal coccygeal alignment. No fracture.",
+         "options": ["[Fracture / Dislocation / Angulation] of the coccyx [ ]."]},
         {"heading": "Sacroiliac joints and pelvis", "normal": "Normal sacroiliac joints and visualised pelvis.",
          "options": ["[Sacroiliitis / Fracture / Bone lesion] [ ]."]}
       ],
@@ -118,12 +130,16 @@
       "radiograph": true,
       "sections": [
         {"heading": "Alignment", "normal": "Normal alignment.",
-         "options": ["[Anterolisthesis / Retrolisthesis / Loss of lordosis / Kyphosis] at [ ].", "Dynamic instability at [ ] on flexion and extension."]},
-        {"heading": "Vertebrae", "normal": "Normal vertebral heights. No fracture.", "options": ["[Fracture / Lytic lesion / Sclerotic lesion] at [ ]."]},
+         "options": ["[Anterolisthesis / Retrolisthesis / Loss of lordosis / Kyphosis] at [ ].",
+                     "Dynamic instability at [ ] on flexion and extension."]},
+        {"heading": "Vertebrae", "normal": "Normal vertebral heights. No fracture.",
+         "options": ["[Fracture / Lytic lesion / Sclerotic lesion] at [ ]."]},
         {"heading": "Discs and joints", "normal": "Preserved disc spaces. No significant degenerative change.",
          "options": ["[Disc space narrowing / Osteophytes / Facet arthropathy / Uncovertebral arthropathy] at [ ]."]},
-        {"heading": "Odontoid and C1", "normal": "Normal odontoid and atlantoaxial articulation.", "options": ["Atlantodental interval [ ] mm."]},
-        {"heading": "Prevertebral soft tissues", "normal": "Normal prevertebral soft tissues.", "options": ["Prevertebral swelling [ ] mm at [ ]."]}
+        {"heading": "Odontoid and C1", "normal": "Normal odontoid and atlantoaxial articulation.",
+         "options": ["Atlantodental interval [ ] mm."]},
+        {"heading": "Prevertebral soft tissues", "normal": "Normal prevertebral soft tissues.",
+         "options": ["Prevertebral swelling [ ] mm at [ ]."]}
       ],
       "impression": "Normal cervical spine radiographs."
     },
@@ -131,12 +147,15 @@
       "title": "Thoracic spine radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Alignment", "normal": "Normal alignment and kyphosis.", "options": ["[Scoliosis / Hyperkyphosis / Translation] [ ]."]},
+        {"heading": "Alignment", "normal": "Normal alignment and kyphosis.",
+         "options": ["[Scoliosis / Hyperkyphosis / Translation] [ ]."]},
         {"heading": "Vertebrae", "normal": "Normal vertebral heights. No fracture.",
-         "options": ["[Wedge compression / Burst] fracture of [ ], [ ] percent height loss.", "[Lytic / Sclerotic] lesion at [ ]."]},
+         "options": ["[Wedge compression / Burst] fracture of [ ], [ ] percent height loss.",
+                     "[Lytic / Sclerotic] lesion at [ ]."]},
         {"heading": "Discs and joints", "normal": "Preserved disc spaces. No significant degenerative change.",
          "options": ["[Disc space narrowing / Osteophytes / Syndesmophytes / DISH] [ ]."]},
-        {"heading": "Paraspinal lines", "normal": "Normal paraspinal lines.", "options": ["Paraspinal widening at [ ]."]}
+        {"heading": "Paraspinal lines", "normal": "Normal paraspinal lines.",
+         "options": ["Paraspinal widening at [ ]."]}
       ],
       "impression": "Normal thoracic spine radiographs."
     },
@@ -145,12 +164,15 @@
       "radiograph": true,
       "sections": [
         {"heading": "Alignment", "normal": "Normal alignment.",
-         "options": ["[Anterolisthesis / Retrolisthesis] of [ ] on [ ], grade [1 / 2 / 3 / 4].", "[Scoliosis / Loss of lordosis] [ ]."]},
+         "options": ["[Anterolisthesis / Retrolisthesis] of [ ] on [ ], grade [1 / 2 / 3 / 4].",
+                     "[Scoliosis / Loss of lordosis] [ ]."]},
         {"heading": "Vertebrae", "normal": "Normal vertebral heights. No fracture or pars defect.",
-         "options": ["[Compression fracture / Pars defect / Lytic lesion / Sclerotic lesion] at [ ].", "Transitional lumbosacral vertebra [ ]."]},
+         "options": ["[Compression fracture / Pars defect / Lytic lesion / Sclerotic lesion] at [ ].",
+                     "Transitional lumbosacral vertebra [ ]."]},
         {"heading": "Discs and facets", "normal": "Preserved disc spaces. No significant degenerative change.",
          "options": ["[Disc space narrowing / Osteophytes / Facet arthropathy / Vacuum phenomenon] at [ ]."]},
-        {"heading": "Sacroiliac joints", "normal": "Normal visualised sacroiliac joints.", "options": ["[Sacroiliitis / Ankylosis] [ ]."]}
+        {"heading": "Sacroiliac joints", "normal": "Normal visualised sacroiliac joints.",
+         "options": ["[Sacroiliitis / Ankylosis] [ ]."]}
       ],
       "impression": "Normal lumbar spine radiographs."
     },
@@ -164,36 +186,44 @@
         {"heading": "Sagittal profile", "normal": "Normal thoracic kyphosis and lumbar lordosis.",
          "options": ["Thoracic kyphosis [ ] degrees; lumbar lordosis [ ] degrees."]},
         {"heading": "Balance", "normal": "Normal coronal and sagittal balance.",
-         "options": ["C7 plumb line [ ] mm to the [right / left] of the central sacral vertical line.", "Sagittal vertical axis [ ] mm."]},
-        {"heading": "Vertebrae", "normal": "No vertebral anomaly.", "options": ["[Hemivertebra / Butterfly vertebra / Block vertebra / Rib anomaly] at [ ]."]},
-        {"heading": "Skeletal maturity", "normal": "Skeletally mature.", "options": ["Risser grade [0 / 1 / 2 / 3 / 4 / 5]; triradiate cartilage [open / closed]."]}
+         "options": ["C7 plumb line [ ] mm to the [right / left] of the central sacral vertical line.",
+                     "Sagittal vertical axis [ ] mm."]},
+        {"heading": "Vertebrae", "normal": "No vertebral anomaly.",
+         "options": ["[Hemivertebra / Butterfly vertebra / Block vertebra / Rib anomaly] at [ ]."]},
+        {"heading": "Skeletal maturity", "normal": "Skeletally mature.",
+         "options": ["Risser grade [0 / 1 / 2 / 3 / 4 / 5]; triradiate cartilage [open / closed]."]}
       ],
       "impression": "No scoliosis."
     },
     "msk.mri-lumbosacral-plexus": {
       "title": "MR neurography, lumbosacral plexus",
       "radiograph": false,
-      "technique": {"normal": "MR neurography of the lumbosacral plexus with 3D STIR, T1 and diffusion-weighted imaging."},
+      "technique": {"normal": "MR neurography of the lumbosacral plexus with 3D STIR, T1 and diffusion-weighted imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Nerve roots", "normal": "Normal L2 to S2 nerve roots and lumbosacral trunk.",
          "options": ["[Thickening / T2 hyperintensity / Compression] of the [ ] nerve root [ ]."]},
         {"heading": "Plexus and nerves", "normal": "Normal calibre and signal of the lumbosacral plexus and the femoral, obturator and sciatic nerves.",
          "options": ["[Thickening / T2 hyperintensity / Mass / Discontinuity] of the [ ] [ ]."]},
-        {"heading": "Muscles", "normal": "No denervation change.", "options": ["Denervation [oedema / fatty atrophy] of the [ ]."]},
-        {"heading": "Other findings", "normal": "No compressive pelvic mass or spinal cause.", "options": ["[Pelvic mass / Piriformis abnormality / Spinal stenosis] [ ]."]}
+        {"heading": "Muscles", "normal": "No denervation change.",
+         "options": ["Denervation [oedema / fatty atrophy] of the [ ]."]},
+        {"heading": "Other findings", "normal": "No compressive pelvic mass or spinal cause.",
+         "options": ["[Pelvic mass / Piriformis abnormality / Spinal stenosis] [ ]."]}
       ],
       "impression": "Normal lumbosacral plexus."
     },
     "msk.mri-brachial-plexus": {
       "title": "MR neurography, brachial plexus",
       "radiograph": false,
-      "technique": {"normal": "MR neurography of the brachial plexus with 3D STIR, T1 and diffusion-weighted imaging."},
+      "technique": {"normal": "MR neurography of the brachial plexus with 3D STIR, T1 and diffusion-weighted imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Nerve roots", "normal": "Normal C5 to T1 nerve roots. No pseudomeningocele.",
          "options": ["[Avulsion / Pseudomeningocele / Compression] of the [ ] nerve root [ ]."]},
         {"heading": "Trunks, cords and branches", "normal": "Normal calibre and signal of the trunks, divisions, cords and terminal branches.",
          "options": ["[Thickening / T2 hyperintensity / Mass / Discontinuity] of the [ ] [ ]."]},
-        {"heading": "Muscles", "normal": "No denervation change.", "options": ["Denervation [oedema / fatty atrophy] of the [ ]."]},
+        {"heading": "Muscles", "normal": "No denervation change.",
+         "options": ["Denervation [oedema / fatty atrophy] of the [ ]."]},
         {"heading": "Other findings", "normal": "No cervical rib, apical mass or compressive lesion.",
          "options": ["[Cervical rib / Pancoast tumour / Fibrous band / Radiation change] [ ]."]}
       ],
@@ -208,8 +238,10 @@
         {"heading": "Operated levels", "normal": "Expected postoperative appearance at the operated levels.",
          "options": ["[Anterior discectomy and fusion / Disc arthroplasty / Laminoplasty / Laminectomy] at [ ]."]},
         {"heading": "Canal and cord", "normal": "No residual canal stenosis. Normal cord signal.",
-         "options": ["[Residual / Recurrent] stenosis at [ ].", "Cord T2 hyperintensity at [ ]."]},
-        {"heading": "Adjacent levels", "normal": "No adjacent segment disease.", "options": ["Adjacent segment [disc herniation / stenosis] at [ ]."]},
+         "options": ["[Residual / Recurrent] stenosis at [ ].",
+                     "Cord T2 hyperintensity at [ ]."]},
+        {"heading": "Adjacent levels", "normal": "No adjacent segment disease.",
+         "options": ["Adjacent segment [disc herniation / stenosis] at [ ]."]},
         {"heading": "Collections", "normal": "No collection, haematoma or pseudomeningocele.",
          "options": ["[Seroma / Haematoma / Abscess / Pseudomeningocele], [ ] mm."]},
         {"heading": "Hardware and bone", "normal": "No hardware complication. No discitis or osteomyelitis.",
@@ -226,8 +258,10 @@
         {"heading": "Operated levels", "normal": "Expected postoperative appearance at the operated levels.",
          "options": ["[Laminectomy / Fusion / Decompression / Vertebral augmentation] at [ ]."]},
         {"heading": "Canal and cord", "normal": "No residual canal stenosis. Normal cord signal.",
-         "options": ["[Residual / Recurrent] stenosis at [ ].", "Cord T2 hyperintensity at [ ]."]},
-        {"heading": "Adjacent levels", "normal": "No adjacent segment disease or fracture.", "options": ["Adjacent [stenosis / fracture] at [ ]."]},
+         "options": ["[Residual / Recurrent] stenosis at [ ].",
+                     "Cord T2 hyperintensity at [ ]."]},
+        {"heading": "Adjacent levels", "normal": "No adjacent segment disease or fracture.",
+         "options": ["Adjacent [stenosis / fracture] at [ ]."]},
         {"heading": "Collections", "normal": "No collection, haematoma or pseudomeningocele.",
          "options": ["[Seroma / Haematoma / Abscess / Pseudomeningocele], [ ] mm."]},
         {"heading": "Hardware and bone", "normal": "No hardware complication. No discitis or osteomyelitis.",
@@ -238,7 +272,8 @@
     "msk.mri-spine-lumbar-postoperative": {
       "title": "MRI lumbar spine with contrast, postoperative",
       "radiograph": false,
-      "technique": {"normal": "MRI lumbar spine with sagittal T1, T2 and STIR, axial T2 and post-gadolinium T1, with metal artefact reduction."},
+      "technique": {"normal": "MRI lumbar spine with sagittal T1, T2 and STIR, axial T2 and post-gadolinium T1, with metal artefact reduction.",
+                    "options": []},
       "sections": [
         {"heading": "Operated levels", "normal": "Expected postoperative appearance at the operated levels.",
          "options": ["[Discectomy / Laminectomy / Interbody fusion / Posterolateral fusion] at [ ]."]},
@@ -247,39 +282,50 @@
                      "Epidural fibrosis encasing the [ ] nerve root."]},
         {"heading": "Canal and foramina", "normal": "No residual central canal or foraminal stenosis.",
          "options": ["[Residual / Recurrent] [central / foraminal] stenosis at [ ]."]},
-        {"heading": "Adjacent levels", "normal": "No adjacent segment disease.", "options": ["Adjacent segment [disc herniation / stenosis / instability] at [ ]."]},
+        {"heading": "Adjacent levels", "normal": "No adjacent segment disease.",
+         "options": ["Adjacent segment [disc herniation / stenosis / instability] at [ ]."]},
         {"heading": "Collections and infection", "normal": "No collection, pseudomeningocele, discitis or osteomyelitis.",
          "options": ["[Seroma / Abscess / Pseudomeningocele / Discitis] [ ]."]},
-        {"heading": "Arachnoid and nerve roots", "normal": "Normal distribution of the cauda equina nerve roots.", "options": ["[Clumped / Peripheral] nerve roots suggesting arachnoiditis [ ]."]}
+        {"heading": "Arachnoid and nerve roots", "normal": "Normal distribution of the cauda equina nerve roots.",
+         "options": ["[Clumped / Peripheral] nerve roots suggesting arachnoiditis [ ]."]}
       ],
       "impression": "Expected postoperative appearance. No recurrent disc herniation or complication."
     },
     "msk.ct-spine-postoperative": {
       "title": "CT spine, postoperative",
       "radiograph": false,
-      "technique": {"normal": "CT spine with metal artefact reduction and multiplanar reconstructions."},
+      "technique": {"normal": "CT spine with metal artefact reduction and multiplanar reconstructions.",
+                    "options": []},
       "sections": [
         {"heading": "Hardware", "normal": "Intact hardware in satisfactory position.",
          "options": ["[Screw breach / Screw fracture / Rod fracture / Cage subsidence / Cage migration] at [ ]."]},
         {"heading": "Fusion", "normal": "Bridging bone across the fused levels.",
-         "options": ["[No / Partial / Solid] bridging bone at [ ].", "Lucency around the [ ] screw, [ ] mm, suggesting loosening."]},
-        {"heading": "Alignment", "normal": "Maintained alignment.", "options": ["[Kyphosis / Listhesis / Junctional failure] at [ ]."]},
-        {"heading": "Adjacent levels", "normal": "No adjacent segment degeneration or fracture.", "options": ["Adjacent [fracture / degeneration / stenosis] at [ ]."]},
-        {"heading": "Soft tissues", "normal": "No postoperative collection.", "options": ["[Collection / Pseudomeningocele] [ ]."]}
+         "options": ["[No / Partial / Solid] bridging bone at [ ].",
+                     "Lucency around the [ ] screw, [ ] mm, suggesting loosening."]},
+        {"heading": "Alignment", "normal": "Maintained alignment.",
+         "options": ["[Kyphosis / Listhesis / Junctional failure] at [ ]."]},
+        {"heading": "Adjacent levels", "normal": "No adjacent segment degeneration or fracture.",
+         "options": ["Adjacent [fracture / degeneration / stenosis] at [ ]."]},
+        {"heading": "Soft tissues", "normal": "No postoperative collection.",
+         "options": ["[Collection / Pseudomeningocele] [ ]."]}
       ],
       "impression": "Intact hardware. No complication."
     },
     "neuro.mri-spine-cervical": {
       "title": "MRI cervical spine",
       "radiograph": false,
-      "technique": {"normal": "MRI cervical spine with sagittal T1, T2 and STIR and axial T2."},
+      "technique": {"normal": "MRI cervical spine with sagittal T1, T2 and STIR and axial T2.",
+                    "options": []},
       "sections": [
         {"heading": "Alignment and vertebrae", "normal": "Normal alignment. Normal vertebral heights and marrow signal.",
-         "options": ["[Loss of lordosis / Kyphosis / Listhesis] at [ ].", "[Marrow lesion / Endplate change] at [ ]."]},
-        {"heading": "Spinal cord", "normal": "Normal cord signal and calibre.", "options": ["Cord [compression / T2 hyperintensity / atrophy] at [ ]."]},
+         "options": ["[Loss of lordosis / Kyphosis / Listhesis] at [ ].",
+                     "[Marrow lesion / Endplate change] at [ ]."]},
+        {"heading": "Spinal cord", "normal": "Normal cord signal and calibre.",
+         "options": ["Cord [compression / T2 hyperintensity / atrophy] at [ ]."]},
         {"heading": "Discs and canal", "normal": "No disc herniation or central canal stenosis.",
          "options": ["[C2-3 / C3-4 / C4-5 / C5-6 / C6-7 / C7-T1]: [disc osteophyte complex / protrusion / extrusion] with [mild / moderate / severe] canal stenosis."]},
-        {"heading": "Foramina", "normal": "Patent neural foramina.", "options": ["[Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis at [ ]."]},
+        {"heading": "Foramina", "normal": "Patent neural foramina.",
+         "options": ["[Mild / Moderate / Severe] [right / left / bilateral] foraminal stenosis at [ ]."]},
         {"heading": "Craniocervical junction and soft tissues", "normal": "Normal craniocervical junction and paraspinal soft tissues.",
          "options": ["[Tonsillar ectopia / Paraspinal mass / Lymphadenopathy] [ ]."]}
       ],
@@ -288,25 +334,31 @@
     "neuro.mri-spine-thoracic": {
       "title": "MRI thoracic spine",
       "radiograph": false,
-      "technique": {"normal": "MRI thoracic spine with sagittal T1, T2 and STIR and axial T2."},
+      "technique": {"normal": "MRI thoracic spine with sagittal T1, T2 and STIR and axial T2.",
+                    "options": []},
       "sections": [
         {"heading": "Alignment and vertebrae", "normal": "Normal alignment. Normal vertebral heights and marrow signal.",
          "options": ["[Compression fracture / Marrow lesion / Schmorl nodes] at [ ]."]},
-        {"heading": "Spinal cord", "normal": "Normal cord signal and calibre.", "options": ["Cord [compression / T2 hyperintensity / syrinx] at [ ]."]},
+        {"heading": "Spinal cord", "normal": "Normal cord signal and calibre.",
+         "options": ["Cord [compression / T2 hyperintensity / syrinx] at [ ]."]},
         {"heading": "Discs and canal", "normal": "No disc herniation or central canal stenosis.",
          "options": ["[ ]: [protrusion / extrusion / calcified disc] with [mild / moderate / severe] canal stenosis."]},
-        {"heading": "Foramina and facets", "normal": "Patent neural foramina.", "options": ["[Foraminal stenosis / Facet arthropathy] at [ ]."]},
-        {"heading": "Paraspinal soft tissues", "normal": "Normal paraspinal soft tissues.", "options": ["[Paraspinal mass / Pleural effusion] [ ]."]}
+        {"heading": "Foramina and facets", "normal": "Patent neural foramina.",
+         "options": ["[Foraminal stenosis / Facet arthropathy] at [ ]."]},
+        {"heading": "Paraspinal soft tissues", "normal": "Normal paraspinal soft tissues.",
+         "options": ["[Paraspinal mass / Pleural effusion] [ ]."]}
       ],
       "impression": "No cord compression or canal stenosis."
     },
     "ra.ultrasound-neonatal-spine": {
       "title": "Ultrasound spine, neonatal",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound of the lumbosacral spine with a high-frequency linear transducer."},
+      "technique": {"normal": "Ultrasound of the lumbosacral spine with a high-frequency linear transducer.",
+                    "options": []},
       "sections": [
         {"heading": "Conus", "normal": "Conus terminates above the L2-3 disc with normal pulsation.",
-         "options": ["Conus terminates at [ ].", "[Reduced / Absent] conus and nerve root pulsation."]},
+         "options": ["Conus terminates at [ ].",
+                     "[Reduced / Absent] conus and nerve root pulsation."]},
         {"heading": "Filum and canal", "normal": "Normal filum terminale. No intraspinal mass.",
          "options": ["[Thickened filum / Filar cyst / Lipoma / Syrinx] [ ]."]},
         {"heading": "Posterior elements and skin", "normal": "Intact posterior elements. No dermal sinus tract.",

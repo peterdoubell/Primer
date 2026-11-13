@@ -1,6 +1,6 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-12",
+  "revision": "2026-11-13",
   "templates": {
     "ra.mammography": {
       "title": "Bilateral screening mammography / Bilateral diagnostic mammography",
@@ -17,8 +17,10 @@
         {"heading": "Skin, nipples and axillae", "normal": "Normal skin and nipples. No suspicious axillary lymph nodes.",
          "options": ["[Skin thickening / Nipple retraction / Axillary lymphadenopathy] [ ]."]},
         {"heading": "Prior mammograms", "normal": "No prior mammograms available.",
-         "options": ["Compared with [ ]; no significant change.", "Compared with [ ]; [new / enlarging / increasing] [ ]."]},
-        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.", "options": ["BI-RADS [0 / 2 / 3 / 4A / 4B / 4C / 5 / 6]: [ ]."]}
+         "options": ["Compared with [ ]; no significant change.",
+                     "Compared with [ ]; [new / enlarging / increasing] [ ]."]},
+        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.",
+         "options": ["BI-RADS [0 / 2 / 3 / 4A / 4B / 4C / 5 / 6]: [ ]."]}
       ],
       "impression": "BI-RADS 1: negative.",
       "recommendation": "Routine screening mammography."
@@ -33,8 +35,10 @@
          "options": ["Typically benign [skin / vascular / popcorn / large rod-like / round / rim / dystrophic / milk of calcium / suture] calcifications.",
                      "[Amorphous / Coarse heterogeneous / Fine pleomorphic / Fine linear branching] calcifications.",
                      "[Diffuse / Regional / Grouped / Linear / Segmental] distribution over [ ] mm in the [right / left] breast at [ ] o'clock."]},
-        {"heading": "Associated findings", "normal": "No associated mass, distortion or skin change.", "options": ["[Mass / Architectural distortion / Skin thickening] [ ]."]},
-        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.", "options": ["BI-RADS [2 / 3 / 4A / 4B / 4C / 5]: [ ]."]}
+        {"heading": "Associated findings", "normal": "No associated mass, distortion or skin change.",
+         "options": ["[Mass / Architectural distortion / Skin thickening] [ ]."]},
+        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.",
+         "options": ["BI-RADS [2 / 3 / 4A / 4B / 4C / 5]: [ ]."]}
       ],
       "impression": "No suspicious calcifications (BI-RADS 1).",
       "recommendation": "Routine screening mammography."
@@ -42,7 +46,8 @@
     "ra.ultrasound-breast": {
       "title": "Ultrasound right breast / Ultrasound left breast / Ultrasound both breasts",
       "radiograph": false,
-      "technique": {"normal": "Targeted ultrasound of the breast and axilla."},
+      "technique": {"normal": "Targeted ultrasound of the breast and axilla.",
+                    "options": []},
       "sections": [
         {"heading": "Breast", "normal": "No focal lesion. Normal fibroglandular tissue.",
          "options": ["[ ] x [ ] x [ ] mm [oval / round / irregular] [anechoic / hypoechoic / isoechoic / complex cystic and solid] mass at [ ] o'clock, [ ] cm from the nipple.",
@@ -52,14 +57,16 @@
          "options": ["[Internal vascularity / Duct dilatation / Skin thickening / Architectural distortion] [ ]."]},
         {"heading": "Axilla", "normal": "No suspicious axillary lymph nodes.",
          "options": ["Axillary node, cortex [ ] mm, [loss of fatty hilum / eccentric cortical thickening / round shape] [ ]."]},
-        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.", "options": ["BI-RADS [2 / 3 / 4A / 4B / 4C / 5]: [ ]."]}
+        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.",
+         "options": ["BI-RADS [2 / 3 / 4A / 4B / 4C / 5]: [ ]."]}
       ],
       "impression": "No sonographic abnormality (BI-RADS 1)."
     },
     "ra.mri-breast": {
       "title": "MRI both breasts with contrast",
       "radiograph": false,
-      "technique": {"normal": "Bilateral breast MRI with T2, diffusion and dynamic contrast-enhanced imaging."},
+      "technique": {"normal": "Bilateral breast MRI with T2, diffusion and dynamic contrast-enhanced imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Background", "normal": "Scattered fibroglandular tissue with minimal background parenchymal enhancement.",
          "options": ["Fibroglandular tissue [a / b / c / d]; background enhancement [minimal / mild / moderate / marked], [symmetric / asymmetric]."]},
@@ -68,22 +75,26 @@
                      "Delayed kinetics: [persistent / plateau / washout]."]},
         {"heading": "Non-mass enhancement", "normal": "No suspicious non-mass enhancement.",
          "options": ["[Focal / Linear / Segmental / Regional] non-mass enhancement, [homogeneous / heterogeneous / clumped / clustered ring], [ ] mm."]},
-        {"heading": "Axillae and chest wall", "normal": "No suspicious lymph nodes. Normal chest wall.", "options": ["[Axillary lymphadenopathy / Chest wall invasion] [ ]."]},
-        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.", "options": ["BI-RADS [0 / 2 / 3 / 4 / 5 / 6]: [ ]."]}
+        {"heading": "Axillae and chest wall", "normal": "No suspicious lymph nodes. Normal chest wall.",
+         "options": ["[Axillary lymphadenopathy / Chest wall invasion] [ ]."]},
+        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.",
+         "options": ["BI-RADS [0 / 2 / 3 / 4 / 5 / 6]: [ ]."]}
       ],
       "impression": "No MRI evidence of malignancy (BI-RADS 1)."
     },
     "ra.breast-implants": {
       "title": "MRI breast implants",
       "radiograph": false,
-      "technique": {"normal": "Bilateral breast MRI with silicone-selective and water-suppressed sequences.", "options": ["Ultrasound of the breast implants."]},
+      "technique": {"normal": "Bilateral breast MRI with silicone-selective and water-suppressed sequences.",
+                    "options": []},
       "sections": [
         {"heading": "Implants", "normal": "Bilateral implants in satisfactory position.",
          "options": ["[Silicone / Saline] [single-lumen / double-lumen] implants, [subglandular / subpectoral] [ ]."]},
         {"heading": "Shell", "normal": "Intact implant shells. No contour abnormality.",
          "options": ["[Radial folds / Keyhole sign / Subcapsular line / Linguine sign] [ ]."]},
         {"heading": "Rupture", "normal": "No intracapsular or extracapsular rupture.",
-         "options": ["[Intracapsular / Extracapsular] rupture of the [right / left] implant [ ].", "Free silicone in the [ ]."]},
+         "options": ["[Intracapsular / Extracapsular] rupture of the [right / left] implant [ ].",
+                     "Free silicone in the [ ]."]},
         {"heading": "Peri-implant fluid and capsule", "normal": "No significant peri-implant fluid or capsular mass.",
          "options": ["[Peri-implant effusion / Capsular mass / Capsular contracture] [ ]."]},
         {"heading": "Breasts and axillae", "normal": "No suspicious breast lesion or lymphadenopathy.",
@@ -94,30 +105,41 @@
     "ra.male-breast": {
       "title": "Mammography, male breast",
       "radiograph": false,
-      "technique": {"normal": "Bilateral mammography and targeted ultrasound of the male breast."},
+      "technique": {"normal": "Bilateral mammography and targeted ultrasound of the male breast.",
+                    "options": []},
       "sections": [
         {"heading": "Retroareolar tissue", "normal": "No gynaecomastia.",
-         "options": ["[Nodular / Dendritic / Diffuse] gynaecomastia, [right / left / bilateral].", "Pseudogynaecomastia."]},
-        {"heading": "Focal lesion", "normal": "No discrete mass.", "options": ["[ ] mm [eccentric / irregular / circumscribed] mass at [ ] [ ]."]},
-        {"heading": "Nipple and skin", "normal": "Normal nipple and skin.", "options": ["[Nipple retraction / Skin thickening / Ulceration] [ ]."]},
-        {"heading": "Axilla", "normal": "No suspicious axillary lymph nodes.", "options": ["Suspicious axillary node [ ]."]},
-        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.", "options": ["BI-RADS [2 / 3 / 4 / 5]: [ ]."]}
+         "options": ["[Nodular / Dendritic / Diffuse] gynaecomastia, [right / left / bilateral].",
+                     "Pseudogynaecomastia."]},
+        {"heading": "Focal lesion", "normal": "No discrete mass.",
+         "options": ["[ ] mm [eccentric / irregular / circumscribed] mass at [ ] [ ]."]},
+        {"heading": "Nipple and skin", "normal": "Normal nipple and skin.",
+         "options": ["[Nipple retraction / Skin thickening / Ulceration] [ ]."]},
+        {"heading": "Axilla", "normal": "No suspicious axillary lymph nodes.",
+         "options": ["Suspicious axillary node [ ]."]},
+        {"heading": "BI-RADS", "normal": "BI-RADS 1: negative.",
+         "options": ["BI-RADS [2 / 3 / 4 / 5]: [ ]."]}
       ],
       "impression": "No suspicious breast abnormality."
     },
     "ra.breast-cancer-staging": {
       "title": "MRI both breasts, staging",
       "radiograph": false,
-      "technique": {"normal": "Bilateral breast MRI with dynamic contrast-enhanced imaging.", "options": ["CT chest, abdomen and pelvis for systemic staging."]},
+      "technique": {"normal": "Bilateral breast MRI with dynamic contrast-enhanced imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Index tumour", "normal": "No index tumour identified.",
          "options": ["[ ] x [ ] x [ ] mm [mass / non-mass enhancement] at [ ] o'clock in the [right / left] breast, [ ] cm from the nipple."]},
-        {"heading": "Additional disease", "normal": "No multifocal, multicentric or contralateral disease.", "options": ["[Multifocal / Multicentric / Contralateral] disease [ ]."]},
-        {"heading": "Local invasion", "normal": "No skin, nipple, pectoralis or chest wall involvement.", "options": ["[Skin / Nipple / Pectoralis / Chest wall] involvement [ ]."]},
+        {"heading": "Additional disease", "normal": "No multifocal, multicentric or contralateral disease.",
+         "options": ["[Multifocal / Multicentric / Contralateral] disease [ ]."]},
+        {"heading": "Local invasion", "normal": "No skin, nipple, pectoralis or chest wall involvement.",
+         "options": ["[Skin / Nipple / Pectoralis / Chest wall] involvement [ ]."]},
         {"heading": "Regional nodes", "normal": "No suspicious axillary, internal mammary or supraclavicular nodes.",
          "options": ["Suspicious [axillary level I / axillary level II / axillary level III / internal mammary / supraclavicular] node, [ ] mm."]},
-        {"heading": "Distant disease", "normal": "No distant metastasis.", "options": ["[Liver / Lung / Bone / Brain] metastasis [ ]."]},
-        {"heading": "Stage", "normal": "No tumour to stage.", "options": ["cT[ ] N[ ] M[ ] (AJCC 8th edition)."]}
+        {"heading": "Distant disease", "normal": "No distant metastasis.",
+         "options": ["[Liver / Lung / Bone / Brain] metastasis [ ]."]},
+        {"heading": "Stage", "normal": "No tumour to stage.",
+         "options": ["cT[ ] N[ ] M[ ] (AJCC 8th edition)."]}
       ],
       "impression": "No breast malignancy identified."
     }

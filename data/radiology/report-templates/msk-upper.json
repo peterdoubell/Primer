@@ -1,19 +1,22 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-12",
+  "revision": "2026-11-13",
   "templates": {
     "ra.mri-shoulder": {
       "title": "MRI right shoulder / MRI left shoulder",
       "radiograph": false,
-      "technique": {"normal": "MRI shoulder with proton density, fat-suppressed and T1 imaging in three planes.", "options": ["MR arthrogram [ ]."]},
+      "technique": {"normal": "MRI shoulder with proton density, fat-suppressed and T1 imaging in three planes.",
+                    "options": ["MR arthrogram [ ]."]},
       "sections": [
         {"heading": "Rotator cuff", "normal": "Intact supraspinatus, infraspinatus, subscapularis and teres minor tendons.",
          "options": ["[Tendinosis / Partial-thickness tear / Full-thickness tear] of the [supraspinatus / infraspinatus / subscapularis], [ ] mm, retraction [ ] mm.",
                      "[Bursal / Articular / Intrasubstance] side partial tear [ ]."]},
-        {"heading": "Muscles", "normal": "No muscle atrophy or fatty infiltration.", "options": ["Goutallier grade [1 / 2 / 3 / 4] fatty infiltration of the [ ]."]},
+        {"heading": "Muscles", "normal": "No muscle atrophy or fatty infiltration.",
+         "options": ["Goutallier grade [1 / 2 / 3 / 4] fatty infiltration of the [ ]."]},
         {"heading": "Biceps and pulley", "normal": "Intact long head of biceps tendon in the bicipital groove.",
          "options": ["[Tendinosis / Tear / Subluxation / Dislocation] of the long head of biceps [ ]."]},
-        {"heading": "Labrum and capsule", "normal": "Intact labrum and capsule.", "options": ["[SLAP / Bankart / Posterior labral / Perthes / ALPSA / HAGL] lesion [ ]."]},
+        {"heading": "Labrum and capsule", "normal": "Intact labrum and capsule.",
+         "options": ["[SLAP / Bankart / Posterior labral / Perthes / ALPSA / HAGL] lesion [ ]."]},
         {"heading": "Bones and joints", "normal": "No fracture or bone marrow oedema. Normal acromioclavicular joint.",
          "options": ["[Hill-Sachs lesion / AC joint arthropathy / Os acromiale / Glenohumeral osteoarthritis] [ ]."]},
         {"heading": "Bursa and soft tissues", "normal": "No subacromial-subdeltoid bursitis or effusion.",
@@ -24,12 +27,14 @@
     "ra.ultrasound-shoulder": {
       "title": "Ultrasound right shoulder / Ultrasound left shoulder",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound of the shoulder with dynamic assessment."},
+      "technique": {"normal": "Ultrasound of the shoulder with dynamic assessment.",
+                    "options": []},
       "sections": [
         {"heading": "Long head of biceps", "normal": "Normal tendon in the bicipital groove.",
          "options": ["[Tenosynovitis / Tendinosis / Tear / Subluxation / Dislocation] of the long head of biceps [ ]."]},
         {"heading": "Rotator cuff", "normal": "Intact supraspinatus, infraspinatus, subscapularis and teres minor tendons.",
-         "options": ["[Tendinosis / Partial-thickness tear / Full-thickness tear] of the [ ], [ ] mm.", "Calcific deposit [ ] mm in the [ ] tendon."]},
+         "options": ["[Tendinosis / Partial-thickness tear / Full-thickness tear] of the [ ], [ ] mm.",
+                     "Calcific deposit [ ] mm in the [ ] tendon."]},
         {"heading": "Subacromial bursa", "normal": "No bursitis. No impingement on dynamic assessment.",
          "options": ["[Bursal thickening / Bursal effusion / Dynamic impingement] [ ]."]},
         {"heading": "Joints", "normal": "No glenohumeral effusion. Normal acromioclavicular joint.",
@@ -42,10 +47,13 @@
       "radiograph": true,
       "sections": [
         {"heading": "Glenohumeral joint", "normal": "Congruent glenohumeral joint. No dislocation.",
-         "options": ["[Anterior / Posterior / Inferior] dislocation [ ].", "[Hill-Sachs / Bony Bankart / Reverse Hill-Sachs] lesion [ ]."]},
+         "options": ["[Anterior / Posterior / Inferior] dislocation [ ].",
+                     "[Hill-Sachs / Bony Bankart / Reverse Hill-Sachs] lesion [ ]."]},
         {"heading": "Bones", "normal": "No fracture of the proximal humerus, clavicle or scapula.",
-         "options": ["Fracture of the [surgical neck / greater tuberosity / anatomical neck / glenoid / scapula / clavicle] [ ].", "[Lytic / Sclerotic] lesion [ ]."]},
-        {"heading": "Acromioclavicular joint", "normal": "Normal acromioclavicular joint.", "options": ["[AC joint widening / Osteoarthritis / Distal clavicle osteolysis] [ ]."]},
+         "options": ["Fracture of the [surgical neck / greater tuberosity / anatomical neck / glenoid / scapula / clavicle] [ ].",
+                     "[Lytic / Sclerotic] lesion [ ]."]},
+        {"heading": "Acromioclavicular joint", "normal": "Normal acromioclavicular joint.",
+         "options": ["[AC joint widening / Osteoarthritis / Distal clavicle osteolysis] [ ]."]},
         {"heading": "Subacromial space and soft tissues", "normal": "Normal acromiohumeral interval. No calcific tendinopathy.",
          "options": ["[Calcific tendinopathy / Reduced acromiohumeral interval / Lung apex abnormality] [ ]."]}
       ],
@@ -57,8 +65,10 @@
       "sections": [
         {"heading": "Clavicle", "normal": "No clavicle fracture.",
          "options": ["[Medial / Middle / Lateral] third clavicle fracture, [undisplaced / displaced] [ ] mm, shortening [ ] mm."]},
-        {"heading": "Joints", "normal": "Normal acromioclavicular and sternoclavicular joints.", "options": ["[AC joint / Sternoclavicular joint] [widening / dislocation] [ ]."]},
-        {"heading": "Lung apex and ribs", "normal": "No pneumothorax or rib fracture.", "options": ["[Pneumothorax / Rib fracture] [ ]."]}
+        {"heading": "Joints", "normal": "Normal acromioclavicular and sternoclavicular joints.",
+         "options": ["[AC joint / Sternoclavicular joint] [widening / dislocation] [ ]."]},
+        {"heading": "Lung apex and ribs", "normal": "No pneumothorax or rib fracture.",
+         "options": ["[Pneumothorax / Rib fracture] [ ]."]}
       ],
       "impression": "No clavicle fracture."
     },
@@ -68,8 +78,10 @@
       "sections": [
         {"heading": "Acromioclavicular joints", "normal": "Normal acromioclavicular alignment bilaterally.",
          "options": ["[Right / Left] AC joint widening [ ] mm, coracoclavicular distance [ ] mm, Rockwood type [I / II / III / IV / V / VI]."]},
-        {"heading": "Bones", "normal": "No fracture.", "options": ["[Distal clavicle / Coracoid / Acromion] fracture [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.", "options": ["[ ]."]}
+        {"heading": "Bones", "normal": "No fracture.",
+         "options": ["[Distal clavicle / Coracoid / Acromion] fracture [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal acromioclavicular joints."
     },
@@ -80,22 +92,30 @@
         {"heading": "Humerus", "normal": "No humeral fracture.",
          "options": ["[Transverse / Oblique / Spiral / Comminuted] fracture of the [proximal / mid / distal] humerus, [ ] displacement [ ].",
                      "[Lytic / Sclerotic / Periosteal] lesion [ ]."]},
-        {"heading": "Shoulder and elbow", "normal": "Normal alignment at the shoulder and elbow.", "options": ["[Dislocation / Effusion] [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.", "options": ["[Soft tissue swelling / Gas / Foreign body] [ ]."]}
+        {"heading": "Shoulder and elbow", "normal": "Normal alignment at the shoulder and elbow.",
+         "options": ["[Dislocation / Effusion] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.",
+         "options": ["[Soft tissue swelling / Gas / Foreign body] [ ]."]}
       ],
       "impression": "No humeral fracture."
     },
     "msk.mri-shoulder-postoperative": {
       "title": "MRI right shoulder, postoperative / MRI left shoulder, postoperative",
       "radiograph": false,
-      "technique": {"normal": "MRI shoulder with proton density, fat-suppressed and T1 imaging, with metal artefact reduction."},
+      "technique": {"normal": "MRI shoulder with proton density, fat-suppressed and T1 imaging, with metal artefact reduction.",
+                    "options": []},
       "sections": [
         {"heading": "Cuff repair", "normal": "Intact rotator cuff repair with satisfactory anchor position.",
-         "options": ["[Re-tear / Partial re-tear] of the repaired [supraspinatus / infraspinatus / subscapularis], [ ] mm.", "Anchor [loosening / displacement / cyst] [ ]."]},
-        {"heading": "Labral repair", "normal": "Intact labral repair.", "options": ["[Re-tear / Anchor displacement] [ ]."]},
-        {"heading": "Muscles", "normal": "No progressive muscle atrophy.", "options": ["Goutallier grade [1 / 2 / 3 / 4] fatty infiltration of the [ ]."]},
-        {"heading": "Bone and joint", "normal": "No osteolysis, fracture or chondrolysis.", "options": ["[Osteolysis / Fracture / Chondrolysis] [ ]."]},
-        {"heading": "Soft tissues", "normal": "No collection or features of adhesive capsulitis.", "options": ["[Collection / Adhesive capsulitis / Synovitis] [ ]."]}
+         "options": ["[Re-tear / Partial re-tear] of the repaired [supraspinatus / infraspinatus / subscapularis], [ ] mm.",
+                     "Anchor [loosening / displacement / cyst] [ ]."]},
+        {"heading": "Labral repair", "normal": "Intact labral repair.",
+         "options": ["[Re-tear / Anchor displacement] [ ]."]},
+        {"heading": "Muscles", "normal": "No progressive muscle atrophy.",
+         "options": ["Goutallier grade [1 / 2 / 3 / 4] fatty infiltration of the [ ]."]},
+        {"heading": "Bone and joint", "normal": "No osteolysis, fracture or chondrolysis.",
+         "options": ["[Osteolysis / Fracture / Chondrolysis] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No collection or features of adhesive capsulitis.",
+         "options": ["[Collection / Adhesive capsulitis / Synovitis] [ ]."]}
       ],
       "impression": "Intact repair. No complication."
     },
@@ -105,17 +125,21 @@
       "sections": [
         {"heading": "Components", "normal": "Shoulder arthroplasty components in satisfactory position.",
          "options": ["[Anatomical total / Reverse total / Hemiarthroplasty / Resurfacing] shoulder arthroplasty [ ]."]},
-        {"heading": "Interfaces", "normal": "No periprosthetic lucency.", "options": ["Lucency [ ] mm around the [glenoid / humeral] component [ ]."]},
+        {"heading": "Interfaces", "normal": "No periprosthetic lucency.",
+         "options": ["Lucency [ ] mm around the [glenoid / humeral] component [ ]."]},
         {"heading": "Complications", "normal": "No dislocation, fracture or scapular notching.",
-         "options": ["[Dislocation / Periprosthetic fracture / Acromial fracture] [ ].", "Scapular notching, Sirveaux grade [1 / 2 / 3 / 4]."]},
-        {"heading": "Soft tissues", "normal": "No heterotopic ossification.", "options": ["Heterotopic ossification [ ]."]}
+         "options": ["[Dislocation / Periprosthetic fracture / Acromial fracture] [ ].",
+                     "Scapular notching, Sirveaux grade [1 / 2 / 3 / 4]."]},
+        {"heading": "Soft tissues", "normal": "No heterotopic ossification.",
+         "options": ["Heterotopic ossification [ ]."]}
       ],
       "impression": "Satisfactory shoulder arthroplasty. No complication."
     },
     "ra.mri-elbow": {
       "title": "MRI right elbow / MRI left elbow",
       "radiograph": false,
-      "technique": {"normal": "MRI elbow with proton density, fat-suppressed and T1 imaging in three planes."},
+      "technique": {"normal": "MRI elbow with proton density, fat-suppressed and T1 imaging in three planes.",
+                    "options": []},
       "sections": [
         {"heading": "Tendons", "normal": "Intact common extensor, common flexor, biceps and triceps tendons.",
          "options": ["[Tendinosis / Partial tear / Full-thickness tear] of the [common extensor / common flexor / distal biceps / triceps] tendon [ ]."]},
@@ -123,8 +147,10 @@
          "options": ["[Sprain / Partial tear / Complete tear] of the [anterior band of the UCL / LUCL / radial collateral ligament] [ ]."]},
         {"heading": "Cartilage and bone", "normal": "Preserved cartilage. No osteochondral lesion, fracture or bone marrow oedema.",
          "options": ["[Osteochondral lesion / Bone bruise / Occult fracture] of the [capitellum / radial head / olecranon / trochlea] [ ]."]},
-        {"heading": "Nerves", "normal": "Normal ulnar, median and radial nerves.", "options": ["Ulnar nerve [thickening / T2 hyperintensity / subluxation] at the cubital tunnel."]},
-        {"heading": "Joint", "normal": "No effusion, synovitis or loose body.", "options": ["[Effusion / Synovitis / Loose body / Plica] [ ]."]}
+        {"heading": "Nerves", "normal": "Normal ulnar, median and radial nerves.",
+         "options": ["Ulnar nerve [thickening / T2 hyperintensity / subluxation] at the cubital tunnel."]},
+        {"heading": "Joint", "normal": "No effusion, synovitis or loose body.",
+         "options": ["[Effusion / Synovitis / Loose body / Plica] [ ]."]}
       ],
       "impression": "Normal MRI elbow."
     },
@@ -136,8 +162,11 @@
          "options": ["[Radial head / Radial neck / Olecranon / Coronoid / Supracondylar / Lateral condyle / Medial epicondyle] fracture [ ]."]},
         {"heading": "Alignment", "normal": "Normal anterior humeral and radiocapitellar lines.",
          "options": ["[Disrupted anterior humeral line / Disrupted radiocapitellar line / Dislocation] [ ]."]},
-        {"heading": "Joint", "normal": "No joint effusion.", "options": ["Elevated [anterior / posterior] fat pad.", "[Osteoarthritis / Loose body / Heterotopic ossification] [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue swelling.", "options": ["[Soft tissue swelling / Olecranon bursitis / Foreign body] [ ]."]}
+        {"heading": "Joint", "normal": "No joint effusion.",
+         "options": ["Elevated [anterior / posterior] fat pad.",
+                     "[Osteoarthritis / Loose body / Heterotopic ossification] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling.",
+         "options": ["[Soft tissue swelling / Olecranon bursitis / Foreign body] [ ]."]}
       ],
       "impression": "Normal elbow radiographs."
     },
@@ -148,15 +177,18 @@
         {"heading": "Radius and ulna", "normal": "No fracture of the radius or ulna.",
          "options": ["[Transverse / Oblique / Comminuted / Plastic bowing / Greenstick] fracture of the [proximal / mid / distal] [radius / ulna] [ ].",
                      "[Monteggia / Galeazzi / Essex-Lopresti] injury [ ]."]},
-        {"heading": "Elbow and wrist", "normal": "Normal alignment at the elbow and wrist.", "options": ["[Radial head dislocation / DRUJ disruption] [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.", "options": ["[Soft tissue swelling / Foreign body / Gas] [ ]."]}
+        {"heading": "Elbow and wrist", "normal": "Normal alignment at the elbow and wrist.",
+         "options": ["[Radial head dislocation / DRUJ disruption] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.",
+         "options": ["[Soft tissue swelling / Foreign body / Gas] [ ]."]}
       ],
       "impression": "No forearm fracture."
     },
     "msk.ultrasound-elbow": {
       "title": "Ultrasound right elbow / Ultrasound left elbow",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound of the elbow with dynamic assessment of the ulnar nerve."},
+      "technique": {"normal": "Ultrasound of the elbow with dynamic assessment of the ulnar nerve.",
+                    "options": []},
       "sections": [
         {"heading": "Lateral elbow", "normal": "Normal common extensor origin and lateral collateral ligament.",
          "options": ["[Tendinosis / Partial tear / Full-thickness tear] of the common extensor origin [ ]."]},
@@ -173,27 +205,34 @@
       "title": "Right wrist radiographs, instability series / Left wrist radiographs, instability series",
       "radiograph": true,
       "sections": [
-        {"heading": "Carpal arcs", "normal": "Smooth Gilula arcs.", "options": ["Disruption of arc [I / II / III] at the [ ]."]},
+        {"heading": "Carpal arcs", "normal": "Smooth Gilula arcs.",
+         "options": ["Disruption of arc [I / II / III] at the [ ]."]},
         {"heading": "Intercarpal intervals", "normal": "Normal scapholunate and lunotriquetral intervals.",
          "options": ["Scapholunate interval [ ] mm [at rest / on clenched fist view]."]},
         {"heading": "Carpal angles", "normal": "Normal scapholunate and capitolunate angles.",
          "options": ["Scapholunate angle [ ] degrees; capitolunate angle [ ] degrees; [DISI / VISI]."]},
-        {"heading": "Bones", "normal": "No fracture or avascular necrosis.", "options": ["[Scaphoid nonunion / Kienböck disease / Ulnar impaction] [ ]."]},
-        {"heading": "Degenerative change", "normal": "No degenerative change.", "options": ["[SLAC / SNAC] wrist, stage [1 / 2 / 3]."]}
+        {"heading": "Bones", "normal": "No fracture or avascular necrosis.",
+         "options": ["[Scaphoid nonunion / Kienböck disease / Ulnar impaction] [ ]."]},
+        {"heading": "Degenerative change", "normal": "No degenerative change.",
+         "options": ["[SLAC / SNAC] wrist, stage [1 / 2 / 3]."]}
       ],
       "impression": "No radiographic carpal instability."
     },
     "ra.wrist-fractures": {
-      "title": "Right wrist radiographs / Left wrist radiographs",
+      "title": "Right wrist radiographs, trauma / Left wrist radiographs, trauma",
       "radiograph": true,
       "sections": [
         {"heading": "Fracture", "normal": "No fracture.",
-         "options": ["[Intra-articular / Extra-articular] distal radius fracture [ ].", "[Scaphoid waist / Scaphoid pole / Ulnar styloid / Triquetral] fracture [ ]."]},
+         "options": ["[Intra-articular / Extra-articular] distal radius fracture [ ].",
+                     "[Scaphoid waist / Scaphoid pole / Ulnar styloid / Triquetral] fracture [ ]."]},
         {"heading": "Displacement", "normal": "No displacement.",
          "options": ["Dorsal tilt [ ] degrees; radial inclination [ ] degrees; radial height [ ] mm; ulnar variance [ ] mm."]},
         {"heading": "Articular surface", "normal": "Congruent radiocarpal and distal radioulnar joints.",
-         "options": ["Articular step [ ] mm.", "[DRUJ widening / Die-punch fragment] [ ]."]},
-        {"heading": "Carpal alignment", "normal": "Normal carpal alignment and arcs.", "options": ["[Perilunate / Lunate] dislocation [ ].", "Scapholunate interval [ ] mm."]},
+         "options": ["Articular step [ ] mm.",
+                     "[DRUJ widening / Die-punch fragment] [ ]."]},
+        {"heading": "Carpal alignment", "normal": "Normal carpal alignment and arcs.",
+         "options": ["[Perilunate / Lunate] dislocation [ ].",
+                     "Scapholunate interval [ ] mm."]},
         {"heading": "Reduction and soft tissues", "normal": "No cast or fixation. No soft tissue abnormality.",
          "options": ["Post-reduction position [satisfactory / unsatisfactory] [ ]."]}
       ],
@@ -207,9 +246,12 @@
          "options": ["[Intra-articular / Extra-articular] distal radius fracture, [dorsal / volar] angulation [ ] degrees, radial height [ ] mm.",
                      "Ulnar styloid fracture, [base / tip]."]},
         {"heading": "Carpus", "normal": "No carpal fracture. Normal carpal alignment and arcs.",
-         "options": ["[Scaphoid / Triquetral / Hamate / Lunate] fracture [ ].", "Scapholunate interval [ ] mm; [DISI / VISI] pattern."]},
-        {"heading": "Joints", "normal": "Preserved joint spaces.", "options": ["[Osteoarthritis / Chondrocalcinosis / Erosions] [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue swelling. Normal pronator fat stripe.", "options": ["[Soft tissue swelling / Displaced pronator fat stripe / Foreign body] [ ]."]}
+         "options": ["[Scaphoid / Triquetral / Hamate / Lunate] fracture [ ].",
+                     "Scapholunate interval [ ] mm; [DISI / VISI] pattern."]},
+        {"heading": "Joints", "normal": "Preserved joint spaces.",
+         "options": ["[Osteoarthritis / Chondrocalcinosis / Erosions] [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling. Normal pronator fat stripe.",
+         "options": ["[Soft tissue swelling / Displaced pronator fat stripe / Foreign body] [ ]."]}
       ],
       "impression": "No fracture. Normal carpal alignment."
     },
@@ -218,9 +260,11 @@
       "radiograph": true,
       "sections": [
         {"heading": "Bones", "normal": "No fracture.",
-         "options": ["Fracture of the [ ] [metacarpal / proximal phalanx / middle phalanx / distal phalanx] [ ].", "[Boxer / Bennett / Rolando / Mallet] fracture [ ]."]},
+         "options": ["Fracture of the [ ] [metacarpal / proximal phalanx / middle phalanx / distal phalanx] [ ].",
+                     "[Boxer / Bennett / Rolando / Mallet] fracture [ ]."]},
         {"heading": "Joints and alignment", "normal": "Normal alignment. Preserved joint spaces.",
-         "options": ["[Dislocation / Subluxation] of the [ ] joint.", "[Osteoarthritis / Erosive arthropathy / Chondrocalcinosis] [ ]."]},
+         "options": ["[Dislocation / Subluxation] of the [ ] joint.",
+                     "[Osteoarthritis / Erosive arthropathy / Chondrocalcinosis] [ ]."]},
         {"heading": "Soft tissues", "normal": "No soft tissue swelling, gas or foreign body.",
          "options": ["[Soft tissue swelling / Radiopaque foreign body / Gas / Calcification] [ ]."]}
       ],
@@ -233,35 +277,45 @@
         {"heading": "Bones", "normal": "No fracture.",
          "options": ["Fracture of the [proximal / middle / distal] phalanx of the [thumb / index / middle / ring / little] finger, [intra-articular / extra-articular] [ ].",
                      "[Volar plate avulsion / Mallet / Gamekeeper] fracture [ ]."]},
-        {"heading": "Joints", "normal": "Normal alignment. No dislocation.", "options": ["Dislocation of the [MCP / PIP / DIP / IP] joint [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue swelling or foreign body.", "options": ["[Soft tissue swelling / Foreign body] [ ]."]}
+        {"heading": "Joints", "normal": "Normal alignment. No dislocation.",
+         "options": ["Dislocation of the [MCP / PIP / DIP / IP] joint [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue swelling or foreign body.",
+         "options": ["[Soft tissue swelling / Foreign body] [ ]."]}
       ],
       "impression": "No fracture or dislocation."
     },
     "msk.ultrasound-wrist": {
       "title": "Ultrasound right wrist / Ultrasound left wrist",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound of the wrist."},
+      "technique": {"normal": "Ultrasound of the wrist.",
+                    "options": []},
       "sections": [
         {"heading": "Tendons", "normal": "Normal flexor and extensor tendons in all compartments.",
-         "options": ["[Tenosynovitis / Tendinosis / Tear] of the [ ] [ ].", "De Quervain tenosynovitis of the first extensor compartment."]},
+         "options": ["[Tenosynovitis / Tendinosis / Tear] of the [ ] [ ].",
+                     "De Quervain tenosynovitis of the first extensor compartment."]},
         {"heading": "Median and ulnar nerves", "normal": "Normal median nerve at the carpal tunnel. Normal ulnar nerve in Guyon canal.",
          "options": ["Median nerve cross-sectional area [ ] mm² at the carpal tunnel inlet."]},
         {"heading": "Joints and ganglia", "normal": "No effusion, synovitis or ganglion.",
-         "options": ["[ ] mm [dorsal / volar] ganglion arising from the [ ].", "[Synovitis / Effusion] of the [ ] joint."]},
-        {"heading": "Ligaments", "normal": "Intact dorsal scapholunate ligament.", "options": ["[Thickened / Torn] dorsal scapholunate ligament."]}
+         "options": ["[ ] mm [dorsal / volar] ganglion arising from the [ ].",
+                     "[Synovitis / Effusion] of the [ ] joint."]},
+        {"heading": "Ligaments", "normal": "Intact dorsal scapholunate ligament.",
+         "options": ["[Thickened / Torn] dorsal scapholunate ligament."]}
       ],
       "impression": "Normal wrist ultrasound."
     },
     "msk.ultrasound-hand": {
       "title": "Ultrasound right hand / Ultrasound left hand",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound of the hand and fingers with dynamic assessment."},
+      "technique": {"normal": "Ultrasound of the hand and fingers with dynamic assessment.",
+                    "options": []},
       "sections": [
         {"heading": "Flexor tendons and pulleys", "normal": "Intact flexor tendons and pulleys.",
          "options": ["[Tenosynovitis / Trigger finger / Tear / Pulley rupture] of the [ ] finger [ ]."]},
-        {"heading": "Extensor mechanism", "normal": "Intact extensor tendons and sagittal bands.", "options": ["[Tear / Sagittal band injury / Tenosynovitis] [ ]."]},
-        {"heading": "Joints", "normal": "No effusion, synovitis or erosion.", "options": ["Synovitis of the [ ] joint, Doppler grade [0 / 1 / 2 / 3].", "Erosion of the [ ]."]},
+        {"heading": "Extensor mechanism", "normal": "Intact extensor tendons and sagittal bands.",
+         "options": ["[Tear / Sagittal band injury / Tenosynovitis] [ ]."]},
+        {"heading": "Joints", "normal": "No effusion, synovitis or erosion.",
+         "options": ["Synovitis of the [ ] joint, Doppler grade [0 / 1 / 2 / 3].",
+                     "Erosion of the [ ]."]},
         {"heading": "Ligaments and soft tissues", "normal": "Intact collateral ligaments. No mass or foreign body.",
          "options": ["[Thumb UCL tear / Stener lesion / Ganglion / Giant cell tumour of tendon sheath / Foreign body] [ ]."]}
       ],
@@ -270,80 +324,103 @@
     "msk.mri-wrist": {
       "title": "MRI right wrist / MRI left wrist",
       "radiograph": false,
-      "technique": {"normal": "MRI wrist with proton density, fat-suppressed and T1 imaging in three planes."},
+      "technique": {"normal": "MRI wrist with proton density, fat-suppressed and T1 imaging in three planes.",
+                    "options": []},
       "sections": [
         {"heading": "Bones", "normal": "No fracture, bone marrow oedema or avascular necrosis.",
          "options": ["[Occult scaphoid fracture / Scaphoid nonunion / Kienböck disease / Ulnar impaction] [ ]."]},
         {"heading": "Intrinsic ligaments", "normal": "Intact scapholunate and lunotriquetral ligaments.",
          "options": ["[Partial / Complete] tear of the [scapholunate / lunotriquetral] ligament [ ]."]},
-        {"heading": "TFCC", "normal": "Intact triangular fibrocartilage complex.", "options": ["[Central / Peripheral / Radial] TFCC tear, Palmer class [ ]."]},
-        {"heading": "Tendons", "normal": "Normal flexor and extensor tendons.", "options": ["[Tenosynovitis / Tendinosis / Tear / ECU subluxation] [ ]."]},
-        {"heading": "Nerves and soft tissues", "normal": "Normal median and ulnar nerves. No ganglion or synovitis.", "options": ["[Ganglion / Synovitis / Median nerve abnormality] [ ]."]}
+        {"heading": "TFCC", "normal": "Intact triangular fibrocartilage complex.",
+         "options": ["[Central / Peripheral / Radial] TFCC tear, Palmer class [ ]."]},
+        {"heading": "Tendons", "normal": "Normal flexor and extensor tendons.",
+         "options": ["[Tenosynovitis / Tendinosis / Tear / ECU subluxation] [ ]."]},
+        {"heading": "Nerves and soft tissues", "normal": "Normal median and ulnar nerves. No ganglion or synovitis.",
+         "options": ["[Ganglion / Synovitis / Median nerve abnormality] [ ]."]}
       ],
       "impression": "Normal MRI wrist."
     },
     "msk.mri-hand": {
       "title": "MRI right hand / MRI left hand",
       "radiograph": false,
-      "technique": {"normal": "MRI hand and fingers with proton density, fat-suppressed and T1 imaging."},
+      "technique": {"normal": "MRI hand and fingers with proton density, fat-suppressed and T1 imaging.",
+                    "options": []},
       "sections": [
-        {"heading": "Bones", "normal": "No fracture or bone marrow oedema.", "options": ["[Occult fracture / Bone marrow oedema / Erosion / Osteomyelitis] at [ ]."]},
-        {"heading": "Tendons and pulleys", "normal": "Intact flexor and extensor tendons and pulleys.", "options": ["[Tenosynovitis / Tear / Pulley rupture] [ ]."]},
-        {"heading": "Ligaments and volar plates", "normal": "Intact collateral ligaments and volar plates.", "options": ["[Collateral ligament / Volar plate] tear at the [ ] joint."]},
-        {"heading": "Joints", "normal": "No synovitis or erosion.", "options": ["Synovitis of the [ ] joint [ ]."]},
-        {"heading": "Soft tissues", "normal": "No mass or collection.", "options": ["[Ganglion / Giant cell tumour of tendon sheath / Glomus tumour / Collection] [ ]."]}
+        {"heading": "Bones", "normal": "No fracture or bone marrow oedema.",
+         "options": ["[Occult fracture / Bone marrow oedema / Erosion / Osteomyelitis] at [ ]."]},
+        {"heading": "Tendons and pulleys", "normal": "Intact flexor and extensor tendons and pulleys.",
+         "options": ["[Tenosynovitis / Tear / Pulley rupture] [ ]."]},
+        {"heading": "Ligaments and volar plates", "normal": "Intact collateral ligaments and volar plates.",
+         "options": ["[Collateral ligament / Volar plate] tear at the [ ] joint."]},
+        {"heading": "Joints", "normal": "No synovitis or erosion.",
+         "options": ["Synovitis of the [ ] joint [ ]."]},
+        {"heading": "Soft tissues", "normal": "No mass or collection.",
+         "options": ["[Ganglion / Giant cell tumour of tendon sheath / Glomus tumour / Collection] [ ]."]}
       ],
       "impression": "Normal MRI hand."
     },
     "msk.ultrasound-nerves-upper-limb": {
       "title": "Ultrasound peripheral nerves, upper limb",
       "radiograph": false,
-      "technique": {"normal": "High-resolution ultrasound of the median, ulnar and radial nerves."},
+      "technique": {"normal": "High-resolution ultrasound of the median, ulnar and radial nerves.",
+                    "options": []},
       "sections": [
         {"heading": "Median nerve", "normal": "Normal calibre and echotexture at the carpal tunnel and forearm.",
-         "options": ["Cross-sectional area [ ] mm² at the carpal tunnel inlet.", "[Bifid nerve / Persistent median artery / Neuroma / Mass] [ ]."]},
+         "options": ["Cross-sectional area [ ] mm² at the carpal tunnel inlet.",
+                     "[Bifid nerve / Persistent median artery / Neuroma / Mass] [ ]."]},
         {"heading": "Ulnar nerve", "normal": "Normal ulnar nerve at the elbow and wrist. No subluxation.",
-         "options": ["Cross-sectional area [ ] mm² at the [cubital tunnel / Guyon canal].", "[Subluxation / Dislocation / Compression] at the [ ]."]},
-        {"heading": "Radial nerve", "normal": "Normal radial and posterior interosseous nerves.", "options": ["[Compression / Neuroma] of the [radial / posterior interosseous] nerve at [ ]."]},
-        {"heading": "Muscles", "normal": "No denervation change.", "options": ["Denervation of the [ ]."]}
+         "options": ["Cross-sectional area [ ] mm² at the [cubital tunnel / Guyon canal].",
+                     "[Subluxation / Dislocation / Compression] at the [ ]."]},
+        {"heading": "Radial nerve", "normal": "Normal radial and posterior interosseous nerves.",
+         "options": ["[Compression / Neuroma] of the [radial / posterior interosseous] nerve at [ ]."]},
+        {"heading": "Muscles", "normal": "No denervation change.",
+         "options": ["Denervation of the [ ]."]}
       ],
       "impression": "No peripheral nerve abnormality."
     },
     "ra.bone-tumours": {
       "title": "MRI bone lesion with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI of the affected region with T1, fluid-sensitive and post-contrast imaging, correlated with radiographs."},
+      "technique": {"normal": "MRI of the affected region with T1, fluid-sensitive and post-contrast imaging, correlated with radiographs.",
+                    "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No bone lesion.",
          "options": ["[ ] x [ ] x [ ] mm lesion in the [epiphysis / metaphysis / diaphysis] of the [ ], [central / eccentric / cortical / surface].",
                      "Radiographs: [geographic with sclerotic margin / geographic without sclerotic margin / moth-eaten / permeative], [osteoid / chondroid / no] matrix, [no / solid / lamellated / spiculated / Codman] periosteal reaction.",
                      "Bone-RADS [1 / 2 / 3 / 4]."]},
         {"heading": "Marrow and soft tissue", "normal": "Normal marrow signal. No soft tissue mass.",
-         "options": ["Intramedullary extent [ ] mm; skip lesions [ ].", "Soft tissue mass [ ] mm."]},
+         "options": ["Intramedullary extent [ ] mm; skip lesions [ ].",
+                     "Soft tissue mass [ ] mm."]},
         {"heading": "Critical relationships", "normal": "No joint, physeal or neurovascular involvement.",
          "options": ["[Joint / Physeal / Neurovascular bundle] involvement [ ]."]},
-        {"heading": "Other lesions", "normal": "No other bone lesion.", "options": ["[ ]."]}
+        {"heading": "Other lesions", "normal": "No other bone lesion.",
+         "options": ["[ ]."]}
       ],
       "impression": "No bone lesion."
     },
     "ra.cartilage-tumours": {
       "title": "MRI cartilage lesion",
       "radiograph": false,
-      "technique": {"normal": "MRI of the affected region with T1, fluid-sensitive and post-contrast imaging, correlated with radiographs."},
+      "technique": {"normal": "MRI of the affected region with T1, fluid-sensitive and post-contrast imaging, correlated with radiographs.",
+                    "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No cartilage lesion.",
          "options": ["[ ] mm chondroid lesion in the [ ] of the [ ].",
                      "Endosteal scalloping [ ] percent of cortical thickness; [cortical breach / periosteal reaction / soft tissue mass] [ ]."]},
-        {"heading": "Osteochondroma", "normal": "No osteochondroma.", "options": ["Osteochondroma of the [ ] with cartilage cap [ ] mm."]},
-        {"heading": "Marrow and soft tissue", "normal": "No marrow oedema or soft tissue mass.", "options": ["[Marrow oedema / Soft tissue mass] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+        {"heading": "Osteochondroma", "normal": "No osteochondroma.",
+         "options": ["Osteochondroma of the [ ] with cartilage cap [ ] mm."]},
+        {"heading": "Marrow and soft tissue", "normal": "No marrow oedema or soft tissue mass.",
+         "options": ["[Marrow oedema / Soft tissue mass] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "No cartilage tumour."
     },
     "msk.mri-soft-tissue-mass": {
       "title": "MRI soft tissue mass with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI with T1, fluid-sensitive, diffusion and post-contrast imaging."},
+      "technique": {"normal": "MRI with T1, fluid-sensitive, diffusion and post-contrast imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Mass", "normal": "No soft tissue mass.",
          "options": ["[ ] x [ ] x [ ] mm [subcutaneous / intramuscular / intermuscular] mass in the [ ].",
@@ -351,60 +428,75 @@
                      "Features of [lipoma / atypical lipomatous tumour / nerve sheath tumour / vascular malformation / sarcoma]."]},
         {"heading": "Relationships", "normal": "No neurovascular, bone or joint involvement.",
          "options": ["[Neurovascular encasement / Bone involvement / Joint involvement] [ ]."]},
-        {"heading": "Other findings", "normal": "No satellite lesion or lymphadenopathy.", "options": ["[Satellite lesion / Lymphadenopathy] [ ]."]}
+        {"heading": "Other findings", "normal": "No satellite lesion or lymphadenopathy.",
+         "options": ["[Satellite lesion / Lymphadenopathy] [ ]."]}
       ],
       "impression": "No soft tissue mass."
     },
     "msk.ultrasound-soft-tissue-mass": {
       "title": "Ultrasound soft tissue lump",
       "radiograph": false,
-      "technique": {"normal": "Ultrasound with colour Doppler of the palpable abnormality."},
+      "technique": {"normal": "Ultrasound with colour Doppler of the palpable abnormality.",
+                    "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No mass at the site of concern. Normal subcutaneous fat and muscle.",
          "options": ["[ ] x [ ] x [ ] mm [anechoic / hypoechoic / hyperechoic / heterogeneous] lesion, [subcutaneous / intramuscular / intermuscular], [well-defined / ill-defined].",
                      "Vascularity [absent / peripheral / internal]; [compressible / non-compressible].",
                      "Features of [lipoma / epidermoid cyst / ganglion / haematoma / abscess / nerve sheath tumour]."]},
-        {"heading": "Relationships", "normal": "No fascial, neurovascular or bone involvement.", "options": ["[Fascial / Neurovascular / Bone] involvement [ ]."]}
+        {"heading": "Relationships", "normal": "No fascial, neurovascular or bone involvement.",
+         "options": ["[Fascial / Neurovascular / Bone] involvement [ ]."]}
       ],
       "impression": "No soft tissue mass."
     },
     "ra.mri-muscle-injury": {
       "title": "MRI muscle injury",
       "radiograph": false,
-      "technique": {"normal": "MRI of the injured region with T1 and fluid-sensitive imaging in two planes."},
+      "technique": {"normal": "MRI of the injured region with T1 and fluid-sensitive imaging in two planes.",
+                    "options": []},
       "sections": [
         {"heading": "Injured muscle", "normal": "No muscle injury.",
          "options": ["[Myofascial / Musculotendinous / Intratendinous] injury of the [ ], BAMIC grade [0 / 1 / 2 / 3 / 4] [a / b / c].",
                      "Craniocaudal length [ ] cm; cross-sectional area [ ] percent."]},
-        {"heading": "Tendon and aponeurosis", "normal": "Intact tendon and aponeurosis.", "options": ["[Partial / Complete] tendon disruption with [ ] cm retraction."]},
-        {"heading": "Haematoma", "normal": "No haematoma.", "options": ["[ ] mm intramuscular haematoma."]},
-        {"heading": "Other findings", "normal": "No bone injury.", "options": ["[Bone bruise / Avulsion fracture / Myositis ossificans] [ ]."]}
+        {"heading": "Tendon and aponeurosis", "normal": "Intact tendon and aponeurosis.",
+         "options": ["[Partial / Complete] tendon disruption with [ ] cm retraction."]},
+        {"heading": "Haematoma", "normal": "No haematoma.",
+         "options": ["[ ] mm intramuscular haematoma."]},
+        {"heading": "Other findings", "normal": "No bone injury.",
+         "options": ["[Bone bruise / Avulsion fracture / Myositis ossificans] [ ]."]}
       ],
       "impression": "No muscle injury."
     },
     "ra.mri-muscle-disease": {
       "title": "MRI muscles, myopathy protocol",
       "radiograph": false,
-      "technique": {"normal": "Whole-body or regional muscle MRI with T1 and STIR."},
+      "technique": {"normal": "Whole-body or regional muscle MRI with T1 and STIR.",
+                    "options": []},
       "sections": [
         {"heading": "Muscle oedema", "normal": "No muscle oedema.",
-         "options": ["[Symmetrical / Asymmetrical] oedema of the [ ] muscles.", "[Fascial / Perifascial] oedema [ ]."]},
-        {"heading": "Fatty infiltration", "normal": "No fatty infiltration or atrophy.", "options": ["Fatty infiltration of the [ ], Mercuri grade [1 / 2 / 3 / 4]."]},
-        {"heading": "Mass or collection", "normal": "No mass or collection.", "options": ["[Abscess / Necrosis / Mass] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.", "options": ["[ ]."]}
+         "options": ["[Symmetrical / Asymmetrical] oedema of the [ ] muscles.",
+                     "[Fascial / Perifascial] oedema [ ]."]},
+        {"heading": "Fatty infiltration", "normal": "No fatty infiltration or atrophy.",
+         "options": ["Fatty infiltration of the [ ], Mercuri grade [1 / 2 / 3 / 4]."]},
+        {"heading": "Mass or collection", "normal": "No mass or collection.",
+         "options": ["[Abscess / Necrosis / Mass] [ ]."]},
+        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["[ ]."]}
       ],
       "impression": "Normal muscle MRI."
     },
     "ra.stress-fractures": {
       "title": "MRI stress injury",
       "radiograph": false,
-      "technique": {"normal": "MRI of the symptomatic region with T1 and fluid-sensitive imaging.", "options": []},
+      "technique": {"normal": "MRI of the symptomatic region with T1 and fluid-sensitive imaging.",
+                    "options": []},
       "sections": [
         {"heading": "Bone", "normal": "No stress reaction or stress fracture.",
          "options": ["[Periosteal / Marrow] oedema at the [ ] [with / without] a fracture line.",
                      "High-risk site: [femoral neck tension side / anterior tibial cortex / navicular / fifth metatarsal base] [ ]."]},
-        {"heading": "Joints and soft tissues", "normal": "No effusion or soft tissue abnormality.", "options": ["[Effusion / Soft tissue oedema] [ ]."]},
-        {"heading": "Other findings", "normal": "No alternative cause for pain.", "options": ["[Tumour / Osteomyelitis / Tendon injury] [ ]."]}
+        {"heading": "Joints and soft tissues", "normal": "No effusion or soft tissue abnormality.",
+         "options": ["[Effusion / Soft tissue oedema] [ ]."]},
+        {"heading": "Other findings", "normal": "No alternative cause for pain.",
+         "options": ["[Tumour / Osteomyelitis / Tendon injury] [ ]."]}
       ],
       "impression": "No stress fracture."
     },
@@ -417,23 +509,32 @@
         {"heading": "Target", "normal": "Target joint identified. No contraindication on the pre-procedure scan.",
          "options": ["[Effusion / Synovitis / Cellulitis / Collection] on the pre-procedure scan [ ]."]},
         {"heading": "Injection", "normal": "Needle tip confirmed within the joint; injectate distributed freely.",
-         "options": ["Injected [ ] mg [ ] with [ ] mL [ ].", "Aspirated [ ] mL of [clear / turbid / bloody] fluid, sent for [ ]."]},
+         "options": ["Injected [ ] mg [ ] with [ ] mL [ ].",
+                     "Aspirated [ ] mL of [clear / turbid / bloody] fluid, sent for [ ]."]},
         {"heading": "Outcome", "normal": "No immediate complication. Aftercare advice given.",
-         "options": ["Pain score [ ] out of 10 before and [ ] out of 10 after injection.", "Complication: [ ]."]}
+         "options": ["Pain score [ ] out of 10 before and [ ] out of 10 after injection.",
+                     "Complication: [ ]."]}
       ],
       "impression": "Successful ultrasound-guided joint injection. No immediate complication."
     },
     "template:msk-mri-report": {
       "title": "MRI musculoskeletal",
       "radiograph": false,
-      "technique": {"normal": "MRI with T1 and fluid-sensitive imaging in at least two planes.", "options": ["Post-contrast imaging [ ]."]},
+      "technique": {"normal": "MRI with T1 and fluid-sensitive imaging in at least two planes.",
+                    "options": ["Post-contrast imaging [ ]."]},
       "sections": [
-        {"heading": "Bones", "normal": "Normal marrow signal. No fracture or bone marrow oedema.", "options": ["[Fracture / Bone marrow oedema / Marrow lesion] at [ ]."]},
-        {"heading": "Cartilage and joint", "normal": "Preserved cartilage. No effusion or synovitis.", "options": ["[Chondral lesion / Effusion / Synovitis / Loose body] [ ]."]},
-        {"heading": "Tendons and ligaments", "normal": "Intact tendons and ligaments.", "options": ["[Tendinosis / Partial tear / Complete tear] of the [ ]."]},
-        {"heading": "Muscles", "normal": "Normal muscle bulk and signal.", "options": ["[Strain / Oedema / Atrophy / Fatty infiltration] of the [ ]."]},
-        {"heading": "Nerves and vessels", "normal": "Normal nerves and vessels.", "options": ["[ ]."]},
-        {"heading": "Soft tissues", "normal": "No mass or collection.", "options": ["[Mass / Collection / Ganglion] [ ]."]}
+        {"heading": "Bones", "normal": "Normal marrow signal. No fracture or bone marrow oedema.",
+         "options": ["[Fracture / Bone marrow oedema / Marrow lesion] at [ ]."]},
+        {"heading": "Cartilage and joint", "normal": "Preserved cartilage. No effusion or synovitis.",
+         "options": ["[Chondral lesion / Effusion / Synovitis / Loose body] [ ]."]},
+        {"heading": "Tendons and ligaments", "normal": "Intact tendons and ligaments.",
+         "options": ["[Tendinosis / Partial tear / Complete tear] of the [ ]."]},
+        {"heading": "Muscles", "normal": "Normal muscle bulk and signal.",
+         "options": ["[Strain / Oedema / Atrophy / Fatty infiltration] of the [ ]."]},
+        {"heading": "Nerves and vessels", "normal": "Normal nerves and vessels.",
+         "options": ["[ ]."]},
+        {"heading": "Soft tissues", "normal": "No mass or collection.",
+         "options": ["[Mass / Collection / Ganglion] [ ]."]}
       ],
       "impression": "Normal MRI."
     },
@@ -446,9 +547,12 @@
                      "[Pathological / Insufficiency / Stress] features [ ]."]},
         {"heading": "Displacement", "normal": "No displacement.",
          "options": ["Displacement [ ] mm [anterior / posterior / medial / lateral]; angulation [ ] degrees; shortening [ ] mm; rotation [ ]."]},
-        {"heading": "Joints", "normal": "Congruent adjacent joints. No dislocation.", "options": ["[Dislocation / Subluxation / Articular step] [ ]."]},
-        {"heading": "Growth plates", "normal": "No physeal injury.", "options": ["Salter-Harris type [I / II / III / IV / V] injury of the [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue gas or foreign body.", "options": ["[Soft tissue gas / Foreign body / Soft tissue swelling] [ ]."]}
+        {"heading": "Joints", "normal": "Congruent adjacent joints. No dislocation.",
+         "options": ["[Dislocation / Subluxation / Articular step] [ ]."]},
+        {"heading": "Growth plates", "normal": "No physeal injury.",
+         "options": ["Salter-Harris type [I / II / III / IV / V] injury of the [ ]."]},
+        {"heading": "Soft tissues", "normal": "No soft tissue gas or foreign body.",
+         "options": ["[Soft tissue gas / Foreign body / Soft tissue swelling] [ ]."]}
       ],
       "impression": "No fracture or dislocation."
     },
@@ -456,13 +560,15 @@
       "title": "Skeletal survey",
       "radiograph": true,
       "sections": [
-        {"heading": "Survey completeness", "normal": "Complete skeletal survey to protocol.", "options": ["[Incomplete survey / Repeat views needed] [ ]."]},
+        {"heading": "Survey completeness", "normal": "Complete skeletal survey to protocol.",
+         "options": ["[Incomplete survey / Repeat views needed] [ ]."]},
         {"heading": "Fractures", "normal": "No fracture.",
          "options": ["[Classic metaphyseal lesion / Posterior rib fracture / Skull fracture / Long bone fracture / Spinal fracture] at the [ ].",
                      "Healing stage: [acute / early healing / late healing / remodelling] [ ]."]},
         {"heading": "Bone and development", "normal": "Normal bone density and development. No metabolic bone disease.",
          "options": ["[Osteopenia / Rickets / Normal variant / Skeletal dysplasia] [ ]."]},
-        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.", "options": ["[Soft tissue swelling / Calcification] [ ]."]}
+        {"heading": "Soft tissues", "normal": "No soft tissue abnormality.",
+         "options": ["[Soft tissue swelling / Calcification] [ ]."]}
       ],
       "impression": "No skeletal injury."
     }
