@@ -96,6 +96,11 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'docs/radiology-fidelity-scope.json':
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/mullerian-reporting-inventory/scope-inverse.json', 'e7677d660fed1643bdcb1cb8d8897182947727448482d8b55ce848125a7817d3')
+    if str(path) == 'data/radiology/non-msk-structure-requirements.json':
+        from tools.anatomy_sources.reconcile_current_reporting_requirements import before_recent_reporting_inventories
+        raw = before_recent_reporting_inventories(raw)
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/rhuh-sah-001/runtime-inverse.json', 'de93240f71a01363b8236b8c7629cd1ff4a6f75b33defc170067bea6c203ac02')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:

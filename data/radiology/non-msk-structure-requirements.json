@@ -76,7 +76,10 @@
       "ra.mri-myelopathy",
       "ra.ct-traumatic-haemorrhage",
       "ra.acute-stroke",
-      "ra.ct-pulmonary-nodules"
+      "ra.ct-pulmonary-nodules",
+      "ra.mullerian-anomalies",
+      "ra.mri-epilepsy",
+      "ra.intracranial-haemorrhage"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -524379,6 +524382,5050 @@
       "clinical_validation_status": "draft_requires_thoracic_radiologist_review",
       "original_source_scope_proposal_sha256": "40c42c54706b8b82dd585c65824290f0ddaad400279287e9c76f0287a1106e40",
       "original_shared_curriculum_quiz_sha256": "c8d6acf6a66bd97d13bdb33dabc7f3e2ea5603208d861a5227e8fe3dcd68ab77"
+    },
+    {
+      "investigation_id": "ra.mullerian-anomalies",
+      "module_id": "rad.5.uterine-mr",
+      "title": "M\u00fcllerian duct anomaly imaging",
+      "modality": "Multimodality",
+      "scope_type": "mullerian_anomaly_acquired_anatomy_and_case_specific_findings",
+      "clinical_validation_status": "draft_requires_gynaecologic_radiology_review",
+      "source_contract_sha256": "e428180d480c426feb02fcf31fc89a877bd21c2a0df8a38ddf6352d5b026c80a",
+      "reporting_checklist": [
+        {
+          "label": "External Fundal Contour",
+          "detail": "Assess the external fundal shape independently of the cavity."
+        },
+        {
+          "label": "Uterine Cavities",
+          "detail": "Define number, configuration and communication of cavities."
+        },
+        {
+          "label": "Cervix",
+          "detail": "Identify the number and configuration of cervical canals."
+        },
+        {
+          "label": "Vagina",
+          "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+        },
+        {
+          "label": "Associated Anatomy",
+          "detail": "Look for urinary anomalies and retained menstrual products."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "EXTERNAL FUNDAL CONTOUR",
+          "body": "Contour: [ ]. External cleft: [ ] mm."
+        },
+        {
+          "heading": "UTERINE CAVITIES",
+          "body": "Cavities: [ ]. Septum/indentation: [ ]. Communication: [ ]."
+        },
+        {
+          "heading": "CERVIX",
+          "body": "Cervices/canals: [ ]. Atresia/obstruction: [ ]."
+        },
+        {
+          "heading": "VAGINA",
+          "body": "Vaginal anatomy/septum: [ ]. Haematocolpos: [ ]."
+        },
+        {
+          "heading": "ASSOCIATED ANATOMY",
+          "body": "Renal/urinary anatomy: [ ]. Haematometra: [ ]. Rudimentary horn/endometrium: [ ]."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "structures": [
+        {
+          "id": "mullerian.fundus",
+          "name": "External fundal contour",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.fundus.fundal_serosal_surface",
+              "name": "Fundal serosal surface"
+            },
+            {
+              "id": "mullerian.fundus.external_cleft_apex",
+              "name": "External cleft apex"
+            },
+            {
+              "id": "mullerian.fundus.right_external_cleft_shoulder",
+              "name": "Right external cleft shoulder"
+            },
+            {
+              "id": "mullerian.fundus.left_external_cleft_shoulder",
+              "name": "Left external cleft shoulder"
+            },
+            {
+              "id": "mullerian.fundus.external_cleft_measurement_plane",
+              "name": "External cleft measurement plane"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.septum",
+          "name": "Uterine septum or internal indentation",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.septum.bicornual_reference_landmarks",
+              "name": "Bicornual reference landmarks"
+            },
+            {
+              "id": "mullerian.septum.indentation_apex",
+              "name": "Indentation apex"
+            },
+            {
+              "id": "mullerian.septum.leading_edge_angle_landmarks",
+              "name": "Leading edge angle landmarks"
+            },
+            {
+              "id": "mullerian.septum.septum_superior_attachment",
+              "name": "Septum superior attachment"
+            },
+            {
+              "id": "mullerian.septum.septum_inferior_extent",
+              "name": "Septum inferior extent"
+            },
+            {
+              "id": "mullerian.septum.septum_tissue_and_cavity_interface",
+              "name": "Septum tissue and cavity interface"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.communication",
+          "name": "Cavity communication",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.communication.cavity_confluence",
+              "name": "Cavity confluence"
+            },
+            {
+              "id": "mullerian.communication.communicating_tract",
+              "name": "Communicating tract"
+            },
+            {
+              "id": "mullerian.communication.communication_with_cervical_canal",
+              "name": "Communication with cervical canal"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.cervical_obstruction",
+          "name": "Cervical agenesis or obstruction",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.cervical_obstruction.present_cervical_tissue_or_remnant",
+              "name": "Present cervical tissue or remnant"
+            },
+            {
+              "id": "mullerian.cervical_obstruction.atretic_or_obstructed_extent",
+              "name": "Atretic or obstructed extent"
+            },
+            {
+              "id": "mullerian.cervical_obstruction.proximal_cavity_and_obstruction_interface",
+              "name": "Proximal cavity and obstruction interface"
+            },
+            {
+              "id": "mullerian.cervical_obstruction.distal_vaginal_relationship",
+              "name": "Distal vaginal relationship"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.vaginal_septum",
+          "name": "Vaginal septum",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.vaginal_septum.longitudinal_septum_extent",
+              "name": "Longitudinal septum extent"
+            },
+            {
+              "id": "mullerian.vaginal_septum.transverse_septum_level",
+              "name": "Transverse septum level"
+            },
+            {
+              "id": "mullerian.vaginal_septum.septum_thickness_landmarks",
+              "name": "Septum thickness landmarks"
+            },
+            {
+              "id": "mullerian.vaginal_septum.patent_opening_if_present",
+              "name": "Patent opening if present"
+            },
+            {
+              "id": "mullerian.vaginal_septum.distal_and_proximal_vaginal_interfaces",
+              "name": "Distal and proximal vaginal interfaces"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.vaginal_extent",
+          "name": "Vaginal canal",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.vaginal_extent.upper_vaginal_canal",
+              "name": "Upper vaginal canal"
+            },
+            {
+              "id": "mullerian.vaginal_extent.lower_vaginal_canal_and_outlet",
+              "name": "Lower vaginal canal and outlet"
+            },
+            {
+              "id": "mullerian.vaginal_extent.cervicovaginal_junction",
+              "name": "Cervicovaginal junction"
+            },
+            {
+              "id": "mullerian.vaginal_extent.absent_or_shortened_segment_when_present",
+              "name": "Absent or shortened segment when present"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.horn",
+          "name": "Left uterine horn or corpus",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.horn.outer_contour",
+              "name": "Outer contour"
+            },
+            {
+              "id": "mullerian.left.horn.myometrial_extent",
+              "name": "Myometrial extent"
+            },
+            {
+              "id": "mullerian.left.horn.endometrial_cavity",
+              "name": "Endometrial cavity"
+            },
+            {
+              "id": "mullerian.left.horn.cornual_landmark",
+              "name": "Cornual landmark"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.rudimentary_horn",
+          "name": "Left rudimentary horn",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.rudimentary_horn.horn_outline",
+              "name": "Horn outline"
+            },
+            {
+              "id": "mullerian.left.rudimentary_horn.endometrial_lining_if_present",
+              "name": "Endometrial lining if present"
+            },
+            {
+              "id": "mullerian.left.rudimentary_horn.connection_to_dominant_uterus",
+              "name": "Connection to dominant uterus"
+            },
+            {
+              "id": "mullerian.left.rudimentary_horn.retained_contents_if_present",
+              "name": "Retained contents if present"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.cervix",
+          "name": "Left cervical component",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.cervix.cervical_stroma",
+              "name": "Cervical stroma"
+            },
+            {
+              "id": "mullerian.left.cervix.cervical_canal",
+              "name": "Cervical canal"
+            },
+            {
+              "id": "mullerian.left.cervix.internal_os",
+              "name": "Internal os"
+            },
+            {
+              "id": "mullerian.left.cervix.external_os",
+              "name": "External os"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.hemivagina",
+          "name": "Left hemivagina",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.hemivagina.luminal_compartment",
+              "name": "Luminal compartment"
+            },
+            {
+              "id": "mullerian.left.hemivagina.wall_interface",
+              "name": "Wall interface"
+            },
+            {
+              "id": "mullerian.left.hemivagina.outlet_and_obstruction_site",
+              "name": "Outlet and obstruction site"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.urinary",
+          "name": "Left acquired urinary anatomy",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.urinary.kidney_and_renal_fossa",
+              "name": "Kidney and renal fossa"
+            },
+            {
+              "id": "mullerian.left.urinary.ectopic_kidney_if_present",
+              "name": "Ectopic kidney if present"
+            },
+            {
+              "id": "mullerian.left.urinary.collecting_system",
+              "name": "Collecting system"
+            },
+            {
+              "id": "mullerian.left.urinary.acquired_ureter_course_and_insertion",
+              "name": "Acquired ureter course and insertion"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.horn",
+          "name": "Right uterine horn or corpus",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.horn.outer_contour",
+              "name": "Outer contour"
+            },
+            {
+              "id": "mullerian.right.horn.myometrial_extent",
+              "name": "Myometrial extent"
+            },
+            {
+              "id": "mullerian.right.horn.endometrial_cavity",
+              "name": "Endometrial cavity"
+            },
+            {
+              "id": "mullerian.right.horn.cornual_landmark",
+              "name": "Cornual landmark"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.rudimentary_horn",
+          "name": "Right rudimentary horn",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.rudimentary_horn.horn_outline",
+              "name": "Horn outline"
+            },
+            {
+              "id": "mullerian.right.rudimentary_horn.endometrial_lining_if_present",
+              "name": "Endometrial lining if present"
+            },
+            {
+              "id": "mullerian.right.rudimentary_horn.connection_to_dominant_uterus",
+              "name": "Connection to dominant uterus"
+            },
+            {
+              "id": "mullerian.right.rudimentary_horn.retained_contents_if_present",
+              "name": "Retained contents if present"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.cervix",
+          "name": "Right cervical component",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.cervix.cervical_stroma",
+              "name": "Cervical stroma"
+            },
+            {
+              "id": "mullerian.right.cervix.cervical_canal",
+              "name": "Cervical canal"
+            },
+            {
+              "id": "mullerian.right.cervix.internal_os",
+              "name": "Internal os"
+            },
+            {
+              "id": "mullerian.right.cervix.external_os",
+              "name": "External os"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.hemivagina",
+          "name": "Right hemivagina",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.hemivagina.luminal_compartment",
+              "name": "Luminal compartment"
+            },
+            {
+              "id": "mullerian.right.hemivagina.wall_interface",
+              "name": "Wall interface"
+            },
+            {
+              "id": "mullerian.right.hemivagina.outlet_and_obstruction_site",
+              "name": "Outlet and obstruction site"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.urinary",
+          "name": "Right acquired urinary anatomy",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.urinary.kidney_and_renal_fossa",
+              "name": "Kidney and renal fossa"
+            },
+            {
+              "id": "mullerian.right.urinary.ectopic_kidney_if_present",
+              "name": "Ectopic kidney if present"
+            },
+            {
+              "id": "mullerian.right.urinary.collecting_system",
+              "name": "Collecting system"
+            },
+            {
+              "id": "mullerian.right.urinary.acquired_ureter_course_and_insertion",
+              "name": "Acquired ureter course and insertion"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.retained_products",
+          "name": "Retained menstrual products",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.retained_products.haematometra_extent",
+              "name": "Haematometra extent"
+            },
+            {
+              "id": "mullerian.retained_products.haematocolpos_extent",
+              "name": "Haematocolpos extent"
+            },
+            {
+              "id": "mullerian.retained_products.haematometrocolpos_continuity",
+              "name": "Haematometrocolpos continuity"
+            },
+            {
+              "id": "mullerian.retained_products.wall_interface_and_obstruction_level",
+              "name": "Wall interface and obstruction level"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.complex",
+          "name": "Complex uterine, cervical or vaginal anomaly",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "External Fundal Contour",
+              "detail": "Assess the external fundal shape independently of the cavity."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Uterine Cavities",
+              "detail": "Define number, configuration and communication of cavities."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Cervix",
+              "detail": "Identify the number and configuration of cervical canals."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Vagina",
+              "detail": "Assess longitudinal or transverse septa and obstructed compartments."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.complex.uterine_remnants_if_present",
+              "name": "Uterine remnants if present"
+            },
+            {
+              "id": "mullerian.complex.separate_uterine_bodies_when_present",
+              "name": "Separate uterine bodies when present"
+            },
+            {
+              "id": "mullerian.complex.separate_cervical_canals_when_present",
+              "name": "Separate cervical canals when present"
+            },
+            {
+              "id": "mullerian.complex.relevant_duplicated_vaginal_compartments",
+              "name": "Relevant duplicated vaginal compartments"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.bladder",
+          "name": "Acquired urinary bladder",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.bladder.outline",
+              "name": "Bladder outline"
+            },
+            {
+              "id": "mullerian.bladder.lumen",
+              "name": "Bladder lumen"
+            },
+            {
+              "id": "mullerian.bladder.pelvic_relationship",
+              "name": "Relationship to adjacent genital tract"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.right.ovary",
+          "name": "Right acquired ovary",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.right.ovary.location",
+              "name": "Ovarian location"
+            },
+            {
+              "id": "mullerian.right.ovary.extent",
+              "name": "Ovarian parenchymal extent"
+            },
+            {
+              "id": "mullerian.right.ovary.relationship",
+              "name": "Relationship to uterine or vaginal components"
+            }
+          ]
+        },
+        {
+          "id": "mullerian.left.ovary",
+          "name": "Left acquired ovary",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI",
+            "Ultrasound"
+          ],
+          "condition": "Instantiate the actual acquired structures, side, anatomical configuration and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Associated Anatomy",
+              "detail": "Look for urinary anomalies and retained menstrual products."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+            "https://doi.org/10.1186/s13244-024-01879-2"
+          ],
+          "required_parts": [
+            {
+              "id": "mullerian.left.ovary.location",
+              "name": "Ovarian location"
+            },
+            {
+              "id": "mullerian.left.ovary.extent",
+              "name": "Ovarian parenchymal extent"
+            },
+            {
+              "id": "mullerian.left.ovary.relationship",
+              "name": "Relationship to uterine or vaginal components"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        "https://www.asrm.org/practice-guidance/practice-committee-documents/asrm-mullerian-anomalies-classication-2021/",
+        "https://doi.org/10.1186/s13244-024-01879-2"
+      ],
+      "functional_evidence_requirements": [
+        {
+          "name": "True coronal acquisition and calibrated cleft landmarks",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Selected classification framework and version",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Cavity communication and obstruction on appropriate acquired imaging",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Acquired urinary coverage and laterality",
+          "status": "requires_case_specific_evidence"
+        }
+      ],
+      "source_scope_issues": [
+        "The published examples contain selected views and schematic panels. Exact source grids, case-specific measurements and full native 3D models remain open.",
+        "The separate HRA atlas contributes regional context. It supplies no anomaly-specific cavity, septum or wall-layer evidence."
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every acquired uterine, cervical, vaginal and urinary component, including the actual side, variant and obstruction site",
+            "Every reported communication, retained content boundary and measurement landmark"
+          ]
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.mri-epilepsy",
+      "module_id": "rad.5.epilepsy-mri",
+      "title": "MRI epilepsy",
+      "modality": "MRI",
+      "scope_type": "epilepsy_structural_mri_and_case_specific_pathology",
+      "clinical_validation_status": "draft_requires_neuroradiologist_review",
+      "source_contract_sha256": "9949ba564088960cd881af231d01e0b96b3de14c8a2ec5436880965ba5374f85",
+      "reporting_checklist": [
+        {
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        },
+        {
+          "label": "Cortical development",
+          "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "label": "Dual pathology",
+          "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+        },
+        {
+          "label": "Other substrates",
+          "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        },
+        {
+          "label": "Concordance",
+          "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "MESIAL TEMPORAL STRUCTURES",
+          "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "heading": "CORTEX AND MIGRATION",
+          "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "heading": "FOCAL LESIONS",
+          "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ \u00d7 __ \u00d7 __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+        },
+        {
+          "heading": "SKULL BASE AND DUAL PATHOLOGY",
+          "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+        },
+        {
+          "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+          "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "structures": [
+        {
+          "id": "epilepsy.left.hippocampus",
+          "name": "Left hippocampus",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.hippocampus.head",
+              "name": "head"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.body",
+              "name": "body"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.tail",
+              "name": "tail"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.internal_architecture",
+              "name": "internal architecture"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.long_axis_orientation",
+              "name": "Long-axis orientation"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.hippocampal_outline_and_adjacent_csf_interface",
+              "name": "Hippocampal outline and adjacent CSF interface"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.hippocampus.sclerosis",
+          "name": "Left hippocampal sclerosis",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use actual positive case evidence and the matched acquired sequences.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.hippocampus.sclerosis.volume_loss",
+              "name": "Volume loss"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.sclerosis.t2_or_flair_hyperintensity",
+              "name": "T2 or FLAIR hyperintensity"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.sclerosis.loss_of_internal_architecture",
+              "name": "Loss of internal architecture"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.fornix",
+          "name": "Left fornix",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.fornix.whole_visible_course",
+              "name": "whole visible course"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.mammillary-body",
+          "name": "Left mammillary body",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.mammillary-body.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.amygdala",
+          "name": "Left amygdala",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.amygdala.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.entorhinal-parahippocampal-context",
+          "name": "Left entorhinal/parahippocampal context",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.entorhinal-parahippocampal-context.cortex",
+              "name": "cortex"
+            },
+            {
+              "id": "epilepsy.left.entorhinal-parahippocampal-context.underlying_white_matter",
+              "name": "underlying white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.temporal-pole-and-skull-base-interface",
+          "name": "Left temporal pole and skull-base interface",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.temporal-pole-and-skull-base-interface.temporal_pole",
+              "name": "temporal pole"
+            },
+            {
+              "id": "epilepsy.left.temporal-pole-and-skull-base-interface.adjacent_middle_cranial_fossa_floor",
+              "name": "adjacent middle cranial fossa floor"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.hippocampus",
+          "name": "Right hippocampus",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.hippocampus.head",
+              "name": "head"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.body",
+              "name": "body"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.tail",
+              "name": "tail"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.internal_architecture",
+              "name": "internal architecture"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.long_axis_orientation",
+              "name": "Long-axis orientation"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.hippocampal_outline_and_adjacent_csf_interface",
+              "name": "Hippocampal outline and adjacent CSF interface"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.hippocampus.sclerosis",
+          "name": "Right hippocampal sclerosis",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use actual positive case evidence and the matched acquired sequences.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.hippocampus.sclerosis.volume_loss",
+              "name": "Volume loss"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.sclerosis.t2_or_flair_hyperintensity",
+              "name": "T2 or FLAIR hyperintensity"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.sclerosis.loss_of_internal_architecture",
+              "name": "Loss of internal architecture"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.fornix",
+          "name": "Right fornix",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.fornix.whole_visible_course",
+              "name": "whole visible course"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.mammillary-body",
+          "name": "Right mammillary body",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.mammillary-body.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.amygdala",
+          "name": "Right amygdala",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.amygdala.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.entorhinal-parahippocampal-context",
+          "name": "Right entorhinal/parahippocampal context",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.entorhinal-parahippocampal-context.cortex",
+              "name": "cortex"
+            },
+            {
+              "id": "epilepsy.right.entorhinal-parahippocampal-context.underlying_white_matter",
+              "name": "underlying white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.temporal-pole-and-skull-base-interface",
+          "name": "Right temporal pole and skull-base interface",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.temporal-pole-and-skull-base-interface.temporal_pole",
+              "name": "temporal pole"
+            },
+            {
+              "id": "epilepsy.right.temporal-pole-and-skull-base-interface.adjacent_middle_cranial_fossa_floor",
+              "name": "adjacent middle cranial fossa floor"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.frontal.cortex",
+          "name": "Left frontal cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.frontal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.frontal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.frontal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.frontal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.parietal.cortex",
+          "name": "Left parietal cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.parietal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.parietal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.parietal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.parietal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.temporal.cortex",
+          "name": "Left temporal cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.temporal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.temporal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.temporal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.temporal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.occipital.cortex",
+          "name": "Left occipital cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.occipital.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.occipital.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.occipital.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.occipital.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.insular.cortex",
+          "name": "Left insular cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.insular.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.insular.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.insular.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.insular.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.cingulate.cortex",
+          "name": "Left cingulate cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.cingulate.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.cingulate.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.cingulate.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.cingulate.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.migration",
+          "name": "Left migration pathways",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Review the full acquired path and relevant adjacent cortex.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.migration.ventricular_ependymal_interface",
+              "name": "Ventricular ependymal interface"
+            },
+            {
+              "id": "epilepsy.left.migration.periventricular_white_matter",
+              "name": "Periventricular white matter"
+            },
+            {
+              "id": "epilepsy.left.migration.cortex_to_ventricle_white_matter_route",
+              "name": "Cortex-to-ventricle white matter route"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.dysplasia",
+          "name": "Left focal cortical dysplasia",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use positive source findings at each actual lesion site and applicable sequence.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.dysplasia.thickened_cortex",
+              "name": "Thickened cortex"
+            },
+            {
+              "id": "epilepsy.left.dysplasia.grey_white_blurring",
+              "name": "Grey-white blurring"
+            },
+            {
+              "id": "epilepsy.left.dysplasia.abnormal_sulcation",
+              "name": "Abnormal sulcation"
+            },
+            {
+              "id": "epilepsy.left.dysplasia.transmantle_signal_extent",
+              "name": "Transmantle signal extent"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.heterotopia",
+          "name": "Left heterotopia",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate only the applicable migration abnormality and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.heterotopia.periventricular_nodule",
+              "name": "Periventricular nodule"
+            },
+            {
+              "id": "epilepsy.left.heterotopia.subcortical_or_band_heterotopia",
+              "name": "Subcortical or band heterotopia"
+            },
+            {
+              "id": "epilepsy.left.heterotopia.associated_overlying_cortex",
+              "name": "Associated overlying cortex"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.encephalocele",
+          "name": "Left temporal encephalocele",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use the source case and sequence that depict the defect and tissue.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.encephalocele.skull_base_defect",
+              "name": "Skull base defect"
+            },
+            {
+              "id": "epilepsy.left.encephalocele.herniated_tissue",
+              "name": "Herniated tissue"
+            },
+            {
+              "id": "epilepsy.left.encephalocele.neck_and_adjacent_csf_space",
+              "name": "Neck and adjacent CSF space"
+            },
+            {
+              "id": "epilepsy.left.encephalocele.adjacent_signal_abnormality",
+              "name": "Adjacent signal abnormality"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.frontal.cortex",
+          "name": "Right frontal cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.frontal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.frontal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.frontal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.frontal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.parietal.cortex",
+          "name": "Right parietal cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.parietal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.parietal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.parietal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.parietal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.temporal.cortex",
+          "name": "Right temporal cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.temporal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.temporal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.temporal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.temporal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.occipital.cortex",
+          "name": "Right occipital cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.occipital.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.occipital.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.occipital.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.occipital.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.insular.cortex",
+          "name": "Right insular cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.insular.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.insular.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.insular.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.insular.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.cingulate.cortex",
+          "name": "Right cingulate cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.cingulate.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.cingulate.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.cingulate.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.cingulate.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.migration",
+          "name": "Right migration pathways",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Review the full acquired path and relevant adjacent cortex.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.migration.ventricular_ependymal_interface",
+              "name": "Ventricular ependymal interface"
+            },
+            {
+              "id": "epilepsy.right.migration.periventricular_white_matter",
+              "name": "Periventricular white matter"
+            },
+            {
+              "id": "epilepsy.right.migration.cortex_to_ventricle_white_matter_route",
+              "name": "Cortex-to-ventricle white matter route"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.dysplasia",
+          "name": "Right focal cortical dysplasia",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use positive source findings at each actual lesion site and applicable sequence.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.dysplasia.thickened_cortex",
+              "name": "Thickened cortex"
+            },
+            {
+              "id": "epilepsy.right.dysplasia.grey_white_blurring",
+              "name": "Grey-white blurring"
+            },
+            {
+              "id": "epilepsy.right.dysplasia.abnormal_sulcation",
+              "name": "Abnormal sulcation"
+            },
+            {
+              "id": "epilepsy.right.dysplasia.transmantle_signal_extent",
+              "name": "Transmantle signal extent"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.heterotopia",
+          "name": "Right heterotopia",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate only the applicable migration abnormality and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.heterotopia.periventricular_nodule",
+              "name": "Periventricular nodule"
+            },
+            {
+              "id": "epilepsy.right.heterotopia.subcortical_or_band_heterotopia",
+              "name": "Subcortical or band heterotopia"
+            },
+            {
+              "id": "epilepsy.right.heterotopia.associated_overlying_cortex",
+              "name": "Associated overlying cortex"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.encephalocele",
+          "name": "Right temporal encephalocele",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use the source case and sequence that depict the defect and tissue.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.encephalocele.skull_base_defect",
+              "name": "Skull base defect"
+            },
+            {
+              "id": "epilepsy.right.encephalocele.herniated_tissue",
+              "name": "Herniated tissue"
+            },
+            {
+              "id": "epilepsy.right.encephalocele.neck_and_adjacent_csf_space",
+              "name": "Neck and adjacent CSF space"
+            },
+            {
+              "id": "epilepsy.right.encephalocele.adjacent_signal_abnormality",
+              "name": "Adjacent signal abnormality"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.tumour",
+          "name": "Tumour",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.tumour.lesion_core",
+              "name": "Lesion core"
+            },
+            {
+              "id": "epilepsy.tumour.lesion_margin",
+              "name": "Lesion margin"
+            },
+            {
+              "id": "epilepsy.tumour.adjacent_cortex",
+              "name": "Adjacent cortex"
+            },
+            {
+              "id": "epilepsy.tumour.associated_oedema",
+              "name": "Associated oedema"
+            },
+            {
+              "id": "epilepsy.tumour.enhancing_portion_if_acquired",
+              "name": "Enhancing portion if acquired"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.vascular",
+          "name": "Vascular malformation",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.vascular.lesion_core",
+              "name": "Lesion core"
+            },
+            {
+              "id": "epilepsy.vascular.adjacent_brain_interface",
+              "name": "Adjacent brain interface"
+            },
+            {
+              "id": "epilepsy.vascular.susceptibility_extent",
+              "name": "Susceptibility extent"
+            },
+            {
+              "id": "epilepsy.vascular.source_defined_feeding_or_draining_anatomy_if_acquired",
+              "name": "Source-defined feeding or draining anatomy if acquired"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.injury",
+          "name": "Prior injury",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.injury.gliosis",
+              "name": "Gliosis"
+            },
+            {
+              "id": "epilepsy.injury.encephalomalacic_cavity",
+              "name": "Encephalomalacic cavity"
+            },
+            {
+              "id": "epilepsy.injury.volume_loss_boundary",
+              "name": "Volume-loss boundary"
+            },
+            {
+              "id": "epilepsy.injury.adjacent_cortex",
+              "name": "Adjacent cortex"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.peri_ictal",
+          "name": "Peri-ictal appearing change",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.peri_ictal.cortical_signal_extent",
+              "name": "Cortical signal extent"
+            },
+            {
+              "id": "epilepsy.peri_ictal.hippocampal_signal_extent",
+              "name": "Hippocampal signal extent"
+            },
+            {
+              "id": "epilepsy.peri_ictal.diffusion_restriction_and_adc_correspondence",
+              "name": "Diffusion restriction and ADC correspondence"
+            },
+            {
+              "id": "epilepsy.peri_ictal.follow_up_change_when_acquired",
+              "name": "Follow-up change when acquired"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.dual_lesion",
+          "name": "Additional potentially relevant lesion",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.dual_lesion.second_lesion_boundaries",
+              "name": "Second lesion boundaries"
+            },
+            {
+              "id": "epilepsy.dual_lesion.spatial_relation_to_the_first_lesion",
+              "name": "Spatial relation to the first lesion"
+            },
+            {
+              "id": "epilepsy.dual_lesion.independent_sequence_correspondence",
+              "name": "Independent sequence correspondence"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.midline",
+          "name": "Midline and herniation interfaces",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.midline.midline_landmarks",
+              "name": "Midline landmarks and displacement"
+            },
+            {
+              "id": "epilepsy.midline.subfalcine",
+              "name": "Subfalcine interface"
+            },
+            {
+              "id": "epilepsy.midline.transtentorial",
+              "name": "Transtentorial interface"
+            },
+            {
+              "id": "epilepsy.midline.foramen_magnum",
+              "name": "Foramen magnum and tonsillar interface"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.ventricles",
+          "name": "Acquired ventricular system",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.ventricles.left_lateral",
+              "name": "Left lateral ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.right_lateral",
+              "name": "Right lateral ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.third",
+              "name": "Third ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.fourth",
+              "name": "Fourth ventricular space"
+            },
+            {
+              "id": "epilepsy.ventricles.outflow",
+              "name": "Acquired outflow and obstruction level"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.cisterns",
+          "name": "Basal cisterns",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.cisterns.suprasellar",
+              "name": "Suprasellar cistern"
+            },
+            {
+              "id": "epilepsy.cisterns.ambient",
+              "name": "Ambient cisterns"
+            },
+            {
+              "id": "epilepsy.cisterns.quadrigeminal",
+              "name": "Quadrigeminal cistern"
+            },
+            {
+              "id": "epilepsy.cisterns.prepontine",
+              "name": "Prepontine cistern"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+      ],
+      "functional_evidence_requirements": [
+        {
+          "name": "Native HARNESS sequence identity and orientation",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Age and myelination context",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Actual lesion and sequence localisation",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Electroclinical concordance and reporting limitations",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Time course and follow-up when available",
+          "status": "requires_case_specific_evidence"
+        }
+      ],
+      "source_scope_issues": [
+        "Published parent labels require independent anatomical review at each requested subdivision.",
+        "Case-specific lesion anatomy, acquisition, coverage and source provenance remain open."
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every affected gyrus, sulcus and cortical interface",
+            "Each lesion, side, extent, relevant acquired sequence and linked electroclinical finding"
+          ]
+        }
+      ]
+    },
+    {
+      "investigation_id": "ra.intracranial-haemorrhage",
+      "module_id": "rad.5.intracranial-haemorrhage",
+      "title": "Non-traumatic intracranial haemorrhage imaging",
+      "modality": "Multimodality",
+      "scope_type": "nontraumatic_intracranial_blood_and_case_specific_cause",
+      "clinical_validation_status": "draft_requires_neuroradiologist_review",
+      "source_contract_sha256": "f0427e74028a05d1d69c01875d8a8b492f93047045bbb057aa02079fccd20bc0",
+      "reporting_checklist": [
+        {
+          "label": "Haemorrhage Compartment",
+          "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+        },
+        {
+          "label": "Parenchymal Distribution",
+          "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+        },
+        {
+          "label": "Subarachnoid And Ventricular Extension",
+          "detail": "Map cisternal/sulcal blood and ventricular involvement."
+        },
+        {
+          "label": "Mass Effect",
+          "detail": "Assess ventricular obstruction, shift and cisterns."
+        },
+        {
+          "label": "Underlying Cause",
+          "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "HAEMORRHAGE COMPARTMENT",
+          "body": "Compartment: [ ]. Site/side: [ ]."
+        },
+        {
+          "heading": "PARENCHYMAL DISTRIBUTION",
+          "body": "Distribution: [ ]. Dimensions: [ ]. Oedema: [ ]."
+        },
+        {
+          "heading": "SUBARACHNOID AND VENTRICULAR EXTENSION",
+          "body": "Subarachnoid pattern: [ ]. Intraventricular blood: [ ]."
+        },
+        {
+          "heading": "MASS EFFECT",
+          "body": "Hydrocephalus: [ ]. Shift: [ ] mm. Cisterns/herniation: [ ]."
+        },
+        {
+          "heading": "UNDERLYING CAUSE",
+          "body": "CTA/MRA/MRI findings: [ ]. Suspected cause/evidence: [ ]. Unassessed cause: [ ]."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "structures": [
+        {
+          "id": "nontraumatic_ich.left.frontal.bleed",
+          "name": "Left frontal haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.frontal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.parietal.bleed",
+          "name": "Left parietal haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.parietal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.temporal.bleed",
+          "name": "Left temporal haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.temporal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.occipital.bleed",
+          "name": "Left occipital haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.occipital.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.insular.bleed",
+          "name": "Left insular haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.insular.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.thalamic.bleed",
+          "name": "Left thalamic haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.thalamic.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.basal_ganglia.bleed",
+          "name": "Left basal ganglia haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.basal_ganglia.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.cerebellar.bleed",
+          "name": "Left cerebellar haemorrhage",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.left.cerebellar.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.subdural",
+          "name": "Left subdural collection",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.subdural.collection_extent",
+              "name": "Collection extent"
+            },
+            {
+              "id": "nontraumatic_ich.left.subdural.dural_and_cortical_interfaces",
+              "name": "Dural and cortical interfaces"
+            },
+            {
+              "id": "nontraumatic_ich.left.subdural.local_compression",
+              "name": "Local compression"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.sulcal",
+          "name": "Left sulcal subarachnoid blood",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.sulcal.acquired_involved_sulci",
+              "name": "Acquired involved sulci"
+            },
+            {
+              "id": "nontraumatic_ich.left.sulcal.sulcal_blood_extent",
+              "name": "Sulcal blood extent"
+            },
+            {
+              "id": "nontraumatic_ich.left.sulcal.adjacent_cortex_interface",
+              "name": "Adjacent cortex interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.ventricular",
+          "name": "Left lateral ventricle",
+          "laterality": "left",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.ventricular.frontal_horn",
+              "name": "Frontal horn"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.body",
+              "name": "Body"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.atrium",
+              "name": "Atrium"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.occipital_horn",
+              "name": "Occipital horn"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.temporal_horn",
+              "name": "Temporal horn"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.intraventricular_blood_when_present",
+              "name": "Intraventricular blood when present"
+            },
+            {
+              "id": "nontraumatic_ich.left.ventricular.foramen_of_monro_interface",
+              "name": "Foramen of Monro interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.left.microbleeds",
+          "name": "Left susceptibility findings",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.left.microbleeds.lobar_microbleed_sites",
+              "name": "Lobar microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.left.microbleeds.deep_microbleed_sites",
+              "name": "Deep microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.left.microbleeds.infratentorial_microbleed_sites",
+              "name": "Infratentorial microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.left.microbleeds.cortical_superficial_siderosis_extent",
+              "name": "Cortical superficial siderosis extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.frontal.bleed",
+          "name": "Right frontal haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.frontal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.parietal.bleed",
+          "name": "Right parietal haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.parietal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.temporal.bleed",
+          "name": "Right temporal haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.temporal.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.occipital.bleed",
+          "name": "Right occipital haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.occipital.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.insular.bleed",
+          "name": "Right insular haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.insular.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.thalamic.bleed",
+          "name": "Right thalamic haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.thalamic.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.basal_ganglia.bleed",
+          "name": "Right basal ganglia haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.basal_ganglia.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.cerebellar.bleed",
+          "name": "Right cerebellar haemorrhage",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.haematoma_core",
+              "name": "Haematoma core"
+            },
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.haematoma_margin",
+              "name": "Haematoma margin"
+            },
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.perihaematomal_oedema",
+              "name": "Perihaematomal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.right.cerebellar.bleed.adjacent_parenchyma_interface",
+              "name": "Adjacent parenchyma interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.subdural",
+          "name": "Right subdural collection",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.subdural.collection_extent",
+              "name": "Collection extent"
+            },
+            {
+              "id": "nontraumatic_ich.right.subdural.dural_and_cortical_interfaces",
+              "name": "Dural and cortical interfaces"
+            },
+            {
+              "id": "nontraumatic_ich.right.subdural.local_compression",
+              "name": "Local compression"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.sulcal",
+          "name": "Right sulcal subarachnoid blood",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.sulcal.acquired_involved_sulci",
+              "name": "Acquired involved sulci"
+            },
+            {
+              "id": "nontraumatic_ich.right.sulcal.sulcal_blood_extent",
+              "name": "Sulcal blood extent"
+            },
+            {
+              "id": "nontraumatic_ich.right.sulcal.adjacent_cortex_interface",
+              "name": "Adjacent cortex interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.ventricular",
+          "name": "Right lateral ventricle",
+          "laterality": "right",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.ventricular.frontal_horn",
+              "name": "Frontal horn"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.body",
+              "name": "Body"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.atrium",
+              "name": "Atrium"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.occipital_horn",
+              "name": "Occipital horn"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.temporal_horn",
+              "name": "Temporal horn"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.intraventricular_blood_when_present",
+              "name": "Intraventricular blood when present"
+            },
+            {
+              "id": "nontraumatic_ich.right.ventricular.foramen_of_monro_interface",
+              "name": "Foramen of Monro interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.right.microbleeds",
+          "name": "Right susceptibility findings",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.right.microbleeds.lobar_microbleed_sites",
+              "name": "Lobar microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.right.microbleeds.deep_microbleed_sites",
+              "name": "Deep microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.right.microbleeds.infratentorial_microbleed_sites",
+              "name": "Infratentorial microbleed sites"
+            },
+            {
+              "id": "nontraumatic_ich.right.microbleeds.cortical_superficial_siderosis_extent",
+              "name": "Cortical superficial siderosis extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.midbrain",
+          "name": "Midbrain haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.midbrain.core_and_margin",
+              "name": "Core and margin"
+            },
+            {
+              "id": "nontraumatic_ich.midbrain.adjacent_parenchymal_oedema",
+              "name": "Adjacent parenchymal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.midbrain.ventricular_or_cisternal_interface",
+              "name": "Ventricular or cisternal interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.pons",
+          "name": "Pons haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.pons.core_and_margin",
+              "name": "Core and margin"
+            },
+            {
+              "id": "nontraumatic_ich.pons.adjacent_parenchymal_oedema",
+              "name": "Adjacent parenchymal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.pons.ventricular_or_cisternal_interface",
+              "name": "Ventricular or cisternal interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.medulla",
+          "name": "Medulla haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.medulla.core_and_margin",
+              "name": "Core and margin"
+            },
+            {
+              "id": "nontraumatic_ich.medulla.adjacent_parenchymal_oedema",
+              "name": "Adjacent parenchymal oedema"
+            },
+            {
+              "id": "nontraumatic_ich.medulla.ventricular_or_cisternal_interface",
+              "name": "Ventricular or cisternal interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.cisternal",
+          "name": "Cisternal subarachnoid blood",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.cisternal.suprasellar",
+              "name": "Suprasellar"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.interpeduncular",
+              "name": "Interpeduncular"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.prepontine",
+              "name": "Prepontine"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.ambient",
+              "name": "Ambient"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.quadrigeminal",
+              "name": "Quadrigeminal"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.sylvian_fissure",
+              "name": "Sylvian fissure"
+            },
+            {
+              "id": "nontraumatic_ich.cisternal.interhemispheric_fissure",
+              "name": "Interhemispheric fissure"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.midline_ventricles",
+          "name": "Midline ventricular pathways",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.midline_ventricles.third_ventricle",
+              "name": "Third ventricle"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.cerebral_aqueduct",
+              "name": "Cerebral aqueduct"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.fourth_ventricle",
+              "name": "Fourth ventricle"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.fourth_ventricular_outlets",
+              "name": "Fourth ventricular outlets"
+            },
+            {
+              "id": "nontraumatic_ich.midline_ventricles.blood_or_obstruction_extent",
+              "name": "Blood or obstruction extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.mass_effect",
+          "name": "Mass effect and herniation",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.mass_effect.midline_landmarks",
+              "name": "Midline landmarks"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.ventricular_compression",
+              "name": "Ventricular compression"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.ventricular_enlargement",
+              "name": "Ventricular enlargement"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.transependymal_fluid_signal",
+              "name": "Transependymal fluid signal"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.subfalcine_interface",
+              "name": "Subfalcine interface"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.uncal_and_transtentorial_interfaces",
+              "name": "Uncal and transtentorial interfaces"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.foramen_magnum_and_tonsillar_interface",
+              "name": "Foramen magnum and tonsillar interface"
+            },
+            {
+              "id": "nontraumatic_ich.mass_effect.effaced_basal_cisterns",
+              "name": "Effaced basal cisterns"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.arterial_cause",
+          "name": "Demonstrated arterial source",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.arterial_cause.aneurysm_sac_and_neck",
+              "name": "Aneurysm sac and neck"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.parent_vessel_and_involved_branch",
+              "name": "Parent vessel and involved branch"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.arteriovenous_malformation_nidus",
+              "name": "Arteriovenous malformation nidus"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.feeding_artery_and_draining_vein",
+              "name": "Feeding artery and draining vein"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.dural_fistula_site_and_venous_drainage",
+              "name": "Dural fistula site and venous drainage"
+            },
+            {
+              "id": "nontraumatic_ich.arterial_cause.acquired_contrast_extravasation_site",
+              "name": "Acquired contrast extravasation site"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.venous_cause",
+          "name": "Demonstrated venous source",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.venous_cause.involved_cortical_vein",
+              "name": "Involved cortical vein"
+            },
+            {
+              "id": "nontraumatic_ich.venous_cause.involved_dural_sinus",
+              "name": "Involved dural sinus"
+            },
+            {
+              "id": "nontraumatic_ich.venous_cause.thrombus_extent",
+              "name": "Thrombus extent"
+            },
+            {
+              "id": "nontraumatic_ich.venous_cause.venous_infarct_and_bleed_interface",
+              "name": "Venous infarct and bleed interface"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.structural_cause",
+          "name": "Demonstrated structural source",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Underlying Cause",
+              "detail": "Describe demonstrated vascular or structural findings and remaining limitations."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.structural_cause.underlying_mass_and_interface",
+              "name": "Underlying mass and interface"
+            },
+            {
+              "id": "nontraumatic_ich.structural_cause.enhancing_component_when_acquired",
+              "name": "Enhancing component when acquired"
+            },
+            {
+              "id": "nontraumatic_ich.structural_cause.cavernous_malformation_and_susceptibility_rim",
+              "name": "Cavernous malformation and susceptibility rim"
+            },
+            {
+              "id": "nontraumatic_ich.structural_cause.haemorrhagic_infarct_extent",
+              "name": "Haemorrhagic infarct extent"
+            }
+          ]
+        },
+        {
+          "id": "nontraumatic_ich.callosum",
+          "name": "Corpus callosum haemorrhage",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "CT",
+            "MRI"
+          ],
+          "condition": "Instantiate the acquired site, side, extent, imaging sequence or phase, and actual source finding.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Haemorrhage Compartment",
+              "detail": "Identify parenchymal, subarachnoid, subdural and ventricular blood."
+            },
+            {
+              "checklist_index": 1,
+              "label": "Parenchymal Distribution",
+              "detail": "Describe lobar, deep or posterior-fossa distribution and associated oedema."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Subarachnoid And Ventricular Extension",
+              "detail": "Map cisternal/sulcal blood and ventricular involvement."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Mass Effect",
+              "detail": "Assess ventricular obstruction, shift and cisterns."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://doi.org/10.1161/STR.0000000000000407",
+            "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+          ],
+          "required_parts": [
+            {
+              "id": "nontraumatic_ich.callosum.genu",
+              "name": "Genu and adjacent interface"
+            },
+            {
+              "id": "nontraumatic_ich.callosum.body",
+              "name": "Callosal body and adjacent interface"
+            },
+            {
+              "id": "nontraumatic_ich.callosum.splenium",
+              "name": "Splenium and adjacent interface"
+            },
+            {
+              "id": "nontraumatic_ich.callosum.bleed",
+              "name": "Blood extent within the affected callosal part"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        "https://doi.org/10.1161/STR.0000000000000407",
+        "https://radiologyassistant.nl/neuroradiology/hemorrhage/non-traumatic-intracranial-hemorrhage"
+      ],
+      "functional_evidence_requirements": [
+        {
+          "name": "Original scan orientation, calibration and acquired extent",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Noncontrast CT, susceptibility MRI or vascular phase identity",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Acquired interval change and image matching",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Actual vascular or structural cause evidence and limitations",
+          "status": "requires_case_specific_evidence"
+        }
+      ],
+      "source_scope_issues": [
+        "Traumatic source cases do not establish non-traumatic pathology.",
+        "Candidate datasets require source review of original CT and mask rights.",
+        "Separate blood, oedema and displacement labels require case-specific evidence."
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every actual haemorrhage site, named compartment and involved structure",
+            "Each acquired cause-specific vessel, lesion, imaging phase and unassessed feature"
+          ]
+        }
+      ]
     }
   ],
   "additional_scope": [],

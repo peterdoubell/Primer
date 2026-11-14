@@ -7,7 +7,7 @@ import pytest
 
 from tools.anatomy_sources.reconcile_current_reporting_requirements import (
     BRAIN, OUT, REPORT_FILE, REQUIREMENTS, REPRESENTATIONS, brain_additions,
-    before_current_brain_requirements, brain_crosswalk, digest, expand_brain, read, replace_brain_bytes,
+    before_current_brain_requirements, before_recent_reporting_inventories, brain_crosswalk, digest, expand_brain, read, replace_brain_bytes,
     reporting_reconciliation,
 )
 
@@ -34,7 +34,10 @@ def test_thirty_side_targets_reconcile_twenty_eight_rows_and_preserve_every_prio
         structure["required_parts"] = [p for p in structure["required_parts"] if p["id"] not in ids]
     assert sum(len(s["required_parts"]) for s in old["structures"]) == 210
     assert digest(old) == LEGACY_BRAIN_SHA256
-    restored = replace_brain_bytes((ROOT / REQUIREMENTS).read_text(), old)
+    current = (ROOT / REQUIREMENTS).read_bytes()
+    prior = before_recent_reporting_inventories(current)
+    assert before_recent_reporting_inventories(current + b'\n') == current + b'\n'
+    restored = replace_brain_bytes(prior.decode(), old)
     assert hashlib.sha256(restored.encode()).hexdigest() == LEGACY_REQUIREMENTS_SHA256
     assert before_current_brain_requirements((ROOT / REQUIREMENTS).read_bytes()) == restored.encode()
     assert before_current_brain_requirements(restored) == restored
@@ -92,9 +95,9 @@ def test_all_sixty_two_brain_rows_have_explicit_ids_and_source_limitations():
 def test_global_reconciliation_retains_all_report_rows_without_module_alias_shortcuts():
     data, _, _ = inputs()
     result = reporting_reconciliation(ROOT, data)
-    assert result == read("docs/report-additions-20261112/reporting-reconciliation.json")
+    assert result == read("docs/mullerian-reporting-inventory/reporting-reconciliation.json")
     assert (result["current_investigations"], result["current_report_rows"]) == (333, 7047)
-    assert (result["expanded_investigation_identities"], result["without_dedicated_inventory"]) == (96, 237)
+    assert (result["expanded_investigation_identities"], result["without_dedicated_inventory"]) == (99, 234)
     rows = {r["investigation_id"]: r for r in result["investigations"]}
     assert rows["ra.thoracolumbar-injury"]["relationship"] == "declared_duplicate_pathway_with_unresolved_instantiation"
     levels = [r for r in rows["ra.thoracolumbar-injury"]["report_rows"] if r["candidate_requirements"] and r["candidate_requirements"][0]["relationship"] == "explicit_level_instance_of_unresolved_template"]
