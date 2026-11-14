@@ -3987,6 +3987,8 @@ async function renderNode(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },
+    'Compare limits from the left and right'));
   if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
     'Explore derivative signs and optimization'));
   if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },
