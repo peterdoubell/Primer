@@ -76,7 +76,8 @@
       "ra.mri-myelopathy",
       "ra.ct-traumatic-haemorrhage",
       "ra.acute-stroke",
-      "ra.ct-pulmonary-nodules"
+      "ra.ct-pulmonary-nodules",
+      "ra.mri-epilepsy"
     ],
     "whole_radiology_scope_complete": false
   },
@@ -524379,6 +524380,1841 @@
       "clinical_validation_status": "draft_requires_thoracic_radiologist_review",
       "original_source_scope_proposal_sha256": "40c42c54706b8b82dd585c65824290f0ddaad400279287e9c76f0287a1106e40",
       "original_shared_curriculum_quiz_sha256": "c8d6acf6a66bd97d13bdb33dabc7f3e2ea5603208d861a5227e8fe3dcd68ab77"
+    },
+    {
+      "investigation_id": "ra.mri-epilepsy",
+      "module_id": "rad.5.epilepsy-mri",
+      "title": "MRI epilepsy",
+      "modality": "MRI",
+      "scope_type": "epilepsy_structural_mri_and_case_specific_pathology",
+      "clinical_validation_status": "draft_requires_neuroradiologist_review",
+      "source_contract_sha256": "9949ba564088960cd881af231d01e0b96b3de14c8a2ec5436880965ba5374f85",
+      "reporting_checklist": [
+        {
+          "label": "Hippocampi",
+          "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+        },
+        {
+          "label": "Cortical development",
+          "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+        },
+        {
+          "label": "Dual pathology",
+          "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+        },
+        {
+          "label": "Other substrates",
+          "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+        },
+        {
+          "label": "Concordance",
+          "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+        }
+      ],
+      "reporting_template_sections": [
+        {
+          "heading": "MESIAL TEMPORAL STRUCTURES",
+          "body": "Hippocampal volume [symmetric / R smaller / L smaller]; T2/FLAIR signal [ ]; architecture [ ]; fornices/mammillary bodies [ ]."
+        },
+        {
+          "heading": "CORTEX AND MIGRATION",
+          "body": "Cortical thickness/sulcation [ ]; grey-white junction [ ]; heterotopia [ ]; transmantle signal [ ]; suspected dysplasia location [ ]."
+        },
+        {
+          "heading": "FOCAL LESIONS",
+          "body": "Mass/vascular lesion/gliosis [absent / specify]; site [ ]; size __ \u00d7 __ \u00d7 __ mm; susceptibility [ ]; enhancement if acquired [ ]."
+        },
+        {
+          "heading": "SKULL BASE AND DUAL PATHOLOGY",
+          "body": "Temporal encephalocele [ ]; prior injury [ ]; additional potentially relevant lesion [ ]."
+        },
+        {
+          "heading": "ACUTE AND ELECTROCLINICAL CORRELATION",
+          "body": "Peri-ictal appearing change [ ]; supplied EEG/semiology localisation [ ]; concordance [concordant / discordant / not assessable]; remaining limitation [ ]."
+        }
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "structures": [
+        {
+          "id": "epilepsy.left.hippocampus",
+          "name": "Left hippocampus",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.hippocampus.head",
+              "name": "head"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.body",
+              "name": "body"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.tail",
+              "name": "tail"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.internal_architecture",
+              "name": "internal architecture"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.long_axis_orientation",
+              "name": "Long-axis orientation"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.hippocampal_outline_and_adjacent_csf_interface",
+              "name": "Hippocampal outline and adjacent CSF interface"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.hippocampus.sclerosis",
+          "name": "Left hippocampal sclerosis",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use actual positive case evidence and the matched acquired sequences.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.hippocampus.sclerosis.volume_loss",
+              "name": "Volume loss"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.sclerosis.t2_or_flair_hyperintensity",
+              "name": "T2 or FLAIR hyperintensity"
+            },
+            {
+              "id": "epilepsy.left.hippocampus.sclerosis.loss_of_internal_architecture",
+              "name": "Loss of internal architecture"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.fornix",
+          "name": "Left fornix",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.fornix.whole_visible_course",
+              "name": "whole visible course"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.mammillary-body",
+          "name": "Left mammillary body",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.mammillary-body.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.amygdala",
+          "name": "Left amygdala",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.amygdala.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.entorhinal-parahippocampal-context",
+          "name": "Left entorhinal/parahippocampal context",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.entorhinal-parahippocampal-context.cortex",
+              "name": "cortex"
+            },
+            {
+              "id": "epilepsy.left.entorhinal-parahippocampal-context.underlying_white_matter",
+              "name": "underlying white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.temporal-pole-and-skull-base-interface",
+          "name": "Left temporal pole and skull-base interface",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.temporal-pole-and-skull-base-interface.temporal_pole",
+              "name": "temporal pole"
+            },
+            {
+              "id": "epilepsy.left.temporal-pole-and-skull-base-interface.adjacent_middle_cranial_fossa_floor",
+              "name": "adjacent middle cranial fossa floor"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.hippocampus",
+          "name": "Right hippocampus",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.hippocampus.head",
+              "name": "head"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.body",
+              "name": "body"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.tail",
+              "name": "tail"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.internal_architecture",
+              "name": "internal architecture"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.long_axis_orientation",
+              "name": "Long-axis orientation"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.hippocampal_outline_and_adjacent_csf_interface",
+              "name": "Hippocampal outline and adjacent CSF interface"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.hippocampus.sclerosis",
+          "name": "Right hippocampal sclerosis",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use actual positive case evidence and the matched acquired sequences.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.hippocampus.sclerosis.volume_loss",
+              "name": "Volume loss"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.sclerosis.t2_or_flair_hyperintensity",
+              "name": "T2 or FLAIR hyperintensity"
+            },
+            {
+              "id": "epilepsy.right.hippocampus.sclerosis.loss_of_internal_architecture",
+              "name": "Loss of internal architecture"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.fornix",
+          "name": "Right fornix",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.fornix.whole_visible_course",
+              "name": "whole visible course"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.mammillary-body",
+          "name": "Right mammillary body",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.mammillary-body.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.amygdala",
+          "name": "Right amygdala",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.amygdala.whole_structure",
+              "name": "whole structure"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.entorhinal-parahippocampal-context",
+          "name": "Right entorhinal/parahippocampal context",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 0,
+              "label": "Hippocampi",
+              "detail": "Compare size, signal, internal architecture and orientation bilaterally."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.entorhinal-parahippocampal-context.cortex",
+              "name": "cortex"
+            },
+            {
+              "id": "epilepsy.right.entorhinal-parahippocampal-context.underlying_white_matter",
+              "name": "underlying white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.temporal-pole-and-skull-base-interface",
+          "name": "Right temporal pole and skull-base interface",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Verify acquired extent, orientation, side and source label granularity.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.temporal-pole-and-skull-base-interface.temporal_pole",
+              "name": "temporal pole"
+            },
+            {
+              "id": "epilepsy.right.temporal-pole-and-skull-base-interface.adjacent_middle_cranial_fossa_floor",
+              "name": "adjacent middle cranial fossa floor"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.frontal.cortex",
+          "name": "Left frontal cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.frontal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.frontal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.frontal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.frontal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.parietal.cortex",
+          "name": "Left parietal cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.parietal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.parietal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.parietal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.parietal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.temporal.cortex",
+          "name": "Left temporal cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.temporal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.temporal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.temporal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.temporal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.occipital.cortex",
+          "name": "Left occipital cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.occipital.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.occipital.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.occipital.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.occipital.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.insular.cortex",
+          "name": "Left insular cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.insular.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.insular.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.insular.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.insular.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.cingulate.cortex",
+          "name": "Left cingulate cortex",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.cingulate.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.left.cingulate.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.left.cingulate.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.left.cingulate.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.migration",
+          "name": "Left migration pathways",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Review the full acquired path and relevant adjacent cortex.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.migration.ventricular_ependymal_interface",
+              "name": "Ventricular ependymal interface"
+            },
+            {
+              "id": "epilepsy.left.migration.periventricular_white_matter",
+              "name": "Periventricular white matter"
+            },
+            {
+              "id": "epilepsy.left.migration.cortex_to_ventricle_white_matter_route",
+              "name": "Cortex-to-ventricle white matter route"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.dysplasia",
+          "name": "Left focal cortical dysplasia",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use positive source findings at each actual lesion site and applicable sequence.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.dysplasia.thickened_cortex",
+              "name": "Thickened cortex"
+            },
+            {
+              "id": "epilepsy.left.dysplasia.grey_white_blurring",
+              "name": "Grey-white blurring"
+            },
+            {
+              "id": "epilepsy.left.dysplasia.abnormal_sulcation",
+              "name": "Abnormal sulcation"
+            },
+            {
+              "id": "epilepsy.left.dysplasia.transmantle_signal_extent",
+              "name": "Transmantle signal extent"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.heterotopia",
+          "name": "Left heterotopia",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate only the applicable migration abnormality and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.heterotopia.periventricular_nodule",
+              "name": "Periventricular nodule"
+            },
+            {
+              "id": "epilepsy.left.heterotopia.subcortical_or_band_heterotopia",
+              "name": "Subcortical or band heterotopia"
+            },
+            {
+              "id": "epilepsy.left.heterotopia.associated_overlying_cortex",
+              "name": "Associated overlying cortex"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.left.encephalocele",
+          "name": "Left temporal encephalocele",
+          "laterality": "left",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use the source case and sequence that depict the defect and tissue.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.left.encephalocele.skull_base_defect",
+              "name": "Skull base defect"
+            },
+            {
+              "id": "epilepsy.left.encephalocele.herniated_tissue",
+              "name": "Herniated tissue"
+            },
+            {
+              "id": "epilepsy.left.encephalocele.neck_and_adjacent_csf_space",
+              "name": "Neck and adjacent CSF space"
+            },
+            {
+              "id": "epilepsy.left.encephalocele.adjacent_signal_abnormality",
+              "name": "Adjacent signal abnormality"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.frontal.cortex",
+          "name": "Right frontal cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.frontal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.frontal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.frontal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.frontal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.parietal.cortex",
+          "name": "Right parietal cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.parietal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.parietal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.parietal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.parietal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.temporal.cortex",
+          "name": "Right temporal cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.temporal.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.temporal.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.temporal.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.temporal.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.occipital.cortex",
+          "name": "Right occipital cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.occipital.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.occipital.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.occipital.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.occipital.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.insular.cortex",
+          "name": "Right insular cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.insular.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.insular.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.insular.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.insular.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.cingulate.cortex",
+          "name": "Right cingulate cortex",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate each affected gyrus and sulcus in the acquired case.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.cingulate.cortex.cortical_ribbon",
+              "name": "Cortical ribbon"
+            },
+            {
+              "id": "epilepsy.right.cingulate.cortex.sulcal_fundus_and_banks",
+              "name": "Sulcal fundus and banks"
+            },
+            {
+              "id": "epilepsy.right.cingulate.cortex.grey_white_junction",
+              "name": "Grey-white junction"
+            },
+            {
+              "id": "epilepsy.right.cingulate.cortex.subcortical_white_matter",
+              "name": "Subcortical white matter"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.migration",
+          "name": "Right migration pathways",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Review the full acquired path and relevant adjacent cortex.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "anatomical_reference"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.migration.ventricular_ependymal_interface",
+              "name": "Ventricular ependymal interface"
+            },
+            {
+              "id": "epilepsy.right.migration.periventricular_white_matter",
+              "name": "Periventricular white matter"
+            },
+            {
+              "id": "epilepsy.right.migration.cortex_to_ventricle_white_matter_route",
+              "name": "Cortex-to-ventricle white matter route"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.dysplasia",
+          "name": "Right focal cortical dysplasia",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use positive source findings at each actual lesion site and applicable sequence.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.dysplasia.thickened_cortex",
+              "name": "Thickened cortex"
+            },
+            {
+              "id": "epilepsy.right.dysplasia.grey_white_blurring",
+              "name": "Grey-white blurring"
+            },
+            {
+              "id": "epilepsy.right.dysplasia.abnormal_sulcation",
+              "name": "Abnormal sulcation"
+            },
+            {
+              "id": "epilepsy.right.dysplasia.transmantle_signal_extent",
+              "name": "Transmantle signal extent"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.heterotopia",
+          "name": "Right heterotopia",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate only the applicable migration abnormality and extent.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 1,
+              "label": "Cortical development",
+              "detail": "Inspect thickness, sulcation, grey-white junction and transmantle signal."
+            },
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.heterotopia.periventricular_nodule",
+              "name": "Periventricular nodule"
+            },
+            {
+              "id": "epilepsy.right.heterotopia.subcortical_or_band_heterotopia",
+              "name": "Subcortical or band heterotopia"
+            },
+            {
+              "id": "epilepsy.right.heterotopia.associated_overlying_cortex",
+              "name": "Associated overlying cortex"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.right.encephalocele",
+          "name": "Right temporal encephalocele",
+          "laterality": "right",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Use the source case and sequence that depict the defect and tissue.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.right.encephalocele.skull_base_defect",
+              "name": "Skull base defect"
+            },
+            {
+              "id": "epilepsy.right.encephalocele.herniated_tissue",
+              "name": "Herniated tissue"
+            },
+            {
+              "id": "epilepsy.right.encephalocele.neck_and_adjacent_csf_space",
+              "name": "Neck and adjacent CSF space"
+            },
+            {
+              "id": "epilepsy.right.encephalocele.adjacent_signal_abnormality",
+              "name": "Adjacent signal abnormality"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.tumour",
+          "name": "Tumour",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.tumour.lesion_core",
+              "name": "Lesion core"
+            },
+            {
+              "id": "epilepsy.tumour.lesion_margin",
+              "name": "Lesion margin"
+            },
+            {
+              "id": "epilepsy.tumour.adjacent_cortex",
+              "name": "Adjacent cortex"
+            },
+            {
+              "id": "epilepsy.tumour.associated_oedema",
+              "name": "Associated oedema"
+            },
+            {
+              "id": "epilepsy.tumour.enhancing_portion_if_acquired",
+              "name": "Enhancing portion if acquired"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.vascular",
+          "name": "Vascular malformation",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.vascular.lesion_core",
+              "name": "Lesion core"
+            },
+            {
+              "id": "epilepsy.vascular.adjacent_brain_interface",
+              "name": "Adjacent brain interface"
+            },
+            {
+              "id": "epilepsy.vascular.susceptibility_extent",
+              "name": "Susceptibility extent"
+            },
+            {
+              "id": "epilepsy.vascular.source_defined_feeding_or_draining_anatomy_if_acquired",
+              "name": "Source-defined feeding or draining anatomy if acquired"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.injury",
+          "name": "Prior injury",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.injury.gliosis",
+              "name": "Gliosis"
+            },
+            {
+              "id": "epilepsy.injury.encephalomalacic_cavity",
+              "name": "Encephalomalacic cavity"
+            },
+            {
+              "id": "epilepsy.injury.volume_loss_boundary",
+              "name": "Volume-loss boundary"
+            },
+            {
+              "id": "epilepsy.injury.adjacent_cortex",
+              "name": "Adjacent cortex"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.peri_ictal",
+          "name": "Peri-ictal appearing change",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.peri_ictal.cortical_signal_extent",
+              "name": "Cortical signal extent"
+            },
+            {
+              "id": "epilepsy.peri_ictal.hippocampal_signal_extent",
+              "name": "Hippocampal signal extent"
+            },
+            {
+              "id": "epilepsy.peri_ictal.diffusion_restriction_and_adc_correspondence",
+              "name": "Diffusion restriction and ADC correspondence"
+            },
+            {
+              "id": "epilepsy.peri_ictal.follow_up_change_when_acquired",
+              "name": "Follow-up change when acquired"
+            }
+          ]
+        },
+        {
+          "id": "epilepsy.dual_lesion",
+          "name": "Additional potentially relevant lesion",
+          "laterality": "examined_side",
+          "modality_scope": [
+            "MRI"
+          ],
+          "condition": "Instantiate the actual lesion, side and acquired extent. Document spatial relation to supplied localisation.",
+          "requires_site_instantiation": true,
+          "report_refs": [
+            {
+              "checklist_index": 2,
+              "label": "Dual pathology",
+              "detail": "Search the entire brain even after detecting hippocampal sclerosis."
+            },
+            {
+              "checklist_index": 3,
+              "label": "Other substrates",
+              "detail": "Assess tumour, vascular malformation, gliosis, encephalomalacia and encephalocele."
+            },
+            {
+              "checklist_index": 4,
+              "label": "Concordance",
+              "detail": "Describe lesion location relative to supplied electroclinical localisation without inferring causality."
+            }
+          ],
+          "context_requirements": {
+            "purpose": "pathology_example"
+          },
+          "source_urls": [
+            "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+          ],
+          "required_parts": [
+            {
+              "id": "epilepsy.dual_lesion.second_lesion_boundaries",
+              "name": "Second lesion boundaries"
+            },
+            {
+              "id": "epilepsy.dual_lesion.spatial_relation_to_the_first_lesion",
+              "name": "Spatial relation to the first lesion"
+            },
+            {
+              "id": "epilepsy.dual_lesion.independent_sequence_correspondence",
+              "name": "Independent sequence correspondence"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        "https://www.ilae.org/guidelines/guidelines-and-reports/recommendations-for-the-use-of-structural-magnetic-resonance-imaging-in-the-care-of-patients-with-epilepsy"
+      ],
+      "functional_evidence_requirements": [
+        {
+          "name": "Native HARNESS sequence identity and orientation",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Age and myelination context",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Actual lesion and sequence localisation",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Electroclinical concordance and reporting limitations",
+          "status": "requires_case_specific_evidence"
+        },
+        {
+          "name": "Time course and follow-up when available",
+          "status": "requires_case_specific_evidence"
+        }
+      ],
+      "source_scope_issues": [
+        "Published parent labels require independent anatomical review at each requested subdivision.",
+        "Case-specific lesion anatomy, acquisition, coverage and source provenance remain open."
+      ],
+      "expansion_rules": [
+        {
+          "status": "requires_explicit_instantiation_and_review",
+          "targets": [
+            "Every affected gyrus, sulcus and cortical interface",
+            "Each lesion, side, extent, relevant acquired sequence and linked electroclinical finding"
+          ]
+        }
+      ]
     }
   ],
   "additional_scope": [],
