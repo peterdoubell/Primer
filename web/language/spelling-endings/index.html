@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build verb endings · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script defer src="viewer.js"></script>
+</head>
+<body>
+<main>
+<a href="/app/#/node/lang.1.spelling">Return to Spelling</a>
+<h1>Build verb endings</h1>
+<p>Choose a verb and add <b>-ing</b> or <b>-ed</b>. Follow the first branch that matches the base word.</p>
+<section aria-labelledby="explore">
+<h2 id="explore">Explore a word</h2>
+<label for="word">Base word</label> <select id="word"></select>
+<label for="ending">Ending</label> <select id="ending"><option value="ing">-ing</option><option value="ed">-ed</option></select>
+<ol id="map" aria-label="Spelling decision map">
+<li data-rule="drop">Ends in silent <b>e</b>? Drop the <b>e</b>.</li>
+<li data-rule="y">Ends in a consonant and <b>y</b>? Change <b>y</b> to <b>i</b> before <b>-ed</b>. Keep it before <b>-ing</b>.</li>
+<li data-rule="double">Has one syllable and ends in a short vowel written with one vowel letter, followed by one consonant letter? Double the consonant, except <b>w</b>, <b>x</b> and <b>y</b>.</li>
+<li data-rule="plain">Otherwise, join the two parts for the regular examples below.</li>
+</ol>
+<p id="worked" role="status"></p>
+<div class="tiles" aria-hidden="true"><span id="base-tile"></span><b>+</b><span id="ending-tile"></span><b>→</b><span id="word-tile"></span></div>
+</section>
+<table>
+<caption>Compare the patterns</caption>
+<thead><tr><th scope="col">Base</th><th scope="col">With -ing</th><th scope="col">With -ed</th></tr></thead>
+<tbody id="table"></tbody>
+</table>
+<section aria-labelledby="challenge">
+<h2 id="challenge">Spell the next word</h2>
+<p id="prompt"></p>
+<form id="game">
+<label for="answer">Your spelling</label>
+<input id="answer" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+<button id="check">Check</button>
+</form>
+<p id="feedback" role="status"></p>
+<button id="next" type="button" hidden>Next word</button>
+</section>
+<p>English has exceptions and more patterns. This map is for the regular practice words here. Longer words can depend on which syllable is stressed. Irregular past forms such as <i>ran</i> have their own spelling.</p>
+<p><a href="https://www.gov.uk/government/publications/national-curriculum-in-england-english-programmes-of-study">English spelling appendix, Department for Education</a></p>
+</main>
+</body>
+</html>
