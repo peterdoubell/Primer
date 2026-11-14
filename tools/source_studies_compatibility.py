@@ -102,6 +102,8 @@ def before_combined_source_release_bytes(path, raw):
         from tools.anatomy_sources.reconcile_current_reporting_requirements import before_recent_reporting_inventories
         raw = before_recent_reporting_inventories(raw)
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/rhuh-sah-001/runtime-inverse.json', 'de93240f71a01363b8236b8c7629cd1ff4a6f75b33defc170067bea6c203ac02')
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', '438fe8a56c1f2029ffc6de80a91c29df089dd8607e8d06a9c77e481cdde4c359')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'c98fe23e8efa2ea0e292f8d436079801d99e160bf57f74196a24957aed55cc13':
         raw = raw.replace(b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n    'Predict English plural sounds'));\n", b'', 1)
