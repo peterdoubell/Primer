@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tumour localisation on source MRI</title><link rel="stylesheet" href="viewer.css"><script defer src="volume-viewer.js"></script><script defer src="surface-viewer.js"></script></head>
+<body><main data-volume-sha256="13310a07270782eb7b835323eb40d7a3797d5c64b1070788f7799435aa45938b" data-surfaces-sha256="408da2f0fc065c6aef33c11616b8421a34f7625ce2fe9e72944d43967c7ded20">
+<p><a id="study-return" href="/app/#/node/rad.4.liver">Return to Liver</a></p><h1>Tumour localisation across two liver regions</h1>
+<p>Compare the tumour and region labels from PHLF Center 2, case 24. The tumour mask contains 4,908 voxels. Region 6 contains 4,152 and region 7 contains 756.</p>
+<div class="views"><figure>
+<label>Axial section <input id="slice" type="range" min="0" max="63" disabled><output id="section"></output></label>
+<label>Black point <input id="black" type="number" step="any"></label>
+<label>White point <input id="white" type="number" step="any"></label>
+<label><input id="show-tumour" type="checkbox" checked> Tumour outline</label>
+<label><input id="show-regions" type="checkbox" checked> Region 6 and 7 outlines</label>
+<p id="status" role="status">Verifying source volume…</p><button id="retry" hidden>Retry MRI</button>
+<canvas id="mri" width="352" height="250" aria-label="Axial source MRI, right at left and anterior at top" hidden></canvas>
+<figcaption>Patient right is at left and anterior is at top. Pink shows the tumour, cyan shows region 6 and gold shows region 7.</figcaption>
+<p id="overlap"></p>
+</figure>
+<figure><canvas id="surface" width="640" height="480" aria-label="Tumour and source liver regions in three dimensions"></canvas>
+<label><input class="layer" type="checkbox" checked> Tumour</label><label><input class="layer" type="checkbox"> Region 6</label><label><input class="layer" type="checkbox"> Region 7</label>
+<label>Rotation <input id="rotation" type="range" min="-180" max="180" value="25"></label><label>Tilt <input id="tilt" type="range" min="-90" max="90" value="15"></label>
+<p id="surface-status" role="status">Verifying source surfaces…</p></figure></div>
+<p><a href="localisation.png">Open the three-section source figure</a></p>
+<p>Surfaces reproduce the voxel boundaries of each original label. The tumour and regions retain their overlap in 3D. The region overlays can cover the tumour surface when viewed together.</p>
+<p>Adapted from the <a href="https://doi.org/10.5281/zenodo.18622298">PHLF dataset</a> under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+</main></body></html>
