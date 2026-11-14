@@ -2964,19 +2964,50 @@ function renderBiliaryAtlasStudy(nodeId) {
     el('a', {href:'/app/anatomy/bp3d-biliary-4.3/index.html?from=' + encodeURIComponent(nodeId)}, 'Explore the biliary source atlas'));
 }
 
+const haemorrhageStudies = {
+  compartment: {
+    title: 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D',
+    slug: 'rhuh-sah-001',
+    scope: 'One binary mask on preprocessed CT. The source groups labelled blood together without distinguishing cisterns, sulci or ventricles.',
+  },
+  sac: {
+    title: 'Inspect a left middle cerebral artery aneurysm on CTA and in 3D',
+    slug: 'aneurysm-cta-018',
+    scope: 'Case 018 shows the contrast-filled sac. The surface has no parent-artery or haemorrhage labels.',
+  },
+  branches: {
+    title: 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D',
+    slug: 'cmha-mca-005',
+    scope: 'A separate M1–M2 case with a sac-only model and a combined arterial model. The source supplies no individual branch labels.',
+  },
+};
+
+function haemorrhageStudyLink(study, nodeId, attributes = {}) {
+  return el('a', {href: '/app/anatomy/' + study.slug + '/index.html?from=' + encodeURIComponent(nodeId), ...attributes}, study.title);
+}
+
+function renderHaemorrhageStepEvidence(nodeId, sections) {
+  if (nodeId !== 'ra.intracranial-haemorrhage') return null;
+  const studies = sections.includes('UNDERLYING CAUSE')
+    ? [haemorrhageStudies.sac, haemorrhageStudies.branches]
+    : sections.some(section => ['HAEMORRHAGE COMPARTMENT', 'SUBARACHNOID AND VENTRICULAR EXTENSION'].includes(section))
+      ? [haemorrhageStudies.compartment] : [];
+  if (!studies.length) return null;
+  return el('section', {class: 'card', 'aria-label': 'Source evidence for this step'},
+    el('h4', {}, 'Source examples for this step'),
+    el('ul', {}, ...studies.map(study => el('li', {},
+      haemorrhageStudyLink(study, nodeId, {target: '_blank', rel: 'noopener'}), el('p', {}, study.scope)))),
+    el('p', {class: 'muted'}, 'Links open in a new tab so this report stays open. Record findings from the examination you are reporting.'));
+}
+
 function renderAneurysmCtaStudy(nodeId) {
   if (!['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(nodeId)) return null;
   return el('section', {class: 'card', 'aria-label': 'Source haemorrhage and aneurysm studies'},
     el('h2', {}, 'Source haemorrhage and aneurysm studies'),
-    el('p', {}, el('a', {href: '/app/anatomy/aneurysm-cta-018/index.html?from=' + encodeURIComponent(nodeId)},
-      'Inspect a left middle cerebral artery aneurysm on CTA and in 3D')),
+    el('p', {}, haemorrhageStudyLink(haemorrhageStudies.sac, nodeId)),
     el('p', {class: 'muted'}, 'Case 018 includes the CTA and the source surface of the contrast-filled sac.'),
-    el('ul', {}, ...[
-      ['cmha-mca-005', 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D'],
-      ['rhuh-sah-001', 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D'],
-    ].map(([study, title]) => el('li', {}, el('a', {
-      href: '/app/anatomy/' + study + '/index.html?from=' + encodeURIComponent(nodeId),
-    }, title)))),
+    el('ul', {}, ...[haemorrhageStudies.branches, haemorrhageStudies.compartment].map(study =>
+      el('li', {}, haemorrhageStudyLink(study, nodeId)))),
     el('p', {class: 'muted'}, 'The CMHA and RHUH examples are separate patients. Each viewer describes its source and label scope.'));
 }
 
@@ -3655,7 +3686,8 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   function stepPage(page, index) {
     const step = page.step;
     const parts = [el('p', { class: 'rad-walk-assess' }, step.detail),
-      guidance([['Where to look', step.look], ['Watch for', step.tip]])];
+      guidance([['Where to look', step.look], ['Watch for', step.tip]]),
+      renderHaemorrhageStepEvidence(n.id, page.sections)];
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
     if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },
       el('table', { class: 'rad-measurement-table' }, el('caption', {}, 'Measure and report'),
