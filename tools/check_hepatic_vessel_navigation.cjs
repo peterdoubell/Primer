@@ -12,7 +12,7 @@ const {chromium}=require('playwright'),fs=require('fs'),assert=require('assert/s
   const panel=p.getByRole('region',{name:'Liver region source study',exact:true});await panel.waitFor();
   assert.match(await panel.textContent(),/different person/);assert.match(await panel.textContent(),/not registered/);
   const urls=await panel.locator('a').evaluateAll(a=>a.map(e=>({text:e.textContent,href:e.href})));
-  assert.equal(urls.length,5);
+  assert.equal(urls.filter(row => !['phlf-center2-24','hva-ct-318'].some(atlas => new URL(row.href).pathname.startsWith('/app/anatomy/'+atlas+'/'))).length,5);
   for(const row of bindings){
    const url=urls.find(u=>u.text===row.title);assert.ok(url);assert.equal(new URL(url.href).searchParams.get('from'),id);
    await p.goto(url.href);
