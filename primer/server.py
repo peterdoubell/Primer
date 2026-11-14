@@ -4274,12 +4274,12 @@ async def hva_ct_delivery(asset: str, request: Request):
 
 @app.api_route("/app/anatomy/{atlas}/{asset:path}", methods=["GET", "HEAD"], include_in_schema=False)
 async def source_mesh_delivery(atlas: str, asset: str, request: Request):
-    if atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001"}:
+    if atlas in {"aneurysm-cta-018", "cmha-mca-005", "rhuh-sah-001", "venat"}:
         directory = "anatomy/" + atlas
         with open(os.path.join(WEB_DIR, directory, "delivery.json"), encoding="utf-8") as source:
             files = json.load(source)["files"]
         if asset not in files and asset != "delivery.json":
-            return JSONResponse({"detail": "Unknown haemorrhage study asset"}, status_code=404)
+            return JSONResponse({"detail": "Unknown source study asset"}, status_code=404)
         if asset.endswith(".gz") and os.environ.get("VERCEL"):
             return RedirectResponse("/source-media/" + directory + "/" + asset, status_code=307)
         return await app.state.source_static.get_response(directory + "/" + asset, request.scope)
