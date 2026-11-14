@@ -3999,6 +3999,8 @@ async function renderNode(page, nodeId) {
     'Explore observed galaxy rotation curves'));
   if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
     'Balance nucleons and charge in nuclear reactions'));
+  if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },
+    'Compare gravity at different orbital distances'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
     'Explore a longitudinal sound wave'));
   if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
