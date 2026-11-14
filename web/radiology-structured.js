@@ -157,18 +157,58 @@ window.PrimerStructuredReporting = (() => {
     clinical_history: 'Clinical history', comparison: 'Comparison', protocol: 'Protocol',
     impression: 'Impression', recommendation: 'Recommendation',
   };
+  function reportLineRole(line, studyTitle) {
+    if (line === studyTitle || /^(Clinical history|Comparison|Impression|Recommendation):$/.test(line)) return 'main';
+    return line.endsWith(':') && !line.startsWith('•') ? 'subheading' : 'body';
+  }
+  function reportHTML(text, studyTitle = '') {
+    const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+    return '<div style="font-family:Arial,sans-serif;line-height:1.4">' + text.split('\n').map(line => {
+      const content = escape(line);
+      switch (reportLineRole(line, studyTitle)) {
+        case 'main': return '<strong><u>' + content + '</u></strong>';
+        case 'subheading': return '<em>' + content + '</em>';
+        default: return content;
+      }
+    }).join('<br>') + '</div>';
+  }
+  function renderReportPreview(preview, text, studyTitle) {
+    const lines = text.split('\n');
+    preview.replaceChildren(...lines.flatMap((line, index) => {
+      const role = reportLineRole(line, studyTitle);
+      const content = role === 'main' ? element('u', line, 'rad-report-main-heading')
+        : element(role === 'subheading' ? 'em' : 'span', line);
+      return index === lines.length - 1 ? [content] : [content, element('br')];
+    }));
+  }
+  async function copyReport(text, studyTitle = '') {
+    if (navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+      try {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/plain': new Blob([text], {type: 'text/plain'}),
+          'text/html': new Blob([reportHTML(text, studyTitle)], {type: 'text/html'}),
+        })]);
+        return;
+      } catch (error) {
+        if (!navigator.clipboard.writeText) throw error;
+      }
+    }
+    await navigator.clipboard.writeText(text);
+  }
   function formatStudyReport(exam, fields, sections, assessments = []) {
     if (!Object.values(fields).some(value => Array.isArray(value) ? value.length : value.trim())
-        && !sections.length && !assessments.length) return '';
-    const block = (label, body) => label + ':\n' + (body || '—');
+        && !own(fields, 'protocol') && !sections.length && !assessments.length) return '';
+    const block = (label, body) => label + ':\n' + (body || '[]');
     const acquisition = exam.report_protocol;
-    const protocol = [fields.protocol?.trim(), ...(acquisition?.options || []).filter(option => fields.protocol_options?.includes(option))];
+    const selectedOptions = (acquisition?.options || []).filter(option => fields.protocol_options?.includes(option));
+    const standard = acquisition?.standard_text || '';
+    const protocol = [fields.protocol === undefined && !selectedOptions.length ? standard : fields.protocol?.trim(), ...selectedOptions];
     const findings = [];
     const examination = [];
     for (const section of sections) {
       if (['technique', 'protocol'].includes(section.label.toLowerCase())) {
         (acquisition ? protocol : examination).push(section.text);
-      } else findings.push(block(section.label, section.text));
+      } else findings.push(block(section.label === section.label.toUpperCase() ? section.label.charAt(0) + section.label.slice(1).toLowerCase() : section.label, section.text));
     }
     findings.push(...assessments);
     const study = acquisition
@@ -376,7 +416,7 @@ window.PrimerStructuredReporting = (() => {
         await root.flush(); const report = reportResult();
         if (!report.complete) throw Error('Complete the selected findings before copying.');
         if (options.onCopy) await options.onCopy(root.getState(), report.text);
-        else await navigator.clipboard.writeText(report.text);
+        else await copyReport(report.text, investigation()?.title);
         feedback.textContent = 'Report copied.';
       } catch (error) { feedback.textContent = error.message || 'Copy unavailable. Select the report text to copy it.'; }
       finally { copying = false; copy.disabled = !reportResult().complete; }
@@ -396,7 +436,9 @@ window.PrimerStructuredReporting = (() => {
     const reportOpening = element('div', undefined, 'rad-report-opening');
     const reportClosing = element('div', undefined, 'rad-report-closing');
     fields.replaceChildren(reportOpening, descriptorFields, calculatorFields, reportClosing);
+    let protocolInput;
     function drawReportFields() {
+      protocolInput = undefined;
       reportOpening.replaceChildren();
       reportClosing.replaceChildren();
       const exam = investigation();
@@ -405,8 +447,10 @@ window.PrimerStructuredReporting = (() => {
         const label = element('label', title, 'rad-report-field');
         const input = element('textarea');
         input.rows = 2;
+        input.placeholder = '[]';
+        if (key === 'protocol') protocolInput = input;
         input.maxLength = 4000;
-        input.value = state.report_fields[key] || '';
+        input.value = state.report_fields[key] ?? (key === 'protocol' && !state.report_fields.protocol_options?.length ? exam.report_protocol?.standard_text || '' : '');
         input.oninput = () => {
           state.report_fields[key] = input.value;
           update(true);
@@ -429,6 +473,9 @@ window.PrimerStructuredReporting = (() => {
             if (selected.has(description)) selected.delete(description);
             else selected.add(description);
             state.report_fields.protocol_options = protocol.options.filter(item => selected.has(item));
+            if (protocolInput && state.report_fields.protocol === undefined) {
+              protocolInput.value = selected.size ? '' : protocol.standard_text || '';
+            }
             choose(choice, selected.has(description));
             update(true);
           });
@@ -461,12 +508,12 @@ window.PrimerStructuredReporting = (() => {
     }
 
     const selected = section => state.selections[section.id] || {normal: false, not_assessed: false, findings: {}};
-    const compartmentOf = section => {
-      const name = section.compartment || section.group || section.label;
+    const displayGroup = name => {
       const exam = investigation();
       return exam?.report_format === 3 && !exam.report_protocol && /^(technique|protocol)$/i.test(name)
         ? 'Examination details' : name;
     };
+    const compartmentOf = section => displayGroup(section.compartment || section.group || section.label);
     const canFillNormal = (section, blocked) =>
       sectionScopeActive(section, state.selections) && section.normal
       && !section.exclude_from_bulk_normal && !blocked.has(section.id)
@@ -624,7 +671,7 @@ window.PrimerStructuredReporting = (() => {
         panel.open = !closedCompartments.has(key);
         const heading = element('summary'), caption = element('span',name,'rad-compartment-title');
         const reviewed = rows.filter(row => sectionHasSelection(selected(row))).length;
-        const groups = [...new Set(rows.map(row => row.group).filter(group => group && group !== name))];
+        const groups = [...new Set(rows.map(row => displayGroup(row.group)).filter(group => group && group !== name))];
         const summaryText = element('span', undefined, 'rad-compartment-summary-text');
         summaryText.append(caption);
         if (groups.length && [2, 3].includes(exam.report_format)) {
@@ -663,12 +710,12 @@ window.PrimerStructuredReporting = (() => {
       for (const section of exam.sections || []) {
         if (!sectionScopeActive(section,state.selections)) continue;
         const compartmentName = compartmentOf(section), container = containers.get(compartmentName);
-        const groupKey = compartmentName + ':' + section.group;
-        if (section.group && section.group !== compartmentName && groupKey !== lastGroup
-            && !(compartmentName === 'Examination details' && /^(technique|protocol)$/i.test(section.group))) {
+        const groupName = displayGroup(section.group);
+        const groupKey = compartmentName + ':' + groupName;
+        if (groupName && groupName !== compartmentName && groupKey !== lastGroup) {
           lastGroup = groupKey;
           const groupHeader = element('div', undefined, 'rad-anatomic-group');
-          groupHeader.append(element('h4', section.group));
+          groupHeader.append(element('h4', groupName));
 
           container.append(groupHeader);
 
@@ -739,6 +786,7 @@ window.PrimerStructuredReporting = (() => {
       normal.disabled = !(exam?.sections || []).some(section => canFillNormal(section, blocked));
       const result = reportResult();
       preview.textContent = result.text || 'Select findings to build the report.';
+      if (result.text) renderReportPreview(preview, result.text, exam?.title);
       copy.disabled = copying || !result.complete;
       const remaining = (investigation()?.sections || []).filter(section => { if(!sectionScopeActive(section,state.selections))return false; const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;
       feedback.textContent = result.missing.length ? 'Choose remaining details: ' + result.missing.map(item => item.label).join(', ') : remaining ? remaining + ' unselected ' + (remaining === 1 ? 'section' : 'sections') + ' — omitted from report.' : '';
@@ -869,5 +917,5 @@ window.PrimerStructuredReporting = (() => {
     })());
     return {node: panel, busy: () => inFlight, dispose: () => { disposed = true; sequence++; }};
   }
-  return {render, compose, descriptorText, descriptorCalculationJobs};
+  return {render, compose, descriptorText, descriptorCalculationJobs, reportHTML, copyReport};
 })();

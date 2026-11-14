@@ -134,7 +134,7 @@ def test_every_curated_finding_renders_with_explicit_values_and_its_parent(form,
             location = (investigation['id'], section['anatomy_id'], finding['id'])
             assert result['valid'], (location, result['issues'])
             assert result['text'], location
-            assert '__' not in result['text'] and '[' not in result['text'] and ']' not in result['text'], location
+            assert all('__' not in block['text'] and '[' not in block['text'] and ']' not in block['text'] for block in result['sections']), location
             assert result['selected_finding_count'] == len(chosen), location
             assert not finding['requires_context'], location
             assert {slot['kind'] for slot in finding['slots']} <= {'choice', 'number'}, location

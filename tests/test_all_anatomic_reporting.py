@@ -201,7 +201,7 @@ def test_every_authored_finding_path_and_required_parent_renders_without_invente
             result = render(form, inv, section, chosen)
             assert result['valid'], (inv['id'], finding['id'], result['issues'])
             assert chosen == state, 'Rendering must not mutate saved observations'
-            assert '__' not in result['text'] and '[' not in result['text'] and ']' not in result['text']
+            assert all('__' not in block['text'] and '[' not in block['text'] and ']' not in block['text'] for block in result['sections'])
             reported = {item['id'] for item in section['findings'] if item.get('report') is not False}
             assert result['selected_finding_count'] == len(set(chosen) & reported) + int(bool(section.get('requires_scope')))
             if set(chosen) & reported:

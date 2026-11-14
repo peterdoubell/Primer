@@ -59,7 +59,8 @@ REPORT_FIELDS = ('clinical_history', 'comparison', 'protocol', 'impression', 're
 def format_study_report(investigation, fields, sections, assessments=()):
     """Compose the document in reading order using only supplied observations."""
     acquisition = investigation.get('report_protocol')
-    protocol = [fields.get('protocol', ''), *fields.get('protocol_options', [])]
+    standard = (acquisition or {}).get('standard_text', '')
+    protocol = [fields.get('protocol', standard if not fields.get('protocol_options') else ''), *fields.get('protocol_options', [])]
     findings = []
     examination = []
     for section in sections:
@@ -69,12 +70,13 @@ def format_study_report(investigation, fields, sections, assessments=()):
             else:
                 examination.append(section['text'])
         else:
-            findings.append(section['label'] + ':\n' + section['text'])
+            label = section['label'].capitalize() if section['label'].isupper() else section['label']
+            findings.append(label + ':\n' + section['text'])
     findings.extend(assessments)
-    if not any(fields.values()) and not sections and not assessments:
+    if not any(fields.values()) and 'protocol' not in fields and not sections and not assessments:
         return ''
     def block(label, body):
-        return label + ':\n' + (body or '—')
+        return label + ':\n' + (body or '[]')
     study = [investigation['title']]
     if acquisition:
         study.extend((block('Protocol' if investigation['modality'] == 'MRI' else 'Technique',
@@ -118,7 +120,7 @@ def render_descriptors(form, state):
                 problem('invalid_report_fields')
                 fields = {}
             else:
-                fields = {key: value.strip() for key, value in fields.items() if key != 'protocol_options' and value.strip()}
+                fields = {key: value.strip() for key, value in fields.items() if key != 'protocol_options' and (value.strip() or key == 'protocol')}
                 if options:
                     fields['protocol_options'] = [item for item in protocol['options'] if item in options]
     selections = state.get('selections', {})

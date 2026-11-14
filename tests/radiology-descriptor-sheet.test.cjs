@@ -344,10 +344,10 @@ test('knee compartments keep every row, scope normal actions, and retain collaps
   assert(Object.keys(choices).length>0);
   assert(Object.keys(choices).every(id=>exam.sections.find(s=>s.id===id).compartment==='Medial compartment'));
   assert.equal(named('Lateral compartment').open,false);
-  assert.match(root.getReport(), /^Findings:\nMEDIAL COMPARTMENT:\n• /m);
+  assert.match(root.getReport(), /^Findings:\nMedial compartment:\n• /m);
   assert.match(root.getReport(), /No tear of the medial meniscal anterior horn, body or posterior horn/);
   assert.doesNotMatch(root.getReport(), /The medial meniscus anterior horn has no tear/);
-  assert(!root.getReport().includes('LATERAL COMPARTMENT'));
+  assert(!root.getReport().includes('Lateral compartment'));
   assert.equal(find(named('Medial compartment'), 'Normal remaining').disabled, true);
   const selectedState = root.getState();
   find(root, 'Collapse all').onclick();
@@ -360,4 +360,28 @@ test('knee compartments keep every row, scope normal actions, and retain collaps
   find(root, 'Expand all').onclick();
   assert(panels().every(panel => panel.open));
 
+});
+
+
+test('rich clipboard keeps report formatting and the plain-text fallback', async () => {
+  const api = load();
+  let data;
+  const original = global.ClipboardItem;
+  global.ClipboardItem = class { constructor(formats) { this.formats = formats; } };
+  try {
+    navigator.clipboard.write = async ([item]) => { data = item.formats; };
+    const report = 'Clinical history:\n[]\n\nMRI knee\n\nMedial compartment:\n• <observed> & recorded';
+    await api.copyReport(report, 'MRI knee');
+    assert.equal(await data['text/plain'].text(), report);
+    const html = await data['text/html'].text();
+    assert.match(html, /<u>Clinical history:<\/u>/);
+    assert.match(html, /<u>MRI knee<\/u>/);
+    assert.match(html, /<em>Medial compartment:<\/em>/);
+    assert.match(html, /&lt;observed&gt; &amp; recorded/);
+    navigator.clipboard.write = async () => { throw Error('Unsupported HTML clipboard'); };
+    await api.copyReport(report, 'MRI knee');
+    assert.equal(api.context.copied, report);
+  } finally {
+    global.ClipboardItem = original;
+  }
 });
