@@ -7,3 +7,5 @@ The archive CRCs and source object headers were verified. The browser encoding r
 The archive supplies right-sided transverse, sigmoid, cavernous and petrosal objects. The same FJ4654 geometry appears under the source right great cerebral vein and its parent concept. Anatomical continuity, unrepresented lateral counterparts, clinical variants and patient thrombus require separate evidence. Independent specialist review remains open.
 
 The projection plate uses all original faces at the browser’s Float32 precision in three orthographic atlas planes. Each view includes a scale bar. The proof records a digest of the projected coordinates for each object. Depth is collapsed and overlap alone provides no evidence of a junction.
+
+The venous sinus thrombosis walkthrough opens the available sinus or deep-vein group in a separate tab. Both presets were verified by their selected object IDs and rendered triangle totals. The delivery check verified all 18 assets. The reader rejected a valid gzip containing modified geometry and restored the selected group after a successful retry.

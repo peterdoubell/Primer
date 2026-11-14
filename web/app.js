@@ -3669,6 +3669,18 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     const step = page.step;
     const parts = [el('p', { class: 'rad-walk-assess' }, step.detail),
       guidance([['Where to look', step.look], ['Watch for', step.tip]])];
+    if (n.id === 'ra.venous-sinus-thrombosis') {
+      const focus = page.sections.includes('DURAL SINUSES') ? 'sinuses'
+        : page.sections.includes('DEEP AND CORTICAL VEINS') ? 'deep' : '';
+      if (focus) parts.push(el('section', {class: 'card', 'aria-label': 'Source venous anatomy for this step'},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},
+          focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),
+        el('p', {}, focus === 'deep'
+          ? 'This view shows the right internal cerebral vein, the source great cerebral vein object and the straight sinus. Cortical venous anatomy requires separate source objects.'
+          : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),
+        el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
+    }
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
     if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },
       el('table', { class: 'rad-measurement-table' }, el('caption', {}, 'Measure and report'),

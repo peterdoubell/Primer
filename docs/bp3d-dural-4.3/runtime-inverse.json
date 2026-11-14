@@ -1,7 +1,7 @@
 {
   "web/app.js": {
     "before": "81cad0ff80b9017857ffabadeaaa74cace92747722675c51408d4ac07900f8d1",
-    "after": "6c7364cbe8fb0a7497f65487c7222ddc87a788e181d380b6147eadd6b4a99275",
+    "after": "6f92b1b5d48953a8989637512b3ad69cece82e97f7b1ae7cd3081311c08c339a",
     "changes": [
       {
         "start": 2966,
@@ -16,8 +16,14 @@
         "after": "  const duralAtlas = renderDuralVenousAtlas(n.id);\n  if (duralAtlas) page.append(duralAtlas);\n"
       },
       {
-        "start": 4038,
-        "end": 4040,
+        "start": 3671,
+        "end": 3683,
+        "before": "",
+        "after": "    if (n.id === 'ra.venous-sinus-thrombosis') {\n      const focus = page.sections.includes('DURAL SINUSES') ? 'sinuses'\n        : page.sections.includes('DEEP AND CORTICAL VEINS') ? 'deep' : '';\n      if (focus) parts.push(el('section', {class: 'card', 'aria-label': 'Source venous anatomy for this step'},\n        el('a', {target: '_blank', rel: 'noopener',\n          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},\n          focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),\n        el('p', {}, focus === 'deep'\n          ? 'This view shows the right internal cerebral vein, the source great cerebral vein object and the straight sinus. Cortical venous anatomy requires separate source objects.'\n          : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),\n        el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));\n    }\n"
+      },
+      {
+        "start": 4050,
+        "end": 4052,
         "before": "",
         "after": "  const duralAtlas = renderDuralVenousAtlas(n.id);\n  if (duralAtlas) page.append(duralAtlas);\n"
       }
