@@ -96,6 +96,9 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    from tools.report_compartment_compatibility import before_rich_report_bytes
+    if str(path) == 'web/app.js':
+        raw = before_rich_report_bytes(path, raw)
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/rhuh-sah-001/runtime-inverse.json', 'de93240f71a01363b8236b8c7629cd1ff4a6f75b33defc170067bea6c203ac02')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:

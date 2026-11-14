@@ -13,28 +13,32 @@ from tools.fast_report_templates_compatibility import CHANGES, before_fast_templ
 ROOT = Path(__file__).resolve().parents[1]
 
 CXR_TEMPLATE = """Clinical history:
-[ ].
+[]
+
+Comparison:
+[]
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
+
 Airways and cardiomediastinum:
 Trachea central. Normal heart size, mediastinal contours and hila.
-[Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] [ ].
+[Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] []
 
 Lungs:
 Clear lungs.
-[Consolidation / Collapse / Nodule / Mass / Interstitial opacity] in the [ ].
-[Pulmonary oedema / Hyperinflation / Cavitation] [ ].
+[Consolidation / Collapse / Nodule / Mass / Interstitial opacity] in the []
+[Pulmonary oedema / Hyperinflation / Cavitation] []
 
 Pleura and diaphragm:
 No pleural effusion or pneumothorax. Normal diaphragm.
 [Small / Moderate / Large] [right / left / bilateral] pleural effusion.
-[Right / Left] pneumothorax, [ ] cm at the level of the hilum.
+[Right / Left] pneumothorax, [] cm at the level of the hilum.
 [Right / Left / Bilateral] free subdiaphragmatic gas.
 
 Devices and bones:
 No lines or devices. No acute bony abnormality.
-[Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip [ ].
-[Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] [ ].
+[Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip []
+[Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] []
 
 Impression:
 1. []
@@ -42,12 +46,16 @@ Impression:
 3. []
 
 Recommendation:
-[ ]."""
+[]"""
 
 CXR_NORMAL = """Clinical history:
-[ ].
+[]
+
+Comparison:
+[]
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
+
 Airways and cardiomediastinum:
 Trachea central. Normal heart size, mediastinal contours and hila.
 
@@ -98,30 +106,30 @@ def test_layout_rules_hold_for_every_template(identifier):
     item = rt.library()[identifier]
     report = rt.quick_report(identifier)
     template, normal = report['template'].split('\n'), report['normal'].split('\n')
+    exam = rt.examination_profiles()[identifier]
+    acquisition = exam.get('report_protocol')
     for lines in (template, normal):
-        assert lines[:4] == ['Clinical history:', '[ ].', '', item['title']]
-        assert '' not in (lines[4], lines[5]) and lines[4].endswith(':')
+        assert lines[:7] == ['Clinical history:', '[]', '', 'Comparison:', '[]', '', item['title']]
         headings = [line[:-1] for line in lines if line.endswith(':')]
-        assert headings == ['Clinical history', *report['headings'], 'Impression', 'Recommendation']
-        assert all(lines[index + 1] for index, line in enumerate(lines) if line.endswith(':'))
+        assert headings == ['Clinical history', 'Comparison', *report['headings'], 'Impression', 'Recommendation']
         assert '\n\n\n' not in '\n'.join(lines) and lines[-1].strip()
-    # Radiographs have no technique or comparison; every other examination opens with both.
-    if item['radiograph']:
-        assert 'Technique' not in report['headings'] and 'Comparison' not in report['headings']
+        assert '[ ]' not in '\n'.join(lines)
+    if acquisition:
+        header = 'Protocol' if exam['modality'] == 'MRI' else 'Technique'
+        assert report['headings'][:2] == [header, 'Findings']
+        assert template[template.index(header + ':') + 1] == acquisition['standard_text']
+        assert 'Limited by []' in template and 'Limited by []' not in normal
     else:
-        assert report['headings'][:2] == ['Technique', 'Comparison']
-        assert template[template.index('Technique:') + 1] == item['technique']['normal']
-        assert 'Limited by [ ].' in template and 'Limited by [ ].' not in normal
-    assert report['template'].endswith('Impression:\n1. []\n2. []\n3. []\n\nRecommendation:\n[ ].')
-    # The normal report is ready to sign once the history is written: no picks or blanks.
-    assert '[' not in '\n'.join(normal[2:]) and ']' not in '\n'.join(normal[2:])
+        assert 'Technique' not in report['headings'] and 'Protocol' not in report['headings']
+    assert report['template'].endswith('Impression:\n1. []\n2. []\n3. []\n\nRecommendation:\n[]')
+    assert '[' not in '\n'.join(normal[5:])
     impression = item['impression'] if isinstance(item['impression'], list) else [item['impression']]
     assert report['normal'].endswith('Impression:\n' + '\n'.join(f'{n}. {line}' for n, line in enumerate(impression, 1))
                                      + '\n\nRecommendation:\n' + item.get('recommendation', 'None.'))
     # Each heading's normal line comes first, then its selectable findings.
     for section in item['sections']:
         start = template.index(section['heading'] + ':')
-        assert template[start + 1:start + 2 + len(section.get('options', []))] == [section['normal'], *section.get('options', [])]
+        assert template[start + 1:start + 2 + len(section.get('options', []))] == [section['normal'], *(option.replace('[ ].', '[]').replace('[ ]', '[]') for option in section.get('options', []))]
 
 
 def test_radiograph_titles_and_flags_agree():
