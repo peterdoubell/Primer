@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'd9b03647ec99807b31e0e4c4a8ada9cf74b74631d3a7d7da3e84b6d422991b4b':
+        raw = raw.replace(b"  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },\n    'Compare limits from the left and right'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'e8347aa2fbd63621fa23cd6465f92f144e4edbceceb6467a4b4e8fa98b75acd1':
+            raise ValueError('Limits link changed unrelated reader bytes')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', '438fe8a56c1f2029ffc6de80a91c29df089dd8607e8d06a9c77e481cdde4c359')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'c98fe23e8efa2ea0e292f8d436079801d99e160bf57f74196a24957aed55cc13':
