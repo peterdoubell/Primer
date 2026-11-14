@@ -2970,6 +2970,8 @@ function renderLiverRegionStudy(nodeId) {
     el('h2', {}, 'Source MRI with liver-region labels'),
     el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
     el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),
+    el('p', {}, el('a', {href:'/app/anatomy/phlf-center2-24/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect a tumour across two liver regions on MRI and in 3D')),
+    el('p', {}, el('a', {href:'/app/anatomy/hva-ct-318/index.html?from=' + encodeURIComponent(nodeId)}, 'Compare portal and hepatic veins on labelled CT and in 3D')),
     el('h3', {}, 'Vascular references from a separate CT case'),
     el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),
     el('ul', {}, ...[
@@ -3981,6 +3983,8 @@ async function renderNode(page, nodeId) {
     'Balance nucleons and charge in nuclear reactions'));
   if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
     'Explore a longitudinal sound wave'));
+  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
+    'Predict English plural sounds'));
   if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },
     'Explore every child and a tree: two scope orders'));
   if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },

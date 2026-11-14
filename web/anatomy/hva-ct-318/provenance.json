@@ -1,0 +1,227 @@
+{
+  "maskSource": "https://doi.org/10.5281/zenodo.19850108",
+  "ctLicense": "CC BY-SA 4.0",
+  "maskLicense": "CC BY-SA 4.0",
+  "pair": {
+    "case": "318",
+    "ct": {
+      "case": "318",
+      "source": "https://msd-for-monai.s3-us-west-2.amazonaws.com/Task08_HepaticVessel.tar",
+      "member": "Task08_HepaticVessel/imagesTr/hepaticvessel_318.nii.gz",
+      "bytes": 39918322,
+      "sha256": "5d50b60fde00befd6f600f03c9aa1c1773e02049533e986109451b2437bf8b42",
+      "tarOffset": 3207275520,
+      "archiveETag": "\"306e13e5f17d89b62a34ae2f6d58063d-1115\"",
+      "rangeReceipt": {
+        "start": 3207275520,
+        "end": 3247193841,
+        "bytes": 39918322,
+        "sha256": "5d50b60fde00befd6f600f03c9aa1c1773e02049533e986109451b2437bf8b42"
+      },
+      "wholeArchiveChecksumVerified": false
+    },
+    "mask": {
+      "member": "hp_masks/hepatic_portalvessel_318.nii.gz",
+      "sha256": "3372b0a9a8f2d1ceefb59517268c0ebb2c67b34c65255fc07d661ee8731af15d",
+      "crc32": "ebab7247",
+      "archiveMemberCrcVerified": true
+    },
+    "shape": [
+      512,
+      512,
+      144
+    ],
+    "affine": [
+      [
+        0.7714840173721313,
+        0.0,
+        0.0,
+        -394.22833251953125
+      ],
+      [
+        0.0,
+        0.7714840173721313,
+        0.0,
+        -394.22833251953125
+      ],
+      [
+        0.0,
+        0.0,
+        1.5,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "spacing": [
+      0.7714840173721313,
+      0.7714840173721313,
+      1.5
+    ],
+    "axes": [
+      "R",
+      "A",
+      "S"
+    ],
+    "sameGrid": true,
+    "regions": {
+      "hepatic": {
+        "sourceLabel": 2,
+        "voxels": 155702,
+        "bounds": [
+          [
+            185,
+            194,
+            32
+          ],
+          [
+            422,
+            390,
+            135
+          ]
+        ]
+      },
+      "portal": {
+        "sourceLabel": 1,
+        "voxels": 94370,
+        "bounds": [
+          [
+            106,
+            196,
+            27
+          ],
+          [
+            415,
+            384,
+            132
+          ]
+        ]
+      }
+    },
+    "sourceLabelDefinitionsConfirmedInCode": true,
+    "sourceCodeMember": "HVA-CT accompaning code/utils/masks.py",
+    "clinicalApproval": false,
+    "sourceRanges": [
+      {
+        "start": 6558968,
+        "end": 6558989,
+        "bytes": 22,
+        "sha256": "1182931580d0c09b13f843a478a0e5cc7dc093fd0dfbc6a9de506e0c2a8d1f59"
+      },
+      {
+        "start": 6558948,
+        "end": 6558967,
+        "bytes": 20,
+        "sha256": "f8f3c70909f4ba43fbbffcc947b5f85fd85d2d722f5465a06068767c63e96ee8"
+      },
+      {
+        "start": 6552179,
+        "end": 6558967,
+        "bytes": 6789,
+        "sha256": "3c10b717f4dd26f3683509490aa2bd698dd06941f59854e45d4f93062685bec4"
+      },
+      {
+        "start": 2872467,
+        "end": 2872496,
+        "bytes": 30,
+        "sha256": "4e85634cef9e5d66e16e76d15e3face8187334128e05c91e9593ee1a2086f745"
+      },
+      {
+        "start": 2872497,
+        "end": 2872536,
+        "bytes": 40,
+        "sha256": "960b06d342f84bf4e9143a5cf3c7b7f0d2fa2bfb5574be04d514eefe90e8e328"
+      },
+      {
+        "start": 2872569,
+        "end": 3012402,
+        "bytes": 139834,
+        "sha256": "f7d74fcd865963990fb7ad48e860dc7456c338ad1376cbb5505cc9d67ad3bef0"
+      }
+    ]
+  },
+  "mask": {
+    "case": "318",
+    "memberSHA256": "3372b0a9a8f2d1ceefb59517268c0ebb2c67b34c65255fc07d661ee8731af15d",
+    "affine": [
+      [
+        0.7714840173721313,
+        0.0,
+        0.0,
+        -394.22833251953125
+      ],
+      [
+        0.0,
+        0.7714840173721313,
+        0.0,
+        -394.22833251953125
+      ],
+      [
+        0.0,
+        0.0,
+        1.5,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "regions": {
+      "hepatic": {
+        "sourceLabel": 2,
+        "voxels": 155702,
+        "bounds": [
+          [
+            185,
+            194,
+            32
+          ],
+          [
+            422,
+            390,
+            135
+          ]
+        ],
+        "touchesArrayEdge": false,
+        "sixConnectedComponents": 1
+      },
+      "portal": {
+        "sourceLabel": 1,
+        "voxels": 94370,
+        "bounds": [
+          [
+            106,
+            196,
+            27
+          ],
+          [
+            415,
+            384,
+            132
+          ]
+        ],
+        "touchesArrayEdge": false,
+        "sixConnectedComponents": 1
+      }
+    }
+  },
+  "geometry": {
+    "regions": 2,
+    "verifiedBoundaryQuads": 166812,
+    "exactFloat32SourceCorners": true,
+    "everyOriginalBoundaryFaceRetained": true,
+    "sourceLabels": [
+      1,
+      2
+    ],
+    "portalTouchesArrayEdge": false,
+    "clinicalApproval": false
+  }
+}
