@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gravity from the surface to orbit · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script defer src="viewer.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.2.gravity">Return to Gravity</a>
+<h1>Gravity from the surface to orbit</h1>
+<p>Move a satellite farther from Earth. Compare how gravitational acceleration, force and the speed needed for a circular orbit change.</p>
+<div class="controls">
+<label for="radius">Distance from Earth's centre</label>
+<input id="radius" type="range" min="1.05" max="6" step="0.05" value="1.5">
+<output id="distance" for="radius"></output>
+<label for="mass">Satellite mass</label>
+<input id="mass" type="range" min="100" max="2000" step="100" value="500">
+<output id="mass-value" for="mass"></output>
+<label for="phase">Fraction of one orbit</label>
+<input id="phase" type="range" min="0" max="100" step="1" value="7">
+<output id="elapsed" for="phase"></output>
+</div>
+<figure>
+<canvas id="orbit" width="640" height="460" role="img"></canvas>
+<figcaption>The radius and altitude use the same scale as Earth. The view zooms out at larger distances. The satellite is enlarged. The arrows show direction only.</figcaption>
+</figure>
+<table>
+<caption id="comparison">What changes when you double the distance?</caption>
+<thead><tr><th scope="col">Quantity</th><th scope="col">At r</th><th scope="col">At 2r</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<p id="status" role="status"></p>
+<p>The model uses a spherical Earth with mean radius 6,371 km and a gravitational parameter of 398,600.44 km³/s². It omits atmosphere, Earth’s rotation and other bodies. The diagram views a circular orbit face-on.</p>
+<p><a href="https://ssd.jpl.nasa.gov/planets/phys_par.html">JPL planet radii</a> · <a href="https://ssd.jpl.nasa.gov/astro_par.html">JPL gravitational parameters</a></p>
+</main></body>
+</html>

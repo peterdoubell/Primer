@@ -96,6 +96,12 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '5beee8bb9348ead6c79460683e0f64f49418bad7567a9390789bb14b28ae4343':
+        raw = raw.replace(b"  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },\n    'Practise adding -ing and -ed'));\n", b'', 1)
+        raw = raw.replace(b"  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },\n    'Compare limits from the left and right'));\n", b'', 1)
+        raw = raw.replace(b"  if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },\n    'Compare gravity at different orbital distances'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != '81cad0ff80b9017857ffabadeaaa74cace92747722675c51408d4ac07900f8d1':
+            raise ValueError('Activity links changed unrelated reader bytes')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/rhuh-sah-001/runtime-inverse.json', 'de93240f71a01363b8236b8c7629cd1ff4a6f75b33defc170067bea6c203ac02')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:

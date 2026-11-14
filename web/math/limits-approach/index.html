@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approaching a limit · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/math.3.precalc">Return to Limits</a>
+<h1>Approaching a limit</h1>
+<label for="case">Function</label>
+<select id="case">
+<option value="hole">Hole at x = 2</option>
+<option value="reassigned">Different value at x = 2</option>
+<option value="jump">Jump at x = 2</option>
+<option value="sinc">Sine ratio near x = 0</option>
+<option value="infinity">Reciprocal towards infinity</option>
+</select>
+<p id="formula"></p>
+<label for="step" id="step-label">Approach step</label>
+<input type="range" id="step" min="0" max="4" value="0">
+<output id="distance" for="step"></output>
+<figure>
+<canvas id="graph" width="720" height="360" role="img"></canvas>
+<figcaption id="graph-note"></figcaption>
+</figure>
+<table><caption>Sample values</caption><thead><tr><th scope="col">Approach</th><th scope="col">x</th><th scope="col">f(x)</th></tr></thead><tbody id="rows"></tbody></table>
+<p id="result" role="status"></p>
+</main></body></html>
