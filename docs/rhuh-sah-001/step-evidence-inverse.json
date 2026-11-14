@@ -1,31 +1,37 @@
 {
   "web/app.js": {
     "before": "81cad0ff80b9017857ffabadeaaa74cace92747722675c51408d4ac07900f8d1",
-    "after": "071937c4b8853a12ee83870f0c0f292d83daafbc8a967e53d6270f4a0bffa196",
+    "after": "9dd40f9d49a3764c851df4855f88ffcfaa8fa6c2324d94a54721ee84af8084b3",
     "changes": [
       {
         "start": 2966,
-        "end": 3002,
+        "end": 3023,
         "before": "",
-        "after": "const haemorrhageStudies = {\n  compartment: {\n    title: 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D',\n    slug: 'rhuh-sah-001',\n    scope: 'One binary mask on preprocessed CT. The source groups labelled blood together without distinguishing cisterns, sulci or ventricles.',\n  },\n  sac: {\n    title: 'Inspect a left middle cerebral artery aneurysm on CTA and in 3D',\n    slug: 'aneurysm-cta-018',\n    scope: 'Case 018 shows the contrast-filled sac. The surface has no parent-artery or haemorrhage labels.',\n  },\n  branches: {\n    title: 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D',\n    slug: 'cmha-mca-005',\n    scope: 'A separate M1\u2013M2 case with a sac-only model and a combined arterial model. The source supplies no individual branch labels.',\n  },\n};\n\nfunction haemorrhageStudyLink(study, nodeId, attributes = {}) {\n  return el('a', {href: '/app/anatomy/' + study.slug + '/index.html?from=' + encodeURIComponent(nodeId), ...attributes}, study.title);\n}\n\nfunction renderHaemorrhageStepEvidence(nodeId, sections) {\n  if (nodeId !== 'ra.intracranial-haemorrhage') return null;\n  const studies = sections.includes('UNDERLYING CAUSE')\n    ? [haemorrhageStudies.sac, haemorrhageStudies.branches]\n    : sections.some(section => ['HAEMORRHAGE COMPARTMENT', 'SUBARACHNOID AND VENTRICULAR EXTENSION'].includes(section))\n      ? [haemorrhageStudies.compartment] : [];\n  if (!studies.length) return null;\n  return el('section', {class: 'card', 'aria-label': 'Source evidence for this step'},\n    el('h4', {}, 'Source examples for this step'),\n    el('ul', {}, ...studies.map(study => el('li', {},\n      haemorrhageStudyLink(study, nodeId, {target: '_blank', rel: 'noopener'}), el('p', {}, study.scope)))),\n    el('p', {class: 'muted'}, 'Links open in a new tab so this report stays open. Record findings from the examination you are reporting.'));\n}\n\n"
+        "after": "const haemorrhageStudies = {\n  compartment: {\n    title: 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D',\n    slug: 'rhuh-sah-001',\n    scope: 'One binary mask on preprocessed CT. The source groups labelled blood together without distinguishing cisterns, sulci or ventricles.',\n  },\n  sac: {\n    title: 'Inspect a left middle cerebral artery aneurysm on CTA and in 3D',\n    slug: 'aneurysm-cta-018',\n    scope: 'Case 018 shows the contrast-filled sac. The surface has no parent-artery or haemorrhage labels.',\n  },\n  branches: {\n    title: 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D',\n    slug: 'cmha-mca-005',\n    scope: 'A separate M1\u2013M2 case with a sac-only model and a combined arterial model. The source supplies no individual branch labels.',\n  },\n};\n\nfunction reportingStudyLink(study, nodeId, attributes = {}) {\n  return el('a', {href: '/app/anatomy/' + study.slug + '/index.html?from=' + encodeURIComponent(nodeId), ...attributes}, study.title);\n}\n\nconst liverReportingStudies = {\n  tumour: {\n    title: 'Inspect a tumour across two liver regions on MRI and in 3D',\n    slug: 'phlf-center2-24',\n    scope: 'The source mask shows the tumour crossing regions 6 and 7 on one preoperative MRI volume. Enhancement and lesion category need separate evidence.',\n  },\n  veins: {\n    title: 'Compare portal and hepatic veins on labelled CT and in 3D',\n    slug: 'hva-ct-318',\n    scope: 'A separate CT case shows the two venous systems. The source labels describe venous anatomy. Tumour in vein needs its own imaging evidence.',\n  },\n};\n\nfunction renderReportingStepEvidence(nodeId, sections) {\n  let studies = [];\n  if (nodeId === 'ra.intracranial-haemorrhage') {\n    if (sections.includes('UNDERLYING CAUSE')) studies = [haemorrhageStudies.sac, haemorrhageStudies.branches];\n    else if (sections.some(section => ['HAEMORRHAGE COMPARTMENT', 'SUBARACHNOID AND VENTRICULAR EXTENSION'].includes(section))) {\n      studies = [haemorrhageStudies.compartment];\n    }\n  }\n  if (nodeId === 'ra.liver-masses' || nodeId === 'ra.liver-lirads') {\n    if (sections.some(section => ['LESION MAP', 'OBSERVATION MAP'].includes(section))) studies = [liverReportingStudies.tumour];\n    else if (sections.some(section => ['ASSOCIATED FINDINGS', 'VEINS AND CATEGORY'].includes(section))) {\n      studies = [liverReportingStudies.veins];\n    }\n  }\n  if (!studies.length) return null;\n  return el('section', {class: 'card', 'aria-label': 'Source evidence for this step'},\n    el('h4', {}, 'Source examples for this step'),\n    el('ul', {}, ...studies.map(study => el('li', {},\n      reportingStudyLink(study, nodeId, {target: '_blank', rel: 'noopener'}), el('p', {}, study.scope)))),\n    el('p', {class: 'muted'}, 'Links open in a new tab so this report stays open. Record findings from the examination you are reporting.'));\n}\n\n"
       },
       {
-        "start": 3006,
-        "end": 3007,
+        "start": 3027,
+        "end": 3028,
         "before": "    el('p', {}, el('a', {href: '/app/anatomy/aneurysm-cta-018/index.html?from=' + encodeURIComponent(nodeId)},\n      'Inspect a left middle cerebral artery aneurysm on CTA and in 3D')),\n",
-        "after": "    el('p', {}, haemorrhageStudyLink(haemorrhageStudies.sac, nodeId)),\n"
+        "after": "    el('p', {}, reportingStudyLink(haemorrhageStudies.sac, nodeId)),\n"
       },
       {
-        "start": 3008,
-        "end": 3010,
+        "start": 3029,
+        "end": 3031,
         "before": "    el('ul', {}, ...[\n      ['cmha-mca-005', 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D'],\n      ['rhuh-sah-001', 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D'],\n    ].map(([study, title]) => el('li', {}, el('a', {\n      href: '/app/anatomy/' + study + '/index.html?from=' + encodeURIComponent(nodeId),\n    }, title)))),\n",
-        "after": "    el('ul', {}, ...[haemorrhageStudies.branches, haemorrhageStudies.compartment].map(study =>\n      el('li', {}, haemorrhageStudyLink(study, nodeId)))),\n"
+        "after": "    el('ul', {}, ...[haemorrhageStudies.branches, haemorrhageStudies.compartment].map(study =>\n      el('li', {}, reportingStudyLink(study, nodeId)))),\n"
       },
       {
-        "start": 3688,
-        "end": 3690,
+        "start": 3040,
+        "end": 3042,
+        "before": "    el('p', {}, el('a', {href:'/app/anatomy/phlf-center2-24/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect a tumour across two liver regions on MRI and in 3D')),\n    el('p', {}, el('a', {href:'/app/anatomy/hva-ct-318/index.html?from=' + encodeURIComponent(nodeId)}, 'Compare portal and hepatic veins on labelled CT and in 3D')),\n",
+        "after": "    el('p', {}, reportingStudyLink(liverReportingStudies.tumour, nodeId)),\n    el('p', {}, reportingStudyLink(liverReportingStudies.veins, nodeId)),\n"
+      },
+      {
+        "start": 3709,
+        "end": 3711,
         "before": "      guidance([['Where to look', step.look], ['Watch for', step.tip]])];\n",
-        "after": "      guidance([['Where to look', step.look], ['Watch for', step.tip]]),\n      renderHaemorrhageStepEvidence(n.id, page.sections)];\n"
+        "after": "      guidance([['Where to look', step.look], ['Watch for', step.tip]]),\n      renderReportingStepEvidence(n.id, page.sections)];\n"
       }
     ]
   }

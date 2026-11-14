@@ -2982,21 +2982,42 @@ const haemorrhageStudies = {
   },
 };
 
-function haemorrhageStudyLink(study, nodeId, attributes = {}) {
+function reportingStudyLink(study, nodeId, attributes = {}) {
   return el('a', {href: '/app/anatomy/' + study.slug + '/index.html?from=' + encodeURIComponent(nodeId), ...attributes}, study.title);
 }
 
-function renderHaemorrhageStepEvidence(nodeId, sections) {
-  if (nodeId !== 'ra.intracranial-haemorrhage') return null;
-  const studies = sections.includes('UNDERLYING CAUSE')
-    ? [haemorrhageStudies.sac, haemorrhageStudies.branches]
-    : sections.some(section => ['HAEMORRHAGE COMPARTMENT', 'SUBARACHNOID AND VENTRICULAR EXTENSION'].includes(section))
-      ? [haemorrhageStudies.compartment] : [];
+const liverReportingStudies = {
+  tumour: {
+    title: 'Inspect a tumour across two liver regions on MRI and in 3D',
+    slug: 'phlf-center2-24',
+    scope: 'The source mask shows the tumour crossing regions 6 and 7 on one preoperative MRI volume. Enhancement and lesion category need separate evidence.',
+  },
+  veins: {
+    title: 'Compare portal and hepatic veins on labelled CT and in 3D',
+    slug: 'hva-ct-318',
+    scope: 'A separate CT case shows the two venous systems. The source labels describe venous anatomy. Tumour in vein needs its own imaging evidence.',
+  },
+};
+
+function renderReportingStepEvidence(nodeId, sections) {
+  let studies = [];
+  if (nodeId === 'ra.intracranial-haemorrhage') {
+    if (sections.includes('UNDERLYING CAUSE')) studies = [haemorrhageStudies.sac, haemorrhageStudies.branches];
+    else if (sections.some(section => ['HAEMORRHAGE COMPARTMENT', 'SUBARACHNOID AND VENTRICULAR EXTENSION'].includes(section))) {
+      studies = [haemorrhageStudies.compartment];
+    }
+  }
+  if (nodeId === 'ra.liver-masses' || nodeId === 'ra.liver-lirads') {
+    if (sections.some(section => ['LESION MAP', 'OBSERVATION MAP'].includes(section))) studies = [liverReportingStudies.tumour];
+    else if (sections.some(section => ['ASSOCIATED FINDINGS', 'VEINS AND CATEGORY'].includes(section))) {
+      studies = [liverReportingStudies.veins];
+    }
+  }
   if (!studies.length) return null;
   return el('section', {class: 'card', 'aria-label': 'Source evidence for this step'},
     el('h4', {}, 'Source examples for this step'),
     el('ul', {}, ...studies.map(study => el('li', {},
-      haemorrhageStudyLink(study, nodeId, {target: '_blank', rel: 'noopener'}), el('p', {}, study.scope)))),
+      reportingStudyLink(study, nodeId, {target: '_blank', rel: 'noopener'}), el('p', {}, study.scope)))),
     el('p', {class: 'muted'}, 'Links open in a new tab so this report stays open. Record findings from the examination you are reporting.'));
 }
 
@@ -3004,10 +3025,10 @@ function renderAneurysmCtaStudy(nodeId) {
   if (!['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(nodeId)) return null;
   return el('section', {class: 'card', 'aria-label': 'Source haemorrhage and aneurysm studies'},
     el('h2', {}, 'Source haemorrhage and aneurysm studies'),
-    el('p', {}, haemorrhageStudyLink(haemorrhageStudies.sac, nodeId)),
+    el('p', {}, reportingStudyLink(haemorrhageStudies.sac, nodeId)),
     el('p', {class: 'muted'}, 'Case 018 includes the CTA and the source surface of the contrast-filled sac.'),
     el('ul', {}, ...[haemorrhageStudies.branches, haemorrhageStudies.compartment].map(study =>
-      el('li', {}, haemorrhageStudyLink(study, nodeId)))),
+      el('li', {}, reportingStudyLink(study, nodeId)))),
     el('p', {class: 'muted'}, 'The CMHA and RHUH examples are separate patients. Each viewer describes its source and label scope.'));
 }
 
@@ -3017,8 +3038,8 @@ function renderLiverRegionStudy(nodeId) {
     el('h2', {}, 'Source MRI with liver-region labels'),
     el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
     el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),
-    el('p', {}, el('a', {href:'/app/anatomy/phlf-center2-24/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect a tumour across two liver regions on MRI and in 3D')),
-    el('p', {}, el('a', {href:'/app/anatomy/hva-ct-318/index.html?from=' + encodeURIComponent(nodeId)}, 'Compare portal and hepatic veins on labelled CT and in 3D')),
+    el('p', {}, reportingStudyLink(liverReportingStudies.tumour, nodeId)),
+    el('p', {}, reportingStudyLink(liverReportingStudies.veins, nodeId)),
     el('h3', {}, 'Vascular references from a separate CT case'),
     el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),
     el('ul', {}, ...[
@@ -3687,7 +3708,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     const step = page.step;
     const parts = [el('p', { class: 'rad-walk-assess' }, step.detail),
       guidance([['Where to look', step.look], ['Watch for', step.tip]]),
-      renderHaemorrhageStepEvidence(n.id, page.sections)];
+      renderReportingStepEvidence(n.id, page.sections)];
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
     if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },
       el('table', { class: 'rad-measurement-table' }, el('caption', {}, 'Measure and report'),
