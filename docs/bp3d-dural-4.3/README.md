@@ -5,3 +5,5 @@ The study is linked from Venous and CSF Imaging, Intracranial Haemorrhage and bo
 The archive CRCs and source object headers were verified. The browser encoding retains all 29,144 source faces with their original vertex order and Float32 positions in the source coordinate frame. The geometry inventory records open edges and conversion precision for each mesh. Source seams were retained.
 
 The archive supplies right-sided transverse, sigmoid, cavernous and petrosal objects. The same FJ4654 geometry appears under the source right great cerebral vein and its parent concept. Anatomical continuity, unrepresented lateral counterparts, clinical variants and patient thrombus require separate evidence. Independent specialist review remains open.
+
+The projection plate uses all original faces at the browser’s Float32 precision in three orthographic atlas planes. Each view includes a scale bar. The proof records a digest of the projected coordinates for each object. Depth is collapsed and overlap alone provides no evidence of a junction.
