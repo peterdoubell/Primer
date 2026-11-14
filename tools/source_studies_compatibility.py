@@ -96,10 +96,12 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
-    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'ff7ac55f33ab7204442019460173a0734599990f0c0207833b56c4f0e82e7f60':
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '885d8b13a570f029279c3b2305afd93c86340594bdbae959c8d9633c8f66e7da':
         raw = raw.replace(b"  if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },\n    'Compare gravity at different orbital distances'));\n", b'', 1)
-        if hashlib.sha256(raw).hexdigest() != 'e8347aa2fbd63621fa23cd6465f92f144e4edbceceb6467a4b4e8fa98b75acd1':
+        if hashlib.sha256(raw).hexdigest() != '81cad0ff80b9017857ffabadeaaa74cace92747722675c51408d4ac07900f8d1':
             raise ValueError('Gravity link changed unrelated reader bytes')
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/rhuh-sah-001/runtime-inverse.json', 'de93240f71a01363b8236b8c7629cd1ff4a6f75b33defc170067bea6c203ac02')
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/phlf-center2-24/runtime-inverse.json', '438fe8a56c1f2029ffc6de80a91c29df089dd8607e8d06a9c77e481cdde4c359')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'c98fe23e8efa2ea0e292f8d436079801d99e160bf57f74196a24957aed55cc13':
