@@ -2966,11 +2966,18 @@ function renderBiliaryAtlasStudy(nodeId) {
 
 function renderAneurysmCtaStudy(nodeId) {
   if (!['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(nodeId)) return null;
-  return el('section', {class: 'card', 'aria-label': 'Source aneurysm CTA'},
-    el('h2', {}, 'Source aneurysm CTA'),
+  return el('section', {class: 'card', 'aria-label': 'Source haemorrhage and aneurysm studies'},
+    el('h2', {}, 'Source haemorrhage and aneurysm studies'),
     el('p', {}, el('a', {href: '/app/anatomy/aneurysm-cta-018/index.html?from=' + encodeURIComponent(nodeId)},
       'Inspect a left middle cerebral artery aneurysm on CTA and in 3D')),
-    el('p', {class: 'muted'}, 'Case 018 includes a CTA series and a source surface of the contrast-filled sac. The surface covers the sac lumen. Haemorrhage distribution and the rupture site require separate evidence.'));
+    el('p', {class: 'muted'}, 'Case 018 includes the CTA and the source surface of the contrast-filled sac.'),
+    el('ul', {}, ...[
+      ['cmha-mca-005', 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D'],
+      ['rhuh-sah-001', 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D'],
+    ].map(([study, title]) => el('li', {}, el('a', {
+      href: '/app/anatomy/' + study + '/index.html?from=' + encodeURIComponent(nodeId),
+    }, title)))),
+    el('p', {class: 'muted'}, 'The CMHA and RHUH examples are separate patients. Each viewer describes its source and label scope.'));
 }
 
 function renderLiverRegionStudy(nodeId) {

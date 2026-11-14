@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from fastapi.testclient import TestClient
+import pytest
 
 from primer.learner import LearnerStore
 from primer.wiki import WikiService
@@ -12,7 +13,6 @@ from primer.wiki import WikiService
 ROOT = Path(__file__).resolve().parents[1]
 ATLAS = 'anatomy/aneurysm-cta-018'
 DIRECTORY = ROOT / 'web' / ATLAS
-PREFIX = '/app/' + ATLAS + '/'
 
 
 def test_anatomy_delivery_preserves_the_source():
@@ -55,12 +55,26 @@ def test_anatomy_delivery_preserves_the_source():
     }
 
 
-def test_hosted_payload_requires_reader_access(tmp_path, monkeypatch):
+@pytest.mark.parametrize('slug', ('aneurysm-cta-018', 'cmha-mca-005', 'rhuh-sah-001'))
+def test_hosted_payload_requires_reader_access(tmp_path, monkeypatch, slug):
     import primer.server as server
 
-    directory = tmp_path / 'web' / ATLAS
+    atlas = 'anatomy/' + slug
+    prefix = '/app/' + atlas + '/'
+    source = ROOT / 'web' / atlas
+    directory = tmp_path / 'web' / atlas
     directory.mkdir(parents=True)
-    manifest = (DIRECTORY / 'delivery.json').read_bytes()
+    manifest = (source / 'delivery.json').read_bytes()
+    inventory = json.loads(manifest)['files']
+    assert {path.name for path in source.iterdir()} == set(inventory) | {'delivery.json'}
+    config = json.loads((ROOT / 'vercel.json').read_text())
+    pattern = f'web/{atlas}/*.gz'
+    assert {'src': pattern, 'use': '@vercel/static'} in config['builds']
+    assert pattern in config['builds'][0]['config']['excludeFiles'].removesuffix('}').split(',')
+    for name, row in inventory.items():
+        raw = (source / name).read_bytes()
+        assert len(raw) == row['bytes']
+        assert hashlib.sha256(raw).hexdigest() == row['sha256'], name
     (directory / 'delivery.json').write_bytes(manifest)
     monkeypatch.setattr(server, 'WEB_DIR', str(tmp_path / 'web'))
     monkeypatch.setattr(server, 'learner', LearnerStore(str(tmp_path / 'reader.db')))
@@ -74,10 +88,10 @@ def test_hosted_payload_requires_reader_access(tmp_path, monkeypatch):
         for name in json.loads(manifest)['files']:
             if not name.endswith('.gz'):
                 continue
-            assert client.get(PREFIX + name).status_code == 401
+            assert client.get(prefix + name).status_code == 401
             for method in ('GET', 'HEAD'):
-                response = client.request(method, PREFIX + name, auth=('reader', 'fixture-only'), follow_redirects=False)
+                response = client.request(method, prefix + name, auth=('reader', 'fixture-only'), follow_redirects=False)
                 assert response.status_code == 307, name
-                assert response.headers['location'] == '/source-media/' + ATLAS + '/' + name
+                assert response.headers['location'] == '/source-media/' + atlas + '/' + name
                 assert 'content-encoding' not in response.headers
-        assert client.get(PREFIX + 'unlisted.gz', auth=('reader', 'fixture-only')).status_code == 404
+        assert client.get(prefix + 'unlisted.gz', auth=('reader', 'fixture-only')).status_code == 404
