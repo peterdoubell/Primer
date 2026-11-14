@@ -2964,6 +2964,17 @@ function renderBiliaryAtlasStudy(nodeId) {
     el('a', {href:'/app/anatomy/bp3d-biliary-4.3/index.html?from=' + encodeURIComponent(nodeId)}, 'Explore the biliary source atlas'));
 }
 
+function renderDuralVenousAtlas(nodeId) {
+  const references = ['rad.5.venous-csf', 'ra.venous-sinus-thrombosis',
+    'rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'];
+  if (!references.includes(nodeId)) return null;
+  return el('section', {class: 'card', 'aria-label': 'Dural venous anatomy'},
+    el('h2', {}, 'Dural venous sinuses and deep veins'),
+    el('p', {}, 'Compare 12 named source objects. The lateral sinuses represented here are right-sided.'),
+    el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
+      'Explore named venous structures in 3D'));
+}
+
 function renderAneurysmCtaStudy(nodeId) {
   if (!['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(nodeId)) return null;
   return el('section', {class: 'card', 'aria-label': 'Source haemorrhage and aneurysm studies'},
@@ -3174,6 +3185,8 @@ async function renderRadiologyDesk(page, nodeId) {
   if (liverStudy) page.append(liverStudy);
   const aneurysmCta = renderAneurysmCtaStudy(n.id);
   if (aneurysmCta) page.append(aneurysmCta);
+  const duralAtlas = renderDuralVenousAtlas(n.id);
+  if (duralAtlas) page.append(duralAtlas);
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -3656,6 +3669,18 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     const step = page.step;
     const parts = [el('p', { class: 'rad-walk-assess' }, step.detail),
       guidance([['Where to look', step.look], ['Watch for', step.tip]])];
+    if (n.id === 'ra.venous-sinus-thrombosis') {
+      const focus = page.sections.includes('DURAL SINUSES') ? 'sinuses'
+        : page.sections.includes('DEEP AND CORTICAL VEINS') ? 'deep' : '';
+      if (focus) parts.push(el('section', {class: 'card', 'aria-label': 'Source venous anatomy for this step'},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},
+          focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),
+        el('p', {}, focus === 'deep'
+          ? 'This view shows the right internal cerebral vein, the source great cerebral vein object and the straight sinus. Cortical venous anatomy requires separate source objects.'
+          : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),
+        el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
+    }
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
     if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },
       el('table', { class: 'rad-measurement-table' }, el('caption', {}, 'Measure and report'),
@@ -4023,6 +4048,8 @@ async function renderNode(page, nodeId) {
   if (liverStudy) page.append(liverStudy);
   const aneurysmCta = renderAneurysmCtaStudy(n.id);
   if (aneurysmCta) page.append(aneurysmCta);
+  const duralAtlas = renderDuralVenousAtlas(n.id);
+  if (duralAtlas) page.append(duralAtlas);
   if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
     'Inspect liver CT in three planes'));
   if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
