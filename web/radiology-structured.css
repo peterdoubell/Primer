@@ -24,3 +24,33 @@
 .rad-compartment-body .rad-anatomic-group h4{font-size:12px;letter-spacing:.025em;color:var(--rad-muted)}
 .rad-report-compartment>summary:focus-visible{outline:2px solid currentColor;outline-offset:-3px}
 @media(max-width:600px){.rad-report-compartment>summary{padding:12px 10px}.rad-compartment-body{padding:0 10px 8px}.rad-compartment-count{font-size:10px}}
+
+.rad-fold-compartments {
+  background: var(--rad-fill);
+}
+.rad-report-preview h4 {
+  scroll-margin-top: 96px;
+}
+
+.rad-compartment-summary-text {
+  flex: 1;
+  min-width: 0;
+}
+.rad-search-pattern {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: .8;
+}
+
+.rad-report-opening, .rad-report-closing { display: grid; gap: 10px; margin: 0 0 14px; }
+.rad-report-opening:empty, .rad-report-closing:empty { display: none; }
+.rad-report-field { display: grid; gap: 4px; font-size: 13px; font-weight: 600; }
+.rad-report-field textarea {
+  width: 100%; padding: 8px; resize: vertical; border: 1px solid var(--rad-line);
+  border-radius: 6px; background: var(--rad-fill); color: inherit; font: inherit; font-weight: 400;
+}
+.rad-report-study { margin: 4px 0; font-size: 15px; }
+.rad-protocol-choices .rad-choice { font-size: 12px; }
