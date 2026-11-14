@@ -2964,6 +2964,22 @@ function renderBiliaryAtlasStudy(nodeId) {
     el('a', {href:'/app/anatomy/bp3d-biliary-4.3/index.html?from=' + encodeURIComponent(nodeId)}, 'Explore the biliary source atlas'));
 }
 
+function renderAneurysmCtaStudy(nodeId) {
+  if (!['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(nodeId)) return null;
+  return el('section', {class: 'card', 'aria-label': 'Source haemorrhage and aneurysm studies'},
+    el('h2', {}, 'Source haemorrhage and aneurysm studies'),
+    el('p', {}, el('a', {href: '/app/anatomy/aneurysm-cta-018/index.html?from=' + encodeURIComponent(nodeId)},
+      'Inspect a left middle cerebral artery aneurysm on CTA and in 3D')),
+    el('p', {class: 'muted'}, 'Case 018 includes the CTA and the source surface of the contrast-filled sac.'),
+    el('ul', {}, ...[
+      ['cmha-mca-005', 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D'],
+      ['rhuh-sah-001', 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D'],
+    ].map(([study, title]) => el('li', {}, el('a', {
+      href: '/app/anatomy/' + study + '/index.html?from=' + encodeURIComponent(nodeId),
+    }, title)))),
+    el('p', {class: 'muted'}, 'The CMHA and RHUH examples are separate patients. Each viewer describes its source and label scope.'));
+}
+
 function renderLiverRegionStudy(nodeId) {
   if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;
   return el('section', {class:'card', 'aria-label':'Liver region source study'},
@@ -3156,6 +3172,8 @@ async function renderRadiologyDesk(page, nodeId) {
   if (biliaryAtlas) page.append(biliaryAtlas);
   const liverStudy = renderLiverRegionStudy(n.id);
   if (liverStudy) page.append(liverStudy);
+  const aneurysmCta = renderAneurysmCtaStudy(n.id);
+  if (aneurysmCta) page.append(aneurysmCta);
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -4005,6 +4023,8 @@ async function renderNode(page, nodeId) {
   if (biliaryAtlas) page.append(biliaryAtlas);
   const liverStudy = renderLiverRegionStudy(n.id);
   if (liverStudy) page.append(liverStudy);
+  const aneurysmCta = renderAneurysmCtaStudy(n.id);
+  if (aneurysmCta) page.append(aneurysmCta);
   if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
     'Inspect liver CT in three planes'));
   if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
