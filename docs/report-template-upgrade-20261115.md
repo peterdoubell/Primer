@@ -55,7 +55,7 @@ The study name runs straight into Protocol or Technique, and Findings runs strai
 
 Copy text puts both rich text and plain text on the clipboard. The plain text has the same lines without the underline and italics.
 
-The on-screen preview still shows main headings in bold. Only the copied text follows the note exactly.
+The report draft in the click checklist shows the same formatting as the copied text: Arial 12 pt, underlined main headings that are not bold, and italic subheadings. The editable box in the Report template tab is plain text, so it cannot show underline or italics; its copied text is formatted.
 
 ## Checklist normals
 
