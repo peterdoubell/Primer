@@ -97,7 +97,7 @@ def before_endometrial_delivery_bytes(path, raw):
 
 def before_combined_source_release_bytes(path, raw):
     if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
-        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '17d9a9ab24e27babcd4f1574302208ae955553fb54fb5b14d8eb48dea7860f3d')
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '3e96a8eb3a84469fd43d90cbfeb8238aed533b8c461f71371ebe8c2f09d42b2c')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'a49349951dfbea9697fbceb9d3932c8526ac27b3e7ae3b2ad011a58e9984c4a9':
         raw = raw.replace(b"  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },\n    'Practise adding -ing and -ed'));\n", b'', 1)
         raw = raw.replace(b"  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },\n    'Compare limits from the left and right'));\n", b'', 1)
