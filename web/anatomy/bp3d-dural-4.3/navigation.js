@@ -24,3 +24,8 @@ if (Object.hasOwn(layers, focus)) {
     layer.checked = layers[focus].includes(layer.value);
   }
 }
+
+for (const id of ['atlas-link', 'mrv-link']) {
+  const link = document.getElementById(id);
+  if (link) link.search = location.search;
+}
