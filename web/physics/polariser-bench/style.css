@@ -1,0 +1,19 @@
+:root { font:16px/1.55 "Instrument Sans",system-ui,sans-serif; background:#eef2f7; color:#202f49; }
+body { margin:0; }
+main { max-width:69rem; margin:auto; padding:1.2rem; }
+h1 { font:700 clamp(2.4rem,7vw,4.3rem)/1.1 "Instrument Serif",Georgia,serif; margin:.6em 0 .15em; }
+h2 { font-size:1.2rem; margin:0; }
+a { color:#2a517d; text-underline-offset:.16em; }
+fieldset { display:grid; grid-template-columns:max-content minmax(4rem,15rem) minmax(3ch,auto); align-items:center; gap:.4rem .8rem; border:1px solid #95a8bf; border-radius:.45rem; }
+input { font:inherit; min-width:0; max-width:100%; accent-color:#3a5d9a; }
+input[type="checkbox"] { justify-self:start; }
+output { font-variant-numeric:tabular-nums; }
+.layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1rem; margin:1rem 0; }
+section { background:#fff; border:1px solid #aabcd0; border-radius:.45rem; min-width:0; padding:.85rem; }
+canvas { width:100%; height:auto; display:block; }
+section p { margin-bottom:.25rem; }
+caption { text-align:left; font-weight:700; margin-bottom:.2rem; }
+table { width:100%; border-collapse:collapse; background:white; font-variant-numeric:tabular-nums; }
+td,th { text-align:left; border-bottom:1px solid #bac7d7; padding:.4rem; }
+:focus-visible { outline:3px solid #325c9d; outline-offset:2px; }
+@media(max-width:46rem){.layout{grid-template-columns:1fr;}}

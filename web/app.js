@@ -2977,7 +2977,9 @@ function renderDuralVenousAtlas(nodeId) {
     el('h2', {}, 'Dural sinuses and cerebral veins'),
     el('p', {}, 'Compare 21 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
     el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
-      'Explore named venous structures in 3D'));
+      'Explore named venous structures in 3D'),
+    el('p', {}, el('a', {href:'/app/anatomy/hyperpic-venous/index.html?from=' + encodeURIComponent(nodeId)},
+      'Compare left and right sinus boundaries in two MRI-derived models')));
 }
 
 function renderAneurysmCtaStudy(nodeId) {
@@ -3192,6 +3194,10 @@ async function renderRadiologyDesk(page, nodeId) {
   if (aneurysmCta) page.append(aneurysmCta);
   const duralAtlas = renderDuralVenousAtlas(n.id);
   if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -4054,6 +4060,8 @@ async function renderNode(page, nodeId) {
   if (sourceStudies) page.append(sourceStudies);
   const vascularStudies = renderAbdominalVesselStudies(n.id);
   if (vascularStudies) page.append(vascularStudies);
+  if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },
+    'Prove the intersecting-chords theorem'));
   if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },
     'Build volume from horizontal cross-sections'));
   if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },
@@ -4073,6 +4081,8 @@ async function renderNode(page, nodeId) {
     'Explore observed galaxy rotation curves'));
   if (n.id === 'phys.4.classical') page.append(el('a', { class: 'btn ghost', href: '/app/physics/driven-oscillator/index.html' },
     'Compare resonance and phase in a driven oscillator'));
+  if (n.id === 'phys.3.optics-waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/polariser-bench/index.html' },
+    'Compare two and three polarisers'));
   if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
     'Balance nucleons and charge in nuclear reactions'));
   if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },
@@ -4083,8 +4093,11 @@ async function renderNode(page, nodeId) {
     'Explore a longitudinal sound wave'));
   if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },
     'Practise adding -ing and -ed'));
-  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
-    'Predict English plural sounds'));
+  if (n.id === 'lang.3.linguistics-intro') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
+      'Predict English plural sounds'),
+    el('a', { class: 'btn ghost', href: '/app/language/phrase-attachment/index.html' },
+      'Compare two meanings of the same sentence')));
   if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },
     'Explore every child and a tree: two scope orders'));
   if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },
@@ -4113,6 +4126,10 @@ async function renderNode(page, nodeId) {
   if (aneurysmCta) page.append(aneurysmCta);
   const duralAtlas = renderDuralVenousAtlas(n.id);
   if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
   if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
     'Inspect liver CT in three planes'));
   if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
