@@ -2267,7 +2267,8 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     let copied = false;
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(text);
+        if (window.PrimerStructuredReporting) await window.PrimerStructuredReporting.copyReport(text, template.studyTitle || template.title);
+        else await navigator.clipboard.writeText(text);
         copied = true;
       }
     } catch (e) { /* Insecure contexts and denied clipboard access use selection. */ }
@@ -2327,7 +2328,7 @@ function renderQuickReport(report, nodeId) {
   // Two editable texts in the reporting-system layout: the fast template and the all-normal report.
   return [['template', 'Fast template', report.template, 'Under each heading the first line is normal. Delete the lines that do not apply, choose within [a / b] and fill [ ].'],
     ['normal', 'Normal report', report.normal, 'Every heading normal. Add the clinical history and keep one study title.']]
-    .map(([kind, title, text, description], index) => renderRadiologyTemplate({ id: nodeId + '-' + kind, title, description, text },
+    .map(([kind, title, text, description], index) => renderRadiologyTemplate({ id: nodeId + '-' + kind, title, description, text, studyTitle: report.title },
       'quick-' + index, nodeId, true));
 }
 

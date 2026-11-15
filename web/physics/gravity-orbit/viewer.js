@@ -69,7 +69,7 @@ function diagram(multiple, angle) {
   ctx.fillText('Earth', centre[0] - 24, centre[1] + planetRadius + 25);
   ctx.fillText('r', (centre[0] + position[0]) / 2, (centre[1] + position[1]) / 2 - 8);
   arrow([-Math.cos(angle), Math.sin(angle)], '#ffc276', 'Inward gravity', [12, 33]);
-  arrow([Math.sin(angle), Math.cos(angle)], '#80e6ed', 'Velocity', [11, 7]);
+  arrow([-Math.sin(angle), -Math.cos(angle)], '#80e6ed', 'Velocity', [11, 7]);
   circle(position, 6);
   ctx.fillStyle = '#fff';
   ctx.fill();

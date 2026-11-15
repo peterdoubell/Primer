@@ -51,7 +51,7 @@ def test_explicit_absence_is_available_without_inventing_a_lesion_or_other_norma
     assert parent['repeatable'] and parent['normal']['text'] == ABSENCE
     result = render(form, {parent['id']: {'normal': True}})
     assert result['valid'] and result['selected_finding_count'] == 0
-    assert result['text'] == 'LESION CHARACTERISATION\n' + ABSENCE
+    assert result['text'] == 'LESION CHARACTERISATION\nCardiac lesion: none.'
     assert 'Lesion 1' not in result['text']
     assert 'enhancement' not in result['text']
     assert 'function' not in result['text']
@@ -63,7 +63,7 @@ def test_parent_absence_cannot_coexist_with_a_positive_repeated_cardiac_lesion(r
     lesion = next(item for item in parent['findings'] if item['id'].endswith(':present'))
     selection = {'instances': [{'findings': {lesion['id']: values(lesion)}}]}
     positive = render(form, {parent['id']: selection})
-    assert positive['valid'] and ABSENCE not in positive['text']
+    assert positive['valid'] and 'Cardiac lesion: none.' not in positive['text']
     conflicting = copy.deepcopy(selection)
     conflicting['normal'] = True
     result = render(form, {parent['id']: conflicting})
