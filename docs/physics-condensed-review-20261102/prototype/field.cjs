@@ -1,0 +1,3 @@
+'use strict';const {build,MU0}=require('./core.cjs');
+function cylinderField(parameters){const m=build(parameters);if(m.boundary&&m.appliedMilliTesla>0)return{unique:false,reason:'Coexistence: no unique homogeneous field or surface-current state is assigned.'};const B=m.appliedMilliTesla*1e-3,inside=m.superconducting?0:B;return{unique:true,geometry:'Ideal infinite cylinder in longitudinal external field; any displayed segment is a cut window, not physical ends.',outsideTesla:[0,0,B],insideTesla:[0,0,inside],surfaceCurrent(theta){return[(B-inside)/MU0*Math.sin(theta),-(B-inside)/MU0*Math.cos(theta),0];},surfaceCurrentUnits:'A/m',penetrationDepthAssumedZero:true,demagnetizingFactorAssumedZero:true};}
+module.exports={cylinderField};

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cervical cancer staging images · Primer</title>
+<link rel="stylesheet" href="viewer.css">
+<script src="viewer.js" defer></script>
+</head>
+<body>
+<main>
+  <a href="/app/#/node/rad.5.uterine-mr">Return to Uterus and Cervix</a>
+  <h1>Cervical cancer staging images</h1>
+  <p>Study the published examples of tumour extent on MRI, ultrasound, CT and fused PET imaging. The figures retain the authors’ labels and arrows.</p>
+  <div class="controls">
+    <label>Reporting focus
+      <select id="focus">
+        <option value="all">All figures</option>
+        <option value="local">Cervix, parametria and vagina</option>
+        <option value="adjacent">Bladder, bowel, ureter and sidewall</option>
+        <option value="nodes">Lymph nodes</option>
+        <option value="technique">Ultrasound technique and diagrams</option>
+      </select>
+    </label>
+    <label>Source figure <select id="figure" disabled></select></label>
+    <label>Image size <select id="zoom">
+      <option value="fit">Fit width</option><option value="1">Original pixels</option><option value="2">Double size</option>
+    </select></label>
+  </div>
+  <p id="status" role="status">Loading source figures…</p>
+  <button id="retry" type="button" hidden>Retry source figure</button>
+  <figure>
+    <div id="viewport" role="region" tabindex="0" aria-label="Published figure. Scroll to inspect at larger sizes.">
+      <img id="image" alt="" hidden>
+    </div>
+    <figcaption id="caption"></figcaption>
+  </figure>
+  <details>
+    <summary>What to compare across figures</summary>
+    <ul>
+      <li>Compare the stromal rim in Figure 4 with the lateral parametrial and vaginal extension in Figures 3 and 11.</li>
+      <li>Compare the spared bladder mucosa in Figure 5 with the mucosal involvement described in Figure 6. Figure 7 returns to both cases in different views.</li>
+      <li>Use Figures 8 and 9 to orient a nodal survey, then compare the marked uterosacral node across modalities in Figure 10.</li>
+    </ul>
+  </details>
+  <p>These are publication panels, with fixed display settings and selected sections. Calibrated measurements, complete anatomy and volumetric correlation require the underlying acquisitions.</p>
+  <p><a href="/app/reference-studies/mullerian-2025/index.html">See the separate pelvic anatomy reference and uterine source examples</a></p>
+  <p>Figures 1–11 by Daniela Fischerova, Filip Frühauf, Andrea Burgetova, Ingrid S. Haldorsen, Emanuele Gatti and David Cibula (2024). Primer extracts the full figures from the publication PDF at their embedded resolution and preserves the source colour profile. The study notes paraphrase the captions. <a href="https://doi.org/10.3390/cancers16040775">Article and original captions</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="figures.json">Figure provenance</a></p>
+</main>
+</body>
+</html>

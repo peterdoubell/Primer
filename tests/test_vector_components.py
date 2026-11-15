@@ -12,14 +12,15 @@ def test_vector_activity_preserves_original_teaching_and_model():
     runtime=Curriculum().nodes[node['id']]
     assert [(m['renderer'],m['props']) for m in runtime['lesson_media'] if m.get('kind')=='model']==[('vector-components-lab',{'scenario':'math.3.vectors'}),('spatial-3d',{'scenario':'math.3.vectors'})]
 
-def test_actual_vector_lesson_evidence_matches_current_sources():
+def test_actual_vector_lesson_evidence_matches_exact_pre_contact_sources():
     p=json.loads((ROOT/'docs/vector-components-review-20261029/lesson/proof.json').read_bytes())
     assert p['allPassed'] and p['geometryReadbackVerified'] and p['drawnSegmentsChecked']==496
     assert p['syntheticLoopback'] and not p['productionVerified'] and not p['errors']
     assert len(p['states'])==96 and {r['width'] for r in p['states']}=={390,1440}
     assert p['workedExamples']==7 and p['invalidRecoveryVerified']
     assert p['originalSpatialModelPresent'] and p['originalIllustrationLoaded']
-    for file,digest in p['sourceSHA256'].items():assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest()==digest,file
+    from tools.cortical_contact_runtime_compatibility import before_contact_bytes
+    for file,digest in p['sourceSHA256'].items():assert hashlib.sha256(before_contact_bytes(file,(ROOT/file).read_bytes())).hexdigest()==digest,file
 
 def test_exact_vector_inverse_rejects_unrelated_changes():
     import pytest

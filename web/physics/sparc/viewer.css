@@ -1,0 +1,28 @@
+body {
+  margin: auto;
+  max-width: 68rem;
+  padding: 1rem;
+  background: #162129;
+  color: #f0f4f5;
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+a { color: #a7e5ff; }
+select, input, button { font: inherit; max-width: 100%; }
+select, button { padding: .3rem; }
+.controls { display: flex; flex-wrap: wrap; gap: .8rem 1.1rem; }
+.controls label { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.scroll { max-width: 100%; overflow: auto; }
+.plot { background: #10191e; }
+svg { display: block; width: 100%; min-width: 32rem; }
+svg text { fill: #e4eff1; font: 14px system-ui, sans-serif; }
+svg .grid { stroke: #51636a; stroke-width: .7; }
+svg .axis { stroke: #e4eff1; stroke-width: 1.2; }
+svg .model { stroke: #ffe093; stroke-width: 2.6; fill: none; }
+svg .error { stroke: #75dafa; stroke-width: 1.15; }
+svg .point { fill: #75dafa; }
+svg .selected { stroke: #fff; stroke-width: 1.8; fill: none; }
+caption { text-align: left; font-weight: 700; padding: .4rem 0; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .35rem .6rem; text-align: right; border-bottom: 1px solid #51636a; }
+tr[aria-current] { background: #304b57; }
+summary { cursor: pointer; }

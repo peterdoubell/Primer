@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Balance a nuclear reaction · Primer</title><link rel="stylesheet" href="viewer.css"><script src="core.js" defer></script><script src="viewer.js" defer></script></head>
+<body><main><a href="/app/#/node/phys.3.nuclear">Return to Atoms and Nuclei</a>
+<h1>Where do the nucleons and charge go?</h1>
+<p>Complete the missing nucleus in each reaction. Count every incoming and outgoing particle, including any neutron, electron or antineutrino.</p>
+<label>Reaction <select id="reaction"></select></label>
+<div class="scroll" tabindex="0" role="region" aria-label="Reaction participants diagram"><svg id="diagram" viewBox="0 0 640 400" role="img" aria-labelledby="diagram-title"></svg></div>
+<p>The boxes show reaction participants and their counts. Their size and position do not represent physical nuclei or trajectories.</p>
+<form id="answer"><fieldset><legend>Complete the first product nucleus</legend><label>Nucleons A <input id="nucleons" type="number" min="0" step="1" required></label><label>Nuclear charge in units of e <input id="charge" type="number" min="0" step="1" required></label><button>Check balance</button><button id="reveal" type="button">Show the product</button></fieldset></form>
+<p id="feedback" role="status"></p>
+<table><caption>Conservation ledger</caption><thead><tr><th scope="col">Quantity</th><th scope="col">Before</th><th scope="col">Proposed after</th></tr></thead><tbody id="ledger"></tbody></table>
+<p id="note"></p><a id="source" target="_blank" rel="noopener noreferrer">Read the source explanation</a>
+<p>Nucleon count A is an integer count. Rest mass can change as energy is released or absorbed. Balancing A and charge is necessary; energy, momentum and other quantum rules also constrain physical reactions. This activity does not calculate reaction rates or energy release.</p>
+</main></body></html>

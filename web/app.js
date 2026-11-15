@@ -55,7 +55,7 @@ function radiologyPresentation(data) {
 }
 
 const S = { state: null, domains: [], view: 'today', stage: 2, speak: true, curriculum: null,
-  visualGallery: null, restoreFocus: null, readerTitle: null };
+  visualGallery: null, knowledgeMapIndex: null, restoreFocus: null, readerTitle: null };
 // The review deck's document-level keydown handler, held here so leaving the
 // page can remove it deterministically — its old self-removal only fired on
 // the *next* keypress after the deck was gone.
@@ -420,6 +420,7 @@ function speakBtn(getText, label) {
 
 /* ---------------- routing (hash-based) ---------------- */
 function hashFor(view, arg) {
+  if (view === 'maps') return '#/maps' + (arg ? '/' + arg.map(encodeURIComponent).join('/') : '');
   if (view === 'node') return '#/node/' + encodeURIComponent(arg);
   if (view === 'radiology') return '#/radiology' + (arg ? '/' + encodeURIComponent(arg) : '');
   if ((view === 'atlas' || view === 'math-images') && arg) {
@@ -442,8 +443,11 @@ const KNOWN_VIEWS = new Set(['today', 'atlas', 'math-images', 'review', 'review-
                              'journey', 'roadmap', 'library', 'node', 'read', 'reader', 'account', 'radiology']);
 function parseHash() {
   const h = (location.hash || '#/today').replace(/^#\/?/, '');
-  const parts = h.split('/').map(decodeURIComponent);
+  let parts;
+  try { parts = h.split('/').map(decodeURIComponent); }
+  catch (e) { if (e instanceof URIError) return { view: 'today', corrected: true }; throw e; }
   const view = parts[0] || 'today';
+  if (view === 'maps') return { view, arg: parts.slice(1) };
   if (view === 'node') return { view, arg: parts[1] };
   if (view === 'radiology') return { view, arg: parts[1] || null };
   if (view === 'atlas' || view === 'math-images') return { view, arg: {
@@ -489,13 +493,16 @@ function renderRoute() {
   // Falling back to Today while leaving the address bar on a bogus route left
   // no nav item marked current, and a reload landed nowhere.
   if (corrected) { location.replace('#/' + view); return; }
+  if (view !== 'maps') S.knowledgeMapIndex = null;
   S.view = view;
   document.querySelectorAll('.navbtn').forEach(b => {
-    const active = b.dataset.nav === view || (view === 'review-game' && b.dataset.nav === 'review');
+    const active = b.dataset.nav === view || (view === 'review-game' && b.dataset.nav === 'review')
+      || (view === 'maps' && b.dataset.nav === 'atlas');
     b.classList.toggle('active', active);
     if (active) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
   });
   const routes = { today: renderToday, atlas: renderAtlas, 'math-images': renderVisualGallery,
+    maps: renderKnowledgeMaps,
     review: renderReview, 'review-game': renderMemoryGame, 'library-search': renderSearch, roadmap: renderRoadmap,
     library: renderLibrary, journey: renderJourney, story: renderStory, node: renderNode,
     reader: renderReader, account: renderAccount, radiology: renderRadiologyDesk };
@@ -2027,6 +2034,21 @@ function sourceStudyReference(asset, { createElement = el, sourceLink = radiolog
     sourceLink('Source dataset', asset.source_url), ' · ', sourceLink(asset.license, asset.license_url));
 }
 
+function glioblastomaCaseViewer() {
+  const details = el('details', { class: 'card' },
+    el('summary', {}, 'Compare glioblastoma MRI sequences and 3D compartments'));
+  details.addEventListener('toggle', () => {
+    if (details.open && !details.querySelector('iframe')) {
+      details.append(el('iframe', { src: '/app/anatomy/glioblastoma-ba2/index.html',
+        title: 'Glioblastoma MRI and tumour compartments', loading: 'lazy',
+        style: 'display:block;width:100%;height:850px;border:0' }));
+    } else if (!details.open) {
+      details.querySelector('iframe')?.remove();
+    }
+  });
+  return details;
+}
+
 function sourceNativeInspector(asset) {
   const sourceCase = Boolean(asset.publication_url);
   const noduleCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';
@@ -2035,8 +2057,13 @@ function sourceNativeInspector(asset) {
   const cardiacCT = asset.id === 'totalseg-v1-s0028-cardiac-native' && asset.modality === 'CT';
   const comparisonCT = asset.id === 'baskaran-2020-cardiac-comparisons' && asset.modality === 'CT image comparisons';
   const registeredMRI = asset.id === 'hippunfold-hcp101006-registered-reference';
-  const reportingMRI = asset.id === 'spl-nac-reporting-native-reference';
+  const epilepsyContextMRI = asset.id === 'spl-epilepsy-temporal-ventricular-source-context';
+  const additionalMRI = asset.id === 'spl-additional-native-source-reference';
+  const reportingMRI = asset.id === 'spl-nac-reporting-native-reference' || epilepsyContextMRI || additionalMRI;
   const temporalCBCT = asset.id === 'openear-zeta-native-reference';
+  const sourceContacts = ['spl-cortical-source-contacts-reference', 'spl-sellar-source-interfaces-reference'].includes(asset.id);
+  const dissectionPhotos = asset.id === 'mosteiro-cavernous-dissection-reference';
+  const pituitaryCase = asset.id === 'pandit-pituitary-case1-processed-reference';
   const fcdMRI = asset.id === 'bonn-fcd-case4-native-reference';
   const hippocampalRaters = asset.id === 'dryad-hippocampal-case10-rater-reference';
   const exVivoMRI = asset.id === 'nextbrain-exvivo-reference';
@@ -2048,12 +2075,12 @@ function sourceNativeInspector(asset) {
   const section = el('section', { class: 'rad-protocol source-native-inspector' },
     el('h3', {}, el('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),
     el('p', {}, asset.caption), el('p', { class: 'rad-image-credit', style: 'overflow-wrap:anywhere' }, asset.attribution),
-    radiologySourceLink(fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
-    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
+    radiologySourceLink(sourceContacts ? 'SPL source atlas publication' : fcdMRI ? 'Original FCD MRI and lesion dataset' : hippocampalRaters ? 'Original hippocampal MRI and annotations dataset' : temporalCBCT ? 'OpenEar CBCT and source anatomy dataset' : exVivoMRI ? 'Ex vivo MRI reference dataset' : vascularTemplate ? 'Vascular study-template dataset' : templateMRI ? 'Population brain template dataset' : limbicMRI ? 'SPL atlas publication' : registeredMRI ? 'Published registered MRI training dataset' : curatedSurface ? 'Original curated surface dataset' : comparisonCT ? 'Original CT comparison dataset' : nativeCT ? 'Original CT source dataset' : sourceCase ? 'Original MRI source dataset' : 'Original MRI templates', asset.source_url),
+    ...(curatedSurface || lungCT || basalCT || cardiacCT || comparisonCT ? [] : [' · ', radiologySourceLink(sourceContacts || fcdMRI || hippocampalRaters || templateMRI ? 'Source publication and methods' : limbicMRI ? 'Pinned original files and scene' : sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' · ',
     radiologySourceLink(sourceCase ? asset.license + ' · data' : asset.license, asset.license_url));
-  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI) {
+  if (nativeCT || curatedSurface || comparisonCT || registeredMRI || limbicMRI || templateMRI || exVivoMRI || temporalCBCT || hippocampalRaters || fcdMRI || sourceContacts || pituitaryCase || dissectionPhotos) {
     if (noduleCT) section.append(' · ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));
-    const openLabel = fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
+    const openLabel = dissectionPhotos ? 'Inspect original dissection photographs inline' : pituitaryCase ? 'Inspect provided pituitary MRI and source annotations inline' : sourceContacts ? 'Inspect source-label contact surfaces inline' : fcdMRI ? 'Inspect FCD MRI and source lesion inline' : hippocampalRaters ? 'Inspect hippocampal MRI and compare annotations inline' : temporalCBCT ? 'Inspect source CBCT, masks and surfaces inline' : exVivoMRI ? 'Inspect ex vivo MRI, labels and source boundaries inline' : vascularTemplate ? 'Inspect vascular template MRI and regions inline' : templateMRI ? 'Inspect source brain templates and cell boundaries inline' : additionalMRI ? 'Inspect optic, pituitary and head/neck source anatomy inline' : epilepsyContextMRI ? 'Inspect temporal and ventricular source context inline' : reportingMRI ? 'Inspect native MRI and brain reporting relationships inline' : limbicMRI ? 'Inspect native SPL MRI and limbic surfaces inline' : registeredMRI ? 'Inspect registered hippocampal MRI and surfaces inline' : comparisonCT ? 'Inspect original CT comparison images inline' : cardiacCT ? 'Inspect original cardiac CT and source interfaces inline' : curatedSurface ? 'Inspect original surfaces inline' : basalCT ? 'Inspect matching CT, liver and spleen inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';
     const host = el('div', { class: 'source-native-inline-host' });
     let frame = null;
     const toggle = btn({ class: 'btn ghost small', 'aria-expanded': 'false', onclick: () => {
@@ -2175,8 +2202,8 @@ function renderLessonMedia(items) {
 
 /* ---------------- radiology reference workbench ----------------
    Foundation articles stay with their publisher. Our report drafts contain
-   plain text only, held in the mounted editor: no storage, patient uploads,
-   background requests, or generated conclusions. */
+   text and its bold, italic and underline only, held in the mounted editor:
+   no storage, patient uploads, background requests, or generated conclusions. */
 function radiologySourceLink(title, url, props = {}) {
   if (/^\/app\/illustrations\/[a-z0-9/_-]+\.webp$/.test(url || '')) {
     return el('a', { ...props, href: url, target: '_blank', rel: 'noopener noreferrer' }, title);
@@ -2207,19 +2234,49 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   const content = el('div', { class: 'rad-template-content' });
   if (template.description) content.append(el('p', {}, template.description));
   const uid = 'rad-report-' + nodeId + '-' + index;
-  const original = radiologyReportText(template);
+  const original = template.text ?? radiologyReportText(template);
   const status = el('p', { class: 'rad-report-status', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' },
     'Template ready. Changes last until you leave or reload this page.');
   const hint = el('p', { id: uid + '-hint', class: 'rad-report-hint' },
     'Educational drafting template. Replace the bracketed prompts using the imaging findings and clinical context; review the completed report before use. Keep patient identifiers out of this page.');
-  const editor = el('textarea', { id: uid, class: 'rad-report-editor', rows: 22,
-    spellcheck: 'false', autocomplete: 'off', 'aria-describedby': uid + '-hint' });
-  editor.value = original;
+  // A rich-text editor: headings underlined and subheadings italic as they are copied.
+  const editor = el('div', { id: uid, class: 'rad-report-editor rad-report-rich', contenteditable: 'true', role: 'textbox',
+    'aria-multiline': 'true', 'aria-labelledby': uid + '-label', 'aria-describedby': uid + '-hint', spellcheck: 'false' });
+  const wrap = body => '<div style="font-family:Arial,sans-serif;font-size:12pt;line-height:1.4">' + body + '</div>';
+  const fill = () => {
+    const formatter = window.PrimerStructuredReporting;
+    if (!formatter || !formatter.reportHTML) { editor.textContent = original; return; }
+    const holder = document.createElement('div');
+    holder.innerHTML = formatter.reportHTML(original, template.studyTitle || template.title);
+    editor.innerHTML = holder.firstChild.innerHTML;
+  };
+  fill();
+  const initial = editor.innerHTML;
+  const draftText = () => editor.innerText.replace(/\u00a0/g, ' ').replace(/\n+$/, '');
+  const format = (command, label, name) => {
+    const control = btn({ class: 'btn ghost small rad-report-format-' + command, title: name, 'aria-label': name,
+      onclick: () => { editor.focus(); document.execCommand(command); } }, label);
+    // Keep the selection in the editor when the control is pressed.
+    control.addEventListener('mousedown', event => event.preventDefault());
+    return control;
+  };
+  const toolbar = el('div', { class: 'rad-report-format', role: 'toolbar', 'aria-label': 'Text formatting' },
+    format('bold', 'B', 'Bold'), format('italic', 'I', 'Italic'), format('underline', 'U', 'Underline'));
+  // Pasted and dropped content arrives as plain text; a new line is a line break, not a new block.
+  editor.addEventListener('paste', event => {
+    event.preventDefault();
+    document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'));
+  });
+  editor.addEventListener('drop', event => event.preventDefault());
+  editor.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' || event.isComposing) return;
+    event.preventDefault();
+    document.execCommand('insertLineBreak');
+  });
   let action = 0;
   const reset = btn({ class: 'btn ghost small', disabled: '', onclick: () => {
     action++;
-    editor.value = original;
-    editor.setSelectionRange(0, 0);
+    fill();
     editor.scrollTop = 0;
     editor.scrollLeft = 0;
     reset.disabled = true;
@@ -2227,19 +2284,26 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   } }, 'Reset edits');
   editor.addEventListener('input', () => {
     action++;
-    reset.disabled = editor.value === original;
+    reset.disabled = editor.innerHTML === initial;
     status.textContent = reset.disabled
       ? 'Original template. Changes last until you leave or reload this page.'
       : 'Edited on this page. Copy or download to keep this text.';
   });
   const copy = btn({ class: 'btn small', onclick: async () => {
     const attempt = ++action;
-    const text = editor.value;
+    // A line break typed in the editor is a newline character; rich text needs it as a break.
+    const text = draftText(), html = wrap(editor.innerHTML.replace(/\n/g, '<br>'));
     copy.disabled = true;
     status.textContent = 'Copying template text…';
     let copied = false;
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
+      if (navigator.clipboard && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/plain': new Blob([text], { type: 'text/plain' }),
+          'text/html': new Blob([html], { type: 'text/html' }),
+        })]);
+        copied = true;
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
         copied = true;
       }
@@ -2252,18 +2316,23 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     }
     if (!copied) {
       const priorFocus = document.activeElement;
-      const selection = [editor.selectionStart, editor.selectionEnd, editor.selectionDirection];
+      const selection = window.getSelection();
+      const prior = selection.rangeCount ? selection.getRangeAt(0) : null;
+      const all = document.createRange();
+      all.selectNodeContents(editor);
       editor.focus();
-      editor.select();
+      selection.removeAllRanges();
+      selection.addRange(all);
       try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* Manual copy remains available. */ }
       if (copied) {
-        editor.setSelectionRange(...selection);
+        selection.removeAllRanges();
+        if (prior) selection.addRange(prior);
         if (priorFocus && priorFocus.focus) priorFocus.focus();
       }
     }
     copy.disabled = false;
     status.textContent = copied
-      ? 'Current template text copied.'
+      ? 'Current template copied with its formatting.'
       : 'Text selected. Use your device’s Copy command, or download the text file.';
   } }, 'Copy text');
   const download = btn({ class: 'btn small', onclick: () => {
@@ -2273,11 +2342,11 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     let url;
     let link;
     try {
-      url = URL.createObjectURL(new Blob([editor.value], { type: 'text/plain;charset=utf-8' }));
+      url = URL.createObjectURL(new Blob([draftText()], { type: 'text/plain;charset=utf-8' }));
       link = el('a', { href: url, download: base + '.txt', hidden: '' });
       document.body.append(link);
       link.click();
-      status.textContent = 'Download requested: ' + base + '.txt. The file contains the current editor text.';
+      status.textContent = 'Download requested: ' + base + '.txt. The file contains the current editor text without formatting.';
     } catch (e) {
       status.textContent = 'The download could not start. Use Copy text to keep your draft.';
     } finally {
@@ -2285,8 +2354,8 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
       if (url) setTimeout(() => URL.revokeObjectURL(url), 30000);
     }
   } }, 'Download .txt');
-  content.append(hint, el('label', { for: uid, class: 'rad-report-label' }, 'Report text — ' + (template.title || 'template')),
-    editor, el('div', { class: 'rad-report-actions' }, copy, download, reset), status);
+  content.append(hint, el('p', { id: uid + '-label', class: 'rad-report-label' }, 'Report text — ' + (template.title || 'template')),
+    toolbar, editor, el('div', { class: 'rad-report-actions' }, copy, download, reset), status);
   if ((template.notes || []).length) content.append(el('div', { class: 'rad-template-notes' },
     el('h4', {}, 'Template notes'), el('ul', {}, ...template.notes.map(note => el('li', {}, note)))));
   if ((template.sources || []).length) content.append(el('div', { class: 'rad-template-sources' },
@@ -2294,6 +2363,14 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
       radiologySourceLink(source.title, source.url))))));
   panel.append(content);
   return panel;
+}
+
+function renderQuickReport(report, nodeId) {
+  // Two editable texts in the reporting-system layout: the fast template and the all-normal report.
+  return [['template', 'Fast template', report.template, 'Under each heading the first line is normal. Delete the lines that do not apply, choose within [a / b] and fill [ ].'],
+    ['normal', 'Normal report', report.normal, 'Every heading normal. Add the clinical history and keep one study title.']]
+    .map(([kind, title, text, description], index) => renderRadiologyTemplate({ id: nodeId + '-' + kind, title, description, text, studyTitle: report.title },
+      'quick-' + index, nodeId, true));
 }
 
 function renderRadiologyReference(n) {
@@ -2342,9 +2419,10 @@ function renderRadiologyReference(n) {
     section.append(el('p', { class: 'muted' },
       ref.supplementary ? 'Additional module extending the foundation reference.' : 'Open the source index above to explore the foundation reference.'));
   }
-  if (templates.length) section.append(el('div', { class: 'rad-report-templates' },
+  if (templates.length || ref.quick_report) section.append(el('div', { class: 'rad-report-templates' },
+    ...(ref.quick_report ? renderQuickReport(ref.quick_report, n.id) : []),
     ref.structured_form && window.PrimerStructuredReporting ? window.PrimerStructuredReporting.render(ref.structured_form) : null,
-    ...(ref.structured_form?.descriptor_form && window.PrimerStructuredReporting ? [] : [
+    ...(ref.quick_report || ref.structured_form?.descriptor_form && window.PrimerStructuredReporting ? [] : [
       el('h3', {}, 'Structured report templates'),
       el('p', { class: 'rad-reference-meta' }, 'Editable educational text. Copy and download use exactly the current editor contents. Notes and references remain below each template.'),
       ...templates.map((template, index) => renderRadiologyTemplate(template, index, n.id, index === 0))])));
@@ -2884,6 +2962,170 @@ function renderRadiologyQuickReference(ref) {
   return section;
 }
 
+function renderUterineSourceStudies(nodeId) {
+  const studies = [
+    { modules: ['ra.mri-endometrial-cancer'],
+      title: 'Inspect an endometrial tumour on original MRI',
+      href: '/app/anatomy/cptac-endometrial/index.html',
+      context: 'One tumour case with post-contrast MRI, T2 MRI and original lesion contours. The two acquisitions are navigated independently.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Inspect original cervical cancer MRI contours',
+      href: '/app/anatomy/ccth-a01/index.html',
+      context: 'One cervical cancer case with 30 acquired T2 sections and the original contour stack.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Compare cervical cancer staging images across modalities',
+      href: '/app/reference-studies/cervical-staging-2024/index.html',
+      context: 'Selected publication figures for cervical stroma, parametria, vagina, adjacent organs and lymph nodes.' },
+    { modules: ['ra.mri-cervical-cancer'],
+      title: 'Explore the cervical canal and stroma on pregnancy MRI',
+      href: '/app/anatomy/kcl-cervix/055t/index.html',
+      context: 'Two pregnancy population atlases with three cervical layers. These references describe pregnancy anatomy.' },
+    { modules: [],
+      title: 'Study a uterine myoma MRI case with wall and cavity annotations',
+      href: '/app/anatomy/umd-141/index.html',
+      context: 'One myoma case with the original MRI and sampled wall, cavity, myoma and cyst labels.' },
+    { modules: ['ra.mri-endometriosis'],
+      title: 'Inspect published endometriosis cases and acquired pelvic MRI',
+      href: '/app/anatomy/endometriosis-mri-evidence/index.html?from=' + encodeURIComponent(nodeId),
+      context: 'Author-labelled MRI figures and a separate acquired sagittal stack for anatomy.' },
+    { modules: ['ra.mullerian-anomalies'],
+      title: 'Compare uterine cavity and external contour on source images',
+      href: '/app/reference-studies/mullerian-2025/index.html',
+      context: 'Published anomaly examples and a separate 3D pelvic reference.' },
+  ];
+  const shown = studies.filter(study => nodeId === 'rad.5.uterine-mr' || study.modules.includes(nodeId));
+  if (!shown.length) return null;
+  return el('section', { class: 'card', 'aria-label': 'Original MRI and anatomy studies' },
+    el('h2', {}, 'Original MRI and anatomy studies'),
+    el('ul', {}, ...shown.map(study => el('li', {},
+      el('a', { href: study.href }, study.title),
+      el('p', { class: 'muted' }, study.context)))));
+}
+
+function renderBiliaryAtlasStudy(nodeId) {
+  if (!['rad.5.biliary', 'ra.biliary-duct-pathology', 'ra.ultrasound-gallbladder'].includes(nodeId)) return null;
+  return el('section', {class:'card', 'aria-label':'Biliary source atlas'},
+    el('h2', {}, 'Biliary ducts and gallbladder in 3D'),
+    el('p', {}, 'Inspect original BodyParts3D objects for the gallbladder, hepatic ducts and selected tributaries.'),
+    el('a', {href:'/app/anatomy/bp3d-biliary-4.3/index.html?from=' + encodeURIComponent(nodeId)}, 'Explore the biliary source atlas'));
+}
+
+function renderDuralVenousAtlas(nodeId) {
+  const references = ['rad.5.venous-csf', 'ra.venous-sinus-thrombosis',
+    'rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'];
+  if (!references.includes(nodeId)) return null;
+  return el('section', {class: 'card', 'aria-label': 'Dural venous anatomy'},
+    el('h2', {}, 'Dural sinuses and cerebral veins'),
+    el('p', {}, 'Compare 21 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
+    el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
+      'Explore named venous structures in 3D'),
+    el('p', {}, el('a', {href:'/app/anatomy/hyperpic-venous/index.html?from=' + encodeURIComponent(nodeId)},
+      'Compare left and right sinus boundaries in two MRI-derived models')));
+}
+
+function renderAneurysmCtaStudy(nodeId) {
+  if (!['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(nodeId)) return null;
+  return el('section', {class: 'card', 'aria-label': 'Source haemorrhage and aneurysm studies'},
+    el('h2', {}, 'Source haemorrhage and aneurysm studies'),
+    el('p', {}, el('a', {href: '/app/anatomy/aneurysm-cta-018/index.html?from=' + encodeURIComponent(nodeId)},
+      'Inspect a left middle cerebral artery aneurysm on CTA and in 3D')),
+    el('p', {class: 'muted'}, 'Case 018 includes the CTA and the source surface of the contrast-filled sac.'),
+    el('ul', {}, ...[
+      ['cmha-mca-005', 'Compare the aneurysm sac, parent artery and branches on CTA and in 3D'],
+      ['rhuh-sah-001', 'Inspect the expert haemorrhage mask on non-contrast CT and in 3D'],
+    ].map(([study, title]) => el('li', {}, el('a', {
+      href: '/app/anatomy/' + study + '/index.html?from=' + encodeURIComponent(nodeId),
+    }, title)))),
+    el('p', {class: 'muted'}, 'The CMHA and RHUH examples are separate patients. Each viewer describes its source and label scope.'));
+}
+
+function renderLiverRegionStudy(nodeId) {
+  if (!['rad.4.liver', 'ra.liver-masses', 'ra.liver-lirads'].includes(nodeId)) return null;
+  return el('section', {class:'card', 'aria-label':'Liver region source study'},
+    el('h2', {}, 'Source MRI with liver-region labels'),
+    el('p', {}, 'Study the eight author-defined regions on MRI and in 3D. Segment IV has one label. Lesion assessment and patient-specific vascular territories require separate evidence.'),
+    el('a', {href:'/app/anatomy/liver-regions-mri/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect liver regions on source MRI'),
+    el('p', {}, el('a', {href:'/app/anatomy/phlf-center2-24/index.html?from=' + encodeURIComponent(nodeId)}, 'Inspect a tumour across two liver regions on MRI and in 3D')),
+    el('p', {}, el('a', {href:'/app/anatomy/hva-ct-318/index.html?from=' + encodeURIComponent(nodeId)}, 'Compare portal and hepatic veins on labelled CT and in 3D')),
+    el('h3', {}, 'Vascular references from a separate CT case'),
+    el('p', {}, 'These author-labelled vessels come from a different person. They are not registered to the MRI above. The portal vein is one source label; individual portal branches, hepatic veins and bile ducts are not separately labelled in this study.'),
+    el('ul', {}, ...[
+  {
+    "title": "Common hepatic artery on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4"
+  },
+  {
+    "title": "Right hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:1"
+  },
+  {
+    "title": "Left hepatic arterial branch on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:2"
+  },
+  {
+    "title": "Portal vein on source CT",
+    "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7"
+  }
+].map(row => el('li', {}, el('a', {href:row.href + '&from=' + encodeURIComponent(nodeId)}, row.title)))));
+}
+
+function renderAbdominalVesselStudies(nodeId) {
+  const groups = {
+  "renal": [
+    {
+      "title": "Left renal artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:7"
+    },
+    {
+      "title": "Right renal arteries",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:8"
+    },
+    {
+      "title": "Left renal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:3"
+    },
+    {
+      "title": "Right renal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:4"
+    }
+  ],
+  "pancreatic": [
+    {
+      "title": "Coeliac trunk",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:4"
+    },
+    {
+      "title": "Common hepatic artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4"
+    },
+    {
+      "title": "Superior mesenteric artery",
+      "href": "/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:1"
+    },
+    {
+      "title": "Portal vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7"
+    },
+    {
+      "title": "Superior mesenteric vein",
+      "href": "/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:11"
+    }
+  ]
+};
+  let shown;
+  if (['ra.solid-renal-masses', 'rad.4.kidney'].includes(nodeId)) shown = groups.renal;
+  else if (['ra.ct-pancreatic-cancer', 'rad.5.pancreas-tumour'].includes(nodeId)) shown = groups.pancreatic;
+  else if (['ra.ct-abdominal-trauma', 'ra.ct-bowel-ischaemia'].includes(nodeId)) shown = [
+    {title:'Inspect arterial CT and vessel models',href:'/app/anatomy/colonvessels-pat012/arterial/index.html'},
+    {title:'Inspect venous CT and vessel models',href:'/app/anatomy/colonvessels-pat012/venous/index.html'},
+  ];
+  if (!shown) return null;
+  return el('section', {class:'card', 'aria-label':'Original vascular anatomy reference'},
+    el('h2', {}, 'Original vascular anatomy reference'),
+    el('p', {}, 'Study source-labelled vessels from one ColonVessels case. Arterial and venous acquisitions are independent. Lesion extent, vessel-wall invasion and injury assessment require separate case-specific evidence.'),
+    el('ul', {}, ...shown.map(row => el('li', {}, el('a', {href:row.href + (row.href.includes('?') ? '&' : '?') + 'from=' + encodeURIComponent(nodeId)}, row.title)))));
+}
+
 async function renderRadiologyDesk(page, nodeId) {
   if (!nodeId) {
     const catalog = await reportingGuard(page, () => api.get('/api/radiology/modules'));
@@ -2944,6 +3186,7 @@ async function renderRadiologyDesk(page, nodeId) {
   if (ref.descriptor_only && window.PrimerStructuredReporting) {
     page.append(btn({class:'btn ghost small',onclick:()=>go('radiology')},backward('Back to references')),
       pagehead(n.modality + ' · ' + n.topic,n.title,n.goal),
+      ...(ref.quick_report ? [el('div', { class: 'rad-report-templates' }, ...renderQuickReport(ref.quick_report, n.id))] : []),
       window.PrimerStructuredReporting.render(ref.structured_form,{investigationId:n.id}),
       el('details',{class:'rad-protocol'},el('summary',{},'References'),
         el('ul',{},...(guide.sources||[]).map(source=>el('li',{},radiologySourceLink(source.title,source.url))))));
@@ -2952,7 +3195,7 @@ async function renderRadiologyDesk(page, nodeId) {
   const motionReferences = ref.source_motion_references || [];
   const cardiacContext = (ref.source_native_inspectors || []).filter(asset => ['totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const hippocampalContext = (ref.source_native_inspectors || []).filter(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
-  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'holiatlas-source-template-reference'].includes(asset.id));
+  const limbicContext = (ref.source_native_inspectors || []).filter(asset => ['mosteiro-cavernous-dissection-reference', 'pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'spl-nac-limbic-native-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'holiatlas-source-template-reference'].includes(asset.id));
   const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' && asset.id !== 'bp3d-cardiac-original-context' || ['totalseg-s0028-lung-native', 'totalseg-s0028-basal-context'].includes(asset.id));
   const studyReferences = ref.source_study_references || [];
   const atlasImages = (ref.structure_atlas || []).filter(item => item.kind === 'clinical-image');
@@ -2980,6 +3223,22 @@ async function renderRadiologyDesk(page, nodeId) {
     el('p', { class: 'rad-desk-revision' }, 'Reference revision ' + guide.reviewed_at + ' · ' +
       plural(ref.walkthrough.steps.length, 'reporting step') + ' · ' +
       (ref.key_images.length + (ref.structure_atlas || []).length + referenceImages.length) + ' source figures · ' + (detailedAnatomy || ref.source_anatomy_references?.length ? 'Source-mesh 3D anatomy' : 'Illustrated reference')));
+  const sourceStudies = renderUterineSourceStudies(n.id);
+  if (sourceStudies) page.append(sourceStudies);
+  const vascularStudies = renderAbdominalVesselStudies(n.id);
+  if (vascularStudies) page.append(vascularStudies);
+  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);
+  if (biliaryAtlas) page.append(biliaryAtlas);
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
+  const aneurysmCta = renderAneurysmCtaStudy(n.id);
+  if (aneurysmCta) page.append(aneurysmCta);
+  const duralAtlas = renderDuralVenousAtlas(n.id);
+  if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
   const desk = el('section', { class: 'rad-reporting-desk', 'aria-label': 'Reporting reference workspace' });
   const tabs = el('div', { class: 'rad-desk-tabs', role: 'tablist', 'aria-label': 'Reference sections' });
   const legacy = renderRadiologyReference(n);
@@ -3019,6 +3278,7 @@ async function renderRadiologyDesk(page, nodeId) {
     ...(ref.annotated_anatomy_links?.length ? [['anatomy', 'Annotated anatomy', panel => panel.append(renderAnnotatedAnatomy(ref))]] : []),
     ['template', 'Report template', panel => panel.append(templates)],
     ['images', limbicContext.length ? 'Images and MRI sources' : hippocampalContext.length ? 'Images and registered MRI' : ref.source_native_inspectors?.length ? 'Images and native source' : studyReferences.length ? 'Images and studies' : (motionReferences.length ? 'Images and motion (' : 'Images (') + (ref.key_images.length + atlasImages.length + referenceImages.length + motionReferences.length) + ')', panel => {
+      if (n.id === 'ra.mri-brain-tumours') panel.append(glioblastomaCaseViewer());
       (ref.source_native_inspectors || []).forEach(asset => panel.append(sourceNativeInspector(asset)));
       if (ref.source_context_documents?.length) panel.append(sourceContextDocuments(ref.source_context_documents));
       studyReferences.forEach(asset => panel.append(sourceStudyReference(asset)));
@@ -3317,11 +3577,12 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
   const overview = walk.spatial_model.focus[0];
   const sourceOnly = ref.source_native_only === true;
   const hippocampalContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'hippunfold-hcp101006-registered-reference');
-  const reportingContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-reporting-native-reference');
+  const epilepsyContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-epilepsy-temporal-ventricular-source-context');
+  const reportingContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-reporting-native-reference' || asset.id === 'spl-epilepsy-temporal-ventricular-source-context');
   const templateContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'holiatlas-source-template-reference');
   const limbicContext = (ref.source_native_inspectors || []).some(asset => asset.id === 'spl-nac-limbic-native-reference');
-  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
-  const curatedSurface = sourceModels.some(asset => !['holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
+  const sourceModels = (ref.source_native_inspectors || []).filter(asset => ['pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-s0028-lung-native', 'totalseg-s0028-basal-context', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id) || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');
+  const curatedSurface = sourceModels.some(asset => !['pandit-pituitary-case1-processed-reference', 'spl-sellar-source-interfaces-reference', 'spl-additional-native-source-reference', 'holiatlas-source-template-reference', 'spl-nac-reporting-native-reference', 'spl-epilepsy-temporal-ventricular-source-context', 'spl-nac-limbic-native-reference', 'hippunfold-hcp101006-registered-reference', 'totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons'].includes(asset.id));
   const pages = [
     { kind: 'start', label: 'Before you start', sections: walk.start.sections, images: walk.start.images, landmark: overview, parts: [] },
     ...walk.steps.map(step => ({ kind: 'step', label: step.label, sections: step.sections, images: step.images,
@@ -3460,6 +3721,55 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
     const step = page.step;
     const parts = [el('p', { class: 'rad-walk-assess' }, step.detail),
       guidance([['Where to look', step.look], ['Watch for', step.tip]])];
+    if (n.id === 'ra.venous-sinus-thrombosis') {
+      const focus = page.sections.includes('DURAL SINUSES') ? 'sinuses'
+        : page.sections.includes('DEEP AND CORTICAL VEINS') ? 'deep' : '';
+      if (focus) parts.push(el('section', {class: 'card', 'aria-label': 'Source venous anatomy for this step'},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=' + focus},
+          focus === 'deep' ? 'Inspect the available deep venous models' : 'Inspect the named dural sinuses'),
+        el('p', {}, focus === 'deep'
+          ? 'This view shows the right internal cerebral and basal veins, the source great cerebral vein object and the straight sinus.'
+          : 'This view shows the source dural sinuses and confluence. The lateral sinuses are right-sided.'),
+        focus === 'deep' ? el('p', {}, el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},
+          'Inspect the available right cortical venous models')) : null,
+        el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
+      if (focus === 'sinuses') parts.push(el('p', {},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=jugular'},
+          'Inspect the right jugular bulb model'),
+        ' · ',
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=jugular-3'},
+          'Compare jugular bulb variants on CBCT')));
+      const examples = {
+        'DURAL SINUSES': ['sadik-17', 'Compare superior sagittal sinus thrombosis on CT'],
+        'DEEP AND CORTICAL VEINS': ['oliveira-7', 'Inspect deep venous thrombosis and associated haemorrhagic infarction'],
+        'PARENCHYMAL EFFECTS': ['oliveira-7', 'Inspect the published haemorrhagic venous infarction example'],
+        'MASS EFFECT': ['zuurbier-2', 'Compare temporal horn enlargement on MRI and CT'],
+        'MIMICS AND COMPARISON': ['liu-1', 'Compare a slender left transverse sinus with thrombosis'],
+      };
+      const example = page.sections.map(section => examples[section]).find(Boolean);
+      if (example) parts.push(el('section', {class: 'card', 'aria-label': 'Published clinical example for this step'},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=' + example[0]}, example[1]),
+        el('p', {class: 'muted'}, 'Open the complete published figure and its source-specific panel descriptions.')));
+    }
+    if (n.id === 'ra.mri-endometriosis') {
+      const examples = {
+        'Adnexa': ['6', 'Compare endometriomas and hydrosalpinx'],
+        'Anterior central compartment': ['5', 'Inspect bladder and left ureter involvement'],
+        'Medial central compartment': ['8', 'Inspect a cystic lesion at the torus uterinum'],
+        'Posterior central compartment and bowel': ['12', 'Compare the bowel wall on MRI and pathology'],
+        'Lateral compartments, ureters and nerves': ['11', 'Inspect the right uterosacral ligament in two planes'],
+        'Uterus and superficial disease': ['8', 'Inspect the torus and separate ovarian findings'],
+        'Extra-pelvic sites and examination limits': ['13', 'Inspect abdominal wall endometriosis'],
+      };
+      const example = examples[step.label];
+      if (example) parts.push(el('p', {}, el('a', {target: '_blank', rel: 'noopener',
+        href: '/app/anatomy/endometriosis-mri-evidence/index.html?figure=' + example[0]}, example[1])));
+    }
     const rows = step.measurements.map(name => measures.get(name)).filter(Boolean);
     if (rows.length) parts.push(el('div', { class: 'rad-table-scroll', tabindex: '0', 'aria-label': 'Measurements for this step' },
       el('table', { class: 'rad-measurement-table' }, el('caption', {}, 'Measure and report'),
@@ -3578,7 +3888,7 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
       visualNote.textContent = shown.length ? 'Published teaching examples, not one patient study. Open a figure to inspect it at full size.' : '';
     } else if (mode === 'source-surfaces') {
       if (!anatomyBox.querySelector('.source-native-inspector')) anatomyBox.replaceChildren(...sourceModels.map(sourceNativeInspector));
-      visualNote.textContent = templateContext ? 'These source references stay separate. The holiAtlas population template supplies 332 present categorical regions, with 18 named regions absent; its sulcal labels are assigned CSF territories and its WMn-like contrast is synthesized. The SPL source supplies different single-subject anatomy. Neither is registered to the current patient or establishes complete reporting anatomy.' : reportingContext ? 'The grouped SPL reference links 217 source-defined classes to native T1/T2 and exact label-cell boundaries. Source components, partial labels and naming conflicts remain explicit. Capsule subdivisions, cisterns, vascular territories and other source gaps remain unfilled; diagnostic accuracy and complete reporting anatomy are unproven.' : limbicContext ? 'The SPL atlas provides original MRI, twelve label classes and exact label-cell boundaries, with differing publisher surfaces shown separately. The HippUnfold reference, where present, is a distinct registered training source. Their grids and anatomical meanings are not interchangeable; complete reporting anatomy and clinical validation remain unproven.' : hippocampalContext ? 'Published registered T2 crops and eight research classes show hippocampal source context. The upsampled grids do not establish native volume, pathology, patient laterality or complete reporting anatomy.' : curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';
+      visualNote.textContent = epilepsyContext ? 'The focused SPL view starts with paired ventricular spaces and temporal horns, whole source white matter and selected temporal parcels. Original native MRI and exact categorical-cell boundaries share this one source case. Ependymal layers, complete sulcal and grey–white anatomy, hippocampal subdivisions and migration/dysplastic lesions remain unverified or absent. Other source references retain their own cases and label limits; no current-patient registration or complete epilepsy reporting anatomy is supplied.' : templateContext ? 'These source references stay separate. The holiAtlas population template supplies 332 present categorical regions, with 18 named regions absent; its sulcal labels are assigned CSF territories and its WMn-like contrast is synthesized. The SPL source supplies different single-subject anatomy. Neither is registered to the current patient or establishes complete reporting anatomy.' : reportingContext ? 'The grouped SPL reference links 217 source-defined classes to native T1/T2 and exact label-cell boundaries. Source components, partial labels and naming conflicts remain explicit. Capsule subdivisions, cisterns, vascular territories and other source gaps remain unfilled; diagnostic accuracy and complete reporting anatomy are unproven.' : limbicContext ? 'The SPL atlas provides original MRI, twelve label classes and exact label-cell boundaries, with differing publisher surfaces shown separately. The HippUnfold reference, where present, is a distinct registered training source. Their grids and anatomical meanings are not interchangeable; complete reporting anatomy and clinical validation remain unproven.' : hippocampalContext ? 'Published registered T2 crops and eight research classes show hippocampal source context. The upsampled grids do not establish native volume, pathology, patient laterality or complete reporting anatomy.' : curatedSurface ? 'Original curated surfaces and separate CT sources in their own coordinates. Shared case identifiers do not establish identical source images. Reporting anatomy remains incomplete; no ultrasound or current-patient registration is supplied.' : 'Independent cardiac source contexts: original CT labels, curated wall/cusp/papillary objects, and published manual-annotation/prediction PNGs. No current-patient registration or clinical completeness is supplied. Ventricular source defects and missing coronary arteries, masses, annuli, chordae, pericardium, MRI signal and function remain explicit. Source image predictions are not manual ground truth.';
     } else if (mode === 'landmark') {
       if (!landmarkModel && window.PrimerRadiologyReferenceModels) {
         landmarkModel = window.PrimerRadiologyReferenceModels.render(walk.spatial_model, { state: { focus: page.landmark, labels: 'focus' } });
@@ -3658,7 +3968,7 @@ function renderTeachingLesson(n) {
 }
 
 async function renderNode(page, nodeId) {
-  const n = await guard(page, () => api.get('/api/curriculum/node/' + nodeId));
+  const n = await reportingGuard(page, () => api.get('/api/curriculum/node/' + nodeId));
   if (!n) return;
   const d = domainById(n.domain);
   // pagehead's kicker is also its spoken text, so it stays a string — and the
@@ -3669,6 +3979,8 @@ async function renderNode(page, nodeId) {
   if (nodeKicker) nodeKicker.prepend(el('span', { class: 'kicker-mark', 'aria-hidden': 'true' }, domainMark(d, 14)), ' ');
   page.append(nodeHead);
   page.append(el('nav', { class: 'lesson-pathway-links', 'aria-label': 'Explore this learning pathway' },
+    el('a', { class: 'btn ghost small', href: hashFor('maps', ['module', n.id]) },
+      glyph('atlas', 16), ' Module map'),
     el('a', { class: 'btn ghost small', href: hashFor('atlas', { domain: n.domain, stage: n.stage }) },
       glyph('path', 16), ' ', d.name, ' pathway'),
     el('a', { class: 'btn ghost small', href: hashFor('math-images', { domain: n.domain, stage: n.stage }) },
@@ -3785,6 +4097,89 @@ async function renderNode(page, nodeId) {
   const radiologyReference = renderRadiologyReference(n);
   if (radiologyReference) page.append(radiologyReference);
 
+  const sourceStudies = renderUterineSourceStudies(n.id);
+  if (sourceStudies) page.append(sourceStudies);
+  const vascularStudies = renderAbdominalVesselStudies(n.id);
+  if (vascularStudies) page.append(vascularStudies);
+  if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },
+    'Prove the intersecting-chords theorem'));
+  if (n.id === 'math.4.int-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/volume-by-slices/index.html' },
+    'Build volume from horizontal cross-sections'));
+  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },
+    'Compare limits from the left and right'));
+  if (n.id === 'math.4.diff-calc') page.append(el('a', { class: 'btn ghost', href: '/app/math/derivative-signs/index.html' },
+    'Explore derivative signs and optimization'));
+  if (n.id === 'math.3.probability') page.append(el('a', { class: 'btn ghost', href: '/app/math/marble-draws/index.html' },
+    'Explore replacement and conditional probability'));
+  if (n.id === 'math.3.statistics') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/math/sampling-mean/index.html' },
+      'Compare population spread and sampling uncertainty'),
+    el('a', { class: 'btn ghost', href: '/app/math/grouped-rates/index.html' },
+      'Compare grouped and overall success rates')));
+  if (n.id === 'phys.5.condensed') page.append(el('a', { class: 'btn ghost', href: '/app/physics/ising/index.html' },
+    'Explore spin order and temperature'));
+  if (n.id === 'phys.5.frontier') page.append(el('a', { class: 'btn ghost', href: '/app/physics/sparc/index.html' },
+    'Explore observed galaxy rotation curves'));
+  if (n.id === 'phys.4.classical') page.append(el('a', { class: 'btn ghost', href: '/app/physics/driven-oscillator/index.html' },
+    'Compare resonance and phase in a driven oscillator'));
+  if (n.id === 'phys.3.optics-waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/polariser-bench/index.html' },
+    'Compare two and three polarisers'));
+  if (n.id === 'phys.3.nuclear') page.append(el('a', { class: 'btn ghost', href: '/app/physics/nuclear-balance/index.html' },
+    'Balance nucleons and charge in nuclear reactions'));
+  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },
+    'Compare reflection at fixed and free ends'));
+  if (n.id === 'phys.2.gravity') page.append(el('a', { class: 'btn ghost', href: '/app/physics/gravity-orbit/index.html' },
+    'Compare gravity at different orbital distances'));
+  if (n.id === 'phys.1.sound') page.append(el('a', { class: 'btn ghost', href: '/app/physics/longitudinal-sound/index.html' },
+    'Explore a longitudinal sound wave'));
+  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },
+    'Practise adding -ing and -ed'));
+  if (n.id === 'lang.3.linguistics-intro') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
+      'Predict English plural sounds'),
+    el('a', { class: 'btn ghost', href: '/app/language/phrase-attachment/index.html' },
+      'Compare two meanings of the same sentence')));
+  if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },
+    'Explore every child and a tree: two scope orders'));
+  if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },
+    'Inspect evidence and repair an argument'));
+  if (n.id === 'lang.5.philology') page.append(el('a', { class: 'btn ghost', href: '/app/language/stemma/index.html' },
+    'Compare manuscript families'));
+  if (n.id === 'lang.5.narratology') page.append(el('a', { class: 'btn ghost', href: '/app/language/narrative-order/index.html' },
+    'Retell the archive story in a different order'));
+  if (n.id === 'lang.3.second-language') page.append(el('a', { class: 'btn ghost', href: '/app/language/french-phrase-practice/index.html' },
+    'Practise French phrases in conversation'));
+  if (n.id === 'lang.4.creative') page.append(el('a', { class: 'btn ghost', href: '/app/language/scene-revision/index.html' },
+    'Revise a scene against a writing brief'));
+  if (n.id === 'lang.3.media') page.append(el('a', { class: 'btn ghost', href: '/app/language/headline-editor/index.html' },
+    'Edit a headline using counts and rates'));
+  if (n.id === 'rad.5.adrenal') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/kidney-adrenal-s0028/index.html' },
+    'Inspect kidneys and adrenal glands on CT and in 3D'));
+  if (n.id === 'rad.4.kidney') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/cptac-renal-contours/index.html' },
+    'Inspect renal lesion CT and original contours'));
+  if (n.id === 'rad.5.pancreas-tumour') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/msd-pancreas/index.html' },
+    'Inspect a pancreatic mass on CT and in 3D'));
+  const biliaryAtlas = renderBiliaryAtlasStudy(n.id);
+  if (biliaryAtlas) page.append(biliaryAtlas);
+  const liverStudy = renderLiverRegionStudy(n.id);
+  if (liverStudy) page.append(liverStudy);
+  const aneurysmCta = renderAneurysmCtaStudy(n.id);
+  if (aneurysmCta) page.append(aneurysmCta);
+  const duralAtlas = renderDuralVenousAtlas(n.id);
+  if (duralAtlas) page.append(duralAtlas);
+  if (['rad.5.intracranial-haemorrhage', 'ra.intracranial-haemorrhage'].includes(n.id)) {
+    page.append(el('a', {class: 'btn ghost', href: '/app/anatomy/venat/index.html?from=' + encodeURIComponent(n.id)},
+      'Explore population venous anatomy in 3D'));
+  }
+  if (n.id === 'rad.4.liver') page.append(el('a', { class: 'btn ghost', href: '/app/anatomy/liver-s0028/index.html' },
+    'Inspect liver CT in three planes'));
+  if (n.id === 'math.2.data') page.append(el('a', { class: 'btn ghost', href: '/app/math/bar-scales/index.html' },
+    'Compare the same scores on two scales'));
+  if (n.id === 'lang.1.dictionary') page.append(el('a', { class: 'btn ghost', href: '/app/language/dictionary/index.html' },
+    'Play the guide-word hunt'));
+  if (n.id === 'phys.4.experiment') page.append(el('a', { class: 'btn ghost', href: '/app/physics/lab-comparison/index.html' },
+    'Compare two laboratory measurements'));
+  if (n.id === 'rad.5.brain-tumour') page.append(glioblastomaCaseViewer());
   const lessonMedia = renderLessonMedia(n.lesson_media);
   if (lessonMedia) {
     if (n.domain === 'radiology' || n.strand === 'music') lessonMedia.setAttribute('tabindex', '-1');
@@ -5773,6 +6168,7 @@ async function renderAtlas(page, selection = {}) {
       el('label', { for: 'atlas-lesson-search' }, 'Search lessons', search)),
     stageChoices,
     el('div', { class: 'pathway-actions' },
+      el('a', { class: 'btn gold small', href: hashFor('maps') }, glyph('atlas', 16), ' Explore knowledge maps'),
       btn({ class: 'btn ghost small', onclick: () => { selectedStage = null; paint(); } }, 'Show all stages'),
       btn({ class: 'btn ghost small', onclick: () => go('math-images', { domain: fieldFilter.value, stage: selectedStage }) },
         glyph('gallery', 16), ' Explore these visuals'), clearPathway),
@@ -5955,6 +6351,7 @@ async function renderAtlas(page, selection = {}) {
       el('div', { class: 'dh-text' }, el('h3', {}, d.name),
         el('div', { class: 'tag' }, d.mastered + ' / ' + total + ' mastered — ' + (d.tagline || '')),
         stageStrip(d)),
+      el('a', { class: 'btn ghost small', href: hashFor('maps', ['subject', d.id]) }, 'Subject map'),
       jump));
     for (const stage of stages) {
       const s = stage.i;

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The letter in the archive · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="activity.js"></script>
+</head>
+<body>
+<main>
+<a href="/app/#/node/lang.5.narratology">Return to Narratology</a>
+<h1>The letter in the archive</h1>
+<p>Change the order of the scenes or limit what the narrator shows. The events in the archive stay fixed.</p>
+<div class="layout">
+<section class="reading" aria-labelledby="reading-title">
+<div class="controls">
+<div class="control"><label for="order">Telling order</label><select id="order">
+<option value="chronological">Chronological</option>
+<option value="absence">Open with the empty case</option>
+<option value="discovery">Open with the discovery</option>
+</select></div>
+<div class="control"><label for="view">Viewpoint</label><select id="view">
+<option value="ivo">Follow Ivo</option>
+<option value="lena">Follow Lena</option>
+<option value="both">Follow both</option>
+</select></div>
+</div>
+<div class="scene" aria-live="polite" aria-atomic="true">
+<p id="scene-time"></p>
+<h2 id="reading-title"></h2>
+<p id="scene-text"></p>
+</div>
+<div class="actions">
+<button type="button" id="previous">Previous scene</button>
+<button type="button" id="next">Next scene</button>
+</div>
+</section>
+<section aria-labelledby="time-heading">
+<h2 id="time-heading">Story time and telling order</h2>
+<p>Story time records when each scene happened. Telling order records when you read it.</p>
+<ol id="timeline" aria-label="Scenes in story time"></ol>
+<table>
+<caption>Scenes in telling order</caption>
+<thead><tr><th scope="col">Position</th><th scope="col">Story time</th><th scope="col">Reading status</th></tr></thead>
+<tbody id="sequence"></tbody>
+</table>
+</section>
+</div>
+<section class="question" aria-labelledby="question-title">
+<h2 id="question-title">Who moved the letter from the case?</h2>
+<p>Choose the answer supported by the scenes through the current point in this telling.</p>
+<div class="actions" id="answers">
+<button type="button" data-answer="lena">Lena</button>
+<button type="button" data-answer="ivo">Ivo</button>
+<button type="button" data-answer="unknown">The scenes leave it open</button>
+</div>
+<p id="feedback" role="status"></p>
+<details><summary>How the activity checks the evidence</summary>
+<ol>
+<li>Arrange the six story times in the selected telling order.</li>
+<li>For each scene you have reached, include what the selected viewpoint reveals. The narrator uses third person throughout. Focalization changes whose experience the narrator follows.</li>
+<li>Check for an observed move or the character’s later account. An empty case or a rediscovered letter gives a location without identifying who moved it.</li>
+</ol>
+</details>
+</section>
+</main>
+</body>
+</html>

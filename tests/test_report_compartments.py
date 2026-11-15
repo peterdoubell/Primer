@@ -17,21 +17,31 @@ def catalog():
 def test_every_structure_has_one_compartment_and_all_clinical_content_is_preserved():
     previous = json.loads(gzip.decompress((ROOT/f'data/radiology/descriptor-history/{OLD}.json.gz').read_bytes()))
     current = catalog()
-    count = 0
+    before_format = json.loads(gzip.decompress((ROOT/'data/radiology/descriptor-history/2c97a03290803ef7ce536452c0a1852351514aec9d1deae6c24dda900c154185.json.gz').read_bytes()))
+    before_knee = next(e for f in before_format['forms'].values() for e in f['investigations'] if e['id'] == 'ra.mri-knee')
+    count = new = 0
     for guide, form in current['forms'].items():
         old_exams = {e['id']: e for e in previous['forms'][guide]['investigations']}
         for exam in form['investigations']:
-            old = {s['id']: s for s in old_exams[exam['id']]['sections']}
             rows = {s['id']: s for s in exam['sections']}
+            if exam['id'] not in old_exams:
+                # Examinations added after this archive: one compartment per structure.
+                membership = [key for c in exam['compartments'] for key in c['section_ids']]
+                assert sorted(membership) == sorted(rows) and all(s['compartment'] for s in rows.values())
+                new += 1
+                continue
+            old = {s['id']: s for s in old_exams[exam['id']]['sections']}
             assert rows.keys() == old.keys()
             membership = [key for c in exam['compartments'] for key in c['section_ids']]
             assert len(membership) == len(set(membership)) == len(rows)
             assert set(membership) == set(rows)
+            if exam['id'] == 'ra.mri-knee':
+                rows = {s['id']: s for s in before_knee['sections']}
             for key, section in rows.items():
                 assert section['compartment']
                 assert {k:v for k,v in section.items() if k not in ('compartment','report_section_id','report_section_label')} == {k:v for k,v in old[key].items() if k not in ('report_section_id','report_section_label')}
             count += 1
-    assert count == 225
+    assert count == 225 and new == 108
 
 
 def test_knee_compartments_join_related_tissues_and_keep_patella_out_of_medial_compartment():
