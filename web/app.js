@@ -2971,7 +2971,7 @@ function renderDuralVenousAtlas(nodeId) {
   if (!references.includes(nodeId)) return null;
   return el('section', {class: 'card', 'aria-label': 'Dural venous anatomy'},
     el('h2', {}, 'Dural sinuses and cerebral veins'),
-    el('p', {}, 'Compare 20 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
+    el('p', {}, 'Compare 21 named source objects, including right-sided cortical and basal veins. The lateral sinuses represented here are right-sided.'),
     el('a', {href: '/app/anatomy/bp3d-dural-4.3/index.html?from=' + encodeURIComponent(nodeId)},
       'Explore named venous structures in 3D'));
 }
@@ -3684,6 +3684,14 @@ function renderReportWalkthrough(n, { openTemplate } = {}) {
           href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=cortical'},
           'Inspect the available right cortical venous models')) : null,
         el('p', {class: 'muted'}, 'The anatomical reference opens in a new tab. Assess patency and thrombus on the examination you are reporting.')));
+      if (focus === 'sinuses') parts.push(el('p', {},
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/index.html?from=ra.venous-sinus-thrombosis&focus=jugular'},
+          'Inspect the right jugular bulb model'),
+        ' · ',
+        el('a', {target: '_blank', rel: 'noopener',
+          href: '/app/anatomy/bp3d-dural-4.3/figures.html?from=ra.venous-sinus-thrombosis&figure=jugular-3'},
+          'Compare jugular bulb variants on CBCT')));
       const examples = {
         'DURAL SINUSES': ['sadik-17', 'Compare superior sagittal sinus thrombosis on CT'],
         'DEEP AND CORTICAL VEINS': ['oliveira-7', 'Inspect deep venous thrombosis and associated haemorrhagic infarction'],
