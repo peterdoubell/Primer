@@ -96,10 +96,12 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
-    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '38d1c7e456de21e28cb6be9e62947075c2553ef76a1f64c104fb0a2f9c0fd674':
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '7125f75702e9c3afb0575f2a3009de55deaeffd843df20e70547d17a2dd5299f':
         raw = raw.replace(b"  if (n.id === 'phys.2.waves') page.append(el('a', { class: 'btn ghost', href: '/app/physics/wave-reflection/index.html' },\n    'Compare reflection at fixed and free ends'));\n", b'', 1)
-        if hashlib.sha256(raw).hexdigest() != 'a49349951dfbea9697fbceb9d3932c8526ac27b3e7ae3b2ad011a58e9984c4a9':
+        if hashlib.sha256(raw).hexdigest() != '2249eba3aa4326e67bc354923f9d4312b793c646d2abe43a531ca0eeab1a5a11':
             raise ValueError('Wave reflection link changed unrelated reader bytes')
+    if str(path) in {'web/app.js', 'primer/server.py', 'vercel.json'}:
+        raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/bp3d-dural-4.3/runtime-inverse.json', '19e2c0a483adc144fb98bb407f5e1bfd20728813e26d078ee2ebfb9743fed313')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == 'a49349951dfbea9697fbceb9d3932c8526ac27b3e7ae3b2ad011a58e9984c4a9':
         raw = raw.replace(b"  if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },\n    'Practise adding -ing and -ed'));\n", b'', 1)
         raw = raw.replace(b"  if (n.id === 'math.3.precalc') page.append(el('a', { class: 'btn ghost', href: '/app/math/limits-approach/index.html' },\n    'Compare limits from the left and right'));\n", b'', 1)
