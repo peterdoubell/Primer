@@ -7,6 +7,25 @@ import math
 import re
 
 MAX_REPEAT_INSTANCES = 50
+ABSENT_LABEL = re.compile(r'(?:fracture|complications?|fistula|effusion|mass|lesion|collection|haematoma|haemorrhage|thrombosis|stenosis|foreign bod(?:y|ies)|hernia|aneurysm|tumour|spread|invasion|ossification|osteolysis|coalition|gas|air|blood|loose bodies|injury|mass effect|herniation)$|\b(?:fistula|fracture|foreign bod(?:y|ies))\b', re.I)
+ABSENT_TAIL = r'(?:[.,]| (?:is|are|in|on|at|of|or|and|to|within|either|seen|identified)\b|$)'
+
+
+def normal_line(label, text, group=''):
+    """'Supraspinatus tendon: normal.' A heading that names a finding reads 'Fracture: none.'
+
+    A label used twice in one study carries its group: 'Medial meniscus, anterior horn: normal.'
+    A group that names the kind of structure gives 'Supraspinatus tendon' and 'Supraspinatus muscle'.
+    """
+    lowered = text.lower()
+    absent = lowered.startswith('no ') and (
+        re.match(re.escape(label.lower()) + '(?:e?s)?' + ABSENT_TAIL, lowered[3:]) or ABSENT_LABEL.search(label))
+    kind = re.search(r' · ([a-z]+)s$', group)
+    if kind:
+        label += ' ' + kind.group(1)
+    elif group:
+        label = group + ', ' + re.sub(r'\b[A-Z][a-z]+\b', lambda word: word.group().lower(), label)
+    return label + (': none.' if absent else ': normal.')
 
 
 def section_scope_active(section, selections):
@@ -59,7 +78,8 @@ REPORT_FIELDS = ('clinical_history', 'comparison', 'protocol', 'impression', 're
 def format_study_report(investigation, fields, sections, assessments=()):
     """Compose the document in reading order using only supplied observations."""
     acquisition = investigation.get('report_protocol')
-    protocol = [fields.get('protocol', ''), *fields.get('protocol_options', [])]
+    standard = (acquisition or {}).get('standard_text', '')
+    protocol = [fields.get('protocol', standard if not fields.get('protocol_options') else ''), *fields.get('protocol_options', [])]
     findings = []
     examination = []
     for section in sections:
@@ -69,12 +89,13 @@ def format_study_report(investigation, fields, sections, assessments=()):
             else:
                 examination.append(section['text'])
         else:
-            findings.append(section['label'] + ':\n' + section['text'])
+            label = section['label'].capitalize() if section['label'].isupper() else section['label']
+            findings.append(label + ':\n' + section['text'])
     findings.extend(assessments)
-    if not any(fields.values()) and not sections and not assessments:
+    if not any(fields.values()) and 'protocol' not in fields and not sections and not assessments:
         return ''
     def block(label, body):
-        return label + ':\n' + (body or '—')
+        return label + ':\n' + (body or '[]')
     study = [investigation['title']]
     if acquisition:
         study.extend((block('Protocol' if investigation['modality'] == 'MRI' else 'Technique',
@@ -118,7 +139,7 @@ def render_descriptors(form, state):
                 problem('invalid_report_fields')
                 fields = {}
             else:
-                fields = {key: value.strip() for key, value in fields.items() if key != 'protocol_options' and value.strip()}
+                fields = {key: value.strip() for key, value in fields.items() if key != 'protocol_options' and (value.strip() or key == 'protocol')}
                 if options:
                     fields['protocol_options'] = [item for item in protocol['options'] if item in options]
     selections = state.get('selections', {})
@@ -222,6 +243,7 @@ def render_descriptors(form, state):
 
     grouped = {}
     selected_count = 0
+    normal_labels = [section['label'] for section in investigation['sections'] if section.get('normal')]
     for section in investigation['sections']:
         key = section['id']
         selection = selections.get(key, {})
@@ -249,7 +271,8 @@ def render_descriptors(form, state):
             else:
                 line = statement(section['normal'], {}, key)
                 if line:
-                    line = normal_summaries.get(key, line)
+                    line = normal_line(section['label'], line, section.get('group', '')
+                                       if normal_labels.count(section['label']) > 1 else '')
                     if line: lines.append(line)
         elif unassessed:
             lines.append(section['label'] + ': not assessed.')

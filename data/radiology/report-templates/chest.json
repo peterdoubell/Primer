@@ -1,6 +1,6 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-13",
+  "revision": "2026-11-15",
   "templates": {
     "ra.chest-radiography": {
       "title": "Chest radiographs, PA and lateral / Chest radiograph, AP",
@@ -8,7 +8,7 @@
       "sections": [
         {"heading": "Airways and cardiomediastinum", "normal": "Trachea central. Normal heart size, mediastinal contours and hila.",
          "options": ["[Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] [ ]."]},
-        {"heading": "Lungs", "normal": "Clear lungs.",
+        {"heading": "Lungs", "normal": "Clear.",
          "options": ["[Consolidation / Collapse / Nodule / Mass / Interstitial opacity] in the [ ].",
                      "[Pulmonary oedema / Hyperinflation / Cavitation] [ ]."]},
         {"heading": "Pleura and diaphragm", "normal": "No pleural effusion or pneumothorax. Normal diaphragm.",
@@ -39,33 +39,33 @@
     "ra.hrct-lung": {
       "title": "HRCT chest",
       "radiograph": false,
-      "technique": {"normal": "Volumetric thin-section CT chest without contrast in full inspiration, with expiratory images.",
-                    "options": ["Prone images to clear dependent opacity."]},
+      "technique": {"normal": "Unenhanced volumetric thin-section (1 mm) supine in full inspiration, high-spatial-frequency reconstruction; expiratory series.",
+                    "options": ["Prone series for dependent opacity."]},
       "sections": [
         {"heading": "Interstitium", "normal": "No interstitial lung disease.",
          "options": ["[UIP / Probable UIP / Indeterminate for UIP / Alternative diagnosis] CT pattern.",
-                     "[Reticulation / Honeycombing / Traction bronchiectasis / Ground-glass opacity], [subpleural basal / upper zone / peribronchovascular / diffuse] distribution.",
+                     "[Reticulation / Honeycombing / Traction bronchiectasis / Ground-glass opacity], [subpleural basal / upper zone / peribronchovascular / diffuse].",
                      "[Cysts / Emphysema / Centrilobular nodules / Perilymphatic nodules] [ ]."]},
-        {"heading": "Airways", "normal": "Normal airways. No air trapping on expiratory images.",
+        {"heading": "Airways", "normal": "Normal. No air trapping on expiratory images.",
          "options": ["[Bronchiectasis / Bronchial wall thickening / Mosaic attenuation] [ ].",
                      "Air trapping, [lobular / segmental / diffuse], [ ]."]},
         {"heading": "Pleura and mediastinum", "normal": "No pleural thickening or effusion. No mediastinal lymphadenopathy.",
          "options": ["[Pleural plaques / Pleural effusion / Mediastinal lymphadenopathy] [ ]."]},
         {"heading": "Pulmonary arteries and heart", "normal": "Normal pulmonary artery calibre and heart size.",
          "options": ["Main pulmonary artery [ ] mm."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[Oesophageal dilatation / Hiatus hernia] [ ]."]}
+        {"heading": "Upper abdomen, oesophagus and bones", "normal": "Normal visualised upper abdomen and oesophagus. No destructive bone lesion.",
+         "options": ["[Oesophageal dilatation / Hiatus hernia / Bone lesion] [ ]."]}
       ],
       "impression": "No interstitial lung disease."
     },
     "ra.ct-lung-cancer": {
       "title": "CT chest and upper abdomen with contrast",
       "radiograph": false,
-      "technique": {"normal": "Portal venous phase CT chest and upper abdomen with IV contrast.",
+      "technique": {"normal": "Portal venous phase (70 s) after IV contrast, supraclavicular fossae to adrenals; thin lung reconstructions.",
                     "options": []},
       "sections": [
         {"heading": "Primary tumour", "normal": "No lung mass.",
-         "options": ["[ ] mm [solid / part-solid / cavitating] mass in the [ ] lobe.",
+         "options": ["[Solid / Part-solid / Cavitating] mass [ ] mm in the [ ] lobe.",
                      "[Chest wall / Mediastinal / Pleural / Fissural] invasion [ ].",
                      "Separate tumour nodule in the [same / different ipsilateral / contralateral] lobe."]},
         {"heading": "Lymph nodes", "normal": "No enlarged hilar, mediastinal or supraclavicular lymph nodes.",
@@ -77,16 +77,16 @@
          "options": ["[Emphysema / Interstitial lung disease / Post-obstructive collapse] [ ]."]},
         {"heading": "Stage", "normal": "No evidence of tumour.",
          "options": ["cT[ ] N[ ] M[ ] (TNM 9th edition)."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Heart and great vessels", "normal": "Normal heart size. No pericardial effusion. Normal aorta and pulmonary arteries.",
+         "options": ["[Pericardial effusion / Coronary calcification / Aortic aneurysm / Pulmonary embolism] [ ]."]}
       ],
       "impression": "No lung mass, nodal or metastatic disease."
     },
     "ra.ct-pulmonary-nodules": {
       "title": "CT chest, pulmonary nodule",
       "radiograph": false,
-      "technique": {"normal": "Volumetric thin-section CT chest without IV contrast.",
-                    "options": ["CT chest with IV contrast."]},
+      "technique": {"normal": "Unenhanced volumetric thin-section (1 mm); lung and soft tissue reconstructions with MIP.",
+                    "options": []},
       "sections": [
         {"heading": "Nodules", "normal": "No pulmonary nodule.",
          "options": ["[Solid / Part-solid / Ground-glass] nodule in the [ ] lobe, [ ] mm mean diameter (series [ ], image [ ]).",
@@ -96,15 +96,15 @@
          "options": ["[Emphysema / Bronchiectasis / Interstitial abnormality] [ ]."]},
         {"heading": "Mediastinum and pleura", "normal": "No lymphadenopathy or pleural effusion.",
          "options": ["[Lymphadenopathy / Pleural effusion] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "No pulmonary nodule."
     },
     "chest.ct-lung-screening": {
       "title": "Low-dose CT chest, lung cancer screening",
       "radiograph": false,
-      "technique": {"normal": "Volumetric low-dose CT chest without IV contrast.",
+      "technique": {"normal": "Unenhanced low-dose volumetric thin-section (1 mm) in full inspiration; lung reconstructions with MIP.",
                     "options": []},
       "sections": [
         {"heading": "Nodules", "normal": "No lung nodule.",
@@ -114,7 +114,7 @@
          "options": ["[Emphysema / Interstitial lung abnormality / Bronchiectasis] [ ]."]},
         {"heading": "Coronary arteries", "normal": "No coronary artery calcification.",
          "options": ["[Mild / Moderate / Severe] coronary artery calcification."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
          "options": ["Significant other finding (S): [ ]."]},
         {"heading": "Lung-RADS", "normal": "Category 1: negative.",
          "options": ["Category [2 / 3 / 4A / 4B / 4X]: [benign / probably benign / suspicious / very suspicious]."]}
@@ -125,7 +125,7 @@
     "oncology.lesion-growth": {
       "title": "CT chest, nodule follow-up",
       "radiograph": false,
-      "technique": {"normal": "Volumetric thin-section CT chest without IV contrast, reconstructed to match the prior examination.",
+      "technique": {"normal": "Unenhanced volumetric thin-section (1 mm), reconstruction matched to the prior study for volumetry.",
                     "options": []},
       "sections": [
         {"heading": "Index nodule", "normal": "No growth of the index nodule.",
@@ -134,18 +134,18 @@
                      "New solid component [ ] mm."]},
         {"heading": "Other nodules", "normal": "No new nodule.",
          "options": ["New [ ] mm nodule in the [ ] lobe."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "Stable nodule with no measurable growth."
     },
     "ra.ct-airways": {
       "title": "CT chest, airways",
       "radiograph": false,
-      "technique": {"normal": "Volumetric thin-section CT chest in inspiration and expiration, with multiplanar and minimum-intensity reconstructions.",
+      "technique": {"normal": "Unenhanced volumetric thin-section in inspiration and dynamic expiration; multiplanar and minimum-intensity reformats.",
                     "options": []},
       "sections": [
-        {"heading": "Trachea and main bronchi", "normal": "Normal trachea and main bronchi.",
+        {"heading": "Trachea and main bronchi", "normal": "Normal.",
          "options": ["[Stenosis / Tracheomalacia / Wall thickening / Endoluminal lesion] at [ ], [ ] mm.",
                      "Expiratory airway collapse [ ] percent."]},
         {"heading": "Lobar and segmental bronchi", "normal": "Normal bronchial branching to segmental level.",
@@ -153,15 +153,15 @@
                      "[Tracheal / Accessory cardiac / Displaced] bronchus [ ]."]},
         {"heading": "Lungs", "normal": "No collapse, consolidation or air trapping.",
          "options": ["[Collapse / Air trapping / Mosaic attenuation / Tree-in-bud nodules] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "Normal central and segmental airways."
     },
     "ra.ct-covid": {
       "title": "CT chest without contrast, COVID-19",
       "radiograph": false,
-      "technique": {"normal": "Volumetric CT chest without IV contrast.",
+      "technique": {"normal": "Unenhanced volumetric thin-section (1 mm) in full inspiration; lung and soft tissue reconstructions.",
                     "options": []},
       "sections": [
         {"heading": "Lungs", "normal": "No ground-glass opacity or consolidation.",
@@ -171,8 +171,8 @@
          "options": ["[Pleural effusion / Lymphadenopathy] [ ]."]},
         {"heading": "CO-RADS", "normal": "CO-RADS 1: very low suspicion.",
          "options": ["CO-RADS [2 / 3 / 4 / 5]: [low / equivocal / high / very high] suspicion."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "No CT features of COVID-19 pneumonia (CO-RADS 1)."
     },
@@ -195,7 +195,7 @@
     "ra.ct-mediastinum": {
       "title": "CT chest with contrast",
       "radiograph": false,
-      "technique": {"normal": "CT chest with IV contrast.",
+      "technique": {"normal": "Venous phase after IV contrast, thoracic inlet to adrenals; soft tissue and thin lung reconstructions.",
                     "options": []},
       "sections": [
         {"heading": "Mediastinum", "normal": "No mediastinal mass.",
@@ -207,33 +207,33 @@
          "options": ["[Pericardial effusion / Vascular encasement / SVC compression] [ ]."]},
         {"heading": "Lungs and pleura", "normal": "Clear lungs. No pleural effusion.",
          "options": ["[Lung nodule / Pleural effusion / Pleural nodularity] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "No mediastinal mass or lymphadenopathy."
     },
     "ra.thymus": {
       "title": "CT chest with contrast, thymus",
       "radiograph": false,
-      "technique": {"normal": "CT chest with IV contrast.",
+      "technique": {"normal": "Venous phase after IV contrast, thoracic inlet to adrenals; soft tissue and thin lung reconstructions.",
                     "options": []},
       "sections": [
         {"heading": "Thymus", "normal": "Normal thymus for age.",
          "options": ["[Thymic hyperplasia / Thymic cyst / Thymoma / Thymic carcinoma] [ ].",
-                     "[ ] mm [smooth / lobulated] [homogeneous / heterogeneous] prevascular mass."]},
+                     "[Smooth / Lobulated] [homogeneous / heterogeneous] prevascular mass [ ] mm."]},
         {"heading": "Local extent", "normal": "No invasion of adjacent structures.",
          "options": ["[Pericardial / Pleural / Vascular / Lung] invasion [ ]."]},
         {"heading": "Pleura and lymph nodes", "normal": "No pleural nodules, effusion or lymphadenopathy.",
          "options": ["[Pleural drop metastases / Lymphadenopathy] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "Normal thymus."
     },
     "ra.pulmonary-hypertension": {
       "title": "CT pulmonary angiogram",
       "radiograph": false,
-      "technique": {"normal": "CT pulmonary angiogram with IV contrast.",
+      "technique": {"normal": "Pulmonary arterial phase with bolus tracking in the pulmonary trunk, caudocranial in shallow inspiration; MIP reformats.",
                     "options": []},
       "sections": [
         {"heading": "Pulmonary arteries", "normal": "No pulmonary embolism. Normal pulmonary artery calibre.",
@@ -244,27 +244,27 @@
          "options": ["[Right ventricular dilatation / Septal flattening / Contrast reflux into the IVC] [ ]."]},
         {"heading": "Lungs", "normal": "No mosaic attenuation, emphysema or interstitial lung disease.",
          "options": ["[Mosaic attenuation / Emphysema / Interstitial lung disease / Centrilobular ground-glass nodules] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "No CT features of pulmonary hypertension or thromboembolic disease."
     },
     "ra.paediatric-chest-ct": {
       "title": "CT chest, paediatric",
       "radiograph": false,
-      "technique": {"normal": "Low-dose CT chest with IV contrast, weight-based protocol.",
-                    "options": ["Low-dose CT chest without IV contrast."]},
+      "technique": {"normal": "Low-dose single phase after weight-based IV contrast; multiplanar soft tissue and lung reformats.",
+                    "options": []},
       "sections": [
-        {"heading": "Lungs", "normal": "Clear lungs.",
+        {"heading": "Lungs", "normal": "Clear.",
          "options": ["[Consolidation / Atelectasis / Nodule / Cyst / Ground-glass opacity] in the [ ]."]},
-        {"heading": "Airways", "normal": "Normal airways.",
+        {"heading": "Airways", "normal": "Normal.",
          "options": ["[Bronchiectasis / Bronchial wall thickening / Air trapping / Airway narrowing] [ ]."]},
         {"heading": "Mediastinum", "normal": "Normal thymus, heart and mediastinum. No lymphadenopathy.",
          "options": ["[Mediastinal mass / Lymphadenopathy / Vascular anomaly] [ ]."]},
         {"heading": "Pleura and chest wall", "normal": "No pleural effusion or pneumothorax. Normal chest wall.",
          "options": ["[Pleural effusion / Empyema / Pneumothorax / Chest wall mass] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "Normal CT chest."
     },
@@ -272,7 +272,7 @@
       "title": "Neonatal chest radiograph / Neonatal chest and abdominal radiograph",
       "radiograph": true,
       "sections": [
-        {"heading": "Lines and tubes", "normal": "No lines or tubes.",
+        {"heading": "Lines and tubes", "normal": "None.",
          "options": ["Endotracheal tube tip at [ ] (target T1 to T2).",
                      "[Umbilical venous catheter / Umbilical arterial catheter / PICC] tip at [ ].",
                      "Gastric tube tip [in the stomach / in the oesophagus]."]},
@@ -293,10 +293,10 @@
     "ra.paediatric-mediastinum": {
       "title": "CT chest with contrast, paediatric mediastinal mass",
       "radiograph": false,
-      "technique": {"normal": "CT chest with IV contrast, weight-based protocol.",
+      "technique": {"normal": "Low-dose single phase after weight-based IV contrast; multiplanar soft tissue and lung reformats.",
                     "options": []},
       "sections": [
-        {"heading": "Mediastinal mass", "normal": "No mediastinal mass. Normal thymus for age.",
+        {"heading": "Mediastinal mass", "normal": "None. Normal thymus for age.",
          "options": ["[Prevascular / Visceral / Paravertebral] mediastinal mass, [ ] x [ ] x [ ] mm.",
                      "[Calcification / Fat / Cystic change / Necrosis] [ ]."]},
         {"heading": "Airway and vessels", "normal": "No airway or vascular compression.",
@@ -306,8 +306,8 @@
          "options": ["[Pleural effusion / Pericardial effusion / Lung nodules] [ ]."]},
         {"heading": "Spinal canal", "normal": "No intraspinal extension.",
          "options": ["Extension through the [ ] neural foramen [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "No mediastinal mass."
     },
@@ -331,8 +331,8 @@
     "ra.ct-cardiovascular-pearls": {
       "title": "CT chest, cardiovascular findings",
       "radiograph": false,
-      "technique": {"normal": "CT chest with IV contrast.",
-                    "options": ["CT chest without IV contrast."]},
+      "technique": {"normal": "Venous phase after IV contrast, thoracic inlet to adrenals; soft tissue and thin lung reconstructions.",
+                    "options": []},
       "sections": [
         {"heading": "Heart and pericardium", "normal": "Normal heart size. No pericardial effusion.",
          "options": ["[Cardiomegaly / Pericardial effusion / Myocardial thinning / Intracardiac thrombus] [ ]."]},
@@ -344,8 +344,8 @@
                      "[Aortic aneurysm / Pulmonary embolism / Aortic plaque] [ ]."]},
         {"heading": "Lungs and pleura", "normal": "Clear lungs. No pleural effusion.",
          "options": ["[Pulmonary oedema / Pleural effusion / Nodule] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Upper abdomen and bones", "normal": "Normal visualised upper abdomen. No destructive bone lesion.",
+         "options": ["[Adrenal nodule / Liver lesion / Bone lesion / Fracture] [ ]."]}
       ],
       "impression": "No cardiovascular abnormality on CT chest."
     }

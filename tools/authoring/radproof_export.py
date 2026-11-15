@@ -2,9 +2,11 @@
 
 Layout follows the practice's Prism reports, from the study title down:
   **__<Study title>__**        bold and underlined; {Side} where Prism supplies the side
-  __Protocol:__                underlined; the standard protocol (not for radiographs)
+  __Protocol:__ / __Technique:__  underlined; MRI protocol or CT technique (no other modality has one)
   __Findings:__                underlined; one sentence per line; multi-region studies keep
-                               plain region subheadings (RadProof text has no italics)
+                               plain region subheadings (RadProof text has no italics). A normal
+                               line that relies on its heading ("Normal.") is written with it
+                               ("Spleen: normal.")
   **__Conclusion:__**          bold and underlined; the normal impression
 Clinical history and comparison sit above the inserted template in Prism.
 RadProof markup: ** toggles bold, __ toggles underline; a short line ending in a colon is a
@@ -24,6 +26,8 @@ from primer import report_templates as rt  # noqa: E402
 DATA = ROOT / 'data' / 'radiology'
 MULTI_REGION = {'ct.trauma-panscan', 'ct.oncology-staging', 'xr.acute-abdomen-series', 'ra.recist',
                 'oncology.recist-follow-up', 'ra.ct-peritoneal-carcinomatosis'}
+# Normal lines that say nothing without their heading.
+BARE = {'Normal.', 'None.', 'Clear.', 'Intact.', 'Patent.', 'Preserved.', 'Not involved.'}
 NAME = re.compile(r"^[A-Za-z0-9 ,()&+'.\-]{1,80}$")
 
 
@@ -57,13 +61,15 @@ def export():
         names.add(name.lower())
         assert NAME.match(name), name
         lines = ['**__' + title + '__**']
-        if not item['radiograph']:
-            lines += ['__Protocol:__', item['technique']['normal'], '']
+        acquisition = rt.acquisition_heading(identifier, item)
+        if acquisition:
+            lines += [f'__{acquisition}:__', item['technique']['normal'], '']
         lines.append('__Findings:__')
         for section in item['sections']:
             if identifier in MULTI_REGION:
                 lines.append(section['heading'])
-            lines += sentences(section['normal'])
+            lines += [f"{section['heading']}: {sentence.lower()}" if sentence in BARE and identifier not in MULTI_REGION
+                      else sentence for sentence in sentences(section['normal'])]
         impression = item['impression'] if isinstance(item['impression'], list) else [item['impression']]
         lines += ['', '**__Conclusion:__**', *impression]
         out.append({'id': identifier, 'name': name, 'names': prism['titles'][identifier], 'text': '\n'.join(lines)})

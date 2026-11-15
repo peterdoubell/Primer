@@ -28,12 +28,12 @@ def test_knee_compacts_only_complete_normal_groups_and_preserves_previous_output
     compact = render_descriptors(current, state)
     assert compact['valid']
     assert compact['sections'][0]['text'] == (
-        '• No tear of the medial meniscal anterior horn, body or posterior horn.'
+        '• Medial meniscus, anterior horn: normal.\n• Medial meniscus, body: normal.\n• Medial meniscus, posterior horn: normal.'
     )
     original = render_descriptors(old, state)
     assert original['valid'] and original['text'].startswith('MEDIAL COMPARTMENT\n')
     assert len(original['sections'][0]['text'].splitlines()) == 3
-    assert len(compact['sections'][0]['text'].split()) < len(original['sections'][0]['text'].split())
+    assert original['sections'][0]['text'] == compact['sections'][0]['text'].replace('• ', '')
 
     row = prefix + 'body'
     finding = KNEE + ':medial-meniscus-body:bucket-handle'
@@ -42,7 +42,7 @@ def test_knee_compacts_only_complete_normal_groups_and_preserves_previous_output
     assert mixed['valid'] and 'Bucket-handle tear involving the medial meniscus body.' in mixed['text']
     assert 'intercondylar notch' not in mixed['text']
     assert 'No tear of the medial meniscal anterior horn, body or posterior horn' not in mixed['text']
-    assert 'The medial meniscus posterior horn has no tear.' in mixed['text']
+    assert 'Medial meniscus, posterior horn: normal.' in mixed['text']
 
     state['selections'][row]['findings'][KNEE + ':medial-meniscus-body:fragment'] = {'slot-1': 'inferior gutter'}
     located = render_descriptors(current, state)
