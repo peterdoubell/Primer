@@ -323,6 +323,7 @@ def test_the_on_screen_report_draft_matches_the_copied_text_with_an_exact_invers
 
 def test_the_report_template_tab_is_a_rich_text_editor_with_an_exact_inverse():
     from tools.report_layout_compatibility import TEMPLATE_EDITOR, before_template_editor_bytes
+    from tools.source_studies_compatibility import before_reporting_step_evidence_bytes
     source = (ROOT / 'web/app.js').read_text()
     assert "contenteditable: 'true', role: 'textbox'" in source and "el('textarea', { id: uid, class: 'rad-report-editor'" not in source
     # Formatting is limited to bold, italic and underline; pasted and dropped content is plain text.
@@ -333,7 +334,7 @@ def test_the_report_template_tab_is_a_rich_text_editor_with_an_exact_inverse():
     assert "'text/html': new Blob([html], { type: 'text/html' })" in source and "'text/plain': new Blob([text], { type: 'text/plain' })" in source
     assert set(TEMPLATE_EDITOR) == {'web/app.js', 'web/radiology-structured.css'}
     for path, (before, after, _) in TEMPLATE_EDITOR.items():
-        raw = (ROOT / path).read_bytes()
+        raw = before_reporting_step_evidence_bytes(path, (ROOT / path).read_bytes())
         assert hashlib.sha256(raw).hexdigest() == after
         assert hashlib.sha256(before_template_editor_bytes(path, raw)).hexdigest() == before
         assert before_template_editor_bytes(path, raw + b'\n') == raw + b'\n'
