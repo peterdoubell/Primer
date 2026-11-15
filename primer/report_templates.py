@@ -4,7 +4,8 @@ Each examination has a study title and short sentence-case headings. Under a
 heading the first line is the normal finding; the lines after it are the
 common abnormal findings, written with picks ``[a / b]`` and blanks ``[ ]``
 only where the reader must explain. The same data renders a complete normal
-report. MRI and CT use the same acquisition profiles as the selectable reports.
+report. Every MRI opens with its Protocol and every CT with its Technique,
+then a Findings subheading; radiographs, ultrasound and fluoroscopy have neither.
 """
 from functools import lru_cache
 
@@ -17,6 +18,8 @@ LIBRARY = Path(__file__).resolve().parents[1] / 'data' / 'radiology' / 'report-t
 SCHEMA = 'primer.fast-report-templates/1'
 RESERVED = {'clinical history', 'technique', 'comparison', 'impression', 'recommendation'}
 LIMITATION = 'Limited by [ ].'
+# Review worksheets and the contrast record are not acquired studies.
+NOT_ACQUIRED = {'template:ct-image-report', 'template:mri-sequences-report', 'ra.ct-contrast-protocols'}
 BLANK_IMPRESSION = 'Impression:\n1. []\n2. []\n3. []'
 BLANK_RECOMMENDATION = 'Recommendation:\n[]'
 HEADING = re.compile(r"[A-Z][\w ,/()'\-]*[\w)]")
@@ -63,8 +66,8 @@ def _section(section, where):
         raise ValueError(f'{where}: heading {heading!r} must be sentence case')
     _normal(section['normal'], f'{where} {heading}')
     options = section.get('options', [])
-    if not isinstance(options, list) or len(options) > 4:
-        raise ValueError(f'{where} {heading}: at most four finding lines')
+    if not isinstance(options, list) or len(options) > 5:
+        raise ValueError(f'{where} {heading}: at most five finding lines')
     for option in options:
         _option(option, f'{where} {heading}')
     return section
@@ -112,23 +115,31 @@ def examination_profiles():
             for exam in form['investigations']}
 
 
-def _sections(item, exam):
-    acquisition = exam.get('report_protocol')
+def acquisition_heading(identifier, item):
+    """'Protocol' for an MRI study, 'Technique' for a CT study, otherwise None."""
+    if identifier in NOT_ACQUIRED or 'technique' not in item:
+        return None
+    title = item['title']
+    if re.search(r'\bCT\b|\bHRCT\b', title):
+        return 'Technique'
+    return 'Protocol' if re.search(r'\bMRI?\b|\bMRCP\b', title) else None
+
+
+def _sections(item, heading):
     sections = list(item['sections'])
-    if not acquisition:
+    if not heading:
         return sections
-    heading = 'Protocol' if exam.get('modality') == 'MRI' else 'Technique'
-    return [{'heading': heading, 'normal': acquisition['standard_text'],
-             'options': [LIMITATION]}, *sections]
+    technique = item['technique']
+    return [{'heading': heading, 'normal': technique['normal'],
+             'options': [*technique.get('options', []), LIMITATION]}, *sections]
 
 
-def render(item, normal=False, exam=None):
+def render(item, normal=False, heading=None):
     """Render the editable template, or its normal findings variant."""
-    exam = exam or {}
-    sections = _sections(item, exam)
+    sections = _sections(item, heading)
     headings = ['Clinical history:\n[]', 'Comparison:\n[]', item['title']]
     for index, section in enumerate(sections):
-        if exam.get('report_protocol') and index == 1:
+        if heading and index == 1:
             headings.append('Findings:')
         findings = [section['normal'], *([] if normal else section.get('options', []))]
         headings.append(section['heading'] + ':\n' + '\n'.join(findings))
@@ -161,12 +172,12 @@ def quick_report(identifier):
     item = library().get(identifier)
     if item is None:
         return None
-    exam = examination_profiles().get(identifier, {})
-    headings = [section['heading'] for section in _sections(item, exam)]
-    if exam.get('report_protocol'):
+    heading = acquisition_heading(identifier, item)
+    headings = [section['heading'] for section in _sections(item, heading)]
+    if heading:
         headings.insert(1, 'Findings')
     return {'title': item['title'], 'radiograph': item['radiograph'], 'headings': headings,
-            'template': render(item, exam=exam), 'normal': render(item, normal=True, exam=exam)}
+            'template': render(item, heading=heading), 'normal': render(item, normal=True, heading=heading)}
 
 
 def with_quick_report(detail):

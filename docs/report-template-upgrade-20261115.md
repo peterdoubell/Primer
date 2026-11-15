@@ -1,0 +1,41 @@
+# Report template upgrade (2026-11-15)
+
+All 333 report templates were reviewed against four aims: information density, a structured search pattern, rapid reporting, and readability. `tools/authoring/report_upgrade_20261115.py` applies the changes, and `tests/test_report_style.py` enforces the rules.
+
+## Layout
+
+Every study has Clinical history, Comparison, the study name, findings under anatomical headings, Impression and Recommendation.
+
+- **MRI** opens with `Protocol:` and then `Findings:`.
+- **CT** opens with `Technique:` and then `Findings:`.
+- **Radiographs, ultrasound, fluoroscopy and all other studies** have neither.
+
+## Protocols and techniques
+
+All 176 MRI and CT studies now state their own acquisition. Before this pass, 39 had none, and many others were generic ("through the prescribed abdominal or pelvic coverage") or omitted contrast on contrast studies.
+
+- **MRI:** planes and weightings, with gadolinium named wherever the title says "with contrast".
+- **CT:** contrast phases with timing, coverage and reformats.
+
+Sources, in order of preference:
+
+1. **Radiology Assistant.** The CT phase names and timings come from "CT contrast injection and protocols": late arterial 35 s, portal venous 70 s, nephrographic 100 s. Protocol notes in these topic articles were also used: rectal cancer, PI-RADS, VI-RADS, LI-RADS, solid renal masses, acute aortic syndrome, CT in trauma, dementia, epilepsy, multiple sclerosis, sella, elbow MRI, pulmonary emboli.
+2. **Radiopaedia.** It could not be read from the build environment: it refuses automated access (HTTP 402/406). Sequences that the Radiology Assistant does not list follow standard practice and still need checking against Radiopaedia by a radiologist.
+
+The knee MRI protocol is unchanged.
+
+The click builder's selectable acquisition choices are unchanged. Its default text can differ in wording from the protocol line in the template.
+
+## Content rules
+
+| Rule | Before | After |
+|---|---|---|
+| The normal line does not repeat its heading | `Spleen: Normal spleen.` (163 lines) | `Spleen: Normal.` |
+| No generic "Other findings" | 84 templates | The last heading names the review areas, e.g. `Other organs, lung bases and bones` |
+| A finding line starts with the finding | `[ ] mm calculus in the …` (206 lines) | `Calculus [ ] mm in the …` |
+| Lines stay scannable | Up to 250 characters, five picks | At most 145 characters, three picks, six choices per pick (coded scales excepted) |
+| Limb trauma radiographs open with Bones | `Fracture:` | `Bones:` |
+
+The RadProof export (`tools/authoring/radproof_export.py`) prints findings without headings. A normal line that relies on its heading is therefore exported with it, for example `Spleen: normal.`. The export prints Protocol or Technique only for MRI and CT.
+
+These are educational drafting templates. Check each report against the images before use.

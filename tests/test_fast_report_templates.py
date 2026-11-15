@@ -25,7 +25,7 @@ Trachea central. Normal heart size, mediastinal contours and hila.
 [Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] []
 
 Lungs:
-Clear lungs.
+Clear.
 [Consolidation / Collapse / Nodule / Mass / Interstitial opacity] in the []
 [Pulmonary oedema / Hyperinflation / Cavitation] []
 
@@ -60,7 +60,7 @@ Airways and cardiomediastinum:
 Trachea central. Normal heart size, mediastinal contours and hila.
 
 Lungs:
-Clear lungs.
+Clear.
 
 Pleura and diaphragm:
 No pleural effusion or pneumothorax. Normal diaphragm.
@@ -106,21 +106,20 @@ def test_layout_rules_hold_for_every_template(identifier):
     item = rt.library()[identifier]
     report = rt.quick_report(identifier)
     template, normal = report['template'].split('\n'), report['normal'].split('\n')
-    exam = rt.examination_profiles()[identifier]
-    acquisition = exam.get('report_protocol')
+    header = rt.acquisition_heading(identifier, item)
     for lines in (template, normal):
         assert lines[:7] == ['Clinical history:', '[]', '', 'Comparison:', '[]', '', item['title']]
         headings = [line[:-1] for line in lines if line.endswith(':')]
         assert headings == ['Clinical history', 'Comparison', *report['headings'], 'Impression', 'Recommendation']
         assert '\n\n\n' not in '\n'.join(lines) and lines[-1].strip()
         assert '[ ]' not in '\n'.join(lines)
-    if acquisition:
-        header = 'Protocol' if exam['modality'] == 'MRI' else 'Technique'
+    # MRI opens with its Protocol and CT with its Technique, then Findings; nothing else has either.
+    if header:
         assert report['headings'][:2] == [header, 'Findings']
-        assert template[template.index(header + ':') + 1] == acquisition['standard_text']
+        assert template[template.index(header + ':') + 1] == item['technique']['normal']
         assert 'Limited by []' in template and 'Limited by []' not in normal
     else:
-        assert 'Technique' not in report['headings'] and 'Protocol' not in report['headings']
+        assert not {'Technique', 'Protocol'} & set(report['headings'])
     assert report['template'].endswith('Impression:\n1. []\n2. []\n3. []\n\nRecommendation:\n[]')
     assert '[' not in '\n'.join(normal[5:])
     impression = item['impression'] if isinstance(item['impression'], list) else [item['impression']]
