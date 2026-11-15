@@ -15,6 +15,7 @@ async function showFigure(){
   get('caption').textContent='';
   get('label-key').replaceChildren();
   get('article').hidden=true;
+  get('figure-licence').hidden=true;
   related.hidden=true;
   related.replaceChildren();
   status.textContent='Loading verified source figure…';
@@ -58,6 +59,11 @@ async function showFigure(){
     source.hidden=false;
     source.href=item.articleUrl;
     source.textContent=item.credit+' · original Figure '+item.figureNumber;
+    const licence=get('figure-licence');
+    const licenceVersion=item.licenceVersion==='3.0'?'3.0':'4.0';
+    licence.href='https://creativecommons.org/licenses/by/'+licenceVersion+'/';
+    licence.textContent='CC BY '+licenceVersion;
+    licence.hidden=false;
     get('label-key').replaceChildren(...item.labels.map(([mark,structure])=>{
       const row=document.createElement('tr');
       const label=document.createElement('th');label.scope='row';label.textContent=mark;
