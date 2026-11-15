@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '151d1e656067a107b9e6c32522c4989ed99110a692110ef48d6acea8a3c62fde':
+        raw = raw.replace(b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },\n    el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n      'Predict English plural sounds'),\n    el('a', { class: 'btn ghost', href: '/app/language/phrase-attachment/index.html' },\n      'Compare two meanings of the same sentence')));\n", b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n    'Predict English plural sounds'));\n", 1)
+        if hashlib.sha256(raw).hexdigest() != '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':
+            raise ValueError('Phrase attachment navigation changed unrelated reader bytes')
     if str(path) in {'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ccth-a01-roi/runtime-inverse.json', '279db3d15f4b1dc552471d4d59c01e17cb70697ec01997fa8a167d7bb24ec156')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':

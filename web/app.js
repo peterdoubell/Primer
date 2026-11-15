@@ -4093,8 +4093,11 @@ async function renderNode(page, nodeId) {
     'Explore a longitudinal sound wave'));
   if (n.id === 'lang.1.spelling') page.append(el('a', { class: 'btn ghost', href: '/app/language/spelling-endings/index.html' },
     'Practise adding -ing and -ed'));
-  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
-    'Predict English plural sounds'));
+  if (n.id === 'lang.3.linguistics-intro') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },
+    el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },
+      'Predict English plural sounds'),
+    el('a', { class: 'btn ghost', href: '/app/language/phrase-attachment/index.html' },
+      'Compare two meanings of the same sentence')));
   if (n.id === 'lang.4.linguistics') page.append(el('a', { class: 'btn ghost', href: '/app/language/quantifier-scope/index.html' },
     'Explore every child and a tree: two scope orders'));
   if (n.id === 'lang.3.rhetoric') page.append(el('a', { class: 'btn ghost', href: '/app/language/argument-repair/index.html' },
