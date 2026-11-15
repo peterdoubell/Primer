@@ -2202,8 +2202,8 @@ function renderLessonMedia(items) {
 
 /* ---------------- radiology reference workbench ----------------
    Foundation articles stay with their publisher. Our report drafts contain
-   plain text only, held in the mounted editor: no storage, patient uploads,
-   background requests, or generated conclusions. */
+   text and its bold, italic and underline only, held in the mounted editor:
+   no storage, patient uploads, background requests, or generated conclusions. */
 function radiologySourceLink(title, url, props = {}) {
   if (/^\/app\/illustrations\/[a-z0-9/_-]+\.webp$/.test(url || '')) {
     return el('a', { ...props, href: url, target: '_blank', rel: 'noopener noreferrer' }, title);
@@ -2239,14 +2239,44 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     'Template ready. Changes last until you leave or reload this page.');
   const hint = el('p', { id: uid + '-hint', class: 'rad-report-hint' },
     'Educational drafting template. Replace the bracketed prompts using the imaging findings and clinical context; review the completed report before use. Keep patient identifiers out of this page.');
-  const editor = el('textarea', { id: uid, class: 'rad-report-editor', rows: 22,
-    spellcheck: 'false', autocomplete: 'off', 'aria-describedby': uid + '-hint' });
-  editor.value = original;
+  // A rich-text editor: headings underlined and subheadings italic as they are copied.
+  const editor = el('div', { id: uid, class: 'rad-report-editor rad-report-rich', contenteditable: 'true', role: 'textbox',
+    'aria-multiline': 'true', 'aria-labelledby': uid + '-label', 'aria-describedby': uid + '-hint', spellcheck: 'false' });
+  const wrap = body => '<div style="font-family:Arial,sans-serif;font-size:12pt;line-height:1.4">' + body + '</div>';
+  const fill = () => {
+    const formatter = window.PrimerStructuredReporting;
+    if (!formatter || !formatter.reportHTML) { editor.textContent = original; return; }
+    const holder = document.createElement('div');
+    holder.innerHTML = formatter.reportHTML(original, template.studyTitle || template.title);
+    editor.innerHTML = holder.firstChild.innerHTML;
+  };
+  fill();
+  const initial = editor.innerHTML;
+  const draftText = () => editor.innerText.replace(/\u00a0/g, ' ').replace(/\n+$/, '');
+  const format = (command, label, name) => {
+    const control = btn({ class: 'btn ghost small rad-report-format-' + command, title: name, 'aria-label': name,
+      onclick: () => { editor.focus(); document.execCommand(command); } }, label);
+    // Keep the selection in the editor when the control is pressed.
+    control.addEventListener('mousedown', event => event.preventDefault());
+    return control;
+  };
+  const toolbar = el('div', { class: 'rad-report-format', role: 'toolbar', 'aria-label': 'Text formatting' },
+    format('bold', 'B', 'Bold'), format('italic', 'I', 'Italic'), format('underline', 'U', 'Underline'));
+  // Pasted and dropped content arrives as plain text; a new line is a line break, not a new block.
+  editor.addEventListener('paste', event => {
+    event.preventDefault();
+    document.execCommand('insertText', false, (event.clipboardData || window.clipboardData).getData('text/plain'));
+  });
+  editor.addEventListener('drop', event => event.preventDefault());
+  editor.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' || event.isComposing) return;
+    event.preventDefault();
+    document.execCommand('insertLineBreak');
+  });
   let action = 0;
   const reset = btn({ class: 'btn ghost small', disabled: '', onclick: () => {
     action++;
-    editor.value = original;
-    editor.setSelectionRange(0, 0);
+    fill();
     editor.scrollTop = 0;
     editor.scrollLeft = 0;
     reset.disabled = true;
@@ -2254,21 +2284,27 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
   } }, 'Reset edits');
   editor.addEventListener('input', () => {
     action++;
-    reset.disabled = editor.value === original;
+    reset.disabled = editor.innerHTML === initial;
     status.textContent = reset.disabled
       ? 'Original template. Changes last until you leave or reload this page.'
       : 'Edited on this page. Copy or download to keep this text.';
   });
   const copy = btn({ class: 'btn small', onclick: async () => {
     const attempt = ++action;
-    const text = editor.value;
+    // A line break typed in the editor is a newline character; rich text needs it as a break.
+    const text = draftText(), html = wrap(editor.innerHTML.replace(/\n/g, '<br>'));
     copy.disabled = true;
     status.textContent = 'Copying template text…';
     let copied = false;
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        if (window.PrimerStructuredReporting) await window.PrimerStructuredReporting.copyReport(text, template.studyTitle || template.title);
-        else await navigator.clipboard.writeText(text);
+      if (navigator.clipboard && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/plain': new Blob([text], { type: 'text/plain' }),
+          'text/html': new Blob([html], { type: 'text/html' }),
+        })]);
+        copied = true;
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
         copied = true;
       }
     } catch (e) { /* Insecure contexts and denied clipboard access use selection. */ }
@@ -2280,18 +2316,23 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     }
     if (!copied) {
       const priorFocus = document.activeElement;
-      const selection = [editor.selectionStart, editor.selectionEnd, editor.selectionDirection];
+      const selection = window.getSelection();
+      const prior = selection.rangeCount ? selection.getRangeAt(0) : null;
+      const all = document.createRange();
+      all.selectNodeContents(editor);
       editor.focus();
-      editor.select();
+      selection.removeAllRanges();
+      selection.addRange(all);
       try { copied = !!document.execCommand && document.execCommand('copy'); } catch (e) { /* Manual copy remains available. */ }
       if (copied) {
-        editor.setSelectionRange(...selection);
+        selection.removeAllRanges();
+        if (prior) selection.addRange(prior);
         if (priorFocus && priorFocus.focus) priorFocus.focus();
       }
     }
     copy.disabled = false;
     status.textContent = copied
-      ? 'Current template text copied.'
+      ? 'Current template copied with its formatting.'
       : 'Text selected. Use your device’s Copy command, or download the text file.';
   } }, 'Copy text');
   const download = btn({ class: 'btn small', onclick: () => {
@@ -2301,11 +2342,11 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
     let url;
     let link;
     try {
-      url = URL.createObjectURL(new Blob([editor.value], { type: 'text/plain;charset=utf-8' }));
+      url = URL.createObjectURL(new Blob([draftText()], { type: 'text/plain;charset=utf-8' }));
       link = el('a', { href: url, download: base + '.txt', hidden: '' });
       document.body.append(link);
       link.click();
-      status.textContent = 'Download requested: ' + base + '.txt. The file contains the current editor text.';
+      status.textContent = 'Download requested: ' + base + '.txt. The file contains the current editor text without formatting.';
     } catch (e) {
       status.textContent = 'The download could not start. Use Copy text to keep your draft.';
     } finally {
@@ -2313,8 +2354,8 @@ function renderRadiologyTemplate(template, index, nodeId, open) {
       if (url) setTimeout(() => URL.revokeObjectURL(url), 30000);
     }
   } }, 'Download .txt');
-  content.append(hint, el('label', { for: uid, class: 'rad-report-label' }, 'Report text — ' + (template.title || 'template')),
-    editor, el('div', { class: 'rad-report-actions' }, copy, download, reset), status);
+  content.append(hint, el('p', { id: uid + '-label', class: 'rad-report-label' }, 'Report text — ' + (template.title || 'template')),
+    toolbar, editor, el('div', { class: 'rad-report-actions' }, copy, download, reset), status);
   if ((template.notes || []).length) content.append(el('div', { class: 'rad-template-notes' },
     el('h4', {}, 'Template notes'), el('ul', {}, ...template.notes.map(note => el('li', {}, note)))));
   if ((template.sources || []).length) content.append(el('div', { class: 'rad-template-sources' },
