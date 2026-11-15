@@ -9,6 +9,7 @@ import gzip
 import importlib.util
 import itertools
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -149,7 +150,7 @@ def test_normal_requires_explicit_selection_and_no_unselected_structure_is_inven
         if section['normal']:
             result = ENGINE.render_descriptors(form, {'investigation_id': investigation['id'], 'selections': {section['id']: {'normal': True}}})
             assert result['valid'], (section['id'], result['issues'])
-            assert result['sections'][0]['text'].endswith(section['normal']['text'])
+            assert re.fullmatch(r'(?:• )?(?:[^\n]+, )?[^\n]+: (?:normal|none)\.', result['sections'][0]['text'])
             assert len(result['sections']) == 1
             assert section['normal']['slots'] == []
         else:

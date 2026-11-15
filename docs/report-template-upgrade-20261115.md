@@ -57,4 +57,21 @@ Copy text puts both rich text and plain text on the clipboard. The plain text ha
 
 The on-screen preview still shows main headings in bold. Only the copied text follows the note exactly.
 
+## Checklist normals
+
+In the click checklist, a structure marked Normal now reads as its label, not as a sentence.
+
+| Case | Before | After |
+|---|---|---|
+| A structure | `The supraspinatus tendon is intact without tendinosis.` | `Supraspinatus tendon: normal.` |
+| A heading that names a finding | `No fracture.` | `Fracture: none.` |
+| A label used twice in one study | `The medial meniscus anterior horn has no tear.` | `Medial meniscus, anterior horn: normal.` |
+| A label shared by a tendon and its muscle | `The supraspinatus muscle has normal bulk.` | `Supraspinatus muscle: normal.` |
+
+This applies to all 5,676 normal statements in the 333 checklists. Of the distinct headings, 122 name a finding and read "none".
+
+The pertinent negatives in the old sentences (for example "without tendinosis") no longer appear in the report. The grouped knee summaries ("No tear of the medial meniscal anterior horn, body or posterior horn.") are replaced by one line per structure.
+
+The browser and the server apply the same rule (`normalLine` in `web/radiology-structured.js`, `normal_line` in `primer/descriptor_reporting.py`). Both files are pinned; the exact inverse is in `tools/report_layout_compatibility.py`.
+
 These are educational drafting templates. Check each report against the images before use.

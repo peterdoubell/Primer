@@ -277,6 +277,9 @@ def test_formatted_copy_is_arial_12_with_underlined_headings_and_an_exact_invers
     assert 'font-family:Arial,sans-serif;font-size:12pt' in source
     assert "case 'main': return '<u>' + content + '</u>';" in source and "case 'subheading': return '<em>'" in source
     assert '(Clinical history|Comparison|Protocol|Technique|Findings|Impression|Recommendation)' in source
+    from tools.report_layout_compatibility import NORMAL_LINE, before_normal_line_bytes
+    assert hashlib.sha256(raw).hexdigest() == NORMAL_LINE[PATH][1]
+    raw = before_normal_line_bytes(PATH, raw)
     assert hashlib.sha256(raw).hexdigest() == AFTER
     restored = before_report_layout_bytes(PATH, raw)
     assert hashlib.sha256(restored).hexdigest() == BEFORE
@@ -284,3 +287,24 @@ def test_formatted_copy_is_arial_12_with_underlined_headings_and_an_exact_invers
     assert before_report_layout_bytes(PATH, raw + b'\n') == raw + b'\n'
     assert before_report_layout_bytes('web/app.js', raw) == raw
     assert hashlib.sha256(before_rich_report_bytes(PATH, raw)).hexdigest() not in (AFTER, BEFORE)
+
+
+def test_a_checklist_normal_reads_as_label_colon_normal_with_an_exact_inverse():
+    from primer.descriptor_reporting import normal_line
+    from tools.report_layout_compatibility import NORMAL_LINE, before_normal_line_bytes
+    assert normal_line('Supraspinatus tendon', 'The supraspinatus tendon is intact.') == 'Supraspinatus tendon: normal.'
+    assert normal_line('Right pleura', 'No right pleural effusion, pneumothorax or pleural nodularity.') == 'Right pleura: normal.'
+    # A heading that names a finding cannot be "normal".
+    assert normal_line('Fracture', 'No fracture.') == 'Fracture: none.'
+    assert normal_line('Hernia at the site of concern', 'No hernia at the site of concern is seen.') == 'Hernia at the site of concern: none.'
+    assert normal_line('Haematoma', 'No collection.') == 'Haematoma: none.'
+    assert normal_line('Gallbladder', 'No gallbladder calculi.') == 'Gallbladder: normal.'
+    assert normal_line('Thyroid nodule', 'No thyroid nodules are identified.') == 'Thyroid nodule: none.'
+    assert normal_line('Anterior Horn', 'No tear.', 'Medial meniscus') == 'Medial meniscus, anterior horn: normal.'
+    assert normal_line('Supraspinatus', 'Intact.', 'Rotator cuff · tendons') == 'Supraspinatus tendon: normal.'
+    assert normal_line('Supraspinatus', 'Normal bulk.', 'Rotator cuff · muscles') == 'Supraspinatus muscle: normal.'
+    for path, (before, after, _) in NORMAL_LINE.items():
+        raw = (ROOT / path).read_bytes()
+        assert hashlib.sha256(raw).hexdigest() == after
+        assert hashlib.sha256(before_normal_line_bytes(path, raw)).hexdigest() == before
+        assert before_normal_line_bytes(path, raw + b'\n') == raw + b'\n'

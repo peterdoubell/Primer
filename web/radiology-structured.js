@@ -70,6 +70,16 @@ window.PrimerStructuredReporting = (() => {
     const text = (descriptor.segments || [{text: descriptor.text || ''}]).map(segment => own(segment, 'slot') ? (resolved[segment.slot] ?? '') : segment.text || '').join('');
     return {text: text.trim(), missing};
   }
+  const absentLabel = /(?:fracture|complications?|fistula|effusion|mass|lesion|collection|haematoma|haemorrhage|thrombosis|stenosis|foreign bod(?:y|ies)|hernia|aneurysm|tumour|spread|invasion|ossification|osteolysis|coalition|gas|air|blood|loose bodies|injury|mass effect|herniation)$|\b(?:fistula|fracture|foreign bod(?:y|ies))\b/i;
+  const absentTail = '(?:[.,]| (?:is|are|in|on|at|of|or|and|to|within|either|seen|identified)\\b|$)';
+  function normalLine(label, text, group = '') {
+    const lowered = text.toLowerCase();
+    const absent = lowered.startsWith('no ') && (new RegExp('^' + label.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:e?s)?' + absentTail).test(lowered.slice(3)) || absentLabel.test(label));
+    const kind = / · ([a-z]+)s$/.exec(group);
+    if (kind) label += ' ' + kind[1];
+    else if (group) label = group + ', ' + label.replace(/\b[A-Z][a-z]+\b/g, word => word.toLowerCase());
+    return label + (absent ? ': none.' : ': normal.');
+  }
   function findingActive(finding, chosen, section, chain = new Set()) {
     if (chain.has(finding.id)) return false;
     return !(finding.requires_any || []).length || finding.requires_any.some(id => {
@@ -245,6 +255,7 @@ window.PrimerStructuredReporting = (() => {
       }
     }
     let selectedCount = 0;
+    const normalLabels = (investigation.sections || []).filter(section => section.normal).map(section => section.label);
     for (const section of investigation.sections || []) {
       const selected = state.selections?.[section.id] ?? {}, lines = [];
       if ((own(state.selections, section.id) && !dictionary(state.selections[section.id])) || (own(selected, 'findings') && !dictionary(selected.findings))) { missing.push({section_id: section.id, label: 'Invalid selections for ' + section.label}); continue; }
@@ -255,7 +266,7 @@ window.PrimerStructuredReporting = (() => {
       if (selected.normal && blocked.has(section.id)) { missing.push({section_id:section.id,label:"Normal conflicts with a related finding: " + section.label}); continue; }
       if (selected.normal && section.normal) {
         const result = descriptorText(section.normal, {}, context);
-        lines.push(normalSummaries.get(section.id) ?? result.text); missing.push(...result.missing); selectedCount++;
+        lines.push(normalLine(section.label, result.text, normalLabels.filter(label => label === section.label).length > 1 ? section.group || '' : '')); missing.push(...result.missing); selectedCount++;
       } else if (selected.not_assessed) {
         lines.push(section.label + ': not assessed.'); selectedCount++;
       } else {

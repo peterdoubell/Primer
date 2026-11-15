@@ -7,6 +7,25 @@ import math
 import re
 
 MAX_REPEAT_INSTANCES = 50
+ABSENT_LABEL = re.compile(r'(?:fracture|complications?|fistula|effusion|mass|lesion|collection|haematoma|haemorrhage|thrombosis|stenosis|foreign bod(?:y|ies)|hernia|aneurysm|tumour|spread|invasion|ossification|osteolysis|coalition|gas|air|blood|loose bodies|injury|mass effect|herniation)$|\b(?:fistula|fracture|foreign bod(?:y|ies))\b', re.I)
+ABSENT_TAIL = r'(?:[.,]| (?:is|are|in|on|at|of|or|and|to|within|either|seen|identified)\b|$)'
+
+
+def normal_line(label, text, group=''):
+    """'Supraspinatus tendon: normal.' A heading that names a finding reads 'Fracture: none.'
+
+    A label used twice in one study carries its group: 'Medial meniscus, anterior horn: normal.'
+    A group that names the kind of structure gives 'Supraspinatus tendon' and 'Supraspinatus muscle'.
+    """
+    lowered = text.lower()
+    absent = lowered.startswith('no ') and (
+        re.match(re.escape(label.lower()) + '(?:e?s)?' + ABSENT_TAIL, lowered[3:]) or ABSENT_LABEL.search(label))
+    kind = re.search(r' · ([a-z]+)s$', group)
+    if kind:
+        label += ' ' + kind.group(1)
+    elif group:
+        label = group + ', ' + re.sub(r'\b[A-Z][a-z]+\b', lambda word: word.group().lower(), label)
+    return label + (': none.' if absent else ': normal.')
 
 
 def section_scope_active(section, selections):
@@ -224,6 +243,7 @@ def render_descriptors(form, state):
 
     grouped = {}
     selected_count = 0
+    normal_labels = [section['label'] for section in investigation['sections'] if section.get('normal')]
     for section in investigation['sections']:
         key = section['id']
         selection = selections.get(key, {})
@@ -251,7 +271,8 @@ def render_descriptors(form, state):
             else:
                 line = statement(section['normal'], {}, key)
                 if line:
-                    line = normal_summaries.get(key, line)
+                    line = normal_line(section['label'], line, section.get('group', '')
+                                       if normal_labels.count(section['label']) > 1 else '')
                     if line: lines.append(line)
         elif unassessed:
             lines.append(section['label'] + ': not assessed.')
