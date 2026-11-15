@@ -1,0 +1,72 @@
+{
+  "clinical_commercial_ready": false,
+  "investigations": 22,
+  "representation_requirements": 5202,
+  "counts": {
+    "verified": 0,
+    "unverified": 143,
+    "missing": 5059
+  },
+  "reviewed_on": "2026-09-27",
+  "runtime_image_rights": {
+    "images": 213,
+    "cleared": 72,
+    "unverified": 141
+  },
+  "runtime_and_requirement_files_unchanged": [
+    "data/radiology/msk-open-images.json",
+    "data/radiology/msk-asset-evidence.json",
+    "data/radiology/msk-structure-requirements.json",
+    "primer/radiology_catalog.py",
+    "web/app.js",
+    "web/styles.css",
+    "web/anatomy/openknee-oks003/manifest.json"
+  ],
+  "source_work": {
+    "leeds_native_input_sha256": "55b3050e3b6e0ce594d418f865e4bedfeef5bb360f12769de002fadc4d68eb03",
+    "quadratic_nodes": 291045,
+    "quadratic_tetrahedra": 180570,
+    "solid_tissue_groups": 7,
+    "mechanical_springs_not_anatomy": 60,
+    "native_mr_frames": 144,
+    "scanner": "MAGNETOM Vida",
+    "receive_coil": "TxRx_Knee_18",
+    "frame_laterality": "L",
+    "mr_to_fe_registration_established": false,
+    "raw_dicom_release_deidentification_complete": false,
+    "runtime_promotions": 0
+  },
+  "tests": {
+    "scientific_geometry": 12,
+    "scientific_imaging": 3,
+    "existing_fidelity_and_rights_checks": 26,
+    "production_optional_scientific_modules_skipped": 2,
+    "independent_direct_geometry_report_reproduced_byte_exact": true,
+    "preserved_evidence_files_verified": 11
+  },
+  "decisions": [
+    "Leeds remains an offline research source; no new component binding or clinical approval.",
+    "OpenKnee selected tibial-cartilage _02 ancestry remains unresolved after author-note review.",
+    "No wrist image promoted from the bounded rights/coverage pass; formal correction and unsupported capture claims are distinguished."
+  ],
+  "evidence": [
+    "docs/msk-leeds-knee-source-progress.md",
+    "docs/msk-leeds-knee-source-review/README.md",
+    "docs/msk-wrist-fine-source-review.md",
+    "docs/msk-openknee-tibial-history-review.md"
+  ],
+  "source_sha256": {
+    "data/radiology/msk-open-images.json": "5e14e02a5d8588479d75b96c49859846f93e06f6f83d5a8ff96453eac7f65bef",
+    "data/radiology/msk-asset-evidence.json": "cf51155850d51cc29ed4be6f63387f1619f09345264abaad8fe58761cab6d0a7",
+    "data/radiology/msk-structure-requirements.json": "9184f69a21a19c6acdc2d1079ab76e6ea8a38a1a0202b9de378af6ca9359767e",
+    "primer/radiology_catalog.py": "f1a7209fa083883a2700859fbbceb576e2929615383216d57afbb7e37c992f84",
+    "web/app.js": "e8d02e444836913a05db26ed26796dad205868289252e53f2a1ba825092e93d9",
+    "web/styles.css": "c594f613a8b4ba7924435e9572addaa03b4cc392d7290bfcbe51a0f1da37d507",
+    "web/anatomy/openknee-oks003/manifest.json": "c2617979ffafc90349f57174a083bd42410c2ab9f601e49200353a328afafcd4",
+    "tools/anatomy_sources/audit_leeds_knee_geometry.py": "90a941e198c559a899c7b28df27f54124e0655997b25ae95d7b0be6a38e55f8a",
+    "tools/anatomy_sources/check_leeds_knee_geometry_independent.py": "2bb2c011b890f180b9fdaed34dcaaa8b0f0a33d98b533d1aaa9cdcd25f673705",
+    "tools/anatomy_sources/audit_leeds_knee_imaging.py": "1c078548b52e75b475a388e8ae8354c778f2dbeb80e11573ca8a92bfabbe7452",
+    "tools/anatomy_sources/render_leeds_knee_review.py": "cfed0889666954554e139b8af0edbf37c290067e0fa23caf9258412d64ab1d51",
+    "docs/msk-leeds-knee-source-review/preserved-evidence.json": "9250e90b5f2b2a0076ad72b119df4ce3f33fcb28051be97f700a91b8b4e39951"
+  }
+}

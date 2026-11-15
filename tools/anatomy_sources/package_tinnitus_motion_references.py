@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""Preserve both original clinical AVI clips and exact decoded browser frames."""
+import hashlib,json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
+from primer.source_motion_contract import parse_motion_contract
+ROOT=Path(__file__).resolve().parents[2]
+SOURCE=Path('/Users/peter/Documents/ChatGPT/Primer/.research/tinnitus-clinical-source-review/PMC5263210')
+PROOF=ROOT/'docs/tinnitus-motion-source-review';INV='ra.tinnitus';URL='https://pmc.ncbi.nlm.nih.gov/articles/PMC5263210/';GRANT='https://creativecommons.org/licenses/by/4.0/'
+def sha(raw):return hashlib.sha256(raw).hexdigest()
+def hashes(path):return [r.split(',')[-1].strip() for r in path.read_text().splitlines() if not r.startswith('#')]
+def package():
+    article_path=ROOT/'docs/tinnitus-clinical-source-review/original-source-review.json';article=json.loads(article_path.read_text());PROOF.mkdir(exist_ok=True);out=ROOT/'web/reference-media/radiology-motion';out.mkdir(exist_ok=True);rows=[];assets=[];reports=[]
+    if article['original_article_grant']!='CC BY 4.0' or article['figure_or_supplement_specific_rights_exceptions_found']:raise ValueError('Original source grant differs')
+    for n,source in enumerate(article['supplementary_source_videos'],1):
+        original=(SOURCE/source['source_filename']).read_bytes();browser=(SOURCE/f'video{n}-browser-lossless.webm').read_bytes()
+        if sha(original)!=source['original_sha256']:raise ValueError('Original source clip changed')
+        a=hashes(SOURCE/f'video{n}-original-RGB-sha.txt');b=hashes(SOURCE/f'video{n}-browser-RGB-sha.txt')
+        if len(a)!=12 or a!=b:raise ValueError('Browser transport changes source RGB frames')
+        native=(SOURCE/source['decoded_native_rgb555le_cache_filename']).read_bytes();frame_bytes=1024*1024*2
+        if sha(native)!=source['decoded_native_rgb555le_complete_sequence_sha256'] or [sha(native[i:i+frame_bytes]) for i in range(0,len(native),frame_bytes)]!=source['decoded_native_rgb555le_frame_sha256']:raise ValueError('Native RGB555 precision evidence differs')
+        c=parse_motion_contract(original);t=parse_motion_contract(browser)
+        if any(c[k]!=t[k] for k in ['width','height','frames']) or c['frames']!=12:raise ValueError('Original/transport frame contract differs')
+        error=max(abs(x-y) for x,y in zip(c['pts_seconds'],t['pts_seconds']))
+        if error>.001:raise ValueError('Transport timing changed')
+        ident=f'tinnitus-pmc5263210-source{n}';original_name=ident+'-original.avi';browser_name=ident+'-lossless.webm';(out/original_name).write_bytes(original);(out/browser_name).write_bytes(browser)
+        kind='Processed 4D-CTA MIP' if n==1 else 'DSA projection'
+        caption=kind+' display from the published right sigmoid-sinus dAVF example associated with source Figure2. Age, sex and acquisition clock are not supplied. This is a separate published case, not the current patient.'
+        limits='Twelve encoded display frames at3fps; original acquisition interval, bolus clock, pulse/ECG synchronization, calibration and native intermodal registration are unverified. '+('Segmented inverted CT angiographic MIP, not a native CT volume, raw tissue intensities or registered 3D mesh. ' if n==1 else 'Selective external-carotid injection is reported by the source Figure2 legend; no new calibrated flow, pressure, complete reflux grade or current symptom-cause proof is supplied. ')+'Original RGB555 video and decoded samples are retained; the lossless browser transport preserves every decoded RGB frame without contrast harmonisation, resizing or temporal interpolation.'
+        attribution=', '.join(article['authors'])+'. Pulsatile Tinnitus: Differential Diagnosis and Radiological Work-Up. DOI '+article['doi']+'. Supplement '+source['source_supplement_id']+'. CC BY4.0. Adaptation: decoded RGB24 lossless VP9 browser transport; original AVI and source RGB555 precision preserved in provenance. No endorsement implied.'
+        reports.append({'id':ident,'source_caption':source['source_caption'],'source_modality':source['modality'],'source_display_type':source['source_display_type'],'original_sha256':sha(original),'original_bytes':len(original),'browser_sha256':sha(browser),'browser_bytes':len(browser),'source_contract':c,'transport_contract':t,'max_container_timestamp_rounding_seconds':error,'native_rgb555le_complete_sha256':sha(native),'native_rgb555le_frame_sha256':source['decoded_native_rgb555le_frame_sha256'],'original_and_browser_decoded_RGB_sha256':a,'all_12_decoded_RGB_frames_identical':True,'source_encoded_3fps_is_verified_acquisition_rate':False,'full_native_CT_volume_or_intermodal_registration_verified':False,'current_patient_or_clinical_function_approved':False})
+        rows.append({'id':ident,'title':kind+' source motion · separate case','modality':source['modality'],'src':'/app/reference-media/radiology-motion/'+browser_name,'sha256':sha(browser),'original_src':'/app/reference-media/radiology-motion/'+original_name,'original_sha256':sha(original),'width':1024,'height':1024,'frames':12,'source_pts_seconds':c['pts_seconds'],'transport_pts_seconds':t['pts_seconds'],'max_transport_timestamp_error_seconds':.001,'decoded_RGB_frames_unchanged':True,'source_url':URL,'license_url':GRANT,'caption':caption,'limits':limits,'attribution':attribution,'reference_only':True,'clinical_approval':False,'anatomical_approval':False,'structure_ids':[],'requirement_coverage':{},'motion_context':{'source_pmcid':'PMC5263210','source_figure_case':'Fig2 right sigmoid sinus dAVF','current_patient_registered':False,'independent_3fps_acquisition_verified':False,'calibrated_flow_pressure_or_reflux_grade_verified':False,'full_native_volume_or_intermodal_registration_verified':False}})
+        for label,name,payload in [('original',original_name,original),('transport',browser_name,browser)]:
+            assets.append({'id':ident+'-'+label,'kind':'source_motion_reference','reference_only':True,'name':kind+' source '+label,'local_path':'web/reference-media/radiology-motion/'+name,'sha256':sha(payload),'investigation_ids':[INV],'structure_ids':[],'requirement_coverage':{},'source':{'url':URL,'license':{'name':'CC BY 4.0','url':GRANT,'commercial_use':True,'redistribution':True,'review_status':'verified','evidence_path':str(article_path.relative_to(ROOT)),'evidence_sha256':sha(article_path.read_bytes()),'attribution':attribution,'reviewed_at':'2026-10-08'}},'anatomical_review':{'status':'pending','reason':'Source display clips do not establish every native structure, timing/calibration or present clinical function.'}})
+    (PROOF/'original-and-browser-transport-review.json').write_text(json.dumps({'source_article_review_sha256':sha(article_path.read_bytes()),'movies':reports,'all_original_AVI_and_native_RGB555_evidence_preserved':True,'additional_crop_resampling_contrast_or_frame_interpolation':False,'clinical_anatomical_coverage_approved':False},indent=2)+'\n')
+    p=ROOT/'data/radiology/source-motion-references.json';r=json.loads(p.read_text());r[INV]=[x for x in r.get(INV,[]) if not x['id'].startswith('tinnitus-pmc5263210-source')]+rows;p.write_text(json.dumps(r,indent=2)+'\n')
+    p=ROOT/'data/radiology/radiology-asset-evidence.json';r=json.loads(p.read_text());r['reference_rights_assets']=[x for x in r.get('reference_rights_assets',[]) if not x['id'].startswith('tinnitus-pmc5263210-source')]+assets;p.write_text(json.dumps(r,indent=2)+'\n');print('Two original clinical clips registered; all24RGBframes preserved; clinical coverage unapproved')
+if __name__=='__main__':package()

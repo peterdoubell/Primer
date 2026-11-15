@@ -1,0 +1,606 @@
+{
+  "baseCommit": "e2d2003d22f0e8516d9066ab15fc9ac5346c795d",
+  "ids": [
+    "math.3.linear",
+    "math.3.slope",
+    "math.3.quadratics",
+    "math.3.polynomials"
+  ],
+  "originalNodes": [
+    {
+      "id": "math.3.linear",
+      "title": "Linear Equations",
+      "stage": 3,
+      "goal": "Solve and graph linear equations.",
+      "articles": [
+        "Linear equation"
+      ],
+      "practice": "linear-equations",
+      "quiz": [
+        {
+          "kind": "numeric",
+          "prompt": "Solve for x: 3x - 7 = 11.",
+          "answer": "6",
+          "explain": "Add 7 to both sides to get 3x = 18, then divide by 3 to get x = 6."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Solve for x: 2(x + 3) = x + 10.",
+          "answer": "4",
+          "explain": "Expand to 2x + 6 = x + 10, subtract x and 6 to get x = 4.",
+          "choices": [
+            "8",
+            "16",
+            "2",
+            "4"
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A taxi charges a $3 flat fee plus $2 per mile. If a ride costs $17, how many miles was it?",
+          "answer": "7",
+          "explain": "Solve 3 + 2m = 17, giving 2m = 14 and m = 7 miles."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Solve for x: x/3 + 4 = 10.",
+          "answer": "18",
+          "choices": [
+            "2",
+            "6",
+            "42",
+            "18"
+          ],
+          "explain": "Subtracting 4 gives x/3 = 6, and multiplying both sides by 3 gives x = 18."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A phone plan charges a fixed monthly fee plus $0.10 for each minute of calls. A month with 200 minutes costs $35. What is the fixed fee?",
+          "answer": "$15",
+          "choices": [
+            "$15",
+            "$20",
+            "$33",
+            "$34.90"
+          ],
+          "explain": "The call charge is 200 x 0.10 = $20, so the fixed fee is 35 - 20 = $15."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Two people solve 5x + 2 = 3x + 14 and get different answers, x = 6 and x = 8. Which is right, and how can you tell without redoing the algebra?",
+          "answer": "x = 6, because both sides then equal 32",
+          "choices": [
+            "x = 6, because both sides then equal 32",
+            "x = 8, because both sides then equal 42",
+            "Both work, since the equation has two roots",
+            "Neither works; the equation has no solution"
+          ],
+          "explain": "Substituting x = 6 gives 32 on each side, so it satisfies the equation, and a linear equation like this has at most one solution. At x = 8 the left side does come to 42, but the right side is only 38 - checking a single side proves nothing, since the test is that the two agree."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "Solve for x: 5(x - 2) = 3x + 6.",
+          "answer": "8",
+          "explain": "Expanding gives 5x - 10 = 3x + 6, so 2x = 16 and x = 8. Distributing across the bracket before collecting terms keeps the two sides balanced."
+        },
+        {
+          "kind": "choice",
+          "prompt": "You simplify an equation and reach the statement 4x + 9 = 4x + 2. What does that tell you?",
+          "answer": "The equation has no solutions",
+          "choices": [
+            "The equation has no solutions",
+            "The equation has infinitely many solutions",
+            "The solution is x = 0",
+            "The solution is x = 7"
+          ],
+          "explain": "Subtracting 4x from both sides leaves 9 = 2, which is false for any x, so nothing satisfies the equation. A true statement like 0 = 0 would instead mean infinitely many solutions."
+        },
+        {
+          "kind": "choice",
+          "prompt": "The formula C = 5(F - 32)/9 converts a Fahrenheit temperature to Celsius. Which rearrangement gives F in terms of C?",
+          "answer": "F = 9C/5 + 32",
+          "choices": [
+            "F = 5C/9 + 32",
+            "F = 9C/5 + 32",
+            "F = 9(C - 32)/5",
+            "F = (C + 32) x 9/5"
+          ],
+          "explain": "Multiply both sides by 9, divide by 5, then add 32: F = 9C/5 + 32. Rearranging a formula uses the same inverse steps as solving a numerical equation."
+        },
+        {
+          "kind": "short",
+          "prompt": "A student solves 3x + 5 = 20 by dividing everything by 3 first and writes x = 25/3. Explain the mistake and give the correct value of x.",
+          "answer": "Dividing by 3 must be applied to the whole of each side, and the student left the 5 untouched. Undo the addition first: 3x = 15, so x = 5.",
+          "keywords": [
+            "undo addition",
+            "whole",
+            "x = 5",
+            "each side"
+          ],
+          "explain": "Inverse operations are undone in reverse order: strip away the added constant, then the multiplier. Checking 3(5) + 5 = 20 confirms the answer."
+        }
+      ],
+      "prereqs": [
+        "math.2.fractions",
+        "math.2.prealgebra",
+        "math.2.negatives"
+      ],
+      "lesson_media": [
+        {
+          "id": "linear-balance-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/tree/math/math-3-linear-800.webp",
+          "srcset": "/app/illustrations/tree/math/math-3-linear-800.webp 800w, /app/illustrations/tree/math/math-3-linear-1600.webp 1600w",
+          "alt": "A balanced equation is simplified by removing equal quantities from both sides until x equals four.",
+          "caption": "Equivalent operations preserve the solution because both sides remain equal.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.3.linear.model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Keep both sides equal",
+          "instructions": "Apply the same operation on both sides to isolate x.",
+          "props": {
+            "scenario": "math.3.linear"
+          }
+        }
+      ]
+    },
+    {
+      "id": "math.3.slope",
+      "title": "Slope and Lines",
+      "stage": 3,
+      "goal": "Connect equations of lines to their graphs.",
+      "articles": [
+        "Slope",
+        "Line (geometry)"
+      ],
+      "practice": "slope",
+      "prereqs": [
+        "math.3.linear",
+        "math.2.coordinates",
+        "math.2.ratio"
+      ],
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "What is the slope of the line through the points (1, 2) and (4, 11)?",
+          "answer": "3",
+          "explain": "Slope = (11 - 2) / (4 - 1) = 9 / 3 = 3.",
+          "choices": [
+            "1/3",
+            "3",
+            "9",
+            "-3"
+          ]
+        },
+        {
+          "kind": "choice",
+          "prompt": "Consider the line y = -2x + 5. Which statement is true?",
+          "answer": "It falls 2 units for every 1 unit moved right",
+          "explain": "The slope -2 means the line goes down 2 for each step of 1 to the right; 5 is the y-intercept, not the slope.",
+          "choices": [
+            "Its slope is 5, because 5 is the constant term",
+            "It rises 2 units for every 1 unit moved right",
+            "It falls 2 units for every 1 unit moved right",
+            "It passes through the origin, where x and y are 0"
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A line has slope 4 and passes through the point (2, 3). What is the y-value when x = 5?",
+          "answer": "15",
+          "explain": "Using y - 3 = 4(x - 2): at x = 5, y = 3 + 4(3) = 15."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A line passes through (2, 7) and (6, 7). What is its slope?",
+          "answer": "0",
+          "explain": "The rise is 7 - 7 = 0 over a run of 4, so the slope is 0 and the line is horizontal."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which line is perpendicular to y = 3x - 4?",
+          "answer": "y = -x/3 + 1",
+          "choices": [
+            "y = 3x + 1",
+            "y = -3x + 1",
+            "y = x/3 + 1",
+            "y = -x/3 + 1"
+          ],
+          "explain": "Perpendicular slopes multiply to -1, so a slope of 3 pairs with a slope of -1/3."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A line has equation 2x + 3y = 12. What is its slope?",
+          "answer": "-2/3",
+          "choices": [
+            "2",
+            "2/3",
+            "-2/3",
+            "-3/2"
+          ],
+          "explain": "Rearranged, 3y = -2x + 12, so y = (-2/3)x + 4 and the slope is -2/3."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A line passes through (-2, 1) and (2, 9). What is its y-intercept?",
+          "answer": "5",
+          "explain": "The slope is (9 - 1)/(2 - (-2)) = 2, so y = 2x + b; putting in (2, 9) gives b = 5. The y-intercept is the value of y when x is zero."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Which equation describes the line with slope 3 that crosses the vertical axis at (0, -4)?",
+          "answer": "y = 3x - 4",
+          "choices": [
+            "y = 3x + 4",
+            "y = 3x - 4",
+            "y = -4x + 3",
+            "y = x/3 - 4"
+          ],
+          "explain": "In slope-intercept form y = mx + b, m is the slope and b the y-intercept, giving y = 3x - 4. Swapping the roles of m and b is the usual slip."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Line A has equation y = 5x + 1. Which line is parallel to it?",
+          "answer": "y = 5x - 7",
+          "choices": [
+            "y = 5x - 7",
+            "y = -5x + 1",
+            "y = x/5 + 1",
+            "y = 1 - 5x"
+          ],
+          "explain": "Parallel lines share a slope and differ in intercept, so y = 5x - 7 works. A negative reciprocal slope would give a perpendicular line instead."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A tank drains so that after t minutes it holds V = 200 - 8t litres. What does the coefficient of t tell you?",
+          "answer": "The tank loses 8 litres each minute",
+          "choices": [
+            "The tank loses 8 litres each minute",
+            "The tank gains 8 litres each minute",
+            "The tank holds 8 litres when full",
+            "The tank is empty after 8 minutes"
+          ],
+          "explain": "The slope is the rate of change: -8 litres per minute, so the volume drops by 8 each minute. The 200 is the starting amount, the intercept."
+        }
+      ],
+      "lesson_media": [
+        {
+          "id": "slope-rise-run-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/tree/math/math-3-slope-800.webp",
+          "srcset": "/app/illustrations/tree/math/math-3-slope-800.webp 800w, /app/illustrations/tree/math/math-3-slope-1600.webp 1600w",
+          "alt": "A line falls four units over a run of two, giving slope negative two, and crosses the y-axis at five.",
+          "caption": "Slope is vertical change divided by horizontal change; a vertical line has undefined slope.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.3.slope.model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Rise, run and intercept",
+          "instructions": "Change rise, run and intercept to explore a straight line.",
+          "props": {
+            "scenario": "math.3.slope"
+          }
+        }
+      ]
+    },
+    {
+      "id": "math.3.quadratics",
+      "title": "Quadratic Equations",
+      "stage": 3,
+      "goal": "Factor, complete the square, use the formula.",
+      "articles": [
+        "Quadratic equation"
+      ],
+      "practice": "quadratics",
+      "prereqs": [
+        "math.3.linear",
+        "math.2.exponents",
+        "math.2.primes"
+      ],
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Solve x^2 - 5x + 6 = 0.",
+          "answer": "x = 2 or x = 3",
+          "explain": "It factors as (x - 2)(x - 3) = 0, giving roots 2 and 3.",
+          "choices": [
+            "x = 1 or x = 6",
+            "x = 2 or x = 3",
+            "x = -1 or x = 6",
+            "x = -2 or x = -3"
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "What is the sum of the two roots of x^2 - 7x + 10 = 0?",
+          "answer": "7",
+          "explain": "The roots are 2 and 5, and for x^2 + bx + c the sum of roots is -b = 7."
+        },
+        {
+          "kind": "choice",
+          "prompt": "How many real solutions does x^2 + 2x + 5 = 0 have?",
+          "answer": "No real solutions",
+          "explain": "The discriminant is 2^2 - 4(1)(5) = -16, which is negative, so there are no real roots.",
+          "choices": [
+            "One real solution",
+            "Two real solutions",
+            "No real solutions",
+            "Two positive solutions"
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "The parabola y = x^2 - 6x + 5 has a lowest point. What is its x-coordinate?",
+          "answer": "3",
+          "explain": "The vertex sits at x = -b/(2a) = 6/2 = 3, midway between the roots 1 and 5."
+        },
+        {
+          "kind": "choice",
+          "prompt": "For which values of k does x^2 + kx + 9 = 0 have exactly one repeated root?",
+          "answer": "k = 6 or k = -6",
+          "choices": [
+            "k = 3",
+            "k = 9",
+            "k = 0",
+            "k = 6 or k = -6"
+          ],
+          "explain": "A repeated root needs the discriminant k^2 - 36 to vanish, so k = 6 or k = -6, giving (x + 3)^2 or (x - 3)^2."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A ball thrown upward has height h(t) = -5t^2 + 30t metres after t seconds. When does it return to the ground?",
+          "answer": "At t = 6 s",
+          "choices": [
+            "At t = 6 s",
+            "At t = 3 s",
+            "At t = 5 s",
+            "At t = 30 s"
+          ],
+          "explain": "Setting -5t(t - 6) = 0 gives t = 0 at launch and t = 6 on landing; t = 3 is when the ball is at its highest."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "The parabola y = x^2 - 8x + 20 has a lowest point. What is its y-coordinate?",
+          "answer": "4",
+          "explain": "The vertex sits at x = 8/2 = 4, and y = 16 - 32 + 20 = 4. Completing the square gives y = (x - 4)^2 + 4, showing the minimum directly."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Solve x^2 + 3x - 10 = 0.",
+          "answer": "x = -5 or x = 2",
+          "choices": [
+            "x = -5 or x = 2",
+            "x = 5 or x = -2",
+            "x = -5 or x = -2",
+            "x = 5 or x = 2"
+          ],
+          "explain": "The factors of -10 that add to 3 are 5 and -2, so (x + 5)(x - 2) = 0. Watch the signs: a factor (x + 5) gives the root -5."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Rewrite x^2 + 6x + 1 in completed-square form.",
+          "answer": "(x + 3)^2 - 8",
+          "choices": [
+            "(x + 3)^2 - 8",
+            "(x + 3)^2 + 1",
+            "(x + 3)^2 + 10",
+            "(x + 6)^2 - 35"
+          ],
+          "explain": "Half of 6 is 3, and (x + 3)^2 = x^2 + 6x + 9, which overshoots the constant by 8, so subtract 8. The half-the-coefficient rule is the heart of completing the square."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "A rectangle is 3 metres longer than it is wide and has area 40 square metres. What is its width, in metres?",
+          "answer": "5",
+          "explain": "With width w, w(w + 3) = 40, so w^2 + 3w - 40 = 0 and (w + 8)(w - 5) = 0. Only the positive root, 5, makes sense as a length."
+        }
+      ],
+      "lesson_media": [
+        {
+          "id": "quadratic-forms-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/tree/math/math-3-quadratics-800.webp",
+          "srcset": "/app/illustrations/tree/math/math-3-quadratics-800.webp 800w, /app/illustrations/tree/math/math-3-quadratics-1600.webp 1600w",
+          "alt": "A parabola crosses the x-axis at two and three, matching its two linear factors.",
+          "caption": "Factors, roots, intercepts, vertex, and discriminant describe the same quadratic.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.3.quadratics.model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Vertex, turning point and roots",
+          "instructions": "Move the vertex and change the opening direction to explore real roots.",
+          "props": {
+            "scenario": "math.3.quadratics"
+          }
+        }
+      ]
+    },
+    {
+      "id": "math.3.polynomials",
+      "title": "Polynomials",
+      "stage": 3,
+      "goal": "Add, multiply, factor and graph polynomials.",
+      "articles": [
+        "Polynomial"
+      ],
+      "prereqs": [
+        "math.3.quadratics",
+        "math.3.functions",
+        "math.2.exponents"
+      ],
+      "quiz": [
+        {
+          "kind": "choice",
+          "prompt": "Expand (x + 3)(x - 2).",
+          "answer": "x^2 + x - 6",
+          "explain": "Using FOIL: x^2 - 2x + 3x - 6 = x^2 + x - 6.",
+          "choices": [
+            "x^2 - x - 6",
+            "x^2 - 6",
+            "x^2 + x - 6",
+            "x^2 + 5x - 6"
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "What is the degree of the polynomial (x^3 + 1)(x^2 - x)?",
+          "answer": "5",
+          "explain": "The highest-degree term comes from x^3 times x^2, giving degree 3 + 2 = 5."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Factor x^2 - 9 completely.",
+          "answer": "(x - 3)(x + 3)",
+          "explain": "This is a difference of squares: x^2 - 9 = (x - 3)(x + 3).",
+          "choices": [
+            "(x - 3)^2",
+            "(x - 3)(x + 3)",
+            "(x - 9)(x + 1)",
+            "(x + 3)^2"
+          ]
+        },
+        {
+          "kind": "numeric",
+          "prompt": "What is the remainder when x^3 - 2x + 5 is divided by (x - 2)?",
+          "answer": "9",
+          "explain": "The remainder theorem says dividing a polynomial p(x) by (x - a) always leaves a remainder equal to p(a) itself — no long division needed. Here a = 2, so the remainder is p(2) = 8 - 4 + 5 = 9."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A cubic polynomial with leading coefficient 1 has roots 1, 2 and 3. Which polynomial is it?",
+          "answer": "x^3 - 6x^2 + 11x - 6",
+          "choices": [
+            "x^3 + 6x^2 + 11x + 6",
+            "x^3 - 6x^2 - 11x + 6",
+            "x^3 - 6x - 6",
+            "x^3 - 6x^2 + 11x - 6"
+          ],
+          "explain": "Expanding (x - 1)(x - 2)(x - 3) gives x^3 - 6x^2 + 11x - 6; the signs alternate because all three roots are positive."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A polynomial of degree 4 has a positive leading coefficient. What happens to its graph far to the left and far to the right?",
+          "answer": "It rises in both directions",
+          "choices": [
+            "It rises in both directions",
+            "It falls in both directions",
+            "It rises left and falls right",
+            "It falls left and rises right"
+          ],
+          "explain": "For an even degree the two ends go the same way, and a positive leading coefficient sends both upward."
+        },
+        {
+          "kind": "numeric",
+          "prompt": "In the expansion of (x + 4)(x^2 - 3x + 2), what is the coefficient of x^2?",
+          "answer": "1",
+          "explain": "The x^2 terms come from x times -3x and from 4 times x^2: -3 + 4 = 1. Collecting like terms after multiplying every pair is the whole method."
+        },
+        {
+          "kind": "choice",
+          "prompt": "Factor x^2 + 7x + 12.",
+          "answer": "(x + 3)(x + 4)",
+          "choices": [
+            "(x + 2)(x + 6)",
+            "(x - 3)(x - 4)",
+            "(x + 3)(x + 4)",
+            "(x + 1)(x + 12)"
+          ],
+          "explain": "You need two numbers multiplying to 12 and adding to 7, which are 3 and 4. Pairs like 2 and 6 multiply to 12 but add to 8."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A polynomial has (x - 5) as a factor. What does that guarantee about its graph?",
+          "answer": "It meets the x-axis at x = 5",
+          "choices": [
+            "It meets the x-axis at x = 5",
+            "It meets the y-axis at y = 5",
+            "It has a vertical asymptote at x = 5",
+            "It has a hole in the curve at x = 5"
+          ],
+          "explain": "A factor (x - 5) makes the polynomial zero when x = 5, and a zero output is a point on the x-axis. Asymptotes and holes belong to rational functions, not polynomials."
+        },
+        {
+          "kind": "choice",
+          "prompt": "A cubic polynomial has a negative leading coefficient. Describe the two ends of its graph.",
+          "answer": "It rises on the left and falls on the right",
+          "choices": [
+            "It rises on the left and falls on the right",
+            "It falls on the left and rises on the right",
+            "It rises at both ends",
+            "It falls at both ends"
+          ],
+          "explain": "The leading term dominates for large |x|; with odd degree the two ends go opposite ways, and a negative coefficient flips the usual pattern. Matching ends happen for even degrees."
+        }
+      ],
+      "lesson_media": [
+        {
+          "id": "polynomial-roots-plate",
+          "kind": "illustration",
+          "src": "/app/illustrations/tree/math/math-3-polynomials-800.webp",
+          "srcset": "/app/illustrations/tree/math/math-3-polynomials-800.webp 800w, /app/illustrations/tree/math/math-3-polynomials-1600.webp 1600w",
+          "alt": "A factored cubic and its graph share zeros at one, two, and three.",
+          "caption": "Factors locate zeros; degree, leading sign, and multiplicity control graph behavior.",
+          "width": 1600,
+          "height": 1000
+        },
+        {
+          "id": "math.3.polynomials.model",
+          "kind": "model",
+          "renderer": "concept-lab",
+          "title": "Factors, multiplicity and coefficients",
+          "instructions": "Move cubic roots, merge them, and compare factors with expanded coefficients.",
+          "props": {
+            "scenario": "math.3.polynomials"
+          }
+        }
+      ]
+    }
+  ],
+  "originalBindings": [
+    {
+      "node_id": "math.3.linear",
+      "family": "balance",
+      "title": "Equal-arm balance · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Linear Equations: Use a physical equality comparison to discuss which changes preserve or break a balance; signed numbers and algebraic symbols need the lesson’s separate definitions.",
+      "mode": "context"
+    },
+    {
+      "node_id": "math.3.slope",
+      "family": "surface",
+      "title": "Coordinate surface · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Slope and Lines: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.",
+      "mode": "model"
+    },
+    {
+      "node_id": "math.3.quadratics",
+      "family": "surface",
+      "title": "Coordinate surface · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Quadratic Equations: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.",
+      "mode": "model"
+    },
+    {
+      "node_id": "math.3.polynomials",
+      "family": "surface",
+      "title": "Coordinate surface · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "context": "Polynomials: Inspect an explicit coordinate example from several directions and distinguish an input coordinate from a plotted output height.",
+      "mode": "model"
+    }
+  ],
+  "curriculumSHA256": "b3f1c786ca47001e7f06251e397146df3f4d579340ffe0f131bdd16c28b98a61",
+  "bindingsSHA256": "aa4c2f14591b3fcd358a07ac05a4c7a4c472e3aabc8cc50c930aa60556f8d3f8",
+  "wholeGoalComplete": false
+}

@@ -1,0 +1,123 @@
+{
+  "base_main": "75eab367541bd57916d84349600ac2a444df380d",
+  "math_candidate": "1d9f3428a4cc3fe4fc58d7288b7ea9b1bdb9d3ad",
+  "pulmonary_views": {
+    "primer/server.py": {
+      "baseline_sha256": "b90ad60a33233321a0151ab454276018001e8a4496b6bc23861b9321adc3ce45",
+      "current_sha256": "02090c4b545359b8fb28f807896c89ae50bcfb49c6f9ae0b0c559eadd69b7fc6",
+      "changes": [
+        {
+          "before": "                     \"math-probability-lab.js\", \"math-probability-lab.css\", \"speech-chunks.js\", \"physics-buoyancy-lab.js\", \"physics-buoyancy-lab.css\", \"physics-thermal-lab.js\", \"physics-thermal-lab.css\", \"physics-phase-lab.js\", \"physics-phase-lab.css\", \"math-measure-lab.js\", \"math-measure-lab.css\", \"physics-cycle-lab.js\", \"physics-cycle-lab.css\", \"math-operator-lab.js\", \"math-operator-lab.css\", \"physics-ensemble-lab.js\", \"physics-ensemble-lab.css\", \"math-curvature-lab.js\", \"math-curvature-lab.css\", \"physics-constraints-lab.js\", \"physics-constraints-lab.css\", \"spatial-fidelity.js\", \"spatial-quantum-information.js\", \"spatial-algebra.js\", \"spatial-logic.js\", \"spatial-maxwell.js\", \"spatial-cosmology.js\", \"math-logic-lab.js\", \"math-logic-lab.css\", \"physics-maxwell-lab.js\", \"physics-maxwell-lab.css\", \"physics-cosmology-lab.js\", \"physics-cosmology-lab.css\", \"lesson-state.js\", \"math-topology-lab.js\", \"math-topology-lab.css\", \"math-algebra-lab.js\", \"math-algebra-lab.css\", \"physics-qft-lab.js\", \"physics-qft-lab.css\", \"spatial-qft.js\", \"physics-quantum-info-lab.js\", \"physics-quantum-info-lab.css\", \"physics-relativity-lab.js\", \"physics-relativity-lab.css\", \"math-complex-lab.js\", \"math-complex-lab.css\", \"physics-quantum-lab.js\", \"physics-quantum-lab.css\", \"math-convergence-lab.js\", \"math-convergence-lab.css\", \"math-numerical-lab.js\", \"math-numerical-lab.css\"):\n",
+          "after": "                     \"math-probability-lab.js\", \"math-probability-lab.css\", \"speech-chunks.js\", \"physics-buoyancy-lab.js\", \"physics-buoyancy-lab.css\", \"physics-thermal-lab.js\", \"physics-thermal-lab.css\", \"physics-phase-lab.js\", \"physics-phase-lab.css\", \"math-measure-lab.js\", \"math-measure-lab.css\", \"physics-cycle-lab.js\", \"physics-cycle-lab.css\", \"math-operator-lab.js\", \"math-operator-lab.css\", \"physics-ensemble-lab.js\", \"physics-ensemble-lab.css\", \"math-curvature-lab.js\", \"math-curvature-lab.css\", \"physics-constraints-lab.js\", \"physics-constraints-lab.css\", \"spatial-fidelity.js\", \"spatial-quantum-information.js\", \"spatial-algebra.js\", \"spatial-logic.js\", \"spatial-number-theory.js\", \"math-number-theory-lab.js\", \"math-number-theory-lab.css\", \"number-theory-diagrams.js\", \"number-theory-diagrams.css\", \"spatial-number-theory-relations.js\", \"spatial-maxwell.js\", \"spatial-cosmology.js\", \"math-logic-lab.js\", \"math-logic-lab.css\", \"physics-maxwell-lab.js\", \"physics-maxwell-lab.css\", \"physics-cosmology-lab.js\", \"physics-cosmology-lab.css\", \"lesson-state.js\", \"math-topology-lab.js\", \"math-topology-lab.css\", \"math-algebra-lab.js\", \"math-algebra-lab.css\", \"physics-qft-lab.js\", \"physics-qft-lab.css\", \"spatial-qft.js\", \"physics-quantum-info-lab.js\", \"physics-quantum-info-lab.css\", \"physics-relativity-lab.js\", \"physics-relativity-lab.css\", \"math-complex-lab.js\", \"math-complex-lab.css\", \"physics-quantum-lab.js\", \"physics-quantum-lab.css\", \"math-convergence-lab.js\", \"math-convergence-lab.css\", \"math-numerical-lab.js\", \"math-numerical-lab.css\"):\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "baseline_sha256": "1fe0aa5426059fbddf0c75988bb88305d6f04ba5b03222ecaff99a354e6f0b98",
+      "current_sha256": "d214a8ceb36c797758d72ef62fda18a0ccd964d5b297ef0f094cb33faada2782",
+      "changes": [
+        {
+          "before": "",
+          "after": "      if (item.props?.scenario === 'module.math.4.numtheory' && window.PrimerNumberTheoryDiagrams) return window.PrimerNumberTheoryDiagrams.renderSpatial(item, hooks);\n"
+        },
+        {
+          "before": "",
+          "after": "    'math-number-theory-lab': (item, hooks) => window.PrimerNumberTheoryDiagrams?.render(item, hooks) || window.PrimerMathNumberTheoryLab?.render(item, hooks) || null,\n"
+        },
+        {
+          "before": "      if (['physics-qft-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;\n",
+          "after": "      if (['physics-qft-lab', 'math-number-theory-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-measure-lab', 'physics-cycle-lab', 'physics-phase-lab', 'math-numerical-lab', 'physics-thermal-lab', 'math-convergence-lab', 'physics-buoyancy-lab', 'concept-lab', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'spatial-3d', 'radiology-anatomy'].includes(rendererName)) return result;\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "baseline_sha256": "db4b20a758453f29b96d891efefb91dea499e7beb20532a61e6a20d88cae8404",
+      "current_sha256": "9b9889fe9959d754b55e66b5ff041a05bfeaa293eaf12f6e12384760d638718d",
+      "changes": [
+        {
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/math-number-theory-lab.css\">\n  <link rel=\"stylesheet\" href=\"/app/number-theory-diagrams.css\">\n"
+        },
+        {
+          "before": "",
+          "after": "  <script src=\"/app/spatial-number-theory.js\"></script>\n  <script src=\"/app/number-theory-diagrams.js\"></script>\n  <script src=\"/app/spatial-number-theory-relations.js\"></script>\n"
+        },
+        {
+          "before": "",
+          "after": "  <script src=\"/app/math-number-theory-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-state.js": {
+      "baseline_sha256": "947708921588aeaad0fb186e08a09cfb6cc4bb5c143318f3d36ad84a2f447139",
+      "current_sha256": "aac296f9901ed929474ba2f76d781f3bca8cf2ed5b79d039c71974451cfaa8d8",
+      "changes": [
+        {
+          "before": "  const allowed = new Set(['math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft']);\n",
+          "after": "  const allowed = new Set(['math.5.complex-analysis', 'phys.4.quantum', 'math.5.topology', 'phys.4.relativity', 'math.5.abstract', 'phys.5.quantum-info', 'math.5.logic', 'phys.4.em-maxwell', 'phys.5.gr-cosmo', 'phys.5.qft', 'math.4.numtheory']);\n"
+        }
+      ]
+    },
+    "web/spatial-models.js": {
+      "baseline_sha256": "d16b25a18d59a79cb5d9f94c5573c486f19d01099d7ced70d74b4ecee0e20136",
+      "current_sha256": "3fec71f2b3d9d6a3fb6b2840181baccb06954b54b83b633344a25e9d2a5431c3",
+      "changes": [
+        {
+          "before": "",
+          "after": "      const exactIntegerControl = id === 'module.math.4.numtheory' && spec.familyId === 'number-theory-exact-traces'\n        && spec.linkedStateKey === 'math.4.numtheory' && control.exactInteger === true\n        && window.PrimerMathNumberTheoryLab?.controls.some(c => c.key === control.key\n          && c.min === control.min && c.max === control.max && c.exactInteger === true);\n"
+        },
+        {
+          "before": "          input.type = 'number';\n",
+          "after": "          input.type = exactIntegerControl ? 'text' : 'number';\n"
+        },
+        {
+          "before": "        if (control.numericInput && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {\n",
+          "after": "        if (exactIntegerControl && !control.integerValidator?.(input.value)) {\n          input.setAttribute('aria-invalid', 'true');\n          status.textContent = 'Enter an exact integer from ' + control.min + ' to ' + control.max + '. The last accepted state is retained.';\n          return;\n        }\n        input.removeAttribute('aria-invalid');\n        if (control.numericInput && !exactIntegerControl && (input.value.trim() === '' || !Number.isFinite(Number(input.value)))) {\n"
+        },
+        {
+          "before": "          : Number(input.value);\n",
+          "after": "          : exactIntegerControl ? input.value : Number(input.value);\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "baseline_sha256": "ca8cbf328cc1c38e3fc89826d72f47e0e72f3abb1fe6ffbb70889b923ea974fe",
+      "current_sha256": "54ce7bdabc20ae919a211b6df6ec2e02e0ff148a58bd5e99742eb80fc78727a7",
+      "changes": [
+        {
+          "before": "",
+          "after": "  if (window.PrimerNumberTheorySpatialFamily) families['number-theory-exact-traces'] = window.PrimerNumberTheorySpatialFamily;\n"
+        },
+        {
+          "before": "",
+          "after": "    if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')\n        && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;\n"
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "baseline_sha256": "20d2fcd58a6367b09fc2bfcfe97f0685a65c4dbbfe5f1d15612588ce1ac10210",
+      "current_sha256": "aefa6d198d77fe3b2a3df7e6ed3acb33d4c11e2e03f5a78ed5847127ade404ed",
+      "changes": [
+        {
+          "before": "      \"family\": \"lattice\",\n      \"title\": \"Crystal lattice \u00b7 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Number Theory: This regular spatial construction provides a concrete example for discussing structure and relations; it does not establish the lesson\u2019s general theorem or abstract definition.\",\n      \"mode\": \"context\"\n",
+          "after": "      \"family\": \"number-theory-exact-traces\",\n      \"title\": \"Exact arithmetic relationships \u00b7 3D study\",\n      \"instructions\": \"Rotate the identified integer, operation and theorem-hypothesis graph. Follow exact relation arrows, select a diagram page, and compare the same full labels and edge witnesses in the companion mathematical diagram.\",\n      \"context\": \"Number Theory: Inspect quotient partitions, exact operations, factor trees, unit maps and proof dependencies. Nodes identify actual values and hypotheses; arrows carry their mathematical relations. Layout positions are display choices, never integer magnitude or cryptographic security geometry.\",\n      \"mode\": \"model\"\n"
+        }
+      ]
+    }
+  },
+  "math_views": {
+    "web/lesson-models.js": {
+      "baseline_sha256": "1bb6c0b79c2aa7ed3b8226d843e9fb15b7600ac304cbb26345a27f0e2e8a6a00",
+      "current_sha256": "d214a8ceb36c797758d72ef62fda18a0ccd964d5b297ef0f094cb33faada2782",
+      "changes": [
+        {
+          "before": "",
+          "after": "      if (item.props?.source_native_only) {\n        return node('section', { class: 'lesson-native-anatomy' },\n          ...item.props.native_inspectors.map(asset => node('section', {},\n            node('h3', {}, node('a', { href: asset.src, target: '_blank', rel: 'noopener noreferrer' }, asset.title)),\n            node('p', {}, asset.caption), node('p', {}, asset.attribution),\n            node('a', { href: asset.license_url, target: '_blank', rel: 'noopener noreferrer' }, asset.license))));\n      }\n"
+        }
+      ]
+    }
+  },
+  "whole_goal_complete": false,
+  "clinical_approval": false,
+  "historical_approval_extended": false
+}

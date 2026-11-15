@@ -1,0 +1,774 @@
+{
+  "ra.thoracolumbar-fractures": [
+    {
+      "id": "verse521-bones",
+      "label": "CT-derived vertebrae · T1–L5",
+      "atlas": "verse521",
+      "family": "thoracolumbar-source",
+      "manifest_url": "/app/anatomy/verse521/manifest.json",
+      "manifest_sha256": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+      "initial_layer": "bone",
+      "initial_cropped": false,
+      "population_note": "Whole-vertebra source labels from one CT case, T1–L5. Normality, pathology and separately reportable substructures remain unverified. This CT case is independent of the MRI cord/dura reference; their coordinates must not be combined.",
+      "source_volume": {
+        "id": "verse521-native-ct-planes",
+        "src": "/app/anatomy/verse521/ct-reference.html",
+        "sha256": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "source_viewer_sha256": "5e8f169915fd85d763e66ae9074c82ec84e5b8e0865753d04fc347c294200d31",
+        "level_by_part": {
+          "verse521-t1": "T1",
+          "verse521-t2": "T2",
+          "verse521-t3": "T3",
+          "verse521-t4": "T4",
+          "verse521-t5": "T5",
+          "verse521-t6": "T6",
+          "verse521-t7": "T7",
+          "verse521-t8": "T8",
+          "verse521-t9": "T9",
+          "verse521-t10": "T10",
+          "verse521-t11": "T11",
+          "verse521-t12": "T12",
+          "verse521-l1": "L1",
+          "verse521-l2": "L2",
+          "verse521-l3": "L3",
+          "verse521-l4": "L4",
+          "verse521-l5": "L5"
+        },
+        "script_sha256": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "title": "Inspect matching source CT planes · T1–L5",
+        "caption": "Stored CT sample spacing: 0.68 × 0.68 × 1.0 mm. Source acquisition slice thickness: 1.5 mm. Sample spacing does not establish effective anatomical resolution; fine endplates, cortices and facets remain unverified. Native CT crops spanning each supplied vertebral label and its margin. Select level, plane and slice; adjust the CT window and original-label overlay. These crops do not establish whole-examination or soft-tissue completeness.",
+        "attribution": "Sekuboyina et al. (2021), Liebl and Schinz et al. (2021), Löffler et al. (2020). VerSe data, CC BY-SA 4.0. Adaptation: native CT crops, window display and original-label overlays; no source voxels resampled or edited.",
+        "source_url": "https://doi.org/10.17605/OSF.IO/T98FZ",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
+      }
+    },
+    {
+      "id": "liu-sub03-neural",
+      "label": "MRI-derived cord and dural contours · partial",
+      "atlas": "liu-lumbosacral-sub03",
+      "family": "lumbosacral-neural",
+      "manifest_url": "/app/anatomy/liu-lumbosacral-sub03/manifest.json",
+      "manifest_sha256": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+      "initial_layer": "cord",
+      "initial_cropped": false,
+      "population_note": "Partial cord and dural contour envelopes from MRI source case sub-03. Their endpoints and interpolation assumptions limit anatomical coverage. Assess conus, cauda equina, roots and compression interfaces separately using the acquired images.",
+      "source_image": {
+        "src": "/app/reference-media/liu-lumbosacral-sub03/cord-dura-source-review.png",
+        "sha256": "a6d61297c463b2f87b5164f35351cf7c73e4e37db42240a4e900fb65823c817e",
+        "width": 2240,
+        "height": 1440,
+        "title": "Source MRI and contour comparison",
+        "alt": "Native CISS MRI source case sub-03 at slices 14, 40 and 79, beside original contour controls and fresh-default curve reconstructions.",
+        "caption": "The source MRI shows the lowest supplied cord contour, an intermediate slice and the final image plane. Original controls and reconstructed curves make the source limits inspectable. Anatomical boundary validation remains pending.",
+        "attribution": "Liu, Zhang, Zhou, Xu, Chu and Jia (2024), Figshare collection 10.6084/m9.figshare.c.7372564. CC BY 4.0. Native-image crop/window and contour overlays added for review.",
+        "source_url": "https://doi.org/10.6084/m9.figshare.c.7372564",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "id": "liu-sub03-cord-dura-mri-review"
+      }
+    }
+  ],
+  "ra.brain-anatomy": [
+    {
+      "id": "massp2-subcortical-reference",
+      "label": "Putamen and pallidal segments · population reference",
+      "atlas": "massp2-subcortex",
+      "family": "brain-subcortex",
+      "manifest_url": "/app/anatomy/massp2-subcortex/manifest.json",
+      "manifest_sha256": "6082818b1db2ecd610b8e194701d5b139d2198c715bc4814a7d8342a27bebd8a",
+      "initial_layer": "subcortex",
+      "initial_cropped": false,
+      "population_note": "Partial adult population reference: bilateral putamen and internal/external pallidal segments only. Original MNI2009b coordinates; independent of BodyParts3D. Clinical boundary accuracy and fine lamina anatomy remain unverified.",
+      "source_image": {
+        "id": "massp2-joint-qmri-comparison",
+        "src": "/app/reference-media/massp2-subcortex/joint-model-mri-comparison.png",
+        "sha256": "e110abee57d8ced9dc9fb5d6fe5bceb4e83653e885749ae1d7610d07651deee4",
+        "width": 1938,
+        "height": 2553,
+        "title": "Source quantitative MRI and direct model sections",
+        "alt": "Native AHEAD group MRI in R1, R2-star and susceptibility contrasts, with direct joint-model section lines for bilateral putamen and pallidal segments.",
+        "caption": "Adult group templates, not individual clinical MRI. Twelve median panels: axial, coronal and bilateral sagittal source sections in three quantitative contrasts. Coloured lines intersect the exported joint models directly. Atlas: 97 adults; MRI templates: 105 adults. No fitted alignment or source resampling. Subvoxel interfaces are derived and clinical anatomical accuracy remains unverified.",
+        "attribution": "Bazin, Forstmann, Alkemade, Miletic and Isherwood. AHEAD qMRI templates v3 and MASSP 2.0 lifespan atlas v2, CC BY 4.0. Adaptation: native sections/crops, grayscale display windows and direct derived-model overlays; no stored MRI intensities or source labels edited.",
+        "source_url": "https://doi.org/10.21942/uva.19646364.v3",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "existing-brain-context",
+      "label": "Whole-brain context · BodyParts3D",
+      "atlas": "bodyparts3d",
+      "family": "brain",
+      "manifest_url": "/app/anatomy/bodyparts3d/manifest.json",
+      "manifest_sha256": "01ac96ea0d59c5c03a1dce23a44cfd0971860cea298be99c8905c2abe9a4a250",
+      "initial_layer": "bone",
+      "initial_cropped": false,
+      "population_note": "Existing adult male whole-hemisphere, cerebellar and ventricular reference. Gyri, capsule limbs and deep nuclei are not independently resolved. This source is separate from the MNI population reference; their coordinates must not be combined."
+    }
+  ],
+  "ra.vascular-anomalies": [
+    {
+      "id": "hvsmr2-pat7-blood-pools",
+      "label": "Bilateral-SVC MRI source blood pools · partial",
+      "atlas": "hvsmr2-pat7",
+      "family": "cardiac-venous-source",
+      "manifest_url": "/app/anatomy/hvsmr2-pat7/manifest.json",
+      "manifest_sha256": "4efd281af53250fb9e265ae5b968f7d7a576aeeab5557ab31f4eb923653253bd",
+      "initial_layer": "blood_pool",
+      "initial_cropped": false,
+      "population_note": "Partial blood-pool reference from one adult MRI case (pat7, age 27), source-described bilateral SVC. It is not a normal whole-heart atlas or the anatomy of the patient being reported. Eight source classes only. LA includes limited source pulmonary-vein extents; SVC combines both source channels. Vessel endpoints and class junctions follow segmentation conventions, including benchmark optional zones, not complete clinical anatomy. Thin valves, myocardium/vessel walls, complete venous branches and drainage interfaces, coronary sinus, ductal/ligamentous ring and airway anatomy are not independently represented. The original small RV component is retained.",
+      "source_image": {
+        "src": "/app/reference-media/hvsmr2-pat7/native-mri-label-context.png",
+        "sha256": "1e033623b12335971afc05cf6035e57cf34e1eebdc367ec4fff160385c80a531",
+        "width": 2100,
+        "height": 840,
+        "title": "Matching native MRI planes and original label contours",
+        "alt": "Three native pat7 MRI index planes with original blood-pool label contours and optional zones.",
+        "caption": "Matching planes from the source MRI; coloured contours are original labels, white dashed contours optional zones. Recorded window display is not an edited source volume. These three planes do not establish whole-examination, thin-wall, valve or venous-branch completeness.",
+        "attribution": "Pace, Danielle; Contreras, Hannah; Romanowicz, Jennifer; et al. HVSMR-2.0 (orig), figshare DOI 10.6084/m9.figshare.25226360.v2; Scientific Data DOI 10.1038/s41597-024-03469-9. CC BY 4.0. Original masks preserved; derived 0.5 isosurfaces generated as described, without source annotation changes. Adaptation: source-plane window display and original-label contour overlays.",
+        "source_url": "https://figshare.com/articles/dataset/HVSMR-2_0_orig_/25226360/2",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.mri-sinuses": [
+    {
+      "id": "nasalseg-p001-source-labels",
+      "label": "Regional CT source label interfaces · partial",
+      "atlas": "nasalseg-p001",
+      "family": "sinonasal-source",
+      "manifest_url": "/app/anatomy/nasalseg-p001/manifest.json",
+      "manifest_sha256": "5bc7dbad6d1715b61385fc6759ef4da0e24eac5be46e42c430837b2aec0c2cb2",
+      "initial_layer": "source_labels",
+      "initial_cropped": false,
+      "population_note": "One regional source CT case (P001); patient age and native DICOM orientation are not independently verified. These are five original region-label interfaces, not a complete sinonasal atlas or the anatomy of the patient being reported. The source grid is 153×205×52 with declared 0.586×0.586×1.5 mm sampling. This does not establish operative thin-bone effective resolution, raw DICOM/HU lineage or full head coverage. Both original left nasal-cavity components and 98 open nasal-pharynx edges at the acquired boundary are retained. Viewer rotation or uncropped framing cannot restore anatomy outside the scan. Frontal/ethmoid/sphenoid cells, full drainage routes, bone/mucosal thickness, optic/carotid/nerve/vessel boundaries and lesion or extrasinus extension are not independently represented.",
+      "source_image": {
+        "src": "/app/reference-media/nasalseg-p001/source-CT-label-context.png",
+        "sha256": "70d021c3568bd9a0d8c0ab552a6bca4e00832b4104110926eb302bd108245451",
+        "width": 1680,
+        "height": 1920,
+        "title": "Matching original CT planes and source labels",
+        "alt": "Original P001 CT index planes with the five original label contours.",
+        "caption": "Three selected planes from the same regional CT, with original mask contours. Declared physical sample aspect retained; display window is in source units, HU calibration unverified. These planes do not establish full operative anatomy or validate all labels.",
+        "attribution": "Zhang, Yichi, Wang, Jing, Pan, Tan, Jiang, Quanlin, Ge, Jingjie, Guo, Xin, Jiang, Chen, Lu, Jie, Zhang, Jianning, Liu, Xueling, Tian, Mei, Qi, Yuan, Cheng, Yuan, Zuo, Chuantao. NasalSeg Dataset for Nasal Cavity and Paranasal Sinuses Segmentation from CT Images. DOI 10.5281/zenodo.13893419. CC BY 4.0. Adaptation: source-unit window display and original contour overlays.",
+        "source_url": "https://zenodo.org/records/13893419",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.ct-temporal-bone": [
+    {
+      "id": "openear-zeta-original-surfaces",
+      "label": "Prepared temporal-bone specimen surfaces · partial",
+      "atlas": "openear-zeta",
+      "family": "temporal-source",
+      "manifest_url": "/app/anatomy/openear-zeta/manifest.json",
+      "manifest_sha256": "74156b2ac1769348d23274d244d21e48c284937ef353c87cd20ed46330c450ba",
+      "initial_layer": "source_structures",
+      "initial_cropped": false,
+      "population_note": "One prepared adult cadaveric temporal-bone specimen, ZETA. Thirteen source surfaces only; this is not a full normal atlas or the anatomy of the patient being reported. Original 7,349,910 triangles retained, including two zero-area Bone faces. Source surface optimization/segmentation conventions do not independently delineate every tiny wall, joint, neural branch, implant or pathological interface. Source coordinate convention is RAS, reconciled with recorded volume declarations and crop offset. Patient anatomical directions and laterality are not independently verified; camera controls use specimen-coordinate labels. Microscopy shows fixed, stained, dehydrated, epoxy-embedded tissue. A preparation opening was drilled in the superior semicircular canal. The original photograph is not untreated living-ear colour or functional evidence.",
+      "source_image": {
+        "src": "/app/reference-media/openear-zeta/original-microscopy-135.png",
+        "sha256": "99b703a5f727efd1b843c2f06ea6db51b940ed6dce0bc42178a074dbdca8929d",
+        "width": 3606,
+        "height": 3640,
+        "title": "Original microscopy photograph 135 · prepared cadaver specimen",
+        "alt": "Full original decoded microscopy frame of the ZETA epoxy-embedded specimen; no anatomical relabelling.",
+        "caption": "Original TIFF frame 0 preserved losslessly, source position 31.96 mm. Fixation/staining/epoxy and preparation effects remain. This selected physical slice does not validate every surface or whole native anatomy; no reconstructed texture is applied to the models.",
+        "attribution": "Sieber, Daniel Manuel, Erfurt, Peter, John, Samuel, Ribeiro dos Santos, Gabriel, Schurzig, Daniel, Sørensen, Mads Sølvsten, Lenarz, Thomas. OpenEar library, ZETA specimen, DOI 10.5281/zenodo.1473724. CC BY 4.0. Adaptation: original TIFF frame0 decoded to lossless PNG, original pixels retained.",
+        "source_url": "https://zenodo.org/records/1473724",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.ultrasound-thyroid": [
+    {
+      "id": "totalseg-v3-s0358-original-labels",
+      "label": "Thyroid CT source interfaces · partial",
+      "atlas": "totalseg-v3-s0358",
+      "family": "thyroid-source",
+      "manifest_url": "/app/anatomy/totalseg-v3-s0358/manifest.json",
+      "manifest_sha256": "e0990dce59ecb4571d11ef82a6fd20dfc485b72cfb6bc30d292815e829384f99",
+      "initial_layer": "source_labels",
+      "initial_cropped": false,
+      "population_note": "One CT case, source metadata age 90.00 and sex female; study type is ct pelvis, trauma/abdomen. This is not a dedicated neck CT, a normal thyroid atlas, ultrasound acquisition or the patient being reported. All eight original reviewed source label interfaces and all 52,040 triangles retained. The thyroid remains two disconnected source components; no invented isthmus bridge. Both common-carotid source boundaries retain 22 open edges each. Closed label ends are not physical anatomical endpoints. Declared source grid 255×255×523, 1.5 mm sample pitch, RAS sform preserved. Raw DICOM calibration, native contrast phase, effective tiny-wall resolution and independent patient orientation remain unverified. Camera labels use source coordinates. No smoothing, capping, padding, decimation, component removal, relabelling or fitted registration. Original voxel stair steps and three ambiguity-resolution field residuals remain. Display colours are not photographic tissue colours. Capsule, isthmus continuity, parathyroids, recurrent laryngeal nerves, fine arteries/veins, lymph nodes, nodule internal tissues and every adjacent wall/interface are not independently resolved. These are partial source labels, not complete thyroid reporting anatomy. Source CT and annotations supply no ultrasound echogenicity, Doppler, salivary/airway function, pathological tissue identity, diagnostic classifier or registration with the published ultrasound examples. ZIP member CRCs and local SHA256s were verified with stable publisher size/checksum before and after range acquisition. The whole 37.4 GB archive MD5 was not verified and no HTTP entity tag was supplied. Independent anatomical/clinical approval remains pending. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+      "source_volume": {
+        "id": "totalseg-v3-s0358-complete-CT",
+        "src": "/app/anatomy/totalseg-v3-s0358/ct-reference.html",
+        "sha256": "be3f68908b66d05b41c664b78e1adef6c64da6bf1b6ebe1e36f539b9dc6d8bf9",
+        "script_sha256": "6b159e1b9eb4a48153cb0c3bb721d010439286837e0e1b1cd2a2d65bfbf3282d",
+        "level_by_part": {
+          "totalseg-v3-s0358-thyroid_gland": "thyroid gland",
+          "totalseg-v3-s0358-trachea": "trachea",
+          "totalseg-v3-s0358-esophagus": "esophagus",
+          "totalseg-v3-s0358-common_carotid_artery_left": "common carotid artery left",
+          "totalseg-v3-s0358-common_carotid_artery_right": "common carotid artery right",
+          "totalseg-v3-s0358-brachiocephalic_trunk": "brachiocephalic trunk",
+          "totalseg-v3-s0358-brachiocephalic_vein_left": "brachiocephalic vein left",
+          "totalseg-v3-s0358-brachiocephalic_vein_right": "brachiocephalic vein right"
+        },
+        "title": "Inspect matching complete source CT and original labels",
+        "caption": "Every native source slice and all eight original masks, with preserved overlaps. One 1.5 mm CT dataset grid; source index/RAS coordinates and source-value windowing, not independently calibrated HU, native DICOM orientation or ultrasound findings. Source annotation bounds and caps do not establish complete physical anatomy.",
+        "attribution": "ZIP member CRCs and local SHA256s were verified with stable publisher size/checksum before and after range acquisition. The whole 37.4 GB archive MD5 was not verified and no HTTP entity tag was supplied. Independent anatomical/clinical approval remains pending. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+        "source_url": "https://zenodo.org/records/22688904",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.swallowing": [
+    {
+      "id": "wt9fc-sub007-processed-labels",
+      "label": "Tongue MRI source labels · partial",
+      "atlas": "wt9fc-sub007",
+      "family": "tongue-source",
+      "manifest_url": "/app/anatomy/wt9fc-sub007/manifest.json",
+      "manifest_sha256": "5c30afc63240cb88a106f9eb8ba27c02b0e5f36cc11639b29d7dac1770895f48",
+      "initial_layer": "source_labels",
+      "initial_cropped": false,
+      "population_note": "One source BeLong case, sub-007_segID-001; source demographic age 33.12 years and sex female. The publication describes the released cohort as non-neurodegenerative healthy controls; the individual spreadsheet has no diagnosis field. This does not independently establish normal anatomy, swallowing function or the current patient. These are distributed processed source data: study-template registration, mouth ROI masking/cropping, and publisher 1 mm Gaussian smoothing of labels. They are not an unmodified native acquisition. The original distributed MRI and label samples, own sforms and registration affine are preserved separately. Source grid 64×320×320 with declared 0.8 mm isotropic sample pitch. MRI stored int16 samples have original slope 0.05391012504696846 and intercept 1766.5269775390625; these are source-scaled signal values, not calibrated physical tissue measurements. The mask has its own slightly different sform; no replacement affine or fitted registration is applied. Camera labels use source coordinates. All four distributed labels and all 67,508 triangles are retained. Inferior longitudinal remains two separate source components; transverse and vertical are a single combined publisher label, not individually resolved muscles. No extra smoothing, capping, padding, decimation, repair, mirroring, component removal or relabelling. Hyoglossus, styloglossus, palatoglossus, muscle fibres, neural and vascular supply, fine mucosal interfaces, palate, hyoid, laryngeal folds/cartilage, pharyngeal wall and cricopharyngeal interfaces are not independently represented. Closed masks do not prove an anatomical capsule or a separately resolved tissue boundary. Matching MRI planes belong to this processed case and use its source index grid. There is no registration to published swallowing movies, other source patients or current reports. Static anatomy supplies no bolus transit, airway protection, aspiration exclusion, muscle activity or physiological swallowing simulation. Display colours are labels, not photographic tissue colours. Dataset rights are verified from the OSF node-linked CC0 grant, separately from the article CC-BY-NC-ND 4.0 licence. Independent anatomical and clinical review remain pending. Ribeiro, F. L. and Shaw, T. B. An annotated MRI dataset for the study of the human tongue musculature. OSF WT9FC, DOI 10.17605/OSF.IO/WT9FC. Dataset CC0 1.0 Universal; the separately restricted article supplies no reused graphics or captions. Adaptation: unchanged distributed label interfaces, float32 transport, display normals and declared MRI window.",
+      "source_image": {
+        "src": "/app/reference-media/wt9fc-sub007/source-MRI-label-context.png",
+        "sha256": "05dda7db464e538810ba0b975cf07cd835e0c91c4efddadc1e80dad11a02f81f",
+        "width": 1020,
+        "height": 800,
+        "title": "Matching processed MRI planes and publisher tongue labels",
+        "alt": "Same-case distributed MRI index planes and four publisher tongue muscle label overlays.",
+        "caption": "Three index planes from the same registered, mouth-cropped source case. Display removes only zero ROI margins and repeats each original pixel three times, with no interpolation or new resolution. Original source-scaled MRI signal is clipped to a declared percentile window; coloured overlays show publisher labels already smoothed before release. Full source planes are preserved separately. Fine fibres or normal swallowing are not established.",
+        "attribution": "Ribeiro, F. L. and Shaw, T. B. An annotated MRI dataset for the study of the human tongue musculature. OSF WT9FC, DOI 10.17605/OSF.IO/WT9FC. Dataset CC0 1.0 Universal; the separately restricted article supplies no reused graphics or captions. Adaptation: unchanged distributed label interfaces, float32 transport, display normals and declared MRI window.",
+        "source_url": "https://osf.io/wt9fc/",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "license": "CC0 1.0 Universal"
+      }
+    },
+    {
+      "id": "larynx-jasa19629778-phase01-original-surface",
+      "label": "Original phonation air–tissue interface · partial",
+      "atlas": "larynx-jasa19629778-phase01",
+      "family": "larynx-phonation-source",
+      "manifest_url": "/app/anatomy/larynx-jasa19629778-phase01/manifest.json",
+      "manifest_sha256": "342b0c48aae69408d3288d0546e26262d1564762868857c78ea52436bdffeb94",
+      "initial_layer": "source_interface",
+      "initial_cropped": false,
+      "population_note": "Partial original source surface from one professionally trained female singer during sustained Stiff phonation. This is not swallowing, VFSS, aspiration assessment, a normal atlas or the anatomy of the patient being reported. All 29,326 original triangles, four source components and 328 open boundary edges are retained in their exact original STL coordinates and face order. No fit, centering, smoothing, capping, repair, decimation or fragment deletion. Neutral display colour and averaged display normals are not photographic tissue appearance. Original Blender 3.4.1 STL has no patient direction, coordinate-system or unit declaration. Cameras refer only to source coordinates. The paper provides nominal millimetre-scale context; source STL calibration and anatomical directions remain unverified. The matching published MR array has nominal 0.8 mm native acquisition resolution and a zero-filled export pitch 0.3839285671710968 (nominal 0.4 mm in the paper). This export grid does not increase acquired anatomical resolution. The MRI primary NRRD geometry declares LPS. Inherited NIfTI srow strings conflict in x/z directions even after LPS to RAS convention conversion. Fixed-sign image correspondence favours an LPS hypothesis for this STL, but producer transform and segmentation mask are absent. No MRI overlay or source-volume registration is presented or approved. Phase 01 is the authors’ maximum glottal-opening bin. Ten acoustic phase bins aggregate an oscillatory cycle over a 5 min 20 s sustained-phonation acquisition; they are not consecutive independent live frames or a swallowing timeline. Audio-to-volume sample timing and MRI-to-upright high-speed video correspondence remain unverified. Threshold-segmented air–tissue interface only. Individual cartilage, vocal-fold tissue layers, ligaments, muscles, mucosa, vessels and nerves are not independently labelled. Source surface ends truncate the visible airway extent. No physiological function, patient diagnosis, complete reporting anatomy or clinical/commercial fidelity is established. Selected complete ZIP member CRC32 and local SHA256 were verified; publisher archive size/checksum remained stable before/after range acquisition. The whole 5.23 GB ZIP MD5 was not independently verified and no HTTP entity tag was available. Traser, Louisa, Stritt, Fiona, Jordan, Paula, Köberlein, Marie, Kirsch, Jonas, Rummel, Stefanie, Zhang, Zhaoyan, Richter, Bernhard, Bock, Michael, Fischer, Johannes, Echternach, Matthias. Supplementary dataset for Dynamic 3D MRI of vocal fold oscillations, Stiff phase 01. DOI 10.5281/zenodo.19629778. CC BY 4.0. Adaptation: bit-exact original STL geometry in BP3D transport; neutral display colour and averaged display normals."
+    }
+  ],
+  "ra.tinnitus": [
+    {
+      "id": "openear-zeta-tinnitus-prepared-specimen",
+      "label": "Prepared temporal-bone specimen for tinnitus anatomy · partial",
+      "atlas": "openear-zeta",
+      "family": "temporal-source",
+      "manifest_url": "/app/anatomy/openear-zeta/manifest.json",
+      "manifest_sha256": "74156b2ac1769348d23274d244d21e48c284937ef353c87cd20ed46330c450ba",
+      "initial_layer": "source_structures",
+      "initial_cropped": false,
+      "population_note": "One prepared adult cadaveric temporal-bone specimen, ZETA. Thirteen source surfaces only; this is not a full normal atlas or the anatomy of the patient being reported. Original 7,349,910 triangles retained, including two zero-area Bone faces. Source surface optimization/segmentation conventions do not independently delineate every tiny wall, joint, neural branch, implant or pathological interface. Source coordinate convention is RAS, reconciled with recorded volume declarations and crop offset. Patient anatomical directions and laterality are not independently verified; camera controls use specimen-coordinate labels. Microscopy shows fixed, stained, dehydrated, epoxy-embedded tissue. A preparation opening was drilled in the superior semicircular canal. The original photograph is not untreated living-ear colour or functional evidence. Tinnitus context: separate partial specimen anatomy only; no patient tinnitus lesion, causal attribution, pulse synchrony, hearing measurement, shunt/transit/reflux, pressure or clinical/functional finding is supplied. Sinus Dura is not independently resolved venous lumen, wall and dura. The drilled superior canal opening is preparation, not a tinnitus case of pathological dehiscence.",
+      "source_image": {
+        "src": "/app/reference-media/openear-zeta/original-microscopy-135.png",
+        "sha256": "99b703a5f727efd1b843c2f06ea6db51b940ed6dce0bc42178a074dbdca8929d",
+        "width": 3606,
+        "height": 3640,
+        "title": "Original microscopy photograph 135 · prepared cadaver specimen",
+        "alt": "Full original decoded microscopy frame of the ZETA epoxy-embedded specimen; no anatomical relabelling.",
+        "caption": "Original TIFF frame 0 preserved losslessly, source position 31.96 mm. Fixation/staining/epoxy and preparation effects remain. This selected physical slice does not validate every surface or whole native anatomy; no reconstructed texture is applied to the models.",
+        "attribution": "Sieber, Daniel Manuel, Erfurt, Peter, John, Samuel, Ribeiro dos Santos, Gabriel, Schurzig, Daniel, Sørensen, Mads Sølvsten, Lenarz, Thomas. OpenEar library, ZETA specimen, DOI 10.5281/zenodo.1473724. CC BY 4.0. Adaptation: original TIFF frame0 decoded to lossless PNG, original pixels retained.",
+        "source_url": "https://zenodo.org/records/1473724",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.esophagus": [
+    {
+      "id": "totalseg-v3-esophagus-s0358-original-labels",
+      "label": "Esophageal CT context · original source candidates",
+      "atlas": "totalseg-v3-esophagus-s0358",
+      "family": "esophagus-source",
+      "manifest_url": "/app/anatomy/totalseg-v3-esophagus-s0358/manifest.json",
+      "manifest_sha256": "4e9a71e2a5b94856a36379c87d01e23754ef2cd8333e7d50c855f8e650543cfa",
+      "initial_layer": "source_labels",
+      "initial_cropped": false,
+      "population_note": "Original CT case s0358: source metadata age 90,female,study type ct pelvis,trauma/abdomen. These are source-labelled inspection candidates, not a normal esophageal atlas or current patient. All 27 complete original selected source label interfaces and 686,252 triangles are retained. Original source-grid CT and masks can be inspected separately in every plane. No smoothing,padding,capping,decimation,component deletion,relabeling or fitted transformation is applied. Display colours and normals are illustrative. One declared 255×255×523 grid with 1.5 mm pitch and original RAS sform. Raw DICOM/HU calibration, native patient orientation,contrast phase and fine-tissue accuracy remain unverified. Left/right are original source label names; patient laterality is not independently verified. The esophageal label is an organ envelope, without separate lumen,wall layers,mucosa,glands,plexuses or hiatal attachments. Whole heart does not separately identify left atrium; atrial appendage is not the entire atrium. Published clinical figures are different cases with no registration to this CT. Left upper lung mask contains 261 six-connected components and 137 surface interfaces. Heart has 2 foreground components and 47 surface interfaces,including 45 opposite-winding to the largest; surface count alone does not identify organ fragments. Pulmonary veins retain 4 disconnected components. These source assignments require further anatomical review. Spinal cord retains 40 open source boundary edges at the scan extent. T6,T8,T11 and lower lung additional components remain. Closed source label endpoints do not establish physical organ ends. Source stair steps and Lewiner ambiguity-field residuals are not independently measured anatomical accuracy. Inspection reference only: no every-structure reporting coverage,clinical approval,current lesion diagnosis,physiological timing,pressure or flow evidence is granted. Original members pass CRC/SHA with stable publisher archive identity before/after; full 37.4 GB archive MD5 and object immutability remain unverified. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+      "source_volume": {
+        "id": "totalseg-v3-esophagus-s0358-complete-CT",
+        "src": "/app/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html",
+        "sha256": "d5796f3d6ff37d51c54e14fc2b1ca2d28ab8eed4f199d8fba78a39f35fc19965",
+        "script_sha256": "a03aea533e60c429c57e9b78b3f7539afbd6f5e73b18be7166e2695bc0dc8055",
+        "level_by_part": {
+          "totalseg-v3-esophagus-s0358-esophagus": "esophagus",
+          "totalseg-v3-esophagus-s0358-trachea": "trachea",
+          "totalseg-v3-esophagus-s0358-aorta": "aorta",
+          "totalseg-v3-esophagus-s0358-heart": "heart",
+          "totalseg-v3-esophagus-s0358-stomach": "stomach",
+          "totalseg-v3-esophagus-s0358-lung_upper_lobe_left": "lung upper lobe left",
+          "totalseg-v3-esophagus-s0358-lung_lower_lobe_left": "lung lower lobe left",
+          "totalseg-v3-esophagus-s0358-lung_upper_lobe_right": "lung upper lobe right",
+          "totalseg-v3-esophagus-s0358-lung_middle_lobe_right": "lung middle lobe right",
+          "totalseg-v3-esophagus-s0358-lung_lower_lobe_right": "lung lower lobe right",
+          "totalseg-v3-esophagus-s0358-pulmonary_vein": "pulmonary vein",
+          "totalseg-v3-esophagus-s0358-atrial_appendage_left": "atrial appendage left",
+          "totalseg-v3-esophagus-s0358-superior_vena_cava": "superior vena cava",
+          "totalseg-v3-esophagus-s0358-inferior_vena_cava": "inferior vena cava",
+          "totalseg-v3-esophagus-s0358-spinal_cord": "spinal cord",
+          "totalseg-v3-esophagus-s0358-vertebrae_T1": "vertebrae T1",
+          "totalseg-v3-esophagus-s0358-vertebrae_T2": "vertebrae T2",
+          "totalseg-v3-esophagus-s0358-vertebrae_T3": "vertebrae T3",
+          "totalseg-v3-esophagus-s0358-vertebrae_T4": "vertebrae T4",
+          "totalseg-v3-esophagus-s0358-vertebrae_T5": "vertebrae T5",
+          "totalseg-v3-esophagus-s0358-vertebrae_T6": "vertebrae T6",
+          "totalseg-v3-esophagus-s0358-vertebrae_T7": "vertebrae T7",
+          "totalseg-v3-esophagus-s0358-vertebrae_T8": "vertebrae T8",
+          "totalseg-v3-esophagus-s0358-vertebrae_T9": "vertebrae T9",
+          "totalseg-v3-esophagus-s0358-vertebrae_T10": "vertebrae T10",
+          "totalseg-v3-esophagus-s0358-vertebrae_T11": "vertebrae T11",
+          "totalseg-v3-esophagus-s0358-vertebrae_T12": "vertebrae T12"
+        },
+        "title": "Inspect matching complete source CT and original labels",
+        "caption": "Every native source slice and all27 original masks, with preserved overlaps. One 1.5 mm CT dataset grid; source-label assignment remains unapproved; source index/RAS coordinates and source-value windowing, not independently calibrated HU, native DICOM orientation or current esophageal findings. Source annotation bounds and caps do not establish complete physical anatomy.",
+        "attribution": "Inspection reference only: no every-structure reporting coverage,clinical approval,current lesion diagnosis,physiological timing,pressure or flow evidence is granted. Original members pass CRC/SHA with stable publisher archive identity before/after; full 37.4 GB archive MD5 and object immutability remain unverified. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+        "source_url": "https://zenodo.org/records/22688904",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.mri-breast": [
+    {
+      "id": "ispy1-expert1002-expert-manual",
+      "label": "Expert primary tumour and matching processed MRI · partial",
+      "atlas": "ispy1-expert1002",
+      "family": "breast-tumour-source",
+      "manifest_url": "/app/anatomy/ispy1-expert1002/manifest.json",
+      "manifest_sha256": "7a4e445f42deb819b36ea1f03eb12339a1a5e6f04bc5f701816eb9eb55049bbc",
+      "initial_layer": "expert_source",
+      "initial_cropped": false,
+      "population_note": "One expert source case ISPY1_1002. Source age/sex and visit-specific tissue results are not supplied in this package. This is an original processed source tumour annotation,not normal breast anatomy or the current patient. Producer expert manual structural tumour mask includes enhancing and non-enhancing primary lesion regions. All5,144 triangles and both original components (5,100 and44 triangles) remain. Computed and functional tumour masks are different source products and are not substituted. Original source MRI is bias-corrected,resampled to1mm isotropic and z-scored across the three timepoints. This is a processed source grid,not independently verified1mm native acquisition resolution. The expert mask and all three processed MRI volumes have identical source qform grids. Original bias-corrected0.78125×0.78125×2mm images and functional mask remain separately preserved in review. No new source voxel resampling,source affine replacement,fitting,smoothing,capping,component deletion or decimation. Colours and normals are illustrative,not photographic tumour tissue. Source coordinate cameras use the encoded source RAS basis; original patient/raw DICOM registration remains unverified. Whole breast skin,duct/gland/lobular/fascial,neural/vascular/lymphatic,nodal,chest-wall,additional lesion and device anatomy remain unresolved. A source expert primary-tumour annotation does not establish every reported structure,whole disease extent,current histology,stage,response or physiology. Three source phase indices follow the producer pre/early/late dataset convention; no independently verified injection clock,calibrated enhancement kinetics or tissue diagnosis is supplied. There is no registration with published ultrasound cases or the separately held ISPY1_1001 threshold mask. Source publisher MD5 manifest and local SHA256 identities are verified. Expert review belongs to the source annotation; independent whole reporting/anatomical approval remains pending. Chitalia et al. Expert tumor annotations and radiomic features for ISPY1/ACRIN6657. TCIA DOI10.7937/TCIA.XC7A-QT20. CC BY3.0. Original data: Newitt,Hylton and I-SPY1/ACRIN6657 Trial Team,DOI10.7937/K9/TCIA.2016.HDHPGJLK. Adaptation: source0.5 label interface,float32 transport and illustrative display normals; no endorsement.",
+      "source_volume": {
+        "id": "ispy1-expert1002-complete-source-MRI",
+        "modality": "MRI",
+        "src": "/app/anatomy/ispy1-expert1002/mri-reference.html",
+        "sha256": "b1af69863bf46b787f8b5106abb54f6fcc8a5e685c8ee467ae8317f5f72321ce",
+        "script_sha256": "d05ded6cf6df9f3de99a51524048cbbef2a83649a60e8cd59d33c58dfbb4cf0e",
+        "level_by_part": {
+          "ispy1-expert1002-expert-structural-tumour": "expert structural tumour"
+        },
+        "title": "Inspect matching complete three-phase processed MRI and expert mask",
+        "caption": "Every original distributed processed MRI phase and expert mask sample remains. Source1mm resampled/z-scored grid is not independently verified native resolution,raw registration,calibrated kinetics,current diagnosis or complete breast anatomy. Both manual source components remain.",
+        "attribution": "Chitalia et al. Expert tumor annotations and radiomic features for ISPY1/ACRIN6657. TCIA DOI10.7937/TCIA.XC7A-QT20. CC BY3.0. Original data: Newitt,Hylton and I-SPY1/ACRIN6657 Trial Team,DOI10.7937/K9/TCIA.2016.HDHPGJLK. Adaptation: source0.5 label interface,float32 transport and illustrative display normals; no endorsement.",
+        "source_url": "https://www.cancerimagingarchive.net/analysis-result/ispy1-tumor-seg-radiomics/",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/"
+      }
+    }
+  ],
+  "ra.breast-cancer-staging": [
+    {
+      "id": "ispy1-expert1002-expert-manual",
+      "label": "Expert primary tumour and matching processed MRI · partial",
+      "atlas": "ispy1-expert1002",
+      "family": "breast-tumour-source",
+      "manifest_url": "/app/anatomy/ispy1-expert1002/manifest.json",
+      "manifest_sha256": "7a4e445f42deb819b36ea1f03eb12339a1a5e6f04bc5f701816eb9eb55049bbc",
+      "initial_layer": "expert_source",
+      "initial_cropped": false,
+      "population_note": "One expert source case ISPY1_1002. Source age/sex and visit-specific tissue results are not supplied in this package. This is an original processed source tumour annotation,not normal breast anatomy or the current patient. Producer expert manual structural tumour mask includes enhancing and non-enhancing primary lesion regions. All5,144 triangles and both original components (5,100 and44 triangles) remain. Computed and functional tumour masks are different source products and are not substituted. Original source MRI is bias-corrected,resampled to1mm isotropic and z-scored across the three timepoints. This is a processed source grid,not independently verified1mm native acquisition resolution. The expert mask and all three processed MRI volumes have identical source qform grids. Original bias-corrected0.78125×0.78125×2mm images and functional mask remain separately preserved in review. No new source voxel resampling,source affine replacement,fitting,smoothing,capping,component deletion or decimation. Colours and normals are illustrative,not photographic tumour tissue. Source coordinate cameras use the encoded source RAS basis; original patient/raw DICOM registration remains unverified. Whole breast skin,duct/gland/lobular/fascial,neural/vascular/lymphatic,nodal,chest-wall,additional lesion and device anatomy remain unresolved. A source expert primary-tumour annotation does not establish every reported structure,whole disease extent,current histology,stage,response or physiology. Three source phase indices follow the producer pre/early/late dataset convention; no independently verified injection clock,calibrated enhancement kinetics or tissue diagnosis is supplied. There is no registration with published ultrasound cases or the separately held ISPY1_1001 threshold mask. Source publisher MD5 manifest and local SHA256 identities are verified. Expert review belongs to the source annotation; independent whole reporting/anatomical approval remains pending. Chitalia et al. Expert tumor annotations and radiomic features for ISPY1/ACRIN6657. TCIA DOI10.7937/TCIA.XC7A-QT20. CC BY3.0. Original data: Newitt,Hylton and I-SPY1/ACRIN6657 Trial Team,DOI10.7937/K9/TCIA.2016.HDHPGJLK. Adaptation: source0.5 label interface,float32 transport and illustrative display normals; no endorsement.",
+      "source_volume": {
+        "id": "ispy1-expert1002-complete-source-MRI",
+        "modality": "MRI",
+        "src": "/app/anatomy/ispy1-expert1002/mri-reference.html",
+        "sha256": "b1af69863bf46b787f8b5106abb54f6fcc8a5e685c8ee467ae8317f5f72321ce",
+        "script_sha256": "d05ded6cf6df9f3de99a51524048cbbef2a83649a60e8cd59d33c58dfbb4cf0e",
+        "level_by_part": {
+          "ispy1-expert1002-expert-structural-tumour": "expert structural tumour"
+        },
+        "title": "Inspect matching complete three-phase processed MRI and expert mask",
+        "caption": "Every original distributed processed MRI phase and expert mask sample remains. Source1mm resampled/z-scored grid is not independently verified native resolution,raw registration,calibrated kinetics,current diagnosis or complete breast anatomy. Both manual source components remain.",
+        "attribution": "Chitalia et al. Expert tumor annotations and radiomic features for ISPY1/ACRIN6657. TCIA DOI10.7937/TCIA.XC7A-QT20. CC BY3.0. Original data: Newitt,Hylton and I-SPY1/ACRIN6657 Trial Team,DOI10.7937/K9/TCIA.2016.HDHPGJLK. Adaptation: source0.5 label interface,float32 transport and illustrative display normals; no endorsement.",
+        "source_url": "https://www.cancerimagingarchive.net/analysis-result/ispy1-tumor-seg-radiomics/",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/"
+      }
+    }
+  ],
+  "ra.mri-prostate": [
+    {
+      "id": "prostate-biopsy0001-operator-surfaces",
+      "label": "Original source gland/ROI and matching MRI · partial",
+      "atlas": "prostate-biopsy0001",
+      "family": "prostate-source",
+      "manifest_url": "/app/anatomy/prostate-biopsy0001/manifest.json",
+      "manifest_sha256": "4a83f952c564fd1739883ab5d5f4977386e98c7bf3614bea0f62f80de46d9afd",
+      "initial_layer": "target",
+      "initial_cropped": false,
+      "population_note": "Source case Prostate-MRI-US-Biopsy-0001,source64-year-old male. These are operator source references,not a normal whole-prostate atlas or the current patient. All1,198 original prostate faces and4,280 suspicious-target faces remain. The prostate was outlined semi-automatically in Profuse with user-adjustable contours/vertices; accuracy is user-dependent. A suspicious MRI biopsy-target ROI is not proven complete tumour or histological extent. The delivered model/MRI/SEG frame identifiers and independent all-voxel comparison support the source DICOM LPS association. No fitting,axis flip,resampling,smoothing,capping or component deletion was applied. Original mesh and producer-derived mask differ at480 gland and5 ROI voxel centres; every original value remains. This numeric correspondence is not independent anatomical accuracy. The source encapsulated models omit the required measurement-units code. Display millimetre scale is inferred from the matching producer MRI/SEG grids and numeric correspondence; full DICOM model conformance and independent clinical registration are not claimed. The source supplies complete T2,producer ADC and calculated-DWI grids. ADC and calculated DWI use their own coarser source grid. They have no supplied rescale/physical ADC calibration,original native high-b series or DCE. Source study description and private diffusion metadata do not supply missing acquisitions or current assessment. Only the original T2 grid has the two producer-derived masks. They were rasterized from source STL and are not independent native manual voxel annotations. No mask is fitted or resampled onto ADC/DWI. The41 idealized PI-RADS regions,zones,outer fibromuscular boundary,pseudocapsule,ducts,nerves,vessels,seminal vesicles,sphincter,nodes,bone and actual extension/treatment interfaces still require faithful source coverage and independent review. The whole-gland outline and one suspicious ROI do not meet full reporting coverage. Source ultrasound has different private voxel-size tags and lacks standard patient orientation/position. Publisher nonrigid MRI-to-US target mapping is not this viewer's native registration. Source Likert-like scores do not assign current PI-RADS2.1. Source clinical/pathology/biopsy results are not inferred. Natarajan,S.,Priester,A.,Margolis,D.,Huang,J.,and Marks,L.(2020). Prostate MRI and Ultrasound With Pathology and Coordinates of Tracked Biopsy,version2. TCIA DOI10.7937/TCIA.2020.A61IOC1A. CC BY4.0. Adaptation: complete source arrays/face transport,illustrative lighting and overlays; no endorsement implied.",
+      "source_volume": {
+        "id": "prostate-biopsy0001-complete-source-MRI",
+        "modality": "MRI",
+        "src": "/app/anatomy/prostate-biopsy0001/mri-reference.html",
+        "sha256": "51f06a43e402ceb7c046fcb610a4339dec87e75ef3c706f526ee59a0f3656039",
+        "script_sha256": "bb6a3169428374f839c2fb48b0fb635f8515c2221d65917de6fb75a9c8e09e46",
+        "level_by_part": {
+          "prostate-biopsy0001-prostate": "source prostate outline",
+          "prostate-biopsy0001-suspicious-target1": "suspicious source target ROI"
+        },
+        "title": "Inspect complete original T2, source ADC and calculated-DWI grids",
+        "caption": "Every stored MRI and source-derived mask sample is retained. The masks belong only to T2. Source processing, absent ADC units/DCE/native high-b series and missing model unit code remain explicit; full anatomical/clinical approval is pending.",
+        "attribution": "Natarajan,S.,Priester,A.,Margolis,D.,Huang,J.,and Marks,L.(2020). Prostate MRI and Ultrasound With Pathology and Coordinates of Tracked Biopsy,version2. TCIA DOI10.7937/TCIA.2020.A61IOC1A. CC BY4.0. Adaptation: complete source arrays/face transport,illustrative lighting and overlays; no endorsement implied.",
+        "source_url": "https://www.cancerimagingarchive.net/collection/prostate-mri-us-biopsy/",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.mri-bladder": [
+    {
+      "id": "hra-bladder-male-v1.1-original-regions",
+      "label": "Original HRA male bladder regions · partial",
+      "atlas": "hra-bladder-male-v1.1",
+      "family": "bladder-source",
+      "manifest_url": "/app/anatomy/hra-bladder-male-v1.1/manifest.json",
+      "manifest_sha256": "5b2ffd1bdec7295af50784ac80978a6dbcd6776cd5f63aa43b35204376277c6f",
+      "initial_layer": "source_regions",
+      "initial_cropped": false,
+      "population_note": "Six complete original HRA male bladder mesh primitives are preserved: source dome/base regions, bladder neck smooth muscle, trigone and two ureteral-orifice regions. Source hierarchy names and duplicate fundus labels are retained. This curated Visible Human reference is separate from the TCGA-DK-AA6P MRI study and from the patient being reported. No fitting, overlay, registration, invented tissue layer or pathological invasion is presented. Original Float32 positions, normals and triangle order remain unchanged. Original source surfaces have open boundaries; no cap, bridge, repair, welding or smoothing was applied. Named source regions are not solid histological wall layers. The two orifice nodes retain their original FMA IDs and source labels. Their embedded representation_of strings differ from the canonical FMA URI form; the discrepancy is recorded, not silently rewritten or treated as independent anatomical proof. glTF declares metre units and Y-up coordinates. Source acquisition calibration and patient anatomical directions remain independently unverified. Cameras show source coordinates rather than anterior/posterior claims. Urothelium, lamina propria, muscularis mucosae, full detrusor bundles, serosa/adventitia, intramural ureter walls, nodes, adjacent organs, lesions and treatment interfaces are not separately supplied. Complete reporting anatomy and clinical/commercial fidelity remain unverified. Complete numerical contact review records 0 contact pairs; their biological/interface meaning is unverified. Kristen Browne; Heidi Schlehlein. 2022. *3D Reference Organ for Urinary Bladder, Male v1.1.* [https://doi.org/10.48539/HBM934.DMHJ.898](https://doi.org/10.48539/HBM934.DMHJ.898). Accessed on May 6, 2022."
+    },
+    {
+      "id": "hra-bladder-female-v1.1-original-regions",
+      "label": "Original HRA female bladder regions · partial",
+      "atlas": "hra-bladder-female-v1.1",
+      "family": "bladder-source",
+      "manifest_url": "/app/anatomy/hra-bladder-female-v1.1/manifest.json",
+      "manifest_sha256": "b94ace66fef6b1fc6cccd25ad459ba75a163eb05988733607e0f0f06ee4c7eee",
+      "initial_layer": "source_regions",
+      "initial_cropped": false,
+      "population_note": "Six complete original HRA female bladder mesh primitives are preserved: source dome/base regions, bladder neck smooth muscle, trigone and two ureteral-orifice regions. Source hierarchy names and duplicate fundus labels are retained. This curated Visible Human reference is separate from the TCGA-DK-AA6P MRI study and from the patient being reported. No fitting, overlay, registration, invented tissue layer or pathological invasion is presented. Original Float32 positions, normals and triangle order remain unchanged. Original source surfaces have open boundaries; no cap, bridge, repair, welding or smoothing was applied. Named source regions are not solid histological wall layers. The two orifice nodes retain their original FMA IDs and source labels. Their embedded representation_of strings differ from the canonical FMA URI form; the discrepancy is recorded, not silently rewritten or treated as independent anatomical proof. glTF declares metre units and Y-up coordinates. Source acquisition calibration and patient anatomical directions remain independently unverified. Cameras show source coordinates rather than anterior/posterior claims. Urothelium, lamina propria, muscularis mucosae, full detrusor bundles, serosa/adventitia, intramural ureter walls, nodes, adjacent organs, lesions and treatment interfaces are not separately supplied. Complete reporting anatomy and clinical/commercial fidelity remain unverified. Complete numerical contact review records 82 contact pairs; their biological/interface meaning is unverified. Kristen Browne; Heidi Schlehlein. 2022. *3D Reference Organ for Urinary Bladder, Female v1.1.* [https://doi.org/10.48539/HBM235.KQNP.897](https://doi.org/10.48539/HBM235.KQNP.897). Accessed on May 6, 2022."
+    },
+    {
+      "id": "fedbca-center1-001-source-cells",
+      "label": "Original MRI annotation center1-001 · partial",
+      "atlas": "fedbca-center1-001",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center1-001/manifest.json",
+      "manifest_sha256": "8809545a69a925cc0dc232239ace7bebaabe70c3adccb5d7a9627f94bb680c6c",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center1-001. Producer table fields: Age (years) 67; Gender Male; Pathological T stage Ta; Pathological grade Low; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 486 voxels in 1 six-connected components. All source components remain. Cell-boundary topology retains 1 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 2.2633427572127194e-05 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center1-001-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center1-001/mri-reference.html",
+        "sha256": "d128d4c5d4cdb1be1ae579cc9a26dd5324497e7bde06432f9bd589e8d434bd36",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "b421cce892c4ea633bb9b9257981aa54c7d46b0eece5bc5c3425d522a77b423b",
+            "compressed_bytes": 1619913,
+            "bytes": 2355200,
+            "raw_source_voxel_sha256": "2fc5d47292a0fdc219ef01f47e12484f0ef303d26d1476fb0f392dec43f296e0"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "331ee1b3c25ddb42d025d1a7ce3efad8f9c8cf345ada0639cad476851e1e18ef",
+            "compressed_bytes": 4731,
+            "bytes": 4710400,
+            "raw_source_voxel_sha256": "4a24418896ff8559066f4c705e737cb0748b8caa28b0d58dc7fb783389b229d6"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center1-001-label1-cells": "Original source tumour annotation cells center1-001"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center1-001",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "fedbca-center2-01-source-cells",
+      "label": "Original MRI annotation center2-01 · partial",
+      "atlas": "fedbca-center2-01",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center2-01/manifest.json",
+      "manifest_sha256": "9e3a3a17ffe326de5b0195c752912950f6dccbf835e405a4181c85f57fb7341c",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center2-01. Producer table fields: Age (years) 58; Gender Male; Pathological T stage T2; Pathological grade High; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 38458 voxels in 2 six-connected components. All source components remain. Cell-boundary topology retains 12 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 0.002142482695551848 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center2-01-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center2-01/mri-reference.html",
+        "sha256": "684c2f71fe45d3f6e1a0a4a0a349ac9a36d62b1a71e995e9045579cbf523728f",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "25eb9a177fb1a6fdc22527bd26e6132e72f0654889a4359bed77e9760e53f2c0",
+            "compressed_bytes": 9598207,
+            "bytes": 12582912,
+            "raw_source_voxel_sha256": "acdd8f06d2eee8ca5f00aa88874bae6c1cc82d953c7f265263c47abcd37aa8e0"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "3c09294bf121cd962af48b5ea0a4f0709fc7bc0f988b66256fcf5815b72099b6",
+            "compressed_bytes": 14102,
+            "bytes": 12582912,
+            "raw_source_voxel_sha256": "a48726ae6f7f55e592c6c2f1081ed5ab2302cd2f5d907637a1e0841940e8b530"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center2-01-label1-cells": "Original source tumour annotation cells center2-01"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center2-01",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "fedbca-center3-01-source-cells",
+      "label": "Original MRI annotation center3-01 · partial",
+      "atlas": "fedbca-center3-01",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center3-01/manifest.json",
+      "manifest_sha256": "c914e02b110ed1dbd0f8f4c4682ace6e4919c067eefb623ab56460b2c320dd13",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center3-01. Producer table fields: Age (years) 54; Gender Male; Pathological T stage Ta; Pathological grade Low; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 3142 voxels in 1 six-connected components. All source components remain. Cell-boundary topology retains 5 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 0.00036296903253068007 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center3-01-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center3-01/mri-reference.html",
+        "sha256": "aacd2b3d7dd1bccd03d572165334fe4be8fd54dde54cac39f5e87d6f71600b84",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "95061db81673940a7a0aa533830b3982b532d33435a676082092034b501606dc",
+            "compressed_bytes": 8198698,
+            "bytes": 24576000,
+            "raw_source_voxel_sha256": "780ac90108efc5aa20a4d4818ee4380ebdd3ddc91768aecc2afef8bdad47fb89"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "0df6b99edadbd59da71f722b5e45b1d58141db4f567f6a3e6557ce968b660234",
+            "compressed_bytes": 24224,
+            "bytes": 24576000,
+            "raw_source_voxel_sha256": "ba956dc9d060fbb9b3402d9f32908bbd64e35fd8d4ac562bb42b714b52f48f1f"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center3-01-label1-cells": "Original source tumour annotation cells center3-01"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center3-01",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    },
+    {
+      "id": "fedbca-center4-01-source-cells",
+      "label": "Original MRI annotation center4-01 · partial",
+      "atlas": "fedbca-center4-01",
+      "family": "bladder-tumour-source",
+      "manifest_url": "/app/anatomy/fedbca-center4-01/manifest.json",
+      "manifest_sha256": "fb06cdb74e9aaee9b0be16701c526a82f9fe2cf6a2da25b6d4dc21b2e9ba4f20",
+      "initial_layer": "source_label_cells",
+      "initial_cropped": false,
+      "population_note": "FedBCa source center4-01. Producer table fields: Age (years) 46; Gender Male; Pathological T stage T4; Pathological grade High; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established. Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted. Source label1 has 4621 voxels in 1 six-connected components. All source components remain. Cell-boundary topology retains 3 nonmanifold edges; no repair or component pruning hides the discretization. MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 0.0 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header. Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution. Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response. Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+      "source_volume": {
+        "id": "fedbca-center4-01-original-t2-and-labels",
+        "modality": "MRI",
+        "src": "/app/anatomy/fedbca-center4-01/mri-reference.html",
+        "sha256": "629e84db10a8e9e9325760d8a3ab2f07f200ca3222c000cb364a5302d43b3f91",
+        "script_sha256": "7844c9789e07bc01ee31f7a68b3875c81ee310189fd99d833f1fd09beaca046a",
+        "data_files": [
+          {
+            "file": "source-image.bin.gz",
+            "compressed_sha256": "ad0ace3d2f05ad3356b56f63ce2aa8773fc09a668c366a1a430a3eb31310506e",
+            "compressed_bytes": 9833378,
+            "bytes": 18350080,
+            "raw_source_voxel_sha256": "092c52115f7801cb9f41c43f5613c385eb6bb084b3957e05020f639e3c2d70f4"
+          },
+          {
+            "file": "source-label.bin.gz",
+            "compressed_sha256": "0e4df12486327d37332e25b6cc19462d2e071586ba7dea9e72bf25b9d45003dd",
+            "compressed_bytes": 18513,
+            "bytes": 18350080,
+            "raw_source_voxel_sha256": "054bf71c615e499c5af2f67312f47513be67fa98b9956add1f04ca407ec89d81"
+          }
+        ],
+        "level_by_part": {
+          "fedbca-center4-01-label1-cells": "Original source tumour annotation cells center4-01"
+        },
+        "title": "Inspect complete original source T2 and producer annotation center4-01",
+        "caption": "Complete distributed native-index arrays; optional producer label boundary. Source spatial forms, processing, absent acquisitions and independent-registration limits are retained.",
+        "attribution": "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied.",
+        "source_url": "https://zenodo.org/records/13622759",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.mri-sella": [
+    {
+      "id": "bp3d-sella-4.3-sella-gross-default",
+      "label": "sella gross default · partial source inspection",
+      "atlas": "bp3d-sella-4.3",
+      "family": "sella-gross-default",
+      "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+      "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+    },
+    {
+      "id": "bp3d-sella-4.3-gland-source-2011",
+      "label": "gland source 2011 · partial source inspection",
+      "atlas": "bp3d-sella-4.3",
+      "family": "gland-source-2011",
+      "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+      "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+    },
+    {
+      "id": "bp3d-sella-4.3-gland-source-2014",
+      "label": "gland source 2014 · partial source inspection",
+      "atlas": "bp3d-sella-4.3",
+      "family": "gland-source-2014",
+      "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+      "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+    },
+    {
+      "id": "bp3d-sella-4.3-optic-reduced-source",
+      "label": "optic reduced source · partial source inspection",
+      "atlas": "bp3d-sella-4.3",
+      "family": "optic-reduced-source",
+      "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+      "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+    },
+    {
+      "id": "bp3d-sella-4.3-optic-elongated-source",
+      "label": "optic elongated source · partial source inspection",
+      "atlas": "bp3d-sella-4.3",
+      "family": "optic-elongated-source",
+      "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+      "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+    },
+    {
+      "id": "bp3d-sella-4.3-right-ICA-source-2011",
+      "label": "right ICA source 2011 · partial source inspection",
+      "atlas": "bp3d-sella-4.3",
+      "family": "right-ICA-source-2011",
+      "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+      "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+    },
+    {
+      "id": "bp3d-sella-4.3-right-ICA-source-2014",
+      "label": "right ICA source 2014 · partial source inspection",
+      "atlas": "bp3d-sella-4.3",
+      "family": "right-ICA-source-2014",
+      "manifest_url": "/app/anatomy/bp3d-sella-4.3/manifest.json",
+      "manifest_sha256": "c10d2b4d96b3eeee0b69180b4e00d9e8238ff18b1d4a274813293d69b7c210ef",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Original BodyParts3D4.3 source-curated adult male TARO reference, constructed using MRI plus illustrator edits; not native patient segmentation. Source objects retain their complete source extent, authored normals and face order. This chosen source presentation keeps overlapping gland/chiasm/right-ICA editing forms separate; they are not additional tissues or confirmed anatomical variants. Catalogue-mapped left optic objects retain mirrored/right-filename provenance. FJ3483 is held because its left-ICA mapping conflicts with its common-carotid filename and inferior source location. Original XYZ and header-declared mm are retained; acquisition calibration and independent patient directions remain unverified. These source surfaces are separate from the publication MRI/CT cases and the current report; there is no fitting or registration, no supplied fine capsule/fascicle/wall/branch geometry, no disease or function inference, and no complete reporting-anatomy/clinical approval. Copyright2008 DBCLS; CC BY-SA2.1Japan with attribution and ShareAlike. See the source manifest and attribution notice."
+    }
+  ],
+  "ra.carotid-obstruction": [
+    {
+      "id": "bp3d-carotid-4.3-original-right-trunks",
+      "label": "Original right carotid source trunks · curated, incomplete reporting scope",
+      "atlas": "bp3d-carotid-4.3",
+      "family": "carotid-right-source",
+      "manifest_url": "/app/anatomy/bp3d-carotid-4.3/manifest.json",
+      "manifest_sha256": "191242052253a0e5965b2f5cc226a6d2eaab14536adbc81c0fd0d46b64db23f9",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "population_note": "Curated adult-male right common, external and internal carotid source trunks. Independent of the native CT, published cases and current patient. Full original objects are retained, but left-side anatomy, branch completeness, junction continuity and separated lumen/wall or lesion tissues remain unapproved. Do not grade patient stenosis or infer patency from this reference. Source coordinates and calibration limits, full construction details and CC BY-SA2.1 Japan attribution are stated below."
+    },
+    {
+      "id": "totalseg-v3-s0358-carotid-source-context",
+      "label": "Native CT common-carotid and adjacent labels · partial, not CTA grading",
+      "atlas": "totalseg-v3-s0358",
+      "family": "thyroid-source",
+      "manifest_url": "/app/anatomy/totalseg-v3-s0358/manifest.json",
+      "manifest_sha256": "e0990dce59ecb4571d11ef82a6fd20dfc485b72cfb6bc30d292815e829384f99",
+      "initial_layer": "source_labels",
+      "initial_cropped": false,
+      "population_note": "Independent CT case s0358, source metadata female and age90; all eight original labels remain, including partial common-carotid interfaces and adjacent structures. This is not a dedicated carotid CTA or a matched current-patient/publication/curated-male examination. No complete ICA/ECA/bifurcation, separated wall/lumen or stenosis grade is supplied. The source grid is1.5mm; raw DICOM calibration, arterial phase, effective wall resolution and independent orientation remain unverified. Full source details are below.",
+      "source_volume": {
+        "id": "totalseg-v3-s0358-complete-CT",
+        "src": "/app/anatomy/totalseg-v3-s0358/ct-reference.html",
+        "sha256": "be3f68908b66d05b41c664b78e1adef6c64da6bf1b6ebe1e36f539b9dc6d8bf9",
+        "script_sha256": "6b159e1b9eb4a48153cb0c3bb721d010439286837e0e1b1cd2a2d65bfbf3282d",
+        "level_by_part": {
+          "totalseg-v3-s0358-thyroid_gland": "thyroid gland",
+          "totalseg-v3-s0358-trachea": "trachea",
+          "totalseg-v3-s0358-esophagus": "esophagus",
+          "totalseg-v3-s0358-common_carotid_artery_left": "common carotid artery left",
+          "totalseg-v3-s0358-common_carotid_artery_right": "common carotid artery right",
+          "totalseg-v3-s0358-brachiocephalic_trunk": "brachiocephalic trunk",
+          "totalseg-v3-s0358-brachiocephalic_vein_left": "brachiocephalic vein left",
+          "totalseg-v3-s0358-brachiocephalic_vein_right": "brachiocephalic vein right"
+        },
+        "title": "Inspect matching complete source CT and original labels",
+        "caption": "Every native source slice and all eight original masks, with preserved overlaps. One 1.5 mm CT dataset grid; source index/RAS coordinates and source-value windowing, not independently calibrated HU, native DICOM orientation or ultrasound findings. Source annotation bounds and caps do not establish complete physical anatomy.",
+        "attribution": "ZIP member CRCs and local SHA256s were verified with stable publisher size/checksum before and after range acquisition. The whole 37.4 GB archive MD5 was not verified and no HTTP entity tag was supplied. Independent anatomical/clinical approval remains pending. Jakob Wasserthal. TotalSegmentator dataset v3.0.0, case s0358. DOI 10.5281/zenodo.22688904. CC BY 4.0. Adaptation: original 0.5 label-interface extraction, float32 transport and display normals.",
+        "source_url": "https://zenodo.org/records/22688904",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
+      }
+    }
+  ],
+  "ra.mri-endometriosis": [
+    {
+      "id": "hra-female-pelvis-v1.10-original-source",
+      "label": "Original female pelvic atlas surfaces · partial source reference",
+      "atlas": "hra-female-pelvis-v1.10",
+      "family": "female-pelvis-source",
+      "manifest_url": "/app/anatomy/hra-female-pelvis-v1.10/manifest.json",
+      "manifest_sha256": "ca947cc1bf39e165708d2a634e1acbe847629b90d14a89b6f38a4f6ccfbcc776",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "source_coordinate_system": "native-gltf-y-up",
+      "population_note": "54 complete original HRA female-assembly mesh occurrences: ovaries, tubal parts, uterine regions, source ligaments/folds, vagina, bladder regions, ureters, rectum/sigmoid and selected pelvic bones. Source labels, open surfaces and shared uterus-wall triangles are preserved. This curated reference is independent of the published MRI cases and current patient. Endometrium, myometrium, junctional zone, bowel-wall layers, nerves, parametrial boundaries, lesions and surgical margins remain unverified. Native declared metres/Y-up are retained; patient axes, acquisition calibration and MRI registration are unverified. The older standalone uterus provenance conflict is retained below."
+    }
+  ],
+  "ra.mri-cervical-cancer": [
+    {
+      "id": "hra-female-pelvis-v1.10-original-source",
+      "label": "Original female pelvic atlas surfaces · partial source reference",
+      "atlas": "hra-female-pelvis-v1.10",
+      "family": "female-pelvis-source",
+      "manifest_url": "/app/anatomy/hra-female-pelvis-v1.10/manifest.json",
+      "manifest_sha256": "ca947cc1bf39e165708d2a634e1acbe847629b90d14a89b6f38a4f6ccfbcc776",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "source_coordinate_system": "native-gltf-y-up",
+      "population_note": "54 complete original HRA female-assembly mesh occurrences: ovaries, tubal parts, uterine regions, source ligaments/folds, vagina, bladder regions, ureters, rectum/sigmoid and selected pelvic bones. Source labels, open surfaces and shared uterus-wall triangles are preserved. This curated reference is independent of the published MRI cases and current patient. Endometrium, myometrium, junctional zone, bowel-wall layers, nerves, parametrial boundaries, lesions and surgical margins remain unverified. Native declared metres/Y-up are retained; patient axes, acquisition calibration and MRI registration are unverified. The older standalone uterus provenance conflict is retained below."
+    }
+  ],
+  "ra.mri-endometrial-cancer": [
+    {
+      "id": "hra-female-pelvis-v1.10-original-source",
+      "label": "Original female pelvic atlas surfaces · partial source reference",
+      "atlas": "hra-female-pelvis-v1.10",
+      "family": "female-pelvis-source",
+      "manifest_url": "/app/anatomy/hra-female-pelvis-v1.10/manifest.json",
+      "manifest_sha256": "ca947cc1bf39e165708d2a634e1acbe847629b90d14a89b6f38a4f6ccfbcc776",
+      "initial_layer": "source-surfaces",
+      "initial_cropped": false,
+      "source_coordinate_system": "native-gltf-y-up",
+      "population_note": "54 complete original HRA female-assembly mesh occurrences: ovaries, tubal parts, uterine regions, source ligaments/folds, vagina, bladder regions, ureters, rectum/sigmoid and selected pelvic bones. Source labels, open surfaces and shared uterus-wall triangles are preserved. This curated reference is independent of the published MRI cases and current patient. Endometrium, myometrium, junctional zone, bowel-wall layers, nerves, parametrial boundaries, lesions and surgical margins remain unverified. Native declared metres/Y-up are retained; patient axes, acquisition calibration and MRI registration are unverified. The older standalone uterus provenance conflict is retained below."
+    }
+  ]
+}

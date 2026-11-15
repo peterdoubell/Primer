@@ -1,0 +1,5586 @@
+{
+  "schema": "primer.leeds-knee-geometry-audit.v1",
+  "status": "source geometry audit only; independent anatomical review pending",
+  "clinical_approval": false,
+  "commercial_readiness_demonstrated": false,
+  "source": {
+    "file": "ltkn8941_seg_intact_fix.inp",
+    "bytes": 32559198,
+    "sha256": "55b3050e3b6e0ce594d418f865e4bedfeef5bb360f12769de002fadc4d68eb03",
+    "staged_native_bytes_identical": true,
+    "doi": "10.5518/981",
+    "license": "CC BY 4.0",
+    "license_evidence": "README_Cooper-etal_2023.pdf, page 2",
+    "attribution": "Cooper RJ, Day GA, Wijayathunga VN, Yao J, Mengoni M, Wilcox RK, Jones AC (2023), Three subject-specific human tibiofemoral joint finite element models: complete three-dimensional imaging (CT & MR), experimental validation and modelling dataset. University of Leeds. doi:10.5518/981."
+  },
+  "source_context": [
+    "LTKN8941 is Knee 2; seg denotes directly segmented nonuniform cartilage, intact denotes included menisci, fix denotes constrained tibia (README page 3).",
+    "Bone and cartilage geometry came from post-test CT; menisci from registered pre-dissection MR (methods page 5). This audit has not recovered or validated that registration.",
+    "Meniscus segmentations underwent contact-conformity adjustments for solver convergence, including dilation, binary operations and curvature adjustments (methods page 5).",
+    "Uniform-thickness cartilage variants exist, but this selected seg_intact input is not one of them. Subject-derived geometry does not establish normal anatomy.",
+    "Only the seven explicitly labelled solid groups are represented. SpringA attachments represent meniscal-root mechanics, not volumetric root fibres (methods page 6)."
+  ],
+  "coordinates": {
+    "native": "Native PART-1 Cartesian coordinates, preserved without anatomical relabelling.",
+    "author_instance": "Author assembly placement only, before analysis/loading displacements.",
+    "anatomical_axis_identity": "unverified",
+    "mri_registration": "not established by this audit",
+    "units": "Native deck has no units declaration; source methods use mm/MPa. No unit conversion applied.",
+    "instance": {
+      "name": "PART-1-1",
+      "part": "PART-1",
+      "transform_lines": [
+        "114.,         166.,           0.",
+        "114.,         166.,           0.,         114.,         166.,           1.,         180."
+      ],
+      "source_line": 479829
+    },
+    "operation_order": "translation then rotation",
+    "column_vector_matrix": [
+      [
+        -1.0,
+        -1.2246467991473532e-16,
+        0.0,
+        114.0
+      ],
+      [
+        1.2246467991473532e-16,
+        -1.0,
+        0.0,
+        166.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "reference": "https://docs.software.vt.edu/abaqusv2025/English/SIMACAEKEYRefMap/simakey-r-instance.htm",
+    "all_node_bounds_native": [
+      [
+        10.6257944,
+        40.3740768,
+        69.8929977
+      ],
+      [
+        103.005074,
+        119.533096,
+        162.71701
+      ]
+    ],
+    "all_node_bounds_author_instance": [
+      [
+        10.994925999999992,
+        46.466904,
+        69.8929977
+      ],
+      [
+        103.37420559999998,
+        125.62592320000002,
+        162.71701
+      ]
+    ]
+  },
+  "volume": {
+    "part": "PART-1",
+    "element_type": "C3D10",
+    "nodes": 291045,
+    "elements": 180570,
+    "unused_part_nodes": 0,
+    "exact_section_partition": true,
+    "unlabelled_elements": 0,
+    "overlapping_section_elements": 0,
+    "unique_faces": 384304,
+    "boundary_faces": 46328,
+    "interior_faces": 337976,
+    "midside_face_mismatches": 0,
+    "nonmanifold_volume_faces": 0,
+    "unique_quadratic_edges": 247388,
+    "midpoint_deviation_native_units": {
+      "min": 0.0,
+      "median": 4.14155766817128e-06,
+      "p95": 8.732267730329486e-06,
+      "p99": 9.310746486282861e-06,
+      "max": 1.0359657336745959e-05
+    },
+    "distance_to_straight_segment_native_units": {
+      "min": 0.0,
+      "median": 3.508819277680407e-06,
+      "p95": 7.924482391136321e-06,
+      "p99": 8.815035528693514e-06,
+      "max": 1.034110750025507e-05
+    },
+    "midpoint_deviation_over_corner_edge_length": {
+      "min": 0.0,
+      "median": 3.355712443561518e-06,
+      "p95": 9.467348606316043e-06,
+      "p99": 1.2432245358333874e-05,
+      "max": 5.820107992481809e-05
+    },
+    "midpoint_deviation_above_1e_6_native_units": 211688
+  },
+  "shared_material_interfaces": [
+    {
+      "sections": [
+        "PT_FCART",
+        "PT_FEMUR"
+      ],
+      "quadratic_faces": 19057
+    },
+    {
+      "sections": [
+        "PT_TIBIA",
+        "PT_TCART_MED"
+      ],
+      "quadratic_faces": 3321
+    },
+    {
+      "sections": [
+        "PT_TIBIA",
+        "PT_TCART_LAT"
+      ],
+      "quadratic_faces": 2716
+    }
+  ],
+  "assembly_reference_nodes": [
+    {
+      "id": 1,
+      "position_author_assembly": [
+        59.0,
+        80.0,
+        143.0
+      ]
+    },
+    {
+      "id": 2,
+      "position_author_assembly": [
+        59.0,
+        80.0,
+        143.0
+      ]
+    }
+  ],
+  "spring_connectors": {
+    "count": 60,
+    "geometry_kind": "two-node mechanical connectors, not anatomical fibre volumes",
+    "groups": {
+      "Springs/Dashpots-1-spring": 15,
+      "Springs/Dashpots-2-spring": 15,
+      "Springs/Dashpots-3-spring": 15,
+      "Springs/Dashpots-4-spring": 15
+    },
+    "settings": [
+      {
+        "parameters": {
+          "ELSET": "Springs/Dashpots-1-spring"
+        },
+        "data": [
+          "1.4"
+        ],
+        "source_line": 486535
+      },
+      {
+        "parameters": {
+          "ELSET": "Springs/Dashpots-2-spring"
+        },
+        "data": [
+          "1.4"
+        ],
+        "source_line": 486554
+      },
+      {
+        "parameters": {
+          "ELSET": "Springs/Dashpots-3-spring"
+        },
+        "data": [
+          "1.4"
+        ],
+        "source_line": 486573
+      },
+      {
+        "parameters": {
+          "ELSET": "Springs/Dashpots-4-spring"
+        },
+        "data": [
+          "1.4"
+        ],
+        "source_line": 486592
+      }
+    ],
+    "elements": [
+      {
+        "id": 1,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43499"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486539
+      },
+      {
+        "id": 2,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43401"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486540
+      },
+      {
+        "id": 3,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.42971"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486541
+      },
+      {
+        "id": 4,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43526"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486542
+      },
+      {
+        "id": 5,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.42682"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486543
+      },
+      {
+        "id": 6,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.42684"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486544
+      },
+      {
+        "id": 7,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43612"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486545
+      },
+      {
+        "id": 8,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43304"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486546
+      },
+      {
+        "id": 9,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.42959"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486547
+      },
+      {
+        "id": 10,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43228"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486548
+      },
+      {
+        "id": 11,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43315"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486549
+      },
+      {
+        "id": 12,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43521"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486550
+      },
+      {
+        "id": 13,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.42882"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486551
+      },
+      {
+        "id": 14,
+        "endpoints": [
+          "PART-1-1.33808",
+          "PART-1-1.43195"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486552
+      },
+      {
+        "id": 15,
+        "endpoints": [
+          "PART-1-1.42935",
+          "PART-1-1.33808"
+        ],
+        "elset": "Springs/Dashpots-1-spring",
+        "source_line": 486553
+      },
+      {
+        "id": 16,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42838"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486558
+      },
+      {
+        "id": 17,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.43555"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486559
+      },
+      {
+        "id": 18,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.43563"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486560
+      },
+      {
+        "id": 19,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42909"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486561
+      },
+      {
+        "id": 20,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42926"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486562
+      },
+      {
+        "id": 21,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42840"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486563
+      },
+      {
+        "id": 22,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.43643"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486564
+      },
+      {
+        "id": 23,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42876"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486565
+      },
+      {
+        "id": 24,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42839"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486566
+      },
+      {
+        "id": 25,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.43385"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486567
+      },
+      {
+        "id": 26,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42999"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486568
+      },
+      {
+        "id": 27,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.43536"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486569
+      },
+      {
+        "id": 28,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.42980"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486570
+      },
+      {
+        "id": 29,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.43387"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486571
+      },
+      {
+        "id": 30,
+        "endpoints": [
+          "PART-1-1.34795",
+          "PART-1-1.43265"
+        ],
+        "elset": "Springs/Dashpots-2-spring",
+        "source_line": 486572
+      },
+      {
+        "id": 31,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42568"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486577
+      },
+      {
+        "id": 32,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.41928"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486578
+      },
+      {
+        "id": 33,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.41229"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486579
+      },
+      {
+        "id": 34,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.41268"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486580
+      },
+      {
+        "id": 35,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42510"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486581
+      },
+      {
+        "id": 36,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.41940"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486582
+      },
+      {
+        "id": 37,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42550"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486583
+      },
+      {
+        "id": 38,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42293"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486584
+      },
+      {
+        "id": 39,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.41787"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486585
+      },
+      {
+        "id": 40,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42101"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486586
+      },
+      {
+        "id": 41,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42155"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486587
+      },
+      {
+        "id": 42,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42549"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486588
+      },
+      {
+        "id": 43,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42548"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486589
+      },
+      {
+        "id": 44,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42581"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486590
+      },
+      {
+        "id": 45,
+        "endpoints": [
+          "PART-1-1.32075",
+          "PART-1-1.42104"
+        ],
+        "elset": "Springs/Dashpots-3-spring",
+        "source_line": 486591
+      },
+      {
+        "id": 46,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42383"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486596
+      },
+      {
+        "id": 47,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.41550"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486597
+      },
+      {
+        "id": 48,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.41551"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486598
+      },
+      {
+        "id": 49,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42397"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486599
+      },
+      {
+        "id": 50,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.41950"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486600
+      },
+      {
+        "id": 51,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.41846"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486601
+      },
+      {
+        "id": 52,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42519"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486602
+      },
+      {
+        "id": 53,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42324"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486603
+      },
+      {
+        "id": 54,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42514"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486604
+      },
+      {
+        "id": 55,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.41256"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486605
+      },
+      {
+        "id": 56,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.41949"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486606
+      },
+      {
+        "id": 57,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42338"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486607
+      },
+      {
+        "id": 58,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42336"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486608
+      },
+      {
+        "id": 59,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.41754"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486609
+      },
+      {
+        "id": 60,
+        "endpoints": [
+          "PART-1-1.34675",
+          "PART-1-1.42561"
+        ],
+        "elset": "Springs/Dashpots-4-spring",
+        "source_line": 486610
+      }
+    ]
+  },
+  "surface_representation": {
+    "primary": "Six-node quadratic triangular faces with native midside coordinates",
+    "face_node_order": [
+      "a",
+      "b",
+      "c",
+      "ab",
+      "bc",
+      "ca"
+    ],
+    "winding": "PT_*.npz boundary faces are oriented outward relative to the opposite corner. volume.npz global boundary faces preserve native Abaqus S1..S4 ordering without outward reorientation. Neither convention is a full curved-Jacobian validity proof.",
+    "preview": "Quadratic interpolation on an even 4-division barycentric grid; 16 planar triangles per face; no decimation or smoothing",
+    "preview_error_bound": "not established; use quadratic arrays for quantitative review",
+    "geometry_vs_displacement_interpolation": "Quadratic C3D10 order supports quadratic interpolation but does not imply added anatomical detail. In this undeformed source the maximum midside-to-edge-midpoint offset is about 1.04e-5 native units; its geometry is consequently almost straight-sided at that scale. All native midside nodes are nevertheless preserved.",
+    "bounds": "Nodal extrema are labelled as such. Bernstein control bounds conservatively enclose continuous curved boundary faces, not necessarily tightly.",
+    "topology_limits": "Edge-incidence and quadratic face-adjacency checks are not a proof of vertex manifoldness, absence of self-intersections, positive curved-element Jacobians, or anatomical validity.",
+    "interpolation_reference": "https://docs.software.vt.edu/abaqusv2025/English/SIMACAETHERefMap/simathe-c-tritetwedge.htm"
+  },
+  "sections": [
+    {
+      "elset": "PT_FCART",
+      "material": "PM_FCART",
+      "orientation": null,
+      "source_line": 471723,
+      "geometry": "PT_FCART.npz",
+      "elements": 76059,
+      "all_tissue_nodes": 144212,
+      "surface_nodes": 83858,
+      "boundary_quadratic_faces": 41928,
+      "interior_quadratic_faces": 131154,
+      "all_node_bounds_native": [
+        [
+          16.9895802,
+          42.0377769,
+          118.827721
+        ],
+        [
+          97.085701,
+          119.533096,
+          162.71701
+        ]
+      ],
+      "all_node_bounds_author_instance": [
+        [
+          16.914298999999986,
+          46.466904,
+          118.827721
+        ],
+        [
+          97.0104198,
+          123.96222310000002,
+          162.71701
+        ]
+      ],
+      "surface_node_bounds_native": [
+        [
+          16.9895802,
+          42.0377769,
+          118.827721
+        ],
+        [
+          97.085701,
+          119.533096,
+          162.71701
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_native": [
+        [
+          16.9895802,
+          42.0377769,
+          118.827721
+        ],
+        [
+          97.085701,
+          119.533096,
+          162.71701
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_author_instance": [
+        [
+          16.914298999999986,
+          46.466904,
+          118.827721
+        ],
+        [
+          97.0104198,
+          123.96222310000002,
+          162.71701
+        ]
+      ],
+      "preview_triangles": 670848,
+      "preview_samples_per_face": 15,
+      "corner_signed_volume_min": 0.0015281127055613356,
+      "corner_signed_volume_max": 1.1150892723546766,
+      "nonpositive_corner_volumes": 0,
+      "unique_quadratic_surface_edges": 62892,
+      "open_surface_edges": 0,
+      "nonmanifold_surface_edges": 0,
+      "surface_connected_components": 1,
+      "surface_euler_characteristic": 2,
+      "unique_quadratic_edges": 120617,
+      "midpoint_deviation_native_units": {
+        "min": 0.0,
+        "median": 4.428317969191728e-06,
+        "p95": 8.878344447141555e-06,
+        "p99": 9.512754597853727e-06,
+        "max": 1.0359657336745959e-05
+      },
+      "distance_to_straight_segment_native_units": {
+        "min": 0.0,
+        "median": 3.6519124797824634e-06,
+        "p95": 8.180229475313224e-06,
+        "p99": 8.925030127454659e-06,
+        "max": 1.034110750025507e-05
+      },
+      "midpoint_deviation_over_corner_edge_length": {
+        "min": 0.0,
+        "median": 4.202754843831657e-06,
+        "p95": 1.0709485473272678e-05,
+        "p99": 1.379921777542673e-05,
+        "max": 5.820107992481809e-05
+      },
+      "midpoint_deviation_above_1e_6_native_units": 103432
+    },
+    {
+      "elset": "PT_FEMUR",
+      "material": "PM_FEMUR",
+      "orientation": null,
+      "source_line": 471726,
+      "geometry": "PT_FEMUR.npz",
+      "elements": 41401,
+      "all_tissue_nodes": 82166,
+      "surface_nodes": 49506,
+      "boundary_quadratic_faces": 24752,
+      "interior_quadratic_faces": 70426,
+      "all_node_bounds_native": [
+        [
+          10.6257944,
+          43.0590858,
+          121.376183
+        ],
+        [
+          100.717857,
+          117.313545,
+          162.71701
+        ]
+      ],
+      "all_node_bounds_author_instance": [
+        [
+          13.28214299999999,
+          48.686454999999995,
+          121.376183
+        ],
+        [
+          103.37420559999998,
+          122.94091420000001,
+          162.71701
+        ]
+      ],
+      "surface_node_bounds_native": [
+        [
+          10.6257944,
+          43.0590858,
+          121.376183
+        ],
+        [
+          100.717857,
+          117.313545,
+          162.71701
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_native": [
+        [
+          10.6257944,
+          43.0590858,
+          121.376183
+        ],
+        [
+          100.717857,
+          117.313545,
+          162.71701
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_author_instance": [
+        [
+          13.28214299999999,
+          48.686454999999995,
+          121.376183
+        ],
+        [
+          103.37420559999998,
+          122.94091420000001,
+          162.71701
+        ]
+      ],
+      "preview_triangles": 396032,
+      "preview_samples_per_face": 15,
+      "corner_signed_volume_min": 0.0009404998556244697,
+      "corner_signed_volume_max": 159.55027443818344,
+      "nonpositive_corner_volumes": 0,
+      "unique_quadratic_surface_edges": 37128,
+      "open_surface_edges": 0,
+      "nonmanifold_surface_edges": 0,
+      "surface_connected_components": 1,
+      "surface_euler_characteristic": 2,
+      "unique_quadratic_edges": 67971,
+      "midpoint_deviation_native_units": {
+        "min": 0.0,
+        "median": 4.4780017891371945e-06,
+        "p95": 8.944271893772331e-06,
+        "p99": 9.543191293300663e-06,
+        "max": 1.0359657313426217e-05
+      },
+      "distance_to_straight_segment_native_units": {
+        "min": 0.0,
+        "median": 3.6791631438163395e-06,
+        "p95": 8.305322140610061e-06,
+        "p99": 9.007556791335513e-06,
+        "max": 1.0132630687924228e-05
+      },
+      "midpoint_deviation_over_corner_edge_length": {
+        "min": 0.0,
+        "median": 3.1202487994093544e-06,
+        "p95": 1.001382634780993e-05,
+        "p99": 1.2193992239244499e-05,
+        "max": 5.7483412457076216e-05
+      },
+      "midpoint_deviation_above_1e_6_native_units": 57987
+    },
+    {
+      "elset": "PT_TIBIA",
+      "material": "PM_TIBIA",
+      "orientation": null,
+      "source_line": 471729,
+      "geometry": "PT_TIBIA.npz",
+      "elements": 23656,
+      "all_tissue_nodes": 45438,
+      "surface_nodes": 25686,
+      "boundary_quadratic_faces": 12842,
+      "interior_quadratic_faces": 40891,
+      "all_node_bounds_native": [
+        [
+          17.7996483,
+          40.3740768,
+          69.8929977
+        ],
+        [
+          103.005074,
+          103.811523,
+          126.6297
+        ]
+      ],
+      "all_node_bounds_author_instance": [
+        [
+          10.994925999999992,
+          62.188477000000006,
+          69.8929977
+        ],
+        [
+          96.20035169999998,
+          125.62592320000002,
+          126.6297
+        ]
+      ],
+      "surface_node_bounds_native": [
+        [
+          17.7996483,
+          40.3740768,
+          69.8929977
+        ],
+        [
+          103.005074,
+          103.811523,
+          126.6297
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_native": [
+        [
+          17.7996483,
+          40.3740768,
+          69.8929977
+        ],
+        [
+          103.005074,
+          103.811523,
+          126.6297
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_author_instance": [
+        [
+          10.994925999999992,
+          62.188477000000006,
+          69.8929977
+        ],
+        [
+          96.20035169999998,
+          125.62592320000002,
+          126.6297
+        ]
+      ],
+      "preview_triangles": 205472,
+      "preview_samples_per_face": 15,
+      "corner_signed_volume_min": 0.0016770434477742433,
+      "corner_signed_volume_max": 256.72749198067885,
+      "nonpositive_corner_volumes": 0,
+      "unique_quadratic_surface_edges": 19263,
+      "open_surface_edges": 0,
+      "nonmanifold_surface_edges": 0,
+      "surface_connected_components": 1,
+      "surface_euler_characteristic": 2,
+      "unique_quadratic_edges": 37757,
+      "midpoint_deviation_native_units": {
+        "min": 0.0,
+        "median": 3.982775419314318e-06,
+        "p95": 6.173734684363655e-06,
+        "p99": 6.727741079826819e-06,
+        "max": 7.4379096554137954e-06
+      },
+      "distance_to_straight_segment_native_units": {
+        "min": 0.0,
+        "median": 3.3154761291090288e-06,
+        "p95": 5.498913349525834e-06,
+        "p99": 6.41472741310368e-06,
+        "max": 7.1189579463134476e-06
+      },
+      "midpoint_deviation_over_corner_edge_length": {
+        "min": 0.0,
+        "median": 1.9454557489396533e-06,
+        "p95": 6.19219509065582e-06,
+        "p99": 7.821348515146567e-06,
+        "max": 3.54034035540577e-05
+      },
+      "midpoint_deviation_above_1e_6_native_units": 32382
+    },
+    {
+      "elset": "PT_TCART_MED",
+      "material": "PM_TCART_MED",
+      "orientation": null,
+      "source_line": 471732,
+      "geometry": "PT_TCART_MED.npz",
+      "elements": 15528,
+      "all_tissue_nodes": 27904,
+      "surface_nodes": 13950,
+      "boundary_quadratic_faces": 6974,
+      "interior_quadratic_faces": 27569,
+      "all_node_bounds_native": [
+        [
+          20.3350487,
+          56.1839561,
+          113.133774
+        ],
+        [
+          51.7625694,
+          99.8977203,
+          125.802177
+        ]
+      ],
+      "all_node_bounds_author_instance": [
+        [
+          62.237430599999996,
+          66.1022797,
+          113.133774
+        ],
+        [
+          93.66495129999998,
+          109.81604390000001,
+          125.802177
+        ]
+      ],
+      "surface_node_bounds_native": [
+        [
+          20.3350487,
+          56.1839561,
+          113.133774
+        ],
+        [
+          51.7625694,
+          99.8977203,
+          125.802177
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_native": [
+        [
+          20.3350487,
+          56.1839561,
+          113.133774
+        ],
+        [
+          51.7625694,
+          99.8977203,
+          125.802177
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_author_instance": [
+        [
+          62.237430599999996,
+          66.1022797,
+          113.133774
+        ],
+        [
+          93.66495129999998,
+          109.81604390000001,
+          125.802177
+        ]
+      ],
+      "preview_triangles": 111584,
+      "preview_samples_per_face": 15,
+      "corner_signed_volume_min": 0.005017581898426218,
+      "corner_signed_volume_max": 0.9988229067424146,
+      "nonpositive_corner_volumes": 0,
+      "unique_quadratic_surface_edges": 10461,
+      "open_surface_edges": 0,
+      "nonmanifold_surface_edges": 0,
+      "surface_connected_components": 1,
+      "surface_euler_characteristic": 2,
+      "unique_quadratic_edges": 23459,
+      "midpoint_deviation_native_units": {
+        "min": 0.0,
+        "median": 3.958850837352878e-06,
+        "p95": 5.8191494253333675e-06,
+        "p99": 5.922415049310975e-06,
+        "max": 6.265979571069751e-06
+      },
+      "distance_to_straight_segment_native_units": {
+        "min": 0.0,
+        "median": 3.117193352153003e-06,
+        "p95": 5.271553777951194e-06,
+        "p99": 5.734744442528319e-06,
+        "max": 6.233718318426318e-06
+      },
+      "midpoint_deviation_over_corner_edge_length": {
+        "min": 0.0,
+        "median": 3.2754141428080515e-06,
+        "p95": 6.47980245052749e-06,
+        "p99": 7.978392758937e-06,
+        "max": 1.414346570780454e-05
+      },
+      "midpoint_deviation_above_1e_6_native_units": 19861
+    },
+    {
+      "elset": "PT_TCART_LAT",
+      "material": "PM_TCART_LAT",
+      "orientation": null,
+      "source_line": 471735,
+      "geometry": "PT_TCART_LAT.npz",
+      "elements": 15859,
+      "all_tissue_nodes": 27461,
+      "surface_nodes": 12174,
+      "boundary_quadratic_faces": 6086,
+      "interior_quadratic_faces": 28675,
+      "all_node_bounds_native": [
+        [
+          67.1821671,
+          63.2177391,
+          111.810608
+        ],
+        [
+          98.6652527,
+          102.858788,
+          125.570908
+        ]
+      ],
+      "all_node_bounds_author_instance": [
+        [
+          15.33474729999999,
+          63.14121200000001,
+          111.810608
+        ],
+        [
+          46.817832899999985,
+          102.78226090000001,
+          125.570908
+        ]
+      ],
+      "surface_node_bounds_native": [
+        [
+          67.1821671,
+          63.2177391,
+          111.810608
+        ],
+        [
+          98.6652527,
+          102.858788,
+          125.570908
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_native": [
+        [
+          67.1821671,
+          63.2177391,
+          111.810608
+        ],
+        [
+          98.6652527,
+          102.858788,
+          125.570908
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_author_instance": [
+        [
+          15.33474729999999,
+          63.14121200000001,
+          111.810608
+        ],
+        [
+          46.817832899999985,
+          102.78226090000001,
+          125.570908
+        ]
+      ],
+      "preview_triangles": 97376,
+      "preview_samples_per_face": 15,
+      "corner_signed_volume_min": 0.0004899162487800313,
+      "corner_signed_volume_max": 0.9317073928322577,
+      "nonpositive_corner_volumes": 0,
+      "unique_quadratic_surface_edges": 9129,
+      "open_surface_edges": 0,
+      "nonmanifold_surface_edges": 0,
+      "surface_connected_components": 1,
+      "surface_euler_characteristic": 2,
+      "unique_quadratic_edges": 23181,
+      "midpoint_deviation_native_units": {
+        "min": 0.0,
+        "median": 4.609772238587258e-06,
+        "p95": 6.699253694245996e-06,
+        "p99": 6.982299053657373e-06,
+        "max": 7.146502652260819e-06
+      },
+      "distance_to_straight_segment_native_units": {
+        "min": 0.0,
+        "median": 3.634140452149597e-06,
+        "p95": 5.9365768963002165e-06,
+        "p99": 6.658287148850484e-06,
+        "max": 7.0597208957108474e-06
+      },
+      "midpoint_deviation_over_corner_edge_length": {
+        "min": 0.0,
+        "median": 4.021900463160925e-06,
+        "p95": 7.521629663045639e-06,
+        "p99": 9.198262744730574e-06,
+        "max": 3.607551705663045e-05
+      },
+      "midpoint_deviation_above_1e_6_native_units": 20246
+    },
+    {
+      "elset": "PT_MEDIAL_MEN",
+      "material": "PM_MEDIAL_MEN",
+      "orientation": "Ori-2",
+      "source_line": 476341,
+      "geometry": "PT_MEDIAL_MEN.npz",
+      "elements": 4597,
+      "all_tissue_nodes": 8502,
+      "surface_nodes": 4426,
+      "boundary_quadratic_faces": 2212,
+      "interior_quadratic_faces": 8088,
+      "all_node_bounds_native": [
+        [
+          23.5139332,
+          61.9099159,
+          116.467041
+        ],
+        [
+          44.3979645,
+          95.1433868,
+          128.90947
+        ]
+      ],
+      "all_node_bounds_author_instance": [
+        [
+          69.6020355,
+          70.8566132,
+          116.467041
+        ],
+        [
+          90.48606679999999,
+          104.09008410000001,
+          128.90947
+        ]
+      ],
+      "surface_node_bounds_native": [
+        [
+          23.5139332,
+          61.9099159,
+          116.467041
+        ],
+        [
+          44.3979645,
+          95.1433868,
+          128.90947
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_native": [
+        [
+          23.5139332,
+          61.9099159,
+          116.467041
+        ],
+        [
+          44.3979645,
+          95.1433868,
+          128.90947
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_author_instance": [
+        [
+          69.6020355,
+          70.8566132,
+          116.467041
+        ],
+        [
+          90.48606679999999,
+          104.09008410000001,
+          128.90947
+        ]
+      ],
+      "preview_triangles": 35392,
+      "preview_samples_per_face": 15,
+      "corner_signed_volume_min": 0.012393085877124935,
+      "corner_signed_volume_max": 1.29567504666886,
+      "nonpositive_corner_volumes": 0,
+      "unique_quadratic_surface_edges": 3318,
+      "open_surface_edges": 0,
+      "nonmanifold_surface_edges": 0,
+      "surface_connected_components": 1,
+      "surface_euler_characteristic": 2,
+      "unique_quadratic_edges": 7102,
+      "midpoint_deviation_native_units": {
+        "min": 0.0,
+        "median": 3.849999998806197e-06,
+        "p95": 5.590169947366904e-06,
+        "p99": 5.965945024219829e-06,
+        "max": 8.914875187854977e-06
+      },
+      "distance_to_straight_segment_native_units": {
+        "min": 0.0,
+        "median": 2.909715145096684e-06,
+        "p95": 5.249748846980564e-06,
+        "p99": 5.8260567384485696e-06,
+        "max": 8.438260779923122e-06
+      },
+      "midpoint_deviation_over_corner_edge_length": {
+        "min": 0.0,
+        "median": 3.41584809535246e-06,
+        "p95": 6.782455055263757e-06,
+        "p99": 8.604145915216105e-06,
+        "max": 3.438038631158953e-05
+      },
+      "midpoint_deviation_above_1e_6_native_units": 5744
+    },
+    {
+      "elset": "PT_LATERAL_MEN",
+      "material": "PM_LATERAL_MEN",
+      "orientation": "Ori-1",
+      "source_line": 479820,
+      "geometry": "PT_LATERAL_MEN.npz",
+      "elements": 3470,
+      "all_tissue_nodes": 6478,
+      "surface_nodes": 3446,
+      "boundary_quadratic_faces": 1722,
+      "interior_quadratic_faces": 6079,
+      "all_node_bounds_native": [
+        [
+          75.3647995,
+          69.1424942,
+          116.215027
+        ],
+        [
+          92.3074341,
+          101.25399,
+          126.875702
+        ]
+      ],
+      "all_node_bounds_author_instance": [
+        [
+          21.69256589999999,
+          64.74601000000001,
+          116.215027
+        ],
+        [
+          38.63520049999998,
+          96.85750580000001,
+          126.875702
+        ]
+      ],
+      "surface_node_bounds_native": [
+        [
+          75.3647995,
+          69.1424942,
+          116.215027
+        ],
+        [
+          92.3074341,
+          101.25399,
+          126.875702
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_native": [
+        [
+          75.3647995,
+          69.1424942,
+          116.215027
+        ],
+        [
+          92.3074341,
+          101.25399,
+          126.875702
+        ]
+      ],
+      "quadratic_surface_bernstein_enclosure_author_instance": [
+        [
+          21.69256589999999,
+          64.74601000000001,
+          116.215027
+        ],
+        [
+          38.63520049999998,
+          96.85750580000001,
+          126.875702
+        ]
+      ],
+      "preview_triangles": 27552,
+      "preview_samples_per_face": 15,
+      "corner_signed_volume_min": 0.011411127455782927,
+      "corner_signed_volume_max": 0.9896098268286124,
+      "nonpositive_corner_volumes": 0,
+      "unique_quadratic_surface_edges": 2583,
+      "open_surface_edges": 0,
+      "nonmanifold_surface_edges": 0,
+      "surface_connected_components": 1,
+      "surface_euler_characteristic": 2,
+      "unique_quadratic_edges": 5404,
+      "midpoint_deviation_native_units": {
+        "min": 0.0,
+        "median": 5.095719187369048e-06,
+        "p95": 6.699253702306781e-06,
+        "p99": 7.0092795673035496e-06,
+        "max": 7.437909646816105e-06
+      },
+      "distance_to_straight_segment_native_units": {
+        "min": 0.0,
+        "median": 3.6563626378895876e-06,
+        "p95": 6.027783338892815e-06,
+        "p99": 6.651958760280321e-06,
+        "max": 7.061899046837941e-06
+      },
+      "midpoint_deviation_over_corner_edge_length": {
+        "min": 0.0,
+        "median": 4.571815559352692e-06,
+        "p95": 8.115814245987024e-06,
+        "p99": 9.975855864930793e-06,
+        "max": 1.6389587436194776e-05
+      },
+      "midpoint_deviation_above_1e_6_native_units": 4725
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "volume.npz",
+      "bytes": 25981902,
+      "sha256": "36e02a49acdc2a7fb3475221bd048efe93c946b473a406f21ab150e80e548c66",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            291045
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            291045,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            291045,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "source_element_ids": {
+          "shape": [
+            180570
+          ],
+          "dtype": "int64"
+        },
+        "c3d10_source_node_ids": {
+          "shape": [
+            180570,
+            10
+          ],
+          "dtype": "int64"
+        },
+        "c3d10_indices": {
+          "shape": [
+            180570,
+            10
+          ],
+          "dtype": "int64"
+        },
+        "element_section_index": {
+          "shape": [
+            180570
+          ],
+          "dtype": "int16"
+        },
+        "global_boundary_quadratic_face_source_node_ids": {
+          "shape": [
+            46328,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "global_boundary_source_element_ids": {
+          "shape": [
+            46328
+          ],
+          "dtype": "int64"
+        },
+        "global_boundary_abaqus_face_numbers": {
+          "shape": [
+            46328
+          ],
+          "dtype": "int64"
+        },
+        "interior_source_element_pairs": {
+          "shape": [
+            337976,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "interior_abaqus_face_number_pairs": {
+          "shape": [
+            337976,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "section_elset_names": {
+          "shape": [
+            7
+          ],
+          "dtype": "<U14"
+        },
+        "author_instance_matrix": {
+          "shape": [
+            4,
+            4
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_edge_source_node_ids": {
+          "shape": [
+            247388,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "edge_midpoint_deviation": {
+          "shape": [
+            247388
+          ],
+          "dtype": "float64"
+        },
+        "edge_distance_to_straight_segment": {
+          "shape": [
+            247388
+          ],
+          "dtype": "float64"
+        },
+        "spring_element_ids": {
+          "shape": [
+            60
+          ],
+          "dtype": "int64"
+        },
+        "spring_endpoint_source_node_ids": {
+          "shape": [
+            60,
+            2
+          ],
+          "dtype": "int64"
+        },
+        "spring_endpoint_positions_author_instance": {
+          "shape": [
+            60,
+            2,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "assembly_reference_node_ids": {
+          "shape": [
+            2
+          ],
+          "dtype": "int64"
+        },
+        "assembly_reference_positions": {
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float64"
+        }
+      }
+    },
+    {
+      "file": "PT_FCART.npz",
+      "bytes": 26189708,
+      "sha256": "8aa977ea7eaa9dff0c37463a34ecac0e1fba2cc9b5c0c715cb11e401cef159ad",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            83858
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            83858,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            83858,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_faces": {
+          "shape": [
+            41928,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "quadratic_face_source_node_ids": {
+          "shape": [
+            41928,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "boundary_source_element_ids": {
+          "shape": [
+            41928
+          ],
+          "dtype": "int64"
+        },
+        "boundary_abaqus_face_numbers": {
+          "shape": [
+            41928
+          ],
+          "dtype": "int64"
+        },
+        "source_element_ids": {
+          "shape": [
+            76059
+          ],
+          "dtype": "int64"
+        },
+        "all_tissue_source_node_ids": {
+          "shape": [
+            144212
+          ],
+          "dtype": "int64"
+        },
+        "preview_positions_native": {
+          "shape": [
+            628920,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_positions_author_instance": {
+          "shape": [
+            628920,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangles": {
+          "shape": [
+            670848,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "preview_sample_barycentric": {
+          "shape": [
+            15,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangle_parent_quadratic_face": {
+          "shape": [
+            670848
+          ],
+          "dtype": "int64"
+        }
+      }
+    },
+    {
+      "file": "PT_FEMUR.npz",
+      "bytes": 15320393,
+      "sha256": "44f18af3ff27f2c3cc564db457be16a848e231d72e63820ed06de9ee96aa1311",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            49506
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            49506,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            49506,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_faces": {
+          "shape": [
+            24752,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "quadratic_face_source_node_ids": {
+          "shape": [
+            24752,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "boundary_source_element_ids": {
+          "shape": [
+            24752
+          ],
+          "dtype": "int64"
+        },
+        "boundary_abaqus_face_numbers": {
+          "shape": [
+            24752
+          ],
+          "dtype": "int64"
+        },
+        "source_element_ids": {
+          "shape": [
+            41401
+          ],
+          "dtype": "int64"
+        },
+        "all_tissue_source_node_ids": {
+          "shape": [
+            82166
+          ],
+          "dtype": "int64"
+        },
+        "preview_positions_native": {
+          "shape": [
+            371280,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_positions_author_instance": {
+          "shape": [
+            371280,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangles": {
+          "shape": [
+            396032,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "preview_sample_barycentric": {
+          "shape": [
+            15,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangle_parent_quadratic_face": {
+          "shape": [
+            396032
+          ],
+          "dtype": "int64"
+        }
+      }
+    },
+    {
+      "file": "PT_TIBIA.npz",
+      "bytes": 7920112,
+      "sha256": "8ed81119bab79d49c9cbcec39191321c125ffe4e6280c94c2339ecc44b2b3833",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            25686
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            25686,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            25686,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_faces": {
+          "shape": [
+            12842,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "quadratic_face_source_node_ids": {
+          "shape": [
+            12842,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "boundary_source_element_ids": {
+          "shape": [
+            12842
+          ],
+          "dtype": "int64"
+        },
+        "boundary_abaqus_face_numbers": {
+          "shape": [
+            12842
+          ],
+          "dtype": "int64"
+        },
+        "source_element_ids": {
+          "shape": [
+            23656
+          ],
+          "dtype": "int64"
+        },
+        "all_tissue_source_node_ids": {
+          "shape": [
+            45438
+          ],
+          "dtype": "int64"
+        },
+        "preview_positions_native": {
+          "shape": [
+            192630,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_positions_author_instance": {
+          "shape": [
+            192630,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangles": {
+          "shape": [
+            205472,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "preview_sample_barycentric": {
+          "shape": [
+            15,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangle_parent_quadratic_face": {
+          "shape": [
+            205472
+          ],
+          "dtype": "int64"
+        }
+      }
+    },
+    {
+      "file": "PT_TCART_MED.npz",
+      "bytes": 4273243,
+      "sha256": "8850c803b71e0a59b8355f7f93b2c42e922ddcf6e49d2ea70134e189da279afa",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            13950
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            13950,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            13950,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_faces": {
+          "shape": [
+            6974,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "quadratic_face_source_node_ids": {
+          "shape": [
+            6974,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "boundary_source_element_ids": {
+          "shape": [
+            6974
+          ],
+          "dtype": "int64"
+        },
+        "boundary_abaqus_face_numbers": {
+          "shape": [
+            6974
+          ],
+          "dtype": "int64"
+        },
+        "source_element_ids": {
+          "shape": [
+            15528
+          ],
+          "dtype": "int64"
+        },
+        "all_tissue_source_node_ids": {
+          "shape": [
+            27904
+          ],
+          "dtype": "int64"
+        },
+        "preview_positions_native": {
+          "shape": [
+            104610,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_positions_author_instance": {
+          "shape": [
+            104610,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangles": {
+          "shape": [
+            111584,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "preview_sample_barycentric": {
+          "shape": [
+            15,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangle_parent_quadratic_face": {
+          "shape": [
+            111584
+          ],
+          "dtype": "int64"
+        }
+      }
+    },
+    {
+      "file": "PT_TCART_LAT.npz",
+      "bytes": 3686439,
+      "sha256": "42ce3bb6d2ea37922c186c4313f50f90d22c42f5d42e46e2a1cfe5f14aa8ffe0",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            12174
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            12174,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            12174,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_faces": {
+          "shape": [
+            6086,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "quadratic_face_source_node_ids": {
+          "shape": [
+            6086,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "boundary_source_element_ids": {
+          "shape": [
+            6086
+          ],
+          "dtype": "int64"
+        },
+        "boundary_abaqus_face_numbers": {
+          "shape": [
+            6086
+          ],
+          "dtype": "int64"
+        },
+        "source_element_ids": {
+          "shape": [
+            15859
+          ],
+          "dtype": "int64"
+        },
+        "all_tissue_source_node_ids": {
+          "shape": [
+            27461
+          ],
+          "dtype": "int64"
+        },
+        "preview_positions_native": {
+          "shape": [
+            91290,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_positions_author_instance": {
+          "shape": [
+            91290,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangles": {
+          "shape": [
+            97376,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "preview_sample_barycentric": {
+          "shape": [
+            15,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangle_parent_quadratic_face": {
+          "shape": [
+            97376
+          ],
+          "dtype": "int64"
+        }
+      }
+    },
+    {
+      "file": "PT_MEDIAL_MEN.npz",
+      "bytes": 1342055,
+      "sha256": "dc3c78b53c6bcdac592481fe89f1adc07907b6281d05c8d98ad5e82086e704a3",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            4426
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            4426,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            4426,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_faces": {
+          "shape": [
+            2212,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "quadratic_face_source_node_ids": {
+          "shape": [
+            2212,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "boundary_source_element_ids": {
+          "shape": [
+            2212
+          ],
+          "dtype": "int64"
+        },
+        "boundary_abaqus_face_numbers": {
+          "shape": [
+            2212
+          ],
+          "dtype": "int64"
+        },
+        "source_element_ids": {
+          "shape": [
+            4597
+          ],
+          "dtype": "int64"
+        },
+        "all_tissue_source_node_ids": {
+          "shape": [
+            8502
+          ],
+          "dtype": "int64"
+        },
+        "preview_positions_native": {
+          "shape": [
+            33180,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_positions_author_instance": {
+          "shape": [
+            33180,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangles": {
+          "shape": [
+            35392,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "preview_sample_barycentric": {
+          "shape": [
+            15,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangle_parent_quadratic_face": {
+          "shape": [
+            35392
+          ],
+          "dtype": "int64"
+        }
+      }
+    },
+    {
+      "file": "PT_LATERAL_MEN.npz",
+      "bytes": 1029418,
+      "sha256": "5bd199b291f77cc9899e6329aa7385eb1f1ab3088516eb9af47404c7743bd84d",
+      "arrays": {
+        "source_node_ids": {
+          "shape": [
+            3446
+          ],
+          "dtype": "int64"
+        },
+        "positions_native": {
+          "shape": [
+            3446,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "positions_author_instance": {
+          "shape": [
+            3446,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "quadratic_faces": {
+          "shape": [
+            1722,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "quadratic_face_source_node_ids": {
+          "shape": [
+            1722,
+            6
+          ],
+          "dtype": "int64"
+        },
+        "boundary_source_element_ids": {
+          "shape": [
+            1722
+          ],
+          "dtype": "int64"
+        },
+        "boundary_abaqus_face_numbers": {
+          "shape": [
+            1722
+          ],
+          "dtype": "int64"
+        },
+        "source_element_ids": {
+          "shape": [
+            3470
+          ],
+          "dtype": "int64"
+        },
+        "all_tissue_source_node_ids": {
+          "shape": [
+            6478
+          ],
+          "dtype": "int64"
+        },
+        "preview_positions_native": {
+          "shape": [
+            25830,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_positions_author_instance": {
+          "shape": [
+            25830,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangles": {
+          "shape": [
+            27552,
+            3
+          ],
+          "dtype": "int64"
+        },
+        "preview_sample_barycentric": {
+          "shape": [
+            15,
+            3
+          ],
+          "dtype": "float64"
+        },
+        "preview_triangle_parent_quadratic_face": {
+          "shape": [
+            27552
+          ],
+          "dtype": "int64"
+        }
+      }
+    }
+  ],
+  "source_documents": [
+    {
+      "file": "README_Cooper-etal_2023.pdf",
+      "bytes": 189753,
+      "sha256": "006b93d280710d8e45d22853dae11bdbec60267af89c0ac024311ff9c416ac0f"
+    },
+    {
+      "file": "README_Cooper-etal_2023.txt",
+      "bytes": 16151,
+      "sha256": "785105d877e5b3910915201a6202fe57da47e27e5a20d83aa19b5553474cd177"
+    },
+    {
+      "file": "method_documentation.pdf",
+      "bytes": 488826,
+      "sha256": "e50687b1ebeb908dc6c1b27a9b3ac90488b8ead8073eb53b033928ec16587966"
+    },
+    {
+      "file": "method_documentation.txt",
+      "bytes": 21789,
+      "sha256": "ab97704aa2b46c937542cedffa70f03f2fa5994c9eadbc1ebb03fe33704273a3"
+    }
+  ],
+  "input_keyword_counts": {
+    "HEADING": 1,
+    "PREPRINT": 1,
+    "PART": 1,
+    "NODE": 3,
+    "ELEMENT": 5,
+    "ELSET": 75,
+    "SURFACE": 19,
+    "SOLID SECTION": 7,
+    "DISTRIBUTION": 2,
+    "ORIENTATION": 2,
+    "END PART": 1,
+    "ASSEMBLY": 1,
+    "INSTANCE": 1,
+    "END INSTANCE": 1,
+    "NSET": 73,
+    "COUPLING": 2,
+    "KINEMATIC": 2,
+    "SPRING": 4,
+    "END ASSEMBLY": 1,
+    "DISTRIBUTION TABLE": 2,
+    "MATERIAL": 7,
+    "HYPERELASTIC": 3,
+    "ELASTIC": 4,
+    "SURFACE INTERACTION": 2,
+    "FRICTION": 2,
+    "SURFACE BEHAVIOR": 2,
+    "BOUNDARY": 4,
+    "CONTACT PAIR": 10,
+    "STEP": 2,
+    "STATIC": 2,
+    "CONTROLS": 2,
+    "RESTART": 2,
+    "OUTPUT": 4,
+    "END STEP": 2,
+    "CLOAD": 1,
+    "NODE OUTPUT": 1,
+    "ELEMENT OUTPUT": 1,
+    "CONTACT OUTPUT": 2
+  },
+  "input_keyword_inventory": [
+    {
+      "keyword": "HEADING",
+      "parameters": {},
+      "flags": [],
+      "line": 1,
+      "declaration": "*Heading",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "PREPRINT",
+      "parameters": {
+        "ECHO": "NO",
+        "MODEL": "NO",
+        "HISTORY": "NO",
+        "CONTACT": "NO"
+      },
+      "flags": [],
+      "line": 4,
+      "declaration": "*Preprint, echo=NO, model=NO, history=NO, contact=NO",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "PART",
+      "parameters": {
+        "NAME": "PART-1"
+      },
+      "flags": [],
+      "line": 8,
+      "declaration": "*Part, name=PART-1",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "NODE",
+      "parameters": {},
+      "flags": [],
+      "line": 9,
+      "declaration": "*Node",
+      "scope_before_keyword": "part",
+      "data_lines": 291045
+    },
+    {
+      "keyword": "ELEMENT",
+      "parameters": {
+        "TYPE": "C3D10"
+      },
+      "flags": [],
+      "line": 291055,
+      "declaration": "*Element, type=C3D10",
+      "scope_before_keyword": "part",
+      "data_lines": 180570
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "PT_FCART"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 471626,
+      "declaration": "*Elset, elset=PT_FCART, generate",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "PT_FEMUR"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 471628,
+      "declaration": "*Elset, elset=PT_FEMUR, generate",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "PT_LATERAL_MEN"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 471630,
+      "declaration": "*Elset, elset=PT_LATERAL_MEN, generate",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "PT_MEDIAL_MEN"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 471632,
+      "declaration": "*Elset, elset=PT_MEDIAL_MEN, generate",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "PT_TCART_LAT"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 471634,
+      "declaration": "*Elset, elset=PT_TCART_LAT, generate",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "PT_TCART_MED"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 471636,
+      "declaration": "*Elset, elset=PT_TCART_MED, generate",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "PT_TIBIA"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 471638,
+      "declaration": "*Elset, elset=PT_TIBIA, generate",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-1_S1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471640,
+      "declaration": "*Elset, elset=_Surf-1_S1, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-1_S2"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471645,
+      "declaration": "*Elset, elset=_Surf-1_S2, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-1_S3"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471650,
+      "declaration": "*Elset, elset=_Surf-1_S3, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 7
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-1_S4"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471658,
+      "declaration": "*Elset, elset=_Surf-1_S4, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 8
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "Surf-1"
+      },
+      "flags": [],
+      "line": 471667,
+      "declaration": "*Surface, type=ELEMENT, name=Surf-1",
+      "scope_before_keyword": "part",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-2_S1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471672,
+      "declaration": "*Elset, elset=_Surf-2_S1, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 7
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-2_S2"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471680,
+      "declaration": "*Elset, elset=_Surf-2_S2, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 9
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-2_S3"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471690,
+      "declaration": "*Elset, elset=_Surf-2_S3, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 13
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_Surf-2_S4"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 471704,
+      "declaration": "*Elset, elset=_Surf-2_S4, internal",
+      "scope_before_keyword": "part",
+      "data_lines": 12
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "Surf-2"
+      },
+      "flags": [],
+      "line": 471717,
+      "declaration": "*Surface, type=ELEMENT, name=Surf-2",
+      "scope_before_keyword": "part",
+      "data_lines": 4
+    },
+    {
+      "keyword": "SOLID SECTION",
+      "parameters": {
+        "ELSET": "PT_FCART",
+        "MATERIAL": "PM_FCART"
+      },
+      "flags": [],
+      "line": 471723,
+      "declaration": "*Solid Section, elset=PT_FCART, material=PM_FCART",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SOLID SECTION",
+      "parameters": {
+        "ELSET": "PT_FEMUR",
+        "MATERIAL": "PM_FEMUR"
+      },
+      "flags": [],
+      "line": 471726,
+      "declaration": "*Solid Section, elset=PT_FEMUR, material=PM_FEMUR",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SOLID SECTION",
+      "parameters": {
+        "ELSET": "PT_TIBIA",
+        "MATERIAL": "PM_TIBIA"
+      },
+      "flags": [],
+      "line": 471729,
+      "declaration": "*Solid Section, elset=PT_TIBIA, material=PM_TIBIA",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SOLID SECTION",
+      "parameters": {
+        "ELSET": "PT_TCART_MED",
+        "MATERIAL": "PM_TCART_MED"
+      },
+      "flags": [],
+      "line": 471732,
+      "declaration": "*Solid Section, elset=PT_TCART_MED, material=PM_TCART_MED",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SOLID SECTION",
+      "parameters": {
+        "ELSET": "PT_TCART_LAT",
+        "MATERIAL": "PM_TCART_LAT"
+      },
+      "flags": [],
+      "line": 471735,
+      "declaration": "*Solid Section, elset=PT_TCART_LAT, material=PM_TCART_LAT",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "DISTRIBUTION",
+      "parameters": {
+        "NAME": "Ori-2-DiscOrient",
+        "LOCATION": "ELEMENT",
+        "TABLE": "Ori-2-DiscOrient_Table"
+      },
+      "flags": [],
+      "line": 471737,
+      "declaration": "*Distribution, name=Ori-2-DiscOrient, location=ELEMENT, Table=Ori-2-DiscOrient_Table",
+      "scope_before_keyword": "part",
+      "data_lines": 4598
+    },
+    {
+      "keyword": "ORIENTATION",
+      "parameters": {
+        "NAME": "Ori-2",
+        "SYSTEM": "RECTANGULAR"
+      },
+      "flags": [],
+      "line": 476337,
+      "declaration": "*Orientation, name=Ori-2, system=RECTANGULAR",
+      "scope_before_keyword": "part",
+      "data_lines": 2
+    },
+    {
+      "keyword": "SOLID SECTION",
+      "parameters": {
+        "ELSET": "PT_MEDIAL_MEN",
+        "ORIENTATION": "Ori-2",
+        "MATERIAL": "PM_MEDIAL_MEN"
+      },
+      "flags": [],
+      "line": 476341,
+      "declaration": "*Solid Section, elset=PT_MEDIAL_MEN, orientation=Ori-2, material=PM_MEDIAL_MEN",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "DISTRIBUTION",
+      "parameters": {
+        "NAME": "Ori-1-DiscOrient",
+        "LOCATION": "ELEMENT",
+        "TABLE": "Ori-1-DiscOrient_Table"
+      },
+      "flags": [],
+      "line": 476343,
+      "declaration": "*Distribution, name=Ori-1-DiscOrient, location=ELEMENT, Table=Ori-1-DiscOrient_Table",
+      "scope_before_keyword": "part",
+      "data_lines": 3471
+    },
+    {
+      "keyword": "ORIENTATION",
+      "parameters": {
+        "NAME": "Ori-1",
+        "SYSTEM": "RECTANGULAR"
+      },
+      "flags": [],
+      "line": 479816,
+      "declaration": "*Orientation, name=Ori-1, system=RECTANGULAR",
+      "scope_before_keyword": "part",
+      "data_lines": 2
+    },
+    {
+      "keyword": "SOLID SECTION",
+      "parameters": {
+        "ELSET": "PT_LATERAL_MEN",
+        "ORIENTATION": "Ori-1",
+        "MATERIAL": "PM_LATERAL_MEN"
+      },
+      "flags": [],
+      "line": 479820,
+      "declaration": "*Solid Section, elset=PT_LATERAL_MEN, orientation=Ori-1, material=PM_LATERAL_MEN",
+      "scope_before_keyword": "part",
+      "data_lines": 1
+    },
+    {
+      "keyword": "END PART",
+      "parameters": {},
+      "flags": [],
+      "line": 479822,
+      "declaration": "*End Part",
+      "scope_before_keyword": "part",
+      "data_lines": 0
+    },
+    {
+      "keyword": "ASSEMBLY",
+      "parameters": {
+        "NAME": "Assembly"
+      },
+      "flags": [],
+      "line": 479827,
+      "declaration": "*Assembly, name=Assembly",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "INSTANCE",
+      "parameters": {
+        "NAME": "PART-1-1",
+        "PART": "PART-1"
+      },
+      "flags": [],
+      "line": 479829,
+      "declaration": "*Instance, name=PART-1-1, part=PART-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 2
+    },
+    {
+      "keyword": "END INSTANCE",
+      "parameters": {},
+      "flags": [],
+      "line": 479832,
+      "declaration": "*End Instance",
+      "scope_before_keyword": "instance",
+      "data_lines": 0
+    },
+    {
+      "keyword": "NODE",
+      "parameters": {},
+      "flags": [],
+      "line": 479834,
+      "declaration": "*Node",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NODE",
+      "parameters": {},
+      "flags": [],
+      "line": 479836,
+      "declaration": "*Node",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "GENERATE"
+      ],
+      "line": 479838,
+      "declaration": "*Nset, nset=ASet-1, instance=PART-1-1, generate",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479840,
+      "declaration": "*Nset, nset=ASet-2, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479842,
+      "declaration": "*Nset, nset=ASet-3, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479844,
+      "declaration": "*Nset, nset=ASet-4, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-5",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479846,
+      "declaration": "*Nset, nset=ASet-5, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-6",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479848,
+      "declaration": "*Nset, nset=ASet-6, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-7",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479850,
+      "declaration": "*Nset, nset=ASet-7, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-8",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479852,
+      "declaration": "*Nset, nset=ASet-8, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-9",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479854,
+      "declaration": "*Nset, nset=ASet-9, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-10",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479856,
+      "declaration": "*Nset, nset=ASet-10, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-11",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479858,
+      "declaration": "*Nset, nset=ASet-11, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-12",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479860,
+      "declaration": "*Nset, nset=ASet-12, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-13",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479862,
+      "declaration": "*Nset, nset=ASet-13, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-14",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479864,
+      "declaration": "*Nset, nset=ASet-14, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-15",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479866,
+      "declaration": "*Nset, nset=ASet-15, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "ASet-tib",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479868,
+      "declaration": "*Nset, nset=ASet-tib, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479870,
+      "declaration": "*Nset, nset=BSet-1, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479872,
+      "declaration": "*Nset, nset=BSet-2, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479874,
+      "declaration": "*Nset, nset=BSet-3, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479876,
+      "declaration": "*Nset, nset=BSet-4, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-5",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479878,
+      "declaration": "*Nset, nset=BSet-5, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-6",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479880,
+      "declaration": "*Nset, nset=BSet-6, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-7",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479882,
+      "declaration": "*Nset, nset=BSet-7, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-8",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479884,
+      "declaration": "*Nset, nset=BSet-8, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-9",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479886,
+      "declaration": "*Nset, nset=BSet-9, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-10",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479888,
+      "declaration": "*Nset, nset=BSet-10, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-11",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479890,
+      "declaration": "*Nset, nset=BSet-11, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-12",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479892,
+      "declaration": "*Nset, nset=BSet-12, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-13",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479894,
+      "declaration": "*Nset, nset=BSet-13, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-14",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479896,
+      "declaration": "*Nset, nset=BSet-14, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-15",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479898,
+      "declaration": "*Nset, nset=BSet-15, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "BSet-tib",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479900,
+      "declaration": "*Nset, nset=BSet-tib, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479902,
+      "declaration": "*Nset, nset=CSet-1, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479904,
+      "declaration": "*Nset, nset=CSet-2, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479906,
+      "declaration": "*Nset, nset=CSet-3, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479908,
+      "declaration": "*Nset, nset=CSet-4, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-5",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479910,
+      "declaration": "*Nset, nset=CSet-5, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-6",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479912,
+      "declaration": "*Nset, nset=CSet-6, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-7",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479914,
+      "declaration": "*Nset, nset=CSet-7, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-8",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479916,
+      "declaration": "*Nset, nset=CSet-8, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-9",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479918,
+      "declaration": "*Nset, nset=CSet-9, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-10",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479920,
+      "declaration": "*Nset, nset=CSet-10, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-11",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479922,
+      "declaration": "*Nset, nset=CSet-11, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-12",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479924,
+      "declaration": "*Nset, nset=CSet-12, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-13",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479926,
+      "declaration": "*Nset, nset=CSet-13, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-14",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479928,
+      "declaration": "*Nset, nset=CSet-14, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-15",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479930,
+      "declaration": "*Nset, nset=CSet-15, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "CSet-tib",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479932,
+      "declaration": "*Nset, nset=CSet-tib, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479934,
+      "declaration": "*Nset, nset=DSet-1, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479936,
+      "declaration": "*Nset, nset=DSet-2, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479938,
+      "declaration": "*Nset, nset=DSet-3, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479940,
+      "declaration": "*Nset, nset=DSet-4, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-5",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479942,
+      "declaration": "*Nset, nset=DSet-5, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-6",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479944,
+      "declaration": "*Nset, nset=DSet-6, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-7",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479946,
+      "declaration": "*Nset, nset=DSet-7, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-8",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479948,
+      "declaration": "*Nset, nset=DSet-8, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-9",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479950,
+      "declaration": "*Nset, nset=DSet-9, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-10",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479952,
+      "declaration": "*Nset, nset=DSet-10, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-11",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479954,
+      "declaration": "*Nset, nset=DSet-11, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-12",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479956,
+      "declaration": "*Nset, nset=DSet-12, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-13",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479958,
+      "declaration": "*Nset, nset=DSet-13, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-14",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479960,
+      "declaration": "*Nset, nset=DSet-14, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-15",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479962,
+      "declaration": "*Nset, nset=DSet-15, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "DSet-tib",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479964,
+      "declaration": "*Nset, nset=DSet-tib, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "NS_FEMUR_WITH_ZMAX",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 479966,
+      "declaration": "*Nset, nset=NS_FEMUR_WITH_ZMAX, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 34
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "NS_TIBIA_WITH_ZMIN",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [],
+      "line": 480001,
+      "declaration": "*Nset, nset=NS_TIBIA_WITH_ZMIN, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 12
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "\"Set RP-1\""
+      },
+      "flags": [],
+      "line": 480014,
+      "declaration": "*Nset, nset=\"Set RP-1\"",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "\"Set RP-2\""
+      },
+      "flags": [],
+      "line": 480016,
+      "declaration": "*Nset, nset=\"Set RP-2\"",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "_PickedSet23"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 480018,
+      "declaration": "*Nset, nset=_PickedSet23, internal",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "_PickedSet24"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 480020,
+      "declaration": "*Nset, nset=_PickedSet24, internal",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "_PickedSet25"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 480022,
+      "declaration": "*Nset, nset=_PickedSet25, internal",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "_PickedSet26"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 480024,
+      "declaration": "*Nset, nset=_PickedSet26, internal",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "NSET",
+      "parameters": {
+        "NSET": "_PickedSet27"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 480026,
+      "declaration": "*Nset, nset=_PickedSet27, internal",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_SELF_CONTACT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 480028,
+      "declaration": "*Elset, elset=_SF_FCART_SELF_CONTACT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 530
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_SELF_CONTACT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 480559,
+      "declaration": "*Elset, elset=_SF_FCART_SELF_CONTACT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 784
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_SELF_CONTACT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 481344,
+      "declaration": "*Elset, elset=_SF_FCART_SELF_CONTACT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 739
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_SELF_CONTACT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482084,
+      "declaration": "*Elset, elset=_SF_FCART_SELF_CONTACT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 569
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_FCART_SELF_CONTACT"
+      },
+      "flags": [],
+      "line": 482654,
+      "declaration": "*Surface, type=ELEMENT, name=SF_FCART_SELF_CONTACT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_LATERAL_MEN_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482659,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_LATERAL_MEN_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 7
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_LATERAL_MEN_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482667,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_LATERAL_MEN_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_LATERAL_MEN_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482677,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_LATERAL_MEN_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 12
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_LATERAL_MEN_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482690,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_LATERAL_MEN_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_FCART_WITH_LATERAL_MEN"
+      },
+      "flags": [],
+      "line": 482700,
+      "declaration": "*Surface, type=ELEMENT, name=SF_FCART_WITH_LATERAL_MEN",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_MEDIAL_MEN_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482705,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_MEDIAL_MEN_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 11
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_MEDIAL_MEN_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482717,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_MEDIAL_MEN_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 11
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_MEDIAL_MEN_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482729,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_MEDIAL_MEN_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FCART_WITH_MEDIAL_MEN_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482739,
+      "declaration": "*Elset, elset=_SF_FCART_WITH_MEDIAL_MEN_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 12
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_FCART_WITH_MEDIAL_MEN"
+      },
+      "flags": [],
+      "line": 482752,
+      "declaration": "*Surface, type=ELEMENT, name=SF_FCART_WITH_MEDIAL_MEN",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FEMUR_SELF_CONTACT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 482757,
+      "declaration": "*Elset, elset=_SF_FEMUR_SELF_CONTACT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 312
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FEMUR_SELF_CONTACT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 483070,
+      "declaration": "*Elset, elset=_SF_FEMUR_SELF_CONTACT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 505
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FEMUR_SELF_CONTACT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 483576,
+      "declaration": "*Elset, elset=_SF_FEMUR_SELF_CONTACT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 441
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_FEMUR_SELF_CONTACT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484018,
+      "declaration": "*Elset, elset=_SF_FEMUR_SELF_CONTACT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 290
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_FEMUR_SELF_CONTACT"
+      },
+      "flags": [],
+      "line": 484309,
+      "declaration": "*Surface, type=ELEMENT, name=SF_FEMUR_SELF_CONTACT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_SELF_CONTACT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484314,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_SELF_CONTACT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 21
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_SELF_CONTACT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484336,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_SELF_CONTACT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 37
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_SELF_CONTACT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484374,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_SELF_CONTACT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 19
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_SELF_CONTACT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484394,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_SELF_CONTACT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 33
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_LATERAL_MEN_SELF_CONTACT"
+      },
+      "flags": [],
+      "line": 484428,
+      "declaration": "*Surface, type=ELEMENT, name=SF_LATERAL_MEN_SELF_CONTACT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_FCART_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484433,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_FCART_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_FCART_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484443,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_FCART_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 12
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_FCART_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484456,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_FCART_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 6
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_FCART_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484463,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_FCART_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 10
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_LATERAL_MEN_WITH_FCART"
+      },
+      "flags": [],
+      "line": 484474,
+      "declaration": "*Surface, type=ELEMENT, name=SF_LATERAL_MEN_WITH_FCART",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_TCART_LAT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484479,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_TCART_LAT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 12
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_TCART_LAT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484492,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_TCART_LAT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 12
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_TCART_LAT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484505,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_TCART_LAT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 7
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_LATERAL_MEN_WITH_TCART_LAT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484513,
+      "declaration": "*Elset, elset=_SF_LATERAL_MEN_WITH_TCART_LAT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 8
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_LATERAL_MEN_WITH_TCART_LAT"
+      },
+      "flags": [],
+      "line": 484522,
+      "declaration": "*Surface, type=ELEMENT, name=SF_LATERAL_MEN_WITH_TCART_LAT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_SELF_CONTACT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484527,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_SELF_CONTACT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 27
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_SELF_CONTACT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484555,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_SELF_CONTACT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 27
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_SELF_CONTACT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484583,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_SELF_CONTACT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 45
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_SELF_CONTACT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484629,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_SELF_CONTACT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 41
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_MEDIAL_MEN_SELF_CONTACT"
+      },
+      "flags": [],
+      "line": 484671,
+      "declaration": "*Surface, type=ELEMENT, name=SF_MEDIAL_MEN_SELF_CONTACT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_FCART_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484676,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_FCART_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 12
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_FCART_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484689,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_FCART_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 14
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_FCART_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484704,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_FCART_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 8
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_FCART_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484713,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_FCART_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_MEDIAL_MEN_WITH_FCART"
+      },
+      "flags": [],
+      "line": 484723,
+      "declaration": "*Surface, type=ELEMENT, name=SF_MEDIAL_MEN_WITH_FCART",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_TCART_MED_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484728,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_TCART_MED_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 8
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_TCART_MED_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484737,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_TCART_MED_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 10
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_TCART_MED_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484748,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_TCART_MED_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 8
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_MEDIAL_MEN_WITH_TCART_MED_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484757,
+      "declaration": "*Elset, elset=_SF_MEDIAL_MEN_WITH_TCART_MED_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 13
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_MEDIAL_MEN_WITH_TCART_MED"
+      },
+      "flags": [],
+      "line": 484771,
+      "declaration": "*Surface, type=ELEMENT, name=SF_MEDIAL_MEN_WITH_TCART_MED",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_SELF_CONTACT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484776,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_SELF_CONTACT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 84
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_SELF_CONTACT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484861,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_SELF_CONTACT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 103
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_SELF_CONTACT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 484965,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_SELF_CONTACT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 75
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_SELF_CONTACT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485041,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_SELF_CONTACT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 120
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_TCART_LAT_SELF_CONTACT"
+      },
+      "flags": [],
+      "line": 485162,
+      "declaration": "*Surface, type=ELEMENT, name=SF_TCART_LAT_SELF_CONTACT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_WITH_LATERAL_MEN_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485167,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_WITH_LATERAL_MEN_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 10
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_WITH_LATERAL_MEN_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485178,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_WITH_LATERAL_MEN_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_WITH_LATERAL_MEN_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485188,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_WITH_LATERAL_MEN_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 11
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_LAT_WITH_LATERAL_MEN_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485200,
+      "declaration": "*Elset, elset=_SF_TCART_LAT_WITH_LATERAL_MEN_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_TCART_LAT_WITH_LATERAL_MEN"
+      },
+      "flags": [],
+      "line": 485210,
+      "declaration": "*Surface, type=ELEMENT, name=SF_TCART_LAT_WITH_LATERAL_MEN",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_SELF_CONTACT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485215,
+      "declaration": "*Elset, elset=_SF_TCART_MED_SELF_CONTACT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 92
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_SELF_CONTACT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485308,
+      "declaration": "*Elset, elset=_SF_TCART_MED_SELF_CONTACT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 129
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_SELF_CONTACT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485438,
+      "declaration": "*Elset, elset=_SF_TCART_MED_SELF_CONTACT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 90
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_SELF_CONTACT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485529,
+      "declaration": "*Elset, elset=_SF_TCART_MED_SELF_CONTACT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 127
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_TCART_MED_SELF_CONTACT"
+      },
+      "flags": [],
+      "line": 485657,
+      "declaration": "*Surface, type=ELEMENT, name=SF_TCART_MED_SELF_CONTACT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_WITH_MEDIAL_MEN_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485662,
+      "declaration": "*Elset, elset=_SF_TCART_MED_WITH_MEDIAL_MEN_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_WITH_MEDIAL_MEN_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485672,
+      "declaration": "*Elset, elset=_SF_TCART_MED_WITH_MEDIAL_MEN_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 9
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_WITH_MEDIAL_MEN_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485682,
+      "declaration": "*Elset, elset=_SF_TCART_MED_WITH_MEDIAL_MEN_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 11
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TCART_MED_WITH_MEDIAL_MEN_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485694,
+      "declaration": "*Elset, elset=_SF_TCART_MED_WITH_MEDIAL_MEN_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 11
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_TCART_MED_WITH_MEDIAL_MEN"
+      },
+      "flags": [],
+      "line": 485706,
+      "declaration": "*Surface, type=ELEMENT, name=SF_TCART_MED_WITH_MEDIAL_MEN",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TIBIA_SELF_CONTACT_S1",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485711,
+      "declaration": "*Elset, elset=_SF_TIBIA_SELF_CONTACT_S1, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 162
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TIBIA_SELF_CONTACT_S3",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 485874,
+      "declaration": "*Elset, elset=_SF_TIBIA_SELF_CONTACT_S3, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 268
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TIBIA_SELF_CONTACT_S4",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 486143,
+      "declaration": "*Elset, elset=_SF_TIBIA_SELF_CONTACT_S4, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 229
+    },
+    {
+      "keyword": "ELSET",
+      "parameters": {
+        "ELSET": "_SF_TIBIA_SELF_CONTACT_S2",
+        "INSTANCE": "PART-1-1"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 486373,
+      "declaration": "*Elset, elset=_SF_TIBIA_SELF_CONTACT_S2, internal, instance=PART-1-1",
+      "scope_before_keyword": "assembly",
+      "data_lines": 146
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "ELEMENT",
+        "NAME": "SF_TIBIA_SELF_CONTACT"
+      },
+      "flags": [],
+      "line": 486520,
+      "declaration": "*Surface, type=ELEMENT, name=SF_TIBIA_SELF_CONTACT",
+      "scope_before_keyword": "assembly",
+      "data_lines": 4
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "NODE",
+        "NAME": "NS_FEMUR_WITH_ZMAX_CNS_"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 486525,
+      "declaration": "*Surface, type=NODE, name=NS_FEMUR_WITH_ZMAX_CNS_, internal",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SURFACE",
+      "parameters": {
+        "TYPE": "NODE",
+        "NAME": "NS_TIBIA_WITH_ZMIN_CNS_"
+      },
+      "flags": [
+        "INTERNAL"
+      ],
+      "line": 486527,
+      "declaration": "*Surface, type=NODE, name=NS_TIBIA_WITH_ZMIN_CNS_, internal",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "COUPLING",
+      "parameters": {
+        "CONSTRAINT NAME": "Constraint-1",
+        "REF NODE": "_PickedSet23",
+        "SURFACE": "NS_FEMUR_WITH_ZMAX_CNS_"
+      },
+      "flags": [],
+      "line": 486530,
+      "declaration": "*Coupling, constraint name=Constraint-1, ref node=_PickedSet23, surface=NS_FEMUR_WITH_ZMAX_CNS_",
+      "scope_before_keyword": "assembly",
+      "data_lines": 0
+    },
+    {
+      "keyword": "KINEMATIC",
+      "parameters": {},
+      "flags": [],
+      "line": 486531,
+      "declaration": "*Kinematic",
+      "scope_before_keyword": "assembly",
+      "data_lines": 0
+    },
+    {
+      "keyword": "COUPLING",
+      "parameters": {
+        "CONSTRAINT NAME": "Constraint-2",
+        "REF NODE": "_PickedSet24",
+        "SURFACE": "NS_TIBIA_WITH_ZMIN_CNS_"
+      },
+      "flags": [],
+      "line": 486533,
+      "declaration": "*Coupling, constraint name=Constraint-2, ref node=_PickedSet24, surface=NS_TIBIA_WITH_ZMIN_CNS_",
+      "scope_before_keyword": "assembly",
+      "data_lines": 0
+    },
+    {
+      "keyword": "KINEMATIC",
+      "parameters": {},
+      "flags": [],
+      "line": 486534,
+      "declaration": "*Kinematic",
+      "scope_before_keyword": "assembly",
+      "data_lines": 0
+    },
+    {
+      "keyword": "SPRING",
+      "parameters": {
+        "ELSET": "Springs/Dashpots-1-spring"
+      },
+      "flags": [],
+      "line": 486535,
+      "declaration": "*Spring, elset=Springs/Dashpots-1-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELEMENT",
+      "parameters": {
+        "TYPE": "SpringA",
+        "ELSET": "Springs/Dashpots-1-spring"
+      },
+      "flags": [],
+      "line": 486538,
+      "declaration": "*Element, type=SpringA, elset=Springs/Dashpots-1-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 15
+    },
+    {
+      "keyword": "SPRING",
+      "parameters": {
+        "ELSET": "Springs/Dashpots-2-spring"
+      },
+      "flags": [],
+      "line": 486554,
+      "declaration": "*Spring, elset=Springs/Dashpots-2-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELEMENT",
+      "parameters": {
+        "TYPE": "SpringA",
+        "ELSET": "Springs/Dashpots-2-spring"
+      },
+      "flags": [],
+      "line": 486557,
+      "declaration": "*Element, type=SpringA, elset=Springs/Dashpots-2-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 15
+    },
+    {
+      "keyword": "SPRING",
+      "parameters": {
+        "ELSET": "Springs/Dashpots-3-spring"
+      },
+      "flags": [],
+      "line": 486573,
+      "declaration": "*Spring, elset=Springs/Dashpots-3-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELEMENT",
+      "parameters": {
+        "TYPE": "SpringA",
+        "ELSET": "Springs/Dashpots-3-spring"
+      },
+      "flags": [],
+      "line": 486576,
+      "declaration": "*Element, type=SpringA, elset=Springs/Dashpots-3-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 15
+    },
+    {
+      "keyword": "SPRING",
+      "parameters": {
+        "ELSET": "Springs/Dashpots-4-spring"
+      },
+      "flags": [],
+      "line": 486592,
+      "declaration": "*Spring, elset=Springs/Dashpots-4-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELEMENT",
+      "parameters": {
+        "TYPE": "SpringA",
+        "ELSET": "Springs/Dashpots-4-spring"
+      },
+      "flags": [],
+      "line": 486595,
+      "declaration": "*Element, type=SpringA, elset=Springs/Dashpots-4-spring",
+      "scope_before_keyword": "assembly",
+      "data_lines": 15
+    },
+    {
+      "keyword": "END ASSEMBLY",
+      "parameters": {},
+      "flags": [],
+      "line": 486611,
+      "declaration": "*End Assembly",
+      "scope_before_keyword": "assembly",
+      "data_lines": 0
+    },
+    {
+      "keyword": "DISTRIBUTION TABLE",
+      "parameters": {
+        "NAME": "Ori-2-DiscOrient_Table"
+      },
+      "flags": [],
+      "line": 486612,
+      "declaration": "*Distribution Table, name=Ori-2-DiscOrient_Table",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "DISTRIBUTION TABLE",
+      "parameters": {
+        "NAME": "Ori-1-DiscOrient_Table"
+      },
+      "flags": [],
+      "line": 486614,
+      "declaration": "*Distribution Table, name=Ori-1-DiscOrient_Table",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "MATERIAL",
+      "parameters": {
+        "NAME": "PM_FCART"
+      },
+      "flags": [],
+      "line": 486619,
+      "declaration": "*Material, name=PM_FCART",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "HYPERELASTIC",
+      "parameters": {},
+      "flags": [
+        "NEO HOOKE"
+      ],
+      "line": 486620,
+      "declaration": "*Hyperelastic, neo hooke",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "MATERIAL",
+      "parameters": {
+        "NAME": "PM_FEMUR"
+      },
+      "flags": [],
+      "line": 486622,
+      "declaration": "*Material, name=PM_FEMUR",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "ELASTIC",
+      "parameters": {},
+      "flags": [],
+      "line": 486623,
+      "declaration": "*Elastic",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "MATERIAL",
+      "parameters": {
+        "NAME": "PM_LATERAL_MEN"
+      },
+      "flags": [],
+      "line": 486625,
+      "declaration": "*Material, name=PM_LATERAL_MEN",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "ELASTIC",
+      "parameters": {
+        "TYPE": "ENGINEERING CONSTANTS"
+      },
+      "flags": [],
+      "line": 486626,
+      "declaration": "*Elastic, type=ENGINEERING CONSTANTS",
+      "scope_before_keyword": "model",
+      "data_lines": 2
+    },
+    {
+      "keyword": "MATERIAL",
+      "parameters": {
+        "NAME": "PM_MEDIAL_MEN"
+      },
+      "flags": [],
+      "line": 486629,
+      "declaration": "*Material, name=PM_MEDIAL_MEN",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "ELASTIC",
+      "parameters": {
+        "TYPE": "ENGINEERING CONSTANTS"
+      },
+      "flags": [],
+      "line": 486630,
+      "declaration": "*Elastic, type=ENGINEERING CONSTANTS",
+      "scope_before_keyword": "model",
+      "data_lines": 2
+    },
+    {
+      "keyword": "MATERIAL",
+      "parameters": {
+        "NAME": "PM_TCART_LAT"
+      },
+      "flags": [],
+      "line": 486633,
+      "declaration": "*Material, name=PM_TCART_LAT",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "HYPERELASTIC",
+      "parameters": {},
+      "flags": [
+        "NEO HOOKE"
+      ],
+      "line": 486634,
+      "declaration": "*Hyperelastic, neo hooke",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "MATERIAL",
+      "parameters": {
+        "NAME": "PM_TCART_MED"
+      },
+      "flags": [],
+      "line": 486636,
+      "declaration": "*Material, name=PM_TCART_MED",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "HYPERELASTIC",
+      "parameters": {},
+      "flags": [
+        "NEO HOOKE"
+      ],
+      "line": 486637,
+      "declaration": "*Hyperelastic, neo hooke",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "MATERIAL",
+      "parameters": {
+        "NAME": "PM_TIBIA"
+      },
+      "flags": [],
+      "line": 486639,
+      "declaration": "*Material, name=PM_TIBIA",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "ELASTIC",
+      "parameters": {},
+      "flags": [],
+      "line": 486640,
+      "declaration": "*Elastic",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SURFACE INTERACTION",
+      "parameters": {
+        "NAME": "IntProp-1"
+      },
+      "flags": [],
+      "line": 486645,
+      "declaration": "*Surface Interaction, name=IntProp-1",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "FRICTION",
+      "parameters": {
+        "SLIP TOLERANCE": "0.005"
+      },
+      "flags": [],
+      "line": 486647,
+      "declaration": "*Friction, slip tolerance=0.005",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SURFACE BEHAVIOR",
+      "parameters": {
+        "PRESSURE-OVERCLOSURE": "HARD"
+      },
+      "flags": [],
+      "line": 486649,
+      "declaration": "*Surface Behavior, pressure-overclosure=HARD",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "SURFACE INTERACTION",
+      "parameters": {
+        "NAME": "IntProp-2"
+      },
+      "flags": [],
+      "line": 486650,
+      "declaration": "*Surface Interaction, name=IntProp-2",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "FRICTION",
+      "parameters": {
+        "SLIP TOLERANCE": "0.005"
+      },
+      "flags": [],
+      "line": 486652,
+      "declaration": "*Friction, slip tolerance=0.005",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "SURFACE BEHAVIOR",
+      "parameters": {
+        "PRESSURE-OVERCLOSURE": "HARD"
+      },
+      "flags": [],
+      "line": 486654,
+      "declaration": "*Surface Behavior, pressure-overclosure=HARD",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "BOUNDARY",
+      "parameters": {},
+      "flags": [],
+      "line": 486659,
+      "declaration": "*Boundary",
+      "scope_before_keyword": "model",
+      "data_lines": 6
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486670,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486673,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486676,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486679,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-1",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486682,
+      "declaration": "*Contact Pair, interaction=IntProp-1, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-1",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486685,
+      "declaration": "*Contact Pair, interaction=IntProp-1, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486688,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486691,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486694,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT PAIR",
+      "parameters": {
+        "INTERACTION": "IntProp-2",
+        "TYPE": "SURFACE TO SURFACE",
+        "ADJUST": "0.0"
+      },
+      "flags": [],
+      "line": 486697,
+      "declaration": "*Contact Pair, interaction=IntProp-2, type=SURFACE TO SURFACE, adjust=0.0",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "STEP",
+      "parameters": {
+        "NAME": "Move",
+        "NLGEOM": "YES",
+        "UNSYMM": "YES"
+      },
+      "flags": [],
+      "line": 486703,
+      "declaration": "*Step, name=Move, nlgeom=YES, unsymm=YES",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "STATIC",
+      "parameters": {},
+      "flags": [],
+      "line": 486704,
+      "declaration": "*Static",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "BOUNDARY",
+      "parameters": {},
+      "flags": [],
+      "line": 486710,
+      "declaration": "*Boundary",
+      "scope_before_keyword": "model",
+      "data_lines": 6
+    },
+    {
+      "keyword": "CONTROLS",
+      "parameters": {},
+      "flags": [
+        "RESET"
+      ],
+      "line": 486720,
+      "declaration": "*Controls, reset",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "CONTROLS",
+      "parameters": {
+        "PARAMETERS": "time incrementation"
+      },
+      "flags": [],
+      "line": 486721,
+      "declaration": "*Controls, parameters=time incrementation",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "RESTART",
+      "parameters": {
+        "FREQUENCY": "0"
+      },
+      "flags": [
+        "WRITE"
+      ],
+      "line": 486726,
+      "declaration": "*Restart, write, frequency=0",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "OUTPUT",
+      "parameters": {
+        "VARIABLE": "PRESELECT"
+      },
+      "flags": [
+        "FIELD"
+      ],
+      "line": 486730,
+      "declaration": "*Output, field, variable=PRESELECT",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "OUTPUT",
+      "parameters": {
+        "VARIABLE": "PRESELECT"
+      },
+      "flags": [
+        "HISTORY"
+      ],
+      "line": 486734,
+      "declaration": "*Output, history, variable=PRESELECT",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "END STEP",
+      "parameters": {},
+      "flags": [],
+      "line": 486735,
+      "declaration": "*End Step",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "STEP",
+      "parameters": {
+        "NAME": "Load1",
+        "NLGEOM": "YES",
+        "UNSYMM": "YES"
+      },
+      "flags": [],
+      "line": 486740,
+      "declaration": "*Step, name=Load1, nlgeom=YES, unsymm=YES",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "STATIC",
+      "parameters": {},
+      "flags": [],
+      "line": 486741,
+      "declaration": "*Static",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "BOUNDARY",
+      "parameters": {
+        "OP": "NEW"
+      },
+      "flags": [],
+      "line": 486747,
+      "declaration": "*Boundary, op=NEW",
+      "scope_before_keyword": "model",
+      "data_lines": 5
+    },
+    {
+      "keyword": "BOUNDARY",
+      "parameters": {
+        "OP": "NEW"
+      },
+      "flags": [],
+      "line": 486754,
+      "declaration": "*Boundary, op=NEW",
+      "scope_before_keyword": "model",
+      "data_lines": 6
+    },
+    {
+      "keyword": "CLOAD",
+      "parameters": {},
+      "flags": [],
+      "line": 486765,
+      "declaration": "*Cload",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "RESTART",
+      "parameters": {
+        "FREQUENCY": "0"
+      },
+      "flags": [
+        "WRITE"
+      ],
+      "line": 486770,
+      "declaration": "*Restart, write, frequency=0",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "OUTPUT",
+      "parameters": {},
+      "flags": [
+        "FIELD"
+      ],
+      "line": 486774,
+      "declaration": "*Output, field",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "NODE OUTPUT",
+      "parameters": {},
+      "flags": [],
+      "line": 486775,
+      "declaration": "*Node Output",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "ELEMENT OUTPUT",
+      "parameters": {
+        "DIRECTIONS": "YES"
+      },
+      "flags": [],
+      "line": 486777,
+      "declaration": "*Element Output, directions=YES",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "CONTACT OUTPUT",
+      "parameters": {},
+      "flags": [],
+      "line": 486779,
+      "declaration": "*Contact Output",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "OUTPUT",
+      "parameters": {},
+      "flags": [
+        "HISTORY"
+      ],
+      "line": 486784,
+      "declaration": "*Output, history",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    },
+    {
+      "keyword": "CONTACT OUTPUT",
+      "parameters": {},
+      "flags": [],
+      "line": 486785,
+      "declaration": "*Contact Output",
+      "scope_before_keyword": "model",
+      "data_lines": 1
+    },
+    {
+      "keyword": "END STEP",
+      "parameters": {},
+      "flags": [],
+      "line": 486787,
+      "declaration": "*End Step",
+      "scope_before_keyword": "model",
+      "data_lines": 0
+    }
+  ],
+  "scope_limits": [
+    "No FE solve, loaded state reconstruction, remeshing, smoothing, synthesis or runtime publication.",
+    "No recovered segmentation labels for structures absent from these seven FE groups.",
+    "No diagnostic completeness, expert approval, normality or commercial-readiness claim."
+  ]
+}

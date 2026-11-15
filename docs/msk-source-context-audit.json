@@ -1,0 +1,598 @@
+{
+  "schema_version": 1,
+  "status": "read_only_audit_no_approvals",
+  "audited_at": "2026-09-26",
+  "gate_sha256": "21a205cad53d782c21f916d221f55b2d2822bf95308357d76b20e4f1ed15fcbc",
+  "clinical_image_records": 28,
+  "synthetic_reproductions": [
+    {
+      "case": "explicit_side_conflict",
+      "synthetic_only": true,
+      "asset_claims": {
+        "laterality": "left"
+      },
+      "target_claims": {
+        "laterality": "right"
+      },
+      "image_rows_verified": 2,
+      "clinical_commercial_ready": false,
+      "interpretation": "A fresh synthetic review with matching scope/bytes is accepted despite the recorded contradiction. No real review or requirement was changed."
+    },
+    {
+      "case": "explicit_cadaver_in_vivo_conflict",
+      "synthetic_only": true,
+      "asset_claims": {
+        "image_state": "cadaveric normal anatomy study"
+      },
+      "target_claims": {
+        "condition": "This hypothetical fixture requires an in-vivo MRI example."
+      },
+      "image_rows_verified": 2,
+      "clinical_commercial_ready": false,
+      "interpretation": "A fresh synthetic review with matching scope/bytes is accepted despite the recorded contradiction. No real review or requirement was changed."
+    },
+    {
+      "case": "explicit_normal_pathology_conflict",
+      "synthetic_only": true,
+      "asset_claims": {
+        "image_state": "normal anatomy example"
+      },
+      "target_claims": {
+        "condition": "This hypothetical fixture requires demonstration of active infection, not a normal anatomical reference."
+      },
+      "image_rows_verified": 2,
+      "clinical_commercial_ready": false,
+      "interpretation": "A fresh synthetic review with matching scope/bytes is accepted despite the recorded contradiction. No real review or requirement was changed."
+    },
+    {
+      "case": "explicit_partial_extent_conflict",
+      "synthetic_only": true,
+      "asset_claims": {
+        "limitations": "Only a local segment is shown; the complete course and attachments are absent."
+      },
+      "target_claims": {
+        "condition": "This hypothetical fixture requires the complete source course and both attachments."
+      },
+      "image_rows_verified": 2,
+      "clinical_commercial_ready": false,
+      "interpretation": "A fresh synthetic review with matching scope/bytes is accepted despite the recorded contradiction. No real review or requirement was changed."
+    },
+    {
+      "case": "explicit_adult_pediatric_conflict",
+      "synthetic_only": true,
+      "asset_claims": {
+        "population": "adult, age 58"
+      },
+      "target_claims": {
+        "condition": "This hypothetical fixture requires immature pediatric anatomy with open physes."
+      },
+      "image_rows_verified": 2,
+      "clinical_commercial_ready": false,
+      "interpretation": "A fresh synthetic review with matching scope/bytes is accepted despite the recorded contradiction. No real review or requirement was changed."
+    },
+    {
+      "case": "explicit_ancillary_panel_conflict",
+      "synthetic_only": true,
+      "asset_claims": {
+        "representation_selection": {
+          "kind": "clinical_image",
+          "panels": [
+            "e"
+          ]
+        },
+        "ancillary_panels_not_credited_as_clinical_images": [
+          {
+            "kind": "Histology",
+            "panels": [
+              "e"
+            ],
+            "structures_visible": [
+              "Test structure"
+            ],
+            "limits": "Not MRI"
+          }
+        ]
+      },
+      "target_claims": {},
+      "image_rows_verified": 2,
+      "clinical_commercial_ready": false,
+      "interpretation": "A fresh synthetic review with matching scope/bytes is accepted despite the recorded contradiction. No real review or requirement was changed."
+    }
+  ],
+  "source_context_inventory": [
+    {
+      "asset_id": "open-shoulder-sublabral-recess-mra-fig13",
+      "modality": "MR arthrography",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.mri-shoulder"
+      ],
+      "bound_structure_count": 1,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-shoulder-sghl-cta-fig17",
+      "modality": "CT arthrography",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.mri-shoulder"
+      ],
+      "bound_structure_count": 1,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-elbow-lateral-ligaments-mri-fig7",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.mri-elbow"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-wrist-tfcc-sll-fig2",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.wrist-instability",
+        "ra.wrist-fractures"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-knee-anterior-meniscal-roots-fig10",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.mri-knee"
+      ],
+      "bound_structure_count": 2,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-knee-popliteomeniscal-fascicles-fig16",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.mri-knee"
+      ],
+      "bound_structure_count": 1,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-hip-chondrolabral-injury-mri-fig6",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.hip-fai"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-talofibular-ligaments-mri-fig6",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-tibialis-posterior-mri-fig8",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-wrist-tfcc-normal-cerezal-fig1",
+      "modality": "MRI",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "source_panel": null,
+        "panels": "imaging"
+      },
+      "investigation_ids": [
+        "ra.wrist-instability",
+        "ra.wrist-fractures"
+      ],
+      "bound_structure_count": 8,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-wrist-tfcc-normal-cerezal-fig2",
+      "modality": "MR arthrography",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "source_panel": null,
+        "panels": "imaging"
+      },
+      "investigation_ids": [
+        "ra.wrist-instability",
+        "ra.wrist-fractures"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-wrist-scapholunate-normal-mra-okoro-fig22a",
+      "modality": "MR arthrography",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "source_panel": "a",
+        "panels": "complete supplied asset"
+      },
+      "investigation_ids": [
+        "ra.wrist-instability",
+        "ra.wrist-fractures"
+      ],
+      "bound_structure_count": 1,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-wrist-scapholunate-normal-mra-okoro-fig22b",
+      "modality": "MR arthrography",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "source_panel": "b",
+        "panels": "complete supplied asset"
+      },
+      "investigation_ids": [
+        "ra.wrist-instability",
+        "ra.wrist-fractures"
+      ],
+      "bound_structure_count": 1,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-wrist-lunotriquetral-normal-mra-okoro-fig24a",
+      "modality": "MR arthrography",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "source_panel": "a",
+        "panels": "complete supplied asset"
+      },
+      "investigation_ids": [
+        "ra.wrist-instability",
+        "ra.wrist-fractures"
+      ],
+      "bound_structure_count": 1,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-wrist-lunotriquetral-normal-mra-okoro-fig24b",
+      "modality": "MR arthrography",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "source_panel": "b",
+        "panels": "complete supplied asset"
+      },
+      "investigation_ids": [
+        "ra.wrist-instability",
+        "ra.wrist-fractures"
+      ],
+      "bound_structure_count": 1,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-spring-components-szaro-fig2",
+      "modality": "MRI",
+      "image_state": "normal anatomy example",
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "a"
+        ]
+      },
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 2,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-lateral-ligaments-cube-fig2",
+      "modality": "MRI",
+      "image_state": "normal anatomy example",
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": "Source figure as captioned"
+      },
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 3,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-deltoid-syndesmosis-cube-fig3",
+      "modality": "MRI",
+      "image_state": "normal anatomy example",
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": "Source figure as captioned"
+      },
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 3,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-tendon-compartments-fig4",
+      "modality": "MRI",
+      "image_state": "mixed normal anatomy and pathology examples",
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": "Source figure as captioned"
+      },
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-deltoid-ultrasound-hung-fig9",
+      "modality": "Ultrasound",
+      "image_state": "normal anatomy example",
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": "Source figure as captioned"
+      },
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-superomedial-spring-ultrasound-hung-fig11",
+      "modality": "Ultrasound",
+      "image_state": "normal anatomy example",
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": "Source figure as captioned"
+      },
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-ankle-retinacula-ultrasound-hung-fig18",
+      "modality": "Ultrasound",
+      "image_state": "normal anatomy example",
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": "Source figure as captioned"
+      },
+      "investigation_ids": [
+        "ra.mri-ankle"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "public-spect-ct-fusion",
+      "modality": "SPECT/CT",
+      "image_state": null,
+      "laterality": null,
+      "anatomical_digit": null,
+      "representation_selection": null,
+      "investigation_ids": [],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-hallux-central-plantar-mri-wang-fig2",
+      "modality": "MRI",
+      "image_state": "cadaveric normal anatomy study",
+      "laterality": "left",
+      "anatomical_digit": 1,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "c",
+          "d"
+        ]
+      },
+      "investigation_ids": [
+        "ra.mri-diabetic-foot"
+      ],
+      "bound_structure_count": 3,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-hallux-medial-sesamoid-mri-wang-fig3",
+      "modality": "MRI",
+      "image_state": "cadaveric normal anatomy study",
+      "laterality": "left",
+      "anatomical_digit": 1,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "c",
+          "d"
+        ]
+      },
+      "investigation_ids": [
+        "ra.mri-diabetic-foot"
+      ],
+      "bound_structure_count": 2,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-hallux-sesamoid-complex-mri-wang-fig7",
+      "modality": "MRI",
+      "image_state": "cadaveric normal anatomy study",
+      "laterality": "right",
+      "anatomical_digit": 1,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "c",
+          "d"
+        ]
+      },
+      "investigation_ids": [
+        "ra.mri-diabetic-foot"
+      ],
+      "bound_structure_count": 4,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-hallux-fhl-sesamoids-ultrasound-chen-fig5c",
+      "modality": "Ultrasound",
+      "image_state": "normal anatomy example",
+      "laterality": "not specified",
+      "anatomical_digit": 1,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "c"
+        ]
+      },
+      "investigation_ids": [
+        "ra.mri-diabetic-foot"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    },
+    {
+      "asset_id": "open-hallux-plantar-complex-ultrasound-chen-fig9d",
+      "modality": "Ultrasound",
+      "image_state": "normal anatomy example",
+      "laterality": "not specified",
+      "anatomical_digit": 1,
+      "representation_selection": {
+        "kind": "clinical_image",
+        "panels": [
+          "d"
+        ]
+      },
+      "investigation_ids": [
+        "ra.mri-diabetic-foot"
+      ],
+      "bound_structure_count": 0,
+      "anatomical_review_status": "pending",
+      "typed_source_context_present": false,
+      "notes": "Missing typed metadata is not evidence that the source lacks the fact; captions/prose may record it."
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "observations": [
+    {
+      "kind": "verifier_diagnostic_error",
+      "command_scope": "initial structure-proposal field inspection",
+      "exit_code": 1,
+      "error": "KeyError: parts",
+      "resolution": "The actual proposal uses required_parts; no product or source change was made."
+    },
+    {
+      "kind": "verifier_bound_was_incomplete",
+      "session_or_chunk": "bd0c33",
+      "exit_code": 1,
+      "error": "Raw-token comparison initially allowed the investigation append but omitted the necessary catalog_investigation_ids scope append.",
+      "resolution": "Independent diagnostic showed exactly one added token, scope.catalog_investigation_ids[73] = ra.ct-pulmonary-nodules. Checker now explicitly permits only that matching final append and preserves every previous token."
+    },
+    {
+      "kind": "integration_metadata_finding",
+      "session_id": 43877,
+      "exit_code": 1,
+      "error": "Effective reporting contract differs from inventory pin after wording repair.",
+      "actual_contract_sha256": "9036f92240e71b853565954f01ba24df2c3a9df110faa5e9c0f6b5168ae8ec6c",
+      "declared_contract_sha256": "848cef3dc4b530044f7272d5564ca7acd9e6692714875196be14199de72d5abe",
+      "resolution_status": "Owner reconciled the inventory and receipt; final independent replay passed."
+    },
+    {
+      "kind": "complete_replay_with_same_open_metadata_finding",
+      "session_id": 68169,
+      "exit_code": 1,
+      "proof": "independent-replay-findings.json",
+      "local_exact_GET": 480,
+      "local_exact_HEAD": 480,
+      "fixed_hosted_redirect_fixtures": 960,
+      "raw_path_rejections": 60,
+      "cloud_verification": false,
+      "resolution_status": "Preserved historical failed replay; final independent replay verifies the reconciled pin."
+    },
+    {
+      "kind": "medical_primary_fetch_limitations",
+      "observations": [
+        "PubMed HTML returned no article content.",
+        "BMJ guideline HTML returned403.",
+        "Old ACR short URL returned404; canonical ACR current page and its current-release PDF were fetched successfully.",
+        "Direct RSNA full-page fetch timed out; indexed official RSNA full article and original PDF supported the reviewed branch distinctions.",
+        "Current DICOM PS3.3 reconstruction module fetched successfully."
+      ],
+      "clinical_approval_granted": false
+    },
+    {
+      "kind": "actual_browser_integration_defect",
+      "session_id": 22592,
+      "exit_code": 1,
+      "error": "Pulmonary iframe GET response has200 and Content-Length9820 but Chromium blocks it under frame-ancestors none; asynchronous body-hash promise first surfaced an empty body.",
+      "source_bytes_changed": false
+    },
+    {
+      "kind": "verifier_initial_frame_race",
+      "session_or_chunk": "9038f2",
+      "exit_code": 1,
+      "error": "Frame readiness predicate first dereferenced plane-2 while initial iframe document was not loaded.",
+      "resolution": "Use null-safe wait predicate; this does not bypass the separate CSP defect."
+    },
+    {
+      "kind": "blocked_actual_browser_run_closed",
+      "session_id": 77973,
+      "exit_code": 130,
+      "error": "Same CSP defect left frame chrome-error://chromewebdata; reviewer interrupted own blocked run.",
+      "owned_browser_closed": true
+    },
+    {
+      "kind": "actual_chromium_CSP_witness",
+      "session_id": 49168,
+      "exit_code": 0,
+      "proof": "browser/inline-CSP-finding.json",
+      "source_GET": 200,
+      "CSP_frame_ancestors": "none",
+      "actual_frame_URL": "chrome-error://chromewebdata/",
+      "source_bytes_changed": false
+    },
+    {
+      "kind": "pre_CSP_ASGI_replay_preserved",
+      "session_id": 48336,
+      "exit_code": 0,
+      "proof": "independent-replay-before-inline-CSP.json",
+      "sha256": "86ea3799dc6eed0d0528a363ef8797b85c889efc1eeb4eb4a97287df4edca00c",
+      "meaning": "Local data/source/auth/path tests passed; this does not imply browser iframe usability."
+    },
+    {
+      "kind": "targeted_existing_tests",
+      "session_id": 46926,
+      "exit_code": 0,
+      "result": "80 passed in12.09s",
+      "whole_suite": false
+    },
+    {
+      "kind": "actual_inline_CSP_repair_reverified",
+      "session_id": 86338,
+      "exit_code": 0,
+      "proof": "independent-replay.json",
+      "resolution": "Exact pulmonary reference.html now permits same-origin framing; all other authored/global CSP remains exact."
+    },
+    {
+      "kind": "verifier_omitted_explicit_gallery_load",
+      "sessions": [
+        73123,
+        37313
+      ],
+      "exit_code": 1,
+      "proofs": [
+        "browser/failed-before-source-gallery-ready.json",
+        "browser/failed-before-explicit-gallery-load.json"
+      ],
+      "resolution": "The shared lesson intentionally requires the Load original native source inspections button, then expansion of reference details. The corrected actual user flow passes; this was not a product defect."
+    },
+    {
+      "kind": "final_authenticated_browser",
+      "session_id": 82681,
+      "exit_code": 0,
+      "proof": "browser/proof.json",
+      "rows": 4,
+      "native_RGB_planes": 24,
+      "complete_GPU_model_checks": 32,
+      "original_XML_mark_selections": 132,
+      "runtime_errors": 0,
+      "cloud_verified": false
+    },
+    {
+      "kind": "final_targeted_tests",
+      "session_id": 78903,
+      "exit_code": 0,
+      "result": "86 passed in 13.54s",
+      "independently_added_tests": 6,
+      "whole_suite": false
+    },
+    {
+      "kind": "old_source_preservation",
+      "session_or_chunk": "39b156",
+      "exit_code": 0,
+      "proof": "old-source-preservation.json",
+      "old_payload_count": 96,
+      "old_payload_bytes": 199575937,
+      "old_anatomy_directory_Git_objects": 42,
+      "all_exact": true
+    }
+  ],
+  "product_or_source_changes_by_reviewer": false,
+  "external_mutations_or_cloud_checks": false
+}

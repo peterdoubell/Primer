@@ -1,0 +1,50 @@
+{
+  "reviewed_at": "2026-09-30",
+  "original_dataset": {
+    "doi": "10.5281/zenodo.7181338",
+    "record_url": "https://zenodo.org/records/7181338",
+    "license_id": "cc-by-4.0",
+    "record_sha256": "050e5ad4ebbb414acda6c703546450427cdea2fe255c4308126c5430c331888b",
+    "selection": "One original L3 CT and its supplied annotation; no cross-case registration or prediction."
+  },
+  "separate_followup_dataset": {
+    "paper_doi": "10.1038/s41597-026-07986-7",
+    "dataset_doi": "10.5281/zenodo.21063082",
+    "data_license": "CC BY-NC-SA 4.0",
+    "article_license": "CC BY-NC-ND 4.0",
+    "commercial_scope": "Not used for runtime assets. Original LumASe data license considered separately."
+  },
+  "schema_inspection": {
+    "author_repository": "https://github.com/Fangzheng214/SpineSubNet",
+    "commit": "1bca53a9355fef46a586b1a65d7f0e140a52c333",
+    "inspected_files": [
+      {
+        "file": "README.md",
+        "sha256": "2992d9f1291e82967474d767371e24b167297f28997cd56f2ffa131319d15b42"
+      },
+      {
+        "file": "baseline_grayscale.yaml",
+        "sha256": "036965eebf6a4a6bb30ea994cf8254eac5c2e07ae2dbccb1d7308ec4c75cb26e"
+      },
+      {
+        "file": "create_dataset.py",
+        "sha256": "d948758f8395ef44fda041f6ca9d66c4b1bb3461a2545f4c8f67e55260d4abf5"
+      },
+      {
+        "file": "evaluate_annotation_consistency.py",
+        "sha256": "b5c0e00328df9872f607d7173614aea30515d22842c6e619adc1d7e4b540c1b9"
+      },
+      {
+        "file": "evaluate_model.py",
+        "sha256": "0787f6b4986849688e763f77118500ef65410e8e857b0b589d80a34fc9d7ca2d"
+      },
+      {
+        "file": "process.py",
+        "sha256": "fe7bdb8705a6cf48d09e99c48b687ff595e73fd6031e90ebf9abe46485cb3e68"
+      }
+    ],
+    "result": "Inspected README/configuration/processing/evaluation files define numeric classes, but do not prove the original LumASe numeric-to-anatomical-name mapping. No author code, cleaned labels, model weights or predictions reused."
+  },
+  "clinical_approval": false,
+  "runtime_promoted": false
+}

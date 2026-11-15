@@ -1,0 +1,349 @@
+{
+  "date": "2026-09-26",
+  "objective": "Get MSK radiology modules to clinical/commercial grade. Images, schematics and 3d models must contain high fidelity representations of every structure to be reported on.",
+  "goal_status": "active; not achieved",
+  "turn_classification": "progress: source anatomy component selection, licensed figure additions, exact-source audits and scope/modality reconciliation changed authoritative state.",
+  "completion_audit": {
+    "clinical_commercial_ready": false,
+    "investigations": 22,
+    "representation_requirements": 5070,
+    "counts": {
+      "verified": 0,
+      "unverified": 67,
+      "missing": 5003
+    },
+    "scope_gaps": [
+      "ra.mri-ankle: site expansion unverified",
+      "ra.arthritis: site expansion unverified",
+      "ra.arthritis: source scope issue pattern_not_one_joint: classification missing or unknown",
+      "ra.arthritis: generic structure requires site-specific anatomy",
+      "ra.bone-tumours: site expansion unverified",
+      "ra.bone-tumours: source scope issue unbounded_anatomical_site: classification missing or unknown",
+      "ra.bone-tumours: generic structure requires site-specific anatomy",
+      "ra.cartilage-tumours: site expansion unverified",
+      "ra.cartilage-tumours: source scope issue unbounded_anatomical_site: classification missing or unknown",
+      "ra.cartilage-tumours: generic structure requires site-specific anatomy",
+      "ra.mri-diabetic-foot: site expansion unverified",
+      "ra.mri-diabetic-foot: generic structure requires site-specific anatomy",
+      "ra.mri-elbow: source scope issue historical_source_wording: classification missing or unknown",
+      "ra.paediatric-elbow-fractures: source scope issue developmental_geometry_and_modality: classification missing or unknown",
+      "ra.hip-arthroplasty: source scope issue native_mesh_insufficient: classification missing or unknown",
+      "ra.hip-fai: source scope issue modality_condition_required: classification missing or unknown",
+      "ra.mri-knee: source scope issue corner_subdivision_review: classification missing or unknown",
+      "ra.mri-muscle-injury: site expansion unverified",
+      "ra.mri-muscle-injury: source scope issue unbounded_anatomical_site: classification missing or unknown",
+      "ra.mri-muscle-injury: generic structure requires site-specific anatomy",
+      "ra.mri-muscle-disease: site expansion unverified",
+      "ra.mri-muscle-disease: source scope issue unbounded_anatomical_site: classification missing or unknown",
+      "ra.mri-muscle-disease: generic structure requires site-specific anatomy",
+      "ra.ultrasound-shoulder: source scope issue limited_intra_articular_visibility: classification missing or unknown",
+      "ra.thoracolumbar-fractures: site expansion unverified",
+      "ra.thoracolumbar-fractures: generic structure requires site-specific anatomy",
+      "ra.stress-fractures: site expansion unverified",
+      "ra.stress-fractures: generic structure requires site-specific anatomy",
+      "ra.ultrasound-joint-injection: site expansion unverified",
+      "ra.ultrasound-joint-injection: source scope issue knee_example_not_ultrasound_guided: classification missing or unknown",
+      "ra.ultrasound-joint-injection: source scope issue procedure_not_simulation: classification missing or unknown",
+      "ra.ultrasound-joint-injection: generic structure requires site-specific anatomy",
+      "rad.5.ankle-foot: additional MSK scope unresolved",
+      "rad.5.marrow-muscle: additional MSK scope unresolved",
+      "rad.5.bone-tumours: additional MSK scope unresolved",
+      "rad.3.fracture-description: additional MSK scope unresolved",
+      "rad.5.hip: additional MSK scope unresolved",
+      "rad.5.knee: additional MSK scope unresolved",
+      "rad.5.msk-mri: additional MSK scope unresolved",
+      "rad.5.shoulder: additional MSK scope unresolved",
+      "rad.4.arthritis: additional MSK scope unresolved",
+      "rad.5.wrist-hand: additional MSK scope unresolved",
+      "rad.5.elbow-mri: additional MSK scope unresolved",
+      "rad.4.spine-imaging: additional MSK scope unresolved",
+      "rad.4.spine-imaging: additional MSK scope unresolved",
+      "rad.4.spine-imaging: additional MSK scope unresolved",
+      "rad.4.spine-imaging: additional MSK scope unresolved",
+      "rad.5.child-abuse: additional MSK scope unresolved",
+      "rad.5.craniosynostosis: additional MSK scope unresolved",
+      "rad.5.paeds-hip-elbow: additional MSK scope unresolved",
+      "rad.5.neonatal-spine: additional MSK scope unresolved",
+      "rad.4.paediatric: additional MSK scope unresolved",
+      "rad.5.nuclear-general: additional MSK scope unresolved",
+      "rad.5.pet-ct: additional MSK scope unresolved",
+      "Reporting structure inventory requires clinical review"
+    ],
+    "scope_issue_assessments": [
+      {
+        "investigation_id": "ra.ankle-fractures",
+        "index": 0,
+        "code": "radiographic_soft_tissue_limit",
+        "kind": "boundary_constraint",
+        "status": "documented",
+        "detail": "Radiographs provide alignment, avulsion and visible soft-tissue clues. Retained tendon/ligament and cartilage requirements need appropriate direct imaging or separately identified explanatory anatomy; normal clear spaces do not prove ligament integrity.",
+        "blocking": false,
+        "reason": "documented_boundary_requirements_retained",
+        "classification_note": "The effective radiograph-first checklist explicitly distinguishes indirect injury clues from direct acquired soft-tissue imaging. The retained ligament/cartilage targets and all representation requirements remain unchanged.",
+        "documentation": {
+          "path": "docs/msk-boundary-constraints-2026-09-26.md",
+          "sha256": "e0f14d02e1b3be1347e7e9899d727c90af03ae672934d3b40f709ce0a790e4a3"
+        }
+      },
+      {
+        "investigation_id": "ra.ankle-fractures",
+        "index": 1,
+        "code": "foot_coverage_conditional",
+        "kind": "boundary_constraint",
+        "status": "documented",
+        "detail": "Foot/hindfoot and proximal-fibular findings apply only to actual acquired coverage; unexamined sites remain explicit requirements for the relevant pathway, not silently normal structures.",
+        "blocking": false,
+        "reason": "documented_boundary_requirements_retained",
+        "classification_note": "The report explicitly records actual foot/hindfoot and proximal-fibular coverage. This conditional boundary does not waive required anatomy or permit an unexamined site to count as covered.",
+        "documentation": {
+          "path": "docs/msk-boundary-constraints-2026-09-26.md",
+          "sha256": "e0f14d02e1b3be1347e7e9899d727c90af03ae672934d3b40f709ce0a790e4a3"
+        }
+      },
+      {
+        "investigation_id": "ra.arthritis",
+        "index": 0,
+        "code": "pattern_not_one_joint",
+        "kind": null,
+        "status": null,
+        "detail": "The source uses distribution across multiple joint groups. A single hand, knee or generic joint cannot demonstrate symmetry, spared joints or the entire examination.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.bone-tumours",
+        "index": 0,
+        "code": "unbounded_anatomical_site",
+        "kind": null,
+        "status": null,
+        "detail": "A normal regional bone mesh cannot resolve all possible host bones, tumour compartments or neurovascular relationships. Site selection and specialist-reviewed lesion representation remain required.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.cartilage-tumours",
+        "index": 0,
+        "code": "unbounded_anatomical_site",
+        "kind": null,
+        "status": null,
+        "detail": "A normal regional bone mesh cannot resolve all possible host bones, tumour compartments or neurovascular relationships. Site selection and specialist-reviewed lesion representation remain required.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.mri-elbow",
+        "index": 0,
+        "code": "historical_source_wording",
+        "kind": null,
+        "status": null,
+        "detail": "The source contains a sentence calling the lateral ulnar collateral ligament a tendon. The requirement correctly classifies it as ligament; source wording must not drive mesh tissue classification.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.paediatric-elbow-fractures",
+        "index": 0,
+        "code": "developmental_geometry_and_modality",
+        "kind": null,
+        "status": null,
+        "detail": "Adult elbow bones do not depict age-specific physes and unossified cartilage. Radiographs cannot directly evidence cartilage continuity or clinical neurovascular normality. Dedicated paediatric representations remain required.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.hip-arthroplasty",
+        "index": 0,
+        "code": "native_mesh_insufficient",
+        "kind": null,
+        "status": null,
+        "detail": "A native femur/acetabulum asset cannot satisfy implant component, liner, cement or zonal interface requirements.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.hip-fai",
+        "index": 0,
+        "code": "modality_condition_required",
+        "kind": null,
+        "status": null,
+        "detail": "Labrum, cartilage lesions and periarticular soft-tissue findings are conditional on an appropriate acquired MRI; do not attach those claims to a radiograph-only illustration.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.mri-knee",
+        "index": 0,
+        "code": "corner_subdivision_review",
+        "kind": null,
+        "status": null,
+        "detail": "The older source emphasizes three posterolateral structures. The requested complete corner anatomy also decomposes smaller ligament/fascicle components; these expansions require current MSK specialist verification.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.mri-muscle-injury",
+        "index": 0,
+        "code": "unbounded_anatomical_site",
+        "kind": null,
+        "status": null,
+        "detail": "No single fixed muscle model can satisfy a site-dependent examination. The current required set remains unresolved until a named region-specific instance is enumerated.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.mri-muscle-disease",
+        "index": 0,
+        "code": "unbounded_anatomical_site",
+        "kind": null,
+        "status": null,
+        "detail": "No single fixed muscle model can satisfy a site-dependent examination. The current required set remains unresolved until a named region-specific instance is enumerated.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-shoulder",
+        "index": 0,
+        "code": "limited_intra_articular_visibility",
+        "kind": null,
+        "status": null,
+        "detail": "Ultrasound cannot be counted as a complete substitute for all MRI labral sectors, deep articular cartilage or capsuloligamentous attachment assessment.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.thoracolumbar-fractures",
+        "index": 0,
+        "code": "clinical_inputs_and_modality_limits",
+        "kind": "boundary_constraint",
+        "status": "documented",
+        "detail": "Clinical neurology is an external examination input. Direct ligament/neural assessment depends on the acquired MRI, while CT morphology and injury clues remain reportable. These limits persist after the scoped report correction.",
+        "blocking": false,
+        "reason": "documented_boundary_requirements_retained",
+        "classification_note": "The dedicated trauma guide already separates CT morphology, acquired MRI assessment and supplied clinical neurology. The former inherited-report defect was corrected; level expansion and all neural/ligament targets remain required.",
+        "documentation": {
+          "path": "docs/msk-boundary-constraints-2026-09-26.md",
+          "sha256": "e0f14d02e1b3be1347e7e9899d727c90af03ae672934d3b40f709ce0a790e4a3"
+        }
+      },
+      {
+        "investigation_id": "ra.ultrasound-joint-injection",
+        "index": 0,
+        "code": "knee_example_not_ultrasound_guided",
+        "kind": null,
+        "status": null,
+        "detail": "The linked source states that its knee approach is performed without ultrasound. Separate validated ultrasound-guided knee evidence is needed for this module’s ultrasound guidance claims.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.ultrasound-joint-injection",
+        "index": 1,
+        "code": "procedure_not_simulation",
+        "kind": null,
+        "status": null,
+        "detail": "A static model can explain anatomy but cannot substantiate actual needle-tip position, observed injectate spread, aspiration or absence of complications.",
+        "blocking": true,
+        "reason": "classification_missing_or_unknown"
+      },
+      {
+        "investigation_id": "ra.wrist-instability",
+        "index": 0,
+        "code": "ligament_visibility",
+        "kind": "boundary_constraint",
+        "status": "documented",
+        "detail": "Ligament/TFCC anatomy is needed to explain instability but a radiograph does not establish direct fibre continuity. Any soft-tissue display must retain modality provenance.",
+        "blocking": false,
+        "reason": "documented_boundary_requirements_retained",
+        "classification_note": "The inspected radiographic guide makes alignment/dynamic observations and does not claim direct SL/LT/TFCC integrity. The separate MRI/MR-arthrography conditions remain part of the anatomical requirements.",
+        "documentation": {
+          "path": "docs/msk-boundary-constraints-2026-09-26.md",
+          "sha256": "e0f14d02e1b3be1347e7e9899d727c90af03ae672934d3b40f709ce0a790e4a3"
+        }
+      },
+      {
+        "investigation_id": "ra.wrist-fractures",
+        "index": 0,
+        "code": "ligament_visibility",
+        "kind": "boundary_constraint",
+        "status": "documented",
+        "detail": "Ligament/TFCC anatomy is needed to explain instability but a radiograph does not establish direct fibre continuity. Any soft-tissue display must retain modality provenance.",
+        "blocking": false,
+        "reason": "documented_boundary_requirements_retained",
+        "classification_note": "The inspected radiograph/CT fracture guide uses osseous congruity and avulsion clues, not direct ligament/TFCC integrity claims. Conditional advanced-imaging anatomy remains required.",
+        "documentation": {
+          "path": "docs/msk-boundary-constraints-2026-09-26.md",
+          "sha256": "e0f14d02e1b3be1347e7e9899d727c90af03ae672934d3b40f709ce0a790e4a3"
+        }
+      }
+    ]
+  },
+  "evidence_records": 632,
+  "runtime_publisher_key_image_urls_requiring_rights_reconciliation": 90,
+  "tests": {
+    "focused_python": "136 passed",
+    "orientation_node": "1 passed",
+    "javascript_syntax": "passed",
+    "diff_whitespace": "passed",
+    "completeness_gate": "expected exit 1; clinical/commercial readiness not established"
+  },
+  "knee": {
+    "original_source_objects": 28,
+    "selectable_parts": 30,
+    "native_retained_facets": 1307872,
+    "new_component_files": 4,
+    "new_component_transport_bytes": 305168,
+    "component_facets_compared_directly_to_original_STL": 11544,
+    "all_corners_and_normals_byte_exact": true,
+    "clean_private_rebuild": "All 28 original transport hashes and all 4 component records reproduce.",
+    "independent_audit": "docs/msk-knee-component-independent-audit.md",
+    "browser_evidence": "/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/primer-browser-qa-9jpfi1/results.json",
+    "browser_transport_count": 30,
+    "browser_layers": 6,
+    "isolated_targets": 8
+  },
+  "figures": {
+    "new_originals": 8,
+    "originals_total": 30,
+    "primary_gallery_pane_placements_checked": 33,
+    "new_modalities": {
+      "MRI": 4,
+      "schematic": 1,
+      "Ultrasound": 3
+    },
+    "new_bytes": 4648640,
+    "new_evidence_entries": 9,
+    "source_audit": "docs/msk-ankle-foot-image-progress.md",
+    "browser_evidence": "/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/primer-browser-qa-7anbX3/results.json",
+    "caption_correction_followup": "/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/primer-browser-qa-jwJtZT/results.json",
+    "qualification": "The 33 placements concern 6 primary regional galleries, not every publisher image in every MSK investigation. The final caption-only correction has separate current-catalog evidence."
+  },
+  "research_candidate": {
+    "source_audit": "docs/msk-ankle-fine-structure-sources.md",
+    "source": "Leeds DOI 10.5518/1207",
+    "promoted_to_runtime": false,
+    "reason": "Pathological haemophilic anatomy, approximately 3 mm MRI slices, no ankle ligaments; coordinate metadata and fine fidelity remain unverified."
+  },
+  "next_required_work": [
+    "Obtain/validate fine-structure models for wrist/ankle and other missing reporting anatomy; component splitting added no missing surface detail.",
+    "Acquire normal plantar-plate and remaining clinical/schematic component examples.",
+    "Expand site-dependent and paediatric reporting anatomy without narrowing the original scope.",
+    "Reconcile all 90 currently used publisher key-image URLs with commercial redistribution rights or licensed replacements.",
+    "Perform exact requirement-by-requirement anatomical, visual, modality, population and commercial review before any readiness claim."
+  ],
+  "source_sha256": {
+    "data/radiology/msk-structure-requirements.json": "e3bed38ce81efbe2dd7300ff8f338efbf9ff737306594086a2ec73f21b4bd245",
+    "data/radiology/msk-asset-evidence.json": "ce864fa327103d51a15b0e3858b111ec006199911d7e2dbcaeaf6fa7319e2140",
+    "data/radiology/msk-open-images.json": "83e3948c01743df4060594ac055618931856a4cd124fecb2a8eb2ad74e09fdf0",
+    "web/anatomy/msk-mri-knee/manifest.json": "ce3314fefc09e2a263afc7c5539356d66976dab9a91c326bf9eca5af6c2672ab",
+    "web/radiology-detailed-anatomy.js": "07ae6100b6b9ad9aa1bf4a75ccdbf18a36c566ffc29c57856bbd80b6e5a4d433",
+    "primer/radiology_catalog.py": "ece03d9a08eef9dfc3c05680028388708c2a58730bf0f01d4d1127f8b826a219",
+    "tools/check_msk_fidelity.py": "b6a39a415ded20f1b2320b45bccad0185260e3fd94bec4302029d7f79307d7d9",
+    "tools/anatomy_sources/split_malaya_knee_components.py": "631df77f70fe30d7bd0f84c8c8f7e2cbd89e9fe878800ba296cc99f0c5b8eada",
+    "tools/anatomy_sources/audit_malaya_knee_components.py": "b11eda869b7448790c51a07b96d91d2b5d4bd08e50fd1f053a2bd09a5112ceaf",
+    "docs/msk-boundary-constraints-2026-09-26.md": "e0f14d02e1b3be1347e7e9899d727c90af03ae672934d3b40f709ce0a790e4a3",
+    "data/radiology/investigation-source-images.json": "86b241d86f0e25dcd1cb1138dcb31bbcd561c0eb6085df1e34cebab22de1f9b2",
+    "data/radiology/detailed-visuals.json": "4fec61e16ea88e34a852bcffccdcec9ccceef5c3a5173bc037beb59f4e3a5923",
+    "data/radiology/reference-investigations.json": "5dff1122b1cfa8ff2a67ad92eee7750e6a8d04c8728bff1e33e47f55fe1e79d9"
+  },
+  "runtime_rights_inventory": "docs/msk-runtime-publisher-images-2026-09-26.json"
+}

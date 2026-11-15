@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "scope": "Strict source correspondence to immutable previous arithmetic/categorical-atlas review, not approval of current semantic graphs. Current semantic/API-edge review and reader evidence are separate and authoritative.",
+  "original_review": {
+    "path": "docs/number-theory-scientific-independent-review-20261012.json",
+    "sha256": "3ab506f3a410552a309a40fa6d3b942bbd6f2c80ec30605887d12e2f7cd08cfa"
+  },
+  "files": {
+    "web/math-number-theory-lab.js": {
+      "historical_copy": "docs/number-theory-reader-review-20261012/historical-scoped-source/math-number-theory-lab.js",
+      "historical_sha256": "a674ecf1aeab236e9696c92ee0443e116e5619e0bfa50c4e90b200355a5a86c1",
+      "current_sha256": "9fe41fadf21a6e3f45dfa8460a2047c105f1bd9c54336fdbb7788f887ffe2dff",
+      "inverse_replacements": [
+        {
+          "old_literal": "  function cycle(a,m){a=exact(a);m=exact(m);if(m<2n)throw new RangeError('Cycle modulus must be at least 2');const seen=new Map(),values=[];let r=1n;while(values.length<64){if(seen.has(str(r)))return {values,complete:true,prefix:seen.get(str(r)),period:values.length-seen.get(str(r))};seen.set(str(r),values.length);values.push(str(r));r=mod(r*a,m);}return {values,complete:false,prefix:null,period:null};}\n",
+          "new_literal": "  function cycle(a,m){a=exact(a);m=exact(m);if(m<2n)throw new RangeError('Cycle modulus must be at least 2');const seen=new Map(),values=[];let r=1n;while(values.length<64){if(seen.has(str(r)))return {values,complete:true,prefix:seen.get(str(r)),period:values.length-seen.get(str(r))};seen.set(str(r),values.length);values.push(str(r));r=mod(r*a,m);}if(seen.has(str(r)))return {values,complete:true,prefix:seen.get(str(r)),period:values.length-seen.get(str(r))};return {values,complete:false,prefix:null,period:null};}\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "    }else{const p=BigInt(s.rsaP),q=BigInt(s.rsaQ),e=BigInt(s.rsaE),M=BigInt(s.rsaMessage),n=p*q,phi=(p-1n)*(q-1n),primeP=factorize(p).prime,primeQ=factorize(q).prime,inv=phi>=2n?inverse(e,phi):{exists:false,gcd:str(euclid(e,phi).gcd)},issues=[];if(!primeP||!primeQ)issues.push('Both p and q must be prime.');if(p===q)issues.push('p and q must be distinct for this φ(n) formula.');if(!inv.exists)issues.push('gcd(e,φ(n)) must equal 1.');if(M>=n)issues.push('Use a message integer 0≤M<n.');const valid=issues.length===0;data={p:s.rsaP,q:s.rsaQ,e:s.rsaE,message:s.rsaMessage,n:str(n),phi:str(phi),primeP,primeQ,valid,issues,keyRecovery:null};if(valid){const d=BigInt(inv.inverse),encrypted=power(M,e,n),decrypted=power(encrypted.result,d,n),factored=factorize(n),recoveredPhi=factored.factors.reduce((v,f)=>v/BigInt(f.prime)*(BigInt(f.prime)-1n),n),recovered=inverse(e,recoveredPhi);data={...data,d:str(d),encrypted,decrypted,keyRecovery:{factorization:factored,phi:str(recoveredPhi),d:recovered.inverse,bezout:recovered},matches:decrypted.result===s.rsaMessage};panels=[table('Public values, private recovery and round trip',['n public','e public','φ(n)','d recovered','M','C=M^e mod n','C^d mod n'],[[n,e,phi,d,M,encrypted.result,decrypted.result]]),powerTable(encrypted),powerTable(decrypted)];readout='Toy public key (n,e)=('+n+','+e+'). Factoring n recovers '+p+' and '+q+', hence φ(n)='+phi+' and d='+d+'. Message '+M+' encrypts to '+encrypted.result+' and decrypts to '+decrypted.result+'.';}else{panels=[table('Toy RSA hypothesis checks',['p prime?','q prime?','Distinct?','gcd(e,formula)','M<n?'],[[primeP,primeQ,p!==q,inv.gcd,M<n]])];readout='No RSA round trip is claimed. '+issues.join(' ');}\n      proof=['With distinct primes p,q, n=pq and φ(n)=(p−1)(q−1). Select e coprime to φ(n), then use Bézout to obtain d with ed≡1 mod φ(n).','For each prime p or q, if M is zero modulo that prime the round trip is zero. Otherwise Fermat reduces the exponent ed=1+kφ(n) to M. Agreement modulo both primes gives agreement modulo pq. This covers non-coprime messages too.','Factoring the public modulus gives p and q, then φ(n) and a valid private exponent. This shows a sufficient attack on RSA; it does not establish that every RSA inversion attack is equivalent to factoring.'];boundary='All keys here are tiny, deterministic, unpadded and explicitly insecure. This arithmetic demonstration implements no real encryption protocol or security estimate. RFC 8017 specifies encodings such as OAEP; production RSA needs suitable key generation, padding and implementations. The d modulo φ(n) used here is a sufficient choice; RFC 8017 defines private exponents using λ(n).';\n",
+          "new_literal": "    }else{const p=BigInt(s.rsaP),q=BigInt(s.rsaQ),e=BigInt(s.rsaE),M=BigInt(s.rsaMessage),n=p*q,phi=(p-1n)*(q-1n),primeP=factorize(p).prime,primeQ=factorize(q).prime,inv=phi>=2n?inverse(e,phi):{exists:false,gcd:str(euclid(e,phi).gcd)},issues=[];if(!primeP||!primeQ)issues.push('Both p and q must be prime.');if(p===q)issues.push('p and q must be distinct for this φ(n) formula.');if(inv.gcd!=='1')issues.push('gcd(e,the candidate totient formula) must equal 1.');if(M>=n)issues.push('Use a message integer 0≤M<n.');const valid=issues.length===0;data={p:s.rsaP,q:s.rsaQ,e:s.rsaE,message:s.rsaMessage,n:str(n),phi:primeP&&primeQ&&p!==q?str(phi):null,phiCandidate:str(phi),rfcPublicBounds:primeP&&primeQ&&p!==q&&p%2n===1n&&q%2n===1n&&e>=3n&&e<n,primeP,primeQ,valid,issues,keyRecovery:null};if(valid){const d=BigInt(inv.inverse),encrypted=power(M,e,n),decrypted=power(encrypted.result,d,n),factored=factorize(n),recoveredPhi=factored.factors.reduce((v,f)=>v/BigInt(f.prime)*(BigInt(f.prime)-1n),n),recovered=inverse(e,recoveredPhi);data={...data,d:str(d),encrypted,decrypted,keyRecovery:{factorization:factored,phi:str(recoveredPhi),d:recovered.inverse,bezout:recovered},matches:decrypted.result===s.rsaMessage};panels=[table('Public values, private recovery and round trip',['n public','e public','φ(n)','d recovered','M','C=M^e mod n','C^d mod n'],[[n,e,phi,d,M,encrypted.result,decrypted.result]]),powerTable(encrypted),powerTable(decrypted)];readout='Toy public key (n,e)=('+n+','+e+'). Factoring n recovers '+p+' and '+q+', hence φ(n)='+phi+' and d='+d+'. Message '+M+' encrypts to '+encrypted.result+' and decrypts to '+decrypted.result+'. '+(data.rfcPublicBounds?'These arithmetic public-key parameters also meet the distinct-odd-prime and 3≤e<n bounds in RFC 8017; the toy is still unpadded and insecure.':'This round trip is mathematically valid, but the public-key parameters do not meet RFC 8017’s distinct-odd-prime and 3≤e<n bounds.');}else{panels=[table('Toy RSA hypothesis checks',['p prime?','q prime?','Distinct?','gcd(e,formula)','M<n?'],[[primeP,primeQ,p!==q,inv.gcd,M<n]])];readout='No RSA round trip is claimed. '+issues.join(' ');}\n      proof=['With distinct primes p,q, n=pq and φ(n)=(p−1)(q−1). Select e coprime to φ(n), then use Bézout to obtain d with ed≡1 mod φ(n).','For each prime p or q, if M is zero modulo that prime the round trip is zero. Otherwise Fermat reduces the exponent ed=1+kφ(n) to M. Agreement modulo both primes gives agreement modulo pq. This covers non-coprime messages too.','Factoring the public modulus gives p and q, then φ(n) and a valid private exponent. This shows a sufficient attack on RSA; it does not establish that every RSA inversion attack is equivalent to factoring.'];boundary='All keys here are tiny, deterministic, unpadded and explicitly insecure. This arithmetic demonstration implements no real encryption protocol or security estimate. RFC 8017 requires distinct odd primes and public exponent 3≤e<n; the broader mathematical toy controls also accept prime 2 and e≥n and identify those cases as nonconforming. RFC 8017 specifies encodings such as OAEP; production RSA needs suitable key generation, padding and implementations. The d modulo φ(n) used here is a sufficient choice; RFC 8017 defines private exponents using λ(n).';\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "historical_copy": "docs/number-theory-reader-review-20261012/historical-scoped-source/lesson-models.js",
+      "historical_sha256": "b80239d48b0d834d3e9ac7671fed7a9e784e79734f16a6ea1b1333fc22055d98",
+      "current_sha256": "1bb6c0b79c2aa7ed3b8226d843e9fb15b7600ac304cbb26345a27f0e2e8a6a00",
+      "inverse_replacements": [
+        {
+          "old_literal": "",
+          "new_literal": "      if (item.props?.scenario === 'module.math.4.numtheory' && window.PrimerNumberTheoryDiagrams) return window.PrimerNumberTheoryDiagrams.renderSpatial(item, hooks);\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "    'math-number-theory-lab': (item, hooks) => window.PrimerMathNumberTheoryLab?.render(item, hooks) || null,\n",
+          "new_literal": "    'math-number-theory-lab': (item, hooks) => window.PrimerNumberTheoryDiagrams?.render(item, hooks) || window.PrimerMathNumberTheoryLab?.render(item, hooks) || null,\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    "web/index.html": {
+      "historical_copy": "docs/number-theory-reader-review-20261012/historical-scoped-source/index.html",
+      "historical_sha256": "940ea7c993cafda9a3a4ad4af8fdfdcbab4a9fb919d28f4464d34c10ba1b6457",
+      "current_sha256": "9b9889fe9959d754b55e66b5ff041a05bfeaa293eaf12f6e12384760d638718d",
+      "inverse_replacements": [
+        {
+          "old_literal": "",
+          "new_literal": "  <link rel=\"stylesheet\" href=\"/app/number-theory-diagrams.css\">\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "",
+          "new_literal": "  <script src=\"/app/number-theory-diagrams.js\"></script>\n  <script src=\"/app/spatial-number-theory-relations.js\"></script>\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "historical_copy": "docs/number-theory-reader-review-20261012/historical-scoped-source/module-models.json",
+      "historical_sha256": "055ad980303642e7746ca5d772ee93a33c10ebc3095301d2603f15265ec36e7b",
+      "current_sha256": "aefa6d198d77fe3b2a3df7e6ed3acb33d4c11e2e03f5a78ed5847127ade404ed",
+      "inverse_replacements": [
+        {
+          "old_literal": "      \"title\": \"Exact integer algorithm atlas · 3D study\",\n      \"instructions\": \"Rotate the categorical atlas of the coordinated exact tables. Change the investigation or exact integer inputs, then inspect algorithm row transitions and field categories. Read full values and theorem hypotheses in the companion.\",\n      \"context\": \"Number Theory: Inspect exact table entries and algorithm transitions. Row, field and value-slot coordinates are categorical display indices, never integer magnitudes or a cryptographic security geometry.\",\n",
+          "new_literal": "      \"title\": \"Exact arithmetic relationships · 3D study\",\n      \"instructions\": \"Rotate the identified integer, operation and theorem-hypothesis graph. Follow exact relation arrows, select a diagram page, and compare the same full labels and edge witnesses in the companion mathematical diagram.\",\n      \"context\": \"Number Theory: Inspect quotient partitions, exact operations, factor trees, unit maps and proof dependencies. Nodes identify actual values and hypotheses; arrows carry their mathematical relations. Layout positions are display choices, never integer magnitude or cryptographic security geometry.\",\n",
+          "occurrences": 1
+        }
+      ]
+    },
+    "tests/test_math_number_theory_lab.py": {
+      "historical_copy": "docs/number-theory-reader-review-20261012/historical-scoped-source/test_math_number_theory_lab.py",
+      "historical_sha256": "9d81aca03e072c46f74851908489e6d33d33a5b70c6cb41e2b1e9f132f369cec",
+      "current_sha256": "14fc5f11dd7e5e53c17e1bc9afae0bdbbb88f6e47a3385accb7ef4428e7f5304",
+      "inverse_replacements": [
+        {
+          "old_literal": "        assert d[\"valid\"] == valid and int(d[\"n\"]) == n and int(d[\"phi\"]) == phi\n",
+          "new_literal": "        assert d[\"valid\"] == valid and int(d[\"n\"]) == n\n        assert int(d[\"phiCandidate\"]) == phi\n        assert d[\"phi\"] == (str(phi) if prime(p) and prime(q) and p != q else None)\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "",
+          "new_literal": "    amendment = json.loads((ROOT / \"docs/number-theory-semantic-source-amendment-20261012.json\").read_text())\n    assert set(amendment[\"files\"]) == {\"web/math-number-theory-lab.js\", \"web/lesson-models.js\",\n                                      \"web/index.html\", \"data/module-models.json\",\n                                      \"tests/test_math_number_theory_lab.py\"}\n    def checked_source(path, expected):\n        source = (ROOT / path).read_bytes()\n        if path not in amendment[\"files\"]:\n            assert hashlib.sha256(source).hexdigest() == expected\n            return\n        record = amendment[\"files\"][path]\n        assert hashlib.sha256(source).hexdigest() == record[\"current_sha256\"]\n        restored = source.decode()\n        for replacement in record[\"inverse_replacements\"]:\n            assert replacement[\"occurrences\"] == 1\n            assert restored.count(replacement[\"new_literal\"]) == 1\n            restored = restored.replace(replacement[\"new_literal\"], replacement[\"old_literal\"], 1)\n        assert hashlib.sha256(restored.encode()).hexdigest() == record[\"historical_sha256\"] == expected\n        assert hashlib.sha256((ROOT / record[\"historical_copy\"]).read_bytes()).hexdigest() == expected\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "        assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == digest\n",
+          "new_literal": "        checked_source(path, digest)\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "    assert hashlib.sha256((ROOT / oracle[\"path\"]).read_bytes()).hexdigest() == oracle[\"sha256\"]\n",
+          "new_literal": "    checked_source(oracle[\"path\"], oracle[\"sha256\"])\n",
+          "occurrences": 1
+        },
+        {
+          "old_literal": "    semantic = hashlib.sha256(json.dumps(lesson, sort_keys=True, ensure_ascii=False,\n                                       separators=(\",\", \":\")).encode()).hexdigest()\n    assert semantic == review[\"reviewed_lesson_semantic_sha256\"]\n",
+          "new_literal": "    current_semantic = hashlib.sha256(json.dumps(lesson, sort_keys=True, ensure_ascii=False,\n                                               separators=(\",\", \":\")).encode()).hexdigest()\n    assert current_semantic == amendment[\"current_lesson_semantic_sha256\"]\n    historical = (ROOT / amendment[\"historical_lesson\"][\"path\"]).read_bytes()\n    assert hashlib.sha256(historical).hexdigest() == amendment[\"historical_lesson\"][\"file_sha256\"]\n    historical_semantic = hashlib.sha256(json.dumps(json.loads(historical), sort_keys=True,\n                                        ensure_ascii=False, separators=(\",\", \":\")).encode()).hexdigest()\n    assert historical_semantic == review[\"reviewed_lesson_semantic_sha256\"]\n    assert amendment[\"historical_correspondence_only\"] is True\n    assert amendment[\"current_behavior_approval\"] is False\n",
+          "occurrences": 1
+        }
+      ]
+    }
+  },
+  "historical_lesson": {
+    "path": "docs/number-theory-reader-review-20261012/historical-scoped-source/reviewed-number-theory-node.json",
+    "file_sha256": "3476abfa75015bcf3e2fe9c217534b316ccfe7037c1e721cd9f9725bff9c9a08"
+  },
+  "current_lesson_semantic_sha256": "40e083972a0b87c9cd28f17dab8c5af2052d04eded764a7bb9ddf25c910f2c36",
+  "historical_correspondence_only": true,
+  "current_behavior_approval": false,
+  "bounded_changes": "Separate actual/candidate RSA totient and RFC public-key bounds; explicit new semantic renderer/scripts; revised actual relationship companion metadata; conditional phi assertion strengthened and historical pin assertion replaced by exact current+inverse+snapshot checks. All independent arithmetic cases and legacy adapter assertions retained. The capped cycle helper now checks its already-calculated next residue after the last stored entry, preserving64displayedvalues while reporting a closed period64 correctly; original receipt/source preserved.",
+  "full_goal_complete": false
+}

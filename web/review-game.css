@@ -1,0 +1,155 @@
+/* Memory Garden follows the book's paper, ink and night-mode tokens. */
+.card.review-game-invitation { display: flex; align-items: center; justify-content: space-between; gap: 24px; background: var(--tint-green); border-color: var(--green); margin-bottom: 24px; }
+.review-game-invitation > div { min-width: 0; }
+.review-game-invitation h3 { font: 500 24px/1.2 var(--serif); color: var(--ink); margin: 0 0 8px; }
+.review-game-invitation p { color: var(--ink-soft); line-height: 1.5; margin: 0; max-width: 540px; }
+.review-game-invitation > .btn { flex-shrink: 0; min-height: 48px; }
+.memory-game { max-width: 940px; margin: 0 auto; color: var(--ink); }
+.memory-game *, .memory-game *::before, .memory-game *::after { box-sizing: border-box; }
+.mg-heading { margin: 8px 0 28px; }
+.mg-heading h2 { margin: 7px 0 10px; font-family: var(--serif); font-size: clamp(35px, 5vw, 52px); font-weight: 500; letter-spacing: -.035em; line-height: 1.08; }
+.mg-deck { max-width: 620px; color: var(--ink-soft); font-size: 17px; line-height: 1.55; margin: 0; }
+.mg-eyebrow { display: flex; align-items: center; gap: 8px; margin: 0; font-family: var(--sans); font-size: 11px; line-height: 1.5; font-weight: 700; letter-spacing: .13em; color: var(--gold-ink); }
+.mg-welcome { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(210px, 1fr); border: 1px solid var(--paper-edge); border-radius: var(--r-sheet); background: var(--paper-hi); box-shadow: var(--elev-1); overflow: hidden; }
+.mg-welcome-copy { padding: 32px; }
+.mg-welcome h3 { font-family: var(--serif); font-size: clamp(25px, 3.3vw, 33px); font-weight: 500; line-height: 1.15; margin: 12px 0 14px; letter-spacing: -.02em; }
+.mg-welcome-copy > p:not(.mg-eyebrow) { color: var(--ink-soft); line-height: 1.55; font-size: 15px; }
+.mg-welcome-copy > .mg-kind-note { color: var(--green-ink); font-size: 13px; }
+.mg-round-options { border: 0; padding: 0; margin: 24px 0 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 0; }
+.mg-round-options legend { font-family: var(--sans); font-size: 12px; padding: 0 0 8px; font-weight: 600; color: var(--ink-soft); }
+.mg-round-choice { min-height: 65px; padding: 10px 12px; text-align: left; color: var(--ink); background: var(--field); border: 1px solid var(--edge); border-radius: var(--r-ctl); font: inherit; cursor: pointer; }
+.mg-round-choice strong, .mg-round-choice span { display: block; }
+.mg-round-choice strong { font-size: 13px; font-family: var(--sans); font-weight: 600; }
+.mg-round-choice span { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+.mg-round-choice[aria-pressed="true"] { border: 2px solid var(--green); padding: 9px 11px; background: var(--tint-green); }
+.memory-game .mg-start { width: 100%; display: flex; justify-content: center; align-items: center; gap: 14px; min-height: 49px; }
+.mg-preview { border-left: 1px solid var(--paper-edge); background: radial-gradient(ellipse at 50% 25%, var(--tint-gold), transparent 60%), var(--paper-2); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 26px 20px; }
+.mg-preview .mg-garden { width: 100%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px 8px; padding: 0 6px 18px; }
+.mg-garden-caption { margin: 14px 0 0; text-align: center; font-size: 13px; font-style: italic; color: var(--ink-soft); line-height: 1.5; }
+.mg-garden { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 10px; }
+.mg-plot { border: 1px solid var(--rule); background: var(--paper-hi); border-radius: 45% 45% 8px 8px; padding: 5px 4px 1px; position: relative; color: var(--green); min-width: 0; }
+.mg-plot-number { display: block; text-align: center; font-family: var(--sans); font-size: 10px; color: var(--ink-faint); line-height: 1.4; }
+.mg-plant { display: block; width: 100%; max-width: 85px; margin: 0 auto; }
+.mg-plant svg { display: block; width: 100%; height: auto; }
+.mg-seed { stroke: var(--gold); fill: var(--tint-gold-strong); }
+.mg-soil { stroke: var(--gold); }
+.mg-petals { stroke: var(--gold); fill: var(--gold-bright); }
+.mg-flower-heart { fill: var(--paper-hi); stroke: var(--gold-ink); }
+.mg-water { stroke: var(--accent-2); fill: var(--tint-info); }
+.mg-plot-grown { background: var(--tint-green); border-color: var(--green); }
+.mg-plot-watered { background: var(--tint-info-soft); }
+.mg-plot-grown .mg-plant, .mg-plot-watered .mg-plant { transform-origin: 50% 90%; animation: mg-grow var(--dur-slow) var(--spring) both; }
+@keyframes mg-grow { from { opacity: .35; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+.mg-how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; margin: 25px 0; padding: 0; gap: 24px; }
+.mg-how li { border-top: 1px solid var(--rule); padding-top: 16px; }
+.mg-how li > span { font-size: 11px; color: var(--gold-ink); font-family: var(--sans); letter-spacing: .1em; margin-right: 10px; }
+.mg-how strong { font-family: var(--serif); font-size: 19px; font-weight: 500; }
+.mg-how p { margin: 7px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
+.mg-round-status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; padding: 0 0 12px; font-size: 13px; font-family: var(--sans); color: var(--ink-soft); }
+.mg-round-status > span:first-child { margin-right: auto; }
+.mg-progress-text { color: var(--ink); }
+.mg-earned { color: var(--green-ink); }
+.mg-round-garden { margin: 0 0 24px; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--r-card); }
+.mg-round-garden .mg-garden:has(.mg-plot:nth-child(5):last-child), .mg-round-garden .mg-garden:has(.mg-plot:nth-child(-n+4):last-child) { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 500px; margin: 0 auto; }
+.mg-card { padding: clamp(22px, 4vw, 38px); border: 1px solid var(--paper-edge); border-radius: var(--r-sheet); background: var(--paper-hi); box-shadow: var(--elev-1); }
+.mg-card-top, .mg-answer-title { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.mg-source { margin: 12px 0 0; color: var(--ink-faint); font-size: 12px; font-family: var(--sans); }
+.mg-question { font-family: var(--serif); font-weight: 500; font-size: clamp(25px, 3vw, 33px); line-height: 1.32; margin: 20px 0 14px; overflow-wrap: anywhere; }
+.mg-recall-help { font-size: 14px; color: var(--ink-soft); line-height: 1.5; margin: 0 0 23px; }
+.mg-input-label { display: block; font-family: var(--sans); font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; }
+.mg-recall-input { display: block; width: 100%; min-height: 85px; max-height: 280px; resize: vertical; padding: 13px 15px; color: var(--ink); background: var(--field); border: 1px solid var(--edge); border-radius: var(--r-ctl); font: 16px/1.5 var(--serif); margin: 0 0 20px; }
+.mg-recall-input::placeholder { color: var(--ink-place); }
+.mg-recall-input[readonly] { border-color: var(--rule); background: var(--paper-2); }
+.memory-game .mg-reveal { display: flex; width: 100%; min-height: 49px; justify-content: center; align-items: center; gap: 15px; }
+.memory-game [hidden] { display: none !important; }
+.memory-game kbd { border: 1px solid currentColor; border-radius: 4px; padding: 1px 5px; font: 10px/1.4 var(--sans); opacity: .7; }
+.mg-answer { border-top: 1px solid var(--rule); padding-top: 22px; }
+.mg-answer h4 { font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--green-ink); margin: 0; letter-spacing: .04em; }
+.mg-answer-text { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 18px; line-height: 1.65; margin: 15px 0 24px; }
+.mg-grade-prompt { color: var(--ink-soft); font-size: 13px; margin: 0 0 12px; }
+.mg-grades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.mg-grade { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 15px 12px; border: 1px solid var(--edge); border-radius: var(--r-ctl); background: var(--field); color: var(--ink); text-align: left; cursor: pointer; min-height: 112px; font-family: var(--sans); transition: background var(--dur-fast), border-color var(--dur-fast); }
+.mg-grade .glyph { color: var(--accent-2); margin-bottom: 2px; }
+.mg-grade strong { font-size: 13px; }
+.mg-grade > span:not(.glyph) { font-size: 11px; line-height: 1.5; color: var(--ink-soft); }
+.mg-grade kbd { position: absolute; top: 12px; right: 10px; }
+.mg-grade:hover:not(:disabled) { background: var(--tint-green); border-color: var(--green); }
+.mg-grade:disabled { cursor: default; opacity: .65; }
+.mg-grade.mg-chosen { opacity: 1; background: var(--tint-green); border: 2px solid var(--green); padding: 14px 11px; }
+.mg-save-status { font-size: 14px; line-height: 1.6; margin-top: 20px; }
+.mg-feedback { border-top: 1px solid var(--rule); padding-top: 22px; }
+.mg-feedback h4 { font: 500 23px/1.25 var(--serif); margin: 0 0 10px; }
+.mg-feedback p { margin: 8px 0; color: var(--ink-soft); }
+.mg-feedback .mg-return-date { color: var(--green-ink); }
+.memory-game .mg-next { margin-top: 13px; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 15px; }
+.mg-save-error { padding: 13px 16px; border: 1px solid var(--edge); border-radius: var(--r-ctl); background: var(--tint-wrong); }
+.mg-save-error p { margin: 0 0 12px; }
+.mg-footer { display: flex; align-items: center; gap: 20px; justify-content: space-between; margin: 20px 0; }
+.mg-footer > span { color: var(--ink-faint); font-size: 11px; max-width: 410px; line-height: 1.5; }
+.mg-footer .btn { flex-shrink: 0; }
+.mg-empty, .mg-complete { padding: clamp(24px, 5vw, 44px); border: 1px solid var(--paper-edge); background: var(--paper-hi); border-radius: var(--r-sheet); box-shadow: var(--elev-1); }
+.mg-empty { text-align: center; max-width: 700px; margin: 0 auto; }
+.mg-empty-mark { display: inline-flex; color: var(--green); padding: 20px; background: var(--tint-green); border: 1px solid var(--rule); border-radius: 50%; }
+.mg-empty h3, .mg-complete h3 { font: 500 clamp(26px, 3.5vw, 34px)/1.15 var(--serif); margin: 18px 0; }
+.mg-empty p, .mg-complete > p:not(.mg-eyebrow) { color: var(--ink-soft); font-size: 16px; line-height: 1.65; max-width: 600px; }
+.mg-empty .mg-next-due { color: var(--green-ink); }
+.mg-empty .mg-actions { justify-content: center; }
+.mg-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.mg-actions .btn { min-height: 46px; }
+.mg-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 25px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 26px 0; gap: 20px; }
+.mg-summary strong { font: 500 37px/1 var(--serif); color: var(--green-ink); }
+.mg-summary span { display: block; font: 12px/1.5 var(--sans); color: var(--ink-soft); margin-top: 9px; }
+.mg-schedule h4 { font: 500 21px/1.3 var(--serif); margin: 0 0 10px; }
+.mg-schedule ul { margin: 0; padding-left: 19px; }
+.mg-schedule li, .mg-schedule p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+.mg-note { font-size: 12px !important; line-height: 1.5 !important; color: var(--ink-faint); margin-top: 14px; }
+.mg-load { padding: 30px; border: 1px solid var(--rule); border-radius: var(--r-card); color: var(--ink-soft); }
+.memory-game button:focus-visible, .memory-game textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.memory-game [tabindex="-1"]:focus { outline: none; }
+.memory-game-young .mg-grades { grid-template-columns: 1fr 1fr; }
+.memory-game-young .mg-grade { min-height: 120px; padding: 18px; }
+.memory-game-young .mg-grade strong { font-size: 18px; }
+.memory-game-young .mg-grade .glyph { transform: scale(1.25); transform-origin: left center; }
+.memory-game .speak-btn { min-width: 44px; min-height: 44px; flex-shrink: 0; }
+@media (max-width: 700px) {
+  .card.review-game-invitation { flex-direction: column; align-items: stretch; gap: 18px; }
+  .review-game-invitation > .btn { justify-content: center; width: 100%; }
+  .mg-welcome { grid-template-columns: 1fr; }
+  .mg-welcome-copy { padding: 25px; }
+  .mg-preview { border-left: 0; border-top: 1px solid var(--paper-edge); padding: 18px 24px; }
+  .mg-preview .mg-garden { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 430px; gap: 9px; padding: 0; }
+  .mg-preview .mg-plant { max-width: 55px; }
+  .mg-round-garden .mg-garden { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; }
+  .mg-round-garden .mg-plant { max-width: 54px; }
+  .mg-grades { grid-template-columns: 1fr 1fr; }
+  .mg-grade { min-height: 105px; }
+  .mg-how { gap: 15px; }
+  .mg-how strong { display: block; margin-top: 6px; }
+  .mg-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+@media (max-width: 430px) {
+  .mg-heading { margin-bottom: 20px; }
+  .mg-deck { font-size: 15px; }
+  .mg-welcome-copy, .mg-card, .mg-complete, .mg-empty { padding: 20px; }
+  .mg-round-garden { padding: 12px; }
+  .mg-round-status { gap: 6px 15px; font-size: 11px; }
+  .mg-round-status > span:first-child { flex-basis: 100%; }
+  .mg-how { grid-template-columns: 1fr; gap: 10px; }
+  .mg-how li { display: grid; grid-template-columns: 24px 82px 1fr; align-items: baseline; gap: 7px; padding-top: 10px; }
+  .mg-how li > span { margin: 0; }
+  .mg-how strong { font-size: 17px; margin: 0; }
+  .mg-how p { font-size: 12px; margin: 0; }
+  .mg-question { font-size: 25px; }
+  .mg-actions .btn, .memory-game .mg-next { width: 100%; justify-content: center; }
+  .mg-summary { gap: 10px; }
+  .mg-summary strong { font-size: 30px; }
+  .mg-summary span { font-size: 11px; }
+  .mg-grade { padding: 13px 10px; }
+  .mg-grade strong { font-size: 12px; }
+  .memory-game-young .mg-grade { padding: 15px; }
+  .memory-game-young .mg-grade strong { font-size: 15px; }
+}
+@media (hover: none) { .memory-game kbd { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .memory-game *, .memory-game *::before, .memory-game *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,834 @@
+{
+  "source_acquisition_sha256": "cf9d84f3c7186af7606ccb1a19037d6af5bd4162c2e7e487d70cdd0b0f35f93c",
+  "case": "sub-amu02",
+  "shape": [
+    64,
+    320,
+    320
+  ],
+  "voxel_spacing_mm": [
+    0.8000011444091797,
+    0.800000011920929,
+    0.800000011920929
+  ],
+  "axis_codes": [
+    "L",
+    "A",
+    "S"
+  ],
+  "image_affine": [
+    [
+      -0.8000011444091797,
+      0.0,
+      0.0,
+      25.200002670288086
+    ],
+    [
+      0.0,
+      0.800000011920929,
+      0.0,
+      -123.03358459472656
+    ],
+    [
+      0.0,
+      0.0,
+      0.800000011920929,
+      -170.98843383789062
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "headers": {
+    "rater1": {
+      "dtype": "float64",
+      "qform_code": 1,
+      "sform_code": 1,
+      "selected_affine_max_difference_mm": 0.0,
+      "labels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "rater2": {
+      "dtype": "float64",
+      "qform_code": 1,
+      "sform_code": 1,
+      "selected_affine_max_difference_mm": 0.0,
+      "labels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "rater3": {
+      "dtype": "float64",
+      "qform_code": 1,
+      "sform_code": 1,
+      "selected_affine_max_difference_mm": 0.0,
+      "labels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "rater4": {
+      "dtype": "float64",
+      "qform_code": 1,
+      "sform_code": 1,
+      "selected_affine_max_difference_mm": 0.0,
+      "labels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "staple": {
+      "dtype": "uint8",
+      "qform_code": 1,
+      "sform_code": 1,
+      "selected_affine_max_difference_mm": 0.0,
+      "labels": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  },
+  "levels": [
+    {
+      "label": 2,
+      "source_level": "C2",
+      "voxels": {
+        "rater1": 212,
+        "rater2": 241,
+        "rater3": 204,
+        "rater4": 224,
+        "staple": 237
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.7505518763796909
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.8028846153846154
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.7201834862385321
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.7685393258426966
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.8301075268817204
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.7663551401869159
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.8195991091314031,
+        "rater2": 0.899581589958159,
+        "rater3": 0.8752834467120182,
+        "rater4": 0.8850325379609545
+      },
+      "consensus_bounds_voxel": [
+        [
+          14,
+          138,
+          195
+        ],
+        [
+          47,
+          148,
+          204
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          122,
+          109,
+          6
+        ],
+        "26": [
+          128,
+          109
+        ]
+      }
+    },
+    {
+      "label": 3,
+      "source_level": "C3",
+      "voxels": {
+        "rater1": 246,
+        "rater2": 156,
+        "rater3": 205,
+        "rater4": 205,
+        "staple": 224
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.6517412935323383
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.6873614190687362
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.6297117516629712
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.6648199445983379
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.6260387811634349
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.6634146341463415
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.8042553191489362,
+        "rater2": 0.7684210526315789,
+        "rater3": 0.8484848484848485,
+        "rater4": 0.7972027972027972
+      },
+      "consensus_bounds_voxel": [
+        [
+          18,
+          145,
+          179
+        ],
+        [
+          46,
+          157,
+          189
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          117,
+          107
+        ],
+        "26": [
+          117,
+          107
+        ]
+      }
+    },
+    {
+      "label": 4,
+      "source_level": "C4",
+      "voxels": {
+        "rater1": 75,
+        "rater2": 48,
+        "rater3": 42,
+        "rater4": 103,
+        "staple": 54
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.5691056910569106
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.4444444444444444
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.4157303370786517
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.5777777777777777
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.33112582781456956
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.3448275862068966
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.7596899224806202,
+        "rater2": 0.7450980392156863,
+        "rater3": 0.6458333333333334,
+        "rater4": 0.5222929936305732
+      },
+      "consensus_bounds_voxel": [
+        [
+          39,
+          153,
+          163
+        ],
+        [
+          44,
+          160,
+          169
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          54
+        ],
+        "26": [
+          54
+        ]
+      }
+    },
+    {
+      "label": 5,
+      "source_level": "C5",
+      "voxels": {
+        "rater1": 109,
+        "rater2": 75,
+        "rater3": 66,
+        "rater4": 103,
+        "staple": 87
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.5978260869565217
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.6171428571428571
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.39622641509433965
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.6950354609929078
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.47191011235955055
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.40236686390532544
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.7653061224489796,
+        "rater2": 0.8148148148148148,
+        "rater3": 0.7973856209150327,
+        "rater4": 0.5578947368421052
+      },
+      "consensus_bounds_voxel": [
+        [
+          38,
+          157,
+          142
+        ],
+        [
+          43,
+          163,
+          152
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          87
+        ],
+        "26": [
+          87
+        ]
+      }
+    },
+    {
+      "label": 6,
+      "source_level": "C6",
+      "voxels": {
+        "rater1": 136,
+        "rater2": 95,
+        "rater3": 63,
+        "rater4": 152,
+        "staple": 102
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.5887445887445888
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.4723618090452261
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.5138888888888888
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.6329113924050633
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.5910931174089069
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.4186046511627907
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.7142857142857143,
+        "rater2": 0.8324873096446701,
+        "rater3": 0.6787878787878788,
+        "rater4": 0.7086614173228346
+      },
+      "consensus_bounds_voxel": [
+        [
+          22,
+          158,
+          126
+        ],
+        [
+          45,
+          164,
+          136
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          96,
+          4,
+          2
+        ],
+        "26": [
+          96,
+          6
+        ]
+      }
+    },
+    {
+      "label": 7,
+      "source_level": "C7",
+      "voxels": {
+        "rater1": 91,
+        "rater2": 97,
+        "rater3": 75,
+        "rater4": 150,
+        "staple": 101
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.5531914893617021
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.4939759036144578
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.45643153526970953
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.6511627906976745
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.5020242914979757
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.5066666666666667
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.6875,
+        "rater2": 0.8181818181818182,
+        "rater3": 0.7840909090909091,
+        "rater4": 0.6454183266932271
+      },
+      "consensus_bounds_voxel": [
+        [
+          21,
+          154,
+          109
+        ],
+        [
+          45,
+          159,
+          120
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          67,
+          32,
+          2
+        ],
+        "26": [
+          67,
+          34
+        ]
+      }
+    },
+    {
+      "label": 8,
+      "source_level": "C8",
+      "voxels": {
+        "rater1": 75,
+        "rater2": 164,
+        "rater3": 112,
+        "rater4": 201,
+        "staple": 160
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.49372384937238495
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.5133689839572193
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.4492753623188406
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.6594202898550725
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.7287671232876712
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.65814696485623
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.5787234042553191,
+        "rater2": 0.8580246913580247,
+        "rater3": 0.7867647058823529,
+        "rater4": 0.8476454293628809
+      },
+      "consensus_bounds_voxel": [
+        [
+          20,
+          146,
+          92
+        ],
+        [
+          47,
+          152,
+          103
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          89,
+          70,
+          1
+        ],
+        "26": [
+          90,
+          70
+        ]
+      }
+    },
+    {
+      "label": 9,
+      "source_level": "T1",
+      "voxels": {
+        "rater1": 142,
+        "rater2": 198,
+        "rater3": 0,
+        "rater4": 258,
+        "staple": 164
+      },
+      "pairwise_manual_dice": [
+        {
+          "raters": [
+            "rater1",
+            "rater2"
+          ],
+          "dice": 0.6705882352941176
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater3"
+          ],
+          "dice": 0.0
+        },
+        {
+          "raters": [
+            "rater1",
+            "rater4"
+          ],
+          "dice": 0.63
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater3"
+          ],
+          "dice": 0.0
+        },
+        {
+          "raters": [
+            "rater2",
+            "rater4"
+          ],
+          "dice": 0.6403508771929824
+        },
+        {
+          "raters": [
+            "rater3",
+            "rater4"
+          ],
+          "dice": 0.0
+        }
+      ],
+      "consensus_to_manual_dice": {
+        "rater1": 0.8431372549019608,
+        "rater2": 0.8232044198895028,
+        "rater3": 0.0,
+        "rater4": 0.7630331753554502
+      },
+      "consensus_bounds_voxel": [
+        [
+          19,
+          133,
+          76
+        ],
+        [
+          43,
+          141,
+          88
+        ]
+      ],
+      "touches_volume_edge": false,
+      "consensus_component_voxels": {
+        "6": [
+          83,
+          76,
+          5
+        ],
+        "26": [
+          83,
+          76,
+          5
+        ]
+      }
+    }
+  ],
+  "review_plane": {
+    "axis": 1,
+    "index": 150,
+    "crop_start": [
+      6,
+      125,
+      68
+    ],
+    "crop_stop": [
+      56,
+      173,
+      213
+    ],
+    "display_window": [
+      0.0,
+      1465.5100000000002
+    ]
+  },
+  "label_scope_evidence": "Author issue 17 specifies dorsal C2\u2013T1, value 2 for C2 and sequential levels. Snapshot sidecars retain older C2\u2013C8 text; discrepancy retained.",
+  "limits": [
+    "Voxel overlap measures annotation agreement, not anatomical truth.",
+    "No left/right or dorsal/ventral instance subdivision inferred from one level label.",
+    "The supplied cord context mask is algorithm-generated according to its sidecar, not assumed manual ground truth.",
+    "Disc dlabels are landmarks, not disc tissue volumes."
+  ],
+  "clinical_approval": false,
+  "runtime_promoted": false
+}

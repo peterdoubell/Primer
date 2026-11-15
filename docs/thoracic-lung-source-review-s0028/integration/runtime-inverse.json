@@ -1,0 +1,121 @@
+{
+  "base_commit": "437831910723da23702c0cf770d6def84f17e7c3",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "files": {
+    "primer/server.py": {
+      "before_sha256": "73e5ec62b32de224485826edd4b8543e29dae9d002a1beb9ae79c54517c0acc3",
+      "after_sha256": "bc9e1dc60024c83849bb2799ed27c30520f6aabaa5f599c1cda635ff23a0ca4f",
+      "changes": [
+        {
+          "start": 3790,
+          "end": 3807,
+          "before": "",
+          "after": "@app.api_route(\"/app/anatomy/totalseg-s0028-lungs/{asset:path}\", methods=[\"GET\", \"HEAD\"], include_in_schema=False)\nasync def thoracic_lung_delivery(asset: str, request: Request):\n    from .thoracic_lung_native import AUTHORED, PREFIX, registry, references, validate_file\n    src = PREFIX + asset\n    if not src.isascii() or request.scope.get('raw_path', b'') != src.encode('ascii') or asset not in registry()['files']:\n        return JSONResponse({'detail': 'Unknown lung source asset'}, status_code=404, headers={'Cache-Control': 'private, no-store'})\n    references()\n    validate_file(asset)\n    if asset not in AUTHORED and os.environ.get('VERCEL'):\n        return RedirectResponse('/source-media/anatomy/totalseg-s0028-lungs/' + asset, status_code=307, headers={'Cache-Control': 'private, no-store'})\n    response = await app.state.source_static.get_response('anatomy/totalseg-s0028-lungs/' + asset, request.scope)\n    response.headers['Cache-Control'] = 'private, no-store'\n    if asset == 'index.html':\n        response.headers['Content-Security-Policy'] = CSP.replace(\"frame-ancestors 'none';\", \"frame-ancestors 'self';\")\n    return response\n\n\n"
+        }
+      ]
+    },
+    "primer/module_media.py": {
+      "before_sha256": "970a18cf5a8ce4a63c2d7d1d46593a7ea6168c357820170406888254ca26ca97",
+      "after_sha256": "34c076a8d8211ce9373cc948ade97498b353c7ae576881957de88262dfeee36d",
+      "changes": [
+        {
+          "start": 62,
+          "end": 63,
+          "before": "        from .thoracic_native_inspectors import references as thoracic_references\n",
+          "after": "        from .source_native_inspectors import references as thoracic_references\n"
+        },
+        {
+          "start": 131,
+          "end": 132,
+          "before": "                                           'Inspect original diaphragm, intercostal and valve-leaflet source surfaces. These curated models are not registered to the ultrasound examples; required anatomy remains incomplete.'\n",
+          "after": "                                           'Inspect original curated surfaces and a separate same-case CT/lobe source. Neither source is registered to the ultrasound examples; required anatomy remains incomplete.'\n"
+        }
+      ]
+    },
+    "primer/source_native_inspectors.py": {
+      "before_sha256": "4a0d5a7c94c9a99aedf1afb1314fd0ec0c565de8accd0cad8186fcd50c77b3f5",
+      "after_sha256": "e737f32999b24fb0ba3479ec3d8ee24faf7f6787043b8f96b8a74ba4316719fe",
+      "changes": [
+        {
+          "start": 80,
+          "end": 83,
+          "before": "",
+          "after": "    from .thoracic_lung_native import references as lung_references\n    for identifier, entries in lung_references().items():\n        result[identifier] = [*result.get(identifier, []), *entries]\n"
+        }
+      ]
+    },
+    "web/app.js": {
+      "before_sha256": "be779e23c49d7673838e7758200dac4f528742685e7ff46aaa9d73999b826b66",
+      "after_sha256": "91c6beacfa6fa450287807822449ccbda49d42a95746bc4e32befcc6ce31b5f6",
+      "changes": [
+        {
+          "start": 2031,
+          "end": 2034,
+          "before": "  const nativeCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';\n",
+          "after": "  const noduleCT = asset.id === 'lidc-idri-0525-native' && asset.modality === 'CT';\n  const lungCT = asset.id === 'totalseg-s0028-lung-native' && asset.modality === 'CT';\n  const nativeCT = noduleCT || lungCT;\n"
+        },
+        {
+          "start": 2039,
+          "end": 2040,
+          "before": "    ...(curatedSurface ? [] : [' \u00b7 ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' \u00b7 ',\n",
+          "after": "    ...(curatedSurface || lungCT ? [] : [' \u00b7 ', radiologySourceLink(sourceCase ? 'Source publication and methods' : 'Original probabilistic atlas', asset.publication_url || asset.atlas_source_url)]), ' \u00b7 ',\n"
+        },
+        {
+          "start": 2042,
+          "end": 2044,
+          "before": "    if (nativeCT) section.append(' \u00b7 ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));\n    const openLabel = curatedSurface ? 'Inspect original surfaces inline' : 'Inspect source CT and models inline';\n",
+          "after": "    if (noduleCT) section.append(' \u00b7 ', radiologySourceLink('Original standardized annotations', asset.annotation_source_url));\n    const openLabel = curatedSurface ? 'Inspect original surfaces inline' : lungCT ? 'Inspect matching CT and lung surfaces inline' : 'Inspect source CT and models inline';\n"
+        },
+        {
+          "start": 2841,
+          "end": 2842,
+          "before": "  const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy');\n",
+          "after": "  const curatedModels = (ref.source_native_inspectors || []).filter(asset => asset.modality === 'Curated 3D anatomy' || asset.id === 'totalseg-s0028-lung-native');\n"
+        },
+        {
+          "start": 3201,
+          "end": 3203,
+          "before": "  const curatedSurface = (ref.source_native_inspectors || []).find(asset => asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n",
+          "after": "  const sourceModels = (ref.source_native_inspectors || []).filter(asset => asset.id === 'totalseg-s0028-lung-native' || asset.id === 'bp3d-thoracic-original-surfaces' && asset.modality === 'Curated 3D anatomy');\n  const curatedSurface = sourceModels.length > 0;\n"
+        },
+        {
+          "start": 3458,
+          "end": 3460,
+          "before": "      if (!anatomyBox.querySelector('.source-native-inspector')) anatomyBox.replaceChildren(sourceNativeInspector(curatedSurface));\n      visualNote.textContent = 'Original curated source surfaces in their own coordinates. Reporting anatomy remains incomplete; no source mesh is registered to these ultrasound examples or the current patient.';\n",
+          "after": "      if (!anatomyBox.querySelector('.source-native-inspector')) anatomyBox.replaceChildren(...sourceModels.map(sourceNativeInspector));\n      visualNote.textContent = 'Original curated surfaces and a separate CT/lobe source in their own coordinates. Reporting anatomy remains incomplete; these sources are independent of the ultrasound examples and the current patient.';\n"
+        }
+      ]
+    },
+    "vercel.json": {
+      "before_sha256": "60da82010acabe05db7d2a44addf626cce30e97a65d51f90072b20c4a7cc73fb",
+      "after_sha256": "a31845d281ff7035c28d9edca482a9f07dcb6b09733f5fd2c272e3cc89d34a43",
+      "changes": [
+        {
+          "start": 7,
+          "end": 8,
+          "before": "        \"excludeFiles\": \"{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**}\"\n",
+          "after": "        \"excludeFiles\": \"{public/**,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin,web/anatomy/{bodyparts3d,msk-atlas,msk-cervical,msk-mri-knee,msk-mri-ankle,liu-lumbosacral-sub03,verse521,hvsmr2-pat7,openear-zeta,totalseg-v3-s0358,totalseg-v3-esophagus-s0358,ispy1-expert1002,prostate-biopsy0001}/**/*.bin.gz,web/reference-media/prenatal-development/prenatal-development.gif,web/reference-media/prenatal-development/day-*.webp,web/illustrations/**/*.webp,web/reference-media/radiology-open/**/*.{jpg,jpeg,png,webp,gif,pdf},web/reference-media/radiology-motion/**,web/anatomy/totalseg-v3-esophagus-s0358/ct-reference.html,web/anatomy/ispy1-expert1002/mri-reference.html,web/anatomy/prostate-biopsy0001/mri-reference.html,web/studies/tcga-dk-aa6p/**,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/mri-reference.html,web/anatomy/fedbca-{center1-001,center2-01,center3-01,center4-01}/**/*.bin.gz,web/reference-media/annotated-ct/**/*.jpeg,web/anatomy/bp3d-sella-4.3/**/*.bin.gz,web/anatomy/bp3d-carotid-4.3/**/*.bin.gz,web/anatomy/hra-female-pelvis-v1.10/**/*.bin.gz,web/anatomy/brain-fine-massp2/*.gz,web/reference-media/radiology-open/traumatic-haemorrhage/**,web/anatomy/soop-stroke-sub342/*.gz,web/anatomy/soop-stroke-sub342/sub-342*.json,web/anatomy/lidc-idri-0525/original-ct/**,web/anatomy/lidc-idri-0525/*.gz,web/anatomy/lidc-idri-0525/source-*.zip,web/anatomy/lidc-idri-0525/original-0525.xml,web/anatomy/lidc-idri-0525/ct-source-md5.csv,web/anatomy/lidc-idri-0525/LICENSE,web/anatomy/lidc-idri-0525/ATTRIBUTION.txt,web/anatomy/bp3d-thoracic-4.3/transport/**,web/anatomy/bp3d-thoracic-4.3/originals/**,web/anatomy/totalseg-s0028-lungs/originals/**,web/anatomy/totalseg-s0028-lungs/surfaces/**}\"\n"
+        },
+        {
+          "start": 104,
+          "end": 108,
+          "before": "",
+          "after": "      \"use\": \"@vercel/static\"\n    },\n    {\n      \"src\": \"web/anatomy/totalseg-s0028-lungs/{originals,surfaces}/**\",\n"
+        }
+      ]
+    },
+    "tools/thoracic_native_runtime_compatibility.py": {
+      "before_sha256": "bd650ea31da9589b27a1a4397888a2ea26635cbf4094ef180d309132ca70bdd6",
+      "after_sha256": "dd6a1aff57b1fc0d3ed49b336651384801d3038e9748d6e711c0e9da6845a722",
+      "changes": [
+        {
+          "start": 20,
+          "end": 22,
+          "before": "",
+          "after": "    from tools.thoracic_lung_runtime_compatibility import before_lung_bytes\n    raw=before_lung_bytes(path,raw,allow_older=True)\n"
+        }
+      ]
+    }
+  }
+}

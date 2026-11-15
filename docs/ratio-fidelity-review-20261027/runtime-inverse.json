@@ -1,0 +1,105 @@
+{
+  "base_commit": "326b06a83e96867de25207de953ebd31d2a4ed84",
+  "scope": "exact_ratio_workbench_and_calibrated_spatial_integration",
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "abf3898e8666fbc8ba9422e4815208ab25628fc414cded232b98f9938bfd4c9d",
+      "after_sha256": "af745c88f26428084f200c7fb5c1f33569bb2c4b6cb7dd1930c74f8541ebd253",
+      "changes": [
+        {
+          "start": 2627,
+          "end": 2629,
+          "before": "          \"title\": \"Scale both parts together\",\n          \"instructions\": \"Set scoops of ingredients A and B in one batch. Scale the number of batches; keep each batch in the same ratio.\",\n",
+          "after": "          \"title\": \"Ratios, rates and scale\",\n          \"instructions\": \"Explore recipes, shares, unit rates, maps and model lengths. Track units and use exact values to check each result.\",\n"
+        },
+        {
+          "start": 2633,
+          "end": 2651,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Scale both parts by the same positive factor and distinguish multiplicative scaling from adding equal amounts.\",\n        \"Compare ratios with exact cross-products and distinguish part-to-part from part-to-whole ratios.\",\n        \"Divide a total in a stated ratio, or recover one amount from a known amount of the other.\",\n        \"Find a constant unit rate and use it to scale identical quantities or recipe servings.\",\n        \"Convert map centimetres to ground kilometres and express the corresponding dimensionless scale.\",\n        \"Convert actual metres to centimetres before applying a model scale of 1 : n.\",\n        \"Compare drawing sizes for the same ground distance at two map scales.\",\n        \"Relate equal recipe batches to calibrated 3D volumes, and linear similarity to square area and cubic volume factors.\",\n        \"Identify zero and undefined cases, proportionality assumptions, and whole-object constraints.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"A ratio A : B compares two ordered quantities. Multiplying both by the same positive factor preserves their relative amounts. If the ratio is 3 : 4, A is three sevenths of the total, not three quarters. Proportional models need a constant relationship and consistent units.\",\n        \"worked_example\": \"A 2 : 3 recipe scaled by three becomes 6 : 9. A total of 40 litres shared as 3 : 5 has eight equal parts: one part is five litres, so the amounts are 15 and 25 litres. Nine eggs for twelve people scale by 20/12 to fifteen eggs for twenty. Six identical books weighing 2.4 kg have mass 0.4 kg each; ten weigh 4 kg. On a map, eight centimetres at five kilometres per centimetre represents forty kilometres. For a 1 : 24 model of a 4.8 m car, convert 4.8 m to 480 cm, then divide by 24 to obtain 20 cm.\",\n        \"activity\": \"Explore all nine investigations and the worked-example menu. Compare equivalent ratios with the result of adding three to each part. Share 450 ml as 2 : 7, and find the other amount in 7 : 3 when the first is 91. Compare maps with one centimetre representing 200 m and 50 m: the latter draws the same park four times as large. Read the exact ledgers, check chart units, enlarge diagrams and scroll with the focused arrow keys. In the separate 3D companion, change ingredient parts and batch count, then compare similar prisms as the linear scale factor changes.\",\n        \"reflection\": \"A positive common multiplier preserves a ratio; a zero multiplier produces 0 : 0, which does not determine relative parts. The amounts can be fractional when they are divisible, but complete books, people or eggs may impose practical whole-count constraints. Recipes assume ingredients scale with servings, while cooking time need not. Maps assume a fixed local linear scale. The two rulers for different units have separate labelled axes. The 3D companion uses fixed volume per ingredient part and independent controls; its similar shapes scale lengths by k, corresponding areas by k squared and volumes by k cubed. Camera motion and inspection gaps change the view, not the amounts.\"\n      }\n"
+        }
+      ]
+    },
+    "data/module-models.json": {
+      "before_sha256": "9e3650135c856c75d71e5de61075f561b59415fd1c4194e9015e4b7d0ec2fb2d",
+      "after_sha256": "26c43d0b0f9a31809b1fadaf95dcc14512b82a0496959ed7704730a35759003a",
+      "changes": [
+        {
+          "start": 157,
+          "end": 161,
+          "before": "      \"family\": \"fraction-disk\",\n      \"title\": \"Partitioned disk · 3D study\",\n      \"instructions\": \"Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.\",\n      \"context\": \"Ratio and Proportion: Compare equal parts with the fixed whole; relate the selected fraction to its decimal and percentage.\",\n",
+          "after": "      \"family\": \"ratio-calibrated-volumes\",\n      \"title\": \"Ratio volumes and similar shapes · 3D study\",\n      \"instructions\": \"Inspect equal recipe batches with a fixed volume per part. Switch to similar shapes to compare length, area and volume scale factors.\",\n      \"context\": \"Ratio and Proportion: Compare exact ingredient volumes in equal batches, then apply a common linear scale to corresponding dimensions.\",\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "96d47e1678b6a9db75566d7bc3a5252ae33eb9fb1cb70cb83a98d768e1363fd5",
+      "after_sha256": "132b3e3e0e9bd1d0ef3ebe4e82baad2e88f6a7025a8fc6f05672ad8d9fbde144",
+      "changes": [
+        {
+          "start": 3551,
+          "end": 3553,
+          "before": "                     \"decimal-core.js\", \"decimal-lab.js\", \"decimal-lab.css\", \"decimal-spatial.js\"):\n",
+          "after": "                     \"decimal-core.js\", \"decimal-lab.js\", \"decimal-lab.css\", \"decimal-spatial.js\",\n                     \"ratio-core.js\", \"ratio-lab.js\", \"ratio-lab.css\", \"ratio-spatial.js\"):\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "ae8ad8cfc9a67501090a7666c99ed8345819ce29831c29da1304e4aa8802d8c7",
+      "after_sha256": "1542541f3012f5affb157fe3baf65c8da70c5c0222fdb8338acf428cd7c4b9cc",
+      "changes": [
+        {
+          "start": 33,
+          "end": 34,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/ratio-lab.css\">\n"
+        },
+        {
+          "start": 80,
+          "end": 81,
+          "before": "",
+          "after": "  <script src=\"/app/ratio-spatial.js\"></script>\n"
+        },
+        {
+          "start": 124,
+          "end": 126,
+          "before": "",
+          "after": "  <script src=\"/app/ratio-core.js\"></script>\n  <script src=\"/app/ratio-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "8750891583b45206ef3a1528f0e69c02bca6569bb62c0bd8398598ceb5acb502",
+      "after_sha256": "962089396f8fd765f3676c1ca79189414e2f09104162b0e1f7f118c997a91906",
+      "changes": [
+        {
+          "start": 6170,
+          "end": 6173,
+          "before": "",
+          "after": "      if (item.props?.scenario === 'math.2.ratio') {\n        return window.PrimerRatioLab?.render(item, hooks) || null;\n      }\n"
+        }
+      ]
+    },
+    "web/spatial-module-objects.js": {
+      "before_sha256": "6f59cfc6e32f86d330702689b507c18d0081a8e613b6fe94d665d57a90551bd4",
+      "after_sha256": "e84326b228affe2432ea921489801786acf72927c68a001fcf08b7eed7e8d014",
+      "changes": [
+        {
+          "start": 73,
+          "end": 75,
+          "before": "",
+          "after": "\n  if (window.PrimerRatioSpatialFamily) families['ratio-calibrated-volumes'] = window.PrimerRatioSpatialFamily;\n"
+        },
+        {
+          "start": 973,
+          "end": 975,
+          "before": "",
+          "after": "    if ((p.scenario === 'module.math.2.ratio' || p.family === 'ratio-calibrated-volumes')\n        && (p.scenario !== 'module.math.2.ratio' || p.family !== 'ratio-calibrated-volumes' || p.mode !== 'model' || p.lesson !== 'Ratio and Proportion')) return false;\n"
+        }
+      ]
+    }
+  },
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

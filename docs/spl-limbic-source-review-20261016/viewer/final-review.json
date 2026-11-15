@@ -1,0 +1,139 @@
+{
+  "disposition": "accepted for independently checked source fidelity, rendering and authenticated reader delivery",
+  "viewer_source_pins": {
+    "viewer.js": "4ae3fe18806838d865c970945ed4c6e9f7c4079bfb341a447ee390d026f58e0b",
+    "coordinates.js": "a2ad9b603bf0a2a171b2cca261f9633f6d1c858f62befbf109fa5f7bfb7ac325",
+    "payload.js": "a18e1fa2a19205f6c90c04306245051572ff930dbdd60ff9c01b05e3aa90fab2",
+    "viewer.css": "f4d99fa08e891623aec272fc0b5a47b25224cf89c3cbb021cc02247d03383710",
+    "index.html": "d632ae1692299b30c7254d21f3a8fd51dc94ec0ef80f292b8ca6d7bd0fc5ae9f",
+    "manifest.json": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6"
+  },
+  "registry_sha256": "2ae83c4be670c4966604361dfc49595d6f5afc4bb8b911bdf6cdf6ec62cecd97",
+  "startup_javascript_sha256": "324f6f7bd50258098c2b03d0797f64ca369724efcd0f9e5679fbad9bb34f7b38",
+  "startup_stylesheet_sha256": "97818a1e26c192815a63ce540983a47f1355bc350a0d17ad5112ae9b09d4d3f4",
+  "source_oracle": {
+    "original_NRRDs_reconstructed_and_raw_identity_verified": 3,
+    "unique_test_configurations": 132,
+    "method": "Exact original NRRD reconstruction and original-axis permutations; direct LPS-to-RAS coordinates and original-grid nearest-label equations in NumPy. No product coordinate functions imported.",
+    "same_source_volume_not_resampled": true,
+    "label_dtype": "signed Int16"
+  },
+  "standalone": {
+    "viewport_widths": [
+      390,
+      1440
+    ],
+    "cases": 264,
+    "compared_canvas_pixels_across_cases": 19238912,
+    "meshes_per_viewport": 24,
+    "source_positions_indices_and_shader_world_positions_exact": true,
+    "all_source_vertices_fit_initial_camera": true,
+    "all_24_selected_mesh_framebuffers_nonblank": true,
+    "ordinary_outlier_control_cases": 12,
+    "failure_recovery": [
+      "manifest",
+      "MRI",
+      "labels",
+      "mesh",
+      "corrupt-MRI"
+    ]
+  },
+  "authenticated_reader": {
+    "viewport_widths": [
+      390,
+      1440
+    ],
+    "cases": 24,
+    "modules": [
+      "ra.brain-anatomy",
+      "ra.mri-epilepsy",
+      "ra.mri-dementia"
+    ],
+    "entry_points": [
+      "Images",
+      "3D anatomy",
+      "Walkthrough",
+      "Lesson"
+    ],
+    "compared_canvas_pixels_across_cases": 20987904,
+    "actual_source_response_bodies_verified": 27,
+    "authentication_and_private_caching_checked": true,
+    "current_exact_startup_js_and_css_checked": true,
+    "parent_and_iframe_CSP_and_overflow_checks_passed": true,
+    "original_guides_and_HippUnfold_reference_retained": true,
+    "resumed_completed_cases": 15,
+    "resume_reason": "The test scrolls the outer iframe into view before using its fixed enlargement controls; prior successful cases retain identical source, registry and startup pins.",
+    "production_verified": false
+  },
+  "visual_review": [
+    "Phone exact-label boundary viewer and desktop original publisher viewer",
+    "Focused actual-reader left-fornix disclosure, native MRI and source probe",
+    "Phone and desktop authenticated lesson iframe captures"
+  ],
+  "remaining_actionable_findings": [],
+  "clinical_approval": false,
+  "complete_reporting_anatomy_approval": false,
+  "whole_Primer_completion_claimed": false,
+  "test_server_stopped": true,
+  "source_or_product_files_modified_by_reviewer": false,
+  "commands": [
+    "python tools/check_spl_limbic_viewer.py",
+    "node tools/check_spl_limbic_viewer.cjs --write-proof",
+    "node tools/check_spl_limbic_viewer.cjs --reader --write-proof < private-loopback-fixture.json",
+    "node tools/check_spl_limbic_viewer.cjs --reader --resume --write-proof < private-loopback-fixture.json"
+  ],
+  "tools": [
+    {
+      "path": "tools/check_spl_limbic_viewer.py",
+      "sha256": "bdcc21fff21f5983e5f6ddb5ff08bc43258941d0c162c888d1e1b90cf0d46526"
+    },
+    {
+      "path": "tools/check_spl_limbic_viewer.cjs",
+      "sha256": "926ef377e86442c5ebbd5292bffe5585ce405de9cd6d355f7d85d27e59054ab2"
+    }
+  ],
+  "acceptance_receipts": [
+    {
+      "file": "pixel-oracles.json",
+      "sha256": "f4279ddd40abab19d7055e2a2a93d78a0231ffccb1bbfc11a914354889c84f80"
+    },
+    {
+      "file": "standalone-proof.json",
+      "sha256": "81608f66cb5505b3d3fc113e09d851cacfb16913ada8fd5fda5d25245d3f308f"
+    },
+    {
+      "file": "reader-proof.json",
+      "sha256": "fc267e5c440bf6d65fbf6776770e57dae81d8d0cf15e6597d5af4b40e7ff3e6b"
+    },
+    {
+      "file": "findings.json",
+      "sha256": "37a94125f3140254b934a3e46cb25c06bec45fe23539e799305522f1818524c8"
+    },
+    {
+      "file": "README.md",
+      "sha256": "06efed2ab6b3c48b4f8f17c36b28f9709ad8c3578f2520aeb7ad4f2daf05a36f"
+    }
+  ],
+  "historical_diagnostic_files": [
+    {
+      "file": "partial-proof.json",
+      "sha256": "5843e628a9e6bed7e01a7b5b74f3eb70836e892da7ac39db600ba806b61e9adc"
+    },
+    {
+      "file": "reader-partial-proof.json",
+      "sha256": "c0026f9af35b661186a28e7af9aa13d6672f997d68e8aff27a967fd878274f02"
+    },
+    {
+      "file": "reader-overflow.json",
+      "sha256": "42a5dc0b412d1bb37a119e5d5f2d30f09527d191add587bde058d1393ba06e27"
+    },
+    {
+      "file": "reader-overflow.png",
+      "sha256": "3359883b7daf2ae74f0e81087c1f87a52d59d91cc33b939d36ae55aeebf3a918"
+    },
+    {
+      "file": "fornix-outlier-actual-reader.png",
+      "sha256": "a8fb139b1b9078db78eccbf03b3f0f078e3aad2691b63811923d9ef9f8661a7f"
+    }
+  ]
+}

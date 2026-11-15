@@ -1,0 +1,48 @@
+{
+  "reviewed_at": "2026-10-02",
+  "case_id": "HCC_003",
+  "author_paper_doi": "10.1038/s41597-023-01928-3",
+  "author_paper_public_xml_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9849450/fullTextXML",
+  "author_paper_xml_sha256": "00e2e536e0176616942be71917527361c48ee6327d0a13af7c2efa8f8db5f95c",
+  "methods_review": {
+    "source_segmentation_phase": "Portal venous pre-procedure images, as described for the cohort",
+    "source_registration": "Affine transformation with linear interpolation; other phases registered/resampled to portal-venous images internally",
+    "source_annotation_process": "Three resident segmentations, specialist review and per-label STAPLE consensus",
+    "source_conversion": "NIfTI segmentations converted to DICOM SEG with dcmqi",
+    "liver_label_scope": "Background liver; tumour viable and necrotic portions separately segmented",
+    "cohort_method_is_case_specific_phase_mapping": false
+  },
+  "linked_code_repository": "https://github.com/fuentesdt/livermask",
+  "linked_code_revision": {
+    "sha": "854204bf90405d8dcd94a5041f66a58fea1d027c",
+    "date": "2021-04-19T20:11:03Z"
+  },
+  "inspected_code_files": [
+    {
+      "name": "README",
+      "sha256": "35f4d07afde6bba094a0b0783d6a5114cbf87d916943018f43e4598a412da23b"
+    },
+    {
+      "name": "trainingdata.csv",
+      "sha256": "df9b7b5312cdffaa804ae43f0255636332abc4b0d4c09275f2b2e54a20484603"
+    },
+    {
+      "name": "hccstatistics.makefile",
+      "sha256": "245f7af7053b6b837105ec55c7220533a594778cf5cdd61d29683dd4c9235e89"
+    }
+  ],
+  "linked_code_review": "Training/statistics scripts reference venous image and label files, but the inspected files do not map HCC_003 acquisition 1/2 to the original portal image or repair the different frame UID.",
+  "linked_code_executed": false,
+  "code_license_used_as_data_license": false,
+  "case_specific_original_transform_acquired": false,
+  "publisher_series_supplement_acquired": false,
+  "supplement_observation": "Publisher CDN DNS lookup failed; PMC direct link returned HTML rather than the workbook. No workbook content is claimed.",
+  "source_values_changed": false,
+  "source_frame_uid_rewritten": false,
+  "phase_assignment_approved": false,
+  "clinical_approval": false,
+  "next_actions": [
+    "Obtain authoritative case-level acquisition/transform mapping before assigning phase-specific masks.",
+    "Continue independent anatomical boundary and source coverage review; intended cohort methods do not waive actual data discrepancies."
+  ]
+}

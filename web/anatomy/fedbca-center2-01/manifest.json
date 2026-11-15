@@ -1,0 +1,94 @@
+{
+  "dataset": "Original source tumour annotation cells center2-01 \u00b7 partial",
+  "source_url": "https://zenodo.org/records/13622759",
+  "license": "CC BY4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "coordinate_system": {
+    "basis": "original selected NIfTI RAS affine",
+    "units": "NIfTI-declared millimetres; original DICOM calibration unverified",
+    "unit_meters": 0.001,
+    "display_basis": "native-ras-to-x-left-y-superior-z-anterior",
+    "registration": "Separate source case; mask/image declarations retained without fit"
+  },
+  "parts": {
+    "fedbca-center2-01-label1-cells": {
+      "id": "fedbca-center2-01-label1-cells",
+      "name": "Original source tumour annotation cells center2-01",
+      "file": "/app/anatomy/fedbca-center2-01/fedbca-center2-01-label1-cells.bin.gz",
+      "sha256": "471582785291b90afd7588a92b5ace42c68074bde0f6da83a964212b109e9625",
+      "decoded_sha256": "8aacbfeff1283c38add8b29f292a46885b4183f7d5ed0bd5c5d600ea4efd9afa",
+      "vertices": 24490,
+      "triangles": 49004,
+      "bounds": [
+        [
+          -39.029319763183594,
+          -44.39132308959961,
+          4.878094673156738
+        ],
+        [
+          6.349729537963867,
+          6.317856788635254,
+          33.13325500488281
+        ]
+      ],
+      "source_positions_sha256": "6803d462d9c202d00b564666da4c506b0cb0ce1fc78ed63458d14ca6ca165188",
+      "source_triangles_sha256": "0af5f46d052121ba62a05dfda001c53da23e8c4f0c9de0fa7f368a5c714fc7d1",
+      "source_label": 1,
+      "source_components": 2,
+      "layer": "source_label_cells",
+      "clinical_fidelity": "unverified"
+    }
+  },
+  "regions": {
+    "bladder-tumour-source": {
+      "title": "Original source tumour annotation cells center2-01 \u00b7 partial",
+      "side": "separate source center2-01",
+      "parts": [
+        {
+          "id": "fedbca-center2-01-label1-cells",
+          "layer": "source_label_cells"
+        }
+      ],
+      "layers": [
+        [
+          "source_label_cells",
+          "Original label1 voxel-cell boundary"
+        ]
+      ],
+      "source_coordinate_cameras": true,
+      "source_up_range": [
+        3.8780946731567383,
+        34.13325500488281
+      ],
+      "focus_bounds": [
+        [
+          -39.029319763183594,
+          -44.39132308959961,
+          4.878094673156738
+        ],
+        [
+          6.349729537963867,
+          6.317856788635254,
+          33.13325500488281
+        ]
+      ],
+      "uncropped_label": "Complete original label cells \u00b7 full reporting anatomy incomplete"
+    }
+  },
+  "viewer_notes": [
+    "FedBCa source center2-01. Producer table fields: Age (years) 58; Gender Male; Pathological T stage T2; Pathological grade High; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established.",
+    "Complete distributed T2 and producer label1 arrays are retained. The model is the exact boundary of labelled voxel cells, not a verified biological tumour envelope or histological invasion interface. No mask values, source components, positions or contours are fitted, resampled, smoothed or deleted.",
+    "Source label1 has 38458 voxels in 2 six-connected components. All source components remain. Cell-boundary topology retains 12 nonmanifold edges; no repair or component pruning hides the discretization.",
+    "MRI and mask use their own original NIfTI spatial forms. Their maximum declared grid-corner difference is 0.002142482695551848 mm. Source-table index correspondence is not independent clinical registration; no fitted transform replaces either header.",
+    "Original DICOM acquisitions/calibration, complete pretreatment eligibility, DWI, DCE, muscle/inner-layer segmentations, microscopic tissue extent and current stage are not independently supplied. Distributed sampling is not fine anatomical resolution.",
+    "Display colours, averaged normals and window controls illustrate the source labels. They do not simulate photographic tumour tissue, diffusion, enhancement or treatment response.",
+    "Cao, Kangyang; Zou, Yujian; Zhang, Chang; Zhang, Weijing; Zhang, Jie; Wang, Guojie; Zhang, Chu; Lyu, Jiegeng; Sun, Yue; Zhang, Hongyuan; Huang, Bin; Deng, Lei; Li, Jianpeng; Huang, Bingsheng. A multi-center MRI dataset for bladder cancer and baseline evaluations of federated learning in its clinical application, version2, DOI10.5281/zenodo.13622759; Scientific Data DOI10.1038/s41597-024-03971-0. CC BY4.0. Adaptation: lossless distributed-array transport, recorded window/native-index display and exact label-cell boundary geometry; no endorsement implied."
+  ],
+  "source_context": "FedBCa source center2-01. Producer table fields: Age (years) 58; Gender Male; Pathological T stage T2; Pathological grade High; Type of patient's tumor number Single. These source records are not a new diagnosis. Cohort eligibility allows untreated or diagnostic-TURBT cases; case-specific timing and full examination/pathology correspondence are not independently established.",
+  "source_case_id": "center2-01",
+  "complete_reporting_anatomy_approved": false,
+  "clinical_approval": false,
+  "runtime_promoted": true,
+  "source_values_changed": false,
+  "total_triangles": 49004
+}

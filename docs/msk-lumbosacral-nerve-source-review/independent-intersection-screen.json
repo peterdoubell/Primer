@@ -1,0 +1,78 @@
+{
+  "engine": "PyMeshLab 2025.7.post1",
+  "filter": "compute_selection_by_self_intersections_per_face",
+  "controls": [
+    {
+      "fixture": "separated",
+      "expected_intersection": false,
+      "selected_faces": [],
+      "matches_expected": true
+    },
+    {
+      "fixture": "transverse_crossing",
+      "expected_intersection": true,
+      "selected_faces": [
+        0,
+        1
+      ],
+      "matches_expected": true
+    },
+    {
+      "fixture": "coplanar_overlap",
+      "expected_intersection": true,
+      "selected_faces": [],
+      "matches_expected": false
+    },
+    {
+      "fixture": "crossing_shared_vertex",
+      "expected_intersection": true,
+      "selected_faces": [
+        0,
+        1
+      ],
+      "matches_expected": true
+    },
+    {
+      "fixture": "valid_shared_edge",
+      "expected_intersection": false,
+      "selected_faces": [],
+      "matches_expected": true
+    },
+    {
+      "fixture": "folded_shared_edge",
+      "expected_intersection": true,
+      "selected_faces": [],
+      "matches_expected": false
+    }
+  ],
+  "parts": [
+    {
+      "part": "cord",
+      "source_mesh_sha256": "1b6bed8c2cee3e0c3ba7af2f0d34556351489511e12715d135214d4f8ae49c36",
+      "faces": 21700,
+      "selected_face_count": 0,
+      "selected_faces": []
+    },
+    {
+      "part": "dura",
+      "source_mesh_sha256": "4a3da5cf0b0bd2c584923f0431afdae8b414c2f4d0f3c7b45ea9bc1bc1c50f38",
+      "faces": 40980,
+      "selected_face_count": 0,
+      "selected_faces": []
+    }
+  ],
+  "combined": {
+    "faces": 62680,
+    "selected_face_count": 0,
+    "selected_cord_faces": [],
+    "selected_dura_faces": []
+  },
+  "input_geometry_unchanged": true,
+  "limits": [
+    "A numerical library screen is not an exact-arithmetic proof or anatomical validation.",
+    "Any control failure limits the interpretation of zero selected faces.",
+    "Open source boundaries remain intentional; no repair, closure, smoothing or face deletion performed."
+  ],
+  "clinical_approval": false,
+  "runtime_promoted": false
+}

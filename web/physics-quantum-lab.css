@@ -1,0 +1,21 @@
+.physics-quantum-lab { min-width: 0; }
+.physics-quantum-lab .model-heading-row { flex-wrap: wrap; }
+.physics-quantum-lab .model-heading-row > button { flex-shrink: 0; }
+.physics-quantum-lab select, .physics-quantum-lab input[type=number] { box-sizing: border-box; width: 100%; min-width: 0; min-height: 42px; font: inherit; color: inherit; background: var(--paper,#f5efdf); border: 1px solid var(--line,#d5cfbf); border-radius: 6px; padding: 6px 8px; }
+.physics-quantum-lab [hidden] { display: none !important; }
+.quantum-widget { min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.physics-quantum-lab .quantum-number-control { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.quantum-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 18px 0; }
+.quantum-viewport { min-width: 0; overflow: auto; background: #f5efdf; border: 1px solid var(--line,#d5cfbf); border-radius: 10px; }
+.quantum-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans,sans-serif); }
+.physics-quantum-lab.is-enlarged .quantum-viewport svg { width: 720px; min-width: 720px; max-width: none; }
+.quantum-summary, .quantum-readout, .quantum-equation, .quantum-sources, .quantum-assumptions { overflow-wrap: anywhere; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.quantum-summary { border-left: 3px solid #b98a2f; padding-left: 12px; }
+.quantum-ledger-region { overflow: auto; max-width: 100%; margin: 16px 0; }
+.quantum-ledger { width: 100%; min-width: 440px; border-collapse: collapse; }
+.quantum-ledger caption { text-align: left; margin: 8px 0; }
+.quantum-ledger th, .quantum-ledger td { text-align: left; padding: 8px; border-bottom: 1px solid var(--line,#d5cfbf); }
+.quantum-assumptions > summary { cursor: pointer; }
+.quantum-viewport:focus-visible, .quantum-ledger-region:focus-visible, .physics-quantum-lab input:focus-visible, .physics-quantum-lab select:focus-visible, .physics-quantum-lab button:focus-visible { outline: 3px solid var(--accent,#317e78); outline-offset: 3px; }
+.quantum-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width:760px) { .quantum-panels, .physics-quantum-lab .concept-controls { grid-template-columns: minmax(0,1fr); } }

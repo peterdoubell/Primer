@@ -1,0 +1,3266 @@
+{
+  "git_head": "495aeb17c711ace603f7ad196033d2741e23ff32",
+  "review_scope": "Source protocol membership and current reporting/inventory correspondence; not anatomical certification or evidence of every representation being complete.",
+  "dataset": "https://zenodo.org/records/15690524",
+  "source_paper": "https://www.nature.com/articles/s41598-026-40186-2",
+  "source_preprint": "https://arxiv.org/html/2501.16879v1",
+  "input_sha256": {
+    "docs/holiatlas-source-review-20261023/holiatlas-protocol-rows.json": "0276cb7b396aa42a688d8f444d8b0efac9c0f68ebd3fafdc97c30df06a5a01e1",
+    "data/radiology/non-msk-structure-requirements.json": "405f3fe902e9fdce1f9d3834dff72898911135acd0b6a170bdc7d00868ad868d",
+    "data/radiology/anatomic-neuro.json": "e34d5008fdb16620a3fb1a846f569be50b624ed2488d8b07d5f323be66f93ba3",
+    "source-hierarchy-review.json": "683afa816360e4e3ac9278f35018f79c1ac35cdbff6cef508f6ed54c3f10b10b",
+    "data/radiology/holiatlas-labels.json.gz": "c0e65bedad9742220334b337f671634d99950df52662dd4ec3f85b4280a08d15"
+  },
+  "numerical_basis": "All 56,873,096 voxels were checked in the existing source-hierarchy proof: each provided coarse volume equals the protocol parent mapping of the fine atlas, with zero disagreements.",
+  "spatial_units": "Coarse headers leave units unspecified; millimetres are inherited only from their exact array correspondence and numerically identical sform to the fine source, which declares millimetres.",
+  "clinical_completion_claim": false,
+  "requirements_reviewed": 210,
+  "rows_with_specific_coarse_context": 71,
+  "rows": [
+    {
+      "requirement_id": "brain.right_surface.frontal_lobe",
+      "required_name": "Frontal lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 8
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.parietal_lobe",
+      "required_name": "Parietal lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 10
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.temporal_lobe",
+      "required_name": "Temporal lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 12
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.occipital_lobe",
+      "required_name": "Occipital lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 14
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.insula",
+      "required_name": "Insula",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 18
+        }
+      ],
+      "relationship": "source_parent_is_superset_with_opercula_use_proposed_child_union",
+      "remaining_work": [
+        "Use proposed right-insular-cortex composition for the explicitly insula-labelled source children.",
+        "Verify anatomical boundary correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.precentral_gyrus",
+      "required_name": "Precentral gyrus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.postcentral_gyrus",
+      "required_name": "Postcentral gyrus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.central_sulcus",
+      "required_name": "Central sulcus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.precentral_hand_knob",
+      "required_name": "Precentral hand knob",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.cingulate_sulcus_pars_marginalis",
+      "required_name": "Cingulate sulcus pars marginalis",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.sylvian_fissure",
+      "required_name": "Sylvian fissure",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.cortical_ribbon",
+      "required_name": "Cortical ribbon",
+      "source_context_candidates": [
+        {
+          "scale": "tissue",
+          "code": 2
+        }
+      ],
+      "relationship": "bilateral_source_cortical_context_requires_side_filter",
+      "remaining_work": [
+        "Apply exact side labels for this unilateral requirement.",
+        "Independent cortical-boundary and schematic review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.subcortical_white_matter",
+      "required_name": "Subcortical white matter",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 46
+        }
+      ],
+      "relationship": "undivided_parent_context_no_required_subregion_boundary",
+      "remaining_work": [
+        "A source with independently delineated requested white-matter region."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.centrum_semiovale",
+      "required_name": "Centrum semiovale",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 46
+        }
+      ],
+      "relationship": "undivided_parent_context_no_required_subregion_boundary",
+      "remaining_work": [
+        "A source with independently delineated requested white-matter region."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.corona_radiata",
+      "required_name": "Corona radiata",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 46
+        }
+      ],
+      "relationship": "undivided_parent_context_no_required_subregion_boundary",
+      "remaining_work": [
+        "A source with independently delineated requested white-matter region."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_caudate.head",
+      "required_name": "Head",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 28
+        }
+      ],
+      "relationship": "existing_fine_mask_repeated_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_caudate.body",
+      "required_name": "Body",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 28
+        }
+      ],
+      "relationship": "existing_fine_mask_repeated_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_caudate.tail",
+      "required_name": "Tail",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 28
+        }
+      ],
+      "relationship": "existing_fine_mask_repeated_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lentiform.putamen",
+      "required_name": "Putamen",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lentiform.globus_pallidus_external",
+      "required_name": "Globus pallidus external",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lentiform.globus_pallidus_internal",
+      "required_name": "Globus pallidus internal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_thalamus.anterior_region",
+      "required_name": "Anterior region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 24
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_thalamus.medial_region",
+      "required_name": "Medial region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 24
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_thalamus.lateral_region",
+      "required_name": "Lateral region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 24
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_thalamus.posterior_pulvinar_region",
+      "required_name": "Posterior pulvinar region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 24
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_internal_capsule.anterior_limb",
+      "required_name": "Anterior limb",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_internal_capsule.genu",
+      "required_name": "Genu",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_internal_capsule.posterior_limb",
+      "required_name": "Posterior limb",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_internal_capsule.retrolenticular_part",
+      "required_name": "Retrolenticular part",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_internal_capsule.sublenticular_part",
+      "required_name": "Sublenticular part",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cerebellum.anterior_lobe",
+      "required_name": "Anterior lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 44
+        },
+        {
+          "scale": "structure",
+          "code": 50
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cerebellum.posterior_lobe",
+      "required_name": "Posterior lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 44
+        },
+        {
+          "scale": "structure",
+          "code": 50
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cerebellum.flocculus",
+      "required_name": "Flocculus",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 44
+        },
+        {
+          "scale": "structure",
+          "code": 50
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cerebellum.superior_peduncle",
+      "required_name": "Superior peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 44
+        },
+        {
+          "scale": "structure",
+          "code": 50
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cerebellum.middle_peduncle",
+      "required_name": "Middle peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 44
+        },
+        {
+          "scale": "structure",
+          "code": 50
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cerebellum.inferior_peduncle",
+      "required_name": "Inferior peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 44
+        },
+        {
+          "scale": "structure",
+          "code": 50
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lateral_ventricle.frontal_horn",
+      "required_name": "Frontal horn",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 4
+        },
+        {
+          "scale": "structure",
+          "code": 6
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lateral_ventricle.body",
+      "required_name": "Body",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 4
+        },
+        {
+          "scale": "structure",
+          "code": 6
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lateral_ventricle.atrium",
+      "required_name": "Atrium",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 4
+        },
+        {
+          "scale": "structure",
+          "code": 6
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lateral_ventricle.occipital_horn",
+      "required_name": "Occipital horn",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 4
+        },
+        {
+          "scale": "structure",
+          "code": 6
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lateral_ventricle.temporal_horn",
+      "required_name": "Temporal horn",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 4
+        },
+        {
+          "scale": "structure",
+          "code": 6
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_lateral_ventricle.interventricular_foramen",
+      "required_name": "Interventricular foramen",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 4
+        },
+        {
+          "scale": "structure",
+          "code": 6
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cisterns.ambient_cistern",
+      "required_name": "Ambient cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cisterns.sylvian_cistern",
+      "required_name": "Sylvian cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cisterns.subarachnoid_space",
+      "required_name": "Subarachnoid space",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cisterns.subdural_potential_space",
+      "required_name": "Subdural potential space",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_cisterns.epidural_potential_space",
+      "required_name": "Epidural potential space",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.internal_carotid_terminal",
+      "required_name": "Internal carotid terminal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.aca_a1",
+      "required_name": "Aca a1",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.aca_a2",
+      "required_name": "Aca a2",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.mca_m1",
+      "required_name": "Mca m1",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.mca_m2",
+      "required_name": "Mca m2",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.mca_m3",
+      "required_name": "Mca m3",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.pca_p1",
+      "required_name": "Pca p1",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.pca_p2",
+      "required_name": "Pca p2",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.posterior_communicating",
+      "required_name": "Posterior communicating",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.anterior_choroidal",
+      "required_name": "Anterior choroidal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.medial_lenticulostriate",
+      "required_name": "Medial lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.lateral_lenticulostriate",
+      "required_name": "Lateral lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.vertebral",
+      "required_name": "Vertebral",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.pica",
+      "required_name": "Pica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.aica",
+      "required_name": "Aica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_arterial_segments.sca",
+      "required_name": "Sca",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.aca_cortical",
+      "required_name": "Aca cortical",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.mca_cortical",
+      "required_name": "Mca cortical",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.pca_cortical",
+      "required_name": "Pca cortical",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.anterior_choroidal",
+      "required_name": "Anterior choroidal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.medial_lenticulostriate",
+      "required_name": "Medial lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.lateral_lenticulostriate",
+      "required_name": "Lateral lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.pica",
+      "required_name": "Pica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.aica",
+      "required_name": "Aica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.sca",
+      "required_name": "Sca",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.aca_mca_cortical_border_zone",
+      "required_name": "Aca mca cortical border zone",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.mca_pca_cortical_border_zone",
+      "required_name": "Mca pca cortical border zone",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.internal_border_zone",
+      "required_name": "Internal border zone",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_venous_drainage.superficial_cortical_veins",
+      "required_name": "Superficial cortical veins",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_venous_drainage.deep_medullary_veins",
+      "required_name": "Deep medullary veins",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_venous_drainage.internal_cerebral_vein",
+      "required_name": "Internal cerebral vein",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_venous_drainage.basal_vein",
+      "required_name": "Basal vein",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_venous_drainage.transverse_sinus",
+      "required_name": "Transverse sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_venous_drainage.sigmoid_sinus",
+      "required_name": "Sigmoid sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_source_regions.hippocampal_head",
+      "required_name": "Hippocampal head",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 20
+        }
+      ],
+      "relationship": "whole_source_complex_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_source_regions.hippocampal_body",
+      "required_name": "Hippocampal body",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 20
+        }
+      ],
+      "relationship": "whole_source_complex_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_source_regions.hippocampal_tail",
+      "required_name": "Hippocampal tail",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 20
+        }
+      ],
+      "relationship": "whole_source_complex_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.right_source_regions.pituitary_adjacent_cavernous_sinus",
+      "required_name": "Pituitary adjacent cavernous sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.frontal_lobe",
+      "required_name": "Frontal lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 9
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.parietal_lobe",
+      "required_name": "Parietal lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 11
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.temporal_lobe",
+      "required_name": "Temporal lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 13
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.occipital_lobe",
+      "required_name": "Occipital lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 15
+        }
+      ],
+      "relationship": "source_cortical_subset_of_required_lobe",
+      "remaining_work": [
+        "Lobar white-matter boundary and complete clinical lobe extent.",
+        "Source-derived schematic and independent anatomical boundary review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.insula",
+      "required_name": "Insula",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 19
+        }
+      ],
+      "relationship": "source_parent_is_superset_with_opercula_use_proposed_child_union",
+      "remaining_work": [
+        "Use proposed left-insular-cortex composition for the explicitly insula-labelled source children.",
+        "Verify anatomical boundary correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.precentral_gyrus",
+      "required_name": "Precentral gyrus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.postcentral_gyrus",
+      "required_name": "Postcentral gyrus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.central_sulcus",
+      "required_name": "Central sulcus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.precentral_hand_knob",
+      "required_name": "Precentral hand knob",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.cingulate_sulcus_pars_marginalis",
+      "required_name": "Cingulate sulcus pars marginalis",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.sylvian_fissure",
+      "required_name": "Sylvian fissure",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.cortical_ribbon",
+      "required_name": "Cortical ribbon",
+      "source_context_candidates": [
+        {
+          "scale": "tissue",
+          "code": 2
+        }
+      ],
+      "relationship": "bilateral_source_cortical_context_requires_side_filter",
+      "remaining_work": [
+        "Apply exact side labels for this unilateral requirement.",
+        "Independent cortical-boundary and schematic review."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.subcortical_white_matter",
+      "required_name": "Subcortical white matter",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 47
+        }
+      ],
+      "relationship": "undivided_parent_context_no_required_subregion_boundary",
+      "remaining_work": [
+        "A source with independently delineated requested white-matter region."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.centrum_semiovale",
+      "required_name": "Centrum semiovale",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 47
+        }
+      ],
+      "relationship": "undivided_parent_context_no_required_subregion_boundary",
+      "remaining_work": [
+        "A source with independently delineated requested white-matter region."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.corona_radiata",
+      "required_name": "Corona radiata",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 47
+        }
+      ],
+      "relationship": "undivided_parent_context_no_required_subregion_boundary",
+      "remaining_work": [
+        "A source with independently delineated requested white-matter region."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_caudate.head",
+      "required_name": "Head",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 29
+        }
+      ],
+      "relationship": "existing_fine_mask_repeated_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_caudate.body",
+      "required_name": "Body",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 29
+        }
+      ],
+      "relationship": "existing_fine_mask_repeated_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_caudate.tail",
+      "required_name": "Tail",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 29
+        }
+      ],
+      "relationship": "existing_fine_mask_repeated_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lentiform.putamen",
+      "required_name": "Putamen",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lentiform.globus_pallidus_external",
+      "required_name": "Globus pallidus external",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lentiform.globus_pallidus_internal",
+      "required_name": "Globus pallidus internal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_thalamus.anterior_region",
+      "required_name": "Anterior region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 25
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_thalamus.medial_region",
+      "required_name": "Medial region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 25
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_thalamus.lateral_region",
+      "required_name": "Lateral region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 25
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_thalamus.posterior_pulvinar_region",
+      "required_name": "Posterior pulvinar region",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 25
+        }
+      ],
+      "relationship": "whole_source_parent_context_not_required_region_partition",
+      "remaining_work": [
+        "Define and validate requested anterior/medial/lateral/posterior localisation regions; source nuclei are not automatic territorial equivalents."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_internal_capsule.anterior_limb",
+      "required_name": "Anterior limb",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_internal_capsule.genu",
+      "required_name": "Genu",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_internal_capsule.posterior_limb",
+      "required_name": "Posterior limb",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_internal_capsule.retrolenticular_part",
+      "required_name": "Retrolenticular part",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_internal_capsule.sublenticular_part",
+      "required_name": "Sublenticular part",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cerebellum.anterior_lobe",
+      "required_name": "Anterior lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 45
+        },
+        {
+          "scale": "structure",
+          "code": 51
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cerebellum.posterior_lobe",
+      "required_name": "Posterior lobe",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 45
+        },
+        {
+          "scale": "structure",
+          "code": 51
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cerebellum.flocculus",
+      "required_name": "Flocculus",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 45
+        },
+        {
+          "scale": "structure",
+          "code": 51
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cerebellum.superior_peduncle",
+      "required_name": "Superior peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 45
+        },
+        {
+          "scale": "structure",
+          "code": 51
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cerebellum.middle_peduncle",
+      "required_name": "Middle peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 45
+        },
+        {
+          "scale": "structure",
+          "code": 51
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cerebellum.inferior_peduncle",
+      "required_name": "Inferior peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 45
+        },
+        {
+          "scale": "structure",
+          "code": 51
+        }
+      ],
+      "relationship": "source_cerebellar_tissue_context_not_required_lobe_peduncle_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lateral_ventricle.frontal_horn",
+      "required_name": "Frontal horn",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 5
+        },
+        {
+          "scale": "structure",
+          "code": 7
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lateral_ventricle.body",
+      "required_name": "Body",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 5
+        },
+        {
+          "scale": "structure",
+          "code": 7
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lateral_ventricle.atrium",
+      "required_name": "Atrium",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 5
+        },
+        {
+          "scale": "structure",
+          "code": 7
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lateral_ventricle.occipital_horn",
+      "required_name": "Occipital horn",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 5
+        },
+        {
+          "scale": "structure",
+          "code": 7
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lateral_ventricle.temporal_horn",
+      "required_name": "Temporal horn",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 5
+        },
+        {
+          "scale": "structure",
+          "code": 7
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_lateral_ventricle.interventricular_foramen",
+      "required_name": "Interventricular foramen",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 5
+        },
+        {
+          "scale": "structure",
+          "code": 7
+        }
+      ],
+      "relationship": "source_compartment_context_no_required_horn_or_foramen_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cisterns.ambient_cistern",
+      "required_name": "Ambient cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cisterns.sylvian_cistern",
+      "required_name": "Sylvian cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cisterns.subarachnoid_space",
+      "required_name": "Subarachnoid space",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cisterns.subdural_potential_space",
+      "required_name": "Subdural potential space",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_cisterns.epidural_potential_space",
+      "required_name": "Epidural potential space",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.internal_carotid_terminal",
+      "required_name": "Internal carotid terminal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.aca_a1",
+      "required_name": "Aca a1",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.aca_a2",
+      "required_name": "Aca a2",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.mca_m1",
+      "required_name": "Mca m1",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.mca_m2",
+      "required_name": "Mca m2",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.mca_m3",
+      "required_name": "Mca m3",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.pca_p1",
+      "required_name": "Pca p1",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.pca_p2",
+      "required_name": "Pca p2",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.posterior_communicating",
+      "required_name": "Posterior communicating",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.anterior_choroidal",
+      "required_name": "Anterior choroidal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.medial_lenticulostriate",
+      "required_name": "Medial lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.lateral_lenticulostriate",
+      "required_name": "Lateral lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.vertebral",
+      "required_name": "Vertebral",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.pica",
+      "required_name": "Pica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.aica",
+      "required_name": "Aica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_arterial_segments.sca",
+      "required_name": "Sca",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.aca_cortical",
+      "required_name": "Aca cortical",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.mca_cortical",
+      "required_name": "Mca cortical",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.pca_cortical",
+      "required_name": "Pca cortical",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.anterior_choroidal",
+      "required_name": "Anterior choroidal",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.medial_lenticulostriate",
+      "required_name": "Medial lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.lateral_lenticulostriate",
+      "required_name": "Lateral lenticulostriate",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.pica",
+      "required_name": "Pica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.aica",
+      "required_name": "Aica",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.sca",
+      "required_name": "Sca",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.aca_mca_cortical_border_zone",
+      "required_name": "Aca mca cortical border zone",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.mca_pca_cortical_border_zone",
+      "required_name": "Mca pca cortical border zone",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.internal_border_zone",
+      "required_name": "Internal border zone",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_venous_drainage.superficial_cortical_veins",
+      "required_name": "Superficial cortical veins",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_venous_drainage.deep_medullary_veins",
+      "required_name": "Deep medullary veins",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_venous_drainage.internal_cerebral_vein",
+      "required_name": "Internal cerebral vein",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_venous_drainage.basal_vein",
+      "required_name": "Basal vein",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_venous_drainage.transverse_sinus",
+      "required_name": "Transverse sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_venous_drainage.sigmoid_sinus",
+      "required_name": "Sigmoid sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_source_regions.hippocampal_head",
+      "required_name": "Hippocampal head",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 21
+        }
+      ],
+      "relationship": "whole_source_complex_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_source_regions.hippocampal_body",
+      "required_name": "Hippocampal body",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 21
+        }
+      ],
+      "relationship": "whole_source_complex_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_source_regions.hippocampal_tail",
+      "required_name": "Hippocampal tail",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 21
+        }
+      ],
+      "relationship": "whole_source_complex_no_head_body_tail_partition",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.left_source_regions.pituitary_adjacent_cavernous_sinus",
+      "required_name": "Pituitary adjacent cavernous sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.corpus_callosum.rostrum",
+      "required_name": "Rostrum",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.corpus_callosum.genu",
+      "required_name": "Genu",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.corpus_callosum.body",
+      "required_name": "Body",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.corpus_callosum.isthmus",
+      "required_name": "Isthmus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.corpus_callosum.splenium",
+      "required_name": "Splenium",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.brainstem.midbrain_tectum",
+      "required_name": "Midbrain tectum",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 48
+        }
+      ],
+      "relationship": "partial_brainstem_source_context_not_required_subdivision",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.brainstem.midbrain_tegmentum",
+      "required_name": "Midbrain tegmentum",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 48
+        }
+      ],
+      "relationship": "partial_brainstem_source_context_not_required_subdivision",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.brainstem.right_cerebral_peduncle",
+      "required_name": "Right cerebral peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 48
+        }
+      ],
+      "relationship": "partial_brainstem_source_context_not_required_subdivision",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.brainstem.left_cerebral_peduncle",
+      "required_name": "Left cerebral peduncle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 48
+        }
+      ],
+      "relationship": "partial_brainstem_source_context_not_required_subdivision",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.brainstem.pons_basis",
+      "required_name": "Pons basis",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 48
+        }
+      ],
+      "relationship": "partial_brainstem_source_context_not_required_subdivision",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.brainstem.pons_tegmentum",
+      "required_name": "Pons tegmentum",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 48
+        }
+      ],
+      "relationship": "partial_brainstem_source_context_not_required_subdivision",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.brainstem.medulla",
+      "required_name": "Medulla",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 48
+        }
+      ],
+      "relationship": "partial_brainstem_source_context_not_required_subdivision",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.vermis.anterior_lobe",
+      "required_name": "Anterior lobe",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.vermis.posterior_lobe",
+      "required_name": "Posterior lobe",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.vermis.nodulus",
+      "required_name": "Nodulus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.third_ventricle",
+      "required_name": "Third ventricle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 2
+        }
+      ],
+      "relationship": "existing_fine_source_region_repeated",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.cerebral_aqueduct",
+      "required_name": "Cerebral aqueduct",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.fourth_ventricle",
+      "required_name": "Fourth ventricle",
+      "source_context_candidates": [
+        {
+          "scale": "structure",
+          "code": 3
+        }
+      ],
+      "relationship": "existing_fine_source_region_repeated",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.median_aperture",
+      "required_name": "Median aperture",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.right_lateral_aperture",
+      "required_name": "Right lateral aperture",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.left_lateral_aperture",
+      "required_name": "Left lateral aperture",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.suprasellar_cistern",
+      "required_name": "Suprasellar cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.interpeduncular_cistern",
+      "required_name": "Interpeduncular cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.prepontine_cistern",
+      "required_name": "Prepontine cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.quadrigeminal_cistern",
+      "required_name": "Quadrigeminal cistern",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_csf.cisterna_magna",
+      "required_name": "Cisterna magna",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_landmarks.septum_pellucidum",
+      "required_name": "Septum pellucidum",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_landmarks.falx_cerebri",
+      "required_name": "Falx cerebri",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_landmarks.interhemispheric_fissure",
+      "required_name": "Interhemispheric fissure",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_landmarks.anterior_commissure",
+      "required_name": "Anterior commissure",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.pituitary.gland",
+      "required_name": "Gland",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.pituitary.stalk",
+      "required_name": "Stalk",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.pituitary.optic_chiasm",
+      "required_name": "Optic chiasm",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_vessels.anterior_communicating_artery",
+      "required_name": "Anterior communicating artery",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_vessels.basilar_artery",
+      "required_name": "Basilar artery",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_vessels.great_cerebral_vein",
+      "required_name": "Great cerebral vein",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_vessels.straight_sinus",
+      "required_name": "Straight sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_vessels.superior_sagittal_sinus",
+      "required_name": "Superior sagittal sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_vessels.inferior_sagittal_sinus",
+      "required_name": "Inferior sagittal sinus",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    },
+    {
+      "requirement_id": "brain.midline_vessels.confluence",
+      "required_name": "Confluence",
+      "source_context_candidates": [],
+      "relationship": "no_specific_new_coarse_representation",
+      "remaining_work": [],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_requirement_complete": false
+    }
+  ]
+}

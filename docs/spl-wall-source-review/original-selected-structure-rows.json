@@ -1,0 +1,189 @@
+[
+  {
+    "@id": "#left_internal_oblique_muscle_ModelDS",
+    "@type": "DataSource",
+    "baseURL": "#_urlBase",
+    "mimeType": "application/octet-stream",
+    "source": "Data/Model_236_left_internal_oblique_muscle.vtk"
+  },
+  {
+    "@id": "#right_external_oblique_muscle",
+    "@type": "Structure",
+    "annotation": {
+      "name": "right external oblique muscle"
+    },
+    "renderOption": {
+      "color": "rgb(230,124,124)"
+    },
+    "sourceSelector": [
+      {
+        "@type": [
+          "Selector",
+          "LabelMapSelector"
+        ],
+        "authoritative": true,
+        "dataKey": 135,
+        "dataSource": "#_LabelDS"
+      },
+      {
+        "@type": [
+          "Selector",
+          "GeometrySelector"
+        ],
+        "authoritative": false,
+        "dataSource": "#right_external_oblique_muscle_ModelDS"
+      }
+    ]
+  },
+  {
+    "@id": "#left_internal_oblique_muscle",
+    "@type": "Structure",
+    "annotation": {
+      "name": "left internal oblique muscle"
+    },
+    "renderOption": {
+      "color": "rgb(230,124,124)"
+    },
+    "sourceSelector": [
+      {
+        "@type": [
+          "Selector",
+          "LabelMapSelector"
+        ],
+        "authoritative": true,
+        "dataKey": 236,
+        "dataSource": "#_LabelDS"
+      },
+      {
+        "@type": [
+          "Selector",
+          "GeometrySelector"
+        ],
+        "authoritative": false,
+        "dataSource": "#left_internal_oblique_muscle_ModelDS"
+      }
+    ]
+  },
+  {
+    "@id": "#right_internal_oblique_muscle",
+    "@type": "Structure",
+    "annotation": {
+      "name": "right internal oblique muscle"
+    },
+    "renderOption": {
+      "color": "rgb(230,124,124)"
+    },
+    "sourceSelector": [
+      {
+        "@type": [
+          "Selector",
+          "LabelMapSelector"
+        ],
+        "authoritative": true,
+        "dataKey": 136,
+        "dataSource": "#_LabelDS"
+      },
+      {
+        "@type": [
+          "Selector",
+          "GeometrySelector"
+        ],
+        "authoritative": false,
+        "dataSource": "#right_internal_oblique_muscle_ModelDS"
+      }
+    ]
+  },
+  {
+    "@id": "#rectus_abdominis_muscle",
+    "@type": "Structure",
+    "annotation": {
+      "name": "rectus abdominis muscle"
+    },
+    "renderOption": {
+      "color": "rgb(230,124,124)"
+    },
+    "sourceSelector": [
+      {
+        "@type": [
+          "Selector",
+          "LabelMapSelector"
+        ],
+        "authoritative": true,
+        "dataKey": 32,
+        "dataSource": "#_LabelDS"
+      },
+      {
+        "@type": [
+          "Selector",
+          "GeometrySelector"
+        ],
+        "authoritative": false,
+        "dataSource": "#rectus_abdominis_muscle_ModelDS"
+      }
+    ]
+  },
+  {
+    "@id": "#right_external_oblique_muscle_ModelDS",
+    "@type": "DataSource",
+    "baseURL": "#_urlBase",
+    "mimeType": "application/octet-stream",
+    "source": "Data/Model_135_right_external_oblique_muscle.vtk"
+  },
+  {
+    "@id": "#left_external_oblique_muscle_ModelDS",
+    "@type": "DataSource",
+    "baseURL": "#_urlBase",
+    "mimeType": "application/octet-stream",
+    "source": "Data/Model_235_left_external_oblique_muscle.vtk"
+  },
+  {
+    "@id": "#rectus_abdominis_muscle_ModelDS",
+    "@type": "DataSource",
+    "baseURL": "#_urlBase",
+    "mimeType": "application/octet-stream",
+    "source": "Data/Model_32_rectus_abdominis_muscle.vtk"
+  },
+  {
+    "@id": "#_LabelDS",
+    "@type": "DataSource",
+    "baseURL": "#_urlBase",
+    "mimeType": "application/x-nrrd",
+    "source": "Data/seg.nrrd"
+  },
+  {
+    "@id": "#left_external_oblique_muscle",
+    "@type": "Structure",
+    "annotation": {
+      "name": "left external oblique muscle"
+    },
+    "renderOption": {
+      "color": "rgb(230,124,124)"
+    },
+    "sourceSelector": [
+      {
+        "@type": [
+          "Selector",
+          "LabelMapSelector"
+        ],
+        "authoritative": true,
+        "dataKey": 235,
+        "dataSource": "#_LabelDS"
+      },
+      {
+        "@type": [
+          "Selector",
+          "GeometrySelector"
+        ],
+        "authoritative": false,
+        "dataSource": "#left_external_oblique_muscle_ModelDS"
+      }
+    ]
+  },
+  {
+    "@id": "#right_internal_oblique_muscle_ModelDS",
+    "@type": "DataSource",
+    "baseURL": "#_urlBase",
+    "mimeType": "application/octet-stream",
+    "source": "Data/Model_136_right_internal_oblique_muscle.vtk"
+  }
+]

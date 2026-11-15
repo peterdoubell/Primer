@@ -1,0 +1,15 @@
+.physics-buoyancy-lab { min-width: 0; }
+.physics-buoyancy-lab .model-heading-row { flex-wrap: wrap; }
+.physics-buoyancy-lab .model-heading-row > button { flex-shrink: 0; }
+.buoyancy-prediction { font-size: 1.15em; font-weight: 600; }
+.buoyancy-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 15px 0; }
+.buoyancy-viewport { min-width: 0; overflow: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 10px; background: #f5efdf; }
+.buoyancy-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.physics-buoyancy-lab.is-enlarged .buoyancy-viewport svg { width: 100%; min-width: 660px; max-width: none; }
+.buoyancy-readout { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; line-height: 1.6; }
+.buoyancy-advanced { margin: 12px 0; }
+.buoyancy-advanced summary { cursor: pointer; }
+@media (max-width: 760px) {
+  .buoyancy-panels { grid-template-columns: minmax(0, 1fr); }
+  .physics-buoyancy-lab .concept-controls { grid-template-columns: minmax(0, 1fr); }
+}

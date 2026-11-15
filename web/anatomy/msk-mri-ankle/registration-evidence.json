@@ -1,0 +1,285 @@
+{
+  "same_anatomical_basis": true,
+  "source_segmentation_names_found": 20,
+  "coordinate_units": "millimeters",
+  "unit_evidence": "Public DICOM ImagePositionPatient/PixelSpacing fields (millimeters by DICOM definition) match the segmentation source grid; no rescaling applied.",
+  "dicom_geometry": {
+    "ImagePositionPatient": "[-24.8378, -209.344, 189.332]",
+    "ImageOrientationPatient": "[0, 1, 0, 0, 0, -1]",
+    "PixelSpacing": "[1.1538461446762, 1.1538461446762]",
+    "SliceThickness": "1.2",
+    "SpacingBetweenSlices": "missing",
+    "Rows": "925",
+    "Columns": "419",
+    "Modality": "CT",
+    "SeriesDescription": " RT T1 VIBE SAG DIXON_IN"
+  },
+  "dicom_modality_caveat": "The repository derivative DICOM labels Modality as CT although its T1 VIBE DIXON description and the dataset authors describe MRI. Do not call it validated original acquisition DICOM.",
+  "segmentation_origin": [
+    71.16222381591797,
+    -210.49780273438,
+    190.48569428920618
+  ],
+  "segmentation_direction_columns": [
+    null,
+    [
+      0.0,
+      1.1538461446761996,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      -1.1538461446761996
+    ],
+    [
+      -1.199999956403474,
+      0.0,
+      0.0
+    ]
+  ],
+  "image_origin": [],
+  "image_direction_columns": [],
+  "checks": [
+    {
+      "part": "Calcaneus",
+      "source_segment": {
+        "name": "Bone_Calcaneus",
+        "id": "2.25.194515507436525656423068283585740607554",
+        "layer": 0,
+        "label_value": 6
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.4690826535293695,
+      "voxel_count": 33004,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Cuboid",
+      "source_segment": {
+        "name": "Bone_Cuboid",
+        "id": "2.25.248089241230959901658716693356123834031",
+        "layer": 0,
+        "label_value": 56
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.3931197524008212,
+      "voxel_count": 6593,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Fibula",
+      "source_segment": {
+        "name": "Bone_Fibula",
+        "id": "2.25.100852170703307366602736123531559768571",
+        "layer": 0,
+        "label_value": 5
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 3.6794455647411723,
+      "voxel_count": 21881,
+      "same_frame_extent_check": false
+    },
+    {
+      "part": "Intermediate cuneiform",
+      "source_segment": {
+        "name": "Bone_Intermediate Cuneiform",
+        "id": "2.25.250498708210603661142063035360478866732",
+        "layer": 0,
+        "label_value": 58
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.559088289730937,
+      "voxel_count": 1742,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Lateral cuneiform",
+      "source_segment": {
+        "name": "Bone_Lateral Cuneiform",
+        "id": "2.25.154892057225393073658726937027936025892",
+        "layer": 0,
+        "label_value": 59
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.3239106535850169,
+      "voxel_count": 2490,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Medial cuneiform",
+      "source_segment": {
+        "name": "Bone_Medial Cuneiform",
+        "id": "2.25.154003436765805313669700017086061783186",
+        "layer": 0,
+        "label_value": 57
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.3715980649059816,
+      "voxel_count": 4558,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Navicular",
+      "source_segment": {
+        "name": "Bone_Navicular",
+        "id": "2.25.218297650300097504985473457486395402385",
+        "layer": 0,
+        "label_value": 55
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.5818782448708362,
+      "voxel_count": 4517,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Talus",
+      "source_segment": {
+        "name": "Bone_Talus",
+        "id": "2.25.38724732609686024265074779527424370741",
+        "layer": 0,
+        "label_value": 7
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.4364412427004254,
+      "voxel_count": 18852,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Tibia",
+      "source_segment": {
+        "name": "Bone_Tibia",
+        "id": "2.25.302098637030448659245340198411715614251",
+        "layer": 0,
+        "label_value": 4
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 4.755387485021743,
+      "voxel_count": 154056,
+      "same_frame_extent_check": false
+    },
+    {
+      "part": "Extensor digitorum longus source muscle unit",
+      "source_segment": {
+        "name": "Muscle_Extensor Digitorum Longus",
+        "id": "2.25.330780533600439958524059033475517336768",
+        "layer": 0,
+        "label_value": 24
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.5142865777045245,
+      "voxel_count": 32964,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Extensor hallucis longus source muscle unit",
+      "source_segment": {
+        "name": "Muscle_Extensor Hallucis Longus",
+        "id": "2.25.88135178721432737187785418434567876554",
+        "layer": 1,
+        "label_value": 11
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 1.1076267569389415,
+      "voxel_count": 16897,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Flexor digitorum longus source muscle unit",
+      "source_segment": {
+        "name": "Muscle_Flexor Digitorum Longus",
+        "id": "2.25.80960260620612837625069791840579492904",
+        "layer": 0,
+        "label_value": 22
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 12.692643463606146,
+      "voxel_count": 21478,
+      "same_frame_extent_check": false
+    },
+    {
+      "part": "Flexor hallucis longus source muscle unit",
+      "source_segment": {
+        "name": "Muscle_Flexor Hallucis Longus",
+        "id": "2.25.338778142090907217794204586046017572190",
+        "layer": 0,
+        "label_value": 23
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.7155676051566502,
+      "voxel_count": 61626,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Lateral gastrocnemius",
+      "source_segment": {
+        "name": "Muscle_Gastrocnemius Lateral",
+        "id": "2.25.141020960461563399468451644484223848864",
+        "layer": 0,
+        "label_value": 19
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.6211422085721097,
+      "voxel_count": 114371,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Medial gastrocnemius",
+      "source_segment": {
+        "name": "Muscle_Gastrocnemius Medial",
+        "id": "2.25.314198346985494712377113232884654698258",
+        "layer": 1,
+        "label_value": 8
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.3086068034128857,
+      "voxel_count": 130872,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Fibularis longus source muscle unit",
+      "source_segment": {
+        "name": "Muscle_Peroneus Longus",
+        "id": "2.25.157970360868404056627364216811586559355",
+        "layer": 0,
+        "label_value": 21
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 0.8459473310182943,
+      "voxel_count": 93312,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Soleus",
+      "source_segment": {
+        "name": "Muscle_Soleus",
+        "id": "2.25.259022253306727390735664024092013488267",
+        "layer": 0,
+        "label_value": 18
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 1.0199611782975353,
+      "voxel_count": 254224,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Tibialis anterior source muscle unit",
+      "source_segment": {
+        "name": "Muscle_Tibialis Anterior",
+        "id": "2.25.242121391224028626781779590542896030515",
+        "layer": 1,
+        "label_value": 9
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 1.8001024518681135,
+      "voxel_count": 86546,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Tibialis posterior source muscle unit",
+      "source_segment": {
+        "name": "Muscle_Tibialis Posterior",
+        "id": "2.25.255427571849565717130790172050109705302",
+        "layer": 0,
+        "label_value": 20
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 1.1905441284167324,
+      "voxel_count": 62298,
+      "same_frame_extent_check": true
+    },
+    {
+      "part": "Achilles tendon",
+      "source_segment": {
+        "name": "Tendon_Archilles",
+        "id": "2.25.288344550692353252627561274295812951871",
+        "layer": 0,
+        "label_value": 15
+      },
+      "mesh_to_voxel_extent_max_difference_mm": 1.241964161390115,
+      "voxel_count": 14579,
+      "same_frame_extent_check": true
+    }
+  ]
+}

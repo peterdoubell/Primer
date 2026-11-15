@@ -1,0 +1,25 @@
+{
+  "scope": "Exact separate linear-algebra companion binding in two older inventory/science harnesses; original70-model cohort assertions and existing fluids binding remain intact.",
+  "files": {
+    "tools/check_cross_subject_models.js": "201e6b1601f0c90fb3d07c1c2055feec644ba734f4cea5185dd5e16e6ddc0da2",
+    "tools/check_spatial_models.js": "4ae1dd197f348916340f491a0663a6069eebdfc420d3b790169ca1e563577a11"
+  },
+  "companion": {
+    "lesson": "math.4.linalg",
+    "id": "explore-linear-maps-and-kernels",
+    "kind": "model",
+    "renderer": "linear-algebra-lab",
+    "props": {
+      "scenario": "math.4.linalg"
+    },
+    "count": 1
+  },
+  "validation": {
+    "command": "python -m pytest -q tests/test_cross_subject_models.py tests/test_spatial_models.py",
+    "isolated_synthetic_database": true,
+    "result": "31048 passed in 12.88s",
+    "full_local_log_sha256": "a542aa9b9dd80cc837956f58e793c28b954a58f8b3bf6477bd82586d47348409"
+  },
+  "product_source_changed": false,
+  "frozen_product_sha256": "7ebb30b4b711361a74a058004f950d721090ccf48a2dbcdb87fdb33fb7602495"
+}

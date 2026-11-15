@@ -1,0 +1,40 @@
+.prenatal-sequence { min-width: 0; }
+.prenatal-sequence [hidden] { display: none !important; }
+.prenatal-sequence .prenatal-status { margin-bottom: 12px; }
+.prenatal-age {
+  margin: 0 0 12px; font-family: var(--sans); font-weight: 700;
+  font-size: clamp(14px, 2.2vw, 17px); color: var(--ink);
+}
+.prenatal-figure { margin: 0; }
+.prenatal-stage {
+  position: relative; aspect-ratio: 1; width: min(100%, 700px); margin-inline: auto;
+  overflow: hidden; border: 1px solid var(--edge); border-radius: 12px;
+  background: #a18b86;
+}
+.prenatal-image-host, .prenatal-image-host img { width: 100%; height: 100%; }
+.prenatal-image-host img { display: block; object-fit: contain; }
+.prenatal-image-message {
+  position: absolute; inset: 0; display: grid; place-content: center;
+  margin: 0; padding: 20px; color: #201b1a; font-family: var(--sans);
+  text-align: center; background: #b2a19c;
+}
+.prenatal-caption { margin-top: 12px; line-height: 1.55; color: var(--ink-soft); }
+.prenatal-controls > label { font-family: var(--sans); font-weight: 650; }
+.prenatal-controls input[type=range] { width: 100%; margin: 0; accent-color: var(--gold); }
+.prenatal-controls input:focus-visible, .prenatal-sequence a:focus-visible {
+  outline: 2px solid var(--gold-ink); outline-offset: 4px;
+}
+.prenatal-buttons { gap: 8px; }
+.prenatal-buttons .btn { flex: 1 1 130px; }
+.prenatal-position { margin-left: auto; font: 600 14px var(--sans); color: var(--ink-soft); }
+.prenatal-detail { font-size: 13px; line-height: 1.55; color: var(--ink-soft); margin: 12px 0 0; }
+.prenatal-links, .prenatal-sources { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; }
+.prenatal-links a, .prenatal-sources a { font: 600 13px/1.6 var(--sans); color: var(--gold-ink); }
+.prenatal-links a { padding-block: 8px; }
+.prenatal-sources { border-top: 1px solid var(--rule); padding-top: 12px; }
+.prenatal-sources:empty { display: none; }
+@media (max-width: 430px) {
+  .prenatal-buttons .btn { flex-basis: calc(50% - 8px); }
+  .prenatal-buttons .btn:nth-child(2) { order: 3; flex-basis: 100%; }
+  .prenatal-position { order: 4; }
+}

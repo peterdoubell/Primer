@@ -1,0 +1,908 @@
+{
+  "version": "2026-10-26",
+  "contract": "Binding metadata extracts explicit observations only. Versioned algorithms remain in the reporting API; no clinical formula is duplicated here. Raw section and finding IDs are canonicalised by the descriptor compiler.",
+  "algorithm_references": [
+    {
+      "calculator_id": "acr_tirads_2017",
+      "version": "2017",
+      "title": "ACR TI-RADS",
+      "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/TI-RADS"
+    },
+    {
+      "calculator_id": "pirads_v2_1",
+      "version": "2.1 (2019)",
+      "title": "ACR PI-RADS v2.1",
+      "url": "https://www.acr.org/Clinical-Resources/Clinical-Tools-and-Reference/Reporting-and-Data-Systems/PI-RADS"
+    },
+    {
+      "calculator_id": "prostate_volume_psad",
+      "version": "PI-RADS 2.1 (2019)",
+      "title": "ACR PI-RADS v2.1 prostate volume convention",
+      "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/RADS/PI-RADS/PIRADS-2019.pdf"
+    }
+  ],
+  "investigations": {
+    "ra.ultrasound-thyroid": {
+      "thyroid-nodule": [
+        {
+          "calculator_id": "acr_tirads_2017",
+          "label": "ACR TI-RADS 2017",
+          "trigger_any": [
+            "nodule"
+          ],
+          "inputs": {
+            "adult_applicability_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "adult",
+                  "section_id": "patient-group",
+                  "value": true
+                },
+                {
+                  "finding_id": "child",
+                  "section_id": "patient-group",
+                  "value": false
+                }
+              ]
+            },
+            "composition": {
+              "sources": [
+                {
+                  "finding_id": "composition",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "cystic or almost completely cystic": "cystic_or_almost_cystic",
+                    "spongiform": "spongiform",
+                    "mixed cystic and solid": "mixed_cystic_solid",
+                    "solid or almost completely solid": "solid_or_almost_solid"
+                  }
+                }
+              ]
+            },
+            "echogenicity": {
+              "sources": [
+                {
+                  "finding_id": "echogenicity",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "anechoic": "anechoic",
+                    "hyperechoic or isoechoic": "hyper_or_isoechoic",
+                    "hypoechoic": "hypoechoic",
+                    "very hypoechoic": "very_hypoechoic"
+                  }
+                }
+              ]
+            },
+            "shape": {
+              "sources": [
+                {
+                  "finding_id": "shape",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "wider-than-tall": "wider_than_tall",
+                    "taller-than-wide": "taller_than_wide"
+                  }
+                }
+              ]
+            },
+            "margin": {
+              "sources": [
+                {
+                  "finding_id": "margin",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "smooth": "smooth",
+                    "ill-defined": "ill_defined",
+                    "lobulated or irregular": "lobulated_or_irregular",
+                    "extrathyroidal extension": "extrathyroidal_extension"
+                  }
+                }
+              ]
+            },
+            "echogenic_foci": {
+              "sources": [
+                {
+                  "finding_id": "echogenic-foci",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "no echogenic foci": [
+                      "none"
+                    ],
+                    "large comet-tail artefacts only": [
+                      "large_comet_tail"
+                    ],
+                    "macrocalcification only": [
+                      "macrocalcifications"
+                    ],
+                    "peripheral rim calcification only": [
+                      "peripheral_rim"
+                    ],
+                    "punctate echogenic foci only": [
+                      "punctate"
+                    ],
+                    "macrocalcification and peripheral rim calcification": [
+                      "macrocalcifications",
+                      "peripheral_rim"
+                    ],
+                    "macrocalcification and punctate echogenic foci": [
+                      "macrocalcifications",
+                      "punctate"
+                    ],
+                    "peripheral rim calcification and punctate echogenic foci": [
+                      "peripheral_rim",
+                      "punctate"
+                    ],
+                    "macrocalcification and peripheral rim calcification and punctate echogenic foci": [
+                      "macrocalcifications",
+                      "peripheral_rim",
+                      "punctate"
+                    ]
+                  }
+                }
+              ]
+            },
+            "size_mm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-1"
+                },
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-2"
+                },
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-3"
+                }
+              ],
+              "aggregate": "max",
+              "all_required": true
+            }
+          },
+          "skip_when": [
+            {
+              "input": "adult_applicability_confirmed",
+              "values": [
+                false
+              ],
+              "message": "ACR TI-RADS adult classification is not applied to this child."
+            }
+          ]
+        }
+      ]
+    },
+    "ra.mri-prostate": {
+      "prostate-lesion": [
+        {
+          "calculator_id": "pirads_v2_1",
+          "label": "PI-RADS v2.1",
+          "trigger_any": [
+            "lesion"
+          ],
+          "inputs": {
+            "treatment_naive": {
+              "sources": [
+                {
+                  "finding_id": "treatment",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "treatment-naive prostate": true,
+                    "previously treated prostate": false
+                  }
+                }
+              ]
+            },
+            "zone": {
+              "sources": [
+                {
+                  "finding_id": "zone",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "peripheral zone": "PZ",
+                    "transition zone": "TZ",
+                    "central zone": "CZ",
+                    "anterior fibromuscular stroma": "AFMS"
+                  }
+                }
+              ]
+            },
+            "t2_adequate": {
+              "sources": [
+                {
+                  "finding_id": "t2-adequate",
+                  "value": true
+                },
+                {
+                  "finding_id": "t2-inadequate",
+                  "value": false
+                }
+              ]
+            },
+            "dwi_adequate": {
+              "sources": [
+                {
+                  "finding_id": "dwi-adequate",
+                  "value": true
+                },
+                {
+                  "finding_id": "dwi-inadequate",
+                  "value": false
+                }
+              ]
+            },
+            "t2_score": {
+              "sources": [
+                {
+                  "finding_id": "t2-score",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 3,
+                    "4": 4,
+                    "5": 5
+                  }
+                }
+              ]
+            },
+            "dwi_score": {
+              "sources": [
+                {
+                  "finding_id": "dwi-score",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 3,
+                    "4": 4,
+                    "5": 5
+                  }
+                }
+              ]
+            },
+            "dce": {
+              "sources": [
+                {
+                  "finding_id": "dce",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "positive": "positive",
+                    "negative": "negative",
+                    "not available": "not_available"
+                  }
+                }
+              ]
+            }
+          },
+          "skip_when": [
+            {
+              "input": "zone",
+              "values": [
+                "CZ",
+                "AFMS"
+              ],
+              "message": "PI-RADS v2.1 zone scoring requires a peripheral- or transition-zone origin; no category is assigned for this selected origin."
+            },
+            {
+              "input": "treatment_naive",
+              "values": [
+                false
+              ],
+              "message": "PI-RADS v2.1 does not classify post-treatment recurrence."
+            }
+          ]
+        }
+      ],
+      "prostate-dimensions": [
+        {
+          "calculator_id": "prostate_volume_psad",
+          "label": "Prostate volume and PSA density",
+          "trigger_any": [
+            "dimensions"
+          ],
+          "inputs": {
+            "transverse_cm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-1"
+                }
+              ],
+              "scale": 0.1
+            },
+            "ap_cm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-2"
+                }
+              ],
+              "scale": 0.1
+            },
+            "longitudinal_cm": {
+              "sources": [
+                {
+                  "finding_id": "dimensions",
+                  "slot_id": "slot-3"
+                }
+              ],
+              "scale": 0.1
+            },
+            "psa_ng_ml": {
+              "sources": [
+                {
+                  "finding_id": "psa",
+                  "slot_id": "slot-1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "us.adnexal-orads": {
+      "adnexal-lesion": [
+        {
+          "calculator_id": "orads_us_2022",
+          "label": "O-RADS US v2022",
+          "trigger_any": [
+            "lesion"
+          ],
+          "inputs": {
+            "applicable_adnexal_lesion": {
+              "sources": [
+                {
+                  "finding_id": "assessment",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "adnexal lesion appropriate for O-RADS assessment": true,
+                    "not appropriate for O-RADS assessment": false
+                  },
+                  "section_id": "applicability"
+                }
+              ]
+            },
+            "technically_adequate": {
+              "sources": [
+                {
+                  "finding_id": "assessment",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "adequate for risk stratification": true,
+                    "inadequate for risk stratification": false
+                  },
+                  "section_id": "quality"
+                }
+              ]
+            },
+            "suspicious_ascites_or_peritoneal_nodules": {
+              "sources": [
+                {
+                  "finding_id": "assessment",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "no suspicious extraovarian findings": false,
+                    "findings explained by a reviewed alternative cause": false,
+                    "suspicious unexplained ascites or peritoneal nodules": true
+                  },
+                  "section_id": "extraovarian"
+                }
+              ]
+            },
+            "classic_pattern": {
+              "sources": [
+                {
+                  "finding_id": "simple",
+                  "value": "none"
+                },
+                {
+                  "finding_id": "unilocular",
+                  "value": "none"
+                },
+                {
+                  "finding_id": "bilocular",
+                  "value": "none"
+                },
+                {
+                  "finding_id": "multilocular",
+                  "value": "none"
+                },
+                {
+                  "finding_id": "unilocular-solid",
+                  "value": "none"
+                },
+                {
+                  "finding_id": "multilocular-solid",
+                  "value": "none"
+                },
+                {
+                  "finding_id": "solid",
+                  "value": "none"
+                },
+                {
+                  "finding_id": "physiologic",
+                  "value": "physiologic"
+                },
+                {
+                  "finding_id": "hemorrhagic",
+                  "value": "hemorrhagic"
+                },
+                {
+                  "finding_id": "dermoid",
+                  "value": "dermoid"
+                },
+                {
+                  "finding_id": "endometrioma",
+                  "value": "endometrioma"
+                },
+                {
+                  "finding_id": "paraovarian",
+                  "value": "paraovarian"
+                },
+                {
+                  "finding_id": "inclusion",
+                  "value": "peritoneal_inclusion"
+                },
+                {
+                  "finding_id": "hydrosalpinx",
+                  "value": "hydrosalpinx"
+                }
+              ]
+            },
+            "classic_criteria_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "classic-confirmed",
+                  "value": true
+                }
+              ]
+            },
+            "menopausal_status": {
+              "sources": [
+                {
+                  "finding_id": "assessment",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "premenopausal": "premenopausal",
+                    "early postmenopausal under five years": "early_postmenopausal",
+                    "late postmenopausal five years or longer": "late_postmenopausal"
+                  },
+                  "section_id": "menopause"
+                }
+              ]
+            },
+            "size_mm": {
+              "sources": [
+                {
+                  "finding_id": "size",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "morphology": {
+              "sources": [
+                {
+                  "finding_id": "simple",
+                  "value": "simple_cyst"
+                },
+                {
+                  "finding_id": "unilocular",
+                  "value": "unilocular_nonsimple"
+                },
+                {
+                  "finding_id": "bilocular",
+                  "value": "bilocular_no_solid"
+                },
+                {
+                  "finding_id": "multilocular",
+                  "value": "multilocular_no_solid"
+                },
+                {
+                  "finding_id": "unilocular-solid",
+                  "value": "unilocular_with_solid"
+                },
+                {
+                  "finding_id": "multilocular-solid",
+                  "value": "bi_multilocular_with_solid"
+                },
+                {
+                  "finding_id": "solid",
+                  "value": "solid"
+                }
+              ]
+            },
+            "contour": {
+              "sources": [
+                {
+                  "finding_id": "contour",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "smooth": "smooth",
+                    "irregular": "irregular"
+                  }
+                },
+                {
+                  "finding_id": "simple",
+                  "value": "smooth"
+                }
+              ]
+            },
+            "color_score": {
+              "sources": [
+                {
+                  "finding_id": "color",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 3,
+                    "4": 4
+                  }
+                }
+              ]
+            },
+            "broad_shadowing": {
+              "sources": [
+                {
+                  "finding_id": "shadow",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "Broad acoustic shadowing is present": true,
+                    "Broad acoustic shadowing is absent": false
+                  }
+                }
+              ]
+            },
+            "papillary_projections": {
+              "sources": [
+                {
+                  "finding_id": "papillary",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "physiologic_finding_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "physiologic-review",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "physiologic follicle": true,
+                    "nonphysiologic cyst": false
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "liver.lirads-calculated": {
+      "hepatic-observation": [
+        {
+          "calculator_id": "lirads_ct_mri_2018",
+          "label": "LI-RADS CT/MRI v2018",
+          "trigger_any": [
+            "lesion"
+          ],
+          "inputs": {
+            "eligible_untreated_adult": {
+              "sources": [
+                {
+                  "finding_id": "eligibility",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "eligible untreated adult at risk": true,
+                    "outside the diagnostic algorithm population": false,
+                    "previously treated observation": false,
+                    "pathologically proven observation": false
+                  }
+                }
+              ]
+            },
+            "technically_adequate": {
+              "sources": [
+                {
+                  "finding_id": "quality",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "technically adequate": true,
+                    "technically inadequate": false
+                  }
+                }
+              ]
+            },
+            "pathway": {
+              "sources": [
+                {
+                  "finding_id": "table",
+                  "value": "major_features"
+                },
+                {
+                  "finding_id": "benign",
+                  "value": "definitely_benign"
+                },
+                {
+                  "finding_id": "probably-benign",
+                  "value": "probably_benign"
+                },
+                {
+                  "finding_id": "lr-m",
+                  "value": "lr_m"
+                },
+                {
+                  "finding_id": "tiv",
+                  "value": "tumor_in_vein"
+                }
+              ]
+            },
+            "size_mm": {
+              "sources": [
+                {
+                  "finding_id": "size",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "nonrim_aphe": {
+              "sources": [
+                {
+                  "finding_id": "aphe",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "present": true,
+                    "absent": false
+                  }
+                }
+              ]
+            },
+            "nonperipheral_washout": {
+              "sources": [
+                {
+                  "finding_id": "washout",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "present": true,
+                    "absent": false
+                  }
+                }
+              ]
+            },
+            "enhancing_capsule": {
+              "sources": [
+                {
+                  "finding_id": "capsule",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "present": true,
+                    "absent": false
+                  }
+                }
+              ]
+            },
+            "threshold_growth": {
+              "sources": [
+                {
+                  "finding_id": "growth",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "present": true,
+                    "absent": false
+                  }
+                }
+              ]
+            },
+            "ancillary_adjustment": {
+              "sources": [
+                {
+                  "finding_id": "ancillary",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "none": "none",
+                    "upgrade by one category without establishing LR-5": "upgrade_one",
+                    "downgrade by one category": "downgrade_one"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "oncology.recist-follow-up": {
+      "response": [
+        {
+          "calculator_id": "recist_1_1",
+          "label": "RECIST 1.1 time-point response",
+          "trigger_any": [
+            "eligibility",
+            "baseline",
+            "nadir",
+            "current",
+            "new",
+            "nontarget"
+          ],
+          "inputs": {
+            "recist_1_1_applicable": {
+              "sources": [
+                {
+                  "finding_id": "eligibility",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "RECIST 1.1 applicable with valid target selection and measurements": true,
+                    "RECIST 1.1 not applicable": false
+                  }
+                }
+              ]
+            },
+            "baseline_sum_mm": {
+              "sources": [
+                {
+                  "finding_id": "baseline",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "nadir_sum_mm": {
+              "sources": [
+                {
+                  "finding_id": "nadir",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "current_sum_mm": {
+              "sources": [
+                {
+                  "finding_id": "current",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "target_cr_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "target-cr",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "met with disappearance of non-nodal targets and target nodes under 10 mm": true,
+                    "not met": false
+                  }
+                }
+              ]
+            },
+            "prior_cr_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "prior-cr",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "confirmed": true,
+                    "not confirmed": false
+                  }
+                }
+              ]
+            },
+            "non_target_status": {
+              "sources": [
+                {
+                  "finding_id": "nontarget",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "no baseline non-target disease": "none",
+                    "complete response": "cr",
+                    "persistent non-CR non-PD disease": "non_cr_non_pd",
+                    "unequivocal progression": "unequivocal_pd",
+                    "not evaluable": "not_evaluable"
+                  }
+                }
+              ]
+            },
+            "unequivocal_new_lesions": {
+              "sources": [
+                {
+                  "finding_id": "new",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "present": true,
+                    "absent": false
+                  }
+                }
+              ]
+            },
+            "minimum_sd_duration_met": {
+              "sources": [
+                {
+                  "finding_id": "sd-duration",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "met": true,
+                    "not met": false
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "oncology.lesion-growth": {
+      "growth-lesion": [
+        {
+          "calculator_id": "lesion_growth",
+          "label": "Lesion growth measurements",
+          "trigger_any": [
+            "lesion"
+          ],
+          "inputs": {
+            "comparable_measurements_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "comparable",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "reviewed and comparable": true,
+                    "not comparable": false
+                  }
+                }
+              ]
+            },
+            "prior_diameter_mm": {
+              "sources": [
+                {
+                  "finding_id": "prior",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "current_diameter_mm": {
+              "sources": [
+                {
+                  "finding_id": "current",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "prior_volume_mm3": {
+              "sources": [
+                {
+                  "finding_id": "prior-volume",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "current_volume_mm3": {
+              "sources": [
+                {
+                  "finding_id": "current-volume",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "interval_days": {
+              "sources": [
+                {
+                  "finding_id": "interval",
+                  "slot_id": "slot-1"
+                }
+              ]
+            },
+            "comparable_volumetry_confirmed": {
+              "sources": [
+                {
+                  "finding_id": "vol-comparable",
+                  "slot_id": "slot-1",
+                  "map": {
+                    "reviewed and comparable": true,
+                    "not comparable": false
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

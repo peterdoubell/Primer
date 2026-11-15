@@ -1,0 +1,69 @@
+{
+  "base_commit": "236b7680e77d64740865d02eb09eba6615a2a10f",
+  "scope": "exact_percentage_lesson_integration_only",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "whole_goal_complete": false,
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "27e713d0c7579bbef7b61b66014c58d57c73a5f299637f37c99272e9b515e19e",
+      "after_sha256": "14227193944a7ea276946b9910c3302e60b5644595ef11b67ebf0a75cfdbc7cf",
+      "changes": [
+        {
+          "start": 2079,
+          "end": 2081,
+          "before": "          \"title\": \"Percent means out of one hundred\",\n          \"instructions\": \"Change the percent and the whole amount. Compare the hundred-grid, decimal and resulting part of the whole.\",\n",
+          "after": "          \"title\": \"Percentages and changing bases\",\n          \"instructions\": \"Compare exact fractions, decimals and percentages. Investigate a part of a whole, percentage change, successive changes and mixed-format discounts; keep track of the reference amount.\",\n"
+        },
+        {
+          "start": 2085,
+          "end": 2100,
+          "before": "      ]\n",
+          "after": "      ],\n      \"learning_outcomes\": [\n        \"Convert between fractions, terminating decimals and percentages without rounding an exact equality.\",\n        \"Find a percentage of a quantity and express a part as a percentage of a nonzero whole.\",\n        \"Calculate percentage change using the original amount as the denominator.\",\n        \"Compose successive changes by multiplying their factors and using the new base at each step.\",\n        \"Compare discounts expressed as fractions, decimals and percentages on the same original price.\",\n        \"Explain why percentage change from zero is undefined and why a fractional percentage shades part of one hundredth cell.\"\n      ],\n      \"lesson\": {\n        \"overview\": \"Percent means per hundred: p% is the ratio p/100. A percentage describes a number relative to a specified whole. Keep that whole fixed when comparing diagrams, and identify the reference amount before calculating a percentage change.\",\n        \"worked_example\": \"Three eighths is exactly 0.375, or 37.5%. In a hundred-grid it fills 37 complete cells and half of the next cell. A 25% discount on 80 removes 20 and leaves 60. Two successive 10% discounts on 200 give 200 \u00d7 0.9 \u00d7 0.9 = 162: the second discount removes 18 from the new price of 180. A rise from 40 to 50 is a change of 10 divided by the original 40, or 25%.\",\n        \"activity\": \"Choose each worked example, then edit the amounts and formats. Compare the shared-scale bars with the exact ledger. Investigate up 20% followed by down 20%, the discounts 0.35, 3/8 and 30%, a recurring fraction such as one third, and a zero original amount. Enlarge the diagrams and use the arrow keys to scroll a focused diagram. Invalid drafts keep the last accepted result; Escape restores its inputs.\",\n        \"reflection\": \"Successive percentage rates generally cannot be added: the base changes after the first step. Equal upward and downward rates need not cancel. Percentage change from zero is undefined even though the absolute change is defined. Exact rational results remain fractions when their decimal expansions do not terminate. Amounts in the workbench are divisible mathematical quantities; a fractional result is not automatically a count of whole objects or an amount rounded to currency cents. The separate rotatable partitioned disk illustrates one independently controlled whole; it does not track this workbench\u2019s inputs or successive changes.\"\n      }\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "f1b812e11d657ad684b927c119ded6d73ef1db1490b09e93d8f6c2c3e046c2ed",
+      "after_sha256": "9bbfdc9be63dbc4ed6fcae35c3d7278ff1350db2f68a2709cf049c64e8d8b4ab",
+      "changes": [
+        {
+          "start": 3546,
+          "end": 3547,
+          "before": "",
+          "after": "                     \"percentage-core.js\", \"percentage-lab.js\", \"percentage-lab.css\",\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "602e1ae28b06c61b2eea2e0ad994f489de269726915c4ae0a9641faa6d424782",
+      "after_sha256": "cc850f3d1584e5e6b8f4c15e90ac05252fe38de8d68783170492a5534cfb581e",
+      "changes": [
+        {
+          "start": 31,
+          "end": 32,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/percentage-lab.css\">\n"
+        },
+        {
+          "start": 116,
+          "end": 118,
+          "before": "",
+          "after": "  <script src=\"/app/percentage-core.js\"></script>\n  <script src=\"/app/percentage-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "5f281b87517b731612802fea425485d2b6703702f5dc4c1719f7bfc02f2f74a1",
+      "after_sha256": "94de63749dbe0329a4b372a9a8ce8be14ab3c8a63c674940e7200e2f807a55c3",
+      "changes": [
+        {
+          "start": 6170,
+          "end": 6173,
+          "before": "",
+          "after": "      if (item.props?.scenario === 'math.2.percent') {\n        return window.PrimerPercentageLab?.render(item, hooks) || null;\n      }\n"
+        }
+      ]
+    }
+  }
+}

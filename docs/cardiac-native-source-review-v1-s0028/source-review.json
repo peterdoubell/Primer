@@ -1,0 +1,1000 @@
+{
+  "source_doi": "10.5281/zenodo.6802614",
+  "dataset_license": "CC BY 4.0",
+  "license_evidence_file": "../zenodo-6802614.json",
+  "source_case_metadata_rows": [
+    {
+      "image_id": "s0028",
+      "age": "60",
+      "gender": "f",
+      "institute": "C",
+      "study_type": "ct neck-thorax-abdomen-pelvis",
+      "split": "train"
+    }
+  ],
+  "source_original_published_grid_not_native_scanner_DICOM": true,
+  "source_paper_declares_all_images_resampled_to_1_5mm": true,
+  "source_acquisition_sha256": "99e117cda8cd1babe1fe7290187174bfb7a8c25aef09a0991910fe41096ac98b",
+  "records": [
+    {
+      "file": "ct.nii.gz",
+      "source_file_sha256": "c7e4da7bdfd27609043b10f709df40f674beebaaeb93eaee87a7e4f130bde2b4",
+      "source_file_bytes": 49781712,
+      "header": {
+        "dimensions": [
+          299,
+          299,
+          394
+        ],
+        "datatype_code": 8,
+        "bits": 32,
+        "endian": "<",
+        "voxel_offset": 352,
+        "pixdim": [
+          1.0,
+          1.5,
+          1.5,
+          1.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "slope": 1.0,
+        "intercept": 0.0,
+        "qform_code": 0,
+        "sform_code": 2,
+        "xyzt_units": 0,
+        "sform": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            -230.5625
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -81.5625
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            -5.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "raw_voxel_sha256": "6f411e87bf24128eb3192d46d439f929568fc5478f75592000111b73004fcad4",
+        "uncompressed_bytes": 140896328
+      },
+      "independent_reader_all_samples_exact": true,
+      "independent_reader_affine_exact": true,
+      "qform_matches_sform_within_1e-4": true,
+      "qform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "range_source_values": [
+        -1423.0,
+        3740.0
+      ]
+    },
+    {
+      "file": "heart_myocardium.nii.gz",
+      "source_file_sha256": "ab9456598fd63c2da9fbda22599a95789ce1377b3b899426c87ff5740f768f3c",
+      "source_file_bytes": 162901,
+      "header": {
+        "dimensions": [
+          299,
+          299,
+          394
+        ],
+        "datatype_code": 2,
+        "bits": 8,
+        "endian": "<",
+        "voxel_offset": 352,
+        "pixdim": [
+          1.0,
+          1.5,
+          1.5,
+          1.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "slope": 1.0,
+        "intercept": 0.0,
+        "qform_code": 0,
+        "sform_code": 2,
+        "xyzt_units": 0,
+        "sform": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            -230.5625
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -81.5625
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            -5.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "raw_voxel_sha256": "6ce9783dbfbe859a8a068b5421ed07712923a1af9042647e863e276095c38d3c",
+        "uncompressed_bytes": 35224346
+      },
+      "independent_reader_all_samples_exact": true,
+      "independent_reader_affine_exact": true,
+      "qform_matches_sform_within_1e-4": true,
+      "qform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "range_source_values": [
+        0.0,
+        1.0
+      ],
+      "source_label": "heart_myocardium",
+      "foreground_voxels": 24650,
+      "components_6_connected": 1,
+      "component_voxel_sizes_descending": [
+        24650
+      ],
+      "source_voxel_bounds": [
+        [
+          97,
+          147,
+          258
+        ],
+        [
+          143,
+          195,
+          300
+        ]
+      ],
+      "source_world_bounds_voxel_centres": [
+        [
+          -85.0625,
+          138.9375,
+          382.0
+        ],
+        [
+          -16.0625,
+          210.9375,
+          445.0
+        ]
+      ],
+      "touches_scan_boundary": false,
+      "vertices": 14508,
+      "triangles": 29012,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "surface_payloads": {
+        "positions.f64.gz": {
+          "file": "surfaces/heart_myocardium-positions.f64.gz",
+          "sha256": "49b02c0f0a15d8493c19fb511d1e5aaaedb781e29c25ff9423529c333edb42df",
+          "decoded_sha256": "5f9e277714a5989740d26f646a9c417d3325b412cac20374882065d15ce12a35",
+          "bytes": 46219,
+          "decoded_bytes": 348192
+        },
+        "triangles.u32.gz": {
+          "file": "surfaces/heart_myocardium-triangles.u32.gz",
+          "sha256": "d3751a316949a1cdd4658b9811be015f58e7017d4d7aad8a2b59fd8798e86c3a",
+          "decoded_sha256": "2d7ae88126396c17497a521187854a16c6caa8bb79dcab563683e69cd37b37d8",
+          "bytes": 116165,
+          "decoded_bytes": 348144
+        }
+      }
+    },
+    {
+      "file": "heart_atrium_left.nii.gz",
+      "source_file_sha256": "e76421eab385f5e49a870e002c4fde8bbcf36205a10ddadbec8b783dc0401b39",
+      "source_file_bytes": 157873,
+      "header": {
+        "dimensions": [
+          299,
+          299,
+          394
+        ],
+        "datatype_code": 2,
+        "bits": 8,
+        "endian": "<",
+        "voxel_offset": 352,
+        "pixdim": [
+          1.0,
+          1.5,
+          1.5,
+          1.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "slope": 1.0,
+        "intercept": 0.0,
+        "qform_code": 0,
+        "sform_code": 2,
+        "xyzt_units": 0,
+        "sform": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            -230.5625
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -81.5625
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            -5.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "raw_voxel_sha256": "47f2b73292ed25da0335fb8640cdf2f4cb8845110a17551fa9f203a76e18f216",
+        "uncompressed_bytes": 35224346
+      },
+      "independent_reader_all_samples_exact": true,
+      "independent_reader_affine_exact": true,
+      "qform_matches_sform_within_1e-4": true,
+      "qform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "range_source_values": [
+        0.0,
+        1.0
+      ],
+      "source_label": "heart_atrium_left",
+      "foreground_voxels": 17276,
+      "components_6_connected": 1,
+      "component_voxel_sizes_descending": [
+        17276
+      ],
+      "source_voxel_bounds": [
+        [
+          124,
+          138,
+          273
+        ],
+        [
+          166,
+          165,
+          307
+        ]
+      ],
+      "source_world_bounds_voxel_centres": [
+        [
+          -44.5625,
+          125.4375,
+          404.5
+        ],
+        [
+          18.4375,
+          165.9375,
+          455.5
+        ]
+      ],
+      "touches_scan_boundary": false,
+      "vertices": 5274,
+      "triangles": 10544,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "surface_payloads": {
+        "positions.f64.gz": {
+          "file": "surfaces/heart_atrium_left-positions.f64.gz",
+          "sha256": "0bebbfd3efe07279e72d83a7955543ca917a6d379981eb0dc65a23157f074b88",
+          "decoded_sha256": "de9cf6463d5220404ed9e46ab7733ab7e80375ca32207bdc5561ec6d5df81d7a",
+          "bytes": 16971,
+          "decoded_bytes": 126576
+        },
+        "triangles.u32.gz": {
+          "file": "surfaces/heart_atrium_left-triangles.u32.gz",
+          "sha256": "96f9723d74a07dbf089ce829f427b0632fe36723108a5210f8f3f65f1e30f65e",
+          "decoded_sha256": "b69ae962a679c7704d2a4f37448541080eaa2d1000a73b3d587d0bb2fbb0c342",
+          "bytes": 40005,
+          "decoded_bytes": 126528
+        }
+      }
+    },
+    {
+      "file": "heart_ventricle_left.nii.gz",
+      "source_file_sha256": "1c7e34e55f72e6d9bdaedd83aacc27e090231c4e4fc9452c1b7d3b3a0aeb117d",
+      "source_file_bytes": 158827,
+      "header": {
+        "dimensions": [
+          299,
+          299,
+          394
+        ],
+        "datatype_code": 2,
+        "bits": 8,
+        "endian": "<",
+        "voxel_offset": 352,
+        "pixdim": [
+          1.0,
+          1.5,
+          1.5,
+          1.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "slope": 1.0,
+        "intercept": 0.0,
+        "qform_code": 0,
+        "sform_code": 2,
+        "xyzt_units": 0,
+        "sform": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            -230.5625
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -81.5625
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            -5.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "raw_voxel_sha256": "3ba1d04fa2181283957da8f0b4564b7b797265764a486f77c496e19c8e9cfaf2",
+        "uncompressed_bytes": 35224346
+      },
+      "independent_reader_all_samples_exact": true,
+      "independent_reader_affine_exact": true,
+      "qform_matches_sform_within_1e-4": true,
+      "qform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "range_source_values": [
+        0.0,
+        1.0
+      ],
+      "source_label": "heart_ventricle_left",
+      "foreground_voxels": 21625,
+      "components_6_connected": 1,
+      "component_voxel_sizes_descending": [
+        21625
+      ],
+      "source_voxel_bounds": [
+        [
+          101,
+          151,
+          262
+        ],
+        [
+          143,
+          191,
+          297
+        ]
+      ],
+      "source_world_bounds_voxel_centres": [
+        [
+          -79.0625,
+          144.9375,
+          388.0
+        ],
+        [
+          -16.0625,
+          204.9375,
+          440.5
+        ]
+      ],
+      "touches_scan_boundary": false,
+      "vertices": 6558,
+      "triangles": 13112,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "surface_payloads": {
+        "positions.f64.gz": {
+          "file": "surfaces/heart_ventricle_left-positions.f64.gz",
+          "sha256": "bff6a93cd60b190f81255d427fcc9656c2e9c5c11c2df34fa14a66852f7b2e5b",
+          "decoded_sha256": "3e0418ee2d9ce6b092cde0a51bee7cdbbbb3e686ef0ba3ea7437030e05c363d9",
+          "bytes": 20527,
+          "decoded_bytes": 157392
+        },
+        "triangles.u32.gz": {
+          "file": "surfaces/heart_ventricle_left-triangles.u32.gz",
+          "sha256": "8452ded679a904f3c1081cf334f59c47f214efe053890fec5a32f3fec55c081d",
+          "decoded_sha256": "52645ce8c5575333deae5b12dc5bbfbe8f8ee140f2a0b52a1f59b52e9f0f046d",
+          "bytes": 50419,
+          "decoded_bytes": 157344
+        }
+      }
+    },
+    {
+      "file": "heart_atrium_right.nii.gz",
+      "source_file_sha256": "5d347a26a2d4af237abc30550e28b7c6bb011b2a750d41871162e46d740b2c6d",
+      "source_file_bytes": 159573,
+      "header": {
+        "dimensions": [
+          299,
+          299,
+          394
+        ],
+        "datatype_code": 2,
+        "bits": 8,
+        "endian": "<",
+        "voxel_offset": 352,
+        "pixdim": [
+          1.0,
+          1.5,
+          1.5,
+          1.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "slope": 1.0,
+        "intercept": 0.0,
+        "qform_code": 0,
+        "sform_code": 2,
+        "xyzt_units": 0,
+        "sform": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            -230.5625
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -81.5625
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            -5.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "raw_voxel_sha256": "a6571a2b5b5c08a12a6bd266f7a138eccf83e128341d565f3f2cac3acf6ccfb7",
+        "uncompressed_bytes": 35224346
+      },
+      "independent_reader_all_samples_exact": true,
+      "independent_reader_affine_exact": true,
+      "qform_matches_sform_within_1e-4": true,
+      "qform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "range_source_values": [
+        0.0,
+        1.0
+      ],
+      "source_label": "heart_atrium_right",
+      "foreground_voxels": 22093,
+      "components_6_connected": 1,
+      "component_voxel_sizes_descending": [
+        22093
+      ],
+      "source_voxel_bounds": [
+        [
+          144,
+          152,
+          263
+        ],
+        [
+          178,
+          192,
+          310
+        ]
+      ],
+      "source_world_bounds_voxel_centres": [
+        [
+          -14.5625,
+          146.4375,
+          389.5
+        ],
+        [
+          36.4375,
+          206.4375,
+          460.0
+        ]
+      ],
+      "touches_scan_boundary": false,
+      "vertices": 6602,
+      "triangles": 13200,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "surface_payloads": {
+        "positions.f64.gz": {
+          "file": "surfaces/heart_atrium_right-positions.f64.gz",
+          "sha256": "85135287b1e8d4076f51ee375516064894d055b69c69cc556f4ebf8c17882b76",
+          "decoded_sha256": "b819bf505b21f4f202fa980ab40f30fc4e33ef218bbea2f6f10bb6c9a3af6f1c",
+          "bytes": 21235,
+          "decoded_bytes": 158448
+        },
+        "triangles.u32.gz": {
+          "file": "surfaces/heart_atrium_right-triangles.u32.gz",
+          "sha256": "b2aa7b1d86796f72c59dc0a55d21c5669f9d3e3f01f5a8e167cabe55ebfe6561",
+          "decoded_sha256": "98617c8610c311e3d239be504006335b584fabacc1cd34d5f33b5404321968a3",
+          "bytes": 50760,
+          "decoded_bytes": 158400
+        }
+      }
+    },
+    {
+      "file": "heart_ventricle_right.nii.gz",
+      "source_file_sha256": "38c60dedc2d720170b564baa8c8defa2d1449633ddb2efe7092f96676eb848bc",
+      "source_file_bytes": 160319,
+      "header": {
+        "dimensions": [
+          299,
+          299,
+          394
+        ],
+        "datatype_code": 2,
+        "bits": 8,
+        "endian": "<",
+        "voxel_offset": 352,
+        "pixdim": [
+          1.0,
+          1.5,
+          1.5,
+          1.5,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "slope": 1.0,
+        "intercept": 0.0,
+        "qform_code": 0,
+        "sform_code": 2,
+        "xyzt_units": 0,
+        "sform": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            -230.5625
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -81.5625
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            -5.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "raw_voxel_sha256": "16d2f603623b378809d451b7f282a9d60f9a0d9fad42de865e1c14a1dc543930",
+        "uncompressed_bytes": 35224346
+      },
+      "independent_reader_all_samples_exact": true,
+      "independent_reader_affine_exact": true,
+      "qform_matches_sform_within_1e-4": true,
+      "qform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "range_source_values": [
+        0.0,
+        1.0
+      ],
+      "source_label": "heart_ventricle_right",
+      "foreground_voxels": 34753,
+      "components_6_connected": 1,
+      "component_voxel_sizes_descending": [
+        34753
+      ],
+      "source_voxel_bounds": [
+        [
+          113,
+          169,
+          254
+        ],
+        [
+          161,
+          201,
+          311
+        ]
+      ],
+      "source_world_bounds_voxel_centres": [
+        [
+          -61.0625,
+          171.9375,
+          376.0
+        ],
+        [
+          10.9375,
+          219.9375,
+          461.5
+        ]
+      ],
+      "touches_scan_boundary": false,
+      "vertices": 10104,
+      "triangles": 20204,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "surface_payloads": {
+        "positions.f64.gz": {
+          "file": "surfaces/heart_ventricle_right-positions.f64.gz",
+          "sha256": "812c99911db66f3a8b8440bb9dc8b18a1b09f5d4fcd3902660382308ce93fe51",
+          "decoded_sha256": "ad83ede4d41c0e02715ac59b55243bb5669a392d9d161b2a4f806a7a018c36fa",
+          "bytes": 31756,
+          "decoded_bytes": 242496
+        },
+        "triangles.u32.gz": {
+          "file": "surfaces/heart_ventricle_right-triangles.u32.gz",
+          "sha256": "fe263a1d83d820576da1d833d0266d70c90ac9af2c87f1cdf0ae0537c10dbd84",
+          "decoded_sha256": "6a8ffed04ac1ebef9d8ccb62b60eb562c19ff10c49d19ef0cbbb72593d0be1e3",
+          "bytes": 80088,
+          "decoded_bytes": 242448
+        }
+      }
+    }
+  ],
+  "all_CT_mask_grids_exact": true,
+  "pairwise_mask_overlap": [
+    {
+      "labels": [
+        "heart_myocardium",
+        "heart_atrium_left"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_myocardium",
+        "heart_ventricle_left"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_myocardium",
+        "heart_atrium_right"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_myocardium",
+        "heart_ventricle_right"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_atrium_left",
+        "heart_ventricle_left"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_atrium_left",
+        "heart_atrium_right"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_atrium_left",
+        "heart_ventricle_right"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_ventricle_left",
+        "heart_atrium_right"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_ventricle_left",
+        "heart_ventricle_right"
+      ],
+      "overlap_voxels": 0
+    },
+    {
+      "labels": [
+        "heart_atrium_right",
+        "heart_ventricle_right"
+      ],
+      "overlap_voxels": 0
+    }
+  ],
+  "current_v3_CT_comparison": {
+    "v3_original_file": "docs/thoracic-lung-source-review-s0028/originals/ct.nii.gz",
+    "v3_original_file_sha256": "d11b8acbf137277d157930f7d0cb3a5f259364a5e5af18dafcd3cac0ecf4168c",
+    "v3_header": {
+      "dimensions": [
+        299,
+        299,
+        394
+      ],
+      "datatype_code": 4,
+      "bits": 16,
+      "endian": "<",
+      "voxel_offset": 352,
+      "pixdim": [
+        1.0,
+        1.5,
+        1.5,
+        1.5,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "slope": 1.0,
+      "intercept": 0.0,
+      "qform_code": 0,
+      "sform_code": 2,
+      "xyzt_units": 0,
+      "sform": [
+        [
+          1.5,
+          0.0,
+          0.0,
+          -230.5625
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -81.5625
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -5.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "raw_voxel_sha256": "1db65353bfa5cafb2cf6b5ba7d3f4493e3fce34ec298e16c6b0c541130d03911",
+      "uncompressed_bytes": 70448340
+    },
+    "grids_have_same_shape": true,
+    "affines_exact": true,
+    "case_ID_alone_accepted_as_identity": false,
+    "source_arrays_declared_identical": false,
+    "all_voxels_exact": false,
+    "differing_voxels": 11945,
+    "maximum_absolute_unscaled_sample_difference": 1422.0,
+    "mean_absolute_unscaled_sample_difference": 0.03264161355466958,
+    "differing_voxel_bounds": [
+      [
+        123,
+        207,
+        366
+      ],
+      [
+        189,
+        253,
+        393
+      ]
+    ],
+    "differing_CT_samples_within_each_original_v1_label": {
+      "heart_myocardium.nii.gz": 0,
+      "heart_atrium_left.nii.gz": 0,
+      "heart_ventricle_left.nii.gz": 0,
+      "heart_atrium_right.nii.gz": 0,
+      "heart_ventricle_right.nii.gz": 0
+    },
+    "cross_version_spatial_registration_independently_approved": false
+  },
+  "surface_derivation": "Complete original published per-label binary masks; Lewiner marching cubes at 0.5; exact source sform applied. No padding, smoothing, cleanup, component deletion, decimation, capping, relabeling, fitting or mesh repair.",
+  "source_annotation_workflow": "Original paper S3 reports heart-subpart model training from arterial CT labels transferred to aligned native CT images, then prediction in all CT sequences. Main paper reports all final dataset annotations manually reviewed and corrected when necessary. Per-interface independent expert accuracy is not supplied.",
+  "source_label_meanings": "Original label filenames remain unchanged. Published TotalSegmentator cardiac methods describe the output as LV myocardium and four cardiac chamber volumes (DOI 10.1038/s41467-024-46977-3). This supports LV myocardial context, not global myocardium or RV/atrial walls. Chamber-region masks provide separate volume labels; exact cavity/appendage/valve-plane interface conventions and per-interface anatomical accuracy remain unverified. No new wall is inferred from any chamber label.",
+  "normal_anatomical_atlas_approval": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "verified_structure_coverage_granted": false,
+  "source_label_meaning_evidence": {
+    "article_doi": "10.1038/s41467-024-46977-3",
+    "url": "https://www.nature.com/articles/s41467-024-46977-3",
+    "local_file": "../total-cardiac-interpretation-paper.html",
+    "sha256": "a661b33ca7ef7507e974b103d4ae1524cce2daeb8bfb16c70718d16aaacec1c8",
+    "scope": "Primary published application of TotalSegmentator describes LV myocardium; not a per-case manual annotation protocol or independent anatomical approval."
+  }
+}

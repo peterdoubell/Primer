@@ -1,0 +1,485 @@
+{
+  "module_id": "phys.4.fluids",
+  "scope": "Quiz-grounded next-step requirements plus necessary governing-model assumptions; not an exhaustive audit of the full externally sourced articles.",
+  "objective_scope_preserved": true,
+  "whole_module_complete": false,
+  "current_media": [
+    {
+      "id": "venturi-flow-plate",
+      "kind": "illustration",
+      "src": "/app/illustrations/grove/physics/phys-4-fluids-800.webp",
+      "srcset": "/app/illustrations/grove/physics/phys-4-fluids-800.webp 800w, /app/illustrations/grove/physics/phys-4-fluids-1600.webp 1600w",
+      "alt": "Water flows left to right through a level wide-narrow-wide tube; arrows lengthen in the throat while three pressure taps show equal levels in the wide sections and a lower level in the throat.",
+      "caption": "For steady incompressible flow, a smaller cross-sectional area requires greater speed. At the same elevation in an idealized flow, Bernoulli's equation pairs that speed increase with lower static pressure.",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "id": "compare-venturi-sections",
+      "kind": "model",
+      "renderer": "venturi-flow-lab",
+      "title": "Compare Venturi flow",
+      "instructions": "Narrow a circular throat while horizontal water flow stays fixed. Compare speed and radius ratios, then use the separate calibrated head scale to compare ideal pressures in open atmospheric standpipes.",
+      "props": {
+        "scenario": "horizontal-water-venturi",
+        "start_throat": "half-area"
+      }
+    },
+    {
+      "id": "module-object-phys.4.fluids",
+      "kind": "model",
+      "renderer": "spatial-3d",
+      "title": "Laboratory vessels · 3D study",
+      "instructions": "Drag or use the camera buttons to inspect the object from different sides. Change the labeled controls, then compare the geometry with the explanation below.",
+      "props": {
+        "scenario": "module.phys.4.fluids",
+        "family": "laboratory",
+        "context": "Fluid Mechanics: Inspect separate containers and relative measurement marks as a physical context for units, experiments and fluid observations; no flow or measurement uncertainty is calculated.",
+        "mode": "context",
+        "lesson": "Fluid Mechanics"
+      }
+    }
+  ],
+  "requirements": [
+    {
+      "id": "fluids.continuity-bernoulli",
+      "title": "Retain and connect the existing ideal Venturi",
+      "quiz_indices_zero_based": [
+        1,
+        5
+      ],
+      "current_status": "Existing quantitative model is appropriately scoped; retain its three validated states.",
+      "governing_equations": [
+        "Mass balance: d/dt ∫CV ρ dV + ∮CS ρ u·n dA = 0",
+        "Steady unbranched flow: ρ A U = constant; for constant ρ, Q=A U",
+        "Bernoulli along a suitable streamline: p/ρ + U²/2 + gz = constant",
+        "Bulk head accounting when deliberately extending: p1/(ρg)+α1 U1²/(2g)+z1+h_p = p2/(ρg)+α2 U2²/(2g)+z2+h_L"
+      ],
+      "units": {
+        "p": "Pa",
+        "ρ": "kg/m³",
+        "U": "m/s",
+        "Q": "m³/s",
+        "z,h": "m",
+        "g": "m/s²",
+        "α": "dimensionless kinetic-energy correction"
+      },
+      "assumptions_and_validity": [
+        "Current scene: steady horizontal water, ρ1000, g9.81, Q400cm³/s, negligible loss, inlet gauge16.5kPa.",
+        "Do not infer fixed Q when changing a real pump/nozzle system unless the boundary condition maintains it.",
+        "If mean profiles and losses are added, keep kinetic-energy correction and dissipation consistent; α=2 for fully developed laminar circular-pipe flow, not silently1."
+      ],
+      "required_faithful_representation": [
+        "Preserve circular radius proportional to square-root area, common speed-arrow scale and separately labelled head scale.",
+        "Keep ideal pressure recovery distinct from viscous loss; show gauge and absolute pressure when cavitation is relevant."
+      ],
+      "independent_checks": [
+        "Independent Q=A U and Bernoulli checks for all current geometries.",
+        "Rendered radii squared track area and speed arrows track U; standpipe heights use h=p_g/(ρg) with one datum.",
+        "Future head-loss cases satisfy an explicit energy balance and never create energy or silently clip negative absolute-pressure states."
+      ],
+      "source_ids": [
+        "doe-fluid-handbook"
+      ],
+      "priority": 0,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.hydrostatics-suction",
+      "title": "Pressure with depth and suction columns",
+      "quiz_indices_zero_based": [
+        9
+      ],
+      "current_status": "No module-bound column/hydrostatics activity.",
+      "governing_equations": [
+        "dp/dz=−ρg for z upward; p(z)=p_surface+ρg(z_surface−z)",
+        "Wide-tube static column: h=(p_atm−p_top)/(ρg)",
+        "Ordinary single-phase limiting model: p_top≥p_v(T), giving h≤(p_atm−p_v)/(ρg), with flow losses reducing available head"
+      ],
+      "units": {
+        "p_atm,p_top,p_v": "absolute Pa",
+        "ρ": "kg/m³",
+        "h,z": "m",
+        "g": "m/s²"
+      },
+      "assumptions_and_validity": [
+        "Uniform-density liquid at rest, known g, common external atmosphere.",
+        "Neglect capillary rise and tensile metastability; distinguish ideal p_top→0 bound from ordinary vapour-limited liquid and flowing pump operation.",
+        "No universal10.3m at arbitrary altitude ortemperature; temperature-dependent p_v requires a documented property source."
+      ],
+      "required_faithful_representation": [
+        "Plot a calibrated pressure-depth line and linked watercolumn; separate gauge/absolute labels.",
+        "Mark vapor-limited/invalid states without pretending to simulate cavitation bubbles or pump NPSH performance."
+      ],
+      "independent_checks": [
+        "Column height and pressure difference independently reconstruct each other, including pressure-sign/elevation changes.",
+        "At p_atm101325Pa,ρ1000,g9.81,p_top0, h=10.328746m; increasing p_top decreasesheight.",
+        "Atmospheric offset changes absolute pressure but not gauge hydrostatic gradient; show loss terms with correct units."
+      ],
+      "source_ids": [
+        "doe-fluid-handbook"
+      ],
+      "priority": 1,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.hydraulic-pistons",
+      "title": "Hydraulic force, displacement and work",
+      "quiz_indices_zero_based": [
+        7
+      ],
+      "current_status": "No module-bound piston mechanism.",
+      "governing_equations": [
+        "At equal height: Δp=F_in/A_in=F_out/A_out",
+        "Volume balance: A_in dx_in=A_out dx_out",
+        "Ideal work: F_in dx_in=F_out dx_out",
+        "If output piston is higher byΔz: p_out=p_in−ρgΔz, with external/weight forces explicitly included"
+      ],
+      "units": {
+        "F": "N",
+        "A": "m²",
+        "dx,Δz": "m",
+        "p": "Pa",
+        "work": "J"
+      },
+      "assumptions_and_validity": [
+        "Quasistatic incompressible liquid, frictionless massless pistons or explicit piston weights; equal ambient pressure.",
+        "Finite strokes and reservoir volume; no energy multiplication.",
+        "The work benchmark neglects gravitational energy changes of the working fluid. If evolving piston heights are retained, include fluid potential energy rather than impose equal mechanical input/output work without qualification."
+      ],
+      "required_faithful_representation": [
+        "Draw piston areas/radii consistently and couple actual displacement to volume exchange.",
+        "Use one force-arrow scale or clearly labelled separate scales; show work/volume ledger."
+      ],
+      "independent_checks": [
+        "10cm²,200cm²,50N gives50kPa and1000N. A0.2m input stroke produces0.01m output stroke and10J each.",
+        "Numerical integration of changing piston volumes equals0; same-height force ratio remains area ratio.",
+        "Nonzero-height pressure signs verified independently; prevent overtravel/negative-volume states."
+      ],
+      "source_ids": [
+        "doe-fluid-handbook"
+      ],
+      "priority": 1,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.buoyancy-capacity",
+      "title": "Displacement, hull capacity and flooding semantics",
+      "quiz_indices_zero_based": [
+        2
+      ],
+      "current_status": "Stage0 sealed-prism2D/3D exists but is not bound here; it explicitly excludes flooding/rotation.",
+      "governing_equations": [
+        "B=−∮ p n dS = ρg V_displaced upward in uniform hydrostatics",
+        "Floating equilibrium: M=ρ V_sub",
+        "Average object density: ρ_bar=M/V_water-excluding_total; V_sub/V_total=ρ_bar/ρ for a sealed body",
+        "Simple fixed-orientation hull capacity: positive freeboard needs M<ρ V_max; equality gives zero reserve displacement"
+      ],
+      "units": {
+        "B,W": "N",
+        "M": "kg",
+        "V": "m³",
+        "ρ": "kg/m³"
+      },
+      "assumptions_and_validity": [
+        "Static uniform-density fluid and fixed body orientation; no surface tension, waves, air buoyancy or bottom contact.",
+        "A sealed prism is a useful baseline, not a ship stability or flooding simulator.",
+        "Define a consistent control volume: added retained-water mass or lost buoyancy, never both for the same water.",
+        "Capsizing, free-surface stability and leak rate remain unmodelled unless independently solved."
+      ],
+      "required_faithful_representation": [
+        "Calibrated submerged/exposed geometric partition linked to pressure-force integral and weight.",
+        "Vary load and available water-excluding hull capacity, show waterline/freeboard and absence of an equilibrium when capacity is exceeded.",
+        "Label contained water load separately from predicted flooding; reuse existing prism only within its explicit limits."
+      ],
+      "independent_checks": [
+        "Independent surface-pressure integration agrees withρg V_sub, including partially submerged faces.",
+        "M600kg,V_total1m³,ρ1000 givesV_sub0.6m³ andaverage objectdensity600, whereasM/V_sub=1000: regression for wording error.",
+        "Neutral and overloaded limits remain distinct; no clipping of force arrows or hidden extra buoyancy."
+      ],
+      "source_ids": [
+        "openstax-buoyancy",
+        "doe-fluid-handbook"
+      ],
+      "priority": 1,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.viscosity-pipe",
+      "title": "Newtonian shear, no-slip pipe flow and Reynolds number",
+      "quiz_indices_zero_based": [
+        3,
+        6
+      ],
+      "current_status": "No viscous-flow profile is bound to this module; ideal Venturi has no resolved wall shear.",
+      "governing_equations": [
+        "Newtonian simple shear: τ=μ du/dy; ν=μ/ρ",
+        "Fully developed pipe: u(r)=Δp(R²−r²)/(4μL)",
+        "Q=2π∫0^R u(r)r dr=πR⁴Δp/(8μL); U=Q/(πR²)=u_max/2",
+        "Re_D=ρ|U|D/μ; laminar Darcy f=64/Re_D when U≠0",
+        "Dissipation ledger: Δp Q=∫V μ(∂u/∂r)² dV for this developed flow"
+      ],
+      "units": {
+        "μ": "Pa·s",
+        "ν": "m²/s",
+        "τ,Δp": "Pa",
+        "R,D,L": "m",
+        "u,U": "m/s",
+        "Q": "m³/s",
+        "power": "W",
+        "Re,f": "dimensionless"
+      },
+      "assumptions_and_validity": [
+        "Steady fully developed incompressible Newtonian circular-pipe flow, rigid no-slip wall, fixed properties, entrance effects omitted.",
+        "Laminar solution is not a turbulent model. Re is a geometry/condition-dependent indicator, not a universal magic switch.",
+        "If signedΔp is allowed, reverse flow andshear consistently; Re uses speed magnitude."
+      ],
+      "required_faithful_representation": [
+        "Actual radial parabolic profile with zero wall velocity, center maximum, annular flux weighting and marked mean velocity.",
+        "Linked pressure-gradient andshear arrows; show Re and validity rather than inventing vortex motion when a slider crosses a threshold."
+      ],
+      "independent_checks": [
+        "Independent annular quadrature recovers Q and u_max = 2U; wall traction and the ΔpQ/dissipation balance agree.",
+        "At fixed pressure drop, geometry and fluid density, doubling radius multiplies Q by16, mean speed by4 and Re_D by8. Doubling dynamic viscosity halves Q and mean speed, while Re_D falls by4.",
+        "For R=5mm, L=1m, μ=0.001Pa·s, Δp=1Pa and ρ=1000kg/m³: Q=2.45436926e−7m³/s, U=0.003125m/s and Re_D=31.25.",
+        "Check the steady Stokes momentum residual, all units and signed flow reversal; reject μ≤0, R≤0 and L≤0."
+      ],
+      "source_ids": [
+        "openstax-viscosity",
+        "doe-fluid-handbook"
+      ],
+      "priority": 1,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.external-boundary-layer",
+      "title": "No-slip and an external boundary layer",
+      "quiz_indices_zero_based": [
+        6
+      ],
+      "current_status": "The quiz correctly states dependence on position and flow, but there is no corresponding velocity-field visual.",
+      "governing_equations": [
+        "Steady 2D continuity: ∂u/∂x + ∂v/∂y = 0.",
+        "Zero-pressure-gradient laminar boundary layer: u u_x + v u_y = ν u_yy.",
+        "Blasius convention: η=y√(U∞/(νx)); f‴+0.5f f″=0; f(0)=f′(0)=0, f′(∞)=1; u/U∞=f′.",
+        "δ99≈4.9√(νx/U∞); local Cf≈0.664/√Re_x."
+      ],
+      "units": {
+        "u,v,U∞": "m/s",
+        "x,y,δ": "m",
+        "ν": "m²/s",
+        "η,f′,Cf,Re_x": "dimensionless"
+      },
+      "assumptions_and_validity": [
+        "Flat stationary plate; steady attached laminar continuum flow; uniform external U∞; zero pressure gradient and a thin layer δ/x≪1.",
+        "The leading edge x=0 lies outside this approximation; transition and separation require other models.",
+        "A developed pipe parabola is not an external boundary layer, and a pipe critical Reynolds number cannot be transferred to a flat plate."
+      ],
+      "required_faithful_representation": [
+        "A velocity profile that runs continuously from zero at the wall toward the external speed, with thickness growing downstream. State any unequal graphical scales.",
+        "Show dimensional and normalized profiles with a probe; do not use a fixed few-centimetre thickness."
+      ],
+      "independent_checks": [
+        "Compare independent boundary-value/shooting solutions with refinement convergence, not a copied table alone.",
+        "Check wall/far-field conditions, f″(0)≈0.332057 under the stated convention, δ99 defined by f′=.99, and integral displacement/momentum thickness.",
+        "Multiplying x by4 doubles δ99 and halves local Cf; actual SVG arrows/points must use that same verified solution."
+      ],
+      "source_ids": [
+        "mit-boundary-layer"
+      ],
+      "priority": 1,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.settling",
+      "title": "Steady Stokes settling and explicitly modelled transients",
+      "quiz_indices_zero_based": [
+        4
+      ],
+      "current_status": "No sphere-settling activity; the current time-to-terminal wording lacks transient-model assumptions.",
+      "governing_equations": [
+        "Steady creeping-flow sphere drag: F_D = 6πμa(v−u_f).",
+        "Terminal settling: v_t = 2a²(ρ_s−ρ_f)g/(9μ), retaining the sign of the density contrast.",
+        "Quasi-steady particle-inertia model only: m_s dv/dt = (ρ_s−ρ_f)Vg − 6πμa v.",
+        "Release from rest in that approximation: τ=2ρ_s a²/(9μ), v=v_t(1−exp(−t/τ)), t95=−τ ln(0.05).",
+        "General unsteady Stokes settling requires added-mass/history contributions; low Re alone does not remove them."
+      ],
+      "units": {
+        "a": "m",
+        "μ": "Pa·s",
+        "ρ_s,ρ_f": "kg/m³",
+        "v": "m/s",
+        "F": "N",
+        "τ,t": "s",
+        "Re_D=2aρ_f|v|/μ": "dimensionless"
+      },
+      "assumptions_and_validity": [
+        "One isolated rigid no-slip sphere in a Newtonian quiescent fluid, negligible walls, uniform properties and Re_D≪1.",
+        "State the transient approximation; exponential relaxation is not exact general unsteady Stokes flow.",
+        "Compare times to the same fraction of terminal speed and account for density contrast as well as viscosity.",
+        "Actual honey properties vary with temperature/composition. Use explicit model parameters and avoid an unexplained material preset."
+      ],
+      "required_faithful_representation": [
+        "A force ledger for weight, buoyancy and drag, linked to v(t) and an analytic/numerical trajectory in SI units.",
+        "Retain complete curves; flag invalid Reynolds-number regimes rather than extrapolate Stokes drag.",
+        "A general settling-time claim requires an independently verified history-force comparison, not only a memoryless animation."
+      ],
+      "independent_checks": [
+        "Independently verify terminal force balance, the declared ODE residual, initial acceleration, t95 and long-time limit.",
+        "Neutral density gives v_t=0; lighter particles rise with consistent signs. Doubling radius multiplies v_t and τ by4, and terminal Re_D by8, potentially leaving the allowed regime.",
+        "Compare any general unsteady claim with a primary BBO/history-force benchmark; exponential and algebraic tails remain different models."
+      ],
+      "source_ids": [
+        "unsteady-settling",
+        "openstax-viscosity"
+      ],
+      "priority": 1,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.lift-pressure",
+      "title": "Wing pressure distribution and net force",
+      "quiz_indices_zero_based": [
+        0
+      ],
+      "current_status": "The question avoids the equal-transit-time fallacy; the horizontal Venturi does not represent wing flow.",
+      "governing_equations": [
+        "For valid attached low-Mach external flow with a common reference head: Cp=(p−p∞)/(0.5ρU∞²)=1−(U/U∞)².",
+        "Pressure force on a body: F=−∮(p−p∞) n dS; lift is its upward component.",
+        "The velocity distribution needs physical provenance; path length alone does not determine it."
+      ],
+      "units": {
+        "p": "Pa",
+        "ρ": "kg/m³",
+        "U": "m/s",
+        "F": "N orN/m for2Dunitspan",
+        "Cp": "dimensionless"
+      },
+      "assumptions_and_validity": [
+        "Use measured/simulated Cp with documented geometry and conditions, or a verified ideal potential-airfoil solution.",
+        "State attached/incompressible assumptions. Stall, drag, compressibility and viscous wake claims need their own evidence.",
+        "Do not compare unrelated streamline total heads or assume equal transit times."
+      ],
+      "required_faithful_representation": [
+        "Pressure-normal arrows on an actual airfoil geometry, upper/lower Cp curves and integrated lift.",
+        "Relate pressure force to air momentum without presenting them as separate additive lift mechanisms."
+      ],
+      "independent_checks": [
+        "Independent closed-surface quadrature cancels uniform pressure and matches known analytic or published lift.",
+        "A symmetric zero-incidence reference has zero lift; test normals, force direction and SI units.",
+        "Every visible arrow corresponds to its local Cp; source geometry and measured/modelled velocity data are identified."
+      ],
+      "source_ids": [
+        "nasa-lift",
+        "doe-fluid-handbook"
+      ],
+      "priority": 2,
+      "completion_proven": false
+    },
+    {
+      "id": "fluids.plume-regimes",
+      "title": "Buoyancy, entrainment and limits of Reynolds-only stories",
+      "quiz_indices_zero_based": [
+        8
+      ],
+      "current_status": "No plume activity is bound here; the answer overgeneralizes speed growth.",
+      "governing_equations": [
+        "Re_L=|U|L/ν, with an explicit local length definition.",
+        "For one self-similar steady round turbulent pure-plume regime: U∝B^(1/3)(z+z0)^(−1/3) and b∝(z+z0).",
+        "At fixed ν this gives Re_b∝(z+z0)^(2/3), even while U decreases; this is not a laminar-onset criterion.",
+        "Buoyancy flux B=g′Q has units m⁴/s³; stratification, entrainment and disturbances matter."
+      ],
+      "units": {
+        "U": "m/s",
+        "b,z,z0": "m",
+        "ν": "m²/s",
+        "B": "m⁴/s³",
+        "Re": "dimensionless"
+      },
+      "assumptions_and_validity": [
+        "Distinguish a forced plume, pure plume, jet and transient thermal; state ambient stratification and Boussinesq limits.",
+        "The scaling relation applies only to its far-field regime and does not predict where smoke becomes turbulent.",
+        "No universal critical Reynolds number is shared with pipe or flat-plate flow."
+      ],
+      "required_faithful_representation": [
+        "Use annotated primary experiment/simulation frames for actual laminar-to-turbulent motion, or explicitly label a tool as scaling only.",
+        "A random wiggling line or particle animation is not validated turbulence. Retain the evidence gap if no faithful flow source exists."
+      ],
+      "independent_checks": [
+        "Check dimensions and power laws: multiplying z+z0 by8 halves U, multiplies b by8 and Re by4 within the stated model.",
+        "A flow-field simulation needs independent mass/buoyancy budgets, domain/resolution convergence and an experiment comparison.",
+        "Do not label a scaling-only result as a transition location or instantaneous vortex prediction."
+      ],
+      "source_ids": [
+        "plume-primary",
+        "mit-plume-scope"
+      ],
+      "priority": 2,
+      "completion_proven": false
+    }
+  ],
+  "coverage_rule": "Map every quiz to actual readable/interactive evidence. A renderer name, count of stations or numeric pass count is not proof of faithful complete module coverage.",
+  "quiz_mapping": {
+    "0": [
+      "fluids.lift-pressure"
+    ],
+    "1": [
+      "fluids.continuity-bernoulli"
+    ],
+    "2": [
+      "fluids.buoyancy-capacity"
+    ],
+    "3": [
+      "fluids.viscosity-pipe"
+    ],
+    "4": [
+      "fluids.settling"
+    ],
+    "5": [
+      "fluids.continuity-bernoulli"
+    ],
+    "6": [
+      "fluids.viscosity-pipe",
+      "fluids.external-boundary-layer"
+    ],
+    "7": [
+      "fluids.hydraulic-pistons"
+    ],
+    "8": [
+      "fluids.plume-regimes"
+    ],
+    "9": [
+      "fluids.hydrostatics-suction"
+    ]
+  },
+  "implementation_order": [
+    {
+      "phase": 1,
+      "work": [
+        "Correct the ship-density definition and bound suction, plume and settling language.",
+        "Add hydrostatic-column, piston-work and displacement-capacity representations while retaining the reviewed Venturi."
+      ]
+    },
+    {
+      "phase": 2,
+      "work": [
+        "Add Newtonian pipe/Re and external boundary-layer representations with explicit validity checks.",
+        "Add terminal Stokes settling and an explicitly declared transient model with independent checks."
+      ]
+    },
+    {
+      "phase": 3,
+      "work": [
+        "Add physically sourced wing-pressure/force and plume examples.",
+        "Reconcile all ten quizzes, external reading scope and visible lesson media before claiming module completion."
+      ]
+    }
+  ],
+  "crosscutting_acceptance": [
+    "Use SI conversions and explicit meanings for gauge/absolute pressure, dynamic/kinematic viscosity and geometry.",
+    "Independently verify scalar physics and actual rendered geometry, arrows and axes, then the real reader at390/1440px.",
+    "Preserve lesson identity and existing illustrations; retain accessible labels, tables, speech, invalid-input recovery and all plotted states.",
+    "Any 3D view must derive volume, area and forces from the same model. Generic laboratory vessels remain contextual.",
+    "An approximation does not silently expand its domain; missing turbulence, dynamics and ship-stability evidence remain open."
+  ]
+}

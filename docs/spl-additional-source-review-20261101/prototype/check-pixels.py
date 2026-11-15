@@ -1,0 +1,15 @@
+from pathlib import Path
+import gzip,hashlib,json
+import numpy as np
+R=Path.cwd();D=R/'.research/spl-additional-source-viewer-20261101';m=json.loads((D/'manifest.json').read_bytes());S=R/'web/anatomy/spl-nac-limbic';sha=lambda b:hashlib.sha256(b).hexdigest()
+def read(row):
+ packed=(S/row['file']).read_bytes();assert sha(packed)==row['gzipSHA256'];raw=gzip.decompress(packed);assert sha(raw)==row['decodedSHA256'];return np.frombuffer(raw,dtype=row['dtype']).reshape(row['shape'],order='F')
+images={k:read(row)for k,row in m['volumes'].items()};labels=read(m['labelVolume']);palette={r['code']:r['color']for r in m['labels']};cases=[];pixels=0
+for width in [390,1440]:cases.extend(json.loads((D/('pixel-cases-'+str(width)+'.json')).read_bytes()))
+for case in cases:
+ state=case['state'];row=m['volumes'][state['contrast']];A=np.asarray(row['voxelToRAS']);world_axes={'axial':(2,0,1),'coronal':(1,0,2),'sagittal':(0,1,2)}[state['plane']];n,u,v=[int(np.flatnonzero(A[a,:3])[0])for a in world_axes];W,H=row['shape'][u],row['shape'][v];flip_u=A[world_axes[1],u]>0;flip_v=A[world_axes[2],v]>0;spec=state['spec'];assert (n,u,v)==(spec['fixed'],spec['horizontal'],spec['vertical']);assert bool(flip_u)==spec['flipHorizontal']and bool(flip_v)==spec['flipVertical'];y,x=np.indices((H,W));points=np.ones((H,W,4));points[...,n]=state['slice'];points[...,u]=W-1-x if flip_u else x;points[...,v]=H-1-y if flip_v else y;values=images[state['contrast']][tuple(points[...,:3].astype(int).transpose(2,0,1))].astype(np.float64);grey=np.floor(np.clip(255*(values-(state['center']-state['width']/2))/state['width'],0,255)).astype(np.uint8);rgb=np.repeat(grey[...,None],3,axis=2);M=np.einsum('ij,jk->ik',np.linalg.inv(m['labelVolume']['voxelToRAS']),A);coords=np.floor(np.einsum('...j,ij->...i',points,M)[...,:3]+.5).astype(int);inside=np.all((coords>=0)&(coords<np.asarray(labels.shape)),axis=-1);codes=np.zeros((H,W),np.int16);codes[inside]=labels[tuple(coords[inside].T)];assert state['overlay']=='pair'
+ for code in {state['label'],77}:
+  mask=codes==code;color=palette.get(code)
+  if color is not None:rgb[mask]=np.floor(.55*rgb[mask]+.45*np.asarray(color)+.5).astype(np.uint8)
+ rgba=np.concatenate([rgb,np.full((H,W,1),255,np.uint8)],axis=2);assert sha(rgba.tobytes())==case['sha256'],(case['code'],state['contrast'],state['plane']);assert (case['width'],case['height'])==(W,H);probe=case['probe'];point=probe['voxel'];assert probe['value']==float(images[state['contrast']][tuple(point)]);world=np.einsum('ij,j->i',A,np.array([*point,1]));label_point=np.floor(np.einsum('ij,j->i',np.linalg.inv(m['labelVolume']['voxelToRAS']),world)[:3]+.5).astype(int);assert int(labels[tuple(label_point)])==probe['label']==case['code'];pixels+=W*H
+proof={'allPassed':True,'cases':len(cases),'originalSourceClasses':len({c['code']for c in cases}),'actualCanvasPixelsCompared':pixels,'fixedComparisonCode':77,'sourceResampled':False,'clinicalApproval':False,'anatomicalVisibilityVerified':False,'checkerSHA256':sha((D/'check-pixels.py').read_bytes())};(D/'pixel-proof.json').write_text(json.dumps(proof,indent=2)+'\n');print(proof)

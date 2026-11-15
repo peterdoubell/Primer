@@ -1,0 +1,1399 @@
+{
+  "status": "Offline research correspondence audit; no clinical approval",
+  "source_hashes": {
+    "/tmp/primer-msk-sources/high-fidelity/um-registration/Final model.mrml": "af910b97d438d97a2d7aaf41c7d7d3271214fe4ce2858334b62235b3f16551f2",
+    "/tmp/primer-msk-sources/high-fidelity/um-registration/Segmentation.seg.nrrd": "6a472ab2e7015e26efc513c87bdd1758405c98f0b8876b583229eaa251ffa366",
+    "/tmp/primer-msk-sources/high-fidelity/um-knee-image-audit/108 T1 SAG VIBE DIXON_W L-LIMB.nrrd": "bad8067951cd601dd1c9397e2f64a5aef902d55dfbe898036cdd50bdcb376852",
+    "/tmp/primer-msk-sources/high-fidelity/um-registration/19 RT T2 FS spc_SAG_iso (KNEE).nrrd": "78178ee8995b6fac4ecce94bec5f386719318b4a51133e7542595839180634bd"
+  },
+  "reference_image_origin_in_segmentation_ijk": [
+    0.0,
+    0.9999999999999831,
+    0.0
+  ],
+  "method": "No fitted transform. Original MRI pixels retained in native orthogonal planes; source labels nearest-neighbour sampled at MRI voxel centres; mesh contours from exact triangle-plane intersections.",
+  "metric_limits": "Dice compares two source-derived representations (mesh and author labels), not independent MRI truth. Boundary-voxel-centre distances are point-sampling proxies, not exact tissue-boundary distances. Intensity distributions are uncalibrated source values, not HU or a diagnosis.",
+  "images": [
+    {
+      "path": "/tmp/primer-msk-sources/high-fidelity/um-knee-image-audit/108 T1 SAG VIBE DIXON_W L-LIMB.nrrd",
+      "label": "MRML reference: source-labelled T1 Dixon water",
+      "shape": [
+        420,
+        923,
+        176
+      ],
+      "origin_lps_mm": [
+        71.16222381591797,
+        -210.49780273438,
+        189.33184814453
+      ],
+      "direction_columns": [
+        [
+          0.0,
+          1.1538461446761996,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.1538461446761996
+        ],
+        [
+          -1.199999956403474,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "path": "/tmp/primer-msk-sources/high-fidelity/um-registration/19 RT T2 FS spc_SAG_iso (KNEE).nrrd",
+      "label": "Separate source-labelled T2 FS knee",
+      "shape": [
+        306,
+        448,
+        176
+      ],
+      "origin_lps_mm": [
+        62.41222685033597,
+        -133.14432358742,
+        -110.66816174984
+      ],
+      "direction_columns": [
+        [
+          -0.0,
+          1.0714285373687997,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          -1.0714285373687997
+        ],
+        [
+          -1.1000000346790628,
+          0.0,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "structures": [
+    {
+      "id": "um-knee-cartilage-femur-distal",
+      "name": "Distal femoral cartilage",
+      "source_segment": {
+        "name": "Cartilage_Femur Distal",
+        "id": "2.25.331034544447301414515145810313705880174",
+        "layer": 1,
+        "label_value": 2
+      },
+      "component_label_selection": null,
+      "source_label_voxels": 8180,
+      "label_volume_mm3": 13068.638370744437,
+      "mesh_volume_mm3": 12530.659034253536,
+      "mesh_volume_difference_percent": -4.116567627238233,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.03570669785866546,
+        "median": 0.6583069674285292,
+        "p95": 1.0042357173956358,
+        "max": 1.2763823030158616
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -72.83777095249891,
+          "actual_world_coordinate_mm": -72.83777095249891,
+          "source_image_index": 120,
+          "mesh_label_plane_dice": 0.9753694581280788,
+          "source_label_pixels": 206,
+          "mesh_section_pixels": 200,
+          "display_window_uncalibrated": [
+            0.0,
+            467.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 47.96373367308871,
+          "actual_world_coordinate_mm": 47.96373367308871,
+          "source_image_index": 224,
+          "mesh_label_plane_dice": 0.9790940766550522,
+          "source_label_pixels": 289,
+          "mesh_section_pixels": 285,
+          "display_window_uncalibrated": [
+            0.0,
+            467.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -333.36045539378847,
+          "actual_world_coordinate_mm": -333.36045539378847,
+          "source_image_index": 453,
+          "mesh_label_plane_dice": 0.9679180887372013,
+          "source_label_pixels": 747,
+          "mesh_section_pixels": 718,
+          "display_window_uncalibrated": [
+            0.0,
+            467.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -72.83777095249891,
+          "actual_world_coordinate_mm": -72.88777741518876,
+          "source_image_index": 123,
+          "mesh_label_plane_dice": 0.8991596638655462,
+          "source_label_pixels": 242,
+          "mesh_section_pixels": 234,
+          "display_window_uncalibrated": [
+            0.0,
+            230.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 47.96373367308871,
+          "actual_world_coordinate_mm": 47.92709922790718,
+          "source_image_index": 169,
+          "mesh_label_plane_dice": 0.9415292353823088,
+          "source_label_pixels": 336,
+          "mesh_section_pixels": 331,
+          "display_window_uncalibrated": [
+            0.0,
+            230.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -333.36045539378847,
+          "actual_world_coordinate_mm": -333.5252975225503,
+          "source_image_index": 208,
+          "mesh_label_plane_dice": 0.934040047114252,
+          "source_label_pixels": 873,
+          "mesh_section_pixels": 825,
+          "display_window_uncalibrated": [
+            0.0,
+            230.0
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 325.0,
+            "p95": 452.0,
+            "max": 520.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 18.0,
+            "p95": 74.0,
+            "max": 361.0
+          }
+        }
+      ],
+      "review_image": "um-knee-cartilage-femur-distal-source-planes.png"
+    },
+    {
+      "id": "um-knee-cartilage-patella",
+      "name": "Patellar cartilage",
+      "source_segment": {
+        "name": "Cartilage_Patella",
+        "id": "2.25.132420848480423359177028310850511887438",
+        "layer": 0,
+        "label_value": 60
+      },
+      "component_label_selection": null,
+      "source_label_voxels": 1869,
+      "label_volume_mm3": 2985.976175418258,
+      "mesh_volume_mm3": 2830.1370780679695,
+      "mesh_volume_difference_percent": -5.219033515177318,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.06210923570126711,
+        "median": 0.6516371511457706,
+        "p95": 1.0268756564545254,
+        "max": 1.3157409415665817
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -48.83777182442944,
+          "actual_world_coordinate_mm": -48.83777182442944,
+          "source_image_index": 100,
+          "mesh_label_plane_dice": 0.9405940594059405,
+          "source_label_pixels": 103,
+          "mesh_section_pixels": 99,
+          "display_window_uncalibrated": [
+            0.0,
+            449.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": -14.343958139426064,
+          "actual_world_coordinate_mm": -14.343958139426064,
+          "source_image_index": 170,
+          "mesh_label_plane_dice": 0.968968968968969,
+          "source_label_pixels": 514,
+          "mesh_section_pixels": 485,
+          "display_window_uncalibrated": [
+            0.0,
+            449.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -303.3604556322073,
+          "actual_world_coordinate_mm": -303.3604556322072,
+          "source_image_index": 427,
+          "mesh_label_plane_dice": 0.9900990099009901,
+          "source_label_pixels": 102,
+          "mesh_section_pixels": 100,
+          "display_window_uncalibrated": [
+            0.0,
+            449.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -48.83777182442944,
+          "actual_world_coordinate_mm": -48.68777665224937,
+          "source_image_index": 101,
+          "mesh_label_plane_dice": 0.8776371308016878,
+          "source_label_pixels": 127,
+          "mesh_section_pixels": 110,
+          "display_window_uncalibrated": [
+            0.0,
+            373.2349999999997
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": -14.343958139426064,
+          "actual_world_coordinate_mm": -14.215755939483216,
+          "source_image_index": 111,
+          "mesh_label_plane_dice": 0.9525423728813559,
+          "source_label_pixels": 614,
+          "mesh_section_pixels": 566,
+          "display_window_uncalibrated": [
+            0.0,
+            373.2349999999997
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -303.3604556322073,
+          "actual_world_coordinate_mm": -303.52529847622395,
+          "source_image_index": 180,
+          "mesh_label_plane_dice": 0.9519650655021834,
+          "source_label_pixels": 115,
+          "mesh_section_pixels": 114,
+          "display_window_uncalibrated": [
+            0.0,
+            373.2349999999997
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 71.0,
+            "median": 377.0,
+            "p95": 448.0,
+            "max": 491.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 1.0,
+            "median": 57.0,
+            "p95": 153.79999999999973,
+            "max": 354.0
+          }
+        }
+      ],
+      "review_image": "um-knee-cartilage-patella-source-planes.png"
+    },
+    {
+      "id": "um-knee-lateral-tibial-plateau-cartilage",
+      "name": "Lateral tibial plateau cartilage",
+      "source_segment": {
+        "name": "Cartilage_Tibia",
+        "id": "2.25.197887539336133492148483982442741590238",
+        "layer": 1,
+        "label_value": 3
+      },
+      "component_label_selection": {
+        "axis": "native LPS X",
+        "cut_mm": -54.82493019104004,
+        "keep": "below"
+      },
+      "source_label_voxels": 1149,
+      "label_volume_mm3": 1835.6803775043225,
+      "mesh_volume_mm3": 1711.8655463910375,
+      "mesh_volume_difference_percent": -6.744901379924095,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.12260693565659161,
+        "median": 0.6481625507274629,
+        "p95": 1.106395067795622,
+        "max": 1.3835861390700535
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -76.43777082170934,
+          "actual_world_coordinate_mm": -76.43777082170934,
+          "source_image_index": 123,
+          "mesh_label_plane_dice": 0.9559748427672956,
+          "source_label_pixels": 80,
+          "mesh_section_pixels": 79,
+          "display_window_uncalibrated": [
+            2.0,
+            473.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 44.502195239060114,
+          "actual_world_coordinate_mm": 44.502195239060114,
+          "source_image_index": 221,
+          "mesh_label_plane_dice": 0.9541284403669725,
+          "source_label_pixels": 56,
+          "mesh_section_pixels": 53,
+          "display_window_uncalibrated": [
+            2.0,
+            473.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -336.821993827817,
+          "actual_world_coordinate_mm": -336.821993827817,
+          "source_image_index": 456,
+          "mesh_label_plane_dice": 0.9594438006952491,
+          "source_label_pixels": 447,
+          "mesh_section_pixels": 416,
+          "display_window_uncalibrated": [
+            2.0,
+            473.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -76.43777082170934,
+          "actual_world_coordinate_mm": -76.18777751922596,
+          "source_image_index": 126,
+          "mesh_label_plane_dice": 0.9590643274853801,
+          "source_label_pixels": 85,
+          "mesh_section_pixels": 86,
+          "display_window_uncalibrated": [
+            0.0,
+            269.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 44.502195239060114,
+          "actual_world_coordinate_mm": 44.71281361580077,
+          "source_image_index": 166,
+          "mesh_label_plane_dice": 0.9411764705882353,
+          "source_label_pixels": 61,
+          "mesh_section_pixels": 58,
+          "display_window_uncalibrated": [
+            0.0,
+            269.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -336.821993827817,
+          "actual_world_coordinate_mm": -336.73958313465675,
+          "source_image_index": 211,
+          "mesh_label_plane_dice": 0.9618768328445748,
+          "source_label_pixels": 528,
+          "mesh_section_pixels": 495,
+          "display_window_uncalibrated": [
+            0.0,
+            269.0
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 54.0,
+            "median": 305.0,
+            "p95": 355.5999999999999,
+            "max": 379.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 15.0,
+            "p95": 122.59999999999991,
+            "max": 287.0
+          }
+        }
+      ],
+      "review_image": "um-knee-lateral-tibial-plateau-cartilage-source-planes.png"
+    },
+    {
+      "id": "um-knee-medial-tibial-plateau-cartilage",
+      "name": "Medial tibial plateau cartilage",
+      "source_segment": {
+        "name": "Cartilage_Tibia",
+        "id": "2.25.197887539336133492148483982442741590238",
+        "layer": 1,
+        "label_value": 3
+      },
+      "component_label_selection": {
+        "axis": "native LPS X",
+        "cut_mm": -54.82493019104004,
+        "keep": "above"
+      },
+      "source_label_voxels": 1373,
+      "label_volume_mm3": 2193.550181299769,
+      "mesh_volume_mm3": 2045.48386211492,
+      "mesh_volume_difference_percent": -6.750076676938099,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.06580808217572683,
+        "median": 0.652333579860406,
+        "p95": 1.0473356415433972,
+        "max": 1.3139417188270839
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -35.63777230399121,
+          "actual_world_coordinate_mm": -35.63777230399121,
+          "source_image_index": 89,
+          "mesh_label_plane_dice": 0.9299363057324841,
+          "source_label_pixels": 80,
+          "mesh_section_pixels": 77,
+          "display_window_uncalibrated": [
+            0.0,
+            416.9200000000001
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 32.963733792298115,
+          "actual_world_coordinate_mm": 32.963733792298115,
+          "source_image_index": 211,
+          "mesh_label_plane_dice": 0.9473684210526315,
+          "source_label_pixels": 60,
+          "mesh_section_pixels": 54,
+          "display_window_uncalibrated": [
+            0.0,
+            416.9200000000001
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -343.74507069587423,
+          "actual_world_coordinate_mm": -343.74507069587423,
+          "source_image_index": 462,
+          "mesh_label_plane_dice": 0.963276836158192,
+          "source_label_pixels": 363,
+          "mesh_section_pixels": 345,
+          "display_window_uncalibrated": [
+            0.0,
+            416.9200000000001
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -35.63777230399121,
+          "actual_world_coordinate_mm": -35.487776236100615,
+          "source_image_index": 89,
+          "mesh_label_plane_dice": 0.8102564102564103,
+          "source_label_pixels": 111,
+          "mesh_section_pixels": 84,
+          "display_window_uncalibrated": [
+            0.0,
+            356.25
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 32.963733792298115,
+          "actual_world_coordinate_mm": 32.927099704743966,
+          "source_image_index": 155,
+          "mesh_label_plane_dice": 0.8251748251748252,
+          "source_label_pixels": 83,
+          "mesh_section_pixels": 60,
+          "display_window_uncalibrated": [
+            0.0,
+            356.25
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -343.74507069587423,
+          "actual_world_coordinate_mm": -344.23958289623835,
+          "source_image_index": 218,
+          "mesh_label_plane_dice": 0.9056122448979592,
+          "source_label_pixels": 429,
+          "mesh_section_pixels": 355,
+          "display_window_uncalibrated": [
+            0.0,
+            356.25
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 23.0,
+            "median": 246.0,
+            "p95": 339.39999999999986,
+            "max": 408.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 22.0,
+            "p95": 276.0,
+            "max": 451.0
+          }
+        }
+      ],
+      "review_image": "um-knee-medial-tibial-plateau-cartilage-source-planes.png"
+    },
+    {
+      "id": "um-knee-ligament-acl",
+      "name": "Anterior cruciate ligament",
+      "source_segment": {
+        "name": "Ligament_ACL",
+        "id": "2.25.21875659706057549464834620944591981191",
+        "layer": 0,
+        "label_value": 61
+      },
+      "component_label_selection": null,
+      "source_label_voxels": 963,
+      "label_volume_mm3": 1538.5206297098891,
+      "mesh_volume_mm3": 1389.4478469935148,
+      "mesh_volume_difference_percent": -9.689358714967911,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.01179486193521611,
+        "median": 0.6671154021752104,
+        "p95": 1.111347135356983,
+        "max": 1.4960081082441936
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -56.03777156285028,
+          "actual_world_coordinate_mm": -56.03777156285028,
+          "source_image_index": 106,
+          "mesh_label_plane_dice": 0.9355608591885441,
+          "source_label_pixels": 216,
+          "mesh_section_pixels": 203,
+          "display_window_uncalibrated": [
+            2.0,
+            416.6100000000006
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 23.732964634888532,
+          "actual_world_coordinate_mm": 23.732964634888532,
+          "source_image_index": 203,
+          "mesh_label_plane_dice": 0.9078014184397163,
+          "source_label_pixels": 73,
+          "mesh_section_pixels": 68,
+          "display_window_uncalibrated": [
+            2.0,
+            416.6100000000006
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -336.821993827817,
+          "actual_world_coordinate_mm": -336.821993827817,
+          "source_image_index": 456,
+          "mesh_label_plane_dice": 0.9272727272727272,
+          "source_label_pixels": 58,
+          "mesh_section_pixels": 52,
+          "display_window_uncalibrated": [
+            2.0,
+            416.6100000000006
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -56.03777156285028,
+          "actual_world_coordinate_mm": -56.387776895002816,
+          "source_image_index": 108,
+          "mesh_label_plane_dice": 0.8836206896551724,
+          "source_label_pixels": 255,
+          "mesh_section_pixels": 209,
+          "display_window_uncalibrated": [
+            0.0,
+            340.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 23.732964634888532,
+          "actual_world_coordinate_mm": 23.28424286842477,
+          "source_image_index": 146,
+          "mesh_label_plane_dice": 0.8834355828220859,
+          "source_label_pixels": 87,
+          "mesh_section_pixels": 76,
+          "display_window_uncalibrated": [
+            0.0,
+            340.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -336.821993827817,
+          "actual_world_coordinate_mm": -336.73958313465675,
+          "source_image_index": 211,
+          "mesh_label_plane_dice": 0.8837209302325582,
+          "source_label_pixels": 69,
+          "mesh_section_pixels": 60,
+          "display_window_uncalibrated": [
+            0.0,
+            340.0
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 248.0,
+            "p95": 337.0,
+            "max": 463.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 1.0,
+            "median": 29.0,
+            "p95": 137.89999999999998,
+            "max": 437.0
+          }
+        }
+      ],
+      "review_image": "um-knee-ligament-acl-source-planes.png"
+    },
+    {
+      "id": "um-knee-ligament-patella",
+      "name": "Patellar ligament",
+      "source_segment": {
+        "name": "Tendon_Patella",
+        "id": "2.25.223831383855671605942128573690197500414",
+        "layer": 0,
+        "label_value": 16
+      },
+      "component_label_selection": null,
+      "source_label_voxels": 2994,
+      "label_volume_mm3": 4783.313359658783,
+      "mesh_volume_mm3": 4506.282916347497,
+      "mesh_volume_difference_percent": -5.791601395963064,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.034393028856680684,
+        "median": 0.6867919068824224,
+        "p95": 1.0954517379388895,
+        "max": 1.5910251596297773
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -82.4377706037267,
+          "actual_world_coordinate_mm": -82.4377706037267,
+          "source_image_index": 128,
+          "mesh_label_plane_dice": 0.900497512437811,
+          "source_label_pixels": 203,
+          "mesh_section_pixels": 199,
+          "display_window_uncalibrated": [
+            0.0,
+            450.2350000000006
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": -0.49780440331167597,
+          "actual_world_coordinate_mm": -0.49780440331167597,
+          "source_image_index": 182,
+          "mesh_label_plane_dice": 0.9042145593869731,
+          "source_label_pixels": 135,
+          "mesh_section_pixels": 126,
+          "display_window_uncalibrated": [
+            0.0,
+            450.2350000000006
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -333.36045539378847,
+          "actual_world_coordinate_mm": -333.36045539378847,
+          "source_image_index": 453,
+          "mesh_label_plane_dice": 0.8588235294117647,
+          "source_label_pixels": 91,
+          "mesh_section_pixels": 79,
+          "display_window_uncalibrated": [
+            0.0,
+            450.2350000000006
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -82.4377706037267,
+          "actual_world_coordinate_mm": -82.78777772730032,
+          "source_image_index": 132,
+          "mesh_label_plane_dice": 0.8672566371681416,
+          "source_label_pixels": 236,
+          "mesh_section_pixels": 216,
+          "display_window_uncalibrated": [
+            0.0,
+            481.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": -0.49780440331167597,
+          "actual_world_coordinate_mm": -0.28718495368883623,
+          "source_image_index": 124,
+          "mesh_label_plane_dice": 0.8627450980392157,
+          "source_label_pixels": 157,
+          "mesh_section_pixels": 149,
+          "display_window_uncalibrated": [
+            0.0,
+            481.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -333.36045539378847,
+          "actual_world_coordinate_mm": -333.5252975225503,
+          "source_image_index": 208,
+          "mesh_label_plane_dice": 0.8461538461538461,
+          "source_label_pixels": 115,
+          "mesh_section_pixels": 93,
+          "display_window_uncalibrated": [
+            0.0,
+            481.0
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 173.5,
+            "p95": 401.0,
+            "max": 492.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 17.0,
+            "p95": 74.0,
+            "max": 236.0
+          }
+        }
+      ],
+      "review_image": "um-knee-ligament-patella-source-planes.png"
+    },
+    {
+      "id": "um-knee-ligament-pcl",
+      "name": "Posterior cruciate ligament",
+      "source_segment": {
+        "name": "Ligament_PCL",
+        "id": "2.25.91110222309625146090585837682458927133",
+        "layer": 0,
+        "label_value": 62
+      },
+      "component_label_selection": null,
+      "source_label_voxels": 1222,
+      "label_volume_mm3": 1952.3075903483743,
+      "mesh_volume_mm3": 1847.2583652287128,
+      "mesh_volume_difference_percent": -5.38077225325525,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.09194850979748054,
+        "median": 0.6666732628418748,
+        "p95": 1.1237201905182352,
+        "max": 1.5787748834791362
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -45.23777195521902,
+          "actual_world_coordinate_mm": -45.23777195521902,
+          "source_image_index": 97,
+          "mesh_label_plane_dice": 0.9506172839506173,
+          "source_label_pixels": 166,
+          "mesh_section_pixels": 158,
+          "display_window_uncalibrated": [
+            0.0,
+            459.8800000000001
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 41.04065680503152,
+          "actual_world_coordinate_mm": 41.04065680503152,
+          "source_image_index": 218,
+          "mesh_label_plane_dice": 0.9186602870813397,
+          "source_label_pixels": 109,
+          "mesh_section_pixels": 100,
+          "display_window_uncalibrated": [
+            0.0,
+            459.8800000000001
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -328.74507081508364,
+          "actual_world_coordinate_mm": -328.74507081508364,
+          "source_image_index": 449,
+          "mesh_label_plane_dice": 0.916256157635468,
+          "source_label_pixels": 101,
+          "mesh_section_pixels": 102,
+          "display_window_uncalibrated": [
+            0.0,
+            459.8800000000001
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -45.23777195521902,
+          "actual_world_coordinate_mm": -45.38777654821219,
+          "source_image_index": 98,
+          "mesh_label_plane_dice": 0.9302325581395349,
+          "source_label_pixels": 203,
+          "mesh_section_pixels": 184,
+          "display_window_uncalibrated": [
+            0.0,
+            410.7900000000009
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 41.04065680503152,
+          "actual_world_coordinate_mm": 41.49852800369436,
+          "source_image_index": 163,
+          "mesh_label_plane_dice": 0.8571428571428571,
+          "source_label_pixels": 125,
+          "mesh_section_pixels": 113,
+          "display_window_uncalibrated": [
+            0.0,
+            410.7900000000009
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -328.74507081508364,
+          "actual_world_coordinate_mm": -329.23958337307516,
+          "source_image_index": 204,
+          "mesh_label_plane_dice": 0.8796680497925311,
+          "source_label_pixels": 122,
+          "mesh_section_pixels": 119,
+          "display_window_uncalibrated": [
+            0.0,
+            410.7900000000009
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 47.0,
+            "median": 244.0,
+            "p95": 327.95000000000005,
+            "max": 384.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 32.0,
+            "p95": 142.9000000000001,
+            "max": 433.0
+          }
+        }
+      ],
+      "review_image": "um-knee-ligament-pcl-source-planes.png"
+    },
+    {
+      "id": "um-knee-lateral-meniscus",
+      "name": "Lateral meniscus",
+      "source_segment": {
+        "name": "Meniscus_Knee",
+        "id": "2.25.208357532610539236946950120753819621050",
+        "layer": 0,
+        "label_value": 53
+      },
+      "component_label_selection": {
+        "axis": "native LPS X",
+        "cut_mm": -56.98512268066406,
+        "keep": "below"
+      },
+      "source_label_voxels": 725,
+      "label_volume_mm3": 1158.283963177227,
+      "mesh_volume_mm3": 1035.660563656236,
+      "mesh_volume_difference_percent": -10.58664398535133,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.08682946266858478,
+        "median": 0.6662032631274017,
+        "p95": 1.0471633744514133,
+        "max": 1.4744616143055969
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -84.83777051653365,
+          "actual_world_coordinate_mm": -84.83777051653365,
+          "source_image_index": 130,
+          "mesh_label_plane_dice": 0.9154929577464789,
+          "source_label_pixels": 76,
+          "mesh_section_pixels": 66,
+          "display_window_uncalibrated": [
+            0.0,
+            492.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 41.04065680503152,
+          "actual_world_coordinate_mm": 41.04065680503152,
+          "source_image_index": 218,
+          "mesh_label_plane_dice": 0.9672131147540983,
+          "source_label_pixels": 62,
+          "mesh_section_pixels": 60,
+          "display_window_uncalibrated": [
+            0.0,
+            492.0
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -333.36045539378847,
+          "actual_world_coordinate_mm": -333.36045539378847,
+          "source_image_index": 453,
+          "mesh_label_plane_dice": 0.9017632241813602,
+          "source_label_pixels": 211,
+          "mesh_section_pixels": 186,
+          "display_window_uncalibrated": [
+            0.0,
+            492.0
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -84.83777051653365,
+          "actual_world_coordinate_mm": -84.98777779665846,
+          "source_image_index": 134,
+          "mesh_label_plane_dice": 0.9325153374233128,
+          "source_label_pixels": 83,
+          "mesh_section_pixels": 80,
+          "display_window_uncalibrated": [
+            0.0,
+            387.09499999999935
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 41.04065680503152,
+          "actual_world_coordinate_mm": 41.49852800369436,
+          "source_image_index": 163,
+          "mesh_label_plane_dice": 0.9142857142857143,
+          "source_label_pixels": 68,
+          "mesh_section_pixels": 72,
+          "display_window_uncalibrated": [
+            0.0,
+            387.09499999999935
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -333.36045539378847,
+          "actual_world_coordinate_mm": -333.5252975225503,
+          "source_image_index": 208,
+          "mesh_label_plane_dice": 0.8978723404255319,
+          "source_label_pixels": 249,
+          "mesh_section_pixels": 221,
+          "display_window_uncalibrated": [
+            0.0,
+            387.09499999999935
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 212.0,
+            "median": 318.0,
+            "p95": 376.5999999999999,
+            "max": 464.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 32.0,
+            "p95": 143.79999999999995,
+            "max": 209.0
+          }
+        }
+      ],
+      "review_image": "um-knee-lateral-meniscus-source-planes.png"
+    },
+    {
+      "id": "um-knee-medial-meniscus",
+      "name": "Medial meniscus",
+      "source_segment": {
+        "name": "Meniscus_Knee",
+        "id": "2.25.208357532610539236946950120753819621050",
+        "layer": 0,
+        "label_value": 53
+      },
+      "component_label_selection": {
+        "axis": "native LPS X",
+        "cut_mm": -56.98512268066406,
+        "keep": "above"
+      },
+      "source_label_voxels": 799,
+      "label_volume_mm3": 1276.508809073937,
+      "mesh_volume_mm3": 1061.5688850429153,
+      "mesh_volume_difference_percent": -16.838107383446356,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.026011086859075813,
+        "median": 0.6421584381504997,
+        "p95": 1.0670649982875564,
+        "max": 1.2774849654525509
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -22.437772783553,
+          "actual_world_coordinate_mm": -22.437772783553,
+          "source_image_index": 78,
+          "mesh_label_plane_dice": 0.8602150537634409,
+          "source_label_pixels": 47,
+          "mesh_section_pixels": 46,
+          "display_window_uncalibrated": [
+            0.0,
+            421.0499999999993
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 30.656041502945726,
+          "actual_world_coordinate_mm": 30.656041502945726,
+          "source_image_index": 209,
+          "mesh_label_plane_dice": 0.946236559139785,
+          "source_label_pixels": 48,
+          "mesh_section_pixels": 45,
+          "display_window_uncalibrated": [
+            0.0,
+            421.0499999999993
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -340.2835322618456,
+          "actual_world_coordinate_mm": -340.2835322618456,
+          "source_image_index": 459,
+          "mesh_label_plane_dice": 0.9047619047619048,
+          "source_label_pixels": 190,
+          "mesh_section_pixels": 188,
+          "display_window_uncalibrated": [
+            0.0,
+            421.0499999999993
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -22.437772783553,
+          "actual_world_coordinate_mm": -22.28777581995186,
+          "source_image_index": 77,
+          "mesh_label_plane_dice": 0.8163265306122449,
+          "source_label_pixels": 49,
+          "mesh_section_pixels": 49,
+          "display_window_uncalibrated": [
+            0.0,
+            397.2449999999999
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": 30.656041502945726,
+          "actual_world_coordinate_mm": 30.78424263000636,
+          "source_image_index": 153,
+          "mesh_label_plane_dice": 0.7755102040816326,
+          "source_label_pixels": 53,
+          "mesh_section_pixels": 45,
+          "display_window_uncalibrated": [
+            0.0,
+            397.2449999999999
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -340.2835322618456,
+          "actual_world_coordinate_mm": -339.95386874676313,
+          "source_image_index": 214,
+          "mesh_label_plane_dice": 0.8826291079812206,
+          "source_label_pixels": 214,
+          "mesh_section_pixels": 212,
+          "display_window_uncalibrated": [
+            0.0,
+            397.2449999999999
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 150.0,
+            "median": 276.0,
+            "p95": 350.0,
+            "max": 415.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 13.0,
+            "p95": 60.09999999999991,
+            "max": 323.0
+          }
+        }
+      ],
+      "review_image": "um-knee-medial-meniscus-source-planes.png"
+    },
+    {
+      "id": "um-knee-tendon-quadriceps",
+      "name": "Quadriceps tendon",
+      "source_segment": {
+        "name": "Tendon_Quadriceps",
+        "id": "2.25.114877226581237848563761966516828659195",
+        "layer": 0,
+        "label_value": 54
+      },
+      "component_label_selection": null,
+      "source_label_voxels": 6124,
+      "label_volume_mm3": 9783.904814479087,
+      "mesh_volume_mm3": 9486.857083432917,
+      "mesh_volume_difference_percent": -3.0360856598540598,
+      "mesh_vertex_to_boundary_voxel_centre_mm": {
+        "min": 0.055307510924716356,
+        "median": 0.6728208466059499,
+        "p95": 1.1250221709053623,
+        "max": 1.6134522559320001
+      },
+      "planes": [
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -65.63777121407807,
+          "actual_world_coordinate_mm": -65.63777121407807,
+          "source_image_index": 114,
+          "mesh_label_plane_dice": 0.9812332439678284,
+          "source_label_pixels": 561,
+          "mesh_section_pixels": 558,
+          "display_window_uncalibrated": [
+            0.0,
+            419.4249999999993
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": -21.26703500748326,
+          "actual_world_coordinate_mm": -21.26703500748326,
+          "source_image_index": 164,
+          "mesh_label_plane_dice": 0.9518518518518518,
+          "source_label_pixels": 824,
+          "mesh_section_pixels": 796,
+          "display_window_uncalibrated": [
+            0.0,
+            419.4249999999993
+          ]
+        },
+        {
+          "sequence": "MRML reference: source-labelled T1 Dixon water",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -228.36045622825426,
+          "actual_world_coordinate_mm": -228.36045622825424,
+          "source_image_index": 362,
+          "mesh_label_plane_dice": 0.9459459459459459,
+          "source_label_pixels": 113,
+          "mesh_section_pixels": 109,
+          "display_window_uncalibrated": [
+            0.0,
+            419.4249999999993
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Sagittal",
+          "requested_world_coordinate_mm": -65.63777121407807,
+          "actual_world_coordinate_mm": -65.18777717243532,
+          "source_image_index": 116,
+          "mesh_label_plane_dice": 0.9617486338797814,
+          "source_label_pixels": 652,
+          "mesh_section_pixels": 629,
+          "display_window_uncalibrated": [
+            0.0,
+            102.05500000000029
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Coronal",
+          "requested_world_coordinate_mm": -21.26703500748326,
+          "actual_world_coordinate_mm": -21.715755701064822,
+          "source_image_index": 104,
+          "mesh_label_plane_dice": 0.9274318064848173,
+          "source_label_pixels": 986,
+          "mesh_section_pixels": 957,
+          "display_window_uncalibrated": [
+            0.0,
+            102.05500000000029
+          ]
+        },
+        {
+          "sequence": "Separate source-labelled T2 FS knee",
+          "plane": "Axial",
+          "requested_world_coordinate_mm": -228.36045622825426,
+          "actual_world_coordinate_mm": -228.52530086040798,
+          "source_image_index": 110,
+          "mesh_label_plane_dice": 0.8957528957528957,
+          "source_label_pixels": 132,
+          "mesh_section_pixels": 127,
+          "display_window_uncalibrated": [
+            0.0,
+            102.05500000000029
+          ]
+        }
+      ],
+      "sequence_sampling": [
+        {
+          "label": "MRML reference: source-labelled T1 Dixon water",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 104.0,
+            "p95": 252.0,
+            "max": 391.0
+          }
+        },
+        {
+          "label": "Separate source-labelled T2 FS knee",
+          "label_voxel_centres_in_fov_fraction": 1.0,
+          "label_interior_intensity_trilinear_for_statistics_only": {
+            "min": 0.0,
+            "median": 12.0,
+            "p95": 42.0,
+            "max": 195.0
+          }
+        }
+      ],
+      "review_image": "um-knee-tendon-quadriceps-source-planes.png"
+    }
+  ],
+  "mesh_geometry_and_source_labels_sha256": "4f6f63f2cdf040fdc60988321fb334a8d1691114e63e6172d3487e3e82ce9cc9"
+}

@@ -1,0 +1,13 @@
+# Cervical MRI runtime integration — 10 October 2026
+
+The scoped cervical examination now has eight assessment areas and 32 complete licensed source figures. Every assessment area inserts prompts for actual coverage, findings, measurements and uncertainty. Source publication cases do not fill patient normality or staging statements. Procedure/device examples remain separately described gallery references rather than pretreatment staging observations.
+
+The shared uterine-MRI lesson previously displayed three remote Radiology Assistant previews whose commercial grants were not recorded. One acquisition-planning image was also used for stromal/parametrial invasion. The scoped guide and shared previews now use the reviewed originals. The parent slots retain their IDs and use normal zonal anatomy, cervical plane planning and separate MRI comparison cases with their real captions. Source context and original bytes are preserved; the held records are archived here.
+
+The existing source-raster integrity registry now also validates these parent previews. A local prefix alone grants no access: the exact reviewed URL, source hash and path must match, with release-verified CDN metadata used when the hosted Python bundle omits local image files. Unknown paths, changed bytes, altered metadata and missing local files outside hosted mode are rejected. The original source-figure and illustration restrictions remain in place.
+
+The existing HRA female pelvic reference is offered independently for cervical anatomy. Its source occurrence coordinates, declared units, provenance conflict and fine-layer limits remain unchanged. It is deduplicated in the shared lesson with the same reference used for endometriosis. No source is fitted to a publication case or current patient, and gross surfaces do not approve cervical histological layers, tumour, vessels, nodes or organ-wall invasion.
+
+The named cervical inventory retains 162 groups and 762 fine leaves, each with separate clinical-image, schematic and model obligations. The full radiology audit has 115,380 known obligations and 45 investigations awaiting expansion; its full requirement count remains unknown and clinical/commercial readiness remains false. Original normal-zone terminology, source staging conflicts, MRI versus ancillary modalities, treatment timing and independent case boundaries remain source-local.
+
+Mathematical and physical additions in this release have separate quantitative and browser reviews. Their successful finite tests do not establish complete coverage of Measure Theory, Thermodynamics or all Primer modules.

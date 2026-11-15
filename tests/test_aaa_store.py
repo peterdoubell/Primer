@@ -151,6 +151,42 @@ def test_selection_reads_and_normalizes_the_env_at_call_time(monkeypatch):
     assert store.using_turso() is False
 
 
+def test_a_preview_deployment_never_reaches_the_remote_database(monkeypatch):
+    """The guarantee that a pull request cannot migrate production.
+
+    The Turso integration provisions one database across Production, Preview
+    and Development, so a preview built from any open branch used to boot,
+    run _init_db(), and apply that branch's migrations to the real reader's
+    record — which is exactly how production once ended up running
+    pre-migration code against a post-migration schema.
+    """
+    monkeypatch.setenv(store.URL_ENV, 'libsql://example.turso.io')
+    monkeypatch.setenv('VERCEL_ENV', 'preview')
+    assert store.turso_url() is None
+    assert store.using_turso() is False
+
+
+def test_production_and_local_still_reach_the_remote_database(monkeypatch):
+    """The guard is aimed at previews only; it must not cost production its
+    database, nor change what a laptop with no VERCEL_ENV at all does."""
+    monkeypatch.setenv(store.URL_ENV, 'libsql://example.turso.io')
+    for env in ('production', 'development'):
+        monkeypatch.setenv('VERCEL_ENV', env)
+        assert store.using_turso() is True, env
+    monkeypatch.delenv('VERCEL_ENV', raising=False)
+    assert store.using_turso() is True
+
+
+def test_a_preview_with_its_own_database_may_opt_back_in(monkeypatch):
+    """A preview pointed at a database of its own is a different thing from a
+    preview pointed at production's, and only the operator can tell them
+    apart — so the refusal is a default, not a wall."""
+    monkeypatch.setenv(store.URL_ENV, 'libsql://preview-of-its-own.turso.io')
+    monkeypatch.setenv('VERCEL_ENV', 'preview')
+    monkeypatch.setenv(store.PREVIEW_REMOTE_ENV, '1')
+    assert store.turso_url() == 'https://preview-of-its-own.turso.io'
+
+
 def test_blank_env_var_still_means_local(monkeypatch):
     # A marketplace integration that provisions the variable but leaves it
     # empty must not break the local fallback into a connection attempt.

@@ -14,6 +14,7 @@ from primer.wiki import WikiService
 @pytest.mark.parametrize("url", [
     "http://upload.wikimedia.org/a.png",
     "https://attacker.wikimedia.org/a.png",
+    "https://thumb.wikimedia.org.evil.test/a.png",
     "https://upload.wikimedia.org.evil.test/a.png",
     "https://upload.wikimedia.org@127.0.0.1/a.png",
     "https://upload.wikimedia.org:444/a.png",
@@ -50,6 +51,13 @@ def test_image_proxy_rebuilds_a_canonical_server_owned_url(tmp_path, monkeypatch
     with wiki._db_lock, service._conn() as conn:
         keys = [row[0] for row in conn.execute("SELECT url FROM image_cache")]
     assert keys == ["https://upload.wikimedia.org/a%20b.png?width=20"]
+
+
+def test_image_proxy_canonicalizes_the_exact_thumbnail_origin():
+    supplied = "https://THUMB.WIKIMEDIA.ORG:443/a b.png?width=20#ignored"
+    assert WikiService._validated_image_url(supplied) == (
+        "https://thumb.wikimedia.org/a%20b.png?width=20"
+    )
 
 
 def test_image_proxy_revalidates_and_canonicalizes_redirects():

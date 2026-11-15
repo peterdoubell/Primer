@@ -1,0 +1,242 @@
+...........F......F.F.......F............F.....F........................ [ 41%]
+........................................................................ [ 83%]
+...........................F                                             [100%]
+=================================== FAILURES ===================================
+_______ test_review_receipt_pins_the_scoped_source_and_lesson_semantics ________
+
+    def test_review_receipt_pins_the_scoped_source_and_lesson_semantics():
+        review = json.loads(REVIEW.read_text())
+        assert review["result"] == "pass_for_scoped_number_theory_lesson"
+        assert review["whole_goal_complete"] is False and review["browser_reader_approval"] is False
+        assert review["mechanical_verification_of_infinite_theorems"] is False
+        assert [q["number"] for q in review["quiz_mapping"]] == list(range(1, 11))
+        amendment = json.loads((ROOT / "docs/number-theory-semantic-source-amendment-20261012.json").read_text())
+        assert set(amendment["files"]) == {"web/math-number-theory-lab.js", "web/lesson-models.js",
+                                          "web/index.html", "data/module-models.json",
+                                          "tests/test_math_number_theory_lab.py"}
+        def checked_source(path, expected):
+            source = (ROOT / path).read_bytes()
+            if path not in amendment["files"]:
+                assert hashlib.sha256(source).hexdigest() == expected
+                return
+            record = amendment["files"][path]
+            assert hashlib.sha256(source).hexdigest() == record["current_sha256"]
+            restored = source.decode()
+            for replacement in record["inverse_replacements"]:
+                assert replacement["occurrences"] == 1
+                assert restored.count(replacement["new_literal"]) == 1
+                restored = restored.replace(replacement["new_literal"], replacement["old_literal"], 1)
+            assert hashlib.sha256(restored.encode()).hexdigest() == record["historical_sha256"] == expected
+            assert hashlib.sha256((ROOT / record["historical_copy"]).read_bytes()).hexdigest() == expected
+        for path, digest in review["reviewed_source_sha256"].items():
+>           checked_source(path, digest)
+
+tests/test_math_number_theory_lab.py:685: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = 'web/lesson-models.js'
+expected = 'b80239d48b0d834d3e9ac7671fed7a9e784e79734f16a6ea1b1333fc22055d98'
+
+    def checked_source(path, expected):
+        source = (ROOT / path).read_bytes()
+        if path not in amendment["files"]:
+            assert hashlib.sha256(source).hexdigest() == expected
+            return
+        record = amendment["files"][path]
+>       assert hashlib.sha256(source).hexdigest() == record["current_sha256"]
+E       AssertionError: assert 'd214a8ceb36c...cb33faada2782' == '1bb6c0b79c2a...27f0e2e8a6a00'
+E         
+E         - 1bb6c0b79c2aa7ed3b8226d843e9fb15b7600ac304cbb26345a27f0e2e8a6a00
+E         + d214a8ceb36c797758d72ef62fda18a0ccd964d5b297ef0f094cb33faada2782
+
+tests/test_math_number_theory_lab.py:676: AssertionError
+____ test_semantic_review_pins_current_sources_and_preserves_evidence_scope ____
+
+    def test_semantic_review_pins_current_sources_and_preserves_evidence_scope():
+        r=json.loads(REVIEW.read_text())
+        assert r["result"]=="pass_for_scoped_number_theory_semantic_relationships"
+        assert not r["whole_goal_complete"] and not r["browser_reader_approval"]
+        assert not r["mechanical_verification_of_infinite_theorems"]
+        delta=json.loads((ROOT/"docs/number-theory-viewport-delta-independent-review-20261012.json").read_text())
+        for path,digest in r["reviewed_source_sha256"].items():
+            source=(ROOT/path).read_bytes()
+            if path == "web/number-theory-diagrams.js":
+                assert hashlib.sha256(source).hexdigest()==delta["current_diagram_source_sha256"]
+                restored=source.decode()
+                for change in delta["source_delta_inverse_replacements"]:
+                    assert restored.count(change["new_literal"])==1
+                    restored=restored.replace(change["new_literal"],change["old_literal"],1)
+                assert hashlib.sha256(restored.encode()).hexdigest()==digest
+            else:
+>               assert hashlib.sha256(source).hexdigest()==digest
+E               AssertionError: assert 'd214a8ceb36c...cb33faada2782' == '1bb6c0b79c2a...27f0e2e8a6a00'
+E                 
+E                 - 1bb6c0b79c2aa7ed3b8226d843e9fb15b7600ac304cbb26345a27f0e2e8a6a00
+E                 + d214a8ceb36c797758d72ef62fda18a0ccd964d5b297ef0f094cb33faada2782
+
+tests/test_number_theory_diagrams.py:781: AssertionError
+_ test_viewport_delta_receipt_preserves_scientific_receipt_and_mathematical_source _
+
+    def test_viewport_delta_receipt_preserves_scientific_receipt_and_mathematical_source():
+        review = json.loads((ROOT / "docs/number-theory-viewport-delta-independent-review-20261012.json").read_text())
+        assert review["result"] == "pass_for_scoped_viewport_delta"
+        assert not review["browser_reader_approval"] and not review["whole_goal_complete"]
+        historical = ROOT / review["scientific_receipt"]["path"]
+        assert hashlib.sha256(historical.read_bytes()).hexdigest() == review["scientific_receipt"]["sha256"]
+        for key in ("baseline_diagram_source", "preserved_fixture"):
+            assert hashlib.sha256((ROOT / review[key]["path"]).read_bytes()).hexdigest() == review[key]["sha256"]
+        for path, digest in review["unchanged_reviewed_source_sha256"].items():
+>           assert hashlib.sha256((ROOT / path).read_bytes()).hexdigest() == digest, path
+E           AssertionError: web/lesson-models.js
+E           assert 'd214a8ceb36c...cb33faada2782' == '1bb6c0b79c2a...27f0e2e8a6a00'
+E             
+E             - 1bb6c0b79c2aa7ed3b8226d843e9fb15b7600ac304cbb26345a27f0e2e8a6a00
+E             + d214a8ceb36c797758d72ef62fda18a0ccd964d5b297ef0f094cb33faada2782
+
+tests/test_number_theory_diagram_viewport.py:118: AssertionError
+_____ test_each_named_current_and_historical_pair_has_exact_recorded_bytes _____
+
+    def test_each_named_current_and_historical_pair_has_exact_recorded_bytes():
+        for path, row in compatibility.FILES.items():
+            current = (ROOT/path).read_bytes()
+>           assert hashlib.sha256(compatibility.restore_main_runtime_bytes(path,current)).hexdigest() == row['current_sha256']
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_qft_runtime_compatibility.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'primer/server.py'
+raw = b'"""The Primer server: one FastAPI app binding content, curriculum, learner,\npractice, quizzes, tutor and pacing int..._static = _CachedStatic(directory=WEB_DIR, html=True)\n    app.mount("/app", app.state.source_static, name="static")\n'
+
+    def restore_main_runtime_bytes(relative, raw):
+        if relative=='web/app.js':
+            if hashlib.sha256(raw).hexdigest()=='d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0':
+                return raw
+            return restore_previous_app(raw.decode()).encode()
+        if relative not in PINS:
+            return raw
+        before,current=PINS[relative]
+        digest=hashlib.sha256(raw).hexdigest()
+        if digest==before:
+            return raw
+        if digest!=current:
+>           raise ValueError('Unreviewed pulmonary runtime byte change')
+E           ValueError: Unreviewed pulmonary runtime byte change
+
+tools/pulmonary_runtime_compatibility.py:23: ValueError
+_________ test_exact_named_union_blocks_restore_the_reviewed_main_only _________
+
+    def test_exact_named_union_blocks_restore_the_reviewed_main_only():
+        proof=json.loads((ROOT/compatibility.PROOF).read_bytes())
+        assert hashlib.sha256((ROOT/compatibility.PROOF).read_bytes()).hexdigest()==compatibility.PROOF_SHA256
+        assert set(proof['files'])==set(compatibility.PINS)=={'primer/server.py','primer/module_media.py','web/lesson-models.js','primer/source_native_inspectors.py'}
+        assert proof['historical_approval_extended'] is proof['clinical_approval'] is proof['fine_anatomical_approval'] is False
+        for path,(before,after) in compatibility.PINS.items():
+            raw=(ROOT/path).read_bytes()
+>           assert hashlib.sha256(raw).hexdigest()==after
+E           AssertionError: assert '02090c4b5453...59eadd69b7fc6' == 'b90ad60a3323...b9321adc3ce45'
+E             
+E             - b90ad60a33233321a0151ab454276018001e8a4496b6bc23861b9321adc3ce45
+E             + 02090c4b545359b8fb28f807896c89ae50bcfb49c6f9ae0b0c559eadd69b7fc6
+
+tests/test_pulmonary_runtime_compatibility.py:17: AssertionError
+_________ test_changed_inverse_evidence_cannot_restore_current_source __________
+
+tmp_path = PosixPath('/private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-465/test_changed_inverse_evidence_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10787f6e0>
+
+    def test_changed_inverse_evidence_cannot_restore_current_source(tmp_path,monkeypatch):
+        target=tmp_path/compatibility.PROOF;target.parent.mkdir(parents=True)
+        target.write_bytes((ROOT/compatibility.PROOF).read_bytes()+b'changed')
+        monkeypatch.setattr(compatibility,'ROOT',tmp_path)
+        with pytest.raises(ValueError,match='inverse evidence changed'):
+>           compatibility.restore_main_runtime_bytes('primer/server.py',(ROOT/'primer/server.py').read_bytes())
+
+tests/test_pulmonary_runtime_compatibility.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+relative = 'primer/server.py'
+raw = b'"""The Primer server: one FastAPI app binding content, curriculum, learner,\npractice, quizzes, tutor and pacing int..._static = _CachedStatic(directory=WEB_DIR, html=True)\n    app.mount("/app", app.state.source_static, name="static")\n'
+
+    def restore_main_runtime_bytes(relative, raw):
+        if relative=='web/app.js':
+            if hashlib.sha256(raw).hexdigest()=='d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0':
+                return raw
+            return restore_previous_app(raw.decode()).encode()
+        if relative not in PINS:
+            return raw
+        before,current=PINS[relative]
+        digest=hashlib.sha256(raw).hexdigest()
+        if digest==before:
+            return raw
+        if digest!=current:
+>           raise ValueError('Unreviewed pulmonary runtime byte change')
+E           ValueError: Unreviewed pulmonary runtime byte change
+
+tools/pulmonary_runtime_compatibility.py:23: ValueError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/kq/2zbgq4xj5wb5rrs65kysm2f80000gn/T/pytest-of-peter/pytest-465/test_changed_inverse_evidence_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10787f6e0>
+
+    def test_changed_inverse_evidence_cannot_restore_current_source(tmp_path,monkeypatch):
+        target=tmp_path/compatibility.PROOF;target.parent.mkdir(parents=True)
+        target.write_bytes((ROOT/compatibility.PROOF).read_bytes()+b'changed')
+        monkeypatch.setattr(compatibility,'ROOT',tmp_path)
+>       with pytest.raises(ValueError,match='inverse evidence changed'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E        Regex: 'inverse evidence changed'
+E        Input: 'Unreviewed pulmonary runtime byte change'
+
+tests/test_pulmonary_runtime_compatibility.py:36: AssertionError
+_________ test_module_model_geometry_bindings_controls_and_invariants __________
+
+    @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
+    def test_module_model_geometry_bindings_controls_and_invariants():
+        result = subprocess.run(
+            ['node', str(ROOT / 'tools/check_module_models.js')],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: node:internal/assert/utils:77
+E             throw err;
+E             ^
+E         
+E         AssertionError [ERR_ASSERTION]: math.4.numtheory: exact authored binding
+E             at Object.<anonymous> (/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/tools/check_module_models.js:57:10)
+E             at Module._compile (node:internal/modules/cjs/loader:1854:14)
+E             at Object..js (node:internal/modules/cjs/loader:1985:10)
+E             at Module.load (node:internal/modules/cjs/loader:1577:32)
+E             at Module._load (node:internal/modules/cjs/loader:1379:12)
+E             at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+E             at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+E             at node:internal/main/run_main_module:33:47 {
+E           generatedMessage: false,
+E           code: 'ERR_ASSERTION',
+E           actual: false,
+E           expected: true,
+E           operator: '==',
+E           diff: 'simple'
+E         }
+E         
+E         Node.js v24.17.0
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/Users/peter/Documents/ChatGPT/Primer/.research/release-pulmonary-20261007/tools/check...: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n\nNode.js v24.17.0\n").returncode
+
+tests/test_module_models.py:21: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_math_number_theory_lab.py::test_review_receipt_pins_the_scoped_source_and_lesson_semantics
+FAILED tests/test_number_theory_diagrams.py::test_semantic_review_pins_current_sources_and_preserves_evidence_scope
+FAILED tests/test_number_theory_diagram_viewport.py::test_viewport_delta_receipt_preserves_scientific_receipt_and_mathematical_source
+FAILED tests/test_qft_runtime_compatibility.py::test_each_named_current_and_historical_pair_has_exact_recorded_bytes
+FAILED tests/test_pulmonary_runtime_compatibility.py::test_exact_named_union_blocks_restore_the_reviewed_main_only
+FAILED tests/test_pulmonary_runtime_compatibility.py::test_changed_inverse_evidence_cannot_restore_current_source
+FAILED tests/test_module_models.py::test_module_model_geometry_bindings_controls_and_invariants
+7 failed, 165 passed in 59.80s

@@ -1,0 +1,192 @@
+{
+  "node": {
+    "id": "math.3.vectors",
+    "title": "Vectors",
+    "stage": 3,
+    "goal": "Quantities with direction: add, scale, dot.",
+    "articles": [
+      "Euclidean vector"
+    ],
+    "practice": "vectors",
+    "prereqs": [
+      "math.3.trig",
+      "math.2.coordinates",
+      "math.2.negatives"
+    ],
+    "quiz": [
+      {
+        "kind": "choice",
+        "prompt": "What is the magnitude of the vector (3, 4)?",
+        "answer": "5",
+        "explain": "Magnitude = sqrt(3^2 + 4^2) = sqrt(25) = 5.",
+        "choices": [
+          "25",
+          "12",
+          "5",
+          "7"
+        ],
+        "ephemeral": false
+      },
+      {
+        "kind": "numeric",
+        "prompt": "Compute the dot product of (2, 3) and (4, -1).",
+        "answer": "5",
+        "explain": "Dot product = 2 x 4 + 3 x (-1) = 8 - 3 = 5.",
+        "ephemeral": false
+      },
+      {
+        "kind": "choice",
+        "prompt": "Compute (1, 2) + (3, -5).",
+        "answer": "(4, -3)",
+        "explain": "Add componentwise: (1 + 3, 2 + (-5)) = (4, -3).",
+        "choices": [
+          "(4, -3)",
+          "(4, 3)",
+          "(3, -10)",
+          "(-2, 7)"
+        ],
+        "ephemeral": false
+      },
+      {
+        "kind": "numeric",
+        "prompt": "A vector has magnitude 10 and makes an angle of 60 degrees with the positive x-axis. What is its x-component?",
+        "answer": "5",
+        "explain": "The x-component is 10 cos(60) = 10 x 0.5 = 5.",
+        "ephemeral": false
+      },
+      {
+        "kind": "choice",
+        "prompt": "Two nonzero vectors have a dot product of zero. What does that tell you about them?",
+        "answer": "They are perpendicular",
+        "choices": [
+          "They are parallel",
+          "One runs along the x-axis and the other along the y-axis",
+          "They point in opposite directions",
+          "They are perpendicular"
+        ],
+        "explain": "The dot product is |a||b|cos(theta), which vanishes when cos(theta) = 0, that is at 90 degrees. Parallel vectors give the largest positive value and opposite vectors the largest negative one. Lying along the two axes is only one way to be perpendicular: (3, 4) and (-4, 3) manage it without either one following an axis.",
+        "ephemeral": false
+      },
+      {
+        "kind": "choice",
+        "prompt": "A boat heads due north at 8 km/h while the current carries it due east at 6 km/h. What is its speed over the ground?",
+        "answer": "10 km/h",
+        "choices": [
+          "14 km/h",
+          "2 km/h",
+          "7 km/h",
+          "10 km/h"
+        ],
+        "explain": "The two velocities are perpendicular, so the resultant has magnitude sqrt(8^2 + 6^2) = 10 km/h; they do not simply add.",
+        "ephemeral": false
+      },
+      {
+        "kind": "numeric",
+        "prompt": "What is the magnitude of the vector (-6, 8)?",
+        "answer": "10",
+        "explain": "Magnitude is the square root of 36 + 64 = 100, which is 10. Negative components square to positive numbers, so direction does not shrink the length.",
+        "ephemeral": false
+      },
+      {
+        "kind": "choice",
+        "prompt": "Compute 3(2, -1) - (4, 2).",
+        "answer": "(2, -5)",
+        "choices": [
+          "(6, -5)",
+          "(2, -1)",
+          "(2, -5)",
+          "(10, -1)"
+        ],
+        "explain": "Scaling gives (6, -3), and subtracting (4, 2) componentwise gives (2, -5). Scalar multiplication touches both components.",
+        "ephemeral": false
+      },
+      {
+        "kind": "choice",
+        "prompt": "The dot product of two nonzero vectors comes out negative. What does that say about the angle between them?",
+        "answer": "It is larger than 90 degrees",
+        "choices": [
+          "It is larger than 90 degrees",
+          "It is smaller than 90 degrees",
+          "It is exactly 90 degrees",
+          "It is exactly 180 degrees"
+        ],
+        "explain": "The dot product equals |a||b|cos(theta), and cosine is negative for angles between 90 and 180 degrees. A zero dot product would mean a right angle.",
+        "ephemeral": false
+      },
+      {
+        "kind": "choice",
+        "prompt": "A plane flies north at 300 km/h while the wind blows south at 40 km/h. What is its speed over the ground?",
+        "answer": "260 km/h",
+        "choices": [
+          "260 km/h",
+          "340 km/h",
+          "302.7 km/h",
+          "300 km/h"
+        ],
+        "explain": "The two vectors point along the same line in opposite directions, so the magnitudes subtract to give 260 km/h. The Pythagorean combination applies only when the vectors are perpendicular.",
+        "ephemeral": false
+      }
+    ],
+    "lesson_media": [
+      {
+        "id": "vector-resultant-plate",
+        "kind": "illustration",
+        "src": "/app/illustrations/tree/math/math-3-vectors-800.webp",
+        "srcset": "/app/illustrations/tree/math/math-3-vectors-800.webp 800w, /app/illustrations/tree/math/math-3-vectors-1600.webp 1600w",
+        "alt": "Perpendicular north and east velocity vectors combine into a ten-unit diagonal resultant.",
+        "caption": "Vectors add component by component; direction determines whether magnitudes combine, cancel, or form a right triangle.",
+        "width": 1600,
+        "height": 1000
+      },
+      {
+        "id": "math-3-vectors-spatial-3d",
+        "kind": "model",
+        "renderer": "spatial-3d",
+        "title": "Vector addition and the perpendicular cross product",
+        "instructions": "Turn b through positive and negative angles. Rotate to compare the planar resultant with the perpendicular cross product.",
+        "props": {
+          "scenario": "math.3.vectors"
+        }
+      }
+    ],
+    "domain": "math",
+    "section": "",
+    "kid_text": "",
+    "minutes": 760
+  },
+  "actualRuntimeModels": [
+    {
+      "id": "math-3-vectors-spatial-3d",
+      "kind": "model",
+      "renderer": "spatial-3d",
+      "title": "Vector addition and the perpendicular cross product",
+      "instructions": "Turn b through positive and negative angles. Rotate to compare the planar resultant with the perpendicular cross product.",
+      "props": {
+        "scenario": "math.3.vectors"
+      }
+    }
+  ],
+  "existingCapabilities": [
+    "Dedicated spatial model; generic lattice companion suppressed",
+    "Fixed a=(1,0,0), b magnitude .5..1.5 and signed planar angle",
+    "Displays sum, dot product, cross product and parallelogram area"
+  ],
+  "gap": "Fixed first vector and restricted second-vector magnitude do not represent arbitrary component entry, negative scalar combinations, or the actual 2D quiz vectors without an unstated transformation.",
+  "preserve": [
+    "Existing signed cross-product orientation and zero-vector handling",
+    "All existing quiz meaning and correct spatial semantics"
+  ],
+  "nextRequirements": [
+    "Editable 2D/3D components for both vectors",
+    "Exact integer component sums, scalar combinations, dot and cross products",
+    "Magnitude and angle with explicit undefined zero-vector cases",
+    "Common-scale geometry and projection metadata tied to exact inputs",
+    "Original quiz examples exercised in actual authenticated reader"
+  ],
+  "sourceSHA256": {
+    "web/spatial-math.js": "b8c61b369f9519a9eb7abc93d61a5157f7492cf06333fc056d0c5589b5b0cdc2",
+    "primer/module_media.py": "3114eb65a9d26a3a3595ff924fd1b3be9bdf3f3ec10f32a1ed44f7e79ecd547f",
+    "data/curriculum/01-mathematics.json": "3b22767d7f91d424390d18905a48ce1c4547952579045dfacf13f53ac910a24a"
+  },
+  "complete": false
+}

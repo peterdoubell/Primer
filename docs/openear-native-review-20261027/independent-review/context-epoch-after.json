@@ -1,0 +1,110 @@
+{
+  "allPassed": true,
+  "findings": [],
+  "cases": [
+    {
+      "name": "old decompression completes after restored replacement mesh",
+      "passed": true,
+      "heldDecoders": 7,
+      "error": 0,
+      "code": 2,
+      "meshReady": "2"
+    },
+    {
+      "name": "late decoded planes and mesh cannot replace code zero",
+      "passed": true,
+      "code": 0,
+      "mesh": "openear-zeta-part0",
+      "planes": "0",
+      "ready": "0",
+      "error": 0
+    },
+    {
+      "name": "source zero-mask planes remain valid data",
+      "passed": true,
+      "planes": [
+        {
+          "axis": 0,
+          "pixels": 366875,
+          "allZeroMasksRendered": true
+        },
+        {
+          "axis": 1,
+          "pixels": 417500,
+          "allZeroMasksRendered": true
+        },
+        {
+          "axis": 2,
+          "pixels": 392116,
+          "allZeroMasksRendered": true
+        }
+      ]
+    }
+  ],
+  "pageErrors": [],
+  "sourceSHA256": {
+    "viewer.js": "56e5e4b869f5cd4ec8db9df61a02cdbbdb15822de8b1c9eb01005e491aa3b774",
+    "transport.js": "80746b56ba3ca3bf9a3c7c76cdeee917e216e703eaf309f556515b07e90e2b86",
+    "index.html": "1dbeca05316b0677d09e536fc45fd17eb8a5c0fe4e0023b92114bb89e6e69930",
+    "viewer.css": "0290a6e23eedc29e25ca6875e004c1982e1d50354bbf8d51f9f10ab666b570b9",
+    "manifest.json": "4337a7bf103fc6d53cb438338aa12c7eeca468091122f95fe0eda7314c680cc9",
+    "config.json": "f0695876e990365af3af3901d06968e49e1bc3e283ededee48099ddcdce9a854"
+  },
+  "bufferEvents": [
+    {
+      "owner": {
+        "id": 1,
+        "epoch": 0
+      },
+      "currentEpoch": 0,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57435/viewer.js:44:86)\n    at loadMesh (http://127.0.0.1:57435/viewer.js:64:42)\n    at HTMLSelectElement.choose (http://127.0.0.1:57435/viewer.js:86:647)"
+    },
+    {
+      "owner": {
+        "id": 2,
+        "epoch": 0
+      },
+      "currentEpoch": 0,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57435/viewer.js:44:115)\n    at loadMesh (http://127.0.0.1:57435/viewer.js:64:42)\n    at HTMLSelectElement.choose (http://127.0.0.1:57435/viewer.js:86:647)"
+    },
+    {
+      "owner": {
+        "id": 5,
+        "epoch": 1
+      },
+      "currentEpoch": 1,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57435/viewer.js:44:86)\n    at loadMesh (http://127.0.0.1:57435/viewer.js:64:42)\n    at HTMLSelectElement.choose (http://127.0.0.1:57435/viewer.js:86:647)"
+    },
+    {
+      "owner": {
+        "id": 6,
+        "epoch": 1
+      },
+      "currentEpoch": 1,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57435/viewer.js:44:115)\n    at loadMesh (http://127.0.0.1:57435/viewer.js:64:42)\n    at HTMLSelectElement.choose (http://127.0.0.1:57435/viewer.js:86:647)"
+    },
+    {
+      "owner": {
+        "id": 7,
+        "epoch": 1
+      },
+      "currentEpoch": 1,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57435/viewer.js:44:86)\n    at loadMesh (http://127.0.0.1:57435/viewer.js:83:13)"
+    },
+    {
+      "owner": {
+        "id": 8,
+        "epoch": 1
+      },
+      "currentEpoch": 1,
+      "lost": false,
+      "stack": "Error\n    at WebGL2RenderingContext.deleteBuffer (<anonymous>:2:897)\n    at release (http://127.0.0.1:57435/viewer.js:44:115)\n    at loadMesh (http://127.0.0.1:57435/viewer.js:83:13)"
+    }
+  ],
+  "glErrors": []
+}

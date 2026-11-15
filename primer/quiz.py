@@ -15,6 +15,7 @@ worked-example numbers, and mismatched distractors. All are filtered here.
 import random
 import re
 from typing import Dict, List, Optional
+from .rational_complex import has_imaginary_unit, parse_rational_complex
 
 R = random.Random()
 
@@ -766,6 +767,17 @@ def is_ephemeral_prompt(prompt: str, kind: str = "",
         if not practice.is_durable_item(gen, level, prompt):
             return True
     if kind == "order":
+        # Generated orderings are ephemeral by construction — the sequence is
+        # drawn fresh — with one declared exception: a generator whose
+        # orderings are AUTHORED and finite, and whose prompt names its own
+        # set, may say so through is_durable_item. The knowledge drills do
+        # ("Put the seasons in order: autumn, spring, summer, winter"): a
+        # stable front, one stable back, the same case as an authored bank
+        # ordering. Before this, 0 of 468 of the only shape that asks a young
+        # reader to PRODUCE could ever come back as a card.
+        if gen:
+            from . import practice
+            return not practice.is_durable_item(gen, level, prompt)
         return True
     p = (prompt or "").strip()
     if not p:
@@ -805,7 +817,7 @@ def cards_from_missed(questions: List[Dict], answers: List[str],
         correct = str(q.get("answer", "")).strip()
         if not correct:
             continue
-        num = _numeric_equal(str(a), correct)
+        num = _numeric_equal(str(a), correct, allow_complex=q.get("kind") == "numeric")
         got_it = num is True or (num is None and str(a).strip().lower() == correct.lower())
         if not got_it:
             # The flag alone cannot decide this: a generator stamps it on both
@@ -843,6 +855,11 @@ def cards_from_missed(questions: List[Dict], answers: List[str],
             # are full sentences) — 51 real bank items did exactly that, up to
             # 255 chars. Cap the total, budgeting whatever room the answer left.
             MAX_BACK = 220
+            # A structural explanation ("light goes with night.") only
+            # restates the card, and on the back it hands a listener the
+            # answer by word-matching. Authored ones teach; those stay.
+            if q.get("explain_structural"):
+                explain = ""
             if explain and explain != front:
                 budget = MAX_BACK - len(correct) - len(" — ")
                 first = re.split(r"(?<=[.!?])\s+", explain)[0].strip()
@@ -862,9 +879,13 @@ def cards_from_missed(questions: List[Dict], answers: List[str],
     return cards
 
 
-def _numeric_equal(given: str, expected: str) -> Optional[bool]:
+def _numeric_equal(given: str, expected: str, *, allow_complex: bool = True) -> Optional[bool]:
     """Compare numeric answers by value, so '0.5', '.50' and '1/2' all match —
     returns None when either side isn't numeric."""
+    if allow_complex and has_imaginary_unit(expected):
+        complex_expected = parse_rational_complex(expected)
+        if complex_expected is not None:
+            return parse_rational_complex(given) == complex_expected
     def parse(v):
         v = str(v).strip().replace(",", "").replace("−", "-").replace(" ", "")
         if not v:
@@ -899,8 +920,18 @@ def cards_from_lesson(title: str, goal: str, kid_text: str = "",
         cards.append({"front": "What are you learning when you learn “{}”?".format(title),
                       "back": goal, "node_id": node_id, "article": title})
     if kid_text:
+        # `_sentences` is a cloze-MINING filter: it drops anything outside
+        # 40-240 chars, or carrying a colon, a semicolon, four commas, an
+        # example marker or a referent. Those rules are right for picking a
+        # sentence to blank a word out of, and wrong for picking one to put on
+        # the back of a card — and when the filter rejected every sentence, the
+        # fallback handed back the ENTIRE lesson. A card whose back is a
+        # six-sentence paragraph is not a card; it is a page with a question on
+        # the front, and it is shown to the youngest readers in the book.
+        # The first sentence is what "tell it back" means, filter or no filter.
         first = _sentences(kid_text)
-        sentence = first[0] if first else kid_text.strip()
+        sentence = (first[0] if first
+                    else re.split(r"(?<=[.!?])\s+", kid_text.strip())[0].strip())
         if sentence and sentence.lower() != (goal or "").lower():
             cards.append({"front": "Tell it back: what is {}?".format(title),
                           "back": sentence, "node_id": node_id, "article": title})
@@ -984,6 +1015,16 @@ def score_short_answer(given: str, keywords: List[str]) -> float:
     text = (given or "").lower()
     words = {_lemma(w) for w in re.findall(r"[^\W\d_]{3,}", text, re.UNICODE)}
     nums = set(re.findall(r"-?\d+(?:\.\d+)?", text))
+    # One- and two-letter words, kept apart from `words` and consulted only for
+    # a key that is itself that short. The three-letter floor above is right
+    # for fuzzy matching and it made such keys unmeetable: "G" (the note a
+    # treble clef names), "CT", "S" (a CAD-RADS modifier) produced no token
+    # at all, so no answer could ever hit them and the model answer quietly
+    # lost a share of its own marks. Exact standalone tokens only — the
+    # lookarounds keep the "s" of "patient's" out, and "e.g."/"i.e." are
+    # removed first so an abbreviation cannot manufacture a stray letter.
+    short = set(re.findall(r"(?<![\w'\u2019])[^\W\d_]{1,2}(?![\w'\u2019])",
+                           re.sub(r"\b(?:e\.g|i\.e)\.?", " ", text), re.UNICODE))
 
     def known(word):
         """Whether the reader produced this word, allowing for word-building.
@@ -1039,7 +1080,10 @@ def score_short_answer(given: str, keywords: List[str]) -> float:
                     and all(d in nums for d in digits))
         if digits:
             return digits[0] in nums
-        return known(parts[0]) if parts else False
+        if parts:
+            return known(parts[0])
+        bare = re.findall(r"[^\W\d_]+", key, re.UNICODE)
+        return len(bare) == 1 and bare[0] in short
 
     coverage = sum(1 for k in keywords if hit(k)) / len(keywords)
 
@@ -1099,7 +1143,7 @@ def score_quiz(questions: List[Dict], answers: List[str]) -> Dict:
             # Partial credit: producing most of the idea is most of the way there.
             right += score_short_answer(given, q.get("keywords") or [])
             continue
-        num = _numeric_equal(given, expected)
+        num = _numeric_equal(given, expected, allow_complex=q.get("kind") == "numeric")
         if num is True or (num is None and given.lower() == expected.lower()):
             right += 1
     total = max(total, 1)

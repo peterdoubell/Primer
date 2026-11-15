@@ -1,0 +1,22 @@
+{
+  "status": "complete authenticated proof pending",
+  "observedFailures": [
+    {
+      "run": "authenticated lesson after HTTP decoding correction",
+      "completedMounts": 3,
+      "failure": "3D unavailable: Failed to fetch. Use Retry.",
+      "phase": "later reopen"
+    },
+    {
+      "run": "standalone all-pair reader after HTTP decoding correction",
+      "failure": "mesh ready timeout; no complete proof emitted"
+    }
+  ],
+  "subsequentDirectSourceReadback": {
+    "status": 200,
+    "bytes": 3105294,
+    "matchesPinnedCompressedSHA256": true
+  },
+  "harnessRecovery": "At most one use of the existing Retry button per failed mesh load; record reason, context and action. A second failure remains terminal.",
+  "clinicalApproval": false
+}

@@ -1,0 +1,1409 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-26",
+  "current_report_rows": 62,
+  "newly_enumerated_report_rows": 28,
+  "new_side_instantiated_parts": 30,
+  "prior_parts_preserved": 210,
+  "current_brain_parts": 240,
+  "clinical_completion_claim": false,
+  "current_brain_inventory_sha256": "745184851f9a953bf80037a012ff50d618d55d506ac13e9370aa2b746d7159bf",
+  "input_sha256": {
+    "data/radiology/anatomic-neuro.json": "e34d5008fdb16620a3fb1a846f569be50b624ed2488d8b07d5f323be66f93ba3",
+    "data/radiology/holiatlas-labels.json.gz": "c0e65bedad9742220334b337f671634d99950df52662dd4ec3f85b4280a08d15",
+    "data/radiology/holiatlas-hierarchy.json.gz": "419bfec5ee82fa2de045614c1c79b46189d603ecc1575bf17e2386542571f2d2",
+    "docs/holiatlas-source-review-20261023/holiatlas-protocol-rows.json": "0276cb7b396aa42a688d8f444d8b0efac9c0f68ebd3fafdc97c30df06a5a01e1"
+  },
+  "source_context_crosswalk": [
+    {
+      "requirement_id": "brain.right_surface.superior_frontal_gyrus",
+      "report_section_id": "right-superior-frontal-gyrus",
+      "source_context": [
+        {
+          "scale": "composition",
+          "code": 5,
+          "source_name": "Right superior frontal cortex — main and medial source labels",
+          "fine_source_codes": [
+            152,
+            164
+          ],
+          "present_fine_source_codes": [
+            152,
+            164
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Do not silently include other source medial-frontal or supplementary-motor labels."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.middle_frontal_gyrus",
+      "report_section_id": "right-middle-frontal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 146,
+          "source_name": "Right Middle Frontal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.inferior_frontal_gyrus",
+      "report_section_id": "right-inferior-frontal-gyrus",
+      "source_context": [
+        {
+          "scale": "composition",
+          "code": 6,
+          "source_name": "Right inferior frontal cortical parts — opercular, orbital and triangular",
+          "fine_source_codes": [
+            154,
+            156,
+            168
+          ],
+          "present_fine_source_codes": [
+            154,
+            156,
+            168
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Source Frontal Operculum is a separate category; clinical aggregate extent is not signed off."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.superior_parietal_lobule",
+      "report_section_id": "right-superior-parietal-lobule",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 180,
+          "source_name": "Right Sup. Parietal Lobule",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.inferior_parietal_lobule",
+      "report_section_id": "right-inferior-parietal-lobule",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 170,
+          "source_name": "Right Angular Gyrus",
+          "present": true
+        },
+        {
+          "scale": "fine",
+          "code": 178,
+          "source_name": "Right Supramarginal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "separate_source_component_candidates_no_existing_whole_lobule_composition",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Angular and supramarginal labels require a source-protocol and clinical boundary review before a whole inferior parietal lobule claim; a new merged mask is not asserted here."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.superior_temporal_gyrus",
+      "report_section_id": "right-superior-temporal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 192,
+          "source_name": "Right Sup. Temporal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Planum temporale, planum polare and transverse temporal cortex are separately labelled by this source; the single named parcel cannot certify the whole superior temporal gyrus."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.middle_temporal_gyrus",
+      "report_section_id": "right-middle-temporal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 186,
+          "source_name": "Right Middle Temporal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.inferior_temporal_gyrus",
+      "report_section_id": "right-inferior-temporal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 184,
+          "source_name": "Right Inf. Temporal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.cingulate_gyrus",
+      "report_section_id": "right-cingulate-gyrus",
+      "source_context": [
+        {
+          "scale": "composition",
+          "code": 7,
+          "source_name": "Right cingulate cortex — anterior, middle and posterior source labels",
+          "fine_source_codes": [
+            214,
+            218,
+            220
+          ],
+          "present_fine_source_codes": [
+            214,
+            218,
+            220
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Not a cingulate-sulcus mask or white-matter cingulum tract."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.precuneus",
+      "report_section_id": "right-precuneus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 174,
+          "source_name": "Right Precuneus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.cuneus",
+      "report_section_id": "right-cuneus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 200,
+          "source_name": "Right Cuneus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_surface.lingual_gyrus",
+      "report_section_id": "right-lingual-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 204,
+          "source_name": "Right Lingual Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_source_regions.amygdala",
+      "report_section_id": "right-amygdala",
+      "source_context": [
+        {
+          "scale": "structure",
+          "code": 22,
+          "source_name": "Right amygdala — present source regions",
+          "fine_source_codes": [
+            248,
+            250,
+            252,
+            254,
+            256,
+            258,
+            260,
+            262
+          ],
+          "present_fine_source_codes": [
+            248,
+            250,
+            252,
+            256,
+            258,
+            260,
+            262
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Medial nucleus has zero voxels in this population template.",
+        "Anatomical anterior-amygdaloid area is not a protocol child."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.mca_superior_division_territory",
+      "report_section_id": "mca-superior-division",
+      "source_context": [],
+      "relationship": "no_source_territory_mask",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "HoliAtlas does not supply an MCA division perfusion/arterial territory segmentation; use a separately sourced territory representation with explicit variation."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.right_territories.mca_inferior_division_territory",
+      "report_section_id": "mca-inferior-division",
+      "source_context": [],
+      "relationship": "no_source_territory_mask",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "HoliAtlas does not supply an MCA division perfusion/arterial territory segmentation; use a separately sourced territory representation with explicit variation."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.superior_frontal_gyrus",
+      "report_section_id": "left-superior-frontal-gyrus",
+      "source_context": [
+        {
+          "scale": "composition",
+          "code": 13,
+          "source_name": "Left superior frontal cortex — main and medial source labels",
+          "fine_source_codes": [
+            153,
+            165
+          ],
+          "present_fine_source_codes": [
+            153,
+            165
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Do not silently include other source medial-frontal or supplementary-motor labels."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.middle_frontal_gyrus",
+      "report_section_id": "left-middle-frontal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 147,
+          "source_name": "Left Middle Frontal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.inferior_frontal_gyrus",
+      "report_section_id": "left-inferior-frontal-gyrus",
+      "source_context": [
+        {
+          "scale": "composition",
+          "code": 14,
+          "source_name": "Left inferior frontal cortical parts — opercular, orbital and triangular",
+          "fine_source_codes": [
+            155,
+            157,
+            169
+          ],
+          "present_fine_source_codes": [
+            155,
+            157,
+            169
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Source Frontal Operculum is a separate category; clinical aggregate extent is not signed off."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.superior_parietal_lobule",
+      "report_section_id": "left-superior-parietal-lobule",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 181,
+          "source_name": "Left Sup. Parietal Lobule",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.inferior_parietal_lobule",
+      "report_section_id": "left-inferior-parietal-lobule",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 171,
+          "source_name": "Left Angular Gyrus",
+          "present": true
+        },
+        {
+          "scale": "fine",
+          "code": 179,
+          "source_name": "Left Supramarginal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "separate_source_component_candidates_no_existing_whole_lobule_composition",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Angular and supramarginal labels require a source-protocol and clinical boundary review before a whole inferior parietal lobule claim; a new merged mask is not asserted here."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.superior_temporal_gyrus",
+      "report_section_id": "left-superior-temporal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 193,
+          "source_name": "Left Sup. Temporal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Planum temporale, planum polare and transverse temporal cortex are separately labelled by this source; the single named parcel cannot certify the whole superior temporal gyrus."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.middle_temporal_gyrus",
+      "report_section_id": "left-middle-temporal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 187,
+          "source_name": "Left Middle Temporal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.inferior_temporal_gyrus",
+      "report_section_id": "left-inferior-temporal-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 185,
+          "source_name": "Left Inf. Temporal Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.cingulate_gyrus",
+      "report_section_id": "left-cingulate-gyrus",
+      "source_context": [
+        {
+          "scale": "composition",
+          "code": 15,
+          "source_name": "Left cingulate cortex — anterior, middle and posterior source labels",
+          "fine_source_codes": [
+            215,
+            219,
+            221
+          ],
+          "present_fine_source_codes": [
+            215,
+            219,
+            221
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Not a cingulate-sulcus mask or white-matter cingulum tract."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.precuneus",
+      "report_section_id": "left-precuneus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 175,
+          "source_name": "Left Precuneus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.cuneus",
+      "report_section_id": "left-cuneus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 201,
+          "source_name": "Left Cuneus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_surface.lingual_gyrus",
+      "report_section_id": "left-lingual-gyrus",
+      "source_context": [
+        {
+          "scale": "fine",
+          "code": 205,
+          "source_name": "Left Lingual Gyrus",
+          "present": true
+        }
+      ],
+      "relationship": "present_source_parcel_with_named_correspondence_requires_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_source_regions.amygdala",
+      "report_section_id": "left-amygdala",
+      "source_context": [
+        {
+          "scale": "structure",
+          "code": 23,
+          "source_name": "Left amygdala — present source regions",
+          "fine_source_codes": [
+            249,
+            251,
+            253,
+            255,
+            257,
+            259,
+            261,
+            263
+          ],
+          "present_fine_source_codes": [
+            249,
+            251,
+            253,
+            257,
+            259,
+            261,
+            263
+          ]
+        }
+      ],
+      "relationship": "existing_explicit_source_union_requires_clinical_extent_review",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "Medial nucleus has zero voxels in this population template.",
+        "Anatomical anterior-amygdaloid area is not a protocol child."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.mca_superior_division_territory",
+      "report_section_id": "mca-superior-division",
+      "source_context": [],
+      "relationship": "no_source_territory_mask",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "HoliAtlas does not supply an MCA division perfusion/arterial territory segmentation; use a separately sourced territory representation with explicit variation."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    },
+    {
+      "requirement_id": "brain.left_territories.mca_inferior_division_territory",
+      "report_section_id": "mca-inferior-division",
+      "source_context": [],
+      "relationship": "no_source_territory_mask",
+      "limitations": [
+        "No independent clinical boundary review or patient-specific registration is established by this correspondence.",
+        "HoliAtlas does not supply an MCA division perfusion/arterial territory segmentation; use a separately sourced territory representation with explicit variation."
+      ],
+      "required_representations": [
+        "image",
+        "schematic",
+        "model"
+      ],
+      "clinical_representation_complete": false
+    }
+  ],
+  "all_report_rows": [
+    {
+      "section_id": "right-precentral-gyrus",
+      "label": "Right precentral gyrus",
+      "section_sha256": "224eb8d026471e2ccaa68bb475a8620ef6c865e74d06dfc3b9cbee56ed91dd76",
+      "requirement_ids": [
+        "brain.right_surface.precentral_gyrus"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-postcentral-gyrus",
+      "label": "Right postcentral gyrus",
+      "section_sha256": "3f86cd9dcc1fc34c53869c9e64ae6ffdc1402f18b41a933e04b56154f63def28",
+      "requirement_ids": [
+        "brain.right_surface.postcentral_gyrus"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-superior-frontal-gyrus",
+      "label": "Right superior frontal gyrus",
+      "section_sha256": "3063b9cde167c5bc9a20dded6b660572558a6dc5e613a0b44d363ff9ea4753b1",
+      "requirement_ids": [
+        "brain.right_surface.superior_frontal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-middle-frontal-gyrus",
+      "label": "Right middle frontal gyrus",
+      "section_sha256": "c10f813005da2d0f5731d2a8ca83212f47ca2e69782c420457909ed2a25f7477",
+      "requirement_ids": [
+        "brain.right_surface.middle_frontal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-inferior-frontal-gyrus",
+      "label": "Right inferior frontal gyrus",
+      "section_sha256": "d8b5595a1a7e64bfaf632cde6302e0bb29417a5cebfff4a66a9f87fd9eb264ec",
+      "requirement_ids": [
+        "brain.right_surface.inferior_frontal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-superior-parietal-lobule",
+      "label": "Right superior parietal lobule",
+      "section_sha256": "ca445f7a5a48c420392e7e2b6a6a65a7375b469fcc06c774788cd0fb60b34342",
+      "requirement_ids": [
+        "brain.right_surface.superior_parietal_lobule"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-inferior-parietal-lobule",
+      "label": "Right inferior parietal lobule",
+      "section_sha256": "9500158ae66c3938d3034368b3ec6e7ea0bc87b3e2d0ecb9c7e814936f9d0c1a",
+      "requirement_ids": [
+        "brain.right_surface.inferior_parietal_lobule"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-superior-temporal-gyrus",
+      "label": "Right superior temporal gyrus",
+      "section_sha256": "d34aa2b316d80ff27c081ab62aba637fa70199d069ffe7ba00420575c94e34b4",
+      "requirement_ids": [
+        "brain.right_surface.superior_temporal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-middle-temporal-gyrus",
+      "label": "Right middle temporal gyrus",
+      "section_sha256": "60a010b16b9cb75a4e4e4c6f3992a5c9090b37b22c58cffecfba923d2fb2394e",
+      "requirement_ids": [
+        "brain.right_surface.middle_temporal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-inferior-temporal-gyrus",
+      "label": "Right inferior temporal gyrus",
+      "section_sha256": "0f92a719aa98fb19b16404af3098c1d854172394021d68cd4b479271daf3a7f6",
+      "requirement_ids": [
+        "brain.right_surface.inferior_temporal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-insula",
+      "label": "Right insula",
+      "section_sha256": "63f4068c8018fe42a3b7d827a071effa1a8898018778a2a6f0690d224fc9a37c",
+      "requirement_ids": [
+        "brain.right_surface.insula"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-cingulate-gyrus",
+      "label": "Right cingulate gyrus",
+      "section_sha256": "89218ae720884451937a8b52c8b11255d74c484d36c5d25bdd7ee9963cdbddcd",
+      "requirement_ids": [
+        "brain.right_surface.cingulate_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-precuneus",
+      "label": "Right precuneus",
+      "section_sha256": "b151699e30325f9e82ed4be1fda893d26f1f92110dcb215d4001c91e3e9361e3",
+      "requirement_ids": [
+        "brain.right_surface.precuneus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-cuneus",
+      "label": "Right cuneus",
+      "section_sha256": "4a2e03b0ae106bb97bf17a1ff4a2bdf390d789a6bc3447e47e4cdeaa1ac3d7fc",
+      "requirement_ids": [
+        "brain.right_surface.cuneus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-lingual-gyrus",
+      "label": "Right lingual gyrus",
+      "section_sha256": "93ad39177b5fec60f2098ee4be3b82c74b6aa4d985da4dca4e53266defd9e668",
+      "requirement_ids": [
+        "brain.right_surface.lingual_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-hippocampus",
+      "label": "Right hippocampus",
+      "section_sha256": "ebe15b6e1e9c3d2698526b2aaf9e5a8a6dda6addfb0f62709488bb8c6b1d5ada",
+      "requirement_ids": [
+        "brain.right_source_regions.hippocampal_head",
+        "brain.right_source_regions.hippocampal_body",
+        "brain.right_source_regions.hippocampal_tail"
+      ],
+      "relationship": "component_requirements_present_no_whole_mask_claim",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-amygdala",
+      "label": "Right amygdala",
+      "section_sha256": "ac6b78ea3fa14048491ec8890fb9b7eaa89fa971fcf7f28748a19a1818c0e174",
+      "requirement_ids": [
+        "brain.right_source_regions.amygdala"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-caudate-nucleus",
+      "label": "Right caudate nucleus",
+      "section_sha256": "71851585d343e191f44f6dc875ab7b0d146b120bc2af187de986c9f77cd8b23a",
+      "requirement_ids": [
+        "brain.right_caudate"
+      ],
+      "relationship": "required_parent_and_component_parts_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-putamen",
+      "label": "Right putamen",
+      "section_sha256": "5bbaffeb3ce5450ac13a67c3056b208f87e706845439df44b83e00e9f3375064",
+      "requirement_ids": [
+        "brain.right_lentiform.putamen"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-globus-pallidus",
+      "label": "Right globus pallidus",
+      "section_sha256": "a5029863d7f92a17a598f8bcdf2f3900035a81b09c8e1400fa8b17b9dd6ab44b",
+      "requirement_ids": [
+        "brain.right_lentiform.globus_pallidus_external",
+        "brain.right_lentiform.globus_pallidus_internal"
+      ],
+      "relationship": "component_requirements_present_no_whole_mask_claim",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-thalamus",
+      "label": "Right thalamus",
+      "section_sha256": "cba0535152a32839395dd1f356edc10d5cded939bee99453efe67ab720d34e62",
+      "requirement_ids": [
+        "brain.right_thalamus"
+      ],
+      "relationship": "required_parent_and_component_parts_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-anterior-limb-of-internal-capsule",
+      "label": "Right anterior limb of internal capsule",
+      "section_sha256": "b73c326291f0bdbc206382927369d61c79ebe5db011ae9af4dbdf5d72337cb8a",
+      "requirement_ids": [
+        "brain.right_internal_capsule.anterior_limb"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-genu-of-internal-capsule",
+      "label": "Right genu of internal capsule",
+      "section_sha256": "f7e57285d859f36354a8b184f6de011865cffda474f04d76a241e957e3a1c98b",
+      "requirement_ids": [
+        "brain.right_internal_capsule.genu"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-posterior-limb-of-internal-capsule",
+      "label": "Right posterior limb of internal capsule",
+      "section_sha256": "94e6dcf71196829f816abadced6a367759d5793d6287e0cdbf9d81526a3bdb00",
+      "requirement_ids": [
+        "brain.right_internal_capsule.posterior_limb"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "right-cerebellar-hemisphere",
+      "label": "Right cerebellar hemisphere",
+      "section_sha256": "9e0e843053faebca8dc7d9ee3b0afe58953a16b7c70434519ef5ec9cd0b6d12c",
+      "requirement_ids": [
+        "brain.right_cerebellum"
+      ],
+      "relationship": "required_parent_and_component_parts_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-precentral-gyrus",
+      "label": "Left precentral gyrus",
+      "section_sha256": "17477fe86a72958165b1287f30df6e66184f78e10f7af336d499a5c17f3a84d3",
+      "requirement_ids": [
+        "brain.left_surface.precentral_gyrus"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-postcentral-gyrus",
+      "label": "Left postcentral gyrus",
+      "section_sha256": "50d2f6f57b6d61111222606bf332fc0112f64b12a06790be14154aa83db27ef2",
+      "requirement_ids": [
+        "brain.left_surface.postcentral_gyrus"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-superior-frontal-gyrus",
+      "label": "Left superior frontal gyrus",
+      "section_sha256": "8cd074df80cc1bdf68ca84a7cdd1c1b4440cf653c592f2457d38ef0c29a7075d",
+      "requirement_ids": [
+        "brain.left_surface.superior_frontal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-middle-frontal-gyrus",
+      "label": "Left middle frontal gyrus",
+      "section_sha256": "bb4465caefb2e0690451234baaed97d84826cecc48a02ac8b3e3fa6279bb98ad",
+      "requirement_ids": [
+        "brain.left_surface.middle_frontal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-inferior-frontal-gyrus",
+      "label": "Left inferior frontal gyrus",
+      "section_sha256": "dae00fb69339ea63c92a2f813373ec3dc2abeb5a505e950bcaa1cfaed494f483",
+      "requirement_ids": [
+        "brain.left_surface.inferior_frontal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-superior-parietal-lobule",
+      "label": "Left superior parietal lobule",
+      "section_sha256": "6e417e061d85bbf9f010a722c614f043fb7a67599d45292088c1165c6f951e17",
+      "requirement_ids": [
+        "brain.left_surface.superior_parietal_lobule"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-inferior-parietal-lobule",
+      "label": "Left inferior parietal lobule",
+      "section_sha256": "b28d3ff22b0c8f761ca36c03343c312821f76277fae2fb41b62879232a1a16ef",
+      "requirement_ids": [
+        "brain.left_surface.inferior_parietal_lobule"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-superior-temporal-gyrus",
+      "label": "Left superior temporal gyrus",
+      "section_sha256": "f4b776dabc165ffd944da6cd809b2da18843a2add024bf738e663b8a48c995a8",
+      "requirement_ids": [
+        "brain.left_surface.superior_temporal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-middle-temporal-gyrus",
+      "label": "Left middle temporal gyrus",
+      "section_sha256": "4a9caac5dc085810141b9c957951addd720cd2be41801f046e1107dc6186c4ee",
+      "requirement_ids": [
+        "brain.left_surface.middle_temporal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-inferior-temporal-gyrus",
+      "label": "Left inferior temporal gyrus",
+      "section_sha256": "88d9418975b30f5851bd526280b5863ed7c629cc55975b7b5717cfebcf84fa16",
+      "requirement_ids": [
+        "brain.left_surface.inferior_temporal_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-insula",
+      "label": "Left insula",
+      "section_sha256": "ff455afa2a349da5873da73a28e63f085de3f93585bb36b0d46b4cffb7fb8e1d",
+      "requirement_ids": [
+        "brain.left_surface.insula"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-cingulate-gyrus",
+      "label": "Left cingulate gyrus",
+      "section_sha256": "1be3871d66da50e43d7fec4bc2c2c32a491617a4326e6bb59abbce4d2ecfdcea",
+      "requirement_ids": [
+        "brain.left_surface.cingulate_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-precuneus",
+      "label": "Left precuneus",
+      "section_sha256": "15061cc0311e00983e693da4bc99c0e072a143777335d7576d50b7ed1e40bfa6",
+      "requirement_ids": [
+        "brain.left_surface.precuneus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-cuneus",
+      "label": "Left cuneus",
+      "section_sha256": "7ab81a4bb6e63487143d73bab60b78ec09cefd0fcc011990ba891ee49797818c",
+      "requirement_ids": [
+        "brain.left_surface.cuneus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-lingual-gyrus",
+      "label": "Left lingual gyrus",
+      "section_sha256": "eb932e8c83dcdbb44ab212cfc18f02ddb2e011aedc464dd13af761d310f90978",
+      "requirement_ids": [
+        "brain.left_surface.lingual_gyrus"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-hippocampus",
+      "label": "Left hippocampus",
+      "section_sha256": "893abda90406daacc46a690f4947589bdb0e2cc60d0bd0ec3d3652babcc46a07",
+      "requirement_ids": [
+        "brain.left_source_regions.hippocampal_head",
+        "brain.left_source_regions.hippocampal_body",
+        "brain.left_source_regions.hippocampal_tail"
+      ],
+      "relationship": "component_requirements_present_no_whole_mask_claim",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-amygdala",
+      "label": "Left amygdala",
+      "section_sha256": "f38d9e6f2a9bcf8f2826c987e403599b0c02e58c878675c4aca63e0c2e114e7c",
+      "requirement_ids": [
+        "brain.left_source_regions.amygdala"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-caudate-nucleus",
+      "label": "Left caudate nucleus",
+      "section_sha256": "7bbca64551b6b5912261e5406ab48cdc70dcfa7e4cbb23ed658f1a95e3fb97f5",
+      "requirement_ids": [
+        "brain.left_caudate"
+      ],
+      "relationship": "required_parent_and_component_parts_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-putamen",
+      "label": "Left putamen",
+      "section_sha256": "0cc3a32b47b9e307ef53e8a68ffa377f3de5d429e5858d2d3b353882b6637d5e",
+      "requirement_ids": [
+        "brain.left_lentiform.putamen"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-globus-pallidus",
+      "label": "Left globus pallidus",
+      "section_sha256": "4460e4ce410d69abb4b011d0cc955862c1a08da3753557eab0af2baeaa1d99d4",
+      "requirement_ids": [
+        "brain.left_lentiform.globus_pallidus_external",
+        "brain.left_lentiform.globus_pallidus_internal"
+      ],
+      "relationship": "component_requirements_present_no_whole_mask_claim",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-thalamus",
+      "label": "Left thalamus",
+      "section_sha256": "ec09c1b3327264491e81d85bcbdd3c1fb1968cf032a4c21d448e5b5bee34661d",
+      "requirement_ids": [
+        "brain.left_thalamus"
+      ],
+      "relationship": "required_parent_and_component_parts_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-anterior-limb-of-internal-capsule",
+      "label": "Left anterior limb of internal capsule",
+      "section_sha256": "6864115e745a89630b800be834ec6bc70dc78d79344ac44907234928a790d08d",
+      "requirement_ids": [
+        "brain.left_internal_capsule.anterior_limb"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-genu-of-internal-capsule",
+      "label": "Left genu of internal capsule",
+      "section_sha256": "99c880e992d67bd53b6c824d8b7bc72896ce51cb3fd579427679546eef41d5ba",
+      "requirement_ids": [
+        "brain.left_internal_capsule.genu"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-posterior-limb-of-internal-capsule",
+      "label": "Left posterior limb of internal capsule",
+      "section_sha256": "1322afcc99203f0b798e995d7c936b2d33e24bcb661f3efc72b67c5bcbf70c7a",
+      "requirement_ids": [
+        "brain.left_internal_capsule.posterior_limb"
+      ],
+      "relationship": "explicit_required_part_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "left-cerebellar-hemisphere",
+      "label": "Left cerebellar hemisphere",
+      "section_sha256": "076933153ec314d8a65fa04b07f3fe8d92dc363231d4797a265c5ed56718521d",
+      "requirement_ids": [
+        "brain.left_cerebellum"
+      ],
+      "relationship": "required_parent_and_component_parts_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "aca",
+      "label": "ACA territory",
+      "section_sha256": "088a76724e730cd7243ca2e0886485abcd1c7d12ddd6e620b20fc95dbc5ce744",
+      "requirement_ids": [
+        "brain.right_territories.aca_cortical",
+        "brain.left_territories.aca_cortical"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "mca-superior-division",
+      "label": "MCA superior division territory",
+      "section_sha256": "322801cd98f8fa7b2aa01becc792e16d2fd478bb6f6a9130dcab175b308ff7c8",
+      "requirement_ids": [
+        "brain.right_territories.mca_superior_division_territory",
+        "brain.left_territories.mca_superior_division_territory"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "mca-inferior-division",
+      "label": "MCA inferior division territory",
+      "section_sha256": "c34875c76a72f54d8b34c589d12df3e29c0a133c61b16ccc1684716b7f92a65a",
+      "requirement_ids": [
+        "brain.right_territories.mca_inferior_division_territory",
+        "brain.left_territories.mca_inferior_division_territory"
+      ],
+      "relationship": "explicit_new_side_instantiated_part",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "pca",
+      "label": "PCA territory",
+      "section_sha256": "d0f42165e6cac83987651da6ac079dc115cfdebc5f0e5467130df6feaf280827",
+      "requirement_ids": [
+        "brain.right_territories.pca_cortical",
+        "brain.left_territories.pca_cortical"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "anterior-choroidal",
+      "label": "anterior choroidal territory",
+      "section_sha256": "83505dbad3c83b9138d1b118f372da7f63340bcd41e4cddbd69b4c79d98b2348",
+      "requirement_ids": [
+        "brain.right_territories.anterior_choroidal",
+        "brain.left_territories.anterior_choroidal"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "lenticulostriate",
+      "label": "lenticulostriate territory",
+      "section_sha256": "307745487e62f989e22bef5f1c1d09abdfb8a5f65a4b4d474d009561ec0cf507",
+      "requirement_ids": [
+        "brain.right_territories.medial_lenticulostriate",
+        "brain.right_territories.lateral_lenticulostriate",
+        "brain.left_territories.medial_lenticulostriate",
+        "brain.left_territories.lateral_lenticulostriate"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "pica",
+      "label": "PICA territory",
+      "section_sha256": "c3416dbb2202125ae1c9d0fdc30b33951647b65f39843b0a5c49eccde6977dda",
+      "requirement_ids": [
+        "brain.right_territories.pica",
+        "brain.left_territories.pica"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "aica",
+      "label": "AICA territory",
+      "section_sha256": "efbb72a08cd3be10d4e9dab70ec62e49715ceff27a47eafbbbc7abb9d5854936",
+      "requirement_ids": [
+        "brain.right_territories.aica",
+        "brain.left_territories.aica"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "superior-cerebellar",
+      "label": "superior cerebellar territory",
+      "section_sha256": "1dc89d6e8d0395c028a69eabd90cdf8f789120643ffaf9b24f89fba0afc9cfdb",
+      "requirement_ids": [
+        "brain.right_territories.sca",
+        "brain.left_territories.sca"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "aca-mca-borderzone",
+      "label": "ACA–MCA borderzone territory",
+      "section_sha256": "75cbaa7abfd91e59d409007a434b9f07277fdf6753bc17ebc610326d07d9b6f5",
+      "requirement_ids": [
+        "brain.right_territories.aca_mca_cortical_border_zone",
+        "brain.left_territories.aca_mca_cortical_border_zone"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "mca-pca-borderzone",
+      "label": "MCA–PCA borderzone territory",
+      "section_sha256": "d30116235adfa0f2162414b2b5415b1463bfe854a5f21fafa94aed84c754a62a",
+      "requirement_ids": [
+        "brain.right_territories.mca_pca_cortical_border_zone",
+        "brain.left_territories.mca_pca_cortical_border_zone"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    },
+    {
+      "section_id": "internal-borderzone",
+      "label": "internal borderzone territory",
+      "section_sha256": "9c3697d15630216af1dab5cf01727bd46bac1a45e4fce24f55c8f561b238f256",
+      "requirement_ids": [
+        "brain.right_territories.internal_border_zone",
+        "brain.left_territories.internal_border_zone"
+      ],
+      "relationship": "related_bilateral_territory_requirements_present",
+      "clinical_representation_complete": false
+    }
+  ]
+}

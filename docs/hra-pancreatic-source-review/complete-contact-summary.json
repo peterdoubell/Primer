@@ -1,0 +1,69 @@
+{
+  "records": [
+    {
+      "sex": "female",
+      "file": "pancreas-female-v1.3-complete-contacts.json.gz",
+      "compressed_sha256": "bb38129830915728e3f4f1d7bad40bc8e3360cd124b9950ac4a9add9b03413dd",
+      "uncompressed_sha256": "66e7bf1b307398b594370a6b70314180d8a81c732960a82e4c8f4c09aee5cc7f",
+      "compressed_bytes": 2800,
+      "uncompressed_bytes": 19894,
+      "original_source_triangles": 12894,
+      "testable_triangles": 12886,
+      "held_invalid_triangles": 8,
+      "candidate_pairs": 81987,
+      "explicitly_tested_pairs": 62660,
+      "shared_edge_nonparallel_pairs": 19327,
+      "contact_count": 17,
+      "contact_categories": {
+        "within_source_part": 17
+      },
+      "affected_part_pairs": [
+        {
+          "parts": [
+            "VH_F_head_of_pancreas",
+            "VH_F_head_of_pancreas"
+          ],
+          "contact_pairs": 17
+        }
+      ]
+    },
+    {
+      "sex": "male",
+      "file": "pancreas-male-v1.3-complete-contacts.json.gz",
+      "compressed_sha256": "5b5e6118c41f75d5e681be820e8e5889efb741e8d03b929da93c43d9219a8728",
+      "uncompressed_sha256": "d0c7eab04fefe5730ce675f73290f386ea6ea5b06cde520bcfc7ffcbdf9c9b0e",
+      "compressed_bytes": 4264,
+      "uncompressed_bytes": 31497,
+      "original_source_triangles": 38930,
+      "testable_triangles": 38930,
+      "held_invalid_triangles": 0,
+      "candidate_pairs": 241271,
+      "explicitly_tested_pairs": 182909,
+      "shared_edge_nonparallel_pairs": 58362,
+      "contact_count": 41,
+      "contact_categories": {
+        "between_source_parts": 33,
+        "within_source_part": 8
+      },
+      "affected_part_pairs": [
+        {
+          "parts": [
+            "VH_M_body_of_pancreas",
+            "VH_M_neck_of_pancreas"
+          ],
+          "contact_pairs": 33
+        },
+        {
+          "parts": [
+            "VH_M_head_of_pancreas",
+            "VH_M_head_of_pancreas"
+          ],
+          "contact_pairs": 8
+        }
+      ]
+    }
+  ],
+  "source_meshes_changed": false,
+  "clinical_approval": false,
+  "runtime_promoted": false
+}

@@ -1,0 +1,64 @@
+from pathlib import Path
+import gzip,hashlib,json,struct,sys,time
+import numpy as np
+from scipy import ndimage
+ROOT=Path.cwd();D=ROOT/'.research/openear-native-20261027';SRC=D/'source';OUT=D/'package';OUT.mkdir(exist_ok=True)
+S=json.loads((D/'source-preparation.json').read_bytes());assert S['allPassed'];records={r['sourceFile']:r for r in S['volumes']}
+OLD=ROOT/'docs/openear-native-source-review';layers=json.loads((OLD/'ZETA-original-volume-readback.json').read_bytes())['original_segmentation_layers']
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def mmap(name):
+ r=records[name];return np.memmap(SRC/(name+'.raw'),dtype=r['dtype'],mode='r',shape=tuple(r['memmap_shape_reversed_axes']))
+embedded=mmap('CBCT_Embedded.nrrd');unembedded=mmap('CBCT_Unembedded.nrrd');seg=mmap('Segmentation.seg.nrrd');bone=mmap('Bone.nrrd');shape=embedded.shape;assert shape==(625,587,668)and bone.shape==shape and unembedded.shape==shape
+A=np.array(records['CBCT_Embedded.nrrd']['equivalent_RAS_affine']);L=np.array(records['Segmentation.seg.nrrd']['equivalent_RAS_affine']);offset=np.array([20,3,13]);assert np.array_equal(A,records['CBCT_Unembedded.nrrd']['equivalent_RAS_affine'])and np.array_equal(A,records['Bone.nrrd']['equivalent_RAS_affine']);expected=A.copy();expected[:3,3]+=A[:3,:3]@offset;residual=float(np.abs(expected-L).max());assert residual<5e-14
+bits=np.memmap(D/'overlapping-masks.u16',dtype='<u2',mode='w+',shape=shape);counts=np.zeros(14,np.int64);overlap=0
+for z in range(shape[0]):
+ slab=np.asarray(bone[z]);assert np.all((slab==0)|(slab==1));b=np.asarray(slab,dtype='<u2')<<13;counts[13]+=int(np.count_nonzero(slab))
+ if 13<=z<488:
+  layer=np.asarray(seg[z-13]);assert np.all((layer==0)|(layer==1));mask=np.zeros(layer.shape[:2],dtype='<u2')
+  for bit in range(13):mask|=layer[:,:,bit].astype('<u2')<<bit;counts[bit]+=int(np.count_nonzero(layer[:,:,bit]))
+  b[3:582,20:661]|=mask;overlap+=int(np.count_nonzero(np.sum(layer,axis=2)>1))
+ bits[z]=b
+bits.flush();assert overlap==773 and counts[:13].tolist()==[r['foreground_samples']for r in layers]
+print('All 14 independent source masks encoded; original 13-channel overlap',overlap,flush=True)
+# Every independent source channel has its own navigation components. Cropped
+# masks and the separate full Bone source remain distinct despite shared anatomy.
+selections=[]
+mesh_for_name={p['name'].split(' · ',1)[0].casefold():k for k,p in json.loads((ROOT/'web/anatomy/openear-zeta/manifest.json').read_bytes())['parts'].items()}
+for bit in range(14):
+ if bit<13:
+  r=layers[bit];x0,x1,y0,y1,z0,z1=r['source_extent_xyz_inclusive'];bounds=[x0+20,y0+3,z0+13,x1+20,y1+3,z1+13];name=r['source_name']+' · cropped segmentation layer';source_volume='Segmentation.seg.nrrd';source_layer=bit
+ else:
+  bounds=[0,0,0,667,586,624];name='Bone · separate full supplied mask';source_volume='Bone.nrrd';source_layer=None
+ x0,y0,z0,x1,y1,z1=bounds;mask=((bits[z0:z1+1,y0:y1+1,x0:x1+1]&(1<<bit))!=0);components,n=ndimage.label(mask,structure=np.ones((3,3,3),np.uint8));sizes=np.bincount(components.reshape(-1));objects=ndimage.find_objects(components);items=[]
+ for label in np.argsort(sizes[1:])[::-1]+1:
+  box=objects[label-1];z=(box[0].start+box[0].stop-1)//2;ys,xs=np.where(components[z,box[1],box[2]]==label);assert len(xs);ys+=box[1].start;xs+=box[2].start;goal=np.array([(box[2].start+box[2].stop-1)/2,(box[1].start+box[1].stop-1)/2]);pick=int(np.argmin((xs-goal[0])**2+(ys-goal[1])**2));ijk=[int(xs[pick]+x0),int(ys[pick]+y0),int(z+z0)];assert bits[ijk[2],ijk[1],ijk[0]]&(1<<bit)
+  items.append({'sourceComponentId':int(label),'voxels':int(sizes[label]),'focusMRIijk':ijk,'focusSourceWorld':(A[:3,:3]@ijk+A[:3,3]).tolist()})
+ assert sum(c['voxels']for c in items)==int(counts[bit]);selections.append({'code':bit,'name':name,'sourceVolume':source_volume,'originalLayerIndex':source_layer,'bit':bit,'voxels':int(counts[bit]),'components26':items,'meshId':mesh_for_name[(layers[bit]['source_name'] if bit<13 else 'Bone').casefold()],'sourceCoverage':'original cropped segmentation grid'if bit<13 else'original complete Bone volume grid'})
+ del components,mask;print('Components',bit,name,n,flush=True)
+manifest={'schemaVersion':1,'dataset':'OpenEar ZETA','record':1473724,'sourceURL':'https://zenodo.org/records/1473724','license':'CC BY 4.0','sourcePreparationSHA256':sha((D/'source-preparation.json').read_bytes()),'clinicalApproval':False,'patientLateralityApproved':False,'patientOrientationApproved':False,'intensityCalibrationHUApproved':False,'originalAcquisitionVoxelMm':{'embedded':.125,'unembedded':.25},'registeredSpacingEqualsReportedAcquisitionVoxelSize':{'embedded':True,'unembedded':False},'effectiveSpatialResolutionEstablished':False,'sourceToDisplayBasis':'Specimen source X/Y/Z only; patient anatomical orientation unapproved','annotationCrop':{'offsetXYZ':offset.tolist(),'shapeXYZ':[641,579,475],'affine':L.tolist(),'maximumHeaderResidualMm':residual,'outsideMeaning':'No original 13-channel annotation supplied; full Bone mask has separate coverage'},'overlap':{'originalIndependentBinaryChannels':13,'additionalSeparateFullBoneChannel':13,'transport':'UInt16 independent bit flags, never a mutually exclusive class map','overlappingOriginalChannelPositions':overlap,'sourceChannelCounts':counts.tolist()},'displayPlanes':{'xy':{'axis':2,'sourceAxes':[0,1],'flipX':False,'flipY':True,'edges':['−X','+X','+Y','−Y']},'xz':{'axis':1,'sourceAxes':[0,2],'flipX':False,'flipY':True,'edges':['−X','+X','+Z','−Z']},'yz':{'axis':0,'sourceAxes':[1,2],'flipX':False,'flipY':True,'edges':['−Y','+Y','+Z','−Z']}},'selections':selections,'volumes':{},'packs':{},'meshes':{},'planeCount':0,'sourceMeshCount':13,'sourceTriangles':7349910}
+LIMIT=16*1024*1024
+for name,array,dtype,source in [('embedded',embedded,'<i2','CBCT_Embedded.nrrd'),('unembedded',unembedded,'<i2','CBCT_Unembedded.nrrd'),('masks',bits,'<u2',None)]:
+ v={'shape':[668,587,625],'dtype':dtype,'voxelToSourceWorld':A.tolist(),'sourceFile':source,'originalSourceSHA256':records[source]['original_member_sha256']if source else None,'planes':{}}
+ for axis in range(3):
+  index=0;part=0;pack=bytearray();filename=f'{name}-axis-{axis}-part-{part}.pack';rows=[]
+  def save():
+   if pack:(OUT/filename).write_bytes(pack);manifest['packs'][filename]={'bytes':len(pack),'sha256':sha(pack)}
+  for index in range(v['shape'][axis]):
+   indices=[slice(None)]*3;indices[2-axis]=index;plane=np.asarray(array[tuple(indices)]);raw=plane.tobytes(order='C');compressed=gzip.compress(raw,compresslevel=4,mtime=0)
+   if pack and len(pack)+len(compressed)>LIMIT:save();part+=1;pack=bytearray();filename=f'{name}-axis-{axis}-part-{part}.pack'
+   others=[a for a in range(3)if a!=axis];row={'index':index,'file':filename,'offset':len(pack),'gzipBytes':len(compressed),'gzipSHA256':sha(compressed),'decodedBytes':len(raw),'decodedSHA256':sha(raw),'shape':[v['shape'][a]for a in others],'sourceAxes':others,'order':'first source axis fastest'};pack.extend(compressed);rows.append(row);manifest['planeCount']+=1
+  save();v['planes'][str(axis)]=rows;print('Packed',name,'axis',axis,'planes',len(rows),'packs',part+1,flush=True)
+ manifest['volumes'][name]=v
+# Preserve the actual original model arrays, not regenerated/decimated geometry.
+old=json.loads((ROOT/'web/anatomy/openear-zeta/manifest.json').read_bytes());CHUNK=4*1024*1024
+for identifier,row in old['parts'].items():
+ p=ROOT/'web'/row['file'].removeprefix('/app/');compressed=p.read_bytes();assert sha(compressed)==row['sha256'];raw=gzip.decompress(compressed);assert sha(raw)==row['decoded_sha256'];magic,vertices,indices=struct.unpack_from('<4sII',raw);assert magic==b'BP3D'and vertices==row['vertices']and indices==row['triangles']*3 and len(raw)==12+vertices*24+indices*4
+ arrays={'positions':raw[12:12+vertices*12],'indices':raw[12+vertices*24:]};assert sha(arrays['positions'])==row['source_positions_sha256']and sha(arrays['indices'])==row['source_triangles_sha256'];mesh={'name':row['name'],'sourceMember':row['source_member'],'sourceMemberSHA256':row['source_member_sha256'],'vertices':vertices,'triangles':indices//3,'boundsSourceWorld':row['bounds'],'existingSourceTransportSHA256':row['sha256'],'parts':{}}
+ for kind,values in arrays.items():
+  parts=[]
+  for i,start in enumerate(range(0,len(values),CHUNK)):
+   chunk=values[start:start+CHUNK];packed=gzip.compress(chunk,compresslevel=6,mtime=0);name=f'{identifier}-{kind}-{i}.bin.gz';(OUT/name).write_bytes(packed);parts.append({'file':name,'offset':start,'bytes':len(chunk),'sha256':sha(chunk),'gzipBytes':len(packed),'gzipSHA256':sha(packed)})
+  mesh['parts'][kind]={'bytes':len(values),'sha256':sha(values),'chunks':parts}
+ manifest['meshes'][identifier]=mesh;print('Mesh arrays retained',identifier,mesh['triangles'],flush=True)
+assert manifest['planeCount']==5640 and sum(m['triangles']for m in manifest['meshes'].values())==7349910
+(OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');print('PACKAGE COMPLETE',len(manifest['packs']),'packs',manifest['planeCount'],'planes',flush=True)

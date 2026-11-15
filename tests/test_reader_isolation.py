@@ -384,14 +384,8 @@ class _FakeAsyncClient:
 
 
 def _state_from_cookie(client, srv):
-    """The state /auth/google/start just issued, unquoted.
-
-    httpx's cookie jar keeps the RFC 6265 quoting a value containing "/"
-    picks up (Starlette unquotes it again on the way back in, which is what
-    the real callback sees — this is a test-side artifact of reading the
-    cookie jar directly, not a production concern).
-    """
-    return client.cookies.get(srv._OAUTH_STATE_COOKIE).strip('"').split("|", 1)[0]
+    """The opaque nonce issued by /auth/google/start, with no return-path data."""
+    return client.cookies.get(srv._OAUTH_STATE_COOKIE)
 
 
 def _configure_google(monkeypatch, srv, verify=None):
@@ -429,11 +423,8 @@ def test_google_callback_happy_path_signs_in_and_sets_a_session(monkeypatch, cli
 
 
 def test_the_oauth_state_cookie_survives_a_next_path_with_cookie_unsafe_characters(monkeypatch, client):
-    """A path legally contains a comma; RFC 6265's cookie-octet grammar does
-    not. CodeQL flagged the un-encoded write as user input reaching a cookie;
-    this proves the fix (percent-encode on write, decode-then-revalidate on
-    read) actually round-trips such a path rather than just quieting the
-    scanner."""
+    """Return paths remain server-side, preserving characters without putting
+    user input in cookies or sending the return path to the identity provider."""
     import primer.server as srv
     _configure_google(monkeypatch, srv, verify=lambda raw: {
         "sub": "sub-comma", "email": "comma@example.com", "name": "Comma"})
@@ -445,6 +436,44 @@ def test_the_oauth_state_cookie_survives_a_next_path_with_cookie_unsafe_characte
                     follow_redirects=False)
     assert cb.status_code == 303
     assert cb.headers["location"] == "/a,b/c?x=1&y=2"
+
+
+def test_google_state_contains_only_a_nonce_and_survives_another_worker(monkeypatch, client):
+    import re
+    from urllib.parse import parse_qs, urlparse
+    import primer.server as srv
+    from primer.learner import LearnerStore
+    _configure_google(monkeypatch, srv, verify=lambda raw: {
+        "sub": "opaque-state", "email": "opaque@example.com", "name": "Opaque"})
+    destination = "/private-reading?topic=personal"
+    start = client.get("/auth/google/start?next=" + urllib_quote(destination),
+                       follow_redirects=False)
+    state = _state_from_cookie(client, srv)
+    assert re.fullmatch(r"[A-Za-z0-9_-]{32,64}", state)
+    assert parse_qs(urlparse(start.headers["location"]).query)["state"] == [state]
+    assert "private-reading" not in start.headers["location"]
+    assert "private-reading" not in start.headers["set-cookie"]
+    monkeypatch.setattr(srv, "learner", LearnerStore(srv.learner.db_path))
+    callback = client.get("/auth/google/callback?code=abc&state=" + state,
+                          follow_redirects=False)
+    assert callback.headers["location"] == destination
+    assert _reader_cookie(client, srv)
+
+
+def test_google_state_cannot_be_replayed_even_with_the_original_cookie(monkeypatch, client):
+    import primer.server as srv
+    verified = []
+    def verify(raw):
+        verified.append(raw)
+        return {"sub": "one-time-state", "email": "once@example.com", "name": "Once"}
+    _configure_google(monkeypatch, srv, verify=verify)
+    client.get("/auth/google/start", follow_redirects=False)
+    state = _state_from_cookie(client, srv)
+    client.get("/auth/google/callback?code=abc&state=" + state, follow_redirects=False)
+    client.cookies.set(srv._OAUTH_STATE_COOKIE, state,
+                       domain="testserver.local", path="/auth/google")
+    client.get("/auth/google/callback?code=abc&state=" + state, follow_redirects=False)
+    assert len(verified) == 1
 
 
 def test_signing_in_again_with_the_same_identity_reaches_the_same_reader(monkeypatch, client):

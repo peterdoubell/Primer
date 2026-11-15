@@ -1,0 +1,1853 @@
+{
+  "case_id": "TCGA-BC-A3KG",
+  "source_doi": "10.5281/zenodo.8179129",
+  "source_inventory_sha256": "0daefd300866b1782668474033dc92f46b7e3868b3da1515e9627893c699e5ae",
+  "original_arterial_sha256": "bdbc243de838831cd878e2f47d4b2c7262a8724780c3a86d79294d290c64c477",
+  "records": [
+    {
+      "source_file": "rater1_liver.nii.gz",
+      "source_sha256": "ffa35e682570fce55484df6f5723a3cff746ac01b8b127982dbc8df2c8b2ecef",
+      "source_affine_ijk_to_ras": [
+        [
+          1.40625,
+          0.0,
+          0.0,
+          -200.86978149414062
+        ],
+        [
+          0.0,
+          1.40625,
+          0.0,
+          -144.84375
+        ],
+        [
+          0.0,
+          0.0,
+          2.5,
+          -68.4110107421875
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_shape_ijk": [
+        256,
+        208,
+        88
+      ],
+      "source_sampling_mm": [
+        1.40625,
+        1.40625,
+        2.5
+      ],
+      "clinical_approval": false,
+      "source_rater_boundary_changed": false,
+      "mesh_created": true,
+      "mesh_file": "rater1_liver.npz",
+      "mesh_sha256": "3a41ce4c16a91154849c5ff78d06fdcd75deb770c3907fa17f93ca14bc956272",
+      "extraction": {
+        "vertices": 45895,
+        "triangles": 91794,
+        "native_selected_voxels": 362161,
+        "selected_voxel_volume_mm3": 1790468.8110351562,
+        "surface_signed_volume_mm3": 1789920.0439453125,
+        "source_components_6_connected": 1,
+        "source_components_26_connected": 1,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "exact_duplicate_vertex_positions": 0,
+        "coincident_position_boundary_edges": 0,
+        "coincident_position_nonmanifold_edges": 0,
+        "world_bounds_mm": [
+          [
+            -73.60415649414062,
+            -101.953125,
+            -34.6610107421875
+          ],
+          [
+            107.80209350585938,
+            65.390625,
+            135.3389892578125
+          ]
+        ],
+        "removed_components": 0,
+        "smoothing_or_decimation": false,
+        "clinical_approval": false
+      },
+      "topology": {
+        "vertices_checked": 45895,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 45895,
+            "triangles": 91794,
+            "edges": 137691,
+            "euler_characteristic": -2,
+            "signed_volume_mm3": 1789920.0439453125,
+            "world_bounds_ras_mm": [
+              [
+                -73.60415649414062,
+                -101.953125,
+                -34.6610107421875
+              ],
+              [
+                107.80209350585938,
+                65.390625,
+                135.3389892578125
+              ]
+            ],
+            "orientable_closed_surface_genus": 2,
+            "anatomical_cause_of_surface_topology_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_centre_audit": {
+        "bounds_start_ijk": [
+          89,
+          29,
+          12
+        ],
+        "bounds_stop_exclusive_ijk": [
+          222,
+          152,
+          84
+        ],
+        "compared_voxel_centres": 1177848,
+        "complete_source_positive_voxels": 362161,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_voxel_centre_match": true,
+        "planes": [
+          {
+            "native_z_index": 12,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 13,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 14,
+            "source_positive_voxels": 76,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 15,
+            "source_positive_voxels": 189,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 16,
+            "source_positive_voxels": 312,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 17,
+            "source_positive_voxels": 452,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 18,
+            "source_positive_voxels": 596,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 19,
+            "source_positive_voxels": 748,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 20,
+            "source_positive_voxels": 915,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 21,
+            "source_positive_voxels": 1104,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 22,
+            "source_positive_voxels": 1328,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 23,
+            "source_positive_voxels": 1592,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 24,
+            "source_positive_voxels": 1859,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 25,
+            "source_positive_voxels": 2110,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 26,
+            "source_positive_voxels": 2351,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 27,
+            "source_positive_voxels": 2603,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 28,
+            "source_positive_voxels": 2823,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 29,
+            "source_positive_voxels": 3082,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 30,
+            "source_positive_voxels": 3294,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 31,
+            "source_positive_voxels": 3523,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 32,
+            "source_positive_voxels": 3766,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 33,
+            "source_positive_voxels": 4052,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 34,
+            "source_positive_voxels": 4339,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 35,
+            "source_positive_voxels": 4739,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 36,
+            "source_positive_voxels": 4967,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 37,
+            "source_positive_voxels": 5156,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 38,
+            "source_positive_voxels": 5366,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 39,
+            "source_positive_voxels": 5528,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 40,
+            "source_positive_voxels": 5854,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 41,
+            "source_positive_voxels": 7076,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 42,
+            "source_positive_voxels": 7709,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 43,
+            "source_positive_voxels": 8094,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 44,
+            "source_positive_voxels": 8448,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 45,
+            "source_positive_voxels": 8924,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 46,
+            "source_positive_voxels": 9185,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 47,
+            "source_positive_voxels": 9343,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 48,
+            "source_positive_voxels": 9435,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 49,
+            "source_positive_voxels": 9527,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 50,
+            "source_positive_voxels": 9594,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 51,
+            "source_positive_voxels": 9690,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 52,
+            "source_positive_voxels": 9772,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 53,
+            "source_positive_voxels": 9835,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 54,
+            "source_positive_voxels": 9872,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 55,
+            "source_positive_voxels": 9890,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 56,
+            "source_positive_voxels": 9895,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 57,
+            "source_positive_voxels": 9875,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 58,
+            "source_positive_voxels": 9829,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 59,
+            "source_positive_voxels": 9729,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 60,
+            "source_positive_voxels": 9572,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 61,
+            "source_positive_voxels": 9369,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 62,
+            "source_positive_voxels": 9117,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 63,
+            "source_positive_voxels": 8817,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 64,
+            "source_positive_voxels": 8476,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 65,
+            "source_positive_voxels": 8125,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 66,
+            "source_positive_voxels": 7755,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 67,
+            "source_positive_voxels": 7351,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 68,
+            "source_positive_voxels": 6896,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 69,
+            "source_positive_voxels": 6397,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 70,
+            "source_positive_voxels": 5710,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 71,
+            "source_positive_voxels": 5011,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 72,
+            "source_positive_voxels": 4117,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 73,
+            "source_positive_voxels": 3532,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 74,
+            "source_positive_voxels": 3091,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 75,
+            "source_positive_voxels": 2654,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 76,
+            "source_positive_voxels": 2276,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 77,
+            "source_positive_voxels": 1876,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 78,
+            "source_positive_voxels": 1487,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 79,
+            "source_positive_voxels": 1083,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 80,
+            "source_positive_voxels": 722,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 81,
+            "source_positive_voxels": 281,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 82,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 83,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          }
+        ],
+        "outside_audit_region": "All triangles lie within the audit bounds; source positives outside are absent by full-mask count."
+      },
+      "continuous_self_contacts_audited": false,
+      "native_mask_euler_6_connectivity": 0,
+      "native_mask_euler_26_connectivity": 0,
+      "status": "held_unclassified_source_surface_handles"
+    },
+    {
+      "source_file": "rater2_liver.nii.gz",
+      "source_sha256": "f5b348230c3d147a1b6966e7dd8098c80c95c997b3384481454b7d87ac1c4a05",
+      "source_affine_ijk_to_ras": [
+        [
+          1.40625,
+          0.0,
+          0.0,
+          -200.86978149414062
+        ],
+        [
+          0.0,
+          1.40625,
+          0.0,
+          -144.84375
+        ],
+        [
+          0.0,
+          0.0,
+          2.5,
+          -68.4110107421875
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_shape_ijk": [
+        256,
+        208,
+        88
+      ],
+      "source_sampling_mm": [
+        1.40625,
+        1.40625,
+        2.5
+      ],
+      "clinical_approval": false,
+      "source_rater_boundary_changed": false,
+      "mesh_created": true,
+      "mesh_file": "rater2_liver.npz",
+      "mesh_sha256": "7d5ccbe66d8cd4eeebacb5431b0c09ec1cee8535f3e5f167ccb37b38e7509687",
+      "extraction": {
+        "vertices": 45194,
+        "triangles": 90388,
+        "native_selected_voxels": 361525,
+        "selected_voxel_volume_mm3": 1787324.5239257812,
+        "surface_signed_volume_mm3": 1786778.8467407227,
+        "source_components_6_connected": 1,
+        "source_components_26_connected": 1,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "exact_duplicate_vertex_positions": 0,
+        "coincident_position_boundary_edges": 0,
+        "coincident_position_nonmanifold_edges": 0,
+        "world_bounds_mm": [
+          [
+            -73.60415649414062,
+            -101.953125,
+            -34.6610107421875
+          ],
+          [
+            107.80209350585938,
+            62.578125,
+            137.8389892578125
+          ]
+        ],
+        "removed_components": 0,
+        "smoothing_or_decimation": false,
+        "clinical_approval": false
+      },
+      "topology": {
+        "vertices_checked": 45194,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 45194,
+            "triangles": 90388,
+            "edges": 135582,
+            "euler_characteristic": 0,
+            "signed_volume_mm3": 1786778.8467407227,
+            "world_bounds_ras_mm": [
+              [
+                -73.60415649414062,
+                -101.953125,
+                -34.6610107421875
+              ],
+              [
+                107.80209350585938,
+                62.578125,
+                137.8389892578125
+              ]
+            ],
+            "orientable_closed_surface_genus": 1,
+            "anatomical_cause_of_surface_topology_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_centre_audit": {
+        "bounds_start_ijk": [
+          89,
+          29,
+          12
+        ],
+        "bounds_stop_exclusive_ijk": [
+          222,
+          150,
+          85
+        ],
+        "compared_voxel_centres": 1174789,
+        "complete_source_positive_voxels": 361525,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_voxel_centre_match": true,
+        "planes": [
+          {
+            "native_z_index": 12,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 13,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 14,
+            "source_positive_voxels": 183,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 15,
+            "source_positive_voxels": 215,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 16,
+            "source_positive_voxels": 317,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 17,
+            "source_positive_voxels": 431,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 18,
+            "source_positive_voxels": 552,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 19,
+            "source_positive_voxels": 704,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 20,
+            "source_positive_voxels": 874,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 21,
+            "source_positive_voxels": 1052,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 22,
+            "source_positive_voxels": 1258,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 23,
+            "source_positive_voxels": 1486,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 24,
+            "source_positive_voxels": 1711,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 25,
+            "source_positive_voxels": 1936,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 26,
+            "source_positive_voxels": 2179,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 27,
+            "source_positive_voxels": 2461,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 28,
+            "source_positive_voxels": 2759,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 29,
+            "source_positive_voxels": 3046,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 30,
+            "source_positive_voxels": 3328,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 31,
+            "source_positive_voxels": 3587,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 32,
+            "source_positive_voxels": 3812,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 33,
+            "source_positive_voxels": 4080,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 34,
+            "source_positive_voxels": 4578,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 35,
+            "source_positive_voxels": 4895,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 36,
+            "source_positive_voxels": 5157,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 37,
+            "source_positive_voxels": 5355,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 38,
+            "source_positive_voxels": 5571,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 39,
+            "source_positive_voxels": 5792,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 40,
+            "source_positive_voxels": 5971,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 41,
+            "source_positive_voxels": 6171,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 42,
+            "source_positive_voxels": 6747,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 43,
+            "source_positive_voxels": 8044,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 44,
+            "source_positive_voxels": 8569,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 45,
+            "source_positive_voxels": 8912,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 46,
+            "source_positive_voxels": 9182,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 47,
+            "source_positive_voxels": 9449,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 48,
+            "source_positive_voxels": 9670,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 49,
+            "source_positive_voxels": 9776,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 50,
+            "source_positive_voxels": 9847,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 51,
+            "source_positive_voxels": 9905,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 52,
+            "source_positive_voxels": 9930,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 53,
+            "source_positive_voxels": 9952,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 54,
+            "source_positive_voxels": 9951,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 55,
+            "source_positive_voxels": 9934,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 56,
+            "source_positive_voxels": 9892,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 57,
+            "source_positive_voxels": 9811,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 58,
+            "source_positive_voxels": 9681,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 59,
+            "source_positive_voxels": 9532,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 60,
+            "source_positive_voxels": 9371,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 61,
+            "source_positive_voxels": 9163,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 62,
+            "source_positive_voxels": 8911,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 63,
+            "source_positive_voxels": 8634,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 64,
+            "source_positive_voxels": 8364,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 65,
+            "source_positive_voxels": 8067,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 66,
+            "source_positive_voxels": 7765,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 67,
+            "source_positive_voxels": 7410,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 68,
+            "source_positive_voxels": 7015,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 69,
+            "source_positive_voxels": 6484,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 70,
+            "source_positive_voxels": 5224,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 71,
+            "source_positive_voxels": 4700,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 72,
+            "source_positive_voxels": 4184,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 73,
+            "source_positive_voxels": 3696,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 74,
+            "source_positive_voxels": 3203,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 75,
+            "source_positive_voxels": 2709,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 76,
+            "source_positive_voxels": 2272,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 77,
+            "source_positive_voxels": 1848,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 78,
+            "source_positive_voxels": 1411,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 79,
+            "source_positive_voxels": 1050,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 80,
+            "source_positive_voxels": 753,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 81,
+            "source_positive_voxels": 571,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 82,
+            "source_positive_voxels": 475,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 83,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 84,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          }
+        ],
+        "outside_audit_region": "All triangles lie within the audit bounds; source positives outside are absent by full-mask count."
+      },
+      "continuous_self_contacts_audited": false,
+      "native_mask_euler_6_connectivity": 0,
+      "native_mask_euler_26_connectivity": 0,
+      "status": "held_unclassified_source_surface_handles"
+    },
+    {
+      "source_file": "rater1_tumor1.nii.gz",
+      "source_sha256": "2e544b4cca6e24143b4d8e4d079161e3807671c92b75b646e58446d7d5d3e4ae",
+      "source_affine_ijk_to_ras": [
+        [
+          1.40625,
+          0.0,
+          0.0,
+          -200.86978149414062
+        ],
+        [
+          0.0,
+          1.40625,
+          0.0,
+          -144.84375
+        ],
+        [
+          0.0,
+          0.0,
+          2.5,
+          -68.4110107421875
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_shape_ijk": [
+        256,
+        208,
+        88
+      ],
+      "source_sampling_mm": [
+        1.40625,
+        1.40625,
+        2.5
+      ],
+      "clinical_approval": false,
+      "source_rater_boundary_changed": false,
+      "mesh_created": true,
+      "mesh_file": "rater1_tumor1.npz",
+      "mesh_sha256": "c24d37effec14454b5dc4b5a574ab1b4b95bbee830c35cd7400430ee0f26b8dd",
+      "extraction": {
+        "vertices": 13026,
+        "triangles": 26048,
+        "native_selected_voxels": 67428,
+        "selected_voxel_volume_mm3": 333353.759765625,
+        "surface_signed_volume_mm3": 333074.6383666992,
+        "source_components_6_connected": 1,
+        "source_components_26_connected": 1,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "exact_duplicate_vertex_positions": 0,
+        "coincident_position_boundary_edges": 0,
+        "coincident_position_nonmanifold_edges": 0,
+        "world_bounds_mm": [
+          [
+            -69.38540649414062,
+            -30.234375,
+            35.3389892578125
+          ],
+          [
+            24.833343505859375,
+            63.984375,
+            112.8389892578125
+          ]
+        ],
+        "removed_components": 0,
+        "smoothing_or_decimation": false,
+        "clinical_approval": false
+      },
+      "topology": {
+        "vertices_checked": 13026,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 13026,
+            "triangles": 26048,
+            "edges": 39072,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 333074.6383666992,
+            "world_bounds_ras_mm": [
+              [
+                -69.38540649414062,
+                -30.234375,
+                35.3389892578125
+              ],
+              [
+                24.833343505859375,
+                63.984375,
+                112.8389892578125
+              ]
+            ],
+            "orientable_closed_surface_genus": 0,
+            "anatomical_cause_of_surface_topology_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_centre_audit": {
+        "bounds_start_ijk": [
+          92,
+          80,
+          40
+        ],
+        "bounds_stop_exclusive_ijk": [
+          163,
+          151,
+          75
+        ],
+        "compared_voxel_centres": 176435,
+        "complete_source_positive_voxels": 67428,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_voxel_centre_match": true,
+        "planes": [
+          {
+            "native_z_index": 40,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 41,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 42,
+            "source_positive_voxels": 189,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 43,
+            "source_positive_voxels": 736,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 44,
+            "source_positive_voxels": 1433,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 45,
+            "source_positive_voxels": 1707,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 46,
+            "source_positive_voxels": 1949,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 47,
+            "source_positive_voxels": 2161,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 48,
+            "source_positive_voxels": 2369,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 49,
+            "source_positive_voxels": 2582,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 50,
+            "source_positive_voxels": 2795,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 51,
+            "source_positive_voxels": 2968,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 52,
+            "source_positive_voxels": 3060,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 53,
+            "source_positive_voxels": 3108,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 54,
+            "source_positive_voxels": 3138,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 55,
+            "source_positive_voxels": 3158,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 56,
+            "source_positive_voxels": 3163,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 57,
+            "source_positive_voxels": 3158,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 58,
+            "source_positive_voxels": 3125,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 59,
+            "source_positive_voxels": 3063,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 60,
+            "source_positive_voxels": 2984,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 61,
+            "source_positive_voxels": 2885,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 62,
+            "source_positive_voxels": 2784,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 63,
+            "source_positive_voxels": 2637,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 64,
+            "source_positive_voxels": 2463,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 65,
+            "source_positive_voxels": 2232,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 66,
+            "source_positive_voxels": 1960,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 67,
+            "source_positive_voxels": 1653,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 68,
+            "source_positive_voxels": 1335,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 69,
+            "source_positive_voxels": 1093,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 70,
+            "source_positive_voxels": 850,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 71,
+            "source_positive_voxels": 585,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 72,
+            "source_positive_voxels": 105,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 73,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 74,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          }
+        ],
+        "outside_audit_region": "All triangles lie within the audit bounds; source positives outside are absent by full-mask count."
+      },
+      "continuous_self_contacts_audited": false,
+      "native_mask_euler_6_connectivity": 1,
+      "native_mask_euler_26_connectivity": 1,
+      "status": "offline_independent_rater_candidate_requires_boundary_and_contact_review"
+    },
+    {
+      "source_file": "rater2_tumor1.nii.gz",
+      "source_sha256": "f4564e2ca99ddd4d89ea98142a06b785fd6fc5f9e84cb9f32862f870c1c8efa6",
+      "source_affine_ijk_to_ras": [
+        [
+          1.40625,
+          0.0,
+          0.0,
+          -200.86978149414062
+        ],
+        [
+          0.0,
+          1.40625,
+          0.0,
+          -144.84375
+        ],
+        [
+          0.0,
+          0.0,
+          2.5,
+          -68.4110107421875
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_shape_ijk": [
+        256,
+        208,
+        88
+      ],
+      "source_sampling_mm": [
+        1.40625,
+        1.40625,
+        2.5
+      ],
+      "clinical_approval": false,
+      "source_rater_boundary_changed": false,
+      "mesh_created": true,
+      "mesh_file": "rater2_tumor1.npz",
+      "mesh_sha256": "020cad2a925e7920be778808709a812338004d4a71238b5682064f59cd9266db",
+      "extraction": {
+        "vertices": 12976,
+        "triangles": 25948,
+        "native_selected_voxels": 66105,
+        "selected_voxel_volume_mm3": 326813.04931640625,
+        "surface_signed_volume_mm3": 326528.57208251953,
+        "source_components_6_connected": 1,
+        "source_components_26_connected": 1,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "exact_duplicate_vertex_positions": 0,
+        "coincident_position_boundary_edges": 0,
+        "coincident_position_nonmanifold_edges": 0,
+        "world_bounds_mm": [
+          [
+            -70.79165649414062,
+            -28.828125,
+            40.3389892578125
+          ],
+          [
+            24.833343505859375,
+            63.984375,
+            112.8389892578125
+          ]
+        ],
+        "removed_components": 0,
+        "smoothing_or_decimation": false,
+        "clinical_approval": false
+      },
+      "topology": {
+        "vertices_checked": 12976,
+        "unused_vertices": 0,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "inconsistent_closed_edge_orientation": 0,
+        "zero_area_triangles": 0,
+        "nonmanifold_vertex_count": 0,
+        "vertex_defects": [],
+        "mesh_components": [
+          {
+            "mesh_component": 1,
+            "vertices": 12976,
+            "triangles": 25948,
+            "edges": 38922,
+            "euler_characteristic": 2,
+            "signed_volume_mm3": 326528.57208251953,
+            "world_bounds_ras_mm": [
+              [
+                -70.79165649414062,
+                -28.828125,
+                40.3389892578125
+              ],
+              [
+                24.833343505859375,
+                63.984375,
+                112.8389892578125
+              ]
+            ],
+            "orientable_closed_surface_genus": 0,
+            "anatomical_cause_of_surface_topology_verified": false
+          }
+        ],
+        "exact_duplicate_vertex_positions": 0,
+        "topology_is_anatomical_accuracy": false
+      },
+      "voxel_centre_audit": {
+        "bounds_start_ijk": [
+          91,
+          81,
+          42
+        ],
+        "bounds_stop_exclusive_ijk": [
+          163,
+          151,
+          75
+        ],
+        "compared_voxel_centres": 166320,
+        "complete_source_positive_voxels": 66105,
+        "false_positive": 0,
+        "false_negative": 0,
+        "exact_voxel_centre_match": true,
+        "planes": [
+          {
+            "native_z_index": 42,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 43,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 44,
+            "source_positive_voxels": 1586,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 45,
+            "source_positive_voxels": 1710,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 46,
+            "source_positive_voxels": 1987,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 47,
+            "source_positive_voxels": 2204,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 48,
+            "source_positive_voxels": 2456,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 49,
+            "source_positive_voxels": 2624,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 50,
+            "source_positive_voxels": 2780,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 51,
+            "source_positive_voxels": 2942,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 52,
+            "source_positive_voxels": 3066,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 53,
+            "source_positive_voxels": 3125,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 54,
+            "source_positive_voxels": 3156,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 55,
+            "source_positive_voxels": 3164,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 56,
+            "source_positive_voxels": 3169,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 57,
+            "source_positive_voxels": 3152,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 58,
+            "source_positive_voxels": 3094,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 59,
+            "source_positive_voxels": 3011,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 60,
+            "source_positive_voxels": 2913,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 61,
+            "source_positive_voxels": 2797,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 62,
+            "source_positive_voxels": 2677,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 63,
+            "source_positive_voxels": 2554,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 64,
+            "source_positive_voxels": 2391,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 65,
+            "source_positive_voxels": 2213,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 66,
+            "source_positive_voxels": 1963,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 67,
+            "source_positive_voxels": 1710,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 68,
+            "source_positive_voxels": 1315,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 69,
+            "source_positive_voxels": 1044,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 70,
+            "source_positive_voxels": 743,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 71,
+            "source_positive_voxels": 429,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 72,
+            "source_positive_voxels": 130,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 73,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          },
+          {
+            "native_z_index": 74,
+            "source_positive_voxels": 0,
+            "false_positive": 0,
+            "false_negative": 0
+          }
+        ],
+        "outside_audit_region": "All triangles lie within the audit bounds; source positives outside are absent by full-mask count."
+      },
+      "continuous_self_contacts_audited": false,
+      "native_mask_euler_6_connectivity": 1,
+      "native_mask_euler_26_connectivity": 1,
+      "status": "offline_independent_rater_candidate_requires_boundary_and_contact_review"
+    }
+  ],
+  "same_rater_mask_relations": [
+    {
+      "rater": 1,
+      "tumour_voxels": 67428,
+      "tumour_voxels_in_liver_mask": 67428,
+      "tumour_voxels_outside_liver_mask": 0,
+      "mask_relation_is_clinical_invasion": false,
+      "source_masks_merged_or_repaired": false
+    },
+    {
+      "rater": 2,
+      "tumour_voxels": 66105,
+      "tumour_voxels_in_liver_mask": 64221,
+      "tumour_voxels_outside_liver_mask": 1884,
+      "mask_relation_is_clinical_invasion": false,
+      "source_masks_merged_or_repaired": false
+    }
+  ],
+  "world_coordinates": "Original declared RAS millimetres; no fitting or resampling",
+  "source_components_pruned": false,
+  "source_raters_averaged_or_selected_as_truth": false,
+  "smoothing_or_decimation": false,
+  "clinical_approval": false,
+  "runtime_promoted": false,
+  "limits": [
+    "Each surface reproduces one source rater selection, not a consensus or independent anatomical truth.",
+    "Native voxel-centre consistency and manifold topology do not prove continuous contact absence or anatomical fidelity.",
+    "Interpolation between original 1.40625 \u00d7 1.40625 \u00d7 2.5 mm samples does not measure a finer boundary.",
+    "Liver/tumour mask relations describe annotations only; no clinical invasion, compartment or treatment interpretation is granted.",
+    "No capsule, segmental vessels, bile ducts, other lesions or complete reporting anatomy is supplied by these masks."
+  ]
+}

@@ -1,0 +1,1526 @@
+{
+  "schema_version": 1,
+  "provider": "openknee-oks003",
+  "status": "MRI-derived teaching source; clinical fidelity validation incomplete",
+  "dataset": "Open Knee(s) oks003 — native left-knee source assembly",
+  "source_doi": "10.18735/b0zv-n395",
+  "source_url": "https://simtk.org/svn/openknee/oks/oks003/",
+  "source_repository_revision": 3413,
+  "source_assembly": {
+    "url": "https://simtk.org/svn/openknee/oks/oks003/Model/Connectivity.xml",
+    "sha256": "ec128b6395652ec79e5d32ac175dd58fa5c4372680d25354ae6a666d310708a6",
+    "file": "/app/anatomy/openknee-oks003/SOURCE-ASSEMBLY.xml"
+  },
+  "license": "CC BY-SA 3.0 Unported",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "converted_geometry_license": {
+    "name": "CC BY-SA 3.0 Unported",
+    "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "scope": "All converted mesh files and derived geometry in this provider are distributed under the same CC BY-SA 3.0 Unported terms as the source geometry."
+  },
+  "source_license": {
+    "url": "https://simtk.org/svn/openknee/license.txt",
+    "sha256": "f3dae5322470eb534be7e6e22ba7e067617ffce697df9390c68a293389dcd998",
+    "file": "/app/anatomy/openknee-oks003/SOURCE-LICENSE.txt"
+  },
+  "attribution": "Open Knee(s) Development Team; Chokhandre S, Schwartz A, Klonowski E, Landis B, Erdemir A. Open Knee(s): A Free and Open Source Library of Specimen-Specific Models and Related Digital Assets for Finite Element Analysis of the Knee Joint (2022/2023), doi:10.1007/s10439-022-03074-0. Source repository revision 3413; oks003 AGS assembly.",
+  "specimen": {
+    "id": "oks003",
+    "side": "left",
+    "sex": "female",
+    "age_years": 25,
+    "height_m": 1.73,
+    "mass_kg": 68.0,
+    "cadaveric": true,
+    "metadata_url": "https://simtk.org/svn/openknee/oks/oks003/metadata.xml",
+    "metadata_sha256": "a4591361ab61597e59d79faa66c74a0c3fe799e5d382362410a0c7f410e2d20f"
+  },
+  "coordinate_system": {
+    "basis": "RAS",
+    "x_positive": "patient right",
+    "y_positive": "anterior",
+    "z_positive": "superior",
+    "units": "millimeters",
+    "unit_meters": 0.001,
+    "display_basis": "native-ras-to-x-left-y-superior-z-anterior",
+    "registration": "Identity source image frame; no fitted transform or registration to another atlas.",
+    "basis_evidence": "Source NIfTI qform/sform coordinates and matching source mesh axes; source SOP requires geometry in the imaging coordinate system.",
+    "units_evidence": "NIfTI millimeter units and author SOP page 15, millimeter STL export."
+  },
+  "sampling_limits": {
+    "general_mri_grid_mm": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "cartilage_mri_grid_mm": [
+      0.3515625,
+      0.3515625,
+      0.6999969482421875
+    ],
+    "effective_spatial_resolution": "Not established by surface facet count or exported grid alone.",
+    "author_processing": "Manual segmentation followed by tissue-dependent smoothing, VCG reconstruction, Iso Parameterization/remeshing and optional repairs. The author SOP gives starting parameters, not exact per-file operation logs.",
+    "source_sop_url": "https://simtk.org/docman/view.php/1061/11481/CC-OKS-MD-specifications.pdf",
+    "source_sop_sha256": "0ec1bfa5838ae5a8e80b6024377cea009e98b3d0111aeb1519b5a21c120b0de3",
+    "source_sop_pages": [
+      13,
+      14,
+      15,
+      16
+    ]
+  },
+  "author_review_claim": {
+    "statement": "The published data descriptor Table 3 reports grade-zero abnormalities and normal menisci/no ligament damage for oks003, assessed by the source radiologist.",
+    "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7890148/",
+    "independent_clinical_approval": false
+  },
+  "adaptations": "Byte-exact rearrangement of binary STL float32 corners/facet normals to planar BP3D buffers, sequential triangle indices, and lossless gzip transport. No coordinate conversion, fitting, smoothing, decimation or facet omission.",
+  "parts": {
+    "oks003-fmb": {
+      "id": "oks003-fmb",
+      "name": "Femur",
+      "layer": "bone",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "FMB",
+      "source_name": "oks003_FMB_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_FMB_AGS_LVTIT.stl",
+      "source_sha256": "fab64705d9e780f3fd7e0c0a1835d0f8096592f3a27d583b7566baa3b1cef122",
+      "source_bytes": 2016984,
+      "source_triangles": 40338,
+      "triangles": 40338,
+      "vertices": 121014,
+      "export_vertices": 121014,
+      "bounds": [
+        [
+          -38.7481575012207,
+          -31.0543270111084,
+          -30.882362365722656
+        ],
+        [
+          38.54369354248047,
+          38.67793655395508,
+          90.1867904663086
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-fmb.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 1020658,
+      "sha256": "efd669cb382f7ffe8a90990f9fa358ec13fa3eb74fa3269eb82c84531d597220",
+      "decoded_bytes": 3388404,
+      "decoded_sha256": "a68afaad4a7ec368a397c57b18fdc22a940624a88e1e28493d006cdb6beddc96",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_FMB_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_FMB_AGS.nii",
+        "sha256": "a3d78b638ff0d6a82f631cf4cc2f2e8a86320da7be3bb0ccb4d38a03b8a1d461",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-tbb": {
+      "id": "oks003-tbb",
+      "name": "Tibia",
+      "layer": "bone",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "TBB",
+      "source_name": "oks003_TBB_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_TBB_AGS_LVTIT.stl",
+      "source_sha256": "90e2a2de0853637a1af8829bff924e265df2d37ecb5ee81cc9f9173020f66cca",
+      "source_bytes": 2089884,
+      "source_triangles": 41796,
+      "triangles": 41796,
+      "vertices": 125388,
+      "export_vertices": 125388,
+      "bounds": [
+        [
+          -41.24225997924805,
+          -28.15751838684082,
+          -89.83003997802734
+        ],
+        [
+          29.42345428466797,
+          25.864009857177734,
+          -24.470640182495117
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-tbb.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 1044879,
+      "sha256": "469dd37c9ed2e789a4c0b8dedc16fa29702d9f95698c0bb5838a4f5a3d12b5f1",
+      "decoded_bytes": 3510876,
+      "decoded_sha256": "7848fb28d15d66792e99417661d8300bce83e6a981039415b13ca6a1369ef279",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_TBB_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_TBB_AGS.nii",
+        "sha256": "913e410d6ba3aad3918c00001cbb322fd1851f7e043d5ea9f4bdc59f6b20ab11",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-fbb": {
+      "id": "oks003-fbb",
+      "name": "Fibula",
+      "layer": "bone",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "FBB",
+      "source_name": "oks003_FBB_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_FBB_AGS_LVTIT.stl",
+      "source_sha256": "2243d0afe287c20cd49cfd044356c7c75b38464c598cbc4de1a6bb97e56db712",
+      "source_bytes": 379284,
+      "source_triangles": 7584,
+      "triangles": 7584,
+      "vertices": 22752,
+      "export_vertices": 22752,
+      "bounds": [
+        [
+          -49.84465026855469,
+          -27.35869598388672,
+          -89.82689666748047
+        ],
+        [
+          -26.522480010986328,
+          -2.7745542526245117,
+          -45.12655258178711
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-fbb.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 191076,
+      "sha256": "de7b69a29ed15cb95e8278f94ddd07c7578c1dd11ed9d70f1f53605afd3023c3",
+      "decoded_bytes": 637068,
+      "decoded_sha256": "bbb42b4ff141b1e7a4c97788e77636bd3a285b84847c1d001c0a66ac4184c84b",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_FBB_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_FBB_AGS.nii",
+        "sha256": "56ccc47f41a8b2ac2952589feced52d91c4d9f6fc9e3c5edf3709905b363cf22",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-ptb": {
+      "id": "oks003-ptb",
+      "name": "Patella",
+      "layer": "bone",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "PTB",
+      "source_name": "oks003_PTB_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_PTB_AGS_LVTIT.stl",
+      "source_sha256": "3a60216d6af40c44306487763cc25176ddfe9f467497a4f64cbaa36df7e246f9",
+      "source_bytes": 864084,
+      "source_triangles": 17280,
+      "triangles": 17280,
+      "vertices": 51840,
+      "export_vertices": 51840,
+      "bounds": [
+        [
+          -18.342439651489258,
+          34.10493087768555,
+          -17.91095733642578
+        ],
+        [
+          25.899099349975586,
+          56.878047943115234,
+          27.03446388244629
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-ptb.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 439042,
+      "sha256": "5bbe87b200bd6e7b41646cf9a82e418e87528b38c3d4b7aeca8fe2b5c291e2e7",
+      "decoded_bytes": 1451532,
+      "decoded_sha256": "6d9444437bf9f7d14d3a77637662b44ba7dbfc092d456ab04ba7389439685bd7",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#e7d5ad",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_PTB_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_PTB_AGS.nii",
+        "sha256": "7c1af6f91582a3b4f031750c2e3a33653582f4f29c29174ffea478774cb3ceb6",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-fmc": {
+      "id": "oks003-fmc",
+      "name": "Femoral cartilage",
+      "layer": "cartilage",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "FMC",
+      "source_name": "oks003_FMC_AGS_03_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_FMC_AGS_03_LVTIT.stl",
+      "source_sha256": "8b8f848310eccb40da8b40ab581cd5283799bc0753635f04ffd795690961a0b5",
+      "source_bytes": 2041284,
+      "source_triangles": 40824,
+      "triangles": 40824,
+      "vertices": 122472,
+      "export_vertices": 122472,
+      "bounds": [
+        [
+          -33.94571304321289,
+          -33.192718505859375,
+          -31.639591217041016
+        ],
+        [
+          28.92770767211914,
+          40.02745056152344,
+          7.800375938415527
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-fmc.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 1023127,
+      "sha256": "b42fe12d221c98ff5661034c247bf9f5e2b149803d236233f3cd0b2d0b3e3a9e",
+      "decoded_bytes": 3429228,
+      "decoded_sha256": "90ed2e4807c3c029d098800165cb97ff3119780330dfa48a1cd701bd94c6728e",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#80c4cf",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_FMC_AGS_03.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_FMC_AGS_03.nii",
+        "sha256": "f359955b4c5a65473c9967a524727fb6478808079c147d1d5c622b76cc02722e",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-tbc-l": {
+      "id": "oks003-tbc-l",
+      "name": "Lateral tibial cartilage",
+      "layer": "cartilage",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "TBC-L",
+      "source_name": "oks003_TBC-L_AGS_LVTTIT_02.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_TBC-L_AGS_LVTTIT_02.stl",
+      "source_sha256": "298f2bf3c8225a3125ed2fee2226d837b578deb3f1385c49eaf9319ac58e864e",
+      "source_bytes": 1278984,
+      "source_triangles": 25578,
+      "triangles": 25578,
+      "vertices": 76734,
+      "export_vertices": 76734,
+      "bounds": [
+        [
+          -36.29191970825195,
+          -22.044675827026367,
+          -33.750144958496094
+        ],
+        [
+          -7.5553669929504395,
+          9.12546157836914,
+          -24.953527450561523
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-tbc-l.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 626053,
+      "sha256": "d1938d02c686ca29e3d6355d4f56cffab3b5fefe5385a9e4b68565297f17d85e",
+      "decoded_bytes": 2148564,
+      "decoded_sha256": "1cdc1cb75eb63594ab8b21558846450e64d85aa1ef4aa8f736f234999051ed11",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#80c4cf",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "correspondence_status": "held_unresolved_processing_variant",
+        "reason": "Selected STL has a trailing _02 after its processing suffix; no corresponding revision-labelled AGS mask is published. The available base mask is not substituted without author provenance or explicit comparison."
+      }
+    },
+    "oks003-tbc-m": {
+      "id": "oks003-tbc-m",
+      "name": "Medial tibial cartilage",
+      "layer": "cartilage",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "TBC-M",
+      "source_name": "oks003_TBC-M_AGS_LVTIT_02.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_TBC-M_AGS_LVTIT_02.stl",
+      "source_sha256": "cb45845df56e1d0c22db6eaf780282b904fdbcb65e1e2e5fe57e0235f1800b4d",
+      "source_bytes": 1029084,
+      "source_triangles": 20580,
+      "triangles": 20580,
+      "vertices": 61740,
+      "export_vertices": 61740,
+      "bounds": [
+        [
+          -0.15208563208580017,
+          -28.671260833740234,
+          -35.31916046142578
+        ],
+        [
+          29.95985221862793,
+          11.259228706359863,
+          -24.59468650817871
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-tbc-m.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 506026,
+      "sha256": "6db4f725b1d74f85b3b3d97bcc1e4845e8f46e7178565d1d08511297051b16a8",
+      "decoded_bytes": 1728732,
+      "decoded_sha256": "b500920944919fc3debc384fa559cbf2bf0954b970ad4bef583de1e4a9cbcf2d",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#80c4cf",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "correspondence_status": "held_unresolved_processing_variant",
+        "reason": "Selected STL has a trailing _02 after its processing suffix; no corresponding revision-labelled AGS mask is published. The available base mask is not substituted without author provenance or explicit comparison."
+      }
+    },
+    "oks003-ptc": {
+      "id": "oks003-ptc",
+      "name": "Patellar cartilage",
+      "layer": "cartilage",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "PTC",
+      "source_name": "oks003_PTC_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_PTC_AGS_LVTIT.stl",
+      "source_sha256": "c3f3c0e4b05a8a9d90677e8ab82b31be3b97346172ca4dcef40dd9f1d84f737f",
+      "source_bytes": 1087884,
+      "source_triangles": 21756,
+      "triangles": 21756,
+      "vertices": 65268,
+      "export_vertices": 65268,
+      "bounds": [
+        [
+          -18.010677337646484,
+          31.317129135131836,
+          -7.798521041870117
+        ],
+        [
+          24.632478713989258,
+          44.851802825927734,
+          25.815324783325195
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-ptc.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 551496,
+      "sha256": "f87e507be2955758a5842d24d43f173ebe035bdb37eed2862458840673ec0a7e",
+      "decoded_bytes": 1827516,
+      "decoded_sha256": "dd2cb263e97d6e25e4559c36eeaeb928b42fb4935a195c561a625f24671c6e56",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#80c4cf",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_PTC_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_PTC_AGS.nii",
+        "sha256": "5b2dfde74233e15313520f6f96087937800a5f76c476bec16af1b12174a98c0e",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-mns-m": {
+      "id": "oks003-mns-m",
+      "name": "Medial meniscus",
+      "layer": "meniscus",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "MNS-M",
+      "source_name": "oks003_MNS-M_AGS_02_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_MNS-M_AGS_02_LVTIT.stl",
+      "source_sha256": "a3be9d2fef8cde2078b19637fd5a3bdc7f9f8b3ad4de4d871b7ac8b227a4b975",
+      "source_bytes": 583284,
+      "source_triangles": 11664,
+      "triangles": 11664,
+      "vertices": 34992,
+      "export_vertices": 34992,
+      "bounds": [
+        [
+          -1.802655577659607,
+          -26.039453506469727,
+          -34.481964111328125
+        ],
+        [
+          31.48378562927246,
+          15.474037170410156,
+          -25.500011444091797
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-mns-m.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 291147,
+      "sha256": "0d7c5c4373d731287d1daadffad9ceb215b4376b0dbe43a021b69fae533e8c8f",
+      "decoded_bytes": 979788,
+      "decoded_sha256": "0d23d7d780b2c823697bd65a391142423e38b38203b39ebfa51282fdfbf828d5",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#a6bacf",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_MNS-M_AGS_02.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_MNS-M_AGS_02.nii",
+        "sha256": "d257b0e71f6bf54864b42c65d7d473075b8fbe1121da9dc1d50d9d7dd8c947ee",
+        "bytes": 308800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-mns-l": {
+      "id": "oks003-mns-l",
+      "name": "Lateral meniscus",
+      "layer": "meniscus",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "MNS-L",
+      "source_name": "oks003_MNS-L_AGS_02_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_MNS-L_AGS_02_LVTIT.stl",
+      "source_sha256": "5b2771eb28f28b5e614e05449e48d7209970b9f70ebee20878df3c28132638a0",
+      "source_bytes": 622484,
+      "source_triangles": 12448,
+      "triangles": 12448,
+      "vertices": 37344,
+      "export_vertices": 37344,
+      "bounds": [
+        [
+          -38.470123291015625,
+          -20.679122924804688,
+          -32.282440185546875
+        ],
+        [
+          -2.6874916553497314,
+          12.942492485046387,
+          -20.498350143432617
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-mns-l.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 311945,
+      "sha256": "27d652e8d9a333d30172a2ee72b1f6d175cceeff9213a4f51428fd27cc4e1262",
+      "decoded_bytes": 1045644,
+      "decoded_sha256": "1874a51e439067826ab4988e9da5db82519aa06d381684ef896cee2c701fe02d",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#a6bacf",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_MNS-L_AGS_02.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_MNS-L_AGS_02.nii",
+        "sha256": "3ef6380434f2aae20e9ecbefcb7e28fce1eea1583df06c8811d7502ad7eda15e",
+        "bytes": 353432,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-acl": {
+      "id": "oks003-acl",
+      "name": "Anterior cruciate ligament",
+      "layer": "ligament",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "ACL",
+      "source_name": "oks003_ACL_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_ACL_AGS_LVTIT.stl",
+      "source_sha256": "a9baece1f90e73a8fed3fb2c3cbca0fbea0ea242bdb94805d93af318a04e70e8",
+      "source_bytes": 675084,
+      "source_triangles": 13500,
+      "triangles": 13500,
+      "vertices": 40500,
+      "export_vertices": 40500,
+      "bounds": [
+        [
+          -12.672943115234375,
+          -15.4697904586792,
+          -31.478681564331055
+        ],
+        [
+          1.9530233144760132,
+          10.393571853637695,
+          4.942411422729492
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-acl.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 339579,
+      "sha256": "18a0f6aa7060dd56561906847a594c5126a9ff42d34323a7f5ee94e74d023c4e",
+      "decoded_bytes": 1134012,
+      "decoded_sha256": "eb4dd5e136ba95a90144b75217e983e30869d6dc899a7b81b9449197de2bf44c",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#d7c28b",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_ACL_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_ACL_AGS.nii",
+        "sha256": "15a000d09af5ac1fb8fd3879439651f1979d83f68e2276399c88cb4a8ce8983d",
+        "bytes": 243352,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-pcl": {
+      "id": "oks003-pcl",
+      "name": "Posterior cruciate ligament",
+      "layer": "ligament",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "PCL",
+      "source_name": "oks003_PCL_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_PCL_AGS_LVTIT.stl",
+      "source_sha256": "8c0c1cb4f6b3af56cc95b4d6e2faf9bca8e73b5572fb178cb6682a6c846bf4f4",
+      "source_bytes": 234984,
+      "source_triangles": 4698,
+      "triangles": 4698,
+      "vertices": 14094,
+      "export_vertices": 14094,
+      "bounds": [
+        [
+          -4.980999946594238,
+          -23.439411163330078,
+          -36.720760345458984
+        ],
+        [
+          6.4665846824646,
+          3.6992709636688232,
+          -10.803484916687012
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-pcl.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 118680,
+      "sha256": "3182538a57607ba3f4cdb90aaa4da06917284f7c391bfd53622ca84c8672c184",
+      "decoded_bytes": 394644,
+      "decoded_sha256": "7f6dcc93b50e6c78c1f3afc12187a2ae7c1415b7896735ba3d630057fef518aa",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#d7c28b",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_PCL_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_PCL_AGS.nii",
+        "sha256": "e315270930e9531302bfd9c12f50405d8295da28cc76b6c1f3c2a065467d35b1",
+        "bytes": 148752,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-mcl": {
+      "id": "oks003-mcl",
+      "name": "Medial collateral ligament",
+      "layer": "ligament",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "MCL",
+      "source_name": "oks003_MCL_AGS_02_LVIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_MCL_AGS_02_LVIT.stl",
+      "source_sha256": "5ba0807e7b269ee30b612e052e7a0b27c46437fea98aef0f319afbec5f6c5afc",
+      "source_bytes": 972084,
+      "source_triangles": 19440,
+      "triangles": 19440,
+      "vertices": 58320,
+      "export_vertices": 58320,
+      "bounds": [
+        [
+          21.021780014038086,
+          -15.480631828308105,
+          -58.36286163330078
+        ],
+        [
+          41.60095977783203,
+          0.9599067568778992,
+          -2.326035976409912
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-mcl.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 496748,
+      "sha256": "354c2f9a2081ae71e210d27dd1ede099013d3e2f9c3346d01e78991352d49824",
+      "decoded_bytes": 1632972,
+      "decoded_sha256": "fc38fbaae95350c68f435a651858288ee0d34ea5e832bcfa429a06b4b7c15f89",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#d7c28b",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_MCL_AGS_02.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_MCL_AGS_02.nii",
+        "sha256": "94d7c0893cf5515838ee782e0f819e8d94ce47c719840875928b56997db598c0",
+        "bytes": 97075552,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-lcl": {
+      "id": "oks003-lcl",
+      "name": "Lateral collateral ligament",
+      "layer": "ligament",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "LCL",
+      "source_name": "oks003_LCL_AGS_LIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_LCL_AGS_LIT.stl",
+      "source_sha256": "2d664c17fb4c0f377ef203854b0c8b24f54657107ec782ad3067508c9a43cc02",
+      "source_bytes": 231984,
+      "source_triangles": 4638,
+      "triangles": 4638,
+      "vertices": 13914,
+      "export_vertices": 13914,
+      "bounds": [
+        [
+          -50.551822662353516,
+          -15.082759857177734,
+          -57.02665710449219
+        ],
+        [
+          -37.33163833618164,
+          -5.527237415313721,
+          -4.805458068847656
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-lcl.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 117854,
+      "sha256": "ca1e41296d83f8f5b1beaf0683c3ff0c22724cc4e576e4cc3128299d546a8eee",
+      "decoded_bytes": 389604,
+      "decoded_sha256": "777742315eb354cba2cc60699e26eb10f531802f5c7cb9af13dfc18c94af19cb",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#d7c28b",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_LCL_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_LCL_AGS.nii",
+        "sha256": "d70cb1b9f0a445e65822f858c0dd99da5022dd130951dfd3b9d56dbb498df6ff",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-ptl": {
+      "id": "oks003-ptl",
+      "name": "Patellar tendon (source: patellar ligament)",
+      "layer": "tendon",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "PTL",
+      "source_name": "oks003_PTL_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_PTL_AGS_LVTIT.stl",
+      "source_sha256": "f73fe84522611bdd3e49e1582d19f1f7c06f1a88f62b76ded0318636407830d4",
+      "source_bytes": 630084,
+      "source_triangles": 12600,
+      "triangles": 12600,
+      "vertices": 37800,
+      "export_vertices": 37800,
+      "bounds": [
+        [
+          -23.480480194091797,
+          20.77757453918457,
+          -73.79238891601562
+        ],
+        [
+          13.295919418334961,
+          55.178009033203125,
+          -6.63900899887085
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-ptl.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 315870,
+      "sha256": "0682707852d14df477688445daf47a66238fee10b92ecf44060495ac5042c62c",
+      "decoded_bytes": 1058412,
+      "decoded_sha256": "91e4c2b05abd202b52d00208c98c3fb82036a25c91c511f7d1a3e3d841dc8968",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#eadac1",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_PTL_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_PTL_AGS.nii",
+        "sha256": "0bdf87693b783a57ade2398fcd62957e5e86ff17f405f4b9e39c5dbb4644b482",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    },
+    "oks003-qat": {
+      "id": "oks003-qat",
+      "name": "Quadriceps tendon",
+      "layer": "tendon",
+      "regions": [
+        "knee"
+      ],
+      "source_id": "QAT",
+      "source_name": "oks003_QAT_AGS_LVTIT.stl",
+      "source_url": "https://simtk.org/svn/openknee/oks/oks003/Geometry/oks003_QAT_AGS_LVTIT.stl",
+      "source_sha256": "db78c31f4616e43f8cee3ef82b0fe849206d019bd0c426dd5456bd9c5f8bba34",
+      "source_bytes": 615084,
+      "source_triangles": 12300,
+      "triangles": 12300,
+      "vertices": 36900,
+      "export_vertices": 36900,
+      "bounds": [
+        [
+          -13.397819519042969,
+          33.521305084228516,
+          13.518096923828125
+        ],
+        [
+          16.47551918029785,
+          58.617000579833984,
+          90.2025146484375
+        ]
+      ],
+      "file": "/app/anatomy/openknee-oks003/oks003-qat.bin.gz",
+      "content_encoding": "gzip",
+      "bytes": 311690,
+      "sha256": "07f01022866212bffc7bbef282548efd577579dbd2e99270930af2a6ac775413",
+      "decoded_bytes": 1033212,
+      "decoded_sha256": "7c14198b36ee0cac14a0e5f5716bfa1a5cdb0a91e2ecf84bd03e818169bbe24a",
+      "normals_preserved_exactly": true,
+      "triangle_order_preserved_exactly": true,
+      "source_float32_position_bits_preserved": true,
+      "geometry_transform": "identity; native RAS millimeter positions retained",
+      "world_transform_columns": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "component_count": 1,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "omitted_source_facet_indices": [],
+      "license": "CC BY-SA 3.0 Unported",
+      "color": "#eadac1",
+      "fidelity_review": "pending",
+      "source_segmentation": {
+        "filename": "oks003_QAT_AGS.nii",
+        "source_url": "https://simtk.org/svn/openknee/oks/oks003/segmentation/oks003_QAT_AGS.nii",
+        "sha256": "f2f9c9eef8f7017b369a5486bafebadb9dfd1b2edc77b90ee0be802be0024bbe",
+        "bytes": 102760800,
+        "choice_basis": "Exact tissue/segmentor/revision prefix before the documented mesh-processing suffix; mask filename observed in public segmentation listing.",
+        "exported_grid_mm": [
+          0.3515625,
+          0.3515625,
+          0.6999969482421875
+        ],
+        "correspondence_status": "source filename correspondence; independent tissue-boundary validation incomplete"
+      }
+    }
+  },
+  "regions": {
+    "knee": {
+      "title": "Open Knee(s) left knee",
+      "side": "left",
+      "parts": [
+        {
+          "id": "oks003-fmb",
+          "layer": "bone"
+        },
+        {
+          "id": "oks003-tbb",
+          "layer": "bone"
+        },
+        {
+          "id": "oks003-fbb",
+          "layer": "bone"
+        },
+        {
+          "id": "oks003-ptb",
+          "layer": "bone"
+        },
+        {
+          "id": "oks003-fmc",
+          "layer": "cartilage"
+        },
+        {
+          "id": "oks003-tbc-l",
+          "layer": "cartilage"
+        },
+        {
+          "id": "oks003-tbc-m",
+          "layer": "cartilage"
+        },
+        {
+          "id": "oks003-ptc",
+          "layer": "cartilage"
+        },
+        {
+          "id": "oks003-mns-m",
+          "layer": "meniscus"
+        },
+        {
+          "id": "oks003-mns-l",
+          "layer": "meniscus"
+        },
+        {
+          "id": "oks003-acl",
+          "layer": "ligament"
+        },
+        {
+          "id": "oks003-pcl",
+          "layer": "ligament"
+        },
+        {
+          "id": "oks003-mcl",
+          "layer": "ligament"
+        },
+        {
+          "id": "oks003-lcl",
+          "layer": "ligament"
+        },
+        {
+          "id": "oks003-ptl",
+          "layer": "tendon"
+        },
+        {
+          "id": "oks003-qat",
+          "layer": "tendon"
+        }
+      ],
+      "focus_bounds": [
+        [
+          -50.551822662353516,
+          -33.192718505859375,
+          -73.79238891601562
+        ],
+        [
+          41.60095977783203,
+          58.617000579833984,
+          90.2025146484375
+        ]
+      ],
+      "focus_bounds_source_objects": [
+        "FMC",
+        "TBC-L",
+        "TBC-M",
+        "PTC",
+        "MNS-M",
+        "MNS-L",
+        "ACL",
+        "PCL",
+        "MCL",
+        "LCL",
+        "PTL",
+        "QAT"
+      ],
+      "source_up_range": [
+        -83.79238891601562,
+        100.2025146484375
+      ],
+      "layers": [
+        [
+          "bone",
+          "Bones"
+        ],
+        [
+          "cartilage",
+          "Cartilage volumes"
+        ],
+        [
+          "meniscus",
+          "Menisci"
+        ],
+        [
+          "ligament",
+          "Ligaments"
+        ],
+        [
+          "tendon",
+          "Tendons"
+        ]
+      ],
+      "lazy_layers": true
+    }
+  },
+  "clinical_image_pair": {
+    "available": false,
+    "independent_clinical_validation": false,
+    "registration_status": "Source images and masks retained offline for correspondence audit; no diagnostic image pair published."
+  },
+  "registration_validation": {
+    "scope": "Source mask-to-mesh correspondence in declared NIfTI RAS coordinates across two source MRI volumes; not independent tissue-boundary or clinical-accuracy validation.",
+    "source_mask_matches": 14,
+    "source_images": 2,
+    "section_comparisons": 84,
+    "sampled_section_dice_range": [
+      0.7792207792207793,
+      0.9983298171589311
+    ],
+    "unresolved_mask_source_ids": [
+      "TBC-L",
+      "TBC-M"
+    ],
+    "no_fitted_transform": true,
+    "no_source_geometry_edits": true,
+    "clinical_alignment_approval": false,
+    "evidence_file": "/app/anatomy/openknee-oks003/registration-evidence.json",
+    "evidence_sha256": "5bd53e668563dbbd23b8a511caba9c0c6d1f0029658221d5e08b5caf0ea89fa0"
+  },
+  "limitations": [
+    "MRI-derived left-knee reference from one 25-year-old female cadaveric donor (oks003). Native RAS millimeter coordinates are retained. This source is not co-registered with the other atlases.",
+    "Separate source objects represent bones, cartilage, menisci, cruciate/collateral ligaments, patellar tendon and the covered quadriceps tendon segment. Roots, bundles, attachment fibres, MCL layers, and other fine stabilizers are not separately delineated.",
+    "The source uses multiple MRI grids: general imaging at 0.5 mm isotropic and cartilage imaging at approximately 0.35 × 0.35 × 0.7 mm. Surfaces underwent source smoothing/reconstruction and remeshing. Mesh density does not establish clinical measurement accuracy.",
+    "The source radiologist reported no identified tissue damage for this specimen. That author assessment and source correspondence checks are not independent clinical certification. These teaching surfaces are not a diagnostic MRI example or a complete reporting atlas.",
+    "Tibial-cartilage mask variant relationships remain explicitly unresolved.",
+    "Global self-intersections were not checked; clean edge topology is not anatomical accuracy."
+  ],
+  "viewer_notes": [
+    "MRI-derived left-knee reference from one 25-year-old female cadaveric donor (oks003). Native RAS millimeter coordinates are retained. This source is not co-registered with the other atlases.",
+    "Separate source objects represent bones, cartilage, menisci, cruciate/collateral ligaments, patellar tendon and the covered quadriceps tendon segment. Roots, bundles, attachment fibres, MCL layers, and other fine stabilizers are not separately delineated.",
+    "The source uses multiple MRI grids: general imaging at 0.5 mm isotropic and cartilage imaging at approximately 0.35 × 0.35 × 0.7 mm. Surfaces underwent source smoothing/reconstruction and remeshing. Mesh density does not establish clinical measurement accuracy.",
+    "The source radiologist reported no identified tissue damage for this specimen. That author assessment and source correspondence checks are not independent clinical certification. These teaching surfaces are not a diagnostic MRI example or a complete reporting atlas.",
+    "Open Knee(s) Development Team; Chokhandre S, Schwartz A, Klonowski E, Landis B, Erdemir A. Open Knee(s): A Free and Open Source Library of Specimen-Specific Models and Related Digital Assets for Finite Element Analysis of the Knee Joint (2022/2023), doi:10.1007/s10439-022-03074-0. Source repository revision 3413; oks003 AGS assembly. Geometry: CC BY-SA 3.0 Unported. Viewer conversion preserves every source facet, coordinate and facet normal; no fitting, smoothing or anatomy removal was applied."
+  ],
+  "geometry_preservation": {
+    "file": "/app/anatomy/openknee-oks003/geometry-preservation.json",
+    "sha256": "72be2f32222f148057df643b7e8e35f95930e1ec051c3502d4083d80501e8a05"
+  }
+}
