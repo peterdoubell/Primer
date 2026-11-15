@@ -1,0 +1,117 @@
+{
+  "scope": "Integral Calculus lesson math.4.int-calc only. The full mathematics/physics/radiology objective remains incomplete.",
+  "baseline": "495aeb17 (main after PR162); existing concept-lab dispatcher and scenario inspected before implementation.",
+  "observed_gap": {
+    "runtime": "web/concept-models.js math.4.int-calc; web/lesson-models.js concept-lab dispatcher",
+    "before": "Only x\u2212c over [0,b], positive b, endpoint/midpoint rectangles. No linked accumulation curve, interval orientation, antiderivative family, between-curve crossing split or separate improper limits.",
+    "lesson_requirements": [
+      "Power rule",
+      "Constant of integration",
+      "Fundamental theorem",
+      "Velocity to displacement/distance",
+      "Area between curves",
+      "Interval additivity",
+      "Flow accumulation",
+      "Separate one-sided improper integrals versus principal value",
+      "Accumulation monotonicity/curvature",
+      "Average integrand"
+    ]
+  },
+  "integration": "Root-owned exact scenario override uses the existing canonical concept-lab entry. The authored mathematics curriculum is unchanged. The legacy narrow diagram is replaced at the reader entry point.",
+  "implemented": [
+    "Seven polynomial investigations with linked integrand and accumulation plots",
+    "Signed interval orientation, equal bounds, all polynomial zero/crossing splits and nonnegative geometric area",
+    "Independent probe for FTC derivative, tangent, antiderivative constant and interval additivity",
+    "Left/midpoint/right rectangle sums with 1\u2013128 subdivisions and refinement ledger",
+    "Velocity/inflow examples restricted to nonnegative time with explicit orientation semantics",
+    "Separate reciprocal cutoffs: symmetric, fixed ratio, unequal rates and independent controls",
+    "Endpoint power integral across p=1 with stable near-threshold arithmetic, finite-limit and omitted-area readouts",
+    "Accessible named controls, dynamic speech, draft-input recovery and keyboard scroll/fit enlargement"
+  ],
+  "numerical_evidence": {
+    "command": "python3 -m pytest -q tests/test_math_integral_lab.py",
+    "passed_tests": 6,
+    "exact_quadrature_cases": 570,
+    "seeded_random_curve_cases": 84,
+    "reciprocal_limit_cases": 48,
+    "power_threshold_cases": 32,
+    "oracle": "Independent Fraction Simpson quadrature for degree\u22642 polynomials, independent quadratic roots, signed rectangle coordinates and sums, all displayed curve samples, oriented additivity, Decimal log/power limits; no runtime helper imports into the Python oracle."
+  },
+  "reader_evidence": {
+    "path": "reader/proof.json",
+    "sha256": "fb086bb10da14358a56625f93e30f3c86a7029a8267c537eda377834636d35e0",
+    "states": 64,
+    "checked_rendered_coordinates": 40880,
+    "viewports": [
+      390,
+      1440
+    ],
+    "speech_cases": 4,
+    "source_identity": "Standalone served script/css and full actual startup bundle compared byte-for-byte to the final current authored runtime files. Every pinned source hash still matches at review finalization.",
+    "geometry_oracle": "Raw SVG coordinates are inverse-projected and compared to independent polynomial/Simpson/log formulas, including every rectangle and region boundary point.",
+    "authentication": "Anonymous asset/API requests return401; authorized checks use generated loopback credentials and a synthetic isolated DB.",
+    "errors": 0,
+    "centered_plot_captures": 22
+  },
+  "visual_review": {
+    "inspected": [
+      "reader/between-390.png",
+      "reader/between-1440.png",
+      "reader/reciprocal-square-1440.png",
+      "reader/between-accumulation-390-centered.png",
+      "reader/reciprocal-square-limits-1440-centered.png"
+    ],
+    "corrections": [
+      "Reduced excessive vertical padding so a small accumulation curve retains visible shape.",
+      "Hide dependent right cutoff control unless the independent-cutoff path is selected."
+    ],
+    "mobile_note": "Supplemental centered panel screenshots avoid tall-element sticky-header capture artifacts. Each figure is scrolled to viewport center and top/middle/bottom hit tests confirm it is unobscured before capture; no page/header behavior is changed."
+  },
+  "sources": [
+    {
+      "title": "OpenStax Calculus Volume1 \u00a75.3 Fundamental Theorem",
+      "url": "https://openstax.org/books/calculus-volume-1/pages/5-3-the-fundamental-theorem-of-calculus"
+    },
+    {
+      "title": "OpenStax Calculus Volume2 \u00a73.7 Improper Integrals",
+      "url": "https://openstax.org/books/calculus-volume-2/pages/3-7-improper-integrals"
+    }
+  ],
+  "limits": [
+    "The finite examples are selected continuous polynomials, not a general symbolic integrator.",
+    "Plots are sampled vector geometry; numerical readouts use analytic expressions.",
+    "Convergence conclusions come from analytic formulas, not finite plotted samples.",
+    "Improper model covers interior reciprocal and endpoint power singularities, not all improper integrals.",
+    "Existing automatic module 3D companion is not changed or newly validated by this work.",
+    "Local browser proof is not a production deployment proof or whole-subject completion claim."
+  ],
+  "source_sha256": {
+    "web/math-integral-lab.js": "a8b915cd51d165df7d5d202e8e93741d4c135a4b8bd4208f1e17a849b41e1457",
+    "web/math-integral-lab.css": "6eaaf01db120a047c22bed219dfbaf443275768f58772eee43b4ef3d65190438",
+    "tests/test_math_integral_lab.py": "6b6f1bd2fc491c4e7929c6a857b3c963a714e9389b810dd30a3246dbc7123c2d",
+    "tools/check_math_integral_reader.cjs": "5bf0069888dc06fbd153543c0d5b57f6f9ea4a4370c01905ba3a136fe343e926",
+    "tools/check_math_integral_reader.py": "2ff9e059840c42c3176a6b06f3f3508f5a592a4acbc0e0b8b43477e8058b44cb"
+  },
+  "whole_goal_complete": false,
+  "production_verified": false,
+  "independent_cross_review": {
+    "reviewer": "/root/physics_fidelity_next_20261025",
+    "source_sha256": "a8b915cd51d165df7d5d202e8e93741d4c135a4b8bd4208f1e17a849b41e1457",
+    "finding": "No actionable mathematical or model-coordinate issue found.",
+    "reviewed": [
+      "Zero crossings and unsigned area",
+      "Oriented left/right rectangles under reversed limits",
+      "FTC anchor, tangent, arbitrary constant and additivity",
+      "Between-curve crossing splits",
+      "Independent reciprocal cutoffs and principal-value distinction",
+      "Stable expm1 arithmetic near p=1 and correct convergence threshold"
+    ],
+    "independent_test_execution": "All 6 numerical tests passed in reviewer execution.",
+    "evidence_presentation_feedback": "Added 22 centered panel captures in response to tall-element screenshot sticky-header overlap."
+  },
+  "cross_subject_validation": {
+    "command": "python3 -m pytest -q tests/test_energy_momentum_lab.py tests/test_math_integral_lab.py",
+    "result": "9 passed in 7.61 s after atlas registry consistency was restored.",
+    "mechanics_review": "Read-only cross-review found no actionable model or geometry defect."
+  }
+}

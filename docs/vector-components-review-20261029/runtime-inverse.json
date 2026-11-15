@@ -1,0 +1,81 @@
+{
+  "base_commit": "054efd15b86ab93a1f31b48fa95ca9fc88dd504a",
+  "scope": "exact_vector_components_integration",
+  "lesson": "math.3.vectors",
+  "files": {
+    "data/curriculum/01-mathematics.json": {
+      "before_sha256": "3b22767d7f91d424390d18905a48ce1c4547952579045dfacf13f53ac910a24a",
+      "after_sha256": "e3fc4087ad2760b7fc6888c4fcf07188015a4b250c1a147e46c1794ccfe21260",
+      "changes": [
+        {
+          "start": 5313,
+          "end": 5323,
+          "before": "",
+          "after": "          \"id\": \"math-3-vector-components-lab\",\n          \"kind\": \"model\",\n          \"renderer\": \"vector-components-lab\",\n          \"title\": \"Vector components and geometry\",\n          \"instructions\": \"Enter components to inspect addition, scalar combinations and exact projections. Compare the separate cross-product area view and use the worked examples.\",\n          \"props\": {\n            \"scenario\": \"math.3.vectors\"\n          }\n        },\n        {\n"
+        }
+      ]
+    },
+    "primer/curriculum.py": {
+      "before_sha256": "a89a7b60e33e78009808f66385b6969ddf665b3a5f5e0908a6d11ca0bb9a5e7c",
+      "after_sha256": "3ed30ef274c72cb04f67164915409e5377abd7b9b81a73488471b2f1bc795b21",
+      "changes": [
+        {
+          "start": 178,
+          "end": 179,
+          "before": "    \"geometry-measures-lab\", \"coordinate-plane-lab\", \"algebra-functions-lab\", \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n",
+          "after": "    \"vector-components-lab\", \"geometry-measures-lab\", \"coordinate-plane-lab\", \"algebra-functions-lab\", \"base-ten-lab\", \"fraction-equivalence-lab\", \"fraction-arithmetic-lab\", \"atom-element-builder\", \"cell-microscope\",\n"
+        },
+        {
+          "start": 503,
+          "end": 506,
+          "before": "",
+          "after": "            elif renderer == \"vector-components-lab\":\n                if node.get(\"id\") != \"math.3.vectors\" or props != {\"scenario\": \"math.3.vectors\"}:\n                    raise ValueError(\"{} vector model has an unknown or cross-lesson scenario\".format(node.get(\"id\")))\n"
+        }
+      ]
+    },
+    "primer/server.py": {
+      "before_sha256": "1e4d2f56efc1ca56a126101a0c762eddded51d9dff13ce53f23d408b2ea53c34",
+      "after_sha256": "a698851abf0de15788ecc6cd7d08d3df510bdc6b362d054acb4b9d2b4b485afa",
+      "changes": [
+        {
+          "start": 3554,
+          "end": 3555,
+          "before": "                     \"algebra-functions-core.js\", \"algebra-functions-lab.js\", \"algebra-functions-lab.css\", \"algebra-functions-spatial.js\", \"coordinate-plane-core.js\", \"coordinate-plane-spatial.js\", \"coordinate-plane-lab.js\", \"coordinate-plane-lab.css\", \"geometry-measures-core.js\", \"geometry-measures-lab.js\", \"geometry-measures-lab.css\"):\n",
+          "after": "                     \"algebra-functions-core.js\", \"algebra-functions-lab.js\", \"algebra-functions-lab.css\", \"algebra-functions-spatial.js\", \"coordinate-plane-core.js\", \"coordinate-plane-spatial.js\", \"coordinate-plane-lab.js\", \"coordinate-plane-lab.css\", \"geometry-measures-core.js\", \"geometry-measures-lab.js\", \"geometry-measures-lab.css\", \"vector-components-core.js\", \"vector-components-scene.js\", \"vector-components-lab.js\", \"vector-components-lab.css\"):\n"
+        }
+      ]
+    },
+    "web/index.html": {
+      "before_sha256": "3bdf2bd59a97c666c174fc90f5336460c0c603fa580dab6c851859fd304b6757",
+      "after_sha256": "11e95a805507f98124ba314899bdf1c88763d1f3c00fff57323ff9ccc2442b7a",
+      "changes": [
+        {
+          "start": 36,
+          "end": 37,
+          "before": "",
+          "after": "  <link rel=\"stylesheet\" href=\"/app/vector-components-lab.css\">\n"
+        },
+        {
+          "start": 140,
+          "end": 143,
+          "before": "",
+          "after": "  <script src=\"/app/vector-components-core.js\"></script>\n  <script src=\"/app/vector-components-scene.js\"></script>\n  <script src=\"/app/vector-components-lab.js\"></script>\n"
+        }
+      ]
+    },
+    "web/lesson-models.js": {
+      "before_sha256": "766532c81769d2d6e5f6f7a3055df09854130c47aaa5213a00ee7084490472ec",
+      "after_sha256": "26af9ebb81e4ef9cc5f31bf33e6dd9a8fa7a643f3676095b97115870a77e14a4",
+      "changes": [
+        {
+          "start": 6169,
+          "end": 6170,
+          "before": "",
+          "after": "    'vector-components-lab': (item, hooks) => window.PrimerVectorComponentsLab?.render(item, hooks) || null,\n"
+        }
+      ]
+    }
+  },
+  "extends_historical_approval": false,
+  "whole_goal_complete": false
+}

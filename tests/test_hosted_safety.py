@@ -122,8 +122,14 @@ def test_curriculum_visual_gallery_stays_behind_the_hosted_gate(monkeypatch):
     assert allowed.status_code == 200
     assert allowed.json()["counts"] == {
         "lessons": 558, "illustrations": 561,
-        "models": 846, "items": 1407,
+        "models": 854, "items": 1415,  # Includes the computational-linguistics studio.
     }
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'fluids-concept-lab'] == [
+        ('phys.4.fluids', 'explore-fluid-forces-and-flow')]
+    assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
+            if item.get('renderer') == 'linear-algebra-lab'] == [
+        ('math.4.linalg', 'explore-linear-maps-and-kernels')]
     assert [(item['lesson_id'], item['media_id']) for item in allowed.json()['items']
             if item.get('renderer') == 'math-systems-lab'] == [
         ('math.3.systems', 'math.3.systems.general-form.model')]

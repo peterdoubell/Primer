@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_reference_fields
 
 
 def check():
@@ -23,6 +24,7 @@ def check():
     logging.disable(logging.CRITICAL)
     with tempfile.TemporaryDirectory(prefix='primer-pulmonary-delivery-') as temporary:
         os.environ.update(PRIMER_DB=str(Path(temporary) / 'reader.db'),
+                          PRIMER_CONTENT_DIR=str(Path(temporary) / 'content'),
                           PRIMER_BACKUP_DIR=str(Path(temporary) / 'backups'),
                           PRIMER_ACCESS_USERNAME='pulmonary-source-review',
                           PRIMER_ACCESS_PASSWORD='synthetic-source-fixture')
@@ -112,8 +114,26 @@ def check():
             health = client.get('/healthz')
             assert health.status_code == 200 and health.json()['source_pulmonary_metadata_validated'] is True
             assert all(value is True for key, value in health.json().items() if key.endswith('_metadata_validated'))
-            keys = set(combined.references())
-            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'}
+            references = combined.references()
+            keys = set(references)
+            from primer.cardiac_native_inspector import BINDINGS as cardiac_bindings
+            from primer import hippunfold_reference as hippocampal
+            assert hippocampal.BINDINGS == {'ra.mri-epilepsy', 'ra.mri-dementia'}
+            registered = hippocampal.references()  # Includes pinned registry, manifest and payload checks.
+            from primer.spl_limbic_reference import references as spl_references
+            from tools.spl_limbic_runtime_compatibility import before_spl_reference_fields, reviewed as spl_reviewed
+            spl_registered = spl_references()
+            assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
+            from tools.spl_unmarked_runtime_compatibility import before_unmarked_reference_fields
+            assert all(before_unmarked_reference_fields(key,{'source_native_inspectors':items})['source_native_inspectors']==[spl_reviewed()['source_inspector_addition']] for key,items in spl_registered.items())
+            assert set(registered) == hippocampal.BINDINGS
+            from tools.spl_additional_runtime_compatibility import before_additional_bindings
+            assert set(before_additional_bindings(references)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
+            for identifier, expected in registered.items():
+                prior = before_spl_reference_fields(identifier, {'source_native_inspectors': references[identifier]})
+                assert prior['source_native_inspectors'] == expected
+                assert before_hippocampal_reference_fields(identifier, {'source_native_inspectors':references[identifier]})['source_native_inspectors'] == [*expected, *spl_registered[identifier]]
+                assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
             os.environ.pop('PRIMER_ACCESS_USERNAME')
             os.environ.pop('PRIMER_ACCESS_PASSWORD')
             with patch.object(native, 'references', side_effect=AssertionError('Lookup happened without access config')):

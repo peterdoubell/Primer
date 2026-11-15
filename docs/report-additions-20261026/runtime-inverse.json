@@ -1,0 +1,111 @@
+{
+  "base_commit": "3f04127f67a52173a12aa141031bfac1a12cb142",
+  "scope": "new_selectable_examinations_acquisition_scope_calculator_routing_and_widget_availability_only",
+  "clinical_approval": false,
+  "extends_historical_approval": false,
+  "native_anatomy_or_canonical_lessons_changed": false,
+  "files": {
+    "primer/reporting_bridge.py": {
+      "before_sha256": "851ff89cddf9bec3c569913729017c96f6804b8e23e14b2e7f18d54b97c835dc",
+      "after_sha256": "74e5bc667bb579a2d9a1b990803f228b193111cc0510560f9dd5ca21432e1894",
+      "changes": [
+        {
+          "start": 24,
+          "end": 28,
+          "after": "    'orads_us_2022': 'calculators/orads_us_2022',\n    'lirads_ct_mri_2018': 'calculators/lirads_ct_mri_2018',\n    'recist_1_1': 'calculators/recist_1_1',\n    'lesion_growth': 'calculators/lesion_growth',\n",
+          "before": ""
+        },
+        {
+          "start": 123,
+          "end": 124,
+          "after": "        'calculator_ids': descriptor['calculator_ids'],\n",
+          "before": ""
+        }
+      ]
+    },
+    "web/radiology-structured.js": {
+      "before_sha256": "79fed9bd31d02238ed1fb75d0d3bbf2fcc92fd713cada333a9b7ba8256dca88e",
+      "after_sha256": "dbcb99c32a5fe935745ff522ad2435b8e2d450002814804440368571381c0e76",
+      "changes": [
+        {
+          "start": 144,
+          "end": 155,
+          "after": "  function sectionScopeActive(section, selections = {}) {\n    const scope=section.requires_scope;if(!scope)return true;\n    const control=selections[scope.section_id],payload=control?.findings?.[scope.finding_id];\n    return dictionary(control)&&!control.normal&&!control.not_assessed&&dictionary(payload)&&scope.values.includes(payload[scope.slot_id]);\n  }\n  function sectionHasSelection(value) {\n    return !dictionary(value)||Object.keys(value).some(key=>!['normal','not_assessed','findings','instances'].includes(key))\n      ||['normal','not_assessed'].some(key=>own(value,key)&&typeof value[key]!=='boolean')\n      ||(own(value,'findings')&&!dictionary(value.findings))||(own(value,'instances')&&!Array.isArray(value.instances))\n      ||Boolean(value.normal||value.not_assessed||Object.keys(value.findings || {}).length||value.instances?.length);\n  }\n",
+          "before": ""
+        },
+        {
+          "start": 162,
+          "end": 168,
+          "after": "    const scoped = (investigation.sections || []).filter(section => {\n      if(sectionScopeActive(section,state.selections || {}))return true;\n      if(sectionHasSelection(own(state.selections,section.id)?state.selections[section.id]:{}))missing.push({section_id:section.id,label:'Selection outside the acquired scope: '+section.label});\n      return false;\n    });\n    investigation={...investigation,sections:scoped};\n",
+          "before": ""
+        },
+        {
+          "start": 280,
+          "end": 281,
+          "after": "    const allowedCalculators = new Set([...(form.calculator_ids || []), ...(schema.calculator_ids || [])]);\n",
+          "before": "    const allowedCalculators = new Set(form.calculator_ids || schema.calculator_ids || []);\n"
+        },
+        {
+          "start": 324,
+          "end": 325,
+          "after": "        if (sectionScopeActive(section,state.selections) && section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};\n",
+          "before": "        if (section.normal && !section.exclude_from_bulk_normal && (!group || section.group === group) && !blocked.has(section.id) && !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).length) state.selections[section.id] = {normal:true,findings:{}};\n"
+        },
+        {
+          "start": 350,
+          "end": 355,
+          "after": "          }\n          const scopeControl = (investigation()?.sections || []).map(section => section.requires_scope).find(scope => scope?.finding_id === descriptor.id && scope.slot_id === slot.id);\n          if (scopeControl && value !== next) {\n            for (const key of Object.keys(state.selections)) if (key !== scopeControl.section_id) delete state.selections[key];\n            state.calculator_inputs = {}; calculations.clear();\n",
+          "before": ""
+        },
+        {
+          "start": 446,
+          "end": 447,
+          "after": "        if (!sectionScopeActive(section,state.selections)) continue;\n",
+          "before": ""
+        },
+        {
+          "start": 451,
+          "end": 452,
+          "after": "          if (exam.sections.some(row => row.group === section.group && sectionScopeActive(row,state.selections) && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n",
+          "before": "          if (exam.sections.some(row => row.group === section.group && row.normal && !row.exclude_from_bulk_normal)) groupHeader.append(button('Normal remaining', () => {fillNormal(section.group);drawSections();update(true);}, 'rad-small-button'));\n"
+        },
+        {
+          "start": 509,
+          "end": 510,
+          "after": "      if(notify)for(const section of investigation()?.sections || [])if(!sectionScopeActive(section,state.selections))delete state.selections[section.id];\n",
+          "before": ""
+        },
+        {
+          "start": 516,
+          "end": 517,
+          "after": "      const remaining = (investigation()?.sections || []).filter(section => { if(!sectionScopeActive(section,state.selections))return false; const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;\n",
+          "before": "      const remaining = (investigation()?.sections || []).filter(section => { const value = selected(section); return !value.normal && !value.not_assessed && !Object.keys(value.findings || {}).length && !(value.instances || []).some?.(entry => entry?.not_assessed || Object.keys(entry?.findings || {}).length); }).length;\n"
+        },
+        {
+          "start": 530,
+          "end": 532,
+          "after": "        const boundElsewhere = (schema.investigations || []).some(item => item.sections.some(section => (section.calculations || []).some(spec => spec.calculator_id === id)));\n        if ((bound || boundElsewhere) && !Object.values(inputs).some(present)) continue;\n",
+          "before": "        if (bound && !Object.values(inputs).some(present)) continue;\n"
+        }
+      ]
+    },
+    "primer/descriptor_reporting.py": {
+      "before_sha256": "3341504df43a94800174f24b15cb672c1777e86ee15d8d1151d9f59beb7cdc62",
+      "after_sha256": "7add45b636ba3c45d0d7047dcfde28cd1281aa6c387a65e987f12c5d5d166c1c",
+      "changes": [
+        {
+          "start": 9,
+          "end": 22,
+          "after": "\n\ndef section_scope_active(section, selections):\n    \"\"\"A scoped region exists only after its explicit acquisition choice.\"\"\"\n    scope = section.get('requires_scope')\n    if not scope:\n        return True\n    control = selections.get(scope['section_id'], {})\n    if not isinstance(control, dict) or control.get('normal') or control.get('not_assessed'):\n        return False\n    findings = control.get('findings', {})\n    payload = findings.get(scope['finding_id'], {}) if isinstance(findings, dict) else {}\n    return isinstance(payload, dict) and payload.get(scope['slot_id']) in scope['values']\n",
+          "before": ""
+        },
+        {
+          "start": 72,
+          "end": 86,
+          "after": "    scoped_sections = []\n    for section in investigation['sections']:\n        if section_scope_active(section, selections):\n            scoped_sections.append(section)\n        else:\n            selected = selections.get(section['id'], {})\n            if (not isinstance(selected, dict) or set(selected) - {'normal','not_assessed','findings','instances'}\n                    or any(type(selected.get(flag, False)) is not bool for flag in ('normal','not_assessed'))\n                    or not isinstance(selected.get('findings', {}), dict)\n                    or ('instances' in selected and not isinstance(selected['instances'], list))\n                    or selected.get('normal') or selected.get('not_assessed')\n                    or selected.get('findings') or selected.get('instances')):\n                problem('inactive_descriptor_section', section_id=section['id'])\n    investigation = dict(investigation, sections=scoped_sections)\n",
+          "before": ""
+        }
+      ]
+    }
+  }
+}

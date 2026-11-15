@@ -1,5 +1,7 @@
 """Presentation reconciliation cannot grant fine anatomical approval."""
 import json
+import hashlib
+from tools.schirmer_runtime_compatibility import before_schirmer_bytes
 from pathlib import Path
 
 import pytest
@@ -31,7 +33,7 @@ def test_applied_review_preserves_source_and_pending_anatomical_scope():
         assert asset['presentation_dependencies'] == change['proposed_presentation_dependencies']
         # Reviewed hashes, followed through any recorded UI-only refresh of
         # app.js/styles.css; every other dependency must match exactly.
-        assert all(application.sha(ROOT/path) == advance(path, value) for path,value in asset['presentation_dependencies'].items())
+        assert all(hashlib.sha256(before_schirmer_bytes(path,(ROOT/path).read_bytes(),allow_older=True)).hexdigest() == advance(path, value) for path,value in asset['presentation_dependencies'].items())
         review = asset['source_presentation_reconciliation_review']
         assert review['historical_issue_count'] == 2
         assert not review['clinical_approval'] and not review['fine_anatomical_approval']

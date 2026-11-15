@@ -1,0 +1,50 @@
+{
+  "allPassed": false,
+  "syntheticLoopback": true,
+  "productionLearnerWrites": false,
+  "clinicalApproval": false,
+  "completeReportingCoverage": false,
+  "cases": [],
+  "authentication": [
+    {
+      "asset": "index.html",
+      "status": 401
+    },
+    {
+      "asset": "manifest.json",
+      "status": 401
+    },
+    {
+      "asset": "label-4.mesh.gz",
+      "status": 401
+    }
+  ],
+  "errors": [],
+  "externalRequests": [
+    "https://radiologyassistant.nl/assets/role-of-mri-in-epilepsy/a509797aca0c9e_1-MTS.jpg",
+    "https://radiologyassistant.nl/assets/role-of-mri-in-epilepsy/a509797acb24a4_11.jpg",
+    "https://radiologyassistant.nl/img/containers/main/role-of-mri-in-epilepsy/a509797acb16d0_8.jpg/6f46fdc0f5bb5e5152947ab03d6d547d.jpg"
+  ],
+  "sourceSHA256": {
+    "web/app.js": "af28cf9b865e1612b4d57858392f8cb42ca0d8a6f79921d7fed26bc4cf7ec1b1",
+    "primer/server.py": "0d15f022c21c0af7469419b16f9eb9f33a88c321a3779a6eca1ecad04c5c732c",
+    "primer/source_native_inspectors.py": "60135aea31f06edc2d82d940325af73fbeb581aae8b5e14c99dcb724176b8dbc",
+    "primer/spl_reporting_reference.py": "8d0663fe0d528b719315c6569f4cc5c13fd6932eb8de57172b068d297736db72",
+    "primer/spl_epilepsy_reference.py": "59fabb47877973707a9681444cdc8f7b1977e10115f6ddd5e3e068fcb8159d5c",
+    "data/radiology/spl-reporting-reference.json": "37ec02f21599194ad14c9995cf4eae0094b6bb9d62c250cc01702d896967b8ba",
+    "data/radiology/spl-epilepsy-context-reference.json": "a44ce023db88fe5c2264927e8835c912d8f9f69621b92f8001095d9a90f81744",
+    "data/radiology/spl-epilepsy-context-manifest.json.gz": "bcdd9b4e4faffcbc6b60450c3897964315f08ddb08a017bd226656cb467d8a97",
+    "web/anatomy/spl-epilepsy-context/index.html": "8844b0523f24cf20681ae986aa751e270166dd2ffd910617b68952902b83487c",
+    "web/anatomy/spl-epilepsy-context/manifest.json": "5205b649c145cd0d5d78c31b76d8fd489b7dc1f65ab780869e347b7ebe21dee8",
+    "web/anatomy/spl-nac-reporting/viewer.js": "9de93fbf471d82626555e59cbec80d7a909fb9a72ca3752dc25936e4763bbb36",
+    "web/anatomy/spl-nac-reporting/viewer.css": "ea42e227f1770c8c70b30312882abf8f1a012e4e06ed3576912b086f11ef7184",
+    "web/anatomy/spl-nac-reporting/manifest.json": "b5b1666410a9ee367bff1d4556afb128e44d41ae339b73660b2191c7a46789d3",
+    "web/anatomy/spl-nac-limbic/manifest.json": "204f87b6d88a9570eb34664497a1462a5d8bba1afa0c2f7abe1cdf11082de2e6",
+    "web/anatomy/spl-nac-limbic/coordinates.js": "a2ad9b603bf0a2a171b2cca261f9633f6d1c858f62befbf109fa5f7bfb7ac325",
+    "web/anatomy/spl-nac-limbic/payload.js": "a18e1fa2a19205f6c90c04306245051572ff930dbdd60ff9c01b05e3aa90fab2",
+    "tools/check_spl_epilepsy_context.py": "24c580e6baa2ef40219dd62c68abbe689c5f7b991e84c6ce88724f7ac2a1efa7",
+    "tools/check_spl_epilepsy_context.cjs": "0841916a05fbd7ab8319939e57b270e0180e40c57502018de0e2f4791a010cc4",
+    "tools/check_spl_reporting_viewer.cjs": "b358edefe56f82d9ab802e650e7ff0b592e0f80843a609ff9725ffa6fe881cd1"
+  },
+  "failure": "Error: locator.evaluate: SyntaxError: \"undefined\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:9)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+}

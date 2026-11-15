@@ -122,15 +122,27 @@ def attach_module_media(node):
                       if i['module_id'] == node['id'] and inspectors.get(i['id'])]
         if native_ids:
             media.append({'id': 'module-native-inspectors-' + node['id'], 'kind': 'source-native-inspectors',
-                          'title': ('Native source CT and separate nodule models'
+                          'title': ('MRI and limbic source anatomy'
+                                    if node['id'] in {'rad.5.epilepsy-mri', 'rad.5.dementia'} else
+                                    'Native source CT and separate nodule models'
                                     if node['id'] == 'rad.4.pulmonary-nodule' else
-                                    'Original curated thoracic anatomy' if node['id'] == 'rad.5.pleura' else 'Native source anatomy inspection'),
-                          'instructions': ('Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
+                                    'Separate cardiac source anatomy contexts' if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else
+                                    'Original curated thoracic anatomy' if node['id'] == 'rad.5.pleura' else
+                                    'OpenEar specimen CBCT and anatomy' if node['id'] in {'rad.5.temporal-bone', 'rad.5.tinnitus'} else 'Native source anatomy inspection'),
+                          'instructions': ('Inspect the SPL atlas, registered HippUnfold reference and separate healthy-adult hippocampal study in their own coordinates. Compare both manual hippocampal annotations on their shared prepared mean. Raw repetitions are image-only views with unverified anatomical registration. Source annotations are not a normal-volume standard or a current-patient reconstruction.'
+                                           if node['id'] == 'rad.5.epilepsy-mri' else
+                                           'Compare the original SPL atlas MRI, label-cell boundaries and publisher surfaces with the separate registered HippUnfold reference. Each source retains its own grid, labels and limits; neither is a patient-specific reconstruction or a normal-volume standard.'
+                                           if node['id'] == 'rad.5.dementia' else
+                                           'Inspect the complete supplied source arrays and labels in their original grids. Read case, sampling and anatomical limits before interpretation.'
                                            if node['id'] == 'rad.4.stroke' else
                                            'Inspect all original CT sections, separate reader masks and every original XML mark. These source observations neither label every report structure nor establish histology, current-patient findings or longitudinal growth.'
                                            if node['id'] == 'rad.4.pulmonary-nodule' else
-                                           'Inspect original curated surfaces and a separate same-case CT/lobe source. Neither source is registered to the ultrasound examples; required anatomy remains incomplete.'
+                                           'Inspect original curated sources, separate cardiac/lung CT sources and published CT annotation/prediction comparisons. Their coordinates, versions and case identities remain separate; none is registered to the ultrasound examples or current patient. Required anatomy and clinical validation remain incomplete.'
                                            if node['id'] == 'rad.5.pleura' else
+                                           'Inspect each cardiac source separately: original v1 CT and LV-myocardium/chamber labels, curated wall/cusp/papillary objects, and published CT comparison PNGs. In the methods-defined comparisons, green is manual annotation and red is model prediction. Source defects, incomplete anatomy, unverified MRI signal/function and absent current-patient registration remain explicit.'
+                                           if node['id'] in {'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices'} else
+                                           'Compare both supplied registered CBCT volumes, the independent overlapping segmentation channels, the separate full Bone mask and original author surfaces. Read specimen preparation, source sampling and correspondence limits. The overlay does not establish that every labelled structure is resolved in CBCT, and source coordinates are not verified patient directions.'
+                                           if node['id'] in {'rad.5.temporal-bone', 'rad.5.tinnitus'} else
                                            'Inspect the complete provided source selections against native images and separate atlas probabilities. Read population, sampling and anatomical limits before interpretation.'),
                           'investigation_ids': native_ids})
         from . import radiology_catalog

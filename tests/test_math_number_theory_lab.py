@@ -16,6 +16,7 @@ import pytest
 
 from primer.curriculum import Curriculum, _validate_lesson_media
 from tools.number_theory_runtime_compatibility import math_product_bytes, math_test_bytes
+from tools.number_theory_duration_compatibility import historical_number_theory_duration
 
 ROOT = Path(__file__).resolve().parents[1]
 SCENARIO = "math.4.numtheory.exact-integers"
@@ -688,6 +689,7 @@ def test_review_receipt_pins_the_scoped_source_and_lesson_semantics():
     oracle = review["oracle_source"]
     checked_source(oracle["path"], oracle["sha256"])
     lesson = Curriculum().node("math.4.numtheory")
+    lesson = historical_number_theory_duration(lesson)
     current_semantic = hashlib.sha256(json.dumps(lesson, sort_keys=True, ensure_ascii=False,
                                                separators=(",", ":")).encode()).hexdigest()
     assert current_semantic == amendment["current_lesson_semantic_sha256"]
@@ -698,3 +700,55 @@ def test_review_receipt_pins_the_scoped_source_and_lesson_semantics():
     assert historical_semantic == review["reviewed_lesson_semantic_sha256"]
     assert amendment["historical_correspondence_only"] is True
     assert amendment["current_behavior_approval"] is False
+
+
+@pytest.mark.parametrize("mutation", ["physics_text", "math_text", "minutes", "lesson_quiz", "pool_membership"])
+def test_duration_counterfactual_rejects_unreviewed_corpus_or_lesson(mutation):
+    from tools.number_theory_duration_compatibility import current_corpus, PHYSICS
+    corpus = current_corpus()
+    lesson = Curriculum().node("math.4.numtheory")
+    if mutation in {"physics_text", "math_text", "pool_membership"}:
+        path = PHYSICS if mutation == "physics_text" else next(
+            name for name, raw in corpus.items() if json.loads(raw)["id"] == "math")
+        data = json.loads(corpus[path])
+        target = next(n for n in data["nodes"] if n["id"] == (
+            "phys.4.fluids" if mutation == "physics_text" else "math.4.numtheory"))
+        if mutation == "pool_membership":
+            target["stage"] = 3
+        else:
+            target["quiz"][0]["prompt"] += " unreviewed text"
+        corpus[path] = json.dumps(data, ensure_ascii=False).encode()
+    elif mutation == "minutes":
+        lesson["minutes"] = 1085
+    else:
+        lesson["quiz"][0]["prompt"] += " unreviewed math"
+    with pytest.raises(ValueError, match="Unreviewed"):
+        historical_number_theory_duration(lesson, corpus)
+
+
+def test_duration_counterfactual_restores_only_verified_minutes_without_mutation():
+    from tools.number_theory_duration_compatibility import current_corpus, derive, reviewed
+    lesson = Curriculum().node("math.4.numtheory")
+    original = copy.deepcopy(lesson)
+    proof = reviewed()
+    calculation = derive(current_corpus())
+    assert calculation == proof["derivation"]
+    assert calculation["current_estimate"]["rounded_minutes"] == lesson["minutes"] == 1075
+    assert calculation["previous_estimate"]["rounded_minutes"] == 1080
+    previous = historical_number_theory_duration(lesson)
+    assert lesson == original and previous is not lesson
+    assert {k:v for k,v in previous.items() if k != "minutes"} == {k:v for k,v in original.items() if k != "minutes"}
+    assert previous["minutes"] == 1080
+    assert historical_number_theory_duration(previous) == previous
+
+
+def test_duration_test_source_inverse_is_exact_and_rejects_unreviewed_changes():
+    from tools.number_theory_duration_compatibility import before_duration_test_bytes, reviewed
+    path = "tests/test_math_number_theory_lab.py"
+    raw = (ROOT / path).read_bytes()
+    previous = before_duration_test_bytes(path, raw)
+    assert hashlib.sha256(previous).hexdigest() == reviewed()["test_source_inverse"]["before_sha256"]
+    assert before_duration_test_bytes(path, previous) == previous
+    assert before_duration_test_bytes("unrelated.py", b"unrelated bytes") == b"unrelated bytes"
+    with pytest.raises(ValueError, match="Unreviewed"):
+        before_duration_test_bytes(path, raw + b"\n# unreviewed change\n")

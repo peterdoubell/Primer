@@ -22,7 +22,7 @@ def test_brain_reporting_contract_and_each_named_step_are_retained():
     assert inv['source_contract_sha256'] == digest({k: ref.get(k) for k in ('reporting', 'report_templates', 'walkthrough', 'reading')})
     assert {r['checklist_index'] for s in inv['structures'] for r in s['report_refs']} == set(range(5))
     leaves = {r['id']: r for r in requirements_for(inv)}
-    assert len(leaves) == 210
+    assert len(leaves) == 240
     for key in ('brain.left_internal_capsule.posterior_limb', 'brain.corpus_callosum.splenium',
                 'brain.right_cerebellum.middle_peduncle', 'brain.right_cisterns.ambient_cistern',
                 'brain.left_territories.internal_border_zone', 'brain.right_venous_drainage.internal_cerebral_vein',
@@ -46,6 +46,6 @@ def test_gross_parent_labels_and_offline_candidates_receive_no_child_credit():
     gross = {'id': 'gross-capsule', 'kind': 'model', 'investigation_ids': ['ra.brain-anatomy'],
              'structure_ids': ['brain.left_internal_capsule'], 'source_context': {'laterality': 'left'}}
     report = audit(data, {'assets': [gross]}, expected_catalog_ids={'ra.brain-anatomy'})
-    assert report['representation_requirements'] == 630
-    assert report['counts'] == {'verified': 0, 'unverified': 0, 'missing': 630}
+    assert report['representation_requirements'] == 720
+    assert report['counts'] == {'verified': 0, 'unverified': 0, 'missing': 720}
     assert not report['clinical_commercial_ready']

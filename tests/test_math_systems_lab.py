@@ -117,7 +117,9 @@ def test_only_the_original_systems_node_gains_a_companion():
     raw=(ROOT/'docs/systems-equations-fidelity-review-20261013/original-mathematics.json.txt').read_bytes()
     assert hashlib.sha256(raw).hexdigest()=='22e72a36850f61ee9e392c9097d53012121de530c8ec2ab9413467798005e9e5'
     old=json.loads(raw)
-    current=json.loads((ROOT/'data/curriculum/01-mathematics.json').read_bytes())
+    from tools.math_growth_runtime_compatibility import before_growth_bytes
+    path='data/curriculum/01-mathematics.json'
+    current=json.loads(before_growth_bytes(path,(ROOT/path).read_bytes()))
     assert len(old['nodes'])==len(current['nodes'])
     assert {k:v for k,v in old.items() if k!='nodes'}=={k:v for k,v in current.items() if k!='nodes'}
     for before,after in zip(old['nodes'],current['nodes']):

@@ -27,7 +27,7 @@ const EXPECTED_BINDINGS = Object.freeze({
   'math.0.counting': 'counter',
   'math.0.shapes': 'shape-explorer',
   'math.1.addition': 'make-ten',
-  'math.2.fractions': 'fraction-equivalence-lab',
+  'math.2.fractions': 'fraction-arithmetic-lab',
   'math.2.negatives': 'integer-number-line-lab',
   'math.3.functions': 'function-composition-lab',
   'math.4.linalg': 'matrix-transform-lab',
@@ -97,6 +97,8 @@ class FakeTextNode {
 
 function matchesSelector(element, selector) {
   if (!element || element.nodeType !== 1) return false;
+  const attribute = selector.match(/^\[([a-z][a-z0-9-]*)\]$/i);
+  if (attribute) return element.hasAttribute(attribute[1]);
   if (selector.startsWith('.')) return element.classList.contains(selector.slice(1));
   if (/^[a-z][a-z0-9-]*$/i.test(selector)) return element.tagName === selector.toLowerCase();
   throw new Error('fake DOM does not implement selector ' + JSON.stringify(selector));
@@ -123,6 +125,12 @@ class FakeElement {
     this.disabled = false;
     this.hidden = false;
     this.classList = new FakeClassList(this);
+  }
+  get valueAsNumber() { return String(this.value).trim() === '' ? NaN : Number(this.value); }
+  get validity() {
+    const value = this.valueAsNumber;
+    return { valid: Number.isFinite(value) && (this.min === '' || value >= Number(this.min)) &&
+      (this.max === '' || value <= Number(this.max)) };
   }
   get className() { return this._className; }
   set className(value) {
@@ -204,8 +212,12 @@ class FakeElement {
     this.children = [];
     this.append(...values);
   }
-  querySelectorAll(selector) { return descendants(this, element => matchesSelector(element, selector)); }
+  querySelectorAll(selector) {
+    if (selector.startsWith(':scope > ')) return this.children.filter(element => matchesSelector(element, selector.slice(9)));
+    return descendants(this, element => element !== this && matchesSelector(element, selector));
+  }
   querySelector(selector) { return this.querySelectorAll(selector)[0] || null; }
+  closest(selector) { for (let node=this; node; node=node.parentNode) if (matchesSelector(node,selector)) return node; return null; }
   focus() { this.ownerDocument.activeElement = this; }
   remove() {
     if (!this.parentNode) return;
@@ -276,13 +288,14 @@ function serialize(node) {
 }
 
 function normalizeGeneratedIds(value) {
-  return value.replace(/(shadow-position|lesson-spectrum)-\d+/g, '$1-#');
+  return value.replace(/(shadow-position|lesson-spectrum)-\d+/g, '$1-#')
+    .replace(/fluids-\d+-arrow-\d+/g, 'fluids-#-arrow-#').replace(/fluids-\d+/g, 'fluids-#').replace(/fractions-\d+/g, 'fractions-#');
 }
 
 function modelState(root) {
-  const canvas = one(root, element => hasClass(element, 'model-canvas'), 'model canvas');
-  const controls = one(root, element => hasClass(element, 'model-controls'), 'model controls');
-  const readout = one(root, element => hasClass(element, 'model-readout'), 'model readout');
+  const canvas = one(root, element => hasClass(element, root.fractions?'fraction-output':'model-canvas'), 'model canvas');
+  const controls = root.fractions ? root : root.fluids ? canvas : one(root, element => hasClass(element, 'model-controls'), 'model controls');
+  const readout = one(root, element => hasClass(element, root.fractions?'fraction-equation':'model-readout'), 'model readout');
   return {
     canvas: normalizeGeneratedIds(serialize(canvas)),
     controls: normalizeGeneratedIds(serialize(controls)),
@@ -324,12 +337,22 @@ function setRange(control, value) {
 }
 
 const INTERACTIONS = Object.freeze({
+  'fluids-concept-lab': { description: 'select continuity and exercise the 800 cm³/s preset', actions: 2,
+    reset: 'Reset fluid workbench', run: root => {
+      const station = one(root, element => element.getAttribute('data-fluids-control') === 'station', 'fluid station');
+      station.value = 'continuity'; station.dispatch('change');
+      click(one(root, element => element.getAttribute('data-fluids-preset') === 'continuity-800', '800 cm³/s preset'));
+      const result = root.fluids.getModels().continuity;
+      assert.equal(result.inletSpeed, 2); assert.equal(result.throatSpeed, 8); assert.equal(result.pressureDrop, 30000);
+      assert.equal(root.fluids.getState().station, 'continuity');
+    } },
   counter: { description: 'count pebble 1', actions: 1,
     run: root => click(buttonAria(root, 'Pebble 1, not counted yet')) },
   'shape-explorer': { description: 'select Triangle', actions: 1,
     run: root => click(buttonText(root, 'Triangle')) },
   'make-ten': { description: 'move one counter into the ten-frame', actions: 1,
     run: root => click(buttonText(root, 'Move one into the ten-frame')) },
+  'fraction-arithmetic-lab': { description: 'multiply one half by one third with exact area and partition state', actions:1, reset:'Reset workbench', run:root=>{const preset=one(root,e=>e.hasAttribute('data-fraction-preset'),'fraction example selector');preset.value='multiply';preset.dispatch('change');assert.equal(root.fractions.getModel().result.text,'1/6');assert.equal(root.fractions.getModel().productArea.area.text,'1/6');assert.ok(descendants(root,e=>e.hasAttribute('data-product-grid')).length===4);}},
   'fraction-equivalence-lab': { description: 'split each part into 2', actions: 1,
     run: root => click(buttonText(root, 'Split each part into 2')) },
   'integer-number-line-lab': { description: 'change signed move from −7 to −6', actions: 1,
@@ -387,13 +410,15 @@ const INTERACTIONS = Object.freeze({
 });
 
 function collectRemainingModels() {
+  let particleEntries=0,languageComputationEntries=0;
+  const baseTenLessons = new Set();
   const entries = [];
   const lessonIds = new Set();
   let measureEntries = 0, cycleEntries = 0, operatorEntries = 0, ensembleEntries = 0;
   let curvatureEntries = 0, constraintsEntries = 0, complexEntries = 0, quantumEntries = 0;
   let topologyEntries = 0, relativityEntries = 0;
-  let numberTheoryEntries = 0, systemsEntries = 0;
-  let phaseEntries = 0;
+  let numberTheoryEntries = 0, systemsEntries = 0, linearAlgebraEntries = 0;
+  let phaseEntries = 0, fluidsEntries = 0;
   let numericalEntries = 0;
   let thermalEntries = 0;
   let odeEntries = 0;
@@ -403,13 +428,25 @@ function collectRemainingModels() {
     const curriculum = JSON.parse(fs.readFileSync(path.join(CURRICULUM_DIR, filename), 'utf8'));
     for (const lesson of curriculum.nodes || []) {
       for (const media of lesson.lesson_media || []) {
+        if (media.renderer === 'fluids-concept-lab') {
+          assert.equal(lesson.id, 'phys.4.fluids');
+          assert.equal(media.id, 'explore-fluid-forces-and-flow');
+          assert.equal(media.kind, 'model');
+          assert.deepEqual(media.props, { scenario: 'phys.4.fluids' });
+          fluidsEntries++; entries.push({ filename, lessonId: lesson.id, media });
+          continue;
+        }
         const fullLessonBinding = {
+          'vector-components-lab': ['math.3.vectors','math.3.vectors'],
+          'geometry-measures-lab': ['math.2.geometry', 'math.2.geometry'],
+          'coordinate-plane-lab': ['math.2.coordinates', 'math.2.coordinates'],
           'math-logic-lab': ['math.5.logic', 'math.5.logic.diagonal-models-proof'],
           'physics-maxwell-lab': ['phys.4.em-maxwell', 'phys.4.em-maxwell.fields-flux-radiation'],
           'physics-cosmology-lab': ['phys.5.gr-cosmo', 'phys.5.gr-cosmo.geometry-history'],
           'physics-qft-lab': ['phys.5.qft', 'phys.5.qft.fields-observables'],
           'math-number-theory-lab': ['math.4.numtheory', 'math.4.numtheory.exact-integers'],
           'math-systems-lab': ['math.3.systems', 'math.3.systems.general-form'],
+          'linear-algebra-lab': ['math.4.linalg', 'math.4.linalg'],
         }[media.renderer];
         if (fullLessonBinding) {
           assert.equal(lesson.id, fullLessonBinding[0]);
@@ -417,6 +454,10 @@ function collectRemainingModels() {
           assert.deepEqual(media.props, {scenario: fullLessonBinding[1]});
           if (media.renderer === 'math-number-theory-lab') numberTheoryEntries++;
           if (media.renderer === 'math-systems-lab') systemsEntries++;
+          if (media.renderer === 'linear-algebra-lab') {
+            assert.equal(media.id, 'explore-linear-maps-and-kernels');
+            linearAlgebraEntries++;
+          }
           continue;
         }
         if (media.renderer === 'math-algebra-lab' || media.renderer === 'physics-quantum-info-lab') {
@@ -518,6 +559,25 @@ function collectRemainingModels() {
           if (wave) waveEntries++; else probabilityEntries++;
           continue;
         }
+        if (media.renderer === 'algebra-functions-lab') {
+          assert.ok(['math.3.linear','math.3.slope','math.3.quadratics','math.3.polynomials'].includes(lesson.id));
+          assert.deepEqual(media.props,{scenario:lesson.id});
+          continue; // Authenticated linked-algebra reader and exact oracles cover this renderer.
+        }
+        if (media.renderer === 'base-ten-lab') {
+          assert.ok(["math.1.place-value", "math.1.addition", "math.1.subtraction", "math.1.multiplication", "math.1.division"].includes(lesson.id));
+          assert.equal(media.kind, 'model'); assert.deepEqual(media.props, {scenario:lesson.id});
+          assert.ok(!baseTenLessons.has(lesson.id), 'duplicate base-ten lesson'); baseTenLessons.add(lesson.id);
+          continue; // Exact calculations and actual child-reader geometry have dedicated checks.
+        }
+        if(media.renderer==='language-computation-lab'){
+          assert.equal(lesson.id,'lang.5.comp-ling');assert.deepEqual(media.props,{scenario:lesson.id});
+          languageComputationEntries++;continue; // Actual reader, independent Earley parses and exact fraction checks cover this activity.
+        }
+        if(media.renderer==='physics-particle-lab'){
+          assert.equal(lesson.id,'phys.4.particles');assert.deepEqual(media.props,{scenario:lesson.id});
+          particleEntries++;continue; // Actual authenticated reader and independent kinematics have dedicated checks.
+        }
         if (media.kind !== 'model' || media.renderer === 'physics-concept-lab' ||
             ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(media.renderer) ||
             BIOLOGY_CHECKED.has(media.renderer)) continue;
@@ -527,8 +587,13 @@ function collectRemainingModels() {
       }
     }
   }
+  assert.deepEqual([...baseTenLessons].sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
+  assert.equal(languageComputationEntries,1,'exactly one separately verified language computation studio');
+  assert.equal(particleEntries,1,'exactly one separately verified particle activity');
+  assert.equal(fluidsEntries, 1, 'exactly one new fluids companion');
   assert.equal(numberTheoryEntries, 1, 'exactly one separately verified full number-theory binding');
   assert.equal(systemsEntries, 1, 'exactly one separately verified general-form systems binding');
+  assert.equal(linearAlgebraEntries, 1, 'exactly one separately verified linear-algebra companion');
   if (odeEntries !== 1) throw new Error('expected exactly one separately verified second-order ODE binding, found ' + odeEntries);
   if (fieldEntries !== 1) throw new Error('expected exactly one separately verified integral/flux binding, found ' + fieldEntries);
   if (waveEntries !== 1 || probabilityEntries !== 1) throw new Error('expected one separately verified wave and probability activity');
@@ -547,7 +612,11 @@ function collectRemainingModels() {
 
 function loadRegistry() {
   global.document = new FakeDocument();
-  global.window = {};
+  global.window = { document: global.document };
+  require('../web/fluids-lab.js');
+  require('../web/fractions-lab.js');
+  assert.equal(typeof window.PrimerFractionsLab.render,'function');
+  assert.equal(typeof window.PrimerFluidsLab.render, 'function');
   require('../web/lesson-models.js');
   if (!window.PrimerLessonModels || typeof window.PrimerLessonModels.render !== 'function' ||
       !Array.isArray(window.PrimerLessonModels.supported)) {
@@ -557,7 +626,10 @@ function loadRegistry() {
 }
 
 function validateBindings(models, failures) {
-  const actual = new Map(models.map(entry => [entry.lessonId, entry.media.renderer]));
+  const baseModels = models.filter(entry => entry.media.renderer !== 'fluids-concept-lab');
+  assert.equal(models.length, 28 + 1, '28 existing models plus exactly one fluids companion');
+  assert.equal(baseModels.length, 28, 'The original 28 interactions remain in this harness');
+  const actual = new Map(baseModels.map(entry => [entry.lessonId, entry.media.renderer]));
   if (actual.size !== Object.keys(EXPECTED_BINDINGS).length) {
     failures.push('expected 28 remaining curriculum models, found ' + actual.size);
   }
@@ -589,10 +661,10 @@ function checkModel(registry, lessonId, media) {
 
   let canvas; let controls; let readout; let status; let initial;
   try {
-    canvas = one(root, element => hasClass(element, 'model-canvas'), 'model canvas');
-    controls = one(root, element => hasClass(element, 'model-controls'), 'model controls');
-    readout = one(root, element => hasClass(element, 'model-readout'), 'model readout');
-    status = one(root, element => hasClass(element, 'model-status'), 'live status');
+    canvas = one(root, element => hasClass(element, root.fractions?'fraction-output':'model-canvas'), 'model canvas');
+    controls = root.fractions ? root : root.fluids ? canvas : one(root, element => hasClass(element, 'model-controls'), 'model controls');
+    readout = one(root, element => hasClass(element, root.fractions?'fraction-equation':'model-readout'), 'model readout');
+    status = one(root, element => hasClass(element, root.fractions?'fraction-status':'model-status'), 'live status');
     initial = modelState(root);
     const comparison = modelState(comparisonRoot);
     if (JSON.stringify(initial) !== JSON.stringify(comparison)) {
@@ -681,6 +753,7 @@ function main() {
   }
   console.log('Remaining lesson-model DOM smoke check passed: ' + models.length +
     ' models, ' + actions + ' exercised control changes, ' + resets + ' verified resets.');
+  console.log('Preserved 28 base model interactions plus one independently checked fluids companion.');
   coverage.forEach(entry => console.log('COVER ' + entry));
 }
 

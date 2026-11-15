@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_lesson_fields, before_hippocampal_reference_fields
 import subprocess
 import sys
 
@@ -12,7 +13,9 @@ import pytest
 from primer.curriculum import Curriculum, _validate_lesson_media
 from primer import radiology_catalog
 from primer import source_native_inspectors as native
+from tools.algebra_openear_runtime_compatibility import before_algebra_openear_lesson_fields
 from tools.anatomy_sources.brain_native_delivery_amendment import restored_historical_contract, MEDIA
+from tools.spl_limbic_runtime_compatibility import before_spl_lesson_fields, before_spl_reference_fields, reviewed as spl_reviewed
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -22,14 +25,40 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     node = curriculum.node('rad.5.brain-anatomy')
     _validate_lesson_media(node)
     assert [m for m in node['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [MEDIA]
-    assert all(not any(m['kind'] == 'source-native-inspectors' for m in n['lesson_media'])
-               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule', 'rad.5.pleura'})
+    assert all(not any(m['kind'] == 'source-native-inspectors' for m in before_algebra_openear_lesson_fields(n['id'],n)['lesson_media'])
+               for n in curriculum.nodes.values() if n['id'] not in {node['id'], 'rad.4.stroke', 'rad.4.pulmonary-nodule', 'rad.5.pleura', 'rad.5.cardiac-mri', 'rad.5.coronary-ct', 'rad.5.cardiac-masses-devices', 'rad.5.epilepsy-mri', 'rad.5.dementia'})
+    from primer import hippunfold_reference as hippocampal
+    from tools.hippunfold_runtime_compatibility import reviewed
+    expected_companions = {'rad.5.epilepsy-mri': 'ra.mri-epilepsy', 'rad.5.dementia': 'ra.mri-dementia'}
+    registered = hippocampal.references()
+    from primer.spl_limbic_reference import references as spl_references
+    spl_registered = spl_references()
+    assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
+    from tools.spl_unmarked_runtime_compatibility import before_unmarked_reference_fields
+    assert all(before_unmarked_reference_fields(key,{'source_native_inspectors':items})['source_native_inspectors']==[spl_reviewed()['source_inspector_addition']] for key,items in spl_registered.items())
+    assert set(registered) == set(expected_companions.values())
+    manifest = json.loads(hippocampal.validate_file('manifest.json').read_bytes())
+    assert manifest['case'] == '101006' and manifest['shape'] == [128, 256, 128]
+    for lesson_id, investigation_id in expected_companions.items():
+        companion_node = curriculum.node(lesson_id)
+        _validate_lesson_media(companion_node)
+        # Recover only the exact reviewed SPL lesson wording, then keep the frozen HippUnfold assertion.
+        previous_node = before_spl_lesson_fields(lesson_id, companion_node)
+        companions = [m for m in previous_node['lesson_media'] if m['kind'] == 'source-native-inspectors']
+        assert [m for m in before_hippocampal_lesson_fields(lesson_id, companion_node)['lesson_media'] if m['kind'] == 'source-native-inspectors'] == [spl_reviewed()['lessons'][lesson_id]['after']]
+        assert companions == reviewed()['lessons'][lesson_id]['added_media']
+        assert companions[0]['id'] == 'module-native-inspectors-' + lesson_id
+        assert companions[0]['investigation_ids'] == [investigation_id]
+        companion_ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve(investigation_id))['radiology_reference']
+        assert before_spl_reference_fields(investigation_id, companion_ref)['source_native_inspectors'] == registered[investigation_id]
+        assert before_hippocampal_reference_fields(investigation_id, companion_ref)['source_native_inspectors'] == [*registered[investigation_id], *spl_registered[investigation_id]]
+        assert [asset['id'] for asset in registered[investigation_id]] == [hippocampal.IDENTIFIER]
     thoracic = curriculum.node('rad.5.pleura')
     thoracic_media, = [m for m in thoracic['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert thoracic_media['investigation_ids'] == ['ra.thoracic-ultrasound']
     thoracic_model = next(m for m in thoracic['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
     assert thoracic_model['props']['source_native_only'] is True
-    assert [m['id'] for m in thoracic_model['props']['native_inspectors']] == ['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native']
+    assert [m['id'] for m in thoracic_model['props']['native_inspectors']] == ['bp3d-thoracic-original-surfaces','totalseg-s0028-lung-native','totalseg-s0028-basal-context','totalseg-v1-s0028-cardiac-native', 'bp3d-cardiac-original-context', 'baskaran-2020-cardiac-comparisons']
     pulmonary = curriculum.node('rad.4.pulmonary-nodule')
     pulmonary_media, = [m for m in pulmonary['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert pulmonary_media['investigation_ids'] == ['ra.ct-pulmonary-nodules']
@@ -40,7 +69,14 @@ def test_native_inspector_reaches_only_matching_brain_lesson_and_source_model():
     stroke_inspector, = [m for m in stroke['lesson_media'] if m['kind'] == 'source-native-inspectors']
     assert stroke_inspector['investigation_ids'] == ['ra.acute-stroke']
     ref = radiology_catalog.detail(curriculum, radiology_catalog.resolve('ra.brain-anatomy'))['radiology_reference']
-    inspector, = ref['source_native_inspectors']
+    previous_ref = before_spl_reference_fields('ra.brain-anatomy', ref)
+    inspector, = previous_ref['source_native_inspectors']
+    from primer.spl_reporting_reference import references as reporting_references
+    from primer.holiatlas_reference import references as holiatlas_references
+    from primer.schirmer_vascular_reference import references as vascular_references
+    from primer.nextbrain_reference import references as nextbrain_references
+    from tools.cortical_contact_runtime_compatibility import before_contact_reference_fields
+    assert before_contact_reference_fields('ra.brain-anatomy',ref)['source_native_inspectors'] == [inspector, *spl_registered['ra.brain-anatomy'], *reporting_references()['ra.brain-anatomy'], *holiatlas_references()['ra.brain-anatomy'], *vascular_references()['ra.brain-anatomy'], *nextbrain_references()['ra.brain-anatomy']]
     assert inspector['bound_source_ids'] == ['massp2-subcortical-reference']
     assert not inspector['clinical_approval'] and not inspector['fine_anatomical_approval']
     model = next(m for m in node['lesson_media'] if m.get('renderer') == 'radiology-anatomy')
@@ -73,7 +109,7 @@ def test_registered_payload_packet_matches_source_manifest_and_hosted_identity()
 def test_actual_get_head_auth_redirect_and_unknown_routes(tmp_path):
     env={k:v for k,v in os.environ.items() if not k.startswith('TURSO')
          and k not in {'VERCEL','VERCEL_ENV','PRIMER_ACCESS_USERNAME','PRIMER_ACCESS_PASSWORD'}}
-    env.update(PRIMER_DB=str(tmp_path/'native.db'),PRIMER_BACKUP_DIR=str(tmp_path/'backups'))
+    env.update(PRIMER_DB=str(tmp_path/'native.db'),PRIMER_CONTENT_DIR=str(tmp_path/'content'),PRIMER_BACKUP_DIR=str(tmp_path/'backups'))
     script=r'''
 import hashlib,os
 from fastapi import FastAPI

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two marble draws · Primer</title><link rel="stylesheet" href="viewer.css"><script src="core.js" defer></script><script src="viewer.js" defer></script></head>
+<body><main>
+<a href="/app/#/node/math.3.probability">Return to Probability</a>
+<h1>What changes after the first draw?</h1>
+<p>Every marble has its own label. Draw uniformly from the bag and compare the ordered outcomes. Replacing and mixing the first marble restores the original bag before the second draw.</p>
+<div class="controls">
+<label>Total marbles <input id="total" type="range" min="1" max="10" value="5"><output id="total-value"></output></label>
+<label>Red marbles <input id="red" type="range" min="0" max="5" value="3"><output id="red-value"></output></label>
+<label><input id="replacement" type="checkbox"> Replace the first marble</label>
+<label>Information about the first draw <select id="condition"><option value="none">No colour information</option><option value="red">First marble was red</option><option value="blue">First marble was blue</option></select></label>
+<label>Event <select id="event"><option value="both-red">Both marbles are red</option><option value="second-red">Second marble is red</option><option value="different">The colours differ</option><option value="at-least-red">At least one marble is red</option></select></label>
+</div>
+<p id="result" role="status"></p>
+<p id="assumptions"></p>
+<div class="scroll" tabindex="0" role="region" aria-label="Ordered outcomes. Scroll horizontally if needed."><table id="outcomes"><caption>First draw down the rows, second draw across the columns</caption></table></div>
+<p>✓ meets the event and the given information. · meets the information but not the event. × is outside the information. — cannot occur under the draw rule.</p>
+<p id="selected" role="status">Select an outcome to inspect it.</p>
+<p><a href="base-rates/index.html">Explore base rates and positive tests</a></p>
+<h2>Count the colour paths</h2>
+<table id="paths"><caption>Counts in the current conditional sample space</caption><thead><tr><th scope="col">First → second</th><th scope="col">Outcomes</th><th scope="col">Conditional share</th></tr></thead><tbody></tbody></table>
+<p>Conditioning keeps only outcomes consistent with the information. If that information cannot occur, the conditional probability is undefined. Drawing twice without replacement also requires at least two marbles.</p>
+<p>For the quiz’s three red and two blue marbles without replacement, both red has probability (3/5) × (2/4) = 3/10. With replacement it is (3/5) × (3/5) = 9/25.</p>
+<button id="quiz">Restore the quiz example</button>
+</main></body></html>

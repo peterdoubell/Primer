@@ -1,0 +1,40 @@
+{
+  "scope": "Refresh only the explicitly current all-radiology inventory; retain every historical frozen review.",
+  "base_commit": "6881f3238f26c4c3fba36d4970faa8e01045ad36",
+  "path": "docs/radiology-fidelity-scope.json",
+  "before_sha256": "348c60b6389200149b498a286f3b4cff7363767fed47466974362eb73df0db50",
+  "after_sha256": "6da164a111d22c894b70c9032b9b54b891693f04910cd3dc31502c496ba2da0a",
+  "investigation_count": 136,
+  "curriculum_node_count": 106,
+  "changes": [
+    {
+      "kind": "investigations",
+      "id": "ra.mri-epilepsy",
+      "changed_fields": [
+        "reporting_contract",
+        "reporting_contract_sha256",
+        "observed_visual_descriptors"
+      ],
+      "before_reporting_or_module_contract_sha256": "1bfdcfc655301a3ddd3a93e05ad4dd835c4a45dce2ed5b7ab6bd2a2e20b3d147",
+      "after_reporting_or_module_contract_sha256": "9949ba564088960cd881af231d01e0b96b3de14c8a2ec5436880965ba5374f85",
+      "before_row_sha256": "0fbd9808aadbe0800f51fcef2e671711e899f3b5b6031c14577b9e441b142b81",
+      "after_row_sha256": "a06bc0ec73045084f10ab4d53bdbbc8d1955699bc78f57a010b1b27a39a87832"
+    },
+    {
+      "kind": "curriculum_modules",
+      "id": "rad.5.epilepsy-mri",
+      "changed_fields": [
+        "module_contract",
+        "module_contract_sha256"
+      ],
+      "before_reporting_or_module_contract_sha256": "0366763df3db68f1c8a8d9ff4c9be76146e34e465debbbab1873ec9186ae7be7",
+      "after_reporting_or_module_contract_sha256": "719181944c70ecb4c03495a5eab003a7179619e17202f494ef247d1fa3d5b0fe",
+      "before_row_sha256": "2eb82a6bf054426b22cf40bb29e47650b7104cfe69e989b36517707e6135407f",
+      "after_row_sha256": "d78cbacf0f054c7d0741ccb2f95a20e1c0aa2a6abb873893d3a9e2ce69be8fc1"
+    }
+  ],
+  "change_reason": "Six publication-example figures appended to epilepsy source gallery and four walkthrough image lists; existing source captions, reporting text, guide, models and registered inspector retained.",
+  "clinical_approval": false,
+  "verified_structure_coverage_granted": false,
+  "whole_goal_complete": false
+}

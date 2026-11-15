@@ -1,0 +1,185 @@
+{
+  "disposition": "accepted for the independently checked models and their declared domains",
+  "source_sha256": "3df09ceda539660bb4b9c23317b3d1c764614e14c71ccbc7eefcd575f4264ac6",
+  "numerical_requests": 91,
+  "browser_cases": 68,
+  "browser_valid_states": 66,
+  "browser_explicit_invalid_states": 2,
+  "viewport_widths": [
+    390,
+    1440
+  ],
+  "browser_errors": [],
+  "diagram_checks": "Actual SVG coordinates decoded to physical units; every sampled polyline vertex, equal-axis geometry, piston/hull dimensions, common speed/head scales and pressure traction arrows checked against independent equations or a refined collocation oracle.",
+  "visual_inspection": [
+    "Phone continuity, airfoil including final Cp key and external boundary-layer screenshots",
+    "Desktop piston screenshot"
+  ],
+  "four_teaching_corrections_accepted": true,
+  "remaining_actionable_defects_in_reviewed_scope": [],
+  "resolved_findings": [
+    {
+      "finding": "Updated short-answer text failed or barely met stale keyword scoring.",
+      "resolution": "Root changed q2 and q8 keyword fields; official answers each score 1.0.",
+      "discovered_by": "independent reviewer"
+    },
+    {
+      "finding": "Original fixed-flow Venturi could not display exact 2/8 m/s and 30 kPa quiz state.",
+      "resolution": "New calibrated maintained-Q companion and 800 cm\u00b3/s preset are checked; original 7358-byte renderer preserved.",
+      "discovered_by": "independent reviewer"
+    },
+    {
+      "finding": "Joukowski mapPole incorrectly named the trailing-edge point 1 as the transform pole.",
+      "resolution": "mapPole 0, criticalPoints [-1,1] and trailingEdgePreimage 1 verified.",
+      "discovered_by": "independent reviewer"
+    },
+    {
+      "finding": "Cp curve colours lacked a visible upper/lower surface key.",
+      "resolution": "Visible key distinguishes surface identity from traction sign colours; text and final phone screenshot checked.",
+      "discovered_by": "root actual-reader review"
+    },
+    {
+      "finding": "Retained water could exceed the whole sealed box volume.",
+      "resolution": "Reject above rho*LWH with explicit same-density and necessary-only volume interpretation; at-bound overload and above-bound rejection checked.",
+      "discovered_by": "product agent scope review"
+    }
+  ],
+  "quadrature_limit": "At 128 samples and epsilon=.05, alpha=10\u00b0, pressure-force quadrature has about 6e-6 relative Fx error and 3.06e-4 N/m residual drag. Default 720 samples resolves this case to floating-point precision.",
+  "main_app_delivery_verified_by_this_checker": false,
+  "main_app_delivery_note": "Root performs separate authenticated synthetic-reader verification. This receipt pins standalone renderer and mathematical evidence only.",
+  "whole_module_complete": false,
+  "whole_primer_complete": false,
+  "external_readings_exhaustively_reviewed": false,
+  "receipt_files": [
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/README.md",
+      "sha256": "bc6207a7028c923657a9dd4cafb6ff8fbe13d242d5453f60669dc0f270063af1",
+      "bytes": 5207
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-boundary.png",
+      "sha256": "5f5d59706e9535d88f21055c2786344d58c61b07a7a2f6284a13efa0108b0a57",
+      "bytes": 176211
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-continuity.png",
+      "sha256": "4865bc0f9907a8810243c8f80f6aab030da5b04135d54d84c35da02709230e0b",
+      "bytes": 191484
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-hull.png",
+      "sha256": "db226537ff241b0f4f70fdd3b781f70ec0f9579c91d0d29f222f2e56f8f3eda6",
+      "bytes": 154970
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-hydrostatics.png",
+      "sha256": "e9ac32dba3dd5e6d3ca5fedc559f30b529602f8c845a7824d888b3dba574c19a",
+      "bytes": 149435
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-lift.png",
+      "sha256": "163f336191213574163b45efb186afd6ce3efbe2cebf74895a6e537cbbae1f87",
+      "bytes": 262423
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-pipe.png",
+      "sha256": "7148e0199c15100c673da160992c66119e845a14ea44c34b5b286b24846933c0",
+      "bytes": 240213
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-pistons.png",
+      "sha256": "882dc8cca3a2c067ee1375aec08fc3d474f08370cb3877e47300adfa162bba5d",
+      "bytes": 117247
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-plume.png",
+      "sha256": "edf403cc4ac9482490daba84d07c906da041c85038ed444fe243f050640291df",
+      "bytes": 128615
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-1440-settling.png",
+      "sha256": "ab48d7e408180908f352c6d65e6d38ce60f49407d54b0dd9ebd67614401e6f69",
+      "bytes": 166435
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-boundary.png",
+      "sha256": "70d3a53f94b740ba0f43715fa34e22edc72f2dfe4e874ad1ce25114518d1af97",
+      "bytes": 107448
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-continuity.png",
+      "sha256": "e496602926a7b9447e1dc5a4bfcfb09360a5bb3e1ab36202d0c2f53209bd0b76",
+      "bytes": 131554
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-hull.png",
+      "sha256": "3e758554a8fddfc4d9fb6d510fe8061289962101b0ba6baafc3c5fd012282aba",
+      "bytes": 120640
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-hydrostatics.png",
+      "sha256": "2eab8bd9c94ee9359952ee0ad15058f1b1a79aa8e5f27265af366a49192245fc",
+      "bytes": 99632
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-lift.png",
+      "sha256": "c13db47ef76afed96cdbb0cd3ffd87d6c7b1dd24b0dac439c2351426ae7c4510",
+      "bytes": 172688
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-pipe.png",
+      "sha256": "d21365c0d9d33f98d36e7542b2fa2e8a08da2dd86dd216cdd84bc70c65627317",
+      "bytes": 126708
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-pistons.png",
+      "sha256": "ef17e6ec351579c0c1db6f9e46125dce706bf5d59e82bdf07d2a2909f0042049",
+      "bytes": 83288
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-plume.png",
+      "sha256": "58f5fc9233f8ed1c5fa153ce68fc362fe261b9042067075f6ac32aa1aac13ed2",
+      "bytes": 94205
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/independent-390-settling.png",
+      "sha256": "74835f0a72c480d1bf037fe90288be2ef07ee7206995097f517d678b39c57de2",
+      "bytes": 126159
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/numerical-cases.json",
+      "sha256": "b36ccb1261d10c3e19dda6bb0d60c3f4c7ced87e5d7b649f7d3eb803a2dcd9e8",
+      "bytes": 12903
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/numerical-review.json",
+      "sha256": "08c21f889952a3a56dab56058dd593d8b19124b308043f3cbab655304e30ca8d",
+      "bytes": 4038
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/original-venturi-preservation.json",
+      "sha256": "497cdfa35d9094b3e755f2a3294662231ec8b422b62b8e6e88022e3667328647",
+      "bytes": 394
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/renderer-oracles.json",
+      "sha256": "69f85a349ce1e5e10efd4436671ac96e38fe94677f9b535923d47db195502ad0",
+      "bytes": 15613
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/renderer-review.json",
+      "sha256": "3091736785c5204501ee9e61f6a14a10c5b27ee575b414b4cb590d71dd76e5d9",
+      "bytes": 41681
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/requirements-disposition.json",
+      "sha256": "8c93232132025eabed412a896848add6263c4c34f9a4de4e227c1b02cacdcfe1",
+      "bytes": 4983
+    },
+    {
+      "path": "docs/fluids-fidelity-review-20261016/independent-review/teaching-review.json",
+      "sha256": "fc2dd30069cd0d53ac3b9b672d116d0ef194b3a324a2f2bd4add3f1549760152",
+      "bytes": 2063
+    }
+  ]
+}

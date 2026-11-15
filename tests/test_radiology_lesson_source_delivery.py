@@ -35,7 +35,10 @@ def test_every_existing_source_reader_is_attached_once_to_its_matching_lesson(cu
             assert len(ids) == len(set(ids))
             actual[node['id']] = ids
             _validate_lesson_media(node)
-    assert len(actual) == 55 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
+    assert len(actual) == 56 and {k: set(v) for k, v in actual.items()} == {k: set(v) for k, v in expected.items()}
+    from tools.epilepsy_figure_runtime_compatibility import FIGURES
+    assert actual['rad.5.epilepsy-mri'] == ['ra.mri-epilepsy']
+    assert {figure['id'] for figure in atlas['ra.mri-epilepsy']} == FIGURES
     assert set(actual['rad.5.cardiac-masses-devices']) == {
         'ra.cardiovascular-devices', 'ra.cardiac-masses', 'ra.ct-cardiovascular-pearls'}
     assert actual['rad.5.uterine-mr'] == ['ra.mri-endometriosis', 'ra.mri-cervical-cancer', 'ra.mri-endometrial-cancer']
@@ -61,6 +64,8 @@ def test_every_attached_figure_keeps_its_original_role_rights_and_case_context(c
     for module in proof['modules']:
         node = curriculum.node(module['module_id'])
         historical = copy.deepcopy({key: node.get(key) for key in FIELDS})
+        from tools.cardiac_native_runtime_compatibility import before_cardiac_lesson_fields
+        historical = before_cardiac_lesson_fields(module['module_id'], historical)
         # Preserve the older figure-delivery proof; the later model-delivery
         # proof independently binds the complete current props and source cases.
         for media in historical['lesson_media']:

@@ -154,8 +154,11 @@ def test_investigation_anatomy_or_scope_is_overridden(references):
 
 def test_index_reports_step_counts(curriculum, references):
     modules = radiology_catalog.index(curriculum)['modules']
-    assert {m['id']: m['step_count'] for m in modules} == {
-        identifier: len(ref['walkthrough']['steps']) for identifier, ref in references.items()}
+    from primer.cardiology import investigations as cardiology_investigations, detail as cardiology_detail
+    expected = {identifier: len(ref['walkthrough']['steps']) for identifier, ref in references.items()}
+    expected.update({item['id']: len(cardiology_detail(item)['radiology_reference']['walkthrough']['steps'])
+                     for item in cardiology_investigations()})
+    assert {m['id']: m['step_count'] for m in modules} == expected
     assert {m['id']: m['model_family'] for m in modules if m['id'] in CORRECTED} == dict(CORRECTED, **{'ra.mri-diabetic-foot': 'foot'})
 
 

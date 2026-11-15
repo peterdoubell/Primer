@@ -1200,11 +1200,11 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert set(body) == {'counts', 'domains', 'items'}
     assert body['counts'] == {
         'lessons': 558, 'illustrations': 561,
-        'models': 846, 'items': 1407,
+        'models': 854, 'items': 1415,  # Includes the computational-linguistics studio.
     }
 
     expected_domain_counts = {
-        'math': (59, 129), 'language': (40, 61), 'physics': (39, 92),
+        'math': (59, 137), 'language': (40, 62), 'physics': (39, 91),
         'biology': (37, 74), 'chemistry': (29, 55), 'cs': (34, 67),
         'history': (29, 32), 'earth': (27, 53), 'arts': (33, 44),
         'mind': (29, 32), 'radiology': (109, 111),
@@ -1235,6 +1235,10 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
         )
     assert [(item['lesson_id'], item['media_id'], item['kind'])
             for item in body['items']] == expected_order
+    assert [(item['media_id'], item['renderer'], item['title']) for item in body['items']
+            if item['lesson_id']=='phys.5.frontier' and item['kind']=='model'] == [
+        ('module-object-phys.5.frontier','spatial-3d','Calibrated Galaxy Rotation Lab')]
+
     assert [(item['lesson_id'], item['renderer']) for item in body['items']
             if item.get('renderer') == 'prenatal-sequence'] == [
         ('bio.2.reproduction', 'prenatal-sequence'),
@@ -1243,6 +1247,10 @@ def test_curriculum_visual_gallery_catalogues_every_plate_and_model_without_answ
     assert [(item['lesson_id'], item['media_id'], item['stage']) for item in body['items']
             if item.get('renderer') == 'math-systems-lab'] == [
         ('math.3.systems', 'math.3.systems.general-form.model', 3)]
+
+    assert [(item['lesson_id'], item['media_id'], item['stage']) for item in body['items']
+            if item.get('renderer') == 'fluids-concept-lab'] == [
+        ('phys.4.fluids', 'explore-fluid-forces-and-flow', 4)]
 
     common = {
         'kind', 'lesson_id', 'lesson_title', 'domain', 'domain_name',
@@ -1343,7 +1351,9 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
     assert [entry['kind'] for entry in authored_media(tree.json())] == ['illustration', 'model']
     grove = client.get('/api/curriculum/node/math.4.linalg')
     assert grove.status_code == 200
-    assert [entry['kind'] for entry in authored_media(grove.json())] == ['illustration', 'model']
+    assert [entry['kind'] for entry in authored_media(grove.json())] == ['illustration', 'model', 'model']
+    assert [entry['renderer'] for entry in authored_media(grove.json()) if entry['kind'] == 'model'] == [
+        'matrix-transform-lab', 'linear-algebra-lab']
     forest = client.get('/api/curriculum/node/math.5.pde')
     assert forest.status_code == 200
     assert [entry['kind'] for entry in authored_media(forest.json())] == ['illustration', 'model', 'model']
@@ -1359,6 +1369,15 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
             expected_kinds.append('model')
             assert authored_media(payload)[-1]['renderer'] == 'physics-quantum-info-lab'
             assert authored_media(payload)[-1]['props'] == {'scenario': 'phys.5.quantum-info.qubits-circuits-resources'}
+        if node_id == 'phys.4.fluids':
+            expected_kinds.append('model')
+            assert [(entry['id'], entry['renderer'], entry['props'])
+                    for entry in authored_media(payload) if entry['kind'] == 'model'] == [
+                ('compare-venturi-sections', 'venturi-flow-lab',
+                 {'scenario': 'horizontal-water-venturi', 'start_throat': 'half-area'}),
+                ('explore-fluid-forces-and-flow', 'fluids-concept-lab',
+                 {'scenario': 'phys.4.fluids'}),
+            ]
         assert [entry['kind'] for entry in authored_media(payload)] == expected_kinds
         assert all('answer' not in question for question in payload.get('quiz', []))
     for node_id in ('math.0.compare', 'math.2.decimals', 'math.3.slope',
@@ -1383,7 +1402,7 @@ def test_lesson_media_travels_only_with_the_open_lesson(client, onboarded, monke
             assert media[-1]['props'] == {'scenario': 'math.5.logic.diagonal-models-proof'}
         assert [entry['kind'] for entry in media] == expected_kinds
         model = authored_media(illustrated.json())[1]
-        assert model['renderer'] == 'concept-lab'
+        assert model['renderer'] == ('algebra-functions-lab' if node_id=='math.3.slope' else 'concept-lab')
         assert model['props'] == {'scenario': node_id}
 
     graph = client.get('/api/curriculum').json()
@@ -2172,8 +2191,18 @@ def test_the_answer_key_is_not_simply_published(client, onboarded):
     n = client.get("/api/curriculum/node/math.3.linear").json()
     assert "quiz" not in n, "the bank must not ship with the lesson"
     assert n.get("question_count", 0) > 0, "the count is fine to publish"
-    blob = json.dumps(n)
     import primer.server as srv
+    # Authored teaching may explain the same mathematics as an assessment.
+    # The bank, keys and explanations must still be absent from the payload.
+    assert n['lesson'] == srv.curr.nodes['math.3.linear']['lesson']
+    def no_bank_fields(value):
+        if isinstance(value, dict):
+            assert not {'quiz', 'answer', 'explain'} & set(value)
+            for child in value.values(): no_bank_fields(child)
+        elif isinstance(value, list):
+            for child in value: no_bank_fields(child)
+    no_bank_fields(n)
+    blob = json.dumps({k:v for k,v in n.items() if k != 'lesson'})
     for item in srv.curr.nodes["math.3.linear"]["quiz"]:
         assert str(item.get("answer", "")) not in blob or len(str(item.get("answer", ""))) < 2
         assert item.get("explain", "zzz") not in blob

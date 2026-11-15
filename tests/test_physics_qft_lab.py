@@ -95,7 +95,8 @@ def test_current_scientific_sources_reconcile_with_frozen_independent_scope():
     assert inverse['original_receipt']['path'] == bridge['current_scientific_amendment']['path']
     assert digest((ROOT/inverse['original_receipt']['path']).read_bytes()) == inverse['original_receipt']['sha256']
     for path, pin in current['current_pins'].items():
-        source = (ROOT/path).read_bytes()
+        from tools.plane_shapes_runtime_compatibility import before_shapes_bytes
+        source = before_shapes_bytes(path, (ROOT/path).read_bytes())
         if path in inverse['files']:
             change = inverse['files'][path]
             assert digest(source) == change['current_sha256']

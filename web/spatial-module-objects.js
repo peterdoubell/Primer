@@ -72,6 +72,41 @@
   const families = Object.create(null);
   function define(id, title, initial, controls, build) { families[id] = {title, initial, controls, build}; }
 
+  if (window.PrimerCoordinatePlaneSpatial) families["coordinate-plane-exact"] = window.PrimerCoordinatePlaneSpatial.family;
+
+  const algebraFunctionsBindings = {
+  "module.math.3.linear": [
+    "algebra-functions-linear",
+    "Linear Equations"
+  ],
+  "module.math.3.slope": [
+    "algebra-functions-slope",
+    "Slope and Lines"
+  ],
+  "module.math.3.quadratics": [
+    "algebra-functions-quadratics",
+    "Quadratic Equations"
+  ],
+  "module.math.3.polynomials": [
+    "algebra-functions-polynomials",
+    "Polynomials"
+  ]
+};
+  if (window.PrimerAlgebraFunctionsSpatialFamilies) for (const [scenario, [family]] of Object.entries(algebraFunctionsBindings)) families[family] = window.PrimerAlgebraFunctionsSpatialFamilies[scenario.slice(7)];
+
+  const baseTenBindings = {
+    'module.math.1.place-value': ['base-ten-place-value', "Place Value"],
+    'module.math.1.addition': ['base-ten-addition', "Addition"],
+    'module.math.1.subtraction': ['base-ten-subtraction', "Subtraction"],
+    'module.math.1.multiplication': ['base-ten-multiplication', "Multiplication"],
+    'module.math.1.division': ['base-ten-division', "Division"],
+  };
+  if (window.PrimerBaseTenSpatialFamilies) for (const [scenario, [family]] of Object.entries(baseTenBindings)) families[family] = window.PrimerBaseTenSpatialFamilies[scenario.slice(7)];
+
+  if (window.PrimerRatioSpatialFamily) families['ratio-calibrated-volumes'] = window.PrimerRatioSpatialFamily;
+
+  if (window.PrimerDecimalSpatialFamily) families['decimal-base-ten'] = window.PrimerDecimalSpatialFamily;
+
   if (window.PrimerFidelitySpatialFamilies) {
     families['topology-open-set-geometry'] = window.PrimerFidelitySpatialFamilies.topology;
     families['relativistic-event-geometry'] = window.PrimerFidelitySpatialFamilies.relativity;
@@ -545,6 +580,39 @@
       };
     });
 
+  define('plane-shapes', 'Sides and corners', {shape:'circle',turn:0,size:1}, [
+    choice('shape','Choose a shape',[['circle','Circle'],['triangle','Triangle'],['square','Square'],['rectangle','Rectangle']]),
+    range('turn','Turn the shape',0,360,15,'°'), range('size','Resize the shape',.5,1.5,.1),
+  ], (s,g) => {
+    const names={circle:'Circle',triangle:'Triangle',square:'Square',rectangle:'Rectangle'};
+    const source=s.shape==='triangle'?[[0,1],[-Math.sqrt(3)/2,-.5],[Math.sqrt(3)/2,-.5]]:
+      s.shape==='square'?[[-.8,-.8],[.8,-.8],[.8,.8],[-.8,.8]]:
+      s.shape==='rectangle'?[[-1,-.6],[1,-.6],[1,.6],[-1,.6]]:null;
+    // A rigid rotation preserves lengths and angles. All boundary points lie
+    // in the same plane; marker spheres denote vertices, not solid thickness.
+    const angle=radians(s.turn),tilt=radians(25),transform=([x,y])=>{
+      const u=s.size*(x*Math.cos(angle)-y*Math.sin(angle));
+      const v=s.size*(x*Math.sin(angle)+y*Math.cos(angle));
+      return [u,v*Math.cos(tilt),v*Math.sin(tilt)];
+    };
+    const corners=(source||[]).map(transform),count=source?source.length:360;
+    const outline=source?corners:Array.from({length:count},(_,i)=>transform([Math.cos(i*TAU/count),Math.sin(i*TAU/count)]));
+    // The displayed circle is sampled for drawing only. Sampling points are
+    // never classified or marked as mathematical corners or straight sides.
+    for(let i=0;i<count;i++)g.line([outline[i],outline[(i+1)%count]],g.colors.blue,{width:3,shape_part:'boundary',shape_index:i});
+    corners.forEach((p,i)=>{g.sphere(p,.045,g.colors.coral,{shape_part:'corner',shape_index:i});g.label(p.map((v,j)=>v+(j===1?.12:0)),String(i+1));});
+    const readout=s.shape==='circle'?'Circle: no straight sides and no corners. Its boundary is one continuous curve.':
+      s.shape==='triangle'?'Triangle: 3 straight sides and 3 corners. This example has three equal sides.':
+      s.shape==='square'?'Square: 4 equal straight sides and 4 square corners (right angles). A square is also a rectangle.':
+      'Rectangle: 4 straight sides and 4 square corners (right angles). Opposite sides have equal lengths. This example has two long and two short sides.';
+    return {...result(readout+' Turning and resizing keep the same shape.',
+      'These are flat shapes viewed in 3D. Tilting a flat circle can make its picture look oval. Red dots mark polygon corners; their size is only a drawing aid. The circle has a smooth outline with no corners.',
+      [['Blue: outline',g.colors.blue],...(source?[['Red dots: corners',g.colors.coral]]:[])],g),
+      planeShape:{name:names[s.shape],straightSides:corners.length,corners:corners.length,vertices:corners,circleRadius:source?null:s.size,circleSamples:source?0:count,maximumCircleChordError:source?0:s.size*(1-Math.cos(Math.PI/count))}};
+  });
+
+  families['plane-shapes'].camera = {yaw:0,pitch:-25};
+
   define('unit-blocks', 'Counting blocks', {count: 12, group: 4}, [range('count', 'Number of blocks', 1, 30, 1), range('group', 'Blocks in each row', 1, 10, 1)], (s, g) => {
     for (let i = 0; i < s.count; i++) g.box([(i % s.group - (s.group-1)/2)*.4, -.68, (Math.floor(i/s.group) - 1)*.4], [.34,.34,.34], i % 2 ? g.colors.teal : g.colors.blue);
     const rows = Math.floor(s.count / s.group), remainder = s.count % s.group;
@@ -851,15 +919,19 @@
 
 
   define('fraction-disk','Partitioned disk',{parts:'4',selected:1,separation:.1},[choice('parts','Equal parts',[['2','Halves'],['4','Quarters'],['8','Eighths']]),range('selected','Highlighted parts',1,8,1),range('separation','Separate the pieces',0,.3,.1)],(s,g)=>{
-    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1;
+    const n=Number(s.parts),selected=Math.min(n,s.selected),radius=1,segments=96/n;
     for(let i=0;i<n;i++){
       const a=i*TAU/n,b=(i+1)*TAU/n,mid=(a+b)/2,offset=[Math.cos(mid)*s.separation,0,Math.sin(mid)*s.separation],color=i<selected?g.colors.blue:colors.paper;
-      const arc=Array.from({length:13},(_,j)=>add([Math.cos(a+(b-a)*j/12)*radius,.04,Math.sin(a+(b-a)*j/12)*radius],offset));
-      const center=add([0,.04,0],offset);g.polygon([center,...arc],color);
-      for(let j=0;j<12;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color);
-      for(const edge of [arc[0],arc[12]])g.polygon([center,edge,add(edge,[0,-.18,0]),add(center,[0,-.18,0])],color);
+      const arc=Array.from({length:segments+1},(_,j)=>add([Math.cos(a+(b-a)*j/segments)*radius,.04,Math.sin(a+(b-a)*j/segments)*radius],offset));
+      const center=add([0,.04,0],offset),top=[center,...arc],bottom=top.map(p=>add(p,[0,-.18,0]));
+      g.polygon([...top].reverse(),color,{fraction_sector:i,fraction_face:'top'});
+      g.polygon(bottom,color,{fraction_sector:i,fraction_face:'bottom'});
+      for(let j=0;j<segments;j++)g.polygon([arc[j],arc[j+1],add(arc[j+1],[0,-.18,0]),add(arc[j],[0,-.18,0])],color,{fraction_sector:i,fraction_face:'curve'});
+      const first=[center,arc[0],add(arc[0],[0,-.18,0]),add(center,[0,-.18,0])],last=[center,arc[segments],add(arc[segments],[0,-.18,0]),add(center,[0,-.18,0])];
+      g.polygon(first,color,{fraction_sector:i,fraction_face:'start'});
+      g.polygon(last.reverse(),color,{fraction_sector:i,fraction_face:'end'});
     }
-    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${fmt(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This represents one fixed whole.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);
+    return result(`${selected} of ${n} equal parts: ${selected}/${n} = ${String(selected/n)} = ${fmt(selected/n*100)}%. Each piece subtends ${360/n}°. Selecting more than ${n} highlights the whole disk.`, 'The pieces have equal angle, radius and thickness, so they have equal area and volume. Separation is an inspection aid and does not change the part-to-whole fraction. This is a separate example of one fixed whole, not the selected operation or signed value in another activity. The circular boundary is approximated by the same 96 straight chords for every partition, and every sector has outward-facing top, bottom and side faces; exact fraction ratios come from the equal angular partitions, not screen area or the faceted mesh.',[['Blue: selected parts',g.colors.blue],['Cream: other equal parts',colors.paper]],g);
   });
 
   define('clock','Clock face and hands',{hour:3,minute:0},[range('hour','Hour',0,11,1),range('minute','Minutes',0,55,5)],(s,g)=>{
@@ -926,12 +998,45 @@
     return result(`Slit separation d = ${s.gap}; screen distance L = ${s.distance}; wavelength λ = ${wavelength}, all in the same model units. Approximate central fringe spacing λL/d = ${fmt(wavelength*s.distance/s.gap,3)}. Bands use the actual path-length difference from the two slit centers.`, 'Ideal coherent, monochromatic light with equal amplitudes at each point. Display intensity is proportional to cos²(πΔ/λ). Finite-slit diffraction envelopes, spreading losses, alignment error and quantum detection events are omitted. Wavelength and slit widths are enlarged for visibility; this is not a laboratory setup guide.',[['Gray: two-slit barrier',colors.metal],['Gold bands: relative intensity',g.colors.gold],['Coral: source housing',g.colors.coral]],g);
   });
 
+  define('rotation-density-geometry','Calibrated disk density',{diskMass:6e10,diskA:3,diskB:.3},[
+    range('diskMass','Disk mass (solar masses)',0,15e10,5e9),range('diskA','Radial scale a (kpc)',0,10,.25),range('diskB','Vertical scale b (kpc)',.1,2,.1)
+  ],(state,g)=>{
+    const mesh=window.RotationDensity.densitySurface(state,.1,128,128);
+    for(const face of mesh.triangles)g.polygon(face.map(i=>mesh.positions[i]),g.colors.gold);
+    if(mesh.empty)g.label([0,0,0],'Zero disk mass: no density surface');
+    return result('Density contour at '+mesh.density+' solar masses/kpc³. Positions use kpc.','The contour is not a material boundary or the full disk extent. Halo density is not drawn.',[['Gold: 10% of central disk density',g.colors.gold]],g);
+  });
+  families['rotation-density-geometry'].requires='RotationDensity';
+
+  define('type-i-field-geometry','Ideal type-I cylinder field',{temperature:5,appliedMilliTesla:30},[
+    range('temperature','Temperature (K)',0,10,.1),range('appliedMilliTesla','Applied mu0 H (mT)',0,100,1)
+  ],(state,g)=>{
+    const model=window.CondensedGeometry.geometry(state);
+    for(const ring of model.rings)g.line(ring,g.colors.ink);
+    for(let i=0;i<8;i++){const t=i*Math.PI/4;g.line([[Math.cos(t),Math.sin(t),-2],[Math.cos(t),Math.sin(t),2]],g.colors.ink);}
+    for(const glyph of [...model.fieldGlyphs,...model.currentGlyphs]){const color=glyph.kind==='surface-K'?g.colors.gold:g.colors.blue;if(glyph.zero)g.sphere(glyph.originMM,.025,g.colors.ink);else g.arrow(glyph.originMM,glyph.endpointMM,color);}
+    return result(model.uniqueHomogeneousState?'Field and sheet-current samples at '+state.temperature+' K and mu0 H = '+state.appliedMilliTesla+' mT.':model.note,'Ideal infinite cylinder; rings bound the display window, not physical ends. Positions in mm; vector glyphs encode separate T and A/m scales, not trajectories.',[['Blue: magnetic field',g.colors.blue],['Gold: sheet current',g.colors.gold]],g);
+  });
+  families['type-i-field-geometry'].requires='CondensedGeometry';
+
   function ensure(item) {
     const p = item && item.props;
     if (!p || typeof p.scenario !== 'string' || !/^module\.(math|lang|phys|bio|chem|cs|hist|earth|arts|mind|eng|health|env|design|business|civics|education|media|img)\.[0-5]\.[a-z0-9-]+$/.test(p.scenario)) return false;
     if (!Object.prototype.hasOwnProperty.call(families,p.family)) return false;
+    if ((p.scenario === 'module.math.2.coordinates' || p.family === 'coordinate-plane-exact')
+        && (p.scenario !== 'module.math.2.coordinates' || p.family !== 'coordinate-plane-exact' || p.mode !== 'model' || p.lesson !== 'The Coordinate Plane')) return false;
+    if ((Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family.startsWith('algebra-functions-'))
+        && (!Object.hasOwn(algebraFunctionsBindings, p.scenario) || p.family !== algebraFunctionsBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== algebraFunctionsBindings[p.scenario][1])) return false;
+    if ((Object.hasOwn(baseTenBindings, p.scenario) || p.family.startsWith('base-ten-'))
+        && (!Object.hasOwn(baseTenBindings, p.scenario) || p.family !== baseTenBindings[p.scenario][0] || p.mode !== 'model' || p.lesson !== baseTenBindings[p.scenario][1])) return false;
+    if ((p.scenario === 'module.math.2.ratio' || p.family === 'ratio-calibrated-volumes')
+        && (p.scenario !== 'module.math.2.ratio' || p.family !== 'ratio-calibrated-volumes' || p.mode !== 'model' || p.lesson !== 'Ratio and Proportion')) return false;
+    if ((p.scenario === 'module.math.2.decimals' || p.family === 'decimal-base-ten')
+        && (p.scenario !== 'module.math.2.decimals' || p.family !== 'decimal-base-ten' || p.mode !== 'model' || p.lesson !== 'Decimals')) return false;
     if ((p.scenario === 'module.math.4.numtheory' || p.family === 'number-theory-exact-traces')
         && (p.scenario !== 'module.math.4.numtheory' || p.family !== 'number-theory-exact-traces' || p.mode !== 'model' || p.lesson !== 'Number Theory')) return false;
+    if ((p.scenario === 'module.phys.5.frontier' || p.family === 'rotation-density-geometry') && (p.scenario !== 'module.phys.5.frontier' || p.family !== 'rotation-density-geometry' || p.mode !== 'model' || p.lesson !== 'Open Problems')) return false;
+    if ((p.scenario === 'module.phys.5.condensed' || p.family === 'type-i-field-geometry') && (p.scenario !== 'module.phys.5.condensed' || p.family !== 'type-i-field-geometry' || p.mode !== 'model' || p.lesson !== 'Condensed Matter')) return false;
     if (!['model','context'].includes(p.mode) || typeof p.context !== 'string' || typeof p.lesson !== 'string') return false;
     const binding = JSON.stringify([p.family,p.mode,p.context,p.lesson]);
     if (registered.has(p.scenario)) return registered.get(p.scenario) === binding;
@@ -942,7 +1047,7 @@
     window.PrimerSpatial.register({[p.scenario]: {
       initial:family.initialFactory ? family.initialFactory() : {...family.initial},
       controls:family.controlsFactory ? family.controlsFactory() : family.controls,
-      normalize:family.normalize, familyId:p.family, camera:{yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
+      normalize:family.normalize, familyId:p.family, camera:family.camera || {yaw:-28,pitch:21}, linkedStateKey:family.linkedStateKey,
       build(state,g) {
         const explanation = family.build(state,g);
         explanation.readout = context + ' ' + explanation.readout;

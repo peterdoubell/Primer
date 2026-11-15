@@ -5071,3 +5071,17 @@ h1, h2, h3, h4 { letter-spacing: -0.01em; }
 }
 .theme-control:has(.theme-select:focus-visible) { outline: 2px solid var(--chrome-hi); outline-offset: 3px; }
 .theme-select option { color: var(--ink); background: var(--paper); }
+
+/* Shared spine sensory / motor reference. */
+.rad-neurology-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0; }
+.rad-neurology-controls label { display: grid; gap: .4rem; min-width: 0; max-width: 100%; }
+.rad-neurology-controls select { max-width: 100%; padding: .55rem; }
+.rad-neurology-drawing { max-width: 680px; margin: auto; }
+.rad-neurology-drawing svg { display: block; width: 100%; height: auto; color: var(--ink, #263238); }
+.rad-neurology-drawing text { fill: currentColor; font-size: 16px; }
+.rad-neurology-body { fill: #e6edf0; stroke: #69818c; stroke-width: 1.5; }
+.rad-neurology-point { fill: #437589; stroke: white; stroke-width: 1; cursor: pointer; }
+.rad-neurology-point.is-selected { fill: #b54418; stroke: #fff; stroke-width: 2; }
+.rad-neurology-point:focus { outline: none; stroke: #121212; stroke-width: 3; }
+.rad-neurology-detail { border-left: 4px solid #b54418; padding: .5rem 1rem; margin-bottom: 1rem; }
+.rad-neurology-map .rad-image-credit span { display: inline; }

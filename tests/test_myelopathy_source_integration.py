@@ -1,3 +1,4 @@
+from tools.current_labs_runtime_compatibility import before_current_labs_bytes
 """Independent source pixels/rights/context checks and no-coverage integration regressions."""
 import copy
 import hashlib
@@ -181,7 +182,8 @@ def test_unrelated_json_values_and_references_keep_frozen_semantics(source):
  dep_path=FOLDER/'registry-additive-dependency-review.json';dependency=json.loads(dep_path.read_text()) if dep_path.exists() else None
  changes={r['id']:r for r in dependency['updated_assets']} if dependency else {}
  for file,expect in receipt['unrelated_data'].items():
-  data=json.loads((ROOT/file).read_text());tokens=integration.unrelated_token_fingerprints((ROOT/file).read_text(),Path(file),ids)
+  raw=before_current_labs_bytes(file,(ROOT/file).read_bytes()).decode()
+  data=json.loads(raw);tokens=integration.unrelated_token_fingerprints(raw,Path(file),ids)
   data,tokens=restore_prior_view(file,data,tokens)
   data,tokens=stroke_amendment.restore_prior_view(file,data,tokens)
   data,tokens=trauma_amendment.restore_prior_view(file,data,tokens)
@@ -200,6 +202,21 @@ def test_unrelated_json_values_and_references_keep_frozen_semantics(source):
   else:data={**data,'investigations':{k:v for k,v in data['investigations'].items() if k!=INV}}
   assert digest(data)==expect['unrelated_semantic_sha256']
   assert tokens==expect['unrelated_value_token_fingerprints']
+
+
+@pytest.mark.parametrize('prefix',['','walkthrough:'])
+def test_hippunfold_comparison_accepts_only_one_exact_existing_token_namespace(prefix):
+ from tools import hippunfold_runtime_compatibility as bridge
+ from tools.epilepsy_figure_runtime_compatibility import before_figure_bytes
+ path='data/radiology/reporting-steps/neuroradiology.json';row=bridge.reviewed()['data_values'][path]
+ data=json.loads(before_figure_bytes(path,(ROOT/path).read_bytes()));key=prefix+row['token_key']
+ tokens={key:row['after_raw_token_sha256'],'unrelated':'f'*64}
+ restored,prior=bridge.restore_prior_view(path,data,tokens)
+ assert restored['investigations'][row['investigation_id']]==row['before']
+ assert prior=={key:row['before_raw_token_sha256'],'unrelated':'f'*64}
+ assert tokens[key]==row['after_raw_token_sha256']
+ for altered in ({}, {row['token_key']:row['after_raw_token_sha256'],'walkthrough:'+row['token_key']:row['after_raw_token_sha256']}, {key:'0'*64}):
+  with pytest.raises(ValueError,match='raw value token'):bridge.restore_prior_view(path,data,altered)
 
 
 def test_registered_source_images_pdfs_get_head_and_unknown_delivery(source,tmp_path):
