@@ -6,8 +6,9 @@ threshold.addEventListener('change', () => {
   layers[0].dispatchEvent(new Event('input'));
 });
 
+const back = document.querySelector('#return-context');
 if (new URLSearchParams(location.search).get('from') === 'ra.intracranial-haemorrhage') {
-  const back = document.querySelector('#return-context');
   back.href = '/app/#/radiology/ra.intracranial-haemorrhage';
   back.textContent = 'Return to the haemorrhage reporting reference';
 }
+back.hidden = false;
