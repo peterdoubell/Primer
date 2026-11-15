@@ -120,3 +120,21 @@ def before_template_editor_bytes(path, raw):
     if hashlib.sha256(restored).hexdigest() != row[0]:
         raise ValueError('Template editor changed unrelated bytes')
     return restored
+
+
+# 2026-11-15: the click builder's default acquisition text is the report template's protocol.
+PROTOCOL_ALIGNMENT_PATH = 'primer/reporting_bridge.py'
+PROTOCOL_ALIGNMENT = ('74e5bc667bb579a2d9a1b990803f228b193111cc0510560f9dd5ca21432e1894', 'd0ffa54adada746f5998a5865cd723cf2b0d4c0069cc7d40378e02007880601e',
+                      b'    from .report_templates import align_builder_protocols\n    return align_builder_protocols(json.loads(gzip.decompress(packed.read_bytes()) if packed.exists() else path.read_text()))\n',
+                      b'    return json.loads(gzip.decompress(packed.read_bytes()) if packed.exists() else path.read_text())\n')
+
+
+def before_protocol_alignment_bytes(path, raw):
+    if str(path) != PROTOCOL_ALIGNMENT_PATH or hashlib.sha256(raw).hexdigest() != PROTOCOL_ALIGNMENT[1]:
+        return raw
+    if raw.count(PROTOCOL_ALIGNMENT[2]) != 1:
+        raise ValueError('Protocol alignment inverse literal is not unique')
+    restored = raw.replace(PROTOCOL_ALIGNMENT[2], PROTOCOL_ALIGNMENT[3], 1)
+    if hashlib.sha256(restored).hexdigest() != PROTOCOL_ALIGNMENT[0]:
+        raise ValueError('Protocol alignment changed unrelated bridge bytes')
+    return restored

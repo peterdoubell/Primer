@@ -341,3 +341,42 @@ def test_the_report_template_tab_is_a_rich_text_editor_with_an_exact_inverse():
     reader = (ROOT / 'web/app.js').read_bytes()
     assert hashlib.sha256(before_combined_source_release_bytes('web/app.js', reader)).hexdigest() not in (
         TEMPLATE_EDITOR['web/app.js'][0], TEMPLATE_EDITOR['web/app.js'][1])
+
+
+def test_the_click_builder_default_acquisition_is_the_template_protocol_with_an_exact_inverse():
+    import gzip
+    from primer.descriptor_reporting import render_descriptors
+    from primer.reporting_bridge import descriptor_forms
+    from tools.report_compartment_compatibility import before_compartments_bytes
+    from tools.report_layout_compatibility import PROTOCOL_ALIGNMENT, PROTOCOL_ALIGNMENT_PATH, before_protocol_alignment_bytes
+    packed = ROOT / 'data/radiology/descriptor-reporting.json.gz'
+    stored = json.loads(gzip.decompress(packed.read_bytes()) if packed.exists()
+                        else (ROOT / 'data/radiology/descriptor-reporting.json').read_text())
+    original = {inv['id']: inv for form in stored['forms'].values() for inv in form['investigations']}
+    library, aligned = rt.library(), 0
+    for form in descriptor_forms()['forms'].values():
+        for investigation in form['investigations']:
+            acquisition = investigation.get('report_protocol')
+            if not acquisition:
+                continue
+            before = original[investigation['id']]['report_protocol']
+            # Only the default text changes; the selectable choices stay as authored.
+            assert {k: v for k, v in acquisition.items() if k != 'standard_text'} == {
+                k: v for k, v in before.items() if k != 'standard_text'}, investigation['id']
+            item = library.get(investigation['id'])
+            if item and rt.acquisition_heading(investigation['id'], item):
+                assert acquisition['standard_text'] == item['technique']['normal'], investigation['id']
+                aligned += 1
+            else:
+                assert acquisition['standard_text'] == before['standard_text'], investigation['id']
+    assert aligned >= 140
+    form = next(f for f in descriptor_forms()['forms'].values() if any(i['id'] == 'ra.mri-knee' for i in f['investigations']))
+    knee = next(i for i in form['investigations'] if i['id'] == 'ra.mri-knee')
+    section = next(s for s in knee['sections'] if s.get('normal'))
+    report = render_descriptors(form, {'investigation_id': 'ra.mri-knee', 'selections': {section['id']: {'normal': True}}})
+    assert report['valid'] and library['ra.mri-knee']['technique']['normal'] in report['text']
+    raw = (ROOT / PROTOCOL_ALIGNMENT_PATH).read_bytes()
+    assert hashlib.sha256(raw).hexdigest() == PROTOCOL_ALIGNMENT[1]
+    assert hashlib.sha256(before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw)).hexdigest() == PROTOCOL_ALIGNMENT[0]
+    assert before_protocol_alignment_bytes(PROTOCOL_ALIGNMENT_PATH, raw + b'\n') == raw + b'\n'
+    assert hashlib.sha256(before_compartments_bytes(PROTOCOL_ALIGNMENT_PATH, raw, allow_older=True)).hexdigest() == PROTOCOL_ALIGNMENT[0]

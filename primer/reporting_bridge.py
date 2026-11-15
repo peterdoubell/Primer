@@ -39,7 +39,8 @@ def structured_forms():
 def descriptor_forms():
     path = Path(__file__).resolve().parents[1] / 'data/radiology/descriptor-reporting.json'
     packed = path.with_suffix('.json.gz')
-    return json.loads(gzip.decompress(packed.read_bytes()) if packed.exists() else path.read_text())
+    from .report_templates import align_builder_protocols
+    return align_builder_protocols(json.loads(gzip.decompress(packed.read_bytes()) if packed.exists() else path.read_text()))
 
 
 def descriptor_variant(identifier):
