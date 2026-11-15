@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Middle cerebral artery aneurysm · CMHA case AHMU1218005</title>
+<link rel="stylesheet" href="viewer.css">
+<script defer src="viewer.js"></script>
+<script defer src="surface-viewer.js"></script>
+</head>
+<body>
+<main data-volume-sha256="dbea2af53775603eef7679194f9ce955dc80c3be519ecbf1b8c27c03c9eaea1b" data-surfaces-sha256="72e6ea3cbc4a1ff8aec3b8c1da54217d195725328179058023a3f75425d0ca6b">
+<h1>Middle cerebral artery aneurysm</h1>
+<p><a id="return-context" href="/app/#/node/rad.5.intracranial-haemorrhage">Return to Intracranial Haemorrhage</a></p>
+
+<p>Compare the source sac and the model that includes its parent artery and branches. The CMHA case record identifies a ruptured aneurysm at the MCA M1–M2 junction.</p>
+<label>Section <input id="slice" type="range" min="1" disabled> <output id="section"></output></label>
+<button type="button" id="jump" disabled>Go to sac</button>
+<label>Black point <input id="black" type="number" value="20"></label>
+<label>White point <input id="white" type="number" value="300"></label>
+<label>Image size <select id="zoom"><option value="fit">Fit width</option><option value="1">Original pixels</option><option value="2">Double size</option></select></label>
+<label><input id="overlay" type="checkbox" checked> Show section contours</label>
+<p id="status" role="status">Verifying source CTA…</p>
+<button type="button" id="retry" hidden>Retry CT</button>
+<div class="views">
+<figure>
+<div id="image-region"><canvas id="ct" width="512" height="512" tabindex="0" aria-label="Axial CTA. Right at left and anterior at top." hidden></canvas></div>
+<figcaption>Patient right is at left. Anterior is at top. Select a pixel to inspect its source intensity. Use the left and right arrow keys to change sections.</figcaption>
+<p id="sample" aria-live="polite"></p>
+</figure>
+<figure>
+<canvas id="surface" width="640" height="480" aria-label="Source aneurysm and artery models"></canvas>
+<fieldset><legend>Show in 3D and on CTA</legend><label><input class="layer" type="checkbox"> Sac only</label><label><input class="layer" type="checkbox" checked> Sac and artery</label></fieldset>
+<label>Rotation <input id="rotation" type="range" min="-180" max="180" value="25"></label>
+<label>Tilt <input id="tilt" type="range" min="-90" max="90" value="15"></label>
+<p id="surface-status" role="status">Verifying the source surface…</p>
+</figure>
+</div>
+<p>Orange traces the sac model. Blue traces the model with the sac, parent artery and branches. The source surfaces overlap. Specialist review of the alignment and branch identities is pending.</p>
+<p>CTA and models from <a href="https://doi.org/10.6084/m9.figshare.26965450">CMHA by Miao Song and colleagues</a>, under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. <a href="https://doi.org/10.1038/s41597-024-04056-8">Data descriptor</a>. Primer repacked the source sample values, applied the candidate LPS-to-RAS coordinate conversion, and computed the section intersections.</p>
+</main>
+</body>
+</html>

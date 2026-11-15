@@ -1,0 +1,947 @@
+{
+  "investigation_id": "ra.mri-epilepsy",
+  "sourceContractSHA256": "9949ba564088960cd881af231d01e0b96b3de14c8a2ec5436880965ba5374f85",
+  "scope": "Current-source granularity reconciliation; not a complete reporting-structure inventory or clinical validation",
+  "pairedRequirements": [
+    {
+      "requirement_id": "epilepsy.left.hippocampus",
+      "name": "left hippocampus",
+      "requiredParts": [
+        {
+          "name": "head",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "body",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "tail",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "internal architecture",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 17,
+          "sourceName": "left_hippocampus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 4641,
+          "positionBytesSHA256": "c7c549d4467dc34d6925acaf52db263fbbd5bd31bbdebd162dc33d8d7d9cbc66",
+          "indexBytesSHA256": "aca2ecc54af1315d4c610c450c1c822f1221a994bb96a21cdcd951c3f3501a79",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [
+        {
+          "source": "HippUnfold HCP101006 provided registered grids",
+          "hemisphere": "left",
+          "classes": [
+            {
+              "code": 2,
+              "sourceName": "SRLM / dark band",
+              "meaning": "Published SRLM / dark-band class."
+            },
+            {
+              "code": 8,
+              "sourceName": "DG granule / endpoint class",
+              "meaning": "Dentate granule-layer / endpoint label used by the source method; not the whole dentate gyrus, hilus or CA4."
+            }
+          ],
+          "coverage": "partial source architecture context, not separate head/body/tail or CA1\u2013CA4 and subiculum labels"
+        },
+        {
+          "source": "Clark and Maguire Dryad case10 manual annotations",
+          "laterality": "not_assigned_to_this_required_side",
+          "classes": [
+            {
+              "code": 1,
+              "sourceName": "dentate gyrus"
+            },
+            {
+              "code": 2,
+              "sourceName": "ca 2/3"
+            },
+            {
+              "code": 3,
+              "sourceName": "ca 1"
+            },
+            {
+              "code": 4,
+              "sourceName": "subiculum"
+            },
+            {
+              "code": 5,
+              "sourceName": "uncus"
+            },
+            {
+              "code": 6,
+              "sourceName": "pre/parasubiculum"
+            }
+          ],
+          "coverage": "distinct source-case context only; combined DG/CA4, CA2/3 and pre/parasubiculum categories remain combined; two annotations are not independent biological truth"
+        }
+      ],
+      "limits": [
+        "Whole source hippocampal labels do not independently verify head, body, tail or internal architecture.",
+        "The Dryad uncus class is not silently substituted for the entire hippocampal head."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.left.fornix",
+      "name": "left fornix",
+      "requiredParts": [
+        {
+          "name": "whole visible course",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 3007,
+          "sourceName": "left_fornix_of_forebrain",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 741,
+          "positionBytesSHA256": "82e9ba4b4b2751c58231d719b723006526cb99c4ed02dfb17b3a57ff9a27fae4",
+          "indexBytesSHA256": "c675baf4e0124f15e70af7ffef24acfbc2ea4259d6c80293fcde1aa4fba10c64",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "Complete visible course and biological continuity are not established by a whole named source class.",
+        "HippUnfold posterior boundary / indusium-griseum class is not a complete fornix."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.left.mammillary-body",
+      "name": "left mammillary body",
+      "requiredParts": [
+        {
+          "name": "whole structure",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 3003,
+          "sourceName": "left_mammillary_body",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 67,
+          "positionBytesSHA256": "a39669fe2dbc3339a7805382479c076b369e23ce59fa63e6731bedb96534426b",
+          "indexBytesSHA256": "d0a46a7cb6609e9743dc044dbc75b89963ef4065d988a52a789018aba866447d",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "The tiny whole source classes do not establish MRI visibility or normal-population morphology.",
+        "HippUnfold posterior boundary context is not a mammillary-body segmentation."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.left.amygdala",
+      "name": "left amygdala",
+      "requiredParts": [
+        {
+          "name": "whole structure",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 18,
+          "sourceName": "left_amygdala",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 1733,
+          "positionBytesSHA256": "72b1c4db44e0b22f7b3aa5be09e75f77e66b479bc998b0b23599b26e0bcf9efa",
+          "indexBytesSHA256": "58b5bd8e1dcfa6fa583b740290067e05fd09d5cbec668e5733fbe1fae76c1833",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "HippUnfold HATA transition class is not the whole amygdala."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.left.entorhinal-parahippocampal-context",
+      "name": "left entorhinal/parahippocampal context",
+      "requiredParts": [
+        {
+          "name": "cortex",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "underlying white matter",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1016,
+          "sourceName": "left_parahippocampal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 1989,
+          "positionBytesSHA256": "72748d30ce4446399d690ac5851ef96f4705e746fe7c3e45e307b01caa068e41",
+          "indexBytesSHA256": "4f3eb83a4e8d01f396190b56e2586527d020a2ac87f1a901e3e241e48d609741",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [
+        {
+          "source": "HippUnfold HCP101006 provided registered grids",
+          "hemisphere": "left",
+          "classes": [
+            {
+              "code": 3,
+              "sourceName": "Entorhinal / parahippocampal context",
+              "meaning": "Combined entorhinal and parahippocampal boundary context (author class: medial temporal neocortex); not complete medial temporal cortex."
+            }
+          ],
+          "coverage": "combined boundary context, not complete entorhinal or parahippocampal cortex"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2,
+          "sourceName": "white_matter_of_left_cerebral_hemisphere",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 232456,
+          "positionBytesSHA256": "f128a7df4a56939540178e611dcb2c4052cbc325e4a497337753356703abf822",
+          "indexBytesSHA256": "9c4c966793e955c5dfd1ab6cabca9760c882d77dae69d0e5581b4c35e614f3f1",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows",
+          "coverage": "whole white-matter context, not a separately delineated subjacent temporal region"
+        }
+      ],
+      "limits": [
+        "The SPL parahippocampal gyrus class is not automatically a complete entorhinal-cortex class."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.left.temporal-pole-and-skull-base-interface",
+      "name": "left temporal pole and skull-base interface",
+      "requiredParts": [
+        {
+          "name": "temporal pole",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "adjacent middle cranial fossa floor",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1033,
+          "sourceName": "left_temporal_pole",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 3243,
+          "positionBytesSHA256": "8abaea7d4a6540f18592be55f6a979d13c5b8fa3046db883944933497a5f277d",
+          "indexBytesSHA256": "d49865981c2f43beeb417046fc5a08884e61e167f05ef6ad202ee5b545d45246",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "The temporal-pole source class is newly accessible in the focused epilepsy view.",
+        "Adjacent middle-cranial-fossa floor, skull-base defects and encephalocele adequacy remain unverified or absent."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.right.hippocampus",
+      "name": "right hippocampus",
+      "requiredParts": [
+        {
+          "name": "head",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "body",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "tail",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "internal architecture",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 53,
+          "sourceName": "right_hippocampus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 4378,
+          "positionBytesSHA256": "0c00d38d2f51aad3d032eda5959775e9f78a239f2b5a293c2dd866a044fb829d",
+          "indexBytesSHA256": "f31bc43854305ecd6e49ffe9500eb583dc4c7229845155ebcdfdc51b6e155a1c",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [
+        {
+          "source": "HippUnfold HCP101006 provided registered grids",
+          "hemisphere": "right",
+          "classes": [
+            {
+              "code": 2,
+              "sourceName": "SRLM / dark band",
+              "meaning": "Published SRLM / dark-band class."
+            },
+            {
+              "code": 8,
+              "sourceName": "DG granule / endpoint class",
+              "meaning": "Dentate granule-layer / endpoint label used by the source method; not the whole dentate gyrus, hilus or CA4."
+            }
+          ],
+          "coverage": "partial source architecture context, not separate head/body/tail or CA1\u2013CA4 and subiculum labels"
+        },
+        {
+          "source": "Clark and Maguire Dryad case10 manual annotations",
+          "laterality": "not_assigned_to_this_required_side",
+          "classes": [
+            {
+              "code": 1,
+              "sourceName": "dentate gyrus"
+            },
+            {
+              "code": 2,
+              "sourceName": "ca 2/3"
+            },
+            {
+              "code": 3,
+              "sourceName": "ca 1"
+            },
+            {
+              "code": 4,
+              "sourceName": "subiculum"
+            },
+            {
+              "code": 5,
+              "sourceName": "uncus"
+            },
+            {
+              "code": 6,
+              "sourceName": "pre/parasubiculum"
+            }
+          ],
+          "coverage": "distinct source-case context only; combined DG/CA4, CA2/3 and pre/parasubiculum categories remain combined; two annotations are not independent biological truth"
+        }
+      ],
+      "limits": [
+        "Whole source hippocampal labels do not independently verify head, body, tail or internal architecture.",
+        "The Dryad uncus class is not silently substituted for the entire hippocampal head."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.right.fornix",
+      "name": "right fornix",
+      "requiredParts": [
+        {
+          "name": "whole visible course",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 3005,
+          "sourceName": "right_fornix_of_forebrain",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 760,
+          "positionBytesSHA256": "afd0b78b08d5ed5cef671cd3d9b08129f834b0af11d2243ed70eb1dbe5c4138c",
+          "indexBytesSHA256": "1a08cb3923d204ec2a23f2ff4cb47f15f0eba173da505c850e8503894341f864",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "Complete visible course and biological continuity are not established by a whole named source class.",
+        "HippUnfold posterior boundary / indusium-griseum class is not a complete fornix."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.right.mammillary-body",
+      "name": "right mammillary body",
+      "requiredParts": [
+        {
+          "name": "whole structure",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 3002,
+          "sourceName": "right_mammillary_body",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 76,
+          "positionBytesSHA256": "ed4d18ddab0f97b23cc0c56ce57973a72adf8af9c4dd34cd15e6074644ac364d",
+          "indexBytesSHA256": "506e155d7e6e8c2b4b2695b18965a232045a1a20c4c149d255d6a71b02deaf57",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "The tiny whole source classes do not establish MRI visibility or normal-population morphology.",
+        "HippUnfold posterior boundary context is not a mammillary-body segmentation."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.right.amygdala",
+      "name": "right amygdala",
+      "requiredParts": [
+        {
+          "name": "whole structure",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 54,
+          "sourceName": "right_amygdala",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2166,
+          "positionBytesSHA256": "2d37f4c2879fc3edf7d0254d2d519f6591f30cdc093605835e514f329883fa61",
+          "indexBytesSHA256": "d5c0ef7a81a4289182d2b3f95ffb75b5ad0c3d333812bda5c686522406391a33",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "HippUnfold HATA transition class is not the whole amygdala."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.right.entorhinal-parahippocampal-context",
+      "name": "right entorhinal/parahippocampal context",
+      "requiredParts": [
+        {
+          "name": "cortex",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "underlying white matter",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2016,
+          "sourceName": "right_parahippocampal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 1900,
+          "positionBytesSHA256": "887ab84f1e209855d34a3dfccdf3226bc30361b9a3e3e90dfbc196c47f705c14",
+          "indexBytesSHA256": "e3d87e7a09dc329e42d8f6a964b08d249f785b4a0c0fe31e85e0c80f14f13b6d",
+          "initialContextClass": false,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [
+        {
+          "source": "HippUnfold HCP101006 provided registered grids",
+          "hemisphere": "right",
+          "classes": [
+            {
+              "code": 3,
+              "sourceName": "Entorhinal / parahippocampal context",
+              "meaning": "Combined entorhinal and parahippocampal boundary context (author class: medial temporal neocortex); not complete medial temporal cortex."
+            }
+          ],
+          "coverage": "combined boundary context, not complete entorhinal or parahippocampal cortex"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 41,
+          "sourceName": "white_matter_of_right_cerebral_hemisphere",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 235883,
+          "positionBytesSHA256": "f85b7532140982aa90ddd770b3285dcc7ad9f6bc18c086dfb965154e05280ae1",
+          "indexBytesSHA256": "83a26db8df287f4042b2a263615c0153c559afc79013c25fcd818e8a8247fe77",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows",
+          "coverage": "whole white-matter context, not a separately delineated subjacent temporal region"
+        }
+      ],
+      "limits": [
+        "The SPL parahippocampal gyrus class is not automatically a complete entorhinal-cortex class."
+      ],
+      "clinicalApproval": false
+    },
+    {
+      "requirement_id": "epilepsy.right.temporal-pole-and-skull-base-interface",
+      "name": "right temporal pole and skull-base interface",
+      "requiredParts": [
+        {
+          "name": "temporal pole",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        },
+        {
+          "name": "adjacent middle cranial fossa floor",
+          "imageAdequacyVerified": false,
+          "schematicAdequacyVerified": false,
+          "modelAdequacyVerified": false,
+          "requiredPartIndependentlyVerified": false
+        }
+      ],
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2033,
+          "sourceName": "right_temporal_pole",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2588,
+          "positionBytesSHA256": "8078ad43b978e945717f358090ab90df9d7f5ab9c7994e6954003aea3aec029a",
+          "indexBytesSHA256": "c808716b207eef07dbe4cf4d88890dc1f15b90c16907c6b89a7dfd45cf3f126e",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "additionalPartialContext": [],
+      "limits": [
+        "The temporal-pole source class is newly accessible in the focused epilepsy view.",
+        "Adjacent middle-cranial-fossa floor, skull-base defects and encephalocele adequacy remain unverified or absent."
+      ],
+      "clinicalApproval": false
+    }
+  ],
+  "retainedOtherContractGroups": [
+    {
+      "contractGroup": "cortical-ribbon",
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1001,
+          "sourceName": "left_superior_temporal_gyrus_(banks_of_left_superior_temporal_sulcus)",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2669,
+          "positionBytesSHA256": "bb61646de4a550ac26293b39607c1eda06904047985ec494cd3c74ad3cbd104e",
+          "indexBytesSHA256": "dd8956e245d52cde23b8e73e7de197449938303159b9c76e2b83ef277acb299a",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2001,
+          "sourceName": "right_superior_temporal_gyrus_(banks_of_right_superior_temporal_sulcus)",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2377,
+          "positionBytesSHA256": "6db543a0bc738c6823153dfb787c6c37565b3e894a7871119405e4806f179e48",
+          "indexBytesSHA256": "05bd28f44b583b5117ac0a5e6c79bb10922477c0ff1e560725d4c8970de46447",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1009,
+          "sourceName": "left_inferior_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 10433,
+          "positionBytesSHA256": "25d3182d2df647d74d41158ec0ce340baab36b8582202d32d95a2a8b266989d6",
+          "indexBytesSHA256": "561ebe87ae00271440bdeb3d1caef5c6ec2bfd8707acd36321fe9fcc13c92cd1",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2009,
+          "sourceName": "right_inferior_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 11153,
+          "positionBytesSHA256": "81592f495dfdfed4ded3dc6d185a79c6c6eaca3406217cd8be21b9481781a8e7",
+          "indexBytesSHA256": "cc0a02236469cd51e78c36fdb24801bd4501c36a1998f72f5b5e117a00267d87",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1015,
+          "sourceName": "left_middle_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 13043,
+          "positionBytesSHA256": "d810e197bc7eb8646bad56d8712549d28b0fbafd8a0bad0d7df1856edb8ed879",
+          "indexBytesSHA256": "92ef00a92b82e7f0351688a3e84c819c9137a6769cef1839ff9fba8f36b8e44c",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2015,
+          "sourceName": "right_middle_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 12780,
+          "positionBytesSHA256": "557b6e215ec0f30438a12fe26d2c5f03d76002864fbac60a3ba16f017ac81380",
+          "indexBytesSHA256": "aceb985cef25520f2a9ca4c7d5181ab155f0a7ad33f64d026b89fab50cb55313",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1030,
+          "sourceName": "left_superior_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 13342,
+          "positionBytesSHA256": "3d61d38957b2b57c6f9c9a855ea724a6ac3e5b973746641ea52121035e27a95e",
+          "indexBytesSHA256": "8aedb7caf82b92d70831123b0b222755db7b9f836b87f89c570ff0a2ff5a09e9",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2030,
+          "sourceName": "right_superior_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 13983,
+          "positionBytesSHA256": "1f13f2649184dba4d62bf3d072924fcafc88d7d0377b244ae4470e07884c0596",
+          "indexBytesSHA256": "166659e2a829c251bf2edbb6c3c03e99e59124ccd8432ad804f018f2519e7243",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1033,
+          "sourceName": "left_temporal_pole",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 3243,
+          "positionBytesSHA256": "8abaea7d4a6540f18592be55f6a979d13c5b8fa3046db883944933497a5f277d",
+          "indexBytesSHA256": "d49865981c2f43beeb417046fc5a08884e61e167f05ef6ad202ee5b545d45246",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2033,
+          "sourceName": "right_temporal_pole",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2588,
+          "positionBytesSHA256": "8078ad43b978e945717f358090ab90df9d7f5ab9c7994e6954003aea3aec029a",
+          "indexBytesSHA256": "c808716b207eef07dbe4cf4d88890dc1f15b90c16907c6b89a7dfd45cf3f126e",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1034,
+          "sourceName": "left_transverse_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2422,
+          "positionBytesSHA256": "536139311063e1af38ef787602ecc078617d4445f786c0281954449a4448efa8",
+          "indexBytesSHA256": "848f0fcc5166d7a74cc0ad0fc18b802381f8bda4f7cfd4ce3772c672e8824cab",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2034,
+          "sourceName": "right_transverse_temporal_gyrus",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2161,
+          "positionBytesSHA256": "a7f938df867d8df1e36dda629874723fb1da82a4dc65d20bda5ba4cb1da733a1",
+          "indexBytesSHA256": "270a488fa3f0efda265a78a4f8d06abd37743c7a2204c613a1849ea993fba062",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "limit": "Selected temporal parcel classes are partial source context, not complete cortical anatomy or a validated thickness measurement.",
+      "imageAdequacyVerified": false,
+      "schematicAdequacyVerified": false,
+      "modelAdequacyVerified": false,
+      "clinicalApproval": false
+    },
+    {
+      "contractGroup": "sulci",
+      "sourceClassContext": [],
+      "limit": "Gyral-bank labels do not supply separately acquired sulcal curves.",
+      "imageAdequacyVerified": false,
+      "schematicAdequacyVerified": false,
+      "modelAdequacyVerified": false,
+      "clinicalApproval": false
+    },
+    {
+      "contractGroup": "grey-white-junction",
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2,
+          "sourceName": "white_matter_of_left_cerebral_hemisphere",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 232456,
+          "positionBytesSHA256": "f128a7df4a56939540178e611dcb2c4052cbc325e4a497337753356703abf822",
+          "indexBytesSHA256": "9c4c966793e955c5dfd1ab6cabca9760c882d77dae69d0e5581b4c35e614f3f1",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 41,
+          "sourceName": "white_matter_of_right_cerebral_hemisphere",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 235883,
+          "positionBytesSHA256": "f85b7532140982aa90ddd770b3285dcc7ad9f6bc18c086dfb965154e05280ae1",
+          "indexBytesSHA256": "83a26db8df287f4042b2a263615c0153c559afc79013c25fcd818e8a8247fe77",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 1001,
+          "sourceName": "left_superior_temporal_gyrus_(banks_of_left_superior_temporal_sulcus)",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2669,
+          "positionBytesSHA256": "bb61646de4a550ac26293b39607c1eda06904047985ec494cd3c74ad3cbd104e",
+          "indexBytesSHA256": "dd8956e245d52cde23b8e73e7de197449938303159b9c76e2b83ef277acb299a",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2001,
+          "sourceName": "right_superior_temporal_gyrus_(banks_of_right_superior_temporal_sulcus)",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 2377,
+          "positionBytesSHA256": "6db543a0bc738c6823153dfb787c6c37565b3e894a7871119405e4806f179e48",
+          "indexBytesSHA256": "05bd28f44b583b5117ac0a5e6c79bb10922477c0ff1e560725d4c8970de46447",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "limit": "Categorical class contacts and native context do not establish biological junction accuracy.",
+      "imageAdequacyVerified": false,
+      "schematicAdequacyVerified": false,
+      "modelAdequacyVerified": false,
+      "clinicalApproval": false
+    },
+    {
+      "contractGroup": "periventricular-migration-context",
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 4,
+          "sourceName": "left_lateral_ventricle",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 10162,
+          "positionBytesSHA256": "1756ee4c61f07dbf82064db4cf190400a09e3570c5e8fe09dc9d5fdbab3ffb3f",
+          "indexBytesSHA256": "b0d3ec59be66e444a5f5a0d8c9a29e8df86280648a609ebafbf5d0252a9b7586",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 43,
+          "sourceName": "right_lateral_ventricle",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 8341,
+          "positionBytesSHA256": "81eb095890332e8d119e6db5c0a679f36c2be66df76fab3b7529b189e3f0397e",
+          "indexBytesSHA256": "18fe0ee60f8d0714d3ce297b164f5e3cd7d1aa019b408861575b91534c52c04f",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 5,
+          "sourceName": "temporal_horn_of_left_lateral_ventricle",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 1109,
+          "positionBytesSHA256": "e02cac44e85a4590e110f634cd325cb466d0ee7bc4e28508e54b3b37186def09",
+          "indexBytesSHA256": "f83eb768ce8f959fb5ac23416db231c048a418f8daa627bd7902fb0bc1c5f5ec",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 44,
+          "sourceName": "temporal_horn_of_right_lateral_ventricle",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 1071,
+          "positionBytesSHA256": "6b9555b650dc2643ad7cf7f0d0431c7bf3f9b36c28390b609debec0ab6831555",
+          "indexBytesSHA256": "313846674735f97354c91d84be1ef7c43e3bb5bc7f1a520a9dac2d8698d94ca9",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "limit": "Ventricular-space labels are not separate ependymal layers, heterotopia or migration-lesion labels.",
+      "imageAdequacyVerified": false,
+      "schematicAdequacyVerified": false,
+      "modelAdequacyVerified": false,
+      "clinicalApproval": false
+    },
+    {
+      "contractGroup": "cortex-to-ventricle-white-matter-context",
+      "sourceClassContext": [
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 2,
+          "sourceName": "white_matter_of_left_cerebral_hemisphere",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 232456,
+          "positionBytesSHA256": "f128a7df4a56939540178e611dcb2c4052cbc325e4a497337753356703abf822",
+          "indexBytesSHA256": "9c4c966793e955c5dfd1ab6cabca9760c882d77dae69d0e5581b4c35e614f3f1",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 41,
+          "sourceName": "white_matter_of_right_cerebral_hemisphere",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 235883,
+          "positionBytesSHA256": "f85b7532140982aa90ddd770b3285dcc7ad9f6bc18c086dfb965154e05280ae1",
+          "indexBytesSHA256": "83a26db8df287f4042b2a263615c0153c559afc79013c25fcd818e8a8247fe77",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 4,
+          "sourceName": "left_lateral_ventricle",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 10162,
+          "positionBytesSHA256": "1756ee4c61f07dbf82064db4cf190400a09e3570c5e8fe09dc9d5fdbab3ffb3f",
+          "indexBytesSHA256": "b0d3ec59be66e444a5f5a0d8c9a29e8df86280648a609ebafbf5d0252a9b7586",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        },
+        {
+          "source": "SPL-PNL/NAC",
+          "code": 43,
+          "sourceName": "right_lateral_ventricle",
+          "sameSPLCase": true,
+          "sourceVoxelCount": 8341,
+          "positionBytesSHA256": "81eb095890332e8d119e6db5c0a679f36c2be66df76fab3b7529b189e3f0397e",
+          "indexBytesSHA256": "18fe0ee60f8d0714d3ce297b164f5e3cd7d1aa019b408861575b91534c52c04f",
+          "initialContextClass": true,
+          "meaning": "whole source categorical class; no fine-part, visibility or clinical approval follows"
+        }
+      ],
+      "limit": "Whole white-matter and ventricular-space context is not a validated transmantle lesion path or tract.",
+      "imageAdequacyVerified": false,
+      "schematicAdequacyVerified": false,
+      "modelAdequacyVerified": false,
+      "clinicalApproval": false
+    },
+    {
+      "contractGroup": "focal-lesion-context",
+      "sourceClassContext": [],
+      "limit": "No new pathology case is introduced. Existing FCD/other pathology references retain their separate source cases and their specific unverified extent/registration limits.",
+      "imageAdequacyVerified": false,
+      "schematicAdequacyVerified": false,
+      "modelAdequacyVerified": false,
+      "clinicalApproval": false
+    }
+  ],
+  "allRequiredRepresentationsRetained": [
+    "image",
+    "schematic",
+    "model"
+  ],
+  "newInitialSourceClasses": 18,
+  "sourcePayloadsChanged": false,
+  "combinedClassesRemainCombined": true,
+  "automaticClinicalApproval": false,
+  "completeReportingCoverage": false,
+  "sourceSHA256": {
+    "tools/check_epilepsy_source_granularity.py": "5c1f408363ebb3edf39b873cc7ee13071bd74dfb4e40103f2dd9c8654234efec",
+    "docs/epilepsy-structure-coverage-20261030/paired-structures-draft.json": "38f4eeb3fc4921fef227288f90b48c5f214f32661acef61dc444546aea886a66",
+    "web/anatomy/spl-nac-reporting/manifest.json": "b5b1666410a9ee367bff1d4556afb128e44d41ae339b73660b2191c7a46789d3",
+    "web/anatomy/hippunfold-hcp101006-registered/manifest.json": "d8c1452b2c011abcd49406b693137e9217e1c7b3d2fed9268ae4851bcd876c4a",
+    "web/anatomy/dryad-hippocampal-case10/manifest.json": "2df71533dd1e3d08c416dc929b3a00cd62d7af449f00b5ae96f88823ea557608",
+    "data/radiology/spl-epilepsy-context-reference.json": "0ccdf7ab5027ce7570f51f0f6e525cc8d734508f8eec24ef596e559bcece5327"
+  }
+}

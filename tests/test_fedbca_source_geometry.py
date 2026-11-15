@@ -123,7 +123,11 @@ def test_every_current_case_model_prop_matches_its_full_current_delivery_proof()
     from primer.module_media import source_model_bindings
     from tools.check_radiology_fidelity import digest
     from tools.anatomy_sources.renew_fedbca_delivery_review import build_current_delivery_review
-    curr=Curriculum();proof=json.loads((PROOF/'current-source-delivery-review.json').read_text());bindings=source_model_bindings()
+    from tools.algebra_openear_runtime_compatibility import before_algebra_openear_lesson_fields
+    class HistoricalReader(Curriculum):
+        def node(self, identifier):
+            return before_algebra_openear_lesson_fields(identifier, super().node(identifier))
+    curr=HistoricalReader();proof=json.loads((PROOF/'current-source-delivery-review.json').read_text());bindings=source_model_bindings()
     # Keep the reviewed case scope and exact historical proof. The renewal
     # permits only the reviewed helper and separate additive spine gallery,
     # and verifies every current local source byte against retained identities.

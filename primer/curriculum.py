@@ -176,7 +176,7 @@ LESSON_MODEL_RENDERERS = frozenset({
     "math-topology-lab", "physics-relativity-lab", "math-algebra-lab", "physics-quantum-info-lab", "physics-qft-lab",
     "counter", "shape-explorer", "shadow-lab", "sequence-runner",
     "make-ten", "light-paths", "algorithm-tracer", "life-cycle",
-    "base-ten-lab", "fraction-equivalence-lab", "fraction-arithmetic-lab", "atom-element-builder", "cell-microscope",
+    "vector-components-lab", "geometry-measures-lab", "coordinate-plane-lab", "algebra-functions-lab", "base-ten-lab", "fraction-equivalence-lab", "fraction-arithmetic-lab", "atom-element-builder", "cell-microscope",
     "counterexample-lab", "function-composition-lab", "circulation-route-lab",
     "allele-segregation-lab",
     "truth-table-lab", "stack-queue-lab", "matrix-transform-lab", "linear-algebra-lab",
@@ -186,8 +186,8 @@ LESSON_MODEL_RENDERERS = frozenset({
     "alphabet-explorer", "inclusive-family-timeline",
     "day-night-rotation-lab", "classroom-paint-mixer",
     "reading-path-lab", "timeline-order-lab", "seasons-tilt-lab",
-    "art-elements-composer", "integer-number-line-lab", "physics-concept-lab",
-    "radiology-anatomy",
+    "art-elements-composer", "integer-number-line-lab", "physics-concept-lab", "physics-particle-lab",
+    "radiology-anatomy", "language-computation-lab",
 })
 
 # Each 3D scene teaches a specific lesson. Camera state stays local to the UI.
@@ -211,7 +211,7 @@ CONCEPT_MODEL_SCENARIOS = frozenset({
     "hist.3.economics-intro", "lang.4.linguistics", "mind.5.logic-advanced",
 })
 
-# These scenarios intentionally exclude the four physics lessons with bespoke
+# These scenarios intentionally exclude the seven physics lessons with bespoke
 # renderers.  A scenario is bound to the matching node id below, so authored
 # curriculum data cannot silently reuse a scientific model in the wrong lesson.
 PHYSICS_MODEL_SCENARIOS = frozenset({
@@ -223,9 +223,9 @@ PHYSICS_MODEL_SCENARIOS = frozenset({
     "phys.3.optics-waves", "phys.3.thermo", "phys.3.nuclear",
     "phys.3.relativity-intro", "phys.3.modern", "phys.4.classical",
     "phys.4.em-maxwell", "phys.4.quantum", "phys.4.statmech",
-    "phys.4.relativity", "phys.4.solid-state", "phys.4.particles",
+    "phys.4.relativity", "phys.4.solid-state",
     "phys.4.experiment", "phys.5.qft", "phys.5.gr-cosmo",
-    "phys.5.condensed", "phys.5.quantum-info", "phys.5.frontier",
+    "phys.5.quantum-info",
 })
 
 
@@ -501,6 +501,18 @@ def _validate_lesson_media(node: Dict) -> None:
             elif renderer == "algorithm-tracer":
                 if props != {"scenario": "jam-sandwich"}:
                     raise ValueError("{} algorithm tracer has an unknown scenario".format(node.get("id")))
+            elif renderer == "vector-components-lab":
+                if node.get("id") != "math.3.vectors" or props != {"scenario": "math.3.vectors"}:
+                    raise ValueError("{} vector model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "geometry-measures-lab":
+                if node.get("id") != "math.2.geometry" or props != {"scenario": "math.2.geometry"}:
+                    raise ValueError("{} geometry model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "coordinate-plane-lab":
+                if node.get("id") != "math.2.coordinates" or props != {"scenario": "math.2.coordinates"}:
+                    raise ValueError("{} coordinate model has an unknown or cross-lesson scenario".format(node.get("id")))
+            elif renderer == "algebra-functions-lab":
+                if node.get("id") not in {"math.3.linear", "math.3.slope", "math.3.quadratics", "math.3.polynomials"} or props != {"scenario": node.get("id")}:
+                    raise ValueError("{} algebra model has an unknown or cross-lesson scenario".format(node.get("id")))
             elif renderer == "base-ten-lab":
                 if node.get("id") not in {"math.1.place-value", "math.1.addition", "math.1.subtraction", "math.1.multiplication", "math.1.division"} or props != {"scenario": node.get("id")}:
                     raise ValueError("{} base-ten model has an unknown or cross-lesson scenario".format(node.get("id")))
@@ -743,6 +755,14 @@ def _validate_lesson_media(node: Dict) -> None:
                         or len(start_elements) != len(set(start_elements)):
                     raise ValueError("{} art elements composer has unknown settings".format(
                         node.get("id")))
+            elif renderer == "language-computation-lab":
+                if set(props) != {"scenario"} or props.get("scenario") != "lang.5.comp-ling" \
+                        or node.get("id") != "lang.5.comp-ling":
+                    raise ValueError("Language computation studio requires its matching lesson")
+            elif renderer == "physics-particle-lab":
+                if set(props) != {"scenario"} or props.get("scenario") != "phys.4.particles" \
+                        or node.get("id") != "phys.4.particles":
+                    raise ValueError("Particle conservation activity requires its matching lesson")
             elif renderer == "physics-concept-lab":
                 scenario = props.get("scenario")
                 if set(props) != {"scenario"} or not isinstance(scenario, str) \

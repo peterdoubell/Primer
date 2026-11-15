@@ -1,0 +1,53 @@
+{
+  "targetLesson": "phys.5.frontier",
+  "purpose": "Replace arbitrary rotation-curve amplitudes with a physically specified calibrated model",
+  "components": [
+    {
+      "name": "Miyamoto\u2013Nagai axisymmetric disk",
+      "potential": "-G M_d / sqrt(R^2+(a+sqrt(z^2+b^2))^2)",
+      "units": {
+        "mass": "solar masses",
+        "a": "kpc",
+        "b": "kpc"
+      }
+    },
+    {
+      "name": "Spherical NFW halo",
+      "density": "M_s / (4 pi r_s^3 x (1+x)^2), x=r/r_s",
+      "enclosedMass": "M_s [ln(1+x)-x/(1+x)]",
+      "massParameter": "M_s=4 pi rho_s r_s^3; not total mass or virial mass",
+      "limits": "Untruncated NFW total mass diverges; the lesson must state its finite plotted radius window."
+    }
+  ],
+  "orbitAssumptions": [
+    "Circular midplane orbits in a time-independent axisymmetric potential",
+    "No bar, spiral perturbations, pressure support or non-circular streaming",
+    "No claim of a fit to observed data or uniqueness of dark-matter inference"
+  ],
+  "visualRequirements": [
+    "Radius axis in kpc, velocity axis in km/s",
+    "Disk, halo and quadrature total curves on one calibrated scale",
+    "No clipping of accepted physical values",
+    "Inspect selected radius with separate component speeds and enclosed halo mass",
+    "Disclose that disk rotation cannot be inferred from spherical enclosed-mass formula",
+    "Retain clearly synthetic comparison data and uncertainty assumptions"
+  ],
+  "references": [
+    "https://docs.galpy.org/en/v1.12.0/tutorials/potentials/introduction.html",
+    "https://docs.galpy.org/en/v1.5.0/reference/potentialnfw.html"
+  ],
+  "status": "Standalone calibrated 2D/3D preview verified; not integrated into lesson or deployed",
+  "wholeGoalComplete": false,
+  "verifiedExtensions": [
+    "Fixed seeded synthetic sample and one-sigma error bars",
+    "Exact within-model disk-thickness degeneracy",
+    "3D 10%-central-density disk surface",
+    "GPU buffer identity, full-frustum camera views, context recovery and calibrated scale bar"
+  ],
+  "remainingWork": [
+    "Integrate with the actual frontier lesson renderer and reader lifecycle",
+    "Preserve existing lesson semantics and explicitly nominal solar units",
+    "Extend camera and input lifecycle verification to integrated app",
+    "Complete review, CI and production delivery"
+  ]
+}

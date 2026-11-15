@@ -410,6 +410,7 @@ const INTERACTIONS = Object.freeze({
 });
 
 function collectRemainingModels() {
+  let particleEntries=0,languageComputationEntries=0;
   const baseTenLessons = new Set();
   const entries = [];
   const lessonIds = new Set();
@@ -436,6 +437,9 @@ function collectRemainingModels() {
           continue;
         }
         const fullLessonBinding = {
+          'vector-components-lab': ['math.3.vectors','math.3.vectors'],
+          'geometry-measures-lab': ['math.2.geometry', 'math.2.geometry'],
+          'coordinate-plane-lab': ['math.2.coordinates', 'math.2.coordinates'],
           'math-logic-lab': ['math.5.logic', 'math.5.logic.diagonal-models-proof'],
           'physics-maxwell-lab': ['phys.4.em-maxwell', 'phys.4.em-maxwell.fields-flux-radiation'],
           'physics-cosmology-lab': ['phys.5.gr-cosmo', 'phys.5.gr-cosmo.geometry-history'],
@@ -555,11 +559,24 @@ function collectRemainingModels() {
           if (wave) waveEntries++; else probabilityEntries++;
           continue;
         }
+        if (media.renderer === 'algebra-functions-lab') {
+          assert.ok(['math.3.linear','math.3.slope','math.3.quadratics','math.3.polynomials'].includes(lesson.id));
+          assert.deepEqual(media.props,{scenario:lesson.id});
+          continue; // Authenticated linked-algebra reader and exact oracles cover this renderer.
+        }
         if (media.renderer === 'base-ten-lab') {
           assert.ok(["math.1.place-value", "math.1.addition", "math.1.subtraction", "math.1.multiplication", "math.1.division"].includes(lesson.id));
           assert.equal(media.kind, 'model'); assert.deepEqual(media.props, {scenario:lesson.id});
           assert.ok(!baseTenLessons.has(lesson.id), 'duplicate base-ten lesson'); baseTenLessons.add(lesson.id);
           continue; // Exact calculations and actual child-reader geometry have dedicated checks.
+        }
+        if(media.renderer==='language-computation-lab'){
+          assert.equal(lesson.id,'lang.5.comp-ling');assert.deepEqual(media.props,{scenario:lesson.id});
+          languageComputationEntries++;continue; // Actual reader, independent Earley parses and exact fraction checks cover this activity.
+        }
+        if(media.renderer==='physics-particle-lab'){
+          assert.equal(lesson.id,'phys.4.particles');assert.deepEqual(media.props,{scenario:lesson.id});
+          particleEntries++;continue; // Actual authenticated reader and independent kinematics have dedicated checks.
         }
         if (media.kind !== 'model' || media.renderer === 'physics-concept-lab' ||
             ['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(media.renderer) ||
@@ -571,6 +588,8 @@ function collectRemainingModels() {
     }
   }
   assert.deepEqual([...baseTenLessons].sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
+  assert.equal(languageComputationEntries,1,'exactly one separately verified language computation studio');
+  assert.equal(particleEntries,1,'exactly one separately verified particle activity');
   assert.equal(fluidsEntries, 1, 'exactly one new fluids companion');
   assert.equal(numberTheoryEntries, 1, 'exactly one separately verified full number-theory binding');
   assert.equal(systemsEntries, 1, 'exactly one separately verified general-form systems binding');

@@ -8,7 +8,8 @@ ROOT=Path(__file__).resolve().parents[1]
 
 @pytest.mark.parametrize('path',sorted(receipt.PATHS))
 def test_exact_receipt_is_idempotent_and_preserves_unknown_changes(path):
- raw=(ROOT/path).read_bytes();row=receipt.reviewed()['files'][path]
+ from tools.report_compartment_compatibility import before_compartments_bytes
+ raw=before_compartments_bytes(path,(ROOT/path).read_bytes());row=receipt.reviewed()['files'][path]
  assert receipt.sha(raw)==row['after_sha256']
  restored=receipt.before_report_additions_bytes(path,raw)
  assert receipt.sha(restored)==row['before_sha256']

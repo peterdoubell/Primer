@@ -1,0 +1,24 @@
+from pathlib import Path
+import hashlib,json
+import nibabel as nib
+import numpy as np
+D=Path(__file__).resolve().parent;index=json.loads((D/'source-index.json').read_bytes());headers={};arrays={}
+for row in index['files']:
+ p=D/row['file'];assert p.stat().st_size==row['bytes']and hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256']
+ if not p.name.endswith('.nii.gz'):continue
+ v=nib.load(p);a=np.asanyarray(v.dataobj);assert np.isfinite(a).all();arrays[p.name]=a
+ headers[p.name]={'shape':list(v.shape),'dtype':str(v.get_data_dtype()),'scaled_dtype':str(a.dtype),'units':v.header.get_xyzt_units(),'orientation':nib.aff2axcodes(v.affine),'affine':v.affine.tolist(),'qform':v.get_qform().tolist(),'qform_code':int(v.header['qform_code']),'sform':v.get_sform().tolist(),'sform_code':int(v.header['sform_code']),'slope':v.dataobj.slope,'intercept':v.dataobj.inter,'range':[float(a.min()),float(a.max())]}
+label=arrays['sub-001_ses-01_desc-manual_dseg.nii.gz'];mri=arrays['sub-001_ses-01_T2w.nii.gz'];lh=headers['sub-001_ses-01_desc-manual_dseg.nii.gz'];mh=headers['sub-001_ses-01_T2w.nii.gz'];sameGrid=lh['shape']==mh['shape']and lh['affine']==mh['affine'];counts=np.bincount(label.ravel(),minlength=256);lut={}
+for line in (D/'sub-001_lut.txt').read_text().splitlines():
+ if not line.strip():continue
+ bits=line.split();assert len(bits)==6;code=int(bits[0]);assert code not in lut;lut[code]={'name':bits[1],'rgba':list(map(int,bits[2:]))}
+assert set(np.unique(label))<=set(lut)
+rows=[]
+for code,count in enumerate(counts):
+ if not count:continue
+ points=np.argwhere(label==code)if code else None
+ row={'code':code,'rawLUTName':lut[code]['name'],'voxels':int(count)}
+ if points is not None:
+  row['bboxIJK']=[points.min(0).tolist(),points.max(0).tolist()];row['centroidIJK']=points.mean(0).tolist();row['centroidWorld']=nib.affines.apply_affine(np.array(lh['affine']),points.mean(0)).tolist();row['sampleFocusIJK']=points[len(points)//2].tolist()
+ rows.append(row)
+report={'headers':headers,'sameDeclaredGrid':sameGrid,'presentNonzeroClasses':int(np.count_nonzero(counts[1:])),'absentLUTCodes':[c for c in lut if counts[c]==0],'classes':rows,'lateralityConflict':'Publisher says right hemisphere; several raw LUT names say Left/L while cortical names say rh. Not silently relabeled.','contrastConflict':'File named T2w; cited acquisition uses FLASH. Exact supplied-volume lineage remains to be reconciled.','clinicalApproval':False,'runtimeBound':False};(D/'grid-audit.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({'headers':headers,'sameDeclaredGrid':sameGrid,'presentNonzeroClasses':report['presentNonzeroClasses'],'absentLUTCodes':report['absentLUTCodes']}))

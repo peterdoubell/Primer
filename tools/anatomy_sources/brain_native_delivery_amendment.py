@@ -13,7 +13,8 @@ MEDIA = {'id': 'module-native-inspectors-rad.5.brain-anatomy', 'kind': 'source-n
 
 
 def restored_historical_contract(contract, module_id, root=ROOT):
-    result = copy.deepcopy(contract)
+    from tools.algebra_openear_runtime_compatibility import before_algebra_openear_lesson_fields
+    result = copy.deepcopy(before_algebra_openear_lesson_fields(module_id, contract))
     if module_id != 'rad.5.brain-anatomy':
         return result
     if hashlib.sha256((root / REVIEW).read_bytes()).hexdigest() != REVIEW_SHA256:

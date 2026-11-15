@@ -14,6 +14,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from tools.hippocampal_rater_runtime_compatibility import before_hippocampal_reference_fields
 
 
 def check():
@@ -123,13 +124,15 @@ def check():
             from tools.spl_limbic_runtime_compatibility import before_spl_reference_fields, reviewed as spl_reviewed
             spl_registered = spl_references()
             assert set(spl_registered) == {'ra.brain-anatomy', 'ra.mri-epilepsy', 'ra.mri-dementia'}
-            assert all(items == [spl_reviewed()['source_inspector_addition']] for items in spl_registered.values())
+            from tools.spl_unmarked_runtime_compatibility import before_unmarked_reference_fields
+            assert all(before_unmarked_reference_fields(key,{'source_native_inspectors':items})['source_native_inspectors']==[spl_reviewed()['source_inspector_addition']] for key,items in spl_registered.items())
             assert set(registered) == hippocampal.BINDINGS
-            assert keys == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS
+            from tools.spl_additional_runtime_compatibility import before_additional_bindings
+            assert set(before_additional_bindings(references)) == {'ra.brain-anatomy', 'ra.acute-stroke', 'ra.ct-pulmonary-nodules', 'ra.thoracic-ultrasound'} | cardiac_bindings | hippocampal.BINDINGS | {'ra.ct-temporal-bone', 'ra.tinnitus'}
             for identifier, expected in registered.items():
                 prior = before_spl_reference_fields(identifier, {'source_native_inspectors': references[identifier]})
                 assert prior['source_native_inspectors'] == expected
-                assert references[identifier] == [*expected, *spl_registered[identifier]]
+                assert before_hippocampal_reference_fields(identifier, {'source_native_inspectors':references[identifier]})['source_native_inspectors'] == [*expected, *spl_registered[identifier]]
                 assert [item['id'] for item in expected] == [hippocampal.IDENTIFIER]
             os.environ.pop('PRIMER_ACCESS_USERNAME')
             os.environ.pop('PRIMER_ACCESS_PASSWORD')

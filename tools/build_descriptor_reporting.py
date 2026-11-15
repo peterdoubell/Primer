@@ -416,6 +416,17 @@ def build_catalog(catalog: dict, structured: dict, *, anatomic=True) -> dict:
         except ModuleNotFoundError:
             from msk_descriptor_catalog import apply_anatomic_reports
         coverage = apply_anatomic_reports(forms, ROOT, compile_statement, digest, slug)
+    try:
+        from tools.report_compartments import apply_compartments
+    except ModuleNotFoundError:
+        from report_compartments import apply_compartments
+    if anatomic:
+        apply_compartments(forms, digest)
+        try:
+            from tools.report_template_format import apply_report_format
+        except ModuleNotFoundError:
+            from report_template_format import apply_report_format
+        apply_report_format(forms, digest)
     counts['source_descriptors'] = counts['descriptors']
     for key in ('investigations', 'sections'):
         counts['source_' + key] = counts[key]
