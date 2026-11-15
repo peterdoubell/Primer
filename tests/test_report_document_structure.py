@@ -45,8 +45,18 @@ def test_report_document_order_and_browser_parity(identifier, header):
 def test_protocol_omission_and_unlisted_choices_are_explicit():
     form, exam = EXAMS['ra.mri-knee']
     state = {'investigation_id': exam['id'], 'report_fields': {'clinical_history': 'Pain'}}
-    assert 'Protocol:\n—' in render_descriptors(form, state)['text']
+    assert 'Protocol:\n' + exam['report_protocol']['standard_text'] in render_descriptors(form, state)['text']
+    state['report_fields']['protocol'] = ''
+    assert 'Protocol:\n[]' in render_descriptors(form, state)['text']
     state['report_fields']['protocol_options'] = ['Unknown sequence']
     assert not render_descriptors(form, state)['valid']
     form, exam = EXAMS['xr.hand']
     assert not render_descriptors(form, {'investigation_id': exam['id'], 'report_fields': {'protocol': 'Invalid section'}})['valid']
+
+
+def test_standard_acquisition_exists_for_each_mri_and_ct():
+    for _, exam in EXAMS.values():
+        if exam['modality'] in ('MRI', 'CT'):
+            assert exam['report_protocol']['standard_text'], exam['id']
+        else:
+            assert not exam.get('report_protocol'), exam['id']

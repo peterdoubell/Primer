@@ -2,8 +2,10 @@
 
 try:
     from tools.report_protocols import report_protocol
+    from tools.report_standard_acquisition import standard_acquisition
 except ModuleNotFoundError:
     from report_protocols import report_protocol
+    from report_standard_acquisition import standard_acquisition
 
 KNEE_NORMAL_GROUPS = (
     (
@@ -30,7 +32,8 @@ def apply_report_format(forms, digest):
             exam['report_format'] = 3
             protocol = report_protocol(exam)
             if protocol:
-                exam['report_protocol'] = protocol
+                exam['report_protocol'] = dict(protocol)
+                exam['report_protocol']['standard_text'] = standard_acquisition(exam['id'], protocol['options'])
             if exam['id'] != 'ra.mri-knee':
                 continue
             rows = {row['anatomy_id']: row for row in exam['sections']}

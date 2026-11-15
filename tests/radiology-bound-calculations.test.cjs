@@ -334,7 +334,7 @@ test('explicit no-nodule normal reports absence without launching a score or inf
     assert.equal(root.getReport(), '');
     find(root, 'Use normal findings').onclick();
     await root.flush();
-    assert.ok(root.getReport().includes('No thyroid nodules are identified.'));
+    assert.ok(root.getReport().includes('Thyroid nodule: none.'));
     assert.equal(find(root, 'Copy report').disabled, false);
     assert.deepEqual(calls, []);
     assert.equal('anatomy-patient-group' in root.getState().descriptor_state.selections, false);
@@ -359,7 +359,7 @@ test('explicit negative focal prostate assessment is mutually exclusive with les
   const root = api.render(form('rad.5.prostate-mri'), {initialState: {descriptor_state: state}, request: async (...args) => {calls.push(args); return {};}});
   try {
     await root.flush();
-    assert.ok(root.getReport().includes('No suspicious focal prostatic lesion is identified on the acquired MRI sequences.'));
+    assert.ok(root.getReport().includes('Prostate lesion: none.'));
     assert.equal(find(root, 'Copy report').disabled, false);
     assert.doesNotMatch(root.getReport(), /CALCULATED ASSESSMENT/);
     assert.deepEqual(calls, []);
