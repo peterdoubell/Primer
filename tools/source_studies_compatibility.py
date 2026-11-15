@@ -95,7 +95,15 @@ def before_endometrial_delivery_bytes(path, raw):
         raise ValueError("Endometrial source delivery changed unrelated bytes")
     return restored
 
+def before_reporting_step_evidence_bytes(path, raw):
+    if str(path) != 'web/app.js':
+        return raw
+    proof = Path(__file__).resolve().parents[1] / 'docs/rhuh-sah-001/step-evidence-inverse.json'
+    return _restore(path, raw, proof, '57b163f4463c852e8194ed248efb7f80ab964543c4e5cfeba7f78d231dad5b63')
+
+
 def before_combined_source_release_bytes(path, raw):
+    raw = before_reporting_step_evidence_bytes(path, raw)
     if str(path) == 'web/app.js':
         from tools.report_layout_compatibility import before_template_editor_bytes
         raw = before_template_editor_bytes(path, raw)
@@ -103,6 +111,9 @@ def before_combined_source_release_bytes(path, raw):
         raw = raw.replace(b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('div', { class: 'model-button-row', style: 'margin:1rem 0' },\n    el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n      'Predict English plural sounds'),\n    el('a', { class: 'btn ghost', href: '/app/language/phrase-attachment/index.html' },\n      'Compare two meanings of the same sentence')));\n", b"  if (n.id === 'lang.3.linguistics-intro') page.append(el('a', { class: 'btn ghost', href: '/app/language/plural-sounds/index.html' },\n    'Predict English plural sounds'));\n", 1)
         if hashlib.sha256(raw).hexdigest() != '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':
             raise ValueError('Phrase attachment navigation changed unrelated reader bytes')
+    if str(path) == 'vercel.json':
+        proof = Path(__file__).resolve().parents[1] / 'docs/report-catalogue-bundle/runtime-inverse.json'
+        raw = _restore(path, raw, proof, '1c58adf0ffd80c3424d6885329d63b8abfb4aceb4f2d5fc7abbd683344d11550')
     if str(path) in {'primer/server.py', 'vercel.json'}:
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/ccth-a01-roi/runtime-inverse.json', '279db3d15f4b1dc552471d4d59c01e17cb70697ec01997fa8a167d7bb24ec156')
     if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '3901f09942244c5474786899331b8c05aa9cea0ebedad475ee312e04a0e3e110':
