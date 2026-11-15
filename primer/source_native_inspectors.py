@@ -99,6 +99,21 @@ def references():
     from .spl_reporting_reference import references as spl_reporting_references
     for identifier, entries in spl_reporting_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
+    from .spl_epilepsy_reference import references as epilepsy_context_references
+    for identifier, entries in epilepsy_context_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .spl_additional_reference import references as additional_references
+    for identifier, entries in additional_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .sellar_interface_reference import references as sellar_references
+    for identifier, entries in sellar_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .cavernous_photo_reference import references as cavernous_references
+    for identifier, entries in cavernous_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .pituitary_case_reference import references as pituitary_references
+    for identifier, entries in pituitary_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
     from .holiatlas_reference import references as holiatlas_references
     for identifier, entries in holiatlas_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
@@ -116,5 +131,8 @@ def references():
         result[identifier] = [*result.get(identifier, []), *entries]
     from .bonn_fcd_reference import references as fcd_references
     for identifier, entries in fcd_references().items():
+        result[identifier] = [*result.get(identifier, []), *entries]
+    from .cortical_contact_reference import references as contact_references
+    for identifier, entries in contact_references().items():
         result[identifier] = [*result.get(identifier, []), *entries]
     return result

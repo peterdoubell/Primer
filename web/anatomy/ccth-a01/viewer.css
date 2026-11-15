@@ -1,0 +1,23 @@
+body {
+  margin: auto;
+  max-width: 72rem;
+  padding: 1rem;
+  background: #172128;
+  color: #f3f5f6;
+  font: 1rem/1.5 system-ui, sans-serif;
+}
+
+a { color: #a4dfff; }
+.views { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr)); gap: 1rem; }
+figure { margin: .5rem 0; }
+canvas { display: block; width: 100%; background: #111a20; margin: .5rem 0; }
+#mri { image-rendering: pixelated; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin: .5rem 0; }
+label { display: inline-block; }
+fieldset label { margin-right: 1rem; }
+input, button { font: inherit; max-width: 100%; }
+input[type=number] { width: 6rem; }
+input[type=range] { vertical-align: middle; }
+#sample { display: block; min-height: 1.5em; }
+
+[hidden] { display: none !important; }

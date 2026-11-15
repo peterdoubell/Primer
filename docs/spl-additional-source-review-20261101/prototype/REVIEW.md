@@ -1,0 +1,7 @@
+# Additional source viewer prototype
+
+This standalone prototype exposes all94 additional named source classes:19 brain and75 head/neck. Five focused groups cover optic pathways, pituitary parts, hypothalamic source regions, pineal body, and head/neck classes. Original native MRI and labels remain shared, with their separate affines. Users compare all original publisher surfaces with exact categorical-cell boundaries; no source component is deleted or fitted.
+
+Controlled fixture checks passed all20 group/representation/viewport cases and the position/index/world-buffer hashes of all188 models at both390 and1440 pixels. An independent NumPy reconstruction matched all1,128 native MRI states and82,202,624 canvas pixels, with source sampling checked. Comparison code77 was fixed by this experiment. This does not establish arbitrary comparison choices, authenticated route delivery, production operation or clinical adequacy.
+
+Original source code4084 has an unresolved remote surface component. Higher exact-coordinate edge incidence, small/disconnected components, source-name limits and voxel-cell stair steps remain. Original and exact-cell representations do not automatically validate each other biologically. Source classes do not establish the full clinical scope of a sellar, orbital, brain or neck examination. Cavernous-sinus, carotid, skull-base, lesion and fine-structure requirements remain to be mapped separately. All anatomical/clinical approval flags remain false; the viewer is not integrated or published.

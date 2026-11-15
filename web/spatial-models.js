@@ -98,7 +98,8 @@
     const spec = scenes[id], state = normalizeState(spec, supplied);
     const trustedQft = id === 'module.phys.5.qft' && spec.familyId === 'qft-observable-geometry'
       && spec.linkedStateKey === 'phys.5.qft' && state.mode === 'casimir';
-    const limit = trustedQft ? 50000 : 3000;
+    const trustedRotation = id === 'module.phys.5.frontier' && spec.familyId === 'rotation-density-geometry';
+    const limit = trustedRotation ? 40000 : trustedQft ? 50000 : 3000;
     const { g, primitives } = geometry(limit);
     const explanation = spec.build(state, g);
     return { state, primitives, ...explanation };

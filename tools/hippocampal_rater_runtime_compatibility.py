@@ -47,6 +47,8 @@ def before_hippocampal_reference_fields(identifier,fields):
     items.remove(matches[0]);return result
 
 def before_hippocampal_lesson_fields(identifier,fields):
+    from tools.spl_additional_runtime_compatibility import before_additional_lesson_fields
+    fields=before_additional_lesson_fields(identifier,fields)
     if identifier!='rad.5.epilepsy-mri':return fields
     row=reviewed()['lessonWrapper'];result=copy.deepcopy(fields);items=result.get('lesson_media',[]);matches=[r for r in items if r.get('id')==row['after']['id']]
     if not matches or matches==[row['before']]:return result

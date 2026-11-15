@@ -49,7 +49,14 @@ def test_recorded_independent_core_oracle_covers_current_practice_functions():
 
 def test_actual_reader_matches_current_source_and_linked_states():
     proof=json.loads((D/'reader/proof.json').read_bytes());assert proof['allPassed']and proof['syntheticLoopback']and not proof['productionVerified']and proof['profileAge']==15 and proof['errors']==[]
-    for file,h in proof['sourceSHA256'].items():assert digest(before_coordinate_plane_bytes(file,(ROOT/file).read_bytes()))==h,file
+    from tools.report_compartment_compatibility import before_compartments_bytes
+    for file, expected in proof['sourceSHA256'].items():
+        raw = (ROOT / file).read_bytes()
+        if file in ('web/radiology-structured.js', 'web/radiology-structured.css'):
+            raw = before_compartments_bytes(file, raw, allow_older=True, retain_compartments=True)
+        else:
+            raw = before_coordinate_plane_bytes(file, raw)
+        assert digest(raw) == expected, file
     assert {(c['lesson'],c['width'])for c in proof['cases']}=={(id,w)for id in IDS for w in [390,1440]}
     assert sum(len(c['states'])for c in proof['cases'])==116
     assert sum(len(c['poses'])for c in proof['cases'])==56

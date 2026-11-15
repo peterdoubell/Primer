@@ -39,6 +39,8 @@ def before_fcd_bytes(path,raw,allow_older=False):
     return restored
 
 def before_fcd_reference_fields(identifier,fields):
+    from tools.cortical_contact_runtime_compatibility import before_contact_reference_fields
+    fields=before_contact_reference_fields(identifier,fields)
     result=copy.deepcopy(fields);items=result.get('source_native_inspectors',[]);addition=reviewed()['inspector'];matches=[r for r in items if r.get('id')==addition['id']]
     if not matches:return result
     if identifier!='ra.mri-epilepsy' or matches!=[addition]:raise ValueError('Unreviewed fcd descriptor')

@@ -60,7 +60,9 @@ def test_exact_encoded_streams_are_real_original_pdf_objects(proposal):
             assert digest(image.tobytes()) == fact['original_stream_Pillow_decoded_sha256']
             assert 'icc_profile' not in image.info
         assert not fact['source_geometry_changed'] and not fact['source_crop_resample_or_repaint']
-        assert packaging.caption(reader, fact['figure_identifier'], fact['caption_page_1_based']) == fact['source_caption_full']
+        caption = packaging.caption(reader, fact['figure_identifier'], fact['caption_page_1_based'])
+        # PDF extraction may insert different line wraps around superscript units.
+        assert caption.split() == fact['source_caption_full'].split()
 
 
 def test_lossless_display_uses_native_dimensions_and_declared_pdf_colour_conversion(proposal):
