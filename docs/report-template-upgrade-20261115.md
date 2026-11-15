@@ -38,4 +38,23 @@ The click builder's selectable acquisition choices are unchanged. Its default te
 
 The RadProof export (`tools/authoring/radproof_export.py`) prints findings without headings. A normal line that relies on its heading is therefore exported with it, for example `Spleen: normal.`. The export prints Protocol or Technique only for MRI and CT.
 
+## Layout and rich text
+
+The layout follows the practice's dictation note.
+
+| Element | Format |
+|---|---|
+| Font | Arial 12 pt in the formatted copy |
+| Main headings: Clinical history, Comparison, study name, Protocol or Technique, Findings, Impression, Recommendation | Underlined, not bold |
+| Anatomical subheadings | Italic |
+| Findings | One sentence per line, each with a bullet |
+| Dictation fields | `[]`, with no spaces inside, so the dictation system skips from field to field |
+| Impression and Recommendation | Numbered `1.` to `3.` |
+
+The study name runs straight into Protocol or Technique, and Findings runs straight into the first subheading. One blank line separates the other blocks.
+
+Copy text puts both rich text and plain text on the clipboard. The plain text has the same lines without the underline and italics.
+
+The on-screen preview still shows main headings in bold. Only the copied text follows the note exactly.
+
 These are educational drafting templates. Check each report against the images before use.

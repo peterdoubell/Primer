@@ -158,15 +158,15 @@ window.PrimerStructuredReporting = (() => {
     impression: 'Impression', recommendation: 'Recommendation',
   };
   function reportLineRole(line, studyTitle) {
-    if (line === studyTitle || /^(Clinical history|Comparison|Impression|Recommendation):$/.test(line)) return 'main';
+    if (line === studyTitle || /^(Clinical history|Comparison|Protocol|Technique|Findings|Impression|Recommendation):$/.test(line)) return 'main';
     return line.endsWith(':') && !line.startsWith('•') ? 'subheading' : 'body';
   }
   function reportHTML(text, studyTitle = '') {
     const escape = value => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
-    return '<div style="font-family:Arial,sans-serif;line-height:1.4">' + text.split('\n').map(line => {
+    return '<div style="font-family:Arial,sans-serif;font-size:12pt;line-height:1.4">' + text.split('\n').map(line => {
       const content = escape(line);
       switch (reportLineRole(line, studyTitle)) {
-        case 'main': return '<strong><u>' + content + '</u></strong>';
+        case 'main': return '<u>' + content + '</u>';
         case 'subheading': return '<em>' + content + '</em>';
         default: return content;
       }

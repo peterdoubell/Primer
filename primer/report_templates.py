@@ -21,7 +21,8 @@ LIMITATION = 'Limited by [ ].'
 # Review worksheets and the contrast record are not acquired studies.
 NOT_ACQUIRED = {'template:ct-image-report', 'template:mri-sequences-report', 'ra.ct-contrast-protocols'}
 BLANK_IMPRESSION = 'Impression:\n1. []\n2. []\n3. []'
-BLANK_RECOMMENDATION = 'Recommendation:\n[]'
+BLANK_RECOMMENDATION = 'Recommendation:\n1. []\n2. []\n3. []'
+BULLET = '• '
 HEADING = re.compile(r"[A-Z][\w ,/()'\-]*[\w)]")
 
 
@@ -135,22 +136,31 @@ def _sections(item, heading):
 
 
 def render(item, normal=False, heading=None):
-    """Render the editable template, or its normal findings variant."""
-    sections = _sections(item, heading)
-    headings = ['Clinical history:\n[]', 'Comparison:\n[]', item['title']]
-    for index, section in enumerate(sections):
-        if heading and index == 1:
-            headings.append('Findings:')
-        findings = [section['normal'], *([] if normal else section.get('options', []))]
-        headings.append(section['heading'] + ':\n' + '\n'.join(findings))
+    """Render the editable template, or its normal findings variant.
+
+    Layout: main headings (clinical history, comparison, study name, protocol or technique,
+    findings, impression, recommendation), then anatomical subheadings whose findings are
+    bullet lines. The study name runs into its first heading and Findings into its first
+    subheading; impression and recommendation are numbered lists.
+    """
+    blocks = []
+    for index, section in enumerate(_sections(item, heading)):
+        acquisition = bool(heading) and index == 0
+        # One sentence per bullet for the normal finding, as dictated.
+        first = [section['normal']] if acquisition else re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal'])
+        lines = [*first, *([] if normal else section.get('options', []))]
+        blocks.append(section['heading'] + ':\n' + '\n'.join(line if acquisition else BULLET + line for line in lines))
+    if heading:
+        blocks[1] = 'Findings:\n' + blocks[1]
+    blocks[0] = item['title'] + '\n' + blocks[0]
     if normal:
         impression = item['impression']
         impression = [impression] if isinstance(impression, str) else impression
-        headings.append('Impression:\n' + '\n'.join(f'{number}. {line}' for number, line in enumerate(impression, 1)))
-        headings.append('Recommendation:\n' + item.get('recommendation', 'None.'))
+        closing = ['Impression:\n' + '\n'.join(f'{number}. {line}' for number, line in enumerate(impression, 1)),
+                   'Recommendation:\n1. ' + item.get('recommendation', 'None.')]
     else:
-        headings += [BLANK_IMPRESSION, BLANK_RECOMMENDATION]
-    return '\n\n'.join(headings).replace('[ ].', '[]').replace('[ ]', '[]')
+        closing = [BLANK_IMPRESSION, BLANK_RECOMMENDATION]
+    return '\n\n'.join(['Clinical history:\n[]', 'Comparison:\n[]', *blocks, *closing]).replace('[ ].', '[]').replace('[ ]', '[]')
 
 
 @lru_cache(maxsize=1)

@@ -18,6 +18,8 @@ def before_rich_report_bytes(path, raw):
  if path not in ('web/radiology-structured.js', 'web/radiology-structured.css',
                  'primer/descriptor_reporting.py', 'web/app.js'):
   return raw
+ from tools.report_layout_compatibility import before_report_layout_bytes
+ raw = before_report_layout_bytes(path, raw)
  row = _report_proof()['rich_report_format'][path]
  if hashlib.sha256(raw).hexdigest() == row['after_sha256']:
   return restore_presentation_bytes(raw, row)
