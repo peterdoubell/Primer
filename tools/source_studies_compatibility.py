@@ -96,6 +96,10 @@ def before_endometrial_delivery_bytes(path, raw):
     return restored
 
 def before_combined_source_release_bytes(path, raw):
+    if str(path) == 'web/app.js' and hashlib.sha256(raw).hexdigest() == '12269ddede106aa8057e923a485ab830932216a1b246ce71d952c7016be422a9':
+        raw = raw.replace(b"  if (n.id === 'math.3.euclid') page.append(el('a', { class: 'btn ghost', href: '/app/math/intersecting-chords/index.html' },\n    'Prove the intersecting-chords theorem'));\n", b'', 1)
+        if hashlib.sha256(raw).hexdigest() != 'cc8e9b7ca2217341c1ad38421f5de8aeab22c047fda7f0f47055f8f366d49e4e':
+            raise ValueError('Intersecting chords link changed unrelated reader bytes')
     if str(path) == 'docs/radiology-fidelity-scope.json':
         raw = _restore(path, raw, Path(__file__).resolve().parents[1] / 'docs/mullerian-reporting-inventory/scope-inverse.json', 'e7677d660fed1643bdcb1cb8d8897182947727448482d8b55ce848125a7817d3')
     if str(path) == 'data/radiology/non-msk-structure-requirements.json':
