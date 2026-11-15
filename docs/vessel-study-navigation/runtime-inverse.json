@@ -1,0 +1,26 @@
+{
+  "web/app.js": {
+    "before": "b8bfd780d07072654d06081e7728219619824dfb33ad58289960d9c5e8cf194e",
+    "after": "d278fa8be990e8bf83ce8dbaa3d1e2fcf2ac0b87d8ffe5b1bd0d38ed5b0288f9",
+    "changes": [
+      {
+        "start": 2949,
+        "end": 3006,
+        "before": "",
+        "after": "function renderAbdominalVesselStudies(nodeId) {\n  const groups = {\n  \"renal\": [\n    {\n      \"title\": \"Left renal artery\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:7\"\n    },\n    {\n      \"title\": \"Right renal arteries\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:8\"\n    },\n    {\n      \"title\": \"Left renal vein\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:3\"\n    },\n    {\n      \"title\": \"Right renal vein\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:4\"\n    }\n  ],\n  \"pancreatic\": [\n    {\n      \"title\": \"Coeliac trunk\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:4\"\n    },\n    {\n      \"title\": \"Common hepatic artery\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=1:4\"\n    },\n    {\n      \"title\": \"Superior mesenteric artery\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/arterial/index.html?segment=3:1\"\n    },\n    {\n      \"title\": \"Portal vein\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/venous/index.html?segment=2:7\"\n    },\n    {\n      \"title\": \"Superior mesenteric vein\",\n      \"href\": \"/app/anatomy/colonvessels-pat012/venous/index.html?segment=1:11\"\n    }\n  ]\n};\n  let shown;\n  if (['ra.solid-renal-masses', 'rad.4.kidney'].includes(nodeId)) shown = groups.renal;\n  else if (['ra.ct-pancreatic-cancer', 'rad.5.pancreas-tumour'].includes(nodeId)) shown = groups.pancreatic;\n  else if (['ra.ct-abdominal-trauma', 'ra.ct-bowel-ischaemia'].includes(nodeId)) shown = [\n    {title:'Inspect arterial CT and vessel models',href:'/app/anatomy/colonvessels-pat012/arterial/index.html'},\n    {title:'Inspect venous CT and vessel models',href:'/app/anatomy/colonvessels-pat012/venous/index.html'},\n  ];\n  if (!shown) return null;\n  return el('section', {class:'card', 'aria-label':'Original vascular anatomy reference'},\n    el('h2', {}, 'Original vascular anatomy reference'),\n    el('p', {}, 'Study source-labelled vessels from one ColonVessels case. Arterial and venous acquisitions are independent. Lesion extent, vessel-wall invasion and injury assessment require separate case-specific evidence.'),\n    el('ul', {}, ...shown.map(row => el('li', {}, el('a', {href:row.href + (row.href.includes('?') ? '&' : '?') + 'from=' + encodeURIComponent(nodeId)}, row.title)))));\n}\n\n"
+      },
+      {
+        "start": 3104,
+        "end": 3106,
+        "before": "  if (['ra.ct-abdominal-trauma', 'ra.ct-bowel-ischaemia'].includes(n.id)) page.append(el('section', { class: 'card' },\n    el('h2', {}, 'Original abdominal vessel study'),\n    el('p', {}, 'Compare the source vessel labels with their own arterial or venous CT acquisition. These scans provide anatomical reference; vascular injury and ischaemia are not annotated.'),\n    el('a', { href: '/app/anatomy/colonvessels-pat012/arterial/index.html' }, 'Inspect arterial CT and vessel models'),\n    el('span', {}, ' \u00b7 '),\n    el('a', { href: '/app/anatomy/colonvessels-pat012/venous/index.html' }, 'Inspect venous CT and vessel models')));\n",
+        "after": "  const vascularStudies = renderAbdominalVesselStudies(n.id);\n  if (vascularStudies) page.append(vascularStudies);\n"
+      },
+      {
+        "start": 3917,
+        "end": 3919,
+        "before": "",
+        "after": "  const vascularStudies = renderAbdominalVesselStudies(n.id);\n  if (vascularStudies) page.append(vascularStudies);\n"
+      }
+    ]
+  }
+}

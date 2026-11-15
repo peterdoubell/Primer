@@ -1,0 +1,14 @@
+{
+  "original_dry_manifest_row": {
+    "path": "web/anatomy/lidc-idri-0525/original-ct",
+    "size": 0,
+    "mode": 16877
+  },
+  "actual_directory": true,
+  "size_budget": 1060958826,
+  "observation": "Dry CLI manifest includes excluded empty original-ct directory; tools/prepare_release.cjs correctly rejects non-regular files.",
+  "repair": "Explicitly exclude original-ct directory as well as its children, matching existing trauma/stroke pattern.",
+  "source_or_viewer_bytes_changed": false,
+  "vercelignore_sha256_after": "634cc43f353020ee835582b6bc17380d2b1212eafba2eac7634788e30595b73e",
+  "manifest_sha256": "c634b9baa9995c468036c51c6f48d2d23d4817ea046c04818615165db4f70305"
+}

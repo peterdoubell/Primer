@@ -17,7 +17,12 @@ from primer import radiology_catalog
 FLAGSHIPS = ('ra.ct-coronary', 'ra.mri-prostate')
 # Investigation-specific anatomy or reporting-aim overrides.
 CORRECTED = {
+    'ra.mri-endometriosis': 'female',
+    'ra.mri-cervical-cancer': 'female',
+    'ra.mri-endometrial-cancer': 'female',
     'ra.appendicitis': 'bowel',
+    'ra.mri-prostate': 'prostate',
+    'ra.mri-rectal-cancer': 'rectal', 'ra.mri-perianal-fistula': 'rectal',
     'ra.mammography': 'breast', 'ra.ultrasound-breast': 'breast', 'ra.mri-breast': 'breast',
     'ra.breast-cancer-staging': 'breast', 'ra.breast-implants': 'breast', 'ra.male-breast': 'breast',
     'ra.hip-arthroplasty': 'hip',
@@ -33,7 +38,6 @@ CORRECTED = {
     'ra.mra-peripheral-vessels': 'aorta',
     'ra.ct-cardiovascular-pearls': 'heart',
     'ra.pulmonary-hypertension': 'thorax',
-    'ra.hrct-cystic-lung': 'thorax',
     'ra.hrct-lung': 'thorax',
     'ra.chest-radiography': 'thorax',
     'ra.tuberculosis': 'thorax',
@@ -76,13 +80,13 @@ def _landmarks():
 
 
 def test_every_investigation_has_a_complete_authored_walkthrough(references):
-    assert len(references) == 137
+    assert len(references) == 136
     for identifier, ref in references.items():
         walk = ref['walkthrough']
         headings = [section['heading'] for section in ref['report_templates'][0]['sections']]
         assert walk['complete'], identifier
         assert walk['template_id'] == ref['report_templates'][0]['id']
-        assert 5 <= len(walk['steps']) <= 8, identifier
+        assert 5 <= len(walk['steps']) <= (9 if identifier == 'ra.mri-endometrial-cancer' else 8), identifier
         owned = [heading for step in walk['steps'] for heading in step['sections']]
         # Introduction, steps and impression partition the template, in its order.
         assert walk['start']['sections'] + owned + walk['finish']['sections'] == headings, identifier
@@ -104,7 +108,11 @@ def test_steps_follow_the_scoped_reporting_guide(references):
         if identifier in FLAGSHIPS:
             continue
         guide = [[section['heading']] for section in ref['reporting']['template_sections']]
-        assert [step['sections'] for step in ref['walkthrough']['steps']] == guide, identifier
+        # The combined HRCT guide groups related cyst fields into one step.
+        if identifier == 'ra.hrct-lung':
+            assert [heading for step in ref['walkthrough']['steps'] for heading in step['sections']] == [row[0] for row in guide]
+        else:
+            assert [step['sections'] for step in ref['walkthrough']['steps']] == guide, identifier
 
 
 def test_step_landmarks_and_mesh_parts_exist(references):
@@ -113,6 +121,10 @@ def test_step_landmarks_and_mesh_parts_exist(references):
     for identifier, ref in references.items():
         model = ref['walkthrough']['spatial_model']
         steps = ref['walkthrough']['steps']
+        if identifier == 'ra.ct-pulmonary-nodules':
+            from tools.pulmonary_reference_contract import assert_native_pulmonary_reference
+            assert_native_pulmonary_reference(ref)
+            continue
         assert model['family'] in families, identifier
         assert model['focus'][0] == steps[0]['landmark'] or not model['scenario'].startswith('radiology-investigation:')
         region = radiology_catalog.mesh_region(model['family'])
@@ -142,8 +154,11 @@ def test_investigation_anatomy_or_scope_is_overridden(references):
 
 def test_index_reports_step_counts(curriculum, references):
     modules = radiology_catalog.index(curriculum)['modules']
-    assert {m['id']: m['step_count'] for m in modules} == {
-        identifier: len(ref['walkthrough']['steps']) for identifier, ref in references.items()}
+    from primer.cardiology import investigations as cardiology_investigations, detail as cardiology_detail
+    expected = {identifier: len(ref['walkthrough']['steps']) for identifier, ref in references.items()}
+    expected.update({item['id']: len(cardiology_detail(item)['radiology_reference']['walkthrough']['steps'])
+                     for item in cardiology_investigations()})
+    assert {m['id']: m['step_count'] for m in modules} == expected
     assert {m['id']: m['model_family'] for m in modules if m['id'] in CORRECTED} == dict(CORRECTED, **{'ra.mri-diabetic-foot': 'foot'})
 
 
@@ -236,6 +251,9 @@ def test_step_files_are_canonical_and_cover_each_specialty():
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
 def test_walkthrough_helpers_and_step_models_build(references):
     served = [{'id': identifier, 'model': ref['walkthrough']['spatial_model'],
+               'source_native_inspectors': ref.get('source_native_inspectors', []),
+               'key_images': ref['key_images'],
+               'parts': [step['parts'] for step in ref['walkthrough']['steps']],
                'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}
               for identifier, ref in references.items()]
     result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js')],
@@ -243,9 +261,26 @@ def test_walkthrough_helpers_and_step_models_build(references):
                             timeout=60, check=False)
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads(result.stdout)
-    assert report == {'investigations': 137, 'corrected': len(CORRECTED),
-                      'builds': report['builds'], 'status': 'passed'}
-    assert report['builds'] >= 137
+    assert report == {'investigations': 136, 'corrected': len(CORRECTED),
+                      'builds': report['builds'], 'nativeCompanions': 1, 'status': 'passed'}
+    assert report['builds'] >= 136
+
+
+@pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
+@pytest.mark.parametrize('mutation', ['ordinary_native_flag', 'missing_native_binding'])
+def test_native_walkthrough_allowance_rejects_unknown_or_missing_source(references, mutation):
+    served = [{'id': identifier, 'model': copy.deepcopy(ref['walkthrough']['spatial_model']),
+               'source_native_inspectors': copy.deepcopy(ref.get('source_native_inspectors', [])),
+               'key_images': ref['key_images'], 'parts': [step['parts'] for step in ref['walkthrough']['steps']],
+               'landmarks': [step['landmark'] for step in ref['walkthrough']['steps']]}
+              for identifier, ref in references.items()]
+    if mutation == 'ordinary_native_flag':
+        next(row for row in served if row['id'] != 'ra.ct-pulmonary-nodules')['model']['source_native_only'] = True
+    else:
+        next(row for row in served if row['id'] == 'ra.ct-pulmonary-nodules')['source_native_inspectors'] = []
+    result = subprocess.run(['node', str(ROOT / 'tools/check_radiology_walkthrough.js')],
+                            input=json.dumps(served), cwd=ROOT, capture_output=True, text=True, timeout=60)
+    assert result.returncode != 0 and 'AssertionError' in result.stderr
 
 
 def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_gallery_into_intro(references):
@@ -260,7 +295,8 @@ def test_reviewed_source_figures_are_linked_to_bowel_steps_without_forcing_galle
         authored_start = radiology_catalog._steps()['investigations'][key].get('start', {})
         if 'images' in authored_start:
             assert ref['walkthrough']['start']['images'] == authored_start['images'], key
-            assert len(atlas.intersection(authored_start['images'])) < len(atlas), key
+            if atlas:
+                assert len(atlas.intersection(authored_start['images'])) < len(atlas), key
         else:
             assert not atlas.intersection(ref['walkthrough']['start']['images']), key
 

@@ -1,0 +1,28 @@
+.fractions-lab { min-width:0; }
+.fractions-lab * { box-sizing:border-box; }
+.fractions-lab p { line-height:1.5; }
+.fractions-lab label { display:flex; flex-direction:column; gap:6px; font-weight:600; min-width:0; }
+.fractions-lab input,.fractions-lab select { width:100%; min-width:0; max-width:100%; min-height:44px; font:inherit; background:var(--field,#fffaf3); color:var(--ink,#30201d); border:1px solid var(--edge,#8e7463); border-radius:var(--r-ctl,5px); padding:9px; }
+.fractions-lab .fraction-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr)); gap:16px; margin:20px 0; }
+.fractions-lab .fraction-controls [hidden] { display:none; }
+.fractions-lab .fraction-actions { display:flex; flex-wrap:wrap; gap:10px; }
+.fractions-lab button:not(.speak-btn) { min-height:44px; font:inherit; padding:9px 12px; border:1px solid var(--edge,#8e7463); border-radius:var(--r-ctl,5px); background:var(--field,#fffaf3); color:var(--ink,#30201d); cursor:pointer; }
+.fractions-lab button:disabled { opacity:.5; cursor:default; }
+.fractions-lab :focus-visible { outline:3px solid var(--focus,#1f5fbf); outline-offset:3px; }
+.fractions-lab [aria-invalid=true] { border:2px solid #a43d2b; }
+.fractions-lab .fraction-error,.fractions-lab .fraction-undefined { color:var(--ink,#30201d); font-weight:650; border-left:3px solid #a43d2b; padding-left:10px; }
+.fractions-lab .fraction-error:empty { display:none; }
+.fractions-lab .fraction-equation { font-size:1.4rem; font-weight:650; overflow-wrap:anywhere; }
+.fractions-lab .fraction-context { color:var(--ink-soft,#58413a); }
+.fractions-lab .fraction-steps { padding-left:24px; line-height:1.65; }
+.fractions-lab .fraction-output figure { margin:24px 0; min-width:0; }
+.fractions-lab .fraction-output figcaption { font-size:1.05rem; font-weight:650; margin:0 0 10px; }
+.fractions-lab .fraction-viewport { max-width:100%; overflow:auto; border:1px solid var(--rule,#cbb7a4); border-radius:var(--r-card,6px); background:#f9f4e9; }
+.fractions-lab .fraction-viewport svg { width:100%; height:auto; max-width:none; display:block; }
+.fractions-lab .fraction-viewport text { font:15px var(--sans,system-ui,sans-serif); fill:#30201d; }
+.fractions-lab .fraction-table-scroll { overflow:auto; max-width:100%; }
+.fractions-lab table { border-collapse:collapse; min-width:100%; font-variant-numeric:tabular-nums; }
+.fractions-lab th,.fractions-lab td { padding:10px; text-align:right; border-bottom:1px solid var(--rule,#cbb7a4); }
+.fractions-lab caption { text-align:left; font-weight:650; margin:10px 0; }
+.fractions-lab summary { min-height:44px; display:flex; align-items:center; cursor:pointer; font-weight:600; }
+.fractions-lab .fraction-status { font-size:.9rem; color:var(--ink-soft,#58413a); }

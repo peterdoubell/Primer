@@ -1,8 +1,10 @@
-/* BodyParts3D real-mesh anatomy viewer. Geometry: DBCLS, CC BY 4.0; see manifest. */
+/* Licensed source-mesh anatomy viewer. Rights and construction differ by manifest. */
 (function () {
   "use strict";
   const ATLASES = {
     bodyparts3d: "/app/anatomy/bodyparts3d/",
+    "bp3d-sella-4.3": "/app/anatomy/bp3d-sella-4.3/",
+    "bp3d-carotid-4.3": "/app/anatomy/bp3d-carotid-4.3/",
     "z-anatomy": "/app/anatomy/msk-atlas/",
     "malaya-mri": "/app/anatomy/msk-mri-knee/",
     "malaya-ankle": "/app/anatomy/msk-mri-ankle/",
@@ -16,11 +18,27 @@
     "totalseg-v3-esophagus-s0358": "/app/anatomy/totalseg-v3-esophagus-s0358/",
     "wt9fc-sub007": "/app/anatomy/wt9fc-sub007/",
     "ispy1-expert1002": "/app/anatomy/ispy1-expert1002/",
+    "prostate-biopsy0001": "/app/anatomy/prostate-biopsy0001/",
     "larynx-jasa19629778-phase01": "/app/anatomy/larynx-jasa19629778-phase01/",
+    "hra-bladder-female-v1.1": "/app/anatomy/hra-bladder-female-v1.1/",
+    "hra-female-pelvis-v1.10": "/app/anatomy/hra-female-pelvis-v1.10/",
+    "hra-bladder-male-v1.1": "/app/anatomy/hra-bladder-male-v1.1/",
+    "fedbca-center1-001": "/app/anatomy/fedbca-center1-001/",
+    "fedbca-center2-01": "/app/anatomy/fedbca-center2-01/",
+    "fedbca-center3-01": "/app/anatomy/fedbca-center3-01/",
+    "fedbca-center4-01": "/app/anatomy/fedbca-center4-01/",
     "verse521": "/app/anatomy/verse521/",
     "liu-lumbosacral-sub03": "/app/anatomy/liu-lumbosacral-sub03/",
   };
   const RANGES = {
+    "carotid-right-source": [1330.4599609375, 1539.219970703125],
+    "sella-gross-default": [1518.3900146484375, 1543.3499755859375],
+    "gland-source-2011": [1522.5699462890625, 1535.5400390625],
+    "gland-source-2014": [1522.6199951171875, 1535.5],
+    "optic-reduced-source": [1518.3900146484375, 1543.3499755859375],
+    "optic-elongated-source": [1518.3900146484375, 1543.3399658203125],
+    "right-ICA-source-2011": [1434.5400390625, 1537.719970703125],
+    "right-ICA-source-2014": [1429.06005859375, 1539.219970703125],
     cervical: [150, 157],
     "brain-subcortex": [-25, 35],
     "cardiac-venous-source": [-69.42072296142578, 86.83314514160156],
@@ -29,8 +47,12 @@
     "thyroid-source": [-116.75, 121.5],
     "esophagus-source": [-322.25, 121.5],
     "breast-tumour-source": [-11.71875, 17.28125],
+    "prostate-source": [-61.48846435546875, -4.33062744140625],
     "tongue-source": [-106.36968994140625, -49.87583923339844],
     "larynx-phonation-source": [-23.082857131958008, 8.479644298553467],
+    "female-pelvis-source": [-0.05308705738186836, 0.2365201542377472],
+    "bladder-source": [0, 1],
+    "bladder-tumour-source": [-1000, 1000],
     "thoracolumbar-source": [-500, -36],
     "lumbosacral-neural": [-511, -350],
     shoulder: [1140, 1405],
@@ -176,8 +198,9 @@
     .detailed-anatomy-toolbar .detailed-divider{width:1px;height:24px;background:#3b4e5b;margin:0 .3rem}
     .detailed-anatomy-stage{height:480px;position:relative;background:radial-gradient(ellipse at 45% 37%,#263846 0%,#15232f 55%,#0e1821 100%);border-block:1px solid #344754;overflow:hidden}
     .detailed-anatomy canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}.detailed-anatomy canvas:active{cursor:grabbing}
-    .detailed-anatomy-orientation{position:absolute;top:1rem;left:1rem;pointer-events:none;font:500 .68rem/1.6 system-ui;letter-spacing:.07em;text-transform:uppercase;color:#96afbc}
-    .detailed-anatomy-crop-status{position:absolute;top:2.8rem;left:1rem;pointer-events:none;background:#101923e6;color:#c2d4df;padding:.2rem .45rem;border-radius:4px;font:500 .67rem/1.5 system-ui}
+    .detailed-anatomy-context{position:absolute;top:1rem;left:1rem;right:1rem;display:grid;justify-items:start;gap:.35rem;pointer-events:none}
+    .detailed-anatomy-orientation{font:500 .68rem/1.6 system-ui;letter-spacing:.07em;text-transform:uppercase;color:#96afbc}
+    .detailed-anatomy-crop-status{max-width:100%;background:#101923e6;color:#c2d4df;padding:.2rem .45rem;border-radius:4px;font:500 .67rem/1.5 system-ui}
     .detailed-anatomy-selected{position:absolute;bottom:1rem;left:1rem;right:1rem;pointer-events:none;display:flex;align-items:center;justify-content:center;gap:.5rem;color:#f0e9db;font:600 .9rem/1.4 system-ui;text-shadow:0 1px 5px #000}
     .detailed-anatomy-status{padding:.85rem 1.25rem;font:.8rem/1.5 system-ui;color:#b2c5cd}.detailed-anatomy-status:empty{display:none}
     .detailed-anatomy-parts{padding:.9rem 1.25rem;display:flex;gap:.4rem;flex-wrap:wrap;border-bottom:1px solid #344754}.detailed-anatomy-parts button{font-size:.72rem;display:flex;gap:.4rem;align-items:center}
@@ -653,7 +676,9 @@
       ),
       selected = $("div", "detailed-anatomy-selected"),
       cropStatus = $("div", "detailed-anatomy-crop-status", "Cropped to region");
-    stage.append(canvas, orientation, cropStatus, selected);
+    const context = $("div", "detailed-anatomy-context");
+    context.append(orientation, cropStatus);
+    stage.append(canvas, context, selected);
     const status = $(
       "div",
       "detailed-anatomy-status",
@@ -665,6 +690,8 @@
     const note = $("div", "detailed-anatomy-note");
     note.innerHTML =
       '<p>Registered surface anatomy from an adult male reference model. Bone shapes and spatial relationships come from the source dataset. Shafts and neighbouring structures are cropped to the selected region. Colours distinguish structures.</p><p>This surface atlas does not depict every ligament, labrum, meniscus, articular cartilage layer or MRI finding. Use the clinical images alongside the model.</p><p><a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/download.html" target="_blank" rel="noopener noreferrer">BodyParts3D</a>, © The Database Center for Life Science · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. Selected polygon-reduced source meshes; display normals recalculated. <a href="/app/anatomy/bodyparts3d/manifest.json" target="_blank" rel="noopener noreferrer">Mesh provenance</a>.</p>';
+    if (atlas !== "bodyparts3d") note.replaceChildren($("p", null,
+      "Loading this source's own construction, licence and limitations. Registered geometry is not clinical or complete anatomical approval."));
     root.append(header, instructions, toolbar, stage, status, partsUI, note);
     let engine = null,
       cancelled = false;
@@ -763,7 +790,7 @@
         const labels = new Map();
         const displayName = (name) =>
           region.side === "right" ? name.replace(/^right /, "").replace(/\.r$/, "") : name;
-        const nativeYUp = data.coordinate_system?.display_basis === "native-x-left-y-superior-z-anterior";
+        const nativeYUp = ["native-x-left-y-superior-z-anterior", "native-gltf-y-up"].includes(data.coordinate_system?.display_basis);
         const nativeRAS = data.coordinate_system?.display_basis === "native-ras-to-x-left-y-superior-z-anterior";
         engine = renderer(canvas, initialParts, view?.range || region.source_up_range || RANGES[family], (state) => {
           orientation.textContent =

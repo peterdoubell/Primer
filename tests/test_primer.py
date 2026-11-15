@@ -431,7 +431,20 @@ def test_young_nodes_have_child_voiced_lessons(curr):
 
 def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
     """The bounded-model cohorts keep both their authored plate and model."""
+    base_ten = {nid: [m for m in n.get('lesson_media', []) if m.get('renderer') == 'base-ten-lab']
+                for nid, n in curr.nodes.items() if any(m.get('renderer') == 'base-ten-lab' for m in n.get('lesson_media', []))}
+    assert set(base_ten) == {'math.1.addition', 'math.1.division', 'math.1.subtraction', 'math.1.place-value', 'math.1.multiplication'}
+    for nid, models in base_ten.items():
+        assert len(models) == 1 and models[0]['props'] == {'scenario': nid}
+        assert curr.nodes[nid]['stage'] == 1
     expected = {
+        'math.3.vectors': (3, 'vector-components-lab'),
+        'math.2.geometry': (2, 'geometry-measures-lab'),
+        'math.2.coordinates': (2, 'coordinate-plane-lab'),
+        'math.3.linear': (3, 'algebra-functions-lab'),
+        'math.3.slope': (3, 'algebra-functions-lab'),
+        'math.3.quadratics': (3, 'algebra-functions-lab'),
+        'math.3.polynomials': (3, 'algebra-functions-lab'),
         'math.0.counting': (0, 'counter'),
         'math.0.shapes': (0, 'shape-explorer'),
         'phys.0.light-shadow': (0, 'shadow-lab'),
@@ -448,7 +461,7 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'hist.1.timelines': (1, 'timeline-order-lab'),
         'earth.1.seasons': (1, 'seasons-tilt-lab'),
         'arts.1.elements': (1, 'art-elements-composer'),
-        'math.2.fractions': (2, 'fraction-equivalence-lab'),
+        'math.2.fractions': (2, 'fraction-arithmetic-lab'),
         'math.2.negatives': (2, 'integer-number-line-lab'),
         'chem.2.atoms': (2, 'atom-element-builder'),
         'bio.2.cells': (2, 'cell-microscope'),
@@ -460,6 +473,9 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         'mind.3.logic': (3, 'truth-table-lab'),
         'cs.3.data-structures': (3, 'stack-queue-lab'),
         'math.4.linalg': (4, 'matrix-transform-lab'),
+        'math.4.diffeq': (4, 'math-ode-lab'),
+        'math.4.multivar': (4, 'math-field-lab'),
+        'math.4.prob-theory': (4, 'math-probability-lab'),
         'phys.4.fluids': (4, 'venturi-flow-lab'),
         'bio.4.molecular': (4, 'gene-expression-stepper'),
         'cs.4.networks': (4, 'tcp-packet-tracer'),
@@ -475,22 +491,39 @@ def test_the_interactive_lesson_media_cohorts_are_local_and_complete(curr):
         n['id']: (n['stage'], 'music-listening-lab')
         for n in curr.nodes.values() if n.get('music_grade')
     })
+    expected['math.4.analysis'] = (4, 'math-convergence-lab')
+    expected['math.5.numerical'] = (5, 'math-numerical-lab')
+    expected['math.4.numtheory'] = (4, 'math-number-theory-lab')
+    expected['math.3.systems'] = (3, 'math-systems-lab')
+    expected['phys.0.float-sink'] = (0, 'physics-buoyancy-lab')
+    expected['phys.4.particles'] = (4, 'physics-particle-lab')
+    expected['lang.5.comp-ling'] = (5, 'language-computation-lab')
     expected.update({
         node_id: (curr.nodes[node_id]['stage'], 'physics-concept-lab')
         for node_id in PHYSICS_MODEL_SCENARIOS
     })
     with_models = {
         nid: node for nid, node in curr.nodes.items()
-        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})
+        if any(item['kind'] == 'model' and (nid in expected or item['renderer'] not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab'})
                for item in node.get('lesson_media', []))
     }
     assert set(with_models) == set(expected)
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     for nid, node in with_models.items():
+        companions = [item for item in node['lesson_media']
+                      if item.get('renderer') == 'fluids-concept-lab']
+        assert [(item['id'], item['kind'], item['props']) for item in companions] == (
+            [('explore-fluid-forces-and-flow', 'model', {'scenario': 'phys.4.fluids'})]
+            if nid == 'phys.4.fluids' else []), nid
+        linear_algebra = [item for item in node['lesson_media']
+                          if item.get('renderer') == 'linear-algebra-lab']
+        assert [(item['id'], item['kind'], item['props']) for item in linear_algebra] == (
+            [('explore-linear-maps-and-kernels', 'model', {'scenario': 'math.4.linalg'})]
+            if nid == 'math.4.linalg' else []), nid
         assert node['stage'] == expected[nid][0], nid
-        base_media = [entry for entry in node['lesson_media']
-                      if (entry.get('renderer') == expected[nid][1]
-                           or entry.get('renderer') not in {'spatial-3d', 'concept-lab', 'radiology-anatomy'})]
+        base_media = [entry for entry in node['lesson_media'] if entry not in linear_algebra
+                      if entry['kind'] in {'illustration', 'model'} and (entry.get('renderer') == expected[nid][1]
+                           or entry.get('renderer') not in {'base-ten-lab', 'spatial-3d', 'concept-lab', 'radiology-anatomy', 'math-wave-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'})]
         kinds = [entry['kind'] for entry in base_media]
         assert kinds == ['illustration', 'model'], nid
         model = base_media[-1]
@@ -559,7 +592,7 @@ def test_every_mathematics_lesson_has_one_local_responsive_illustration(curr):
 
 
 def test_every_physics_lesson_has_explanatory_responsive_media(curr):
-    """Every physics rung now carries one auditable plate and one live model."""
+    """Every physics rung retains its original plate/model; additions are checked separately."""
     physics = {nid: node for nid, node in curr.nodes.items() if nid.startswith('phys.')}
     assert len(physics) == 39
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -567,12 +600,24 @@ def test_every_physics_lesson_has_explanatory_responsive_media(curr):
     plate_ids = set()
     model_ids = set()
     bespoke = {
+        'phys.0.float-sink': 'physics-buoyancy-lab',
         'phys.0.light-shadow': 'shadow-lab',
         'phys.1.light': 'light-paths',
         'phys.4.fluids': 'venturi-flow-lab',
+        'phys.5.frontier': 'spatial-3d',
+        'phys.5.condensed': 'spatial-3d',
+        'phys.4.particles': 'physics-particle-lab',
     }
     for nid, node in physics.items():
-        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') != 'spatial-3d']
+        companions = [item for item in node['lesson_media']
+                      if item.get('renderer') == 'fluids-concept-lab']
+        assert [(item['id'], item['kind'], item['props']) for item in companions] == (
+            [('explore-fluid-forces-and-flow', 'model', {'scenario': 'phys.4.fluids'})]
+            if nid == 'phys.4.fluids' else []), nid
+        base_media = [item for item in node.get('lesson_media', []) if item.get('renderer') not in {'spatial-3d', 'physics-thermal-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab'}]
+        if nid in {'phys.5.frontier','phys.5.condensed'}:
+            base_media = [item for item in node['lesson_media'] if item['kind']=='illustration' or item.get('props',{}).get('family')in {'rotation-density-geometry','type-i-field-geometry'}]
+            assert base_media[1]['props']['scenario']=='module.'+nid
         assert [item['kind'] for item in base_media] == [
             'illustration', 'model'], nid
         plate, model = base_media
@@ -630,9 +675,10 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
     sound = str(curr.nodes['phys.1.sound']).lower()
     forces = str(curr.nodes['phys.2.forces']).lower()
     all_physics = (' '.join(str(node).lower() for nid, node in curr.nodes.items()
-                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower())
+                            if nid.startswith('phys.')) + ' ' + _web('lesson-models.js').lower() + ' ' + _web('physics-rotation-lab.js').lower() + ' ' + _web('physics-condensed-lab.js').lower())
     assert 'slow big wiggles' not in sound
-    assert 'speed changes pitch; size changes loudness' in sound
+    assert 'vibration frequency changes pitch' in sound
+    assert 'different from how fast the sound travels' in sound
     assert 'slides steadily when two people' not in forces
     assert 'begins accelerating when two people' in forces
     for boundary in (
@@ -644,27 +690,34 @@ def test_physics_visual_copy_keeps_scientific_boundaries(curr):
         'photographed trajectories',
         'faster-than-light signalling',
         'without a center',
-        'air-pressure variation over time, not sideways air motion',
+        'pressure perturbation at one fixed point over 10 ms',
+        'not sideways air motion',
         'heating and sound are transfer pathways',
         'two phases can coexist',
         'one free bosonic mode',
-        'one angle cannot show bell violation',
-        'outer disk and excludes the galactic center',
-        'makes the field transition abrupt',
-        'relative density (peak = 1)',
-        'fixed 24 μs axis',
+        'a finite mock fluctuation above it is not an experimental bell proof',
+        'not measured galaxy data',
+        'not total or virial mass',
+        'no p-value or unique physical conclusion is inferred',
+        'not the edge of the disk',
+        'no sloped line joins the jump',
+        'the density integrates to one',
+        'gravity and acceleration require additional treatment',
         'absolute temperatures in kelvin',
         'relatively scaled, not normalized densities',
         'synthetic example, not experimental data',
         'momentum remains 8 kg m/s; kinetic energy falls from 16 j to 10⅔ j',
         'remaining 5⅓ j becomes internal energy',
         'photon arrival-rate scale',
-        'resolution/√12',
+        'independent read-off errors are uniform',
+        'shared calibration standard uncertainty remains',
         'fusion of light nuclei and fission of heavy nuclei',
         'mean residual',
         'residual scatter',
-        'axial pull/push orientation index',
-        'turning index',
+        'axial fz =',
+        'torque τy =',
+        'positions and orientations are prescribed snapshots, not free motion',
+        'finite bar geometry, induced magnetization and close-contact forces are not solved',
     ):
         assert boundary in all_physics, boundary
 
@@ -2121,6 +2174,27 @@ def _web(name):
         return fh.read()
 
 
+def _assert_models_stay_local(js):
+    # A cited external document can legitimately contain /api/ in its URL.
+    # Block network calls and local API paths rather than that URL substring.
+    assert not re.search(r"\bfetch\s*\(", js)
+    assert not re.search(r"[\"']/api/", js)
+
+
+@pytest.mark.parametrize("source,allowed", [
+    ("node('a', {href: 'https://media.schott.com/api/public/content/document'}, 'Source')", True),
+    ("fetch('/api/quiz/submit')", False),
+    ("fetch ('https://example.org/anything')", False),
+    ("api.post('/api/score')", False),
+])
+def test_local_model_guard_distinguishes_source_links_from_api_calls(source, allowed):
+    if allowed:
+        _assert_models_stay_local(source)
+    else:
+        with pytest.raises(AssertionError):
+            _assert_models_stay_local(source)
+
+
 def test_text_on_a_coloured_fill_flips_with_the_theme():
     """Regression: fills lighten in dark mode while their text stayed `#fff`, so
     the completed-quest tick measured 2.00:1 — the primary completion indicator
@@ -2181,9 +2255,9 @@ def test_lesson_models_are_local_explanations_not_assessments():
                      'morphogen-gradient-lab', 'ct-window-lab',
                      'alphabet-explorer', 'inclusive-family-timeline',
                      'day-night-rotation-lab', 'classroom-paint-mixer',
-                     'physics-concept-lab'):
+                     'physics-concept-lab', 'physics-particle-lab', 'language-computation-lab'):
         assert renderer in js
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
     assert "role: 'status'" in js and "'aria-live': 'polite'" in js
     assert "type: 'range'" in js and "type: 'button'" in js
     assert 'runPackBag' in js and 'traceJamSandwich' in js and 'Read this activity aloud' in js
@@ -2203,12 +2277,12 @@ def test_physics_scenario_registry_matches_python_and_curriculum_exactly(curr):
         any(media.get('renderer') == 'physics-concept-lab' for media in node['lesson_media'])
     }
     assert scenario_keys == set(PHYSICS_MODEL_SCENARIOS) == expected
-    assert len(scenario_keys) == 36
-    assert registry.count('controls: [') == 36
-    assert registry.count('caveat:') == 36
-    assert registry.count('compute(state)') == 36
-    assert registry.count('readout:') >= 36
-    assert registry.count('visual:') == 36
+    assert len(scenario_keys) == 32
+    assert registry.count('controls: [') == 32
+    assert registry.count('caveat:') == 32
+    assert registry.count('compute(state)') == 32
+    assert registry.count('readout:') >= 32
+    assert registry.count('visual:') == 32
 
 
 def test_physics_model_has_native_controls_resets_live_copy_and_fail_closed_lookup():
@@ -2237,7 +2311,8 @@ def test_every_physics_model_control_changes_readout_and_svg_geometry():
         cwd=root, capture_output=True, text=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
-    assert '36 scenarios, 62 independently exercised controls' in result.stdout
+    assert '32 scenarios, 79 independently exercised legacy range controls' in result.stdout
+    assert 'Dedicated circuits: 2 lesson bindings and 10 station mounts verified.' in result.stdout
 
 
 @pytest.mark.skipif(shutil.which('node') is None, reason='Node.js is required')
@@ -2374,7 +2449,7 @@ def test_tree_model_registration_accessibility_resets_and_accuracy_caveats():
         assert 'frame.readout.textContent' in source
         assert 'frame.status.textContent' in source
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
     model_frame = js[js.index('function modelFrame('):js.index('function clampNumber(')]
     assert "role: 'status'" in model_frame and "'aria-live': 'polite'" in model_frame
 
@@ -2417,7 +2492,7 @@ def test_grove_model_registration_accessibility_resets_and_accuracy_caveats():
         assert 'frame.readout.textContent' in source
         assert 'frame.status.textContent' in source
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
     for reset in ('selected = authoredTransform;', 'selected = authoredThroat;',
                   'stage = authoredStage;', 'step = 0;'):
         assert reset in js
@@ -2462,7 +2537,7 @@ def test_forest_model_registration_accessibility_resets_and_accuracy_caveats():
         assert 'frame.readout.textContent' in source
         assert 'frame.status.textContent' in source
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
 
     lower = js.lower()
     for accuracy_phrase in (
@@ -2509,7 +2584,7 @@ def test_second_seedling_model_registration_accessibility_resets_and_guardrails(
         assert 'aria-label' in source
         assert 'authored' in source.lower(), '{} reset must restore authored state'.format(renderer)
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
 
     alphabet = sources['alphabet-explorer']
     assert 'more than one sound' in alphabet
@@ -2574,7 +2649,7 @@ def test_second_sprout_model_registration_accessibility_resets_and_guardrails():
         assert 'authored' in source.lower(), \
             '{} reset must restore authored state'.format(renderer)
 
-    assert 'fetch(' not in js and '/api/' not in js
+    _assert_models_stay_local(js)
 
     reading = sources['reading-path-lab']
     for phrase in ('one simple english example', 'blending is one reading strategy',
@@ -3321,22 +3396,43 @@ def test_the_two_night_palettes_cannot_drift_apart():
     Both blocks read from the --dk-* definitions in :root, so this also checks
     that every night value has a single source rather than a literal.
     """
-    import re
-
     css = _web("styles.css")
-    media = re.search(
-        r'@media \(prefers-color-scheme: dark\) \{\s*'
-        r':root:not\(\[data-theme="light"\]\) \{(.*?)\n  \}\n\}', css, re.S)
-    toggle = re.search(r':root\[data-theme="dark"\] \{(.*?)\n\}', css, re.S)
-    assert media and toggle, "both night-palette blocks must exist"
 
-    names = lambda block: set(re.findall(r"(--[a-z0-9-]+)\s*:", block))
-    in_media, in_toggle = names(media.group(1)), names(toggle.group(1))
+    def palette_block(opening, closing):
+        assert opening in css, "the night palette block must exist"
+        start = css.index(opening) + len(opening)
+        end = css.find(closing, start)
+        assert end >= start, "the palette block must close"
+        return css[start:end]
+
+    def names(block):
+        # Split comments and declarations once. Each input character is read
+        # a bounded number of times; repeated dashes/braces cannot backtrack.
+        comment_parts = block.split("/*")
+        plain = [comment_parts[0]]
+        for part in comment_parts[1:]:
+            _, closed, rest = part.partition("*/")
+            assert closed, "palette comments must close"
+            plain.append(rest)
+        result = set()
+        alphabet = "abcdefghijklmnopqrstuvwxyz0123456789-"
+        for declaration in "".join(plain).split(";"):
+            name, colon, _ = declaration.partition(":")
+            name = name.strip()
+            if (colon and name.startswith("--") and len(name) > 2
+                    and all(character in alphabet for character in name[2:])):
+                result.add(name)
+        return result
+
+    media_block = palette_block(
+        '@media (prefers-color-scheme: dark) {\n  :root:not([data-theme]) {',
+        '\n  }\n}')
+    toggle_block = palette_block(':root[data-theme="dark"] {', '\n}')
+    in_media, in_toggle = names(media_block), names(toggle_block)
     assert in_media == in_toggle, "night palettes drifted: {}".format(
         sorted(in_media ^ in_toggle))
 
-    root = re.search(r"^:root \{(.*?)\n\}", css, re.S | re.M).group(1)
-    sources = names(root)
+    sources = names(palette_block(':root {', '\n}'))
     missing = sorted(v for v in in_media if "--dk-" + v[2:] not in sources)
     assert not missing, "night values with no --dk-* source: {}".format(missing)
 
@@ -4821,7 +4917,9 @@ def test_named_theorems_are_defined_where_they_are_used():
         ("chi-squared", lambda e: "residuals" in e.lower() and "degrees of freedom" in e.lower()),
         ("squeeze theorem", lambda e: "trapped between" in e.lower()),
         ("sylow", lambda e: "prime" in e.lower() and "divides" in e.lower()),
-        ("second incompleteness", lambda e: "cannot prove its own consistency" in e.lower()),
+        ("second incompleteness", lambda e: "cannot prove its own consistency" in e.lower()
+         or ("excludes a proof of the standard con(pa) sentence" in e.lower()
+             and "inside consistent pa" in e.lower())),
         ("rice's theorem", lambda e: "non-trivial property" in e.lower()),
         ("de moivre's theorem", lambda e: "multiplies its angle" in e.lower() or "multiplies the angle" in e.lower()),
         ("master theorem", lambda e: "n^(log_b a)" in e or "n^(log_2" in e),

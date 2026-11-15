@@ -1,0 +1,16 @@
+.coordinate-plane-lab .coordinate-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.coordinate-plane-lab label{display:flex;flex-direction:column;gap:5px;font-weight:600}
+.coordinate-plane-lab input,.coordinate-plane-lab select{box-sizing:border-box;width:100%;min-width:0;padding:9px;font:inherit}
+.coordinate-plane-lab .coordinate-actions{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.coordinate-plane-lab button{min-height:42px;padding:8px 14px}
+.coordinate-plane-lab .coordinate-hint{grid-column:1/-1;font-size:.9rem}
+.coordinate-plane-lab [role=alert]{color:#a23228}
+.coordinate-plane-lab [aria-invalid=true]{outline:2px solid #a23228}
+.coordinate-plane-lab .coordinate-plot{max-width:680px;margin:0 auto}
+.coordinate-plane-lab svg{display:block;width:100%;height:auto;font-family:inherit;font-size:24px}
+.coordinate-plane-lab .coordinate-table{overflow:auto;margin:12px 0}
+.coordinate-plane-lab table{border-collapse:collapse;width:100%;min-width:400px}
+.coordinate-plane-lab th,.coordinate-plane-lab td{padding:8px;text-align:left;border-bottom:1px solid #ccd6d0}
+.coordinate-plane-lab caption{text-align:left;padding:8px;font-weight:600}
+.coordinate-plane-lab .coordinate-live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:480px){.coordinate-plane-lab .coordinate-controls{grid-template-columns:1fr}.coordinate-plane-lab .coordinate-actions{align-items:stretch;flex-direction:column}}

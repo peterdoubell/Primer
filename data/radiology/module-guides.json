@@ -3322,23 +3322,7 @@
         "sources": []
       }
     ],
-    "key_images": [
-      {
-        "id": "sella-image-1",
-        "label": "IMG 1: Coronal sellar plane",
-        "description": "Placeholder for coronal sellar plane. Record the series/image reference and annotate the feature being demonstrated."
-      },
-      {
-        "id": "sella-image-2",
-        "label": "IMG 2: Sagittal gland/stalk view",
-        "description": "Placeholder for sagittal gland/stalk view. Record the series/image reference and annotate the feature being demonstrated."
-      },
-      {
-        "id": "sella-image-3",
-        "label": "IMG 3: Chiasm, cavernous sinus or haemorrhage",
-        "description": "Placeholder for chiasm, cavernous sinus or haemorrhage. Record the series/image reference and annotate the feature being demonstrated."
-      }
-    ]
+    "key_images": []
   },
   "rad.5.neck-nodes": {
     "overview": "Place a cervical node in its level from the anatomy on the image, decide whether it is malignant, and say what your call changes about the stage, the operation and the search for a primary. Use the linked foundation readings for the illustrated teaching cases, then apply the reporting checklist to a supervised case.",
@@ -4925,17 +4909,16 @@
     ]
   },
   "rad.5.rectal-mr": {
-    "overview": "Stage and restage a rectal cancer on high-resolution MR, report the circumferential resection margin and extramural venous invasion in terms that change treatment, and map a perianal fistula for the surgeon. Use the linked foundation readings for the illustrated teaching cases, then apply the reporting checklist to a supervised case.",
+    "overview": "Report rectal MRI anatomy, primary staging and post-treatment findings with source quality and confidence; map each demonstrated perianal tract and extension, and distinguish imaging assessment from pathology and treatment decisions. Original lesson source figures retain separate published patients and evidence roles; they do not provide a complete native examination or registered 3D anatomy.",
     "learning_points": [
-      "Extramural spread and nodes establish local stage.",
-      "Distance to mesorectal fascia predicts threatened resection margin.",
-      "Internal opening, sphincter relation and abscess guide surgery.",
-      "Review primary site, height and relation to sphincters/peritoneal reflection.",
-      "Review tumour length, T2 morphology and diffusion.",
-      "Review extramural depth, mesorectal fascia and EMVI.",
-      "Review mesorectal and extramesorectal nodes.",
-      "Review treatment response or fistula tract anatomy as applicable.",
-      "Baseline staging, restaging and fistula mapping are distinct tasks; explicitly select the relevant pathway and comparison."
+      "Distinguish primary staging from restaging. Check actual coverage and tumour-aligned high-resolution T2 planes, slice thickness and in-plane sampling. For response assessment, read matched DWI/ADC with T2 and the supplied clinical/endoscopic findings.",
+      "Report the lower and upper tumour borders relative to sigmoid take-off, anorectal junction, anal verge and peritoneal reflection. Measure height with the stated landmark and lumen-centre convention. ESGAR source sections use conflicting inequalities at exactly 5 cm: retain the measured value and the institution’s explicit definition.",
+      "Assess the resolved muscularis propria and deepest tumour front in appropriate planes; MRI may not distinguish T1 from T2. Measure maximal perpendicular extramural depth, separating definite tumour from uncertain desmoplastic change.",
+      "Identify the closest qualifying primary tumour, EMVI or irregular node/deposit to the MRF, recording distance and confidence. Baseline MRF involvement is at 1 mm or less; a smooth-margin node alone at that distance does not make it involved. Peritoneal invasion is a separate T4a finding. The eventual surgical CRM depends on the actual operation and pathology.",
+      "Describe suspected EMVI from source tumour signal within an extramural vessel and its contour. Inventory mesorectal and lateral nodules by side, compartment, size and morphology, and give patient-level nodal confidence. Irregularity and vein continuity may suggest deposits but cannot establish histological N1c.",
+      "Report internal sphincter, intersphincteric space, external sphincter, puborectalis, levator and adjacent-organ involvement separately, with craniocaudal extent. Internal sphincter or intersphincteric involvement alone does not determine the rectal cT category; demonstrated skeletal-muscle invasion has different staging implications. MRI alone does not establish a feasible operation.",
+      "Include fibrotic remnants in tumour-bed extent. Combine actual T2 and DWI/ADC patterns with DRE/endoscopy and dated treatment context. State response class and uncertainty; mrTRG, fibrosis or absent restriction alone does not prove complete response. A reappearing fat pad and persistent MRF stranding require different interpretations.",
+      "Name every demonstrated internal/external opening, primary tract, branch, blind sinus, collection and deep extension. Record a clock-face convention and relation to each sphincter, puborectalis and levator. Source drawings and annotations are not native masks; a lithotomy clock convention does not verify acquisition position."
     ],
     "report_templates": [
       {
@@ -5805,17 +5788,15 @@
     ]
   },
   "rad.5.bladder-virads": {
-    "overview": "Assign a VI-RADS category from a multiparametric bladder MRI, defend it when the sequences disagree, and stage urothelial carcinoma beyond the bladder wall and into the upper tract. Use the linked foundation readings for the illustrated teaching cases, then apply the reporting checklist to a supervised case.",
+    "overview": "Assess the likelihood of bladder tumour muscle invasion using the original VI-RADS algorithm, explain sequence quality and treatment limitations, and report visible local, nodal and upper-tract findings without assigning histology or treatment from MRI alone.",
     "learning_points": [
-      "Show tumour, wall and muscular continuity in the correct plane.",
-      "Concordant interruption raises suspicion of muscle invasion.",
-      "Combine sequences and report extension beyond the bladder.",
-      "Review distension, protocol and previous resection/treatment.",
-      "Review tumour number, site and dimensions.",
-      "Review t2 appearance of muscularis propria.",
-      "Review diffusion and early enhancement relationship to muscle.",
-      "Review perivesical, adjacent-organ and nodal findings.",
-      "Treatment and poor bladder distension can impair VI-RADS assessment; state the limiting factor and avoid false precision."
+      "Record TURBT, biopsy, intravesical or systemic treatment and dates. Assess distension, motion, susceptibility and actual T2, DWI/ADC and DCE quality before scoring each lesion.",
+      "Look for a continuous low-signal line under the tumour. Interruption is the key structural sign of invasion.",
+      "Early enhancement that extends focally into or through the muscularis propria tracks with invasion.",
+      "Confirm tumour restriction on high-b DWI and ADC, then inspect its muscle interface. The normal muscle has intermediate DWI signal; poor diffusion quality invalidates confident dominance.",
+      "Record stalk, thickened inner layer, base and dimensions. An intact muscle line in a lesion over 1 cm does not automatically mean category 2.",
+      "Apply the original consensus combination algorithm: T2 guides the first pass, especially 1–3; optimal-quality DWI takes priority for 4–5, followed by DCE. Record discordance and limits. Report visible extravesical findings separately.",
+      "Inspect the linked complete TCIA native study as a separate source case; its pathology, treatment eligibility and VI-RADS score are not independently assigned."
     ],
     "report_templates": [
       {
@@ -5825,53 +5806,92 @@
         "sections": [
           {
             "heading": "INDICATION",
-            "body": "Clinical question: [ ].\nRelevant history, prior treatment and urgency: [ ]."
+            "body": "Clinical question and prior treatment/dates: [ ]."
           },
           {
             "heading": "COMPARISON",
-            "body": "[None available / date and examination]. Relevant interval change: [ ]."
+            "body": "Examination/date and treatment interval: [ ]."
           },
           {
             "heading": "TECHNIQUE AND QUALITY",
-            "body": "Modality, protocol, coverage and contrast: [ ].\nQuality: [diagnostic / limited / non-diagnostic].\nLimitation and effect on the clinical question: [ ]."
+            "body": "Actual sequences, distension, contrast times and lesion-specific limits: [ ]."
           },
           {
             "heading": "KEY IMAGES",
-            "body": "[IMG 1: T2 tumour-muscle interface; series __ image __]\n[IMG 2: Matched DWI and ADC; series __ image __]\n[IMG 3: Early enhancement interface; series __ image __]"
+            "body": "T2 interface, DWI/ADC and actual early DCE: series/image [ ]."
           },
           {
-            "heading": "DISTENSION, PROTOCOL AND PREVIOUS RESECTION/TREATMENT",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "LESION INVENTORY",
+            "body": "ID/location: [ ]. Maximum size: [ ] mm. Multiplicity, stalk, inner layer and base: [ ]."
           },
           {
-            "heading": "TUMOUR NUMBER, SITE AND DIMENSIONS",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "T2 INTERFACE",
+            "body": "T2 quality: [ ]. Inner layer/stalk: [ ]. Muscular line: [continuous / focally involved / interrupted / not assessable]. Structural category and evidence: [ ]."
           },
           {
-            "heading": "T2 APPEARANCE OF MUSCULARIS PROPRIA",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "DIFFUSION",
+            "body": "DWI/ADC quality and actual acquisition: [ ]. Tumour restriction and muscle/perivesical extent: [ ]. Category or reason not assessable: [ ]. No unverified physical ADC cutoff."
           },
           {
-            "heading": "DIFFUSION AND EARLY ENHANCEMENT RELATIONSHIP TO MUSCLE",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "DYNAMIC ENHANCEMENT",
+            "body": "Actual dynamic acquisition and early phase: [ ]. Inner-layer/muscle/perivesical enhancement: [ ]. DCE category or reason not assessable: [ ]."
           },
           {
-            "heading": "PERIVESICAL, ADJACENT-ORGAN AND NODAL FINDINGS",
-            "body": "[Observations / measurements with units / not assessed and reason]."
+            "heading": "EXTENT AND VI-RADS",
+            "body": "Overall VI-RADS [1–5 / not assessable / not applicable] using original 2018 rules; quality, discordance and rationale: [ ]. Visible local extent and organ-invasion route/confidence: [ ]. UVJ/neck/diverticulum limitations: [ ]. Obstruction: [ ]. Nodes by station, short axis and morphology: [ ]. Upper tract coverage/limits: [ ]."
           },
           {
             "heading": "IMPRESSION",
-            "body": "1. Answer to the clinical question: [ ].\n2. Principal finding, location and extent: [ ].\n3. Relevant classification and version, if applicable: [ ].\n4. Complication, alternative diagnosis or unresolved limitation: [ ]."
+            "body": "Lesion-specific VI-RADS and supporting usable evidence: [ ]. Visible local extent and degree of suspicion: [ ]. Technical/treatment limits: [ ]."
           },
           {
             "heading": "RECOMMENDATION AND COMMUNICATION",
-            "body": "Further evaluation if indicated, with reason and timeframe: [ ].\nCritical finding communicated to [ ] at [ ]; method [ ].\n[Delete if not applicable]."
+            "body": "Contextual next evaluation and rationale: [ ]. Communication when indicated: [ ]."
           }
         ],
         "notes": [
-          "Treatment and poor bladder distension can impair VI-RADS assessment; state the limiting factor and avoid false precision."
+          "Scoring on an underdistended bladder. Wall thickening from an empty or non-distended bladder mimics tumour and disrupts the muscularis propria assessment.",
+          "Applying a majority vote or selecting the worst-looking sequence regardless of quality. Record each category and use the published hierarchy and combinations.",
+          "Missing early enhancement because the dynamic series was not truly early. Delayed post-contrast imaging cannot distinguish focal early enhancement from generalised bladder wall enhancement.",
+          "Assuming a fixed waiting interval after treatment restores baseline scoring reliability. Describe the intervention, dates and persistent confounders.",
+          "Stopping at the VI-RADS category without staging locoregional and upper-tract disease when the category is 4 or 5.",
+          "At the ureterovesical junction and bladder neck, normal openings and prostate protrusion complicate the muscle interface. Review the anatomy in more than one plane.",
+          "A diverticulum may lack muscularis propria; do not force the ordinary muscle-interface rule onto absent muscle.",
+          "Baseline VI-RADS does not establish treatment response, exclude CIS or prove histological grade.",
+          "Do not use a universal ADC cutoff when acquisition, scaling or physical units are unverified.",
+          "MRI cannot exclude flat carcinoma in situ or microscopic perivesical invasion.",
+          "Node size and enhancement do not prove metastatic disease; record station and degree of suspicion."
         ],
-        "sources": []
+        "sources": [
+          {
+            "title": "Radiology Assistant — Bladder Cancer - VI-RADS",
+            "url": "https://radiologyassistant.nl/abdomen/bladder/bladder-cancer-vi-rads"
+          },
+          {
+            "title": "VI-RADS development consensus",
+            "url": "https://pubmed.ncbi.nlm.nih.gov/29755006/"
+          },
+          {
+            "title": "Original VI-RADS consensus (2018)",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6690492/"
+          },
+          {
+            "title": "ACR VI-RADS steering committee: updates and future perspectives (2026)",
+            "url": "https://link.springer.com/article/10.1186/s40644-026-01062-4"
+          },
+          {
+            "title": "EAU bladder cancer diagnostic evaluation",
+            "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/diagnostic-evaluation"
+          },
+          {
+            "title": "EAU bladder TNM classification",
+            "url": "https://uroweb.org/guidelines/muscle-invasive-and-metastatic-bladder-cancer/chapter/pathology-and-classification-systems"
+          },
+          {
+            "title": "EAU upper-tract urothelial carcinoma diagnosis",
+            "url": "https://uroweb.org/guidelines/upper-urinary-tract-urothelial-cell-carcinoma/chapter/diagnosis"
+          }
+        ]
       }
     ],
     "key_images": [
@@ -5985,7 +6005,7 @@
     "learning_points": [
       "Diffusion abnormality carries the greatest weight.",
       "T2 architecture separates organised nodules from suspicious tissue.",
-      "Capsule, seminal vesicles and lesion map guide biopsy and care.",
+      "Glandular surface, seminal vesicles and lesion map support MRI extent reporting; care requires separate clinical context.",
       "Review clinical PSA and gland volume.",
       "Review technical quality.",
       "Review lesion sector, dimensions and dominant sequence.",
@@ -6141,18 +6161,18 @@
     "key_images": [
       {
         "id": "uterine-mr-image-1",
-        "label": "IMG 1: Sagittal uterine overview",
-        "description": "Placeholder for sagittal uterine overview. Record the series/image reference and annotate the feature being demonstrated."
+        "label": "Original normal uterine and cervical T2 zonal anatomy · source Figure 3.1.",
+        "description": "Original normal uterine and cervical T2 zonal anatomy · source Figure 3.1. Complete published source views are independent teaching examples, not the current patient, native acquisition arrays, calibrated measurements, histologically verified tissue-layer segmentations or a registered 3D model. Source arrows, circles, measurements and stage labels remain author annotations. No automatic FIGO stage, microscopic IA assignment, mucosal certainty, cross-case fitting or every-structure clinical approval is supplied. Source caption describes a sagittal reconstruction from a 3D T2 acquisition. Only this published 2D bitmap is included; no 3D acquisition or histological geometry is supplied."
       },
       {
         "id": "uterine-mr-image-2",
-        "label": "IMG 2: Plane perpendicular to primary lesion",
-        "description": "Placeholder for plane perpendicular to primary lesion. Record the series/image reference and annotate the feature being demonstrated."
+        "label": "Original cervical plane planning. Complete original source figure.",
+        "description": "Original cervical plane planning. Complete original source figure. Complete published source views are independent teaching examples, not the current patient, native acquisition arrays, calibrated measurements, histologically verified tissue-layer segmentations or a registered 3D model. Source arrows, circles, measurements and stage labels remain author annotations. No automatic FIGO stage, microscopic IA assignment, mucosal certainty, cross-case fitting or every-structure clinical approval is supplied. "
       },
       {
         "id": "uterine-mr-image-3",
-        "label": "IMG 3: Critical compartment or adjacent organ",
-        "description": "Placeholder for critical compartment or adjacent organ. Record the series/image reference and annotate the feature being demonstrated."
+        "label": "Original stromal, parametrial, vaginal and bladder-wall MRI comparison. Complete original source figure.",
+        "description": "Original stromal, parametrial, vaginal and bladder-wall MRI comparison. Complete original source figure. Complete published source views are independent teaching examples, not the current patient, native acquisition arrays, calibrated measurements, histologically verified tissue-layer segmentations or a registered 3D model. Source arrows, circles, measurements and stage labels remain author annotations. No automatic FIGO stage, microscopic IA assignment, mucosal certainty, cross-case fitting or every-structure clinical approval is supplied. Original source arrows and panel letters are preserved in the complete publisher JPEG; bare PDF image extraction would lose seven vector arrows. No source patient matching or fine layer segmentation is inferred."
       }
     ]
   },

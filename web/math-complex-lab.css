@@ -1,0 +1,19 @@
+.math-complex-lab { min-width: 0; }
+.math-complex-lab [hidden] { display: none !important; }
+.math-complex-lab .model-range-control select, .math-complex-lab input[type="number"] { min-width: 0; min-height: 44px; width: 100%; }
+.math-complex-lab .complex-controls { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.math-complex-lab .complex-panels { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
+.math-complex-lab .complex-viewport { min-width: 0; overflow: auto; background: #f5efdf; border-radius: 10px; }
+.math-complex-lab .complex-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans,sans-serif); }
+.math-complex-lab.is-enlarged .complex-viewport svg { width: 720px; min-width: 720px; max-width: none; }
+.math-complex-lab .complex-table-region { overflow: auto; max-width: 100%; margin: 18px 0; }
+.math-complex-lab .complex-ledger { min-width: 650px; width: 100%; font-size: 14px; border-collapse: collapse; }
+.math-complex-lab .complex-ledger caption { text-align: left; margin: 8px 0; }
+.math-complex-lab .complex-ledger th, .math-complex-lab .complex-ledger td { padding: 9px 7px; text-align: left; border-bottom: 1px solid var(--line,#d5cfbf); overflow-wrap: anywhere; }
+.math-complex-lab .complex-ledger td:nth-child(2) { max-width: 280px; }
+.math-complex-lab .complex-proof, .math-complex-lab .complex-proof-steps { padding: 12px; border-left: 3px solid #317e78; }
+.math-complex-lab .complex-proof-steps { padding-left: 35px; }
+.math-complex-lab .complex-proof-steps li { margin: 9px 0; }
+.math-complex-lab .complex-fixtures button { min-height: 44px; }
+@media (max-width:900px) { .math-complex-lab .complex-controls { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width:760px) { .math-complex-lab .complex-panels, .math-complex-lab .complex-controls { grid-template-columns: minmax(0,1fr); } }

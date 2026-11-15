@@ -199,14 +199,15 @@
   },
   "rad.4.pulmonary-nodule": {
     "id": "radiology-model-rad.4.pulmonary-nodule",
-    "title": "The Incidental Pulmonary Nodule · 3D landmarks",
-    "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Localise the lobe and relationship to a fissure or pleura; nodule size and follow-up are not inferred here.",
+    "title": "Native CT and separate original nodule models",
+    "instructions": "Inspect the complete source CT and all separate released reader masks in the native source viewer. No generic lobe geometry or current-patient anatomical coverage is assigned.",
     "scenario": "radiology-reference:rad.4.pulmonary-nodule",
     "family": "thorax",
     "focus": [
-      "lobes"
+      "native-source"
     ],
-    "reporting_aim": "Localise the lobe and relationship to a fissure or pleura; nodule size and follow-up are not inferred here."
+    "reporting_aim": "Complete source-case inspection with explicit unresolved reporting-structure fidelity.",
+    "source_native_only": true
   },
   "rad.5.aorta": {
     "id": "radiology-model-rad.5.aorta",
@@ -618,13 +619,13 @@
   "rad.5.rectal-mr": {
     "id": "radiology-model-rad.5.rectal-mr",
     "title": "Rectal Cancer · 3D landmarks",
-    "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Inspect rectal wall, mesorectal envelope and sphincter complex; real margin distances require high-resolution oblique MRI.",
+    "instructions": "Drag to rotate and inspect schematic orientation. Partial schematic orientation only. Wall layers, fascia/peritoneum, sphincter components, ducts, nerves, vessels, nodes and tumour/fistula geometry are not complete or registered. Original lesson figures retain separate source cases and evidence roles.",
     "scenario": "radiology-reference:rad.5.rectal-mr",
     "family": "rectal",
     "focus": [
       "mesorectum"
     ],
-    "reporting_aim": "Inspect rectal wall, mesorectal envelope and sphincter complex; real margin distances require high-resolution oblique MRI."
+    "reporting_aim": "Partial schematic orientation only. Wall layers, fascia/peritoneum, sphincter components, ducts, nerves, vessels, nodes and tumour/fistula geometry are not complete or registered. Original lesson figures retain separate source cases and evidence roles."
   },
   "rad.3.acute-abdomen": {
     "id": "radiology-model-rad.3.acute-abdomen",
@@ -750,13 +751,13 @@
   "rad.5.prostate-mri": {
     "id": "radiology-model-rad.5.prostate-mri",
     "title": "Prostate MRI · 3D landmarks",
-    "instructions": "Drag to rotate; choose a reporting landmark and move the section plane. Separate peripheral and transition zones and trace apex-to-base location, urethra and seminal vesicles.",
+    "instructions": "Drag to rotate the schematic and inspect orientation concepts. Partial schematic orientation only; native zonal, ductal, neurovascular, seminal-vesicle and sphincter boundaries remain unverified. Original MRI/gland/ROI references in the reporting desk are separate source cases with explicit limits.",
     "scenario": "radiology-reference:rad.5.prostate-mri",
     "family": "prostate",
     "focus": [
       "peripheral"
     ],
-    "reporting_aim": "Separate peripheral and transition zones and trace apex-to-base location, urethra and seminal vesicles."
+    "reporting_aim": "Partial schematic orientation only; native zonal, ductal, neurovascular, seminal-vesicle and sphincter boundaries remain unverified. Original MRI/gland/ROI references in the reporting desk are separate source cases with explicit limits."
   },
   "rad.5.uterine-mr": {
     "id": "radiology-model-rad.5.uterine-mr",

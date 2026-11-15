@@ -1,0 +1,1140 @@
+{
+  "purpose": "Shared front-end files (web/app.js, web/styles.css) are bound by hash into independently reviewed radiology presentation records \u2014 the native source presentation contract and its reader proof (docs/native-source-presentation-review-20261011/). A change to those files that leaves every native presentation file byte-identical is recorded here as a UI-only refresh, and checks that compare the reviewed hashes with the current files follow this chain (tools/anatomy_sources/ui_refresh.py). A refresh never re-opens, repeats or extends a review: the reviewed contract, its reader proof (306 CT frames, 204 pointer samples, GPU buffers) and every approval field stay exactly as reviewed and bound to the files they were taken against. A change to any guarded file is not refreshable and needs the full review.",
+  "refreshable_paths": [
+    "web/app.js",
+    "web/styles.css"
+  ],
+  "guarded_paths": [
+    "data/radiology/source-anatomy-references.json",
+    "web/anatomy/liu-lumbosacral-sub03/manifest.json",
+    "web/anatomy/verse521/ct-reference.html",
+    "web/anatomy/verse521/ct-reference.js",
+    "web/anatomy/verse521/manifest.json",
+    "web/radiology-detailed-anatomy.js",
+    "web/speech-chunks.js"
+  ],
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "reopens_or_extends_any_review": false,
+  "refreshes": [
+    {
+      "id": "2026-10-11-side-panel-and-model-marks",
+      "date": "2026-10-11",
+      "change": "PR #128 \u2014 side-panel fold to an icon rail; gallery model marks; the Radiology reference nav mark.",
+      "files": {
+        "web/app.js": {
+          "before": "f8e06f35620eccdf50c7c34f712502c15195f439dd8f05f7cd658e6464c2d16d",
+          "after": "b8f50d0f1261fdaf3c80faf5152ca191be4abcb8332ce1e8d2b1c7ee6ab09371"
+        },
+        "web/styles.css": {
+          "before": "afbfab4349113e050c1ad2ddc4c5667d93bcc0b115afdda2a5c9056a3398183b",
+          "after": "92a4a21196d52034f56d58eaf269aea11530cc8885bfdde1d28f529ef3c3d3e9"
+        }
+      },
+      "app_js_changed_regions": [
+        "GLYPHS table: four new drawn marks (interact, cube, panelClose, panelOpen)",
+        "shell: new spineFolded/setSpineFolded and a Ctrl/Cmd+\\ key handler",
+        "renderShell: side-panel toggle button, Radiology reference nav glyph, toggle state sync",
+        "renderVisualGallery: model-card mark (kind glyph, field colour and field mark)"
+      ],
+      "styles_css_changed_regions": [
+        ".visual-model-mark / .visual-model-field (Visual Gallery cards)",
+        "#spine-toggle and html[data-spine=\"folded\"] rules, wide screens only; the default (unfolded) layout is unchanged"
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "The 306-frame CT oracle comparison, pointer sampling and GPU-buffer checks of the reviewed proof."
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "2026-10-11-engraved-icons-and-monochrome-palettes",
+      "date": "2026-10-11",
+      "change": "Original engraved icon set (every drawn glyph redrawn); Silvertone and Slate monochrome palettes and the four-palette reading-theme picker.",
+      "files": {
+        "web/app.js": {
+          "before": "b8f50d0f1261fdaf3c80faf5152ca191be4abcb8332ce1e8d2b1c7ee6ab09371",
+          "after": "4c88dab41f6e1e3d1b1b3c15721dc9d45eade4441fc6725df52a871e2464e563"
+        },
+        "web/styles.css": {
+          "before": "92a4a21196d52034f56d58eaf269aea11530cc8885bfdde1d28f529ef3c3d3e9",
+          "after": "628e8638cbcd18d57044c1bd979f71a6e28d564cdd2059fbe75d7c65ca98f9b6"
+        }
+      },
+      "app_js_changed_regions": [
+        "GLYPHS table: every glyph redrawn (same keys)",
+        "THEMES list, applyTheme and themeToggle: four palettes through a native <select>"
+      ],
+      "styles_css_changed_regions": [
+        "prefers-color-scheme dark block now applies only when no palette is chosen (:root:not([data-theme]))",
+        "Silvertone/Slate token blocks and monochrome overrides for field plates",
+        ".theme-control picker",
+        "tick mask path"
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "The 306-frame CT oracle comparison, pointer sampling and GPU-buffer checks of the reviewed proof."
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "2026-10-11-reference-font-and-spacing",
+      "date": "2026-10-11",
+      "change": "Use the Reader/Peter instrument font in radiology references, consistent reading leading, and clear gaps between tabs, reporting actions and panels.",
+      "files": {
+        "web/styles.css": {
+          "before": "628e8638cbcd18d57044c1bd979f71a6e28d564cdd2059fbe75d7c65ca98f9b6",
+          "after": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660"
+        }
+      },
+      "app_js_changed_regions": [],
+      "styles_css_changed_regions": [
+        "Radiology reference/catalogue page font scope and 1.65 body leading, 12px control gap and 24px section gap tokens.",
+        "Reporting tabs, practical reporting start, escalation headings/lists and reporting sequence spacing.",
+        "Report and walkthrough editors, action groups, stepper and visual-mode gaps, and measurement table leading.",
+        "Sidebar Reader/Peter statistics retain the instrument face and use 1.65 leading, including the desktop ledger overrides."
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "The reviewed 306-frame CT oracle comparison, pointer sampling and GPU-buffer checks remain bound to their original native proof."
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false
+    },
+    {
+      "id": "2026-10-11-native-brain-source-inspector-links",
+      "date": "2026-10-11",
+      "change": "Adds the separately reviewed source-native brain inspector to its matching lesson and reporting source; other native viewers retain their original code and source bytes.",
+      "files": {
+        "web/app.js": {
+          "before": "4c88dab41f6e1e3d1b1b3c15721dc9d45eade4441fc6725df52a871e2464e563",
+          "after": "be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f"
+        }
+      },
+      "app_js_changed_regions": [
+        "sourceNativeInspector source link/credits component",
+        "lessonSourceGallery dedicated native inspector mode",
+        "brain source inspection link in Images and matching 3D source only"
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "The original 306-frame CT/pointer/GPU proof remains bound to its original assets; this is a scoped reader compatibility refresh."
+      }
+    },
+    {
+      "id": "2026-10-11-traumatic-source-document-links",
+      "date": "2026-10-11",
+      "change": "Add scoped original reporting-document links to traumatic haemorrhage reporting and its source gallery.",
+      "files": {
+        "web/app.js": {
+          "before": "be5ea9dcc4f1e44049a007771a6bb265e0d73c448a0df70c6e190084a42b468f",
+          "after": "a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d"
+        }
+      },
+      "app_js_changed_regions": [
+        "sourceContextDocuments",
+        "lessonSourceGallery scoped source documents",
+        "reporting image source documents"
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "native_reader_smoke": {
+        "passed": true,
+        "proof_path": ".research/trauma-reader-qa-20261011-1bxn1eoo/native-reader-smoke.json",
+        "proof_sha256": "192bfb09eca412f4d673c68c9a510f3313c84090557459e48a0c3a6a276703f9",
+        "scope": "Bounded current reader compatibility; preserves the earlier native frame/GPU and source review scope.",
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "2026-10-11-source-case-citation-wrapper",
+      "date": "2026-10-11",
+      "change": "Source citation wrapper: explicit publication_url selects source-dataset, publication/methods and data-licence labels; existing atlas/MRI template fallback unchanged.",
+      "files": {
+        "web/app.js": {
+          "before": "a8dc2985ad28ed9a9b07bd17f87857b3bc389feb7d316049f66ff8f3cf22d29d",
+          "after": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0"
+        }
+      },
+      "app_js_changed_regions": [
+        "sourceNativeInspector source citation wrapper only"
+      ],
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "source_citation_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "old_atlas_citation_fallback_unchanged": true,
+      "new_explicit_metadata_field": "publication_url",
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "scoped_compatibility_amendment": {
+        "path": "docs/native-source-presentation-review-20261011/source-case-citation-compatibility-amendment-20261011.json",
+        "sha256": "d239b53fef9d8456387dfb6fd628e20afdcd8a962d09cde455782d8ebec4d8b4"
+      },
+      "native_reader_smoke": {
+        "passed": true,
+        "proof_path": ".research/native-ui-case-citations-20261011/native-reader-smoke.json",
+        "proof_sha256": "ad324efc604620ac528b467be4a3925cf1f8f750a6bd9e8aca942564430dc5bf",
+        "scope": "Actual VerSe/Liu current authenticated-reader compatibility; original306-frame/pointer/GPU approval scope not extended.",
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": [],
+            "failed_requests": [],
+            "horizontal_overflow": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "2026-10-11-pulmonary-source-only-mounting",
+      "date": "2026-10-11",
+      "change": "Pulmonary-only source CT/annotation inline mounting and suppression of generic lobe/part highlights; all other source routes retain previous behaviour.",
+      "files": {
+        "web/app.js": {
+          "before": "d77de3b299fc8af358e6c5fd2c785b22f3a8f19aa89f27a713d40be7c22b11a0",
+          "after": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc"
+        }
+      },
+      "app_js_changed_regions": [
+        "sourceNativeInspector: exact CT-case labels and opt-in same-origin inline viewer",
+        "renderRadiologyDesk: source-only model tab",
+        "renderReportWalkthrough: pulmonary-only source mode and accurate intro"
+      ],
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "pulmonary_source_only_mounting",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "scoped_compatibility_amendment": {
+        "path": "docs/pulmonary-nodule-integration-review-20261011/bounded-app-source-only-delta.json",
+        "sha256": "7ab2a9eb1fe06acd5407a05f738e8fddba9f64221e72c669c955e78e94edb76f"
+      },
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-11",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ],
+        "not_repeated": "Historical full native CT/pointer/GPU proofs remain bound to their original files. This bounded actual reader replay does not extend any approval."
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false
+    },
+    {
+      "id": "2026-10-13-source-motion-frame-status",
+      "files": {
+        "web/app.js": {
+          "before": "7e67a08f5a87983957418daf855069293ad6079c5375304c0dee83e1132029dc",
+          "after": "69189a56aced8f418531721c981bc36a5eae5a08dfda019289a9cc8a8ca4ca28"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "sourceMotionReference_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/thoracic-ultrasound-source-review-20261013/evidence/motion-ui-delta.json",
+        "sha256": "feccbddf1b4a8e1f8949086d8739484690fec0c24b60936e70387b0465684dfe"
+      },
+      "motion_reader_smoke": {
+        "path": "docs/thoracic-ultrasound-source-review-20261013/evidence/motion-browser-proof.json",
+        "sha256": "ce0f5041d741a762da40d37d554e4f3bf35b107f16301b1cbd9331654591117f",
+        "passed": true,
+        "cases": 24
+      }
+    },
+    {
+      "id": "2026-10-13-radiology-image-presentation",
+      "date": "2026-10-13",
+      "change": "Remove histology figures from radiology presentation and show larger, selectable original MRI examples for bladder staging. Source records and original files remain unchanged.",
+      "files": {
+        "web/app.js": {
+          "before": "69189a56aced8f418531721c981bc36a5eae5a08dfda019289a9cc8a8ca4ca28",
+          "after": "f9753958f03a65a08cfbe9d4dfb8b80e72513761381a8fda342aabeefb11ad27"
+        },
+        "web/styles.css": {
+          "before": "b2bd335332cb0c2fbad671d9542000c544603817acbd29f55683b120f9cd3660",
+          "after": "677085893dee6d4d95b3573e2f1dc07944760d5782b1ff266791fd2ff51f508c"
+        }
+      },
+      "app_js_changed_regions": [
+        "Presentation-only histology/mixed-panel filtering of radiology references and walkthrough image links.",
+        "Bladder staging MRI example selector, original sequence labels and image dimensions.",
+        "Catalogue image labels reflect the curated presentation."
+      ],
+      "styles_css_changed_regions": [
+        "Bladder MRI example grid, selected-score controls and uncropped image sizing."
+      ],
+      "native_presentation_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "native_reader_smoke": {
+        "tool": "tools/check_native_reader_smoke.cjs",
+        "checked_on": "2026-10-13",
+        "route": "#/radiology/ra.thoracolumbar-fractures",
+        "passed": true,
+        "rows": [
+          {
+            "width": 1440,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          },
+          {
+            "width": 390,
+            "verse_meshes": 17,
+            "levels_linking_their_own_ct_reference": 17,
+            "liu_meshes": 2,
+            "liu_ct_links_after_switch": 0,
+            "native_files_served_identical_to_reviewed": true,
+            "served_app_js_is_current": true,
+            "served_styles_css_is_current": true,
+            "page_errors": 0,
+            "failed_requests": 0,
+            "horizontal_overflow": false
+          }
+        ]
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "scoped_compatibility_amendment": {
+        "path": "docs/radiology-image-presentation-review-20261013/exact-app-delta.json",
+        "sha256": "49f734e2f296cf383a52261954d5c236423878cb56c9405e7a14f2bf07ddd1b5"
+      }
+    },
+    {
+      "id": "2026-10-13-thoracic-curated-source-viewer",
+      "files": {
+        "web/app.js": {
+          "before": "f9753958f03a65a08cfbe9d4dfb8b80e72513761381a8fda342aabeefb11ad27",
+          "after": "be779e23c49d7673838e7758200dac4f528742685e7ff46aaa9d73999b826b66"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "thoracic_curated_source_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/thoracic-native-anatomy-review-20261013/integration/runtime-inverse.json",
+        "sha256": "718cb8156517f0492635516a02550f1e047cea40c5e410c89ed52f6125a02cde"
+      },
+      "curated_source_reader_smoke": {
+        "path": "docs/thoracic-native-anatomy-review-20261013/integration/local-reader-proof.json",
+        "sha256": "31c92d9a4dd8cd8411741c77f24501ccc319ccbbee383595b0175f90151d0e04"
+      }
+    },
+    {
+      "id": "2026-10-14-thoracic-lung-source",
+      "files": {
+        "web/app.js": {
+          "before": "be779e23c49d7673838e7758200dac4f528742685e7ff46aaa9d73999b826b66",
+          "after": "91c6beacfa6fa450287807822449ccbda49d42a95746bc4e32befcc6ce31b5f6"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "thoracic_CT_lobe_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/thoracic-lung-source-review-s0028/integration/runtime-inverse.json",
+        "sha256": "4506d80e2b988b1a7f3200210d78f15570f3eae5ecb7206009f7ba14b1906567"
+      },
+      "lung_source_reader_smoke": {
+        "path": "docs/thoracic-lung-source-review-s0028/integration/local-reader-proof.json",
+        "sha256": "4cd012f0212fc97304ce3a102bfc85c8d184c9794bee99fffa67cec871bc77dd"
+      }
+    },
+    {
+      "id": "2026-10-14-thoracic-basal-source",
+      "files": {
+        "web/app.js": {
+          "before": "91c6beacfa6fa450287807822449ccbda49d42a95746bc4e32befcc6ce31b5f6",
+          "after": "69b7f6380644d036b49db0d659de65d48e8ba05d135681b5f2740c6263fb97b7"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "thoracic_CT_basal_context_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/thoracic-basal-context-review-s0028/integration/runtime-inverse.json",
+        "sha256": "90919ee79909cc12a0d9f8abb708a487db1f04603f456bfc4da9eec422d1fa8c"
+      },
+      "basal_source_reader_smoke": {
+        "path": "docs/thoracic-basal-context-review-s0028/integration/local-reader-proof.json",
+        "sha256": "c8de76fe44640194cc8df9cc9ee9a5591605e59bb291c686d04f4b408f17e1d5"
+      }
+    },
+    {
+      "id": "2026-10-14-thoracic-source-labels",
+      "files": {
+        "web/app.js": {
+          "before": "69b7f6380644d036b49db0d659de65d48e8ba05d135681b5f2740c6263fb97b7",
+          "after": "5ed44bcf329222450e46a4547c1ce7ed1308bb6c49d5c096f34315f4c988f614"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "thoracic_original_image_locator_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/thoracic-source-label-review-20261014/integration/runtime-inverse.json",
+        "sha256": "12ab0aad1aac8843545fecb66544831e3686d071bdd895a89ee3f74548569e22"
+      },
+      "label_source_reader_smoke": {
+        "path": "docs/thoracic-source-label-review-20261014/integration/local-reader-proof.json",
+        "sha256": "a6829a08bc1975f78bb23ad3704b8eda075741ead4c84ddce9bcc70ec170691d"
+      }
+    },
+    {
+      "id": "2026-10-14-cardiac-native-source",
+      "files": {
+        "web/app.js": {
+          "before": "5ed44bcf329222450e46a4547c1ce7ed1308bb6c49d5c096f34315f4c988f614",
+          "after": "762420bb08bcebbe8c5d32f234c80615224860c87ef9f96fc00c42a1e2a2ee2a"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "cardiac_original_CT_and_interfaces_wrapper_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "new_source_decoder_files_added": true,
+      "existing_reporting_guides_retained": true,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/cardiac-native-source-review-v1-s0028/integration/runtime-inverse.json",
+        "sha256": "ac9f8cb4095f84a223506457b80c7975982a235c2e59375845d4cbe42c8f426a"
+      },
+      "cardiac_source_reader_smoke": {
+        "path": "docs/cardiac-native-source-review-v1-s0028/integration/local-reader-proof.json",
+        "sha256": "3e4584cf18f493c3550af171493469f23c1ecf509d1e192e02c7a01a7fe1bd8e"
+      }
+    },
+    {
+      "id": "2026-10-16-cardiac-wall-context",
+      "files": {
+        "web/app.js": {
+          "before": "762420bb08bcebbe8c5d32f234c80615224860c87ef9f96fc00c42a1e2a2ee2a",
+          "after": "5ced07d4629236b0b632dc93649ca1840ca3e3e19b6c6c784c9d2589d797fa7b"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "supplementary_cardiac_wall_and_comparison_wrappers_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "new_source_viewer_files_added": true,
+      "existing_reporting_guides_retained": true,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/cardiac-wall-context-review-20261016/integration/runtime-inverse.json",
+        "sha256": "e766b39ef9b1be1ef09a4356829fb211b74e8db3ce7cca7acf45b987d1e6f2ad"
+      },
+      "cardiac_wall_reader_smoke": {
+        "path": "docs/cardiac-wall-context-review-20261016/integration/local-reader-proof.json",
+        "sha256": "11edefb8b68a4de60e76ff03ae7ad36ec5c137b6259af475e846c75d603449e4"
+      }
+    },
+    {
+      "id": "2026-10-16-hippunfold-registered-reference",
+      "files": {
+        "web/app.js": {
+          "before": "5ced07d4629236b0b632dc93649ca1840ca3e3e19b6c6c784c9d2589d797fa7b",
+          "after": "dbf141de3ab13880ca8140598de67700108ec4e4f81fcf7053755ffbac18951d"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "supplementary_registered_hippocampal_reference_wrappers_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "new_source_viewer_files_added": true,
+      "existing_reporting_guides_retained": true,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/hippunfold-epilepsy-review-20261016/runtime-inverse.json",
+        "sha256": "b6140098624fd68edc72167a0a2a7d30f4f776a480460f153a8a8c55476ad1aa"
+      },
+      "hippunfold_reader_smoke": {
+        "path": "docs/hippunfold-epilepsy-review-20261016/reader-proof.json",
+        "sha256": "96da4fa44dafcb8c394376a515b6435ef6e834e5817e211e51e18e0e57e88a09"
+      }
+    },
+    {
+      "id": "2026-10-16-spl-native-limbic-reference",
+      "files": {
+        "web/app.js": {
+          "before": "dbf141de3ab13880ca8140598de67700108ec4e4f81fcf7053755ffbac18951d",
+          "after": "13e0bc4938487040585780be56e7e8d98b900f9b77abe48a7f068d2fed284596"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "supplementary_SPL_source_wrappers_and_attribution_wrapping_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "new_source_viewer_files_added": true,
+      "existing_reporting_guides_retained": true,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/spl-limbic-source-review-20261016/integration/runtime-inverse.json",
+        "sha256": "c80d0ac9ee6bf8f4684a0e3c7cf2c805a92f40c018d2d1079182ae31871231ec"
+      },
+      "spl_reader_smoke": {
+        "path": "docs/spl-limbic-source-review-20261016/viewer/reader-proof.json",
+        "sha256": "fc267e5c440bf6d65fbf6776770e57dae81d8d0cf15e6597d5af4b40e7ff3e6b"
+      },
+      "spl_standalone_verification": {
+        "path": "docs/spl-limbic-source-review-20261016/viewer/standalone-proof.json",
+        "sha256": "81608f66cb5505b3d3fc113e09d851cacfb16913ada8fd5fda5d25245d3f308f"
+      }
+    },
+    {
+      "id": "2026-10-16-spl-reporting-relationships",
+      "files": {
+        "web/app.js": {
+          "before": "13e0bc4938487040585780be56e7e8d98b900f9b77abe48a7f068d2fed284596",
+          "after": "53f89890c69548bfcaa0f6e71c07c1a56f0c28f0c8201d5080df8d7aa5b632cb"
+        }
+      },
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "grouped_SPL_source_wrappers_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/spl-reporting-source-review-20261016/integration/runtime-inverse.json",
+        "sha256": "27e9cc90b3a290e3e76f18c2877e8e5accfd630f89f34c6b03903b8cd3e96830"
+      },
+      "reporting_reader": {
+        "path": "docs/spl-reporting-source-review-20261016/viewer/reader-proof.json",
+        "sha256": "3479a408b94c9ae310489da695b1135df6cc904a07b209f6a796259bc73ede79"
+      },
+      "reporting_standalone": {
+        "path": "docs/spl-reporting-source-review-20261016/viewer/standalone-proof.json",
+        "sha256": "071fca1d937d13a68bb16a1c525f67c14fefd40797342ab06e6961939f412fc5"
+      },
+      "existing_SPL_reader_preservation": {
+        "path": "docs/spl-reporting-source-review-20261016/viewer/preservation-proof.json",
+        "sha256": "8c544ec34fffc56f3f2eb01615f5a7c15b3e13cb1f4ca1cbe13ccb9db82af6cb"
+      },
+      "new_source_viewer_files_added": true
+    },
+    {
+      "id": "2026-10-22-spine-cardiology-references",
+      "files": {
+        "web/app.js": {
+          "before": "53f89890c69548bfcaa0f6e71c07c1a56f0c28f0c8201d5080df8d7aa5b632cb",
+          "after": "e474ddb1ef541c32dcd91948de592df01a8fa69934de4defa4c35d806d7492f7"
+        },
+        "web/styles.css": {
+          "before": "677085893dee6d4d95b3573e2f1dc07944760d5782b1ff266791fd2ff51f508c",
+          "after": "86fe8fc56fd90137ad989c0b000ab50655ef32a2de5047e344bde741f39c1afa"
+        }
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "native_presentation_code_touched": false,
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/spine-cardiology-release-20261022/runtime-inverse.json",
+        "sha256": "eb7b2192251cd23ca5e642914ca799a217e5eff8189a9af9dbb22431715b66e8"
+      }
+    },
+    {
+      "id": "2026-10-22-structured-reporting",
+      "files": {
+        "web/app.js": {
+          "before": "e474ddb1ef541c32dcd91948de592df01a8fa69934de4defa4c35d806d7492f7",
+          "after": "693f001b3e49c0cb29e67a57abfa05706d2b36d3684915ac3280520c4b6d47e6"
+        }
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "native_presentation_code_touched": false,
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/structured-reporting-release-20261022/runtime-inverse.json",
+        "sha256": "9e5a15e300a9ff40fa64faf2771f50ecab7c0389b270575d2071de46b705e7c6"
+      }
+    },
+    {
+      "id": "2026-10-23-descriptor-reporting",
+      "files": {
+        "web/app.js": {
+          "before": "693f001b3e49c0cb29e67a57abfa05706d2b36d3684915ac3280520c4b6d47e6",
+          "after": "285d77ec6ff7eb251d57bd4949f9b3b6d8095d8b4cf1d1bcdb74be48a9d203f1"
+        }
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "native_presentation_code_touched": false,
+      "native_presentation_change_scope": "report_controls_and_initial_report_tab_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "canonical_lesson_data_changed": false,
+      "new_reporting_workflow_validated_by_this_inverse": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/descriptor-reporting-release-20261023/runtime-inverse.json",
+        "sha256": "ba930365a6ed28c3912f0e96d9a0d429f1e9eb8ccba650b47c5a359f149363c7"
+      }
+    },
+    {
+      "id": "2026-10-23-msk-anatomic-reporting",
+      "date": "2026-10-23",
+      "change": "Independent MSK anatomy descriptors, dependent findings and reporting-only examination catalogue entries; canonical teaching and native anatomy rendering remain byte-identical.",
+      "files": {
+        "web/app.js": {
+          "before": "285d77ec6ff7eb251d57bd4949f9b3b6d8095d8b4cf1d1bcdb74be48a9d203f1",
+          "after": "b6f05a96372de697b8b6b088b150d240a3e7da682abc80ad735df05da4146c49"
+        }
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "native_presentation_code_touched": false,
+      "native_presentation_change_scope": "anatomic_report_choices_and_reporting_only_catalogue_entries",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "canonical_lesson_data_changed": false,
+      "new_reporting_workflow_validated_by_this_inverse": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/msk-reporting-release-20261023/runtime-inverse.json",
+        "sha256": "8336c3d0d1fdf974e822872bc054bcf0fca5c768add09c8499f45274a441a708"
+      }
+    },
+    {
+      "id": "2026-10-23-holiatlas-source-template",
+      "files": {
+        "web/app.js": {
+          "before": "b6f05a96372de697b8b6b088b150d240a3e7da682abc80ad735df05da4146c49",
+          "after": "0d019b62b09cec7eb710a3cb05512f864ff5119639097d4cb442fe0406c0fcb9"
+        }
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "separate_holiatlas_source_wrappers_only",
+      "native_decoder_mesh_CT_renderer_code_touched": false,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/holiatlas-source-review-20261023/runtime-inverse.json",
+        "sha256": "b3dd28e529975736ab6e96501d36adfe17784e439f5241a4970a4d84ba85e7c3"
+      }
+    },
+    {
+      "id": "2026-10-25-integrals-energy-and-atlas-hierarchy",
+      "files": {},
+      "native_runtime_files": {
+        "data/curriculum/03-physics.json": {
+          "before": "645563ea298e33d44ed9122d38193d428fd9bb9238cc469ea437d77e9cc1dd20",
+          "after": "5d278dd3c789bfcc2b735dbc2a48e6784eac252d7d45adf5676612e6ed6504fb"
+        },
+        "data/radiology/holiatlas-reference.json": {
+          "before": "f7f6a1fc08c0599ff75b7822488d7a56e52e53dba47ef0f31953e30a89daa176",
+          "after": "46a475c05cba0342fa1b35be45d5496cf69d607b6b77d6e9098426f2fe364bbf"
+        },
+        "docs/radiology-fidelity-scope.json": {
+          "before": "839c011d2f4ae0337274d70c37f1e63094d73bb26cee8e11695a2c3e765c4f92",
+          "after": "ea2d08f53da9a9b04730b63d80ec41db3051888d3fee992da8aa7c2467666a23"
+        },
+        "primer/holiatlas_reference.py": {
+          "before": "6e0e19b16daa66be2b2ba2556cb5f728586964f7992c422c0f8bc866c40f4bc2",
+          "after": "7c616155df162b566707c7641aee02d1b7f374d08afe79d466f3d3cf9c83b38a"
+        },
+        "primer/server.py": {
+          "before": "a4d5f83b9d6c4f733ccec99e08f74ccab7d03fb1c29dee723292f90201015a89",
+          "after": "d2c46c8ec6dd83d9c4ea5fd937fd7562d9142ad2fda3f6ce9c3b37e8c1e9bdfc"
+        },
+        "tools/anatomy_sources/build_holiatlas_registry.py": {
+          "before": "2609df7a699202c7a71e8f69ce91c385f9f3e7cd5e8c30d060669227e7ce64d4",
+          "after": "a1424645c8a951c5ba07a46f902595e2c2c7da6f6d30301e2f9b9bae138cd2b7"
+        },
+        "vercel.json": {
+          "before": "5fc48f2f0f51ef9dd9878367eeaa54a3ec1cddf31f46c26204ed567ba625c75e",
+          "after": "3dd4c0d62d5402998e83a1992a110f3e34866f81301b8ed58d36d5a2e2251837"
+        },
+        "web/anatomy/holiatlas/ATTRIBUTION.txt": {
+          "before": "6fe3bbc137899b4cca53ed55cd5e6139d84f35e8b22aa37b8129d860e351284c",
+          "after": "029e261ae9c9c3e89d605bfff76dc097414a20a5dd7e00dccabe732e759ff493"
+        },
+        "web/anatomy/holiatlas/config.json": {
+          "before": "886ad1771b79b52d243cbcc8f8e41bd9fd938d94672e58c66b8f097303f3b78b",
+          "after": "f37af2ab8c6c07b0dcef791959353e069ac4f822f23abdc1a6d5254abef711af"
+        },
+        "web/anatomy/holiatlas/index.html": {
+          "before": "67588f704841762c355bc9b0e2ff79ad3ac39af4f7a86c8333b737fb6c332dad",
+          "after": "1ffb34b0986b09c1d22adcc80e440de1f22812bf72345dd63faaa55e29a87cd7"
+        },
+        "web/anatomy/holiatlas/viewer.css": {
+          "before": "f8f742c4e26cabd8e6f404ca18d0fbd96f813980f0845eedfb7c541184285ee2",
+          "after": "c0f43ba7b355303898944e1b37c02086d62f77e792b7eb5ff35b77766b9ba6f1"
+        },
+        "web/anatomy/holiatlas/viewer.js": {
+          "before": "52f2215b39568dd2fd16ba7f1828ef247b09c0923dbb398cd3b332eabd072dc6",
+          "after": "7d8ffaf46751312dc12508db6e6c0d229aafb154e73f2567d06e654138a4c5b8"
+        },
+        "web/index.html": {
+          "before": "fb3bb1f2826760efa0fcc1c71d7752ad1a33887ac4e8e687c42334599fd70bf3",
+          "after": "2f4ce36b244fd760d43aae9d21982118ca926f2c817c8a5303af51eeb14f8fad"
+        },
+        "web/lesson-models.js": {
+          "before": "d687673d197f40be1b8dbeb3c0beac5f7821050503c8d7ddfd77a34718fffd3d",
+          "after": "d7e7d65f695fd0f8481f6914a2ca23bd2fade51926faec4bada97f141822838b"
+        }
+      },
+      "clinical_approval": false,
+      "fine_anatomical_approval": false,
+      "reopens_or_extends_any_review": false,
+      "native_presentation_code_touched": true,
+      "native_presentation_change_scope": "integral_energy_labs_and_exact_holiatlas_hierarchy_only",
+      "native_decoder_mesh_CT_renderer_code_touched": true,
+      "canonical_lesson_data_changed": true,
+      "guarded_paths_sha256": {
+        "data/radiology/source-anatomy-references.json": "7d40217e0d19e7181ac2305eb278d7fc917e103614753d07bdd1278c46b2aa53",
+        "web/anatomy/liu-lumbosacral-sub03/manifest.json": "4cff725f9f0d3a2bf0f29782889fb16fd6ea92d3e210cdcca2d80fbf4370c12b",
+        "web/anatomy/verse521/ct-reference.html": "ba233548f596f627b4fe56ce103962f2bc2bff0fcf692f1348abfdd9aa134e45",
+        "web/anatomy/verse521/ct-reference.js": "30f82f5a0ef534ce44bfbe40961220abc6487fd426f9af914622ef79c0177890",
+        "web/anatomy/verse521/manifest.json": "bec358ea3b471e16492d59b6ffffe45f56ed1f4c946dc5315842dcf626c7c0f0",
+        "web/radiology-detailed-anatomy.js": "a79e9d10587c9daf702300a5b4b98880cab26313290b4106b9ac9f6340ed8160",
+        "web/speech-chunks.js": "e742231ae27413d51e969f1391af355403453d1365da2ec9eeb94c4a5794dc50"
+      },
+      "scoped_compatibility_amendment": {
+        "path": "docs/fidelity-continuation-20261025/runtime-inverse.json",
+        "sha256": "590b05187dd13e5120e527154d7666afea831fdf111135da29efb1fdd3cec65b"
+      }
+    }
+  ]
+}

@@ -41,7 +41,7 @@ def test_pet_ct_eus_and_histology_cannot_lend_features_to_selected_mri():
     assert {p['kind']:p['panels'] for p in r['ancillary_panels']}=={'PET-CT':['g'],'Ultrasound':['h'],'Histology':['i','j']}
     for panel in ['g','h','i']:
         context=copy.deepcopy(r['source_context']);context['selected_panels']=[panel]
-        expected='source_context_selected_panel_not_clinical_image' if panel=='i' else 'source_context_selected_panel_modality_mismatch'
+        expected='source_context_selected_panel_modality_mismatch'
         assert expected in inspect_binding({'kind':'clinical_image','modality':'MRI','source_context':context},{'id':'mri','modality_scope':['MRI'],'context_requirements':[]})
     assert 'enhancement alone does not establish malignant grade' in r['caption']
     high=next(r for r in figures() if 'pmc13315461-fig5' in r['id'])

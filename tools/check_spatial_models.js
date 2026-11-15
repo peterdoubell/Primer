@@ -24,20 +24,87 @@ const expected = ['math.2.geometry', 'math.3.vectors', 'math.4.multivar', 'math.
 assert.equal(JSON.stringify([...api.supported].sort()), JSON.stringify(expected));
 const nodes = fs.readdirSync(path.join(ROOT, 'data/curriculum')).filter(file => /^\d.*\.json$/.test(file))
   .flatMap(file => JSON.parse(fs.readFileSync(path.join(ROOT, 'data/curriculum', file), 'utf8')).nodes);
+const fluidsEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'fluids-concept-lab').map(item => ({ node, item })));
+assert.deepEqual(fluidsEntries.map(({ node, item }) => [node.id, item.id, item.kind, item.props]), [
+  ['phys.4.fluids', 'explore-fluid-forces-and-flow', 'model', { scenario: 'phys.4.fluids' }],
+]);
+console.log('FLUIDS_BINDING phys.4.fluids = explore-fluid-forces-and-flow');
+
+const linearAlgebraEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'linear-algebra-lab').map(item => ({ node, item })));
+assert.deepEqual(linearAlgebraEntries.map(({ node, item }) => [node.id, item.id, item.kind, item.props]), [
+  ['math.4.linalg', 'explore-linear-maps-and-kernels', 'model', { scenario: 'math.4.linalg' }],
+]);
+console.log('LINALG_BINDING math.4.linalg = explore-linear-maps-and-kernels');
+
+const fractionsEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'fraction-arithmetic-lab').map(item => ({ node, item })));
+assert.deepEqual(fractionsEntries.map(({ node, item }) => [node.id, item.id, item.kind, item.props]), [
+  ['math.2.fractions', 'build-equivalent-fractions', 'model', { scenario: 'math.2.fractions' }],
+]);
+console.log('FRACTIONS_BINDING math.2.fractions = build-equivalent-fractions');
+
+
+
+const vectorEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='vector-components-lab').map(item=>({node,item})));
+assert.equal(vectorEntries.length,1);assert.equal(vectorEntries[0].node.id,'math.3.vectors');assert.deepEqual(vectorEntries[0].item.props,{scenario:'math.3.vectors'});
+const geometryEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='geometry-measures-lab').map(item=>({node,item})));
+assert.equal(geometryEntries.length,1);assert.equal(geometryEntries[0].node.id,'math.2.geometry');assert.deepEqual(geometryEntries[0].item.props,{scenario:'math.2.geometry'});
+const coordinateEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'coordinate-plane-lab').map(item => ({node,item})));
+assert.equal(coordinateEntries.length,1);assert.equal(coordinateEntries[0].node.id,'math.2.coordinates');assert.deepEqual(coordinateEntries[0].item.props,{scenario:'math.2.coordinates'});
+const baseTenEntries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'base-ten-lab').map(item => ({node,item})));
+assert.deepEqual(baseTenEntries.map(r=>r.node.id).sort(), ["math.1.addition", "math.1.division", "math.1.multiplication", "math.1.place-value", "math.1.subtraction"]);
+for(const {node,item}of baseTenEntries){assert.equal(node.stage,1);assert.equal(item.kind,'model');assert.deepEqual(item.props,{scenario:node.id});}
 const entries = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === 'spatial-3d')
   .map(item => ({ node, item })));
 assert.equal(entries.length, expected.length, 'Every spatial scene must be reachable from its curriculum lesson');
 assert.equal(JSON.stringify(entries.map(({ node }) => node.id).sort()), JSON.stringify(expected));
 entries.forEach(({ node, item }) => assert.deepEqual(item.props, { scenario: node.id }));
+const rotationBinding = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/module-models.json'),'utf8')).models.find(row=>row.node_id==='phys.5.frontier');
+assert.equal(rotationBinding.family,'rotation-density-geometry');assert.equal(rotationBinding.mode,'model');assert.equal(nodes.find(node=>node.id==='phys.5.frontier').lesson_media.filter(item=>item.kind==='model').length,0,'Rotation is provided exactly once by its module binding');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.kind === 'model' &&
-  !['spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence'].includes(item.renderer)).length,
-  70, 'The 70 existing lesson models must remain present');
+  !['vector-components-lab', 'geometry-measures-lab', 'coordinate-plane-lab', 'algebra-functions-lab', 'base-ten-lab', 'fraction-arithmetic-lab', 'spatial-3d', 'concept-lab', 'music-listening-lab', 'doppler-angle-lab', 'prenatal-sequence', 'math-ode-lab', 'math-field-lab', 'math-wave-lab', 'math-probability-lab', 'math-convergence-lab', 'physics-thermal-lab', 'math-numerical-lab', 'math-measure-lab', 'physics-cycle-lab', 'math-operator-lab', 'physics-ensemble-lab', 'math-curvature-lab', 'physics-constraints-lab', 'math-complex-lab', 'physics-quantum-lab', 'math-topology-lab', 'physics-relativity-lab', 'math-algebra-lab', 'physics-quantum-info-lab', 'math-logic-lab', 'math-number-theory-lab', 'math-systems-lab', 'physics-maxwell-lab', 'physics-cosmology-lab', 'physics-qft-lab', 'physics-phase-lab', 'fluids-concept-lab', 'linear-algebra-lab', 'language-computation-lab'].includes(item.renderer)).length,
+  67, 'The earlier models remain except the dedicated fractions, rotation and transition replacements');
+
+const languageComputationEntries=nodes.flatMap(node=>(node.lesson_media||[]).filter(item=>item.renderer==='language-computation-lab').map(item=>({node,item})));
+assert.deepEqual(languageComputationEntries.map(({node,item})=>[node.id,item.id,item.kind,item.props]),[['lang.5.comp-ling','lang-5-comp-ling-computation-studio','model',{scenario:'lang.5.comp-ling'}]],'The independently checked language studio is bound exactly once');
+console.log('LANGUAGE_COMPUTATION_BINDING lang.5.comp-ling = lang-5-comp-ling-computation-studio');
+
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'music-listening-lab').length,
   8, 'The eight music grade listening models must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'doppler-angle-lab').length,
   1, 'The ultrasound Doppler model must remain present');
 assert.equal(nodes.flatMap(node => node.lesson_media || []).filter(item => item.renderer === 'prenatal-sequence').length,
   1, 'The separately checked prenatal sequence must remain present');
+const odeEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'math-ode-lab').map(item => ({ node, item })));
+assert.equal(odeEntries.length, 1, 'The separately checked second-order ODE activity must remain present');
+assert.equal(odeEntries[0].node.id, 'math.4.diffeq');
+assert.equal(odeEntries[0].item.kind, 'model');
+assert.deepEqual(odeEntries[0].item.props, { scenario: 'math.4.diffeq.second-order' });
+const fieldEntries = nodes.flatMap(node => (node.lesson_media || [])
+  .filter(item => item.renderer === 'math-field-lab').map(item => ({ node, item })));
+assert.equal(fieldEntries.length, 1, 'The separately checked integral/flux activity must remain present');
+assert.equal(fieldEntries[0].node.id, 'math.4.multivar');
+assert.deepEqual(fieldEntries[0].item.props, { scenario: 'math.4.multivar.integral-flux' });
+for (const [renderer, lesson, scenario] of [['math-wave-lab','math.5.pde','math.5.pde.wave-field'],
+  ['math-probability-lab','math.4.prob-theory','math.4.prob-theory.large-numbers'],
+  ['math-convergence-lab','math.4.analysis','math.4.analysis.convergence'],
+  ['math-numerical-lab','math.5.numerical','math.5.numerical.error-accounting'],
+  ['math-measure-lab','math.5.measure','math.5.measure.integration-norms'],
+  ['physics-cycle-lab','phys.3.thermo','phys.3.thermo.cycle-entropy'],
+  ['math-operator-lab','math.5.functional','math.5.functional.operators-truncation'],
+  ['physics-ensemble-lab','phys.4.statmech','phys.4.statmech.ensembles-entropy'],
+  ['math-curvature-lab','math.5.diffgeo','math.5.diffgeo.curvature-transport'],
+  ['physics-constraints-lab','phys.4.classical','phys.4.classical.constraints-energy'],
+  ['math-topology-lab','math.5.topology','math.5.topology.opens-covers-surfaces'],
+  ['physics-relativity-lab','phys.4.relativity','phys.4.relativity.events-clocks'],
+  ['math-complex-lab','math.5.complex-analysis','math.5.complex-analysis.holomorphy-contours'],
+  ['physics-quantum-lab','phys.4.quantum','phys.4.quantum.states-measurement']]) {
+  const entries = nodes.flatMap(node => (node.lesson_media || []).filter(m => m.renderer === renderer).map(item => ({node,item})));
+  assert.equal(entries.length,1); assert.equal(entries[0].node.id,lesson); assert.deepEqual(entries[0].item.props,{scenario});
+}
 
 const C = { blue: '#3e7085', teal: '#317e78', gold: '#b98a2f', coral: '#b96652', plum: '#876888', green: '#5c7754', ink: '#263b46' };
 const near = (a, b, tolerance = 1e-7) => assert.ok(Math.abs(a - b) <= tolerance, `${a} differs from ${b}`);
@@ -250,3 +317,15 @@ for (const direction of ['lateral', 'anterior']) {
   near(centre[1], -.08);
 }
 console.log('Verified radiology section, obliquity and fragment-position invariants.');
+
+for (const [renderer, nodeId, scenario] of [
+  ['math-logic-lab','math.5.logic','math.5.logic.diagonal-models-proof'],
+  ['physics-maxwell-lab','phys.4.em-maxwell','phys.4.em-maxwell.fields-flux-radiation'],
+  ['physics-cosmology-lab','phys.5.gr-cosmo','phys.5.gr-cosmo.geometry-history'],
+  ['physics-qft-lab','phys.5.qft','phys.5.qft.fields-observables'],
+  ['math-systems-lab','math.3.systems','math.3.systems.general-form']]) {
+  const dedicated = nodes.flatMap(node => (node.lesson_media || []).filter(item => item.renderer === renderer).map(item => ({node,item})));
+  assert.equal(dedicated.length, 1, renderer + ': exactly one full lesson binding');
+  assert.equal(dedicated[0].node.id, nodeId);
+  assert.deepEqual(dedicated[0].item.props, {scenario});
+}

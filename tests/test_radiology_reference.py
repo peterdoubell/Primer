@@ -122,7 +122,16 @@ def test_every_module_has_a_complete_original_report_and_image_plan(radiology_no
         radiology.validate_reference(reference)
         assert len(reference["learning_points"]) >= 2, node["id"]
         assert reference["report_templates"], node["id"]
-        assert reference["key_images"], node["id"]
+        if node['id'] == 'rad.4.pulmonary-nodule':
+            from tools.pulmonary_reference_contract import assert_native_pulmonary_reference
+            assert_native_pulmonary_reference(reference)
+        elif node['id'] == 'rad.5.sella':
+            from primer.radiology_catalog import detail, resolve
+            source = detail(Curriculum(), resolve('ra.mri-sella'))['radiology_reference']['structure_atlas']
+            assert len(source) == 20 and all(i['license'] == 'CC BY 4.0' for i in source)
+            assert not reference['key_images']
+        else:
+            assert reference["key_images"], node["id"]
         assert node["reference_count"] == len(reference["reading"])
         assert node["template_count"] == len(reference["report_templates"])
         for template in reference["report_templates"]:

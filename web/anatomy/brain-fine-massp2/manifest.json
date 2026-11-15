@@ -1,0 +1,942 @@
+{
+  "schema_version": 1,
+  "shape": [
+    149,
+    96,
+    68
+  ],
+  "native_roi_start": [
+    122,
+    150,
+    111
+  ],
+  "native_roi_stop_exclusive": [
+    271,
+    246,
+    179
+  ],
+  "original_shape": [
+    394,
+    466,
+    378
+  ],
+  "original_affine": [
+    [
+      0.5,
+      -0.0,
+      -0.0,
+      -98.0
+    ],
+    [
+      -0.0,
+      -0.5,
+      -0.0,
+      98.5
+    ],
+    [
+      0.0,
+      0.0,
+      0.5,
+      -72.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "affine": [
+    [
+      0.5,
+      -0.0,
+      -0.0,
+      -37.0
+    ],
+    [
+      -0.0,
+      -0.5,
+      -0.0,
+      23.5
+    ],
+    [
+      0.0,
+      0.0,
+      0.5,
+      -16.5
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "storage_axes": [
+    "R",
+    "P",
+    "S"
+  ],
+  "flat_order": "i + nx*(j + ny*k)",
+  "sampling_mm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "margin_native_voxels": 4,
+  "source_labels": {
+    "1": {
+      "name": "Caudate",
+      "code": "cau",
+      "hemisphere": "l"
+    },
+    "2": {
+      "name": "Caudate",
+      "code": "cau",
+      "hemisphere": "r"
+    },
+    "3": {
+      "name": "Subthalamic nucleus",
+      "code": "stn",
+      "hemisphere": "l"
+    },
+    "4": {
+      "name": "Subthalamic nucleus",
+      "code": "stn",
+      "hemisphere": "r"
+    },
+    "5": {
+      "name": "Substantia nigra",
+      "code": "sn",
+      "hemisphere": "l"
+    },
+    "6": {
+      "name": "Substantia nigra",
+      "code": "sn",
+      "hemisphere": "r"
+    },
+    "7": {
+      "name": "Red nucleus",
+      "code": "rn",
+      "hemisphere": "l"
+    },
+    "8": {
+      "name": "Red nucleus",
+      "code": "rn",
+      "hemisphere": "r"
+    },
+    "9": {
+      "name": "Globus pallidus pars interna",
+      "code": "gpi",
+      "hemisphere": "l"
+    },
+    "10": {
+      "name": "Globus pallidus pars interna",
+      "code": "gpi",
+      "hemisphere": "r"
+    },
+    "11": {
+      "name": "Globus pallidus pars externa",
+      "code": "gpe",
+      "hemisphere": "l"
+    },
+    "12": {
+      "name": "Globus pallidus pars externa",
+      "code": "gpe",
+      "hemisphere": "r"
+    },
+    "13": {
+      "name": "Thalamus",
+      "code": "tha",
+      "hemisphere": "l"
+    },
+    "14": {
+      "name": "Thalamus",
+      "code": "tha",
+      "hemisphere": "r"
+    },
+    "15": {
+      "name": "Lateral ventricle",
+      "code": "vent",
+      "hemisphere": "l"
+    },
+    "16": {
+      "name": "Lateral ventricle",
+      "code": "vent",
+      "hemisphere": "r"
+    },
+    "17": {
+      "name": "Third ventricle",
+      "code": "vent",
+      "hemisphere": "3"
+    },
+    "18": {
+      "name": "Fourth ventricle",
+      "code": "vent",
+      "hemisphere": "4"
+    },
+    "19": {
+      "name": "Amygdala",
+      "code": "amg",
+      "hemisphere": "l"
+    },
+    "20": {
+      "name": "Amygdala",
+      "code": "amg",
+      "hemisphere": "r"
+    },
+    "21": {
+      "name": "Internal capsule",
+      "code": "ic",
+      "hemisphere": "l"
+    },
+    "22": {
+      "name": "Internal capsule",
+      "code": "ic",
+      "hemisphere": "r"
+    },
+    "23": {
+      "name": "Ventral tegmental area",
+      "code": "vta",
+      "hemisphere": "l"
+    },
+    "24": {
+      "name": "Ventral tegmental area",
+      "code": "vta",
+      "hemisphere": "r"
+    },
+    "25": {
+      "name": "Fornix",
+      "code": "fx",
+      "hemisphere": "lr"
+    },
+    "26": {
+      "name": "Periaqueductal gray",
+      "code": "pag",
+      "hemisphere": "l"
+    },
+    "27": {
+      "name": "Periaqueductal gray",
+      "code": "pag",
+      "hemisphere": "r"
+    },
+    "28": {
+      "name": "Pedunculopontine nucleus",
+      "code": "ppn",
+      "hemisphere": "l"
+    },
+    "29": {
+      "name": "Pedunculopontine nucleus",
+      "code": "ppn",
+      "hemisphere": "r"
+    },
+    "30": {
+      "name": "Claustrum",
+      "code": "cl",
+      "hemisphere": "l"
+    },
+    "31": {
+      "name": "Claustrum",
+      "code": "cl",
+      "hemisphere": "r"
+    },
+    "32": {
+      "name": "Inferior colliculus",
+      "code": "ico",
+      "hemisphere": "l"
+    },
+    "33": {
+      "name": "Inferior colliculus",
+      "code": "ico",
+      "hemisphere": "r"
+    },
+    "34": {
+      "name": "Superior colliculus",
+      "code": "sco",
+      "hemisphere": "l"
+    },
+    "35": {
+      "name": "Superior colliculus",
+      "code": "sco",
+      "hemisphere": "r"
+    },
+    "36": {
+      "name": "Lateral habenula",
+      "code": "lh",
+      "hemisphere": "l"
+    },
+    "37": {
+      "name": "Lateral habenula",
+      "code": "lh",
+      "hemisphere": "r"
+    },
+    "38": {
+      "name": "Putamen",
+      "code": "put",
+      "hemisphere": "l"
+    },
+    "39": {
+      "name": "Putamen",
+      "code": "put",
+      "hemisphere": "r"
+    },
+    "40": {
+      "name": "Accumbens",
+      "code": "acc",
+      "hemisphere": "l"
+    },
+    "41": {
+      "name": "Accumbens",
+      "code": "acc",
+      "hemisphere": "r"
+    },
+    "42": {
+      "name": "Cornu ammonis 1",
+      "code": "ca1",
+      "hemisphere": "l"
+    },
+    "43": {
+      "name": "Cornu ammonis 1",
+      "code": "ca1",
+      "hemisphere": "r"
+    },
+    "44": {
+      "name": "Cornu ammonis 2,3",
+      "code": "ca23",
+      "hemisphere": "l"
+    },
+    "45": {
+      "name": "Cornu ammonis 2,3",
+      "code": "ca23",
+      "hemisphere": "r"
+    },
+    "46": {
+      "name": "Dentate gyrus",
+      "code": "dg",
+      "hemisphere": "l"
+    },
+    "47": {
+      "name": "Dentate gyrus",
+      "code": "dg",
+      "hemisphere": "r"
+    },
+    "48": {
+      "name": "Pre/pro subiculum",
+      "code": "presub",
+      "hemisphere": "l"
+    },
+    "49": {
+      "name": "Pre/pro subiculum",
+      "code": "presub",
+      "hemisphere": "r"
+    },
+    "50": {
+      "name": "Subiculum",
+      "code": "sub",
+      "hemisphere": "l"
+    },
+    "51": {
+      "name": "Subiculum",
+      "code": "sub",
+      "hemisphere": "r"
+    },
+    "52": {
+      "name": "Uncus",
+      "code": "unc",
+      "hemisphere": "l"
+    },
+    "53": {
+      "name": "Uncus",
+      "code": "unc",
+      "hemisphere": "r"
+    },
+    "54": {
+      "name": "Anterior commissure",
+      "code": "ac",
+      "hemisphere": "lr"
+    },
+    "55": {
+      "name": "Posterior commissure",
+      "code": "pc",
+      "hemisphere": "lr"
+    },
+    "56": {
+      "name": "Cholinergic forebrain nuclei",
+      "code": "chn",
+      "hemisphere": "l"
+    },
+    "57": {
+      "name": "Cholinergic forebrain nuclei",
+      "code": "chn",
+      "hemisphere": "r"
+    },
+    "58": {
+      "name": "Dorsal raphe nucleus",
+      "code": "drn",
+      "hemisphere": "lr"
+    },
+    "59": {
+      "name": "Medial raphe nucleus",
+      "code": "mrn",
+      "hemisphere": "lr"
+    },
+    "60": {
+      "name": "Lateral geniculate nucleus",
+      "code": "lgn",
+      "hemisphere": "l"
+    },
+    "61": {
+      "name": "Lateral geniculate nucleus",
+      "code": "lgn",
+      "hemisphere": "r"
+    },
+    "62": {
+      "name": "Medial geniculate nucleus",
+      "code": "mgn",
+      "hemisphere": "l"
+    },
+    "63": {
+      "name": "Medial geniculate nucleus",
+      "code": "mgn",
+      "hemisphere": "r"
+    },
+    "0": {
+      "name": "Background",
+      "code": "background",
+      "hemisphere": "none"
+    }
+  },
+  "contrasts": {
+    "iqr-qsmap": {
+      "file": "/app/anatomy/brain-fine-massp2/iqr-qsmap.f32.gz",
+      "codec": "native-f32-row-xor-byte-shuffle-gzip",
+      "bytes": 2879132,
+      "sha256": "4a0addca6fec25a29d2a514e203b5d31ab6ed92a45db16ee4ed71ac38de67673",
+      "encoded_raw_sha256": "d985b4ba623be42329c8f879a322336bafc514af576bd47c57943e5e81f9dc55",
+      "decoded_sha256": "05050149b09666138a698013be986c4981350be32a1060e62d99cb85f7f1a2f4",
+      "decoded_bytes": 3890688,
+      "source_file": "ahead_qmri2_mni09b_iqr_qsmap_n105.nii.gz",
+      "source_file_sha256": "0e43e4c4c15a6e0e3b74222b705fce8f5c9a14e3143c64c40bdcf7860e3da505",
+      "statistic": "iqr",
+      "contrast": "qsmap",
+      "display_window": [
+        0.00981396434828639,
+        0.06497832864522932
+      ],
+      "display_window_basis": "2nd and 98th percentile of unchanged full native regional crop",
+      "source_range": [
+        0.005081886425614357,
+        0.21952497959136963
+      ],
+      "units": "source numerical units; independent quantitative calibration unverified",
+      "exact_original_shape_and_affine_match": true,
+      "independent_clinical_registration_approval": false
+    },
+    "med-qsmap": {
+      "file": "/app/anatomy/brain-fine-massp2/med-qsmap.f32.gz",
+      "codec": "native-f32-row-xor-byte-shuffle-gzip",
+      "bytes": 3080347,
+      "sha256": "2369c8197bd8dfdab096e78d8eed8e25772c199e0d628f360b182ddf04f9aad6",
+      "encoded_raw_sha256": "ea77b80c0fb85a1b1796f574e69bc74fd3244ddfaea229832823e3a1b79a7296",
+      "decoded_sha256": "c37e7b975e205780ddec102bc09a4bb25ffbbc957d316be7979ff35d9492e6aa",
+      "decoded_bytes": 3890688,
+      "source_file": "ahead_qmri2_mni09b_med_qsmap_n105.nii.gz",
+      "source_file_sha256": "fd87cbbc0481365eff683f800cc732b1fcbd374d9c1fbc6b17047fa8dafa6e16",
+      "statistic": "med",
+      "contrast": "qsmap",
+      "display_window": [
+        -0.03784127101302147,
+        0.0543051666766405
+      ],
+      "display_window_basis": "2nd and 98th percentile of unchanged full native regional crop",
+      "source_range": [
+        -0.143839493393898,
+        0.09452707320451736
+      ],
+      "units": "source numerical units; independent quantitative calibration unverified",
+      "exact_original_shape_and_affine_match": true,
+      "independent_clinical_registration_approval": false
+    },
+    "iqr-r1map": {
+      "file": "/app/anatomy/brain-fine-massp2/iqr-r1map.f32.gz",
+      "codec": "native-f32-row-xor-byte-shuffle-gzip",
+      "bytes": 2732266,
+      "sha256": "81e0e161a6da44a9cc10ff0758996d092f89cbe7d67a985860ecc478c33bc3d5",
+      "encoded_raw_sha256": "0a1714e27338a6ad5ba04c7900e53afcaf8a80b19a9cbce3c21221c70ccb5fa2",
+      "decoded_sha256": "ace0e3ea5f0e5603d381af385f5bbd66b20bc6f289e8136583e5dee484bfa4e0",
+      "decoded_bytes": 3890688,
+      "source_file": "ahead_qmri2_mni09b_iqr_r1map_n105.nii.gz",
+      "source_file_sha256": "07a09b215a52cee0bce57f45cfbf0304224f6d6137c22722feec6de46bad5ef2",
+      "statistic": "iqr",
+      "contrast": "r1map",
+      "display_window": [
+        0.04180827260017395,
+        0.3478721618652342
+      ],
+      "display_window_basis": "2nd and 98th percentile of unchanged full native regional crop",
+      "source_range": [
+        0.0267677903175354,
+        0.6445836424827576
+      ],
+      "units": "source numerical units; independent quantitative calibration unverified",
+      "exact_original_shape_and_affine_match": true,
+      "independent_clinical_registration_approval": false
+    },
+    "med-r1map": {
+      "file": "/app/anatomy/brain-fine-massp2/med-r1map.f32.gz",
+      "codec": "native-f32-row-xor-byte-shuffle-gzip",
+      "bytes": 2603811,
+      "sha256": "ae4504f76b18ccba759ced2a30b324a7f31ce874bdf6c807041d638ad5c38764",
+      "encoded_raw_sha256": "9456dac6f1beeefe1b33ac772dee1e8e3476a0a0be26ede7e079e572b442d1d6",
+      "decoded_sha256": "74af524a4cecf02cb8173c55144f8c8becd89ded2d8a387b031d810dec7e0350",
+      "decoded_bytes": 3890688,
+      "source_file": "ahead_qmri2_mni09b_med_r1map_n105.nii.gz",
+      "source_file_sha256": "3bb0ab60a2b82172b63d52e8bea26c0e9f29bfd04c0061fb351824a5b04d1eb7",
+      "statistic": "med",
+      "contrast": "r1map",
+      "display_window": [
+        0.308434665799141,
+        0.9276949858665466
+      ],
+      "display_window_basis": "2nd and 98th percentile of unchanged full native regional crop",
+      "source_range": [
+        0.25777822732925415,
+        1.0033245086669922
+      ],
+      "units": "source numerical units; independent quantitative calibration unverified",
+      "exact_original_shape_and_affine_match": true,
+      "independent_clinical_registration_approval": false
+    },
+    "iqr-r2map": {
+      "file": "/app/anatomy/brain-fine-massp2/iqr-r2map.f32.gz",
+      "codec": "native-f32-row-xor-byte-shuffle-gzip",
+      "bytes": 2859475,
+      "sha256": "283faa2ad51471ff9edcc5c048687b0a86eda66bd47f6ca442fab08bf7446bd3",
+      "encoded_raw_sha256": "0579490aa899d0718344b22891b8a5b7ca5fe4712d57e12ba3a15d8ddb60f8e0",
+      "decoded_sha256": "00397989f164d87dc7a5d7bfcbd30def0f964bb530bd42e32a331902ec5fcc3b",
+      "decoded_bytes": 3890688,
+      "source_file": "ahead_qmri2_mni09b_iqr_r2map_n105.nii.gz",
+      "source_file_sha256": "8e49d98c6cce52c0a9e6b8eff2ddd64908a94b4e8f72ebdce5fd9d65f6d97a0b",
+      "statistic": "iqr",
+      "contrast": "r2map",
+      "display_window": [
+        5.781269874572754,
+        37.23832023620605
+      ],
+      "display_window_basis": "2nd and 98th percentile of unchanged full native regional crop",
+      "source_range": [
+        0.4218531847000122,
+        76.43001556396484
+      ],
+      "units": "source numerical units; independent quantitative calibration unverified",
+      "exact_original_shape_and_affine_match": true,
+      "independent_clinical_registration_approval": false
+    },
+    "med-r2map": {
+      "file": "/app/anatomy/brain-fine-massp2/med-r2map.f32.gz",
+      "codec": "native-f32-row-xor-byte-shuffle-gzip",
+      "bytes": 2732403,
+      "sha256": "3e070da65d265e3f24a7a596c032679f41254e03f843f28950d50e1de3e8bb04",
+      "encoded_raw_sha256": "c857f19218f761322655014b27280ff978db12eecf60bd549fad46b928567cab",
+      "decoded_sha256": "4756205ae5e988111cabc14cd6c7f104803aaca1dd508b35ac085f7d15f3727e",
+      "decoded_bytes": 3890688,
+      "source_file": "ahead_qmri2_mni09b_med_r2map_n105.nii.gz",
+      "source_file_sha256": "2b6349eb56d87d0c401524e6aab05f4657402f5eefe74d3e91df7c7494b8c464",
+      "statistic": "med",
+      "contrast": "r2map",
+      "display_window": [
+        2.5048403930664067,
+        77.48301834106445
+      ],
+      "display_window_basis": "2nd and 98th percentile of unchanged full native regional crop",
+      "source_range": [
+        1.0,
+        97.23685455322266
+      ],
+      "units": "source numerical units; independent quantitative calibration unverified",
+      "exact_original_shape_and_affine_match": true,
+      "independent_clinical_registration_approval": false
+    }
+  },
+  "probabilities": {
+    "9": {
+      "file": "/app/anatomy/brain-fine-massp2/probability-9.f32.gz",
+      "codec": "native-f32-dictionary-u8-gzip",
+      "bytes": 13135,
+      "sha256": "28bdf4b490cbf4385312f8a978b83354d4014cac0d508f312e8bcdfb00b9c1a1",
+      "encoded_raw_sha256": "c665c1442dbefab4629d26884fa3850417dddc398d0bec77890dcc70ac80e960",
+      "decoded_sha256": "1379860ddd63977ded52cad8bf9275a5cdd839b634737d6151072ddad5c218d0",
+      "decoded_bytes": 3890688,
+      "label": 9,
+      "dictionary_entries": 98,
+      "source_file": "proba_ahead-massp2_avg-gpi_hem-l_decade-18to80_n97.nii.gz",
+      "source_file_sha256": "eebf599c4b298cabb2de8cd8d6eb7495c3685cca37c72fda79a9e6a83cae1ea9",
+      "nonzero_source_voxels": 13137,
+      "nonzero_crop_voxels": 13137,
+      "complete_probability_tail_extent": false,
+      "semantics": "97-subject source population region probability, not patient confidence or MRI IQR"
+    },
+    "10": {
+      "file": "/app/anatomy/brain-fine-massp2/probability-10.f32.gz",
+      "codec": "native-f32-dictionary-u8-gzip",
+      "bytes": 12712,
+      "sha256": "bfc2c4ef108b70331cd0fbe1e359ea71823d53a658fef83fff19c60b9eb94c93",
+      "encoded_raw_sha256": "e7d493f8aa108934cfc29fe7eabd8c50bef00b87136676cc4e174fda3d0ff491",
+      "decoded_sha256": "205b6dea28956bc94a7cc4a5c2f4c9e2bc66e223c4a5fa93728f1bc0694890d7",
+      "decoded_bytes": 3890688,
+      "label": 10,
+      "dictionary_entries": 98,
+      "source_file": "proba_ahead-massp2_avg-gpi_hem-r_decade-18to80_n97.nii.gz",
+      "source_file_sha256": "0dd624b2b0ca62c51da0e08d5a140051a9e23715f889c936a006a6e1bd76ccce",
+      "nonzero_source_voxels": 12770,
+      "nonzero_crop_voxels": 12770,
+      "complete_probability_tail_extent": false,
+      "semantics": "97-subject source population region probability, not patient confidence or MRI IQR"
+    },
+    "11": {
+      "file": "/app/anatomy/brain-fine-massp2/probability-11.f32.gz",
+      "codec": "native-f32-dictionary-u8-gzip",
+      "bytes": 26426,
+      "sha256": "c4b21983df329a4999724cea72a15bad158d867f0d127449f1f4b39309a211d8",
+      "encoded_raw_sha256": "f5d6641e61243afee1bd65f806c4559100d94442bf339d0c49dc75d59a7a8b13",
+      "decoded_sha256": "4766636d0bb8de48c763aa0b625854d6b1104379dfcb8f3fb40ab1fd0befdc92",
+      "decoded_bytes": 3890688,
+      "label": 11,
+      "dictionary_entries": 98,
+      "source_file": "proba_ahead-massp2_avg-gpe_hem-l_decade-18to80_n97.nii.gz",
+      "source_file_sha256": "3587ca01b8d7eae20ab2ae4417ca7b5421048e423690a16141314eaee2820437",
+      "nonzero_source_voxels": 31762,
+      "nonzero_crop_voxels": 31762,
+      "complete_probability_tail_extent": false,
+      "semantics": "97-subject source population region probability, not patient confidence or MRI IQR"
+    },
+    "12": {
+      "file": "/app/anatomy/brain-fine-massp2/probability-12.f32.gz",
+      "codec": "native-f32-dictionary-u8-gzip",
+      "bytes": 25734,
+      "sha256": "f31b56257fe1913537bd5e4ed1da28ae4876220992fad1deba5b1e6e17a6bb23",
+      "encoded_raw_sha256": "c6a2878a62ffa2b1159ff1f6c2e741a3c7552a0af8d1bb385ad2810f7b7eaa7e",
+      "decoded_sha256": "1eeead2591000ee1685bde5bbbc7d9fe47967e1f74632668652ce76c04ef3002",
+      "decoded_bytes": 3890688,
+      "label": 12,
+      "dictionary_entries": 98,
+      "source_file": "proba_ahead-massp2_avg-gpe_hem-r_decade-18to80_n97.nii.gz",
+      "source_file_sha256": "53ea9c0e02a640407367385f204da3493c9c5d7a3037a8c29f9f08f8c34ca38d",
+      "nonzero_source_voxels": 30414,
+      "nonzero_crop_voxels": 30414,
+      "complete_probability_tail_extent": false,
+      "semantics": "97-subject source population region probability, not patient confidence or MRI IQR"
+    },
+    "38": {
+      "file": "/app/anatomy/brain-fine-massp2/probability-38.f32.gz",
+      "codec": "native-f32-dictionary-u8-gzip",
+      "bytes": 52686,
+      "sha256": "e7b2d7850bb2bdb281bf375fd30b8eced2bf82379f785429b3c751ce68bc91b4",
+      "encoded_raw_sha256": "cdd7cdd080d1e6d47be708bb798b6e51d79f276113cf36a968b88485c13992de",
+      "decoded_sha256": "a558d718fd5477ddd9a9c2751fcdd781cdeccd6b8dacaf7e33ddddbd9eec28e0",
+      "decoded_bytes": 3890688,
+      "label": 38,
+      "dictionary_entries": 98,
+      "source_file": "proba_ahead-massp2_avg-put_hem-l_decade-18to80_n97.nii.gz",
+      "source_file_sha256": "442646bcae88fcb52b55adafecb0700ae222092975668d8a0d022b0e128be572",
+      "nonzero_source_voxels": 82742,
+      "nonzero_crop_voxels": 82714,
+      "complete_probability_tail_extent": false,
+      "semantics": "97-subject source population region probability, not patient confidence or MRI IQR"
+    },
+    "39": {
+      "file": "/app/anatomy/brain-fine-massp2/probability-39.f32.gz",
+      "codec": "native-f32-dictionary-u8-gzip",
+      "bytes": 52349,
+      "sha256": "e1553320619bf094aa1d6d7788b162586ede473725b0ca15f5c895596e1a9ac3",
+      "encoded_raw_sha256": "13dcf5f7cafa96378564bde9d04b0ec9705091e35d238af982380cff2428b863",
+      "decoded_sha256": "cfb12d97aced12d29cb39514a22f194b7b563755a10e15b7fad424b67d012e24",
+      "decoded_bytes": 3890688,
+      "label": 39,
+      "dictionary_entries": 98,
+      "source_file": "proba_ahead-massp2_avg-put_hem-r_decade-18to80_n97.nii.gz",
+      "source_file_sha256": "d1e3c370a5aaad193652e31ec053238b4e77c78a17afa4f7d147718c572a1067",
+      "nonzero_source_voxels": 82264,
+      "nonzero_crop_voxels": 82264,
+      "complete_probability_tail_extent": false,
+      "semantics": "97-subject source population region probability, not patient confidence or MRI IQR"
+    },
+    "0": {
+      "file": "/app/anatomy/brain-fine-massp2/probability-0.f32.gz",
+      "codec": "native-f32-dictionary-u8-gzip",
+      "bytes": 316241,
+      "sha256": "f8ca46cd79ae12b0a2845ec4afe7c748539485f97987836b5a1c7901cf7bf5f1",
+      "encoded_raw_sha256": "2f537e8af24ed07059762e335b1374e3335c32ab3fee74d702a84cb9b02ddf5b",
+      "decoded_sha256": "e5ad04480087611c973bbc6975c0bec56ce350a03fb2e8d4963d8c92fe428db0",
+      "decoded_bytes": 3890688,
+      "label": 0,
+      "dictionary_entries": 98,
+      "source_file": "proba_ahead-massp2_avg-background_decade-18to80_n97.nii.gz",
+      "source_file_sha256": "0526cc9f00c3e377ee3b5681a67bcc1a5f9acc90ea23a4fb22d8047ff95e70bf",
+      "nonzero_source_voxels": 68813519,
+      "nonzero_crop_voxels": 588895,
+      "complete_probability_tail_extent": false,
+      "semantics": "97-subject source population region probability, not patient confidence or MRI IQR"
+    }
+  },
+  "targets": [
+    {
+      "id": "massp2-gpi-l",
+      "label": 9,
+      "name": "Left Globus pallidus internal segment",
+      "color": "#a638bf",
+      "center_indices": [
+        38,
+        57,
+        23
+      ],
+      "native_selected_voxels": 6740,
+      "crop_selected_voxels": 6740,
+      "complete_original_selection": true,
+      "mesh": {
+        "file": "/app/anatomy/massp2-subcortex/massp2-gpi-l.bin.gz",
+        "sha256": "5ebeaaadbbf848a500274459d9cbd1ebb36a1940abc524bc4e843a391630b1f7",
+        "decoded_sha256": "7aed07b0d647bc533440a866819164f4bae257a51ebdeeae8903ec2c4419225c",
+        "vertices": 12680,
+        "triangles": 25356,
+        "bounds": [
+          [
+            -25.33333396911621,
+            -14.333333015441895,
+            -10.75
+          ],
+          [
+            -8.666666984558105,
+            1.8333333730697632,
+            2.3333332538604736
+          ]
+        ],
+        "source_surface_sha256": "65fb11c64fb3105217586d639c6471c5c179375af1383d755ee0c3acdca4489c"
+      }
+    },
+    {
+      "id": "massp2-gpi-r",
+      "label": 10,
+      "name": "Right Globus pallidus internal segment",
+      "color": "#a638bf",
+      "center_indices": [
+        110,
+        55,
+        22
+      ],
+      "native_selected_voxels": 6553,
+      "crop_selected_voxels": 6553,
+      "complete_original_selection": true,
+      "mesh": {
+        "file": "/app/anatomy/massp2-subcortex/massp2-gpi-r.bin.gz",
+        "sha256": "bd1b82b16c95dab3202ac848580c6f0e19ae0dad629cf6ef3b4f850e33c988db",
+        "decoded_sha256": "6ce5cb8393f09ffdc68f748be13f5a8d05835e658727b6f7acd2d86cdac0cdae",
+        "vertices": 9252,
+        "triangles": 18500,
+        "bounds": [
+          [
+            8.625,
+            -13.333333015441895,
+            -10.75
+          ],
+          [
+            25.25,
+            2.375,
+            1.3333333730697632
+          ]
+        ],
+        "source_surface_sha256": "e48606490aac787943cc004ee15a8b144a03c01934674b53ccec99a9986ca1e0"
+      }
+    },
+    {
+      "id": "massp2-gpe-l",
+      "label": 11,
+      "name": "Left Globus pallidus external segment",
+      "color": "#1c947b",
+      "center_indices": [
+        31,
+        53,
+        29
+      ],
+      "native_selected_voxels": 17873,
+      "crop_selected_voxels": 17873,
+      "complete_original_selection": true,
+      "mesh": {
+        "file": "/app/anatomy/massp2-subcortex/massp2-gpe-l.bin.gz",
+        "sha256": "78fa8f8ea3e4ae91165311de533c76b98192cfaddfc7f7e37d2871f41261abed",
+        "decoded_sha256": "49eee4c8414ec4c0318602cdddf715b35ad89479c0cba71accdcf5cfcc7e840a",
+        "vertices": 24688,
+        "triangles": 49372,
+        "bounds": [
+          [
+            -30.33333396911621,
+            -18.83333396911621,
+            -9.875
+          ],
+          [
+            -8.666666984558105,
+            9.333333015441895,
+            7.333333492279053
+          ]
+        ],
+        "source_surface_sha256": "a4b115504587e4a8613e35e0009476df5fb23bf68fcb70ac1a1dcdf6426b6c04"
+      }
+    },
+    {
+      "id": "massp2-gpe-r",
+      "label": 12,
+      "name": "Right Globus pallidus external segment",
+      "color": "#1c947b",
+      "center_indices": [
+        116,
+        50,
+        30
+      ],
+      "native_selected_voxels": 17038,
+      "crop_selected_voxels": 17038,
+      "complete_original_selection": true,
+      "mesh": {
+        "file": "/app/anatomy/massp2-subcortex/massp2-gpe-r.bin.gz",
+        "sha256": "782fc47ad2b108237f804146f627685998d718199362ba5de8d7011d0d714dbc",
+        "decoded_sha256": "317ee73a3d439e8d4341d47ddecbc5580a84a372632402325091ad98fc2aa0b5",
+        "vertices": 20385,
+        "triangles": 40766,
+        "bounds": [
+          [
+            8.166666984558105,
+            -17.375,
+            -9.75
+          ],
+          [
+            30.33333396911621,
+            10.833333015441895,
+            7.333333492279053
+          ]
+        ],
+        "source_surface_sha256": "3d063ba85cd33e4a75012354f3608ce71fb2b7d5909cec39925f3e8ce1dd1c8f"
+      }
+    },
+    {
+      "id": "massp2-put-l",
+      "label": 38,
+      "name": "Left Putamen",
+      "color": "#cc7b23",
+      "center_indices": [
+        20,
+        44,
+        32
+      ],
+      "native_selected_voxels": 56485,
+      "crop_selected_voxels": 56485,
+      "complete_original_selection": true,
+      "mesh": {
+        "file": "/app/anatomy/massp2-subcortex/massp2-put-l.bin.gz",
+        "sha256": "a041e72f51515d6da4afeefb3303393a06ea488fcc5bcdfc4fe2096f81621c01",
+        "decoded_sha256": "1e19aa281969a79c56bf20c506b940acc1dcfbc86ad270d85789935b025635ef",
+        "vertices": 51950,
+        "triangles": 103896,
+        "bounds": [
+          [
+            -35.25,
+            -22.25,
+            -14.833333015441895
+          ],
+          [
+            -13.125,
+            20.25,
+            15.333333015441895
+          ]
+        ],
+        "source_surface_sha256": "224ce2e036f11f3909043d2eebff579a734310e40f9bff542f2f19f7b28fffa5"
+      }
+    },
+    {
+      "id": "massp2-put-r",
+      "label": 39,
+      "name": "Right Putamen",
+      "color": "#cc7b23",
+      "center_indices": [
+        127,
+        41,
+        31
+      ],
+      "native_selected_voxels": 55809,
+      "crop_selected_voxels": 55809,
+      "complete_original_selection": true,
+      "mesh": {
+        "file": "/app/anatomy/massp2-subcortex/massp2-put-r.bin.gz",
+        "sha256": "a0a0ed84eb56d6ca23c97ec4406711a9254a216ca48b4ff4ecd741b5b31492e1",
+        "decoded_sha256": "f287201101969a22fb2c4cbc50cd1789fd2498875e3be2f035ff62ed9b216f10",
+        "vertices": 45653,
+        "triangles": 91302,
+        "bounds": [
+          [
+            10.666666984558105,
+            -20.75,
+            -14.833333015441895
+          ],
+          [
+            35.25,
+            21.75,
+            14.833333015441895
+          ]
+        ],
+        "source_surface_sha256": "d24d8a6bbf81ab102b34fb268c19814876e5ba67033a684a87576dca41477477"
+      }
+    }
+  ],
+  "clinical_approval": false,
+  "runtime_binding_added": false,
+  "source_intensity_changes": false,
+  "source_coordinate_changes": false,
+  "source_label_changes": false,
+  "source_resampling": false,
+  "labels": {
+    "file": "/app/anatomy/brain-fine-massp2/bestlabel.u8.gz",
+    "codec": "native-u8-gzip",
+    "bytes": 47921,
+    "sha256": "8c3b0d387625b89ad82f39399535f410a8ed19e6391bee404a56d8c7b8201413",
+    "encoded_raw_sha256": "57e6d0c44a31d5980ad1b7f30845a51f4b0547bd6b3ae890c2f12e570b2d1d00",
+    "decoded_sha256": "57e6d0c44a31d5980ad1b7f30845a51f4b0547bd6b3ae890c2f12e570b2d1d00",
+    "decoded_bytes": 972672,
+    "source_file": "ahead-massp2_avg-bestlabel_decade-18to80.nii.gz",
+    "source_file_sha256": "3881cda78503f31b4ec2e7d900b71a1e8160fdff0dd6925b1d578b92a407e21f",
+    "original_source_dtype": "float32",
+    "transport_dtype": "uint8",
+    "encoding_semantics": "Lossless original integer label IDs; storage dtype changes from float32 to uint8. Decoded SHA-256 covers uint8 IDs, not original float32 storage bytes.",
+    "original_float32_crop_sha256": "4b748cdac388b05e86818fac4d91552d3b3b94b98559afc6aa56d04b5cf1d67b",
+    "float32_reconstruction_bit_identical": true
+  },
+  "sources": {
+    "atlas": {
+      "doi": "10.21942/uva.27291579.v2",
+      "subjects": 97,
+      "age_range_years": [
+        18,
+        80
+      ]
+    },
+    "mri": {
+      "doi": "10.21942/uva.19646364.v3",
+      "subjects": 105,
+      "statistics": [
+        "median",
+        "interquartile range"
+      ]
+    },
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "authors_atlas": "Bazin, Forstmann, Alkemade and Miletic",
+    "authors_mri": "Bazin, Forstmann, Alkemade, Mileti\u0107 and Isherwood"
+  },
+  "limits": [
+    "Adult population templates, not an individual clinical examination; 97-subject segmentation atlas and separate 105-subject MRI cohort.",
+    "Equal declared source grids provide native sampling correspondence, not independent clinical registration or boundary approval.",
+    "Every original voxel selected as putamen, GPe or GPi is retained, with a 2 mm regional context margin. Adjacent structures and nonzero probability tails may continue outside this crop.",
+    "Source best-label IDs preserve all neighbours in the crop. Gross caudate/thalamus/capsule labels do not supply reportable segments, nuclei or limbs.",
+    "Model sections use full unchanged derived joint meshes. Their subvoxel tetrahedral interpolation does not add measured resolution; medullary laminae are not separately delineated.",
+    "MRI IQR describes intersubject intensity spread. Region probabilities describe source atlas population membership. Neither is patient-level diagnostic certainty.",
+    "Quantitative source units, independent registration precision, full clinical boundary accuracy, pathology and developmental coverage remain unverified."
+  ],
+  "total_payload_bytes": 17434638
+}

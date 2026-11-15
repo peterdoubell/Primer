@@ -1,0 +1,559 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "reviewer_role": "Independent source, scientific and browser reviewer; SOOP implementation remains source-owner authored",
+  "investigation_id": "ra.acute-stroke",
+  "module_id": "rad.4.stroke",
+  "verdict": "GO_SOURCE_AND_STANDALONE_RUNTIME_CANDIDATE_ONLY",
+  "source_integration_approved": true,
+  "client_delivery_candidate_approved": true,
+  "approved_source_packet_id": "soop-stroke-native-sub342-source-only",
+  "approved_asset_ids": [
+    "open-soop-sub342-native-trace",
+    "open-soop-sub342-native-adc",
+    "open-soop-sub342-native-t1",
+    "open-soop-sub342-native-flair",
+    "open-soop-sub342-native-acute",
+    "open-soop-sub342-native-chronic",
+    "open-soop-sub342-native-combined",
+    "open-soop-sub342-cell-boundary-acute",
+    "open-soop-sub342-cell-boundary-chronic",
+    "open-soop-sub342-cell-boundary-combined"
+  ],
+  "approved_payload_files": 21,
+  "approved_payload_bytes": 105836672,
+  "approved_integration_proposal_SHA256": "640b646f74ba254aa4e4f864e643bd9462b52429ee79849be22ffe131cd1cd2d",
+  "source_rights": {
+    "pinned_version": "ds004889 v1.1.2",
+    "pinned_root_tree": "a62344db73f18f384a95b452f4a1a423087e059b",
+    "source_dataset_DOI": "doi:10.18112/openneuro.ds004889.v1.1.2",
+    "grant": "CC0",
+    "commercial_source_reuse_and_redistribution_supported": true,
+    "fresh_full_recursive_tree_entries": 24898,
+    "tree_truncated": false,
+    "all_actual_primary_term_files_fresh_Git_blob_verified": true,
+    "actual_term_files": [
+      "README.md",
+      "dataset_description.json"
+    ],
+    "no_contrary_derivative_or_component_notice_in_complete_tree": true,
+    "all11_originals_and_source_pointer_hashes_verified": true,
+    "original_source_bytes": 52676049,
+    "article_grant": "CC BY-NC-ND 4.0; does not extend dataset CC0 to article artwork",
+    "article_full_text_or_artwork_in_source_packet": false
+  },
+  "source_science": {
+    "source_arrays": 7,
+    "source_samples": 160204800,
+    "decoded_original_storage_bytes": 313939968,
+    "complete_source_raw_storage_scaling_dimensions_affines_and_original_bytes_verified": true,
+    "TRACE_ADC_singleton_fourth_dimension_retained": true,
+    "singleton_temporal_spacing_does_not_supply_timing": true,
+    "source_scalar_storage": "int16 MRI and uint8 labels; source float32 NIfTI slope/intercept applied in float64 browser Number without replacing original integer storage",
+    "all_three_source_masks_separate_originals": true,
+    "combined_source_equality_to_acute_OR_chronic_is_comparison_only": true,
+    "source_labels_not_new_biological_age_or_histological_claims": true,
+    "source_rater_method_uncertainty_retained": true,
+    "ADC_physical_unit_scale_verified": false,
+    "T1_or_FLAIR_registered_to_diffusion_or_each_other": false,
+    "source_defacing_preserved": true,
+    "source_skull_stripping_introduced": false,
+    "actual_onset_treatment_acquisition_time_inferred": false,
+    "source_DICOM_or_vascular_studies_supplied": false,
+    "source_spacing_not_effective_tissue_resolution": true,
+    "diffusion_5mm_slice_thickness_6mm_center_spacing_and_unacquired_gaps_explicit": true
+  },
+  "complete_literal_meshes": [
+    {
+      "role": "acute",
+      "vertices": 4843,
+      "triangles": 9688,
+      "all_original_exposed_faces_equal": true,
+      "face_count": 4844,
+      "all_triangles_outward_winding": true,
+      "every_component_and_single_voxel_selection_retained": true,
+      "components": {
+        "6": {
+          "components": 13,
+          "voxel_counts": [
+            1937,
+            389,
+            242,
+            52,
+            33,
+            33,
+            25,
+            14,
+            14,
+            10,
+            9,
+            1,
+            1
+          ]
+        },
+        "26": {
+          "components": 11,
+          "voxel_counts": [
+            2326,
+            242,
+            52,
+            33,
+            33,
+            25,
+            19,
+            14,
+            14,
+            1,
+            1
+          ]
+        }
+      },
+      "signed_volume_mm3": 14410.220241335022,
+      "exact_source_sample_grid_volume_mm3": 14410.220241334995,
+      "source_mask_SHA256": "4920814e0d3923ecd6ce67f76d09a1041322b39db5604a7d486d900993e0ae28",
+      "mesh_SHA256": "e069f2488c9bfc998ec6812603bc71c34f502d34ac7cd8899701bca68d9a3dac",
+      "not_histological_or_continuously_acquired_tissue_volume": true
+    },
+    {
+      "role": "chronic",
+      "vertices": 8309,
+      "triangles": 16644,
+      "all_original_exposed_faces_equal": true,
+      "face_count": 8322,
+      "all_triangles_outward_winding": true,
+      "every_component_and_single_voxel_selection_retained": true,
+      "components": {
+        "6": {
+          "components": 1,
+          "voxel_counts": [
+            11780
+          ]
+        },
+        "26": {
+          "components": 1,
+          "voxel_counts": [
+            11780
+          ]
+        }
+      },
+      "signed_volume_mm3": 61504.49074019088,
+      "exact_source_sample_grid_volume_mm3": 61504.49074019067,
+      "source_mask_SHA256": "bfbdc8ad485e52bf4f56f78bfdb1fc879b7e8c676f557d53cf504ad42c35bd48",
+      "mesh_SHA256": "9d2f46984ccde3b2e257ab78e8c46661a25afe7d0c73222b7bc8741b4f89e452",
+      "not_histological_or_continuously_acquired_tissue_volume": true
+    },
+    {
+      "role": "combined",
+      "vertices": 13152,
+      "triangles": 26332,
+      "all_original_exposed_faces_equal": true,
+      "face_count": 13166,
+      "all_triangles_outward_winding": true,
+      "every_component_and_single_voxel_selection_retained": true,
+      "components": {
+        "6": {
+          "components": 14,
+          "voxel_counts": [
+            11780,
+            1937,
+            389,
+            242,
+            52,
+            33,
+            33,
+            25,
+            14,
+            14,
+            10,
+            9,
+            1,
+            1
+          ]
+        },
+        "26": {
+          "components": 12,
+          "voxel_counts": [
+            11780,
+            2326,
+            242,
+            52,
+            33,
+            33,
+            25,
+            19,
+            14,
+            14,
+            1,
+            1
+          ]
+        }
+      },
+      "signed_volume_mm3": 75914.71098152592,
+      "exact_source_sample_grid_volume_mm3": 75914.71098152566,
+      "source_mask_SHA256": "5f0b0eb3b85d46bb60f70a8aa24877e861d7f8eb0ab81827f4ad4964beff5d48",
+      "mesh_SHA256": "b4dab2eabe153d7913ba02c55645520078674a7a383d73e5b19e04bfeefa56ab",
+      "not_histological_or_continuously_acquired_tissue_volume": true
+    }
+  ],
+  "runtime_checks": {
+    "actual_final_JS_SHA256": "bebcbbc1d985c35bda8aee8a02fd92f97b21819059b06ad506f11d2f9573e1c7",
+    "actual_final_HTML_SHA256": "c82a142483efdc8433f110b5f6f273ec7e59d0425a213931c61e84dd8dd07657",
+    "actual_final_manifest_SHA256": "6930d88bdf2741783f0e43fd80c01e2ce6686e82edaac5a12a072729432ce1a8",
+    "actual_served_final_JS_hash_both_widths": true,
+    "widths": [
+      1440,
+      390
+    ],
+    "all7_source_buffers_complete_and_original_hash_equal_at_both_widths": true,
+    "startup_small_source_buffers_then_complete_T1_or_FLAIR_on_selection": true,
+    "previous_large_buffer_released_before_next_large_buffer": true,
+    "no_cropped_downsampled_or_partial_array_substitute": true,
+    "availability_states_explicit": true,
+    "native_pixel_frames": 84,
+    "native_RGB_pixels": 6390272,
+    "native_RGBA_bytes_equal": 25561088,
+    "independent_raw_scaled_RAS_readouts": 406,
+    "complete_mesh_camera_draws": 30,
+    "corrupted_manifest_TRACE_geometry_and_lazy_T1_failures_at_both_widths": 8,
+    "all_failures_blank_GPU_no_ready_triangles_disabled_controls_retry_enabled": true,
+    "all_valid_recoveries_verified": true,
+    "both_widths_blank_equal_reversed_display_windows_rejected": true,
+    "both_widths_finite_extreme_window_center_gray128_verified": true,
+    "native_keyboard_navigation_verified": true,
+    "browser_errors": 0,
+    "overflow": false,
+    "independent_context_and_browser_handles_closed": true,
+    "owner_loopback_server_closed": {
+      "session": 82518,
+      "exit_code": 143
+    },
+    "all20_independent_captures_visually_inspected": true,
+    "auth_integrated_Primer_reader_or_production_verification": false,
+    "owner_server_PID_authoritatively_absent": true,
+    "owner_loopback_connection_refused_after_closure": true
+  },
+  "verification": {
+    "current_owner_source_test_suite_passed": 8,
+    "elapsed_seconds": 3.67,
+    "independent_whole_array_decode_and_complete_face_oracles_separate_from_owner_tests": true,
+    "source_tests_do_not_grant_clinical_or_fine_anatomical_approval": true
+  },
+  "preserved_failures_and_observations": [
+    {
+      "kind": "source_owner_extreme_window_failure",
+      "record": "docs/soop-stroke-native-source-review-20261011/finite-window-amendment.json",
+      "scope": "Old finite endpoints overflowed span and numerator, giving NaN converted to black. Owner ratio/half-scale repair independently reverified on final JS; ordinary source pixels exact."
+    },
+    {
+      "kind": "independent_first_browser_run_superseded",
+      "offline_record": ".research/soop-independent-review-20261011/native-browser-independent-before-final-hash.json",
+      "scope": "Run overlapped the legitimate owner JS repair; its actual served script hash was not independently pinned. A new final run verified actual served final JS at both widths before approval."
+    },
+    {
+      "kind": "prior_ISLES_source_NO_GO_preserved",
+      "record": "docs/acute-stroke-source-review-20261011/independent-native-rights-conflict-amendment.json",
+      "scope": "SOOP source clearance does not grant ISLES permission or transfer prior patient data into this package."
+    }
+  ],
+  "representation_limits": [
+    "This source dataset provides no named-anatomy segmentation of each stroke reporting structure, native CTA/CTP or vascular lumen/wall/collateral models.",
+    "The three literal models are source annotation sampling-cell boundaries, including unacquired interslice intervals, not continuous acquired tissue or independently validated histological boundaries.",
+    "No clinical/current-patient registration, exact tissue viability, onset clock, treatment eligibility or clinical core/penumbra measurement is inferred.",
+    "Complete source arrays and commercially reusable source grants do not establish clinical fitness, complete module coverage or certification readiness.",
+    "The labelled source models each use their own camera fit. The stored coordinates and source volumes remain exact; displayed normalized scale is not a calibrated measurement tool."
+  ],
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "structure_coverage_granted": false,
+  "verified_representation_obligations": 0,
+  "full_module_clinical_commercial_grade": false,
+  "whole_goal_complete": false,
+  "common_node_registry_or_backend_mutations_by_reviewer": false,
+  "git_mutations_by_reviewer": false,
+  "pins": {
+    "web/anatomy/soop-stroke-sub342/sub-342_FLAIR.nii.gz": {
+      "sha256": "b79cfb333c001c53a1334a88890172d642e15b2badd6390490c1b1724942ad32",
+      "bytes": 17198465
+    },
+    "web/anatomy/soop-stroke-sub342/chronic-cell-boundary.native.gz": {
+      "sha256": "9d2f46984ccde3b2e257ab78e8c46661a25afe7d0c73222b7bc8741b4f89e452",
+      "bytes": 179011
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_space-TRACE_desc-lesion_mask.nii.gz": {
+      "sha256": "5f0b0eb3b85d46bb60f70a8aa24877e861d7f8eb0ab81827f4ad4964beff5d48",
+      "bytes": 4365
+    },
+    "web/anatomy/soop-stroke-sub342/acute.native.gz": {
+      "sha256": "80d4e591e9fe66a0f2d77719b50758237fb73bd8a3c86068374bd6201aebb959",
+      "bytes": 2910
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_FLAIR.json": {
+      "sha256": "a7a3fe56314b44509174dc9ab9a1d2efe77b489a5030b671721af5099cc08e0d",
+      "bytes": 1792
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_T1w.nii.gz": {
+      "sha256": "7cb91e39ce3c72b0529bd17388948203ddeed1bf0348641c4ffc357058c10c9b",
+      "bytes": 33641626
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_space-TRACE_desc-lesionChronic_mask.nii.gz": {
+      "sha256": "bfbdc8ad485e52bf4f56f78bfdb1fc879b7e8c676f557d53cf504ad42c35bd48",
+      "bytes": 3592
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_T1w.json": {
+      "sha256": "1f1a19a7db441bd93bd0a974673cee12b80cda24434e5c21f5b858e4b122fe9f",
+      "bytes": 1795
+    },
+    "web/anatomy/soop-stroke-sub342/t1.native.gz": {
+      "sha256": "b3173921bd7f98811201e4dbb910fc609d1c2523f7101838b94ba987ef5c972f",
+      "bytes": 33641540
+    },
+    "web/anatomy/soop-stroke-sub342/flair.native.gz": {
+      "sha256": "96f4680132b443b651ea6d0db7bb1f48aaa849235e5a36296366356a44517dc0",
+      "bytes": 17198387
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_rec-ADC_dwi.json": {
+      "sha256": "5fb3dab1e43fac208dca6d4c3a2ee7078d1278a78a3a7d3055d03e5f461d0930",
+      "bytes": 1802
+    },
+    "web/anatomy/soop-stroke-sub342/adc.native.gz": {
+      "sha256": "43e4bf0f271e888f964f2abf5b98a55bbcf52ade2c413a77d21a71f17f004e4c",
+      "bytes": 1044035
+    },
+    "web/anatomy/soop-stroke-sub342/chronic.native.gz": {
+      "sha256": "0fdde4656aa5875636f7979743d31d0753c2488ef0cf0fee717aa158c6f47229",
+      "bytes": 3309
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_space-TRACE_desc-lesionAcute_mask.nii.gz": {
+      "sha256": "4920814e0d3923ecd6ce67f76d09a1041322b39db5604a7d486d900993e0ae28",
+      "bytes": 3179
+    },
+    "web/anatomy/soop-stroke-sub342/reference.html": {
+      "sha256": "c82a142483efdc8433f110b5f6f273ec7e59d0425a213931c61e84dd8dd07657",
+      "bytes": 10690
+    },
+    "web/anatomy/soop-stroke-sub342/combined.native.gz": {
+      "sha256": "1872b0b2dcd14e21d72b9e89fd3153e3913a8345f227dd17892d8f651028efbc",
+      "bytes": 4084
+    },
+    "web/anatomy/soop-stroke-sub342/combined-cell-boundary.native.gz": {
+      "sha256": "b4dab2eabe153d7913ba02c55645520078674a7a383d73e5b19e04bfeefa56ab",
+      "bytes": 283136
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_rec-TRACE_dwi.nii.gz": {
+      "sha256": "20eb8d2423fc637f4b411f5b5e17aec10d57205bf78716e6cb8ac33f88428cad",
+      "bytes": 756397
+    },
+    "web/anatomy/soop-stroke-sub342/manifest.json": {
+      "sha256": "6930d88bdf2741783f0e43fd80c01e2ce6686e82edaac5a12a072729432ce1a8",
+      "bytes": 31806
+    },
+    "web/anatomy/soop-stroke-sub342/trace.native.gz": {
+      "sha256": "3203865dd2d9dfbfb30575ef89c9f2d2566f00afec982d8d0b3d6ca8fd7ca9bb",
+      "bytes": 697016
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_rec-TRACE_dwi.json": {
+      "sha256": "fd0ce9ffffd83e143165ef78bf1f919acae32740dbedb0804dbdea7d1f9966b9",
+      "bytes": 1739
+    },
+    "web/anatomy/soop-stroke-sub342/sub-342_rec-ADC_dwi.nii.gz": {
+      "sha256": "1cfc932b002e0672b6cd4cf0d6a1ef1e94fe946824d9d3b1306ad8122c1f0da0",
+      "bytes": 1061297
+    },
+    "web/anatomy/soop-stroke-sub342/reference.js": {
+      "sha256": "bebcbbc1d985c35bda8aee8a02fd92f97b21819059b06ad506f11d2f9573e1c7",
+      "bytes": 19757
+    },
+    "web/anatomy/soop-stroke-sub342/acute-cell-boundary.native.gz": {
+      "sha256": "e069f2488c9bfc998ec6812603bc71c34f502d34ac7cd8899701bca68d9a3dac",
+      "bytes": 107195
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342_space-TRACE_desc-lesion_mask.nii.gz.annex-pointer": {
+      "sha256": "4c8366257892f838edb44f0a900ce5e213c82988ed1b57006209900ac81c6366",
+      "bytes": 210
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342_rec-TRACE_dwi.nii.gz.annex-pointer": {
+      "sha256": "d5daf5ae1bf5cb576f403d9a4e4ff30b8b349b88a1021c3b5d68b42b56bc49fc",
+      "bytes": 208
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/CHANGES": {
+      "sha256": "c2e7e4f2a2bce857c21afd04c0b99787e9573b87cb899b7bb123c98391559d0e",
+      "bytes": 217
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/derivatives-tree.json": {
+      "sha256": "aef8df94c2a5f4ba2a4cf4cdaa2af274b265da0eace3e7cdc720f7babcd3d74e",
+      "bytes": 1888621
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/root-tree.json": {
+      "sha256": "4c9862074ae65378726c42b50ac7033b3599c7f95aea5fa1e20ecf0f3988331e",
+      "bytes": 454716
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342_FLAIR.nii.gz.annex-pointer": {
+      "sha256": "af569c1a6634b8a83f3d4c60764fab17b2d07546dbbb2c4abb53eb0c475f04e0",
+      "bytes": 212
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/protocol-selection.json": {
+      "sha256": "d195cfb35deda3486cbfb578223b9e0aedaf9a21002af56d451de7b116f6b8b2",
+      "bytes": 16986
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342-tree.json": {
+      "sha256": "41113a569b14ad72528e3a6ae834bd01e38cfca10f47749bb7e5bf39bf1a2242",
+      "bytes": 3148
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/README.md": {
+      "sha256": "249074e63120210c2fe7fc781f61cf0a4c1e237d669d032939a41ed9e67eac0e",
+      "bytes": 1465
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/dataset_description.json": {
+      "sha256": "61bd63682eebecc7efa42e51e38e447af21bd49bc7b6a4415de03e2eca40a3b6",
+      "bytes": 320
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342_space-TRACE_desc-lesionChronic_mask.nii.gz.annex-pointer": {
+      "sha256": "3c3c7ad6dbe2a9f7625a5221ed8f598e55f092a2fd5650a91580334d03249510",
+      "bytes": 210
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342_T1w.nii.gz.annex-pointer": {
+      "sha256": "5d2bd047cd552f7606a484203dc80a7d98cefce432502b2e3b69a7d4cb64ed2f",
+      "bytes": 212
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342_space-TRACE_desc-lesionAcute_mask.nii.gz.annex-pointer": {
+      "sha256": "b6215e7a3c34a21a75d55fed8929bb26bd423c2c63f290975e2a6dc7507171da",
+      "bytes": 210
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342-acquisition.json": {
+      "sha256": "a9913b4a7b56152ea53e79afaeb5baacb47c1d8eeee954832b1159792d943767",
+      "bytes": 4867
+    },
+    "docs/soop-stroke-native-source-review-20261011/source/sub-342_rec-ADC_dwi.nii.gz.annex-pointer": {
+      "sha256": "2248e1bd5f76adcb6a4b16511ceb7735440c67cd3495c16acc631b38f8bc7152",
+      "bytes": 210
+    },
+    "docs/soop-stroke-native-source-review-20261011/integration-proposal.json": {
+      "sha256": "640b646f74ba254aa4e4f864e643bd9462b52429ee79849be22ffe131cd1cd2d",
+      "bytes": 44655
+    },
+    "docs/soop-stroke-native-source-review-20261011/native-source-proof.json": {
+      "sha256": "2560619f6764817874fd5be4ae000de5abcfc6b8a32a319503c36a379b616859",
+      "bytes": 12758
+    },
+    "docs/soop-stroke-native-source-review-20261011/native-browser-proof.json": {
+      "sha256": "f6be3fcb5a00928302d5fe1330223a54780f93220641d1ce8d882ba76f4465d6",
+      "bytes": 120033
+    },
+    "docs/soop-stroke-native-source-review-20261011/native-pixel-buffer-proof.json": {
+      "sha256": "f1d8c0e2abe4665253ddbc0a4c11f36372268c3fe318226b215fc5ac41c6787e",
+      "bytes": 43462
+    },
+    "docs/soop-stroke-native-source-review-20261011/finite-window-amendment.json": {
+      "sha256": "1c0181cc758ee8b3f72296df7347b4fd0a2169545f06fe9233b00b08d85dc887",
+      "bytes": 445
+    },
+    "docs/soop-stroke-independent-review-20261011/source-rights-methods-review.json": {
+      "sha256": "3c3d58424f31b48a2e7e5e245bc14f56703b543527691d2afc16345c5f9bc1e2",
+      "bytes": 8424
+    },
+    "docs/soop-stroke-independent-review-20261011/original-array-review.json": {
+      "sha256": "88acbaf4820f885a1802e6e2573a7d97be03ef5fe0f92baf8acd2eda53bf735d",
+      "bytes": 14849
+    },
+    "docs/soop-stroke-independent-review-20261011/runtime-array-mesh-scientific-review.json": {
+      "sha256": "5173165261be3369ef6c3aa3d85ec05f4e9dc2ba48adfdc217da151aa95bcd3f",
+      "bytes": 7750
+    },
+    "docs/soop-stroke-independent-review-20261011/native-browser-independent-review.json": {
+      "sha256": "a8aecaf8aefbe028261aad1b10c7e45c3e44be78d84b80b403d948d9bc5b9dcf",
+      "bytes": 217383
+    },
+    "docs/soop-stroke-independent-review-20261011/native-pixel-independent-review.json": {
+      "sha256": "4549dfb6b54934ab9706bdf0385831d7b6538a54d69b61b5ae995b271af193d8",
+      "bytes": 27382
+    },
+    "tools/anatomy_sources/soop_stroke_native.py": {
+      "sha256": "9c463f332af098a31f9c4ed5f91e87627ecdc01d7aeb89fe65d4fe3403c082a6",
+      "bytes": 11689
+    },
+    "tests/test_soop_stroke_native.py": {
+      "sha256": "b21c885788a73b785d07e53c257885f10829109156c6be4dd08d1f8cf18586c3",
+      "bytes": 10996
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-1440-chronic.png": {
+      "sha256": "451ac35a19aab959ac5eb96d9fcb386501254be7f0f5aab99af70a8972aff1ab",
+      "bytes": 303944
+    },
+    "docs/soop-stroke-independent-review-20261011/mesh-independent-1440-chronic.png": {
+      "sha256": "6c4e64d6a54954799d37356f6ab1e1e2ee22e30a4b477080195861b6e175006b",
+      "bytes": 13676
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-390-adc.png": {
+      "sha256": "8a250b4a0b3dc510d51adb597e73ae8565fe65ec6227439b84b1599d44182949",
+      "bytes": 386943
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-1440-flair.png": {
+      "sha256": "3fce453ccbce78c0dd88d6df98b1ed9b42bd0beab0029351d68aff43442ebee5",
+      "bytes": 548137
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-1440-acute.png": {
+      "sha256": "be4c636af12c53d892f42949b28a1e6c47229d7c983978d0aae47d8a5f877cca",
+      "bytes": 303277
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-390-trace.png": {
+      "sha256": "7fbc459402995148e8e7c9f5e32546645b38637f6c1c30e6c95d7e5b3412f56c",
+      "bytes": 377203
+    },
+    "docs/soop-stroke-independent-review-20261011/mesh-independent-390-chronic.png": {
+      "sha256": "c0658ccbcce1e52025ebadd1f02d8b2c99228b7c81d0900862ef389201708825",
+      "bytes": 5388
+    },
+    "docs/soop-stroke-independent-review-20261011/mesh-independent-1440-acute.png": {
+      "sha256": "759c81ff61cf88c2c39b1cc8a51c69c6d4db2af69d76abe0fd44231fc32d368b",
+      "bytes": 11340
+    },
+    "docs/soop-stroke-independent-review-20261011/mesh-independent-1440-combined.png": {
+      "sha256": "b5ba06e77fe7484232da20f98205d7d09da21ec75e7552050be9674cae271544",
+      "bytes": 16422
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-390-chronic.png": {
+      "sha256": "4ab2300c88cdba2000433248d715f64f4da7b7d2b6d8138abd6cf9ec003772a6",
+      "bytes": 315439
+    },
+    "docs/soop-stroke-independent-review-20261011/mesh-independent-390-acute.png": {
+      "sha256": "e2301ac08050dd486d2e7c22cde4edb151edc43323403a5558b45401abbdc6f5",
+      "bytes": 4450
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-390-t1.png": {
+      "sha256": "26446480aac4071de7ec0d75d92ca8ca67fcea74c1f04e662325906990e92191",
+      "bytes": 570100
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-1440-combined.png": {
+      "sha256": "f01d0d460be0d8bc5c14f91af72a04870d43e05631edbdafc940b82c3179558e",
+      "bytes": 305657
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-1440-trace.png": {
+      "sha256": "d47fe8951908daae077c2448da389c276acffe7971b8013e518ec727a8ee2542",
+      "bytes": 370935
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-390-flair.png": {
+      "sha256": "88bee87b60a8693646fcd63a3423028c12eaa3a7b668bd3de368da4ef7f7382a",
+      "bytes": 529722
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-390-acute.png": {
+      "sha256": "2a47f84e447528c5bc3cde21f9dc41ba39f0f5f6419e0d49bd0cd0834e697caa",
+      "bytes": 313899
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-1440-t1.png": {
+      "sha256": "f1e1d162ef6bfd337a08de881d916d94615be33d27b8f3334853254c81cdc707",
+      "bytes": 597998
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-1440-adc.png": {
+      "sha256": "f98470d0684ad7dab09bb8577d126c0b0c72313d9db3a3071a3f7563fc3a7347",
+      "bytes": 382332
+    },
+    "docs/soop-stroke-independent-review-20261011/native-independent-390-combined.png": {
+      "sha256": "641263cbac7f1c0c2ca24681342c14b1d90c01603466c9316c5ba80e35fa8398",
+      "bytes": 316576
+    },
+    "docs/soop-stroke-independent-review-20261011/mesh-independent-390-combined.png": {
+      "sha256": "1fd6c256fd8109e1fa863ca4a05e4ca289ae4b478623d33c68dae13ec8f7453d",
+      "bytes": 5550
+    }
+  }
+}

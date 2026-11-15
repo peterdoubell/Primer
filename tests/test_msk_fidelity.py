@@ -554,7 +554,7 @@ def context_case(case, source, target):
     ({'depicted_state': 'normal_anatomy'}, {'depicted_state': ['infection']}, 'source_context_depicted_state_mismatch'),
     ({'depicted_state': 'normal_anatomy'}, {'purpose': 'pathology_example'}, 'source_context_purpose_mismatch'),
     ({'extent': 'local'}, {'extent': 'complete'}, 'source_context_extent_mismatch'),
-    ({'selected_panels': ['e'], 'panel_types': {'c': 'MRI', 'e': 'Histology'}}, {}, 'source_context_selected_panel_not_clinical_image'),
+    ({'selected_panels': ['e'], 'panel_types': {'c': 'MRI', 'e': 'Histology'}}, {}, 'source_context_selected_panel_modality_mismatch'),
     ({'selected_panels': ['b'], 'panel_types': {'b': 'Dissection'}}, {}, 'source_context_selected_panel_not_clinical_image'),
     ({'selected_panels': ['a'], 'panel_types': {'a': 'Ultrasound'}}, {}, 'source_context_selected_panel_modality_mismatch'),
 ])

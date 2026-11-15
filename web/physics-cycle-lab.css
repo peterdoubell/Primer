@@ -1,0 +1,23 @@
+.physics-cycle-lab { min-width: 0; }
+.physics-cycle-lab .model-heading-row { flex-wrap: wrap; }
+.physics-cycle-lab .model-heading-row > button { flex-shrink: 0; }
+.cycle-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 15px 0; }
+.cycle-viewport { min-width: 0; overflow: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 10px; background: #f5efdf; }
+.cycle-viewport svg { display: block; width: 100%; height: auto; font-family: var(--sans, sans-serif); }
+.physics-cycle-lab.is-enlarged .cycle-viewport svg { min-width: 660px; }
+.physics-cycle-lab.is-first-law .cycle-panels { grid-template-columns: minmax(0, 1fr); }
+.physics-cycle-lab.is-first-law:not(.is-enlarged) .cycle-viewport svg { max-width: 600px; margin: auto; }
+.cycle-readout, .cycle-equation, .cycle-assumptions { overflow-wrap: anywhere; line-height: 1.6; font-variant-numeric: tabular-nums; }
+.physics-cycle-lab .cycle-select-control { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.physics-cycle-lab input[type=number], .physics-cycle-lab select { box-sizing: border-box; width: 100%; max-width: 100%; min-width: 0; min-height: 38px; font: inherit; color: inherit; background: var(--paper, #f5efdf); border: 1px solid var(--line, #d5cfbf); border-radius: 6px; padding: 6px 8px; }
+.cycle-table-region { max-width: 100%; overflow-x: auto; border: 1px solid var(--line, #d5cfbf); border-radius: 8px; }
+.cycle-leg-table { width: 100%; min-width: 620px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.cycle-leg-table caption { text-align: left; padding: 10px; }
+.cycle-leg-table th, .cycle-leg-table td { padding: 9px; border-top: 1px solid var(--line, #d5cfbf); text-align: right; }
+.cycle-leg-table th:first-child { text-align: left; }
+.cycle-total-row { font-weight: 600; }
+.cycle-assumptions > summary { cursor: pointer; }
+.physics-cycle-lab [hidden] { display: none !important; }
+.cycle-viewport:focus-visible, .cycle-table-region:focus-visible, .physics-cycle-lab button:focus-visible, .physics-cycle-lab input:focus-visible, .physics-cycle-lab select:focus-visible, .cycle-assumptions > summary:focus-visible { outline: 3px solid var(--accent, #317e78); outline-offset: 3px; }
+.cycle-live { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 760px) { .cycle-panels, .physics-cycle-lab .concept-controls { grid-template-columns: minmax(0, 1fr); } }

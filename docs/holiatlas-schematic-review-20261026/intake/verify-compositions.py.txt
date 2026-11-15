@@ -1,0 +1,215 @@
+"""Independent full-source transition oracle for the explicit composition meshes.
+
+Does not import generator code, use its cropped masks or adjacency counts, or
+assume its counts prove correctness. Derives complete exposed unions directly
+from transitions in the original fine NIfTI. Validates decoded binary geometry
+and independently labels full-volume connected components.
+"""
+from __future__ import annotations
+import argparse
+import datetime
+import gc
+import gzip
+import hashlib
+import io
+import json
+from pathlib import Path
+import struct
+import zipfile
+
+import nibabel as nib
+import numpy as np
+from scipy import ndimage
+
+HERE = Path(__file__).resolve().parent
+WORKTREE = HERE.parents[2]
+EXPECTED_ARCHIVE = '6932bc8063568f0037627d5b85199ff6142b4457413f8fef8817871a3ffa1ee5'
+EXPECTED_SOURCE = '6d34608fd32ecb04eda638e7877cc90f903cb7edf16d7fbf84e1b8819c8ae7d8'
+sha = lambda b: hashlib.sha256(b).hexdigest()
+
+
+def save(path, result):
+    temp = path.with_suffix('.tmp')
+    temp.write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\n')
+    temp.replace(path)
+
+
+def load_payload(folder, info):
+    encoded = (folder / info['file']).read_bytes()
+    assert len(encoded) == info['gzipBytes'] and sha(encoded) == info['gzipSHA256']
+    decoded = gzip.decompress(encoded)
+    assert len(decoded) == info['bytes'] and sha(decoded) == info['sha256']
+    return decoded
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source-archive', type=Path, default=WORKTREE.parent / 'fidelity-next-20261023/.research/brain-source-followup/atlas_v1.0.zip')
+    parser.add_argument('--compositions', type=Path, default=HERE.parent / 'proposed-source-compositions.json')
+    parser.add_argument('--input', type=Path, default=HERE)
+    args = parser.parse_args()
+    specs_raw = args.compositions.read_bytes()
+    specs = {s['id']: s for s in json.loads(specs_raw)['compositions']}
+    boundary_raw = (args.input / 'boundary-proof.json').read_bytes()
+    boundary = json.loads(boundary_raw)
+    assert boundary['allPassed'] and len(boundary['rows']) == len(specs) == 2
+    assert boundary['compositionSpecificationSHA256'] == sha(specs_raw)
+    assert boundary['generatorSHA256'] == sha((HERE / 'build-compositions.py').read_bytes())
+    assert sha(args.source_archive.read_bytes()) == EXPECTED_ARCHIVE
+    with zipfile.ZipFile(args.source_archive) as archive:
+        source = gzip.decompress(archive.read('substructure_atlas.nii.gz'))
+    assert sha(source) == EXPECTED_SOURCE == boundary['sourceLabelSHA256']
+    header = nib.Nifti1Header.from_fileobj(io.BytesIO(source[:352]))
+    original = np.frombuffer(source, offset=int(header['vox_offset']), dtype=header.get_data_dtype()).reshape(header.get_data_shape(), order='F')
+    affine = header.get_sform()
+    assert np.array_equal(affine, header.get_qform())
+    assert np.array_equal(affine, np.array([[.5, 0, 0, -90], [0, .5, 0, -126], [0, 0, .5, -72], [0, 0, 0, 1]]))
+    assert header.get_xyzt_units()[0] == 'mm'
+    labels = original.astype(np.uint16)
+    assert np.array_equal(labels.astype(original.dtype).view(np.uint32), original.view(np.uint32))
+    source_counts = np.bincount(labels.ravel())
+    shape = np.array(original.shape); ny, nz = int(shape[1]), int(shape[2])
+    transition_cells, transition_axes, left_codes, right_codes = [], [], [], []
+    border_cells, border_axes, border_signs, border_codes = [], [], [], []
+    # Record each undirected adjacent fine-label transition exactly once. Group
+    # membership is applied afterwards; internal member-member faces vanish.
+    for axis in range(3):
+        lo = [slice(None)] * 3; hi = lo.copy()
+        lo[axis] = slice(None, -1); hi[axis] = slice(1, None)
+        a = original[tuple(lo)]; b = original[tuple(hi)]
+        cell = np.argwhere(a != b).astype(np.int16)
+        transition_cells.append(cell)
+        transition_axes.append(np.full(len(cell), axis, dtype=np.int8))
+        left_codes.append(a[tuple(cell.T)].astype(np.uint16))
+        right_codes.append(b[tuple(cell.T)].astype(np.uint16))
+        for sign in [-1, 1]:
+            index = [slice(None)] * 3; index[axis] = 0 if sign < 0 else int(shape[axis] - 1)
+            plane = original[tuple(index)]
+            where = np.argwhere(plane != 0)
+            xyz = np.zeros((len(where), 3), np.int16)
+            xyz[:, axis] = 0 if sign < 0 else shape[axis] - 1
+            xyz[:, [i for i in range(3) if i != axis]] = where
+            border_cells.append(xyz); border_axes.append(np.full(len(xyz), axis, np.int8)); border_signs.append(np.full(len(xyz), sign, np.int8)); border_codes.append(plane[tuple(where.T)].astype(np.uint16))
+        print('Original-source transitions axis', axis, len(cell), flush=True)
+        del a, b, cell
+        gc.collect()
+    cells = np.concatenate(transition_cells); axes = np.concatenate(transition_axes)
+    code_a = np.concatenate(left_codes); code_b = np.concatenate(right_codes)
+    outer_cell = np.concatenate(border_cells); outer_axis = np.concatenate(border_axes)
+    outer_sign = np.concatenate(border_signs); outer_code = np.concatenate(border_codes)
+    del transition_cells, transition_axes, left_codes, right_codes, border_cells, border_axes, border_signs, border_codes
+    transition_hash = sha(cells.tobytes() + axes.tobytes() + code_a.tobytes() + code_b.tobytes())
+    result = {'scope': 'Exact union mesh and component evidence from original fine-label transitions; no clinical or runtime approval.',
+        'sourceArchiveSHA256': EXPECTED_ARCHIVE, 'sourceLabelSHA256': EXPECTED_SOURCE,
+        'sourceTransitions': len(cells), 'sourceTransitionSHA256': transition_hash,
+        'generatorBoundaryProofSHA256': sha(boundary_raw), 'specificationSHA256': sha(specs_raw),
+        'independentVerifierSHA256': sha(Path(__file__).read_bytes()),
+        'allPassed': False, 'rows': []}
+    save(args.input / 'independent-verification.json', result)
+    for row in boundary['rows']:
+        spec = specs[row['id']]
+        members = sorted(spec['fine_codes'])
+        assert members == row['sourceMemberCodes']
+        membership = np.zeros(len(source_counts), dtype=bool); membership[members] = True
+        n = sum(int(source_counts[c]) for c in members)
+        assert n == spec['source_voxels'] == row['sourceVoxels']
+        assert row['sourceVoxelsByMember'] == {str(c): int(source_counts[c]) for c in members}
+        assert row['sourceMemberNames'] == [dict(zip(spec['fine_codes'], spec['source_names']))[c] for c in members]
+        a_inside, b_inside = membership[code_a], membership[code_b]
+        crossing = a_inside != b_inside
+        oracle_cell = cells[crossing].astype(np.int64)
+        oracle_axis = axes[crossing].astype(np.int64)
+        oracle_sign = np.where(a_inside[crossing], 1, -1)
+        on_right = oracle_sign < 0
+        oracle_cell[on_right, oracle_axis[on_right]] += 1
+        outer = membership[outer_code]
+        oracle_cell = np.concatenate([oracle_cell, outer_cell[outer].astype(np.int64)])
+        oracle_axis = np.concatenate([oracle_axis, outer_axis[outer]])
+        oracle_sign = np.concatenate([oracle_sign, outer_sign[outer]])
+        oracle_keys = (((oracle_cell[:, 0] * ny + oracle_cell[:, 1]) * nz + oracle_cell[:, 2]) * 6 + oracle_axis * 2 + (oracle_sign > 0)).astype(np.uint64)
+        oracle_keys.sort()
+        assert np.all(oracle_keys[1:] != oracle_keys[:-1])
+        faces_bytes = load_payload(args.input, row['facesPayload'])
+        faces = np.frombuffer(faces_bytes, dtype='<i2').reshape(-1, 5)
+        f = len(faces); cell = faces[:, :3].astype(np.int64)
+        assert np.all((cell >= 0) & (cell < shape))
+        assert np.isin(faces[:, 3], [0, 1, 2]).all() and np.isin(faces[:, 4], [-1, 1]).all()
+        keys = (((cell[:, 0] * ny + cell[:, 1]) * nz + cell[:, 2]) * 6 + faces[:, 3] * 2 + (faces[:, 4] > 0)).astype(np.uint64)
+        assert np.array_equal(np.sort(keys), oracle_keys)
+        mesh = load_payload(args.input, row['mesh'])
+        magic, v, t_count, reserved = struct.unpack_from('<4sIII', mesh)
+        assert magic == b'HVX1' and reserved == 0 and t_count == 2 * f and len(mesh) == 16 + 12 * v + 12 * t_count
+        p = np.frombuffer(mesh, dtype='<f4', count=v * 3, offset=16).reshape(-1, 3)
+        t = np.frombuffer(mesh, dtype='<u4', count=t_count * 3, offset=16 + 12 * v).reshape(-1, 3)
+        assert t.max() < v and np.isfinite(p).all()
+        assert np.array_equal(p * 4, np.rint(p * 4))
+        xyz = p[t].astype(np.float64); six = xyz.reshape(f, 6, 3)
+        delta = six - (cell * .5 + affine[:3, 3])[:, None, :]
+        quadrants = np.zeros((f, 6), np.uint8)
+        for axis in range(3):
+            use = faces[:, 3] == axis; others = [i for i in range(3) if i != axis]
+            assert np.array_equal(delta[use, :, axis], np.repeat((faces[use, 4] * .25)[:, None], 6, axis=1))
+            assert np.all(np.abs(delta[use][:, :, others]) == .25)
+            quadrants[use] = (delta[use, :, others[0]] > 0).astype(np.uint8) + 2 * (delta[use, :, others[1]] > 0)
+        occurrences = np.stack([(quadrants == q).sum(axis=1) for q in range(4)], axis=1)
+        assert np.all(np.sort(occurrences, axis=1) == [1, 1, 2, 2])
+        assert np.all(((occurrences[:, 0] == 2) & (occurrences[:, 3] == 2)) | ((occurrences[:, 1] == 2) & (occurrences[:, 2] == 2)))
+        assert np.all(np.diff(np.sort(quadrants.reshape(f, 2, 3), axis=2), axis=2) > 0)
+        normal = np.cross(xyz[:, 1] - xyz[:, 0], xyz[:, 2] - xyz[:, 0])
+        expected = np.eye(3)[faces[:, 3]] * faces[:, 4, None] * .25
+        assert np.array_equal(normal, np.repeat(expected, 2, axis=0))
+        volume = float(np.einsum('ij,ij->i', xyz[:, 0], np.cross(xyz[:, 1], xyz[:, 2])).sum() / 6)
+        assert volume == n * .125 == row['signedEnclosedVolumeMM3'] == row['sourceVolumeMM3']
+        edges = np.concatenate([t[:, [0, 1]], t[:, [1, 2]], t[:, [2, 0]]])
+        direction = np.where(edges[:, 0] < edges[:, 1], 1, -1)
+        edge_key = (np.minimum(edges[:, 0], edges[:, 1]).astype(np.uint64) << 32) | np.maximum(edges[:, 0], edges[:, 1]).astype(np.uint64)
+        unique, inverse, incidence = np.unique(edge_key, return_inverse=True, return_counts=True)
+        balance = np.bincount(inverse, weights=direction, minlength=len(unique))
+        assert np.all(balance == 0) and np.all(incidence >= 2)
+        edge_values, edge_counts = np.unique(incidence, return_counts=True)
+        # Independently label the complete volume, not the generator's crop.
+        full_mask = membership[labels]
+        assert int(full_mask.sum()) == n
+        connected, count = ndimage.label(full_mask, np.ones((3, 3, 3), dtype=bool))
+        cc_sizes = np.bincount(connected.ravel())[1:]
+        assert sorted(cc_sizes.tolist(), reverse=True) == row['componentsByConnectivity']['26']
+        assert len(row['components26']) == count
+        seen_components = set()
+        for focus in row['components26']:
+            ijk = tuple(focus['focusSourceIJK'])
+            assert int(original[ijk]) in members
+            cc = int(connected[ijk])
+            assert cc > 0 and cc not in seen_components
+            seen_components.add(cc)
+            assert int(cc_sizes[cc - 1]) == focus['voxels']
+            assert np.array_equal((affine @ np.r_[ijk, 1])[:3], focus['focusSourceWorld'])
+        assert seen_components == set(range(1, count + 1))
+        coordinates = np.argwhere(full_mask)
+        ijk_min = coordinates.min(0); ijk_max = coordinates.max(0)
+        expected_bounds = [(ijk_min * .5 + affine[:3, 3] - .25).tolist(), (ijk_max * .5 + affine[:3, 3] + .25).tolist()]
+        assert expected_bounds == row['boundsSourceWorld']
+        assert [ijk_min.tolist(), ijk_max.tolist()] == row['boundsSourceIJK']
+        assert np.array_equal(p.min(0), expected_bounds[0]) and np.array_equal(p.max(0), expected_bounds[1])
+        result['rows'].append({
+            'id': row['id'], 'sourceMemberCodes': members, 'sourceVoxels': n,
+            'oracleFaces': len(oracle_keys), 'oracleFaceSHA256': sha(oracle_keys.tobytes()),
+            'exactCompleteOriginalSourceTransitionFaces': True,
+            'everyTriangleHasSourceSquareCorners': True, 'eachFaceUsesActualSquareDiagonal': True,
+            'everyTriangleWindsOutward': True, 'signedVolumeMM3': volume,
+            'closedOrientedEdgeBalance': True,
+            'edgeIncidenceHistogram': {str(int(a)): int(b) for a, b in zip(edge_values, edge_counts)},
+            'sourceContactsLeftUnrepaired': True, 'sourceCavitiesRetainedByCompleteBoundaryEquality': True,
+            'independentFullVolumeComponents26': count, 'everyComponentRepresentedByUniqueValidFocus': True,
+            'exactSourceBounds': True, 'compressedAndDecodedPayloadIdentitiesVerified': True,
+        })
+        save(args.input / 'independent-verification.json', result)
+        print('Verified', row['id'], f, 'faces', count, 'components', flush=True)
+        del oracle_cell, oracle_keys, faces_bytes, faces, mesh, p, t, xyz, six, delta, quadrants, occurrences, normal, expected, edges, edge_key, inverse, unique, incidence, balance, full_mask, connected, coordinates
+        gc.collect()
+    result.update(allPassed=True, compositions=len(result['rows']), faces=sum(r['oracleFaces'] for r in result['rows']), triangles=2 * sum(r['oracleFaces'] for r in result['rows']), components26=sum(r['independentFullVolumeComponents26'] for r in result['rows']), checkedAtUTC=datetime.datetime.now(datetime.timezone.utc).isoformat())
+    save(args.input / 'independent-verification.json', result)
+    print(json.dumps({k: result[k] for k in ['allPassed', 'compositions', 'faces', 'triangles', 'components26']}), flush=True)
+
+
+if __name__ == '__main__':
+    main()

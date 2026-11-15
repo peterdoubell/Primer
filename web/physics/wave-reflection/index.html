@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reflection at the end of a string · Primer</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="lab.js"></script>
+</head>
+<body><main>
+<a href="/app/#/node/phys.2.waves">Return to Waves</a>
+<h1>Reflection at the end of a string</h1>
+<p>The incident wave travels left towards the boundary at 0 m. Its reflection travels right. The two displacements add to give the motion of the string.</p>
+<label for="end">Boundary</label>
+<select id="end"><option value="fixed">Fixed end</option><option value="free">Free end</option></select>
+<label for="phase">Time within one period</label>
+<input id="phase" type="range" min="0" max="100" value="12">
+<output id="time" for="phase"></output>
+<figure>
+<canvas id="wave" width="720" height="420" role="img"></canvas>
+<figcaption>Horizontal distance is in metres. Vertical displacement is in centimetres. The axes use different scales.</figcaption>
+</figure>
+<table><caption>Displacement at the boundary</caption>
+<thead><tr><th scope="col">Wave</th><th scope="col">At 0 m</th></tr></thead><tbody>
+<tr><th scope="row">Incident</th><td id="incident"></td></tr>
+<tr><th scope="row">Reflected</th><td id="reflected"></td></tr>
+<tr><th scope="row">Sum</th><td id="sum"></td></tr>
+</tbody></table>
+<p id="result" role="status"></p>
+<p>The model uses a linear string with a 3 m wavelength, a 2 Hz frequency, and a 4 cm incident amplitude. It assumes complete reflection at one ideal boundary.</p>
+</main></body>
+</html>

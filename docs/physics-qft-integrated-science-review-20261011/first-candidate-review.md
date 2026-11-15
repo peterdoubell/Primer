@@ -1,0 +1,7 @@
+The first integrated repair candidate remains educational NO-GO until its remaining underflow readouts are corrected. The three geometric fixes were independently checked against the actual scene engine, including positive particle/antiparticle glyphs, coincident neutral coordinates and the adaptive surface. All 16 combinations of identity, family, state key and mode gates were exercised; only the complete QFT Casimir match receives the larger budget.
+
+The standing-factor interpolation claim has a full-domain mathematical proof: harmonic decomposition and bounded second derivatives give half the barycentric phase variance, bounded by the phase range squared divided by eight. The chosen subdivisions keep that bound at most 0.02. Independently measured actual facet interiors also pass; sampled success is not the universal proof.
+
+A subnormal positive sine still loses enough relative precision to shift a tiny-angle invariant magnitude by approximately29 percent. The u-channel invariant can also underflow and silently print zero. These are the remaining scope of the original numerical finding, not new QFT assumptions. Their exact observations are preserved in the JSON and separate emission result.
+
+Original frozen NO-GO evidence and historical owner science/reader receipts remain unchanged. This review does not approve actual maximum-mesh browser rendering, deployment, clinical use or whole-Primer completion. A later final repair requires a new additive, exact-hash amendment.

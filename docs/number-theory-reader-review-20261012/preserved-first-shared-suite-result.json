@@ -1,0 +1,24 @@
+{
+  "command": "python -m pytest -q tests/test_math_logic_lab.py tests/test_physics_qft_lab.py tests/test_algebra_quantum_info_spatial.py tests/test_spatial_models.py",
+  "terminal_exit_code": 1,
+  "observed_result": "2 failed, 67 passed in 7.45s",
+  "failures": [
+    {
+      "test": "tests/test_physics_qft_lab.py::test_current_scientific_sources_reconcile_with_frozen_independent_scope",
+      "reason": "Shared spatial-models.js current bytes changed for exact string input; frozen QFT pin assertion correctly failed.",
+      "expected_sha256": "d16b25a18d59a79cb5d9f94c5573c486f19d01099d7ced70d74b4ecee0e20136",
+      "observed_sha256": "0f681a8d13b0302d0fda84f9343c0ae0e9b64d0ccf195d75f2666fbfe98e6259",
+      "resolution": "Historical receipts remain byte-identical; bounded inverse amendment checks exact current two shared-file source bytes and reconstructs historical pins. Later narrow gate changes have their own current pin."
+    },
+    {
+      "test": "tests/test_spatial_models.py::test_spatial_model_geometry_and_curriculum_bindings",
+      "reason": "The dedicated number-theory renderer was missing from the list of separately verified renderers excluded before counting the original 70 model entries.",
+      "expected": 70,
+      "observed": 71,
+      "resolution": "Add only math-number-theory-lab to the dedicated renderer exclusion list. The exact 70 assertion is retained."
+    }
+  ],
+  "status": "historical failed run, preserved; never relabelled pass",
+  "source": "Original terminal tool result in this task; a later exact pin-failure rerun is separately preserved as text.",
+  "corrected_shared_result": "69 passed in 8.26s"
+}

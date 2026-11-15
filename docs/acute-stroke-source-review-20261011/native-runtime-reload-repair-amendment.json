@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-11",
+  "scope": "Authored viewer source reload lifecycle only; native public redistribution NO-GO under separately evidenced licence conflict. No patient sample/image/geometry approval transferred.",
+  "source_owner_review_SHA256": "ac84699eca99998b24d101b9a59e760cc2922378ca2b2be3e14acb7c09698dba",
+  "preserved_owner_runtime_SHA256": "a4f3e900b8c75a6e22f34fd7dbcae4e6528bb88429a3f3a040c2668345a26e5a",
+  "final_reference_js_SHA256": "a3a9c9c44e883d354ffd73ce8e18dd1531fb01542ab857c088e87bda0992fd26",
+  "repair": "Clear verified mesh GPU buffer and ready/triangle/camera metadata, dispose prior GPU objects, disable controls during reload or invalid source; retry remains available after failure.",
+  "before_proof_offline_SHA256": "8aac3a80ee121ddd026c00d8d9bda05ca6d0aacffb77ddf5ed8c55ce901f638a",
+  "final_proof_offline_SHA256": "88c1b855e550027bbeeaaaa6eaea6338c198267a3c1bdb28fd294a45b7250770",
+  "widths": [
+    1440,
+    390
+  ],
+  "corrupted_response_before": {
+    "mesh_ready": true,
+    "triangles": 36788,
+    "camera_enabled": true
+  },
+  "corrupted_response_after": [
+    {
+      "status": "Source loading failed: Compressed original source bytes differ",
+      "meshStatus": "Complete geometry unavailable until source loading succeeds.",
+      "meshReady": "false",
+      "planes": [
+        "false",
+        "false",
+        "false"
+      ],
+      "cameraEnabled": false,
+      "allControlsDisabledExceptRetry": true,
+      "GPUUniform": true
+    },
+    {
+      "status": "Source loading failed: Compressed original source bytes differ",
+      "meshStatus": "Complete geometry unavailable until source loading succeeds.",
+      "meshReady": "false",
+      "planes": [
+        "false",
+        "false",
+        "false"
+      ],
+      "cameraEnabled": false,
+      "allControlsDisabledExceptRetry": true,
+      "GPUUniform": true
+    }
+  ],
+  "valid_recovery": [
+    {
+      "meshReady": "true",
+      "triangles": "36788",
+      "planes": [
+        "true",
+        "true",
+        "true"
+      ],
+      "cameraEnabled": true
+    },
+    {
+      "meshReady": "true",
+      "triangles": "36788",
+      "planes": [
+        "true",
+        "true",
+        "true"
+      ],
+      "cameraEnabled": true
+    }
+  ],
+  "source_bytes_or_anatomical_geometry_modified": false,
+  "clinical_approval": false,
+  "native_source_publication_approved": false
+}

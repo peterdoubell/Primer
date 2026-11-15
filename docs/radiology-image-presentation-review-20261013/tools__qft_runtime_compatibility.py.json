@@ -1,0 +1,16 @@
+{
+  "path": "tools/qft_runtime_compatibility.py",
+  "before": "83e2851fe1a2909dcfc875286e2cf0ff5adcc79588c42a2c3d814931eca4d06d",
+  "after": "6b7710b3d735ea8ea98088674f8764510ecff1bee53624909ccb305704e2f12b",
+  "clinical_approval": false,
+  "fine_anatomical_approval": false,
+  "extends_any_historical_approval": false,
+  "changes": [
+    {
+      "start": 3918,
+      "end": 4080,
+      "before": "",
+      "after": "    from tools.anatomy_sources.radiology_presentation_compatibility import restore_presentation_bytes\n    current = restore_presentation_bytes(relative, current)\n"
+    }
+  ]
+}

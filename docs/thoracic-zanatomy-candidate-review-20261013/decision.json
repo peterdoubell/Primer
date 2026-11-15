@@ -1,0 +1,43 @@
+{
+  "status": "hold_for_anatomical_correspondence_review",
+  "clinical_approval": false,
+  "structure_coverage_granted": false,
+  "runtime_promoted": false,
+  "source_scene_sha256": "9f08a17ea0115fed80b2a73ecdf0a1bc2ab2f6956f37c593ce23d513ea35afcd",
+  "pleura": {
+    "evaluated_surface_components": 8,
+    "source_modifiers": [
+      "Subdivision",
+      "Solidify:2layers",
+      "Solidify:thickness"
+    ],
+    "independently_sampled_tissue_layers": false,
+    "component_order_assigns_parietal_or_visceral_identity": false,
+    "fissural_correspondence_verified": false,
+    "source_section_review": "At source Z=1.30m the generated pleural contours follow the outer envelope while lobe-interface contours extend internally. This single plane does not establish complete anatomical correspondence.",
+    "left_lower_lobe_extends_below_total_pleura_bounds_source_mm": 1.2798358179102465
+  },
+  "venous_sources": {
+    "construction": "Evaluated original curves",
+    "boundary_edges_each": 24,
+    "endpoints_or_atrial_junction_independently_verified": false,
+    "lumen_wall_layers_independently_verified": false
+  },
+  "lung_sources": {
+    "original_open_boundaries_preserved": true,
+    "right_lower_lobe_exact_position_nonmanifold_edges": 8,
+    "boundary_classification": "Unresolved: source openings must be distinguished from missing surface data; no caps or repairs are added."
+  },
+  "anatomical_reference": {
+    "title": "Volumetric thin-section CT: evaluation of pulmonary interlobar fissures",
+    "doi": "10.5152/dir.2015.15080",
+    "url": "https://dirjournal.org/articles/volumetric-thin-section-ct-evaluation-of-pulmonaryinterlobar-fissures/doi/dir.2015.15080",
+    "use": "Clinical context for fissural anatomy and variability; no article image is redistributed."
+  },
+  "next_required": [
+    "Review source material/group/face lineage before assigning pleural components to anatomical leaflets.",
+    "Inspect source boundaries and the source-coordinate enclosure discrepancy; do not fit or cap geometry to make it pass.",
+    "Preserve original curve control/radius context and verify supported venous extent and junctions.",
+    "Seek additional source evidence for complete pleural reflections and pericardial anatomy."
+  ]
+}
