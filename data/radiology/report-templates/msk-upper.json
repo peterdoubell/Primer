@@ -1,12 +1,12 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-13",
+  "revision": "2026-11-15",
   "templates": {
     "ra.mri-shoulder": {
       "title": "MRI right shoulder / MRI left shoulder",
       "radiograph": false,
-      "technique": {"normal": "MRI shoulder with proton density, fat-suppressed and T1 imaging in three planes.",
-                    "options": ["MR arthrogram [ ]."]},
+      "technique": {"normal": "Axial PD fat-sat; oblique coronal T1, PD fat-sat and T2; oblique sagittal T1 and T2 fat-sat.",
+                    "options": ["MR arthrogram: T1 fat-sat in three planes with ABER."]},
       "sections": [
         {"heading": "Rotator cuff", "normal": "Intact supraspinatus, infraspinatus, subscapularis and teres minor tendons.",
          "options": ["[Tendinosis / Partial-thickness tear / Full-thickness tear] of the [supraspinatus / infraspinatus / subscapularis], [ ] mm, retraction [ ] mm.",
@@ -15,7 +15,7 @@
          "options": ["Goutallier grade [1 / 2 / 3 / 4] fatty infiltration of the [ ]."]},
         {"heading": "Biceps and pulley", "normal": "Intact long head of biceps tendon in the bicipital groove.",
          "options": ["[Tendinosis / Tear / Subluxation / Dislocation] of the long head of biceps [ ]."]},
-        {"heading": "Labrum and capsule", "normal": "Intact labrum and capsule.",
+        {"heading": "Labrum and capsule", "normal": "Intact.",
          "options": ["[SLAP / Bankart / Posterior labral / Perthes / ALPSA / HAGL] lesion [ ]."]},
         {"heading": "Bones and joints", "normal": "No fracture or bone marrow oedema. Normal acromioclavicular joint.",
          "options": ["[Hill-Sachs lesion / AC joint arthropathy / Os acromiale / Glenohumeral osteoarthritis] [ ]."]},
@@ -52,7 +52,7 @@
         {"heading": "Bones", "normal": "No fracture of the proximal humerus, clavicle or scapula.",
          "options": ["Fracture of the [surgical neck / greater tuberosity / anatomical neck / glenoid / scapula / clavicle] [ ].",
                      "[Lytic / Sclerotic] lesion [ ]."]},
-        {"heading": "Acromioclavicular joint", "normal": "Normal acromioclavicular joint.",
+        {"heading": "Acromioclavicular joint", "normal": "Normal.",
          "options": ["[AC joint widening / Osteoarthritis / Distal clavicle osteolysis] [ ]."]},
         {"heading": "Subacromial space and soft tissues", "normal": "Normal acromiohumeral interval. No calcific tendinopathy.",
          "options": ["[Calcific tendinopathy / Reduced acromiohumeral interval / Lung apex abnormality] [ ]."]}
@@ -102,13 +102,13 @@
     "msk.mri-shoulder-postoperative": {
       "title": "MRI right shoulder, postoperative / MRI left shoulder, postoperative",
       "radiograph": false,
-      "technique": {"normal": "MRI shoulder with proton density, fat-suppressed and T1 imaging, with metal artefact reduction.",
+      "technique": {"normal": "Axial PD fat-sat; oblique coronal T1, PD fat-sat and T2; oblique sagittal T1 and T2 fat-sat; metal artefact reduction.",
                     "options": []},
       "sections": [
         {"heading": "Cuff repair", "normal": "Intact rotator cuff repair with satisfactory anchor position.",
          "options": ["[Re-tear / Partial re-tear] of the repaired [supraspinatus / infraspinatus / subscapularis], [ ] mm.",
                      "Anchor [loosening / displacement / cyst] [ ]."]},
-        {"heading": "Labral repair", "normal": "Intact labral repair.",
+        {"heading": "Labral repair", "normal": "Intact.",
          "options": ["[Re-tear / Anchor displacement] [ ]."]},
         {"heading": "Muscles", "normal": "No progressive muscle atrophy.",
          "options": ["Goutallier grade [1 / 2 / 3 / 4] fatty infiltration of the [ ]."]},
@@ -138,7 +138,7 @@
     "ra.mri-elbow": {
       "title": "MRI right elbow / MRI left elbow",
       "radiograph": false,
-      "technique": {"normal": "MRI elbow with proton density, fat-suppressed and T1 imaging in three planes.",
+      "technique": {"normal": "T1 and T2 fat-sat in axial, coronal and sagittal planes.",
                     "options": []},
       "sections": [
         {"heading": "Tendons", "normal": "Intact common extensor, common flexor, biceps and triceps tendons.",
@@ -159,7 +159,7 @@
       "radiograph": true,
       "sections": [
         {"heading": "Bones", "normal": "No fracture.",
-         "options": ["[Radial head / Radial neck / Olecranon / Coronoid / Supracondylar / Lateral condyle / Medial epicondyle] fracture [ ]."]},
+         "options": ["[Radial head / Radial neck / Olecranon / Coronoid / Supracondylar / Condylar] fracture [ ]."]},
         {"heading": "Alignment", "normal": "Normal anterior humeral and radiocapitellar lines.",
          "options": ["[Disrupted anterior humeral line / Disrupted radiocapitellar line / Dislocation] [ ]."]},
         {"heading": "Joint", "normal": "No joint effusion.",
@@ -213,7 +213,7 @@
          "options": ["Scapholunate angle [ ] degrees; capitolunate angle [ ] degrees; [DISI / VISI]."]},
         {"heading": "Bones", "normal": "No fracture or avascular necrosis.",
          "options": ["[Scaphoid nonunion / Kienböck disease / Ulnar impaction] [ ]."]},
-        {"heading": "Degenerative change", "normal": "No degenerative change.",
+        {"heading": "Degenerative change", "normal": "None.",
          "options": ["[SLAC / SNAC] wrist, stage [1 / 2 / 3]."]}
       ],
       "impression": "No radiographic carpal instability."
@@ -222,10 +222,10 @@
       "title": "Right wrist radiographs, trauma / Left wrist radiographs, trauma",
       "radiograph": true,
       "sections": [
-        {"heading": "Fracture", "normal": "No fracture.",
+        {"heading": "Fracture", "normal": "None.",
          "options": ["[Intra-articular / Extra-articular] distal radius fracture [ ].",
                      "[Scaphoid waist / Scaphoid pole / Ulnar styloid / Triquetral] fracture [ ]."]},
-        {"heading": "Displacement", "normal": "No displacement.",
+        {"heading": "Displacement", "normal": "None.",
          "options": ["Dorsal tilt [ ] degrees; radial inclination [ ] degrees; radial height [ ] mm; ulnar variance [ ] mm."]},
         {"heading": "Articular surface", "normal": "Congruent radiocarpal and distal radioulnar joints.",
          "options": ["Articular step [ ] mm.",
@@ -243,7 +243,7 @@
       "radiograph": true,
       "sections": [
         {"heading": "Distal radius and ulna", "normal": "No distal radius or ulna fracture.",
-         "options": ["[Intra-articular / Extra-articular] distal radius fracture, [dorsal / volar] angulation [ ] degrees, radial height [ ] mm.",
+         "options": ["[Intra-articular / Extra-articular] distal radius fracture; [dorsal / volar] tilt [ ] degrees, radial height [ ] mm.",
                      "Ulnar styloid fracture, [base / tip]."]},
         {"heading": "Carpus", "normal": "No carpal fracture. Normal carpal alignment and arcs.",
          "options": ["[Scaphoid / Triquetral / Hamate / Lunate] fracture [ ].",
@@ -275,7 +275,7 @@
       "radiograph": true,
       "sections": [
         {"heading": "Bones", "normal": "No fracture.",
-         "options": ["Fracture of the [proximal / middle / distal] phalanx of the [thumb / index / middle / ring / little] finger, [intra-articular / extra-articular] [ ].",
+         "options": ["Fracture of the [proximal / middle / distal] phalanx, [thumb / index / middle / ring / little] finger, [intra-articular / extra-articular].",
                      "[Volar plate avulsion / Mallet / Gamekeeper] fracture [ ]."]},
         {"heading": "Joints", "normal": "Normal alignment. No dislocation.",
          "options": ["Dislocation of the [MCP / PIP / DIP / IP] joint [ ]."]},
@@ -296,7 +296,7 @@
         {"heading": "Median and ulnar nerves", "normal": "Normal median nerve at the carpal tunnel. Normal ulnar nerve in Guyon canal.",
          "options": ["Median nerve cross-sectional area [ ] mm² at the carpal tunnel inlet."]},
         {"heading": "Joints and ganglia", "normal": "No effusion, synovitis or ganglion.",
-         "options": ["[ ] mm [dorsal / volar] ganglion arising from the [ ].",
+         "options": ["[Dorsal / Volar] ganglion [ ] mm arising from the [ ].",
                      "[Synovitis / Effusion] of the [ ] joint."]},
         {"heading": "Ligaments", "normal": "Intact dorsal scapholunate ligament.",
          "options": ["[Thickened / Torn] dorsal scapholunate ligament."]}
@@ -309,7 +309,7 @@
       "technique": {"normal": "Ultrasound of the hand and fingers with dynamic assessment.",
                     "options": []},
       "sections": [
-        {"heading": "Flexor tendons and pulleys", "normal": "Intact flexor tendons and pulleys.",
+        {"heading": "Flexor tendons and pulleys", "normal": "Intact.",
          "options": ["[Tenosynovitis / Trigger finger / Tear / Pulley rupture] of the [ ] finger [ ]."]},
         {"heading": "Extensor mechanism", "normal": "Intact extensor tendons and sagittal bands.",
          "options": ["[Tear / Sagittal band injury / Tenosynovitis] [ ]."]},
@@ -324,7 +324,7 @@
     "msk.mri-wrist": {
       "title": "MRI right wrist / MRI left wrist",
       "radiograph": false,
-      "technique": {"normal": "MRI wrist with proton density, fat-suppressed and T1 imaging in three planes.",
+      "technique": {"normal": "Coronal T1, PD fat-sat and 3D gradient echo; axial T1 and PD fat-sat; sagittal PD fat-sat.",
                     "options": []},
       "sections": [
         {"heading": "Bones", "normal": "No fracture, bone marrow oedema or avascular necrosis.",
@@ -343,7 +343,7 @@
     "msk.mri-hand": {
       "title": "MRI right hand / MRI left hand",
       "radiograph": false,
-      "technique": {"normal": "MRI hand and fingers with proton density, fat-suppressed and T1 imaging.",
+      "technique": {"normal": "Coronal T1 and STIR; axial T1 and PD fat-sat; sagittal PD fat-sat of the symptomatic ray.",
                     "options": []},
       "sections": [
         {"heading": "Bones", "normal": "No fracture or bone marrow oedema.",
@@ -381,12 +381,13 @@
     "ra.bone-tumours": {
       "title": "MRI bone lesion with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI of the affected region with T1, fluid-sensitive and post-contrast imaging, correlated with radiographs.",
+      "technique": {"normal": "T1 and STIR along the whole bone for skip lesions; axial T1 and T2 fat-sat; T1 fat-sat before and after gadolinium; correlated with radiographs.",
                     "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No bone lesion.",
-         "options": ["[ ] x [ ] x [ ] mm lesion in the [epiphysis / metaphysis / diaphysis] of the [ ], [central / eccentric / cortical / surface].",
-                     "Radiographs: [geographic with sclerotic margin / geographic without sclerotic margin / moth-eaten / permeative], [osteoid / chondroid / no] matrix, [no / solid / lamellated / spiculated / Codman] periosteal reaction.",
+         "options": ["Lesion [ ] x [ ] x [ ] mm in the [epiphysis / metaphysis / diaphysis] of the [ ], [central / eccentric / cortical / surface].",
+                     "Radiograph margin [geographic sclerotic / geographic non-sclerotic / moth-eaten / permeative]; matrix [osteoid / chondroid / none].",
+                     "Periosteal reaction [none / solid / lamellated / spiculated / Codman].",
                      "Bone-RADS [1 / 2 / 3 / 4]."]},
         {"heading": "Marrow and soft tissue", "normal": "Normal marrow signal. No soft tissue mass.",
          "options": ["Intramedullary extent [ ] mm; skip lesions [ ].",
@@ -401,34 +402,34 @@
     "ra.cartilage-tumours": {
       "title": "MRI cartilage lesion",
       "radiograph": false,
-      "technique": {"normal": "MRI of the affected region with T1, fluid-sensitive and post-contrast imaging, correlated with radiographs.",
+      "technique": {"normal": "Long-axis T1 and STIR; axial T1 and T2 fat-sat; T1 fat-sat after gadolinium; correlated with radiographs.",
                     "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No cartilage lesion.",
-         "options": ["[ ] mm chondroid lesion in the [ ] of the [ ].",
+         "options": ["Chondroid lesion [ ] mm in the [ ] of the [ ].",
                      "Endosteal scalloping [ ] percent of cortical thickness; [cortical breach / periosteal reaction / soft tissue mass] [ ]."]},
-        {"heading": "Osteochondroma", "normal": "No osteochondroma.",
+        {"heading": "Osteochondroma", "normal": "None.",
          "options": ["Osteochondroma of the [ ] with cartilage cap [ ] mm."]},
         {"heading": "Marrow and soft tissue", "normal": "No marrow oedema or soft tissue mass.",
          "options": ["[Marrow oedema / Soft tissue mass] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
-         "options": ["[ ]."]}
+        {"heading": "Joint and neurovascular bundle", "normal": "Not involved.",
+         "options": ["[Joint / Neurovascular] involvement [ ]."]}
       ],
       "impression": "No cartilage tumour."
     },
     "msk.mri-soft-tissue-mass": {
       "title": "MRI soft tissue mass with contrast",
       "radiograph": false,
-      "technique": {"normal": "MRI with T1, fluid-sensitive, diffusion and post-contrast imaging.",
+      "technique": {"normal": "Skin marker; axial T1 and T2 fat-sat, long-axis T1 and STIR, DWI with ADC; T1 fat-sat before and after gadolinium.",
                     "options": []},
       "sections": [
         {"heading": "Mass", "normal": "No soft tissue mass.",
-         "options": ["[ ] x [ ] x [ ] mm [subcutaneous / intramuscular / intermuscular] mass in the [ ].",
+         "options": ["[Subcutaneous / Intramuscular / Intermuscular] mass [ ] x [ ] x [ ] mm in the [ ].",
                      "T1 [ ], T2 [ ]; [fat / haemosiderin / myxoid / fluid] content; [solid / rim / no] enhancement.",
                      "Features of [lipoma / atypical lipomatous tumour / nerve sheath tumour / vascular malformation / sarcoma]."]},
         {"heading": "Relationships", "normal": "No neurovascular, bone or joint involvement.",
          "options": ["[Neurovascular encasement / Bone involvement / Joint involvement] [ ]."]},
-        {"heading": "Other findings", "normal": "No satellite lesion or lymphadenopathy.",
+        {"heading": "Satellite lesions and lymph nodes", "normal": "None.",
          "options": ["[Satellite lesion / Lymphadenopathy] [ ]."]}
       ],
       "impression": "No soft tissue mass."
@@ -440,7 +441,8 @@
                     "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No mass at the site of concern. Normal subcutaneous fat and muscle.",
-         "options": ["[ ] x [ ] x [ ] mm [anechoic / hypoechoic / hyperechoic / heterogeneous] lesion, [subcutaneous / intramuscular / intermuscular], [well-defined / ill-defined].",
+         "options": ["[Anechoic / Hypoechoic / Hyperechoic / Heterogeneous] lesion [ ] x [ ] x [ ] mm, [subcutaneous / intramuscular / intermuscular].",
+                     "Margin [well-defined / ill-defined].",
                      "Vascularity [absent / peripheral / internal]; [compressible / non-compressible].",
                      "Features of [lipoma / epidermoid cyst / ganglion / haematoma / abscess / nerve sheath tumour]."]},
         {"heading": "Relationships", "normal": "No fascial, neurovascular or bone involvement.",
@@ -451,17 +453,17 @@
     "ra.mri-muscle-injury": {
       "title": "MRI muscle injury",
       "radiograph": false,
-      "technique": {"normal": "MRI of the injured region with T1 and fluid-sensitive imaging in two planes.",
+      "technique": {"normal": "Axial T1 and T2 fat-sat and long-axis STIR, both sides for comparison; skin marker at the site of symptoms.",
                     "options": []},
       "sections": [
         {"heading": "Injured muscle", "normal": "No muscle injury.",
          "options": ["[Myofascial / Musculotendinous / Intratendinous] injury of the [ ], BAMIC grade [0 / 1 / 2 / 3 / 4] [a / b / c].",
                      "Craniocaudal length [ ] cm; cross-sectional area [ ] percent."]},
-        {"heading": "Tendon and aponeurosis", "normal": "Intact tendon and aponeurosis.",
+        {"heading": "Tendon and aponeurosis", "normal": "Intact.",
          "options": ["[Partial / Complete] tendon disruption with [ ] cm retraction."]},
-        {"heading": "Haematoma", "normal": "No haematoma.",
-         "options": ["[ ] mm intramuscular haematoma."]},
-        {"heading": "Other findings", "normal": "No bone injury.",
+        {"heading": "Haematoma", "normal": "None.",
+         "options": ["Intramuscular haematoma [ ] mm."]},
+        {"heading": "Bone", "normal": "No bone bruise or avulsion fracture.",
          "options": ["[Bone bruise / Avulsion fracture / Myositis ossificans] [ ]."]}
       ],
       "impression": "No muscle injury."
@@ -469,17 +471,17 @@
     "ra.mri-muscle-disease": {
       "title": "MRI muscles, myopathy protocol",
       "radiograph": false,
-      "technique": {"normal": "Whole-body or regional muscle MRI with T1 and STIR.",
+      "technique": {"normal": "Axial T1 and STIR of the pelvis, thighs and calves; coronal T1 and STIR.",
                     "options": []},
       "sections": [
-        {"heading": "Muscle oedema", "normal": "No muscle oedema.",
+        {"heading": "Muscle oedema", "normal": "None.",
          "options": ["[Symmetrical / Asymmetrical] oedema of the [ ] muscles.",
                      "[Fascial / Perifascial] oedema [ ]."]},
         {"heading": "Fatty infiltration", "normal": "No fatty infiltration or atrophy.",
          "options": ["Fatty infiltration of the [ ], Mercuri grade [1 / 2 / 3 / 4]."]},
-        {"heading": "Mass or collection", "normal": "No mass or collection.",
+        {"heading": "Mass or collection", "normal": "None.",
          "options": ["[Abscess / Necrosis / Mass] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
+        {"heading": "Bones and joints", "normal": "Normal marrow signal. No joint effusion.",
          "options": ["[ ]."]}
       ],
       "impression": "Normal muscle MRI."
@@ -487,7 +489,7 @@
     "ra.stress-fractures": {
       "title": "MRI stress injury",
       "radiograph": false,
-      "technique": {"normal": "MRI of the symptomatic region with T1 and fluid-sensitive imaging.",
+      "technique": {"normal": "T1 and STIR in two planes through the symptomatic bone.",
                     "options": []},
       "sections": [
         {"heading": "Bone", "normal": "No stress reaction or stress fracture.",
@@ -495,7 +497,7 @@
                      "High-risk site: [femoral neck tension side / anterior tibial cortex / navicular / fifth metatarsal base] [ ]."]},
         {"heading": "Joints and soft tissues", "normal": "No effusion or soft tissue abnormality.",
          "options": ["[Effusion / Soft tissue oedema] [ ]."]},
-        {"heading": "Other findings", "normal": "No alternative cause for pain.",
+        {"heading": "Alternative cause of pain", "normal": "None.",
          "options": ["[Tumour / Osteomyelitis / Tendon injury] [ ]."]}
       ],
       "impression": "No stress fracture."
@@ -520,18 +522,18 @@
     "template:msk-mri-report": {
       "title": "MRI musculoskeletal",
       "radiograph": false,
-      "technique": {"normal": "MRI with T1 and fluid-sensitive imaging in at least two planes.",
-                    "options": ["Post-contrast imaging [ ]."]},
+      "technique": {"normal": "T1 and fluid-sensitive fat-sat sequences in at least two planes.",
+                    "options": ["T1 fat-sat after gadolinium."]},
       "sections": [
         {"heading": "Bones", "normal": "Normal marrow signal. No fracture or bone marrow oedema.",
          "options": ["[Fracture / Bone marrow oedema / Marrow lesion] at [ ]."]},
         {"heading": "Cartilage and joint", "normal": "Preserved cartilage. No effusion or synovitis.",
          "options": ["[Chondral lesion / Effusion / Synovitis / Loose body] [ ]."]},
-        {"heading": "Tendons and ligaments", "normal": "Intact tendons and ligaments.",
+        {"heading": "Tendons and ligaments", "normal": "Intact.",
          "options": ["[Tendinosis / Partial tear / Complete tear] of the [ ]."]},
         {"heading": "Muscles", "normal": "Normal muscle bulk and signal.",
          "options": ["[Strain / Oedema / Atrophy / Fatty infiltration] of the [ ]."]},
-        {"heading": "Nerves and vessels", "normal": "Normal nerves and vessels.",
+        {"heading": "Nerves and vessels", "normal": "Normal.",
          "options": ["[ ]."]},
         {"heading": "Soft tissues", "normal": "No mass or collection.",
          "options": ["[Mass / Collection / Ganglion] [ ]."]}
@@ -542,10 +544,11 @@
       "title": "Trauma radiographs",
       "radiograph": true,
       "sections": [
-        {"heading": "Fracture", "normal": "No fracture.",
-         "options": ["[Transverse / Oblique / Spiral / Comminuted / Segmental / Avulsion / Impacted] fracture of the [ ], [diaphyseal / metaphyseal / epiphyseal], [intra-articular / extra-articular].",
+        {"heading": "Fracture", "normal": "None.",
+         "options": ["[Transverse / Oblique / Spiral / Comminuted / Segmental / Avulsion] fracture of the [ ], [diaphyseal / metaphyseal / epiphyseal].",
+                     "[Intra-articular / Extra-articular]; [impacted / not impacted].",
                      "[Pathological / Insufficiency / Stress] features [ ]."]},
-        {"heading": "Displacement", "normal": "No displacement.",
+        {"heading": "Displacement", "normal": "None.",
          "options": ["Displacement [ ] mm [anterior / posterior / medial / lateral]; angulation [ ] degrees; shortening [ ] mm; rotation [ ]."]},
         {"heading": "Joints", "normal": "Congruent adjacent joints. No dislocation.",
          "options": ["[Dislocation / Subluxation / Articular step] [ ]."]},
@@ -562,7 +565,7 @@
       "sections": [
         {"heading": "Survey completeness", "normal": "Complete skeletal survey to protocol.",
          "options": ["[Incomplete survey / Repeat views needed] [ ]."]},
-        {"heading": "Fractures", "normal": "No fracture.",
+        {"heading": "Fractures", "normal": "None.",
          "options": ["[Classic metaphyseal lesion / Posterior rib fracture / Skull fracture / Long bone fracture / Spinal fracture] at the [ ].",
                      "Healing stage: [acute / early healing / late healing / remodelling] [ ]."]},
         {"heading": "Bone and development", "normal": "Normal bone density and development. No metabolic bone disease.",

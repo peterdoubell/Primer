@@ -1,22 +1,22 @@
 {
   "schema": "primer.fast-report-templates/1",
-  "revision": "2026-11-13",
+  "revision": "2026-11-15",
   "templates": {
     "ra.renal-cysts-bosniak": {
       "title": "CT kidneys, renal cyst protocol",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast and nephrographic phase CT kidneys.",
+      "technique": {"normal": "Unenhanced and nephrographic (100 s) phases through the kidneys.",
                     "options": []},
       "sections": [
         {"heading": "Renal cysts", "normal": "No cystic renal mass.",
-         "options": ["[ ] mm cyst in the [upper pole / interpolar region / lower pole] of the [right / left] kidney.",
+         "options": ["Cyst [ ] mm in the [upper pole / interpolar region / lower pole] of the [right / left] kidney.",
                      "[Thin / Minimally thickened / Thick] wall, [ ] septa, [no / measurable] enhancement, [no / fine / coarse] calcification.",
                      "Enhancing nodule [ ] mm."]},
         {"heading": "Bosniak category", "normal": "No cystic mass to classify.",
          "options": ["Bosniak [I / II / IIF / III / IV] (v2019)."]},
         {"heading": "Kidneys", "normal": "Otherwise normal kidneys. No hydronephrosis or calculus.",
          "options": ["[Hydronephrosis / Calculus / Solid mass] [ ]."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
+        {"heading": "Other organs, lung bases and bones", "normal": "Normal liver, spleen, pancreas, adrenals, bowel and pelvic organs. Clear lung bases. No destructive bone lesion.",
          "options": ["[ ]."]}
       ],
       "impression": "No cystic renal mass."
@@ -24,11 +24,11 @@
     "ra.solid-renal-masses": {
       "title": "CT kidneys, renal mass protocol",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast, corticomedullary and nephrographic phase CT kidneys.",
+      "technique": {"normal": "Unenhanced, corticomedullary (35 s) and nephrographic (100 s) phases through the kidneys.",
                     "options": []},
       "sections": [
         {"heading": "Renal mass", "normal": "No solid renal mass.",
-         "options": ["[ ] mm [exophytic / mesophytic / endophytic] solid mass in the [upper pole / interpolar region / lower pole] of the [right / left] kidney.",
+         "options": ["[Exophytic / Mesophytic / Endophytic] solid mass [ ] mm, [upper pole / interpolar region / lower pole], [right / left] kidney.",
                      "Enhancement [ ] HU; [macroscopic fat / no macroscopic fat]; [ ].",
                      "R.E.N.A.L. nephrometry score [ ]."]},
         {"heading": "Local extent", "normal": "No perinephric fat, collecting system or renal vein invasion.",
@@ -55,26 +55,25 @@
         {"heading": "Bladder", "normal": "Normal bladder wall. No intravesical lesion.",
          "options": ["[Wall thickening / Mass / Calculus / Debris] [ ].",
                      "Pre-void volume [ ] mL; post-void residual [ ] mL."]},
-        {"heading": "Other findings", "normal": "No free fluid.",
-         "options": ["Prostate volume [ ] mL.",
-                     "[ ]."]}
+        {"heading": "Prostate and pelvis", "normal": "No free fluid.",
+         "options": ["Prostate volume [ ] mL."]}
       ],
       "impression": "Normal kidneys and bladder."
     },
     "ct.kub": {
       "title": "CT KUB",
       "radiograph": false,
-      "technique": {"normal": "Low-dose non-contrast CT of the kidneys, ureters and bladder.",
+      "technique": {"normal": "Unenhanced low-dose, kidneys to bladder base; coronal reformats.",
                     "options": []},
       "sections": [
         {"heading": "Kidneys", "normal": "No renal calculus or hydronephrosis.",
-         "options": ["[ ] mm calculus in the [upper pole / interpolar region / lower pole] of the [right / left] kidney, [ ] HU.",
+         "options": ["Calculus [ ] mm in the [upper pole / interpolar region / lower pole] of the [right / left] kidney, [ ] HU.",
                      "[Mild / Moderate / Severe] [right / left] hydronephrosis [with / without] perinephric stranding."]},
         {"heading": "Ureters", "normal": "No ureteric calculus.",
-         "options": ["[ ] mm calculus in the [right / left] [proximal / mid / distal] ureter at [ ], [with / without] hydroureter."]},
+         "options": ["Calculus [ ] mm in the [right / left] [proximal / mid / distal] ureter at [ ], [with / without] hydroureter."]},
         {"heading": "Bladder", "normal": "No bladder calculus.",
-         "options": ["[ ] mm bladder calculus."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["Bladder calculus [ ] mm."]},
+        {"heading": "Other organs, lung bases and bones", "normal": "Normal liver, spleen, pancreas, adrenals, bowel and pelvic organs. Clear lung bases. No destructive bone lesion.",
          "options": ["[Appendicitis / Diverticulitis / Adnexal mass / Aortic aneurysm] [ ]."]}
       ],
       "impression": "No urinary tract calculus or obstruction."
@@ -82,17 +81,17 @@
     "ct.urography": {
       "title": "CT urogram",
       "radiograph": false,
-      "technique": {"normal": "Split-bolus CT urogram with non-contrast, nephrographic and excretory phases.",
+      "technique": {"normal": "Unenhanced, then split-bolus combined nephrographic and excretory phase, kidneys to bladder base.",
                     "options": []},
       "sections": [
         {"heading": "Kidneys", "normal": "No renal mass or calculus.",
          "options": ["[Renal mass / Calculus / Scarring] [ ]."]},
         {"heading": "Collecting systems and ureters", "normal": "Normal opacification. No filling defect, urothelial thickening or hydronephrosis.",
-         "options": ["[ ] mm filling defect in the [right / left] [calyx / renal pelvis / ureter] [ ].",
+         "options": ["Filling defect [ ] mm in the [right / left] [calyx / renal pelvis / ureter] [ ].",
                      "[Urothelial thickening / Stricture / Hydronephrosis] [ ]."]},
         {"heading": "Bladder", "normal": "No bladder wall thickening or mass.",
-         "options": ["[ ] mm bladder mass on the [ ] wall."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
+         "options": ["Bladder mass [ ] mm on the [ ] wall."]},
+        {"heading": "Other organs, lung bases and bones", "normal": "Normal liver, spleen, pancreas, adrenals, bowel and pelvic organs. Clear lung bases. No destructive bone lesion.",
          "options": ["[ ]."]}
       ],
       "impression": "No urothelial or renal abnormality."
@@ -100,16 +99,16 @@
     "ra.adrenal-lesions": {
       "title": "CT adrenals, washout protocol",
       "radiograph": false,
-      "technique": {"normal": "Non-contrast CT adrenals with portal venous and 15-minute delayed phases.",
+      "technique": {"normal": "Unenhanced, portal venous (70 s) and 15-minute delayed phases through the adrenals for washout.",
                     "options": []},
       "sections": [
         {"heading": "Right adrenal", "normal": "Normal right adrenal gland.",
-         "options": ["[ ] mm nodule; unenhanced [ ] HU; absolute washout [ ] percent; relative washout [ ] percent.",
+         "options": ["Nodule [ ] mm; unenhanced [ ] HU; absolute washout [ ] percent; relative washout [ ] percent.",
                      "[Signal drop / No signal drop] on opposed-phase imaging."]},
         {"heading": "Left adrenal", "normal": "Normal left adrenal gland.",
-         "options": ["[ ] mm nodule; unenhanced [ ] HU; absolute washout [ ] percent; relative washout [ ] percent.",
+         "options": ["Nodule [ ] mm; unenhanced [ ] HU; absolute washout [ ] percent; relative washout [ ] percent.",
                      "[Signal drop / No signal drop] on opposed-phase imaging."]},
-        {"heading": "Other findings", "normal": "No other significant finding.",
+        {"heading": "Other organs, lung bases and bones", "normal": "Normal liver, spleen, pancreas, kidneys and bowel. Clear lung bases. No destructive bone lesion.",
          "options": ["[ ]."]}
       ],
       "impression": "Normal adrenal glands."
@@ -117,13 +116,13 @@
     "ra.mri-bladder": {
       "title": "MRI bladder, VI-RADS",
       "radiograph": false,
-      "technique": {"normal": "Multiparametric MRI of the distended bladder with T2, diffusion and dynamic contrast imaging.",
+      "technique": {"normal": "Distended bladder; T2 in three planes, DWI with ADC, dynamic T1 after gadolinium.",
                     "options": []},
       "sections": [
-        {"heading": "Bladder lesion", "normal": "No bladder lesion.",
-         "options": ["[ ] mm [pedunculated / sessile] lesion on the [ ] wall.",
+        {"heading": "Bladder lesion", "normal": "None.",
+         "options": ["[Pedunculated / Sessile] lesion [ ] mm on the [ ] wall.",
                      "[Stalk / Thickened inner layer] [ ]."]},
-        {"heading": "Muscle invasion", "normal": "No muscle invasion.",
+        {"heading": "Muscle invasion", "normal": "None.",
          "options": ["Category on T2 [1 / 2 / 3 / 4 / 5], DWI [1 / 2 / 3 / 4 / 5], DCE [1 / 2 / 3 / 4 / 5].",
                      "Extravesical extension [ ]."]},
         {"heading": "VI-RADS", "normal": "No lesion to score.",
@@ -136,16 +135,16 @@
     "ra.mri-prostate": {
       "title": "MRI prostate, PI-RADS v2.1",
       "radiograph": false,
-      "technique": {"normal": "Multiparametric MRI prostate with T2, diffusion and dynamic contrast imaging.",
-                    "options": ["Biparametric MRI prostate without contrast."]},
+      "technique": {"normal": "T2 in three planes, high b-value DWI with ADC, dynamic contrast-enhanced T1; large-field T1 for nodes and bone.",
+                    "options": ["Biparametric, without dynamic contrast."]},
       "sections": [
         {"heading": "Gland", "normal": "Normal prostate size.",
          "options": ["Prostate volume [ ] mL; PSA density [ ] ng/mL/mL.",
                      "[Benign prostatic hyperplasia / Haemorrhage / Prostatitis] [ ]."]},
         {"heading": "Peripheral zone", "normal": "No focal lesion.",
-         "options": ["[ ] mm lesion at [ ], DWI score [1 / 2 / 3 / 4 / 5], DCE [positive / negative]."]},
+         "options": ["Lesion [ ] mm at [ ], DWI score [1 / 2 / 3 / 4 / 5], DCE [positive / negative]."]},
         {"heading": "Transition zone", "normal": "No focal lesion.",
-         "options": ["[ ] mm lesion at [ ], T2 score [1 / 2 / 3 / 4 / 5], DWI score [1 / 2 / 3 / 4 / 5]."]},
+         "options": ["Lesion [ ] mm at [ ], T2 score [1 / 2 / 3 / 4 / 5], DWI score [1 / 2 / 3 / 4 / 5]."]},
         {"heading": "Local extent", "normal": "No extraprostatic extension or seminal vesicle invasion.",
          "options": ["[Extraprostatic extension / Seminal vesicle invasion / Neurovascular bundle involvement] [ ]."]},
         {"heading": "Lymph nodes and bones", "normal": "No pelvic lymphadenopathy or bone metastasis.",
@@ -169,7 +168,7 @@
                      "Whirlpool sign of the [right / left] spermatic cord."]},
         {"heading": "Epididymis and cord", "normal": "Normal epididymides and spermatic cords.",
          "options": ["[Enlarged hyperaemic epididymis / Torsed appendage / Varicocele] [ ]."]},
-        {"heading": "Scrotal wall", "normal": "Normal scrotal wall. No hydrocele.",
+        {"heading": "Scrotal wall", "normal": "Normal. No hydrocele.",
          "options": ["[Wall thickening / Hydrocele / Haematocele / Inguinal hernia] [ ]."]}
       ],
       "impression": "Normal scrotal ultrasound. No testicular torsion."
@@ -181,7 +180,7 @@
                     "options": []},
       "sections": [
         {"heading": "Testes", "normal": "Normal size and echotexture. No focal lesion.",
-         "options": ["[ ] mm [hypoechoic / heterogeneous / cystic] lesion in the [right / left] testis, [with / without] internal vascularity.",
+         "options": ["[Hypoechoic / Heterogeneous / Cystic] lesion [ ] mm in the [right / left] testis, [with / without] internal vascularity.",
                      "[Microlithiasis / Atrophy / Tubular ectasia] [ ]."]},
         {"heading": "Doppler", "normal": "Normal symmetrical testicular perfusion.",
          "options": ["[Absent / Reduced / Increased] flow in the [right / left] testis."]},
@@ -206,10 +205,10 @@
          "options": ["[Intrauterine pregnancy / Ectopic pregnancy / Pregnancy of unknown location] [ ].",
                      "CRL [ ] mm, [ ] weeks [ ] days; fetal heartbeat [present / absent]."]},
         {"heading": "Right ovary", "normal": "Normal right ovary with normal vascular flow.",
-         "options": ["[ ] mm [simple cyst / haemorrhagic cyst / corpus luteum / dermoid / endometrioma].",
+         "options": ["[Simple cyst / Haemorrhagic cyst / Corpus luteum / Dermoid / Endometrioma] [ ] mm.",
                      "[Enlarged / Oedematous / Peripheral follicles / Whirlpool sign] [ ]."]},
         {"heading": "Left ovary", "normal": "Normal left ovary with normal vascular flow.",
-         "options": ["[ ] mm [simple cyst / haemorrhagic cyst / corpus luteum / dermoid / endometrioma].",
+         "options": ["[Simple cyst / Haemorrhagic cyst / Corpus luteum / Dermoid / Endometrioma] [ ] mm.",
                      "[Enlarged / Oedematous / Peripheral follicles / Whirlpool sign] [ ]."]},
         {"heading": "Adnexa and free fluid", "normal": "No adnexal mass. No free fluid.",
          "options": ["[Small / Moderate / Large] [simple / echogenic] free fluid [ ].",
@@ -223,10 +222,10 @@
       "technique": {"normal": "Transvaginal ultrasound with colour Doppler.",
                     "options": []},
       "sections": [
-        {"heading": "Right ovary", "normal": "Normal right ovary.",
-         "options": ["[ ] mm [unilocular / multilocular / solid] lesion [with / without] solid tissue, colour score [1 / 2 / 3 / 4]."]},
-        {"heading": "Left ovary", "normal": "Normal left ovary.",
-         "options": ["[ ] mm [unilocular / multilocular / solid] lesion [with / without] solid tissue, colour score [1 / 2 / 3 / 4]."]},
+        {"heading": "Right ovary", "normal": "Normal.",
+         "options": ["[Unilocular / Multilocular / Solid] lesion [ ] mm [with / without] solid tissue, colour score [1 / 2 / 3 / 4]."]},
+        {"heading": "Left ovary", "normal": "Normal.",
+         "options": ["[Unilocular / Multilocular / Solid] lesion [ ] mm [with / without] solid tissue, colour score [1 / 2 / 3 / 4]."]},
         {"heading": "Adnexa and peritoneum", "normal": "No extraovarian lesion, ascites or peritoneal nodularity.",
          "options": ["[Hydrosalpinx / Paraovarian cyst / Ascites / Peritoneal nodules] [ ]."]},
         {"heading": "O-RADS", "normal": "O-RADS 1: normal ovaries.",
@@ -241,10 +240,10 @@
                     "options": []},
       "sections": [
         {"heading": "Lesion", "normal": "No adnexal lesion.",
-         "options": ["[ ] mm [unilocular / bilocular / multilocular / solid] lesion in the [right / left] adnexa.",
+         "options": ["[Unilocular / Bilocular / Multilocular / Solid] lesion [ ] mm in the [right / left] adnexa.",
                      "Inner wall [smooth / irregular]; solid component [ ] mm; papillary projections [ ].",
                      "Colour score [1 / 2 / 3 / 4]; acoustic shadowing [present / absent]."]},
-        {"heading": "Classic benign lesion", "normal": "No classic benign lesion.",
+        {"heading": "Classic benign lesion", "normal": "None.",
          "options": ["Classic [haemorrhagic cyst / dermoid / endometrioma / paraovarian cyst / hydrosalpinx / peritoneal inclusion cyst] [ ]."]},
         {"heading": "Peritoneum", "normal": "No ascites or peritoneal nodules.",
          "options": ["[Ascites / Peritoneal nodules] [ ]."]},
@@ -256,20 +255,20 @@
     "ra.mri-endometriosis": {
       "title": "MRI pelvis, endometriosis",
       "radiograph": false,
-      "technique": {"normal": "MRI pelvis with T2, fat-suppressed T1 and vaginal and rectal gel.",
-                    "options": []},
+      "technique": {"normal": "Sagittal, axial and oblique axial T2; axial T1 with and without fat-sat; antiperistaltic agent.",
+                    "options": ["Vaginal and rectal gel.", "T1 fat-sat after gadolinium."]},
       "sections": [
-        {"heading": "Ovaries", "normal": "Normal ovaries. No endometrioma.",
-         "options": ["[ ] mm endometrioma in the [right / left] ovary, [with / without] T2 shading.",
+        {"heading": "Ovaries", "normal": "Normal. No endometrioma.",
+         "options": ["Endometrioma [ ] mm in the [right / left] ovary, [with / without] T2 shading.",
                      "Kissing ovaries."]},
         {"heading": "Anterior compartment", "normal": "No bladder or vesicouterine pouch disease.",
          "options": ["[Bladder nodule / Vesicouterine pouch obliteration] [ ]."]},
         {"heading": "Posterior compartment", "normal": "No deep endometriosis of the uterosacral ligaments, torus, posterior fornix or rectosigmoid.",
-         "options": ["[ ] mm nodule of the [right uterosacral ligament / left uterosacral ligament / torus uterinus / posterior vaginal fornix / rectosigmoid].",
+         "options": ["Nodule [ ] mm of the [right uterosacral ligament / left uterosacral ligament / torus / posterior fornix / rectosigmoid].",
                      "Pouch of Douglas obliteration [ ]."]},
         {"heading": "Lateral compartments", "normal": "No parametrial or ureteric involvement. No hydronephrosis.",
          "options": ["[Parametrial / Ureteric / Sacral plexus] involvement [ ]."]},
-        {"heading": "Uterus", "normal": "Normal uterus. No adenomyosis.",
+        {"heading": "Uterus", "normal": "Normal. No adenomyosis.",
          "options": ["[Adenomyosis / Fibroid] [ ]."]},
         {"heading": "Other sites", "normal": "No other site of disease.",
          "options": ["[Abdominal wall / Diaphragmatic / Appendiceal / Sigmoid] disease [ ]."]}
@@ -279,11 +278,11 @@
     "ra.mri-cervical-cancer": {
       "title": "MRI pelvis, cervical cancer staging",
       "radiograph": false,
-      "technique": {"normal": "High-resolution T2-weighted MRI of the pelvis with diffusion-weighted imaging.",
-                    "options": ["Vaginal gel [ ]."]},
+      "technique": {"normal": "Sagittal T2; high-resolution oblique axial T2 perpendicular to the cervical canal; DWI with ADC; large-field axial T2 to the renal hila.",
+                    "options": []},
       "sections": [
         {"heading": "Tumour", "normal": "No cervical tumour.",
-         "options": ["[ ] x [ ] x [ ] mm [exophytic / endophytic / barrel-shaped] cervical tumour."]},
+         "options": ["[Exophytic / Endophytic / Barrel-shaped] cervical tumour [ ] x [ ] x [ ] mm."]},
         {"heading": "Stroma and parametria", "normal": "Intact stromal ring. No parametrial invasion.",
          "options": ["[Partial / Full-thickness] stromal invasion.",
                      "[Right / Left / Bilateral] parametrial invasion."]},
@@ -302,12 +301,12 @@
     "ra.mri-endometrial-cancer": {
       "title": "MRI pelvis, endometrial cancer staging",
       "radiograph": false,
-      "technique": {"normal": "MRI pelvis with T2, diffusion and dynamic contrast imaging.",
+      "technique": {"normal": "Sagittal T2; oblique axial T2 perpendicular to the endometrial cavity; DWI with ADC; dynamic T1 fat-sat after gadolinium; large-field axial T2 to the renal hila.",
                     "options": []},
       "sections": [
         {"heading": "Tumour", "normal": "No endometrial tumour.",
-         "options": ["[ ] mm endometrial tumour [ ]."]},
-        {"heading": "Myometrial invasion", "normal": "No myometrial invasion.",
+         "options": ["Endometrial tumour [ ] mm [ ]."]},
+        {"heading": "Myometrial invasion", "normal": "None.",
          "options": ["Myometrial invasion of [less than 50 percent / 50 percent or more] of the myometrial thickness."]},
         {"heading": "Cervix", "normal": "No cervical stromal invasion.",
          "options": ["Cervical stromal invasion [ ]."]},
@@ -324,7 +323,7 @@
     "ra.mullerian-anomalies": {
       "title": "MRI pelvis, uterine anatomy",
       "radiograph": false,
-      "technique": {"normal": "MRI pelvis with T2 imaging in the plane of the uterus.",
+      "technique": {"normal": "Sagittal T2; oblique coronal T2 along the long axis of the uterus; axial T1 fat-sat; coronal T2 including the kidneys.",
                     "options": []},
       "sections": [
         {"heading": "Fundal contour", "normal": "Normal convex external fundal contour.",

@@ -2,6 +2,7 @@
 import copy
 import hashlib
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -19,26 +20,28 @@ Comparison:
 []
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
-
 Airways and cardiomediastinum:
-Trachea central. Normal heart size, mediastinal contours and hila.
-[Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] []
+• Trachea central.
+• Normal heart size, mediastinal contours and hila.
+• [Cardiomegaly / Widened mediastinum / Hilar enlargement / Tracheal deviation] []
 
 Lungs:
-Clear lungs.
-[Consolidation / Collapse / Nodule / Mass / Interstitial opacity] in the []
-[Pulmonary oedema / Hyperinflation / Cavitation] []
+• Clear.
+• [Consolidation / Collapse / Nodule / Mass / Interstitial opacity] in the []
+• [Pulmonary oedema / Hyperinflation / Cavitation] []
 
 Pleura and diaphragm:
-No pleural effusion or pneumothorax. Normal diaphragm.
-[Small / Moderate / Large] [right / left / bilateral] pleural effusion.
-[Right / Left] pneumothorax, [] cm at the level of the hilum.
-[Right / Left / Bilateral] free subdiaphragmatic gas.
+• No pleural effusion or pneumothorax.
+• Normal diaphragm.
+• [Small / Moderate / Large] [right / left / bilateral] pleural effusion.
+• [Right / Left] pneumothorax, [] cm at the level of the hilum.
+• [Right / Left / Bilateral] free subdiaphragmatic gas.
 
 Devices and bones:
-No lines or devices. No acute bony abnormality.
-[Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip []
-[Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] []
+• No lines or devices.
+• No acute bony abnormality.
+• [Endotracheal tube / Central venous catheter / Nasogastric tube / Pacemaker lead] tip []
+• [Rib fracture / Vertebral fracture / Lytic lesion / Sclerotic lesion] []
 
 Impression:
 1. []
@@ -46,7 +49,9 @@ Impression:
 3. []
 
 Recommendation:
-[]"""
+1. []
+2. []
+3. []"""
 
 CXR_NORMAL = """Clinical history:
 []
@@ -55,24 +60,26 @@ Comparison:
 []
 
 Chest radiographs, PA and lateral / Chest radiograph, AP
-
 Airways and cardiomediastinum:
-Trachea central. Normal heart size, mediastinal contours and hila.
+• Trachea central.
+• Normal heart size, mediastinal contours and hila.
 
 Lungs:
-Clear lungs.
+• Clear.
 
 Pleura and diaphragm:
-No pleural effusion or pneumothorax. Normal diaphragm.
+• No pleural effusion or pneumothorax.
+• Normal diaphragm.
 
 Devices and bones:
-No lines or devices. No acute bony abnormality.
+• No lines or devices.
+• No acute bony abnormality.
 
 Impression:
 1. Normal chest radiograph.
 
 Recommendation:
-None."""
+1. None."""
 
 
 @pytest.fixture(scope='module')
@@ -106,30 +113,39 @@ def test_layout_rules_hold_for_every_template(identifier):
     item = rt.library()[identifier]
     report = rt.quick_report(identifier)
     template, normal = report['template'].split('\n'), report['normal'].split('\n')
-    exam = rt.examination_profiles()[identifier]
-    acquisition = exam.get('report_protocol')
+    header = rt.acquisition_heading(identifier, item)
+    first = header or item['sections'][0]['heading']
     for lines in (template, normal):
-        assert lines[:7] == ['Clinical history:', '[]', '', 'Comparison:', '[]', '', item['title']]
+        # The study name runs straight into its first heading.
+        assert lines[:8] == ['Clinical history:', '[]', '', 'Comparison:', '[]', '', item['title'], first + ':']
         headings = [line[:-1] for line in lines if line.endswith(':')]
         assert headings == ['Clinical history', 'Comparison', *report['headings'], 'Impression', 'Recommendation']
         assert '\n\n\n' not in '\n'.join(lines) and lines[-1].strip()
         assert '[ ]' not in '\n'.join(lines)
-    if acquisition:
-        header = 'Protocol' if exam['modality'] == 'MRI' else 'Technique'
+    # MRI opens with its Protocol and CT with its Technique, then Findings; nothing else has either.
+    if header:
         assert report['headings'][:2] == [header, 'Findings']
-        assert template[template.index(header + ':') + 1] == acquisition['standard_text']
+        start = template.index(header + ':')
+        assert template[start + 1] == item['technique']['normal']
         assert 'Limited by []' in template and 'Limited by []' not in normal
+        # Findings runs straight into the first anatomical subheading.
+        assert template[template.index('Findings:') + 1] == item['sections'][0]['heading'] + ':'
     else:
-        assert 'Technique' not in report['headings'] and 'Protocol' not in report['headings']
-    assert report['template'].endswith('Impression:\n1. []\n2. []\n3. []\n\nRecommendation:\n[]')
+        assert not {'Technique', 'Protocol'} & set(report['headings'])
+    numbered = 'Impression:\n1. []\n2. []\n3. []\n\nRecommendation:\n1. []\n2. []\n3. []'
+    assert report['template'].endswith(numbered)
     assert '[' not in '\n'.join(normal[5:])
     impression = item['impression'] if isinstance(item['impression'], list) else [item['impression']]
     assert report['normal'].endswith('Impression:\n' + '\n'.join(f'{n}. {line}' for n, line in enumerate(impression, 1))
-                                     + '\n\nRecommendation:\n' + item.get('recommendation', 'None.'))
-    # Each heading's normal line comes first, then its selectable findings.
+                                     + '\n\nRecommendation:\n1. ' + item.get('recommendation', 'None.'))
+    # Under each subheading every finding is a bullet: the normal sentences first, then the selectable findings.
     for section in item['sections']:
         start = template.index(section['heading'] + ':')
-        assert template[start + 1:start + 2 + len(section.get('options', []))] == [section['normal'], *(option.replace('[ ].', '[]').replace('[ ]', '[]') for option in section.get('options', []))]
+        sentences = re.split(r'(?<=\.)\s+(?=[A-Z])', section['normal'])
+        options = [option.replace('[ ].', '[]').replace('[ ]', '[]') for option in section.get('options', [])]
+        expected = ['\u2022 ' + line for line in [*sentences, *options]]
+        assert template[start + 1:start + 1 + len(expected)] == expected
+        assert template[start + 1 + len(expected):start + 2 + len(expected)] in ([''], [])
 
 
 def test_radiograph_titles_and_flags_agree():
@@ -251,3 +267,44 @@ def test_reader_renders_both_texts_above_the_click_builder():
     assert "...(ref.quick_report || ref.structured_form?.descriptor_form" in source
     check = subprocess.run(['node', '--check', str(ROOT / 'web/app.js')], capture_output=True, text=True)
     assert check.returncode == 0, check.stderr
+
+
+def test_formatted_copy_is_arial_12_with_underlined_headings_and_an_exact_inverse():
+    from tools.report_layout_compatibility import AFTER, BEFORE, PATH, before_report_layout_bytes
+    from tools.report_compartment_compatibility import before_rich_report_bytes
+    raw = (ROOT / PATH).read_bytes()
+    source = raw.decode()
+    assert 'font-family:Arial,sans-serif;font-size:12pt' in source
+    assert "case 'main': return '<u>' + content + '</u>';" in source and "case 'subheading': return '<em>'" in source
+    assert '(Clinical history|Comparison|Protocol|Technique|Findings|Impression|Recommendation)' in source
+    from tools.report_layout_compatibility import NORMAL_LINE, before_normal_line_bytes
+    assert hashlib.sha256(raw).hexdigest() == NORMAL_LINE[PATH][1]
+    raw = before_normal_line_bytes(PATH, raw)
+    assert hashlib.sha256(raw).hexdigest() == AFTER
+    restored = before_report_layout_bytes(PATH, raw)
+    assert hashlib.sha256(restored).hexdigest() == BEFORE
+    assert before_report_layout_bytes(PATH, restored) == restored
+    assert before_report_layout_bytes(PATH, raw + b'\n') == raw + b'\n'
+    assert before_report_layout_bytes('web/app.js', raw) == raw
+    assert hashlib.sha256(before_rich_report_bytes(PATH, raw)).hexdigest() not in (AFTER, BEFORE)
+
+
+def test_a_checklist_normal_reads_as_label_colon_normal_with_an_exact_inverse():
+    from primer.descriptor_reporting import normal_line
+    from tools.report_layout_compatibility import NORMAL_LINE, before_normal_line_bytes
+    assert normal_line('Supraspinatus tendon', 'The supraspinatus tendon is intact.') == 'Supraspinatus tendon: normal.'
+    assert normal_line('Right pleura', 'No right pleural effusion, pneumothorax or pleural nodularity.') == 'Right pleura: normal.'
+    # A heading that names a finding cannot be "normal".
+    assert normal_line('Fracture', 'No fracture.') == 'Fracture: none.'
+    assert normal_line('Hernia at the site of concern', 'No hernia at the site of concern is seen.') == 'Hernia at the site of concern: none.'
+    assert normal_line('Haematoma', 'No collection.') == 'Haematoma: none.'
+    assert normal_line('Gallbladder', 'No gallbladder calculi.') == 'Gallbladder: normal.'
+    assert normal_line('Thyroid nodule', 'No thyroid nodules are identified.') == 'Thyroid nodule: none.'
+    assert normal_line('Anterior Horn', 'No tear.', 'Medial meniscus') == 'Medial meniscus, anterior horn: normal.'
+    assert normal_line('Supraspinatus', 'Intact.', 'Rotator cuff · tendons') == 'Supraspinatus tendon: normal.'
+    assert normal_line('Supraspinatus', 'Normal bulk.', 'Rotator cuff · muscles') == 'Supraspinatus muscle: normal.'
+    for path, (before, after, _) in NORMAL_LINE.items():
+        raw = (ROOT / path).read_bytes()
+        assert hashlib.sha256(raw).hexdigest() == after
+        assert hashlib.sha256(before_normal_line_bytes(path, raw)).hexdigest() == before
+        assert before_normal_line_bytes(path, raw + b'\n') == raw + b'\n'

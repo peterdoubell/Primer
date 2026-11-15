@@ -1,4 +1,5 @@
 """Bindings preserve observation provenance and isolate repeated lesions."""
+import re
 import copy
 import json
 from pathlib import Path
@@ -154,7 +155,7 @@ def test_explicit_negative_prostate_assessment_does_not_infer_pirads():
         'anatomy-prostate-lesion': {'normal': True}}}
     result = render_descriptors(form, state)
     assert result['valid']
-    assert 'No suspicious focal prostatic lesion is identified on the acquired MRI sequences.' in result['text']
+    assert 'Prostate lesion: none.' in result['text']
     assert descriptor_calculation_jobs(form, state) == []
     state['selections']['anatomy-prostate-lesion']['instances'] = [prostate_lesion()]
     assert not render_descriptors(form, state)['valid']
@@ -178,7 +179,9 @@ def test_scoped_absence_is_an_explicit_choice_without_a_category(investigation_i
     form = authored_form(investigation_id)
     state = {'investigation_id': investigation_id, 'selections': {'anatomy-' + section_id: {'normal': True}}}
     result = render_descriptors(form, state)
-    assert result['valid'] and expected in result['text']
+    row = next(s for s in form['investigations'][0]['sections'] if s['id'] == 'anatomy-' + section_id)
+    assert row['normal']['text'] == expected
+    assert result['valid'] and re.search(row['label'] + ': (normal|none)\\.', result['text'])
     assert descriptor_calculation_jobs(form, state) == []
     row = next(s for s in form['investigations'][0]['sections'] if s['id'] == 'anatomy-' + section_id)
     finding = row['findings'][0]

@@ -47,7 +47,7 @@ test('the sheet has no typing controls or inferred normal findings', () => {
   assert.equal(descendants(root).filter(node => ['INPUT', 'TEXTAREA'].includes(node.tagName)).length, 0);
   assert.equal(root.getState().descriptor_version, 'frozen-schema');
   find(root, 'Use normal findings').onclick();
-  assert.equal(root.getReport(), 'FINDINGS\nRotator cuff intact.\nBiceps intact.');
+  assert.equal(root.getReport(), 'FINDINGS\nRotator cuff: normal.\nBiceps: normal.');
   assert.equal(find(root, 'Copy report').disabled, false);
 });
 
@@ -57,11 +57,11 @@ test('abnormal findings replace normal and show only their required follow-up ch
   assert.equal(root.getState().descriptor_state.selections.cuff.normal, false);
   assert.equal(find(root, 'Copy report').disabled, true);
   find(root, 'Articular').onclick();
-  assert.equal(root.getReport(), 'FINDINGS\nPartial-thickness articular-sided tear.\nBiceps intact.');
+  assert.equal(root.getReport(), 'FINDINGS\nPartial-thickness articular-sided tear.\nBiceps: normal.');
   assert.equal(find(root, 'Copy report').disabled, false);
   find(root, 'Partial-thickness tear').onclick();
   assert.equal(descendants(root).some(node => node.textContent === 'Articular'), false);
-  assert.equal(root.getReport(), 'FINDINGS\nBiceps intact.');
+  assert.equal(root.getReport(), 'FINDINGS\nBiceps: normal.');
 });
 
 test('numbers have blank defaults, accept explicit zero and exact values without typing', () => {
@@ -108,7 +108,7 @@ test('canonical snapshots hydrate and custom copy persists before touching the c
   const api = load(); let copied;
   const root = api.render(form, {initialState: {descriptor_state: {investigation_id: 'mri', selections: {cuff: {normal: true}}}, calculations: []}, onCopy: async (snapshot, text) => { copied = {snapshot, text}; }});
   await find(root, 'Copy report').onclick();
-  assert.equal(copied.text, 'FINDINGS\nRotator cuff intact.');
+  assert.equal(copied.text, 'FINDINGS\nRotator cuff: normal.');
   assert.equal(copied.snapshot.descriptor_state.selections.cuff.normal, true);
   assert.equal(api.context.copied, undefined);
 });
@@ -279,14 +279,14 @@ test('bulk normal preserves abnormalities and omits unperformed or conflicting a
   find(root, 'Partial-thickness tear').onclick(); find(root, 'Articular').onclick();
   assert.doesNotMatch(root.getReport(), /Complete tear/);
   find(root, 'Use normal findings').onclick();
-  assert.match(root.getReport(), /articular-sided tear\.\nBiceps intact/);
-  assert.doesNotMatch(root.getReport(), /Rotator cuff intact|No enhancement/);
+  assert.match(root.getReport(), /articular-sided tear\.\nBiceps: normal/);
+  assert.doesNotMatch(root.getReport(), /Rotator cuff: normal|No enhancement/);
 });
 
 test('anatomic conflicts clear prior normals and disable incompatible normal buttons', () => {
   const root = load().render(anatomicForm());
   find(root, 'Use normal findings').onclick(); find(root, 'Complete tear').onclick();
-  assert.doesNotMatch(root.getReport(), /Biceps intact/);
+  assert.doesNotMatch(root.getReport(), /Biceps: normal/);
   assert.equal(root.getState().selections.biceps, undefined);
   const bicepsRow = descendants(root).find(node => node.className === 'rad-report-section' && descendants(node).some(child => child.textContent === 'Biceps'));
   assert.equal(find(bicepsRow, 'Normal').disabled, true);
@@ -315,7 +315,7 @@ test('repeatable findings are independent and unfilled entries block copy',()=>{
   assert.match(root.getReport(),/Lesion 1:[\s\S]*articular-sided[\s\S]*Lesion 2:\nComplete tear/);
   find(root,'Use normal findings').onclick();
   assert.equal(root.getState().selections.cuff.instances.length,2);
-  assert.doesNotMatch(root.getReport(),/Rotator cuff intact|Biceps intact/);
+  assert.doesNotMatch(root.getReport(),/Rotator cuff: normal|Biceps: normal/);
   find(root,'Remove Lesion 1').onclick();
   assert.match(root.getReport(),/Lesion 1:\nComplete tear/);
   assert.doesNotMatch(root.getReport(),/Lesion 2|articular-sided/);
@@ -345,7 +345,7 @@ test('knee compartments keep every row, scope normal actions, and retain collaps
   assert(Object.keys(choices).every(id=>exam.sections.find(s=>s.id===id).compartment==='Medial compartment'));
   assert.equal(named('Lateral compartment').open,false);
   assert.match(root.getReport(), /^Findings:\nMedial compartment:\n• /m);
-  assert.match(root.getReport(), /No tear of the medial meniscal anterior horn, body or posterior horn/);
+  assert.match(root.getReport(), /Medial meniscus, anterior horn: normal\./);
   assert.doesNotMatch(root.getReport(), /The medial meniscus anterior horn has no tear/);
   assert(!root.getReport().includes('Lateral compartment'));
   assert.equal(find(named('Medial compartment'), 'Normal remaining').disabled, true);

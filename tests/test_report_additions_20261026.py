@@ -123,7 +123,7 @@ def test_routine_ultrasound_measurements_can_accompany_normal_organs():
  assert not rows['right-testis'].get('repeatable')
  assert rows['right-testis-focal-findings']['repeatable']
  result=render_descriptors(form,state(iid,{'anatomy-right-testis':{'normal':True},'anatomy-right-testis-measurements':selected(iid,'right-testis-measurements',{'size':{'slot-1':40,'slot-2':25,'slot-3':20}})}))
- assert result['valid'] and '40 × 25 × 20 mm' in result['text'] and 'no focal abnormality' in result['text'].lower()
+ assert result['valid'] and '40 × 25 × 20 mm' in result['text'] and 'Right testis: normal.' in result['text']
  assert 'Lesion 1' not in result['text']
  iid='us.abdomen';form,inv=EXAMS[iid];rows={r['anatomy_id']:r for r in inv['sections']}
  assert not rows['main-portal-vein'].get('repeatable')
